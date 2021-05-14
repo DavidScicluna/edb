@@ -4,8 +4,13 @@
 /node_modules
 /.pnp
 .pnp.js
-.yarn/cache
-.yarn/unplugged
+
+# Yarn 2
+.yarn/*
+!.yarn/releases/
+!.yarn/plugins/
+!.yarn/versions/
+!.yarn/sdks/
 
 # testing
 /coverage
