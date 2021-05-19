@@ -4,6 +4,10 @@
   "private": true,
   "homepage": "http://davidscicluna.github.io/edb",
   "dependencies": {
+    "@chakra-ui/react": "^1.6.1",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "framer-motion": "^4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3"
@@ -30,6 +34,7 @@
     ]
   },
   "devDependencies": {
+    "@chakra-ui/theme-tools": "^1.1.7",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.8",
@@ -44,6 +49,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-config-react": "^1.1.7",
     "eslint-import-resolver-node": "^0.3.4",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.2.0",
