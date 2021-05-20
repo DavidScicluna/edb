@@ -4,7 +4,7 @@ import { ThemeConfig, ThemeDirection } from '@chakra-ui/react';
 // import blur from './blur';
 import borders from './foundations/borders';
 import breakpoints from './foundations/breakpoints';
-// import colors from './colors';
+import colors from './foundations/colors';
 import radii from './foundations/radius';
 // import shadows from './shadows';
 import sizes from './foundations/sizes';
@@ -25,7 +25,7 @@ const foundations = {
   breakpoints,
   radii,
   // blur,
-  // colors,
+  colors,
   ...typography,
   sizes,
   // shadows,
@@ -34,7 +34,7 @@ const foundations = {
   transition
 };
 
-export const theme = {
+const theme = {
   direction,
   ...foundations,
   // components,
@@ -42,6 +42,6 @@ export const theme = {
   config
 };
 
-// export type Theme = typeof theme;
+export type Theme = typeof theme;
 
 export default theme;
