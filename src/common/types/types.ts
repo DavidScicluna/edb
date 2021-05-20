@@ -1,3 +1,26 @@
+import { ReactElement } from 'react';
+
+export interface Breadcrumb {
+  path: string;
+  label: string;
+}
+
+export interface Image {
+  alt: string;
+  src: string;
+  size: string;
+  fallback?: ReactElement;
+}
+
+export interface Response<Data> {
+  page: number;
+  results: Data;
+  total_pages: number;
+  total_results: number;
+}
+
+export type Type = 'movie' | 'tv' | 'person';
+
 export interface Genre {
   id: number;
   name: string;

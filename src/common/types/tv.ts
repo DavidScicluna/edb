@@ -1,5 +1,5 @@
-import { Genre, ProductionCompany, ProductionCountry, Language, Status } from './index';
 import { Gender } from './person';
+import { Genre, ProductionCompany, ProductionCountry, Language, Status } from './types';
 
 export interface CreatedBy {
   id: number;
