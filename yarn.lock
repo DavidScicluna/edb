@@ -3623,6 +3623,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.170":
+  version: 4.14.170
+  resolution: "@types/lodash@npm:4.14.170"
+  checksum: 5ecc968649e764e3204435ba5125a3645e5e83963069a26b9307791698bf47ed9c2bd0f97488d9537eb4753d4bae596e5fa6187437a5b04bf47aba78fa553d50
+  languageName: node
+  linkType: hard
+
 "@types/minimatch@npm:*":
   version: 3.0.3
   resolution: "@types/minimatch@npm:3.0.3"
@@ -7451,6 +7458,7 @@ __metadata:
     "@testing-library/react": ^11.2.6
     "@testing-library/user-event": ^13.1.8
     "@types/jest": ^26.0.23
+    "@types/lodash": ^4.14.170
     "@types/node": ^15.0.2
     "@types/react": ^17.0.5
     "@types/react-dom": ^17.0.4
@@ -7472,6 +7480,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.2.0
     framer-motion: ^4
     gh-pages: ^3.1.0
+    lodash: ^4.17.21
     moment: ^2.29.1
     prettier: ^2.2.1
     prop-types: ^15.7.2
