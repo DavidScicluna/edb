@@ -1,7 +1,13 @@
+import _ from 'lodash';
+
 import store from '../../store';
 import { Genre } from '../types/types';
 
 export default {
+  handleReturnNumberFromString: (number: string, string: string): number => {
+    return parseInt(_.replace(number, string));
+  },
+
   /**
    * This method will return the genres names from the genre ids
    *
@@ -14,6 +20,7 @@ export default {
       .options.data.data.genres[type].filter((genre: Genre) => genres.includes(genre.id));
     return getGenres.map((genre) => genre.name).join(', ');
   },
+
   /**
    * This method will return the section of the date depending on the "type"
    *
@@ -24,6 +31,7 @@ export default {
   handleReturnDate: (date: string, type: 'year' | 'month' | 'day'): string => {
     return date.split('-')[type === 'year' ? 0 : type === 'month' ? 1 : 2];
   },
+
   /**
    *
    * @param type - Type of image
@@ -42,5 +50,34 @@ export default {
       default:
         return '';
     }
+  },
+
+  /**
+   * This method will check if the element passed has a bigger width than its parent
+   *
+   * @param element - Ref element
+   * @returns - Boolean value of if element is overflowing
+   */
+  handleIsOverflowing: (element: HTMLElement): boolean => {
+    const overflow = element.style.overflow;
+
+    if (!overflow || overflow === 'visible') element.style.overflow = 'hidden';
+
+    const isOverflowing = element.clientWidth < element.scrollWidth || element.clientHeight < element.scrollHeight;
+
+    element.style.overflow = overflow;
+
+    return isOverflowing;
+  },
+
+  /**
+   * This method will return an array of numbers from 25 to the range passed
+   *
+   * @param range - Total range of numbers to use
+   * @param amount - Amount of numbers to return
+   * @returns - Array of numbers from the 25 to range
+   */
+  handleReturnDummyWidths: (range: number, amount: number): number[] => {
+    return _.range(25, range, amount);
   }
 };

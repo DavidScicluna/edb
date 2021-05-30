@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 
+import { Box } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import useQueriesTyped from '../../common/hooks/useQueriesTyped';
@@ -57,7 +58,7 @@ const Layout = ({ children }: { children: ReactElement }): ReactElement => {
     }
   }, [queries]);
 
-  return children;
+  return <Box overflow='hidden'>{children}</Box>;
 };
 
 export default Layout;

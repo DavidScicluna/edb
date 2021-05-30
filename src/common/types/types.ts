@@ -1,53 +1,56 @@
 import { ReactElement } from 'react';
 
-export interface Breadcrumb {
-  path: string;
-  label: string;
-}
+// Component Types
+export type Icon = any;
 
-export interface Image {
+export type Image = {
   alt: string;
   src: string;
   size: string;
   fallback?: ReactElement;
-}
+};
 
-export interface Response<Data> {
+// Data Types
+export type Breadcrumb = {
+  path: string;
+  label: string;
+};
+
+export type Response<Data> = {
   page: number;
   results: Data;
   total_pages: number;
   total_results: number;
-}
+};
 
 export type Type = 'movie' | 'tv' | 'person';
 
-export interface Genre {
+export type Rating = {
+  rating: number | null;
+  count: number | null;
+};
+
+export type Genre = {
   id: number;
   name: string;
-}
+};
 
-export type Status =
-  | 'Rumored'
-  | 'Planned'
-  | 'In Production'
-  | 'Post Production'
-  | 'Released'
-  | 'Canceled';
+export type Status = 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
 
-export interface ProductionCompany {
+export type ProductionCompany = {
   id: number;
   name: string;
   logo_path: string | null;
   origin_country: string;
-}
+};
 
-export interface ProductionCountry {
+export type ProductionCountry = {
   iso_3166_1: string;
   name: string;
-}
+};
 
-export interface Language {
+export type Language = {
   iso_639_1: string;
   english_name?: string;
   name: string;
-}
+};

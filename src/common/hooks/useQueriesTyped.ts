@@ -10,9 +10,7 @@ export default function useQueriesTyped<TQueries extends readonly UseQueryOption
       ? TSelect extends (data: unknown) => unknown
         ? ReturnType<TSelect>
         : never
-      : Awaited<
-          ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>
-        >
+      : Awaited<ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>>
   >;
 } {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
