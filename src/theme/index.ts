@@ -1,47 +1,19 @@
-// import components from './components';
-import { ThemeConfig, ThemeDirection } from '@chakra-ui/react';
+// theme.js
+import { extendTheme, Theme } from '@chakra-ui/react';
 
-// import blur from './blur';
-import borders from './foundations/borders';
-import breakpoints from './foundations/breakpoints';
-import colors from './foundations/colors';
-import radii from './foundations/radius';
-// import shadows from './shadows';
-import sizes from './foundations/sizes';
-import spacing from './foundations/spacing';
-import transition from './foundations/transition';
-import typography from './foundations/typography';
+import foundations from './foundations';
 import styles from './styles';
 
-const direction = 'ltr' as ThemeDirection;
-
-const config: ThemeConfig = {
-  useSystemColorMode: false,
+const config: Theme['config'] = {
+  cssVarPrefix: 'chakra',
   initialColorMode: 'light',
-  cssVarPrefix: 'chakra'
-};
-
-const foundations = {
-  breakpoints,
-  radii,
-  // blur,
-  colors,
-  ...typography,
-  sizes,
-  // shadows,
-  space: spacing,
-  borders,
-  transition
+  useSystemColorMode: false
 };
 
 const theme = {
-  direction,
-  ...foundations,
-  // components,
   styles,
-  config
+  config,
+  ...foundations
 };
 
-export type Theme = typeof theme;
-
-export default theme;
+export default extendTheme({ ...theme });

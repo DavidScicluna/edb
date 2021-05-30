@@ -1,5 +1,3 @@
-import spacing from './spacing';
-
 const largeSizes = {
   'max': 'max-content',
   'min': 'min-content',
@@ -28,7 +26,6 @@ const container = {
 };
 
 const sizes = {
-  ...spacing,
   ...largeSizes,
   container
 };

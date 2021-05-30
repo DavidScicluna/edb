@@ -4,16 +4,16 @@ const styles: Styles = {
   global: (props) => ({
     'body': {
       fontFamily: 'body',
-      color: mode('gray.800', 'whiteAlpha.900')(props),
-      bg: mode('white', 'gray.800')(props),
+      color: mode('gray.900', 'gray.50')(props),
+      bg: mode('white', 'gray.900')(props),
       transition: 'background-color 0.2s',
       lineHeight: 'base'
     },
     '*::placeholder': {
-      color: mode('gray.400', 'whiteAlpha.400')(props)
+      color: mode('gray.400', 'gray.500')(props)
     },
     '*, *::before, &::after': {
-      borderColor: mode('gray.200', 'whiteAlpha.300')(props),
+      borderColor: mode('gray.200', 'gray.700')(props),
       wordWrap: 'break-word'
     }
   })
