@@ -1,6 +1,7 @@
 import React, { ReactElement, useState, useCallback } from 'react';
 
 import { VStack } from '@chakra-ui/react';
+import { Location } from 'history';
 import { useHistory } from 'react-router-dom';
 
 import Button from '../../Inputs/Button';
@@ -12,10 +13,10 @@ export type ScrollButtonsState = {
   right: boolean;
 };
 
-type VerticalGridProps = {
+type HorizontalGridProps = {
   children: ReactElement;
   title: string;
-  path?: string;
+  path: Partial<Location>;
 };
 
 const defaultScrollButtonsState = {
@@ -23,7 +24,7 @@ const defaultScrollButtonsState = {
   right: false
 };
 
-const VerticalGrid = (props: VerticalGridProps): ReactElement => {
+const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   const history = useHistory();
 
   const { children, title, path } = props;
@@ -33,7 +34,7 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
   const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
   const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
 
-  const onGridRefChange = useCallback((ref: HTMLDivElement | null) => {
+  const handleGridRef = useCallback((ref: HTMLDivElement | null) => {
     if (ref) {
       const maxScroll = ref.scrollLeft + ref.offsetWidth;
 
@@ -51,7 +52,7 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
   }, []);
 
   const handleScrollChange = (event: any) => {
-    onGridRefChange(event.target);
+    handleGridRef(event.target);
   };
 
   /**
@@ -72,12 +73,6 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
     [gridRef]
   );
 
-  const handleViewAll = () => {
-    history.push({
-      pathname: path
-    });
-  };
-
   return (
     <VStack width='100%' spacing={0} align='stretch'>
       {/* Header */}
@@ -89,16 +84,20 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
       />
 
       {/* Grid */}
-      <Grid gridRef={onGridRefChange} handleScrollChange={handleScrollChange}>
+      <Grid gridRef={handleGridRef} handleScrollChange={handleScrollChange}>
         {children}
       </Grid>
 
       {/* Footer */}
       {path ? (
-        <Button color='blue' isFullWidth onClick={() => handleViewAll()} variant='text'>{`View all ${title}`}</Button>
+        <Button
+          color='blue'
+          isFullWidth
+          onClick={() => history.push(path)}
+          variant='text'>{`View all ${title}`}</Button>
       ) : null}
     </VStack>
   );
 };
 
-export default VerticalGrid;
+export default HorizontalGrid;
