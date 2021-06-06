@@ -1,21 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import {
-  useTheme,
-  Theme,
-  useColorMode,
-  Tooltip as CUITooltip,
-  TooltipProps as CUITooltipProps
-} from '@chakra-ui/react';
+import { useTheme, Theme, useColorMode, Tooltip as CUITooltip } from '@chakra-ui/react';
 
 import utils from '../../common/utils/utils';
-
-type Delay = number | null;
-
-type TooltipProps = { closeDelay?: Delay; openDelay?: Delay } & Omit<
-  CUITooltipProps,
-  'arrowShadowColor' | 'closeDelay' | 'colorScheme' | 'hasArrow' | 'openDelay' | 'size' | 'variant'
->;
+import { TooltipProps } from './types';
 
 const Tooltip = (props: TooltipProps): ReactElement => {
   const theme = useTheme<Theme>();
