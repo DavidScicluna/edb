@@ -6,12 +6,7 @@ import utils from '../../../../../common/utils/utils';
 import { Theme } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
 import Tooltip from '../../../../Tooltip';
-
-type TitleProps = {
-  title: string;
-  isLoaded: boolean;
-  maxWidth: string[];
-};
+import { TitleProps } from './types';
 
 const dummyTextWidths = utils.handleReturnDummyWidths(100, 10);
 
@@ -19,7 +14,7 @@ const Title = (props: TitleProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { title, isLoaded = false, maxWidth = [] } = props;
+  const { title, isLoaded = false } = props;
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [isTruncated, setIsTruncated] = useState<boolean>(false);
@@ -30,7 +25,7 @@ const Title = (props: TitleProps): ReactElement => {
         setIsTruncated(utils.handleIsOverflowing(ref));
       }
     },
-    [isTruncated, setIsTruncated, maxWidth]
+    [isTruncated, setIsTruncated]
   );
 
   return (
@@ -46,14 +41,15 @@ const Title = (props: TitleProps): ReactElement => {
         gutter={6}>
         <Text
           ref={handleIsTruncated}
-          maxWidth={maxWidth}
+          cursor={isTruncated && !isHovering ? 'pointer' : 'text'}
+          align='left'
           fontSize='sm'
           fontWeight='semibold'
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           isTruncated
           overflow='hidden'
           whiteSpace='nowrap'
-          onMouseEnter={() =>
+          onClick={() =>
             setTimeout(() => {
               setIsHovering(true);
             }, utils.handleReturnNumberFromString(theme.transition.duration.fast, 'ms'))

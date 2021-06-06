@@ -6,12 +6,7 @@ import utils from '../../../../../common/utils/utils';
 import { Theme } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
 import Tooltip from '../../../../Tooltip';
-
-type SubtitleProps = {
-  subtitle: string;
-  isLoaded: boolean;
-  maxWidth: string[];
-};
+import { SubtitleProps } from './types';
 
 const dummyTextWidths = utils.handleReturnDummyWidths(100, 10);
 
@@ -19,7 +14,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { subtitle, isLoaded = false, maxWidth = [] } = props;
+  const { subtitle, isLoaded = false } = props;
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [isTruncated, setIsTruncated] = useState<boolean>(false);
@@ -30,7 +25,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
         setIsTruncated(utils.handleIsOverflowing(ref));
       }
     },
-    [isTruncated, setIsTruncated, maxWidth]
+    [isTruncated, setIsTruncated]
   );
 
   return (
@@ -46,13 +41,14 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
         gutter={6}>
         <Text
           ref={handleIsTruncated}
-          maxWidth={maxWidth}
+          cursor={isTruncated && !isHovering ? 'pointer' : 'text'}
+          align='left'
           fontSize='xs'
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
           isTruncated
           overflow='hidden'
           whiteSpace='nowrap'
-          onMouseEnter={() =>
+          onClick={() =>
             setTimeout(() => {
               setIsHovering(true);
             }, utils.handleReturnNumberFromString(theme.transition.duration.fast, 'ms'))

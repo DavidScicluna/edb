@@ -1,42 +1,32 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, Box, Flex, Spacer, VStack } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 
-import { Type, Image as ImageProps, Rating as RatingProps } from '../../../common/types/types';
+import Bookmark from '../../Bookmark';
 import Image from '../../Image';
 import Like from '../../Like';
-import List from '../../List';
 import Rating from '../../Rating';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
-
-interface VerticalPosterProps {
-  type: Type;
-  image: ImageProps;
-  rating?: RatingProps;
-  title: string;
-  subtitle: string;
-  isLoaded: boolean;
-}
-
-const maxWidth: string[] = ['185px'];
+import { VerticalPosterProps } from './types';
 
 const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
   const { colorMode } = useColorMode();
+  const [isTablet] = useMediaQuery(['(min-width: 960px)']);
 
-  const { type, image, rating, title, subtitle, isLoaded } = props;
+  const { width, type, image, rating, title, subtitle, isLoaded } = props;
 
   return (
-    <Box
-      // isExternal={false}
+    <VStack
+      width={width}
       background='transparent'
       borderRadius='lg'
       border='solid2'
       borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+      spacing={1}
       p='1'>
       {/* Image */}
       <Image
-        maxWidth={maxWidth}
         orientation='vertical'
         alt={image.alt}
         src={image.src}
@@ -44,32 +34,34 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
         size={image.size}
         isLoaded={isLoaded}
       />
-      <Box maxWidth={maxWidth} mt='1'>
+      <VStack width='100%' spacing={1}>
         {/* Header */}
-        <Flex direction='row' alignItems='center' justify='space-between' mb='0.5'>
+        <HStack width='100%' justify='space-between' spacing={1}>
           {/* Rating component */}
-          {type !== 'person' ? (
-            <>
-              <Rating rating={rating} isLoaded={isLoaded} />
-              <Spacer />
-            </>
-          ) : null}
+          {type !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} /> : null}
 
-          {/* Like / List Icon buttons */}
-          <Flex direction='row' alignItems='center' justify='center'>
+          <HStack spacing={0}>
             {/* Like component */}
-            <Like isLiked={false} isDisabled={!isLoaded} title={title} type={type} />
+            <Like isLiked={false} isDisabled={!isLoaded} title={title} type={type} size={isTablet ? 'sm' : 'xs'} />
             {/* List component */}
-            {type !== 'person' ? <List isListed={false} isDisabled={!isLoaded} title={title} type={type} /> : null}
-          </Flex>
-        </Flex>
+            {type !== 'person' ? (
+              <Bookmark
+                isBookmarked={false}
+                isDisabled={!isLoaded}
+                title={title}
+                type={type}
+                size={isTablet ? 'sm' : 'xs'}
+              />
+            ) : null}
+          </HStack>
+        </HStack>
         {/* Text */}
-        <VStack spacing={0} mt='0.5'>
-          <Title title={title} isLoaded={isLoaded} maxWidth={maxWidth} />
-          <Subtitle subtitle={subtitle} isLoaded={isLoaded} maxWidth={maxWidth} />
+        <VStack width='100%' alignItems='flex-start' spacing={0}>
+          <Title title={title} isLoaded={isLoaded} />
+          <Subtitle subtitle={subtitle} isLoaded={isLoaded} />
         </VStack>
-      </Box>
-    </Box>
+      </VStack>
+    </VStack>
   );
 };
 
