@@ -3,18 +3,11 @@ import React, { ReactElement } from 'react';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 
-import { Type } from '../../common/types/types';
 import IconButton from '../Inputs/IconButton';
 import Tooltip from '../Tooltip';
+import { LikeProps } from './types';
 
-interface LikeProps {
-  isLiked: boolean;
-  isDisabled: boolean;
-  title: string | null;
-  type: Type;
-}
-
-const Like = ({ isLiked = false, isDisabled = false, title = 'N/A', type }: LikeProps): ReactElement => {
+const Like = ({ isLiked = false, isDisabled = false, title = 'N/A', type, size = 'xs' }: LikeProps): ReactElement => {
   const titleText: string = title ? (title.length < 25 ? title : '') : '';
 
   return (
@@ -29,7 +22,7 @@ const Like = ({ isLiked = false, isDisabled = false, title = 'N/A', type }: Like
         color={isLiked ? 'red' : 'gray'}
         isDisabled={isDisabled}
         icon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
-        size='xs'
+        size={size}
         variant='icon'
       />
     </Tooltip>
