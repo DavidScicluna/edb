@@ -1,26 +1,21 @@
 import React, { ReactElement } from 'react';
 
-import { SkeletonText as CUISkeletonText, SkeletonTextProps } from '@chakra-ui/react';
+import { SkeletonText as CUISkeletonText } from '@chakra-ui/react';
 
 import commonProps from '../common/props';
+import utils from '../common/utils/utils';
+import { SkeletonTextProps } from './types';
 
 const SkeletonText = (props: SkeletonTextProps): ReactElement => {
-  const { children, colorScheme, noOfLines = 1, ...rest } = props;
-
-  const handleReturnColors = (type: 'start' | 'end') => {
-    switch (colorScheme) {
-      default:
-        return type === 'start' ? 'gray.200' : 'gray.600';
-    }
-  };
+  const { children, color = 'gray', noOfLines = 1, ...rest } = props;
 
   return (
     <CUISkeletonText
       {...rest}
       {...commonProps}
       noOfLines={noOfLines}
-      startColor={handleReturnColors('start')}
-      endColor={handleReturnColors('end')}>
+      startColor={utils.handleReturnColors('start', color)}
+      endColor={utils.handleReturnColors('end', color)}>
       {children}
     </CUISkeletonText>
   );
