@@ -1,39 +1,32 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, Flex, Image, Text } from '@chakra-ui/react';
+import { useColorMode, VStack, Image, Text, Fade } from '@chakra-ui/react';
 
 import error from '../../common/assets/illustrations/error.svg';
-
-interface ErrorProps {
-  hasIllustration?: boolean;
-  label: string;
-}
+import { ErrorProps } from './types';
 
 const Error = (props: ErrorProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { hasIllustration = true, label } = props;
+  const { hasIllustration = true, label, variant = 'transparant' } = props;
 
   return (
-    <Flex maxWidth='100%' background='transparent' direction='column' alignItems='center' justifyContent='center' p='2'>
-      {hasIllustration ? (
-        <Image
-          maxWidth='40%'
-          alt='Error illustration'
-          src={error}
-          // TODO: Add fallbackSrc
-          // fallbackSrc={fallbackSrc || ''}
-        />
-      ) : null}
-      <Text
-        align='center'
-        fontSize='sm'
-        fontWeight='semibold'
-        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-        mt={2}>
-        {label}
-      </Text>
-    </Flex>
+    <Fade in>
+      <VStack
+        width='100%'
+        background='transparent'
+        borderRadius='lg'
+        border='solid2'
+        borderColor={variant === 'outlined' ? (colorMode === 'light' ? 'gray.200' : 'gray.700') : 'transparent'}
+        spacing={2}
+        px={2}
+        py={6}>
+        {hasIllustration ? <Image maxWidth='40%' alt='Error illustration' src={error} /> : null}
+        <Text align='center' fontSize='md' fontWeight='semibold' color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
+          {label}
+        </Text>
+      </VStack>
+    </Fade>
   );
 };
 
