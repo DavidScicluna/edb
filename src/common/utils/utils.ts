@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import store from '../../store';
+import { months } from '../data/date';
 import { Genre } from '../types/types';
 
 export default {
@@ -28,8 +29,15 @@ export default {
    * @param type - Which section of date to return
    * @returns - The section of the dat
    */
-  handleReturnDate: (date: string, type: 'year' | 'month' | 'day'): string => {
-    return date.split('-')[type === 'year' ? 0 : type === 'month' ? 1 : 2];
+  handleReturnDate: (date: string, type: 'year' | 'month' | 'day' | 'full'): string => {
+    if (type === 'full') {
+      const split = date.split('-');
+      const month = months.find((month) => month.value === split[1]);
+
+      return `${split[2]} ${month?.label} ${split[0]}`;
+    } else {
+      return date.split('-')[type === 'year' ? 0 : type === 'month' ? 1 : 2];
+    }
   },
 
   /**
@@ -39,7 +47,11 @@ export default {
    * @returns - The appropriate size for image poster
    */
   // Set type of breakpoint from theme
-  handleReturnImageSize: (type: 'poster' | 'backdrop', breakpoint: 'xs' | 'sm'): string => {
+  handleReturnImageSize: (
+    type: 'poster' | 'backdrop',
+    // orientation: 'vertical' | 'horizontal',
+    breakpoint: 'xs' | 'sm'
+  ): string => {
     switch (type) {
       case 'poster': {
         switch (breakpoint) {

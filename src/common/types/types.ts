@@ -3,6 +3,13 @@ import { ReactElement } from 'react';
 // Component Types
 export type Icon = any;
 
+export type SortBy = {
+  label: string;
+  value: string;
+  isActive: boolean;
+  // isDesc: boolean;
+};
+
 export type Image = {
   alt: string;
   src: string;

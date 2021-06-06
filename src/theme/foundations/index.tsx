@@ -1,5 +1,4 @@
 import borders from './borders';
-// import colors from './colors';
 import radius from './radius';
 import sizes from './sizes';
 import spacing from './spacing';

@@ -58,7 +58,11 @@ const Layout = ({ children }: { children: ReactElement }): ReactElement => {
     }
   }, [queries]);
 
-  return <Box overflow='hidden'>{children}</Box>;
+  return (
+    <Box overflow='hidden' pb={4}>
+      {children}
+    </Box>
+  );
 };
 
 export default Layout;

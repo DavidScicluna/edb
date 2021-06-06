@@ -5,7 +5,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 import { useQuery } from 'react-query';
 
-import useSelectorTyped from '../../common/hooks/useSelectorTyped';
+import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialTV } from '../../common/types/tv';
@@ -19,7 +19,7 @@ import VerticalPoster from '../../components/Poster/Vertical';
 const Home = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const hasOptionsDownloaded = useSelectorTyped((state) => state.options.data.hasDownloaded);
+  const hasOptionsDownloaded = useSelector((state) => state.options.data.hasDownloaded);
 
   // Fetching popular movies
   const popularMovies = useQuery('popularMovies', async () => {
@@ -29,7 +29,7 @@ const Home = (): ReactElement => {
     return data.results;
   });
 
-  // Fetching popular movies
+  // Fetching trending movies
   const trendingMovies = useQuery('trendingMovies', async () => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
       cancelToken: source.token
@@ -37,7 +37,7 @@ const Home = (): ReactElement => {
     return data.results;
   });
 
-  // Fetching popular movies
+  // Fetching popular TV
   const popularTV = useQuery('popularTV', async () => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
       cancelToken: source.token
@@ -45,7 +45,7 @@ const Home = (): ReactElement => {
     return data.results;
   });
 
-  // Fetching popular movies
+  // Fetching trending TV
   const trendingTV = useQuery('trendingTV', async () => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
       cancelToken: source.token
@@ -63,13 +63,16 @@ const Home = (): ReactElement => {
     <VStack backgroundColor='gray.100' spacing={6}>
       {/* Popular Movies */}
       <Box maxWidth='100%' backgroundColor='white'>
-        <HorizontalGrid title='Popular movies' path={{ pathname: '/movies/popular' }}>
+        <HorizontalGrid
+          title='Popular movies'
+          isLoading={popularMovies.isLoading || popularMovies.isFetching}
+          path={{ pathname: '/movies/popular' }}>
           <>
-            {/* {popularMovies.isLoading || !hasOptionsDownloaded ? ( */}
-            {popularMovies.isLoading || !hasOptionsDownloaded ? (
+            {popularMovies.isLoading || popularMovies.isFetching || !hasOptionsDownloaded ? (
               [...Array(10)].map((_dummy, index) => (
                 <VerticalPoster
                   key={index}
+                  width={['185px']}
                   type='movie'
                   image={{
                     alt: 'Movie poster',
@@ -77,17 +80,18 @@ const Home = (): ReactElement => {
                     size
                     // fallback?: ReactElement;
                   }}
-                  title=''
-                  subtitle=''
+                  title='Lorem ipsum'
+                  subtitle='Lorem ipsum'
                   isLoaded={false}
                 />
               ))
             ) : popularMovies.isError ? (
-              <Error label='Failed to fetch popular movies list!' />
+              <Error label='Failed to fetch popular movies list!' variant='outlined' />
             ) : popularMovies.isSuccess ? (
               popularMovies.data.map((movie: PartialMovie, index) => (
                 <VerticalPoster
                   key={index}
+                  width={['185px']}
                   type='movie'
                   image={{
                     alt: `${movie.title} movie poster`,
@@ -108,7 +112,7 @@ const Home = (): ReactElement => {
                 />
               ))
             ) : (
-              <Empty label='Popular movies list is empty!' />
+              <Empty label='Popular movies list is empty!' variant='outlined' />
             )}
           </>
         </HorizontalGrid>
@@ -118,12 +122,14 @@ const Home = (): ReactElement => {
       <Box maxWidth='100%' backgroundColor='white'>
         <HorizontalGrid
           title='Trending movies'
+          isLoading={trendingMovies.isLoading || trendingMovies.isFetching}
           path={{ pathname: '/trending', search: queryString.stringify({ type: 'movie' }) }}>
           <>
-            {trendingMovies.isLoading || !hasOptionsDownloaded ? (
+            {trendingMovies.isLoading || trendingMovies.isFetching || !hasOptionsDownloaded ? (
               [...Array(10)].map((_dummy, index) => (
                 <VerticalPoster
                   key={index}
+                  width={['185px']}
                   type='movie'
                   image={{
                     alt: 'Movie poster',
@@ -131,17 +137,18 @@ const Home = (): ReactElement => {
                     size
                     // fallback?: ReactElement;
                   }}
-                  title=''
-                  subtitle=''
+                  title='Lorem ipsum'
+                  subtitle='Lorem ipsum'
                   isLoaded={false}
                 />
               ))
             ) : trendingMovies.isError ? (
-              <Error label='Failed to fetch trending movies list!' />
+              <Error label='Failed to fetch trending movies list!' variant='outlined' />
             ) : trendingMovies.isSuccess ? (
               trendingMovies.data.map((movie: PartialMovie, index) => (
                 <VerticalPoster
                   key={index}
+                  width={['185px']}
                   type='movie'
                   image={{
                     alt: `${movie.title} movie poster`,
@@ -162,7 +169,7 @@ const Home = (): ReactElement => {
                 />
               ))
             ) : (
-              <Empty label='Trending movies list is empty!' />
+              <Empty label='Trending movies list is empty!' variant='outlined' />
             )}
           </>
         </HorizontalGrid>
@@ -170,12 +177,16 @@ const Home = (): ReactElement => {
 
       {/* Popular TV */}
       <Box maxWidth='100%' backgroundColor='white'>
-        <HorizontalGrid title='Popular TV' path={{ pathname: '/tv/popular' }}>
+        <HorizontalGrid
+          title='Popular TV'
+          isLoading={popularTV.isLoading || popularTV.isFetching}
+          path={{ pathname: '/tv/popular' }}>
           <>
-            {popularTV.isLoading || !hasOptionsDownloaded ? (
+            {popularTV.isLoading || popularTV.isFetching || !hasOptionsDownloaded ? (
               [...Array(10)].map((_dummy, index) => (
                 <VerticalPoster
                   key={index}
+                  width={['185px']}
                   type='tv'
                   image={{
                     alt: 'TV poster',
@@ -183,17 +194,18 @@ const Home = (): ReactElement => {
                     size
                     // fallback?: ReactElement;
                   }}
-                  title=''
-                  subtitle=''
+                  title='Lorem ipsum'
+                  subtitle='Lorem ipsum'
                   isLoaded={false}
                 />
               ))
             ) : popularTV.isError ? (
-              <Error label='Failed to fetch popular TV list!' />
+              <Error label='Failed to fetch popular TV list!' variant='outlined' />
             ) : popularTV.isSuccess ? (
               popularTV.data.map((tv: PartialTV, index) => (
                 <VerticalPoster
                   key={index}
+                  width={['185px']}
                   type='tv'
                   image={{
                     alt: `${tv.name} TV poster`,
@@ -214,7 +226,7 @@ const Home = (): ReactElement => {
                 />
               ))
             ) : (
-              <Empty label='Popular TV list is empty!' />
+              <Empty label='Popular TV list is empty!' variant='outlined' />
             )}
           </>
         </HorizontalGrid>
@@ -224,12 +236,14 @@ const Home = (): ReactElement => {
       <Box maxWidth='100%' backgroundColor='white'>
         <HorizontalGrid
           title='Trending TV'
+          isLoading={trendingTV.isLoading || trendingTV.isFetching}
           path={{ pathname: '/trending', search: queryString.stringify({ type: 'tv' }) }}>
           <>
-            {trendingTV.isLoading || !hasOptionsDownloaded ? (
+            {trendingTV.isLoading || trendingTV.isFetching || !hasOptionsDownloaded ? (
               [...Array(10)].map((_dummy, index) => (
                 <VerticalPoster
                   key={index}
+                  width={['185px']}
                   type='tv'
                   image={{
                     alt: 'TV poster',
@@ -237,17 +251,18 @@ const Home = (): ReactElement => {
                     size
                     // fallback?: ReactElement;
                   }}
-                  title=''
-                  subtitle=''
+                  title='Lorem ipsum'
+                  subtitle='Lorem ipsum'
                   isLoaded={false}
                 />
               ))
             ) : trendingTV.isError ? (
-              <Error label='Failed to fetch trending TV list!' />
+              <Error label='Failed to fetch trending TV list!' variant='outlined' />
             ) : trendingTV.isSuccess ? (
               trendingTV.data.map((tv: PartialTV, index) => (
                 <VerticalPoster
                   key={index}
+                  width={['185px']}
                   type='tv'
                   image={{
                     alt: `${tv.name} TV poster`,
@@ -268,7 +283,7 @@ const Home = (): ReactElement => {
                 />
               ))
             ) : (
-              <Empty label='Trending TV list is empty!' />
+              <Empty label='Trending TV list is empty!' variant='outlined' />
             )}
           </>
         </HorizontalGrid>

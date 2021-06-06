@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, Spinner, Icon, IconButton as CUIIconButton } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -7,7 +7,7 @@ import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { IconButtonProps } from './types';
 
-const IconButton = (props: IconButtonProps): ReactElement => {
+const IconButton = forwardRef(function IconButton(props: IconButtonProps, ref: any): ReactElement {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const style = useStyles(theme, props);
@@ -38,11 +38,11 @@ const IconButton = (props: IconButtonProps): ReactElement => {
   const handleReturnIconSize = (): string => {
     switch (size) {
       case 'xs':
-        return theme.fontSizes.xl;
+        return theme.fontSizes['2xl'];
       case 'sm':
         return theme.fontSizes['2xl'];
       case 'lg':
-        return theme.fontSizes['5xl'];
+        return theme.fontSizes['4xl'];
       default:
         return theme.fontSizes['3xl'];
     }
@@ -51,6 +51,7 @@ const IconButton = (props: IconButtonProps): ReactElement => {
   return (
     <CUIIconButton
       {...rest}
+      ref={ref}
       isDisabled={isLoading || isDisabled}
       padding={handleReturnPadding()}
       sx={{ ..._.merge(style.common.button, style[colorMode].button) }}
@@ -58,8 +59,8 @@ const IconButton = (props: IconButtonProps): ReactElement => {
       variant='unstyled'>
       <Center
         sx={{
-          width: handleReturnIconSize(),
-          height: handleReturnIconSize(),
+          width: `${handleReturnIconSize()} !important`,
+          height: `${handleReturnIconSize()} !important`,
 
           border: 'none',
           backgroundColor: 'transparent'
@@ -75,13 +76,13 @@ const IconButton = (props: IconButtonProps): ReactElement => {
             as={icon}
             size={size}
             sx={{
-              fontSize: handleReturnIconSize()
+              fontSize: `${handleReturnIconSize()} !important`
             }}
           />
         )}
       </Center>
     </CUIIconButton>
   );
-};
+});
 
 export default IconButton;
