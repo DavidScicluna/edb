@@ -6,19 +6,14 @@ import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 
 import IconButton from '../../../../Inputs/IconButton';
 import Tooltip from '../../../../Tooltip';
-import { ScrollButtonsState } from '../../index';
-
-type HeaderProps = {
-  title: string;
-  reset: boolean;
-  scrollButtons: ScrollButtonsState;
-  handleScrollClick: (direction: 'left' | 'right') => void;
-};
+import { HeaderProps } from './types';
 
 let interval: ReturnType<typeof setInterval>;
 
-const Header = ({ title, reset = false, scrollButtons, handleScrollClick }: HeaderProps): ReactElement => {
+const Header = (props: HeaderProps): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { title, isLoading = false, reset = false, scrollButtons, handleScrollClick } = props;
 
   const [direction, setDirection] = useState<'left' | 'right' | ''>('');
 
@@ -60,17 +55,16 @@ const Header = ({ title, reset = false, scrollButtons, handleScrollClick }: Head
       {/* Scroll buttons */}
       <HStack spacing={2}>
         {/* Maybe add an auto scroll button */}
-
         <Tooltip
           aria-label='Scroll left'
           closeOnClick={false}
           label={`Scroll left (${!isOpen ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
           placement='top'
-          isDisabled={scrollButtons.left}
+          isDisabled={isLoading || scrollButtons.left}
           gutter={16}>
           <IconButton
             aria-label='Scroll left'
-            isDisabled={scrollButtons.left}
+            isDisabled={isLoading || scrollButtons.left}
             icon={ArrowBackOutlinedIcon}
             onMouseDown={() => {
               if (!isOpen) {
@@ -88,11 +82,11 @@ const Header = ({ title, reset = false, scrollButtons, handleScrollClick }: Head
           closeOnClick={false}
           label={`Scroll right (${!isOpen ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
           placement='top'
-          isDisabled={scrollButtons.right}
+          isDisabled={isLoading || scrollButtons.right}
           gutter={16}>
           <IconButton
             aria-label='Scroll right'
-            isDisabled={scrollButtons.right}
+            isDisabled={isLoading || scrollButtons.right}
             icon={ArrowForwardOutlinedIcon}
             onMouseDown={() => {
               if (!isOpen) {

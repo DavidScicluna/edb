@@ -1,12 +1,8 @@
-import React, { ReactElement, Ref } from 'react';
+import React, { ReactElement } from 'react';
 
 import { useColorMode, HStack, Box } from '@chakra-ui/react';
 
-type GridProps = {
-  children: ReactElement;
-  gridRef: Ref<HTMLDivElement> | undefined;
-  handleScrollChange: (event: any) => void;
-};
+import { GridProps } from './types';
 
 const Grid = (props: GridProps): ReactElement => {
   const { colorMode } = useColorMode();
@@ -33,9 +29,7 @@ const Grid = (props: GridProps): ReactElement => {
         borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
         borderRadius='lg'
         p={2}>
-        <HStack width='max-content' spacing={2}>
-          {children}
-        </HStack>
+        <HStack spacing={2}>{children}</HStack>
       </Box>
     </Box>
   );

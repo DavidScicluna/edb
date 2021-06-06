@@ -1,23 +1,12 @@
 import React, { ReactElement, useState, useCallback } from 'react';
 
 import { VStack } from '@chakra-ui/react';
-import { Location } from 'history';
 import { useHistory } from 'react-router-dom';
 
 import Button from '../../Inputs/Button';
 import Grid from './components/Grid';
 import Header from './components/Header';
-
-export type ScrollButtonsState = {
-  left: boolean;
-  right: boolean;
-};
-
-type HorizontalGridProps = {
-  children: ReactElement;
-  title: string;
-  path: Partial<Location>;
-};
+import { HorizontalGridProps, ScrollButtonsState } from './types';
 
 const defaultScrollButtonsState = {
   left: true,
@@ -27,7 +16,7 @@ const defaultScrollButtonsState = {
 const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   const history = useHistory();
 
-  const { children, title, path } = props;
+  const { children, title, isLoading, path } = props;
 
   const [gridRef, setGridRef] = useState<HTMLDivElement | null>(null);
 
@@ -78,6 +67,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
       {/* Header */}
       <Header
         title={title}
+        isLoading={isLoading}
         reset={resetScrollButtons}
         scrollButtons={scrollButtons}
         handleScrollClick={handleScrollClick}
@@ -93,6 +83,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
         <Button
           color='blue'
           isFullWidth
+          isDisabled={isLoading}
           onClick={() => history.push(path)}
           variant='text'>{`View all ${title}`}</Button>
       ) : null}
