@@ -12,7 +12,16 @@ const Button = (props: ButtonProps): ReactElement => {
   const { colorMode } = useColorMode();
   const style = useStyles(theme, props);
 
-  const { children, leftIcon, rightIcon, isDisabled = false, isLoading = false, size = 'md', ...rest } = props;
+  const {
+    children,
+    leftIcon,
+    rightIcon,
+    // isFullWidth = false,
+    isDisabled = false,
+    isLoading = false,
+    size = 'md',
+    ...rest
+  } = props;
 
   /**
    * This method will return the appropriate padding for the size passed
@@ -94,7 +103,7 @@ const Button = (props: ButtonProps): ReactElement => {
                 as={leftIcon}
                 sx={{
                   fontSize: handleReturnIconSize(),
-                  marginRight: handleReturnMargin()
+                  marginRight: children ? handleReturnMargin() : 0
                 }}
               />
             ) : null}
@@ -104,7 +113,7 @@ const Button = (props: ButtonProps): ReactElement => {
                 as={rightIcon}
                 sx={{
                   fontSize: handleReturnIconSize(),
-                  marginLeft: handleReturnMargin()
+                  marginLeft: children ? handleReturnMargin() : 0
                 }}
               />
             ) : null}

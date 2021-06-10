@@ -1,9 +1,6 @@
+import { Style } from '../../../common/types/types';
 import { Theme } from '../../../theme/types';
 import { ButtonProps } from './types';
-
-type Value = number | string;
-
-type Style = { [key: string]: Value | Style };
 
 type ButtonStyle = {
   common: {
@@ -22,12 +19,12 @@ type ButtonStyle = {
 
 export default (
   theme: Theme,
-  { color = 'gray', size = 'md', variant = 'contained', isLoading = false }: ButtonProps
+  { color = 'gray', size = 'md', variant = 'contained', isFullWidth = false, isLoading = false }: ButtonProps
 ): ButtonStyle => ({
   common: {
     button: {
-      'width': 'auto',
-      'minWidth': 'auto',
+      'width': isFullWidth ? '100%' : 'auto',
+      'minWidth': isFullWidth ? '100%' : 'auto',
       'height': 'auto',
 
       'opacity': 1,

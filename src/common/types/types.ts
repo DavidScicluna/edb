@@ -1,7 +1,16 @@
 import { ReactElement } from 'react';
 
 // Component Types
+export type Value = number | string;
+
+export type Style = { [key: string]: Value | Style };
+
 export type Icon = any;
+
+export type Breadcrumb = {
+  path: string;
+  label: string;
+};
 
 export type SortBy = {
   label: string;
@@ -18,11 +27,6 @@ export type Image = {
 };
 
 // Data Types
-export type Breadcrumb = {
-  path: string;
-  label: string;
-};
-
 export type Response<Data> = {
   page: number;
   results: Data;

@@ -1,9 +1,6 @@
+import { Style } from '../../../common/types/types';
 import { Theme } from '../../../theme/types';
 import { IconButtonProps } from './types';
-
-type Value = number | string;
-
-type Style = { [key: string]: Value | Style };
 
 type IconButtonStyle = {
   common: {

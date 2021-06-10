@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, VStack, HStack } from '@chakra-ui/react';
+import { useColorMode, VStack, HStack } from '@chakra-ui/react';
 
 import Bookmark from '../../Bookmark';
 import Image from '../../Image';
@@ -12,7 +12,6 @@ import { VerticalPosterProps } from './types';
 
 const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isTablet] = useMediaQuery(['(min-width: 960px)']);
 
   const { width, type, image, rating, title, subtitle, isLoaded } = props;
 
@@ -42,16 +41,10 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
 
           <HStack spacing={0}>
             {/* Like component */}
-            <Like isLiked={false} isDisabled={!isLoaded} title={title} type={type} size={isTablet ? 'sm' : 'xs'} />
+            <Like isLiked={false} isDisabled={!isLoaded} title={title} type={type} size='xs' />
             {/* List component */}
             {type !== 'person' ? (
-              <Bookmark
-                isBookmarked={false}
-                isDisabled={!isLoaded}
-                title={title}
-                type={type}
-                size={isTablet ? 'sm' : 'xs'}
-              />
+              <Bookmark isBookmarked={false} isDisabled={!isLoaded} title={title} type={type} size='xs' />
             ) : null}
           </HStack>
         </HStack>
