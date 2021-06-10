@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useCallback, useEffect } from 'react';
 
-import { useDisclosure, HStack, Heading } from '@chakra-ui/react';
+import { useColorMode, useDisclosure, HStack, Text } from '@chakra-ui/react';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 
@@ -11,6 +11,7 @@ import { HeaderProps } from './types';
 let interval: ReturnType<typeof setInterval>;
 
 const Header = (props: HeaderProps): ReactElement => {
+  const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { title, isLoading = false, reset = false, scrollButtons, handleScrollClick } = props;
@@ -50,7 +51,9 @@ const Header = (props: HeaderProps): ReactElement => {
 
   return (
     <HStack justify='space-between' p={[2]}>
-      <Heading size='lg'>{title}</Heading>
+      <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='2xl' fontWeight='semibold'>
+        {title}
+      </Text>
 
       {/* Scroll buttons */}
       <HStack spacing={2}>
@@ -60,8 +63,7 @@ const Header = (props: HeaderProps): ReactElement => {
           closeOnClick={false}
           label={`Scroll left (${!isOpen ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
           placement='top'
-          isDisabled={isLoading || scrollButtons.left}
-          gutter={16}>
+          isDisabled={isLoading || scrollButtons.left}>
           <IconButton
             aria-label='Scroll left'
             isDisabled={isLoading || scrollButtons.left}
@@ -82,8 +84,7 @@ const Header = (props: HeaderProps): ReactElement => {
           closeOnClick={false}
           label={`Scroll right (${!isOpen ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
           placement='top'
-          isDisabled={isLoading || scrollButtons.right}
-          gutter={16}>
+          isDisabled={isLoading || scrollButtons.right}>
           <IconButton
             aria-label='Scroll right'
             isDisabled={isLoading || scrollButtons.right}
