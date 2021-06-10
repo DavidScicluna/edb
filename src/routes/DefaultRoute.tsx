@@ -7,14 +7,10 @@ import Layout from '../containers/Layout';
 
 interface DefaultRouteProps extends RouteProps {
   component: ComponentType<RouteComponentProps | ComponentType>;
-  // breadcrumbs: Breadcrumb;
+  breadcrumbs: Breadcrumb[];
 }
 
-const DefaultRoute = ({
-  component: Component,
-  // breadcrumbs,
-  ...rest
-}: DefaultRouteProps): ReactElement => {
+const DefaultRoute = ({ component: Component, breadcrumbs, ...rest }: DefaultRouteProps): ReactElement => {
   const location = useLocation();
 
   sessionStorage.setItem('redirect_to', JSON.stringify(location));
@@ -23,11 +19,8 @@ const DefaultRoute = ({
     <Route
       {...rest}
       render={(props) => (
-        <Layout {...props}>
-          <Component
-            {...props}
-            //  breadcrumbs={breadcrumbs}
-          />
+        <Layout {...props} breadcrumbs={breadcrumbs}>
+          <Component {...props} />
         </Layout>
       )}
     />
