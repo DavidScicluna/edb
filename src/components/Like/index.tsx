@@ -16,7 +16,7 @@ const Like = ({ isLiked = false, isDisabled = false, title = 'N/A', type, size =
       label={isLiked ? `Dislike ${titleText} ${type}?` : `Like ${titleText} ${type}?`}
       placement='top'
       isDisabled={isDisabled}
-      gutter={6}>
+      gutter={0}>
       <IconButton
         aria-label={isLiked ? `Dislike ${titleText} ${type}` : `Like ${titleText} ${type}`}
         color={isLiked ? 'red' : 'gray'}

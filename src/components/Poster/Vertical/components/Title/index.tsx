@@ -37,8 +37,7 @@ const Title = (props: TitleProps): ReactElement => {
         aria-label='Showing full title text'
         label={title}
         placement='top'
-        isOpen={isTruncated ? isHovering : false}
-        gutter={6}>
+        isOpen={isTruncated ? isHovering : false}>
         <Text
           ref={handleIsTruncated}
           cursor={isTruncated && !isHovering ? 'pointer' : 'text'}

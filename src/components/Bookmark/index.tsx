@@ -26,7 +26,7 @@ const Bookmark = ({
       label={isBookmarked ? `Remove ${titleText} ${type} from {BOOKMARK NAME}?` : `Add ${titleText} ${type} to a list?`}
       placement='top'
       isDisabled={isDisabled}
-      gutter={6}>
+      gutter={0}>
       <IconButton
         aria-label={
           isBookmarked ? `Remove ${titleText} ${type} from {BOOKMARK NAME}` : `Add ${titleText} ${type} to a list`

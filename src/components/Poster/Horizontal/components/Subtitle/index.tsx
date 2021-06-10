@@ -36,8 +36,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
         aria-label='Showing full sub-title text'
         label={subtitle}
         placement='top'
-        isOpen={isTruncated ? isHovering : false}
-        gutter={6}>
+        isOpen={isTruncated ? isHovering : false}>
         <Text
           ref={handleIsTruncated}
           cursor={isTruncated && !isHovering ? 'pointer' : 'text'}
