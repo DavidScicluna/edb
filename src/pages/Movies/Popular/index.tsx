@@ -42,7 +42,7 @@ const defaultSortBy: SortBy[] = [
 
 const PopularMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const [isSmallMob] = useMediaQuery(['(max-width: 350px)']);
+  const [isSmallMob, isMob] = useMediaQuery(['(max-width: 350px)', '(max-width: 600px)']);
 
   const hasOptionsDownloaded = useSelector((state) => state.options.data.hasDownloaded);
   const displayMode = useSelector((state) => state.app.data.displayMode);
@@ -95,11 +95,11 @@ const PopularMovies = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid title='Popular movies' sortBy={sortBy} onSortChange={handleSortChange}>
+    <VerticalGrid title={isMob ? 'Popular Movies' : ''} sortBy={sortBy} onSortChange={handleSortChange}>
       <VStack width='100%' spacing={4}>
         {popularMovies.isLoading || popularMovies.isFetching || !hasOptionsDownloaded ? (
           <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>
-            {[...Array(50)].map((_dummy, index) =>
+            {[...Array(movies.length || 20)].map((_dummy, index) =>
               displayMode === 'list' ? (
                 <HorizontalPoster
                   key={index}

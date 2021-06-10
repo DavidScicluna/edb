@@ -1,19 +1,28 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 
-import { Box } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, Center, Box } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import useQueriesTyped from '../../common/hooks/useQueriesTyped';
 import axiosInstance from '../../common/scripts/axios';
-import { Genre } from '../../common/types/types';
 import { setMovieGenres, setTVGenres, toggleHasDownloaded } from '../../store/slices/options';
+import { Theme } from '../../theme/types';
+import { navigationWidth } from './common/data/navigation';
+import useTransitionsStyle from './common/styles/transitions';
+import Header from './components/Header';
+import Navigation from './components/Navigation';
+import { LayoutProps, GenreResponse } from './types';
 
-interface GenreResponse {
-  genres: Genre[];
-}
+const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
+  const theme = useTheme<Theme>();
+  const [isDesktop] = useMediaQuery('(min-width: 1280px)');
+  const transition = useTransitionsStyle(theme);
 
-const Layout = ({ children }: { children: ReactElement }): ReactElement => {
   const dispatch = useDispatch();
+
+  const [width, setWidth] = useState<string>('100%');
+  const [left, setLeft] = useState<string>('266px');
+  const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   const queries = useQueriesTyped([
     {
@@ -58,10 +67,27 @@ const Layout = ({ children }: { children: ReactElement }): ReactElement => {
     }
   }, [queries]);
 
+  useEffect(() => {
+    setWidth(isDesktop ? `calc(100% - ${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px)` : '100%');
+    setLeft(isDesktop ? `${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px` : '0px');
+  }, [isDesktop, isExpanded]);
+
   return (
-    <Box overflow='hidden' pb={4}>
-      {children}
-    </Box>
+    <Center overflow='hidden'>
+      {isDesktop ? (
+        <Navigation
+          width={`${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px`}
+          isExpanded={isExpanded}
+          handleNavigationWidth={() => setIsExpanded(!isExpanded)}
+        />
+      ) : null}
+      <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
+        <Header width={width} left={left} breadcrumbs={breadcrumbs} />
+        <Box width='100%' maxWidth='100%' position='relative' top='76px' left='0px' pb={4}>
+          {children}
+        </Box>
+      </Box>
+    </Center>
   );
 };
 
