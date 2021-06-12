@@ -4,6 +4,7 @@ import { Theme } from '../../../../../../../../theme/types';
 type NavItemChildStyle = {
   common: {
     child: Style;
+    link: Style;
   };
   light: {
     child: Style;
@@ -13,18 +14,28 @@ type NavItemChildStyle = {
   };
 };
 
-export default (theme: Theme, isActive = false): NavItemChildStyle => ({
+export default (theme: Theme, isActive = false, isExpanded = false, isLastChild = false): NavItemChildStyle => ({
   common: {
     child: {
       'cursor': 'pointer',
 
       'backgroundColor': 'transparent',
-      'borderRadius': 'base',
+      'borderRadius': isExpanded ? 'base' : isLastChild ? `0 0 ${theme.radii.base} ${theme.radii.base}` : 'none',
 
       'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
 
       '& .chakra-text': {
         transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      }
+    },
+    link: {
+      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
+
+      '&:hover': {
+        textDecoration: 'none'
+      },
+      '&:focus': {
+        boxShadow: 'none'
       }
     }
   },

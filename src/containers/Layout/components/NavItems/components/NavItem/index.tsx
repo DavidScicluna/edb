@@ -60,7 +60,6 @@ const NavItem = (props: NavItemProps): ReactElement => {
             py={1}
             spacing={2}
             onClick={isOpen ? () => onClose() : () => onOpen()}
-            // onMouseEnter={!isExpanded ? (isPopperOpen ? () => onPopperClose() : () => onPopperOpen()) : undefined}
             sx={{ ..._.merge(style.common.main, style[colorMode].main) }}>
             <HStack width='100%' spacing={2}>
               <Icon
@@ -100,8 +99,14 @@ const NavItem = (props: NavItemProps): ReactElement => {
             {!isExpanded ? (
               <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
             ) : null}
-            {children.map((child) => (
-              <NavItemChild key={child.label} label={child.label} path={child.path} isExpanded={isExpanded} />
+            {children.map((child, index) => (
+              <NavItemChild
+                key={child.label}
+                label={child.label}
+                path={child.path}
+                isExpanded={isExpanded}
+                isLastChild={index === children.length - 1}
+              />
             ))}
           </VStack>
         </Collapse>

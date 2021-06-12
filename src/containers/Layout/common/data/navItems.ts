@@ -1,3 +1,5 @@
+import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
+import ExploreTwoToneIcon from '@material-ui/icons/ExploreTwoTone';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
@@ -8,6 +10,8 @@ import TheatersOutlinedIcon from '@material-ui/icons/TheatersOutlined';
 import TheatersTwoToneIcon from '@material-ui/icons/TheatersTwoTone';
 import TvOutlinedIcon from '@material-ui/icons/TvOutlined';
 import TvTwoToneIcon from '@material-ui/icons/TvTwoTone';
+import WhatshotOutlinedIcon from '@material-ui/icons/WhatshotOutlined';
+import WhatshotTwoToneIcon from '@material-ui/icons/WhatshotTwoTone';
 
 import { NavItem } from '../../components/NavItems/types';
 
@@ -27,14 +31,14 @@ const navItems: NavItem[] = [
   {
     label: 'Discover',
     path: '/discover',
-    iconActive: SearchTwoToneIcon,
-    icon: SearchOutlinedIcon
+    iconActive: ExploreTwoToneIcon,
+    icon: ExploreOutlinedIcon
   },
   {
     label: 'Trending',
     path: '/trending',
-    iconActive: SearchTwoToneIcon,
-    icon: SearchOutlinedIcon
+    iconActive: WhatshotTwoToneIcon,
+    icon: WhatshotOutlinedIcon
   },
   {
     label: 'Movies',

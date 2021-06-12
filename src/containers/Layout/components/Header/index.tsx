@@ -15,7 +15,8 @@ type HeaderProps = { width: string; left: string; breadcrumbs: BreadcrumbType[] 
 const Header = (props: HeaderProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isMdUp, isLgDown] = useMediaQuery(['(min-width: 600px)', '(max-width: 1280px)']);
+  const [isMdUp] = useMediaQuery('(min-width: 600px)');
+  const [isLgDown] = useMediaQuery(`(max-width: ${theme.breakpoints.xl})`);
   const transition = useTransitionsStyle(theme);
 
   const { width, left, breadcrumbs } = props;

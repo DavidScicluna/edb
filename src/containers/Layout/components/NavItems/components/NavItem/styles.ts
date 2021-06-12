@@ -33,7 +33,7 @@ export default (
     main: {
       'cursor': 'pointer',
 
-      'borderRadius': 'base',
+      'borderRadius': !isExpanded && isOpen ? `${theme.radii.base} ${theme.radii.base} 0 0` : 'base',
 
       'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
 

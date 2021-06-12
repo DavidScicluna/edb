@@ -15,7 +15,7 @@ import { LayoutProps, GenreResponse } from './types';
 
 const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const [isDesktop] = useMediaQuery('(min-width: 1280px)');
+  const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
   const transition = useTransitionsStyle(theme);
 
   const dispatch = useDispatch();
@@ -68,13 +68,13 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
   }, [queries]);
 
   useEffect(() => {
-    setWidth(isDesktop ? `calc(100% - ${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px)` : '100%');
-    setLeft(isDesktop ? `${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px` : '0px');
-  }, [isDesktop, isExpanded]);
+    setWidth(isLgUp ? `calc(100% - ${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px)` : '100%');
+    setLeft(isLgUp ? `${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px` : '0px');
+  }, [isLgUp, isExpanded]);
 
   return (
     <Center overflow='hidden'>
-      {isDesktop ? (
+      {isLgUp ? (
         <Navigation
           width={`${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px`}
           isExpanded={isExpanded}
