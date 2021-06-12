@@ -1,4 +1,4 @@
-export const navigationWidth = {
+export const sidebarWidth = {
   expanded: 266,
   collapsed: 64
 };

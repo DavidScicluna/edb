@@ -6,7 +6,7 @@ import { Breadcrumb as BreadcrumbType } from '../../../../common/types/types';
 import { Theme } from '../../../../theme/types';
 import useTransitionsStyle from '../../common/styles/transitions';
 import Breadcrumb from './components/Breadcrumb';
-import Navigation from './components/Navigation';
+import Menu from './components/Menu';
 import Search from './components/Search';
 import User from './components/User';
 
@@ -37,7 +37,7 @@ const Header = (props: HeaderProps): ReactElement => {
       py={1}
       sx={{ ...transition }}>
       <HStack spacing={1}>
-        {isLgDown ? <Navigation /> : null}
+        {isLgDown ? <Menu /> : null}
         {isMdUp ? <Breadcrumb breadcrumbs={breadcrumbs} /> : null}
       </HStack>
       <HStack spacing={1}>

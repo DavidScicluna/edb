@@ -17,46 +17,49 @@ import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
 import { useLocation, Link as RRDLink } from 'react-router-dom';
 
+import useSelector from '../../../../../../common/hooks/useSelectorTyped';
 import Tooltip from '../../../../../../components/Tooltip';
 import { Theme } from '../../../../../../theme/types';
+import { NavItem as NavItemType } from '../../types';
 import NavItemChild from './components/NavItemChild';
 import useStyles from './styles';
-import { NavItemProps } from './types';
 
-const NavItem = (props: NavItemProps): ReactElement => {
+const NavItem = (props: NavItemType): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
 
-  const { label, path, icon, iconActive, children, isExpanded } = props;
+  const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
+
+  const { label, path, icon, iconActive, children } = props;
 
   const isActive: boolean = location.pathname === path;
   const isChildActive: boolean = children ? children.some((child) => location.pathname === child.path) : false;
-  const style = useStyles(theme, isActive, isChildActive, isExpanded, children ? isOpen : false);
+  const style = useStyles(theme, isActive, isChildActive, sidebarMode === 'expanded', children ? isOpen : false);
 
   useEffect(() => {
     if (isOpen) {
       onClose();
     }
-  }, [isExpanded]);
+  }, [sidebarMode]);
 
   return (
     <VStack
       width='100%'
-      spacing={isExpanded ? 2 : 0}
+      spacing={sidebarMode === 'expanded' ? 2 : 0}
       sx={{ ..._.merge(style.common.container, style[colorMode].container) }}>
       <Tooltip
-        aria-label={!isExpanded ? label : ''}
+        aria-label={sidebarMode === 'collapsed' ? label : ''}
         closeOnClick={false}
-        label={!isExpanded ? label : ''}
+        label={sidebarMode === 'collapsed' ? label : ''}
         placement='right'>
         <Link width='100%' as={RRDLink} to={path} sx={{ ...style.common.link }}>
           <HStack
             width='100%'
             justifyContent='space-between'
-            px={isExpanded ? 2 : 1}
+            px={sidebarMode === 'expanded' ? 2 : 1}
             py={1}
             spacing={2}
             onClick={isOpen ? () => onClose() : () => onOpen()}
@@ -66,7 +69,7 @@ const NavItem = (props: NavItemProps): ReactElement => {
                 as={isActive || isChildActive ? iconActive : icon}
                 sx={{ fontSize: `${theme.fontSizes['3xl']} !important` }}
               />
-              <ScaleFade in={isExpanded} unmountOnExit>
+              <ScaleFade in={sidebarMode === 'expanded'} unmountOnExit>
                 <Text align='left' fontSize='lg' fontWeight='semibold' whiteSpace='nowrap'>
                   {label}
                 </Text>
@@ -74,7 +77,7 @@ const NavItem = (props: NavItemProps): ReactElement => {
             </HStack>
 
             {children ? (
-              <ScaleFade in={isExpanded} unmountOnExit>
+              <ScaleFade in={sidebarMode === 'expanded'} unmountOnExit>
                 <Icon
                   as={ChevronRightOutlinedIcon}
                   sx={{
@@ -93,10 +96,10 @@ const NavItem = (props: NavItemProps): ReactElement => {
           <VStack
             width='100%'
             spacing={0}
-            pl={isExpanded ? '31px' : '0px'}
-            pr={isExpanded ? 2 : '0px'}
-            mb={isExpanded ? 1 : '0px'}>
-            {!isExpanded ? (
+            pl={sidebarMode === 'expanded' ? '31px' : '0px'}
+            pr={sidebarMode === 'expanded' ? 2 : '0px'}
+            mb={sidebarMode === 'expanded' ? 1 : '0px'}>
+            {sidebarMode === 'collapsed' ? (
               <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
             ) : null}
             {children.map((child, index) => (
@@ -104,7 +107,6 @@ const NavItem = (props: NavItemProps): ReactElement => {
                 key={child.label}
                 label={child.label}
                 path={child.path}
-                isExpanded={isExpanded}
                 isLastChild={index === children.length - 1}
               />
             ))}

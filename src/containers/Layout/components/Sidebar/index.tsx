@@ -3,20 +3,24 @@ import React, { ReactElement } from 'react';
 import { useTheme, useColorMode, VStack } from '@chakra-ui/react';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
+import { useDispatch } from 'react-redux';
 
+import useSelector from '../../../../common/hooks/useSelectorTyped';
 import Button from '../../../../components/Inputs/Button';
+import { toggleSidebarMode } from '../../../../store/slices/app';
 import { Theme } from '../../../../theme/types';
 import navItems from '../../common/data/navItems';
 import useTransitionsStyle from '../../common/styles/transitions';
-import Nav from '../NavItems';
-import { NavigationProps } from './types';
+import NavItems from '../NavItems';
+import { SidebarProps } from './types';
 
-const Navigation = (props: NavigationProps): ReactElement => {
+const Sidebar = ({ width }: SidebarProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const transition = useTransitionsStyle(theme);
 
-  const { width, isExpanded, handleNavigationWidth } = props;
+  const dispatch = useDispatch();
+  const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
 
   return (
     <VStack
@@ -26,7 +30,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
       top='0px'
       left='0px'
       zIndex={900}
-      alignItems={isExpanded ? 'flex-start' : 'stretch'}
+      alignItems={sidebarMode === 'expanded' ? 'flex-start' : 'stretch'}
       justifyContent='space-between'
       background={colorMode ? 'white' : 'gray.900'}
       borderRight='solid2'
@@ -34,18 +38,18 @@ const Navigation = (props: NavigationProps): ReactElement => {
       p={1}
       spacing={2}
       sx={{ ...transition }}>
-      <Nav navItems={navItems} isExpanded={isExpanded} />
+      <NavItems navItems={navItems} />
 
       <Button
         isFullWidth
-        onClick={() => handleNavigationWidth()}
-        leftIcon={isExpanded ? RemoveOutlinedIcon : AddOutlinedIcon}
+        onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
+        leftIcon={sidebarMode === 'expanded' ? RemoveOutlinedIcon : AddOutlinedIcon}
         size='sm'
         variant='outlined'>
-        {isExpanded ? 'Collapse' : ''}
+        {sidebarMode === 'expanded' ? 'Collapse' : ''}
       </Button>
     </VStack>
   );
 };
 
-export default Navigation;
+export default Sidebar;

@@ -10,7 +10,6 @@ export type NavItem = {
   children?: NavItemChild[];
 };
 
-export type NavProps = {
+export type NavItemsProps = {
   navItems: NavItem[];
-  isExpanded?: boolean;
 };

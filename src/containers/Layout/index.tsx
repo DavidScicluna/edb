@@ -4,13 +4,15 @@ import { useTheme, useMediaQuery, Center, Box } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import useQueriesTyped from '../../common/hooks/useQueriesTyped';
+import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
+import { toggleSidebarMode } from '../../store/slices/app';
 import { setMovieGenres, setTVGenres, toggleHasDownloaded } from '../../store/slices/options';
 import { Theme } from '../../theme/types';
-import { navigationWidth } from './common/data/navigation';
+import { sidebarWidth } from './common/data/sidebar';
 import useTransitionsStyle from './common/styles/transitions';
 import Header from './components/Header';
-import Navigation from './components/Navigation';
+import Sidebar from './components/Sidebar';
 import { LayoutProps, GenreResponse } from './types';
 
 const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
@@ -19,10 +21,10 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
   const transition = useTransitionsStyle(theme);
 
   const dispatch = useDispatch();
+  const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
 
   const [width, setWidth] = useState<string>('100%');
   const [left, setLeft] = useState<string>('266px');
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   const queries = useQueriesTyped([
     {
@@ -68,19 +70,19 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
   }, [queries]);
 
   useEffect(() => {
-    setWidth(isLgUp ? `calc(100% - ${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px)` : '100%');
-    setLeft(isLgUp ? `${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px` : '0px');
-  }, [isLgUp, isExpanded]);
+    setWidth(isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%');
+    setLeft(isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px');
+  }, [isLgUp, sidebarMode]);
+
+  useEffect(() => {
+    if (!isLgUp) {
+      dispatch(toggleSidebarMode('expanded'));
+    }
+  }, [isLgUp]);
 
   return (
     <Center overflow='hidden'>
-      {isLgUp ? (
-        <Navigation
-          width={`${navigationWidth[isExpanded ? 'expanded' : 'collapsed']}px`}
-          isExpanded={isExpanded}
-          handleNavigationWidth={() => setIsExpanded(!isExpanded)}
-        />
-      ) : null}
+      {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
       <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
         <Header width={width} left={left} breadcrumbs={breadcrumbs} />
         <Box width='100%' maxWidth='100%' position='relative' top='76px' left='0px' pb={4}>

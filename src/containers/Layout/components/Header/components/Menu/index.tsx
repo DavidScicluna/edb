@@ -7,7 +7,7 @@ import IconButton from '../../../../../../components/Inputs/IconButton';
 import navItems from '../../../../common/data/navItems';
 import NavItems from '../../../NavItems';
 
-const Navigation = (): ReactElement => {
+const Menu = (): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -18,7 +18,7 @@ const Navigation = (): ReactElement => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody py={1} px={1}>
-            <NavItems navItems={navItems} isExpanded />
+            <NavItems navItems={navItems} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
@@ -26,4 +26,4 @@ const Navigation = (): ReactElement => {
   );
 };
 
-export default Navigation;
+export default Menu;
