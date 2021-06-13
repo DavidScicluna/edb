@@ -52,6 +52,7 @@ const NavItem = (props: NavItemType): ReactElement => {
       sx={{ ..._.merge(style.common.container, style[colorMode].container) }}>
       <Tooltip
         aria-label={sidebarMode === 'collapsed' ? label : ''}
+        width='100%'
         closeOnClick={false}
         label={sidebarMode === 'collapsed' ? label : ''}
         placement='right'>

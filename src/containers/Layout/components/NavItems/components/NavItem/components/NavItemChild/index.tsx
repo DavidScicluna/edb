@@ -46,6 +46,7 @@ const NavItemChild = ({ label, path, isLastChild = false }: NavItemChildProps): 
         ) : null}
         <Tooltip
           aria-label={sidebarMode === 'collapsed' ? label : ''}
+          width='100%'
           closeOnClick={false}
           label={sidebarMode === 'collapsed' ? label : ''}
           placement='right'>

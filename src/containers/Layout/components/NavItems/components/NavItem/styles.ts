@@ -28,7 +28,7 @@ export default (
     container: {
       borderRadius: 'base',
 
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      transition: `${theme.transition.duration.slower} ${theme.transition.easing['ease-in-out']}`
     },
     main: {
       'cursor': 'pointer',
