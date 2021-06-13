@@ -54,11 +54,11 @@ type TV = {
   name: string;
 };
 
-export interface PartialTV extends TV {
+export type PartialTV = {
   genre_ids: number[];
-}
+} & TV;
 
-export interface FullTV extends TV {
+export type FullTV = {
   created_by: CreatedBy[];
   episode_run_time: number[];
   genres: Genre[];
@@ -78,4 +78,4 @@ export interface FullTV extends TV {
   status: Status;
   tagline: string;
   type: string;
-}
+} & TV;

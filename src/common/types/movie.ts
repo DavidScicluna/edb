@@ -1,6 +1,6 @@
 import { Genre, ProductionCompany, ProductionCountry, Language, Status } from './types';
 
-interface Movie {
+type Movie = {
   adult: boolean;
   poster_path: string | null;
   overview: string | null;
@@ -14,13 +14,13 @@ interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
-}
+};
 
-export interface PartialMovie extends Movie {
+export type PartialMovie = {
   genre_ids: number[];
-}
+} & Movie;
 
-export interface FullMovie extends Movie {
+export type FullMovie = {
   belongs_to_collection: null; // Check up on this type
   budget: number;
   genres: Genre[];
@@ -33,4 +33,4 @@ export interface FullMovie extends Movie {
   spoken_languages: Language[];
   status: Status;
   tagline: string | null;
-}
+} & Movie;
