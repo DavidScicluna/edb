@@ -1,7 +1,7 @@
 export type LoadMoreProps = {
   amount: number;
   total: number;
-  type: string;
+  mediaType: string;
   isLoading: boolean;
   onFetch: () => void;
 };

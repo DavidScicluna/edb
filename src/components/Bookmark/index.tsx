@@ -11,7 +11,7 @@ const Bookmark = ({
   isBookmarked = false,
   isDisabled = false,
   title = 'N/A',
-  type,
+  mediaType,
   size = 'xs'
 }: BookmarkProps): ReactElement => {
   const titleText: string = title ? (title.length < 25 ? title : '') : '';
@@ -20,16 +20,22 @@ const Bookmark = ({
     <Tooltip
       aria-label={
         isBookmarked
-          ? `Remove ${titleText} ${type} from {BOOKMARK NAME} tooltip`
-          : `Add ${titleText} ${type} to a bookmark tooltip`
+          ? `Remove ${titleText} ${mediaType} from {BOOKMARK NAME} tooltip`
+          : `Add ${titleText} ${mediaType} to a bookmark tooltip`
       }
-      label={isBookmarked ? `Remove ${titleText} ${type} from {BOOKMARK NAME}?` : `Add ${titleText} ${type} to a list?`}
+      label={
+        isBookmarked
+          ? `Remove ${titleText} ${mediaType} from {BOOKMARK NAME}?`
+          : `Add ${titleText} ${mediaType} to a list?`
+      }
       placement='top'
       isDisabled={isDisabled}
       gutter={0}>
       <IconButton
         aria-label={
-          isBookmarked ? `Remove ${titleText} ${type} from {BOOKMARK NAME}` : `Add ${titleText} ${type} to a list`
+          isBookmarked
+            ? `Remove ${titleText} ${mediaType} from {BOOKMARK NAME}`
+            : `Add ${titleText} ${mediaType} to a list`
         }
         color={isBookmarked ? 'blue' : 'gray'}
         isDisabled={isDisabled}

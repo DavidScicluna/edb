@@ -6,7 +6,7 @@ import Skeleton from '../Skeleton';
 import { ImageProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
-  const { width = '', orientation, alt, src, fallbackSrc, size, isLoaded, ...rest } = props;
+  const { width = '', orientation, mediaType, alt, src, size, isLoaded, ...rest } = props;
 
   return (
     <AspectRatio width={width || '100%'} ratio={orientation === 'horizontal' ? 16 / 9 : 2 / 3}>

@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 // Component Types
 export type Value = number | string;
 
@@ -23,7 +21,6 @@ export type Image = {
   alt: string;
   src: string;
   size: string;
-  fallback?: ReactElement;
 };
 
 // Data Types
@@ -34,7 +31,7 @@ export type Response<Data> = {
   total_results: number;
 };
 
-export type Type = 'movie' | 'tv' | 'person';
+export type MediaType = 'movie' | 'tv' | 'person';
 
 export type Rating = {
   rating: number | null;

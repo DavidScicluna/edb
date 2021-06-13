@@ -7,18 +7,24 @@ import IconButton from '../Inputs/IconButton';
 import Tooltip from '../Tooltip';
 import { LikeProps } from './types';
 
-const Like = ({ isLiked = false, isDisabled = false, title = 'N/A', type, size = 'xs' }: LikeProps): ReactElement => {
+const Like = ({
+  isLiked = false,
+  isDisabled = false,
+  title = 'N/A',
+  mediaType,
+  size = 'xs'
+}: LikeProps): ReactElement => {
   const titleText: string = title ? (title.length < 25 ? title : '') : '';
 
   return (
     <Tooltip
-      aria-label={isLiked ? `Dislike ${titleText} ${type} tooltip` : `Like ${titleText} ${type} tooltip`}
-      label={isLiked ? `Dislike ${titleText} ${type}?` : `Like ${titleText} ${type}?`}
+      aria-label={isLiked ? `Dislike ${titleText} ${mediaType} tooltip` : `Like ${titleText} ${mediaType} tooltip`}
+      label={isLiked ? `Dislike ${titleText} ${mediaType}?` : `Like ${titleText} ${mediaType}?`}
       placement='top'
       isDisabled={isDisabled}
       gutter={0}>
       <IconButton
-        aria-label={isLiked ? `Dislike ${titleText} ${type}` : `Like ${titleText} ${type}`}
+        aria-label={isLiked ? `Dislike ${titleText} ${mediaType}` : `Like ${titleText} ${mediaType}`}
         color={isLiked ? 'red' : 'gray'}
         isDisabled={isDisabled}
         icon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}

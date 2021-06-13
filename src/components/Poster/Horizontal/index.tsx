@@ -14,7 +14,7 @@ import { HorizontalPosterProps } from './types';
 const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { type, image, rating, title, subtitle, description, isLoaded } = props;
+  const { mediaType, image, rating, title, subtitle, description, isLoaded } = props;
 
   return (
     <HStack
@@ -29,6 +29,7 @@ const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
       <Image
         width={['96px', '120px', '144px', '168px']}
         orientation='vertical'
+        mediaType={mediaType}
         alt={image.alt}
         src={image.src}
         // fallbackSrc={image.fallbackSrc}
@@ -40,7 +41,7 @@ const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
         alignItems='flex-start'
         spacing={isLoaded ? 1 : 2}>
         {/* Rating component */}
-        {type !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} /> : null}
+        {mediaType !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} /> : null}
 
         {/* Text */}
         <VStack width='100%' alignItems='flex-start' spacing={isLoaded ? 0 : 1}>
@@ -62,9 +63,11 @@ const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
           right: 1
         }}>
         {/* Like component */}
-        <Like isLiked={false} isDisabled={!isLoaded} title={title} type={type} />
+        <Like isLiked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} />
         {/* List component */}
-        {type !== 'person' ? <Bookmark isBookmarked={false} isDisabled={!isLoaded} title={title} type={type} /> : null}
+        {mediaType !== 'person' ? (
+          <Bookmark isBookmarked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} />
+        ) : null}
       </HStack>
     </HStack>
   );

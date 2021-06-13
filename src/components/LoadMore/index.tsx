@@ -8,13 +8,13 @@ import { LoadMoreProps } from './types';
 const LoadMore = (props: LoadMoreProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { amount, total, type, isLoading, onFetch } = props;
+  const { amount, total, mediaType, isLoading, onFetch } = props;
 
   return (
     <VStack spacing={3}>
       <VStack max='50%' spacing={1}>
         <Text align='center' fontSize='sm' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
-          {`You've viewed ${amount} of ${total} ${type}`}
+          {`You've viewed ${amount} of ${total} ${mediaType}`}
         </Text>
         <Progress
           width='100%'

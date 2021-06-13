@@ -13,7 +13,7 @@ import { VerticalPosterProps } from './types';
 const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { width, type, image, rating, title, subtitle, isLoaded } = props;
+  const { width, mediaType, image, rating, title, subtitle, isLoaded } = props;
 
   return (
     <VStack
@@ -27,6 +27,7 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
       {/* Image */}
       <Image
         orientation='vertical'
+        mediaType={mediaType}
         alt={image.alt}
         src={image.src}
         // fallbackSrc={image.fallbackSrc}
@@ -37,14 +38,14 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
         {/* Header */}
         <HStack width='100%' justify='space-between' spacing={1}>
           {/* Rating component */}
-          {type !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} /> : null}
+          {mediaType !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} /> : null}
 
           <HStack spacing={0}>
             {/* Like component */}
-            <Like isLiked={false} isDisabled={!isLoaded} title={title} type={type} size='xs' />
+            <Like isLiked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} size='xs' />
             {/* List component */}
-            {type !== 'person' ? (
-              <Bookmark isBookmarked={false} isDisabled={!isLoaded} title={title} type={type} size='xs' />
+            {mediaType !== 'person' ? (
+              <Bookmark isBookmarked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} size='xs' />
             ) : null}
           </HStack>
         </HStack>
