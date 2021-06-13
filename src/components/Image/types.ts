@@ -8,7 +8,6 @@ export type ImageProps = {
   mediaType: MediaType;
   alt: string;
   src: string;
-  fallbackSrc?: string;
   size: string;
   isLoaded: boolean;
-} & CUIImageProps;
+} & Omit<CUIImageProps, 'fallback' | 'fallbackSrc'>;

@@ -30,7 +30,6 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
         mediaType={mediaType}
         alt={image.alt}
         src={image.src}
-        // fallbackSrc={image.fallbackSrc}
         size={image.size}
         isLoaded={isLoaded}
       />

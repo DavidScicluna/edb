@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { AspectRatio, Image as CUIImage } from '@chakra-ui/react';
 
+import utils from '../../common/utils/utils';
 import Skeleton from '../Skeleton';
 import { ImageProps } from './types';
 
@@ -13,11 +14,12 @@ const Image = (props: ImageProps): ReactElement => {
       <Skeleton isLoaded={isLoaded} borderRadius='base'>
         <CUIImage
           {...rest}
+          maxWidth='inherit'
           height='100%'
           alt={alt}
           borderRadius='base'
           src={`${process.env.REACT_APP_IMAGE_URL}/w${size}${src}`}
-          fallbackSrc={fallbackSrc || ''}
+          fallbackSrc={utils.handleReturnFallbackSrc(mediaType, size, alt)}
         />
       </Skeleton>
     </AspectRatio>

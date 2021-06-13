@@ -1,8 +1,10 @@
 import _ from 'lodash';
+import queryString from 'query-string';
 
 import store from '../../store';
+import theme from '../../theme';
 import { months } from '../data/date';
-import { Genre } from '../types/types';
+import { Genre, MediaType } from '../types/types';
 
 export default {
   handleReturnNumberFromString: (number: string, string: string): number => {
@@ -38,6 +40,34 @@ export default {
     } else {
       return date.split('-')[type === 'year' ? 0 : type === 'month' ? 1 : 2];
     }
+  },
+
+  handleReturnDOB: (date: string): string => {
+    console.log(date);
+
+    return 'abc';
+  },
+
+  handleReturnFallbackSrc: (mediaType: MediaType, size: string, name: string): string => {
+    const colors: string = [
+      theme.colors.red[400],
+      theme.colors.orange[400],
+      theme.colors.yellow[400],
+      theme.colors.green[400],
+      theme.colors.teal[400],
+      theme.colors.blue[400],
+      theme.colors.cyan[400],
+      theme.colors.purple[400],
+      theme.colors.pink[400]
+    ].join(',');
+
+    return queryString.stringifyUrl({
+      url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${mediaType === 'person' ? 'beam' : 'marble'}/${size}/${name}`,
+      query: {
+        colors,
+        square: true
+      }
+    });
   },
 
   /**
