@@ -10,6 +10,7 @@ import { onSortChange } from '../../../common/scripts/sortBy';
 import { PartialMovie } from '../../../common/types/movie';
 import { Response, SortBy } from '../../../common/types/types';
 import utils from '../../../common/utils/utils';
+import DisplayOptions from '../../../components/DisplayOptions';
 import Empty from '../../../components/Empty';
 import Error from '../../../components/Error';
 import VerticalGrid from '../../../components/Grid/Vertical';
@@ -95,7 +96,9 @@ const PopularMovies = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid title={isMob ? 'Popular Movies' : ''} sortBy={sortBy} onSortChange={handleSortChange}>
+    <VerticalGrid
+      title={isMob ? 'Popular Movies' : ''}
+      header={<DisplayOptions sortBy={sortBy} onSortChange={handleSortChange} />}>
       <VStack width='100%' spacing={4}>
         {popularMovies.isLoading || popularMovies.isFetching || !hasOptionsDownloaded ? (
           <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>
@@ -103,12 +106,11 @@ const PopularMovies = (): ReactElement => {
               displayMode === 'list' ? (
                 <HorizontalPoster
                   key={index}
-                  type='movie'
+                  mediaType='movie'
                   image={{
                     alt: 'movie poster',
                     src: '',
                     size
-                    // fallback?: ReactElement;
                   }}
                   rating={{
                     rating: null,
@@ -123,12 +125,11 @@ const PopularMovies = (): ReactElement => {
                 <VerticalPoster
                   key={index}
                   width='100%'
-                  type='movie'
+                  mediaType='movie'
                   image={{
                     alt: 'movie poster',
                     src: '',
                     size
-                    // fallback?: ReactElement;
                   }}
                   rating={{
                     rating: null,
@@ -149,12 +150,11 @@ const PopularMovies = (): ReactElement => {
               displayMode === 'list' ? (
                 <HorizontalPoster
                   key={index}
-                  type='movie'
+                  mediaType='movie'
                   image={{
                     alt: `${movie?.title || ''} movie poster`,
                     src: movie?.poster_path || '',
                     size
-                    // fallback?: ReactElement;
                   }}
                   rating={{
                     rating: movie?.vote_average || null,
@@ -172,12 +172,11 @@ const PopularMovies = (): ReactElement => {
                 <VerticalPoster
                   key={index}
                   width='100%'
-                  type='movie'
+                  mediaType='movie'
                   image={{
                     alt: `${movie?.title || ''} movie poster`,
                     src: movie?.poster_path || '',
                     size
-                    // fallback?: ReactElement;
                   }}
                   rating={{
                     rating: movie?.vote_average || null,
@@ -201,7 +200,7 @@ const PopularMovies = (): ReactElement => {
           <LoadMore
             amount={popularMovies.data.pages[popularMovies.data.pages.length - 1].page * 20}
             total={popularMovies.data.pages[popularMovies.data.pages.length - 1].total_results}
-            type='popular movies'
+            mediaType='popular movies'
             isLoading={popularMovies.isLoading || popularMovies.isFetching}
             onFetch={popularMovies.fetchNextPage}
           />
