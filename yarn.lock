@@ -5440,6 +5440,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"boring-avatars@npm:^1.5.8":
+  version: 1.5.8
+  resolution: "boring-avatars@npm:1.5.8"
+  checksum: 2e4e773c88aa68cfe90093c943ab844dfd68113428589731dd2a633fcd30baf345423e1f816d97142c0ff6c34ff441de7ea7ee03e9208d988146fe8ca19ef91d
+  languageName: node
+  linkType: hard
+
 "brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
@@ -7468,6 +7475,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.9.0
     "@yarnpkg/pnpify": ^3.0.0-rc.3
     axios: ^0.21.1
+    boring-avatars: ^1.5.8
     eslint: ^7.20.0
     eslint-config-prettier: ^6.15.0
     eslint-config-react: ^1.1.7
