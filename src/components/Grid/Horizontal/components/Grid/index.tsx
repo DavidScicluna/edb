@@ -27,7 +27,7 @@ const Grid = (props: GridProps): ReactElement => {
         display='inline-block'
         border='solid2'
         borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-        borderRadius='lg'
+        borderRadius='xl'
         p={2}>
         <HStack spacing={2}>{children}</HStack>
       </Box>

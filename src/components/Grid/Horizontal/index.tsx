@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useCallback } from 'react';
+import React, { ReactElement, useState, useCallback, UIEvent } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
@@ -40,8 +40,8 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
     }
   }, []);
 
-  const handleScrollChange = (event: any) => {
-    handleGridRef(event.target);
+  const handleScrollChange = (event: UIEvent<HTMLDivElement, UIEvent>) => {
+    handleGridRef(event.currentTarget);
   };
 
   /**
@@ -63,7 +63,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   );
 
   return (
-    <VStack width='100%' spacing={0} align='stretch'>
+    <VStack width='100%' align='stretch' backgroundColor='white' spacing={0}>
       {/* Header */}
       <Header
         title={title}

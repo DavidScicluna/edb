@@ -51,7 +51,12 @@ const Header = (props: HeaderProps): ReactElement => {
 
   return (
     <HStack justify='space-between' p={[2]}>
-      <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='2xl' fontWeight='semibold'>
+      <Text
+        align='left'
+        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+        fontSize='2xl'
+        fontWeight='semibold'
+        textTransform='capitalize'>
         {title}
       </Text>
 
