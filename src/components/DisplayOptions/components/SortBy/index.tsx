@@ -4,15 +4,10 @@ import { useTheme, useColorMode, VStack, Text, HStack, ScaleFade, Icon, Button }
 import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../../../../../../../common/hooks/useSelectorTyped';
-import { SortBy as SortByType } from '../../../../../../../../../common/types/types';
-import { toggleSortDirection } from '../../../../../../../../../store/slices/app';
-import { Theme } from '../../../../../../../../../theme/types';
-
-type SortByProps = {
-  sortBy: SortByType[];
-  onSortChange: (sortBy: SortByType) => void;
-};
+import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { toggleSortDirection } from '../../../../store/slices/app';
+import { Theme } from '../../../../theme/types';
+import { SortByProps } from './types';
 
 const SortBy = ({ sortBy = [], onSortChange }: SortByProps): ReactElement => {
   const theme = useTheme<Theme>();

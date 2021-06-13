@@ -9,34 +9,10 @@ import {
 } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../../../../../../../common/hooks/useSelectorTyped';
-import { toggleDisplayMode } from '../../../../../../../../../store/slices/app';
-import IconButton from '../../../../../../../../Inputs/IconButton';
-
-type OptionProps = {
-  children: ReactElement;
-  label: string;
-  isActive?: boolean;
-};
-
-const Option = ({ children, label, isActive = false }: OptionProps) => {
-  const { colorMode } = useColorMode();
-
-  return (
-    <VStack alignItems='center' justifyContent='center' spacing={1}>
-      {children}
-      <Text
-        width='100%'
-        align='center'
-        color={isActive ? 'blue.400' : colorMode === 'light' ? 'gray.400' : 'gray.500'}
-        fontSize='sm'
-        fontWeight='medium'
-        mt={1}>
-        {label}
-      </Text>
-    </VStack>
-  );
-};
+import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { toggleDisplayMode } from '../../../../store/slices/app';
+import IconButton from '../../../Inputs/IconButton';
+import Option from './components/Option';
 
 const Display = (): ReactElement => {
   const { colorMode } = useColorMode();

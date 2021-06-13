@@ -2,26 +2,29 @@ import React, { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
 
-import { SortBy } from '../../../../../common/types/types';
-import Options from './components/Options';
-
 type HeaderProps = {
   title: string;
-  sortBy?: SortBy[];
-  onSortChange?: (sortBy: SortBy) => void;
+  header: ReactElement;
 };
 
-const Header = ({ title, sortBy = [], onSortChange }: HeaderProps): ReactElement => {
+const Header = ({ title, header }: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   return (
     <>
-      <HStack width='100%' justify='space-between' p={[2]}>
-        <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='2xl' fontWeight='semibold'>
-          {title}
-        </Text>
+      <HStack width='100%' justify={title ? 'space-between' : 'flex-end'} p={[2]}>
+        {title ? (
+          <Text
+            align='left'
+            color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+            fontSize='2xl'
+            fontWeight='semibold'
+            textTransform='capitalize'>
+            {title}
+          </Text>
+        ) : null}
 
-        <Options sortBy={sortBy} onSortChange={onSortChange} />
+        {header}
       </HStack>
     </>
   );

@@ -3,17 +3,12 @@ import React, { ReactElement } from 'react';
 import { useColorMode, useDisclosure, Popover, PopoverTrigger, Portal, PopoverContent, VStack } from '@chakra-ui/react';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 
-import { SortBy as SortByType } from '../../../../../../../common/types/types';
-import IconButton from '../../../../../../Inputs/IconButton';
+import IconButton from '../Inputs/IconButton';
 import Display from './components/Display';
 import SortBy from './components/SortBy';
+import { DisplayOptionsProps } from './types';
 
-type OptionsProps = {
-  sortBy?: SortByType[];
-  onSortChange?: (sortBy: SortByType) => void;
-};
-
-const Options = ({ sortBy = [], onSortChange }: OptionsProps): ReactElement => {
+const DisplayOptions = ({ sortBy = [], onSortChange }: DisplayOptionsProps): ReactElement => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -52,4 +47,4 @@ const Options = ({ sortBy = [], onSortChange }: OptionsProps): ReactElement => {
   );
 };
 
-export default Options;
+export default DisplayOptions;
