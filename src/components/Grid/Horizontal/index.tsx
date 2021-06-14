@@ -1,0 +1,94 @@
+import React, { ReactElement, useState, useCallback, UIEvent } from 'react';
+
+import { VStack } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
+
+import Button from '../../Inputs/Button';
+import Grid from './components/Grid';
+import Header from './components/Header';
+import { HorizontalGridProps, ScrollButtonsState } from './types';
+
+const defaultScrollButtonsState = {
+  left: true,
+  right: false
+};
+
+const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
+  const history = useHistory();
+
+  const { children, title, isLoading, path } = props;
+
+  const [gridRef, setGridRef] = useState<HTMLDivElement | null>(null);
+
+  const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
+  const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
+
+  const handleGridRef = useCallback((ref: HTMLDivElement | null) => {
+    if (ref) {
+      const maxScroll = ref.scrollLeft + ref.offsetWidth;
+
+      const isLeftDisabled = ref.scrollLeft === 0;
+      const isRightDisabled =
+        ref.scrollLeft > ref.offsetWidth ? maxScroll >= ref.scrollWidth : maxScroll > ref.scrollWidth;
+
+      setScrollButtons({
+        left: isLeftDisabled,
+        right: isRightDisabled
+      });
+      setGridRef(ref);
+      setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
+    }
+  }, []);
+
+  const handleScrollChange = (event: UIEvent<HTMLDivElement, UIEvent>) => {
+    handleGridRef(event.currentTarget);
+  };
+
+  /**
+   * This method will either scroll left or right depending on the direction passed as a param
+   *
+   * @param direction - The direction to scroll to
+   */
+  const handleScrollClick = useCallback(
+    (direction: 'left' | 'right') => {
+      if (gridRef) {
+        if (direction === 'left') {
+          gridRef.scrollLeft = gridRef.scrollLeft - 10;
+        } else {
+          gridRef.scrollLeft = gridRef.scrollLeft + 10;
+        }
+      }
+    },
+    [gridRef]
+  );
+
+  return (
+    <VStack width='100%' align='stretch' backgroundColor='white' spacing={0}>
+      {/* Header */}
+      <Header
+        title={title}
+        isLoading={isLoading}
+        reset={resetScrollButtons}
+        scrollButtons={scrollButtons}
+        handleScrollClick={handleScrollClick}
+      />
+
+      {/* Grid */}
+      <Grid gridRef={handleGridRef} handleScrollChange={handleScrollChange}>
+        {children}
+      </Grid>
+
+      {/* Footer */}
+      {path ? (
+        <Button
+          color='blue'
+          isFullWidth
+          isDisabled={isLoading}
+          onClick={() => history.push(path)}
+          variant='text'>{`View all ${title}`}</Button>
+      ) : null}
+    </VStack>
+  );
+};
+
+export default HorizontalGrid;
