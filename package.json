@@ -2,7 +2,7 @@
   "name": "edb",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://davidscicluna.github.io/edb",
+  "homepage": "https://davidscicluna.github.io/edb",
   "dependencies": {
     "@chakra-ui/react": "^1.6.1",
     "@emotion/react": "^11",
