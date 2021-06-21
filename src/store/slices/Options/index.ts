@@ -1,18 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Genre } from '../../common/types/types';
-
-interface StateProps {
-  data: {
-    data: {
-      genres: {
-        movie: Genre[];
-        tv: Genre[];
-      };
-    };
-    hasDownloaded: boolean;
-  };
-}
+import { Genre } from '../../../common/types/types';
+import { StateProps } from './types';
 
 const initialState: StateProps = {
   data: {

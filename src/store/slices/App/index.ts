@@ -1,18 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type SortDirection = 'asc' | 'desc';
-
-type DisplayMode = 'grid' | 'list';
-
-type SidebarMode = 'expanded' | 'collapsed';
-
-type StateProps = {
-  data: {
-    displayMode: DisplayMode;
-    sortDirection: SortDirection;
-    sidebarMode: SidebarMode;
-  };
-};
+import { StateProps, DisplayMode, SortDirection, SidebarMode } from './types';
 
 const initialState: StateProps = {
   data: {
