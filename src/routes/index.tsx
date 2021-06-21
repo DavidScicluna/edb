@@ -5,6 +5,7 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 
 import Home from '../pages/Home';
 import PopularMovies from '../pages/Movies/Popular';
+import Search from '../pages/Search';
 import Trending from '../pages/Trending';
 import DefaultRoute from './DefaultRoute';
 
@@ -29,7 +30,7 @@ const Router = (): ReactElement => {
         <DefaultRoute
           exact
           path='/search'
-          component={TempComp}
+          component={Search}
           breadcrumbs={[breadcrumbs.home, { label: 'Search', path: '/search' }]}
         />
 

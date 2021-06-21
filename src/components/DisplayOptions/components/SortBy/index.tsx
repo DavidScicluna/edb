@@ -5,7 +5,7 @@ import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined'
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
-import { toggleSortDirection } from '../../../../store/slices/app';
+import { toggleSortDirection } from '../../../../store/slices/App';
 import { Theme } from '../../../../theme/types';
 import { SortByProps } from './types';
 

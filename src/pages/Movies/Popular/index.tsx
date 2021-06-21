@@ -4,6 +4,7 @@ import { useMediaQuery, SimpleGrid, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
+import { MovieTVSortBy } from '../../../common/data/sort';
 import useSelector from '../../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../../common/scripts/axios';
 import { onSortChange } from '../../../common/scripts/sortBy';
@@ -18,29 +19,6 @@ import LoadMore from '../../../components/LoadMore';
 import HorizontalPoster from '../../../components/Poster/Horizontal';
 import VerticalPoster from '../../../components/Poster/Vertical';
 
-const defaultSortBy: SortBy[] = [
-  {
-    label: 'Popularity',
-    value: 'popularity',
-    isActive: false
-  },
-  {
-    label: 'Rating',
-    value: 'vote_average',
-    isActive: true
-  },
-  {
-    label: 'Release Date',
-    value: 'release_date',
-    isActive: false
-  },
-  {
-    label: 'Title',
-    value: 'title',
-    isActive: false
-  }
-];
-
 const PopularMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
   const [isSmallMob, isMob] = useMediaQuery(['(max-width: 350px)', '(max-width: 600px)']);
@@ -49,7 +27,7 @@ const PopularMovies = (): ReactElement => {
   const displayMode = useSelector((state) => state.app.data.displayMode);
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
-  const [sortBy, setSortBy] = useState<SortBy[]>(defaultSortBy);
+  const [sortBy, setSortBy] = useState<SortBy[]>(MovieTVSortBy);
 
   const [movies, setMovies] = useState<PartialMovie[]>([]);
 
@@ -99,7 +77,7 @@ const PopularMovies = (): ReactElement => {
     <VerticalGrid
       title={isMob ? 'Popular Movies' : ''}
       header={<DisplayOptions sortBy={sortBy} onSortChange={handleSortChange} />}>
-      <VStack width='100%' spacing={4}>
+      <VStack width='100%' spacing={4} px={2}>
         {popularMovies.isLoading || popularMovies.isFetching || !hasOptionsDownloaded ? (
           <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>
             {[...Array(movies.length || 20)].map((_dummy, index) =>
@@ -196,7 +174,7 @@ const PopularMovies = (): ReactElement => {
           <Empty label='Popular movies list is empty!' variant='outlined' />
         )}
 
-        {popularMovies.data && popularMovies.data.pages ? (
+        {popularMovies.data && popularMovies.data.pages && popularMovies.hasNextPage ? (
           <LoadMore
             amount={popularMovies.data.pages[popularMovies.data.pages.length - 1].page * 20}
             total={popularMovies.data.pages[popularMovies.data.pages.length - 1].total_results}

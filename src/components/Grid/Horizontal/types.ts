@@ -8,6 +8,8 @@ export type ScrollButtonsState = {
 export type HorizontalGridProps = {
   children: ReactElement;
   title: string;
+  footer?: string;
   isLoading: boolean;
   path: Partial<Location>;
+  onFooterClick?: () => void;
 };

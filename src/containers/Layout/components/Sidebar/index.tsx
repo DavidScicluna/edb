@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
 import Button from '../../../../components/Inputs/Button';
-import { toggleSidebarMode } from '../../../../store/slices/app';
+import { toggleSidebarMode } from '../../../../store/slices/App';
 import { Theme } from '../../../../theme/types';
 import navItems from '../../common/data/navItems';
 import useTransitionsStyle from '../../common/styles/transitions';

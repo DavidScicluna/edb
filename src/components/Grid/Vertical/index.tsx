@@ -19,9 +19,7 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
       <Header title={title} header={header} />
 
       {/* Grid */}
-      <Box width='100%' px={2} my={0}>
-        {children}
-      </Box>
+      <Box width='100%'>{children}</Box>
     </VStack>
   );
 };

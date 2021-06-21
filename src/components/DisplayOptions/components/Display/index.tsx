@@ -10,7 +10,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
-import { toggleDisplayMode } from '../../../../store/slices/app';
+import { toggleDisplayMode } from '../../../../store/slices/App';
 import IconButton from '../../../Inputs/IconButton';
 import Option from './components/Option';
 
