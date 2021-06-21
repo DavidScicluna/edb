@@ -48,17 +48,18 @@ export default {
     return 'abc';
   },
 
-  handleReturnFallbackSrc: (mediaType: MediaType, size: string, name: string): string => {
+  handleReturnFallbackSrc: (mediaType: MediaType, size: string, alt: string): string => {
+    const name = `${alt}-${(Math.floor(Math.random() * 1000000) + 1000000).toString().substring(1)}`;
     const colors: string = [
-      theme.colors.red[400],
-      theme.colors.orange[400],
-      theme.colors.yellow[400],
-      theme.colors.green[400],
-      theme.colors.teal[400],
-      theme.colors.blue[400],
-      theme.colors.cyan[400],
-      theme.colors.purple[400],
-      theme.colors.pink[400]
+      theme.colors.red[mediaType === 'person' ? 400 : 200],
+      theme.colors.orange[mediaType === 'person' ? 400 : 200],
+      theme.colors.yellow[mediaType === 'person' ? 400 : 200],
+      theme.colors.green[mediaType === 'person' ? 400 : 200],
+      theme.colors.teal[mediaType === 'person' ? 400 : 200],
+      theme.colors.blue[mediaType === 'person' ? 400 : 200],
+      theme.colors.cyan[mediaType === 'person' ? 400 : 200],
+      theme.colors.purple[mediaType === 'person' ? 400 : 200],
+      theme.colors.pink[mediaType === 'person' ? 400 : 200]
     ].join(',');
 
     return queryString.stringifyUrl({

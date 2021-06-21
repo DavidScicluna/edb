@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, HStack } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, HStack, Fade } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
 
 import { Breadcrumb as BreadcrumbType } from '../../../../common/types/types';
 import { Theme } from '../../../../theme/types';
@@ -18,6 +19,8 @@ const Header = (props: HeaderProps): ReactElement => {
   const [isMdUp] = useMediaQuery('(min-width: 600px)');
   const [isLgDown] = useMediaQuery(`(max-width: ${theme.breakpoints.xl})`);
   const transition = useTransitionsStyle(theme);
+
+  const location = useLocation();
 
   const { width, left, breadcrumbs } = props;
 
@@ -41,7 +44,9 @@ const Header = (props: HeaderProps): ReactElement => {
         {isMdUp ? <Breadcrumb breadcrumbs={breadcrumbs} /> : null}
       </HStack>
       <HStack spacing={1}>
-        <Search />
+        <Fade in={!location.pathname.includes('search')}>
+          <Search />
+        </Fade>
         <User />
       </HStack>
     </HStack>

@@ -6,7 +6,15 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import Router from '../../routes';
 import theme from '../../theme';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false
+    }
+  }
+});
 
 const App = (): ReactElement => {
   console.log(theme);

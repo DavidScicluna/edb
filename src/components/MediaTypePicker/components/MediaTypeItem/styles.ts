@@ -1,13 +1,13 @@
-import { Style } from '../../../../../../common/types/types';
-import { Theme } from '../../../../../../theme/types';
+import { Style } from '../../../../common/types/types';
+import { Theme } from '../../../../theme/types';
 
-type TypeStyle = {
+type MediaTypeItemStyle = {
   common: { container: Style; icon: Style; text: Style };
   light: { container: Style; icon: Style; text: Style };
   dark: { container: Style; icon: Style; text: Style };
 };
 
-export default (theme: Theme, isActive = false): TypeStyle => ({
+export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
   common: {
     container: {
       'cursor': 'pointer',

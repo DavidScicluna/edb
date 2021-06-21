@@ -7,11 +7,12 @@ import { GridProps } from './types';
 const Grid = (props: GridProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { children, gridRef = undefined, handleScrollChange } = props;
+  const { children, gridRef, handleScrollChange } = props;
 
   return (
     <Box
       ref={gridRef}
+      width='100%'
       overflowX='auto'
       px={2}
       sx={{
@@ -21,9 +22,11 @@ const Grid = (props: GridProps): ReactElement => {
           display: 'none'
         }
       }}
+      onLoad={(event) => handleScrollChange(event)}
       onScroll={(event) => handleScrollChange(event)}>
       <Box
-        width='max-content'
+        width='auto'
+        minWidth='100%'
         display='inline-block'
         border='solid2'
         borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}

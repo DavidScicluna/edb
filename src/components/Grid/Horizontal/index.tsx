@@ -1,7 +1,7 @@
 import React, { ReactElement, useState, useCallback, UIEvent } from 'react';
 
 import { VStack } from '@chakra-ui/react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Button from '../../Inputs/Button';
 import Grid from './components/Grid';
@@ -14,9 +14,7 @@ const defaultScrollButtonsState = {
 };
 
 const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
-  const history = useHistory();
-
-  const { children, title, isLoading, path } = props;
+  const { children, title, footer, isLoading, path, onFooterClick } = props;
 
   const [gridRef, setGridRef] = useState<HTMLDivElement | null>(null);
 
@@ -28,8 +26,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
       const maxScroll = ref.scrollLeft + ref.offsetWidth;
 
       const isLeftDisabled = ref.scrollLeft === 0;
-      const isRightDisabled =
-        ref.scrollLeft > ref.offsetWidth ? maxScroll >= ref.scrollWidth : maxScroll > ref.scrollWidth;
+      const isRightDisabled = ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
 
       setScrollButtons({
         left: isLeftDisabled,
@@ -80,12 +77,16 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
 
       {/* Footer */}
       {path ? (
-        <Button
-          color='blue'
-          isFullWidth
-          isDisabled={isLoading}
-          onClick={() => history.push(path)}
-          variant='text'>{`View all ${title}`}</Button>
+        <Link to={!isLoading ? path : {}}>
+          <Button
+            color='blue'
+            isFullWidth
+            isDisabled={isLoading}
+            onClick={onFooterClick ? () => onFooterClick() : undefined}
+            variant='text'>
+            {footer || `View all ${title}`}
+          </Button>
+        </Link>
       ) : null}
     </VStack>
   );

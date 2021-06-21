@@ -17,6 +17,8 @@ import Error from '../../components/Error';
 import HorizontalGrid from '../../components/Grid/Horizontal';
 import VerticalPoster from '../../components/Poster/Vertical';
 
+const size = utils.handleReturnImageSize('poster', 'sm');
+
 const Home = (): ReactElement => {
   const source = axios.CancelToken.source();
 
@@ -61,8 +63,6 @@ const Home = (): ReactElement => {
     });
     return data.results;
   });
-
-  const size = utils.handleReturnImageSize('poster', 'sm');
 
   useEffect(() => {
     return () => source.cancel();

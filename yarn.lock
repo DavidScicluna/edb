@@ -3840,6 +3840,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@types/uuid@npm:8.3.0"
+  checksum: 620985aed8fdb4aed153daca5235f4303457a67a4d181efac0021712eabd9edd7e88895f79730c0e651effde7633b1b61e49a81519ac8d4e75019d2ac9b6412f
+  languageName: node
+  linkType: hard
+
 "@types/warning@npm:^3.0.0":
   version: 3.0.0
   resolution: "@types/warning@npm:3.0.0"
@@ -7471,6 +7478,7 @@ __metadata:
     "@types/react-dom": ^17.0.4
     "@types/react-redux": ^7.1.16
     "@types/react-router-dom": ^5.1.7
+    "@types/uuid": ^8.3.0
     "@typescript-eslint/eslint-plugin": ^4.9.0
     "@typescript-eslint/parser": ^4.9.0
     "@yarnpkg/pnpify": ^3.0.0-rc.3
@@ -7501,7 +7509,9 @@ __metadata:
     react-router-dom: ^5.2.0
     react-scripts: 4.0.3
     redux: ^4.1.0
+    redux-persist: ^6.0.0
     typescript: ^4.2.4
+    uuid: ^8.3.2
     web-vitals: ^1.1.1
   languageName: unknown
   linkType: soft
@@ -15048,6 +15058,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"redux-persist@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "redux-persist@npm:6.0.0"
+  peerDependencies:
+    redux: ">4.0.0"
+  checksum: 6b7c74526155c53ecdd49ec51d27fa07d265454440c734e8f1ef71dcbb78ae864a9965e152b9b1f35950ad933b66a79b8cf6be555f2dc89e1a61f01fc70a2965
+  languageName: node
+  linkType: hard
+
 "redux-thunk@npm:^2.3.0":
   version: 2.3.0
   resolution: "redux-thunk@npm:2.3.0"
@@ -17639,7 +17658,7 @@ typescript@^4.2.4:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.3.0":
+"uuid@npm:^8.3.0, uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:
