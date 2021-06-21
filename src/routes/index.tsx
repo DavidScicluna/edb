@@ -48,6 +48,12 @@ const Router = (): ReactElement => {
           component={Trending}
           breadcrumbs={[breadcrumbs.home, { label: 'Trending', path: '/trending' }]}
         />
+        <DefaultRoute
+          exact
+          path='/trending/:mediaType'
+          component={Trending}
+          breadcrumbs={[breadcrumbs.home, { label: 'Trending', path: '/trending' }]}
+        />
 
         {/* Movies Routes */}
         <DefaultRoute exact path='/movies' component={TempComp} breadcrumbs={[breadcrumbs.home, breadcrumbs.movies]} />

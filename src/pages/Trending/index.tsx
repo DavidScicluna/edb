@@ -1,11 +1,11 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useDisclosure, useMediaQuery, SimpleGrid, VStack, HStack, Fade, useTheme } from '@chakra-ui/react';
+import { useDisclosure, useMediaQuery, SimpleGrid, VStack, HStack, Box, Fade, useTheme } from '@chakra-ui/react';
 import axios from 'axios';
-import queryString from 'query-string';
 import { useInfiniteQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
+import { PeopleSortBy, MovieTVSortBy } from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
 import { onSortChange } from '../../common/scripts/sortBy';
@@ -20,67 +20,32 @@ import Error from '../../components/Error';
 import VerticalGrid from '../../components/Grid/Vertical';
 import Button from '../../components/Inputs/Button';
 import LoadMore from '../../components/LoadMore';
+import MediaTypePicker from '../../components/MediaTypePicker';
 import HorizontalPoster from '../../components/Poster/Horizontal';
 import VerticalPoster from '../../components/Poster/Vertical';
 import { Theme } from '../../theme/types';
-import Label from './components/Label';
-import TypePicker from './components/TypePicker';
+import { Params } from './types';
 
-const MovieTVSortBy: SortBy[] = [
-  {
-    label: 'Popularity',
-    value: 'popularity',
-    isActive: false
-  },
-  {
-    label: 'Rating',
-    value: 'vote_average',
-    isActive: true
-  },
-  {
-    label: 'Release Date',
-    value: 'release_date',
-    isActive: false
-  },
-  {
-    label: 'Title',
-    value: 'title',
-    isActive: false
-  }
-];
-
-const PeopleSortBy: SortBy[] = [
-  {
-    label: 'Popularity',
-    value: 'popularity',
-    isActive: true
-  },
-  {
-    label: 'Gender',
-    value: 'gender',
-    isActive: false
-  },
-  {
-    label: 'Name',
-    value: 'name',
-    isActive: false
-  }
-];
+const size = utils.handleReturnImageSize('poster', 'sm');
 
 const Trending = (): ReactElement => {
   const source = axios.CancelToken.source();
 
   const theme = useTheme<Theme>();
-  const { isOpen: isTypePickerOpen, onOpen: onTypePickerOpen, onClose: onTypePickerClose } = useDisclosure();
+  const {
+    isOpen: isMediaTypePickerOpen,
+    onOpen: onMediaTypePickerOpen,
+    onClose: onMediaTypePickerClose
+  } = useDisclosure();
   const [isSmallMob] = useMediaQuery('(max-width: 350px)');
-  const [isMob] = useMediaQuery('(max-width: 600px)');
   const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
   const hasOptionsDownloaded = useSelector((state) => state.options.data.hasDownloaded);
   const displayMode = useSelector((state) => state.app.data.displayMode);
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
-  const location = useLocation();
+  const history = useHistory();
+  const { mediaType: paramMediaType } = useParams<Params>();
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
   const [sortBy, setSortBy] = useState<SortBy[]>([]);
@@ -89,11 +54,9 @@ const Trending = (): ReactElement => {
   const [tv, setTV] = useState<PartialTV[]>([]);
   const [people, setPeople] = useState<PartialPerson[]>([]);
 
-  const size = utils.handleReturnImageSize('poster', 'sm');
-
   // Fetching trending
   const trending = useInfiniteQuery(
-    ['trending', sortBy, mediaType],
+    'trending',
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<any[]>>(`/trending/${mediaType}/day`, {
         params: { page: pageParam, sort_by: `${sortBy.find((sort) => sort.isActive)?.value}.${sortDirection}` },
@@ -102,6 +65,7 @@ const Trending = (): ReactElement => {
       return data;
     },
     {
+      enabled: (sortBy && sortBy.length > 0 && mediaType && mediaType.length > 0) || false,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false)
     }
@@ -109,6 +73,14 @@ const Trending = (): ReactElement => {
 
   const handleSortChange = (paramSort: SortBy): void => {
     setSortBy(onSortChange(paramSort, sortBy));
+  };
+
+  const handleResetState = (): void => {
+    setMediaType(null);
+    setSortBy([]);
+    setMovies([]);
+    setTV([]);
+    setPeople([]);
   };
 
   useEffect(() => {
@@ -153,33 +125,33 @@ const Trending = (): ReactElement => {
   }, [trending.dataUpdatedAt]);
 
   useEffect(() => {
-    // setType(null);
+    handleResetState();
 
-    if (location.search.length > 0) {
-      const param = queryString.parse(location.search);
+    if (paramMediaType) {
+      trending.remove();
 
-      if (param && param.mediaType) {
-        switch (param.mediaType) {
-          case 'person':
-            setMediaType('person');
-            setSortBy(PeopleSortBy);
-            break;
-          case 'tv':
-            setMediaType('tv');
-            setSortBy(MovieTVSortBy);
-            break;
-          default:
-            setMediaType('movie');
-            setSortBy(MovieTVSortBy);
-            break;
-        }
+      switch (paramMediaType) {
+        case 'person':
+          setMediaType('person');
+          setSortBy(PeopleSortBy);
+          break;
+        case 'tv':
+          setMediaType('tv');
+          setSortBy(MovieTVSortBy);
+          break;
+        case 'movie':
+          setMediaType('movie');
+          setSortBy(MovieTVSortBy);
+          break;
+        default:
+          break;
       }
     } else {
       if (isLgUp) {
-        onTypePickerOpen();
+        onMediaTypePickerOpen();
       }
     }
-  }, [location]);
+  }, [paramMediaType]);
 
   useEffect(() => {
     return () => source.cancel();
@@ -189,16 +161,14 @@ const Trending = (): ReactElement => {
     <>
       <VerticalGrid
         title={
-          isMob
+          mediaType
             ? `Trending ${mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'tv' || ''}`
-            : mediaType
-            ? `Media-type: ${mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'TV'}`
-            : ''
+            : 'Select media-type'
         }
         header={
           <Fade in={!!mediaType} unmountOnExit>
             <HStack spacing={2}>
-              <Button onClick={() => onTypePickerOpen()} variant='outlined'>
+              <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
                 Change media-type
               </Button>
               <DisplayOptions sortBy={sortBy} onSortChange={handleSortChange} />
@@ -206,7 +176,7 @@ const Trending = (): ReactElement => {
           </Fade>
         }>
         {mediaType ? (
-          <VStack width='100%' spacing={4}>
+          <VStack width='100%' spacing={4} px={2}>
             {trending.isLoading || trending.isFetching || !hasOptionsDownloaded ? (
               <SimpleGrid
                 width='100%'
@@ -393,32 +363,56 @@ const Trending = (): ReactElement => {
             ) : (
               <Empty
                 label={`Trending ${
-                  mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'tv'
+                  mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'tv shows'
                 } list is empty!`}
                 variant='outlined'
               />
             )}
 
-            {trending.data && trending.data.pages ? (
+            {trending.data && trending.data.pages && trending.hasNextPage ? (
               <LoadMore
-                amount={trending.data.pages[trending.data.pages.length - 1].page * 20}
+                amount={
+                  mediaType === 'movie'
+                    ? movies.length
+                    : mediaType === 'tv'
+                    ? tv.length
+                    : mediaType === 'person'
+                    ? people.length
+                    : 0
+                }
                 total={trending.data.pages[trending.data.pages.length - 1].total_results}
-                mediaType='popular movies'
+                mediaType={`trending ${
+                  mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'tv shows'
+                }`}
                 isLoading={trending.isLoading || trending.isFetching}
                 onFetch={trending.fetchNextPage}
               />
             ) : null}
           </VStack>
         ) : (
-          <Label handleOpenModal={() => onTypePickerOpen()} />
+          <Box width='100%' px={2}>
+            <Empty
+              button={
+                <Button color='blue' onClick={() => onMediaTypePickerOpen()}>
+                  Select media type
+                </Button>
+              }
+              hasIllustration={false}
+              label='Select media type to view data!'
+              size='xl'
+              variant='outlined'
+            />
+          </Box>
         )}
       </VerticalGrid>
 
-      <TypePicker
+      <MediaTypePicker
         mediaType={mediaType}
-        isOpen={isTypePickerOpen}
-        onClose={onTypePickerClose}
-        onSetType={(mediaType: MediaType) => setMediaType(mediaType)}
+        isOpen={isMediaTypePickerOpen}
+        onClose={onMediaTypePickerClose}
+        onSetType={(mediaType: MediaType) =>
+          history.push({ pathname: `${history.location.pathname === '/trending' ? '/trending/' : ''}${mediaType}` })
+        }
       />
     </>
   );

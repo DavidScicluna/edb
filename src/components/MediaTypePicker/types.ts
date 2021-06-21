@@ -1,13 +1,13 @@
-import { MediaType, Icon } from '../../../../common/types/types';
+import { MediaType, Icon } from '../../common/types/types';
 
-export type TypeItem = {
+export type MediaTypeItem = {
   label: string;
   value: MediaType;
   iconActive: Icon;
   icon: Icon;
 };
 
-export type TypePickerProps = {
+export type MediaTypePickerProps = {
   mediaType: MediaType | null;
   isOpen: boolean;
   onClose: () => void;

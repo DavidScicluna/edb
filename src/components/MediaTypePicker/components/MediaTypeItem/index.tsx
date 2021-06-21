@@ -3,11 +3,11 @@ import React, { ReactElement } from 'react';
 import { useTheme, useColorMode, VStack, Icon, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { Theme } from '../../../../../../theme/types';
+import { Theme } from '../../../../theme/types';
 import useStyles from './styles';
-import { TypeProps } from './types';
+import { MediaTypeItemProps } from './types';
 
-const Type = (props: TypeProps): ReactElement => {
+const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
@@ -26,4 +26,4 @@ const Type = (props: TypeProps): ReactElement => {
   );
 };
 
-export default Type;
+export default MediaTypeItem;
