@@ -8,10 +8,45 @@ import { ErrorProps } from './types';
 const Error = (props: ErrorProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { hasIllustration = true, label, variant = 'transparant' } = props;
+  const { button = undefined, hasIllustration = true, label, size = 'md', variant = 'transparant' } = props;
+
+  /**
+   * This method will return the appropriate padding for the size passed
+   *
+   * @returns - Padding in rem from theme
+   */
+  const handleReturnPadding = (): number => {
+    if (hasIllustration) {
+      switch (size) {
+        case 'xs':
+          return 1;
+        case 'sm':
+          return 1.5;
+        case 'lg':
+          return 4;
+        case 'xl':
+          return 6;
+        default:
+          return 3;
+      }
+    } else {
+      switch (size) {
+        case 'xs':
+          return 1;
+        case 'sm':
+          return 2;
+        case 'lg':
+          return 6;
+        case 'xl':
+          return 8;
+        default:
+          return 4;
+      }
+    }
+  };
 
   return (
-    <Fade in>
+    <Fade in style={{ width: '100%' }}>
       <VStack
         width='100%'
         background='transparent'
@@ -19,12 +54,12 @@ const Error = (props: ErrorProps): ReactElement => {
         border='solid2'
         borderColor={variant === 'outlined' ? (colorMode === 'light' ? 'gray.200' : 'gray.700') : 'transparent'}
         spacing={2}
-        px={2}
-        py={6}>
+        p={handleReturnPadding()}>
         {hasIllustration ? <Image maxWidth='40%' alt='Error illustration' src={error} /> : null}
         <Text align='center' fontSize='md' fontWeight='semibold' color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
           {label}
         </Text>
+        {button || null}
       </VStack>
     </Fade>
   );
