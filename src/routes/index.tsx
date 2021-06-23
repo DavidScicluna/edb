@@ -16,6 +16,7 @@ const TempComp = () => {
 const Router = (): ReactElement => {
   const breadcrumbs = {
     home: { label: 'Home', path: '/' },
+    trending: { label: 'Trending', path: '/trending' },
     movies: { label: 'Movies', path: '/movies' },
     tv: { label: 'TV Shows', path: '/tv' }
   };
@@ -47,13 +48,25 @@ const Router = (): ReactElement => {
           exact
           path='/trending'
           component={Trending}
-          breadcrumbs={[breadcrumbs.home, { label: 'Trending', path: '/trending' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.trending]}
         />
         <DefaultRoute
           exact
-          path='/trending/:mediaType'
+          path='/trending/movie'
           component={Trending}
-          breadcrumbs={[breadcrumbs.home, { label: 'Trending', path: '/trending' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.trending, { label: 'Movies', path: '/trending/movie' }]}
+        />
+        <DefaultRoute
+          exact
+          path='/trending/tv'
+          component={Trending}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.trending, { label: 'TV Shows', path: '/trending/tv' }]}
+        />
+        <DefaultRoute
+          exact
+          path='/trending/person'
+          component={Trending}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.trending, { label: 'People', path: '/trending/person' }]}
         />
 
         {/* Movies Routes */}

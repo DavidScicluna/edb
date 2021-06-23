@@ -3,7 +3,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { useDisclosure, useMediaQuery, SimpleGrid, VStack, HStack, Box, Fade, useTheme } from '@chakra-ui/react';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { PeopleSortBy, MovieTVSortBy } from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
@@ -24,7 +24,6 @@ import MediaTypePicker from '../../components/MediaTypePicker';
 import HorizontalPoster from '../../components/Poster/Horizontal';
 import VerticalPoster from '../../components/Poster/Vertical';
 import { Theme } from '../../theme/types';
-import { Params } from './types';
 
 const size = utils.handleReturnImageSize('poster', 'sm');
 
@@ -45,7 +44,6 @@ const Trending = (): ReactElement => {
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
   const history = useHistory();
-  const { mediaType: paramMediaType } = useParams<Params>();
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
   const [sortBy, setSortBy] = useState<SortBy[]>([]);
@@ -127,19 +125,19 @@ const Trending = (): ReactElement => {
   useEffect(() => {
     handleResetState();
 
-    if (paramMediaType) {
+    if (history.location.pathname !== '/trending') {
       trending.remove();
 
-      switch (paramMediaType) {
-        case 'person':
+      switch (history.location.pathname) {
+        case '/trending/person':
           setMediaType('person');
           setSortBy(PeopleSortBy);
           break;
-        case 'tv':
+        case '/trending/tv':
           setMediaType('tv');
           setSortBy(MovieTVSortBy);
           break;
-        case 'movie':
+        case '/trending/movie':
           setMediaType('movie');
           setSortBy(MovieTVSortBy);
           break;
@@ -151,7 +149,7 @@ const Trending = (): ReactElement => {
         onMediaTypePickerOpen();
       }
     }
-  }, [paramMediaType]);
+  }, [history.location.pathname]);
 
   useEffect(() => {
     return () => source.cancel();
@@ -162,7 +160,7 @@ const Trending = (): ReactElement => {
       <VerticalGrid
         title={
           mediaType
-            ? `Trending ${mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'tv' || ''}`
+            ? `Trending ${mediaType === 'movie' ? 'Movies' : mediaType === 'person' ? 'People' : 'TV Shows' || ''}`
             : 'Select media-type'
         }
         header={

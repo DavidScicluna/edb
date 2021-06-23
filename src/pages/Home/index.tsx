@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 import axios from 'axios';
-import queryString from 'query-string';
 import { useQuery } from 'react-query';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
@@ -101,19 +100,19 @@ const Home = (): ReactElement => {
                 width={['185px']}
                 mediaType='movie'
                 image={{
-                  alt: `${movie.title} movie poster`,
-                  src: movie.poster_path || '',
+                  alt: `${movie?.title || ''} movie poster`,
+                  src: movie?.poster_path || '',
                   size
                 }}
                 rating={{
-                  rating: movie.vote_average,
-                  count: movie.vote_count
+                  rating: movie?.vote_average || null,
+                  count: movie?.vote_count || null
                 }}
-                title={movie.title}
-                subtitle={`${utils.handleReturnDate(movie.release_date, 'year')} • ${utils.handleReturnGenresByID(
-                  movie.genre_ids,
-                  'movie'
-                )}`}
+                title={movie?.title || 'N/A'}
+                subtitle={`${utils.handleReturnDate(
+                  movie?.release_date || '',
+                  'year'
+                )} • ${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
                 isLoaded={true}
               />
             ))
@@ -127,7 +126,7 @@ const Home = (): ReactElement => {
       <HorizontalGrid
         title='Trending movies'
         isLoading={trendingMovies.isLoading || trendingMovies.isFetching}
-        path={{ pathname: '/trending', search: queryString.stringify({ mediaType: 'movie' }) }}>
+        path={{ pathname: '/trending/movie' }}>
         <>
           {trendingMovies.isLoading || trendingMovies.isFetching || !hasOptionsDownloaded ? (
             [...Array(10)].map((_dummy, index) => (
@@ -154,19 +153,19 @@ const Home = (): ReactElement => {
                 width={['185px']}
                 mediaType='movie'
                 image={{
-                  alt: `${movie.title} movie poster`,
-                  src: movie.poster_path || '',
+                  alt: `${movie?.title || ''} movie poster`,
+                  src: movie?.poster_path || '',
                   size
                 }}
                 rating={{
-                  rating: movie.vote_average,
-                  count: movie.vote_count
+                  rating: movie?.vote_average || null,
+                  count: movie?.vote_count || null
                 }}
-                title={movie.title}
-                subtitle={`${utils.handleReturnDate(movie.release_date, 'year')} • ${utils.handleReturnGenresByID(
-                  movie.genre_ids,
-                  'movie'
-                )}`}
+                title={movie?.title || 'N/A'}
+                subtitle={`${utils.handleReturnDate(
+                  movie?.release_date || '',
+                  'year'
+                )} • ${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
                 isLoaded={true}
               />
             ))
@@ -207,17 +206,17 @@ const Home = (): ReactElement => {
                 width={['185px']}
                 mediaType='tv'
                 image={{
-                  alt: `${tv.name} TV poster`,
-                  src: tv.poster_path || '',
+                  alt: `${tv?.name || ''} TV poster`,
+                  src: tv?.poster_path || '',
                   size
                 }}
                 rating={{
-                  rating: tv.vote_average,
-                  count: tv.vote_count
+                  rating: tv?.vote_average || null,
+                  count: tv?.vote_count || null
                 }}
-                title={tv.name}
-                subtitle={`${utils.handleReturnDate(tv.first_air_date, 'year')} • ${utils.handleReturnGenresByID(
-                  tv.genre_ids,
+                title={tv?.name || 'N/A'}
+                subtitle={`${utils.handleReturnDate(tv?.first_air_date || '', 'year')} • ${utils.handleReturnGenresByID(
+                  tv?.genre_ids || [],
                   'movie'
                 )}`}
                 isLoaded={true}
@@ -233,7 +232,7 @@ const Home = (): ReactElement => {
       <HorizontalGrid
         title='Trending TV'
         isLoading={trendingTV.isLoading || trendingTV.isFetching}
-        path={{ pathname: '/trending', search: queryString.stringify({ mediaType: 'tv' }) }}>
+        path={{ pathname: '/trending/tv' }}>
         <>
           {trendingTV.isLoading || trendingTV.isFetching || !hasOptionsDownloaded ? (
             [...Array(10)].map((_dummy, index) => (
@@ -260,17 +259,17 @@ const Home = (): ReactElement => {
                 width={['185px']}
                 mediaType='tv'
                 image={{
-                  alt: `${tv.name} TV poster`,
-                  src: tv.poster_path || '',
+                  alt: `${tv?.name || ''} TV poster`,
+                  src: tv?.poster_path || '',
                   size
                 }}
                 rating={{
-                  rating: tv.vote_average,
-                  count: tv.vote_count
+                  rating: tv?.vote_average || null,
+                  count: tv?.vote_count || null
                 }}
                 title={tv.name}
-                subtitle={`${utils.handleReturnDate(tv.first_air_date, 'year')} • ${utils.handleReturnGenresByID(
-                  tv.genre_ids,
+                subtitle={`${utils.handleReturnDate(tv?.first_air_date || '', 'year')} • ${utils.handleReturnGenresByID(
+                  tv?.genre_ids || [],
                   'movie'
                 )}`}
                 isLoaded={true}
@@ -286,7 +285,7 @@ const Home = (): ReactElement => {
       <HorizontalGrid
         title='Trending People'
         isLoading={trendingPeople.isLoading || trendingPeople.isFetching}
-        path={{ pathname: '/trending', search: queryString.stringify({ mediaType: 'person' }) }}>
+        path={{ pathname: '/trending/person' }}>
         <>
           {trendingPeople.isLoading || trendingPeople.isFetching || !hasOptionsDownloaded ? (
             [...Array(10)].map((_dummy, index) => (
@@ -313,12 +312,12 @@ const Home = (): ReactElement => {
                 width={['185px']}
                 mediaType='person'
                 image={{
-                  alt: `${person.name} person poster`,
-                  src: person.profile_path || '',
+                  alt: `${person?.name || ''} person poster`,
+                  src: person?.profile_path || '',
                   size
                 }}
-                title={person.name}
-                subtitle={person.known_for_department}
+                title={person?.name || 'N/A'}
+                subtitle={person?.known_for_department || ''}
                 isLoaded={true}
               />
             ))
