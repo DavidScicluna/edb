@@ -16,12 +16,12 @@ import VerticalGrid from '../../components/Grid/Vertical';
 import Button from '../../components/Inputs/Button';
 import LoadMore from '../../components/LoadMore';
 import MediaTypePicker from '../../components/MediaTypePicker';
+import VerticalMovies from '../../components/Movies/Vertical';
+import VerticalPeople from '../../components/People/Vertical';
 import SearchForm from '../../components/SearchForm';
+import VerticalTV from '../../components/TV/Vertical';
 import { Theme } from '../../theme/types';
 import All from './components/All';
-import Movies from './components/Movies';
-import People from './components/People';
-import TV from './components/TV';
 
 const Search = (): ReactElement => {
   const theme = useTheme<Theme>();
@@ -133,10 +133,10 @@ const Search = (): ReactElement => {
             </Fade>
           }>
           {mediaType === 'movie' && movies ? (
-            <>
-              <Movies movies={movies} isLoading={false} />
+            <VStack width='100%' spacing={4} px={2}>
+              <>
+                <VerticalMovies isLoading={isLoading} isError={false} isSuccess={true} movies={movies?.results} />
 
-              <Box mt={4}>
                 <LoadMore
                   amount={movies.results.length}
                   total={movies.total_results}
@@ -152,13 +152,13 @@ const Search = (): ReactElement => {
                     })
                   }
                 />
-              </Box>
-            </>
+              </>
+            </VStack>
           ) : mediaType === 'tv' && tv ? (
-            <>
-              <TV tv={tv} isLoading={false} />
+            <VStack width='100%' spacing={4} px={2}>
+              <>
+                <VerticalTV isLoading={isLoading} isError={false} isSuccess={true} tv={tv?.results} />
 
-              <Box mt={4}>
                 <LoadMore
                   amount={tv.results.length}
                   total={tv.total_results}
@@ -174,13 +174,13 @@ const Search = (): ReactElement => {
                     })
                   }
                 />
-              </Box>
-            </>
+              </>
+            </VStack>
           ) : mediaType === 'person' && people ? (
-            <>
-              <People people={people} isLoading={false} />
+            <VStack width='100%' spacing={4} px={2}>
+              <>
+                <VerticalPeople isLoading={isLoading} isError={false} isSuccess={true} people={people?.results} />
 
-              <Box mt={4}>
                 <LoadMore
                   amount={people.results.length}
                   total={people.total_results}
@@ -196,8 +196,8 @@ const Search = (): ReactElement => {
                     })
                   }
                 />
-              </Box>
-            </>
+              </>
+            </VStack>
           ) : (
             <All query={query} movies={movies} tv={tv} people={people} />
           )}

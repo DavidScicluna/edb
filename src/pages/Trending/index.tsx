@@ -175,216 +175,63 @@ const Trending = (): ReactElement => {
         }>
         {mediaType ? (
           <VStack width='100%' spacing={4} px={2}>
-            {trending.isLoading || trending.isFetching || !hasOptionsDownloaded ? (
-              <SimpleGrid
-                width='100%'
-                columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
-                spacing={2}>
-                {[
-                  ...Array(mediaType === 'movie' ? movies.length : mediaType === 'tv' ? tv.length : people.length || 20)
-                ].map((_dummy, index: number) =>
-                  displayMode === 'list' ? (
-                    <HorizontalPoster
-                      key={index}
-                      mediaType={mediaType}
-                      image={{
-                        alt: `${mediaType} poster`,
-                        src: '',
-                        size
-                      }}
-                      rating={{
-                        rating: null,
-                        count: null
-                      }}
-                      title='Lorem ipsum'
-                      subtitle='Lorem ipsum'
-                      description='Lorem ipsum'
-                      isLoaded={false}
-                    />
-                  ) : (
-                    <VerticalPoster
-                      key={index}
-                      width='100%'
-                      mediaType={mediaType}
-                      image={{
-                        alt: `${mediaType} poster`,
-                        src: '',
-                        size
-                      }}
-                      rating={{
-                        rating: null,
-                        count: null
-                      }}
-                      title='Lorem ipsum'
-                      subtitle='Lorem ipsum'
-                      isLoaded={false}
-                    />
-                  )
-                )}
-              </SimpleGrid>
-            ) : trending.isError ? (
-              <Error
-                label={`Failed to fetch trending ${
-                  mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'tv'
-                } list!`}
-                variant='outlined'
-              />
-            ) : trending.isSuccess ? (
-              <SimpleGrid
-                width='100%'
-                columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
-                spacing={2}>
-                {mediaType === 'movie'
-                  ? movies.map((movie: PartialMovie, index: number) =>
-                      displayMode === 'list' ? (
-                        <HorizontalPoster
-                          key={index}
-                          mediaType='movie'
-                          image={{
-                            alt: `${movie?.title || ''} movie poster`,
-                            src: movie?.poster_path || '',
-                            size
-                          }}
-                          rating={{
-                            rating: movie?.vote_average || null,
-                            count: movie?.vote_count || null
-                          }}
-                          title={movie?.title || ''}
-                          subtitle={`${utils.handleReturnDate(
-                            movie?.release_date || '',
-                            'full'
-                          )} • ${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
-                          description={movie?.overview || ''}
-                          isLoaded={true}
-                        />
-                      ) : (
-                        <VerticalPoster
-                          key={index}
-                          width='100%'
-                          mediaType='movie'
-                          image={{
-                            alt: `${movie?.title || ''} movie poster`,
-                            src: movie?.poster_path || '',
-                            size
-                          }}
-                          rating={{
-                            rating: movie?.vote_average || null,
-                            count: movie?.vote_count || null
-                          }}
-                          title={movie?.title || ''}
-                          subtitle={`${utils.handleReturnDate(
-                            movie?.release_date || '',
-                            'year'
-                          )} • ${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
-                          isLoaded={true}
-                        />
-                      )
-                    )
-                  : mediaType === 'tv'
-                  ? tv.map((show: PartialTV, index: number) =>
-                      displayMode === 'list' ? (
-                        <HorizontalPoster
-                          key={index}
-                          mediaType='tv'
-                          image={{
-                            alt: `${show?.name || ''} tv show poster`,
-                            src: show?.poster_path || '',
-                            size
-                          }}
-                          rating={{
-                            rating: show?.vote_average || null,
-                            count: show?.vote_count || null
-                          }}
-                          title={show?.name || ''}
-                          subtitle={`${utils.handleReturnDate(
-                            show?.first_air_date || '',
-                            'full'
-                          )} • ${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`}
-                          description={show?.overview || ''}
-                          isLoaded={true}
-                        />
-                      ) : (
-                        <VerticalPoster
-                          key={index}
-                          width='100%'
-                          mediaType='tv'
-                          image={{
-                            alt: `${show?.name || ''} tv show poster`,
-                            src: show?.poster_path || '',
-                            size
-                          }}
-                          rating={{
-                            rating: show?.vote_average || null,
-                            count: show?.vote_count || null
-                          }}
-                          title={show?.name || ''}
-                          subtitle={`${utils.handleReturnDate(
-                            show?.first_air_date || '',
-                            'year'
-                          )} • ${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`}
-                          isLoaded={true}
-                        />
-                      )
-                    )
-                  : people.map((person: PartialPerson, index: number) =>
-                      displayMode === 'list' ? (
-                        <HorizontalPoster
-                          key={index}
-                          mediaType='person'
-                          image={{
-                            alt: `${person?.name || ''} person poster`,
-                            src: person?.profile_path || '',
-                            size
-                          }}
-                          title={person?.name || ''}
-                          subtitle={person.known_for_department}
-                          description={person?.known_for.map((item) => item.name || item.title || '').join(', ') || ''}
-                          isLoaded={true}
-                        />
-                      ) : (
-                        <VerticalPoster
-                          key={index}
-                          width='100%'
-                          mediaType='person'
-                          image={{
-                            alt: `${person?.name || ''} person poster`,
-                            src: person?.profile_path || '',
-                            size
-                          }}
-                          title={person?.name || ''}
-                          subtitle={person.known_for_department}
-                          isLoaded={true}
-                        />
-                      )
-                    )}
-              </SimpleGrid>
-            ) : (
-              <Empty
-                label={`Trending ${
-                  mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'tv shows'
-                } list is empty!`}
-                variant='outlined'
-              />
-            )}
+            {mediaType === 'movie' ? (
+              <>
+                <VerticalMovies
+                  isLoading={trending.isLoading || trending.isFetching}
+                  isError={trending.isError}
+                  isSuccess={trending.isSuccess}
+                  movies={movies.results || []}
+                />
 
-            {trending.data && trending.data.pages && trending.hasNextPage ? (
-              <LoadMore
-                amount={
-                  mediaType === 'movie'
-                    ? movies.length
-                    : mediaType === 'tv'
-                    ? tv.length
-                    : mediaType === 'person'
-                    ? people.length
-                    : 0
-                }
-                total={trending.data.pages[trending.data.pages.length - 1].total_results}
-                mediaType={`trending ${
-                  mediaType === 'movie' ? 'movies' : mediaType === 'person' ? 'people' : 'tv shows'
-                }`}
-                isLoading={trending.isLoading || trending.isFetching}
-                onFetch={trending.fetchNextPage}
-              />
+                {trending.hasNextPage && movies ? (
+                  <LoadMore
+                    amount={movies.results.length}
+                    total={movies.total_results}
+                    mediaType='movies'
+                    isLoading={trending.isLoading || trending.isFetching}
+                    onFetch={trending.fetchNextPage}
+                  />
+                ) : null}
+              </>
+            ) : mediaType === 'tv' ? (
+              <>
+                <VerticalTV
+                  isLoading={trending.isLoading || trending.isFetching}
+                  isError={trending.isError}
+                  isSuccess={trending.isSuccess}
+                  tv={tv.results || []}
+                />
+
+                {trending.hasNextPage && tv ? (
+                  <LoadMore
+                    amount={tv.results.length}
+                    total={tv.total_results}
+                    mediaType='tv shows'
+                    isLoading={trending.isLoading || trending.isFetching}
+                    onFetch={trending.fetchNextPage}
+                  />
+                ) : null}
+              </>
+            ) : mediaType === 'person' ? (
+              <>
+                <VerticalPeople
+                  isLoading={trending.isLoading || trending.isFetching}
+                  isError={trending.isError}
+                  isSuccess={trending.isSuccess}
+                  people={people.results || []}
+                />
+
+                {trending.hasNextPage && people ? (
+                  <LoadMore
+                    amount={people.results.length}
+                    total={people.total_results}
+                    mediaType='people'
+                    isLoading={trending.isLoading || trending.isFetching}
+                    onFetch={trending.fetchNextPage}
+                  />
+                ) : null}
+              </>
             ) : null}
           </VStack>
         ) : (

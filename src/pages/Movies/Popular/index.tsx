@@ -16,8 +16,7 @@ import Empty from '../../../components/Empty';
 import Error from '../../../components/Error';
 import VerticalGrid from '../../../components/Grid/Vertical';
 import LoadMore from '../../../components/LoadMore';
-import HorizontalPoster from '../../../components/Poster/Horizontal';
-import VerticalPoster from '../../../components/Poster/Vertical';
+import VerticalMovies from '../../../components/Movies/Vertical';
 
 const PopularMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -78,103 +77,13 @@ const PopularMovies = (): ReactElement => {
       title={isMob ? 'Popular Movies' : ''}
       header={<DisplayOptions sortBy={sortBy} onSortChange={handleSortChange} />}>
       <VStack width='100%' spacing={4} px={2}>
-        {popularMovies.isLoading || popularMovies.isFetching || !hasOptionsDownloaded ? (
-          <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>
-            {[...Array(movies.length || 20)].map((_dummy, index) =>
-              displayMode === 'list' ? (
-                <HorizontalPoster
-                  key={index}
-                  mediaType='movie'
-                  image={{
-                    alt: 'movie poster',
-                    src: '',
-                    size
-                  }}
-                  rating={{
-                    rating: null,
-                    count: null
-                  }}
-                  title='Lorem ipsum'
-                  subtitle='Lorem ipsum'
-                  description='Lorem ipsum'
-                  isLoaded={false}
-                />
-              ) : (
-                <VerticalPoster
-                  key={index}
-                  width='100%'
-                  mediaType='movie'
-                  image={{
-                    alt: 'movie poster',
-                    src: '',
-                    size
-                  }}
-                  rating={{
-                    rating: null,
-                    count: null
-                  }}
-                  title='Lorem ipsum'
-                  subtitle='Lorem ipsum'
-                  isLoaded={false}
-                />
-              )
-            )}
-          </SimpleGrid>
-        ) : popularMovies.isError ? (
-          <Error label='Failed to fetch popular movies list!' variant='outlined' />
-        ) : popularMovies.isSuccess ? (
-          <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>
-            {movies.map((movie: PartialMovie, index) =>
-              displayMode === 'list' ? (
-                <HorizontalPoster
-                  key={index}
-                  mediaType='movie'
-                  image={{
-                    alt: `${movie?.title || ''} movie poster`,
-                    src: movie?.poster_path || '',
-                    size
-                  }}
-                  rating={{
-                    rating: movie?.vote_average || null,
-                    count: movie?.vote_count || null
-                  }}
-                  title={movie?.title || ''}
-                  subtitle={`${utils.handleReturnDate(
-                    movie?.release_date || '',
-                    'full'
-                  )} • ${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
-                  description={movie?.overview || ''}
-                  isLoaded={true}
-                />
-              ) : (
-                <VerticalPoster
-                  key={index}
-                  width='100%'
-                  mediaType='movie'
-                  image={{
-                    alt: `${movie?.title || ''} movie poster`,
-                    src: movie?.poster_path || '',
-                    size
-                  }}
-                  rating={{
-                    rating: movie?.vote_average || null,
-                    count: movie?.vote_count || null
-                  }}
-                  title={movie?.title || ''}
-                  subtitle={`${utils.handleReturnDate(
-                    movie?.release_date || '',
-                    'year'
-                  )} • ${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
-                  isLoaded={true}
-                />
-              )
-            )}
-          </SimpleGrid>
-        ) : (
-          <Empty label='Popular movies list is empty!' variant='outlined' />
-        )}
+        <VerticalMovies
+          isLoading={popularMovies.isLoading || popularMovies.isFetching}
+          isError={popularMovies.isError}
+          isSuccess={popularMovies.isSuccess}
+          movies={movies?.results}
+        />
 
-        {popularMovies.data && popularMovies.data.pages && popularMovies.hasNextPage ? (
           <LoadMore
             amount={popularMovies.data.pages[popularMovies.data.pages.length - 1].page * 20}
             total={popularMovies.data.pages[popularMovies.data.pages.length - 1].total_results}
