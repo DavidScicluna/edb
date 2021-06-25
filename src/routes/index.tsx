@@ -35,15 +35,7 @@ const Router = (): ReactElement => {
           breadcrumbs={[breadcrumbs.home, { label: 'Search', path: '/search' }]}
         />
 
-        {/* Discover Route */}
-        <DefaultRoute
-          exact
-          path='/discover'
-          component={TempComp}
-          breadcrumbs={[breadcrumbs.home, { label: 'Discover', path: '/discover' }]}
-        />
-
-        {/* Trending Route */}
+        {/* Trending Routes */}
         <DefaultRoute
           exact
           path='/trending'

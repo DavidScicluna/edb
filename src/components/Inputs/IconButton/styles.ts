@@ -24,7 +24,6 @@ export default (
   common: {
     button: {
       'width': 'auto',
-      'minWidth': 'auto',
       'height': 'auto',
 
       'opacity': 1,

@@ -1,6 +1,6 @@
 import { SortBy } from '../types/types';
 
-export const MovieTVSortBy: SortBy[] = [
+export const movieSortBy: SortBy[] = [
   {
     label: 'Popularity',
     value: 'popularity',
@@ -23,7 +23,30 @@ export const MovieTVSortBy: SortBy[] = [
   }
 ];
 
-export const PeopleSortBy: SortBy[] = [
+export const tvSortBy: SortBy[] = [
+  {
+    label: 'Popularity',
+    value: 'popularity',
+    isActive: false
+  },
+  {
+    label: 'Rating',
+    value: 'vote_average',
+    isActive: true
+  },
+  {
+    label: 'Release Date',
+    value: 'first_air_date',
+    isActive: false
+  },
+  {
+    label: 'Title',
+    value: 'name',
+    isActive: false
+  }
+];
+
+export const peopleSortBy: SortBy[] = [
   {
     label: 'Popularity',
     value: 'popularity',

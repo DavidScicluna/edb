@@ -14,7 +14,6 @@ export type SortBy = {
   label: string;
   value: string;
   isActive: boolean;
-  // isDesc: boolean;
 };
 
 export type Image = {

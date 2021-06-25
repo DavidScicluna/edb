@@ -3415,6 +3415,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/array-sort@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@types/array-sort@npm:1.0.0"
+  checksum: 7a3681af12b3b64500fda037b1fbc94640d6e174b173c7e94e0515df497a1e6122c3436cfeb75b98b4b580ad02ba838e19c397267251e32c8344594b146fe0e7
+  languageName: node
+  linkType: hard
+
 "@types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.7":
   version: 7.1.12
   resolution: "@types/babel__core@npm:7.1.12"
@@ -4851,6 +4858,17 @@ __metadata:
     get-intrinsic: ^1.1.1
     is-string: ^1.0.5
   checksum: 0610b361162071ef8749827f3a6e171da03ac14a518d4d45a513b6c22a7c5017c55dcbea4d34d699ef006f1f148aa52e6d437e0101c93996da736d0055add173
+  languageName: node
+  linkType: hard
+
+"array-sort@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "array-sort@npm:1.0.0"
+  dependencies:
+    default-compare: ^1.0.0
+    get-value: ^2.0.6
+    kind-of: ^5.0.2
+  checksum: 82e4ac3d6b0f26cb7306a918af174e2af80aa32fcd3f99398db110b5db353ac3fe6d9230b85e42ff89deecaaa44d268856ad3afb5b0f1795a63eec38337ff555
   languageName: node
   linkType: hard
 
@@ -7074,6 +7092,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"default-compare@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "default-compare@npm:1.0.0"
+  dependencies:
+    kind-of: ^5.0.2
+  checksum: d9ab7f03ff23e070c4ca03b989647c7ef7d2f364c340a3ecb8a81c5eb470156a26bdcf9eaffd1347bdbd0f689af6e8780c38913cd2984c924617d3b04e34b9a0
+  languageName: node
+  linkType: hard
+
 "default-gateway@npm:^4.2.0":
   version: 4.2.0
   resolution: "default-gateway@npm:4.2.0"
@@ -7471,6 +7498,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.12.0
     "@testing-library/react": ^11.2.6
     "@testing-library/user-event": ^13.1.8
+    "@types/array-sort": ^1.0.0
     "@types/jest": ^26.0.23
     "@types/lodash": ^4.14.170
     "@types/node": ^15.0.2
@@ -7482,6 +7510,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.9.0
     "@typescript-eslint/parser": ^4.9.0
     "@yarnpkg/pnpify": ^3.0.0-rc.3
+    array-sort: ^1.0.0
     axios: ^0.21.1
     boring-avatars: ^1.5.8
     eslint: ^7.20.0
@@ -7504,6 +7533,7 @@ __metadata:
     query-string: ^7.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-hook-form: ^7.9.0
     react-query: ^3.16.0
     react-redux: ^7.2.4
     react-router-dom: ^5.2.0
@@ -11498,7 +11528,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"kind-of@npm:^5.0.0":
+"kind-of@npm:^5.0.0, kind-of@npm:^5.0.2":
   version: 5.1.0
   resolution: "kind-of@npm:5.1.0"
   checksum: c98cfe70c805a7a3a10ec4399fac2884fb4b277494baffea0712a5e8de49a0bbdc36d9cfedf7879f47567fa4d7f4d92fd5b69582bc8666100b3560e03bd88844
@@ -14687,6 +14717,15 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0
   checksum: 92df64722be6f06b93c1246fa1fddb2897e5fc977d1d1c166ac14a19e272ec4e65908cee5780e3bc45f3be4c32717470900b61eeec061090ef4e08e08f37d8ae
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.9.0":
+  version: 7.9.0
+  resolution: "react-hook-form@npm:7.9.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17
+  checksum: 99bbae35ca15ec4462f306a9a5a326d262fadd7518b3542fd0f133170af86d088581536209d3601b3d4ba02b06dfe357b84992b8832930d633cc9b2e4e7ba240
   languageName: node
   linkType: hard
 

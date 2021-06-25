@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { VStack, Box } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 
 import Header from './components/Header';
 
@@ -18,8 +18,7 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
       {/* Header */}
       <Header title={title} header={header} />
 
-      {/* Grid */}
-      <Box width='100%'>{children}</Box>
+      {children}
     </VStack>
   );
 };

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, HStack, Text } from '@chakra-ui/react';
+import { useColorMode, HStack, Text, Collapse } from '@chakra-ui/react';
 
 type HeaderProps = {
   title: string;
@@ -11,7 +11,7 @@ const Header = ({ title, header }: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   return (
-    <>
+    <Collapse in={Boolean(title && header)} style={{ width: '100%' }}>
       <HStack width='100%' justify={title ? 'space-between' : 'flex-end'} p={[2]}>
         {title ? (
           <Text
@@ -26,7 +26,7 @@ const Header = ({ title, header }: HeaderProps): ReactElement => {
 
         {header}
       </HStack>
-    </>
+    </Collapse>
   );
 };
 
