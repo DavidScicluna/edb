@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
-export type OptionProps = {
+export type ContainerProps = {
   children: ReactElement;
-  label: string;
-  isActive?: boolean;
+  title: string;
 };
