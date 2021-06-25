@@ -2,32 +2,30 @@ import React, { ReactElement } from 'react';
 
 import {
   useColorMode,
-  useMediaQuery,
   Modal as CUIModal,
-  ModalProps as CUIModalProps,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
+  ModalFooter,
   HStack,
   Text
 } from '@chakra-ui/react';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
+import Button from '../Inputs/Button';
 import IconButton from '../Inputs/IconButton';
-
-export type ModalProps = { title: string } & CUIModalProps;
+import { ModalProps } from './types';
 
 const Modal = (props: ModalProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isXs] = useMediaQuery('(max-width: 40em)');
 
-  const { children, title, isOpen, onClose, size, ...rest } = props;
+  const { children, actions, title, isOpen, onClose, size, ...rest } = props;
 
   return (
-    <CUIModal {...rest} isOpen={isOpen} onClose={onClose} motionPreset='scale' size={size}>
+    <CUIModal {...rest} isOpen={isOpen} onClose={onClose} motionPreset='scale' scrollBehavior='inside' size={size}>
       <ModalOverlay />
-      <ModalContent borderRadius={size === 'full' ? 'none' : 'xl'} mx={isXs ? 3 : 0}>
+      <ModalContent borderRadius={size === 'full' ? 'none' : 'xl'} mx={0}>
         <ModalHeader
           px={3}
           py={1}
@@ -52,6 +50,19 @@ const Modal = (props: ModalProps): ReactElement => {
           </HStack>
         </ModalHeader>
         <ModalBody p={0}>{children}</ModalBody>
+        {actions ? (
+          <ModalFooter
+            justifyContent='space-between'
+            px={3}
+            py={1.5}
+            borderTop='solid2'
+            borderTopColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}>
+            <Button onClick={() => onClose()} size='sm' variant='outlined'>
+              Cancel
+            </Button>
+            {actions}
+          </ModalFooter>
+        ) : null}
       </ModalContent>
     </CUIModal>
   );

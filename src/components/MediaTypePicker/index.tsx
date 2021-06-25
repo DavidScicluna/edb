@@ -12,7 +12,7 @@ import Modal from '../Modal';
 import MediaTypeItem from './components/MediaTypeItem';
 import { MediaTypePickerProps, MediaTypeItem as MediaTypeItemType } from './types';
 
-const mediaTypes: MediaTypeItemType[] = [
+const mediaTypesList: MediaTypeItemType[] = [
   {
     label: 'Movies',
     value: 'movie',
@@ -33,38 +33,48 @@ const mediaTypes: MediaTypeItemType[] = [
   }
 ];
 
-const MediaTypePicker = ({ mediaType, isOpen, onClose, onSetType }: MediaTypePickerProps): ReactElement => {
+const MediaTypePicker = <MT extends unknown>({
+  mediaTypes,
+  mediaType,
+  isOpen,
+  onClose,
+  onSetType
+}: MediaTypePickerProps<MT>): ReactElement => {
   const [isXs] = useMediaQuery('(max-width: 40em)');
 
-  const handleClick = (mediaType: MediaType) => {
+  const handleClick = (mediaType: MediaType): void => {
     onSetType(mediaType);
     onClose();
   };
 
   return (
-    <Modal title='Select media type' isOpen={isOpen} onClose={onClose} isCentered size='2xl'>
-      <Box width='100%' p={3}>
+    <Modal title='Select media type' isOpen={isOpen} onClose={onClose} isCentered size={isXs ? 'full' : '2xl'}>
+      <Box width='100%' height='100%' p={3}>
         {isXs ? (
           <VStack justifyContent='space-between' spacing={2}>
-            {mediaTypes.map((mediaTypeItem) => (
-              <MediaTypeItem
-                key={mediaTypeItem.value}
-                {...mediaTypeItem}
-                isActive={mediaTypeItem.value === mediaType}
-                onClick={handleClick}
-              />
-            ))}
+            {mediaTypesList.map((mediaTypeItem) =>
+              (mediaTypes && mediaTypes.includes(mediaTypeItem.value)) || !mediaTypes ? (
+                <MediaTypeItem
+                  key={mediaTypeItem.value}
+                  {...mediaTypeItem}
+                  isActive={mediaTypeItem.value === mediaType}
+                  onClick={handleClick}
+                />
+              ) : null
+            )}
           </VStack>
         ) : (
           <HStack justifyContent='space-between' spacing={2}>
-            {mediaTypes.map((mediaTypeItem) => (
-              <MediaTypeItem
-                key={mediaTypeItem.value}
-                {...mediaTypeItem}
-                isActive={mediaTypeItem.value === mediaType}
-                onClick={handleClick}
-              />
-            ))}
+            {mediaTypesList.map((mediaTypeItem) =>
+              (mediaTypes && mediaTypes.includes(mediaTypeItem.value)) || !mediaTypes ? (
+                <MediaTypeItem
+                  key={mediaTypeItem.value}
+                  {...mediaTypeItem}
+                  isActive={mediaTypeItem.value === mediaType}
+                  onClick={handleClick}
+                />
+              ) : null
+            )}
           </HStack>
         )}
       </Box>

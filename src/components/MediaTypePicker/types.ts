@@ -7,8 +7,9 @@ export type MediaTypeItem = {
   icon: Icon;
 };
 
-export type MediaTypePickerProps = {
-  mediaType: MediaType | null;
+export type MediaTypePickerProps<MT> = {
+  mediaTypes?: MediaType[];
+  mediaType: MT | null;
   isOpen: boolean;
   onClose: () => void;
   onSetType: (mediaType: MediaType) => void;
