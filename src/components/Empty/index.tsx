@@ -8,7 +8,14 @@ import { EmptyProps } from './types';
 const Empty = (props: EmptyProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { button = undefined, hasIllustration = true, label, size = 'md', variant = 'transparant' } = props;
+  const {
+    button = undefined,
+    hasIllustration = true,
+    label,
+    description,
+    size = 'md',
+    variant = 'transparent'
+  } = props;
 
   /**
    * This method will return the appropriate padding for the size passed
@@ -59,6 +66,11 @@ const Empty = (props: EmptyProps): ReactElement => {
         <Text align='center' fontSize='md' fontWeight='semibold' color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
           {label}
         </Text>
+        {description ? (
+          <Text align='center' fontSize='xs' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
+            {description}
+          </Text>
+        ) : null}
         {button || null}
       </VStack>
     </Fade>
