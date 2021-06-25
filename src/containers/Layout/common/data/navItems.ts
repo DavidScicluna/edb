@@ -1,5 +1,3 @@
-import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
-import ExploreTwoToneIcon from '@material-ui/icons/ExploreTwoTone';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
@@ -29,16 +27,15 @@ const navItems: NavItem[] = [
     icon: SearchOutlinedIcon
   },
   {
-    label: 'Discover',
-    path: '/discover',
-    iconActive: ExploreTwoToneIcon,
-    icon: ExploreOutlinedIcon
-  },
-  {
     label: 'Trending',
     path: '/trending',
     iconActive: WhatshotTwoToneIcon,
-    icon: WhatshotOutlinedIcon
+    icon: WhatshotOutlinedIcon,
+    children: [
+      { label: 'Trending Movies', path: '/trending/movie', renderChild: false },
+      { label: 'Trending TV', path: '/trending/tv', renderChild: false },
+      { label: 'Trending People', path: '/trending/person', renderChild: false }
+    ]
   },
   {
     label: 'Movies',
@@ -46,10 +43,10 @@ const navItems: NavItem[] = [
     iconActive: TheatersTwoToneIcon,
     icon: TheatersOutlinedIcon,
     children: [
-      { label: 'Popular Movies', path: '/movies/popular' },
-      { label: 'Movies Now Playing', path: '/movies/now-playing' },
-      { label: 'Upcoming Movies', path: '/movies/upcoming' },
-      { label: 'Top Rated Movies', path: '/movies/top-rated' }
+      { label: 'Popular Movies', path: '/movies/popular', renderChild: true },
+      { label: 'Movies Now Playing', path: '/movies/now-playing', renderChild: true },
+      { label: 'Upcoming Movies', path: '/movies/upcoming', renderChild: true },
+      { label: 'Top Rated Movies', path: '/movies/top-rated', renderChild: true }
     ]
   },
   {
@@ -58,10 +55,10 @@ const navItems: NavItem[] = [
     iconActive: TvTwoToneIcon,
     icon: TvOutlinedIcon,
     children: [
-      { label: 'Popular TV', path: '/tv/popular' },
-      { label: 'Shows Airing Today', path: '/tv/airing-today' },
-      { label: 'On TV', path: '/tv/on-tv' },
-      { label: 'Top Rated TV', path: '/tv/top-rated' }
+      { label: 'Popular TV', path: '/tv/popular', renderChild: true },
+      { label: 'Shows Airing Today', path: '/tv/airing-today', renderChild: true },
+      { label: 'On TV', path: '/tv/on-tv', renderChild: true },
+      { label: 'Top Rated TV', path: '/tv/top-rated', renderChild: true }
     ]
   },
   {

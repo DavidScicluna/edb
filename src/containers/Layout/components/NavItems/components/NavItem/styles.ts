@@ -21,6 +21,7 @@ export default (
   theme: Theme,
   isActive = false,
   isChildActive = false,
+  renderChildren = false,
   isExpanded = false,
   isOpen = false
 ): NavItemStyle => ({
@@ -33,7 +34,7 @@ export default (
     main: {
       'cursor': 'pointer',
 
-      'borderRadius': !isExpanded && isOpen ? `${theme.radii.base} ${theme.radii.base} 0 0` : 'base',
+      'borderRadius': !isExpanded && isOpen && renderChildren ? `${theme.radii.base} ${theme.radii.base} 0 0` : 'base',
 
       'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
 
@@ -57,7 +58,7 @@ export default (
   },
   light: {
     container: {
-      backgroundColor: !isExpanded && isOpen ? 'gray.100' : 'transparent'
+      backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.100' : 'transparent'
     },
     main: {
       'backgroundColor': isChildActive ? 'transparent' : isActive ? 'blue.400' : 'transparent',
@@ -83,7 +84,7 @@ export default (
   },
   dark: {
     container: {
-      backgroundColor: !isExpanded && isOpen ? 'gray.800' : 'transparent'
+      backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.800' : 'transparent'
     },
     main: {
       'backgroundColor': isChildActive ? 'transparent' : isActive ? 'blue.400' : 'transparent',

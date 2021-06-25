@@ -1,7 +1,7 @@
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
-import { SortBy, Response } from '../../common/types/types';
+import { SortBy, Genre, Response } from '../../common/types/types';
 
 export type Keyword = {
   id: number;
@@ -10,10 +10,13 @@ export type Keyword = {
 
 export type SearchFormProps = {
   query: string;
-  sortBy?: SortBy[];
+  sortBy?: SortBy;
+  genres?: Genre[];
+  refetch?: boolean;
   onMoviesChange: (data: Response<PartialMovie[]>) => void;
   onTVChange: (data: Response<PartialTV[]>) => void;
   onPeopleChange: (data: Response<PartialPerson[]>) => void;
   onQueryChange: (query: string) => void;
   onIsLoading?: (bool: boolean) => void;
+  onIsFetched?: (bool: boolean) => void;
 };

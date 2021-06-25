@@ -1,31 +1,30 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useDisclosure, useMediaQuery, SimpleGrid, VStack, HStack, Box, Fade, useTheme } from '@chakra-ui/react';
+import { useTheme, useDisclosure, useMediaQuery, VStack, HStack, Box, Fade } from '@chakra-ui/react';
+import sort from 'array-sort';
 import axios from 'axios';
+import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 import { useHistory } from 'react-router-dom';
 
-import { PeopleSortBy, MovieTVSortBy } from '../../common/data/sort';
+import defaultResponse from '../../common/data/response';
+import { movieSortBy, tvSortBy, peopleSortBy } from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
-import { onSortChange } from '../../common/scripts/sortBy';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
-import { Response, SortBy, MediaType } from '../../common/types/types';
-import utils from '../../common/utils/utils';
-import DisplayOptions from '../../components/DisplayOptions';
+import { MediaType, Response, SortBy, Genre } from '../../common/types/types';
 import Empty from '../../components/Empty';
-import Error from '../../components/Error';
+import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
 import Button from '../../components/Inputs/Button';
 import LoadMore from '../../components/LoadMore';
 import MediaTypePicker from '../../components/MediaTypePicker';
-import HorizontalPoster from '../../components/Poster/Horizontal';
-import VerticalPoster from '../../components/Poster/Vertical';
+import VerticalMovies from '../../components/Movies/Vertical';
+import VerticalPeople from '../../components/People/Vertical';
+import VerticalTV from '../../components/TV/Vertical';
 import { Theme } from '../../theme/types';
-
-const size = utils.handleReturnImageSize('poster', 'sm');
 
 const Trending = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -36,91 +35,125 @@ const Trending = (): ReactElement => {
     onOpen: onMediaTypePickerOpen,
     onClose: onMediaTypePickerClose
   } = useDisclosure();
-  const [isSmallMob] = useMediaQuery('(max-width: 350px)');
   const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
-
-  const hasOptionsDownloaded = useSelector((state) => state.options.data.hasDownloaded);
-  const displayMode = useSelector((state) => state.app.data.displayMode);
-  const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
   const history = useHistory();
 
-  const [mediaType, setMediaType] = useState<MediaType | null>(null);
-  const [sortBy, setSortBy] = useState<SortBy[]>([]);
+  const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
-  const [movies, setMovies] = useState<PartialMovie[]>([]);
-  const [tv, setTV] = useState<PartialTV[]>([]);
-  const [people, setPeople] = useState<PartialPerson[]>([]);
+  const [mediaType, setMediaType] = useState<MediaType | null>(null);
+
+  const [sortBy, setSortBy] = useState<SortBy | undefined>(
+    mediaType === 'movie'
+      ? movieSortBy.find((sort) => sort.isActive)
+      : mediaType === 'tv'
+      ? tvSortBy.find((sort) => sort.isActive)
+      : mediaType === 'person'
+      ? peopleSortBy.find((sort) => sort.isActive)
+      : undefined
+  );
+  const [genres, setGenres] = useState<Genre[]>([]);
+
+  const [movies, setMovies] = useState<Response<PartialMovie[]>>(defaultResponse);
+  const [tv, setTV] = useState<Response<PartialTV[]>>(defaultResponse);
+  const [people, setPeople] = useState<Response<PartialPerson[]>>(defaultResponse);
 
   // Fetching trending
   const trending = useInfiniteQuery(
     'trending',
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<any[]>>(`/trending/${mediaType}/day`, {
-        params: { page: pageParam, sort_by: `${sortBy.find((sort) => sort.isActive)?.value}.${sortDirection}` },
+        params: { page: pageParam },
         cancelToken: source.token
       });
       return data;
     },
     {
-      enabled: (sortBy && sortBy.length > 0 && mediaType && mediaType.length > 0) || false,
+      enabled: (mediaType && mediaType.length > 0) || false,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
-      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false)
+      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
+      onSuccess: (data) => {
+        switch (mediaType) {
+          case 'person': {
+            let people: PartialPerson[] = [];
+
+            data.pages.forEach((page) => {
+              people = [...people, ...page.results];
+            });
+
+            setPeople({
+              page: data.pages[data.pages.length - 1].page,
+              results: sort(people, sortBy?.value || '', { reverse: sortDirection === 'desc' }),
+              total_pages: data.pages[data.pages.length - 1].total_pages,
+              total_results: data.pages[data.pages.length - 1].total_results
+            });
+            return;
+          }
+          case 'tv': {
+            let tv: PartialTV[] = [];
+
+            data.pages.forEach((page) => {
+              tv = [...tv, ...page.results];
+            });
+
+            setTV({
+              page: data.pages[data.pages.length - 1].page,
+              results: sort(
+                genres && genres.length > 0
+                  ? tv.filter((show) => genres.some((genre) => _.includes(show.genre_ids, genre.id)))
+                  : [...tv],
+                sortBy?.value || '',
+                { reverse: sortDirection === 'desc' }
+              ),
+              total_pages: data.pages[data.pages.length - 1].total_pages,
+              total_results: data.pages[data.pages.length - 1].total_results
+            });
+            return;
+          }
+          default: {
+            let movies: PartialMovie[] = [];
+
+            data.pages.forEach((page) => {
+              movies = [...movies, ...page.results];
+            });
+
+            setMovies({
+              page: data.pages[data.pages.length - 1].page,
+              results: sort(
+                genres && genres.length > 0
+                  ? movies.filter((movie) => genres.some((genre) => _.includes(movie.genre_ids, genre.id)))
+                  : [...movies],
+                sortBy?.value || '',
+                { reverse: sortDirection === 'desc' }
+              ),
+              total_pages: data.pages[data.pages.length - 1].total_pages,
+              total_results: data.pages[data.pages.length - 1].total_results
+            });
+            return;
+          }
+        }
+      }
     }
   );
 
-  const handleSortChange = (paramSort: SortBy): void => {
-    setSortBy(onSortChange(paramSort, sortBy));
+  const handleSetFilters = (sortBy: SortBy[], genres: Genre[]) => {
+    const active = sortBy.find((sort) => sort.isActive);
+
+    if (active) {
+      setSortBy(active);
+    }
+
+    setGenres(genres);
+
+    trending.refetch();
   };
 
   const handleResetState = (): void => {
     setMediaType(null);
-    setSortBy([]);
-    setMovies([]);
-    setTV([]);
-    setPeople([]);
+    setMovies(defaultResponse);
+    setTV(defaultResponse);
+    setPeople(defaultResponse);
   };
-
-  useEffect(() => {
-    trending.refetch();
-  }, [sortDirection]);
-
-  useEffect(() => {
-    if (trending.isSuccess && trending.data && trending.data.pages) {
-      switch (mediaType) {
-        case 'person': {
-          let people: PartialPerson[] = [];
-
-          trending.data.pages.forEach((page) => {
-            people = [...people, ...page.results];
-          });
-
-          setPeople([...people]);
-          return;
-        }
-        case 'tv': {
-          let tv: PartialTV[] = [];
-
-          trending.data.pages.forEach((page) => {
-            tv = [...tv, ...page.results];
-          });
-
-          setTV([...tv]);
-          return;
-        }
-        default: {
-          let movies: PartialMovie[] = [];
-
-          trending.data.pages.forEach((page) => {
-            movies = [...movies, ...page.results];
-          });
-
-          setMovies([...movies]);
-          return;
-        }
-      }
-    }
-  }, [trending.dataUpdatedAt]);
 
   useEffect(() => {
     handleResetState();
@@ -131,23 +164,18 @@ const Trending = (): ReactElement => {
       switch (history.location.pathname) {
         case '/trending/person':
           setMediaType('person');
-          setSortBy(PeopleSortBy);
           break;
         case '/trending/tv':
           setMediaType('tv');
-          setSortBy(MovieTVSortBy);
           break;
         case '/trending/movie':
           setMediaType('movie');
-          setSortBy(MovieTVSortBy);
           break;
         default:
           break;
       }
-    } else {
-      if (isLgUp) {
-        onMediaTypePickerOpen();
-      }
+    } else if (isLgUp) {
+      onMediaTypePickerOpen();
     }
   }, [history.location.pathname]);
 
@@ -169,7 +197,7 @@ const Trending = (): ReactElement => {
               <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
                 Change media-type
               </Button>
-              <DisplayOptions sortBy={sortBy} onSortChange={handleSortChange} />
+              {mediaType ? <Filters mediaType={mediaType} onFilter={handleSetFilters} /> : null}
             </HStack>
           </Fade>
         }>

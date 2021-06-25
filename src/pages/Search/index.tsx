@@ -1,17 +1,16 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useTheme, useMediaQuery, useDisclosure, VStack, HStack, Box, Fade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useDisclosure, useMediaQuery, VStack, HStack, Box, Fade } from '@chakra-ui/react';
 import _ from 'lodash';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 
-import { MovieTVSortBy, PeopleSortBy } from '../../common/data/sort';
-import { onSortChange } from '../../common/scripts/sortBy';
+import { movieSortBy, tvSortBy, peopleSortBy } from '../../common/data/sort';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
-import { MediaType, SortBy, Response } from '../../common/types/types';
-import DisplayOptions from '../../components/DisplayOptions';
+import { MediaType, Response, SortBy, Genre } from '../../common/types/types';
+import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
 import Button from '../../components/Inputs/Button';
 import LoadMore from '../../components/LoadMore';
@@ -25,6 +24,8 @@ import All from './components/All';
 
 const Search = (): ReactElement => {
   const theme = useTheme<Theme>();
+
+  const { colorMode } = useColorMode();
   const {
     isOpen: isMediaTypePickerOpen,
     onOpen: onMediaTypePickerOpen,
@@ -37,7 +38,19 @@ const Search = (): ReactElement => {
   const [query, setQuery] = useState<string>('');
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
-  const [sortBy, setSortBy] = useState<SortBy[]>([]);
+
+  const [sortBy, setSortBy] = useState<SortBy | undefined>(
+    mediaType === 'movie'
+      ? movieSortBy.find((sort) => sort.isActive)
+      : mediaType === 'tv'
+      ? tvSortBy.find((sort) => sort.isActive)
+      : mediaType === 'person'
+      ? peopleSortBy.find((sort) => sort.isActive)
+      : undefined
+  );
+  const [genres, setGenres] = useState<Genre[]>([]);
+
+  const [refetch, setRefetch] = useState<boolean>(false);
 
   const [movies, setMovies] = useState<Response<PartialMovie[]> | null>(null);
   const [tv, setTV] = useState<Response<PartialTV[]> | null>(null);
@@ -45,8 +58,15 @@ const Search = (): ReactElement => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSortChange = (paramSort: SortBy): void => {
-    setSortBy(onSortChange(paramSort, sortBy));
+  const handleSetFilters = (sortBy: SortBy[], genres: Genre[]) => {
+    const active = sortBy.find((sort) => sort.isActive);
+
+    if (active) {
+      setSortBy(active);
+    }
+
+    setGenres(genres);
+    setRefetch(true);
   };
 
   useEffect(() => {
@@ -58,22 +78,18 @@ const Search = (): ReactElement => {
           switch (params.mediaType) {
             case 'person':
               setMediaType('person');
-              setSortBy(PeopleSortBy);
               break;
             case 'tv':
               setMediaType('tv');
-              setSortBy(MovieTVSortBy);
               break;
             case 'movie':
               setMediaType('movie');
-              setSortBy(MovieTVSortBy);
               break;
             default:
               break;
           }
         } else {
           setMediaType(null);
-          setSortBy([]);
         }
       } else if (isLgUp) {
         onMediaTypePickerOpen();
@@ -83,16 +99,23 @@ const Search = (): ReactElement => {
 
   return (
     <>
-      <VStack width='100%' spacing={0}>
-        <Box width='100%' px={2} pt={4} pb={2}>
+      <VStack
+        width='100%'
+        backgroundColor={!mediaType ? (colorMode === 'light' ? 'gray.100' : 'gray.800') : 'transparent'}
+        spacing={0}
+        pb={query ? 4 : 0}>
+        <Box width='100%' backgroundColor={colorMode === 'light' ? 'white' : 'black'} px={2} pt={4} pb={2}>
           <SearchForm
             query={query}
             sortBy={sortBy}
+            genres={genres}
+            refetch={refetch}
             onQueryChange={(query: string) => setQuery(query)}
             onMoviesChange={(data: Response<PartialMovie[]>) => setMovies(data)}
             onTVChange={(data: Response<PartialTV[]>) => setTV(data)}
             onPeopleChange={(data: Response<PartialPerson[]>) => setPeople(data)}
             onIsLoading={(bool: boolean) => setIsLoading(bool)}
+            onIsFetched={() => setRefetch(false)}
           />
         </Box>
 
@@ -128,7 +151,7 @@ const Search = (): ReactElement => {
                 <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
                   Change media-type
                 </Button>
-                <DisplayOptions sortBy={sortBy} onSortChange={handleSortChange} />
+                {mediaType ? <Filters mediaType={mediaType} onFilter={handleSetFilters} /> : null}
               </HStack>
             </Fade>
           }>

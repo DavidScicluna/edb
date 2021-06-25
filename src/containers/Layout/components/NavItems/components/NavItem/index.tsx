@@ -37,7 +37,17 @@ const NavItem = (props: NavItemType): ReactElement => {
 
   const isActive: boolean = location.pathname === path;
   const isChildActive: boolean = children ? children.some((child) => location.pathname === child.path) : false;
-  const style = useStyles(theme, isActive, isChildActive, sidebarMode === 'expanded', children ? isOpen : false);
+
+  const renderChildren: boolean = children ? children.every((child) => child.renderChild) : false;
+
+  const style = useStyles(
+    theme,
+    isActive,
+    isChildActive,
+    renderChildren,
+    sidebarMode === 'expanded',
+    children ? isOpen : false
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -77,7 +87,7 @@ const NavItem = (props: NavItemType): ReactElement => {
               </ScaleFade>
             </HStack>
 
-            {children ? (
+            {children && renderChildren ? (
               <ScaleFade in={sidebarMode === 'expanded'} unmountOnExit>
                 <Icon
                   as={ChevronRightOutlinedIcon}
@@ -92,7 +102,7 @@ const NavItem = (props: NavItemType): ReactElement => {
         </Link>
       </Tooltip>
 
-      {children ? (
+      {children && renderChildren ? (
         <Collapse in={isOpen} unmountOnExit style={{ width: '100%' }}>
           <VStack
             width='100%'

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, VStack, Fade, Collapse } from '@chakra-ui/react';
+import { VStack, Fade, Collapse } from '@chakra-ui/react';
 import queryString from 'query-string';
 
 import { PartialMovie } from '../../../../common/types/movie';
@@ -21,8 +21,6 @@ export type AllProps = {
 const size = utils.handleReturnImageSize('poster', 'sm');
 
 const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
-  const { colorMode } = useColorMode();
-
   return (
     <Fade
       in={
@@ -33,7 +31,7 @@ const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
       }
       unmountOnExit
       style={{ width: '100%' }}>
-      <VStack width='100%' backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'} spacing={6} pb={4}>
+      <VStack width='100%' spacing={6}>
         {/* Movies */}
         <Collapse
           in={(movies && movies.results && movies.results.length > 0) || false}

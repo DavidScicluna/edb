@@ -18,7 +18,9 @@ import {
   LockOpenOutlined as LockOpenOutlinedIcon,
   LockOutlined as LockOutlinedIcon
 } from '@material-ui/icons/';
+import sort from 'array-sort';
 import axios from 'axios';
+import _ from 'lodash';
 import moment from 'moment';
 import queryString from 'query-string';
 import { useQuery, useInfiniteQuery } from 'react-query';
@@ -52,7 +54,18 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
 
   const history = useHistory();
 
-  const { query, sortBy, onQueryChange, onMoviesChange, onTVChange, onPeopleChange, onIsLoading } = props;
+  const {
+    query,
+    sortBy = undefined,
+    genres = undefined,
+    refetch = false,
+    onQueryChange,
+    onMoviesChange,
+    onTVChange,
+    onPeopleChange,
+    onIsLoading,
+    onIsFetched
+  } = props;
 
   const [isLocked, setIsLocked] = useState<boolean>(false);
   const [isHoveringLock, setIsHoveringLock] = useState<boolean>(false);
@@ -83,8 +96,7 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
       const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/search/movie', {
         params: {
           query: localQuery || query || queryString.parse(location.search)?.query || '',
-          page: pageParam || queryString.parse(location.search)?.page || 1,
-          sort_by: sortBy ? `${sortBy.find((sort) => sort.isActive)?.value}.${sortDirection}` : ''
+          page: pageParam || queryString.parse(location.search)?.page || 1
         },
 
         cancelToken: source.token
@@ -105,7 +117,16 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
         });
 
         if (current) {
-          onMoviesChange({ ...current, results: movies });
+          onMoviesChange({
+            ...current,
+            results: sort(
+              genres && genres.length > 0
+                ? movies.filter((movie) => genres.some((genre) => _.includes(movie.genre_ids, genre.id)))
+                : [...movies],
+              sortBy?.value || '',
+              { reverse: sortDirection === 'desc' }
+            )
+          });
 
           setTotalResults(current.total_results);
           setHasSubmitted(true);
@@ -125,6 +146,10 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
             );
           }
         }
+
+        if (refetch && onIsFetched) {
+          onIsFetched(false);
+        }
       }
     }
   );
@@ -135,8 +160,7 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
       const { data } = await axiosInstance.get<Response<PartialTV[]>>('/search/tv', {
         params: {
           query: localQuery || query || queryString.parse(location.search)?.query || '',
-          page: pageParam || queryString.parse(location.search)?.page || 1,
-          sort_by: sortBy ? `${sortBy.find((sort) => sort.isActive)?.value}.${sortDirection}` : ''
+          page: pageParam || queryString.parse(location.search)?.page || 1
         },
 
         cancelToken: source.token
@@ -157,7 +181,16 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
         });
 
         if (current) {
-          onTVChange({ ...current, results: tv });
+          onTVChange({
+            ...current,
+            results: sort(
+              genres && genres.length > 0
+                ? tv.filter((show) => genres.some((genre) => _.includes(show.genre_ids, genre.id)))
+                : [...tv],
+              sortBy?.value || '',
+              { reverse: sortDirection === 'desc' }
+            )
+          });
 
           setTotalResults(current.total_results);
           setHasSubmitted(true);
@@ -177,6 +210,10 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
             );
           }
         }
+
+        if (refetch && onIsFetched) {
+          onIsFetched(false);
+        }
       }
     }
   );
@@ -187,8 +224,7 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
       const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/search/person', {
         params: {
           query: localQuery || query || queryString.parse(location.search)?.query || '',
-          page: pageParam || queryString.parse(location.search)?.page || 1,
-          sort_by: sortBy ? `${sortBy.find((sort) => sort.isActive)?.value}.${sortDirection}` : ''
+          page: pageParam || queryString.parse(location.search)?.page || 1
         },
 
         cancelToken: source.token
@@ -209,7 +245,10 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
         });
 
         if (current) {
-          onPeopleChange({ ...current, results: people });
+          onPeopleChange({
+            ...current,
+            results: sort(people, sortBy?.value || '', { reverse: sortDirection === 'desc' })
+          });
 
           setTotalResults(current.total_results);
           setHasSubmitted(true);
@@ -228,6 +267,10 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
               ])
             );
           }
+        }
+
+        if (refetch && onIsFetched) {
+          onIsFetched(false);
         }
       }
     }
@@ -272,7 +315,6 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
     setIsFocused(false);
     setIsHovering(false);
     setHasSubmitted(false);
-    setLocalQuery('');
     setTotalResults(undefined);
   };
 
@@ -370,6 +412,14 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
   useEffect(() => {
     handleResetSearch();
   }, [history.location.pathname]);
+
+  useEffect(() => {
+    if (refetch) {
+      searchMovies.refetch();
+      searchTV.refetch();
+      searchPeople.refetch();
+    }
+  }, [refetch]);
 
   useEffect(() => {
     return () => source.cancel();
