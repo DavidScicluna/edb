@@ -72,10 +72,9 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: MovieProps): 
               count: movie?.vote_count || null
             }}
             title={movie?.title || ''}
-            subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'full')} • ${utils.handleReturnGenresByID(
-              movie?.genre_ids || [],
-              'movie'
-            )}`}
+            subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'full')}${
+              movie?.release_date && movie?.genre_ids ? ' • ' : ''
+            }${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
             description={movie?.overview || ''}
             isLoaded={true}
           />
@@ -94,10 +93,9 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: MovieProps): 
               count: movie?.vote_count || null
             }}
             title={movie?.title || ''}
-            subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'year')} • ${utils.handleReturnGenresByID(
-              movie?.genre_ids || [],
-              'movie'
-            )}`}
+            subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'year')}${
+              movie?.release_date && movie?.genre_ids ? ' • ' : ''
+            }${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
             isLoaded={true}
           />
         )

@@ -3,24 +3,13 @@ import React, { ReactElement } from 'react';
 import { VStack, Fade, Collapse } from '@chakra-ui/react';
 import queryString from 'query-string';
 
-import { PartialMovie } from '../../../../common/types/movie';
-import { PartialPerson } from '../../../../common/types/person';
-import { PartialTV } from '../../../../common/types/tv';
-import { Response } from '../../../../common/types/types';
-import utils from '../../../../common/utils/utils';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
-import VerticalPoster from '../../../../components/Poster/Vertical';
+import VerticalMovies from '../../../../components/Movies/Vertical';
+import VerticalPeople from '../../../../components/People/Vertical';
+import VerticalTV from '../../../../components/TV/Vertical';
+import { AllProps } from './types';
 
-export type AllProps = {
-  query: string;
-  movies: Response<PartialMovie[]> | null;
-  tv: Response<PartialTV[]> | null;
-  people: Response<PartialPerson[]> | null;
-};
-
-const size = utils.handleReturnImageSize('poster', 'sm');
-
-const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
+const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactElement => {
   return (
     <Fade
       in={
@@ -46,30 +35,7 @@ const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}>
-            <>
-              {movies?.results.map((movie: PartialMovie, index: number) => (
-                <VerticalPoster
-                  key={index}
-                  width={['185px']}
-                  mediaType='movie'
-                  image={{
-                    alt: `${movie?.title || ''} movie poster`,
-                    src: movie?.poster_path || '',
-                    size
-                  }}
-                  rating={{
-                    rating: movie?.vote_average || null,
-                    count: movie?.vote_count || null
-                  }}
-                  title={movie?.title || 'N/A'}
-                  subtitle={`${utils.handleReturnDate(
-                    movie?.release_date || '',
-                    'year'
-                  )} • ${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
-                  isLoaded={true}
-                />
-              ))}
-            </>
+            <VerticalMovies isLoading={isLoading} isError={false} isSuccess movies={movies?.results || []} />
           </HorizontalGrid>
         </Collapse>
 
@@ -84,30 +50,7 @@ const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}>
-            <>
-              {tv?.results.map((tv: PartialTV, index: number) => (
-                <VerticalPoster
-                  key={index}
-                  width={['185px']}
-                  mediaType='tv'
-                  image={{
-                    alt: `${tv?.name || ''} TV poster`,
-                    src: tv?.poster_path || '',
-                    size
-                  }}
-                  rating={{
-                    rating: tv?.vote_average || null,
-                    count: tv?.vote_count || null
-                  }}
-                  title={tv?.name || 'N/A'}
-                  subtitle={`${utils.handleReturnDate(
-                    tv?.first_air_date || '',
-                    'year'
-                  )} • ${utils.handleReturnGenresByID(tv?.genre_ids || [], 'movie')}`}
-                  isLoaded={true}
-                />
-              ))}
-            </>
+            <VerticalTV isLoading={isLoading} isError isSuccess tv={tv?.results || []} />
           </HorizontalGrid>
         </Collapse>
 
@@ -133,23 +76,7 @@ const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}>
-            <>
-              {people?.results.map((person: PartialPerson, index: number) => (
-                <VerticalPoster
-                  key={index}
-                  width={['185px']}
-                  mediaType='person'
-                  image={{
-                    alt: `${person?.name || ''} person poster`,
-                    src: person?.profile_path || '',
-                    size
-                  }}
-                  title={person?.name || 'N/A'}
-                  subtitle={person?.known_for_department || ''}
-                  isLoaded={true}
-                />
-              ))}
-            </>
+            <VerticalPeople isLoading={isLoading} isError={false} isSuccess people={people?.results || []} />
           </HorizontalGrid>
         </Collapse>
       </VStack>

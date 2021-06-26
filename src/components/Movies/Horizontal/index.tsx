@@ -50,10 +50,9 @@ const HorizontalMovies = ({ isLoading, isError, isSuccess, movies }: MovieProps)
             count: movie?.vote_count || null
           }}
           title={movie?.title || 'N/A'}
-          subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'year')} • ${utils.handleReturnGenresByID(
-            movie?.genre_ids || [],
-            'movie'
-          )}`}
+          subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'year')}${
+            movie?.release_date && movie?.genre_ids ? ' • ' : ''
+          }${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
           isLoaded={true}
         />
       ))}

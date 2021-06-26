@@ -222,7 +222,7 @@ const Search = (): ReactElement => {
               </>
             </VStack>
           ) : (
-            <All query={query} movies={movies} tv={tv} people={people} />
+            <All query={query} isLoading={isLoading} movies={movies} tv={tv} people={people} />
           )}
         </VerticalGrid>
       </VStack>

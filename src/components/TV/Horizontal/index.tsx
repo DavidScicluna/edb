@@ -18,7 +18,7 @@ const HorizontalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElem
       {[...Array(tv ? tv.length : 20)].map((_dummy, index: number) => (
         <VerticalPoster
           key={index}
-          width='100%'
+          width={['185px']}
           mediaType='tv'
           image={{
             alt: 'TV Show poster',
@@ -50,10 +50,9 @@ const HorizontalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElem
             count: show?.vote_count || null
           }}
           title={show?.name || 'N/A'}
-          subtitle={`${utils.handleReturnDate(show?.first_air_date || '', 'year')} • ${utils.handleReturnGenresByID(
-            show?.genre_ids || [],
-            'movie'
-          )}`}
+          subtitle={`${utils.handleReturnDate(show?.first_air_date || '', 'year')}${
+            show?.first_air_date && show?.genre_ids ? ' • ' : ''
+          }${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`}
           isLoaded={true}
         />
       ))}

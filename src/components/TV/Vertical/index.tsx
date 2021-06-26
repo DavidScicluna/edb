@@ -72,10 +72,9 @@ const VerticalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElemen
               count: show?.vote_count || null
             }}
             title={show?.name || ''}
-            subtitle={`${utils.handleReturnDate(show?.first_air_date || '', 'full')} • ${utils.handleReturnGenresByID(
-              show?.genre_ids || [],
-              'tv'
-            )}`}
+            subtitle={`${utils.handleReturnDate(show?.first_air_date || '', 'full')}${
+              show?.first_air_date && show?.genre_ids ? ' • ' : ''
+            }${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`}
             description={show?.overview || ''}
             isLoaded={true}
           />
@@ -94,10 +93,9 @@ const VerticalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElemen
               count: show?.vote_count || null
             }}
             title={show?.name || ''}
-            subtitle={`${utils.handleReturnDate(show?.first_air_date || '', 'year')} • ${utils.handleReturnGenresByID(
-              show?.genre_ids || [],
-              'tv'
-            )}`}
+            subtitle={`${utils.handleReturnDate(show?.first_air_date || '', 'year')}${
+              show?.first_air_date && show?.genre_ids ? ' • ' : ''
+            }${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`}
             isLoaded={true}
           />
         )
