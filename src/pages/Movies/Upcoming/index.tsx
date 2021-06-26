@@ -17,7 +17,7 @@ import VerticalGrid from '../../../components/Grid/Vertical';
 import LoadMore from '../../../components/LoadMore';
 import VerticalMovies from '../../../components/Movies/Vertical';
 
-const PopularMovies = (): ReactElement => {
+const UpcomingMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
   const isMob = useMediaQuery('(max-width: 600px)');
 
@@ -28,11 +28,11 @@ const PopularMovies = (): ReactElement => {
 
   const [movies, setMovies] = useState<Response<PartialMovie[]>>(defaultResponse);
 
-  // Fetching popular movies
-  const popularMovies = useInfiniteQuery(
-    'popularMovies',
+  // Fetching upcoming movies
+  const upcomingMovies = useInfiniteQuery(
+    'upcomingMovies',
     async ({ pageParam = 1 }) => {
-      const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/popular', {
+      const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/upcoming', {
         params: { page: pageParam },
         cancelToken: source.token
       });
@@ -74,7 +74,7 @@ const PopularMovies = (): ReactElement => {
 
     setGenres(genres);
 
-    popularMovies.refetch();
+    upcomingMovies.refetch();
   };
 
   useEffect(() => {
@@ -83,23 +83,23 @@ const PopularMovies = (): ReactElement => {
 
   return (
     <VerticalGrid
-      title={isMob ? 'Popular Movies' : ''}
+      title={isMob ? 'Upcoming movies' : ''}
       header={<Filters mediaType='movie' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalMovies
-          isLoading={popularMovies.isLoading || popularMovies.isFetching}
-          isError={popularMovies.isError}
-          isSuccess={popularMovies.isSuccess}
+          isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
+          isError={upcomingMovies.isError}
+          isSuccess={upcomingMovies.isSuccess}
           movies={movies.results || []}
         />
 
-        {popularMovies.hasNextPage && movies ? (
+        {upcomingMovies.hasNextPage && movies ? (
           <LoadMore
             amount={movies.results.length}
             total={movies.total_results}
             mediaType='movies'
-            isLoading={popularMovies.isLoading || popularMovies.isFetching}
-            onFetch={popularMovies.fetchNextPage}
+            isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
+            onFetch={upcomingMovies.fetchNextPage}
           />
         ) : null}
       </VStack>
@@ -107,4 +107,4 @@ const PopularMovies = (): ReactElement => {
   );
 };
 
-export default PopularMovies;
+export default UpcomingMovies;
