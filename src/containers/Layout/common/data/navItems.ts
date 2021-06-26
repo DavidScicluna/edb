@@ -44,9 +44,9 @@ const navItems: NavItem[] = [
     icon: TheatersOutlinedIcon,
     children: [
       { label: 'Popular Movies', path: '/movies/popular', renderChild: true },
-      { label: 'Movies Now Playing', path: '/movies/now-playing', renderChild: true },
       { label: 'Upcoming Movies', path: '/movies/upcoming', renderChild: true },
-      { label: 'Top Rated Movies', path: '/movies/top-rated', renderChild: true }
+      { label: 'Movies now-playing', path: '/movies/now-playing', renderChild: true },
+      { label: 'Top-rated movies', path: '/movies/top-rated', renderChild: true }
     ]
   },
   {
@@ -55,10 +55,10 @@ const navItems: NavItem[] = [
     iconActive: TvTwoToneIcon,
     icon: TvOutlinedIcon,
     children: [
-      { label: 'Popular TV', path: '/tv/popular', renderChild: true },
-      { label: 'Shows Airing Today', path: '/tv/airing-today', renderChild: true },
-      { label: 'On TV', path: '/tv/on-tv', renderChild: true },
-      { label: 'Top Rated TV', path: '/tv/top-rated', renderChild: true }
+      { label: 'Popular TV Shows', path: '/tv/popular', renderChild: true },
+      { label: 'TV Shows Airing Today', path: '/tv/airing-today', renderChild: true },
+      { label: 'TV Shows on at the moment', path: '/tv/on-tv', renderChild: true },
+      { label: 'Top-rated TV Shows', path: '/tv/top-rated', renderChild: true }
     ]
   },
   {

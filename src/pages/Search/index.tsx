@@ -158,7 +158,7 @@ const Search = (): ReactElement => {
           {mediaType === 'movie' && movies ? (
             <VStack width='100%' spacing={4} px={2}>
               <>
-                <VerticalMovies isLoading={isLoading} isError={false} isSuccess={true} movies={movies?.results} />
+                <VerticalMovies isLoading={isLoading} isError={false} isSuccess={true} movies={movies.results || []} />
 
                 <LoadMore
                   amount={movies.results.length}
@@ -180,7 +180,7 @@ const Search = (): ReactElement => {
           ) : mediaType === 'tv' && tv ? (
             <VStack width='100%' spacing={4} px={2}>
               <>
-                <VerticalTV isLoading={isLoading} isError={false} isSuccess={true} tv={tv?.results} />
+                <VerticalTV isLoading={isLoading} isError={false} isSuccess={true} tv={tv.results || []} />
 
                 <LoadMore
                   amount={tv.results.length}
@@ -202,7 +202,7 @@ const Search = (): ReactElement => {
           ) : mediaType === 'person' && people ? (
             <VStack width='100%' spacing={4} px={2}>
               <>
-                <VerticalPeople isLoading={isLoading} isError={false} isSuccess={true} people={people?.results} />
+                <VerticalPeople isLoading={isLoading} isError={false} isSuccess={true} people={people.results || []} />
 
                 <LoadMore
                   amount={people.results.length}

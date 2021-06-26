@@ -7,13 +7,13 @@ import Router from '../../routes';
 import theme from '../../theme';
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false
-    }
-  }
+  // defaultOptions: {
+  //   queries: {
+  //     refetchOnWindowFocus: false,
+  //     refetchOnMount: false,
+  //     refetchOnReconnect: false
+  //   }
+  // }
 });
 
 const App = (): ReactElement => {

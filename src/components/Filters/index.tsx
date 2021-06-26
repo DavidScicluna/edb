@@ -38,20 +38,38 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
 
   const form = useForm<Form>({ defaultValues });
 
-  const { isDirty } = useFormState({ control: form.control });
+  const { isDirty, dirtyFields } = useFormState({ control: form.control });
 
   const handleSubmitFilters = (values: Form): void => {
-    dispatch(toggleDisplayMode(values.displayMode));
-    dispatch(toggleSortDirection(values.sort.direction));
+    if (dirtyFields.displayMode) {
+      dispatch(toggleDisplayMode(values.displayMode));
+    }
 
-    onFilter(values.sort.sortBy, values.genres);
+    if (dirtyFields.sort) {
+      onFilter(values.sort.sortBy, []);
+      dispatch(toggleSortDirection(values.sort.direction));
+    }
+
+    if (dirtyFields.genres) {
+      onFilter([], values.genres);
+    }
+
     onClose();
 
     form.reset({ ...values });
   };
 
+  const handleReset = (): void => {
+    dispatch(toggleDisplayMode('grid'));
+    dispatch(toggleSortDirection('asc'));
+
+    onFilter(mediaType === 'movie' ? movieSortBy : mediaType === 'tv' ? tvSortBy : peopleSortBy, []);
+
+    form.reset({ ...defaultValues });
+  };
+
   const handleClose = (): void => {
-    form.reset();
+    form.reset({ ...form.getValues() });
     onClose();
   };
 
@@ -88,7 +106,7 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
         title='Filter'
         actions={
           <HStack spacing={2}>
-            <Button variant='outlined' onClick={() => form.reset({ ...defaultValues })} size='sm'>
+            <Button variant='outlined' isDisabled={!isDirty} onClick={() => handleReset()} size='sm'>
               Reset
             </Button>
             <Button

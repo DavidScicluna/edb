@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
-import { useLocation, useParams, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 import { Breadcrumb as BreadcrumbType } from '../../../../../../common/types/types';
 import { Theme } from '../../../../../../theme/types';
@@ -22,10 +22,7 @@ const Breadcrumb = ({ breadcrumbs }: { breadcrumbs: BreadcrumbType[] }): ReactEl
   const { colorMode } = useColorMode();
   const style = useStyles(theme);
 
-  const params = useParams();
   const location = useLocation();
-
-  console.log(params);
 
   return (
     <CUIBreadcrumb
