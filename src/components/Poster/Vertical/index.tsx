@@ -18,6 +18,7 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
   return (
     <VStack
       width={width}
+      position='relative'
       background='transparent'
       borderRadius='lg'
       border='solid2'
@@ -35,25 +36,38 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
       />
       <VStack width='100%' spacing={1}>
         {/* Header */}
-        <HStack width='100%' justify='space-between' spacing={1}>
-          {/* Rating component */}
-          {mediaType !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} /> : null}
+        {mediaType !== 'person' ? (
+          <HStack width='100%' justify='space-between' spacing={1}>
+            {/* Rating component */}
+            <Rating rating={rating} isLoaded={isLoaded} type='vertical' />
 
-          <HStack spacing={0}>
-            {/* Like component */}
-            <Like isLiked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} size='xs' />
-            {/* List component */}
-            {mediaType !== 'person' ? (
+            <HStack spacing={0}>
+              {/* Like component */}
+              <Like isLiked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} size='xs' />
+              {/* List component */}
               <Bookmark isBookmarked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} size='xs' />
-            ) : null}
+            </HStack>
           </HStack>
-        </HStack>
+        ) : null}
         {/* Text */}
         <VStack width='100%' alignItems='flex-start' spacing={0}>
           <Title title={title} isLoaded={isLoaded} />
           <Subtitle subtitle={subtitle} isLoaded={isLoaded} />
         </VStack>
       </VStack>
+
+      {/* Like component */}
+      {mediaType === 'person' ? (
+        <HStack
+          spacing={0}
+          sx={{
+            position: 'absolute',
+            top: 1,
+            right: 2
+          }}>
+          <Like isLiked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} />
+        </HStack>
+      ) : null}
     </VStack>
   );
 };

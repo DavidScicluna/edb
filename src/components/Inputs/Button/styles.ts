@@ -23,6 +23,10 @@ export default (
 ): ButtonStyle => ({
   common: {
     button: {
+      'cursor': 'pointer',
+      'touchAction': 'manipulation',
+      'userSelect': 'none',
+
       'width': isFullWidth ? '100%' : 'auto',
       'height': 'auto',
 
@@ -33,7 +37,7 @@ export default (
       'textTransform': 'uppercase',
 
       'borderStyle': 'solid',
-      'borderWidth': size === 'xs' ? '1px' : '2px',
+      'borderWidth': variant === 'outlined' ? (size === 'xs' ? '1px' : '2px') : size === 'xs' ? '0.5px' : '1px',
       'borderRadius': size === 'lg' || size === 'md' ? 'md' : size === 'xs' ? 'sm' : 'base',
 
       'transform': 'translateY(0)',
@@ -50,40 +54,36 @@ export default (
 
       '&:active': {
         boxShadow: '0 0 transparent',
-
-        transform: `translateY(${
-          variant === 'contained'
-            ? size === 'xs'
-              ? '3px'
-              : size === 'sm'
-              ? '4px'
-              : '6px'
-            : variant === 'outlined'
-            ? size === 'xs'
-              ? '3px'
-              : '4px'
-            : '0'
-        })`
+        transform: variant !== 'text' ? `translateY(${variant === 'contained' ? '3px' : '2px'})` : 'none'
       }
     },
     disabled: {
       'cursor': 'not-allowed',
       'opacity': isLoading ? 1 : 0.5,
 
-      'transform': 'translateY(0) !important',
+      'transform':
+        variant !== 'text'
+          ? `translateY(${variant === 'contained' ? '3px' : '2px'}) !important`
+          : 'translateY(0) !important',
 
       '&:hover': {
         cursor: 'not-allowed',
         opacity: isLoading ? 1 : 0.5,
 
-        transform: 'translateY(0) !important'
+        transform:
+          variant !== 'text'
+            ? `translateY(${variant === 'contained' ? '3px' : '2px'}) !important`
+            : 'translateY(0) !important'
       },
 
       '&:active': {
         cursor: 'not-allowed',
         opacity: isLoading ? 1 : 0.5,
 
-        transform: 'translateY(0) !important'
+        transform:
+          variant !== 'text'
+            ? `translateY(${variant === 'contained' ? '3px' : '2px'}) !important`
+            : 'translateY(0) !important'
       }
     }
   },
@@ -93,18 +93,14 @@ export default (
       'borderColor': variant === 'contained' || variant === 'outlined' ? `${color}.400` : 'transparent',
       'backgroundColor': variant === 'contained' ? `${color}.400` : 'transparent',
       'boxShadow':
-        variant === 'contained'
-          ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][600]}`
-          : variant === 'outlined'
-          ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
+        variant !== 'text'
+          ? `0 ${variant === 'contained' ? '3px' : '2px'} ${theme.colors[color][variant === 'contained' ? 600 : 400]}`
           : 'none',
 
       '&:focus': {
         boxShadow:
-          variant === 'contained'
-            ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][600]}`
-            : variant === 'outlined'
-            ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
+          variant !== 'text'
+            ? `0 ${variant === 'contained' ? '3px' : '2px'} ${theme.colors[color][variant === 'contained' ? 600 : 400]}`
             : 'none'
       },
 
@@ -112,13 +108,8 @@ export default (
         color: variant === 'contained' ? 'gray.50' : `${color}.600`,
         borderColor: variant === 'contained' ? `${color}.500` : variant === 'outlined' ? `${color}.600` : 'transparent',
         backgroundColor: variant === 'contained' ? `${color}.500` : 'transparent',
-
         boxShadow:
-          variant === 'contained'
-            ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][600]}`
-            : variant === 'outlined'
-            ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][600]}`
-            : 'none'
+          variant !== 'text' ? `0 ${variant === 'contained' ? '3px' : '2px'} ${theme.colors[color][600]}` : 'none'
       },
 
       '&:active': {
@@ -131,35 +122,20 @@ export default (
       'color': variant === 'contained' ? 'gray.50' : `${color}.400`,
       'borderColor': variant === 'contained' || variant === 'outlined' ? `${color}.400` : 'transparent',
       'backgroundColor': variant === 'contained' ? `${color}.400` : 'transparent',
-      'boxShadow':
-        variant === 'contained'
-          ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][600]}`
-          : variant === 'outlined'
-          ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
-          : 'none',
+      'boxShadow': 'none',
 
       '&:hover': {
         color: variant === 'contained' ? 'gray.50' : `${color}.400`,
         borderColor: variant === 'contained' || variant === 'outlined' ? `${color}.400` : 'transparent',
         backgroundColor: variant === 'contained' ? `${theme.colors[color][400]} !important` : 'transparent',
-        boxShadow:
-          variant === 'contained'
-            ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][600]}`
-            : variant === 'outlined'
-            ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
-            : 'none'
+        boxShadow: 'none'
       },
 
       '&:active': {
         color: variant === 'contained' ? 'gray.50' : `${color}.400`,
         borderColor: variant === 'contained' || variant === 'outlined' ? `${color}.400` : 'transparent',
         backgroundColor: variant === 'contained' ? `${theme.colors[color][400]} !important` : 'transparent',
-        boxShadow:
-          variant === 'contained'
-            ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][600]}`
-            : variant === 'outlined'
-            ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
-            : 'none'
+        boxShadow: 'none'
       }
     }
   },
@@ -169,18 +145,14 @@ export default (
       'borderColor': variant === 'contained' || variant === 'outlined' ? `${color}.400` : 'transparent',
       'backgroundColor': variant === 'contained' ? `${color}.400` : 'transparent',
       'boxShadow':
-        variant === 'contained'
-          ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][200]}`
-          : variant === 'outlined'
-          ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
+        variant !== 'text'
+          ? `0 ${variant === 'contained' ? '3px' : '2px'} ${theme.colors[color][variant === 'contained' ? 200 : 400]}`
           : 'none',
 
       '&:focus': {
         boxShadow:
-          variant === 'contained'
-            ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][200]}`
-            : variant === 'outlined'
-            ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
+          variant !== 'text'
+            ? `0 ${variant === 'contained' ? '3px' : '2px'} ${theme.colors[color][variant === 'contained' ? 200 : 400]}`
             : 'none'
       },
 
@@ -188,13 +160,8 @@ export default (
         color: variant === 'contained' ? 'gray.900' : `${color}.200`,
         borderColor: variant === 'contained' ? `${color}.300` : variant === 'outlined' ? `${color}.200` : 'transparent',
         backgroundColor: variant === 'contained' ? `${color}.300` : 'transparent',
-
         boxShadow:
-          variant === 'contained'
-            ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][200]}`
-            : variant === 'outlined'
-            ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][200]}`
-            : 'none'
+          variant !== 'text' ? `0 ${variant === 'contained' ? '3px' : '2px'} ${theme.colors[color][200]}` : 'none'
       },
 
       '&:active': {
@@ -207,35 +174,20 @@ export default (
       'color': variant === 'contained' ? 'gray.900' : `${color}.400`,
       'borderColor': variant === 'contained' || variant === 'outlined' ? `${color}.400` : 'transparent',
       'backgroundColor': variant === 'contained' ? `${color}.400` : 'transparent',
-      'boxShadow':
-        variant === 'contained'
-          ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][200]}`
-          : variant === 'outlined'
-          ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
-          : 'none',
+      'boxShadow': 'none',
 
       '&:hover': {
         color: variant === 'contained' ? 'gray.900' : `${color}.400`,
         borderColor: variant === 'contained' || variant === 'outlined' ? `${color}.400` : 'transparent',
         backgroundColor: variant === 'contained' ? `${theme.colors[color][400]} !important` : 'transparent',
-        boxShadow:
-          variant === 'contained'
-            ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][200]}`
-            : variant === 'outlined'
-            ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
-            : 'none'
+        boxShadow: 'none'
       },
 
       '&:active': {
         color: variant === 'contained' ? 'gray.900' : `${color}.400`,
         borderColor: variant === 'contained' || variant === 'outlined' ? `${color}.400` : 'transparent',
         backgroundColor: variant === 'contained' ? `${theme.colors[color][400]} !important` : 'transparent',
-        boxShadow:
-          variant === 'contained'
-            ? `0 ${size === 'xs' ? '4px' : '6px'} ${theme.colors[color][200]}`
-            : variant === 'outlined'
-            ? `0 ${size === 'xs' ? '3px' : '4px'} ${theme.colors[color][400]}`
-            : 'none'
+        boxShadow: 'none'
       }
     }
   }

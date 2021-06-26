@@ -18,13 +18,15 @@ const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
 
   return (
     <HStack
+      position='relative'
       background='transparent'
       borderRadius='lg'
       border='solid2'
       borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       spacing={[1, 2]}
       p={[1, 2]}
-      sx={{ position: 'relative' }}>
+      // sx={{ position: 'relative' }}
+    >
       {/* Image */}
       <Image
         width={['96px', '120px', '144px', '168px']}
@@ -40,7 +42,7 @@ const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
         alignItems='flex-start'
         spacing={isLoaded ? 1 : 2}>
         {/* Rating component */}
-        {mediaType !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} /> : null}
+        {mediaType !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} type='horizontal' /> : null}
 
         {/* Text */}
         <VStack width='100%' alignItems='flex-start' spacing={isLoaded ? 0 : 1}>

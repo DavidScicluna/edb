@@ -16,8 +16,8 @@ const Button = (props: ButtonProps): ReactElement => {
     children,
     leftIcon,
     rightIcon,
-    // isFullWidth = false,
     isDisabled = false,
+    isFullWidth = false,
     isLoading = false,
     size = 'md',
     ...rest
@@ -81,6 +81,7 @@ const Button = (props: ButtonProps): ReactElement => {
     <CUIButton
       {...rest}
       isDisabled={isLoading || isDisabled}
+      isFullWidth={isFullWidth}
       padding={handleReturnPadding()}
       sx={{ ..._.merge(style.common.button, style[colorMode].button) }}
       _disabled={{ ..._.merge(style.common.disabled, style[colorMode].disabled) }}

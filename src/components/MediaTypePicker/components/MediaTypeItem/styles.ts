@@ -14,27 +14,27 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
 
       'width': '100%',
 
-      'border': 'solid2',
+      'border': '4px',
       'borderRadius': 'lg',
 
-      'transform': 'translateY(0)',
+      'transform': isActive ? 'translateY(2px)' : 'translateY(0)',
 
       'padding': 4,
 
       'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
 
       '&:focus': {
-        transform: 'translateY(0)'
+        transform: isActive ? 'translateY(2px)' : 'translateY(0)'
       },
 
       '&:hover': {
-        transform: 'translateY(0)'
+        transform: isActive ? 'translateY(2px)' : 'translateY(0)'
       },
 
       '&:active': {
         boxShadow: '0 0 transparent',
 
-        transform: !isActive ? 'translateY(4px)' : 'none'
+        transform: !isActive ? 'translateY(2px)' : 'none'
       },
 
       '& .chakra-icon': {
@@ -60,17 +60,17 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
     container: {
       'borderColor': isActive ? 'blue.400' : 'gray.400',
       'backgroundColor': isActive ? 'blue.50' : 'transparent',
-      'boxShadow': isActive ? 'none' : `0 4px ${theme.colors.gray[400]}`,
+      'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[400]}`,
 
       '&:focus': {
-        boxShadow: isActive ? 'none' : `0 4px ${theme.colors.gray[400]}`
+        boxShadow: isActive ? 'none' : `0 2px ${theme.colors.gray[400]}`
       },
 
       '&:hover': {
         'borderColor': isActive ? 'blue.600' : 'gray.600',
         'backgroundColor': isActive ? 'blue.200' : 'transparent',
 
-        'boxShadow': isActive ? 'none' : `0 4px ${theme.colors.gray[600]}`,
+        'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[600]}`,
 
         '& .chakra-icon': {
           color: isActive ? 'blue.600' : 'gray.600'
@@ -103,17 +103,17 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
     container: {
       'borderColor': isActive ? 'blue.400' : 'gray.500',
       'backgroundColor': isActive ? 'blue.50' : 'transparent',
-      'boxShadow': isActive ? 'none' : `0 4px ${theme.colors.gray[500]}`,
+      'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[500]}`,
 
       '&:focus': {
-        boxShadow: isActive ? 'none' : `0 4px ${theme.colors.gray[500]}`
+        boxShadow: isActive ? 'none' : `0 2px ${theme.colors.gray[500]}`
       },
 
       '&:hover': {
         'borderColor': isActive ? 'blue.600' : 'gray.300',
         'backgroundColor': isActive ? 'blue.200' : 'transparent',
 
-        'boxShadow': isActive ? 'none' : `0 4px ${theme.colors.gray[300]}`,
+        'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[300]}`,
 
         '& .chakra-icon': {
           color: isActive ? 'blue.600' : 'gray.500'

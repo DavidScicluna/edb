@@ -62,9 +62,6 @@ const IconButton = forwardRef(function IconButton(
       variant='unstyled'>
       <Center
         sx={{
-          width: `${handleReturnIconSize()} !important`,
-          height: `${handleReturnIconSize()} !important`,
-
           border: 'none',
           backgroundColor: 'transparent'
         }}>
