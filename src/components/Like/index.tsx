@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
@@ -14,6 +14,8 @@ const Like = ({ isDisabled = false, mediaItem, size = 'xs' }: LikeProps): ReactE
   const dispatch = useDispatch();
   const liked = useSelector((state) => state.user.data.liked);
 
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+
   const isLiked: boolean = liked.some((like) => like.id === mediaItem.id && like.mediaType === mediaItem.mediaType);
   const titleText: string = mediaItem.title ? (mediaItem.title.length < 25 ? mediaItem.title : '') : '';
 
@@ -24,8 +26,13 @@ const Like = ({ isDisabled = false, mediaItem, size = 'xs' }: LikeProps): ReactE
           ? `Dislike "${titleText}" ${mediaItem.mediaType} tooltip`
           : `Like "${titleText}" ${mediaItem.mediaType} tooltip`
       }
-      label={isLiked ? `Dislike "${titleText}" ${mediaItem.mediaType}?` : `Like "${titleText}" ${mediaItem.mediaType}?`}
+      label={
+        isLiked
+          ? `Dislike "${titleText}"${mediaItem.mediaType !== 'person' ? ` ${mediaItem.mediaType}` : ''}?`
+          : `Like "${titleText}"${mediaItem.mediaType !== 'person' ? ` ${mediaItem.mediaType}` : ''}?`
+      }
       placement='top'
+      isOpen={isHovering}
       isDisabled={isDisabled}
       gutter={0}>
       <IconButton
@@ -40,6 +47,8 @@ const Like = ({ isDisabled = false, mediaItem, size = 'xs' }: LikeProps): ReactE
             ? () => dispatch(setLiked(liked.filter((like) => like.id !== mediaItem.id)))
             : () => dispatch(setLiked([...liked, { id: mediaItem.id, mediaType: mediaItem.mediaType }]))
         }
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         size={size}
         variant='icon'
       />

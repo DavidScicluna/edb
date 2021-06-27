@@ -7,7 +7,7 @@ const User = (): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Popover isOpen={isOpen} placement='bottom-end' gutter={16} onOpen={onOpen} onClose={onClose}>
+    <Popover isOpen={isOpen} placement='bottom-end' gutter={12} onOpen={onOpen} onClose={onClose}>
       <PopoverTrigger>
         <Avatar cursor='pointer' name='Test User' size='md' />
       </PopoverTrigger>
@@ -17,7 +17,7 @@ const User = (): ReactElement => {
           border='solid2'
           borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
           borderRadius='lg'
-          boxShadow='xl'
+          boxShadow='none'
           p={2}
           sx={{
             '&:focus': {

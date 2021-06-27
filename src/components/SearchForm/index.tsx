@@ -488,7 +488,8 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
               label={isLocked ? 'Unlock Search' : 'Lock Search'}
               placement='top'
               closeOnClick={false}
-              closeOnMouseDown={false}>
+              closeOnMouseDown={false}
+              span>
               <IconButton
                 aria-label={isLocked ? 'Unlock Search' : 'Lock Search'}
                 icon={isLocked ? LockOutlinedIcon : LockOpenOutlinedIcon}

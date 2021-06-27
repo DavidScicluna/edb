@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
@@ -13,6 +13,8 @@ import { BookmarkProps } from './types';
 const Bookmark = ({ isDisabled = false, mediaItem, size = 'xs' }: BookmarkProps): ReactElement => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
+
+  const [isHovering, setIsHovering] = useState<boolean>(false);
 
   const list = lists.find((list) => list.results.some((result) => result.id === mediaItem.id));
   const isBookmarked: boolean = list ? list.results.some((result) => result.id === mediaItem.id) : false;
@@ -31,6 +33,7 @@ const Bookmark = ({ isDisabled = false, mediaItem, size = 'xs' }: BookmarkProps)
           : `Add "${titleText}" ${mediaItem.mediaType} to a list?`
       }
       placement='top'
+      isOpen={isHovering}
       isDisabled={isDisabled}
       gutter={0}>
       <IconButton
@@ -65,6 +68,8 @@ const Bookmark = ({ isDisabled = false, mediaItem, size = 'xs' }: BookmarkProps)
                   })
                 )
         }
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         size={size}
         variant='icon'
       />

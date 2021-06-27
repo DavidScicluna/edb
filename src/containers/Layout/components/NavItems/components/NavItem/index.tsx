@@ -64,8 +64,10 @@ const NavItem = (props: NavItemType): ReactElement => {
         aria-label={sidebarMode === 'collapsed' ? label : ''}
         width='100%'
         closeOnClick={false}
+        closeOnMouseDown={false}
         label={sidebarMode === 'collapsed' ? label : ''}
-        placement='right'>
+        placement='right'
+        span>
         <Link width='100%' as={RRDLink} to={path} sx={{ ...style.common.link }}>
           <HStack
             width='100%'

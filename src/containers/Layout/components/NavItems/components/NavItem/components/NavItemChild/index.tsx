@@ -48,8 +48,10 @@ const NavItemChild = ({ label, path, isLastChild = false }: NavItemChildProps): 
           aria-label={sidebarMode === 'collapsed' ? label : ''}
           width='100%'
           closeOnClick={false}
+          closeOnMouseDown={false}
           label={sidebarMode === 'collapsed' ? label : ''}
-          placement='right'>
+          placement='right'
+          span>
           <HStack
             width='100%'
             justifyContent={sidebarMode === 'expanded' ? 'flex-start' : 'center'}

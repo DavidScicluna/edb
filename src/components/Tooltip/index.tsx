@@ -9,7 +9,7 @@ const Tooltip = (props: TooltipProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { children, width, closeDelay, openDelay, gutter = 8, ...rest } = props;
+  const { children, width, closeDelay, openDelay, gutter = 8, span = false, ...rest } = props;
 
   return (
     <CUITooltip
@@ -22,7 +22,7 @@ const Tooltip = (props: TooltipProps): ReactElement => {
       openDelay={openDelay ? openDelay : utils.handleReturnNumberFromString(theme.transition.duration.fast, 'ms')}
       hasArrow
       gutter={gutter}>
-      <span style={{ width: width || 'auto' }}>{children}</span>
+      {span ? <span style={{ width: width || 'auto' }}>{children}</span> : children}
     </CUITooltip>
   );
 };

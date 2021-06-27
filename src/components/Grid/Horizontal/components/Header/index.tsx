@@ -66,9 +66,11 @@ const Header = (props: HeaderProps): ReactElement => {
         <Tooltip
           aria-label='Scroll left'
           closeOnClick={false}
+          closeOnMouseDown={false}
           label={`Scroll left (${!isOpen ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
           placement='top'
-          isDisabled={isLoading || scrollButtons.left}>
+          isDisabled={isLoading || scrollButtons.left}
+          span>
           <IconButton
             aria-label='Scroll left'
             isDisabled={isLoading || scrollButtons.left}
@@ -87,9 +89,11 @@ const Header = (props: HeaderProps): ReactElement => {
         <Tooltip
           aria-label='Scroll right'
           closeOnClick={false}
+          closeOnMouseDown={false}
           label={`Scroll right (${!isOpen ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
           placement='top'
-          isDisabled={isLoading || scrollButtons.right}>
+          isDisabled={isLoading || scrollButtons.right}
+          span>
           <IconButton
             aria-label='Scroll right'
             isDisabled={isLoading || scrollButtons.right}
