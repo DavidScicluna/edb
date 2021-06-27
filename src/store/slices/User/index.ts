@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-import { StateProps, Search, MediaItem, ListModal, List } from './types';
+import { StateProps, Search, MediaItem, ListsModal, List } from './types';
 
-export const defaultListModal = {
+export const defaultListsModal = {
   open: false,
   item: undefined
 };
@@ -14,7 +14,7 @@ const initialState: StateProps = {
     recentSearches: [],
     recentlyViewed: [],
     liked: [],
-    listModal: { ...defaultListModal },
+    listsModal: { ...defaultListsModal },
     lists: [
       {
         id: uuid(),
@@ -42,8 +42,8 @@ const userSlice = createSlice({
     setLists: (state: StateProps, action: PayloadAction<List[]>) => {
       state.data.lists = action.payload;
     },
-    toggleList: (state: StateProps, action: PayloadAction<ListModal>) => {
-      state.data.listModal = action.payload;
+    toggleList: (state: StateProps, action: PayloadAction<ListsModal>) => {
+      state.data.listsModal = action.payload;
     }
   }
 });

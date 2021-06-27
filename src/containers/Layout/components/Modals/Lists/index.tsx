@@ -7,18 +7,18 @@ import { useDispatch } from 'react-redux';
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
 import Button from '../../../../../components/Inputs/Button';
 import Modal from '../../../../../components/Modal';
-import { defaultListModal, setLists, toggleList } from '../../../../../store/slices/User';
+import { defaultListsModal, setLists, toggleList } from '../../../../../store/slices/User';
 import { List as ListType } from '../../../../../store/slices/User/types';
 import CreateList from './components/CreateList';
 import List from './components/List';
 
-const ListModal = (): ReactElement => {
-  const { isOpen: isListOpen, onOpen: onListOpen, onClose: onListClose } = useDisclosure();
+const ListsModal = (): ReactElement => {
+  const { isOpen: isListsOpen, onOpen: onListsOpen, onClose: onListsClose } = useDisclosure();
   const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
   const [isXs] = useMediaQuery('(max-width: 40em)');
 
   const dispatch = useDispatch();
-  const listModal = useSelector((state) => state.user.data.listModal);
+  const listsModal = useSelector((state) => state.user.data.listsModal);
   const lists = useSelector((state) => state.user.data.lists);
 
   const [selected, setSelected] = useState<ListType['id'][]>([]);
@@ -32,11 +32,11 @@ const ListModal = (): ReactElement => {
   };
 
   const handleSaveItem = (): void => {
-    if (listModal.item && listModal.item.id && listModal.item.mediaType) {
+    if (listsModal.item && listsModal.item.id && listsModal.item.mediaType) {
       let updatedLists: ListType[] = [...lists];
 
-      const id = listModal.item.id;
-      const mediaType = listModal.item.mediaType;
+      const id = listsModal.item.id;
+      const mediaType = listsModal.item.mediaType;
 
       selected.forEach((list) => {
         updatedLists = updatedLists.map((updatedList) =>
@@ -50,28 +50,29 @@ const ListModal = (): ReactElement => {
         );
       });
 
+      setSelected([]);
       dispatch(setLists([...updatedLists]));
       handleClose();
     }
   };
 
   const handleClose = (): void => {
-    dispatch(toggleList({ ...defaultListModal }));
-    onListClose();
+    dispatch(toggleList({ ...defaultListsModal }));
+    onListsClose();
   };
 
   useEffect(() => {
-    if (listModal.open) {
-      onListOpen();
+    if (listsModal.open) {
+      onListsOpen();
     } else {
-      onListClose();
+      onListsClose();
     }
-  }, [listModal.open]);
+  }, [listsModal.open]);
 
   return (
     <>
       <Modal
-        title={`Add ${listModal.item ? listModal.item.title : 'this item'} to a list`}
+        title={`Add ${listsModal.item ? listsModal.item.title : 'this item'} to a list`}
         actions={
           selected.length > 0 ? (
             <Button color='blue' onClick={() => handleSaveItem()} size='sm'>
@@ -83,7 +84,7 @@ const ListModal = (): ReactElement => {
             </Button>
           )
         }
-        isOpen={isListOpen}
+        isOpen={isListsOpen}
         onClose={handleClose}
         isCentered
         size={isXs ? 'full' : '2xl'}>
@@ -99,4 +100,4 @@ const ListModal = (): ReactElement => {
   );
 };
 
-export default ListModal;
+export default ListsModal;

@@ -13,7 +13,7 @@ import { Theme } from '../../theme/types';
 import { sidebarWidth } from './common/data/sidebar';
 import useTransitionsStyle from './common/styles/transitions';
 import Header from './components/Header';
-import ListModal from './components/Modals/List';
+import ListsModal from './components/Modals/Lists';
 import Sidebar from './components/Sidebar';
 import { LayoutProps, GenreResponse } from './types';
 
@@ -112,7 +112,7 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
         </Box>
       </Center>
 
-      <ListModal />
+      <ListsModal />
     </>
   );
 };

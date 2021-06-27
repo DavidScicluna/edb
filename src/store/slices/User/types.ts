@@ -15,7 +15,7 @@ export type MediaItem = {
   mediaType: MediaType;
 };
 
-export type ListModal = {
+export type ListsModal = {
   open: boolean;
   item?: { title: string } & MediaItem;
 };
@@ -33,7 +33,7 @@ export type StateProps = {
     recentSearches: Search[];
     recentlyViewed: MediaItem[];
     liked: MediaItem[];
-    listModal: ListModal;
+    listsModal: ListsModal;
     lists: List[];
   };
 };
