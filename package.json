@@ -7,6 +7,7 @@
     "@chakra-ui/react": "^1.6.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@hookform/resolvers": "^2.6.0",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@reduxjs/toolkit": "^1.5.1",
@@ -27,7 +28,8 @@
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
     "redux-persist": "^6.0.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "lint": "eslint \"./**/*.{js,jsx,ts,tsx}\"",

@@ -111,7 +111,7 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
 
       '&:hover': {
         'borderColor': isActive ? 'blue.600' : 'gray.300',
-        'backgroundColor': isActive ? 'blue.200' : 'transparent',
+        'backgroundColor': isActive ? 'blue.100' : 'transparent',
 
         'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[300]}`,
 
@@ -125,7 +125,7 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
 
       '&:active': {
         'borderColor': isActive ? 'blue.600' : 'gray.300',
-        'backgroundColor': isActive ? 'blue.200' : 'transparent',
+        'backgroundColor': isActive ? 'blue.100' : 'transparent',
 
         '& .chakra-icon': {
           color: isActive ? 'blue.600' : 'gray.500'

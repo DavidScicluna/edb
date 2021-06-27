@@ -14,7 +14,7 @@ import { HorizontalPosterProps } from './types';
 const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { mediaType, image, rating, title, subtitle, description, isLoaded } = props;
+  const { mediaItemID, mediaType, image, rating, title, subtitle, description, isLoaded } = props;
 
   return (
     <HStack
@@ -64,10 +64,10 @@ const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
           right: 1
         }}>
         {/* Like component */}
-        <Like isLiked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} />
+        <Like isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} />
         {/* List component */}
         {mediaType !== 'person' ? (
-          <Bookmark isBookmarked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} />
+          <Bookmark isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} />
         ) : null}
       </HStack>
     </HStack>

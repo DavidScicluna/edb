@@ -73,7 +73,7 @@ const Rating = ({ rating = defaultRating, isLoaded = false, type }: RatingProps)
       <Icon
         as={StarOutlinedIcon}
         color='yellow.400'
-        sx={{ fontSize: `${type === 'horizontal' ? theme.fontSizes['4xl'] : theme.fontSizes['2xl']} !important` }}
+        sx={{ fontSize: `${type === 'horizontal' ? theme.fontSizes['3xl'] : theme.fontSizes['2xl']} !important` }}
       />
       <SkeletonText isLoaded={isLoaded} ml='0.5'>
         <Text

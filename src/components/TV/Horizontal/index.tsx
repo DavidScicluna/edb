@@ -19,6 +19,7 @@ const HorizontalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElem
         <VerticalPoster
           key={index}
           width={['185px']}
+          mediaItemID={-1}
           mediaType='tv'
           image={{
             alt: 'TV Show poster',
@@ -39,6 +40,7 @@ const HorizontalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElem
         <VerticalPoster
           key={index}
           width={['185px']}
+          mediaItemID={show.id}
           mediaType='tv'
           image={{
             alt: `${show?.name || ''} TV poster`,

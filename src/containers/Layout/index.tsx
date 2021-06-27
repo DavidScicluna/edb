@@ -13,6 +13,7 @@ import { Theme } from '../../theme/types';
 import { sidebarWidth } from './common/data/sidebar';
 import useTransitionsStyle from './common/styles/transitions';
 import Header from './components/Header';
+import ListModal from './components/Modals/List';
 import Sidebar from './components/Sidebar';
 import { LayoutProps, GenreResponse } from './types';
 
@@ -60,8 +61,6 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
 
   // Saving Movie genres data to redux store
   useEffect(() => {
-    // if (options[0].isError) {
-    // } else
     if (queries[0].isSuccess) {
       dispatch(setMovieGenres(queries[0].data.genres));
     }
@@ -69,8 +68,6 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
 
   // Saving TV genres data to redux store
   useEffect(() => {
-    // if (options[1].isError) {
-    // } else
     if (queries[1].isSuccess) {
       dispatch(setTVGenres(queries[1].data.genres));
     }
@@ -96,23 +93,27 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
   }, [isLgUp]);
 
   return (
-    <Center overflow='hidden'>
-      {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
-      <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
-        <Header width={width} left={left} breadcrumbs={breadcrumbs} />
-        <Box
-          width='100%'
-          maxWidth='100%'
-          position='relative'
-          top='76px'
-          left='0px'
-          backgroundColor={handleBackground()}
-          pb={location.pathname !== '/search' ? 4 : 0}
-          sx={{ ...transition }}>
-          {children}
+    <>
+      <Center overflow='hidden'>
+        {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
+        <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
+          <Header width={width} left={left} breadcrumbs={breadcrumbs} />
+          <Box
+            width='100%'
+            maxWidth='100%'
+            position='relative'
+            top='76px'
+            left='0px'
+            backgroundColor={handleBackground()}
+            pb={location.pathname !== '/search' ? 4 : 0}
+            sx={{ ...transition }}>
+            {children}
+          </Box>
         </Box>
-      </Box>
-    </Center>
+      </Center>
+
+      <ListModal />
+    </>
   );
 };
 

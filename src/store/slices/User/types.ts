@@ -10,8 +10,30 @@ export type Search = {
   mediaType?: MediaType;
 };
 
+export type MediaItem = {
+  id: number;
+  mediaType: MediaType;
+};
+
+export type ListModal = {
+  open: boolean;
+  item?: { title: string } & MediaItem;
+};
+
+export type List = {
+  id: string;
+  label: string;
+  description?: string;
+  date: string;
+  results: MediaItem[];
+};
+
 export type StateProps = {
   data: {
     recentSearches: Search[];
+    recentlyViewed: MediaItem[];
+    liked: MediaItem[];
+    listModal: ListModal;
+    lists: List[];
   };
 };

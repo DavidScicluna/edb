@@ -13,7 +13,7 @@ import { VerticalPosterProps } from './types';
 const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { width, mediaType, image, rating, title, subtitle, isLoaded } = props;
+  const { width, mediaItemID, mediaType, image, rating, title, subtitle, isLoaded } = props;
 
   return (
     <VStack
@@ -23,7 +23,7 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
       borderRadius='lg'
       border='solid2'
       borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-      spacing={1}
+      spacing={mediaType !== 'person' ? 0.25 : 1}
       p='1'>
       {/* Image */}
       <Image
@@ -34,7 +34,7 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
         size={image.size}
         isLoaded={isLoaded}
       />
-      <VStack width='100%' spacing={1}>
+      <VStack width='100%' spacing={0.25}>
         {/* Header */}
         {mediaType !== 'person' ? (
           <HStack width='100%' justify='space-between' spacing={1}>
@@ -43,9 +43,9 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
 
             <HStack spacing={0}>
               {/* Like component */}
-              <Like isLiked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} size='xs' />
+              <Like isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} size='xs' />
               {/* List component */}
-              <Bookmark isBookmarked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} size='xs' />
+              <Bookmark isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} size='xs' />
             </HStack>
           </HStack>
         ) : null}
@@ -62,10 +62,10 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
           spacing={0}
           sx={{
             position: 'absolute',
-            top: 1,
-            right: 2
+            top: 0,
+            right: 1
           }}>
-          <Like isLiked={false} isDisabled={!isLoaded} title={title} mediaType={mediaType} />
+          <Like isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} size='xs' />
         </HStack>
       ) : null}
     </VStack>

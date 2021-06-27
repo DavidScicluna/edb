@@ -19,6 +19,7 @@ const HorizontalMovies = ({ isLoading, isError, isSuccess, people }: PeopleProps
         <VerticalPoster
           key={index}
           width={['185px']}
+          mediaItemID={-1}
           mediaType='person'
           image={{
             alt: 'Person poster',
@@ -39,6 +40,7 @@ const HorizontalMovies = ({ isLoading, isError, isSuccess, people }: PeopleProps
         <VerticalPoster
           key={index}
           width={['185px']}
+          mediaItemID={person.id}
           mediaType='person'
           image={{
             alt: `${person?.name || ''} person poster`,

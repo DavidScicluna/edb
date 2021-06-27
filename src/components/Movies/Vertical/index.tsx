@@ -25,6 +25,7 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: MovieProps): 
         displayMode === 'list' ? (
           <HorizontalPoster
             key={index}
+            mediaItemID={-1}
             mediaType='movie'
             image={{
               alt: 'Movie poster',
@@ -40,6 +41,7 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: MovieProps): 
           <VerticalPoster
             key={index}
             width='100%'
+            mediaItemID={-1}
             mediaType='movie'
             image={{
               alt: 'Movie poster',
@@ -61,6 +63,7 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: MovieProps): 
         displayMode === 'list' ? (
           <HorizontalPoster
             key={index}
+            mediaItemID={movie.id}
             mediaType='movie'
             image={{
               alt: `${movie?.title || ''} movie poster`,
@@ -82,6 +85,7 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: MovieProps): 
           <VerticalPoster
             key={index}
             width='100%'
+            mediaItemID={movie.id}
             mediaType='movie'
             image={{
               alt: `${movie?.title || ''} movie poster`,

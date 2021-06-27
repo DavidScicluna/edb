@@ -25,6 +25,7 @@ const VerticalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElemen
         displayMode === 'list' ? (
           <HorizontalPoster
             key={index}
+            mediaItemID={-1}
             mediaType='tv'
             image={{
               alt: 'TV Show poster',
@@ -40,6 +41,7 @@ const VerticalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElemen
           <VerticalPoster
             key={index}
             width='100%'
+            mediaItemID={-1}
             mediaType='tv'
             image={{
               alt: 'TV Show poster',
@@ -61,6 +63,7 @@ const VerticalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElemen
         displayMode === 'list' ? (
           <HorizontalPoster
             key={index}
+            mediaItemID={show.id}
             mediaType='tv'
             image={{
               alt: `${show?.name || ''} tv show poster`,
@@ -82,6 +85,7 @@ const VerticalTV = ({ isLoading, isError, isSuccess, tv }: TVProps): ReactElemen
           <VerticalPoster
             key={index}
             width='100%'
+            mediaItemID={show.id}
             mediaType='tv'
             image={{
               alt: `${show?.name || ''} tv show poster`,

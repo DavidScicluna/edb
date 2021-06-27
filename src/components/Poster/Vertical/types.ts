@@ -2,6 +2,7 @@ import { MediaType, Image as ImageProps, Rating as RatingProps } from '../../../
 
 export type VerticalPosterProps = {
   width: string | string[];
+  mediaItemID: number;
   mediaType: MediaType;
   image: ImageProps;
   rating?: RatingProps;
