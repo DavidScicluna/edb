@@ -12,10 +12,10 @@ import { Response } from '../../../../../../common/types/types';
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
 import IconButton from '../../../../../../components/Inputs/IconButton';
 import Modal from '../../../../../../components/Modal';
-import VerticalMovies from '../../../../../../components/Movies/Vertical';
-import VerticalPeople from '../../../../../../components/People/Vertical';
+import HorizontalMovies from '../../../../../../components/Movies/Grid/Horizontal';
+import HorizontalPeople from '../../../../../../components/People/Grid/Horizontal';
 import SearchForm from '../../../../../../components/SearchForm';
-import VerticalTV from '../../../../../../components/TV/Vertical';
+import HorizontalTV from '../../../../../../components/TV/Grid/Horizontal';
 
 const Search = (): ReactElement => {
   const { colorMode } = useColorMode();
@@ -104,7 +104,7 @@ const Search = (): ReactElement => {
                   isLoading={false}
                   path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}
                   onFooterClick={() => onModalClose()}>
-                  <VerticalMovies isLoading={isLoading} isError={false} isSuccess movies={movies?.results || []} />
+                  <HorizontalMovies isLoading={isLoading} isError={false} isSuccess movies={movies?.results || []} />
                 </HorizontalGrid>
               </Collapse>
 
@@ -123,7 +123,7 @@ const Search = (): ReactElement => {
                   isLoading={false}
                   path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}
                   onFooterClick={() => onModalClose()}>
-                  <VerticalTV isLoading={isLoading} isError isSuccess tv={tv?.results || []} />
+                  <HorizontalTV isLoading={isLoading} isError isSuccess tv={tv?.results || []} />
                 </HorizontalGrid>
               </Collapse>
 
@@ -150,7 +150,7 @@ const Search = (): ReactElement => {
                   isLoading={false}
                   path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}
                   onFooterClick={() => onModalClose()}>
-                  <VerticalPeople isLoading={isLoading} isError={false} isSuccess people={people?.results || []} />
+                  <HorizontalPeople isLoading={isLoading} isError={false} isSuccess people={people?.results || []} />
                 </HorizontalGrid>
               </Collapse>
             </VStack>

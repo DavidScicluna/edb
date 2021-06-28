@@ -10,9 +10,9 @@ import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
 import { Response } from '../../common/types/types';
 import HorizontalGrid from '../../components/Grid/Horizontal';
-import HorizontalMovies from '../../components/Movies/Horizontal';
-import HorizontalPeople from '../../components/People/Horizontal';
-import HorizontalTV from '../../components/TV/Horizontal';
+import HorizontalMovies from '../../components/Movies/Grid/Horizontal';
+import HorizontalPeople from '../../components/People/Grid/Horizontal';
+import HorizontalTV from '../../components/TV/Grid/Horizontal';
 
 const Home = (): ReactElement => {
   const source = axios.CancelToken.source();

@@ -14,7 +14,7 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
 
       'width': '100%',
 
-      'border': '4px',
+      'border': 'solid2',
       'borderRadius': 'lg',
 
       'transform': isActive ? 'translateY(2px)' : 'translateY(0)',

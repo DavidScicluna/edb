@@ -3,6 +3,8 @@ import React, { ReactElement } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
 import Home from '../pages/Home';
+import Liked from '../pages/Liked';
+import Lists from '../pages/Lists';
 import Movies from '../pages/Movies';
 import MoviesNowPlaying from '../pages/Movies/NowPlaying';
 import PopularMovies from '../pages/Movies/Popular';
@@ -31,6 +33,26 @@ const Router = (): ReactElement => {
       <Switch>
         {/* Home Route */}
         <DefaultRoute exact path='/' component={Home} breadcrumbs={[breadcrumbs.home]} />
+
+        {/* User Routes */}
+        <DefaultRoute
+          exact
+          path='/liked'
+          component={Liked}
+          breadcrumbs={[breadcrumbs.home, { label: 'Liked', path: '/liked' }]}
+        />
+        <DefaultRoute
+          exact
+          path='/bookmarks'
+          component={Lists}
+          breadcrumbs={[breadcrumbs.home, { label: 'Bookmarks', path: '/bookmarks' }]}
+        />
+        <DefaultRoute
+          exact
+          path='/bookmarks/:id'
+          component={Lists}
+          breadcrumbs={[breadcrumbs.home, { label: 'Bookmarks', path: '/bookmarks' }]}
+        />
 
         {/* Search Route */}
         <DefaultRoute

@@ -105,7 +105,11 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
             top='76px'
             left='0px'
             backgroundColor={handleBackground()}
-            pb={location.pathname !== '/search' ? 4 : 0}
+            pb={
+              location.pathname === '/search' || location.pathname === '/liked' || location.pathname === '/bookmarks'
+                ? 0
+                : 4
+            }
             sx={{ ...transition }}>
             {children}
           </Box>

@@ -63,14 +63,20 @@ const Error = (props: ErrorProps): ReactElement => {
         spacing={2}
         p={handleReturnPadding()}>
         {hasIllustration ? <Image maxWidth='40%' alt='Error illustration' src={error} /> : null}
-        <Text align='center' fontSize='md' fontWeight='semibold' color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
-          {label}
-        </Text>
-        {description ? (
-          <Text align='center' fontSize='xs' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
-            {description}
+        <VStack spacing={0}>
+          <Text
+            align='center'
+            fontSize='md'
+            fontWeight='semibold'
+            color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
+            {label}
           </Text>
-        ) : null}
+          {description ? (
+            <Text align='center' fontSize='sm' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
+              {description}
+            </Text>
+          ) : null}
+        </VStack>
         {button || null}
       </VStack>
     </Fade>

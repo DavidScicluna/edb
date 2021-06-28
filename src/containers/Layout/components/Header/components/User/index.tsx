@@ -1,6 +1,49 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, useDisclosure, Avatar, Popover, PopoverTrigger, Portal, PopoverContent } from '@chakra-ui/react';
+import {
+  useColorMode,
+  useDisclosure,
+  Avatar,
+  Popover,
+  PopoverTrigger,
+  Portal,
+  PopoverContent,
+  VStack,
+  HStack,
+  Text,
+  Divider
+} from '@chakra-ui/react';
+import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon,
+  BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
+  BookmarkOutlined as BookmarkOutlinedIcon,
+  PaletteTwoTone as PaletteTwoToneIcon,
+  PaletteOutlined as PaletteOutlinedIcon
+} from '@material-ui/icons';
+
+import UserLink from './components/UserLink';
+import { UserLink as UserLinkType } from './types';
+
+const userLinks: UserLinkType[] = [
+  {
+    label: 'Liked',
+    path: '/liked',
+    iconActive: FavoriteOutlinedIcon,
+    icon: FavoriteBorderOutlinedIcon
+  },
+  {
+    label: 'Bookmarks',
+    path: '/bookmarks',
+    iconActive: BookmarkOutlinedIcon,
+    icon: BookmarkBorderOutlinedIcon
+  },
+  {
+    label: 'Display',
+    iconActive: PaletteTwoToneIcon,
+    icon: PaletteOutlinedIcon
+  }
+];
 
 const User = (): ReactElement => {
   const { colorMode } = useColorMode();
@@ -24,7 +67,24 @@ const User = (): ReactElement => {
               boxShadow: 'none'
             }
           }}>
-          <h1>Hello</h1>
+          <VStack width='100%' spacing={2}>
+            <HStack width='100%' justifyContent='flex-start' spacing={1}>
+              <Avatar cursor='pointer' name='Test User' size='md' />
+              <Text
+                align='left'
+                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                fontSize='md'
+                fontWeight='semibold'>
+                Test User
+              </Text>
+            </HStack>
+            <Divider />
+            <VStack width='100%' spacing={1}>
+              {userLinks.map((userLink: UserLinkType) => (
+                <UserLink key={userLink.label} {...userLink} />
+              ))}
+            </VStack>
+          </VStack>
         </PopoverContent>
       </Portal>
     </Popover>
