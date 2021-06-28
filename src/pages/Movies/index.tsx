@@ -8,7 +8,7 @@ import axiosInstance from '../../common/scripts/axios';
 import { PartialMovie } from '../../common/types/movie';
 import { Response } from '../../common/types/types';
 import HorizontalGrid from '../../components/Grid/Horizontal';
-import HorizontalMovies from '../../components/Movies/Horizontal';
+import HorizontalMovies from '../../components/Movies/Grid/Horizontal';
 
 const Movies = (): ReactElement => {
   const source = axios.CancelToken.source();

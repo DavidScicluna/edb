@@ -8,7 +8,7 @@ import axiosInstance from '../../common/scripts/axios';
 import { PartialTV } from '../../common/types/tv';
 import { Response } from '../../common/types/types';
 import HorizontalGrid from '../../components/Grid/Horizontal';
-import HorizontalTV from '../../components/TV/Horizontal';
+import HorizontalTV from '../../components/TV/Grid/Horizontal';
 
 const TV = (): ReactElement => {
   const source = axios.CancelToken.source();

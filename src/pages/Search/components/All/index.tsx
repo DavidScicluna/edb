@@ -4,9 +4,9 @@ import { VStack, Fade, Collapse } from '@chakra-ui/react';
 import queryString from 'query-string';
 
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
-import VerticalMovies from '../../../../components/Movies/Vertical';
-import VerticalPeople from '../../../../components/People/Vertical';
-import VerticalTV from '../../../../components/TV/Vertical';
+import HorizontalMovies from '../../../../components/Movies/Grid/Horizontal';
+import HorizontalPeople from '../../../../components/People/Grid/Horizontal';
+import HorizontalTV from '../../../../components/TV/Grid/Horizontal';
 import { AllProps } from './types';
 
 const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactElement => {
@@ -35,7 +35,7 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}>
-            <VerticalMovies isLoading={isLoading} isError={false} isSuccess movies={movies?.results || []} />
+            <HorizontalMovies isLoading={isLoading} isError={false} isSuccess movies={movies?.results || []} />
           </HorizontalGrid>
         </Collapse>
 
@@ -50,7 +50,7 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}>
-            <VerticalTV isLoading={isLoading} isError isSuccess tv={tv?.results || []} />
+            <HorizontalTV isLoading={isLoading} isError isSuccess tv={tv?.results || []} />
           </HorizontalGrid>
         </Collapse>
 
@@ -76,7 +76,7 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}>
-            <VerticalPeople isLoading={isLoading} isError={false} isSuccess people={people?.results || []} />
+            <HorizontalPeople isLoading={isLoading} isError={false} isSuccess people={people?.results || []} />
           </HorizontalGrid>
         </Collapse>
       </VStack>

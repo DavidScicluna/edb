@@ -14,7 +14,7 @@ import { Response, SortBy } from '../../common/types/types';
 import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
 import LoadMore from '../../components/LoadMore';
-import VerticalPeople from '../../components/People/Vertical';
+import VerticalPeople from '../../components/People/Grid/Vertical';
 
 const People = (): ReactElement => {
   const source = axios.CancelToken.source();

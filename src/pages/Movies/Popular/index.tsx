@@ -15,7 +15,7 @@ import { Response, SortBy, Genre } from '../../../common/types/types';
 import Filters from '../../../components/Filters';
 import VerticalGrid from '../../../components/Grid/Vertical';
 import LoadMore from '../../../components/LoadMore';
-import VerticalMovies from '../../../components/Movies/Vertical';
+import VerticalMovies from '../../../components/Movies/Grid/Vertical';
 
 const PopularMovies = (): ReactElement => {
   const source = axios.CancelToken.source();

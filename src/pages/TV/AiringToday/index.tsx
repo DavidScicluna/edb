@@ -15,7 +15,7 @@ import { Response, SortBy, Genre } from '../../../common/types/types';
 import Filters from '../../../components/Filters';
 import VerticalGrid from '../../../components/Grid/Vertical';
 import LoadMore from '../../../components/LoadMore';
-import VerticalTV from '../../../components/TV/Vertical';
+import VerticalTV from '../../../components/TV/Grid/Vertical';
 
 const TVAiringToday = (): ReactElement => {
   const source = axios.CancelToken.source();

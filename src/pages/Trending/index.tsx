@@ -21,9 +21,9 @@ import VerticalGrid from '../../components/Grid/Vertical';
 import Button from '../../components/Inputs/Button';
 import LoadMore from '../../components/LoadMore';
 import MediaTypePicker from '../../components/MediaTypePicker';
-import VerticalMovies from '../../components/Movies/Vertical';
-import VerticalPeople from '../../components/People/Vertical';
-import VerticalTV from '../../components/TV/Vertical';
+import VerticalMovies from '../../components/Movies/Grid/Vertical';
+import VerticalPeople from '../../components/People/Grid/Vertical';
+import VerticalTV from '../../components/TV/Grid/Vertical';
 import { Theme } from '../../theme/types';
 
 const Trending = (): ReactElement => {
