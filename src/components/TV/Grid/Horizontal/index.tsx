@@ -1,0 +1,32 @@
+import React, { ReactElement } from 'react';
+
+import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { PartialTV } from '../../../../common/types/tv';
+import Empty from '../../../Empty';
+import Error from '../../../Error';
+import VerticalPoster from '../../Poster/Vertical';
+import { GridProps } from '../types';
+
+const HorizontalTV = ({ isLoading, isError, isSuccess, tv }: GridProps): ReactElement => {
+  const hasOptionsDownloaded = useSelector((state) => state.options.data.hasDownloaded);
+
+  return isLoading && hasOptionsDownloaded ? (
+    <>
+      {[...Array(tv ? tv.length : 20)].map((_dummy, index: number) => (
+        <VerticalPoster key={index} isLoading />
+      ))}
+    </>
+  ) : isError ? (
+    <Error label='Oh no! Something went wrong' description='Failed to fetch TV list!' variant='transparent' />
+  ) : isSuccess && tv ? (
+    <>
+      {tv.map((show: PartialTV, index: number) => (
+        <VerticalPoster key={index} isLoading={false} show={show} />
+      ))}
+    </>
+  ) : (
+    <Empty label='TV list is currently empty!' variant='transparent' />
+  );
+};
+
+export default HorizontalTV;
