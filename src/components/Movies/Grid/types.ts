@@ -1,6 +1,6 @@
-import { PartialMovie } from '../../common/types/movie';
+import { PartialMovie } from '../../../common/types/movie';
 
-export type MovieProps = {
+export type GridProps = {
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
