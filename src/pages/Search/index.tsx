@@ -99,11 +99,7 @@ const Search = (): ReactElement => {
 
   return (
     <>
-      <VStack
-        width='100%'
-        backgroundColor={!mediaType ? (colorMode === 'light' ? 'gray.100' : 'gray.800') : 'transparent'}
-        spacing={0}
-        pb={query ? 4 : 0}>
+      <VStack width='100%' spacing={0}>
         <Box width='100%' backgroundColor={colorMode === 'light' ? 'white' : 'black'} px={2} pt={4} pb={2}>
           <SearchForm
             query={query}

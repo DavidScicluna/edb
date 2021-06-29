@@ -12,7 +12,7 @@ export default (theme: Theme, isActive = false): ListItemStyle => ({
     container: {
       'cursor': 'pointer',
 
-      'minWidth': '25%',
+      'width': '100%',
       'height': '100%',
 
       'border': 'solid2',

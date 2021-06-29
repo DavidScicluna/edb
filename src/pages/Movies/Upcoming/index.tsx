@@ -82,9 +82,7 @@ const UpcomingMovies = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid
-      title={isMob ? 'Upcoming movies' : ''}
-      header={<Filters mediaType='movie' onFilter={handleSetFilters} />}>
+    <VerticalGrid title={isMob ? 'Upcoming' : ''} header={<Filters mediaType='movie' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalMovies
           isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}

@@ -94,29 +94,25 @@ const Router = (): ReactElement => {
           exact
           path='/movies/popular'
           component={PopularMovies}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.movies, { label: 'Popular Movies', path: '/movies/popular' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.movies, { label: 'Popular', path: '/movies/popular' }]}
         />
         <DefaultRoute
           exact
           path='/movies/upcoming'
           component={UpcomingMovies}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.movies, { label: 'Upcoming Movies', path: '/movies/upcoming' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.movies, { label: 'Upcoming', path: '/movies/upcoming' }]}
         />
         <DefaultRoute
           exact
           path='/movies/now-playing'
           component={MoviesNowPlaying}
-          breadcrumbs={[
-            breadcrumbs.home,
-            breadcrumbs.movies,
-            { label: 'Movies now-playing', path: '/movies/now-playing' }
-          ]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.movies, { label: 'Now Playing', path: '/movies/now-playing' }]}
         />
         <DefaultRoute
           exact
           path='/movies/top-rated'
           component={TopRatedMovies}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.movies, { label: 'Top-rated movies', path: '/movies/top-rated' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.movies, { label: 'Top Rated', path: '/movies/top-rated' }]}
         />
 
         {/* TV Routes */}
@@ -125,25 +121,25 @@ const Router = (): ReactElement => {
           exact
           path='/tv/popular'
           component={PopularTV}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.tv, { label: 'Popular TV Shows', path: '/tv/popular' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.tv, { label: 'Popular', path: '/tv/popular' }]}
         />
         <DefaultRoute
           exact
           path='/tv/airing-today'
           component={TVAiringToday}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.tv, { label: 'TV Shows Airing Today', path: '/tv/airing-today' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.tv, { label: 'Airing Today', path: '/tv/airing-today' }]}
         />
         <DefaultRoute
           exact
           path='/tv/on-tv'
           component={OnTV}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.tv, { label: 'TV Shows on at the moment', path: '/tv/on-tv' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.tv, { label: 'On at the moment', path: '/tv/on-tv' }]}
         />
         <DefaultRoute
           exact
           path='/tv/top-rated'
           component={TopRatedTV}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.tv, { label: 'Top-rated TV Shows', path: '/tv/top-rated' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.tv, { label: 'Top Rated', path: '/tv/top-rated' }]}
         />
 
         {/* People Route */}

@@ -22,7 +22,8 @@ const initialState: StateProps = {
         date: moment(new Date()).toISOString(),
         results: []
       }
-    ]
+    ],
+    isDisplayModalOpen: false
   }
 };
 
@@ -44,10 +45,14 @@ const userSlice = createSlice({
     },
     toggleList: (state: StateProps, action: PayloadAction<ListsModal>) => {
       state.data.listsModal = action.payload;
+    },
+    toggleDisplay: (state: StateProps, action: PayloadAction<boolean>) => {
+      state.data.isDisplayModalOpen = action.payload;
     }
   }
 });
 
-export const { setRecentSearches, setRecentlyViewed, setLiked, setLists, toggleList } = userSlice.actions;
+export const { setRecentSearches, setRecentlyViewed, setLiked, setLists, toggleList, toggleDisplay } =
+  userSlice.actions;
 
 export default userSlice.reducer;

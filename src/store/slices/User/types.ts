@@ -35,5 +35,6 @@ export type StateProps = {
     liked: MediaItem[];
     listsModal: ListsModal;
     lists: List[];
+    isDisplayModalOpen: boolean;
   };
 };

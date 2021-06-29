@@ -52,7 +52,7 @@ const Movies = (): ReactElement => {
   return (
     <VStack spacing={6}>
       <HorizontalGrid
-        title='Popular movies'
+        title='Popular Movies'
         isLoading={popularMovies.isLoading || popularMovies.isFetching}
         path={{ pathname: '/movies/popular' }}>
         <HorizontalMovies
@@ -64,7 +64,7 @@ const Movies = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Upcoming movies'
+        title='Upcoming Movies'
         isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
         path={{ pathname: '/movies/upcoming' }}>
         <HorizontalMovies
@@ -76,7 +76,7 @@ const Movies = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Movies now-playing'
+        title='Movies Now Playing'
         isLoading={moviesNowPlaying.isLoading || moviesNowPlaying.isFetching}
         path={{ pathname: '/movies/now-playing' }}>
         <HorizontalMovies
@@ -88,7 +88,7 @@ const Movies = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Top-rated movies'
+        title='Top Rated Movies'
         isLoading={topRatedMovies.isLoading || topRatedMovies.isFetching}
         path={{ pathname: '/movies/top-rated' }}>
         <HorizontalMovies

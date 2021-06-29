@@ -21,33 +21,38 @@ import {
   PaletteTwoTone as PaletteTwoToneIcon,
   PaletteOutlined as PaletteOutlinedIcon
 } from '@material-ui/icons';
+import { useDispatch } from 'react-redux';
 
+import { toggleDisplay } from '../../../../../../store/slices/User';
 import UserLink from './components/UserLink';
 import { UserLink as UserLinkType } from './types';
-
-const userLinks: UserLinkType[] = [
-  {
-    label: 'Liked',
-    path: '/liked',
-    iconActive: FavoriteOutlinedIcon,
-    icon: FavoriteBorderOutlinedIcon
-  },
-  {
-    label: 'Bookmarks',
-    path: '/bookmarks',
-    iconActive: BookmarkOutlinedIcon,
-    icon: BookmarkBorderOutlinedIcon
-  },
-  {
-    label: 'Display',
-    iconActive: PaletteTwoToneIcon,
-    icon: PaletteOutlinedIcon
-  }
-];
 
 const User = (): ReactElement => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const dispatch = useDispatch();
+
+  const userLinks: UserLinkType[] = [
+    {
+      label: 'Liked',
+      path: '/liked',
+      iconActive: FavoriteOutlinedIcon,
+      icon: FavoriteBorderOutlinedIcon
+    },
+    {
+      label: 'Bookmarks',
+      path: '/bookmarks',
+      iconActive: BookmarkOutlinedIcon,
+      icon: BookmarkBorderOutlinedIcon
+    },
+    {
+      label: 'Display',
+      iconActive: PaletteTwoToneIcon,
+      icon: PaletteOutlinedIcon,
+      onClick: () => dispatch(toggleDisplay(true))
+    }
+  ];
 
   return (
     <Popover isOpen={isOpen} placement='bottom-end' gutter={12} onOpen={onOpen} onClose={onClose}>

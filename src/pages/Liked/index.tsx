@@ -1,15 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import {
-  useTheme,
-  useColorMode,
-  useDisclosure,
-  useMediaQuery,
-  VStack,
-  HStack,
-  SimpleGrid,
-  Box
-} from '@chakra-ui/react';
+import { useTheme, useDisclosure, useMediaQuery, VStack, HStack, SimpleGrid, Box } from '@chakra-ui/react';
 import axios from 'axios';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
@@ -32,7 +23,6 @@ const Liked = (): ReactElement => {
   const source = axios.CancelToken.source();
 
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
   const {
     isOpen: isMediaTypePickerOpen,
     onOpen: onMediaTypePickerOpen,
@@ -86,11 +76,7 @@ const Liked = (): ReactElement => {
 
   return (
     <>
-      <VStack
-        width='100%'
-        backgroundColor={!mediaType ? (colorMode === 'light' ? 'gray.100' : 'gray.800') : 'transparent'}
-        spacing={0}
-        pb={mediaType ? 4 : 0}>
+      <VStack width='100%' spacing={0}>
         <VerticalGrid
           title={
             mediaType === 'movie'

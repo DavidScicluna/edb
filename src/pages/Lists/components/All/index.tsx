@@ -1,16 +1,24 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
 import { VStack, Fade, Collapse } from '@chakra-ui/react';
 import queryString from 'query-string';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
+import { toggleDisplayMode } from '../../../../store/slices/App';
 import Movie from '../Movie';
 import Show from '../Show';
 import { AllProps } from './types';
 
 const All = ({ movies = [], tv = [] }: AllProps): ReactElement => {
   const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(toggleDisplayMode('grid'));
+  }, []);
 
   return (
     <Fade in={(movies && movies.length > 0) || (tv && tv.length > 0) || false} unmountOnExit style={{ width: '100%' }}>

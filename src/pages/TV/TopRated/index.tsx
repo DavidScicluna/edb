@@ -82,9 +82,7 @@ const TopRatedTV = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid
-      title={isMob ? 'Top-rated TV Shows' : ''}
-      header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
+    <VerticalGrid title={isMob ? 'Top Rated' : ''} header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalTV
           isLoading={topRatedTV.isLoading || topRatedTV.isFetching}

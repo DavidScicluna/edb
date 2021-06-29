@@ -1,8 +1,7 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, Center, Box } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, Center, Box } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 
 import useQueriesTyped from '../../common/hooks/useQueriesTyped';
 import useSelector from '../../common/hooks/useSelectorTyped';
@@ -13,20 +12,18 @@ import { Theme } from '../../theme/types';
 import { sidebarWidth } from './common/data/sidebar';
 import useTransitionsStyle from './common/styles/transitions';
 import Header from './components/Header';
+import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
 import Sidebar from './components/Sidebar';
 import { LayoutProps, GenreResponse } from './types';
 
 const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
   const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
   const transition = useTransitionsStyle(theme);
 
   const dispatch = useDispatch();
   const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
-
-  const location = useLocation();
 
   const [width, setWidth] = useState<string>('100%');
   const [left, setLeft] = useState<string>('266px');
@@ -47,17 +44,6 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
       }
     }
   ]);
-
-  const handleBackground = (): string => {
-    switch (location.pathname) {
-      case '/':
-      case '/movies':
-      case '/tv':
-        return colorMode === 'light' ? 'gray.100' : 'gray.800';
-      default:
-        return colorMode === 'light' ? 'white' : 'black';
-    }
-  };
 
   // Saving Movie genres data to redux store
   useEffect(() => {
@@ -98,23 +84,13 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
         {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
         <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
           <Header width={width} left={left} breadcrumbs={breadcrumbs} />
-          <Box
-            width='100%'
-            maxWidth='100%'
-            position='relative'
-            top='76px'
-            left='0px'
-            backgroundColor={handleBackground()}
-            pb={
-              location.pathname === '/search' || location.pathname === '/liked' || location.pathname === '/bookmarks'
-                ? 0
-                : 4
-            }
-            sx={{ ...transition }}>
+          <Box width='100%' maxWidth='100%' position='relative' top='74px' left='0px' pb={4} sx={{ ...transition }}>
             {children}
           </Box>
         </Box>
       </Center>
+
+      <DisplayModal />
 
       <ListsModal />
     </>

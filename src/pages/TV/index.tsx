@@ -88,7 +88,7 @@ const TV = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Top-rated TV Shows'
+        title='Top Rated TV Shows'
         isLoading={topRatedTV.isLoading || topRatedTV.isFetching}
         path={{ pathname: '/tv/top-rated' }}>
         <HorizontalTV

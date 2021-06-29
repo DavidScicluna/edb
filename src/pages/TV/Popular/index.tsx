@@ -82,9 +82,7 @@ const PopularTV = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid
-      title={isMob ? 'Popular TV Shows' : ''}
-      header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
+    <VerticalGrid title={isMob ? 'Popular' : ''} header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalTV
           isLoading={popularTV.isLoading || popularTV.isFetching}

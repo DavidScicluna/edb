@@ -172,7 +172,7 @@ const Lists = (): ReactElement => {
                 <All movies={movies} tv={tv} />
               )
             ) : (
-              <Box width='100%' px={2}>
+              <Box width='100%' p={2}>
                 <Empty label={`You have no items in "${list.label}" list!`} variant='outlined' size='xl' />
               </Box>
             )
@@ -192,7 +192,7 @@ const Lists = (): ReactElement => {
               ))}
             </SimpleGrid>
           ) : (
-            <Box width='100%' px={2}>
+            <Box width='100%' p={2}>
               <Empty label='You have no lists!' variant='outlined' size='xl' />
             </Box>
           )}
