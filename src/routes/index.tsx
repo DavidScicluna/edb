@@ -29,7 +29,7 @@ const Router = (): ReactElement => {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         {/* Home Route */}
         <DefaultRoute exact path='/' component={Home} breadcrumbs={[breadcrumbs.home]} />
