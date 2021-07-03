@@ -12,7 +12,7 @@ import { setTheme, toggleDisplay } from '../../../../../store/slices/User';
 import { Theme } from '../../../../../store/slices/User/types';
 import Background from './components/Background';
 import Color from './components/Color';
-import FontSize from './components/FontSize';
+// import FontSize from './components/FontSize';
 
 const Display = (): ReactElement => {
   const { toggleColorMode } = useColorMode();
@@ -73,7 +73,7 @@ const Display = (): ReactElement => {
       isCentered
       size={isXs ? 'full' : '2xl'}>
       <VStack spacing={2} p={2}>
-        <FontSize />
+        {/* <FontSize form={form} /> */}
         <Color form={form} />
         <Background form={form} />
       </VStack>

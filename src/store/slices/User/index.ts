@@ -27,7 +27,7 @@ const initialState: StateProps = {
     listsModal: { ...defaultListsModal },
     isDisplayModalOpen: false,
     theme: {
-      fontSize: 'base',
+      // fontSize: 'base',
       color: 'blue',
       background: 'light'
     }

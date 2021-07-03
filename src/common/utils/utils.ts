@@ -109,7 +109,7 @@ export default {
       case 'poster': {
         switch (breakpoint) {
           default:
-            return '185';
+            return '342';
         }
       }
       default:

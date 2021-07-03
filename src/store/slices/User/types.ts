@@ -30,7 +30,7 @@ export type List = {
 };
 
 export type Theme = {
-  fontSize: 'xs' | 'sm' | 'base' | 'lg' | 'xl';
+  // fontSize: 'sm' | 'base' | 'lg';
   color: Omit<Color, 'gray' | 'red'>;
   background: 'light' | 'dark';
 };
