@@ -1,4 +1,5 @@
 import { Style } from '../../../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../../../store/slices/User/types';
 import { Theme } from '../../../../../../theme/types';
 
 type ButtonStyle = {
@@ -7,7 +8,7 @@ type ButtonStyle = {
   dark: Style;
 };
 
-export default (theme: Theme, isActive = false): ButtonStyle => ({
+export default (theme: Theme, color: UserTheme['color'], isActive = false): ButtonStyle => ({
   common: {
     'cursor': 'pointer',
     'border': 'solid2',
@@ -28,21 +29,21 @@ export default (theme: Theme, isActive = false): ButtonStyle => ({
     }
   },
   light: {
-    'color': isActive ? 'blue.400' : 'gray.400',
-    'borderColor': isActive ? 'blue.400' : 'gray.200',
+    'color': isActive ? `${color}.400` : 'gray.400',
+    'borderColor': isActive ? `${color}.400` : 'gray.200',
 
     '&:hover': {
-      color: isActive ? 'blue.600' : 'gray.900',
-      borderColor: isActive ? 'blue.600' : 'gray.400'
+      color: isActive ? `${color}.600` : 'gray.900',
+      borderColor: isActive ? `${color}.600` : 'gray.400'
     }
   },
   dark: {
-    'color': isActive ? 'blue.400' : 'gray.500',
-    'borderColor': isActive ? 'blue.400' : 'gray.700',
+    'color': isActive ? `${color}.400` : 'gray.500',
+    'borderColor': isActive ? `${color}.400` : 'gray.700',
 
     '&:hover': {
-      color: isActive ? 'blue.600' : 'gray.50',
-      borderColor: isActive ? 'blue.600' : 'gray.500'
+      color: isActive ? `${color}.600` : 'gray.50',
+      borderColor: isActive ? `${color}.600` : 'gray.500'
     }
   }
 });

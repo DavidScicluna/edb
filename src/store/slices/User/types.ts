@@ -1,6 +1,7 @@
 type SearchType = 'isTrending' | 'isKeyword';
 
 import { MediaType } from '../../../common/types/types';
+import { Color } from '../../../theme/types';
 
 export type Search = {
   id: string;
@@ -28,13 +29,22 @@ export type List = {
   results: MediaItem[];
 };
 
+export type Theme = {
+  // fontSize: 'sm' | 'base' | 'lg';
+  color: Omit<Color, 'gray' | 'red'>;
+  background: 'light' | 'dark';
+};
+
 export type StateProps = {
   data: {
     recentSearches: Search[];
     recentlyViewed: MediaItem[];
     liked: MediaItem[];
-    listsModal: ListsModal;
     lists: List[];
+  };
+  ui: {
+    listsModal: ListsModal;
     isDisplayModalOpen: boolean;
+    theme: Theme;
   };
 };

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-import { StateProps, Search, MediaItem, ListsModal, List } from './types';
+import { StateProps, Search, MediaItem, ListsModal, List, Theme } from './types';
 
 export const defaultListsModal = {
   open: false,
@@ -14,7 +14,6 @@ const initialState: StateProps = {
     recentSearches: [],
     recentlyViewed: [],
     liked: [],
-    listsModal: { ...defaultListsModal },
     lists: [
       {
         id: uuid(),
@@ -22,8 +21,16 @@ const initialState: StateProps = {
         date: moment(new Date()).toISOString(),
         results: []
       }
-    ],
-    isDisplayModalOpen: false
+    ]
+  },
+  ui: {
+    listsModal: { ...defaultListsModal },
+    isDisplayModalOpen: false,
+    theme: {
+      // fontSize: 'base',
+      color: 'blue',
+      background: 'light'
+    }
   }
 };
 
@@ -31,6 +38,9 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setTheme: (state: StateProps, action: PayloadAction<Theme>) => {
+      state.ui.theme = action.payload;
+    },
     setRecentSearches: (state: StateProps, action: PayloadAction<Search[]>) => {
       state.data.recentSearches = action.payload;
     },
@@ -44,15 +54,15 @@ const userSlice = createSlice({
       state.data.lists = action.payload;
     },
     toggleList: (state: StateProps, action: PayloadAction<ListsModal>) => {
-      state.data.listsModal = action.payload;
+      state.ui.listsModal = action.payload;
     },
     toggleDisplay: (state: StateProps, action: PayloadAction<boolean>) => {
-      state.data.isDisplayModalOpen = action.payload;
+      state.ui.isDisplayModalOpen = action.payload;
     }
   }
 });
 
-export const { setRecentSearches, setRecentlyViewed, setLiked, setLists, toggleList, toggleDisplay } =
+export const { setTheme, setRecentSearches, setRecentlyViewed, setLiked, setLists, toggleList, toggleDisplay } =
   userSlice.actions;
 
 export default userSlice.reducer;

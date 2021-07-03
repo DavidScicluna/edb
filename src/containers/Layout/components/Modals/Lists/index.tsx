@@ -5,6 +5,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../../common/utils/utils';
 import Button from '../../../../../components/Inputs/Button';
 import Modal from '../../../../../components/Modal';
 import { defaultListsModal, setLists, toggleList } from '../../../../../store/slices/User';
@@ -18,8 +19,9 @@ const ListsModal = (): ReactElement => {
   const [isXs] = useMediaQuery('(max-width: 40em)');
 
   const dispatch = useDispatch();
-  const listsModal = useSelector((state) => state.user.data.listsModal);
+  const listsModal = useSelector((state) => state.user.ui.listsModal);
   const lists = useSelector((state) => state.user.data.lists);
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [selected, setSelected] = useState<ListType['id'][]>([]);
 
@@ -65,7 +67,7 @@ const ListsModal = (): ReactElement => {
     if (listsModal.open) {
       onListsOpen();
     } else {
-      onListsClose();
+      handleClose();
     }
   }, [listsModal.open]);
 
@@ -75,11 +77,11 @@ const ListsModal = (): ReactElement => {
         title={`Add ${listsModal.item ? listsModal.item.title : 'this item'} to a list`}
         actions={
           selected.length > 0 ? (
-            <Button color='blue' onClick={() => handleSaveItem()} size='sm'>
+            <Button color={utils.handleReturnColor(color)} onClick={() => handleSaveItem()} size='sm'>
               {`Save to List${selected.length > 1 ? 's' : ''}`}
             </Button>
           ) : (
-            <Button color='blue' onClick={() => onCreateListOpen()} size='sm'>
+            <Button color={utils.handleReturnColor(color)} onClick={() => onCreateListOpen()} size='sm'>
               Create a new List
             </Button>
           )

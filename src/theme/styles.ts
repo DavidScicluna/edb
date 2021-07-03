@@ -1,12 +1,14 @@
 import { mode, Styles } from '@chakra-ui/theme-tools';
 
+import transition from './foundations/transition';
+
 const styles: Styles = {
   global: (props) => ({
     'body': {
       fontFamily: 'body',
       color: mode('gray.900', 'gray.50')(props),
-      bg: mode('white', 'black')(props),
-      transition: 'background-color 0.2s',
+      bg: mode('gray.50', 'gray.900')(props),
+      transition: `${transition.duration.slower} ${transition.easing['ease-in-out']}`,
       lineHeight: 'base'
     },
     '*::placeholder': {

@@ -63,7 +63,7 @@ const Rating = ({ rating = defaultRating, isLoaded = false, type }: RatingProps)
     //   placement='top'
     //   isDisabled={!rating.rating || !isLoaded}>
     <Center
-      background='transparent'
+      backgroundColor='transparent'
       // borderRadius='sm'
       // border='solid2'
       // borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}

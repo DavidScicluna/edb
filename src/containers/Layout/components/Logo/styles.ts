@@ -1,4 +1,5 @@
 import { Style } from '../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../store/slices/User/types';
 import { Theme } from '../../../../theme/types';
 import { Size } from './types';
 
@@ -8,7 +9,7 @@ type NavItemStyle = {
   dark: Style;
 };
 
-export default (theme: Theme, size: Size = 'md'): NavItemStyle => ({
+export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): NavItemStyle => ({
   common: {
     minWidth: '46px',
     minHeight: '46px',
@@ -17,19 +18,13 @@ export default (theme: Theme, size: Size = 'md'): NavItemStyle => ({
 
     border: 'solid2',
     borderRadius: size === 'sm' || size === 'md' ? 'base' : 'lg',
-    backgroundColor: 'blue.400',
-    borderColor: 'blue.400',
+    backgroundColor: `${color}.400`,
+    borderColor: `${color}.400`,
 
     fontFamily: '"Pacifico", cursive',
     fontSize: size === 'sm' ? 'lg' : size === 'md' ? '4xl' : '6xl',
     fontWeight: 'bold',
     lineHeight: size === 'sm' ? '23px' : size === 'md' ? '45px' : '75px',
-
-    // textShadow: `${size === 'sm' ? '-1px -1px' : size === 'md' ? '-1.5px -1.5px' : '-2px -2px'} ${
-    //   size === 'sm' ? '0.5px' : size === 'md' ? '1px' : '1.5px'
-    // } ${theme.colors.blue[200]}, ${size === 'sm' ? '1px 1px' : size === 'md' ? '1.5px 1.5px' : '2px 2px'} ${
-    //   size === 'sm' ? '0.5px' : size === 'md' ? '1px' : '1.5px'
-    // } ${theme.colors.blue[600]}`,
 
     paddingTop: size === 'sm' ? 0.5 : 1,
     paddingBottom: size === 'sm' ? 0.5 : 1,
@@ -39,9 +34,9 @@ export default (theme: Theme, size: Size = 'md'): NavItemStyle => ({
     transition: `${theme.transition.duration.slower} ${theme.transition.easing['ease-in-out']}`
   },
   light: {
-    color: 'white'
+    color: 'gray.50'
   },
   dark: {
-    color: 'black'
+    color: 'gray.900'
   }
 });

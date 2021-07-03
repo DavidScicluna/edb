@@ -4,6 +4,7 @@ import { useTheme, useColorMode, Text, HStack, ScaleFade, Icon, Button } from '@
 import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
 import _ from 'lodash';
 
+import useSelector from '../../../../../../common/hooks/useSelectorTyped';
 import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
 import { SortByItemProps } from './types';
@@ -18,7 +19,10 @@ const SortByItem = ({
 }: SortByItemProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const style = useStyles(theme, isActive);
+
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const style = useStyles(theme, color, isActive);
 
   return (
     <Button

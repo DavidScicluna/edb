@@ -19,7 +19,7 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
     <VStack
       width={width}
       position='relative'
-      background='transparent'
+      backgroundColor='transparent'
       borderRadius='lg'
       border='solid2'
       borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}

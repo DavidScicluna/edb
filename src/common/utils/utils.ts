@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import queryString from 'query-string';
 
+import { ButtonProps } from '../../components/Inputs/Button/types';
 import store from '../../store';
 import theme from '../../theme';
 import { months } from '../data/date';
@@ -48,6 +49,27 @@ export default {
     return 'abc';
   },
 
+  handleReturnColor: (color: unknown): ButtonProps['color'] => {
+    switch (color) {
+      case 'orange':
+        return 'orange';
+      case 'yellow':
+        return 'yellow';
+      case 'green':
+        return 'green';
+      case 'teal':
+        return 'teal';
+      case 'cyan':
+        return 'cyan';
+      case 'purple':
+        return 'purple';
+      case 'pink':
+        return 'pink';
+      default:
+        return 'blue';
+    }
+  },
+
   handleReturnFallbackSrc: (mediaType: MediaType, size: string, alt: string): string => {
     const name = `${alt}-${(Math.floor(Math.random() * 1000000) + 1000000).toString().substring(1)}`;
     const colors: string = [
@@ -87,7 +109,7 @@ export default {
       case 'poster': {
         switch (breakpoint) {
           default:
-            return '185';
+            return '342';
         }
       }
       default:

@@ -1,20 +1,25 @@
 import React, { ReactElement, useState, useCallback, UIEvent } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { useColorMode, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
+import useSelector from '../../../common/hooks/useSelectorTyped';
+import utils from '../../../common/utils/utils';
 import Button from '../../Inputs/Button';
 import Grid from './components/Grid';
 import Header from './components/Header';
 import { HorizontalGridProps, ScrollButtonsState } from './types';
-
 const defaultScrollButtonsState = {
   left: true,
   right: false
 };
 
 const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
+  const { colorMode } = useColorMode();
+
   const { children, title, footer, isLoading, path, onFooterClick } = props;
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [gridRef, setGridRef] = useState<HTMLDivElement | null>(null);
 
@@ -60,7 +65,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   );
 
   return (
-    <VStack width='100%' align='stretch' backgroundColor='white' spacing={0}>
+    <VStack width='100%' align='stretch' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} spacing={0}>
       {/* Header */}
       <Header
         title={title}
@@ -79,7 +84,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
       {path ? (
         <Link to={!isLoading ? path : {}}>
           <Button
-            color='blue'
+            color={utils.handleReturnColor(color)}
             isFullWidth
             isDisabled={isLoading}
             onClick={onFooterClick ? () => onFooterClick() : undefined}

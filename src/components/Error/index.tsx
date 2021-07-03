@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react';
 
 import { useColorMode, VStack, Image, Text, Fade } from '@chakra-ui/react';
 
-import error from '../../common/assets/illustrations/error.svg';
+import * as error from '../../common/assets/illustrations/error';
+import useSelector from '../../common/hooks/useSelectorTyped';
 import { ErrorProps } from './types';
 
 const Error = (props: ErrorProps): ReactElement => {
@@ -16,6 +17,8 @@ const Error = (props: ErrorProps): ReactElement => {
     size = 'md',
     variant = 'transparent'
   } = props;
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   /**
    * This method will return the appropriate padding for the size passed
@@ -52,17 +55,44 @@ const Error = (props: ErrorProps): ReactElement => {
     }
   };
 
+  /**
+   * This method will return the appropriate Illustration depending on the color selected
+   * @returns Illustration path
+   */
+  const handleReturnIllustration = (): string => {
+    switch (color) {
+      case 'blue':
+        return error.default.blue;
+      case 'cyan':
+        return error.default.cyan;
+      case 'green':
+        return error.default.green;
+      case 'orange':
+        return error.default.orange;
+      case 'pink':
+        return error.default.pink;
+      case 'purple':
+        return error.default.purple;
+      case 'teal':
+        return error.default.teal;
+      case 'yellow':
+        return error.default.yellow;
+      default:
+        return '';
+    }
+  };
+
   return (
     <Fade in style={{ width: '100%' }}>
       <VStack
         width='100%'
-        background='transparent'
+        backgroundColor='transparent'
         borderRadius='lg'
         border='solid2'
         borderColor={variant === 'outlined' ? (colorMode === 'light' ? 'gray.200' : 'gray.700') : 'transparent'}
         spacing={2}
         p={handleReturnPadding()}>
-        {hasIllustration ? <Image maxWidth='40%' alt='Error illustration' src={error} /> : null}
+        {hasIllustration ? <Image maxWidth='40%' alt='Error illustration' src={handleReturnIllustration()} /> : null}
         <VStack spacing={0}>
           <Text
             align='center'

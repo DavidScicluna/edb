@@ -6,8 +6,10 @@ export type SidebarMode = 'expanded' | 'collapsed';
 
 export type StateProps = {
   data: {
-    displayMode: DisplayMode;
     sortDirection: SortDirection;
+  };
+  ui: {
+    displayMode: DisplayMode;
     sidebarMode: SidebarMode;
   };
 };

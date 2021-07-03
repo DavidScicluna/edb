@@ -38,7 +38,7 @@ const Lists = (): ReactElement => {
   const history = useHistory();
 
   const lists = useSelector((state) => state.user.data.lists);
-  const displayMode = useSelector((state) => state.app.data.displayMode);
+  const displayMode = useSelector((state) => state.app.ui.displayMode);
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 

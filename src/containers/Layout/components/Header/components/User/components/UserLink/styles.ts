@@ -1,4 +1,5 @@
 import { Style } from '../../../../../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../../../../../store/slices/User/types';
 import { Theme } from '../../../../../../../../theme/types';
 
 type NavItemStyle = {
@@ -10,7 +11,7 @@ type NavItemStyle = {
   dark: Style;
 };
 
-export default (theme: Theme, isActive = false): NavItemStyle => ({
+export default (theme: Theme, color: UserTheme['color'], isActive = false): NavItemStyle => ({
   common: {
     link: {
       'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
@@ -38,7 +39,7 @@ export default (theme: Theme, isActive = false): NavItemStyle => ({
     }
   },
   light: {
-    'backgroundColor': isActive ? 'blue.400' : 'transparent',
+    'backgroundColor': isActive ? `${color}.400` : 'transparent',
 
     '& .chakra-icon': {
       color: isActive ? 'gray.50' : 'gray.400'
@@ -48,7 +49,7 @@ export default (theme: Theme, isActive = false): NavItemStyle => ({
     },
 
     '&:hover': {
-      'backgroundColor': isActive ? 'blue.500' : 'gray.100',
+      'backgroundColor': isActive ? `${color}.500` : 'gray.100',
 
       '& .chakra-icon': {
         color: isActive ? 'gray.50' : 'gray.900'
@@ -59,7 +60,7 @@ export default (theme: Theme, isActive = false): NavItemStyle => ({
     }
   },
   dark: {
-    'backgroundColor': isActive ? 'blue.400' : 'transparent',
+    'backgroundColor': isActive ? `${color}.400` : 'transparent',
 
     '& .chakra-icon': {
       color: isActive ? 'gray.900' : 'gray.500'
@@ -69,7 +70,7 @@ export default (theme: Theme, isActive = false): NavItemStyle => ({
     },
 
     '&:hover': {
-      'backgroundColor': isActive ? 'blue.500' : 'gray.800',
+      'backgroundColor': isActive ? `${color}.500` : 'gray.800',
 
       '& .chakra-icon': {
         color: isActive ? 'gray.900' : 'gray.50'

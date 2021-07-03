@@ -5,6 +5,7 @@ import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
+import utils from '../../common/utils/utils';
 import { setLists, toggleList } from '../../store/slices/User';
 import IconButton from '../Inputs/IconButton';
 import Tooltip from '../Tooltip';
@@ -13,6 +14,7 @@ import { BookmarkProps } from './types';
 const Bookmark = ({ isDisabled = false, mediaItem, size = 'xs' }: BookmarkProps): ReactElement => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
@@ -42,7 +44,7 @@ const Bookmark = ({ isDisabled = false, mediaItem, size = 'xs' }: BookmarkProps)
             ? `Remove "${titleText}" ${mediaItem.mediaType} from ${list?.label ? `"${list.label}"` : ''} tooltip`
             : `Add "${titleText}" ${mediaItem.mediaType} to a list tooltip`
         }
-        color={isBookmarked ? 'blue' : 'gray'}
+        color={isBookmarked ? utils.handleReturnColor(color) : 'gray'}
         isDisabled={isDisabled}
         icon={isBookmarked ? BookmarkOutlinedIcon : BookmarkBorderOutlinedIcon}
         onClick={

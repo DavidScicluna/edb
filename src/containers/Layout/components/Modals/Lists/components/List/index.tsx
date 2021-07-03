@@ -8,6 +8,7 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 
+import useSelector from '../../../../../../../common/hooks/useSelectorTyped';
 import { Theme } from '../../../../../../../theme/types';
 import useStyles from './styles';
 import { ListProps } from './types';
@@ -15,7 +16,10 @@ import { ListProps } from './types';
 const List = ({ id, label, description, date, results, isSelected = false, onClick }: ListProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const style = useStyles(theme, isSelected);
+
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const style = useStyles(theme, color, isSelected);
 
   return (
     <HStack

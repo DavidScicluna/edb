@@ -34,7 +34,7 @@ const Liked = (): ReactElement => {
   const history = useHistory();
 
   const liked = useSelector((state) => state.user.data.liked);
-  const displayMode = useSelector((state) => state.app.data.displayMode);
+  const displayMode = useSelector((state) => state.app.ui.displayMode);
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 

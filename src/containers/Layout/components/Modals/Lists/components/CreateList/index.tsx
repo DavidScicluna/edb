@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import useSelector from '../../../../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../../../../common/utils/utils';
 import Button from '../../../../../../../components/Inputs/Button';
 import Modal from '../../../../../../../components/Modal';
 import { setLists } from '../../../../../../../store/slices/User';
@@ -28,6 +29,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
 
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const form = useForm<Form>({
     defaultValues,
@@ -69,7 +71,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
       title='Create a new List'
       actions={
         <Button
-          color='blue'
+          color={utils.handleReturnColor(color)}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
           size='sm'>
@@ -91,7 +93,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
               </FormLabel>
               <Input
                 errorBorderColor='red.400'
-                focusBorderColor='blue.400'
+                focusBorderColor={`${utils.handleReturnColor(color)}.400`}
                 isFullWidth
                 isInvalid={Boolean(error)}
                 fontSize='md'
@@ -118,7 +120,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
               </FormLabel>
               <Textarea
                 errorBorderColor='red.400'
-                focusBorderColor='blue.400'
+                focusBorderColor={`${utils.handleReturnColor(color)}.400`}
                 isFullWidthname={name}
                 isInvalid={Boolean(error)}
                 fontSize='md'

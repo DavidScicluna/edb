@@ -4,6 +4,7 @@ import { useTheme, useColorMode, Tag, TagLeftIcon, TagLabel, ScaleFade } from '@
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import _ from 'lodash';
 
+import useSelector from '../../../../../../common/hooks/useSelectorTyped';
 import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
 import { GenreProps } from './types';
@@ -11,7 +12,10 @@ import { GenreProps } from './types';
 const Genre = ({ id, name, isActive = false, onClick }: GenreProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const style = useStyles(theme, isActive);
+
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const style = useStyles(theme, color, isActive);
 
   return (
     <Tag

@@ -4,8 +4,10 @@ import { StateProps, DisplayMode, SortDirection, SidebarMode } from './types';
 
 const initialState: StateProps = {
   data: {
+    sortDirection: 'asc'
+  },
+  ui: {
     displayMode: 'grid',
-    sortDirection: 'asc',
     sidebarMode: 'expanded'
   }
 };
@@ -15,13 +17,13 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     toggleDisplayMode: (state: StateProps, action: PayloadAction<DisplayMode>) => {
-      state.data.displayMode = action.payload;
+      state.ui.displayMode = action.payload;
     },
     toggleSortDirection: (state: StateProps, action: PayloadAction<SortDirection>) => {
       state.data.sortDirection = action.payload;
     },
     toggleSidebarMode: (state: StateProps, action: PayloadAction<SidebarMode>) => {
-      state.data.sidebarMode = action.payload;
+      state.ui.sidebarMode = action.payload;
     }
   }
 });

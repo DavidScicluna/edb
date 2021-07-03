@@ -15,7 +15,7 @@ const Person = ({ id }: { id: PartialPerson['id'] }): ReactElement => {
 
   const location = useLocation();
 
-  const displayMode = useSelector((state) => state.app.data.displayMode);
+  const displayMode = useSelector((state) => state.app.ui.displayMode);
 
   // Fetching person
   const person = useQuery(`person-${id}`, async () => {

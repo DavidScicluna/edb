@@ -15,6 +15,7 @@ import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
 import { MediaType, Response, SortBy, Genre } from '../../common/types/types';
+import utils from '../../common/utils/utils';
 import Empty from '../../components/Empty';
 import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
@@ -40,6 +41,7 @@ const Trending = (): ReactElement => {
   const history = useHistory();
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 
@@ -266,7 +268,7 @@ const Trending = (): ReactElement => {
           <Box width='100%' px={2}>
             <Empty
               button={
-                <Button color='blue' onClick={() => onMediaTypePickerOpen()}>
+                <Button color={utils.handleReturnColor(color)} onClick={() => onMediaTypePickerOpen()}>
                   Select media type
                 </Button>
               }

@@ -33,7 +33,7 @@ const Header = (props: HeaderProps): ReactElement => {
       left={left}
       zIndex={800}
       justifyContent='space-between'
-      background={colorMode === 'light' ? 'white' : 'gray.900'}
+      backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
       borderBottom='solid2'
       borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       px={2}

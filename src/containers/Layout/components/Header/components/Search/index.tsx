@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useDisclosure, VStack, Box, Fade, Collapse } from '@chakra-ui/react';
+import { useDisclosure, VStack, Box, Fade, Collapse } from '@chakra-ui/react';
 import { SearchOutlined as SearchOutlinedIcon } from '@material-ui/icons/';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
@@ -18,7 +18,6 @@ import SearchForm from '../../../../../../components/SearchForm';
 import HorizontalTV from '../../../../../../components/TV/Grid/Horizontal';
 
 const Search = (): ReactElement => {
-  const { colorMode } = useColorMode();
   const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
 
   const location = useLocation();
@@ -80,7 +79,7 @@ const Search = (): ReactElement => {
             }
             unmountOnExit
             style={{ width: '100%' }}>
-            <VStack width='100%' backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'} spacing={6} pb={4}>
+            <VStack width='100%' spacing={6} pb={4}>
               {/* Movies */}
               <Collapse
                 in={(movies && movies.results && movies.results.length > 0) || false}

@@ -1,4 +1,5 @@
 import { Style } from '../../../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../../../store/slices/User/types';
 import { Theme } from '../../../../../../theme/types';
 
 type ButtonStyle = {
@@ -7,7 +8,7 @@ type ButtonStyle = {
   dark: Style;
 };
 
-export default (theme: Theme, isActive = false): ButtonStyle => ({
+export default (theme: Theme, color: UserTheme['color'], isActive = false): ButtonStyle => ({
   common: {
     'cursor': 'pointer',
 
@@ -31,7 +32,7 @@ export default (theme: Theme, isActive = false): ButtonStyle => ({
     }
   },
   light: {
-    'backgroundColor': isActive ? 'blue.400' : 'transparent',
+    'backgroundColor': isActive ? `${color}.400` : 'transparent',
 
     '& .chakra-icon': {
       color: isActive ? 'gray.50' : 'gray.400'
@@ -41,7 +42,7 @@ export default (theme: Theme, isActive = false): ButtonStyle => ({
     },
 
     '&:hover': {
-      'backgroundColor': isActive ? 'blue.500' : 'gray.100',
+      'backgroundColor': isActive ? `${color}.500` : 'gray.100',
 
       '& .chakra-icon': {
         color: isActive ? 'gray.50' : 'gray.900'
@@ -52,7 +53,7 @@ export default (theme: Theme, isActive = false): ButtonStyle => ({
     }
   },
   dark: {
-    'backgroundColor': isActive ? 'blue.400' : 'transparent',
+    'backgroundColor': isActive ? `${color}.400` : 'transparent',
 
     '& .chakra-icon': {
       color: isActive ? 'gray.900' : 'gray.500'
@@ -62,7 +63,7 @@ export default (theme: Theme, isActive = false): ButtonStyle => ({
     },
 
     '&:hover': {
-      'backgroundColor': isActive ? 'blue.500' : 'gray.100',
+      'backgroundColor': isActive ? `${color}.500` : 'gray.100',
 
       '& .chakra-icon': {
         color: isActive ? 'gray.900' : 'gray.50'

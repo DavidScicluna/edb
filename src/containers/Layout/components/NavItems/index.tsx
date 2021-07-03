@@ -8,7 +8,7 @@ import NavItem from './components/NavItem';
 import { NavItemsProps, NavItem as NavItemType } from './types';
 
 const NavItems = ({ navItems }: NavItemsProps): ReactElement => {
-  const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
+  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
   return (
     <VStack width='100%' spacing={2}>

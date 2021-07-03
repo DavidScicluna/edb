@@ -23,7 +23,7 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
   const transition = useTransitionsStyle(theme);
 
   const dispatch = useDispatch();
-  const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
+  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
   const [width, setWidth] = useState<string>('100%');
   const [left, setLeft] = useState<string>('266px');

@@ -15,7 +15,7 @@ const Show = ({ id }: { id: PartialTV['id'] }): ReactElement => {
 
   const location = useLocation();
 
-  const displayMode = useSelector((state) => state.app.data.displayMode);
+  const displayMode = useSelector((state) => state.app.ui.displayMode);
 
   // Fetching tv-show
   const show = useQuery(`show-${id}`, async () => {
