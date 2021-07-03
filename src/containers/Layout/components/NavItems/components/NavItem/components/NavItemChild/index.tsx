@@ -14,11 +14,12 @@ const NavItemChild = ({ label, path, isLastChild = false }: NavItemChildProps): 
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
+  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const location = useLocation();
   const isActive: boolean = location.pathname === path;
-  const style = useStyles(theme, isActive, sidebarMode === 'expanded', isLastChild);
+  const style = useStyles(theme, color, isActive, sidebarMode === 'expanded', isLastChild);
 
   /**
    * This method will get the label and return the initials of that label

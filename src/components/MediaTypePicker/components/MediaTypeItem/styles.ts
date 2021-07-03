@@ -1,4 +1,5 @@
 import { Style } from '../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../store/slices/User/types';
 import { Theme } from '../../../../theme/types';
 
 type MediaTypeItemStyle = {
@@ -7,7 +8,7 @@ type MediaTypeItemStyle = {
   dark: { container: Style; icon: Style; text: Style };
 };
 
-export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
+export default (theme: Theme, color: UserTheme['color'], isActive = false): MediaTypeItemStyle => ({
   common: {
     container: {
       'cursor': 'pointer',
@@ -58,8 +59,8 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
   },
   light: {
     container: {
-      'borderColor': isActive ? 'blue.400' : 'gray.400',
-      'backgroundColor': isActive ? 'blue.50' : 'transparent',
+      'borderColor': isActive ? `${color}.400` : 'gray.400',
+      'backgroundColor': isActive ? `${color}.50` : 'transparent',
       'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[400]}`,
 
       '&:focus': {
@@ -67,42 +68,42 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
       },
 
       '&:hover': {
-        'borderColor': isActive ? 'blue.600' : 'gray.600',
-        'backgroundColor': isActive ? 'blue.200' : 'transparent',
+        'borderColor': isActive ? `${color}.600` : 'gray.600',
+        'backgroundColor': isActive ? `${color}.200` : 'transparent',
 
         'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[600]}`,
 
         '& .chakra-icon': {
-          color: isActive ? 'blue.600' : 'gray.600'
+          color: isActive ? `${color}.600` : 'gray.600'
         },
         '& .chakra-text': {
-          color: isActive ? 'blue.600' : 'gray.600'
+          color: isActive ? `${color}.600` : 'gray.600'
         }
       },
 
       '&:active': {
-        'borderColor': isActive ? 'blue.600' : 'gray.600',
-        'backgroundColor': isActive ? 'blue.200' : 'transparent',
+        'borderColor': isActive ? `${color}.600` : 'gray.600',
+        'backgroundColor': isActive ? `${color}.200` : 'transparent',
 
         '& .chakra-icon': {
-          color: isActive ? 'blue.600' : 'gray.600'
+          color: isActive ? `${color}.600` : 'gray.600'
         },
         '& .chakra-text': {
-          color: isActive ? 'blue.600' : 'gray.600'
+          color: isActive ? `${color}.600` : 'gray.600'
         }
       }
     },
     icon: {
-      color: isActive ? 'blue.400' : 'gray.400'
+      color: isActive ? `${color}.400` : 'gray.400'
     },
     text: {
-      color: isActive ? 'blue.400' : 'gray.400'
+      color: isActive ? `${color}.400` : 'gray.400'
     }
   },
   dark: {
     container: {
-      'borderColor': isActive ? 'blue.400' : 'gray.500',
-      'backgroundColor': isActive ? 'blue.50' : 'transparent',
+      'borderColor': isActive ? `${color}.400` : 'gray.500',
+      'backgroundColor': isActive ? `${color}.50` : 'transparent',
       'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[500]}`,
 
       '&:focus': {
@@ -110,36 +111,36 @@ export default (theme: Theme, isActive = false): MediaTypeItemStyle => ({
       },
 
       '&:hover': {
-        'borderColor': isActive ? 'blue.600' : 'gray.300',
-        'backgroundColor': isActive ? 'blue.100' : 'transparent',
+        'borderColor': isActive ? `${color}.600` : 'gray.300',
+        'backgroundColor': isActive ? `${color}.100` : 'transparent',
 
         'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[300]}`,
 
         '& .chakra-icon': {
-          color: isActive ? 'blue.600' : 'gray.500'
+          color: isActive ? `${color}.600` : 'gray.500'
         },
         '& .chakra-text': {
-          color: isActive ? 'blue.600' : 'gray.500'
+          color: isActive ? `${color}.600` : 'gray.500'
         }
       },
 
       '&:active': {
-        'borderColor': isActive ? 'blue.600' : 'gray.300',
-        'backgroundColor': isActive ? 'blue.100' : 'transparent',
+        'borderColor': isActive ? `${color}.600` : 'gray.300',
+        'backgroundColor': isActive ? `${color}.100` : 'transparent',
 
         '& .chakra-icon': {
-          color: isActive ? 'blue.600' : 'gray.500'
+          color: isActive ? `${color}.600` : 'gray.500'
         },
         '& .chakra-text': {
-          color: isActive ? 'blue.600' : 'gray.500'
+          color: isActive ? `${color}.600` : 'gray.500'
         }
       }
     },
     icon: {
-      color: isActive ? 'blue.400' : 'gray.500'
+      color: isActive ? `${color}.400` : 'gray.500'
     },
     text: {
-      color: isActive ? 'blue.400' : 'gray.500'
+      color: isActive ? `${color}.400` : 'gray.500'
     }
   }
 });

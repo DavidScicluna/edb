@@ -4,6 +4,7 @@ import { useTheme, useColorMode, HStack, Icon, Text, Link } from '@chakra-ui/rea
 import _ from 'lodash';
 import { useLocation, Link as RRDLink } from 'react-router-dom';
 
+import useSelector from '../../../../../../../../common/hooks/useSelectorTyped';
 import { Theme } from '../../../../../../../../theme/types';
 import { UserLink as UserLinkType } from '../../types';
 import useStyles from './styles';
@@ -16,9 +17,11 @@ const UserLink = (props: UserLinkType): ReactElement => {
 
   const { label, path, icon, iconActive, onClick } = props;
 
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   const isActive: boolean = location.pathname === path;
 
-  const style = useStyles(theme, isActive);
+  const style = useStyles(theme, color, isActive);
 
   return path ? (
     <Link width='100%' as={RRDLink} to={path} sx={{ ...style.common.link }}>

@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import { useTheme, useColorMode, VStack, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import useSelector from '../../../../../../common/hooks/useSelectorTyped';
 import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
 import { ListItemProps } from './types';
@@ -13,7 +14,9 @@ const ListItem = (props: ListItemProps): ReactElement => {
 
   const { id, label, results, isActive = false, onClick } = props;
 
-  const style = useStyles(theme, isActive);
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const style = useStyles(theme, color, isActive);
 
   const movies = results.filter((result) => result.mediaType === 'movie').length;
   const tv = results.filter((result) => result.mediaType === 'tv').length;

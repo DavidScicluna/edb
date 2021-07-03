@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 import { movieSortBy, tvSortBy, peopleSortBy } from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
+import utils from '../../common/utils/utils';
 import Modal from '../../components/Modal';
 import { toggleDisplayMode, toggleSortDirection } from '../../store/slices/App';
 import Button from '../Inputs/Button';
@@ -24,8 +25,9 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
   const location = useLocation();
 
   const dispatch = useDispatch();
-  const displayMode = useSelector((state) => state.app.data.displayMode);
+  const displayMode = useSelector((state) => state.app.ui.displayMode);
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const defaultValues = {
     displayMode,
@@ -95,7 +97,7 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
     <>
       <IconButton
         aria-label='Open filters modal'
-        color={isOpen ? 'blue' : 'gray'}
+        color={isOpen ? utils.handleReturnColor(color) : 'gray'}
         icon={VisibilityOutlinedIcon}
         onClick={() => onOpen()}
         size='sm'
@@ -110,7 +112,7 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
               Reset
             </Button>
             <Button
-              color='blue'
+              color={utils.handleReturnColor(color)}
               isDisabled={!isDirty}
               onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
               size='sm'>

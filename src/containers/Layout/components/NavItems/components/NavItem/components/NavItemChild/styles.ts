@@ -1,4 +1,5 @@
 import { Style } from '../../../../../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../../../../../store/slices/User/types';
 import { Theme } from '../../../../../../../../theme/types';
 
 type NavItemChildStyle = {
@@ -14,7 +15,13 @@ type NavItemChildStyle = {
   };
 };
 
-export default (theme: Theme, isActive = false, isExpanded = false, isLastChild = false): NavItemChildStyle => ({
+export default (
+  theme: Theme,
+  color: UserTheme['color'],
+  isActive = false,
+  isExpanded = false,
+  isLastChild = false
+): NavItemChildStyle => ({
   common: {
     child: {
       'cursor': 'pointer',
@@ -41,14 +48,14 @@ export default (theme: Theme, isActive = false, isExpanded = false, isLastChild 
   },
   light: {
     child: {
-      'backgroundColor': isActive ? 'blue.400' : 'transparent',
+      'backgroundColor': isActive ? `${color}.400` : 'transparent',
 
       '& .chakra-text': {
         color: isActive ? 'gray.50' : 'gray.400'
       },
 
       '&:hover': {
-        'backgroundColor': isActive ? 'blue.500' : 'gray.100',
+        'backgroundColor': isActive ? `${color}.500` : 'gray.100',
 
         '& .chakra-text': {
           color: isActive ? 'gray.50' : 'gray.900'
@@ -58,14 +65,14 @@ export default (theme: Theme, isActive = false, isExpanded = false, isLastChild 
   },
   dark: {
     child: {
-      'backgroundColor': isActive ? 'blue.400' : 'transparent',
+      'backgroundColor': isActive ? `${color}.400` : 'transparent',
 
       '& .chakra-text': {
         color: isActive ? 'gray.50' : 'gray.500'
       },
 
       '&:hover': {
-        'backgroundColor': isActive ? 'blue.500' : 'gray.800',
+        'backgroundColor': isActive ? `${color}.500` : 'gray.800',
 
         '& .chakra-text': {
           color: isActive ? 'gray.900' : 'gray.50'

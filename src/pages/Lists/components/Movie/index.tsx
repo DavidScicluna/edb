@@ -15,7 +15,7 @@ const Movie = ({ id }: { id: PartialMovie['id'] }): ReactElement => {
 
   const location = useLocation();
 
-  const displayMode = useSelector((state) => state.app.data.displayMode);
+  const displayMode = useSelector((state) => state.app.ui.displayMode);
 
   // Fetching movie
   const movie = useQuery(`movie-${id}`, async () => {

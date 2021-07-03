@@ -14,7 +14,7 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: GridProps): R
   const [isSmallMob] = useMediaQuery('(max-width: 350px)');
 
   const hasOptionsDownloaded = useSelector((state) => state.options.data.hasDownloaded);
-  const displayMode = useSelector((state) => state.app.data.displayMode);
+  const displayMode = useSelector((state) => state.app.ui.displayMode);
 
   return isLoading && !hasOptionsDownloaded ? (
     <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>

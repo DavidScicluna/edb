@@ -1,13 +1,13 @@
 import { Style } from '../../../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../../../store/slices/User/types';
 import { Theme } from '../../../../../../theme/types';
-
 type ListItemStyle = {
   common: { container: Style; text: { primary: Style; secondary: Style } };
   light: { container: Style; text: { primary: Style; secondary: Style } };
   dark: { container: Style; text: { primary: Style; secondary: Style } };
 };
 
-export default (theme: Theme, isActive = false): ListItemStyle => ({
+export default (theme: Theme, color: UserTheme['color'], isActive = false): ListItemStyle => ({
   common: {
     container: {
       'cursor': 'pointer',
@@ -62,8 +62,8 @@ export default (theme: Theme, isActive = false): ListItemStyle => ({
   },
   light: {
     container: {
-      'borderColor': isActive ? 'blue.400' : 'gray.400',
-      'backgroundColor': isActive ? 'blue.50' : 'transparent',
+      'borderColor': isActive ? `${color}.400` : 'gray.400',
+      'backgroundColor': isActive ? `${color}.50` : 'transparent',
       'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[400]}`,
 
       '&:focus': {
@@ -71,30 +71,30 @@ export default (theme: Theme, isActive = false): ListItemStyle => ({
       },
 
       '&:hover': {
-        borderColor: isActive ? 'blue.600' : 'gray.600',
-        backgroundColor: isActive ? 'blue.200' : 'transparent',
+        borderColor: isActive ? `${color}.600` : 'gray.600',
+        backgroundColor: isActive ? `${color}.200` : 'transparent',
 
         boxShadow: isActive ? 'none' : `0 2px ${theme.colors.gray[600]}`
       },
 
       '&:active': {
-        borderColor: isActive ? 'blue.600' : 'gray.600',
-        backgroundColor: isActive ? 'blue.200' : 'transparent'
+        borderColor: isActive ? `${color}.600` : 'gray.600',
+        backgroundColor: isActive ? `${color}.200` : 'transparent'
       }
     },
     text: {
       primary: {
-        color: isActive ? 'blue.400' : 'gray.900'
+        color: isActive ? `${color}.400` : 'gray.900'
       },
       secondary: {
-        color: isActive ? 'blue.400' : 'gray.400'
+        color: isActive ? `${color}.400` : 'gray.400'
       }
     }
   },
   dark: {
     container: {
-      'borderColor': isActive ? 'blue.400' : 'gray.500',
-      'backgroundColor': isActive ? 'blue.50' : 'transparent',
+      'borderColor': isActive ? `${color}.400` : 'gray.500',
+      'backgroundColor': isActive ? `${color}.50` : 'transparent',
       'boxShadow': isActive ? 'none' : `0 2px ${theme.colors.gray[500]}`,
 
       '&:focus': {
@@ -102,23 +102,23 @@ export default (theme: Theme, isActive = false): ListItemStyle => ({
       },
 
       '&:hover': {
-        borderColor: isActive ? 'blue.600' : 'gray.300',
-        backgroundColor: isActive ? 'blue.100' : 'transparent',
+        borderColor: isActive ? `${color}.600` : 'gray.300',
+        backgroundColor: isActive ? `${color}.100` : 'transparent',
 
         boxShadow: isActive ? 'none' : `0 2px ${theme.colors.gray[300]}`
       },
 
       '&:active': {
-        borderColor: isActive ? 'blue.600' : 'gray.300',
-        backgroundColor: isActive ? 'blue.100' : 'transparent'
+        borderColor: isActive ? `${color}.600` : 'gray.300',
+        backgroundColor: isActive ? `${color}.100` : 'transparent'
       }
     },
     text: {
       primary: {
-        color: isActive ? 'blue.400' : 'gray.50'
+        color: isActive ? `${color}.400` : 'gray.50'
       },
       secondary: {
-        color: isActive ? 'blue.400' : 'gray.500'
+        color: isActive ? `${color}.400` : 'gray.500'
       }
     }
   }

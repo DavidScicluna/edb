@@ -20,7 +20,7 @@ const Sidebar = ({ width }: SidebarProps): ReactElement => {
   const transition = useTransitionsStyle(theme);
 
   const dispatch = useDispatch();
-  const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
+  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
   return (
     <VStack
@@ -32,7 +32,7 @@ const Sidebar = ({ width }: SidebarProps): ReactElement => {
       zIndex={900}
       alignItems={sidebarMode === 'expanded' ? 'flex-start' : 'stretch'}
       justifyContent='space-between'
-      background={colorMode ? 'white' : 'gray.900'}
+      backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
       borderRight='solid2'
       borderRightColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       p={1}

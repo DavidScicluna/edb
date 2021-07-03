@@ -31,7 +31,8 @@ const NavItem = (props: NavItemType): ReactElement => {
 
   const location = useLocation();
 
-  const sidebarMode = useSelector((state) => state.app.data.sidebarMode);
+  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const { label, path, icon, iconActive, children } = props;
 
@@ -42,6 +43,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 
   const style = useStyles(
     theme,
+    color,
     isActive,
     isChildActive,
     renderChildren,

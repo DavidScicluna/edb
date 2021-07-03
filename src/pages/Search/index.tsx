@@ -100,7 +100,7 @@ const Search = (): ReactElement => {
   return (
     <>
       <VStack width='100%' spacing={0}>
-        <Box width='100%' backgroundColor={colorMode === 'light' ? 'white' : 'black'} px={2} pt={4} pb={2}>
+        <Box width='100%' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} px={2} pt={4} pb={2}>
           <SearchForm
             query={query}
             sortBy={sortBy}

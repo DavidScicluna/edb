@@ -1,6 +1,6 @@
 import { Style } from '../../../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../../../store/slices/User/types';
 import { Theme } from '../../../../../../theme/types';
-
 type NavItemStyle = {
   common: {
     container: Style;
@@ -19,6 +19,7 @@ type NavItemStyle = {
 
 export default (
   theme: Theme,
+  color: UserTheme['color'],
   isActive = false,
   isChildActive = false,
   renderChildren = false,
@@ -61,23 +62,23 @@ export default (
       backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.100' : 'transparent'
     },
     main: {
-      'backgroundColor': isChildActive ? 'transparent' : isActive ? 'blue.400' : 'transparent',
+      'backgroundColor': isChildActive ? 'transparent' : isActive ? `${color}.400` : 'transparent',
 
       '& .chakra-icon': {
-        color: isChildActive ? 'blue.400' : isActive ? 'gray.50' : 'gray.400'
+        color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.400'
       },
       '& .chakra-text': {
-        color: isChildActive ? 'blue.400' : isActive ? 'gray.50' : 'gray.400'
+        color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.400'
       },
 
       '&:hover': {
-        'backgroundColor': isChildActive ? 'gray.100' : isActive ? 'blue.500' : 'gray.100',
+        'backgroundColor': isChildActive ? 'gray.100' : isActive ? `${color}.500` : 'gray.100',
 
         '& .chakra-icon': {
-          color: isChildActive ? 'blue.400' : isActive ? 'gray.50' : 'gray.900'
+          color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.900'
         },
         '& .chakra-text': {
-          color: isChildActive ? 'blue.400' : isActive ? 'gray.50' : 'gray.900'
+          color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.900'
         }
       }
     }
@@ -87,23 +88,23 @@ export default (
       backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.800' : 'transparent'
     },
     main: {
-      'backgroundColor': isChildActive ? 'transparent' : isActive ? 'blue.400' : 'transparent',
+      'backgroundColor': isChildActive ? 'transparent' : isActive ? `${color}.400` : 'transparent',
 
       '& .chakra-icon': {
-        color: isChildActive ? 'blue.400' : isActive ? 'gray.900' : 'gray.500'
+        color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.500'
       },
       '& .chakra-text': {
-        color: isChildActive ? 'blue.400' : isActive ? 'gray.900' : 'gray.500'
+        color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.500'
       },
 
       '&:hover': {
-        'backgroundColor': isChildActive ? 'gray.800' : isActive ? 'blue.500' : 'gray.800',
+        'backgroundColor': isChildActive ? 'gray.800' : isActive ? `${color}.500` : 'gray.800',
 
         '& .chakra-icon': {
-          color: isChildActive ? 'blue.400' : isActive ? 'gray.900' : 'gray.50'
+          color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.50'
         },
         '& .chakra-text': {
-          color: isChildActive ? 'blue.400' : isActive ? 'gray.900' : 'gray.50'
+          color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.50'
         }
       }
     }

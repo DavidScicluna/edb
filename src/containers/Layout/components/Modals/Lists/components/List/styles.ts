@@ -1,4 +1,5 @@
 import { Style } from '../../../../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../../../../store/slices/User/types';
 import { Theme } from '../../../../../../../theme/types';
 
 type MediaTypeItemStyle = {
@@ -7,7 +8,7 @@ type MediaTypeItemStyle = {
   dark: { container: Style; icon: Style; text: { primary: Style; secondary: Style } };
 };
 
-export default (theme: Theme, isSelected = false): MediaTypeItemStyle => ({
+export default (theme: Theme, color: UserTheme['color'], isSelected = false): MediaTypeItemStyle => ({
   common: {
     container: {
       'cursor': 'pointer',
@@ -49,45 +50,45 @@ export default (theme: Theme, isSelected = false): MediaTypeItemStyle => ({
   },
   light: {
     container: {
-      'borderColor': isSelected ? 'blue.400' : 'gray.200',
-      'backgroundColor': isSelected ? 'blue.50' : 'transparent',
+      'borderColor': isSelected ? `${color}.400` : 'gray.200',
+      'backgroundColor': isSelected ? `${color}.50` : 'transparent',
 
       '&:hover': {
-        borderColor: isSelected ? 'blue.500' : 'gray.400',
-        backgroundColor: isSelected ? 'blue.100' : 'transparent'
+        borderColor: isSelected ? `${color}.500` : 'gray.400',
+        backgroundColor: isSelected ? `${color}.100` : 'transparent'
       }
     },
     icon: {
-      color: isSelected ? 'blue.400' : 'gray.400'
+      color: isSelected ? `${color}.400` : 'gray.400'
     },
     text: {
       primary: {
-        color: isSelected ? 'blue.400' : 'gray.900'
+        color: isSelected ? `${color}.400` : 'gray.900'
       },
       secondary: {
-        color: isSelected ? 'blue.400' : 'gray.400'
+        color: isSelected ? `${color}.400` : 'gray.400'
       }
     }
   },
   dark: {
     container: {
-      'borderColor': isSelected ? 'blue.400' : 'gray.700',
-      'backgroundColor': isSelected ? 'blue.50' : 'transparent',
+      'borderColor': isSelected ? `${color}.400` : 'gray.700',
+      'backgroundColor': isSelected ? `${color}.50` : 'transparent',
 
       '&:hover': {
-        borderColor: isSelected ? 'blue.500' : 'gray.500',
-        backgroundColor: isSelected ? 'blue.100' : 'transparent'
+        borderColor: isSelected ? `${color}.500` : 'gray.500',
+        backgroundColor: isSelected ? `${color}.100` : 'transparent'
       }
     },
     icon: {
-      color: isSelected ? 'blue.400' : 'gray.500'
+      color: isSelected ? `${color}.400` : 'gray.500'
     },
     text: {
       primary: {
-        color: isSelected ? 'blue.400' : 'gray.50'
+        color: isSelected ? `${color}.400` : 'gray.50'
       },
       secondary: {
-        color: isSelected ? 'blue.400' : 'gray.500'
+        color: isSelected ? `${color}.400` : 'gray.500'
       }
     }
   }

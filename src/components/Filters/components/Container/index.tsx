@@ -12,7 +12,7 @@ const Container = ({ children, title }: ContainerProps): ReactElement => {
       width='100%'
       alignItems='center'
       justifyContent='center'
-      background='transparent'
+      backgroundColor='transparent'
       borderRadius='lg'
       border='solid2'
       borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}

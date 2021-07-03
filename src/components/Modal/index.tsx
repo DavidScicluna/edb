@@ -25,7 +25,10 @@ const Modal = (props: ModalProps): ReactElement => {
   return (
     <CUIModal {...rest} isOpen={isOpen} onClose={onClose} motionPreset='scale' scrollBehavior='inside' size={size}>
       <ModalOverlay />
-      <ModalContent borderRadius={size === 'full' ? 'none' : 'xl'} mx={0}>
+      <ModalContent
+        backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+        borderRadius={size === 'full' ? 'none' : 'xl'}
+        mx={0}>
         <ModalHeader
           px={3}
           py={1}
