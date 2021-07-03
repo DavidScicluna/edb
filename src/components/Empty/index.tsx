@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react';
 
 import { useColorMode, VStack, Image, Text, Fade } from '@chakra-ui/react';
 
-import empty from '../../common/assets/illustrations/empty.svg';
+import * as empty from '../../common/assets/illustrations/empty';
+import useSelector from '../../common/hooks/useSelectorTyped';
 import { EmptyProps } from './types';
 
 const Empty = (props: EmptyProps): ReactElement => {
@@ -16,6 +17,8 @@ const Empty = (props: EmptyProps): ReactElement => {
     size = 'md',
     variant = 'transparent'
   } = props;
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   /**
    * This method will return the appropriate padding for the size passed
@@ -52,17 +55,44 @@ const Empty = (props: EmptyProps): ReactElement => {
     }
   };
 
+  /**
+   * This method will return the appropriate Illustration depending on the color selected
+   * @returns Illustration path
+   */
+  const handleReturnIllustration = (): string => {
+    switch (color) {
+      case 'blue':
+        return empty.default.blue;
+      case 'cyan':
+        return empty.default.cyan;
+      case 'green':
+        return empty.default.green;
+      case 'orange':
+        return empty.default.orange;
+      case 'pink':
+        return empty.default.pink;
+      case 'purple':
+        return empty.default.purple;
+      case 'teal':
+        return empty.default.teal;
+      case 'yellow':
+        return empty.default.yellow;
+      default:
+        return '';
+    }
+  };
+
   return (
     <Fade in style={{ width: '100%' }}>
       <VStack
         width='100%'
-        background='transparent'
+        backgroundColor='transparent'
         borderRadius='lg'
         border='solid2'
         borderColor={variant === 'outlined' ? (colorMode === 'light' ? 'gray.200' : 'gray.700') : 'transparent'}
         spacing={2}
         p={handleReturnPadding()}>
-        {hasIllustration ? <Image maxWidth='40%' alt='Empty illustration' src={empty} /> : null}
+        {hasIllustration ? <Image maxWidth='40%' alt='Empty illustration' src={handleReturnIllustration()} /> : null}
         <VStack spacing={0}>
           <Text
             align='center'
