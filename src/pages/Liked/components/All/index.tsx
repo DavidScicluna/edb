@@ -1,8 +1,8 @@
 import React, { ReactElement, useEffect } from 'react';
 
 import { VStack, Fade, Collapse } from '@chakra-ui/react';
-import queryString from 'query-string';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
 import { toggleDisplayMode } from '../../../../store/slices/App';
@@ -12,6 +12,8 @@ import Show from '../Show';
 import { AllProps } from './types';
 
 const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
+  const history = useHistory();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,12 +29,14 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
         {/* Movies */}
         <Collapse in={(movies && movies.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`${movies.length || 0} movie${movies && (movies.length === 0 || movies.length > 1) ? 's' : ''}`}
+            title={`${movies.length || 0} liked movie${
+              movies && (movies.length === 0 || movies.length > 1) ? 's' : ''
+            }`}
             footer={`View all ${movies.length || 0} liked movie${
               movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
             }`}
             isLoading={false}
-            path={{ pathname: '/liked', search: queryString.stringify({ mediaType: 'movie' }) }}>
+            path={{ pathname: `${history.location.pathname === '/liked' ? '/liked/' : ''}movie` }}>
             <>{movies.map((movie, index) => (index < 20 ? <Movie key={movie.id} id={movie.id} /> : null))}</>
           </HorizontalGrid>
         </Collapse>
@@ -40,10 +44,10 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
         {/* TV */}
         <Collapse in={(tv && tv.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`${tv.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
+            title={`${tv.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
             footer={`View all ${tv?.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
             isLoading={false}
-            path={{ pathname: '/liked', search: queryString.stringify({ mediaType: 'tv' }) }}>
+            path={{ pathname: `${history.location.pathname === '/liked' ? '/liked/' : ''}tv` }}>
             <>{tv.map((show, index) => (index < 20 ? <Show key={show.id} id={show.id} /> : null))}</>
           </HorizontalGrid>
         </Collapse>
@@ -51,14 +55,14 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
         {/* People */}
         <Collapse in={(people && people.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`${people.length || 0} ${
+            title={`${people.length || 0} liked ${
               (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
             }`}
             footer={`View all ${people.length || 0} liked ${
               (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
             }`}
             isLoading={false}
-            path={{ pathname: '/liked', search: queryString.stringify({ mediaType: 'person' }) }}>
+            path={{ pathname: `${history.location.pathname === '/liked' ? '/liked/' : ''}person` }}>
             <>{people.map((person, index) => (index < 20 ? <Person key={person.id} id={person.id} /> : null))}</>
           </HorizontalGrid>
         </Collapse>
