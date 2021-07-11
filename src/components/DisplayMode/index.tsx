@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import useSelector from '../../common/hooks/useSelectorTyped';
 import utils from '../../common/utils/utils';
 import { toggleDisplayMode } from '../../store/slices/App';
-import IconButton from '../Inputs/IconButton';
+import IconButton from '../Clickable/IconButton';
 import Tooltip from '../Tooltip';
 
 const DisplayMode = (): ReactElement => {
@@ -28,7 +28,6 @@ const DisplayMode = (): ReactElement => {
           color={displayMode === 'grid' ? utils.handleReturnColor(color) : 'gray'}
           icon={displayMode === 'grid' ? GridOnTwoToneIcon : GridOnOutlinedIcon}
           onClick={displayMode !== 'grid' ? () => dispatch(toggleDisplayMode('grid')) : undefined}
-          size='sm'
           variant='outlined'
         />
       </Tooltip>
@@ -38,7 +37,6 @@ const DisplayMode = (): ReactElement => {
           color={displayMode === 'list' ? utils.handleReturnColor(color) : 'gray'}
           icon={displayMode === 'list' ? ListAltTwoToneIcon : ListAltOutlinedIcon}
           onClick={displayMode !== 'list' ? () => dispatch(toggleDisplayMode('list')) : undefined}
-          size='sm'
           variant='outlined'
         />
       </Tooltip>

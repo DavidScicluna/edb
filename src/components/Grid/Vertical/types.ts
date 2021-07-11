@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
-export type ContainerProps = {
+export type VerticalGridProps = {
   children: ReactElement;
   title: string;
-  actions?: ReactElement;
+  header: ReactElement | null;
 };

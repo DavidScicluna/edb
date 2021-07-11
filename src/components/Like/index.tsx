@@ -1,12 +1,14 @@
 import React, { ReactElement, useState } from 'react';
 
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
+import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon
+} from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
 import { setLiked } from '../../store/slices/User';
-import IconButton from '../Inputs/IconButton';
+import IconButton from '../Clickable/IconButton';
 import Tooltip from '../Tooltip';
 import { LikeProps } from './types';
 
@@ -17,27 +19,24 @@ const Like = ({ isDisabled = false, mediaItem, size = 'xs' }: LikeProps): ReactE
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
   const isLiked: boolean = liked.some((like) => like.id === mediaItem.id && like.mediaType === mediaItem.mediaType);
-  const titleText: string = mediaItem.title ? (mediaItem.title.length < 25 ? mediaItem.title : '') : '';
 
   return (
     <Tooltip
       aria-label={
         isLiked
-          ? `Dislike "${titleText}" ${mediaItem.mediaType} tooltip`
-          : `Like "${titleText}" ${mediaItem.mediaType} tooltip`
+          ? `Dislike "${mediaItem.title}" ${mediaItem.mediaType} (tooltip)`
+          : `Like "${mediaItem.title}" ${mediaItem.mediaType} (tooltip)`
       }
-      label={
-        isLiked
-          ? `Dislike "${titleText}"${mediaItem.mediaType !== 'person' ? ` ${mediaItem.mediaType}` : ''}?`
-          : `Like "${titleText}"${mediaItem.mediaType !== 'person' ? ` ${mediaItem.mediaType}` : ''}?`
-      }
+      label={isLiked ? `Dislike "${mediaItem.title}"` : `Like "${mediaItem.title}"`}
       placement='top'
       isOpen={isHovering}
       isDisabled={isDisabled}
       gutter={0}>
       <IconButton
         aria-label={
-          isLiked ? `Dislike "${titleText}" ${mediaItem.mediaType}` : `Like "${titleText}" ${mediaItem.mediaType}`
+          isLiked
+            ? `Dislike "${mediaItem.title}" ${mediaItem.mediaType} (tooltip)`
+            : `Like "${mediaItem.title}" ${mediaItem.mediaType} (tooltip)`
         }
         color={isLiked ? 'red' : 'gray'}
         isDisabled={isDisabled}

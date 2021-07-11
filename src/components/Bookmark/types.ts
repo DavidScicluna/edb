@@ -1,5 +1,5 @@
 import { MediaType } from '../../common/types/types';
-import { IconButtonProps } from '../Inputs/IconButton/types';
+import { IconButtonProps } from '../Clickable/IconButton/types';
 
 export type BookmarkProps = {
   isDisabled: boolean;
@@ -8,5 +8,5 @@ export type BookmarkProps = {
     title: string | null;
     mediaType: MediaType;
   };
-  size?: IconButtonProps['size'];
+  size: IconButtonProps['size'];
 };

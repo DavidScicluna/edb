@@ -10,13 +10,17 @@ const Image = (props: ImageProps): ReactElement => {
   const { width = '', orientation, mediaType, alt, src, size, isLoaded, ...rest } = props;
 
   return (
-    <AspectRatio width={width || '100%'} ratio={orientation === 'horizontal' ? 16 / 9 : 2 / 3}>
+    <AspectRatio
+      width={width || '100%'}
+      minWidth={width || '100%'}
+      maxWidth={width || '100%'}
+      ratio={orientation === 'horizontal' ? 16 / 9 : 2 / 3}>
       <Skeleton isLoaded={isLoaded} borderRadius='base'>
         <CUIImage
           {...rest}
-          maxWidth='inherit'
-          height='100%'
           alt={alt}
+          maxWidth='none'
+          height='100%'
           borderRadius='base'
           src={`${process.env.REACT_APP_IMAGE_URL}/w${size}${src}`}
           fallbackSrc={utils.handleReturnFallbackSrc(mediaType, size, alt)}

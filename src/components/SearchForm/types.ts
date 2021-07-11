@@ -1,3 +1,4 @@
+import { Department } from '../../common/data/departments';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
@@ -12,6 +13,7 @@ export type SearchFormProps = {
   query: string;
   sortBy?: SortBy;
   genres?: Genre[];
+  departments?: Department[];
   refetch?: boolean;
   onMoviesChange: (data: Response<PartialMovie[]>) => void;
   onTVChange: (data: Response<PartialTV[]>) => void;

@@ -1,31 +1,29 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, VStack, Icon, Text } from '@chakra-ui/react';
-import _ from 'lodash';
+import { useTheme, VStack, Icon, Text } from '@chakra-ui/react';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../common/utils/utils';
+import Card from '../../../../components/Clickable/Card';
 import { Theme } from '../../../../theme/types';
-import useStyles from './styles';
 import { MediaTypeItemProps } from './types';
 
 const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
-
-  const { label, value, iconActive, icon, isActive = false, onClick } = props;
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const style = useStyles(theme, color, isActive);
+  const { label, value, iconActive, icon, isActive = false, onClick } = props;
 
   return (
-    <VStack
-      sx={{ ..._.merge(style.common.container, style[colorMode].container) }}
-      spacing={0}
-      onClick={!isActive ? () => onClick(value) : undefined}>
-      <Icon as={isActive ? iconActive : icon} sx={{ ..._.merge(style.common.icon, style[colorMode].icon) }} />
-      <Text sx={{ ..._.merge(style.common.text, style[colorMode].text) }}>{label}</Text>
-    </VStack>
+    <Card color={isActive ? utils.handleReturnColor(color) : 'gray'} isFullWidth onClick={() => onClick(value)} p={4}>
+      <VStack width='100%' spacing={0}>
+        <Icon as={isActive ? iconActive : icon} sx={{ fontSize: `${theme.fontSizes['3xl']} !important` }} />
+        <Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase'>
+          {label}
+        </Text>
+      </VStack>
+    </Card>
   );
 };
 

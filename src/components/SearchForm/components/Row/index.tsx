@@ -11,7 +11,7 @@ import useSelector from '../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../common/utils/utils';
 import { setRecentSearches } from '../../../../store/slices/User';
 import { Theme } from '../../../../theme/types';
-import IconButton from '../../../Inputs/IconButton';
+import IconButton from '../../../Clickable/IconButton';
 import SkeletonText from '../../../Skeleton/Text';
 import Tooltip from '../../../Tooltip';
 import useStyles from './styles';

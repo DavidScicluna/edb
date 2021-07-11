@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 
 import {
-  useColorMode,
   useTheme,
-  Theme,
+  useColorMode,
+  useBreakpointValue,
   Center,
   Icon,
   Text
@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 
+import { Theme } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
 // import Tooltip from '../Tooltip';
 import { RatingProps } from './types';
@@ -22,9 +23,17 @@ const defaultRating = {
   count: null
 };
 
-const Rating = ({ rating = defaultRating, isLoaded = false, type }: RatingProps): ReactElement => {
+const Rating = ({ rating = defaultRating, isLoaded = false }: RatingProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+  const iconSize = useBreakpointValue({
+    'base': theme.fontSizes['xl'],
+    'sm': theme.fontSizes['xl'],
+    'md': theme.fontSizes['2xl'],
+    'lg': theme.fontSizes['2xl'],
+    'xl': theme.fontSizes['2xl'],
+    '2xl': theme.fontSizes['3xl']
+  });
 
   // const handleRatingColor = (): 'red' | 'yellow' | 'blue' => {
   //   if (rating.rating) {
@@ -73,12 +82,15 @@ const Rating = ({ rating = defaultRating, isLoaded = false, type }: RatingProps)
       <Icon
         as={StarOutlinedIcon}
         color='yellow.400'
-        sx={{ fontSize: `${type === 'horizontal' ? theme.fontSizes['3xl'] : theme.fontSizes['2xl']} !important` }}
+        sx={{
+          fontSize: `${iconSize} !important`
+        }}
       />
       <SkeletonText isLoaded={isLoaded} ml='0.5'>
         <Text
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-          fontSize={type === 'horizontal' ? 'lg' : 'sm'}
+          fontSize={['sm', 'sm', 'md', 'md', 'md', 'lg']}
+          fontWeight='medium'
           sx={{ lineHeight: 'normal' }}>
           {rating.rating || 'N/A'}
         </Text>

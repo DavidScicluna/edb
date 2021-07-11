@@ -1,5 +1,5 @@
 import { MediaType } from '../../common/types/types';
-import { IconButtonProps } from '../Inputs/IconButton/types';
+import { IconButtonProps } from '../Clickable/IconButton/types';
 
 export type LikeProps = {
   isDisabled: boolean;
@@ -8,5 +8,5 @@ export type LikeProps = {
     title: string | null;
     mediaType: MediaType;
   };
-  size?: IconButtonProps['size'];
+  size: IconButtonProps['size'];
 };

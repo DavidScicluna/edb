@@ -2,16 +2,13 @@ import React, { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text, Collapse } from '@chakra-ui/react';
 
-type HeaderProps = {
-  title: string;
-  header: ReactElement;
-};
+import { VerticalGridProps } from '../../types';
 
-const Header = ({ title, header }: HeaderProps): ReactElement => {
+const Header = ({ title, header }: Omit<VerticalGridProps, 'children'>): ReactElement => {
   const { colorMode } = useColorMode();
 
   return (
-    <Collapse in={Boolean(title && header)} style={{ width: '100%' }}>
+    <Collapse in={Boolean(title || header)} style={{ width: '100%' }} unmountOnExit>
       <HStack width='100%' justify={title ? 'space-between' : 'flex-end'} p={[2]}>
         {title ? (
           <Text

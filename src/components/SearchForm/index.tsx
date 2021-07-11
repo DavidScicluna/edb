@@ -35,7 +35,7 @@ import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
 import { Response } from '../../common/types/types';
 import { setRecentSearches } from '../../store/slices/User';
-import IconButton from '../Inputs/IconButton';
+import IconButton from '../Clickable/IconButton';
 import Tooltip from '../Tooltip';
 import Default from './components/Default';
 import Display from './components/Display';
@@ -58,6 +58,7 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
     query,
     sortBy = undefined,
     genres = undefined,
+    departments = undefined,
     refetch = false,
     onQueryChange,
     onMoviesChange,
@@ -247,7 +248,15 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
         if (current) {
           onPeopleChange({
             ...current,
-            results: sort(people, sortBy?.value || '', { reverse: sortDirection === 'desc' })
+            results: sort(
+              departments && departments.length > 0
+                ? people.filter((person) =>
+                    departments.some((department) => person.known_for_department === department.value)
+                  )
+                : [...people],
+              sortBy?.value || '',
+              { reverse: sortDirection === 'desc' }
+            )
           });
 
           setTotalResults(current.total_results);
@@ -474,7 +483,7 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
           />
           <HStack spacing={0}>
             <ScaleFade in={localQuery.length > 0} unmountOnExit>
-              <Tooltip label='Clear search' placement='top'>
+              <Tooltip label='Clear search' placement='top' gutter={4}>
                 <IconButton
                   aria-label='Clear search'
                   icon={ClearOutlinedIcon}
@@ -489,6 +498,7 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
               placement='top'
               closeOnClick={false}
               closeOnMouseDown={false}
+              gutter={4}
               span>
               <IconButton
                 aria-label={isLocked ? 'Unlock Search' : 'Lock Search'}

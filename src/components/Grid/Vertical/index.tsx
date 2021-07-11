@@ -3,12 +3,7 @@ import React, { ReactElement } from 'react';
 import { VStack } from '@chakra-ui/react';
 
 import Header from './components/Header';
-
-type VerticalGridProps = {
-  children: ReactElement;
-  title: string;
-  header: ReactElement;
-};
+import { VerticalGridProps } from './types';
 
 const VerticalGrid = (props: VerticalGridProps): ReactElement => {
   const { children, title, header } = props;

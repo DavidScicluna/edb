@@ -1,13 +1,22 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, VStack, Image, Text, Fade } from '@chakra-ui/react';
+import { useColorMode, useBreakpointValue, VStack, Image, Text, Fade } from '@chakra-ui/react';
 
 import * as error from '../../common/assets/illustrations/error';
 import useSelector from '../../common/hooks/useSelectorTyped';
+import Card from '../Card';
 import { ErrorProps } from './types';
 
 const Error = (props: ErrorProps): ReactElement => {
   const { colorMode } = useColorMode();
+  const maxWidth = useBreakpointValue({
+    'base': '75%',
+    'sm': '75%',
+    'md': '50%',
+    'lg': '50%',
+    'xl': '30%',
+    '2xl': '30%'
+  });
 
   const {
     button = undefined,
@@ -84,31 +93,28 @@ const Error = (props: ErrorProps): ReactElement => {
 
   return (
     <Fade in style={{ width: '100%' }}>
-      <VStack
-        width='100%'
-        backgroundColor='transparent'
-        borderRadius='lg'
-        border='solid2'
-        borderColor={variant === 'outlined' ? (colorMode === 'light' ? 'gray.200' : 'gray.700') : 'transparent'}
-        spacing={2}
-        p={handleReturnPadding()}>
-        {hasIllustration ? <Image maxWidth='40%' alt='Error illustration' src={handleReturnIllustration()} /> : null}
-        <VStack spacing={0}>
-          <Text
-            align='center'
-            fontSize='md'
-            fontWeight='semibold'
-            color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
-            {label}
-          </Text>
-          {description ? (
-            <Text align='center' fontSize='sm' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
-              {description}
-            </Text>
+      <Card isFullWidth variant={variant} p={handleReturnPadding()}>
+        <VStack width='100%' spacing={2}>
+          {hasIllustration ? (
+            <Image maxWidth={maxWidth} alt='Error illustration' src={handleReturnIllustration()} />
           ) : null}
+          <VStack spacing={0}>
+            <Text
+              align='center'
+              fontSize='md'
+              fontWeight='semibold'
+              color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
+              {label}
+            </Text>
+            {description ? (
+              <Text align='center' fontSize='xs' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
+                {description}
+              </Text>
+            ) : null}
+          </VStack>
+          {button || null}
         </VStack>
-        {button || null}
-      </VStack>
+      </Card>
     </Fade>
   );
 };

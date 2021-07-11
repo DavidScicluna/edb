@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 
 import useSelector from '../../../common/hooks/useSelectorTyped';
 import utils from '../../../common/utils/utils';
-import Button from '../../Inputs/Button';
+import Button from '../../Clickable/Button';
 import Grid from './components/Grid';
 import Header from './components/Header';
 import { HorizontalGridProps, ScrollButtonsState } from './types';
+
 const defaultScrollButtonsState = {
   left: true,
   right: false

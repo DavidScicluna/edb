@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 
 import {
   useColorMode,
+  useMediaQuery,
   Modal as CUIModal,
   ModalOverlay,
   ModalContent,
@@ -13,17 +14,24 @@ import {
 } from '@chakra-ui/react';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
-import Button from '../Inputs/Button';
-import IconButton from '../Inputs/IconButton';
+import Button from '../Clickable/Button';
+import IconButton from '../Clickable/IconButton';
 import { ModalProps } from './types';
 
 const Modal = (props: ModalProps): ReactElement => {
   const { colorMode } = useColorMode();
+  const [isXs] = useMediaQuery('(max-width: 40em)');
 
   const { children, actions, title, isOpen, onClose, size, ...rest } = props;
 
   return (
-    <CUIModal {...rest} isOpen={isOpen} onClose={onClose} motionPreset='scale' scrollBehavior='inside' size={size}>
+    <CUIModal
+      {...rest}
+      isOpen={isOpen}
+      onClose={onClose}
+      motionPreset='scale'
+      scrollBehavior='inside'
+      size={isXs ? 'full' : size}>
       <ModalOverlay />
       <ModalContent
         backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
@@ -43,13 +51,7 @@ const Modal = (props: ModalProps): ReactElement => {
               {title}
             </Text>
 
-            <IconButton
-              aria-label='Close type picker modal?'
-              icon={CloseOutlinedIcon}
-              onClick={() => onClose()}
-              size='sm'
-              variant='icon'
-            />
+            <IconButton aria-label='Close modal?' icon={CloseOutlinedIcon} onClick={() => onClose()} variant='icon' />
           </HStack>
         </ModalHeader>
         <ModalBody p={0}>{children}</ModalBody>
@@ -60,7 +62,7 @@ const Modal = (props: ModalProps): ReactElement => {
             py={1.5}
             borderTop='solid2'
             borderTopColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}>
-            <Button onClick={() => onClose()} size='sm' variant='outlined'>
+            <Button onClick={() => onClose()} size='xs' variant='outlined'>
               Cancel
             </Button>
             {actions}
