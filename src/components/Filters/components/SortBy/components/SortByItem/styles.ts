@@ -42,7 +42,7 @@ export default (theme: Theme, color: UserTheme['color'], isActive = false): Butt
     },
 
     '&:hover': {
-      'backgroundColor': isActive ? `${color}.500` : 'gray.100',
+      'backgroundColor': isActive ? `${color}.500` : 'gray.200',
 
       '& .chakra-icon': {
         color: isActive ? 'gray.50' : 'gray.900'
@@ -53,7 +53,7 @@ export default (theme: Theme, color: UserTheme['color'], isActive = false): Butt
     }
   },
   dark: {
-    'backgroundColor': isActive ? `${color}.400` : 'transparent',
+    'backgroundColor': isActive ? `${color}.500` : 'transparent',
 
     '& .chakra-icon': {
       color: isActive ? 'gray.900' : 'gray.500'
@@ -63,7 +63,7 @@ export default (theme: Theme, color: UserTheme['color'], isActive = false): Butt
     },
 
     '&:hover': {
-      'backgroundColor': isActive ? `${color}.500` : 'gray.100',
+      'backgroundColor': isActive ? `${color}.400` : 'gray.700',
 
       '& .chakra-icon': {
         color: isActive ? 'gray.900' : 'gray.50'

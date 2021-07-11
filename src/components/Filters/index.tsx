@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import { useDisclosure, useMediaQuery, VStack, HStack } from '@chakra-ui/react';
+import { useDisclosure, VStack, HStack } from '@chakra-ui/react';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -11,8 +11,9 @@ import useSelector from '../../common/hooks/useSelectorTyped';
 import utils from '../../common/utils/utils';
 import Modal from '../../components/Modal';
 import { toggleDisplayMode, toggleSortDirection } from '../../store/slices/App';
-import Button from '../Inputs/Button';
-import IconButton from '../Inputs/IconButton';
+import Button from '../Clickable/Button';
+import IconButton from '../Clickable/IconButton';
+import Departments from './components/Departments';
 import DisplayMode from './components/DisplayMode';
 import Genres from './components/Genres';
 import SortBy from './components/SortBy';
@@ -20,7 +21,6 @@ import { FiltersProps, Form } from './types';
 
 const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isXs] = useMediaQuery('(max-width: 40em)');
 
   const location = useLocation();
 
@@ -35,7 +35,8 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
       sortBy: mediaType === 'movie' ? [...movieSortBy] : mediaType === 'tv' ? [...tvSortBy] : [...peopleSortBy],
       direction: sortDirection
     },
-    genres: []
+    genres: [],
+    departments: []
   };
 
   const form = useForm<Form>({ defaultValues });
@@ -48,12 +49,16 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
     }
 
     if (dirtyFields.sort) {
-      onFilter(values.sort.sortBy, []);
+      onFilter(values.sort.sortBy, [], []);
       dispatch(toggleSortDirection(values.sort.direction));
     }
 
     if (dirtyFields.genres) {
-      onFilter([], values.genres);
+      onFilter([], values.genres, []);
+    }
+
+    if (dirtyFields.departments) {
+      onFilter([], [], values.departments);
     }
 
     onClose();
@@ -65,13 +70,13 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
     dispatch(toggleDisplayMode('grid'));
     dispatch(toggleSortDirection('asc'));
 
-    onFilter(mediaType === 'movie' ? movieSortBy : mediaType === 'tv' ? tvSortBy : peopleSortBy, []);
+    onFilter(mediaType === 'movie' ? movieSortBy : mediaType === 'tv' ? tvSortBy : peopleSortBy, [], []);
 
     form.reset({ ...defaultValues });
   };
 
   const handleClose = (): void => {
-    form.reset({ ...form.getValues() });
+    form.reset({ ...defaultValues });
     onClose();
   };
 
@@ -100,7 +105,6 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
         color={isOpen ? utils.handleReturnColor(color) : 'gray'}
         icon={VisibilityOutlinedIcon}
         onClick={() => onOpen()}
-        size='sm'
         variant='outlined'
       />
 
@@ -108,14 +112,14 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
         title='Filter'
         actions={
           <HStack spacing={2}>
-            <Button variant='outlined' isDisabled={!isDirty} onClick={() => handleReset()} size='sm'>
+            <Button variant='outlined' isDisabled={!isDirty} onClick={() => handleReset()} size='xs'>
               Reset
             </Button>
             <Button
               color={utils.handleReturnColor(color)}
               isDisabled={!isDirty}
               onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
-              size='sm'>
+              size='xs'>
               Submit
             </Button>
           </HStack>
@@ -123,13 +127,13 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
         isOpen={isOpen}
         onClose={handleClose}
         isCentered
-        size={isXs ? 'full' : '2xl'}>
+        size='2xl'>
         <VStack spacing={3} p={2}>
           <DisplayMode form={form} />
 
           <SortBy form={form} />
 
-          {mediaType !== 'person' ? <Genres mediaType={mediaType} form={form} /> : null}
+          {mediaType !== 'person' ? <Genres mediaType={mediaType} form={form} /> : <Departments form={form} />}
         </VStack>
       </Modal>
     </>
