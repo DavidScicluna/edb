@@ -9,7 +9,7 @@ export const movieSortBy: SortBy[] = [
   {
     label: 'Rating',
     value: 'vote_average',
-    isActive: true
+    isActive: false
   },
   {
     label: 'Release Date',
@@ -32,7 +32,7 @@ export const tvSortBy: SortBy[] = [
   {
     label: 'Rating',
     value: 'vote_average',
-    isActive: true
+    isActive: false
   },
   {
     label: 'Release Date',
@@ -50,7 +50,7 @@ export const peopleSortBy: SortBy[] = [
   {
     label: 'Popularity',
     value: 'popularity',
-    isActive: true
+    isActive: false
   },
   {
     label: 'Gender',

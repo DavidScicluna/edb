@@ -1,9 +1,11 @@
 // Component Types
-export type Value = number | string;
-
-export type Style = { [key: string]: Value | Style };
+export type Style = { [key: string]: number | string | Style };
 
 export type Icon = any;
+
+export type ButtonSize = 'xs' | 'md' | 'lg';
+
+export type CardVariant = 'transparent' | 'outlined';
 
 export type Breadcrumb = {
   path: string;

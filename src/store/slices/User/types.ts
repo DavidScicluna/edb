@@ -16,9 +16,14 @@ export type MediaItem = {
   mediaType: MediaType;
 };
 
-export type ListsModal = {
+export type ListModal = {
   open: boolean;
   item?: { title: string } & MediaItem;
+};
+
+export type DescriptionModal = {
+  open: boolean;
+  item?: { title: string; description: string };
 };
 
 export type List = {
@@ -30,7 +35,6 @@ export type List = {
 };
 
 export type Theme = {
-  // fontSize: 'sm' | 'base' | 'lg';
   color: Omit<Color, 'gray' | 'red'>;
   background: 'light' | 'dark';
 };
@@ -43,7 +47,8 @@ export type StateProps = {
     lists: List[];
   };
   ui: {
-    listsModal: ListsModal;
+    listsModal: ListModal;
+    descriptionModal: DescriptionModal;
     isDisplayModalOpen: boolean;
     theme: Theme;
   };

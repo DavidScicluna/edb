@@ -23,6 +23,8 @@ import DefaultRoute from './DefaultRoute';
 const Router = (): ReactElement => {
   const breadcrumbs = {
     home: { label: 'Home', path: '/' },
+    liked: { label: 'Liked', path: '/liked' },
+    lists: { label: 'Lists', path: '/lists' },
     trending: { label: 'Trending', path: '/trending' },
     movies: { label: 'Movies', path: '/movies' },
     tv: { label: 'TV Shows', path: '/tv' }
@@ -34,24 +36,23 @@ const Router = (): ReactElement => {
         {/* Home Route */}
         <DefaultRoute exact path='/' component={Home} breadcrumbs={[breadcrumbs.home]} />
 
-        {/* User Routes */}
+        {/* Liked Routes */}
+        <DefaultRoute exact path='/liked' component={Liked} breadcrumbs={[breadcrumbs.home, breadcrumbs.liked]} />
         <DefaultRoute
           exact
-          path='/liked'
+          path='/liked/:mediaType'
           component={Liked}
-          breadcrumbs={[breadcrumbs.home, { label: 'Liked', path: '/liked' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.liked]}
         />
+
+        {/* Lists Routes */}
+        <DefaultRoute exact path='/lists' component={Lists} breadcrumbs={[breadcrumbs.home, breadcrumbs.lists]} />
+        <DefaultRoute exact path='/lists/:id' component={Lists} breadcrumbs={[breadcrumbs.home, breadcrumbs.lists]} />
         <DefaultRoute
           exact
-          path='/bookmarks'
+          path='/lists/:id/:mediaType'
           component={Lists}
-          breadcrumbs={[breadcrumbs.home, { label: 'Bookmarks', path: '/bookmarks' }]}
-        />
-        <DefaultRoute
-          exact
-          path='/bookmarks/:id'
-          component={Lists}
-          breadcrumbs={[breadcrumbs.home, { label: 'Bookmarks', path: '/bookmarks' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.lists]}
         />
 
         {/* Search Route */}
@@ -71,21 +72,9 @@ const Router = (): ReactElement => {
         />
         <DefaultRoute
           exact
-          path='/trending/movie'
+          path='/trending/:mediaType'
           component={Trending}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.trending, { label: 'Movies', path: '/trending/movie' }]}
-        />
-        <DefaultRoute
-          exact
-          path='/trending/tv'
-          component={Trending}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.trending, { label: 'TV Shows', path: '/trending/tv' }]}
-        />
-        <DefaultRoute
-          exact
-          path='/trending/person'
-          component={Trending}
-          breadcrumbs={[breadcrumbs.home, breadcrumbs.trending, { label: 'People', path: '/trending/person' }]}
+          breadcrumbs={[breadcrumbs.home, breadcrumbs.trending]}
         />
 
         {/* Movies Routes */}

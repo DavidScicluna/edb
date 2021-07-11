@@ -9,7 +9,8 @@ const styles: Styles = {
       color: mode('gray.900', 'gray.50')(props),
       bg: mode('gray.50', 'gray.900')(props),
       transition: `${transition.duration.slower} ${transition.easing['ease-in-out']}`,
-      lineHeight: 'base'
+      overflowX: 'hidden',
+      lineHeight: 'short'
     },
     '*::placeholder': {
       color: mode('gray.400', 'gray.500')(props)

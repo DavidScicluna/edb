@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-import { StateProps, Search, MediaItem, ListsModal, List, Theme } from './types';
+import { StateProps, Search, MediaItem, ListModal, DescriptionModal, List, Theme } from './types';
 
 export const defaultListsModal = {
   open: false,
@@ -25,9 +25,9 @@ const initialState: StateProps = {
   },
   ui: {
     listsModal: { ...defaultListsModal },
+    descriptionModal: { ...defaultListsModal },
     isDisplayModalOpen: false,
     theme: {
-      // fontSize: 'base',
       color: 'blue',
       background: 'light'
     }
@@ -53,8 +53,11 @@ const userSlice = createSlice({
     setLists: (state: StateProps, action: PayloadAction<List[]>) => {
       state.data.lists = action.payload;
     },
-    toggleList: (state: StateProps, action: PayloadAction<ListsModal>) => {
+    toggleList: (state: StateProps, action: PayloadAction<ListModal>) => {
       state.ui.listsModal = action.payload;
+    },
+    toggleDescription: (state: StateProps, action: PayloadAction<DescriptionModal>) => {
+      state.ui.descriptionModal = action.payload;
     },
     toggleDisplay: (state: StateProps, action: PayloadAction<boolean>) => {
       state.ui.isDisplayModalOpen = action.payload;
@@ -62,7 +65,15 @@ const userSlice = createSlice({
   }
 });
 
-export const { setTheme, setRecentSearches, setRecentlyViewed, setLiked, setLists, toggleList, toggleDisplay } =
-  userSlice.actions;
+export const {
+  setTheme,
+  setRecentSearches,
+  setRecentlyViewed,
+  setLiked,
+  setLists,
+  toggleList,
+  toggleDescription,
+  toggleDisplay
+} = userSlice.actions;
 
 export default userSlice.reducer;

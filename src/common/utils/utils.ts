@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import queryString from 'query-string';
 
-import { ButtonProps } from '../../components/Inputs/Button/types';
+import { ButtonProps } from '../../components/Clickable/Button/types';
 import store from '../../store';
 import theme from '../../theme';
 import { months } from '../data/date';
@@ -16,30 +16,35 @@ export default {
    * This method will return the genres names from the genre ids
    *
    * @param genres - Genres ids
+   * @param mediaType - Type of genres
    * @returns - string of genres seperated by a ","
    */
-  handleReturnGenresByID: (genres: number[], type: 'movie' | 'tv'): string => {
+  handleReturnGenresByID: (genres: number[], mediaType: 'movie' | 'tv'): string => {
     const getGenres: Genre[] = store
       .getState()
-      .options.data.data.genres[type].filter((genre: Genre) => genres.includes(genre.id));
+      .options.data.data.genres[mediaType].filter((genre: Genre) => genres.includes(genre.id));
     return getGenres.map((genre) => genre.name).join(', ');
+  },
+
+  handleIsTouchDevice: (): boolean => {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
   },
 
   /**
    * This method will return the section of the date depending on the "type"
    *
    * @param date - Full Date
-   * @param type - Which section of date to return
+   * @param section - Which section of date to return
    * @returns - The section of the dat
    */
-  handleReturnDate: (date: string, type: 'year' | 'month' | 'day' | 'full'): string => {
-    if (type === 'full') {
+  handleReturnDate: (date: string, section: 'year' | 'month' | 'day' | 'full'): string => {
+    if (section === 'full') {
       const split = date.split('-');
       const month = months.find((month) => month.value === split[1]);
 
       return `${split[2]} ${month?.label} ${split[0]}`;
     } else {
-      return date.split('-')[type === 'year' ? 0 : type === 'month' ? 1 : 2];
+      return date.split('-')[section === 'year' ? 0 : section === 'month' ? 1 : 2];
     }
   },
 
@@ -49,6 +54,12 @@ export default {
     return 'abc';
   },
 
+  /**
+   * This method will return the proper typed button color depending on the color passed
+   *
+   * @param color - Current user selected color from display modal
+   * @returns - Proper typed color to be used in IconButton/Button
+   */
   handleReturnColor: (color: unknown): ButtonProps['color'] => {
     switch (color) {
       case 'orange':
@@ -70,6 +81,15 @@ export default {
     }
   },
 
+  /**
+   * This method will return a url that will fetch an img from boringavatars
+   * boringavatars - https://boringavatars.com/
+   *
+   * @param mediaType - Poster mediaType (Movie, TV or Person)
+   * @param size - Size of poster
+   * @param alt - Image alt
+   * @returns - boringavatars URL
+   */
   handleReturnFallbackSrc: (mediaType: MediaType, size: string, alt: string): string => {
     const name = `${alt}-${(Math.floor(Math.random() * 1000000) + 1000000).toString().substring(1)}`;
     const colors: string = [

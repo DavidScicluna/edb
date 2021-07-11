@@ -4,7 +4,7 @@ import { StateProps, DisplayMode, SortDirection, SidebarMode } from './types';
 
 const initialState: StateProps = {
   data: {
-    sortDirection: 'asc'
+    sortDirection: 'desc'
   },
   ui: {
     displayMode: 'grid',
