@@ -1,12 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useTheme, useDisclosure, useMediaQuery, VStack, HStack, Box, Fade } from '@chakra-ui/react';
+import { useDisclosure, VStack, HStack, Box, Fade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
+import { Department } from '../../common/data/departments';
 import defaultResponse from '../../common/data/response';
 import { movieSortBy, tvSortBy, peopleSortBy } from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
@@ -15,33 +16,30 @@ import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
 import { MediaType, Response, SortBy, Genre } from '../../common/types/types';
-import utils from '../../common/utils/utils';
+import Button from '../../components/Clickable/Button';
 import Empty from '../../components/Empty';
 import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
-import Button from '../../components/Inputs/Button';
 import LoadMore from '../../components/LoadMore';
 import MediaTypePicker from '../../components/MediaTypePicker';
+import MediaTypes from '../../components/MediaTypePicker/components/MediaTypes';
 import VerticalMovies from '../../components/Movies/Grid/Vertical';
 import VerticalPeople from '../../components/People/Grid/Vertical';
 import VerticalTV from '../../components/TV/Grid/Vertical';
-import { Theme } from '../../theme/types';
 
 const Trending = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const theme = useTheme<Theme>();
   const {
     isOpen: isMediaTypePickerOpen,
     onOpen: onMediaTypePickerOpen,
     onClose: onMediaTypePickerClose
   } = useDisclosure();
-  const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
   const history = useHistory();
+  const { mediaType: paramMediaType } = useParams<{ mediaType: MediaType }>();
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
-  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 
@@ -55,6 +53,7 @@ const Trending = (): ReactElement => {
       : undefined
   );
   const [genres, setGenres] = useState<Genre[]>([]);
+  const [departments, setDepartments] = useState<Department[]>([]);
 
   const [movies, setMovies] = useState<Response<PartialMovie[]>>(defaultResponse);
   const [tv, setTV] = useState<Response<PartialTV[]>>(defaultResponse);
@@ -85,7 +84,15 @@ const Trending = (): ReactElement => {
 
             setPeople({
               page: data.pages[data.pages.length - 1].page,
-              results: sort(people, sortBy?.value || '', { reverse: sortDirection === 'desc' }),
+              results: sort(
+                departments && departments.length > 0
+                  ? people.filter((person) =>
+                      departments.some((department) => person.known_for_department === department.value)
+                    )
+                  : [...people],
+                sortBy?.value || '',
+                { reverse: sortDirection === 'desc' }
+              ),
               total_pages: data.pages[data.pages.length - 1].total_pages,
               total_results: data.pages[data.pages.length - 1].total_results
             });
@@ -138,7 +145,7 @@ const Trending = (): ReactElement => {
     }
   );
 
-  const handleSetFilters = (sortBy: SortBy[], genres: Genre[]) => {
+  const handleSetFilters = (sortBy: SortBy[], genres: Genre[], departments: Department[]) => {
     const active = sortBy.find((sort) => sort.isActive);
 
     if (active) {
@@ -146,8 +153,11 @@ const Trending = (): ReactElement => {
     }
 
     setGenres(genres);
+    setDepartments(departments);
 
-    trending.refetch();
+    setTimeout(() => {
+      trending.refetch();
+    }, 0);
   };
 
   const handleResetState = (): void => {
@@ -160,30 +170,30 @@ const Trending = (): ReactElement => {
   useEffect(() => {
     handleResetState();
 
-    if (history.location.pathname !== '/trending') {
+    if (paramMediaType) {
       trending.remove();
 
-      switch (history.location.pathname) {
-        case '/trending/person':
+      switch (paramMediaType) {
+        case 'person':
           setMediaType('person');
           break;
-        case '/trending/tv':
+        case 'tv':
           setMediaType('tv');
           break;
-        case '/trending/movie':
+        case 'movie':
           setMediaType('movie');
           break;
         default:
           break;
       }
-    } else if (isLgUp) {
-      onMediaTypePickerOpen();
     }
   }, [history.location.pathname]);
 
   useEffect(() => {
     return () => source.cancel();
   }, []);
+
+  console.log(trending);
 
   return (
     <>
@@ -208,7 +218,7 @@ const Trending = (): ReactElement => {
             {mediaType === 'movie' ? (
               <>
                 <VerticalMovies
-                  isLoading={trending.isLoading || trending.isFetching}
+                  isLoading={trending.isFetching || trending.isLoading}
                   isError={trending.isError}
                   isSuccess={trending.isSuccess}
                   movies={movies.results || []}
@@ -219,7 +229,7 @@ const Trending = (): ReactElement => {
                     amount={movies.results.length}
                     total={movies.total_results}
                     mediaType='movies'
-                    isLoading={trending.isLoading || trending.isFetching}
+                    isLoading={trending.isFetching || trending.isLoading}
                     onFetch={trending.fetchNextPage}
                   />
                 ) : null}
@@ -227,7 +237,7 @@ const Trending = (): ReactElement => {
             ) : mediaType === 'tv' ? (
               <>
                 <VerticalTV
-                  isLoading={trending.isLoading || trending.isFetching}
+                  isLoading={trending.isFetching || trending.isLoading}
                   isError={trending.isError}
                   isSuccess={trending.isSuccess}
                   tv={tv.results || []}
@@ -238,7 +248,7 @@ const Trending = (): ReactElement => {
                     amount={tv.results.length}
                     total={tv.total_results}
                     mediaType='tv shows'
-                    isLoading={trending.isLoading || trending.isFetching}
+                    isLoading={trending.isFetching || trending.isLoading}
                     onFetch={trending.fetchNextPage}
                   />
                 ) : null}
@@ -246,7 +256,7 @@ const Trending = (): ReactElement => {
             ) : mediaType === 'person' ? (
               <>
                 <VerticalPeople
-                  isLoading={trending.isLoading || trending.isFetching}
+                  isLoading={trending.isFetching || trending.isLoading}
                   isError={trending.isError}
                   isSuccess={trending.isSuccess}
                   people={people.results || []}
@@ -257,7 +267,7 @@ const Trending = (): ReactElement => {
                     amount={people.results.length}
                     total={people.total_results}
                     mediaType='people'
-                    isLoading={trending.isLoading || trending.isFetching}
+                    isLoading={trending.isFetching || trending.isLoading}
                     onFetch={trending.fetchNextPage}
                   />
                 ) : null}
@@ -268,9 +278,14 @@ const Trending = (): ReactElement => {
           <Box width='100%' px={2}>
             <Empty
               button={
-                <Button color={utils.handleReturnColor(color)} onClick={() => onMediaTypePickerOpen()}>
-                  Select media type
-                </Button>
+                <MediaTypes
+                  mediaType={mediaType}
+                  onSetType={(mediaType: MediaType) =>
+                    history.push({
+                      pathname: `${history.location.pathname === '/trending' ? '/trending/' : ''}${mediaType}`
+                    })
+                  }
+                />
               }
               hasIllustration={false}
               label='Select media type to view data!'
