@@ -26,8 +26,6 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: GridProps): R
         )
       )}
     </SimpleGrid>
-  ) : isError ? (
-    <Error label='Oh no! Something went wrong' description='Failed to fetch movies list!' variant='outlined' />
   ) : isSuccess && movies && movies.length > 0 ? (
     <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>
       {movies.map((movie: PartialMovie) =>
@@ -38,6 +36,8 @@ const VerticalMovies = ({ isLoading, isError, isSuccess, movies }: GridProps): R
         )
       )}
     </SimpleGrid>
+  ) : isError ? (
+    <Error label='Oh no! Something went wrong' description='Failed to fetch movies list!' variant='outlined' />
   ) : (
     <Empty label='Movies list is currently empty!' variant='outlined' />
   );

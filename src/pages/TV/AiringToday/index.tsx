@@ -82,7 +82,9 @@ const TVAiringToday = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid title={isMob ? 'Airing Today' : ''} header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
+    <VerticalGrid
+      title={isMob ? 'TV Shows Airing Today' : ''}
+      header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalTV
           isLoading={tvAiringToday.isLoading || tvAiringToday.isFetching}

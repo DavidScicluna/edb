@@ -21,9 +21,10 @@ const HorizontalMovie = ({ isLoading = true, movie }: PosterProps): ReactElement
         count: movie?.vote_count || null
       }}
       title={movie?.title || ''}
-      subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'full')}${
-        movie?.release_date && movie?.genre_ids ? ' • ' : ''
-      }${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
+      subtitle={`${[
+        `${utils.handleReturnDate(movie?.release_date || '', 'full')}`,
+        `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
+      ].join(' • ')}`}
       description={movie?.overview || ''}
       isLoaded={true}
     />

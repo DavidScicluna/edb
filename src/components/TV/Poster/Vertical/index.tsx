@@ -9,7 +9,7 @@ const size = utils.handleReturnImageSize('poster', 'sm');
 const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElement => {
   return !isLoading && show ? (
     <VerticalPoster
-      width={width || ['185px']}
+      width={width || ['185px', '205px', '230px']}
       mediaItemID={show.id}
       mediaType='tv'
       image={{
@@ -22,14 +22,15 @@ const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElemen
         count: show?.vote_count || null
       }}
       title={show?.name || ''}
-      subtitle={`${utils.handleReturnDate(show?.first_air_date || '', 'year')}${
-        show?.first_air_date && show?.genre_ids ? ' • ' : ''
-      }${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`}
+      subtitle={`${[
+        `${utils.handleReturnDate(show?.first_air_date || '', 'year')}`,
+        `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
+      ].join(' • ')}`}
       isLoaded={true}
     />
   ) : (
     <VerticalPoster
-      width={width || ['185px']}
+      width={width || ['185px', '205px', '230px']}
       mediaItemID={-1}
       mediaType='tv'
       image={{

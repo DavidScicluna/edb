@@ -83,7 +83,7 @@ const OnTV = (): ReactElement => {
 
   return (
     <VerticalGrid
-      title={isMob ? 'On at the moment' : ''}
+      title={isMob ? 'TV Shows On At The Moment' : ''}
       header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalTV

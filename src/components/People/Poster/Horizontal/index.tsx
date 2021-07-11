@@ -2,16 +2,19 @@ import React, { ReactElement } from 'react';
 
 import arraySort from 'array-sort';
 
+import departments from '../../../../common/data/departments';
 import utils from '../../../../common/utils/utils';
 import HorizontalPoster from '../../../Poster/Horizontal';
 import { PosterProps } from '../types';
+
 const size = utils.handleReturnImageSize('poster', 'sm');
 
 const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactElement => {
   const handleKnownFor = (): string => {
-    const knownFor = arraySort(person?.known_for || [], 'voting_averge');
+    const knownFor = arraySort(person?.known_for || [], 'vote_average');
+    const names: string[] = knownFor.map((item) => item.title || item.name || '');
 
-    return knownFor.join(', ');
+    return names.join(', ');
   };
 
   return !isLoading && person ? (
@@ -24,8 +27,8 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
         size
       }}
       title={person?.name || ''}
-      subtitle={person?.known_for_department || ''}
-      description={handleKnownFor()}
+      subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
+      description={handleKnownFor()} // TODO: Add a Link component and on click open item page
       isLoaded={true}
     />
   ) : (

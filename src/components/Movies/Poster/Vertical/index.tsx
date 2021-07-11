@@ -9,7 +9,7 @@ const size = utils.handleReturnImageSize('poster', 'sm');
 const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactElement => {
   return !isLoading && movie ? (
     <VerticalPoster
-      width={width || ['185px']}
+      width={width || ['185px', '205px', '230px']}
       mediaItemID={movie.id}
       mediaType='movie'
       image={{
@@ -22,14 +22,15 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
         count: movie?.vote_count || null
       }}
       title={movie?.title || ''}
-      subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'year')}${
-        movie?.release_date && movie?.genre_ids ? ' • ' : ''
-      }${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`}
+      subtitle={`${[
+        `${utils.handleReturnDate(movie?.release_date || '', 'year')}`,
+        `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
+      ].join(' • ')}`}
       isLoaded={true}
     />
   ) : (
     <VerticalPoster
-      width={width || ['185px']}
+      width={width || ['185px', '205px', '230px']}
       mediaItemID={-1}
       mediaType='movie'
       image={{
