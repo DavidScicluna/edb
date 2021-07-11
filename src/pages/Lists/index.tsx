@@ -1,19 +1,18 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useTheme, useDisclosure, useMediaQuery, VStack, HStack, SimpleGrid, Box, ScaleFade } from '@chakra-ui/react';
+import { useDisclosure, useMediaQuery, VStack, HStack, SimpleGrid, Box, ScaleFade } from '@chakra-ui/react';
 import axios from 'axios';
-import queryString from 'query-string';
+import moment from 'moment';
 import { useHistory, useParams } from 'react-router-dom';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
 import { MediaType } from '../../common/types/types';
+import Button from '../../components/Clickable/Button';
 import DisplayMode from '../../components/DisplayMode';
 import Empty from '../../components/Empty';
 import VerticalGrid from '../../components/Grid/Vertical';
-import Button from '../../components/Inputs/Button';
 import MediaTypePicker from '../../components/MediaTypePicker';
 import { List as ListType, MediaItem } from '../../store/slices/User/types';
-import { Theme } from '../../theme/types';
 import All from './components/All';
 import ListPicker from './components/ListPicker';
 import List from './components/ListPicker/components/ListItem';
@@ -24,7 +23,6 @@ import { Param } from './types';
 const Lists = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const theme = useTheme<Theme>();
   const {
     isOpen: isMediaTypePickerOpen,
     onOpen: onMediaTypePickerOpen,
@@ -32,9 +30,8 @@ const Lists = (): ReactElement => {
   } = useDisclosure();
   const { isOpen: isListPickerOpen, onOpen: onListPickerOpen, onClose: onListPickerClose } = useDisclosure();
   const [isSmallMob] = useMediaQuery('(max-width: 350px)');
-  const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
-  const { id } = useParams<Param>();
+  const { id, mediaType: paramMediaType } = useParams<Param>();
   const history = useHistory();
 
   const lists = useSelector((state) => state.user.data.lists);
@@ -60,27 +57,19 @@ const Lists = (): ReactElement => {
       setTV(activeList.results.filter((like) => like.mediaType === 'tv'));
     }
 
-    if (history.location.search.length > 0) {
-      const params = queryString.parse(history.location.search);
-
-      if (params) {
-        if (params.mediaType) {
-          switch (params.mediaType) {
-            case 'person':
-              setMediaType('person');
-              break;
-            case 'tv':
-              setMediaType('tv');
-              break;
-            case 'movie':
-              setMediaType('movie');
-              break;
-            default:
-              break;
-          }
-        }
-      } else if (isLgUp) {
-        onMediaTypePickerOpen();
+    if (paramMediaType) {
+      switch (paramMediaType) {
+        case 'person':
+          setMediaType('person');
+          break;
+        case 'tv':
+          setMediaType('tv');
+          break;
+        case 'movie':
+          setMediaType('movie');
+          break;
+        default:
+          break;
       }
     }
   }, [history.location]);
@@ -108,23 +97,27 @@ const Lists = (): ReactElement => {
                       `${movies.length} movie${movies.length === 0 || movies.length > 1 ? 's' : ''}`,
                       `${tv.length} TV show${tv.length === 0 || tv.length > 1 ? 's' : ''}`
                     ].join(' • ')} results in "${list.label}" list`
-                : ''
+                : `"${list.label}" list • Updated ${moment(list.date).fromNow()}`
               : `${lists.length} list${lists.length === 0 || lists.length > 1 ? 's' : ''}`
           }
           header={
-            <ScaleFade in={Boolean(list) && Boolean(mediaType)} unmountOnExit>
+            mediaType || (list && lists.length > 1) ? (
               <HStack spacing={2}>
-                <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
-                  Change media-type
-                </Button>
-                <ScaleFade in={Boolean(list) && lists.length > 0} unmountOnExit>
+                <ScaleFade in={!!list && lists.length > 1} unmountOnExit>
                   <Button onClick={() => onListPickerOpen()} variant='outlined'>
                     Change list
                   </Button>
                 </ScaleFade>
-                <DisplayMode />
+                <ScaleFade in={!!mediaType} unmountOnExit>
+                  <HStack spacing={2}>
+                    <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
+                      Change media-type
+                    </Button>
+                    <DisplayMode />
+                  </HStack>
+                </ScaleFade>
               </HStack>
-            </ScaleFade>
+            ) : null
           }>
           {list ? (
             movies.length > 0 || tv.length > 0 ? (
@@ -169,7 +162,7 @@ const Lists = (): ReactElement => {
                   </Box>
                 )
               ) : (
-                <All movies={movies} tv={tv} />
+                <All list={list} movies={movies} tv={tv} />
               )
             ) : (
               <Box width='100%' p={2}>
@@ -182,12 +175,7 @@ const Lists = (): ReactElement => {
                 <List
                   key={list.id}
                   {...list}
-                  onClick={(id: ListType['id']) =>
-                    history.push({
-                      pathname: `/bookmarks/${id}`,
-                      search: queryString.stringify({ ...queryString.parse(history.location.search) })
-                    })
-                  }
+                  onClick={(id: ListType['id']) => history.push({ pathname: `/lists/${id}` })}
                 />
               ))}
             </SimpleGrid>
@@ -202,17 +190,13 @@ const Lists = (): ReactElement => {
       <ListPicker activeList={list} isOpen={isListPickerOpen} onClose={onListPickerClose} />
 
       <MediaTypePicker
+        mediaTypes={['movie', 'tv']}
         mediaType={mediaType}
         isOpen={isMediaTypePickerOpen}
         onClose={onMediaTypePickerClose}
-        onSetType={(mediaType: MediaType) => {
-          history.push({
-            pathname: history.location.pathname,
-            search: queryString.stringify({ ...queryString.parse(history.location.search), mediaType })
-          });
-
-          setMediaType(mediaType);
-        }}
+        onSetType={(mediaType: MediaType) =>
+          history.push({ pathname: `${history.location.pathname === '/lists' ? '/lists/' : ''}${mediaType}` })
+        }
       />
     </>
   );

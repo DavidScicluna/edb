@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 
 import { VStack, Fade, Collapse } from '@chakra-ui/react';
-import queryString from 'query-string';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ import Movie from '../Movie';
 import Show from '../Show';
 import { AllProps } from './types';
 
-const All = ({ movies = [], tv = [] }: AllProps): ReactElement => {
+const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -27,11 +26,11 @@ const All = ({ movies = [], tv = [] }: AllProps): ReactElement => {
         <Collapse in={(movies && movies.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
             title={`${movies.length || 0} movie${movies && (movies.length === 0 || movies.length > 1) ? 's' : ''}`}
-            footer={`View all ${movies.length || 0} liked movie${
+            footer={`View all ${movies.length || 0} movie${
               movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
-            }`}
+            } `}
             isLoading={false}
-            path={{ pathname: history.location.pathname, search: queryString.stringify({ mediaType: 'movie' }) }}>
+            path={{ pathname: `/lists/${list.id}/movie` }}>
             <>
               {movies.map((movie) => (
                 <Movie key={movie.id} id={movie.id} />
@@ -44,9 +43,9 @@ const All = ({ movies = [], tv = [] }: AllProps): ReactElement => {
         <Collapse in={(tv && tv.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
             title={`${tv.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
-            footer={`View all ${tv?.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
+            footer={`View all ${tv?.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
             isLoading={false}
-            path={{ pathname: history.location.pathname, search: queryString.stringify({ mediaType: 'tv' }) }}>
+            path={{ pathname: `/lists/${list.id}/tv` }}>
             <>
               {tv.map((show) => (
                 <Show key={show.id} id={show.id} />

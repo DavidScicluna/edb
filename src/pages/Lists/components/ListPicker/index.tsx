@@ -19,7 +19,7 @@ const MediaTypePicker = ({ activeList, isOpen, onClose }: ListPickerProps): Reac
 
   const handleClick = (id: List['id']): void => {
     history.push({
-      pathname: `/bookmarks/${id}`,
+      pathname: `/lists/${id}`,
       search: queryString.stringify({ ...queryString.parse(history.location.search) })
     });
 
@@ -27,7 +27,7 @@ const MediaTypePicker = ({ activeList, isOpen, onClose }: ListPickerProps): Reac
   };
 
   return (
-    <Modal title='Select list' isOpen={isOpen} onClose={onClose} isCentered size={isXs ? 'full' : '2xl'}>
+    <Modal title='Select list' isOpen={isOpen} onClose={onClose} isCentered size='2xl'>
       <Box width='100%' height='100%' p={3}>
         {isXs ? (
           <VStack justifyContent='space-between' spacing={2}>
