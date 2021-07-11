@@ -5,14 +5,15 @@ import _ from 'lodash';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 
+import { Department } from '../../common/data/departments';
 import { movieSortBy, tvSortBy, peopleSortBy } from '../../common/data/sort';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
 import { MediaType, Response, SortBy, Genre } from '../../common/types/types';
+import Button from '../../components/Clickable/Button';
 import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
-import Button from '../../components/Inputs/Button';
 import LoadMore from '../../components/LoadMore';
 import MediaTypePicker from '../../components/MediaTypePicker';
 import VerticalMovies from '../../components/Movies/Grid/Vertical';
@@ -49,6 +50,7 @@ const Search = (): ReactElement => {
       : undefined
   );
   const [genres, setGenres] = useState<Genre[]>([]);
+  const [departments, setDepartments] = useState<Department[]>([]);
 
   const [refetch, setRefetch] = useState<boolean>(false);
 
@@ -58,7 +60,7 @@ const Search = (): ReactElement => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSetFilters = (sortBy: SortBy[], genres: Genre[]) => {
+  const handleSetFilters = (sortBy: SortBy[], genres: Genre[], departments: Department[]) => {
     const active = sortBy.find((sort) => sort.isActive);
 
     if (active) {
@@ -66,6 +68,8 @@ const Search = (): ReactElement => {
     }
 
     setGenres(genres);
+    setDepartments(departments);
+
     setRefetch(true);
   };
 
@@ -105,6 +109,7 @@ const Search = (): ReactElement => {
             query={query}
             sortBy={sortBy}
             genres={genres}
+            departments={departments}
             refetch={refetch}
             onQueryChange={(query: string) => setQuery(query)}
             onMoviesChange={(data: Response<PartialMovie[]>) => setMovies(data)}

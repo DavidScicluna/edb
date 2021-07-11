@@ -5,6 +5,7 @@ import sort from 'array-sort';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
+import { Department } from '../../common/data/departments';
 import defaultResponse from '../../common/data/response';
 import { movieSortBy } from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
@@ -23,6 +24,7 @@ const People = (): ReactElement => {
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
   const [sortBy, setSortBy] = useState<SortBy | undefined>(movieSortBy.find((sort) => sort.isActive));
+  const [departments, setDepartments] = useState<Department[]>([]);
 
   const [people, setPeople] = useState<Response<PartialPerson[]>>(defaultResponse);
 
@@ -48,21 +50,32 @@ const People = (): ReactElement => {
 
         setPeople({
           page: data.pages[data.pages.length - 1].page,
-          results: sort(people, sortBy?.value || '', { reverse: sortDirection === 'desc' }),
+          results: sort(
+            departments && departments.length > 0
+              ? people.filter((person) =>
+                  departments.some((department) => person.known_for_department === department.value)
+                )
+              : [...people],
+            sortBy?.value || '',
+            { reverse: sortDirection === 'desc' }
+          ),
           total_pages: data.pages[data.pages.length - 1].total_pages,
           total_results: data.pages[data.pages.length - 1].total_results
         });
+
         return;
       }
     }
   );
 
-  const handleSetFilters = (sortBy: SortBy[]): void => {
+  const handleSetFilters = (sortBy: SortBy[], _genres: unknown[], departments: Department[]): void => {
     const active = sortBy.find((sort) => sort.isActive);
 
     if (active) {
       setSortBy(active);
     }
+
+    setDepartments(departments);
 
     popularPeople.refetch();
   };
