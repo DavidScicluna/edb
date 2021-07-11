@@ -18,6 +18,7 @@ import _ from 'lodash';
 import { useLocation, Link as RRDLink } from 'react-router-dom';
 
 import useSelector from '../../../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../../../common/utils/utils';
 import Tooltip from '../../../../../../components/Tooltip';
 import { Theme } from '../../../../../../theme/types';
 import { NavItem as NavItemType } from '../../types';
@@ -84,7 +85,15 @@ const NavItem = (props: NavItemType): ReactElement => {
                 as={isActive || isChildActive ? iconActive : icon}
                 sx={{ fontSize: `${theme.fontSizes['3xl']} !important` }}
               />
-              <ScaleFade in={sidebarMode === 'expanded'} unmountOnExit>
+              <ScaleFade
+                in={sidebarMode === 'expanded'}
+                unmountOnExit
+                delay={{
+                  enter: utils.handleParseDurationForFramer(
+                    utils.handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
+                  ),
+                  exit: 0
+                }}>
                 <Text align='left' fontSize='lg' fontWeight='semibold' whiteSpace='nowrap'>
                   {label}
                 </Text>
@@ -92,7 +101,15 @@ const NavItem = (props: NavItemType): ReactElement => {
             </HStack>
 
             {children && renderChildren ? (
-              <ScaleFade in={sidebarMode === 'expanded'} unmountOnExit>
+              <ScaleFade
+                in={sidebarMode === 'expanded'}
+                unmountOnExit
+                delay={{
+                  enter: utils.handleParseDurationForFramer(
+                    utils.handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
+                  ),
+                  exit: 0
+                }}>
                 <Icon
                   as={ChevronRightOutlinedIcon}
                   sx={{

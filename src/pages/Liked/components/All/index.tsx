@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect } from 'react';
 
 import { VStack, Fade, Collapse } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
 import { toggleDisplayMode } from '../../../../store/slices/App';
@@ -12,8 +11,6 @@ import Show from '../Show';
 import { AllProps } from './types';
 
 const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
-  const history = useHistory();
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,7 +33,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
               movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
             }`}
             isLoading={false}
-            path={{ pathname: `${history.location.pathname === '/liked' ? '/liked/' : ''}movie` }}>
+            path={{ pathname: '/liked/movie' }}>
             <>{movies.map((movie, index) => (index < 20 ? <Movie key={movie.id} id={movie.id} /> : null))}</>
           </HorizontalGrid>
         </Collapse>
@@ -47,7 +44,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
             title={`${tv.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
             footer={`View all ${tv?.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
             isLoading={false}
-            path={{ pathname: `${history.location.pathname === '/liked' ? '/liked/' : ''}tv` }}>
+            path={{ pathname: '/liked/tv' }}>
             <>{tv.map((show, index) => (index < 20 ? <Show key={show.id} id={show.id} /> : null))}</>
           </HorizontalGrid>
         </Collapse>
@@ -62,7 +59,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
               (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
             }`}
             isLoading={false}
-            path={{ pathname: `${history.location.pathname === '/liked' ? '/liked/' : ''}person` }}>
+            path={{ pathname: '/liked/person' }}>
             <>{people.map((person, index) => (index < 20 ? <Person key={person.id} id={person.id} /> : null))}</>
           </HorizontalGrid>
         </Collapse>

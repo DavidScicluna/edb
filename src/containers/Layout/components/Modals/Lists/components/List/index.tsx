@@ -1,51 +1,53 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, HStack, VStack, Text, Icon } from '@chakra-ui/react';
+import { useTheme, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 import {
   CheckBoxTwoTone as CheckBoxTwoToneIcon,
   CheckBoxOutlineBlankOutlined as CheckBoxOutlineBlankOutlinedIcon
 } from '@material-ui/icons';
-import _ from 'lodash';
 import moment from 'moment';
 
 import useSelector from '../../../../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../../../../common/utils/utils';
+import Card from '../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../theme/types';
-import useStyles from './styles';
 import { ListProps } from './types';
 
 const List = ({ id, label, description, date, results, isSelected = false, onClick }: ListProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const style = useStyles(theme, color, isSelected);
-
   return (
-    <HStack
-      justifyContent='space-between'
-      spacing={2}
+    <Card
+      color={isSelected ? utils.handleReturnColor(color) : 'gray'}
+      isFullWidth
+      onClick={() => onClick(id, isSelected)}
       px={2}
-      py={1}
-      sx={{ ..._.merge(style.common.container, style[colorMode].container) }}
-      onClick={() => onClick(id, isSelected)}>
-      <VStack alignItems='flex-start' spacing={0}>
-        <Text sx={{ ..._.merge(style.common.text.primary, style[colorMode].text.primary) }}>{label}</Text>
-        {description && description.length > 0 ? (
-          <Text sx={{ ..._.merge(style.common.text.secondary, style[colorMode].text.secondary) }}>{description}</Text>
-        ) : null}
-        <Text sx={{ ..._.merge(style.common.text.secondary, style[colorMode].text.secondary) }}>
-          {`${results.length > 0 ? `${results.length} items  • ` : ''}${
-            results.length > 0 ? 'Updated' : 'Created'
-          } ${moment(date).fromNow()}`}
-        </Text>
-      </VStack>
+      py={1}>
+      <HStack width='100%' justifyContent='space-between' spacing={2}>
+        <VStack alignItems='flex-start' spacing={0}>
+          <Text align='left' fontSize='md' fontWeight='semibold' textTransform='capitalize'>
+            {label}
+          </Text>
+          {description && description.length > 0 ? (
+            <Text align='left' fontSize='xs' fontWeight='400' textTransform='capitalize'>
+              {description}
+            </Text>
+          ) : null}
+          <Text align='left' fontSize='xs' fontWeight='400' textTransform='capitalize'>
+            {`${results.length > 0 ? `${results.length} items  • ` : ''}${
+              results.length > 0 ? 'Updated' : 'Created'
+            } ${moment(date).fromNow()}`}
+          </Text>
+        </VStack>
 
-      <Icon
-        as={isSelected ? CheckBoxTwoToneIcon : CheckBoxOutlineBlankOutlinedIcon}
-        sx={{ ..._.merge(style.common.icon, style[colorMode].icon) }}
-      />
-    </HStack>
+        <Icon
+          as={isSelected ? CheckBoxTwoToneIcon : CheckBoxOutlineBlankOutlinedIcon}
+          sx={{ fontSize: `${theme.fontSizes['3xl']} !important` }}
+        />
+      </HStack>
+    </Card>
   );
 };
 

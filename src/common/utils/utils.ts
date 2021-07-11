@@ -54,6 +54,10 @@ export default {
     return 'abc';
   },
 
+  handleParseDurationForFramer: (time: number): number => {
+    return time / 1000;
+  },
+
   /**
    * This method will return the proper typed button color depending on the color passed
    *

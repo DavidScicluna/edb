@@ -1,12 +1,12 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useMediaQuery, VStack } from '@chakra-ui/react';
+import { useDisclosure, VStack } from '@chakra-ui/react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../common/utils/utils';
-import Button from '../../../../../components/Inputs/Button';
+import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import { defaultListsModal, setLists, toggleList } from '../../../../../store/slices/User';
 import { List as ListType } from '../../../../../store/slices/User/types';
@@ -16,7 +16,6 @@ import List from './components/List';
 const ListsModal = (): ReactElement => {
   const { isOpen: isListsOpen, onOpen: onListsOpen, onClose: onListsClose } = useDisclosure();
   const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
-  const [isXs] = useMediaQuery('(max-width: 40em)');
 
   const dispatch = useDispatch();
   const listsModal = useSelector((state) => state.user.ui.listsModal);
@@ -74,14 +73,14 @@ const ListsModal = (): ReactElement => {
   return (
     <>
       <Modal
-        title={`Add ${listsModal.item ? listsModal.item.title : 'this item'} to a list`}
+        title={`Add ${listsModal.item ? `"${listsModal.item.title}"` : 'this item'} to a list`}
         actions={
           selected.length > 0 ? (
-            <Button color={utils.handleReturnColor(color)} onClick={() => handleSaveItem()} size='sm'>
+            <Button color={utils.handleReturnColor(color)} onClick={() => handleSaveItem()} size='xs'>
               {`Save to List${selected.length > 1 ? 's' : ''}`}
             </Button>
           ) : (
-            <Button color={utils.handleReturnColor(color)} onClick={() => onCreateListOpen()} size='sm'>
+            <Button color={utils.handleReturnColor(color)} onClick={() => onCreateListOpen()} size='xs'>
               Create a new List
             </Button>
           )
@@ -89,7 +88,7 @@ const ListsModal = (): ReactElement => {
         isOpen={isListsOpen}
         onClose={handleClose}
         isCentered
-        size={isXs ? 'full' : '2xl'}>
+        size='2xl'>
         <VStack spacing={2} p={2}>
           {lists.map((list) => (
             <List key={list.id} {...list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />

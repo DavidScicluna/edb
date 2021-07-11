@@ -59,7 +59,7 @@ export default (
   },
   light: {
     container: {
-      backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.100' : 'transparent'
+      backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.200' : 'transparent'
     },
     main: {
       'backgroundColor': isChildActive ? 'transparent' : isActive ? `${color}.400` : 'transparent',
@@ -72,7 +72,7 @@ export default (
       },
 
       '&:hover': {
-        'backgroundColor': isChildActive ? 'gray.100' : isActive ? `${color}.500` : 'gray.100',
+        'backgroundColor': isChildActive ? 'gray.200' : isActive ? `${color}.500` : 'gray.200',
 
         '& .chakra-icon': {
           color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.900'
@@ -85,7 +85,7 @@ export default (
   },
   dark: {
     container: {
-      backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.800' : 'transparent'
+      backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.700' : 'transparent'
     },
     main: {
       'backgroundColor': isChildActive ? 'transparent' : isActive ? `${color}.400` : 'transparent',
@@ -98,7 +98,7 @@ export default (
       },
 
       '&:hover': {
-        'backgroundColor': isChildActive ? 'gray.800' : isActive ? `${color}.500` : 'gray.800',
+        'backgroundColor': isChildActive ? 'gray.700' : isActive ? `${color}.500` : 'gray.700',
 
         '& .chakra-icon': {
           color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.50'

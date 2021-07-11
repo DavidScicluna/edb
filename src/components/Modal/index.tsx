@@ -29,6 +29,8 @@ const Modal = (props: ModalProps): ReactElement => {
       {...rest}
       isOpen={isOpen}
       onClose={onClose}
+      blockScrollOnMount
+      preserveScrollBarGap
       motionPreset='scale'
       scrollBehavior='inside'
       size={isXs ? 'full' : size}>

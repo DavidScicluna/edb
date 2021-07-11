@@ -1,7 +1,10 @@
 import React, { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
-import { EmojiObjects as EmojiObjectsIcon, EmojiObjectsOutlined as EmojiObjectsOutlinedIcon } from '@material-ui/icons';
+import {
+  WbSunnyOutlined as WbSunnyOutlinedIcon,
+  Brightness2Outlined as Brightness2OutlinedIcon
+} from '@material-ui/icons';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
 import { Form } from '../../types';
@@ -13,12 +16,12 @@ const backgrounds: BackgroundType[] = [
   {
     label: 'Light',
     value: 'light',
-    icon: EmojiObjectsIcon
+    icon: WbSunnyOutlinedIcon
   },
   {
     label: 'Dark',
     value: 'dark',
-    icon: EmojiObjectsOutlinedIcon
+    icon: Brightness2OutlinedIcon
   }
 ];
 

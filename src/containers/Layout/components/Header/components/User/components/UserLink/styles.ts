@@ -49,7 +49,7 @@ export default (theme: Theme, color: UserTheme['color'], isActive = false): NavI
     },
 
     '&:hover': {
-      'backgroundColor': isActive ? `${color}.500` : 'gray.100',
+      'backgroundColor': isActive ? `${color}.500` : 'gray.200',
 
       '& .chakra-icon': {
         color: isActive ? 'gray.50' : 'gray.900'
@@ -70,7 +70,7 @@ export default (theme: Theme, color: UserTheme['color'], isActive = false): NavI
     },
 
     '&:hover': {
-      'backgroundColor': isActive ? `${color}.500` : 'gray.800',
+      'backgroundColor': isActive ? `${color}.500` : 'gray.700',
 
       '& .chakra-icon': {
         color: isActive ? 'gray.900' : 'gray.50'

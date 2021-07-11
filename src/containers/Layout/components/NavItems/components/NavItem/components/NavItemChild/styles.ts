@@ -55,7 +55,7 @@ export default (
       },
 
       '&:hover': {
-        'backgroundColor': isActive ? `${color}.500` : 'gray.100',
+        'backgroundColor': isActive ? `${color}.500` : 'gray.200',
 
         '& .chakra-text': {
           color: isActive ? 'gray.50' : 'gray.900'
@@ -68,11 +68,11 @@ export default (
       'backgroundColor': isActive ? `${color}.400` : 'transparent',
 
       '& .chakra-text': {
-        color: isActive ? 'gray.50' : 'gray.500'
+        color: isActive ? 'gray.900' : 'gray.500'
       },
 
       '&:hover': {
-        'backgroundColor': isActive ? `${color}.500` : 'gray.800',
+        'backgroundColor': isActive ? `${color}.500` : 'gray.700',
 
         '& .chakra-text': {
           color: isActive ? 'gray.900' : 'gray.50'

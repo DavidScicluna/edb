@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery, Box, VStack, HStack } from '@chakra-ui/react';
+import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 import {
   PeopleAltOutlined as PeopleAltOutlinedIcon,
   PeopleAltTwoTone as PeopleAltTwoToneIcon,

@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerBody } from '@chakra-ui/react';
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 
-import IconButton from '../../../../../../components/Inputs/IconButton';
+import IconButton from '../../../../../../components/Clickable/IconButton';
 import navItems from '../../../../common/data/navItems';
 import NavItems from '../../../NavItems';
 

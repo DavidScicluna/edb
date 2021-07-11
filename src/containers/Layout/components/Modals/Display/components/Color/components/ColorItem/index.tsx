@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, VStack, IconButton, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useColorMode, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-import _ from 'lodash';
 
+import utils from '../../../../../../../../../common/utils/utils';
+import Card from '../../../../../../../../../components/Clickable/Card';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 import { Theme } from '../../../../../../../../../theme/types';
-import useStyles from './styles';
 import { ColorItemProps } from './types';
 
 const ColorItem = (props: ColorItemProps): ReactElement => {
@@ -14,8 +14,6 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   const { label, value, isActive, onClick } = props;
-
-  const style = useStyles(theme, value);
 
   return (
     <Tooltip
@@ -26,24 +24,39 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
       label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
       placement='top'
       span>
-      <IconButton
-        aria-label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
-        isDisabled={isActive}
+      <Card
+        color={isActive ? utils.handleReturnColor(value) : 'gray'}
         onClick={!isActive && onClick ? () => onClick(value) : undefined}
-        variant='unstyled'
-        sx={{ ..._.merge(style.common.button, style[colorMode].button) }}
-        _disabled={{ ..._.merge(style.common.disabled, style[colorMode].disabled) }}>
+        variant='outlined'
+        p={2}>
         <VStack spacing={0.75}>
-          <Box sx={{ ..._.merge(style.common.circle) }}>
+          <Box
+            sx={{
+              width: theme.fontSizes['6xl'],
+              height: theme.fontSizes['6xl'],
+
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+
+              backgroundColor: `${value}.400`,
+              borderRadius: 'full'
+            }}>
             <ScaleFade in={isActive} unmountOnExit>
-              <Icon as={CheckOutlinedIcon} sx={{ ..._.merge(style.common.icon, style[colorMode].icon) }} />
+              <Icon
+                as={CheckOutlinedIcon}
+                sx={{
+                  fontSize: `${theme.fontSizes['4xl']} !important`,
+                  color: colorMode === 'light' ? 'gray.50' : 'gray.900'
+                }}
+              />
             </ScaleFade>
           </Box>
           <Text align='center' fontSize='sm' fontWeight='medium'>
             {label}
           </Text>
         </VStack>
-      </IconButton>
+      </Card>
     </Tooltip>
   );
 };

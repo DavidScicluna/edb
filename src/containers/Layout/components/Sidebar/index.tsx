@@ -6,7 +6,7 @@ import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
-import Button from '../../../../components/Inputs/Button';
+import Button from '../../../../components/Clickable/Button';
 import { toggleSidebarMode } from '../../../../store/slices/App';
 import { Theme } from '../../../../theme/types';
 import navItems from '../../common/data/navItems';
@@ -44,7 +44,6 @@ const Sidebar = ({ width }: SidebarProps): ReactElement => {
         isFullWidth
         onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
         leftIcon={sidebarMode === 'expanded' ? RemoveOutlinedIcon : AddOutlinedIcon}
-        size='sm'
         variant='outlined'>
         {sidebarMode === 'expanded' ? 'Collapse' : ''}
       </Button>

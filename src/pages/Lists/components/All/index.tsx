@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect } from 'react';
 
 import { VStack, Fade, Collapse } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
 import { toggleDisplayMode } from '../../../../store/slices/App';
@@ -11,8 +10,6 @@ import Show from '../Show';
 import { AllProps } from './types';
 
 const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
-  const history = useHistory();
-
   const dispatch = useDispatch();
 
   useEffect(() => {

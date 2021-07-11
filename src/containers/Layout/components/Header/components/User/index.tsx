@@ -11,7 +11,7 @@ import {
   VStack,
   HStack,
   Text,
-  Divider
+  Box
 } from '@chakra-ui/react';
 import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
@@ -41,8 +41,8 @@ const User = (): ReactElement => {
       icon: FavoriteBorderOutlinedIcon
     },
     {
-      label: 'Bookmarks',
-      path: '/bookmarks',
+      label: 'Lists',
+      path: '/lists',
       iconActive: BookmarkOutlinedIcon,
       icon: BookmarkBorderOutlinedIcon
     },
@@ -62,9 +62,11 @@ const User = (): ReactElement => {
       <Portal>
         <PopoverContent
           width='auto'
+          minWidth='225px'
           border='solid2'
           borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
           borderRadius='lg'
+          backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
           boxShadow='none'
           p={2}
           sx={{
@@ -83,7 +85,12 @@ const User = (): ReactElement => {
                 Test User
               </Text>
             </HStack>
-            <Divider />
+            <Box
+              width='100%'
+              height='2px'
+              border='solid1'
+              borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+            />
             <VStack width='100%' spacing={1}>
               {userLinks.map((userLink: UserLinkType) => (
                 <UserLink key={userLink.label} {...userLink} />

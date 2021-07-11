@@ -1,23 +1,21 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import { useColorMode, useDisclosure, useMediaQuery, VStack } from '@chakra-ui/react';
+import { useColorMode, useDisclosure, VStack } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../common/utils/utils';
-import Button from '../../../../../components/Inputs/Button';
+import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import { setTheme, toggleDisplay } from '../../../../../store/slices/User';
 import { Theme } from '../../../../../store/slices/User/types';
 import Background from './components/Background';
 import Color from './components/Color';
-// import FontSize from './components/FontSize';
 
 const Display = (): ReactElement => {
   const { toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isXs] = useMediaQuery('(max-width: 40em)');
 
   const dispatch = useDispatch();
   const isDisplayModalOpen = useSelector((state) => state.user.ui.isDisplayModalOpen);
@@ -64,16 +62,15 @@ const Display = (): ReactElement => {
           color={utils.handleReturnColor(color)}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
-          size='sm'>
+          size='xs'>
           Save
         </Button>
       }
       isOpen={isOpen}
       onClose={handleClose}
       isCentered
-      size={isXs ? 'full' : '2xl'}>
+      size='2xl'>
       <VStack spacing={2} p={2}>
-        {/* <FontSize form={form} /> */}
         <Color form={form} />
         <Background form={form} />
       </VStack>

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 
 import {
   useTheme,
@@ -11,18 +11,80 @@ import {
 } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, useParams, Link } from 'react-router-dom';
 
+import useSelector from '../../../../../../common/hooks/useSelectorTyped';
 import { Breadcrumb as BreadcrumbType } from '../../../../../../common/types/types';
 import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
+import { Params } from './types';
 
 const Breadcrumb = ({ breadcrumbs }: { breadcrumbs: BreadcrumbType[] }): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const style = useStyles(theme);
 
+  const { id, mediaType } = useParams<Params>();
   const location = useLocation();
+
+  const lists = useSelector((state) => state.user.data.lists);
+
+  const [state, setstate] = useState<BreadcrumbType[]>([]);
+
+  useEffect(() => {
+    setstate([]);
+
+    if (location.pathname.includes('lists')) {
+      if (id && mediaType) {
+        const label =
+          mediaType === 'movie'
+            ? 'Movies'
+            : mediaType === 'tv'
+            ? 'TV Shows'
+            : mediaType === 'person'
+            ? 'People'
+            : 'Media-Type';
+
+        setstate([
+          {
+            label: lists.find((list) => list.id === id)?.label || 'List-Name',
+            path: `/lists/${id}`
+          },
+          {
+            label,
+            path: `/lists/${id}/${mediaType}`
+          }
+        ]);
+      } else if (id) {
+        setstate([
+          {
+            label: lists.find((list) => list.id === id)?.label || 'List-Name',
+            path: `/lists/${id}`
+          }
+        ]);
+      }
+    } else if (mediaType) {
+      const label =
+        mediaType === 'movie'
+          ? 'Movies'
+          : mediaType === 'tv'
+          ? 'TV Shows'
+          : mediaType === 'person'
+          ? 'People'
+          : 'Media-Type';
+
+      setstate([
+        {
+          label,
+          path: location.pathname.includes('trending')
+            ? `/trending/${mediaType}`
+            : location.pathname.includes('liked')
+            ? `/liked/${mediaType}`
+            : ''
+        }
+      ]);
+    }
+  }, [location]);
 
   return (
     <CUIBreadcrumb
@@ -34,7 +96,7 @@ const Breadcrumb = ({ breadcrumbs }: { breadcrumbs: BreadcrumbType[] }): ReactEl
         />
       }
       spacing={1}>
-      {breadcrumbs.map((breadcrumb) => (
+      {[...breadcrumbs, ...state].map((breadcrumb) => (
         <BreadcrumbItem
           key={breadcrumb.label}
           isCurrentPage={location.pathname === breadcrumb.path}

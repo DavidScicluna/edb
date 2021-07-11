@@ -1,15 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import {
-  useMediaQuery,
-  VStack,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  FormHelperText,
-  Collapse
-} from '@chakra-ui/react';
+import { VStack, FormControl, FormLabel, Input, Textarea, FormHelperText, Collapse } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import { useForm, useFormState, Controller } from 'react-hook-form';
@@ -18,15 +9,13 @@ import { v4 as uuid } from 'uuid';
 
 import useSelector from '../../../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../../../common/utils/utils';
-import Button from '../../../../../../../components/Inputs/Button';
+import Button from '../../../../../../../components/Clickable/Button';
 import Modal from '../../../../../../../components/Modal';
 import { setLists } from '../../../../../../../store/slices/User';
 import { CreateListProps, Form } from './types';
 import { defaultValues, schema } from './validation';
 
 const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
-  const [isXs] = useMediaQuery('(max-width: 40em)');
-
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
   const color = useSelector((state) => state.user.ui.theme.color);
@@ -74,14 +63,14 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
           color={utils.handleReturnColor(color)}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
-          size='sm'>
+          size='xs'>
           Submit List
         </Button>
       }
       isOpen={isOpen}
       onClose={handleClose}
       isCentered
-      size={isXs ? 'full' : 'lg'}>
+      size='lg'>
       <VStack spacing={3} p={2}>
         <Controller
           control={form.control}

@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useMediaQuery, HStack, SimpleGrid, Box, Fade } from '@chakra-ui/react';
+import { useDisclosure, useMediaQuery, HStack, SimpleGrid, Box } from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
