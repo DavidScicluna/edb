@@ -1,11 +1,17 @@
 import { ButtonProps as CUIButtonProps } from '@chakra-ui/react';
 
-import { Icon } from '../../../common/types/types';
+import { Icon, ButtonSize } from '../../../common/types/types';
 import { Color } from '../../../theme/types';
 
 type Variant = 'text' | 'outlined' | 'contained';
 
-export type ButtonProps = { color?: Color; leftIcon?: Icon; rightIcon?: Icon; variant?: Variant } & Omit<
+export type ButtonProps = {
+  color?: Color;
+  leftIcon?: Icon;
+  rightIcon?: Icon;
+  size?: ButtonSize;
+  variant?: Variant;
+} & Omit<
   CUIButtonProps,
   | 'color'
   | 'colorScheme'
@@ -16,5 +22,6 @@ export type ButtonProps = { color?: Color; leftIcon?: Icon; rightIcon?: Icon; va
   | 'isRound'
   | 'spinner'
   | 'spinnerPlacement'
+  | 'size'
   | 'variant'
 >;
