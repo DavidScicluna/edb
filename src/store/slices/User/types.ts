@@ -50,6 +50,7 @@ export type StateProps = {
     listsModal: ListModal;
     descriptionModal: DescriptionModal;
     isDisplayModalOpen: boolean;
+    isSplashscreenOpen: boolean;
     theme: Theme;
   };
 };

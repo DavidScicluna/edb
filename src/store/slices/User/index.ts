@@ -27,6 +27,7 @@ const initialState: StateProps = {
     listsModal: { ...defaultListsModal },
     descriptionModal: { ...defaultListsModal },
     isDisplayModalOpen: false,
+    isSplashscreenOpen: false,
     theme: {
       color: 'blue',
       background: 'light'
@@ -61,6 +62,9 @@ const userSlice = createSlice({
     },
     toggleDisplay: (state: StateProps, action: PayloadAction<boolean>) => {
       state.ui.isDisplayModalOpen = action.payload;
+    },
+    toggleSplashscreen: (state: StateProps, action: PayloadAction<boolean>) => {
+      state.ui.isSplashscreenOpen = action.payload;
     }
   }
 });
@@ -73,7 +77,8 @@ export const {
   setLists,
   toggleList,
   toggleDescription,
-  toggleDisplay
+  toggleDisplay,
+  toggleSplashscreen
 } = userSlice.actions;
 
 export default userSlice.reducer;

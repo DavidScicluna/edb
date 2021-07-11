@@ -15,6 +15,7 @@ import Header from './components/Header';
 import DescriptionModal from './components/Modals/Description';
 import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
+import SplashscreenModal from './components/Modals/Splashscreen';
 import Sidebar from './components/Sidebar';
 import { LayoutProps, GenreResponse } from './types';
 
@@ -90,6 +91,8 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
           </Box>
         </Box>
       </Center>
+
+      <SplashscreenModal />
 
       <DisplayModal />
 

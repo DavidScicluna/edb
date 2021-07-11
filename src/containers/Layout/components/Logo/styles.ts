@@ -25,6 +25,7 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
     fontSize: size === 'sm' ? 'lg' : size === 'md' ? '4xl' : '6xl',
     fontWeight: 'bold',
     lineHeight: size === 'sm' ? '23px' : size === 'md' ? '45px' : '75px',
+    textTransform: 'lowercase',
 
     paddingTop: size === 'sm' ? 0.5 : 1,
     paddingBottom: size === 'sm' ? 0.5 : 1,

@@ -8,7 +8,7 @@ import useSelector from '../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../common/utils/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
-import { setTheme, toggleDisplay } from '../../../../../store/slices/User';
+import { setTheme, toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/User';
 import { Theme } from '../../../../../store/slices/User/types';
 import Background from './components/Background';
 import Color from './components/Color';
@@ -31,11 +31,17 @@ const Display = (): ReactElement => {
       toggleColorMode();
     }
 
-    form.reset({ ...newTheme });
+    dispatch(toggleSplashscreen(true));
 
-    dispatch(setTheme(newTheme));
+    setTimeout(() => {
+      handleClose();
 
-    handleClose();
+      form.reset({ ...newTheme });
+
+      dispatch(setTheme(newTheme));
+
+      dispatch(toggleSplashscreen(false));
+    }, 5000);
   };
 
   const handleClose = (): void => {
