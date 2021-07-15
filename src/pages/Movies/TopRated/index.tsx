@@ -19,11 +19,11 @@ import VerticalMovies from '../../../components/Movies/Grid/Vertical';
 
 const TopRatedMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const isMob = useMediaQuery('(max-width: 600px)');
+  const isMob = useMediaQuery('(max-width: 640px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>(movieSortBy.find((sort) => sort.isActive));
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
 
   const [movies, setMovies] = useState<Response<PartialMovie[]>>(defaultResponse);
@@ -93,12 +93,13 @@ const TopRatedMovies = (): ReactElement => {
           movies={movies.results || []}
         />
 
-        {topRatedMovies.hasNextPage && movies ? (
+        {movies ? (
           <LoadMore
             amount={movies.results.length}
             total={movies.total_results}
             mediaType='movies'
             isLoading={topRatedMovies.isLoading || topRatedMovies.isFetching}
+            hasNextPage={topRatedMovies.hasNextPage || true}
             onFetch={topRatedMovies.fetchNextPage}
           />
         ) : null}

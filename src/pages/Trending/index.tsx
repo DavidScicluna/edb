@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useDisclosure, VStack, HStack, Box, Fade } from '@chakra-ui/react';
+import { useDisclosure, useMediaQuery, VStack, HStack, Box, Fade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
@@ -35,6 +35,7 @@ const Trending = (): ReactElement => {
     onOpen: onMediaTypePickerOpen,
     onClose: onMediaTypePickerClose
   } = useDisclosure();
+  const [isSm] = useMediaQuery('(max-width: 640px)');
 
   const history = useHistory();
   const { mediaType: paramMediaType } = useParams<{ mediaType: MediaType }>();
@@ -43,15 +44,7 @@ const Trending = (): ReactElement => {
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>(
-    mediaType === 'movie'
-      ? movieSortBy.find((sort) => sort.isActive)
-      : mediaType === 'tv'
-      ? tvSortBy.find((sort) => sort.isActive)
-      : mediaType === 'person'
-      ? peopleSortBy.find((sort) => sort.isActive)
-      : undefined
-  );
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
 
@@ -193,8 +186,6 @@ const Trending = (): ReactElement => {
     return () => source.cancel();
   }, []);
 
-  console.log(trending);
-
   return (
     <>
       <VerticalGrid
@@ -206,7 +197,7 @@ const Trending = (): ReactElement => {
         header={
           <Fade in={!!mediaType} unmountOnExit>
             <HStack spacing={2}>
-              <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
+              <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
                 Change media-type
               </Button>
               {mediaType ? <Filters mediaType={mediaType} onFilter={handleSetFilters} /> : null}
@@ -230,6 +221,7 @@ const Trending = (): ReactElement => {
                     total={movies.total_results}
                     mediaType='movies'
                     isLoading={trending.isFetching || trending.isLoading}
+                    hasNextPage={trending.hasNextPage || true}
                     onFetch={trending.fetchNextPage}
                   />
                 ) : null}
@@ -249,6 +241,7 @@ const Trending = (): ReactElement => {
                     total={tv.total_results}
                     mediaType='tv shows'
                     isLoading={trending.isFetching || trending.isLoading}
+                    hasNextPage={trending.hasNextPage || true}
                     onFetch={trending.fetchNextPage}
                   />
                 ) : null}
@@ -268,6 +261,7 @@ const Trending = (): ReactElement => {
                     total={people.total_results}
                     mediaType='people'
                     isLoading={trending.isFetching || trending.isLoading}
+                    hasNextPage={trending.hasNextPage || true}
                     onFetch={trending.fetchNextPage}
                   />
                 ) : null}
@@ -288,7 +282,7 @@ const Trending = (): ReactElement => {
                 />
               }
               hasIllustration={false}
-              label='Select media type to view data!'
+              label=''
               size='xl'
               variant='outlined'
             />

@@ -19,11 +19,11 @@ import VerticalTV from '../../../components/TV/Grid/Vertical';
 
 const PopularTV = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const isMob = useMediaQuery('(max-width: 600px)');
+  const isMob = useMediaQuery('(max-width: 640px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>(tvSortBy.find((sort) => sort.isActive));
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
 
   const [tv, setTV] = useState<Response<PartialTV[]>>(defaultResponse);
@@ -93,12 +93,13 @@ const PopularTV = (): ReactElement => {
           tv={tv.results || []}
         />
 
-        {popularTV.hasNextPage && tv ? (
+        {tv ? (
           <LoadMore
             amount={tv.results.length}
             total={tv.total_results}
             mediaType='TV shows'
             isLoading={popularTV.isLoading || popularTV.isFetching}
+            hasNextPage={popularTV.hasNextPage || true}
             onFetch={popularTV.fetchNextPage}
           />
         ) : null}

@@ -32,6 +32,7 @@ const Search = (): ReactElement => {
     onOpen: onMediaTypePickerOpen,
     onClose: onMediaTypePickerClose
   } = useDisclosure();
+  const [isSm] = useMediaQuery('(max-width: 640px)');
   const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
   const history = useHistory();
@@ -40,15 +41,7 @@ const Search = (): ReactElement => {
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>(
-    mediaType === 'movie'
-      ? movieSortBy.find((sort) => sort.isActive)
-      : mediaType === 'tv'
-      ? tvSortBy.find((sort) => sort.isActive)
-      : mediaType === 'person'
-      ? peopleSortBy.find((sort) => sort.isActive)
-      : undefined
-  );
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
 
@@ -149,7 +142,7 @@ const Search = (): ReactElement => {
           header={
             <Fade in={!!mediaType && !!query} unmountOnExit>
               <HStack spacing={2}>
-                <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
+                <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
                   Change media-type
                 </Button>
                 {mediaType ? <Filters mediaType={mediaType} onFilter={handleSetFilters} /> : null}

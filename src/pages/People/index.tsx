@@ -19,11 +19,11 @@ import VerticalPeople from '../../components/People/Grid/Vertical';
 
 const People = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const isMob = useMediaQuery('(max-width: 600px)');
+  const isMob = useMediaQuery('(max-width: 640px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>(movieSortBy.find((sort) => sort.isActive));
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [departments, setDepartments] = useState<Department[]>([]);
 
   const [people, setPeople] = useState<Response<PartialPerson[]>>(defaultResponse);
@@ -88,18 +88,19 @@ const People = (): ReactElement => {
     <VerticalGrid title={isMob ? 'People' : ''} header={<Filters mediaType='person' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalPeople
-          isLoading={popularPeople.isLoading || popularPeople.isFetching}
+          isLoading={popularPeople.isFetching || popularPeople.isLoading}
           isError={popularPeople.isError}
           isSuccess={popularPeople.isSuccess}
           people={people.results || []}
         />
 
-        {popularPeople.hasNextPage && people ? (
+        {people ? (
           <LoadMore
             amount={people.results.length}
             total={people.total_results}
             mediaType='people'
-            isLoading={popularPeople.isLoading || popularPeople.isFetching}
+            isLoading={popularPeople.isFetching || popularPeople.isLoading}
+            hasNextPage={popularPeople.hasNextPage || true}
             onFetch={popularPeople.fetchNextPage}
           />
         ) : null}
