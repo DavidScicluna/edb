@@ -4,6 +4,7 @@ import {
   BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
   BookmarkOutlined as BookmarkOutlinedIcon
 } from '@material-ui/icons/';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
@@ -69,7 +70,12 @@ const Bookmark = ({ isDisabled = false, mediaItem, size = 'xs' }: BookmarkProps)
                 dispatch(
                   toggleList({
                     open: true,
-                    item: { id: mediaItem.id, title: mediaItem.title || '', mediaType: mediaItem.mediaType }
+                    item: {
+                      id: mediaItem.id,
+                      title: mediaItem.title || '',
+                      mediaType: mediaItem.mediaType,
+                      dateAdded: moment(new Date()).toISOString()
+                    }
                   })
                 )
         }

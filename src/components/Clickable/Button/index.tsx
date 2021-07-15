@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import { useTheme, useColorMode, Center, Spinner, Icon, Button as CUIButton } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { ColorMode } from '../../../common/types/types';
 import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { ButtonProps } from './types';
@@ -14,6 +15,7 @@ const Button = (props: ButtonProps): ReactElement => {
 
   const {
     children,
+    colorMode: colorModeProp,
     leftIcon,
     rightIcon,
     isDisabled = false,
@@ -23,6 +25,8 @@ const Button = (props: ButtonProps): ReactElement => {
     variant = 'contained',
     ...rest
   } = props;
+
+  const mode: ColorMode = colorModeProp || colorMode;
 
   /**
    * This method will return the appropriate spacing depending on the size passed
@@ -46,9 +50,9 @@ const Button = (props: ButtonProps): ReactElement => {
       isDisabled={isLoading || isDisabled}
       isFullWidth={isFullWidth}
       variant='unstyled'
-      sx={{ ..._.merge(style.button.back, style[colorMode].back[variant]) }}
-      _disabled={{ ..._.merge(style.button.disabled, style[colorMode].disabled[variant]) }}>
-      <Center className='button_front' sx={{ ..._.merge(style.button.front, style[colorMode].front[variant]) }}>
+      sx={{ ..._.merge(style.button.back, style[mode].back[variant]) }}
+      _disabled={{ ..._.merge(style.button.disabled, style[mode].disabled[variant]) }}>
+      <Center className='button_front' sx={{ ..._.merge(style.button.front, style[mode].front[variant]) }}>
         {isLoading ? (
           <Spinner
             thickness={size === 'xs' ? '2px' : size === 'md' ? '3px' : '4px'}

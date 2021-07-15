@@ -4,6 +4,7 @@ import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
   FavoriteOutlined as FavoriteOutlinedIcon
 } from '@material-ui/icons';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
@@ -44,7 +45,13 @@ const Like = ({ isDisabled = false, mediaItem, size = 'xs' }: LikeProps): ReactE
         onClick={
           isLiked
             ? () => dispatch(setLiked(liked.filter((like) => like.id !== mediaItem.id)))
-            : () => dispatch(setLiked([...liked, { id: mediaItem.id, mediaType: mediaItem.mediaType }]))
+            : () =>
+                dispatch(
+                  setLiked([
+                    ...liked,
+                    { id: mediaItem.id, mediaType: mediaItem.mediaType, dateAdded: moment(new Date()).toISOString() }
+                  ])
+                )
         }
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}

@@ -3,6 +3,7 @@ import React, { ReactElement, forwardRef, ForwardedRef } from 'react';
 import { useTheme, useColorMode, Center, Spinner, Icon, IconButton as CUIIconButton } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { ColorMode } from '../../../common/types/types';
 import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { IconButtonProps } from './types';
@@ -15,7 +16,17 @@ const IconButton = forwardRef(function IconButton(
   const { colorMode } = useColorMode();
   const style = useStyles(theme, props);
 
-  const { icon, isDisabled = false, isLoading = false, size = 'md', variant = 'contained', ...rest } = props;
+  const {
+    colorMode: colorModeProp,
+    icon,
+    isDisabled = false,
+    isLoading = false,
+    size = 'md',
+    variant = 'contained',
+    ...rest
+  } = props;
+
+  const mode: ColorMode = colorModeProp || colorMode;
 
   return (
     <CUIIconButton
@@ -23,9 +34,9 @@ const IconButton = forwardRef(function IconButton(
       ref={ref}
       isDisabled={isLoading || isDisabled}
       variant='unstyled'
-      sx={{ ..._.merge(style.button.back, style[colorMode].back[variant]) }}
-      _disabled={{ ..._.merge(style.button.disabled, style[colorMode].disabled[variant]) }}>
-      <Center className='icon_button_front' sx={{ ..._.merge(style.button.front, style[colorMode].front[variant]) }}>
+      sx={{ ..._.merge(style.button.back, style[mode].back[variant]) }}
+      _disabled={{ ..._.merge(style.button.disabled, style[mode].disabled[variant]) }}>
+      <Center className='icon_button_front' sx={{ ..._.merge(style.button.front, style[mode].front[variant]) }}>
         {isLoading ? (
           <Spinner
             thickness={size === 'xs' ? '2px' : size === 'md' ? '3px' : '4px'}

@@ -5,7 +5,7 @@ import { CardVariant } from '../../common/types/types';
 export type EmptyProps = {
   button?: ReactElement;
   hasIllustration?: boolean;
-  label: string;
+  label?: string;
   description?: string;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   variant?: CardVariant;

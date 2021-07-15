@@ -1,15 +1,25 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, HStack, Text, Collapse } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, Stack, Text, Collapse } from '@chakra-ui/react';
 
 import { VerticalGridProps } from '../../types';
 
 const Header = ({ title, header }: Omit<VerticalGridProps, 'children'>): ReactElement => {
   const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 640px)');
+
+  const headerTotal = header?.props?.children?.props?.children?.length || 0;
 
   return (
     <Collapse in={Boolean(title || header)} style={{ width: '100%' }} unmountOnExit>
-      <HStack width='100%' justify={title ? 'space-between' : 'flex-end'} p={[2]}>
+      <Stack
+        width='100%'
+        direction={isSm && headerTotal > 1 ? 'column' : 'row'}
+        alignItems={isSm && headerTotal > 1 ? 'stretch' : 'center'}
+        justify={title ? 'space-between' : 'flex-end'}
+        wrap='wrap'
+        spacing={2}
+        p={[2]}>
         {title ? (
           <Text
             align='left'
@@ -22,7 +32,7 @@ const Header = ({ title, header }: Omit<VerticalGridProps, 'children'>): ReactEl
         ) : null}
 
         {header}
-      </HStack>
+      </Stack>
     </Collapse>
   );
 };

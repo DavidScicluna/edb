@@ -10,7 +10,7 @@ import { LoadMoreProps } from './types';
 const LoadMore = (props: LoadMoreProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { amount, total, mediaType, isLoading, onFetch } = props;
+  const { amount = 0, total = 0, mediaType, isLoading = false, hasNextPage = true, onFetch } = props;
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -32,9 +32,11 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
         />
       </VStack>
 
-      <Button isDisabled={amount >= total} isLoading={isLoading} onClick={() => onFetch()} variant='outlined'>
-        Load more
-      </Button>
+      {hasNextPage ? (
+        <Button isDisabled={amount >= total} isLoading={isLoading} onClick={() => onFetch()} variant='outlined'>
+          Load more
+        </Button>
+      ) : null}
     </VStack>
   );
 };
