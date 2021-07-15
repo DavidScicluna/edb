@@ -8,6 +8,7 @@ import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { setMovieGenres, setTVGenres, toggleHasDownloaded } from '../../store/slices/Options';
+import { toggleSplashscreen } from '../../store/slices/User';
 import { Theme } from '../../theme/types';
 import { sidebarWidth } from './common/data/sidebar';
 import useTransitionsStyle from './common/styles/transitions';
@@ -29,6 +30,8 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
 
   const [width, setWidth] = useState<string>('100%');
   const [left, setLeft] = useState<string>('266px');
+
+  const hasSplashscreenRendered = Boolean(JSON.parse(sessionStorage.getItem('hasSplashscreenRendered') || 'false'));
 
   const queries = useQueriesTyped([
     {
@@ -79,6 +82,12 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
       dispatch(toggleSidebarMode('expanded'));
     }
   }, [isLgUp]);
+
+  useEffect(() => {
+    if (!hasSplashscreenRendered) {
+      dispatch(toggleSplashscreen(true));
+    }
+  }, [hasSplashscreenRendered]);
 
   return (
     <>

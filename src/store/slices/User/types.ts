@@ -14,6 +14,7 @@ export type Search = {
 export type MediaItem = {
   id: number;
   mediaType: MediaType;
+  dateAdded: string;
 };
 
 export type ListModal = {

@@ -10,11 +10,12 @@ import { BackgroundItemProps } from './types';
 const BackgroundItem = (props: BackgroundItemProps): ReactElement => {
   const theme = useTheme<Theme>();
 
-  const { label, value, icon, color, isActive = false, onClick } = props;
+  const { label, value, icon, color, background, isActive = false, onClick } = props;
 
   return (
     <Card
       color={isActive ? utils.handleReturnColor(color) : 'gray'}
+      colorMode={background}
       isFullWidth
       onClick={onClick ? () => onClick(value) : undefined}
       p={2}>

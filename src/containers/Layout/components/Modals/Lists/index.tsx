@@ -38,6 +38,7 @@ const ListsModal = (): ReactElement => {
 
       const id = listsModal.item.id;
       const mediaType = listsModal.item.mediaType;
+      const dateAdded = listsModal.item.dateAdded;
 
       selected.forEach((list) => {
         updatedLists = updatedLists.map((updatedList) =>
@@ -45,7 +46,7 @@ const ListsModal = (): ReactElement => {
             ? {
                 ...updatedList,
                 date: moment(new Date()).toISOString(),
-                results: [...updatedList.results, { id, mediaType }]
+                results: [...updatedList.results, { id, mediaType, dateAdded }]
               }
             : updatedList
         );

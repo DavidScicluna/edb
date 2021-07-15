@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
 import {
   useColorMode,
@@ -22,6 +22,7 @@ import {
   PaletteOutlined as PaletteOutlinedIcon
 } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { toggleDisplay } from '../../../../../../store/slices/User';
 import UserLink from './components/UserLink';
@@ -32,6 +33,8 @@ const User = (): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   const userLinks: UserLinkType[] = [
     {
@@ -53,6 +56,10 @@ const User = (): ReactElement => {
       onClick: () => dispatch(toggleDisplay(true))
     }
   ];
+
+  useEffect(() => {
+    onClose();
+  }, [location.pathname]);
 
   return (
     <Popover isOpen={isOpen} placement='bottom-end' gutter={12} onOpen={onOpen} onClose={onClose}>

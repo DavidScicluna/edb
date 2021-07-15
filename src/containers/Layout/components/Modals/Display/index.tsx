@@ -23,15 +23,16 @@ const Display = (): ReactElement => {
 
   const form = useForm<Theme>({ defaultValues: { ...theme } });
   const color = form.watch('color');
+  const background = form.watch('background');
 
   const { isDirty, dirtyFields } = useFormState({ control: form.control });
 
   const handleSubmit = (newTheme: Theme): void => {
+    dispatch(toggleSplashscreen(true));
+
     if (dirtyFields.background) {
       toggleColorMode();
     }
-
-    dispatch(toggleSplashscreen(true));
 
     setTimeout(() => {
       handleClose();
@@ -39,9 +40,8 @@ const Display = (): ReactElement => {
       form.reset({ ...newTheme });
 
       dispatch(setTheme(newTheme));
-
-      dispatch(toggleSplashscreen(false));
-    }, 5000);
+    }, 2500);
+    setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
   };
 
   const handleClose = (): void => {
@@ -72,6 +72,7 @@ const Display = (): ReactElement => {
           Save
         </Button>
       }
+      colorMode={background}
       isOpen={isOpen}
       onClose={handleClose}
       isCentered

@@ -33,13 +33,14 @@ const Background = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='background'
       render={({ field: { value } }) => (
-        <Container title='Background'>
+        <Container title='Background' colorMode={value}>
           <HStack width='100%' spacing={2}>
             {backgrounds.map((background) => (
               <BackgroundItem
                 key={background.value}
                 {...background}
                 color={color}
+                background={value}
                 isActive={value === background.value}
                 onClick={() => form.setValue('background', background.value, { shouldDirty: true })}
               />
