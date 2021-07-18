@@ -13,7 +13,13 @@ const Card = (props: CardProps): ReactElement => {
   const { colorMode } = useColorMode();
   const style = useStyles(theme, props);
 
-  const { children, colorMode: colorModeProp, isDisabled = false, variant = 'outlined', ...rest } = props;
+  const {
+    children,
+    colorMode: colorModeProp,
+    isDisabled = false,
+    variant = 'outlined',
+    ...rest
+  } = _.omit(props, ['color', 'isFullWidth', 'isLightGray']);
 
   const mode: ColorMode = colorModeProp || colorMode;
 

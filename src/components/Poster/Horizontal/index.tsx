@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { HStack, VStack, Box } from '@chakra-ui/react';
 
+import { MediaType } from '../../../common/types/types';
 import Card from '../../../components/Clickable/Card';
 import Bookmark from '../../Bookmark';
 import Image from '../../Image';
@@ -12,8 +13,8 @@ import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { HorizontalPosterProps } from './types';
 
-const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
-  const { mediaItemID, mediaType, image, rating, title, subtitle, description, isLoaded } = props;
+const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
+  const { mediaItem, mediaType, image, rating, title, subtitle, description, isLoaded } = props;
 
   return (
     <Card isFullWidth isDisabled={!isLoaded} isLightGray>
@@ -42,25 +43,31 @@ const HorizontalPoster = (props: HorizontalPosterProps): ReactElement => {
           </VStack>
 
           <Box width='100%'>
-            <Description title={title} description={description} isLoaded={isLoaded} />
+            <Description
+              mediaType={mediaType}
+              mediaItem={{ id: mediaItem?.id || -1, title, description }}
+              isLoaded={isLoaded}
+            />
           </Box>
         </VStack>
 
         {/* Like / List Icon buttons */}
-        <HStack
-          spacing={0}
-          sx={{
-            position: 'absolute',
-            top: 1,
-            right: 1
-          }}>
-          {/* Like component */}
-          <Like isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} size='md' />
-          {/* List component */}
-          {mediaType !== 'person' ? (
-            <Bookmark isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} size='md' />
-          ) : null}
-        </HStack>
+        {mediaItem ? (
+          <HStack
+            spacing={0}
+            sx={{
+              position: 'absolute',
+              top: 1,
+              right: 1
+            }}>
+            {/* Like component */}
+            <Like isDisabled={!isLoaded} title={title} mediaType={mediaType} mediaItem={mediaItem} size='md' />
+            {/* List component */}
+            {mediaType !== 'person' ? (
+              <Bookmark isDisabled={!isLoaded} title={title} mediaType={mediaType} mediaItem={mediaItem} size='md' />
+            ) : null}
+          </HStack>
+        ) : null}
       </HStack>
     </Card>
   );

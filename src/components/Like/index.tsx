@@ -13,46 +13,85 @@ import IconButton from '../Clickable/IconButton';
 import Tooltip from '../Tooltip';
 import { LikeProps } from './types';
 
-const Like = ({ isDisabled = false, mediaItem, size = 'xs' }: LikeProps): ReactElement => {
+const Like = (props: LikeProps): ReactElement => {
   const dispatch = useDispatch();
   const liked = useSelector((state) => state.user.data.liked);
 
+  const { isDisabled = false, title, mediaType, mediaItem, size = 'xs' } = props;
+
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const isLiked: boolean = liked.some((like) => like.id === mediaItem.id && like.mediaType === mediaItem.mediaType);
+  const isLiked: boolean = liked
+    ? mediaType === 'movie'
+      ? liked.movies.some((movie) => movie.id === mediaItem.id)
+      : mediaType === 'tv'
+      ? liked.tv.some((show) => show.id === mediaItem.id)
+      : liked.people.some((person) => person.id === mediaItem.id)
+    : false;
+
+  const handleRemoveLike = (): void => {
+    const updatedLiked = { ...liked };
+
+    switch (mediaType) {
+      case 'movie':
+        updatedLiked.movies = updatedLiked.movies.filter((movie) => movie.id !== mediaItem.id);
+        break;
+      case 'tv':
+        updatedLiked.tv = updatedLiked.tv.filter((show) => show.id !== mediaItem.id);
+        break;
+      case 'person':
+        updatedLiked.people = updatedLiked.people.filter((person) => person.id !== mediaItem.id);
+        break;
+      default:
+        break;
+    }
+
+    dispatch(setLiked({ ...updatedLiked }));
+  };
+
+  const handleLike = (): void => {
+    const updatedLiked = { ...liked };
+
+    switch (mediaType) {
+      case 'movie': {
+        const movieMediaItem: any = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+
+        updatedLiked.movies = [...updatedLiked.movies, movieMediaItem];
+        break;
+      }
+      case 'tv': {
+        const showMediaItem: any = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+
+        updatedLiked.tv = [...updatedLiked.tv, showMediaItem];
+        break;
+      }
+      case 'person': {
+        const personMediaItem: any = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+
+        updatedLiked.people = [...updatedLiked.people, personMediaItem];
+        break;
+      }
+      default:
+        break;
+    }
+
+    dispatch(setLiked({ ...updatedLiked }));
+  };
 
   return (
     <Tooltip
-      aria-label={
-        isLiked
-          ? `Dislike "${mediaItem.title}" ${mediaItem.mediaType} (tooltip)`
-          : `Like "${mediaItem.title}" ${mediaItem.mediaType} (tooltip)`
-      }
-      label={isLiked ? `Dislike "${mediaItem.title}"` : `Like "${mediaItem.title}"`}
+      aria-label={isLiked ? `Dislike "${title}" ${mediaType} (tooltip)` : `Like "${title}" ${mediaType} (tooltip)`}
+      label={isLiked ? `Dislike "${title}"` : `Like "${title}"`}
       placement='top'
       isOpen={isHovering}
       isDisabled={isDisabled}
       gutter={0}>
       <IconButton
-        aria-label={
-          isLiked
-            ? `Dislike "${mediaItem.title}" ${mediaItem.mediaType} (tooltip)`
-            : `Like "${mediaItem.title}" ${mediaItem.mediaType} (tooltip)`
-        }
+        aria-label={isLiked ? `Dislike "${title}" ${mediaType} (tooltip)` : `Like "${title}" ${mediaType} (tooltip)`}
         color={isLiked ? 'red' : 'gray'}
         isDisabled={isDisabled}
         icon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
-        onClick={
-          isLiked
-            ? () => dispatch(setLiked(liked.filter((like) => like.id !== mediaItem.id)))
-            : () =>
-                dispatch(
-                  setLiked([
-                    ...liked,
-                    { id: mediaItem.id, mediaType: mediaItem.mediaType, dateAdded: moment(new Date()).toISOString() }
-                  ])
-                )
-        }
+        onClick={isLiked ? () => handleRemoveLike() : () => handleLike()}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         size={size}

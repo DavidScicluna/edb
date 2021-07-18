@@ -6,7 +6,6 @@ import departments from '../../../../common/data/departments';
 import utils from '../../../../common/utils/utils';
 import HorizontalPoster from '../../../Poster/Horizontal';
 import { PosterProps } from '../types';
-
 const size = utils.handleReturnImageSize('poster', 'sm');
 
 const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactElement => {
@@ -19,7 +18,7 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
 
   return !isLoading && person ? (
     <HorizontalPoster
-      mediaItemID={person.id}
+      mediaItem={{ ...person }}
       mediaType='person'
       image={{
         alt: `${person?.name || ''} person poster`,
@@ -33,7 +32,6 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
     />
   ) : (
     <HorizontalPoster
-      mediaItemID={-1}
       mediaType='person'
       image={{
         alt: 'Person poster',

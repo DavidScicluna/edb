@@ -96,7 +96,13 @@ const Filters = ({ mediaType, isLikedLists = false, onFilter }: FiltersProps): R
         ...defaultValues,
         sort: {
           ...defaultValues.sort,
-          sortBy: pathname.includes('movie')
+          sortBy: isLikedLists
+            ? pathname.includes('movie')
+              ? [...likedListsMovieSortBy]
+              : pathname.includes('tv')
+              ? [...likedListsTvSortBy]
+              : [...likedListsPeopleSortBy]
+            : pathname.includes('movie')
             ? [...movieSortBy]
             : pathname.includes('tv')
             ? [...tvSortBy]

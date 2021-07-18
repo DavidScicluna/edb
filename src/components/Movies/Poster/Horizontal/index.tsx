@@ -9,7 +9,7 @@ const size = utils.handleReturnImageSize('poster', 'sm');
 const HorizontalMovie = ({ isLoading = true, movie }: PosterProps): ReactElement => {
   return !isLoading && movie ? (
     <HorizontalPoster
-      mediaItemID={movie.id}
+      mediaItem={{ ...movie }}
       mediaType='movie'
       image={{
         alt: `${movie?.title || ''} movie poster`,
@@ -30,7 +30,6 @@ const HorizontalMovie = ({ isLoading = true, movie }: PosterProps): ReactElement
     />
   ) : (
     <HorizontalPoster
-      mediaItemID={-1}
       mediaType='movie'
       image={{
         alt: 'Movie poster',

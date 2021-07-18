@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { useBreakpointValue, VStack, HStack } from '@chakra-ui/react';
 
+import { MediaType } from '../../../common/types/types';
 import Card from '../../../components/Clickable/Card';
 import Bookmark from '../../Bookmark';
 import Image from '../../Image';
@@ -11,7 +12,7 @@ import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { VerticalPosterProps } from './types';
 
-const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
+const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): ReactElement => {
   const size = useBreakpointValue({
     'base': 'xs',
     'sm': 'xs',
@@ -21,7 +22,7 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
     '2xl': 'md'
   });
 
-  const { width, mediaItemID, mediaType, image, rating, title, subtitle, isLoaded } = props;
+  const { width, mediaItem, mediaType, image, rating, title, subtitle, isLoaded } = props;
 
   return (
     <Card isDisabled={!isLoaded} isLightGray>
@@ -46,12 +47,20 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
               {/* Rating component */}
               <Rating rating={rating} isLoaded={isLoaded} />
 
-              <HStack spacing={0}>
-                {/* Like component */}
-                <Like isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} size='xs' />
-                {/* List component */}
-                <Bookmark isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} size='xs' />
-              </HStack>
+              {mediaItem ? (
+                <HStack spacing={0}>
+                  {/* Like component */}
+                  <Like isDisabled={!isLoaded} title={title} mediaType={mediaType} mediaItem={mediaItem} size='xs' />
+                  {/* List component */}
+                  <Bookmark
+                    isDisabled={!isLoaded}
+                    title={title}
+                    mediaType={mediaType}
+                    mediaItem={mediaItem}
+                    size='xs'
+                  />
+                </HStack>
+              ) : null}
             </HStack>
           ) : null}
           {/* Text */}
@@ -62,7 +71,7 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
         </VStack>
 
         {/* Like component */}
-        {mediaType === 'person' ? (
+        {mediaType === 'person' && mediaItem ? (
           <HStack
             spacing={0}
             sx={{
@@ -70,7 +79,7 @@ const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
               top: 0,
               right: 1
             }}>
-            <Like isDisabled={!isLoaded} mediaItem={{ id: mediaItemID, title, mediaType }} size='xs' />
+            <Like isDisabled={!isLoaded} title={title} mediaType={mediaType} mediaItem={mediaItem} size='xs' />
           </HStack>
         ) : null}
       </VStack>

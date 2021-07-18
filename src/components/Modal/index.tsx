@@ -48,8 +48,8 @@ const Modal = (props: ModalProps): ReactElement => {
         mx={0}
         sx={{ transition }}>
         <ModalHeader
-          px={3}
-          py={1}
+          px={2}
+          py={1.25}
           borderBottom='solid2'
           borderBottomColor={mode === 'light' ? 'gray.200' : 'gray.700'}
           sx={{ transition }}>
@@ -71,8 +71,7 @@ const Modal = (props: ModalProps): ReactElement => {
         {actions ? (
           <ModalFooter
             justifyContent='space-between'
-            px={3}
-            py={1.5}
+            p={2}
             borderTop='solid2'
             borderTopColor={mode === 'light' ? 'gray.200' : 'gray.700'}
             sx={{ transition }}>

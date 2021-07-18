@@ -13,7 +13,7 @@ const Card = (props: CardProps): ReactElement => {
   const { colorMode } = useColorMode();
   const style = useStyles(theme, props);
 
-  const { children, colorMode: colorModeProp, variant = 'outlined', ...rest } = props;
+  const { children, colorMode: colorModeProp, variant = 'outlined', ...rest } = _.omit(props, ['color', 'isFullWidth']);
 
   const mode: ColorMode = colorModeProp || colorMode;
 

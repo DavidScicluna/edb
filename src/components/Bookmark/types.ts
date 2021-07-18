@@ -1,12 +1,11 @@
 import { MediaType } from '../../common/types/types';
+import { GetMediaType } from '../../store/slices/User/types';
 import { IconButtonProps } from '../Clickable/IconButton/types';
 
-export type BookmarkProps = {
+export interface BookmarkProps {
   isDisabled: boolean;
-  mediaItem: {
-    id: number;
-    title: string | null;
-    mediaType: MediaType;
-  };
+  title: string;
+  mediaType: MediaType;
+  mediaItem: GetMediaType<this['mediaType']>;
   size: IconButtonProps['size'];
-};
+}

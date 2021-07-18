@@ -10,7 +10,7 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
   return !isLoading && movie ? (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItemID={movie.id}
+      mediaItem={{ ...movie }}
       mediaType='movie'
       image={{
         alt: `${movie?.title || ''} movie poster`,
@@ -31,7 +31,6 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
   ) : (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItemID={-1}
       mediaType='movie'
       image={{
         alt: 'Movie poster',
