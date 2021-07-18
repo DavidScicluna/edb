@@ -6,8 +6,6 @@ import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 
-import defaultResponse from '../../../common/data/response';
-import { movieSortBy } from '../../../common/data/sort';
 import useSelector from '../../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../../common/scripts/axios';
 import { PartialMovie } from '../../../common/types/movie';
@@ -26,7 +24,7 @@ const MoviesNowPlaying = (): ReactElement => {
   const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
 
-  const [movies, setMovies] = useState<Response<PartialMovie[]>>(defaultResponse);
+  const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 
   // Fetching movies now playing
   const moviesNowPlaying = useInfiniteQuery(
@@ -90,7 +88,7 @@ const MoviesNowPlaying = (): ReactElement => {
           isLoading={moviesNowPlaying.isLoading || moviesNowPlaying.isFetching}
           isError={moviesNowPlaying.isError}
           isSuccess={moviesNowPlaying.isSuccess}
-          movies={movies.results || []}
+          movies={movies?.results || []}
         />
 
         {movies ? (

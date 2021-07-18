@@ -6,8 +6,6 @@ import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
 import { Department } from '../../common/data/departments';
-import defaultResponse from '../../common/data/response';
-import { movieSortBy } from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
 import { PartialPerson } from '../../common/types/person';
@@ -26,7 +24,7 @@ const People = (): ReactElement => {
   const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [departments, setDepartments] = useState<Department[]>([]);
 
-  const [people, setPeople] = useState<Response<PartialPerson[]>>(defaultResponse);
+  const [people, setPeople] = useState<Response<PartialPerson[]>>();
 
   // Fetching people
   const popularPeople = useInfiniteQuery(
@@ -91,7 +89,7 @@ const People = (): ReactElement => {
           isLoading={popularPeople.isFetching || popularPeople.isLoading}
           isError={popularPeople.isError}
           isSuccess={popularPeople.isSuccess}
-          people={people.results || []}
+          people={people?.results || []}
         />
 
         {people ? (

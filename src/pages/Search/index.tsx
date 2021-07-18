@@ -6,7 +6,6 @@ import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 
 import { Department } from '../../common/data/departments';
-import { movieSortBy, tvSortBy, peopleSortBy } from '../../common/data/sort';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';

@@ -6,8 +6,6 @@ import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 
-import defaultResponse from '../../../common/data/response';
-import { movieSortBy } from '../../../common/data/sort';
 import useSelector from '../../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../../common/scripts/axios';
 import { PartialMovie } from '../../../common/types/movie';
@@ -26,7 +24,7 @@ const TopRatedMovies = (): ReactElement => {
   const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
 
-  const [movies, setMovies] = useState<Response<PartialMovie[]>>(defaultResponse);
+  const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 
   // Fetching top rated movies
   const topRatedMovies = useInfiniteQuery(
@@ -90,7 +88,7 @@ const TopRatedMovies = (): ReactElement => {
           isLoading={topRatedMovies.isLoading || topRatedMovies.isFetching}
           isError={topRatedMovies.isError}
           isSuccess={topRatedMovies.isSuccess}
-          movies={movies.results || []}
+          movies={movies?.results || []}
         />
 
         {movies ? (

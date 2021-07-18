@@ -17,8 +17,8 @@ const ListItem = (props: ListItemProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const movies = results.filter((result) => result.mediaType === 'movie').length;
-  const tv = results.filter((result) => result.mediaType === 'tv').length;
+  const movies = results.movies.length;
+  const tv = results.tv.length;
 
   return (
     <Card
