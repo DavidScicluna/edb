@@ -5,7 +5,8 @@ import { ButtonProps } from '../../components/Clickable/Button/types';
 import store from '../../store';
 import theme from '../../theme';
 import { months } from '../data/date';
-import { Genre, MediaType } from '../types/types';
+import { Department } from '../data/departments';
+import { Genre, MediaType, SortBy } from '../types/types';
 
 export default {
   handleReturnNumberFromString: (number: string, string: string): number => {
@@ -56,6 +57,24 @@ export default {
 
   handleParseDurationForFramer: (time: number): number => {
     return time / 1000;
+  },
+
+  handleCheckHasFilters: (sortBy?: SortBy, genres?: Genre[], departments?: Department[]): boolean => {
+    let hasFilters = false;
+
+    if (!hasFilters && sortBy && sortBy.isActive) {
+      hasFilters = true;
+    }
+
+    if (!hasFilters && !_.isEmpty(genres)) {
+      hasFilters = true;
+    }
+
+    if (!hasFilters && !_.isEmpty(departments)) {
+      hasFilters = true;
+    }
+
+    return hasFilters;
   },
 
   /**

@@ -1,7 +1,10 @@
-type SearchType = 'isTrending' | 'isKeyword';
-
+import { PartialMovie } from '../../../common/types/movie';
+import { PartialPerson } from '../../../common/types/person';
+import { PartialTV } from '../../../common/types/tv';
 import { MediaType } from '../../../common/types/types';
 import { Color } from '../../../theme/types';
+
+type SearchType = 'isTrending' | 'isKeyword';
 
 export type Search = {
   id: string;
@@ -11,20 +14,20 @@ export type Search = {
   mediaType?: MediaType;
 };
 
-export type MediaItem = {
-  id: number;
-  mediaType: MediaType;
-  dateAdded: string;
-};
+export type GetMediaType<MT extends MediaType> = MT extends 'movie'
+  ? PartialMovie
+  : MT extends 'tv'
+  ? PartialTV
+  : PartialPerson;
 
-export type ListModal = {
-  open: boolean;
-  item?: { title: string } & MediaItem;
-};
+export type MediaItem<MT extends MediaType> = {
+  dateAdded?: string;
+} & GetMediaType<MT>;
 
-export type DescriptionModal = {
-  open: boolean;
-  item?: { title: string; description: string };
+export type MediaItems = {
+  movies: MediaItem<'movie'>[];
+  tv: MediaItem<'tv'>[];
+  people: MediaItem<'person'>[];
 };
 
 export type List = {
@@ -32,7 +35,7 @@ export type List = {
   label: string;
   description?: string;
   date: string;
-  results: MediaItem[];
+  results: Omit<MediaItems, 'people'>;
 };
 
 export type Theme = {
@@ -43,15 +46,11 @@ export type Theme = {
 export type StateProps = {
   data: {
     recentSearches: Search[];
-    recentlyViewed: MediaItem[];
-    liked: MediaItem[];
+    recentlyViewed: MediaItems;
+    liked: MediaItems;
     lists: List[];
   };
   ui: {
-    listsModal: ListModal;
-    descriptionModal: DescriptionModal;
-    isDisplayModalOpen: boolean;
-    isSplashscreenOpen: boolean;
     theme: Theme;
   };
 };
