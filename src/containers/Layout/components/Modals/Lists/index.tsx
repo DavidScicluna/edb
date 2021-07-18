@@ -8,7 +8,9 @@ import useSelector from '../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../common/utils/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
-import { defaultListsModal, setLists, toggleList } from '../../../../../store/slices/User';
+import { defaultListsModal, toggleList } from '../../../../../store/slices/Modals';
+import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
+import { setLists } from '../../../../../store/slices/User';
 import { List as ListType } from '../../../../../store/slices/User/types';
 import CreateList from './components/CreateList';
 import List from './components/List';
@@ -18,8 +20,8 @@ const ListsModal = (): ReactElement => {
   const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
 
   const dispatch = useDispatch();
-  const listsModal = useSelector((state) => state.user.ui.listsModal);
-  const lists = useSelector((state) => state.user.data.lists);
+  const listsModal: ListModalType = useSelector((state) => state.modals.ui.listsModal);
+  const lists: ListType[] = useSelector((state) => state.user.data.lists);
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const [selected, setSelected] = useState<ListType['id'][]>([]);
@@ -33,23 +35,38 @@ const ListsModal = (): ReactElement => {
   };
 
   const handleSaveItem = (): void => {
-    if (listsModal.item && listsModal.item.id && listsModal.item.mediaType) {
+    if (listsModal.mediaItem && listsModal.mediaItem.id && listsModal.mediaType) {
       let updatedLists: ListType[] = [...lists];
 
-      const id = listsModal.item.id;
-      const mediaType = listsModal.item.mediaType;
-      const dateAdded = listsModal.item.dateAdded;
-
       selected.forEach((list) => {
-        updatedLists = updatedLists.map((updatedList) =>
-          updatedList.id === list
+        updatedLists = updatedLists.map((updatedList) => {
+          const results = { ...updatedList.results };
+
+          switch (listsModal.mediaType) {
+            case 'movie': {
+              const movieMediaItem: any = { ...listsModal.mediaItem, dateAdded: moment(new Date()).toISOString() };
+
+              results.movies = [...results.movies, movieMediaItem];
+              break;
+            }
+            case 'tv': {
+              const showMediaItem: any = { ...listsModal.mediaItem, dateAdded: moment(new Date()).toISOString() };
+
+              results.tv = [...results.tv, showMediaItem];
+              break;
+            }
+            default:
+              break;
+          }
+
+          return updatedList.id === list
             ? {
                 ...updatedList,
                 date: moment(new Date()).toISOString(),
-                results: [...updatedList.results, { id, mediaType, dateAdded }]
+                results: { ...results }
               }
-            : updatedList
-        );
+            : updatedList;
+        });
       });
 
       setSelected([]);
@@ -74,7 +91,7 @@ const ListsModal = (): ReactElement => {
   return (
     <>
       <Modal
-        title={`Add ${listsModal.item ? `"${listsModal.item.title}"` : 'this item'} to a list`}
+        title={`Add "${listsModal.title} to a list`}
         actions={
           selected.length > 0 ? (
             <Button color={utils.handleReturnColor(color)} onClick={() => handleSaveItem()} size='xs'>

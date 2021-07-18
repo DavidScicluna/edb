@@ -24,7 +24,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { toggleDisplay } from '../../../../../../store/slices/User';
+import { toggleDisplay } from '../../../../../../store/slices/Modals';
 import UserLink from './components/UserLink';
 import { UserLink as UserLinkType } from './types';
 

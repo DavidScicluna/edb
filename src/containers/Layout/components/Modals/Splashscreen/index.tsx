@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 const MotionBox = motion(Box);
 
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
-import { toggleSplashscreen } from '../../../../../store/slices/User';
+import { toggleSplashscreen } from '../../../../../store/slices/Modals';
 import useStyles from './styles';
 
 const Splashscreen = (): ReactElement => {
@@ -24,7 +24,7 @@ const Splashscreen = (): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
-  const isSplashscreenOpen = useSelector((state) => state.user.ui.isSplashscreenOpen);
+  const isSplashscreenOpen = useSelector((state) => state.modals.ui.isSplashscreenOpen);
 
   const style = useStyles();
 
@@ -44,7 +44,7 @@ const Splashscreen = (): ReactElement => {
     if (isSplashscreenOpen) {
       onOpen();
 
-      setTimeout(() => handleClose(), 10000);
+      setTimeout(() => handleClose(), 5000);
     } else {
       handleClose();
     }
@@ -74,8 +74,8 @@ const Splashscreen = (): ReactElement => {
             <MotionBox
               animate={{ backgroundPosition: ['0%', '25%', '50%', '75%', '100%', '75%', '50%', '25%', '0%'] }}
               transition={{
-                duration: 10,
-                ease: 'easeInOut',
+                duration: 5,
+                ease: [0.76, 0, 0.24, 1],
                 repeat: 'Infinity',
                 repeatType: 'loop',
                 repeatDelay: 1

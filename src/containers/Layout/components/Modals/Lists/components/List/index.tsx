@@ -36,9 +36,11 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
             </Text>
           ) : null}
           <Text align='left' fontSize='xs' fontWeight='400' textTransform='capitalize'>
-            {`${results.length > 0 ? `${results.length} items  • ` : ''}${
-              results.length > 0 ? 'Updated' : 'Created'
-            } ${moment(date).fromNow()}`}
+            {`${
+              results.movies.length + results.tv.length > 0
+                ? `${results.movies.length + results.tv.length} items  • `
+                : ''
+            }${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${moment(date).fromNow()}`}
           </Text>
         </VStack>
 

@@ -8,7 +8,8 @@ import useSelector from '../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../common/utils/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
-import { setTheme, toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/User';
+import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
+import { setTheme } from '../../../../../store/slices/User';
 import { Theme } from '../../../../../store/slices/User/types';
 import Background from './components/Background';
 import Color from './components/Color';
@@ -18,7 +19,7 @@ const Display = (): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
-  const isDisplayModalOpen = useSelector((state) => state.user.ui.isDisplayModalOpen);
+  const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
   const theme = useSelector((state) => state.user.ui.theme);
 
   const form = useForm<Theme>({ defaultValues: { ...theme } });
