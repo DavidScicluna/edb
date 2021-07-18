@@ -98,20 +98,24 @@ const Empty = (props: EmptyProps): ReactElement => {
           {hasIllustration ? (
             <Image maxWidth={maxWidth} alt='Empty illustration' src={handleReturnIllustration()} />
           ) : null}
-          <VStack spacing={0}>
-            <Text
-              align='center'
-              fontSize='md'
-              fontWeight='semibold'
-              color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
-              {label}
-            </Text>
-            {description ? (
-              <Text align='center' fontSize='xs' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
-                {description}
-              </Text>
-            ) : null}
-          </VStack>
+          {label || description ? (
+            <VStack spacing={0}>
+              {label ? (
+                <Text
+                  align='center'
+                  fontSize='md'
+                  fontWeight='semibold'
+                  color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
+                  {label}
+                </Text>
+              ) : null}
+              {description ? (
+                <Text align='center' fontSize='xs' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
+                  {description}
+                </Text>
+              ) : null}
+            </VStack>
+          ) : null}
           {button || null}
         </VStack>
       </Card>

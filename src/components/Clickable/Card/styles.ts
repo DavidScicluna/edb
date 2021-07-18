@@ -54,13 +54,11 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
       alignItems: 'stretch',
       justifyContent: 'center',
 
-      willChange: 'transform',
-
       borderStyle: 'solid',
       borderWidth: '2px',
       borderRadius: 'inherit',
 
-      transform: 'translateY(-3px)',
+      transform: 'translateY(-4px)',
 
       transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
     },

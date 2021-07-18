@@ -3,5 +3,6 @@ export type LoadMoreProps = {
   total: number;
   mediaType: string;
   isLoading: boolean;
+  hasNextPage?: boolean;
   onFetch: () => void;
 };

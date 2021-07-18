@@ -2,18 +2,15 @@ import React, { ReactElement } from 'react';
 
 import departments from '../../../../common/data/departments';
 import utils from '../../../../common/utils/utils';
-// eslint-disable-next-line import/order
 import VerticalPoster from '../../../Poster/Vertical';
-
-const size = utils.handleReturnImageSize('poster', 'sm');
-
 import { PosterProps } from '../types';
+const size = utils.handleReturnImageSize('poster', 'sm');
 
 const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): ReactElement => {
   return !isLoading && person ? (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItemID={person.id}
+      mediaItem={{ ...person }}
       mediaType='person'
       image={{
         alt: `${person?.name || ''} person poster`,
@@ -27,7 +24,6 @@ const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): React
   ) : (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItemID={-1}
       mediaType='person'
       image={{
         alt: 'Person poster',

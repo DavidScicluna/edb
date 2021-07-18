@@ -24,7 +24,9 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false }: CardProps
 
     borderStyle: 'solid',
     borderWidth: '2px',
-    borderRadius: 'lg'
+    borderRadius: 'lg',
+
+    transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
   },
   light: {
     outlined: {

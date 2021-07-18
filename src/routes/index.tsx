@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { useLocation, Switch } from 'react-router-dom';
 
 import Home from '../pages/Home';
 import Liked from '../pages/Liked';
@@ -18,9 +19,11 @@ import TVAiringToday from '../pages/TV/AiringToday';
 import OnTV from '../pages/TV/OnTV';
 import PopularTV from '../pages/TV/Popular';
 import TopRatedTV from '../pages/TV/TopRated';
-import DefaultRoute from './DefaultRoute';
+import DefaultRoute from './components/DefaultRoute';
 
 const Router = (): ReactElement => {
+  const location = useLocation();
+
   const breadcrumbs = {
     home: { label: 'Home', path: '/' },
     liked: { label: 'Liked', path: '/liked' },
@@ -31,8 +34,8 @@ const Router = (): ReactElement => {
   };
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Switch>
+    <AnimatePresence exitBeforeEnter initial={false}>
+      <Switch location={location} key={location.pathname}>
         {/* Home Route */}
         <DefaultRoute exact path='/' component={Home} breadcrumbs={[breadcrumbs.home]} />
 
@@ -139,7 +142,7 @@ const Router = (): ReactElement => {
           breadcrumbs={[breadcrumbs.home, { label: 'People', path: '/people' }]}
         />
       </Switch>
-    </BrowserRouter>
+    </AnimatePresence>
   );
 };
 

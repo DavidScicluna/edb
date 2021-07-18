@@ -37,7 +37,10 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
           label: values.label,
           description: values?.description || '',
           date: moment(new Date()).toISOString(),
-          results: []
+          results: {
+            movies: [],
+            tv: []
+          }
         }
       ])
     );

@@ -7,6 +7,8 @@ export type ButtonSize = 'xs' | 'md' | 'lg';
 
 export type CardVariant = 'transparent' | 'outlined';
 
+export type ColorMode = 'light' | 'dark';
+
 export type Breadcrumb = {
   path: string;
   label: string;

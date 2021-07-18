@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
 import { PartialMovie } from '../../../../common/types/movie';
 import Empty from '../../../Empty';
 import Error from '../../../Error';
@@ -8,9 +7,7 @@ import VerticalPoster from '../../Poster/Vertical';
 import { GridProps } from '../types';
 
 const HorizontalMovies = ({ isLoading, isError, isSuccess, movies }: GridProps): ReactElement => {
-  const hasOptionsDownloaded = useSelector((state) => state.options.data.hasDownloaded);
-
-  return isLoading && !hasOptionsDownloaded ? (
+  return isLoading ? (
     <>
       {[...Array(movies ? movies.length : 20)].map((_dummy, index: number) => (
         <VerticalPoster key={index} isLoading />

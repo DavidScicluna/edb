@@ -6,8 +6,6 @@ import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 
-import defaultResponse from '../../../common/data/response';
-import { movieSortBy } from '../../../common/data/sort';
 import useSelector from '../../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../../common/scripts/axios';
 import { PartialMovie } from '../../../common/types/movie';
@@ -19,14 +17,14 @@ import VerticalMovies from '../../../components/Movies/Grid/Vertical';
 
 const UpcomingMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const isMob = useMediaQuery('(max-width: 600px)');
+  const isMob = useMediaQuery('(max-width: 640px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>(movieSortBy.find((sort) => sort.isActive));
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
 
-  const [movies, setMovies] = useState<Response<PartialMovie[]>>(defaultResponse);
+  const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 
   // Fetching upcoming movies
   const upcomingMovies = useInfiniteQuery(
@@ -90,15 +88,16 @@ const UpcomingMovies = (): ReactElement => {
           isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
           isError={upcomingMovies.isError}
           isSuccess={upcomingMovies.isSuccess}
-          movies={movies.results || []}
+          movies={movies?.results || []}
         />
 
-        {upcomingMovies.hasNextPage && movies ? (
+        {movies ? (
           <LoadMore
             amount={movies.results.length}
             total={movies.total_results}
             mediaType='movies'
             isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
+            hasNextPage={upcomingMovies.hasNextPage || true}
             onFetch={upcomingMovies.fetchNextPage}
           />
         ) : null}

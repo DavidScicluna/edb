@@ -1,12 +1,19 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import { useDisclosure, VStack, HStack } from '@chakra-ui/react';
+import { useDisclosure, VStack } from '@chakra-ui/react';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { movieSortBy, tvSortBy, peopleSortBy } from '../../common/data/sort';
+import {
+  movieSortBy,
+  likedListsMovieSortBy,
+  tvSortBy,
+  likedListsTvSortBy,
+  peopleSortBy,
+  likedListsPeopleSortBy
+} from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
 import utils from '../../common/utils/utils';
 import Modal from '../../components/Modal';
@@ -19,7 +26,7 @@ import Genres from './components/Genres';
 import SortBy from './components/SortBy';
 import { FiltersProps, Form } from './types';
 
-const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
+const Filters = ({ mediaType, isLikedLists = false, onFilter }: FiltersProps): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
@@ -32,7 +39,17 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
   const defaultValues = {
     displayMode,
     sort: {
-      sortBy: mediaType === 'movie' ? [...movieSortBy] : mediaType === 'tv' ? [...tvSortBy] : [...peopleSortBy],
+      sortBy: isLikedLists
+        ? mediaType === 'movie'
+          ? [...likedListsMovieSortBy]
+          : mediaType === 'tv'
+          ? [...likedListsTvSortBy]
+          : [...likedListsPeopleSortBy]
+        : mediaType === 'movie'
+        ? [...movieSortBy]
+        : mediaType === 'tv'
+        ? [...tvSortBy]
+        : [...peopleSortBy],
       direction: sortDirection
     },
     genres: [],
@@ -66,15 +83,6 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
     form.reset({ ...values });
   };
 
-  const handleReset = (): void => {
-    dispatch(toggleDisplayMode('grid'));
-    dispatch(toggleSortDirection('asc'));
-
-    onFilter(mediaType === 'movie' ? movieSortBy : mediaType === 'tv' ? tvSortBy : peopleSortBy, [], []);
-
-    form.reset({ ...defaultValues });
-  };
-
   const handleClose = (): void => {
     form.reset({ ...defaultValues });
     onClose();
@@ -88,7 +96,13 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
         ...defaultValues,
         sort: {
           ...defaultValues.sort,
-          sortBy: pathname.includes('movie')
+          sortBy: isLikedLists
+            ? pathname.includes('movie')
+              ? [...likedListsMovieSortBy]
+              : pathname.includes('tv')
+              ? [...likedListsTvSortBy]
+              : [...likedListsPeopleSortBy]
+            : pathname.includes('movie')
             ? [...movieSortBy]
             : pathname.includes('tv')
             ? [...tvSortBy]
@@ -111,18 +125,13 @@ const Filters = ({ mediaType, onFilter }: FiltersProps): ReactElement => {
       <Modal
         title='Filter'
         actions={
-          <HStack spacing={2}>
-            <Button variant='outlined' isDisabled={!isDirty} onClick={() => handleReset()} size='xs'>
-              Reset
-            </Button>
-            <Button
-              color={utils.handleReturnColor(color)}
-              isDisabled={!isDirty}
-              onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
-              size='xs'>
-              Submit
-            </Button>
-          </HStack>
+          <Button
+            color={utils.handleReturnColor(color)}
+            isDisabled={!isDirty}
+            onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
+            size='xs'>
+            Submit
+          </Button>
         }
         isOpen={isOpen}
         onClose={handleClose}

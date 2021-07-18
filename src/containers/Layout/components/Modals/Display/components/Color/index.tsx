@@ -44,17 +44,20 @@ const colors: ColorType[] = [
 ];
 
 const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
+  const background = form.watch('background');
+
   return (
     <Controller
       control={form.control}
       name='color'
       render={({ field: { value } }) => (
-        <Container title='Color'>
+        <Container title='Color' colorMode={background}>
           <SimpleGrid width='100%' minChildWidth='20%' spacing={2}>
             {colors.map((color, index) => (
               <ColorItem
                 key={index}
                 {...color}
+                background={background}
                 isActive={color.value === value}
                 onClick={() => form.setValue('color', color.value, { shouldDirty: true })}
               />

@@ -1,5 +1,13 @@
 import { SortBy } from '../types/types';
 
+export const likedListsSortBy: SortBy[] = [
+  {
+    label: 'Date Added',
+    value: 'dateAdded',
+    isActive: false
+  }
+];
+
 export const movieSortBy: SortBy[] = [
   {
     label: 'Popularity',
@@ -22,6 +30,8 @@ export const movieSortBy: SortBy[] = [
     isActive: false
   }
 ];
+
+export const likedListsMovieSortBy: SortBy[] = [...movieSortBy, ...likedListsSortBy];
 
 export const tvSortBy: SortBy[] = [
   {
@@ -46,6 +56,8 @@ export const tvSortBy: SortBy[] = [
   }
 ];
 
+export const likedListsTvSortBy: SortBy[] = [...tvSortBy, ...likedListsSortBy];
+
 export const peopleSortBy: SortBy[] = [
   {
     label: 'Popularity',
@@ -63,3 +75,5 @@ export const peopleSortBy: SortBy[] = [
     isActive: false
   }
 ];
+
+export const likedListsPeopleSortBy: SortBy[] = [...peopleSortBy, ...likedListsSortBy];

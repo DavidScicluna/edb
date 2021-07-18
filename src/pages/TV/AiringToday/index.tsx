@@ -1,32 +1,37 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
+import ReportProblemTwoToneIcon from '@material-ui/icons/ReportProblemTwoTone';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
 
-import defaultResponse from '../../../common/data/response';
-import { tvSortBy } from '../../../common/data/sort';
 import useSelector from '../../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../../common/scripts/axios';
 import { PartialTV } from '../../../common/types/tv';
 import { Response, SortBy, Genre } from '../../../common/types/types';
+import utils from '../../../common/utils/utils';
+import Button from '../../../components/Clickable/Button';
 import Filters from '../../../components/Filters';
 import VerticalGrid from '../../../components/Grid/Vertical';
 import LoadMore from '../../../components/LoadMore';
 import VerticalTV from '../../../components/TV/Grid/Vertical';
+import { toggleConfirm, defaultConfirmModal } from '../../../store/slices/Modals';
 
 const TVAiringToday = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const isMob = useMediaQuery('(max-width: 600px)');
+  const isMob = useMediaQuery('(max-width: 640px)');
 
+  const dispatch = useDispatch();
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
+  const color = useSelector((state) => state.user.ui.theme.color);
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>(tvSortBy.find((sort) => sort.isActive));
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
 
-  const [tv, setTV] = useState<Response<PartialTV[]>>(defaultResponse);
+  const [tv, setTV] = useState<Response<PartialTV[]>>();
 
   // Fetching tv airing_today
   const tvAiringToday = useInfiniteQuery(
@@ -77,6 +82,37 @@ const TVAiringToday = (): ReactElement => {
     tvAiringToday.refetch();
   };
 
+  const handleResetFilters = (): void => {
+    setSortBy(undefined);
+    setGenres([]);
+
+    dispatch(toggleConfirm({ ...defaultConfirmModal }));
+
+    setTimeout(() => {
+      tvAiringToday.fetchNextPage();
+    }, 0);
+  };
+
+  const handleFetchNextPage = (): void => {
+    if (utils.handleCheckHasFilters(sortBy, genres)) {
+      dispatch(
+        toggleConfirm({
+          open: true,
+          icon: ReportProblemTwoToneIcon,
+          title: 'Filters',
+          description: 'Are you sure you want to load more TV shows? Filters will be reset!',
+          submitButton: (
+            <Button color={utils.handleReturnColor(color)} onClick={() => handleResetFilters()} size='xs'>
+              Load more
+            </Button>
+          )
+        })
+      );
+    } else {
+      tvAiringToday.fetchNextPage();
+    }
+  };
+
   useEffect(() => {
     return () => source.cancel();
   }, []);
@@ -90,16 +126,17 @@ const TVAiringToday = (): ReactElement => {
           isLoading={tvAiringToday.isLoading || tvAiringToday.isFetching}
           isError={tvAiringToday.isError}
           isSuccess={tvAiringToday.isSuccess}
-          tv={tv.results || []}
+          tv={tv?.results || []}
         />
 
-        {tvAiringToday.hasNextPage && tv ? (
+        {tv ? (
           <LoadMore
             amount={tv.results.length}
             total={tv.total_results}
             mediaType='TV shows'
             isLoading={tvAiringToday.isLoading || tvAiringToday.isFetching}
-            onFetch={tvAiringToday.fetchNextPage}
+            hasNextPage={tvAiringToday.hasNextPage || true}
+            onFetch={handleFetchNextPage}
           />
         ) : null}
       </VStack>

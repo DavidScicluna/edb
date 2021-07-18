@@ -8,71 +8,105 @@ import { useDispatch } from 'react-redux';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
 import utils from '../../common/utils/utils';
-import { setLists, toggleList } from '../../store/slices/User';
+import { toggleList } from '../../store/slices/Modals';
+import { setLists } from '../../store/slices/User';
+import { List } from '../../store/slices/User/types';
 import IconButton from '../Clickable/IconButton';
 import Tooltip from '../Tooltip';
 import { BookmarkProps } from './types';
 
-const Bookmark = ({ isDisabled = false, mediaItem, size = 'xs' }: BookmarkProps): ReactElement => {
+const Bookmark = (props: BookmarkProps): ReactElement => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
   const color = useSelector((state) => state.user.ui.theme.color);
 
+  const { isDisabled = false, title, mediaType, mediaItem, size = 'xs' } = props;
+
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const list = lists.find((list) => list.results.some((result) => result.id === mediaItem.id));
-  const isBookmarked: boolean = list ? list.results.some((result) => result.id === mediaItem.id) : false;
+  const list = lists.find((list) => {
+    switch (mediaType) {
+      case 'movie':
+        return list.results.movies.some((movie) => movie.id === mediaItem.id);
+      case 'tv':
+        return list.results.tv.some((show) => show.id === mediaItem.id);
+      default:
+        return;
+    }
+  });
+  const isBookmarked: boolean = list
+    ? mediaType === 'movie'
+      ? list.results.movies.some((movie) => movie.id === mediaItem.id)
+      : list.results.tv.some((show) => show.id === mediaItem.id)
+    : false;
+
+  const handleRemoveBookmark = (list: List): void => {
+    const results = { ...list.results };
+
+    switch (mediaType) {
+      case 'movie':
+        results.movies = results.movies.filter((movie) => movie.id !== mediaItem.id) || [];
+        break;
+      case 'tv':
+        results.tv = results.tv.filter((show) => show.id !== mediaItem.id) || [];
+        break;
+      default:
+        break;
+    }
+
+    dispatch(
+      setLists(
+        lists.map((paramList) =>
+          paramList.id === list.id
+            ? {
+                ...paramList,
+                results: { ...results }
+              }
+            : paramList
+        )
+      )
+    );
+  };
+
+  const handleOpenListsModal = (): void => {
+    dispatch(
+      toggleList({
+        open: true,
+        title,
+        mediaType,
+        mediaItem: {
+          ...mediaItem
+        }
+      })
+    );
+  };
 
   return (
     <Tooltip
       aria-label={
         isBookmarked
-          ? `Remove "${mediaItem.title}" ${mediaItem.mediaType} from ${list?.label ? `"${list.label}"` : ''} (tooltip)`
-          : `Add "${mediaItem.title}" ${mediaItem.mediaType} to a list (tooltip)`
+          ? `Remove "${title}" ${mediaType} from ${list?.label ? `"${list.label}"` : ''} (tooltip)`
+          : `Add "${title}" ${mediaType} to a list (tooltip)`
       }
       label={
         isBookmarked
-          ? `Remove "${mediaItem.title}" from ${list?.label ? `"${list.label}"` : ''} list`
-          : `Add "${mediaItem.title}" to a list`
+          ? `Remove "${title}" from ${list?.label ? `"${list.label}"` : ''} list`
+          : `Add "${title}" to a list`
       }
       placement='top'
       isOpen={isHovering}
-      isDisabled={isDisabled}
+      isDisabled={isDisabled || !mediaItem}
       gutter={0}>
       <IconButton
         aria-label={
           isBookmarked
-            ? `Remove "${mediaItem.title}" ${mediaItem.mediaType} from ${
-                list?.label ? `"${list.label}"` : ''
-              } (tooltip)`
-            : `Add "${mediaItem.title}" ${mediaItem.mediaType} to a list (tooltip)`
+            ? `Remove "${title}" ${mediaType} from ${list?.label ? `"${list.label}"` : ''} (tooltip)`
+            : `Add "${title}" ${mediaType} to a list (tooltip)`
         }
         color={isBookmarked ? utils.handleReturnColor(color) : 'gray'}
         isDisabled={isDisabled}
         icon={isBookmarked ? BookmarkOutlinedIcon : BookmarkBorderOutlinedIcon}
-        onClick={
-          isBookmarked && list
-            ? () =>
-                dispatch(
-                  setLists(
-                    lists.map((paramList) =>
-                      paramList.id === list.id
-                        ? {
-                            ...paramList,
-                            results: paramList.results.filter((result) => result.id !== mediaItem.id)
-                          }
-                        : paramList
-                    )
-                  )
-                )
-            : () =>
-                dispatch(
-                  toggleList({
-                    open: true,
-                    item: { id: mediaItem.id, title: mediaItem.title || '', mediaType: mediaItem.mediaType }
-                  })
-                )
-        }
+        onClick={isBookmarked && list ? () => handleRemoveBookmark(list) : () => handleOpenListsModal()}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         size={size}

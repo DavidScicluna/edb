@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
 import { PartialTV } from '../../../../common/types/tv';
 import Empty from '../../../Empty';
 import Error from '../../../Error';
@@ -8,9 +7,7 @@ import VerticalPoster from '../../Poster/Vertical';
 import { GridProps } from '../types';
 
 const HorizontalTV = ({ isLoading, isError, isSuccess, tv }: GridProps): ReactElement => {
-  const hasOptionsDownloaded = useSelector((state) => state.options.data.hasDownloaded);
-
-  return isLoading && !hasOptionsDownloaded ? (
+  return isLoading ? (
     <>
       {[...Array(tv ? tv.length : 20)].map((_dummy, index: number) => (
         <VerticalPoster key={index} isLoading />

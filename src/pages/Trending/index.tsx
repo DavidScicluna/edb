@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useDisclosure, VStack, HStack, Box, Fade } from '@chakra-ui/react';
+import { useDisclosure, useMediaQuery, VStack, HStack, Box, Fade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
@@ -8,8 +8,6 @@ import { useInfiniteQuery } from 'react-query';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Department } from '../../common/data/departments';
-import defaultResponse from '../../common/data/response';
-import { movieSortBy, tvSortBy, peopleSortBy } from '../../common/data/sort';
 import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
 import { PartialMovie } from '../../common/types/movie';
@@ -35,117 +33,153 @@ const Trending = (): ReactElement => {
     onOpen: onMediaTypePickerOpen,
     onClose: onMediaTypePickerClose
   } = useDisclosure();
+  const [isSm] = useMediaQuery('(max-width: 640px)');
 
   const history = useHistory();
   const { mediaType: paramMediaType } = useParams<{ mediaType: MediaType }>();
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
-  const [mediaType, setMediaType] = useState<MediaType | null>(null);
+  const [mediaType, setMediaType] = useState<MediaType>();
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>(
-    mediaType === 'movie'
-      ? movieSortBy.find((sort) => sort.isActive)
-      : mediaType === 'tv'
-      ? tvSortBy.find((sort) => sort.isActive)
-      : mediaType === 'person'
-      ? peopleSortBy.find((sort) => sort.isActive)
-      : undefined
-  );
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
 
-  const [movies, setMovies] = useState<Response<PartialMovie[]>>(defaultResponse);
-  const [tv, setTV] = useState<Response<PartialTV[]>>(defaultResponse);
-  const [people, setPeople] = useState<Response<PartialPerson[]>>(defaultResponse);
+  const [movies, setMovies] = useState<Response<PartialMovie[]>>();
+  const [tv, setTV] = useState<Response<PartialTV[]>>();
+  const [people, setPeople] = useState<Response<PartialPerson[]>>();
 
-  // Fetching trending
-  const trending = useInfiniteQuery(
-    'trending',
+  // Fetching trending movies
+  const trendingMovies = useInfiniteQuery(
+    'trendingMovies',
     async ({ pageParam = 1 }) => {
-      const { data } = await axiosInstance.get<Response<any[]>>(`/trending/${mediaType}/day`, {
+      const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
         params: { page: pageParam },
         cancelToken: source.token
       });
       return data;
     },
     {
-      enabled: (mediaType && mediaType.length > 0) || false,
+      enabled: (mediaType && mediaType.length > 0 && mediaType === 'movie') || false,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
       onSuccess: (data) => {
-        switch (mediaType) {
-          case 'person': {
-            let people: PartialPerson[] = [];
+        let movies: PartialMovie[] = [];
 
-            data.pages.forEach((page) => {
-              people = [...people, ...page.results];
-            });
+        data.pages.forEach((page) => {
+          movies = [...movies, ...page.results];
+        });
 
-            setPeople({
-              page: data.pages[data.pages.length - 1].page,
-              results: sort(
-                departments && departments.length > 0
-                  ? people.filter((person) =>
-                      departments.some((department) => person.known_for_department === department.value)
-                    )
-                  : [...people],
-                sortBy?.value || '',
-                { reverse: sortDirection === 'desc' }
-              ),
-              total_pages: data.pages[data.pages.length - 1].total_pages,
-              total_results: data.pages[data.pages.length - 1].total_results
-            });
-            return;
-          }
-          case 'tv': {
-            let tv: PartialTV[] = [];
-
-            data.pages.forEach((page) => {
-              tv = [...tv, ...page.results];
-            });
-
-            setTV({
-              page: data.pages[data.pages.length - 1].page,
-              results: sort(
-                genres && genres.length > 0
-                  ? tv.filter((show) => genres.some((genre) => _.includes(show.genre_ids, genre.id)))
-                  : [...tv],
-                sortBy?.value || '',
-                { reverse: sortDirection === 'desc' }
-              ),
-              total_pages: data.pages[data.pages.length - 1].total_pages,
-              total_results: data.pages[data.pages.length - 1].total_results
-            });
-            return;
-          }
-          default: {
-            let movies: PartialMovie[] = [];
-
-            data.pages.forEach((page) => {
-              movies = [...movies, ...page.results];
-            });
-
-            setMovies({
-              page: data.pages[data.pages.length - 1].page,
-              results: sort(
-                genres && genres.length > 0
-                  ? movies.filter((movie) => genres.some((genre) => _.includes(movie.genre_ids, genre.id)))
-                  : [...movies],
-                sortBy?.value || '',
-                { reverse: sortDirection === 'desc' }
-              ),
-              total_pages: data.pages[data.pages.length - 1].total_pages,
-              total_results: data.pages[data.pages.length - 1].total_results
-            });
-            return;
-          }
-        }
+        setMovies({
+          page: data.pages[data.pages.length - 1].page,
+          results: sort(
+            genres && genres.length > 0
+              ? movies.filter((movie) => genres.some((genre) => _.includes(movie.genre_ids, genre.id)))
+              : [...movies],
+            sortBy?.value || '',
+            { reverse: sortDirection === 'desc' }
+          ),
+          total_pages: data.pages[data.pages.length - 1].total_pages,
+          total_results: data.pages[data.pages.length - 1].total_results
+        });
       }
     }
   );
 
-  const handleSetFilters = (sortBy: SortBy[], genres: Genre[], departments: Department[]) => {
+  // Fetching trending tv shows
+  const trendingTV = useInfiniteQuery(
+    'trendingTV',
+    async ({ pageParam = 1 }) => {
+      const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
+        params: { page: pageParam },
+        cancelToken: source.token
+      });
+      return data;
+    },
+    {
+      enabled: (mediaType && mediaType.length > 0 && mediaType === 'tv') || false,
+      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
+      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
+      onSuccess: (data) => {
+        let tv: PartialTV[] = [];
+
+        data.pages.forEach((page) => {
+          tv = [...tv, ...page.results];
+        });
+
+        setTV({
+          page: data.pages[data.pages.length - 1].page,
+          results: sort(
+            genres && genres.length > 0
+              ? tv.filter((show) => genres.some((genre) => _.includes(show.genre_ids, genre.id)))
+              : [...tv],
+            sortBy?.value || '',
+            { reverse: sortDirection === 'desc' }
+          ),
+          total_pages: data.pages[data.pages.length - 1].total_pages,
+          total_results: data.pages[data.pages.length - 1].total_results
+        });
+      }
+    }
+  );
+
+  // Fetching trending people
+  const trendingPeople = useInfiniteQuery(
+    'trendingPeople',
+    async ({ pageParam = 1 }) => {
+      const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/day', {
+        params: { page: pageParam },
+        cancelToken: source.token
+      });
+      return data;
+    },
+    {
+      enabled: (mediaType && mediaType.length > 0 && mediaType === 'person') || false,
+      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
+      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
+      onSuccess: (data) => {
+        let people: PartialPerson[] = [];
+
+        data.pages.forEach((page) => {
+          people = [...people, ...page.results];
+        });
+
+        setPeople({
+          page: data.pages[data.pages.length - 1].page,
+          results: sort(
+            departments && departments.length > 0
+              ? people.filter((person) =>
+                  departments.some((department) => person.known_for_department === department.value)
+                )
+              : [...people],
+            sortBy?.value || '',
+            { reverse: sortDirection === 'desc' }
+          ),
+          total_pages: data.pages[data.pages.length - 1].total_pages,
+          total_results: data.pages[data.pages.length - 1].total_results
+        });
+      }
+    }
+  );
+
+  const handleRefetch = (): void => {
+    switch (mediaType) {
+      case 'movie':
+        trendingMovies.refetch();
+        break;
+      case 'tv':
+        trendingTV.refetch();
+        break;
+      case 'person':
+        trendingPeople.refetch();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSetFilters = (sortBy: SortBy[], genres: Genre[], departments: Department[]): void => {
     const active = sortBy.find((sort) => sort.isActive);
 
     if (active) {
@@ -155,23 +189,18 @@ const Trending = (): ReactElement => {
     setGenres(genres);
     setDepartments(departments);
 
-    setTimeout(() => {
-      trending.refetch();
-    }, 0);
+    setTimeout(() => handleRefetch(), 0);
   };
 
   const handleResetState = (): void => {
-    setMediaType(null);
-    setMovies(defaultResponse);
-    setTV(defaultResponse);
-    setPeople(defaultResponse);
+    setMediaType(undefined);
   };
 
   useEffect(() => {
     handleResetState();
 
     if (paramMediaType) {
-      trending.remove();
+      handleRefetch();
 
       switch (paramMediaType) {
         case 'person':
@@ -193,8 +222,6 @@ const Trending = (): ReactElement => {
     return () => source.cancel();
   }, []);
 
-  console.log(trending);
-
   return (
     <>
       <VerticalGrid
@@ -206,7 +233,7 @@ const Trending = (): ReactElement => {
         header={
           <Fade in={!!mediaType} unmountOnExit>
             <HStack spacing={2}>
-              <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
+              <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
                 Change media-type
               </Button>
               {mediaType ? <Filters mediaType={mediaType} onFilter={handleSetFilters} /> : null}
@@ -218,57 +245,60 @@ const Trending = (): ReactElement => {
             {mediaType === 'movie' ? (
               <>
                 <VerticalMovies
-                  isLoading={trending.isFetching || trending.isLoading}
-                  isError={trending.isError}
-                  isSuccess={trending.isSuccess}
-                  movies={movies.results || []}
+                  isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
+                  isError={trendingMovies.isError}
+                  isSuccess={trendingMovies.isSuccess}
+                  movies={movies?.results || []}
                 />
 
-                {trending.hasNextPage && movies ? (
+                {movies ? (
                   <LoadMore
                     amount={movies.results.length}
                     total={movies.total_results}
                     mediaType='movies'
-                    isLoading={trending.isFetching || trending.isLoading}
-                    onFetch={trending.fetchNextPage}
+                    isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
+                    hasNextPage={trendingMovies.hasNextPage || true}
+                    onFetch={trendingMovies.fetchNextPage}
                   />
                 ) : null}
               </>
             ) : mediaType === 'tv' ? (
               <>
                 <VerticalTV
-                  isLoading={trending.isFetching || trending.isLoading}
-                  isError={trending.isError}
-                  isSuccess={trending.isSuccess}
-                  tv={tv.results || []}
+                  isLoading={trendingTV.isFetching || trendingTV.isLoading}
+                  isError={trendingTV.isError}
+                  isSuccess={trendingTV.isSuccess}
+                  tv={tv?.results || []}
                 />
 
-                {trending.hasNextPage && tv ? (
+                {tv ? (
                   <LoadMore
                     amount={tv.results.length}
                     total={tv.total_results}
                     mediaType='tv shows'
-                    isLoading={trending.isFetching || trending.isLoading}
-                    onFetch={trending.fetchNextPage}
+                    isLoading={trendingTV.isFetching || trendingTV.isLoading}
+                    hasNextPage={trendingTV.hasNextPage || true}
+                    onFetch={trendingTV.fetchNextPage}
                   />
                 ) : null}
               </>
             ) : mediaType === 'person' ? (
               <>
                 <VerticalPeople
-                  isLoading={trending.isFetching || trending.isLoading}
-                  isError={trending.isError}
-                  isSuccess={trending.isSuccess}
-                  people={people.results || []}
+                  isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
+                  isError={trendingPeople.isError}
+                  isSuccess={trendingPeople.isSuccess}
+                  people={people?.results || []}
                 />
 
-                {trending.hasNextPage && people ? (
+                {people ? (
                   <LoadMore
                     amount={people.results.length}
                     total={people.total_results}
                     mediaType='people'
-                    isLoading={trending.isFetching || trending.isLoading}
-                    onFetch={trending.fetchNextPage}
+                    isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
+                    hasNextPage={trendingPeople.hasNextPage || true}
+                    onFetch={trendingPeople.fetchNextPage}
                   />
                 ) : null}
               </>
@@ -288,7 +318,7 @@ const Trending = (): ReactElement => {
                 />
               }
               hasIllustration={false}
-              label='Select media type to view data!'
+              label=''
               size='xl'
               variant='outlined'
             />

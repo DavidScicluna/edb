@@ -35,7 +35,8 @@ const Sidebar = ({ width }: SidebarProps): ReactElement => {
       backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
       borderRight='solid2'
       borderRightColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-      p={1}
+      px={1}
+      py={sidebarMode === 'expanded' ? 2 : 1}
       spacing={2}
       sx={{ ...transition }}>
       <NavItems navItems={navItems} />

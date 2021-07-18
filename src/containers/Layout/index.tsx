@@ -12,6 +12,7 @@ import { Theme } from '../../theme/types';
 import { sidebarWidth } from './common/data/sidebar';
 import useTransitionsStyle from './common/styles/transitions';
 import Header from './components/Header';
+import ConfirmModal from './components/Modals/Confirm';
 import DescriptionModal from './components/Modals/Description';
 import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
@@ -28,7 +29,7 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
   const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
   const [width, setWidth] = useState<string>('100%');
-  const [left, setLeft] = useState<string>('266px');
+  const [left, setLeft] = useState<string>(`${sidebarWidth[sidebarMode]}px`);
 
   const queries = useQueriesTyped([
     {
@@ -86,13 +87,15 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
         {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
         <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
           <Header width={width} left={left} breadcrumbs={breadcrumbs} />
-          <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4} sx={{ ...transition }}>
+          <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4}>
             {children}
           </Box>
         </Box>
       </Center>
 
       <SplashscreenModal />
+
+      <ConfirmModal />
 
       <DisplayModal />
 

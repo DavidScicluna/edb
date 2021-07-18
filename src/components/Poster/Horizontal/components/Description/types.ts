@@ -1,5 +1,11 @@
+import { MediaType } from '../../../../../common/types/types';
+
 export type DescriptionProps = {
-  title: string;
-  description: string;
+  mediaType: MediaType;
+  mediaItem: {
+    id: number;
+    title: string;
+    description: string;
+  };
   isLoaded: boolean;
 };

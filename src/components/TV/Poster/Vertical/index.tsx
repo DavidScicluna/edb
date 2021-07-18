@@ -10,7 +10,7 @@ const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElemen
   return !isLoading && show ? (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItemID={show.id}
+      mediaItem={{ ...show }}
       mediaType='tv'
       image={{
         alt: `${show?.name || ''} tv show poster`,
@@ -31,7 +31,6 @@ const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElemen
   ) : (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItemID={-1}
       mediaType='tv'
       image={{
         alt: 'TV Show poster',

@@ -5,7 +5,8 @@ import { ButtonProps } from '../../components/Clickable/Button/types';
 import store from '../../store';
 import theme from '../../theme';
 import { months } from '../data/date';
-import { Genre, MediaType } from '../types/types';
+import { Department } from '../data/departments';
+import { Genre, MediaType, SortBy } from '../types/types';
 
 export default {
   handleReturnNumberFromString: (number: string, string: string): number => {
@@ -58,6 +59,24 @@ export default {
     return time / 1000;
   },
 
+  handleCheckHasFilters: (sortBy?: SortBy, genres?: Genre[], departments?: Department[]): boolean => {
+    let hasFilters = false;
+
+    if (!hasFilters && sortBy && sortBy.isActive) {
+      hasFilters = true;
+    }
+
+    if (!hasFilters && !_.isEmpty(genres)) {
+      hasFilters = true;
+    }
+
+    if (!hasFilters && !_.isEmpty(departments)) {
+      hasFilters = true;
+    }
+
+    return hasFilters;
+  },
+
   /**
    * This method will return the proper typed button color depending on the color passed
    *
@@ -97,15 +116,15 @@ export default {
   handleReturnFallbackSrc: (mediaType: MediaType, size: string, alt: string): string => {
     const name = `${alt}-${(Math.floor(Math.random() * 1000000) + 1000000).toString().substring(1)}`;
     const colors: string = [
-      theme.colors.red[mediaType === 'person' ? 400 : 200],
-      theme.colors.orange[mediaType === 'person' ? 400 : 200],
-      theme.colors.yellow[mediaType === 'person' ? 400 : 200],
-      theme.colors.green[mediaType === 'person' ? 400 : 200],
-      theme.colors.teal[mediaType === 'person' ? 400 : 200],
-      theme.colors.blue[mediaType === 'person' ? 400 : 200],
-      theme.colors.cyan[mediaType === 'person' ? 400 : 200],
-      theme.colors.purple[mediaType === 'person' ? 400 : 200],
-      theme.colors.pink[mediaType === 'person' ? 400 : 200]
+      theme.colors.red[400],
+      theme.colors.orange[400],
+      theme.colors.yellow[400],
+      theme.colors.green[400],
+      theme.colors.teal[400],
+      theme.colors.blue[400],
+      theme.colors.cyan[400],
+      theme.colors.purple[400],
+      theme.colors.pink[400]
     ].join(',');
 
     return queryString.stringifyUrl({

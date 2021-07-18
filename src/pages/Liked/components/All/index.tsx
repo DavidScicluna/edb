@@ -1,22 +1,14 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
 import { VStack, Fade, Collapse } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
 
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
-import { toggleDisplayMode } from '../../../../store/slices/App';
-import Movie from '../Movie';
-import Person from '../Person';
-import Show from '../Show';
+import VerticalMoviePoster from '../../../../components/Movies/Poster/Vertical';
+import VerticalPersonPoster from '../../../../components/People/Poster/Vertical';
+import VerticalShowPoster from '../../../../components/TV/Poster/Vertical';
 import { AllProps } from './types';
 
 const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(toggleDisplayMode('grid'));
-  }, []);
-
   return (
     <Fade
       in={(movies && movies.length > 0) || (tv && tv.length > 0) || (people && people.length > 0) || false}
@@ -34,7 +26,11 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
             }`}
             isLoading={false}
             path={{ pathname: '/liked/movie' }}>
-            <>{movies.map((movie, index) => (index < 20 ? <Movie key={movie.id} id={movie.id} /> : null))}</>
+            <>
+              {movies.map((movie, index) =>
+                index < 20 ? <VerticalMoviePoster key={movie.id} isLoading={false} movie={movie} /> : null
+              )}
+            </>
           </HorizontalGrid>
         </Collapse>
 
@@ -45,7 +41,11 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
             footer={`View all ${tv?.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
             isLoading={false}
             path={{ pathname: '/liked/tv' }}>
-            <>{tv.map((show, index) => (index < 20 ? <Show key={show.id} id={show.id} /> : null))}</>
+            <>
+              {tv.map((show, index) =>
+                index < 20 ? <VerticalShowPoster key={show.id} isLoading={false} show={show} /> : null
+              )}
+            </>
           </HorizontalGrid>
         </Collapse>
 
@@ -60,7 +60,11 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
             }`}
             isLoading={false}
             path={{ pathname: '/liked/person' }}>
-            <>{people.map((person, index) => (index < 20 ? <Person key={person.id} id={person.id} /> : null))}</>
+            <>
+              {people.map((person, index) =>
+                index < 20 ? <VerticalPersonPoster key={person.id} isLoading={false} person={person} /> : null
+              )}
+            </>
           </HorizontalGrid>
         </Collapse>
       </VStack>

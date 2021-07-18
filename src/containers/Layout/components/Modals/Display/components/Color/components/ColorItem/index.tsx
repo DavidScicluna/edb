@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 
 import utils from '../../../../../../../../../common/utils/utils';
@@ -11,9 +11,8 @@ import { ColorItemProps } from './types';
 
 const ColorItem = (props: ColorItemProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
 
-  const { label, value, isActive, onClick } = props;
+  const { label, value, background, isActive, onClick } = props;
 
   return (
     <Tooltip
@@ -26,6 +25,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
       span>
       <Card
         color={isActive ? utils.handleReturnColor(value) : 'gray'}
+        colorMode={background}
         onClick={!isActive && onClick ? () => onClick(value) : undefined}
         variant='outlined'
         p={2}>
@@ -47,7 +47,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
                 as={CheckOutlinedIcon}
                 sx={{
                   fontSize: `${theme.fontSizes['4xl']} !important`,
-                  color: colorMode === 'light' ? 'gray.50' : 'gray.900'
+                  color: background === 'light' ? 'gray.50' : 'gray.900'
                 }}
               />
             </ScaleFade>

@@ -19,7 +19,7 @@ const largeSizes = {
 };
 
 const container = {
-  sm: '600px',
+  sm: '640px',
   md: '960px',
   lg: '1280px',
   xl: '1920px'

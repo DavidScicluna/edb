@@ -1,13 +1,22 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import { useColorMode, useDisclosure, Modal as CUIModal, ModalContent, ModalBody, Center, Box } from '@chakra-ui/react';
+import {
+  useColorMode,
+  useDisclosure,
+  Modal as CUIModal,
+  ModalContent,
+  ModalBody,
+  VStack,
+  Box,
+  Text
+} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
 
 const MotionBox = motion(Box);
 
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
-import { toggleSplashscreen } from '../../../../../store/slices/User';
+import { toggleSplashscreen } from '../../../../../store/slices/Modals';
 import useStyles from './styles';
 
 const Splashscreen = (): ReactElement => {
@@ -15,19 +24,27 @@ const Splashscreen = (): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
-  const isSplashscreenOpen = useSelector((state) => state.user.ui.isSplashscreenOpen);
+  const isSplashscreenOpen = useSelector((state) => state.modals.ui.isSplashscreenOpen);
 
   const style = useStyles();
 
   const handleClose = (): void => {
+    const hasSplashscreenRendered = Boolean(JSON.parse(sessionStorage.getItem('hasSplashscreenRendered') || 'false'));
+
     dispatch(toggleSplashscreen(false));
 
     onClose();
+
+    if (!hasSplashscreenRendered) {
+      sessionStorage.setItem('hasSplashscreenRendered', JSON.stringify(true));
+    }
   };
 
   useEffect(() => {
     if (isSplashscreenOpen) {
       onOpen();
+
+      setTimeout(() => handleClose(), 5000);
     } else {
       handleClose();
     }
@@ -39,17 +56,26 @@ const Splashscreen = (): ReactElement => {
       closeOnOverlayClick={false}
       isOpen={isOpen}
       onClose={onClose}
+      blockScrollOnMount
+      preserveScrollBarGap
       motionPreset='scale'
       scrollBehavior='inside'
       size='full'>
       <ModalContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} borderRadius='none' m={0}>
-        <ModalBody p={0}>
-          <Center width='100%' height='100vh' p={3}>
+        <ModalBody zIndex={10000} p={0}>
+          <VStack width='100%' height='100vh' justifyContent='space-between' p={3}>
+            <Text
+              align='center'
+              color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+              fontSize='sm'
+              fontWeight='medium'>
+              Entertainment database
+            </Text>
             <MotionBox
               animate={{ backgroundPosition: ['0%', '25%', '50%', '75%', '100%', '75%', '50%', '25%', '0%'] }}
               transition={{
-                duration: 10,
-                ease: 'easeInOut',
+                duration: 5,
+                ease: [0.76, 0, 0.24, 1],
                 repeat: 'Infinity',
                 repeatType: 'loop',
                 repeatDelay: 1
@@ -60,7 +86,14 @@ const Splashscreen = (): ReactElement => {
               sx={{ ...style }}>
               edb
             </MotionBox>
-          </Center>
+            <Text
+              align='center'
+              color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+              fontSize='sm'
+              fontWeight='medium'>
+              Loading...
+            </Text>
+          </VStack>
         </ModalBody>
       </ModalContent>
     </CUIModal>
