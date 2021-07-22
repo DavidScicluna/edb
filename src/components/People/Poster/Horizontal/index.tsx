@@ -6,6 +6,7 @@ import departments from '../../../../common/data/departments';
 import utils from '../../../../common/utils/utils';
 import HorizontalPoster from '../../../Poster/Horizontal';
 import { PosterProps } from '../types';
+
 const size = utils.handleReturnImageSize('poster', 'sm');
 
 const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactElement => {
@@ -28,7 +29,7 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
       title={person?.name || ''}
       subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
       description={handleKnownFor()} // TODO: Add a Link component and on click open item page
-      isLoaded={true}
+      isLoaded
     />
   ) : (
     <HorizontalPoster

@@ -1,20 +1,15 @@
-import React, { ComponentType, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 import { Container, Box } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { useLocation, RouteComponentProps, Route, RouteProps } from 'react-router-dom';
+import { useLocation, Route } from 'react-router-dom';
 
-import { Breadcrumb } from '../../../common/types/types';
 import Layout from '../../../containers/Layout';
-
-interface DefaultRouteProps extends RouteProps {
-  component: ComponentType<RouteComponentProps | ComponentType>;
-  breadcrumbs: Breadcrumb[];
-}
+import { DefaultRouteProps } from './types';
 
 const ComponentBox = motion(Box);
 
-const DefaultRoute = ({ component: Component, breadcrumbs, ...rest }: DefaultRouteProps): ReactElement => {
+const DefaultRoute = ({ children, breadcrumbs, ...rest }: DefaultRouteProps): ReactElement => {
   const location = useLocation();
 
   sessionStorage.setItem('redirect_to', JSON.stringify(location));
@@ -33,7 +28,7 @@ const DefaultRoute = ({ component: Component, breadcrumbs, ...rest }: DefaultRou
                 duration: 1,
                 ease: [0.76, 0, 0.24, 1]
               }}>
-              <Component {...props} />
+              {children}
             </ComponentBox>
           </Layout>
         </Container>

@@ -26,7 +26,7 @@ const HorizontalMovie = ({ isLoading = true, movie }: PosterProps): ReactElement
         `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
       ].join(' • ')}`}
       description={movie?.overview || ''}
-      isLoaded={true}
+      isLoaded
     />
   ) : (
     <HorizontalPoster

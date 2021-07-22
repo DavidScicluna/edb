@@ -26,7 +26,7 @@ const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElemen
         `${utils.handleReturnDate(show?.first_air_date || '', 'year')}`,
         `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
       ].join(' • ')}`}
-      isLoaded={true}
+      isLoaded
     />
   ) : (
     <VerticalPoster

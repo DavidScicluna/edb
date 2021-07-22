@@ -53,48 +53,44 @@ const Movies = (): ReactElement => {
     <VStack spacing={6}>
       <HorizontalGrid
         title='Popular Movies'
-        isLoading={popularMovies.isLoading || popularMovies.isFetching}
+        isLoading={popularMovies.isFetching || popularMovies.isLoading}
         path={{ pathname: '/movies/popular' }}>
         <HorizontalMovies
-          isLoading={popularMovies.isLoading || popularMovies.isFetching}
           isError={popularMovies.isError}
-          isSuccess={popularMovies.isSuccess}
+          isSuccess={popularMovies.isSuccess && !popularMovies.isFetching && !popularMovies.isLoading}
           movies={popularMovies.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='Upcoming Movies'
-        isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
+        isLoading={upcomingMovies.isFetching || upcomingMovies.isLoading}
         path={{ pathname: '/movies/upcoming' }}>
         <HorizontalMovies
-          isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
           isError={upcomingMovies.isError}
-          isSuccess={upcomingMovies.isSuccess}
+          isSuccess={upcomingMovies.isSuccess && !upcomingMovies.isFetching && !upcomingMovies.isLoading}
           movies={upcomingMovies.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='Movies Now Playing'
-        isLoading={moviesNowPlaying.isLoading || moviesNowPlaying.isFetching}
+        isLoading={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}
         path={{ pathname: '/movies/now-playing' }}>
         <HorizontalMovies
-          isLoading={moviesNowPlaying.isLoading || moviesNowPlaying.isFetching}
           isError={moviesNowPlaying.isError}
-          isSuccess={moviesNowPlaying.isSuccess}
+          isSuccess={moviesNowPlaying.isSuccess && !moviesNowPlaying.isFetching && !moviesNowPlaying.isLoading}
           movies={moviesNowPlaying.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='Top Rated Movies'
-        isLoading={topRatedMovies.isLoading || topRatedMovies.isFetching}
+        isLoading={topRatedMovies.isFetching || topRatedMovies.isLoading}
         path={{ pathname: '/movies/top-rated' }}>
         <HorizontalMovies
-          isLoading={topRatedMovies.isLoading || topRatedMovies.isFetching}
           isError={topRatedMovies.isError}
-          isSuccess={topRatedMovies.isSuccess}
+          isSuccess={topRatedMovies.isSuccess && !topRatedMovies.isFetching && !topRatedMovies.isLoading}
           movies={topRatedMovies.data}
         />
       </HorizontalGrid>

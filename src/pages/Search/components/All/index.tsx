@@ -35,7 +35,7 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}>
-            <HorizontalMovies isLoading={isLoading} isError={false} isSuccess movies={movies?.results || []} />
+            <HorizontalMovies isError={false} isSuccess={!isLoading} movies={movies?.results || []} />
           </HorizontalGrid>
         </Collapse>
 
@@ -50,7 +50,7 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}>
-            <HorizontalTV isLoading={isLoading} isError isSuccess tv={tv?.results || []} />
+            <HorizontalTV isError isSuccess={!isLoading} tv={tv?.results || []} />
           </HorizontalGrid>
         </Collapse>
 
@@ -76,7 +76,7 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}>
-            <HorizontalPeople isLoading={isLoading} isError={false} isSuccess people={people?.results || []} />
+            <HorizontalPeople isError={false} isSuccess={!isLoading} people={people?.results || []} />
           </HorizontalGrid>
         </Collapse>
       </VStack>

@@ -6,23 +6,23 @@ import Error from '../../../Error';
 import VerticalPoster from '../../Poster/Vertical';
 import { GridProps } from '../types';
 
-const HorizontalPeople = ({ isLoading, isError, isSuccess, people }: GridProps): ReactElement => {
-  return isLoading ? (
-    <>
-      {[...Array(people ? people.length : 20)].map((_dummy, index: number) => (
-        <VerticalPoster key={index} isLoading />
-      ))}
-    </>
+const HorizontalPeople = ({ isError, isSuccess, people }: GridProps): ReactElement => {
+  return isError ? (
+    <Error label='Oh no! Something went wrong' description='Failed to fetch people list!' variant='transparent' />
+  ) : isSuccess && people && people.length === 0 ? (
+    <Empty label='People list is currently empty!' variant='transparent' />
   ) : isSuccess && people && people.length > 0 ? (
     <>
       {people.map((person: PartialPerson, index: number) => (
         <VerticalPoster key={index} isLoading={false} person={person} />
       ))}
     </>
-  ) : isError ? (
-    <Error label='Oh no! Something went wrong' description='Failed to fetch people list!' variant='transparent' />
   ) : (
-    <Empty label='People list is currently empty!' variant='transparent' />
+    <>
+      {[...Array(people ? people.length : 20)].map((_dummy, index: number) => (
+        <VerticalPoster key={index} isLoading />
+      ))}
+    </>
   );
 };
 

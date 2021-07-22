@@ -86,9 +86,8 @@ const People = (): ReactElement => {
     <VerticalGrid title={isMob ? 'People' : ''} header={<Filters mediaType='person' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalPeople
-          isLoading={popularPeople.isFetching || popularPeople.isLoading}
           isError={popularPeople.isError}
-          isSuccess={popularPeople.isSuccess}
+          isSuccess={popularPeople.isSuccess && !popularPeople.isFetching && !popularPeople.isLoading}
           people={people?.results || []}
         />
 

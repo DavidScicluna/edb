@@ -123,9 +123,8 @@ const TopRatedTV = (): ReactElement => {
       header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalTV
-          isLoading={topRatedTV.isLoading || topRatedTV.isFetching}
           isError={topRatedTV.isError}
-          isSuccess={topRatedTV.isSuccess}
+          isSuccess={topRatedTV.isSuccess && !topRatedTV.isFetching && !topRatedTV.isLoading}
           tv={tv?.results || []}
         />
 
@@ -134,7 +133,7 @@ const TopRatedTV = (): ReactElement => {
             amount={tv.results.length}
             total={tv.total_results}
             mediaType='TV shows'
-            isLoading={topRatedTV.isLoading || topRatedTV.isFetching}
+            isLoading={topRatedTV.isFetching || topRatedTV.isLoading}
             hasNextPage={topRatedTV.hasNextPage || true}
             onFetch={handleFetchNextPage}
           />

@@ -65,60 +65,55 @@ const Home = (): ReactElement => {
     <VStack spacing={6}>
       <HorizontalGrid
         title='Popular movies'
-        isLoading={popularMovies.isLoading || popularMovies.isFetching}
+        isLoading={popularMovies.isFetching || popularMovies.isLoading}
         path={{ pathname: '/movies/popular' }}>
         <HorizontalMovies
-          isLoading={popularMovies.isLoading || popularMovies.isFetching}
           isError={popularMovies.isError}
-          isSuccess={popularMovies.isSuccess}
+          isSuccess={popularMovies.isSuccess && !popularMovies.isFetching && !popularMovies.isLoading}
           movies={popularMovies.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='Trending movies'
-        isLoading={trendingMovies.isLoading || trendingMovies.isFetching}
+        isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
         path={{ pathname: '/trending/movie' }}>
         <HorizontalMovies
-          isLoading={trendingMovies.isLoading || trendingMovies.isFetching}
           isError={trendingMovies.isError}
-          isSuccess={trendingMovies.isSuccess}
+          isSuccess={trendingMovies.isSuccess && !trendingMovies.isFetching && !trendingMovies.isLoading}
           movies={trendingMovies.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='Popular TV'
-        isLoading={popularTV.isLoading || popularTV.isFetching}
+        isLoading={popularTV.isFetching || popularTV.isLoading}
         path={{ pathname: '/tv/popular' }}>
         <HorizontalTV
-          isLoading={popularTV.isLoading || popularTV.isFetching}
           isError={popularTV.isError}
-          isSuccess={popularTV.isSuccess}
+          isSuccess={popularTV.isSuccess && !popularTV.isFetching && !popularTV.isLoading}
           tv={popularTV.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='Trending TV'
-        isLoading={trendingTV.isLoading || trendingTV.isFetching}
+        isLoading={trendingTV.isFetching || trendingTV.isLoading}
         path={{ pathname: '/trending/tv' }}>
         <HorizontalTV
-          isLoading={trendingTV.isLoading || trendingTV.isFetching}
           isError={trendingTV.isError}
-          isSuccess={trendingTV.isSuccess}
+          isSuccess={trendingTV.isSuccess && !trendingTV.isFetching && !trendingTV.isLoading}
           tv={trendingTV.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='Trending People'
-        isLoading={trendingPeople.isLoading || trendingPeople.isFetching}
+        isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
         path={{ pathname: '/trending/person' }}>
         <HorizontalPeople
-          isLoading={trendingPeople.isLoading || trendingPeople.isFetching}
           isError={trendingPeople.isError}
-          isSuccess={trendingPeople.isSuccess}
+          isSuccess={trendingPeople.isSuccess && !trendingPeople.isFetching && !trendingPeople.isLoading}
           people={trendingPeople.data}
         />
       </HorizontalGrid>

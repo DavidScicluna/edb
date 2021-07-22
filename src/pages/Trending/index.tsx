@@ -245,9 +245,8 @@ const Trending = (): ReactElement => {
             {mediaType === 'movie' ? (
               <>
                 <VerticalMovies
-                  isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
                   isError={trendingMovies.isError}
-                  isSuccess={trendingMovies.isSuccess}
+                  isSuccess={trendingMovies.isSuccess && !trendingMovies.isFetching && !trendingMovies.isLoading}
                   movies={movies?.results || []}
                 />
 
@@ -265,9 +264,8 @@ const Trending = (): ReactElement => {
             ) : mediaType === 'tv' ? (
               <>
                 <VerticalTV
-                  isLoading={trendingTV.isFetching || trendingTV.isLoading}
                   isError={trendingTV.isError}
-                  isSuccess={trendingTV.isSuccess}
+                  isSuccess={trendingTV.isSuccess && !trendingTV.isFetching && !trendingTV.isLoading}
                   tv={tv?.results || []}
                 />
 
@@ -285,9 +283,8 @@ const Trending = (): ReactElement => {
             ) : mediaType === 'person' ? (
               <>
                 <VerticalPeople
-                  isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
                   isError={trendingPeople.isError}
-                  isSuccess={trendingPeople.isSuccess}
+                  isSuccess={trendingPeople.isSuccess && !trendingPeople.isFetching && !trendingPeople.isLoading}
                   people={people?.results || []}
                 />
 
@@ -310,11 +307,7 @@ const Trending = (): ReactElement => {
               button={
                 <MediaTypes
                   mediaType={mediaType}
-                  onSetType={(mediaType: MediaType) =>
-                    history.push({
-                      pathname: `${history.location.pathname === '/trending' ? '/trending/' : ''}${mediaType}`
-                    })
-                  }
+                  onSetType={(mediaType: MediaType) => history.push({ pathname: `/trending/${mediaType}` })}
                 />
               }
               hasIllustration={false}
@@ -330,9 +323,7 @@ const Trending = (): ReactElement => {
         mediaType={mediaType}
         isOpen={isMediaTypePickerOpen}
         onClose={onMediaTypePickerClose}
-        onSetType={(mediaType: MediaType) =>
-          history.push({ pathname: `${history.location.pathname === '/trending' ? '/trending/' : ''}${mediaType}` })
-        }
+        onSetType={(mediaType: MediaType) => history.push({ pathname: `/trending/${mediaType}` })}
       />
     </>
   );

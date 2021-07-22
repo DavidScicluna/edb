@@ -19,7 +19,7 @@ const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): React
       }}
       title={person?.name || ''}
       subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
-      isLoaded={true}
+      isLoaded
     />
   ) : (
     <VerticalPoster

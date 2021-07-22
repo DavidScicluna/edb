@@ -26,7 +26,7 @@ const HorizontalTV = ({ isLoading = true, show }: PosterProps): ReactElement => 
         `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
       ].join(' • ')}`}
       description={show?.overview || ''}
-      isLoaded={true}
+      isLoaded
     />
   ) : (
     <HorizontalPoster

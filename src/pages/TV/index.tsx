@@ -53,48 +53,44 @@ const TV = (): ReactElement => {
     <VStack spacing={6}>
       <HorizontalGrid
         title='Popular TV Shows'
-        isLoading={popularTV.isLoading || popularTV.isFetching}
+        isLoading={popularTV.isFetching || popularTV.isLoading}
         path={{ pathname: '/tv/popular' }}>
         <HorizontalTV
-          isLoading={popularTV.isLoading || popularTV.isFetching}
           isError={popularTV.isError}
-          isSuccess={popularTV.isSuccess}
+          isSuccess={popularTV.isSuccess && !popularTV.isFetching && !popularTV.isLoading}
           tv={popularTV.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='TV Shows Airing Today'
-        isLoading={tvAiringToday.isLoading || tvAiringToday.isFetching}
+        isLoading={tvAiringToday.isFetching || tvAiringToday.isLoading}
         path={{ pathname: '/tv/airing-today' }}>
         <HorizontalTV
-          isLoading={tvAiringToday.isLoading || tvAiringToday.isFetching}
           isError={tvAiringToday.isError}
-          isSuccess={tvAiringToday.isSuccess}
+          isSuccess={tvAiringToday.isSuccess && !tvAiringToday.isFetching && !tvAiringToday.isLoading}
           tv={tvAiringToday.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='TV Shows on at the moment'
-        isLoading={onTV.isLoading || onTV.isFetching}
+        isLoading={onTV.isFetching || onTV.isLoading}
         path={{ pathname: '/tv/on-tv' }}>
         <HorizontalTV
-          isLoading={onTV.isLoading || onTV.isFetching}
           isError={onTV.isError}
-          isSuccess={onTV.isSuccess}
+          isSuccess={onTV.isSuccess && !onTV.isFetching && !onTV.isLoading}
           tv={onTV.data}
         />
       </HorizontalGrid>
 
       <HorizontalGrid
         title='Top Rated TV Shows'
-        isLoading={topRatedTV.isLoading || topRatedTV.isFetching}
+        isLoading={topRatedTV.isFetching || topRatedTV.isLoading}
         path={{ pathname: '/tv/top-rated' }}>
         <HorizontalTV
-          isLoading={topRatedTV.isLoading || topRatedTV.isFetching}
           isError={topRatedTV.isError}
-          isSuccess={topRatedTV.isSuccess}
+          isSuccess={topRatedTV.isSuccess && !topRatedTV.isFetching && !topRatedTV.isLoading}
           tv={topRatedTV.data}
         />
       </HorizontalGrid>

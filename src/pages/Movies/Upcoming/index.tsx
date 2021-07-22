@@ -85,9 +85,8 @@ const UpcomingMovies = (): ReactElement => {
       header={<Filters mediaType='movie' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalMovies
-          isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
           isError={upcomingMovies.isError}
-          isSuccess={upcomingMovies.isSuccess}
+          isSuccess={upcomingMovies.isSuccess && !upcomingMovies.isFetching && !upcomingMovies.isLoading}
           movies={movies?.results || []}
         />
 
@@ -96,7 +95,7 @@ const UpcomingMovies = (): ReactElement => {
             amount={movies.results.length}
             total={movies.total_results}
             mediaType='movies'
-            isLoading={upcomingMovies.isLoading || upcomingMovies.isFetching}
+            isLoading={upcomingMovies.isFetching || upcomingMovies.isLoading}
             hasNextPage={upcomingMovies.hasNextPage || true}
             onFetch={upcomingMovies.fetchNextPage}
           />

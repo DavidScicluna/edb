@@ -151,67 +151,73 @@ const Search = (): ReactElement => {
           {mediaType === 'movie' && movies ? (
             <VStack width='100%' spacing={4} px={2}>
               <>
-                <VerticalMovies isLoading={isLoading} isError={false} isSuccess={true} movies={movies.results || []} />
+                <VerticalMovies isError={false} isSuccess={!isLoading} movies={movies.results || []} />
 
-                <LoadMore
-                  amount={movies.results.length}
-                  total={movies.total_results}
-                  mediaType={`movies for "${query}"`}
-                  isLoading={isLoading}
-                  onFetch={() =>
-                    history.push({
-                      pathname: history.location.pathname,
-                      search: queryString.stringify({
-                        ...queryString.parse(history.location.search),
-                        page: movies.page + 1
+                {movies ? (
+                  <LoadMore
+                    amount={movies.results.length}
+                    total={movies.total_results}
+                    mediaType={`movies for "${query}"`}
+                    isLoading={isLoading}
+                    onFetch={() =>
+                      history.push({
+                        pathname: history.location.pathname,
+                        search: queryString.stringify({
+                          ...queryString.parse(history.location.search),
+                          page: movies.page + 1
+                        })
                       })
-                    })
-                  }
-                />
+                    }
+                  />
+                ) : null}
               </>
             </VStack>
           ) : mediaType === 'tv' && tv ? (
             <VStack width='100%' spacing={4} px={2}>
               <>
-                <VerticalTV isLoading={isLoading} isError={false} isSuccess={true} tv={tv.results || []} />
+                <VerticalTV isError={false} isSuccess={!isLoading} tv={tv.results || []} />
 
-                <LoadMore
-                  amount={tv.results.length}
-                  total={tv.total_results}
-                  mediaType={`tv shows for "${query}"`}
-                  isLoading={isLoading}
-                  onFetch={() =>
-                    history.push({
-                      pathname: history.location.pathname,
-                      search: queryString.stringify({
-                        ...queryString.parse(history.location.search),
-                        page: tv.page + 1
+                {tv ? (
+                  <LoadMore
+                    amount={tv.results.length}
+                    total={tv.total_results}
+                    mediaType={`tv shows for "${query}"`}
+                    isLoading={isLoading}
+                    onFetch={() =>
+                      history.push({
+                        pathname: history.location.pathname,
+                        search: queryString.stringify({
+                          ...queryString.parse(history.location.search),
+                          page: tv.page + 1
+                        })
                       })
-                    })
-                  }
-                />
+                    }
+                  />
+                ) : null}
               </>
             </VStack>
           ) : mediaType === 'person' && people ? (
             <VStack width='100%' spacing={4} px={2}>
               <>
-                <VerticalPeople isLoading={isLoading} isError={false} isSuccess={true} people={people.results || []} />
+                <VerticalPeople isError={false} isSuccess={!isLoading} people={people.results || []} />
 
-                <LoadMore
-                  amount={people.results.length}
-                  total={people.total_results}
-                  mediaType={`people for "${query}"`}
-                  isLoading={isLoading}
-                  onFetch={() =>
-                    history.push({
-                      pathname: history.location.pathname,
-                      search: queryString.stringify({
-                        ...queryString.parse(history.location.search),
-                        page: people.page + 1
+                {people ? (
+                  <LoadMore
+                    amount={people.results.length}
+                    total={people.total_results}
+                    mediaType={`people for "${query}"`}
+                    isLoading={isLoading}
+                    onFetch={() =>
+                      history.push({
+                        pathname: history.location.pathname,
+                        search: queryString.stringify({
+                          ...queryString.parse(history.location.search),
+                          page: people.page + 1
+                        })
                       })
-                    })
-                  }
-                />
+                    }
+                  />
+                ) : null}
               </>
             </VStack>
           ) : (

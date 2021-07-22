@@ -6,23 +6,23 @@ import Error from '../../../Error';
 import VerticalPoster from '../../Poster/Vertical';
 import { GridProps } from '../types';
 
-const HorizontalMovies = ({ isLoading, isError, isSuccess, movies }: GridProps): ReactElement => {
-  return isLoading ? (
-    <>
-      {[...Array(movies ? movies.length : 20)].map((_dummy, index: number) => (
-        <VerticalPoster key={index} isLoading />
-      ))}
-    </>
+const HorizontalMovies = ({ isError, isSuccess, movies }: GridProps): ReactElement => {
+  return isError ? (
+    <Error label='Oh no! Something went wrong' description='Failed to fetch movies list!' variant='transparent' />
+  ) : isSuccess && movies && movies.length === 0 ? (
+    <Empty label='Movies list is currently empty!' variant='transparent' />
   ) : isSuccess && movies && movies.length > 0 ? (
     <>
       {movies.map((movie: PartialMovie) => (
         <VerticalPoster key={movie.id} isLoading={false} movie={movie} />
       ))}
     </>
-  ) : isError ? (
-    <Error label='Oh no! Something went wrong' description='Failed to fetch movies list!' variant='transparent' />
   ) : (
-    <Empty label='Movies list is currently empty!' variant='transparent' />
+    <>
+      {[...Array(movies ? movies.length : 20)].map((_dummy, index: number) => (
+        <VerticalPoster key={index} isLoading />
+      ))}
+    </>
   );
 };
 

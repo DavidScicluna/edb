@@ -26,7 +26,7 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
         `${utils.handleReturnDate(movie?.release_date || '', 'year')}`,
         `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
       ].join(' • ')}`}
-      isLoaded={true}
+      isLoaded
     />
   ) : (
     <VerticalPoster
