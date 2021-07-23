@@ -1,61 +1,36 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import {
-  useColorMode,
-  useDisclosure,
-  Modal as CUIModal,
-  ModalContent,
-  ModalBody,
-  VStack,
-  Box,
-  Text
-} from '@chakra-ui/react';
+import { useColorMode, Modal, ModalContent, ModalBody, VStack, Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import _ from 'lodash';
 import { useDispatch } from 'react-redux';
-
-const MotionBox = motion(Box);
 
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
 import useStyles from './styles';
 
+const MotionBox = motion(Box);
+
 const Splashscreen = (): ReactElement => {
   const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
   const isSplashscreenOpen = useSelector((state) => state.modals.ui.isSplashscreenOpen);
 
   const style = useStyles();
 
-  const handleClose = (): void => {
-    const hasSplashscreenRendered = Boolean(JSON.parse(sessionStorage.getItem('hasSplashscreenRendered') || 'false'));
-
-    dispatch(toggleSplashscreen(false));
-
-    onClose();
-
-    if (!hasSplashscreenRendered) {
-      sessionStorage.setItem('hasSplashscreenRendered', JSON.stringify(true));
-    }
-  };
-
   useEffect(() => {
     if (isSplashscreenOpen) {
-      onOpen();
-
-      setTimeout(() => handleClose(), 5000);
-    } else {
-      handleClose();
+      setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
     }
   }, [isSplashscreenOpen]);
 
   return (
-    <CUIModal
+    <Modal
       closeOnEsc={false}
       closeOnOverlayClick={false}
-      isOpen={isOpen}
-      onClose={onClose}
+      isOpen
+      onClose={() => dispatch(toggleSplashscreen(false))}
       blockScrollOnMount
       preserveScrollBarGap
       motionPreset='scale'
@@ -72,16 +47,19 @@ const Splashscreen = (): ReactElement => {
               Entertainment database
             </Text>
             <MotionBox
-              animate={{ backgroundPosition: ['0%', '25%', '50%', '75%', '100%', '75%', '50%', '25%', '0%'] }}
+              animate={{
+                backgroundPosition: [
+                  ..._.range(0, 101, 1).map((number) => `${number}%`),
+                  ..._.reverse(_.range(0, 101, 1).map((number) => `${number}%`))
+                ]
+              }}
               transition={{
-                duration: 5,
+                duration: 10,
                 ease: [0.76, 0, 0.24, 1],
-                repeat: 'Infinity',
-                repeatType: 'loop',
-                repeatDelay: 1
+                repeat: Infinity
               }}
               bgSize='500%'
-              bgGradient='linear(to-r, red.400, orange.400, yellow.400, green.400, teal.400, blue.400, cyan.400, purple.400, pink.400, red.400, orange.400, yellow.400, green.400, teal.400, blue.400, cyan.400, purple.400, pink.400, red.400, red.400, orange.400, yellow.400, green.400, teal.400, blue.400, cyan.400, purple.400, pink.400, red.400)'
+              bgGradient='linear(to-r, red.400, orange.400, yellow.400, green.400, teal.400, blue.400, cyan.400, purple.400, pink.400)'
               bgClip='text'
               sx={{ ...style }}>
               edb
@@ -96,7 +74,7 @@ const Splashscreen = (): ReactElement => {
           </VStack>
         </ModalBody>
       </ModalContent>
-    </CUIModal>
+    </Modal>
   );
 };
 

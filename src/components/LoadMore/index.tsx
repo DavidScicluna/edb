@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, VStack, Text, Progress } from '@chakra-ui/react';
+import { useColorMode, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
 import utils from '../../common/utils/utils';
@@ -32,11 +32,11 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
         />
       </VStack>
 
-      {hasNextPage ? (
+      <ScaleFade in={hasNextPage && amount < total} unmountOnExit>
         <Button isDisabled={amount >= total} isLoading={isLoading} onClick={() => onFetch()} variant='outlined'>
           Load more
         </Button>
-      ) : null}
+      </ScaleFade>
     </VStack>
   );
 };

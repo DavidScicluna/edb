@@ -28,7 +28,6 @@ const VerticalTV = ({ isError, isSuccess, tv }: GridProps): ReactElement => {
           <VerticalPoster key={index} width='100%' isLoading={false} show={show} />
         )
       )}
-      )
     </SimpleGrid>
   ) : (
     <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>

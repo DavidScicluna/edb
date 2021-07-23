@@ -1,17 +1,15 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, HStack, Fade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, HStack, ScaleFade } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 
-import { Breadcrumb as BreadcrumbType } from '../../../../common/types/types';
 import { Theme } from '../../../../theme/types';
 import useTransitionsStyle from '../../common/styles/transitions';
 import Breadcrumb from './components/Breadcrumb';
 import Menu from './components/Menu';
 import Search from './components/Search';
 import User from './components/User';
-
-type HeaderProps = { width: string; left: string; breadcrumbs: BreadcrumbType[] };
+import { HeaderProps } from './types';
 
 const Header = (props: HeaderProps): ReactElement => {
   const theme = useTheme<Theme>();
@@ -44,9 +42,9 @@ const Header = (props: HeaderProps): ReactElement => {
         {isMdUp ? <Breadcrumb breadcrumbs={breadcrumbs} /> : null}
       </HStack>
       <HStack spacing={1}>
-        <Fade in={!location.pathname.includes('search')}>
+        <ScaleFade in={!location.pathname.includes('search')}>
           <Search />
-        </Fade>
+        </ScaleFade>
         <User />
       </HStack>
     </HStack>

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { SimpleGrid } from '@chakra-ui/react';
+import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
 import { Form } from '../../types';
@@ -44,6 +44,8 @@ const colors: ColorType[] = [
 ];
 
 const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
+  const [isMob] = useMediaQuery('(max-width: 640px)');
+
   const background = form.watch('background');
 
   return (
@@ -52,7 +54,7 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       name='color'
       render={({ field: { value } }) => (
         <Container title='Color' colorMode={background}>
-          <SimpleGrid width='100%' minChildWidth='20%' spacing={2}>
+          <SimpleGrid width='100%' columns={isMob ? 2 : 4} spacing={2}>
             {colors.map((color, index) => (
               <ColorItem
                 key={index}

@@ -103,7 +103,7 @@ const Search = (): ReactElement => {
                   isLoading={false}
                   path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}
                   onFooterClick={() => onModalClose()}>
-                  <HorizontalMovies isLoading={isLoading} isError={false} isSuccess movies={movies?.results || []} />
+                  <HorizontalMovies isError={false} isSuccess={!isLoading} movies={movies?.results || []} />
                 </HorizontalGrid>
               </Collapse>
 
@@ -122,7 +122,7 @@ const Search = (): ReactElement => {
                   isLoading={false}
                   path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}
                   onFooterClick={() => onModalClose()}>
-                  <HorizontalTV isLoading={isLoading} isError isSuccess tv={tv?.results || []} />
+                  <HorizontalTV isError={false} isSuccess={!isLoading} tv={tv?.results || []} />
                 </HorizontalGrid>
               </Collapse>
 
@@ -149,7 +149,7 @@ const Search = (): ReactElement => {
                   isLoading={false}
                   path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}
                   onFooterClick={() => onModalClose()}>
-                  <HorizontalPeople isLoading={isLoading} isError={false} isSuccess people={people?.results || []} />
+                  <HorizontalPeople isError={false} isSuccess={!isLoading} people={people?.results || []} />
                 </HorizontalGrid>
               </Collapse>
             </VStack>

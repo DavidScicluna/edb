@@ -1,6 +1,6 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useColorMode, useDisclosure, Text } from '@chakra-ui/react';
+import { useColorMode, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
@@ -11,36 +11,22 @@ import { defaultDescriptionModal, toggleDescription } from '../../../../../store
 
 const DescriptionModal = (): ReactElement => {
   const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
   const descriptionModal = useSelector((state) => state.modals.ui.descriptionModal);
   const color = useSelector((state) => state.user.ui.theme.color);
-
-  const handleClose = (): void => {
-    dispatch(toggleDescription({ ...defaultDescriptionModal }));
-    onClose();
-  };
-
-  useEffect(() => {
-    if (descriptionModal.open) {
-      onOpen();
-    } else {
-      handleClose();
-    }
-  }, [descriptionModal.open]);
 
   return (
     <Modal
       title={`${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : 'Unknown'} description`}
       actions={
         // TODO: Add Link to view item
-        <Button color={utils.handleReturnColor(color)} onClick={() => handleClose()} size='xs'>
+        <Button color={utils.handleReturnColor(color)} size='xs'>
           {`View ${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : ''}`}
         </Button>
       }
-      isOpen={isOpen}
-      onClose={handleClose}
+      isOpen
+      onClose={() => dispatch(toggleDescription({ ...defaultDescriptionModal }))}
       isCentered
       size='2xl'>
       <Text

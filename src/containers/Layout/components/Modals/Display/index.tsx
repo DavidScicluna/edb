@@ -1,6 +1,6 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useColorMode, useDisclosure, VStack } from '@chakra-ui/react';
+import { useColorMode, VStack } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
@@ -16,10 +16,8 @@ import Color from './components/Color';
 
 const Display = (): ReactElement => {
   const { toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
-  const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
   const theme = useSelector((state) => state.user.ui.theme);
 
   const form = useForm<Theme>({ defaultValues: { ...theme } });
@@ -29,6 +27,8 @@ const Display = (): ReactElement => {
   const { isDirty, dirtyFields } = useFormState({ control: form.control });
 
   const handleSubmit = (newTheme: Theme): void => {
+    handleClose();
+
     dispatch(toggleSplashscreen(true));
 
     if (dirtyFields.background) {
@@ -36,8 +36,6 @@ const Display = (): ReactElement => {
     }
 
     setTimeout(() => {
-      handleClose();
-
       form.reset({ ...newTheme });
 
       dispatch(setTheme(newTheme));
@@ -49,23 +47,14 @@ const Display = (): ReactElement => {
     form.reset({ ...theme });
 
     dispatch(toggleDisplay(false));
-
-    onClose();
   };
-
-  useEffect(() => {
-    if (isDisplayModalOpen) {
-      onOpen();
-    } else {
-      handleClose();
-    }
-  }, [isDisplayModalOpen]);
 
   return (
     <Modal
       title='Edit Application Theme'
       actions={
         <Button
+          colorMode={background}
           color={utils.handleReturnColor(color)}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
@@ -74,7 +63,7 @@ const Display = (): ReactElement => {
         </Button>
       }
       colorMode={background}
-      isOpen={isOpen}
+      isOpen
       onClose={handleClose}
       isCentered
       size='2xl'>

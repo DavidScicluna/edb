@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { useDisclosure, VStack } from '@chakra-ui/react';
 import moment from 'moment';
@@ -16,7 +16,6 @@ import CreateList from './components/CreateList';
 import List from './components/List';
 
 const ListsModal = (): ReactElement => {
-  const { isOpen: isListsOpen, onOpen: onListsOpen, onClose: onListsClose } = useDisclosure();
   const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
 
   const dispatch = useDispatch();
@@ -70,23 +69,11 @@ const ListsModal = (): ReactElement => {
       });
 
       setSelected([]);
+
       dispatch(setLists([...updatedLists]));
-      handleClose();
+      dispatch(toggleList({ ...defaultListsModal }));
     }
   };
-
-  const handleClose = (): void => {
-    dispatch(toggleList({ ...defaultListsModal }));
-    onListsClose();
-  };
-
-  useEffect(() => {
-    if (listsModal.open) {
-      onListsOpen();
-    } else {
-      handleClose();
-    }
-  }, [listsModal.open]);
 
   return (
     <>
@@ -103,8 +90,8 @@ const ListsModal = (): ReactElement => {
             </Button>
           )
         }
-        isOpen={isListsOpen}
-        onClose={handleClose}
+        isOpen
+        onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
         isCentered
         size='2xl'>
         <VStack spacing={2} p={2}>

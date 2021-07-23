@@ -1,6 +1,6 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useDisclosure, VStack, Box, Icon, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, VStack, Box, Icon, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
@@ -11,31 +11,17 @@ import { Theme } from '../../../../../theme/types';
 const ConfirmModal = (): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
   const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const handleClose = (): void => {
-    dispatch(toggleConfirm({ ...defaultConfirmModal }));
-    onClose();
-  };
-
-  useEffect(() => {
-    if (confirmModal.open) {
-      onOpen();
-    } else {
-      handleClose();
-    }
-  }, [confirmModal.open]);
-
   return (
     <Modal
       title={confirmModal.title}
       actions={confirmModal.submitButton}
-      isOpen={isOpen}
-      onClose={handleClose}
+      isOpen
+      onClose={() => dispatch(toggleConfirm({ ...defaultConfirmModal }))}
       isCentered
       size='md'>
       <VStack spacing={2} p={2}>

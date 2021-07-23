@@ -19,7 +19,9 @@ type BreadcrumbsStyle = {
 export default (theme: Theme): BreadcrumbsStyle => ({
   common: {
     breadcrumbItem: {
-      fontWeight: 'medium'
+      fontWeight: 'medium',
+
+      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']} !important`
     },
     breadcrumbLink: {
       'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']} !important`,
