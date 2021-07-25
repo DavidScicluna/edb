@@ -14,6 +14,7 @@ const IconButton = forwardRef(function IconButton(
 ): ReactElement {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+
   const style = useStyles(theme, props);
 
   const {
@@ -39,7 +40,7 @@ const IconButton = forwardRef(function IconButton(
       <Center className='icon_button_front' sx={{ ..._.merge(style.button.front, style[mode].front[variant]) }}>
         {isLoading ? (
           <Spinner
-            thickness={size === 'xs' ? '2px' : size === 'md' ? '3px' : '4px'}
+            thickness={size === 'sm' ? '2px' : size === 'md' ? '3px' : '4px'}
             size={size}
             speed={theme.transition.duration.slow}
             sx={{ ..._.merge(style.button.icon) }}

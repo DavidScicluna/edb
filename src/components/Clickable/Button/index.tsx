@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ForwardedRef, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, Spinner, Icon, Button as CUIButton } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -8,9 +8,10 @@ import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { ButtonProps } from './types';
 
-const Button = (props: ButtonProps): ReactElement => {
+const Button = forwardRef(function Button(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>): ReactElement {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+
   const style = useStyles(theme, props);
 
   const {
@@ -35,7 +36,7 @@ const Button = (props: ButtonProps): ReactElement => {
    */
   const handleReturnSpacing = (): number => {
     switch (size) {
-      case 'xs':
+      case 'sm':
         return 0.5;
       case 'lg':
         return 1.5;
@@ -47,6 +48,7 @@ const Button = (props: ButtonProps): ReactElement => {
   return (
     <CUIButton
       {...rest}
+      ref={ref}
       isDisabled={isLoading || isDisabled}
       isFullWidth={isFullWidth}
       variant='unstyled'
@@ -55,7 +57,7 @@ const Button = (props: ButtonProps): ReactElement => {
       <Center className='button_front' sx={{ ..._.merge(style.button.front, style[mode].front[variant]) }}>
         {isLoading ? (
           <Spinner
-            thickness={size === 'xs' ? '2px' : size === 'md' ? '3px' : '4px'}
+            thickness={size === 'sm' ? '2px' : size === 'md' ? '3px' : '4px'}
             size={size}
             speed={theme.transition.duration.slow}
             sx={{ ..._.merge(style.button.icon) }}
@@ -74,6 +76,6 @@ const Button = (props: ButtonProps): ReactElement => {
       </Center>
     </CUIButton>
   );
-};
+});
 
 export default Button;
