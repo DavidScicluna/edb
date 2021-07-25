@@ -20,7 +20,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
   const location = useLocation();
 
-  const { width, left, breadcrumbs } = props;
+  const { width, left } = props;
 
   return (
     <HStack
@@ -39,7 +39,7 @@ const Header = (props: HeaderProps): ReactElement => {
       sx={{ ...transition }}>
       <HStack spacing={1}>
         {!isLgUp ? <Menu /> : null}
-        {isMdUp ? <Breadcrumb breadcrumbs={breadcrumbs} /> : null}
+        {isMdUp ? <Breadcrumb /> : null}
       </HStack>
       <HStack spacing={1}>
         <ScaleFade in={!location.pathname.includes('search')}>

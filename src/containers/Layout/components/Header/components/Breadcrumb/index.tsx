@@ -19,7 +19,7 @@ import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
 import { Params } from './types';
 
-const Breadcrumb = ({ breadcrumbs }: { breadcrumbs: BreadcrumbType[] }): ReactElement => {
+const Breadcrumb = (): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const style = useStyles(theme);
@@ -30,6 +30,8 @@ const Breadcrumb = ({ breadcrumbs }: { breadcrumbs: BreadcrumbType[] }): ReactEl
   const lists = useSelector((state) => state.user.data.lists);
 
   const [state, setstate] = useState<BreadcrumbType[]>([]);
+
+  const breadcrumbs: any[] = [];
 
   useEffect(() => {
     setstate([]);

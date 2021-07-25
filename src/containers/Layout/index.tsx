@@ -1,7 +1,8 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useTheme, useMediaQuery, Center, Box, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, Container, Box, ScaleFade } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import useQueriesTyped from '../../common/hooks/useQueriesTyped';
 import useSelector from '../../common/hooks/useSelectorTyped';
@@ -17,10 +18,11 @@ import DescriptionModal from './components/Modals/Description';
 import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
 import SplashscreenModal from './components/Modals/Splashscreen';
+import Routes from './components/Routes';
 import Sidebar from './components/Sidebar';
-import { LayoutProps, GenreResponse } from './types';
+import { GenreResponse } from './types';
 
-const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
+const Layout = (): ReactElement => {
   const theme = useTheme<Theme>();
   const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
   const transition = useTransitionsStyle(theme);
@@ -93,15 +95,17 @@ const Layout = ({ children, breadcrumbs }: LayoutProps): ReactElement => {
     </ScaleFade>
   ) : (
     <>
-      <Center overflow='hidden'>
-        {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
-        <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
-          <Header width={width} left={left} breadcrumbs={breadcrumbs} />
-          <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4}>
-            {children}
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Container maxWidth='container.xl' overflow='hidden'>
+          {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
+          <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
+            <Header width={width} left={left} />
+            <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4} sx={{ ...transition }}>
+              <Routes />
+            </Box>
           </Box>
-        </Box>
-      </Center>
+        </Container>
+      </BrowserRouter>
 
       <ScaleFade in={confirmModal.open} unmountOnExit>
         <ConfirmModal />

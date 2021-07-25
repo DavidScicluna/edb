@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import useSelector from '../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../common/utils/utils';
 import Button from '../../../../../components/Clickable/Button';
+import Link from '../../../../../components/Clickable/Link';
 import Modal from '../../../../../components/Modal';
 import { defaultDescriptionModal, toggleDescription } from '../../../../../store/slices/Modals';
 
@@ -20,10 +21,11 @@ const DescriptionModal = (): ReactElement => {
     <Modal
       title={`${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : 'Unknown'} description`}
       actions={
-        // TODO: Add Link to view item
-        <Button color={utils.handleReturnColor(color)} size='xs'>
-          {`View ${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : ''}`}
-        </Button>
+        <Link to={{ pathname: `/${defaultDescriptionModal.mediaType}/${descriptionModal.mediaItem?.id}` }}>
+          <Button color={utils.handleReturnColor(color)} size='sm'>
+            {`View ${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : ''}`}
+          </Button>
+        </Link>
       }
       isOpen
       onClose={() => dispatch(toggleDescription({ ...defaultDescriptionModal }))}
