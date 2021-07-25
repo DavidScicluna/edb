@@ -23,16 +23,27 @@ const defaultRating = {
   count: null
 };
 
-const Rating = ({ rating = defaultRating, isLoaded = false }: RatingProps): ReactElement => {
+const Rating = (props: RatingProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+
+  const { rating = defaultRating, isLoaded = false, isHorizontal = false } = props;
+
   const iconSize = useBreakpointValue({
-    'base': theme.fontSizes['xl'],
-    'sm': theme.fontSizes['xl'],
-    'md': theme.fontSizes['2xl'],
+    'base': theme.fontSizes['lg'],
+    'sm': theme.fontSizes['lg'],
+    'md': theme.fontSizes['xl'],
     'lg': theme.fontSizes['2xl'],
     'xl': theme.fontSizes['2xl'],
     '2xl': theme.fontSizes['3xl']
+  });
+  const fontSize = useBreakpointValue({
+    'base': theme.fontSizes['sm'],
+    'sm': theme.fontSizes['sm'],
+    'md': theme.fontSizes['md'],
+    'lg': theme.fontSizes['lg'],
+    'xl': theme.fontSizes['lg'],
+    '2xl': theme.fontSizes['xl']
   });
 
   // const handleRatingColor = (): 'red' | 'yellow' | 'blue' => {
@@ -83,13 +94,13 @@ const Rating = ({ rating = defaultRating, isLoaded = false }: RatingProps): Reac
         as={StarOutlinedIcon}
         color='yellow.400'
         sx={{
-          fontSize: `${iconSize} !important`
+          fontSize: `${isHorizontal ? iconSize : theme.fontSizes.xl} !important`
         }}
       />
       <SkeletonText isLoaded={isLoaded} ml='0.5'>
         <Text
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-          fontSize={['sm', 'sm', 'md', 'md', 'md', 'lg']}
+          fontSize={isHorizontal ? fontSize : 'md'}
           fontWeight='medium'
           sx={{ lineHeight: 'normal' }}>
           {rating.rating || 'N/A'}
