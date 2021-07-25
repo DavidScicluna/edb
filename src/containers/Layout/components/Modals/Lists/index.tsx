@@ -81,11 +81,11 @@ const ListsModal = (): ReactElement => {
         title={`Add "${listsModal.title} to a list`}
         actions={
           selected.length > 0 ? (
-            <Button color={utils.handleReturnColor(color)} onClick={() => handleSaveItem()} size='xs'>
+            <Button color={utils.handleReturnColor(color)} onClick={() => handleSaveItem()} size='sm'>
               {`Save to List${selected.length > 1 ? 's' : ''}`}
             </Button>
           ) : (
-            <Button color={utils.handleReturnColor(color)} onClick={() => onCreateListOpen()} size='xs'>
+            <Button color={utils.handleReturnColor(color)} onClick={() => onCreateListOpen()} size='sm'>
               Create a new List
             </Button>
           )

@@ -137,30 +137,6 @@ export default {
   },
 
   /**
-   *
-   * @param type - Type of image
-   * @param breakpoint - Size of user's device
-   * @returns - The appropriate size for image poster
-   */
-  // Set type of breakpoint from theme
-  handleReturnImageSize: (
-    type: 'poster' | 'backdrop',
-    // orientation: 'vertical' | 'horizontal',
-    breakpoint: 'xs' | 'sm'
-  ): string => {
-    switch (type) {
-      case 'poster': {
-        switch (breakpoint) {
-          default:
-            return '342';
-        }
-      }
-      default:
-        return '';
-    }
-  },
-
-  /**
    * This method will check if the element passed has a bigger width than its parent
    *
    * @param element - Ref element

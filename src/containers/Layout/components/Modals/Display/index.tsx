@@ -58,7 +58,7 @@ const Display = (): ReactElement => {
           color={utils.handleReturnColor(color)}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
-          size='xs'>
+          size='sm'>
           Save
         </Button>
       }

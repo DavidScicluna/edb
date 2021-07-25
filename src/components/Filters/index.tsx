@@ -129,7 +129,7 @@ const Filters = ({ mediaType, isLikedLists = false, onFilter }: FiltersProps): R
             color={utils.handleReturnColor(color)}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
-            size='xs'>
+            size='sm'>
             Submit
           </Button>
         }

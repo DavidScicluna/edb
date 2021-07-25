@@ -94,7 +94,7 @@ const Row = (props: RowProps): ReactElement => {
                 onClick={() => handleDelete()}
                 onMouseEnter={() => setIsHoveringDelete(true)}
                 onMouseLeave={() => setIsHoveringDelete(false)}
-                size='xs'
+                size='sm'
                 variant='icon'
               />
             </Tooltip>

@@ -20,7 +20,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
   const lists = useSelector((state) => state.user.data.lists);
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { isDisabled = false, title, mediaType, mediaItem, size = 'xs' } = props;
+  const { isDisabled = false, title, mediaType, mediaItem, size = 'sm' } = props;
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
 

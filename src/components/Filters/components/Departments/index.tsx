@@ -40,7 +40,7 @@ const Departments = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
         <Container
           title='Departments'
           actions={
-            <Button onClick={() => handleAllClick()} size='xs' variant='text'>
+            <Button onClick={() => handleAllClick()} size='sm' variant='text'>
               {`${form.getValues().departments.length === departments.length ? 'Remove' : 'Select'} All`}
             </Button>
           }>

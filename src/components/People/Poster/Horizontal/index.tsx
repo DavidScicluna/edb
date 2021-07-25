@@ -3,11 +3,8 @@ import React, { ReactElement } from 'react';
 import arraySort from 'array-sort';
 
 import departments from '../../../../common/data/departments';
-import utils from '../../../../common/utils/utils';
 import HorizontalPoster from '../../../Poster/Horizontal';
 import { PosterProps } from '../types';
-
-const size = utils.handleReturnImageSize('poster', 'sm');
 
 const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactElement => {
   const handleKnownFor = (): string => {
@@ -24,7 +21,7 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
       image={{
         alt: `${person?.name || ''} person poster`,
         src: person?.profile_path || '',
-        size
+        size: '780'
       }}
       title={person?.name || ''}
       subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
@@ -37,7 +34,7 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
       image={{
         alt: 'Person poster',
         src: '',
-        size
+        size: '780'
       }}
       title='Lorem ipsum'
       subtitle='Lorem ipsum'

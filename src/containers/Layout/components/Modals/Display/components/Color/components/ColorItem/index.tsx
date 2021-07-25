@@ -27,7 +27,6 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
         color={isActive ? utils.handleReturnColor(value) : 'gray'}
         colorMode={background}
         onClick={!isActive && onClick ? () => onClick(value) : undefined}
-        variant='outlined'
         p={2}>
         <VStack spacing={0.75}>
           <Box

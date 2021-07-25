@@ -4,8 +4,6 @@ import utils from '../../../../common/utils/utils';
 import HorizontalPoster from '../../../../components/Poster/Horizontal';
 import { PosterProps } from '../types';
 
-const size = utils.handleReturnImageSize('poster', 'sm');
-
 const HorizontalTV = ({ isLoading = true, show }: PosterProps): ReactElement => {
   return !isLoading && show ? (
     <HorizontalPoster
@@ -14,7 +12,7 @@ const HorizontalTV = ({ isLoading = true, show }: PosterProps): ReactElement => 
       image={{
         alt: `${show?.name || ''} tv show poster`,
         src: show?.poster_path || '',
-        size
+        size: '780'
       }}
       rating={{
         rating: show?.vote_average || null,
@@ -34,7 +32,7 @@ const HorizontalTV = ({ isLoading = true, show }: PosterProps): ReactElement => 
       image={{
         alt: 'TV Show poster',
         src: '',
-        size
+        size: '780'
       }}
       title='Lorem ipsum'
       subtitle='Lorem ipsum'

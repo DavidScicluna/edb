@@ -1,10 +1,8 @@
 import React, { ReactElement } from 'react';
 
 import departments from '../../../../common/data/departments';
-import utils from '../../../../common/utils/utils';
 import VerticalPoster from '../../../Poster/Vertical';
 import { PosterProps } from '../types';
-const size = utils.handleReturnImageSize('poster', 'sm');
 
 const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): ReactElement => {
   return !isLoading && person ? (
@@ -15,7 +13,7 @@ const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): React
       image={{
         alt: `${person?.name || ''} person poster`,
         src: person?.profile_path || '',
-        size
+        size: '780'
       }}
       title={person?.name || ''}
       subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
@@ -28,7 +26,7 @@ const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): React
       image={{
         alt: 'Person poster',
         src: '',
-        size
+        size: '780'
       }}
       title='Lorem ipsum'
       subtitle='Lorem ipsum'

@@ -11,7 +11,7 @@ import VerticalPoster from '../../Poster/Vertical';
 import { GridProps } from '../types';
 
 const VerticalTV = ({ isError, isSuccess, tv }: GridProps): ReactElement => {
-  const [isSmallMob] = useMediaQuery('(max-width: 350px)');
+  const [isSmallMob] = useMediaQuery('(max-width: 320px)');
 
   const displayMode = useSelector((state) => state.app.ui.displayMode);
 
@@ -20,7 +20,7 @@ const VerticalTV = ({ isError, isSuccess, tv }: GridProps): ReactElement => {
   ) : isSuccess && tv && tv.length === 0 ? (
     <Empty label='TV list is currently empty!' variant='outlined' />
   ) : isSuccess && tv && tv.length > 0 ? (
-    <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>
+    <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]} spacing={2}>
       {tv.map((show: PartialTV, index: number) =>
         displayMode === 'list' ? (
           <HorizontalPoster key={index} isLoading={false} show={show} />
@@ -30,7 +30,7 @@ const VerticalTV = ({ isError, isSuccess, tv }: GridProps): ReactElement => {
       )}
     </SimpleGrid>
   ) : (
-    <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]} spacing={2}>
+    <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]} spacing={2}>
       {[...Array(tv ? tv.length : 20)].map((_dummy, index: number) =>
         displayMode === 'list' ? (
           <HorizontalPoster key={index} isLoading />

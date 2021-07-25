@@ -4,8 +4,6 @@ import utils from '../../../../common/utils/utils';
 import VerticalPoster from '../../../Poster/Vertical';
 import { PosterProps } from '../types';
 
-const size = utils.handleReturnImageSize('poster', 'sm');
-
 const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactElement => {
   return !isLoading && movie ? (
     <VerticalPoster
@@ -15,7 +13,7 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
       image={{
         alt: `${movie?.title || ''} movie poster`,
         src: movie?.poster_path || '',
-        size
+        size: '780'
       }}
       rating={{
         rating: movie?.vote_average || null,
@@ -35,7 +33,7 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
       image={{
         alt: 'Movie poster',
         src: '',
-        size
+        size: '780'
       }}
       title='Lorem ipsum'
       subtitle='Lorem ipsum'

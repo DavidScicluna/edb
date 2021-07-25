@@ -52,7 +52,7 @@ const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
         <Container
           title='Genres'
           actions={
-            <Button onClick={() => handleAllClick()} size='xs' variant='text'>
+            <Button onClick={() => handleAllClick()} size='sm' variant='text'>
               {handleAllLabel()}
             </Button>
           }>

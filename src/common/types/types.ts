@@ -1,9 +1,9 @@
 // Component Types
-export type Style = { [key: string]: number | string | Style };
+export type Style = { [key: string]: number | string | unknown | Style };
 
 export type Icon = any;
 
-export type ButtonSize = 'xs' | 'md' | 'lg';
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type CardVariant = 'transparent' | 'outlined';
 

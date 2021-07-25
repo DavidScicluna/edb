@@ -17,7 +17,7 @@ const Like = (props: LikeProps): ReactElement => {
   const dispatch = useDispatch();
   const liked = useSelector((state) => state.user.data.liked);
 
-  const { isDisabled = false, title, mediaType, mediaItem, size = 'xs' } = props;
+  const { isDisabled = false, title, mediaType, mediaItem, size = 'sm' } = props;
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
 

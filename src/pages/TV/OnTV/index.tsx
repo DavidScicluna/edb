@@ -102,7 +102,7 @@ const OnTV = (): ReactElement => {
           title: 'Filters',
           description: 'Are you sure you want to load more TV shows? Filters will be reset!',
           submitButton: (
-            <Button color={utils.handleReturnColor(color)} onClick={() => handleResetFilters()} size='xs'>
+            <Button color={utils.handleReturnColor(color)} onClick={() => handleResetFilters()} size='sm'>
               Load more
             </Button>
           )

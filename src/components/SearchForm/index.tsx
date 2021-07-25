@@ -488,7 +488,7 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
                   aria-label='Clear search'
                   icon={ClearOutlinedIcon}
                   onClick={() => setLocalQuery('')}
-                  size='xs'
+                  size='sm'
                   variant='icon'
                 />
               </Tooltip>
@@ -506,7 +506,7 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
                 onClick={() => setIsLocked(!isLocked)}
                 onMouseEnter={() => setIsHoveringLock(true)}
                 onMouseLeave={() => setIsHoveringLock(false)}
-                size='xs'
+                size='sm'
                 variant='icon'
               />
             </Tooltip>

@@ -15,7 +15,7 @@ const Department = ({ id, name, value, isActive = false, onClick }: DepartmentPr
       color={isActive ? utils.handleReturnColor(color) : 'gray'}
       leftIcon={isActive ? CheckOutlinedIcon : undefined}
       onClick={() => onClick({ id, name, value })}
-      size='xs'
+      size='sm'
       variant='outlined'>
       {name}
     </Button>

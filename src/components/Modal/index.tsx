@@ -75,7 +75,7 @@ const Modal = (props: ModalProps): ReactElement => {
             borderTop='solid2'
             borderTopColor={mode === 'light' ? 'gray.200' : 'gray.700'}
             sx={{ transition }}>
-            <Button colorMode={mode} onClick={() => onClose()} size='xs' variant='outlined'>
+            <Button colorMode={mode} onClick={() => onClose()} size='sm' variant='outlined'>
               Cancel
             </Button>
             {actions}
