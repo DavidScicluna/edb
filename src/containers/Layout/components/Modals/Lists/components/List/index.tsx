@@ -26,12 +26,19 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
       px={2}
       py={1}>
       <HStack width='100%' justifyContent='space-between' spacing={2}>
-        <VStack alignItems='flex-start' spacing={0}>
+        <VStack width='calc(100% - 46px)' alignItems='flex-start' spacing={0}>
           <Text align='left' fontSize='md' fontWeight='semibold' textTransform='capitalize'>
             {label}
           </Text>
           {description && description.length > 0 ? (
-            <Text align='left' fontSize='xs' fontWeight='400' textTransform='capitalize'>
+            <Text
+              width='auto'
+              maxWidth='100%'
+              align='left'
+              fontSize='xs'
+              fontWeight='400'
+              textTransform='capitalize'
+              isTruncated>
               {description}
             </Text>
           ) : null}

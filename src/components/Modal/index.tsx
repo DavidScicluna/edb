@@ -54,9 +54,13 @@ const Modal = (props: ModalProps): ReactElement => {
           borderBottomColor={mode === 'light' ? 'gray.200' : 'gray.700'}
           sx={{ transition }}>
           <HStack justifyContent='space-between'>
-            <Text align='left' fontSize='xl' fontWeight='semibold' color={mode === 'light' ? 'gray.900' : 'gray.50'}>
-              {title}
-            </Text>
+            {typeof title !== 'string' ? (
+              title
+            ) : (
+              <Text align='left' fontSize='xl' fontWeight='semibold' color={mode === 'light' ? 'gray.900' : 'gray.50'}>
+                {title}
+              </Text>
+            )}
 
             <IconButton
               aria-label='Close modal?'

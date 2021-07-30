@@ -1,22 +1,21 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
 import { VStack, FormControl, FormLabel, Input, Textarea, FormHelperText, Collapse } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import { useForm, useFormState, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 
-import useSelector from '../../../../../../../common/hooks/useSelectorTyped';
-import utils from '../../../../../../../common/utils/utils';
-import Button from '../../../../../../../components/Clickable/Button';
-import Modal from '../../../../../../../components/Modal';
-import { toggleConfirm } from '../../../../../../../store/slices/Modals';
-import { setLists } from '../../../../../../../store/slices/User';
-import { CreateListProps, Form } from './types';
+import useSelector from '../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../common/utils/utils';
+import Button from '../../../../components/Clickable/Button';
+import Modal from '../../../../components/Modal';
+import { toggleConfirm } from '../../../../store/slices/Modals';
+import { setLists } from '../../../../store/slices/User';
+import { EditListProps, Form } from './types';
 import { defaultValues, schema } from './validation';
 
-const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
+const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
   const color = useSelector((state) => state.user.ui.theme.color);
@@ -31,23 +30,27 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
   const { isDirty } = useFormState({ control: form.control });
 
   const handleSubmit = (values: Form): void => {
-    dispatch(
-      setLists([
-        ...lists,
-        {
-          id: uuid(),
-          label: values.label,
-          description: values?.description || '',
-          date: moment(new Date()).toISOString(),
-          results: {
-            movies: [],
-            tv: []
-          }
-        }
-      ])
-    );
+    if (list) {
+      dispatch(
+        setLists(
+          lists.map((paramList) =>
+            paramList.id === list.id
+              ? {
+                  ...list,
+                  label: values.label,
+                  description: values?.description || '',
+                  date: moment(new Date()).toISOString(),
+                  results: {
+                    ...list.results
+                  }
+                }
+              : { ...paramList }
+          )
+        )
+      );
 
-    handleClose();
+      handleClose();
+    }
   };
 
   const handleClose = (): void => {
@@ -80,9 +83,18 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
     }
   };
 
+  useEffect(() => {
+    if (isOpen && list) {
+      form.reset({
+        label: list.label,
+        description: list.description
+      });
+    }
+  }, [isOpen]);
+
   return (
     <Modal
-      title='Create a new List'
+      title={`Edit ${list?.label ? `"${list.label}"` : ''} List`}
       actions={
         <Button
           color={utils.handleReturnColor(color)}
@@ -156,4 +168,4 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
   );
 };
 
-export default CreateList;
+export default EditList;

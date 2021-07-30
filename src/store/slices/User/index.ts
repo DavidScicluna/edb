@@ -21,6 +21,8 @@ const initialState: StateProps = {
       {
         id: uuid(),
         label: 'Watchlist',
+        description:
+          "A collection of movies and tv shows that I'm looking forward to watching and hopefully re-watch 🥳 🤓",
         date: moment(new Date()).toISOString(),
         results: {
           movies: [],

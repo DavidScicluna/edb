@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { MediaType, Icon } from '../../../common/types/types';
+import { MediaType } from '../../../common/types/types';
 import { GetMediaType } from '../User/types';
 
 export interface ListModal {
@@ -20,7 +20,6 @@ export type ConfirmModal = {
   open: boolean;
   title: string;
   description: string;
-  icon?: Icon;
   submitButton?: ReactElement;
 };
 

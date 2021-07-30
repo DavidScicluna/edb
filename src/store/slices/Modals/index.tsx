@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import Button from '../../../components/Clickable/Button';
 import { StateProps, ListModal, DescriptionModal, ConfirmModal } from './types';
 
 export const defaultListsModal: ListModal = {
@@ -17,8 +18,14 @@ export const defaultDescriptionModal: DescriptionModal = {
 
 export const defaultConfirmModal: ConfirmModal = {
   open: false,
-  title: '',
-  description: ''
+  title: 'Lorem ipsum',
+  description:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  submitButton: (
+    <Button isDisabled size='sm'>
+      Close
+    </Button>
+  )
 };
 
 const initialState: StateProps = {

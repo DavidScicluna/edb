@@ -7,12 +7,12 @@ import { useForm, useFormState, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
-import useSelector from '../../../../../../../common/hooks/useSelectorTyped';
-import utils from '../../../../../../../common/utils/utils';
-import Button from '../../../../../../../components/Clickable/Button';
-import Modal from '../../../../../../../components/Modal';
-import { toggleConfirm } from '../../../../../../../store/slices/Modals';
-import { setLists } from '../../../../../../../store/slices/User';
+import useSelector from '../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../common/utils/utils';
+import Button from '../../../../components/Clickable/Button';
+import Modal from '../../../../components/Modal';
+import { toggleConfirm } from '../../../../store/slices/Modals';
+import { setLists } from '../../../../store/slices/User';
 import { CreateListProps, Form } from './types';
 import { defaultValues, schema } from './validation';
 

@@ -1,15 +1,27 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useMediaQuery, VStack, HStack, SimpleGrid, Box, Text, ScaleFade } from '@chakra-ui/react';
+import {
+  useDisclosure,
+  useMediaQuery,
+  useToast,
+  VStack,
+  HStack,
+  SimpleGrid,
+  Box,
+  Text,
+  ScaleFade
+} from '@chakra-ui/react';
+import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 import arraySort from 'array-sort';
 import axios from 'axios';
-import moment from 'moment';
+import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
 import { Genre, MediaType, SortBy } from '../../common/types/types';
 import utils from '../../common/utils/utils';
 import Button from '../../components/Clickable/Button';
+import IconButton from '../../components/Clickable/IconButton';
 import Empty from '../../components/Empty';
 import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
@@ -18,10 +30,16 @@ import HorizontalMoviePoster from '../../components/Movies/Poster/Horizontal';
 import VerticalMoviePoster from '../../components/Movies/Poster/Vertical';
 import HorizontalShowPoster from '../../components/TV/Poster/Horizontal';
 import VerticalShowPoster from '../../components/TV/Poster/Vertical';
+import { toggleConfirm } from '../../store/slices/Modals';
+import { setLists } from '../../store/slices/User';
 import { List as ListType, MediaItem } from '../../store/slices/User/types';
 import All from './components/All';
+import CreateList from './components/CreateList';
+import EditList from './components/EditList';
+import ListInfo from './components/ListInfo';
 import ListPicker from './components/ListPicker';
 import List from './components/ListPicker/components/ListItem';
+import Toast from './components/Toast';
 import { Param } from './types';
 
 const Lists = (): ReactElement => {
@@ -33,14 +51,24 @@ const Lists = (): ReactElement => {
     onClose: onMediaTypePickerClose
   } = useDisclosure();
   const { isOpen: isListPickerOpen, onOpen: onListPickerOpen, onClose: onListPickerClose } = useDisclosure();
+
+  const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
+  const { isOpen: isEditListOpen, onOpen: onEditListOpen, onClose: onEditListClose } = useDisclosure();
+  const { isOpen: isListInfoOpen, onOpen: onListInfoOpen, onClose: onListInfoClose } = useDisclosure();
+
   const [isSmallMob] = useMediaQuery('(max-width: 350px)');
+  const [isMob] = useMediaQuery('(max-width: 640px)');
+
+  const toast = useToast();
 
   const { id, mediaType: paramMediaType } = useParams<Param>();
   const history = useHistory();
 
+  const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
   const displayMode = useSelector((state) => state.app.ui.displayMode);
   const color = useSelector((state) => state.user.ui.theme.color);
+  const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -50,6 +78,8 @@ const Lists = (): ReactElement => {
 
   const [movies, setMovies] = useState<MediaItem<'movie'>[]>([]);
   const [tv, setTV] = useState<MediaItem<'tv'>[]>([]);
+
+  const [selected, setSelected] = useState<ListType>();
 
   const handleFilterMovies = (sortBy: SortBy[], genres: Genre[]): void => {
     if (list && list.results.movies) {
@@ -99,6 +129,19 @@ const Lists = (): ReactElement => {
     }
   };
 
+  const handleSelectList = (id: ListType['id']): void => {
+    if (selected?.id === id) {
+      setSelected(undefined);
+    } else {
+      setSelected(lists.find((list) => list.id === id));
+    }
+  };
+
+  const handleCloseToast = (): void => {
+    toast.closeAll();
+    setSelected(undefined);
+  };
+
   useEffect(() => {
     const activeList = lists.find((list) => list.id === id);
 
@@ -130,6 +173,52 @@ const Lists = (): ReactElement => {
   }, [history.location]);
 
   useEffect(() => {
+    toast.closeAll();
+
+    if (selected) {
+      toast({
+        duration: null,
+        isClosable: true,
+        position: 'bottom',
+        variant: 'solid',
+        render: function RenderToast() {
+          return (
+            <Toast
+              selected={selected}
+              onInfo={() => onListInfoOpen()}
+              onEdit={() => onEditListOpen()}
+              onDelete={() =>
+                dispatch(
+                  toggleConfirm({
+                    open: true,
+                    title: isMob ? 'Delete' : `Delete ${selected?.label ? `"${selected.label}"` : ''} list`,
+                    description: `Are you sure you want to delete the ${
+                      selected?.label ? `"${selected.label}"` : ''
+                    } list? You will not be able to retrieve this list back!`,
+                    submitButton: (
+                      <Button
+                        color='red'
+                        onClick={() => {
+                          dispatch(setLists(lists.filter((paramList) => paramList.id !== selected?.id)));
+                          dispatch(toggleConfirm({ ...confirmModal, open: false }));
+                          handleCloseToast();
+                        }}
+                        size='sm'>
+                        Delete
+                      </Button>
+                    )
+                  })
+                )
+              }
+              onClose={() => handleCloseToast()}
+            />
+          );
+        }
+      });
+    }
+  }, [selected]);
+
+  useEffect(() => {
     return () => source.cancel();
   }, []);
 
@@ -153,18 +242,13 @@ const Lists = (): ReactElement => {
                         `${movies.length} movie${movies.length === 0 || movies.length > 1 ? 's' : ''}`,
                         `${tv.length} TV show${tv.length === 0 || tv.length > 1 ? 's' : ''}`
                       ].join(' • ')} results in "${list.label}" list`
-                  : `"${list.label}" list • Updated ${moment(list.date).fromNow()}`
+                  : `"${list.label}" list`
                 : `${lists.length} list${lists.length === 0 || lists.length > 1 ? 's' : ''}`
               : ''
           }
           header={
-            mediaType || (list && lists.length > 1) ? (
+            mediaType || (list && lists.length > 0) ? (
               <HStack spacing={2}>
-                <ScaleFade in={!!list && lists.length > 1} unmountOnExit>
-                  <Button onClick={() => onListPickerOpen()} variant='outlined'>
-                    Change list
-                  </Button>
-                </ScaleFade>
                 <ScaleFade in={!!mediaType} unmountOnExit>
                   <HStack spacing={2}>
                     {movies.length > 0 && tv.length > 0 ? (
@@ -175,8 +259,25 @@ const Lists = (): ReactElement => {
                     {mediaType ? <Filters mediaType={mediaType} isLikedLists onFilter={handleSetFilters} /> : null}
                   </HStack>
                 </ScaleFade>
+                <ScaleFade in={!!list && lists.length > 1} unmountOnExit>
+                  <Button onClick={() => onListPickerOpen()} variant='outlined'>
+                    Change list
+                  </Button>
+                </ScaleFade>
+                <ScaleFade in={!!list} unmountOnExit>
+                  <IconButton
+                    aria-label='Open Information modal'
+                    icon={InfoTwoToneIcon}
+                    onClick={() => onListInfoOpen()}
+                    variant='outlined'
+                  />
+                </ScaleFade>
               </HStack>
-            ) : null
+            ) : (
+              <Button onClick={() => onCreateListOpen()} variant='outlined'>
+                Create new list
+              </Button>
+            )
           }>
           {list ? (
             movies.length > 0 || tv.length > 0 ? (
@@ -184,7 +285,7 @@ const Lists = (): ReactElement => {
                 movies.length > 0 ? (
                   <SimpleGrid
                     width='100%'
-                    columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
+                    columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]}
                     spacing={2}
                     px={2}>
                     {movies.map((movie) =>
@@ -203,7 +304,7 @@ const Lists = (): ReactElement => {
                           <Button
                             color={utils.handleReturnColor(color)}
                             onClick={() => history.push({ pathname: `/lists/${list.id}` })}
-                            size='xs'
+                            size='sm'
                             variant='outlined'>
                             {`Back to "${list.label}" list`}
                           </Button>
@@ -213,7 +314,7 @@ const Lists = (): ReactElement => {
                           <Button
                             color={utils.handleReturnColor(color)}
                             onClick={() => history.push({ pathname: '/lists' })}
-                            size='xs'
+                            size='sm'
                             variant='outlined'>
                             Back to lists
                           </Button>
@@ -228,7 +329,7 @@ const Lists = (): ReactElement => {
                 tv.length > 0 ? (
                   <SimpleGrid
                     width='100%'
-                    columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
+                    columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]}
                     spacing={2}
                     px={2}>
                     {tv.map((show) =>
@@ -247,7 +348,7 @@ const Lists = (): ReactElement => {
                           <Button
                             color={utils.handleReturnColor(color)}
                             onClick={() => history.push({ pathname: `/lists/${list.id}` })}
-                            size='xs'
+                            size='sm'
                             variant='outlined'>
                             {`Back to "${list.label}" list`}
                           </Button>
@@ -257,7 +358,7 @@ const Lists = (): ReactElement => {
                           <Button
                             color={utils.handleReturnColor(color)}
                             onClick={() => history.push({ pathname: '/lists' })}
-                            size='xs'
+                            size='sm'
                             variant='outlined'>
                             Back to lists
                           </Button>
@@ -278,7 +379,7 @@ const Lists = (): ReactElement => {
                     <Button
                       color={utils.handleReturnColor(color)}
                       onClick={() => history.push({ pathname: '/lists' })}
-                      size='xs'
+                      size='sm'
                       variant='outlined'>
                       Back to lists
                     </Button>
@@ -290,11 +391,14 @@ const Lists = (): ReactElement => {
               </Box>
             )
           ) : lists && lists.length > 0 ? (
-            <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 4]} spacing={2} px={2}>
+            <SimpleGrid width='100%' columns={[1, 2, 3, 4, 4]} spacing={2} px={2}>
               {lists.map((list) => (
                 <List
                   key={list.id}
                   {...list}
+                  isSelectable
+                  isSelected={selected?.id === list.id || false}
+                  onSelected={handleSelectList}
                   onClick={(id: ListType['id']) => history.push({ pathname: `/lists/${id}` })}
                 />
               ))}
@@ -308,6 +412,12 @@ const Lists = (): ReactElement => {
       </VStack>
 
       <ListPicker activeList={list} isOpen={isListPickerOpen} onClose={onListPickerClose} />
+
+      <CreateList isOpen={isCreateListOpen} onClose={onCreateListClose} />
+
+      <EditList list={selected} isOpen={isEditListOpen} onClose={() => onEditListClose()} />
+
+      <ListInfo list={list || selected} isOpen={isListInfoOpen} onClose={onListInfoClose} />
 
       {!!mediaType && list ? (
         <MediaTypePicker
