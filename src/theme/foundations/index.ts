@@ -4,10 +4,12 @@ import sizes from './sizes';
 import spacing from './spacing';
 import transition from './transition';
 import typography from './typography';
+import zIndices from './z-index';
 
 export default {
   borders,
   // colors,
+  zIndices,
   radii: radius,
   space: spacing,
   sizes,
