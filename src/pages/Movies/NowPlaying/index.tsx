@@ -82,7 +82,7 @@ const MoviesNowPlaying = (): ReactElement => {
   return (
     <VerticalGrid
       title={isMob ? 'Movies Now Playing' : ''}
-      header={<Filters mediaType='movie' onFilter={handleSetFilters} />}>
+      header={<Filters mediaType='movie' isDisabled={!moviesNowPlaying.isSuccess} onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalMovies
           isError={moviesNowPlaying.isError}
@@ -96,6 +96,7 @@ const MoviesNowPlaying = (): ReactElement => {
             total={movies.total_results}
             mediaType='movies'
             isLoading={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}
+            isError={moviesNowPlaying.isError}
             hasNextPage={moviesNowPlaying.hasNextPage || true}
             onFetch={moviesNowPlaying.fetchNextPage}
           />

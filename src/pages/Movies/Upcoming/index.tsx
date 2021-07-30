@@ -96,6 +96,7 @@ const UpcomingMovies = (): ReactElement => {
             total={movies.total_results}
             mediaType='movies'
             isLoading={upcomingMovies.isFetching || upcomingMovies.isLoading}
+            isError={upcomingMovies.isError}
             hasNextPage={upcomingMovies.hasNextPage || true}
             onFetch={upcomingMovies.fetchNextPage}
           />

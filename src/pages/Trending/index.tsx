@@ -192,6 +192,19 @@ const Trending = (): ReactElement => {
     setTimeout(() => handleRefetch(), 0);
   };
 
+  const handleDisabledFilters = (): boolean => {
+    switch (mediaType) {
+      case 'movie':
+        return !trendingMovies.isSuccess;
+      case 'tv':
+        return !trendingTV.isSuccess;
+      case 'person':
+        return !trendingPeople.isSuccess;
+      default:
+        return true;
+    }
+  };
+
   const handleResetState = (): void => {
     setMediaType(undefined);
   };
@@ -236,7 +249,9 @@ const Trending = (): ReactElement => {
               <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
                 Change media-type
               </Button>
-              {mediaType ? <Filters mediaType={mediaType} onFilter={handleSetFilters} /> : null}
+              {mediaType ? (
+                <Filters mediaType={mediaType} isDisabled={handleDisabledFilters()} onFilter={handleSetFilters} />
+              ) : null}
             </HStack>
           </Fade>
         }>
@@ -256,6 +271,7 @@ const Trending = (): ReactElement => {
                     total={movies.total_results}
                     mediaType='movies'
                     isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
+                    isError={trendingMovies.isError}
                     hasNextPage={trendingMovies.hasNextPage || true}
                     onFetch={trendingMovies.fetchNextPage}
                   />
@@ -275,6 +291,7 @@ const Trending = (): ReactElement => {
                     total={tv.total_results}
                     mediaType='tv shows'
                     isLoading={trendingTV.isFetching || trendingTV.isLoading}
+                    isError={trendingTV.isError}
                     hasNextPage={trendingTV.hasNextPage || true}
                     onFetch={trendingTV.fetchNextPage}
                   />
@@ -294,6 +311,7 @@ const Trending = (): ReactElement => {
                     total={people.total_results}
                     mediaType='people'
                     isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
+                    isError={trendingPeople.isError}
                     hasNextPage={trendingPeople.hasNextPage || true}
                     onFetch={trendingPeople.fetchNextPage}
                   />

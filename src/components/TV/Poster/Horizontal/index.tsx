@@ -5,9 +5,9 @@ import HorizontalPoster from '../../../../components/Poster/Horizontal';
 import { PosterProps } from '../types';
 
 const HorizontalTV = ({ isLoading = true, show }: PosterProps): ReactElement => {
-  return !isLoading && show ? (
+  return (
     <HorizontalPoster
-      mediaItem={{ ...show }}
+      mediaItem={show ? { ...show } : undefined}
       mediaType='tv'
       image={{
         alt: `${show?.name || ''} tv show poster`,
@@ -24,22 +24,23 @@ const HorizontalTV = ({ isLoading = true, show }: PosterProps): ReactElement => 
         `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
       ].join(' • ')}`}
       description={show?.overview || ''}
-      isLoaded
-    />
-  ) : (
-    <HorizontalPoster
-      mediaType='tv'
-      image={{
-        alt: 'TV Show poster',
-        src: '',
-        size: '780'
-      }}
-      title='Lorem ipsum'
-      subtitle='Lorem ipsum'
-      description='Lorem ipsum'
-      isLoaded={false}
+      isLoading={isLoading}
     />
   );
+  // ) : (
+  //   <HorizontalPoster
+  //     mediaType='tv'
+  //     image={{
+  //       alt: 'TV Show poster',
+  //       src: '',
+  //       size: '780'
+  //     }}
+  //     title='Lorem ipsum'
+  //     subtitle='Lorem ipsum'
+  //     description='Lorem ipsum'
+  //     isLoaded={false}
+  //   />
+  // );
 };
 
 export default HorizontalTV;

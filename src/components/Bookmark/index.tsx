@@ -24,20 +24,22 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const list = lists.find((list) => {
-    switch (mediaType) {
-      case 'movie':
-        return list.results.movies.some((movie) => movie.id === mediaItem.id);
-      case 'tv':
-        return list.results.tv.some((show) => show.id === mediaItem.id);
-      default:
-        return;
-    }
-  });
+  const list = mediaItem
+    ? lists.find((list) => {
+        switch (mediaType) {
+          case 'movie':
+            return list.results.movies.some((movie) => movie.id === mediaItem.id);
+          case 'tv':
+            return list.results.tv.some((show) => show.id === mediaItem.id);
+          default:
+            return;
+        }
+      })
+    : undefined;
   const isBookmarked: boolean = list
     ? mediaType === 'movie'
-      ? list.results.movies.some((movie) => movie.id === mediaItem.id)
-      : list.results.tv.some((show) => show.id === mediaItem.id)
+      ? list.results.movies.some((movie) => movie.id === mediaItem?.id)
+      : list.results.tv.some((show) => show.id === mediaItem?.id)
     : false;
 
   const handleRemoveBookmark = (list: List): void => {
@@ -45,10 +47,10 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 
     switch (mediaType) {
       case 'movie':
-        results.movies = results.movies.filter((movie) => movie.id !== mediaItem.id) || [];
+        results.movies = results.movies.filter((movie) => movie.id !== mediaItem?.id) || [];
         break;
       case 'tv':
-        results.tv = results.tv.filter((show) => show.id !== mediaItem.id) || [];
+        results.tv = results.tv.filter((show) => show.id !== mediaItem?.id) || [];
         break;
       default:
         break;
@@ -69,16 +71,18 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
   };
 
   const handleOpenListsModal = (): void => {
-    dispatch(
-      toggleList({
-        open: true,
-        title,
-        mediaType,
-        mediaItem: {
-          ...mediaItem
-        }
-      })
-    );
+    if (mediaItem) {
+      dispatch(
+        toggleList({
+          open: true,
+          title,
+          mediaType,
+          mediaItem: {
+            ...mediaItem
+          }
+        })
+      );
+    }
   };
 
   return (
@@ -104,7 +108,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
             : `Add "${title}" ${mediaType} to a list (tooltip)`
         }
         color={isBookmarked ? utils.handleReturnColor(color) : 'gray'}
-        isDisabled={isDisabled}
+        isDisabled={isDisabled || !mediaItem}
         icon={isBookmarked ? BookmarkOutlinedIcon : BookmarkBorderOutlinedIcon}
         onClick={isBookmarked && list ? () => handleRemoveBookmark(list) : () => handleOpenListsModal()}
         onMouseEnter={() => setIsHovering(true)}

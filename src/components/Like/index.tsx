@@ -21,26 +21,27 @@ const Like = (props: LikeProps): ReactElement => {
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
-  const isLiked: boolean = liked
-    ? mediaType === 'movie'
-      ? liked.movies.some((movie) => movie.id === mediaItem.id)
-      : mediaType === 'tv'
-      ? liked.tv.some((show) => show.id === mediaItem.id)
-      : liked.people.some((person) => person.id === mediaItem.id)
-    : false;
+  const isLiked: boolean =
+    liked && mediaItem
+      ? mediaType === 'movie'
+        ? liked.movies.some((movie) => movie.id === mediaItem.id)
+        : mediaType === 'tv'
+        ? liked.tv.some((show) => show.id === mediaItem.id)
+        : liked.people.some((person) => person.id === mediaItem.id)
+      : false;
 
   const handleRemoveLike = (): void => {
     const updatedLiked = { ...liked };
 
     switch (mediaType) {
       case 'movie':
-        updatedLiked.movies = updatedLiked.movies.filter((movie) => movie.id !== mediaItem.id);
+        updatedLiked.movies = updatedLiked.movies.filter((movie) => movie.id !== mediaItem?.id);
         break;
       case 'tv':
-        updatedLiked.tv = updatedLiked.tv.filter((show) => show.id !== mediaItem.id);
+        updatedLiked.tv = updatedLiked.tv.filter((show) => show.id !== mediaItem?.id);
         break;
       case 'person':
-        updatedLiked.people = updatedLiked.people.filter((person) => person.id !== mediaItem.id);
+        updatedLiked.people = updatedLiked.people.filter((person) => person.id !== mediaItem?.id);
         break;
       default:
         break;
@@ -84,12 +85,12 @@ const Like = (props: LikeProps): ReactElement => {
       label={isLiked ? `Dislike "${title}"` : `Like "${title}"`}
       placement='top'
       isOpen={isHovering}
-      isDisabled={isDisabled}
+      isDisabled={isDisabled || !mediaItem}
       gutter={0}>
       <IconButton
         aria-label={isLiked ? `Dislike "${title}" ${mediaType} (tooltip)` : `Like "${title}" ${mediaType} (tooltip)`}
         color={isLiked ? 'red' : 'gray'}
-        isDisabled={isDisabled}
+        isDisabled={isDisabled || !mediaItem}
         icon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
         onClick={isLiked ? () => handleRemoveLike() : () => handleLike()}
         onMouseEnter={() => setIsHovering(true)}

@@ -6,6 +6,6 @@ export interface BookmarkProps {
   isDisabled: boolean;
   title: string;
   mediaType: MediaType;
-  mediaItem: GetMediaType<this['mediaType']>;
+  mediaItem?: GetMediaType<this['mediaType']>;
   size: IconButtonProps['size'];
 }

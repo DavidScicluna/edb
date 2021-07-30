@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
-import ReportProblemTwoToneIcon from '@material-ui/icons/ReportProblemTwoTone';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
@@ -98,7 +97,6 @@ const OnTV = (): ReactElement => {
       dispatch(
         toggleConfirm({
           open: true,
-          icon: ReportProblemTwoToneIcon,
           title: 'Filters',
           description: 'Are you sure you want to load more TV shows? Filters will be reset!',
           submitButton: (
@@ -120,7 +118,7 @@ const OnTV = (): ReactElement => {
   return (
     <VerticalGrid
       title={isMob ? 'TV Shows On At The Moment' : ''}
-      header={<Filters mediaType='tv' onFilter={handleSetFilters} />}>
+      header={<Filters mediaType='tv' isDisabled={!onTV.isSuccess} onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalTV
           isError={onTV.isError}
@@ -134,6 +132,7 @@ const OnTV = (): ReactElement => {
             total={tv.total_results}
             mediaType='TV shows'
             isLoading={onTV.isFetching || onTV.isLoading}
+            isError={onTV.isError}
             hasNextPage={onTV.hasNextPage || true}
             onFetch={handleFetchNextPage}
           />

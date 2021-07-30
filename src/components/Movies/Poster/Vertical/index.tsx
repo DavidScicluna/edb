@@ -5,10 +5,10 @@ import VerticalPoster from '../../../Poster/Vertical';
 import { PosterProps } from '../types';
 
 const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactElement => {
-  return !isLoading && movie ? (
+  return (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItem={{ ...movie }}
+      mediaItem={movie ? { ...movie } : undefined}
       mediaType='movie'
       image={{
         alt: `${movie?.title || ''} movie poster`,
@@ -24,22 +24,23 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
         `${utils.handleReturnDate(movie?.release_date || '', 'year')}`,
         `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
       ].join(' • ')}`}
-      isLoaded
-    />
-  ) : (
-    <VerticalPoster
-      width={width || ['185px', '205px', '230px']}
-      mediaType='movie'
-      image={{
-        alt: 'Movie poster',
-        src: '',
-        size: '780'
-      }}
-      title='Lorem ipsum'
-      subtitle='Lorem ipsum'
-      isLoaded={false}
+      isLoading={isLoading}
     />
   );
+  // ) : (
+  //   <VerticalPoster
+  //     width={width || ['185px', '205px', '230px']}
+  //     mediaType='movie'
+  //     image={{
+  //       alt: 'Movie poster',
+  //       src: '',
+  //       size: '780'
+  //     }}
+  //     title='Lorem ipsum'
+  //     subtitle='Lorem ipsum'
+  //     isLoading
+  //   />
+  // );
 };
 
 export default VerticalMovie;

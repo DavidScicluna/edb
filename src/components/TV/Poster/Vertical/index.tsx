@@ -5,10 +5,10 @@ import VerticalPoster from '../../../../components/Poster/Vertical';
 import { PosterProps } from '../types';
 
 const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElement => {
-  return !isLoading && show ? (
+  return (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItem={{ ...show }}
+      mediaItem={show ? { ...show } : undefined}
       mediaType='tv'
       image={{
         alt: `${show?.name || ''} tv show poster`,
@@ -24,22 +24,23 @@ const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElemen
         `${utils.handleReturnDate(show?.first_air_date || '', 'year')}`,
         `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
       ].join(' • ')}`}
-      isLoaded
-    />
-  ) : (
-    <VerticalPoster
-      width={width || ['185px', '205px', '230px']}
-      mediaType='tv'
-      image={{
-        alt: 'TV Show poster',
-        src: '',
-        size: '780'
-      }}
-      title='Lorem ipsum'
-      subtitle='Lorem ipsum'
-      isLoaded={false}
+      isLoading={isLoading}
     />
   );
+  // ) : (
+  //   <VerticalPoster
+  //     width={width || ['185px', '205px', '230px']}
+  //     mediaType='tv'
+  //     image={{
+  //       alt: 'TV Show poster',
+  //       src: '',
+  //       size: '780'
+  //     }}
+  //     title='Lorem ipsum'
+  //     subtitle='Lorem ipsum'
+  //     isLoading
+  //   />
+  // );
 };
 
 export default VerticalTV;

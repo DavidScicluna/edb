@@ -14,9 +14,9 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
     return names.join(', ');
   };
 
-  return !isLoading && person ? (
+  return (
     <HorizontalPoster
-      mediaItem={{ ...person }}
+      mediaItem={person ? { ...person } : undefined}
       mediaType='person'
       image={{
         alt: `${person?.name || ''} person poster`,
@@ -26,21 +26,21 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
       title={person?.name || ''}
       subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
       description={handleKnownFor()} // TODO: Add a Link component and on click open item page
-      isLoaded
+      isLoading={isLoading}
     />
-  ) : (
-    <HorizontalPoster
-      mediaType='person'
-      image={{
-        alt: 'Person poster',
-        src: '',
-        size: '780'
-      }}
-      title='Lorem ipsum'
-      subtitle='Lorem ipsum'
-      description='Lorem ipsum'
-      isLoaded={false}
-    />
+    // ) : (
+    //   <HorizontalPoster
+    //     mediaType='person'
+    //     image={{
+    //       alt: 'Person poster',
+    //       src: '',
+    //       size: '780'
+    //     }}
+    //     title='Lorem ipsum'
+    //     subtitle='Lorem ipsum'
+    //     description='Lorem ipsum'
+    //     isLoaded={false}
+    //   />
   );
 };
 

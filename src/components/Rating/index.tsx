@@ -27,7 +27,7 @@ const Rating = (props: RatingProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { rating = defaultRating, isLoaded = false, isHorizontal = false } = props;
+  const { rating = defaultRating, isLoading = false, isHorizontal = false } = props;
 
   const iconSize = useBreakpointValue({
     'base': theme.fontSizes['lg'],
@@ -97,7 +97,7 @@ const Rating = (props: RatingProps): ReactElement => {
           fontSize: `${isHorizontal ? iconSize : theme.fontSizes.xl} !important`
         }}
       />
-      <SkeletonText isLoaded={isLoaded} ml='0.5'>
+      <SkeletonText isLoaded={!isLoading} ml='0.5'>
         <Text
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={isHorizontal ? fontSize : 'md'}

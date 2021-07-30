@@ -5,10 +5,10 @@ import VerticalPoster from '../../../Poster/Vertical';
 import { PosterProps } from '../types';
 
 const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): ReactElement => {
-  return !isLoading && person ? (
+  return (
     <VerticalPoster
       width={width || ['185px', '205px', '230px']}
-      mediaItem={{ ...person }}
+      mediaItem={person ? { ...person } : undefined}
       mediaType='person'
       image={{
         alt: `${person?.name || ''} person poster`,
@@ -17,22 +17,23 @@ const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): React
       }}
       title={person?.name || ''}
       subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
-      isLoaded
-    />
-  ) : (
-    <VerticalPoster
-      width={width || ['185px', '205px', '230px']}
-      mediaType='person'
-      image={{
-        alt: 'Person poster',
-        src: '',
-        size: '780'
-      }}
-      title='Lorem ipsum'
-      subtitle='Lorem ipsum'
-      isLoaded={false}
+      isLoading={isLoading}
     />
   );
+  // ) : (
+  //   <VerticalPoster
+  //     width={width || ['185px', '205px', '230px']}
+  //     mediaType='person'
+  //     image={{
+  //       alt: 'Person poster',
+  //       src: '',
+  //       size: '780'
+  //     }}
+  //     title='Lorem ipsum'
+  //     subtitle='Lorem ipsum'
+  //     isLoading
+  //   />
+  // );
 };
 
 export default VerticalPerson;

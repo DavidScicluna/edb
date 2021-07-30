@@ -5,9 +5,9 @@ import HorizontalPoster from '../../../Poster/Horizontal';
 import { PosterProps } from '../types';
 
 const HorizontalMovie = ({ isLoading = true, movie }: PosterProps): ReactElement => {
-  return !isLoading && movie ? (
+  return (
     <HorizontalPoster
-      mediaItem={{ ...movie }}
+      mediaItem={movie ? { ...movie } : undefined}
       mediaType='movie'
       image={{
         alt: `${movie?.title || ''} movie poster`,
@@ -24,22 +24,23 @@ const HorizontalMovie = ({ isLoading = true, movie }: PosterProps): ReactElement
         `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
       ].join(' • ')}`}
       description={movie?.overview || ''}
-      isLoaded
-    />
-  ) : (
-    <HorizontalPoster
-      mediaType='movie'
-      image={{
-        alt: 'Movie poster',
-        src: '',
-        size: '780'
-      }}
-      title='Lorem ipsum'
-      subtitle='Lorem ipsum'
-      description='Lorem ipsum'
-      isLoaded={false}
+      isLoading={isLoading}
     />
   );
+  // ) : (
+  //   <HorizontalPoster
+  //     mediaType='movie'
+  //     image={{
+  //       alt: 'Movie poster',
+  //       src: '',
+  //       size: '780'
+  //     }}
+  //     title='Lorem ipsum'
+  //     subtitle='Lorem ipsum'
+  //     description='Lorem ipsum'
+  //     isLoading
+  //   />
+  // );
 };
 
 export default HorizontalMovie;

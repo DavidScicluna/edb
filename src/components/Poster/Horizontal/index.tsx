@@ -17,7 +17,16 @@ import { HorizontalPosterProps } from './types';
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
   const [isMob] = useMediaQuery('(max-width: 640px)');
 
-  const { mediaItem, mediaType, image, rating, title, subtitle, description, isLoaded } = props;
+  const {
+    mediaItem,
+    mediaType,
+    image,
+    rating,
+    title = 'Lorem ipsum',
+    subtitle = 'Lorem ipsum',
+    description = 'Lorem ipsum',
+    isLoading = false
+  } = props;
 
   const [isHoveringLiked, setIsHoveringLiked] = useState<boolean>(false);
   const [isHoveringBookmark, setIsHoveringBookmark] = useState<boolean>(false);
@@ -25,9 +34,9 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 
   return (
     <Link
-      isDisabled={!isLoaded || isHoveringLiked || isHoveringBookmark || isHoveringDescription}
+      isDisabled={isLoading || isHoveringLiked || isHoveringBookmark || isHoveringDescription}
       to={{ pathname: `${mediaType}/${mediaItem?.id || ''}` }}>
-      <Card isFullWidth isDisabled={!isLoaded} isLightGray>
+      <Card isFullWidth isDisabled={isLoading} isLightGray>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
           <Image
@@ -37,7 +46,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
             alt={image.alt}
             src={image.src}
             size={image.size}
-            isLoaded={isLoaded}
+            isLoading={isLoading}
           />
           <VStack
             width={[
@@ -51,12 +60,12 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
             alignItems='flex-start'
             spacing={[1, 1, 2, 2, 2, 2]}>
             {/* Rating component */}
-            {mediaType !== 'person' ? <Rating rating={rating} isLoaded={isLoaded} isHorizontal /> : null}
+            {mediaType !== 'person' ? <Rating rating={rating} isLoading={isLoading} isHorizontal /> : null}
 
             {/* Text */}
-            <VStack width='100%' alignItems='flex-start' spacing={isLoaded ? 0 : 1}>
-              <Title title={title} isLoaded={isLoaded} />
-              <Subtitle subtitle={subtitle} isLoaded={isLoaded} />
+            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 1 : 0}>
+              <Title title={title} isLoading={isLoading} />
+              <Subtitle subtitle={subtitle} isLoading={isLoading} />
             </VStack>
 
             <Box width='100%'>
@@ -66,7 +75,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                 <Description
                   mediaType={mediaType}
                   mediaItem={{ id: mediaItem?.id || -1, title, description }}
-                  isLoaded={isLoaded}
+                  isLoading={isLoading}
                 />
               </Box>
             </Box>
@@ -84,7 +93,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               {/* Like component */}
               <Box onMouseEnter={() => setIsHoveringLiked(true)} onMouseLeave={() => setIsHoveringLiked(false)}>
                 <Like
-                  isDisabled={!isLoaded}
+                  isDisabled={isLoading}
                   title={title}
                   mediaType={mediaType}
                   mediaItem={mediaItem}
@@ -95,7 +104,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               {mediaType !== 'person' ? (
                 <Box onMouseEnter={() => setIsHoveringBookmark(true)} onMouseLeave={() => setIsHoveringBookmark(false)}>
                   <Bookmark
-                    isDisabled={!isLoaded}
+                    isDisabled={isLoading}
                     title={title}
                     mediaType={mediaType}
                     mediaItem={mediaItem}

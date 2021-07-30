@@ -9,5 +9,5 @@ export type HorizontalPosterProps<MT extends MediaType> = {
   title: string;
   subtitle: string;
   description: string;
-  isLoaded: boolean;
+  isLoading: boolean;
 };

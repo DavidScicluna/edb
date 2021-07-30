@@ -13,7 +13,7 @@ const dummyTextWidths = utils.handleReturnDummyWidths(100, 10);
 const Description = (props: DescriptionProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { mediaType, mediaItem, isLoaded = false } = props;
+  const { mediaType, mediaItem, isLoading = false } = props;
 
   const dispatch = useDispatch();
 
@@ -30,9 +30,9 @@ const Description = (props: DescriptionProps): ReactElement => {
 
   return (
     <SkeletonText
-      width={!isLoaded ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
-      isLoaded={isLoaded}
-      mb={!isLoaded ? 0.5 : 0}>
+      width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
+      isLoaded={!isLoading}
+      mb={isLoading ? 0.5 : 0}>
       <Text
         ref={handleIsTruncated}
         cursor={isTruncated ? 'pointer' : 'text'}

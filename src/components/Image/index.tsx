@@ -7,7 +7,7 @@ import Skeleton from '../Skeleton';
 import { ImageProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
-  const { width = '', orientation, mediaType, alt, src, size, isLoaded, ...rest } = props;
+  const { width = '', orientation, mediaType, alt, src, size, isLoading, ...rest } = props;
 
   return (
     <AspectRatio
@@ -15,7 +15,7 @@ const Image = (props: ImageProps): ReactElement => {
       minWidth={width || '100%'}
       maxWidth={width || '100%'}
       ratio={orientation === 'horizontal' ? 16 / 9 : 2 / 3}>
-      <Skeleton isLoaded={isLoaded} borderRadius='base'>
+      <Skeleton isLoaded={!isLoading} borderRadius='base'>
         <CUIImage
           {...rest}
           alt={alt}

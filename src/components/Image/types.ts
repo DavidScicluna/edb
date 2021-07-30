@@ -9,5 +9,5 @@ export type ImageProps = {
   alt: string;
   src: string;
   size: string;
-  isLoaded: boolean;
+  isLoading: boolean;
 } & Omit<CUIImageProps, 'fallback' | 'fallbackSrc'>;

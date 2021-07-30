@@ -83,7 +83,9 @@ const People = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid title={isMob ? 'People' : ''} header={<Filters mediaType='person' onFilter={handleSetFilters} />}>
+    <VerticalGrid
+      title={isMob ? 'People' : ''}
+      header={<Filters mediaType='person' isDisabled={!popularPeople.isSuccess} onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalPeople
           isError={popularPeople.isError}
@@ -97,6 +99,7 @@ const People = (): ReactElement => {
             total={people.total_results}
             mediaType='people'
             isLoading={popularPeople.isFetching || popularPeople.isLoading}
+            isError={popularPeople.isError}
             hasNextPage={popularPeople.hasNextPage || true}
             onFetch={popularPeople.fetchNextPage}
           />
