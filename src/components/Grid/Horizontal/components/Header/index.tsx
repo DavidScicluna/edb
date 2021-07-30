@@ -1,8 +1,10 @@
 import React, { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useColorMode, useDisclosure, HStack, Text } from '@chakra-ui/react';
-import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
-import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
+import {
+  ArrowBackOutlined as ArrowBackOutlinedIcon,
+  ArrowForwardOutlined as ArrowForwardOutlinedIcon
+} from '@material-ui/icons';
 
 import utils from '../../../../../common/utils/utils';
 import IconButton from '../../../../Clickable/IconButton';
@@ -13,7 +15,7 @@ let interval: ReturnType<typeof setInterval>;
 
 const Header = (props: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isMouseDown, onOpen: onMouseDown, onClose: onMouseLeave } = useDisclosure();
 
   const { title, isLoading = false, reset = false, scrollButtons, handleScrollClick } = props;
 
@@ -25,24 +27,24 @@ const Header = (props: HeaderProps): ReactElement => {
     }
   }, [direction, handleScrollClick]);
 
-  const handleIsOpen = useCallback(() => {
-    if (isOpen) {
+  const handleIsMouseDown = useCallback(() => {
+    if (isMouseDown) {
       interval = setInterval(() => {
         handleScroll();
       }, 25);
     }
-  }, [isOpen, interval]);
+  }, [isMouseDown, interval]);
 
   const handleClose = () => {
     setDirection('');
     clearInterval(interval);
 
-    onClose();
+    onMouseLeave();
   };
 
   useEffect(() => {
-    handleIsOpen();
-  }, [isOpen]);
+    handleIsMouseDown();
+  }, [isMouseDown]);
 
   useEffect(() => {
     if (reset) {
@@ -69,7 +71,7 @@ const Header = (props: HeaderProps): ReactElement => {
             aria-label='Scroll left'
             closeOnClick={false}
             closeOnMouseDown={false}
-            label={`Scroll left (${!isOpen ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
+            label={`Scroll left (${!isMouseDown ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
             placement='top'
             isDisabled={isLoading || scrollButtons.left}
             span>
@@ -78,8 +80,8 @@ const Header = (props: HeaderProps): ReactElement => {
               isDisabled={isLoading || scrollButtons.left}
               icon={ArrowBackOutlinedIcon}
               onMouseDown={() => {
-                if (!isOpen) {
-                  onOpen();
+                if (!isMouseDown) {
+                  onMouseDown();
                   setDirection('left');
                 }
               }}
@@ -91,7 +93,7 @@ const Header = (props: HeaderProps): ReactElement => {
             aria-label='Scroll right'
             closeOnClick={false}
             closeOnMouseDown={false}
-            label={`Scroll right (${!isOpen ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
+            label={`Scroll right (${!isMouseDown ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
             placement='top'
             isDisabled={isLoading || scrollButtons.right}
             span>
@@ -100,8 +102,8 @@ const Header = (props: HeaderProps): ReactElement => {
               isDisabled={isLoading || scrollButtons.right}
               icon={ArrowForwardOutlinedIcon}
               onMouseDown={() => {
-                if (!isOpen) {
-                  onOpen();
+                if (!isMouseDown) {
+                  onMouseDown();
                   setDirection('right');
                 }
               }}

@@ -14,9 +14,7 @@ const Menu = (): ReactElement => {
 
   const location = useLocation();
 
-  useEffect(() => {
-    setTimeout(() => onClose(), 1000);
-  }, [location]);
+  useEffect(() => onClose(), [location]);
 
   return (
     <>

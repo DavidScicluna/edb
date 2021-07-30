@@ -1,7 +1,7 @@
-import React, { ReactElement, useState, useCallback, UIEvent } from 'react';
+import React, { ReactElement, UIEvent, useState, useCallback, useEffect } from 'react';
 
 import { useColorMode, VStack } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import useSelector from '../../../common/hooks/useSelectorTyped';
 import utils from '../../../common/utils/utils';
@@ -21,6 +21,8 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   const { children, title, footer, isLoading, path, onFooterClick } = props;
 
   const color = useSelector((state) => state.user.ui.theme.color);
+
+  const location = useLocation();
 
   const [gridRef, setGridRef] = useState<HTMLDivElement | null>(null);
 
@@ -64,6 +66,10 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
     },
     [gridRef]
   );
+
+  useEffect(() => {
+    setResetScrollButtons(true);
+  }, [location]);
 
   return (
     <VStack width='100%' align='stretch' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} spacing={0}>

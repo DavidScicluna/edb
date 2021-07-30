@@ -19,6 +19,7 @@ import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
 import SplashscreenModal from './components/Modals/Splashscreen';
 import Routes from './components/Routes';
+import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 import { GenreResponse } from './types';
 
@@ -96,15 +97,18 @@ const Layout = (): ReactElement => {
   ) : (
     <>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Container maxWidth='container.xl' overflow='hidden'>
-          {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
-          <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
-            <Header width={width} left={left} />
-            <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4} sx={{ ...transition }}>
-              <Routes />
-            </Box>
+        {/* <Container maxWidth='container.xl' overflow='hidden' position='relative'> */}
+        {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
+        <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
+          <Header width={width} left={left} />
+          <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4} sx={{ ...transition }}>
+            <Routes />
           </Box>
-        </Container>
+
+          <ScrollToTop />
+        </Box>
+
+        {/* </Container> */}
       </BrowserRouter>
 
       <ScaleFade in={confirmModal.open} unmountOnExit>

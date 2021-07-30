@@ -45,7 +45,7 @@ const MediaTypes = <MT extends unknown>(props: MediaTypesProps<MT>): ReactElemen
   };
 
   return isXs ? (
-    <VStack width='100%' justifyContent='space-between' spacing={2}>
+    <VStack width='100%' justifyContent='space-between' spacing={3}>
       {mediaTypesList.map((mediaTypeItem) =>
         (mediaTypes && mediaTypes.includes(mediaTypeItem.value)) || !mediaTypes ? (
           <MediaTypeItem
@@ -58,7 +58,7 @@ const MediaTypes = <MT extends unknown>(props: MediaTypesProps<MT>): ReactElemen
       )}
     </VStack>
   ) : (
-    <HStack width='100%' justifyContent='space-between' spacing={2}>
+    <HStack width='100%' justifyContent='space-between' spacing={3}>
       {mediaTypesList.map((mediaTypeItem) =>
         (mediaTypes && mediaTypes.includes(mediaTypeItem.value)) || !mediaTypes ? (
           <MediaTypeItem

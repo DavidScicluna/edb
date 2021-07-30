@@ -28,7 +28,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
         colorMode={background}
         onClick={!isActive && onClick ? () => onClick(value) : undefined}
         p={2}>
-        <VStack spacing={0.75}>
+        <VStack width='100%' spacing={0.75}>
           <Box
             sx={{
               width: theme.fontSizes['6xl'],

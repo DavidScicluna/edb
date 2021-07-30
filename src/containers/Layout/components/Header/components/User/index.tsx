@@ -57,9 +57,7 @@ const User = (): ReactElement => {
     }
   ];
 
-  useEffect(() => {
-    setTimeout(() => onClose(), 1000);
-  }, [location]);
+  useEffect(() => onClose(), [location]);
 
   return (
     <Popover isOpen={isOpen} placement='bottom-end' gutter={12} onOpen={onOpen} onClose={onClose}>
