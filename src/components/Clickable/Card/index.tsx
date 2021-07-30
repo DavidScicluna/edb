@@ -17,7 +17,6 @@ const Card = (props: CardProps): ReactElement => {
     children,
     colorMode: colorModeProp,
     isDisabled = false,
-    variant = 'outlined',
     ...rest
   } = _.omit(props, ['color', 'isFullWidth', 'isLightGray']);
 
@@ -28,11 +27,11 @@ const Card = (props: CardProps): ReactElement => {
       sx={
         isDisabled
           ? {
-              ..._.merge(style.card.back, style.card.disabled, style[mode].back[variant], style[mode].disabled[variant])
+              ..._.merge(style.card.back, style.card.disabled, style[mode].back, style[mode].disabled)
             }
-          : { ..._.merge(style.card.back, style[mode].back[variant]) }
+          : { ..._.merge(style.card.back, style[mode].back) }
       }>
-      <Box {...rest} className='card_front' sx={{ ..._.merge(style.card.front, style[mode].front[variant]) }}>
+      <Box {...rest} className='card_front' sx={{ ..._.merge(style.card.front, style[mode].front) }}>
         {children}
       </Box>
     </Box>

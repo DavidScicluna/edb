@@ -50,9 +50,10 @@ export default (
 
       'padding': 0,
 
-      'transitionProperty': `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-      'transitionDuration': theme.transition.duration.normal,
-      'transitionTimingFunction': theme.transition.easing['ease-out'],
+      'transition': 'none',
+      // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
+      // transitionDuration: `${theme.transition.duration.normal} !important`,
+      // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
 
       '&:focus': {
         boxShadow: 'none'
@@ -66,9 +67,10 @@ export default (
       },
 
       '& *': {
-        transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-        transitionDuration: theme.transition.duration.normal,
-        transitionTimingFunction: theme.transition.easing['ease-out']
+        transition: 'none !important'
+        // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
+        // transitionDuration: `${theme.transition.duration.normal} !important`,
+        // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
       }
     },
     front: {
@@ -89,9 +91,10 @@ export default (
 
       transform: variant !== 'icon' ? `translateY(${size !== 'sm' ? '-4px' : '-3px'})` : 'none',
 
-      transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-      transitionDuration: theme.transition.duration.normal,
-      transitionTimingFunction: theme.transition.easing['ease-out']
+      transition: 'none'
+      // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
+      // transitionDuration: `${theme.transition.duration.normal} !important`,
+      // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
     },
     disabled: {
       'cursor': 'not-allowed',

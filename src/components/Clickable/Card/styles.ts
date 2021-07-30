@@ -2,21 +2,16 @@ import { Style } from '../../../common/types/types';
 import { Theme } from '../../../theme/types';
 import { CardProps } from './types';
 
-type VariantStyle = {
-  outlined: Style;
-  transparent: Style;
-};
-
-type CommonStyle<S> = {
-  back: S;
-  front: S;
-  disabled: S;
+type CommonStyle = {
+  back: Style;
+  front: Style;
+  disabled: Style;
 };
 
 type CardStyle = {
-  card: CommonStyle<Style>;
-  light: Omit<CommonStyle<VariantStyle>, 'icon'>;
-  dark: Omit<CommonStyle<VariantStyle>, 'icon'>;
+  card: CommonStyle;
+  light: Omit<CommonStyle, 'icon'>;
+  dark: Omit<CommonStyle, 'icon'>;
 };
 
 export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray = false }: CardProps): CardStyle => ({
@@ -34,14 +29,24 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
 
       'padding': 0,
 
-      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
+      'transition': 'none',
+      // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
+      // transitionDuration: `${theme.transition.duration.normal} !important`,
+      // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
 
       '&:focus': {
         boxShadow: 'none'
       },
 
       '&:active .card_front': {
-        transform: 'translateY(0px)'
+        transform: 'translateY(0)'
+      },
+
+      '& *': {
+        transition: 'none !important'
+        // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
+        // transitionDuration: `${theme.transition.duration.normal} !important`,
+        // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
       }
     },
     front: {
@@ -52,29 +57,32 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
 
       display: 'flex',
       alignItems: 'stretch',
-      justifyContent: 'center',
+      justifyContent: 'stretch',
 
       borderStyle: 'solid',
       borderWidth: '2px',
       borderRadius: 'inherit',
 
-      transform: 'translateY(-4px)',
+      transform: 'translateY(-2px)',
 
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      transition: 'none'
+      // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
+      // transitionDuration: `${theme.transition.duration.normal} !important`,
+      // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
     },
     disabled: {
       'cursor': 'not-allowed',
 
       'opacity': 0.5,
 
-      '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-        '& .card_front': { opacity: 1 }
-      },
-
       '& .card_front': {
         opacity: 1,
 
-        transform: 'translateY(0px)'
+        transform: 'translateY(0)'
+      },
+
+      '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
+        '& .card_front': { opacity: 1 }
       },
 
       '&:hover .card_front': {
@@ -82,7 +90,7 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
 
         opacity: 1,
 
-        transform: 'translateY(0px)'
+        transform: 'translateY(0)'
       },
 
       '&:active .card_front': {
@@ -90,296 +98,144 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
 
         opacity: 1,
 
-        transform: 'translateY(0px)'
+        transform: 'translateY(0)'
       }
     }
   },
   light: {
     back: {
-      outlined: {
-        'backgroundColor': isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
+      'backgroundColor': isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
 
-        '&:hover': {
-          'backgroundColor': isLightGray && color === 'gray' ? 'gray.400' : `${color}.600`,
+      '&:hover': {
+        'backgroundColor': isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`,
 
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.400' : `${color}.600`,
-            backgroundColor: 'gray.50',
-            color: isLightGray && color === 'gray' ? 'gray.400' : `${color}.600`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': isLightGray && color === 'gray' ? 'gray.400' : `${color}.600`,
-
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.400' : `${color}.600`,
-            backgroundColor: 'gray.50',
-            color: isLightGray && color === 'gray' ? 'gray.400' : `${color}.600`
-          }
+        '& .card_front': {
+          borderColor: isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`,
+          backgroundColor: 'gray.50',
+          color: isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`
         }
       },
-      transparent: {
-        'backgroundColor': 'transparent',
 
-        '&:hover': {
-          'backgroundColor': 'transparent',
+      '&:active': {
+        'backgroundColor': isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`,
 
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.400' : `${color}.600`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.400' : `${color}.600`
-          }
+        '& .card_front': {
+          borderColor: isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`,
+          backgroundColor: 'gray.50',
+          color: isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`
         }
       }
     },
     front: {
-      outlined: {
-        borderColor: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
-        backgroundColor: 'gray.50',
-        color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-      },
-      transparent: {
-        borderColor: 'transparent',
-        backgroundColor: 'transparent',
-        color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-      }
+      borderColor: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
+      backgroundColor: 'gray.50',
+      color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
     },
     disabled: {
-      outlined: {
+      'backgroundColor': 'gray.50',
+
+      '& .card_front': {
+        borderColor: 'gray.200',
+        backgroundColor: 'gray.50',
+        color: 'gray.200'
+      },
+
+      '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
         'backgroundColor': 'gray.50',
 
-        '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-          'backgroundColor': 'gray.50',
-
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
-            backgroundColor: 'gray.50',
-            color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-          }
-        },
-
         '& .card_front': {
-          borderColor: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
+          borderColor: 'gray.300',
           backgroundColor: 'gray.50',
-          color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-        },
-
-        '&:hover': {
-          'backgroundColor': 'gray.50',
-
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
-            backgroundColor: 'gray.50',
-            color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': 'gray.50',
-
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
-            backgroundColor: 'gray.50',
-            color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-          }
+          color: 'gray.300'
         }
       },
-      transparent: {
-        'backgroundColor': 'transparent',
 
-        '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-          'backgroundColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-          }
-        },
+      '&:hover': {
+        'backgroundColor': 'gray.50',
 
         '& .card_front': {
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-        },
+          borderColor: 'gray.300',
+          backgroundColor: 'gray.50',
+          color: 'gray.300'
+        }
+      },
 
-        '&:hover': {
-          'backgroundColor': 'transparent',
+      '&:active': {
+        'backgroundColor': 'gray.50',
 
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
-          }
+        '& .card_front': {
+          borderColor: 'gray.300',
+          backgroundColor: 'gray.50',
+          color: 'gray.300'
         }
       }
     }
   },
   dark: {
     back: {
-      outlined: {
-        'backgroundColor': isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
+      'backgroundColor': isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
 
-        '&:hover': {
-          'backgroundColor': isLightGray && color === 'gray' ? 'gray.500' : `${color}.200`,
+      '&:hover': {
+        'backgroundColor': isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`,
 
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.500' : `${color}.200`,
-            backgroundColor: 'gray.900',
-            color: isLightGray && color === 'gray' ? 'gray.500' : `${color}.200`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': isLightGray && color === 'gray' ? 'gray.500' : `${color}.200`,
-
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.500' : `${color}.200`,
-            backgroundColor: 'gray.900',
-            color: isLightGray && color === 'gray' ? 'gray.500' : `${color}.200`
-          }
+        '& .card_front': {
+          borderColor: isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`,
+          backgroundColor: 'gray.900',
+          color: isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`
         }
       },
-      transparent: {
-        'backgroundColor': 'transparent',
-        'borderColor': 'transparent',
 
-        '&:hover': {
-          'backgroundColor': 'transparent',
-          'borderColor': 'transparent',
+      '&:active': {
+        'backgroundColor': isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`,
 
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.500' : `${color}.200`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': 'transparent',
-          'borderColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.500' : `${color}.200`
-          }
+        '& .card_front': {
+          borderColor: isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`,
+          backgroundColor: 'gray.900',
+          color: isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`
         }
       }
     },
     front: {
-      outlined: {
-        borderColor: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
-        backgroundColor: 'gray.900',
-        color: `${color}.500`
-      },
-      transparent: {
-        borderColor: 'transparent',
-        backgroundColor: 'transparent',
-        color: `${color}.500`
-      }
+      borderColor: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
+      backgroundColor: 'gray.900',
+      color: `${color}.500`
     },
     disabled: {
-      outlined: {
+      'backgroundColor': 'transparent',
+
+      '& .card_front': {
+        borderColor: 'gray.700',
+        backgroundColor: 'gray.900',
+        color: 'gray.700'
+      },
+
+      '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
         'backgroundColor': 'transparent',
 
-        '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-          'backgroundColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
-            backgroundColor: 'gray.900',
-            color: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`
-          }
-        },
-
         '& .card_front': {
-          borderColor: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
+          borderColor: 'gray.600',
           backgroundColor: 'gray.900',
-          color: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`
-        },
-
-        '&:hover': {
-          'backgroundColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
-            backgroundColor: 'gray.900',
-            color: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
-            backgroundColor: 'gray.900',
-            color: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`
-          }
+          color: 'gray.600'
         }
       },
-      transparent: {
+
+      '&:hover': {
         'backgroundColor': 'transparent',
-        'borderColor': 'transparent',
-
-        '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-          'backgroundColor': 'transparent',
-          'borderColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`
-          }
-        },
 
         '& .card_front': {
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          color: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`
-        },
+          borderColor: 'gray.600',
+          backgroundColor: 'gray.900',
+          color: 'gray.600'
+        }
+      },
 
-        '&:hover': {
-          'backgroundColor': 'transparent',
-          'borderColor': 'transparent',
+      '&:active': {
+        'backgroundColor': 'transparent',
 
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': 'transparent',
-
-          '& .card_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`
-          }
+        '& .card_front': {
+          borderColor: 'gray.600',
+          backgroundColor: 'gray.900',
+          color: 'gray.600'
         }
       }
     }
