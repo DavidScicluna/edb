@@ -21,13 +21,13 @@ export default (theme: Theme, type?: RowProps['type']): RowStyle => ({
 
     'borderRadius': theme.radii.base,
 
-    'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
+    'transition': `${theme.transition.duration['ultra-fast']} ${theme.transition.easing['ease-in-out']}`,
 
     '& .chakra-icon': {
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      transition: `${theme.transition.duration['ultra-fast']} ${theme.transition.easing['ease-in-out']}`
     },
     '& .chakra-text': {
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      transition: `${theme.transition.duration['ultra-fast']} ${theme.transition.easing['ease-in-out']}`
     }
   },
   light: {

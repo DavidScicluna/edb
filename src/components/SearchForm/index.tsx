@@ -443,15 +443,15 @@ const SearchForm = (props: SearchFormProps): ReactElement => {
         borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
         borderRadius='lg'
         px={2}
-        pt={1}
-        pb={isFocused || isLocked ? 2 : 1}
+        py={1.5}
+        // pb={isFocused || isLocked ? 2 : 1}
         onClick={() => handleSetFocus()}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}>
         <HStack
           borderBottom={isFocused || isLocked ? 'solid2' : 'none'}
           borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-          pb={isFocused || isLocked ? 1 : 0}
+          pb={isFocused || isLocked ? 1.5 : 0}
           mb={isFocused || isLocked ? 2 : 0}>
           <Icon as={SearchOutlinedIcon} color={colorMode === 'light' ? 'gray.400' : 'gray.500'} />
           <Input

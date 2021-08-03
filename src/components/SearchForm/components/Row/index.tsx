@@ -57,7 +57,7 @@ const Row = (props: RowProps): ReactElement => {
   return (
     <ListItem
       px={2}
-      py={type === 'isKeyword' ? 1.25 : 0.25}
+      py={type === 'isKeyword' ? 1.25 : 1}
       onClick={!isHoveringDelete && state !== 'isLoading' ? () => handleSearch() : undefined}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
