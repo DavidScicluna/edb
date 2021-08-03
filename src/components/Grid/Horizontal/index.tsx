@@ -1,10 +1,11 @@
 import React, { ReactElement, UIEvent, useState, useCallback, useEffect } from 'react';
 
-import { useColorMode, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 
 import useSelector from '../../../common/hooks/useSelectorTyped';
 import utils from '../../../common/utils/utils';
+import Card from '../../Card';
 import Button from '../../Clickable/Button';
 import Grid from './components/Grid';
 import Header from './components/Header';
@@ -16,9 +17,7 @@ const defaultScrollButtonsState = {
 };
 
 const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
-  const { colorMode } = useColorMode();
-
-  const { children, title, footer, isLoading, path, onFooterClick } = props;
+  const { children, title, footer, isLoading, path, variant = 'transparent', onFooterClick } = props;
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -71,36 +70,41 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
     setResetScrollButtons(true);
   }, [location]);
 
+  // p={variant === 'outlined' ? 2 : 0}
+
   return (
-    <VStack width='100%' align='stretch' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} spacing={0}>
-      {/* Header */}
-      <Header
-        title={title}
-        isLoading={isLoading}
-        reset={resetScrollButtons}
-        scrollButtons={scrollButtons}
-        handleScrollClick={handleScrollClick}
-      />
+    <Card isFullWidth variant={variant} px={variant === 'outlined' ? 2 : 0}>
+      <VStack width='100%' spacing={0}>
+        {/* Header */}
+        <Header
+          title={title}
+          isLoading={isLoading}
+          reset={resetScrollButtons}
+          scrollButtons={scrollButtons}
+          variant={variant}
+          handleScrollClick={handleScrollClick}
+        />
 
-      {/* Grid */}
-      <Grid gridRef={handleGridRef} handleScrollChange={handleScrollChange}>
-        {children}
-      </Grid>
+        {/* Grid */}
+        <Grid gridRef={handleGridRef} variant={variant} handleScrollChange={handleScrollChange}>
+          {children}
+        </Grid>
 
-      {/* Footer */}
-      {path ? (
-        <Link to={!isLoading ? path : {}}>
-          <Button
-            color={utils.handleReturnColor(color)}
-            isFullWidth
-            isDisabled={isLoading}
-            onClick={onFooterClick ? () => onFooterClick() : undefined}
-            variant='text'>
-            {footer || `View all ${title}`}
-          </Button>
-        </Link>
-      ) : null}
-    </VStack>
+        {/* Footer */}
+        {path ? (
+          <Link to={!isLoading ? path : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={isLoading}
+              onClick={onFooterClick ? () => onFooterClick() : undefined}
+              variant='text'>
+              {footer || `View all ${title}`}
+            </Button>
+          </Link>
+        ) : null}
+      </VStack>
+    </Card>
   );
 };
 

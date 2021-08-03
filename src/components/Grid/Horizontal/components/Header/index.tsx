@@ -17,7 +17,7 @@ const Header = (props: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();
   const { isOpen: isMouseDown, onOpen: onMouseDown, onClose: onMouseLeave } = useDisclosure();
 
-  const { title, isLoading = false, reset = false, scrollButtons, handleScrollClick } = props;
+  const { title, isLoading = false, reset = false, scrollButtons, variant = 'transparent', handleScrollClick } = props;
 
   const [direction, setDirection] = useState<'left' | 'right' | ''>('');
 
@@ -53,19 +53,29 @@ const Header = (props: HeaderProps): ReactElement => {
   }, [reset]);
 
   return (
-    <HStack justify='space-between' p={2}>
-      <Text
-        align='left'
-        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-        fontSize='2xl'
-        fontWeight='semibold'
-        textTransform='capitalize'>
-        {title}
-      </Text>
+    <HStack
+      width='100%'
+      justify='space-between'
+      borderBottom={variant === 'outlined' ? 'solid2' : 'none'}
+      borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+      px={variant === 'transparent' ? 2 : 0}
+      py={variant === 'transparent' ? 2 : 1.75}>
+      {typeof title === 'string' ? (
+        <Text
+          align='left'
+          color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+          fontSize='2xl'
+          fontWeight='semibold'
+          textTransform='capitalize'>
+          {title}
+        </Text>
+      ) : (
+        title
+      )}
 
       {/* Scroll buttons */}
       {!utils.handleIsTouchDevice() && (
-        <HStack spacing={2}>
+        <HStack spacing={variant === 'transparent' ? 2 : 1.5}>
           {/* Maybe add an auto scroll button */}
           <Tooltip
             aria-label='Scroll left'
@@ -86,6 +96,7 @@ const Header = (props: HeaderProps): ReactElement => {
                 }
               }}
               onClick={() => handleClose()}
+              size={variant === 'transparent' ? 'md' : 'sm'}
               variant='outlined'
             />
           </Tooltip>
@@ -108,6 +119,7 @@ const Header = (props: HeaderProps): ReactElement => {
                 }
               }}
               onClick={() => handleClose()}
+              size={variant === 'transparent' ? 'md' : 'sm'}
               variant='outlined'
             />
           </Tooltip>

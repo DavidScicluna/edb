@@ -1,15 +1,17 @@
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
-import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
-import PeopleAltTwoToneIcon from '@material-ui/icons/PeopleAltTwoTone';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import TheatersOutlinedIcon from '@material-ui/icons/TheatersOutlined';
-import TheatersTwoToneIcon from '@material-ui/icons/TheatersTwoTone';
-import TvOutlinedIcon from '@material-ui/icons/TvOutlined';
-import TvTwoToneIcon from '@material-ui/icons/TvTwoTone';
-import WhatshotOutlinedIcon from '@material-ui/icons/WhatshotOutlined';
-import WhatshotTwoToneIcon from '@material-ui/icons/WhatshotTwoTone';
+import {
+  HomeTwoTone as HomeTwoToneIcon,
+  HomeOutlined as HomeOutlinedIcon,
+  PeopleAltOutlined as PeopleAltOutlinedIcon,
+  PeopleAltTwoTone as PeopleAltTwoToneIcon,
+  SearchOutlined as SearchOutlinedIcon,
+  SearchTwoTone as SearchTwoToneIcon,
+  TheatersOutlined as TheatersOutlinedIcon,
+  TheatersTwoTone as TheatersTwoToneIcon,
+  TvOutlined as TvOutlinedIcon,
+  TvTwoTone as TvTwoToneIcon,
+  WhatshotOutlined as WhatshotOutlinedIcon,
+  WhatshotTwoTone as WhatshotTwoToneIcon
+} from '@material-ui/icons/';
 
 import { NavItem } from '../../components/NavItems/types';
 
