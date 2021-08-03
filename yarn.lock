@@ -3760,6 +3760,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-scroll@npm:^1.8.3":
+  version: 1.8.3
+  resolution: "@types/react-scroll@npm:1.8.3"
+  dependencies:
+    "@types/react": "*"
+  checksum: d30eae215b30a1d7bab9589c50bed50b1430c52aadda3f901b00ddffac318ebf8feb32caa75d91cde94a4d87eec10a70f22ac6e000cee6099d13fe68742c1a6c
+  languageName: node
+  linkType: hard
+
 "@types/react-transition-group@npm:^4.2.0":
   version: 4.4.1
   resolution: "@types/react-transition-group@npm:4.4.1"
@@ -7525,6 +7534,7 @@ __metadata:
     "@types/react-dom": ^17.0.4
     "@types/react-redux": ^7.1.16
     "@types/react-router-dom": ^5.1.7
+    "@types/react-scroll": ^1.8.3
     "@types/uuid": ^8.3.0
     "@typescript-eslint/eslint-plugin": ^4.9.0
     "@typescript-eslint/parser": ^4.9.0
@@ -7557,6 +7567,7 @@ __metadata:
     react-redux: ^7.2.4
     react-router-dom: ^5.2.0
     react-scripts: 4.0.3
+    react-scroll: ^1.8.3
     redux: ^4.1.0
     redux-persist: ^6.0.0
     typescript: ^4.2.4
@@ -11771,6 +11782,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"lodash.throttle@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "lodash.throttle@npm:4.1.1"
+  checksum: d9107c79033f609f23552f48f5ba93b8a98a07a2b38914745a48d33f18704a4c6a125610ad2bab2a0139974d1da7c5d6a24271243e21571f01e21bf3b2f6b21d
+  languageName: node
+  linkType: hard
+
 "lodash.uniq@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.uniq@npm:4.5.0"
@@ -14984,6 +15002,19 @@ fsevents@^1.2.7:
   bin:
     react-scripts: ./bin/react-scripts.js
   checksum: ee13d6fa1eef6c8ad0b5e4e5c26bdf59b136dfa24910e9ebb2d9f42a8fe7e77ed7ce221b87342e4f597954c42293d6d181ff1315d3b2bd3103362eb192a71d22
+  languageName: node
+  linkType: hard
+
+"react-scroll@npm:^1.8.3":
+  version: 1.8.3
+  resolution: "react-scroll@npm:1.8.3"
+  dependencies:
+    lodash.throttle: ^4.1.1
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ^15.5.4 || ^16.0.0 || ^17.0.0
+    react-dom: ^15.5.4 || ^16.0.0 || ^17.0.0
+  checksum: df3925e2b2da9b5deb23e3a023a5a407d43d35e18af56d6d92395d397abf6a7b2874ec9fcc88b8a63e46de06b8f522823558d9f30aa2b27ba0db5805c269ae6e
   languageName: node
   linkType: hard
 

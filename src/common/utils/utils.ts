@@ -159,7 +159,7 @@ export default {
    *
    * @param range - Total range of numbers to use
    * @param amount - Amount of numbers to return
-   * @returns - Array of numbers from the 25 to range
+   * @returns - Array of numbers from 25 to range
    */
   handleReturnDummyWidths: (range: number, amount: number): number[] => {
     return _.range(25, range, amount);

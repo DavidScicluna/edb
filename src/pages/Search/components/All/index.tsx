@@ -50,7 +50,7 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             } with "${query}"`}
             isLoading={false}
             path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}>
-            <HorizontalTV isError isSuccess={!isLoading} tv={tv?.results || []} />
+            <HorizontalTV isError={false} isSuccess={!isLoading} tv={tv?.results || []} />
           </HorizontalGrid>
         </Collapse>
 

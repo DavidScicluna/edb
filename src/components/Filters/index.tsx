@@ -26,7 +26,7 @@ import Genres from './components/Genres';
 import SortBy from './components/SortBy';
 import { FiltersProps, Form } from './types';
 
-const Filters = ({ mediaType, isLikedLists = false, onFilter }: FiltersProps): ReactElement => {
+const Filters = (props: FiltersProps): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
@@ -35,6 +35,8 @@ const Filters = ({ mediaType, isLikedLists = false, onFilter }: FiltersProps): R
   const displayMode = useSelector((state) => state.app.ui.displayMode);
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
   const color = useSelector((state) => state.user.ui.theme.color);
+
+  const { mediaType, isLikedLists = false, isDisabled = false, onFilter } = props;
 
   const defaultValues = {
     displayMode,
@@ -118,6 +120,7 @@ const Filters = ({ mediaType, isLikedLists = false, onFilter }: FiltersProps): R
         aria-label='Open filters modal'
         color={isOpen ? utils.handleReturnColor(color) : 'gray'}
         icon={VisibilityOutlinedIcon}
+        isDisabled={isDisabled}
         onClick={() => onOpen()}
         variant='outlined'
       />

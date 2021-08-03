@@ -5,6 +5,7 @@ import { DisplayMode, SortDirection } from '../../store/slices/App/types';
 export type FiltersProps = {
   mediaType: MediaType;
   isLikedLists?: boolean;
+  isDisabled?: boolean;
   onFilter: (sortBy: SortBy[], genres: Genre[], departments: Department[]) => void;
 };
 
