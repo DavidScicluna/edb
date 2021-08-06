@@ -16,15 +16,15 @@ const Bio = ({ biography, isLoading }: BioProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   return (
-    <Card minWidth='100%' p={2}>
-      <VStack width='100%' spacing={1}>
+    <Card minWidth='100%' px={2} pt={1.5} pb={2}>
+      <VStack width='100%' spacing={2}>
         <HStack
           width='100%'
           justifyContent='space-between'
           borderBottom='solid2'
           borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
           spacing={0}
-          pb={2}>
+          pb={1.5}>
           <Text
             width='100%'
             align='left'

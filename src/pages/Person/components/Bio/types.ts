@@ -1,1 +1,4 @@
-export type BioProps = { biography: string; isLoading?: boolean };
+export type BioProps = {
+  biography: string;
+  isLoading?: boolean;
+};
