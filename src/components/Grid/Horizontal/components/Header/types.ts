@@ -9,5 +9,5 @@ export type HeaderProps = {
   reset: boolean;
   scrollButtons: ScrollButtonsState;
   variant?: CardVariant;
-  handleScrollClick: (direction: 'left' | 'right') => void;
+  onScrollClick: (direction: 'left' | 'right') => void;
 };

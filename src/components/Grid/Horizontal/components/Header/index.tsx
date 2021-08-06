@@ -17,15 +17,15 @@ const Header = (props: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();
   const { isOpen: isMouseDown, onOpen: onMouseDown, onClose: onMouseLeave } = useDisclosure();
 
-  const { title, isLoading = false, reset = false, scrollButtons, variant = 'transparent', handleScrollClick } = props;
+  const { title, isLoading = false, reset = false, scrollButtons, variant = 'transparent', onScrollClick } = props;
 
   const [direction, setDirection] = useState<'left' | 'right' | ''>('');
 
   const handleScroll = useCallback(() => {
     if (direction === 'left' || direction === 'right') {
-      handleScrollClick(direction);
+      onScrollClick(direction);
     }
-  }, [direction, handleScrollClick]);
+  }, [direction, onScrollClick]);
 
   const handleIsMouseDown = useCallback(() => {
     if (isMouseDown) {
@@ -35,7 +35,7 @@ const Header = (props: HeaderProps): ReactElement => {
     }
   }, [isMouseDown, interval]);
 
-  const handleClose = () => {
+  const handleIsMouseUp = () => {
     setDirection('');
     clearInterval(interval);
 
@@ -48,7 +48,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
   useEffect(() => {
     if (reset) {
-      handleClose();
+      handleIsMouseUp();
     }
   }, [reset]);
 
@@ -59,7 +59,7 @@ const Header = (props: HeaderProps): ReactElement => {
       borderBottom={variant === 'outlined' ? 'solid2' : 'none'}
       borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       px={variant === 'transparent' ? 2 : 0}
-      py={variant === 'transparent' ? 2 : 1.75}>
+      py={variant === 'transparent' ? 2 : 1.25}>
       {typeof title === 'string' ? (
         <Text
           align='left'
@@ -75,7 +75,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
       {/* Scroll buttons */}
       {!utils.handleIsTouchDevice() && (
-        <HStack spacing={variant === 'transparent' ? 2 : 1.5}>
+        <HStack spacing={variant === 'transparent' ? 2 : 1.25}>
           {/* Maybe add an auto scroll button */}
           <Tooltip
             aria-label='Scroll left'
@@ -95,7 +95,7 @@ const Header = (props: HeaderProps): ReactElement => {
                   setDirection('left');
                 }
               }}
-              onClick={() => handleClose()}
+              onClick={() => handleIsMouseUp()}
               size={variant === 'transparent' ? 'md' : 'sm'}
               variant='outlined'
             />
@@ -118,7 +118,7 @@ const Header = (props: HeaderProps): ReactElement => {
                   setDirection('right');
                 }
               }}
-              onClick={() => handleClose()}
+              onClick={() => handleIsMouseUp()}
               size={variant === 'transparent' ? 'md' : 'sm'}
               variant='outlined'
             />

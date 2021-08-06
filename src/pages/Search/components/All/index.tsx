@@ -3,6 +3,10 @@ import React, { ReactElement } from 'react';
 import { VStack, Fade, Collapse } from '@chakra-ui/react';
 import queryString from 'query-string';
 
+import useSelector from '../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../common/utils/utils';
+import Button from '../../../../components/Clickable/Button';
+import Link from '../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
 import HorizontalMovies from '../../../../components/Movies/Grid/Horizontal';
 import HorizontalPeople from '../../../../components/People/Grid/Horizontal';
@@ -10,6 +14,8 @@ import HorizontalTV from '../../../../components/TV/Grid/Horizontal';
 import { AllProps } from './types';
 
 const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactElement => {
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   return (
     <Fade
       in={
@@ -30,11 +36,25 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             title={`Found ${movies?.total_results || 0} movie${
               movies && movies.total_results ? (movies.total_results === 0 || movies.total_results > 1 ? 's' : '') : ''
             } with "${query}"`}
-            footer={`View all ${movies?.total_results || 0} movie${
-              movies && movies.total_results ? (movies.total_results === 0 || movies.total_results > 1 ? 's' : '') : ''
-            } with "${query}"`}
-            isLoading={false}
-            path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}>
+            footer={
+              <Link
+                to={
+                  !isLoading
+                    ? { pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }
+                    : {}
+                }>
+                <Button color={utils.handleReturnColor(color)} isFullWidth isDisabled={isLoading} variant='text'>
+                  {`View all ${movies?.total_results || 0} movie${
+                    movies && movies.total_results
+                      ? movies.total_results === 0 || movies.total_results > 1
+                        ? 's'
+                        : ''
+                      : ''
+                  } with "${query}"`}
+                </Button>
+              </Link>
+            }
+            isLoading={isLoading}>
             <HorizontalMovies isError={false} isSuccess={!isLoading} movies={movies?.results || []} />
           </HorizontalGrid>
         </Collapse>
@@ -45,11 +65,19 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
             title={`Found ${tv?.total_results || 0} TV show${
               tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
             } with "${query}"`}
-            footer={`View all ${tv?.total_results || 0} TV show${
-              tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
-            } with "${query}"`}
-            isLoading={false}
-            path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}>
+            footer={
+              <Link
+                to={
+                  !isLoading ? { pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) } : {}
+                }>
+                <Button color={utils.handleReturnColor(color)} isFullWidth isDisabled={isLoading} variant='text'>
+                  {`View all ${tv?.total_results || 0} TV show${
+                    tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
+                  } with "${query}"`}
+                </Button>
+              </Link>
+            }
+            isLoading={isLoading}>
             <HorizontalTV isError={false} isSuccess={!isLoading} tv={tv?.results || []} />
           </HorizontalGrid>
         </Collapse>
@@ -67,15 +95,25 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
                   : 'person'
                 : ''
             } with "${query}"`}
-            footer={`View all ${people?.total_results || 0} ${
-              people && people.total_results
-                ? people.total_results === 0 || people.total_results > 1
-                  ? 'people'
-                  : 'person'
-                : ''
-            } with "${query}"`}
-            isLoading={false}
-            path={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}>
+            footer={
+              <Link
+                to={
+                  !isLoading
+                    ? { pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }
+                    : {}
+                }>
+                <Button color={utils.handleReturnColor(color)} isFullWidth isDisabled={isLoading} variant='text'>
+                  {`View all ${people?.total_results || 0} ${
+                    people && people.total_results
+                      ? people.total_results === 0 || people.total_results > 1
+                        ? 'people'
+                        : 'person'
+                      : ''
+                  } with "${query}"`}
+                </Button>
+              </Link>
+            }
+            isLoading={isLoading}>
             <HorizontalPeople isError={false} isSuccess={!isLoading} people={people?.results || []} />
           </HorizontalGrid>
         </Collapse>

@@ -6,7 +6,14 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import Layout from '../../containers/Layout';
 import theme from '../../theme';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false
+    }
+  }
+});
 
 const App = (): ReactElement => {
   return (

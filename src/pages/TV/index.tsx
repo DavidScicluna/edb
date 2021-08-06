@@ -4,14 +4,20 @@ import { VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
+import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
 import { PartialTV } from '../../common/types/tv';
 import { Response } from '../../common/types/types';
+import utils from '../../common/utils/utils';
+import Button from '../../components/Clickable/Button';
+import Link from '../../components/Clickable/Link';
 import HorizontalGrid from '../../components/Grid/Horizontal';
 import HorizontalTV from '../../components/TV/Grid/Horizontal';
 
 const TV = (): ReactElement => {
   const source = axios.CancelToken.source();
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   // Fetching popular tv
   const popularTV = useQuery('popularTV', async () => {
@@ -53,8 +59,18 @@ const TV = (): ReactElement => {
     <VStack spacing={6}>
       <HorizontalGrid
         title='Popular TV Shows'
-        isLoading={popularTV.isFetching || popularTV.isLoading}
-        path={{ pathname: '/tv/popular' }}>
+        footer={
+          <Link to={!popularTV.isFetching || !popularTV.isLoading ? { pathname: '/tv/popular' } : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={popularTV.isFetching || popularTV.isLoading}
+              variant='text'>
+              View all Popular TV Shows
+            </Button>
+          </Link>
+        }
+        isLoading={popularTV.isFetching || popularTV.isLoading}>
         <HorizontalTV
           isError={popularTV.isError}
           isSuccess={popularTV.isSuccess && !popularTV.isFetching && !popularTV.isLoading}
@@ -64,8 +80,18 @@ const TV = (): ReactElement => {
 
       <HorizontalGrid
         title='TV Shows Airing Today'
-        isLoading={tvAiringToday.isFetching || tvAiringToday.isLoading}
-        path={{ pathname: '/tv/airing-today' }}>
+        footer={
+          <Link to={!tvAiringToday.isFetching || !tvAiringToday.isLoading ? { pathname: '/tv/airing-today' } : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={tvAiringToday.isFetching || tvAiringToday.isLoading}
+              variant='text'>
+              View all TV Shows Airing Today
+            </Button>
+          </Link>
+        }
+        isLoading={tvAiringToday.isFetching || tvAiringToday.isLoading}>
         <HorizontalTV
           isError={tvAiringToday.isError}
           isSuccess={tvAiringToday.isSuccess && !tvAiringToday.isFetching && !tvAiringToday.isLoading}
@@ -75,8 +101,18 @@ const TV = (): ReactElement => {
 
       <HorizontalGrid
         title='TV Shows on at the moment'
-        isLoading={onTV.isFetching || onTV.isLoading}
-        path={{ pathname: '/tv/on-tv' }}>
+        footer={
+          <Link to={!onTV.isFetching || !onTV.isLoading ? { pathname: '/tv/on-tv' } : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={onTV.isFetching || onTV.isLoading}
+              variant='text'>
+              View all TV Shows on at the moment
+            </Button>
+          </Link>
+        }
+        isLoading={onTV.isFetching || onTV.isLoading}>
         <HorizontalTV
           isError={onTV.isError}
           isSuccess={onTV.isSuccess && !onTV.isFetching && !onTV.isLoading}
@@ -86,8 +122,18 @@ const TV = (): ReactElement => {
 
       <HorizontalGrid
         title='Top Rated TV Shows'
-        isLoading={topRatedTV.isFetching || topRatedTV.isLoading}
-        path={{ pathname: '/tv/top-rated' }}>
+        footer={
+          <Link to={!topRatedTV.isFetching || !topRatedTV.isLoading ? { pathname: '/tv/top-rated' } : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={topRatedTV.isFetching || topRatedTV.isLoading}
+              variant='text'>
+              View all Top Rated TV Shows
+            </Button>
+          </Link>
+        }
+        isLoading={topRatedTV.isFetching || topRatedTV.isLoading}>
         <HorizontalTV
           isError={topRatedTV.isError}
           isSuccess={topRatedTV.isSuccess && !topRatedTV.isFetching && !topRatedTV.isLoading}

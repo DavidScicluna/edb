@@ -4,14 +4,20 @@ import { VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
+import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
 import { PartialMovie } from '../../common/types/movie';
 import { Response } from '../../common/types/types';
+import utils from '../../common/utils/utils';
+import Button from '../../components/Clickable/Button';
+import Link from '../../components/Clickable/Link';
 import HorizontalGrid from '../../components/Grid/Horizontal';
 import HorizontalMovies from '../../components/Movies/Grid/Horizontal';
 
 const Movies = (): ReactElement => {
   const source = axios.CancelToken.source();
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   // Fetching popular movies
   const popularMovies = useQuery('popularMovies', async () => {
@@ -52,9 +58,19 @@ const Movies = (): ReactElement => {
   return (
     <VStack spacing={6}>
       <HorizontalGrid
-        title='Popular Movies'
-        isLoading={popularMovies.isFetching || popularMovies.isLoading}
-        path={{ pathname: '/movies/popular' }}>
+        title=''
+        footer={
+          <Link to={!popularMovies.isFetching || !popularMovies.isLoading ? { pathname: '/movies/popular' } : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={popularMovies.isFetching || popularMovies.isLoading}
+              variant='text'>
+              View all Popular Movies
+            </Button>
+          </Link>
+        }
+        isLoading={popularMovies.isFetching || popularMovies.isLoading}>
         <HorizontalMovies
           isError={popularMovies.isError}
           isSuccess={popularMovies.isSuccess && !popularMovies.isFetching && !popularMovies.isLoading}
@@ -64,8 +80,18 @@ const Movies = (): ReactElement => {
 
       <HorizontalGrid
         title='Upcoming Movies'
-        isLoading={upcomingMovies.isFetching || upcomingMovies.isLoading}
-        path={{ pathname: '/movies/upcoming' }}>
+        footer={
+          <Link to={!upcomingMovies.isFetching || !upcomingMovies.isLoading ? { pathname: '/movies/upcoming' } : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={upcomingMovies.isFetching || upcomingMovies.isLoading}
+              variant='text'>
+              View all Upcoming Movies
+            </Button>
+          </Link>
+        }
+        isLoading={upcomingMovies.isFetching || upcomingMovies.isLoading}>
         <HorizontalMovies
           isError={upcomingMovies.isError}
           isSuccess={upcomingMovies.isSuccess && !upcomingMovies.isFetching && !upcomingMovies.isLoading}
@@ -75,8 +101,19 @@ const Movies = (): ReactElement => {
 
       <HorizontalGrid
         title='Movies Now Playing'
-        isLoading={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}
-        path={{ pathname: '/movies/now-playing' }}>
+        footer={
+          <Link
+            to={!moviesNowPlaying.isFetching || !moviesNowPlaying.isLoading ? { pathname: '/movies/now-playing' } : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}
+              variant='text'>
+              View all Movies Now Playing
+            </Button>
+          </Link>
+        }
+        isLoading={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}>
         <HorizontalMovies
           isError={moviesNowPlaying.isError}
           isSuccess={moviesNowPlaying.isSuccess && !moviesNowPlaying.isFetching && !moviesNowPlaying.isLoading}
@@ -86,8 +123,18 @@ const Movies = (): ReactElement => {
 
       <HorizontalGrid
         title='Top Rated Movies'
-        isLoading={topRatedMovies.isFetching || topRatedMovies.isLoading}
-        path={{ pathname: '/movies/top-rated' }}>
+        footer={
+          <Link to={!topRatedMovies.isFetching || !topRatedMovies.isLoading ? { pathname: '/movies/top-rated' } : {}}>
+            <Button
+              color={utils.handleReturnColor(color)}
+              isFullWidth
+              isDisabled={topRatedMovies.isFetching || topRatedMovies.isLoading}
+              variant='text'>
+              View all Movies Now Playing
+            </Button>
+          </Link>
+        }
+        isLoading={topRatedMovies.isFetching || topRatedMovies.isLoading}>
         <HorizontalMovies
           isError={topRatedMovies.isError}
           isSuccess={topRatedMovies.isSuccess && !topRatedMovies.isFetching && !topRatedMovies.isLoading}

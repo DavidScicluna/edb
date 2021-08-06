@@ -1,12 +1,9 @@
-import React, { ReactElement, UIEvent, useState, useCallback, useEffect } from 'react';
+import React, { ReactElement, UIEvent, SyntheticEvent, useState, useCallback, useEffect } from 'react';
 
-import { VStack } from '@chakra-ui/react';
-import { Link, useLocation } from 'react-router-dom';
+import { useColorMode, VStack, Box } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
 
-import useSelector from '../../../common/hooks/useSelectorTyped';
-import utils from '../../../common/utils/utils';
 import Card from '../../Card';
-import Button from '../../Clickable/Button';
 import Grid from './components/Grid';
 import Header from './components/Header';
 import { HorizontalGridProps, ScrollButtonsState } from './types';
@@ -17,9 +14,9 @@ const defaultScrollButtonsState = {
 };
 
 const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
-  const { children, title, footer, isLoading, path, variant = 'transparent', onFooterClick } = props;
+  const { colorMode } = useColorMode();
 
-  const color = useSelector((state) => state.user.ui.theme.color);
+  const { children, title, footer, isLoading, variant = 'transparent' } = props;
 
   const location = useLocation();
 
@@ -44,7 +41,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
     }
   }, []);
 
-  const handleScrollChange = (event: UIEvent<HTMLDivElement, UIEvent>) => {
+  const handleScrollChange = (event: UIEvent<HTMLDivElement, globalThis.UIEvent> | SyntheticEvent<HTMLDivElement>) => {
     handleGridRef(event.currentTarget);
   };
 
@@ -70,8 +67,6 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
     setResetScrollButtons(true);
   }, [location]);
 
-  // p={variant === 'outlined' ? 2 : 0}
-
   return (
     <Card isFullWidth variant={variant} px={variant === 'outlined' ? 2 : 0}>
       <VStack width='100%' spacing={0}>
@@ -82,7 +77,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
           reset={resetScrollButtons}
           scrollButtons={scrollButtons}
           variant={variant}
-          handleScrollClick={handleScrollClick}
+          onScrollClick={handleScrollClick}
         />
 
         {/* Grid */}
@@ -91,17 +86,15 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
         </Grid>
 
         {/* Footer */}
-        {path ? (
-          <Link to={!isLoading ? path : {}}>
-            <Button
-              color={utils.handleReturnColor(color)}
-              isFullWidth
-              isDisabled={isLoading}
-              onClick={onFooterClick ? () => onFooterClick() : undefined}
-              variant='text'>
-              {footer || `View all ${title}`}
-            </Button>
-          </Link>
+        {footer ? (
+          <Box
+            width='100%'
+            borderTop={variant === 'outlined' ? 'solid2' : 'none'}
+            borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+            pt={1}
+            pb={variant === 'outlined' ? 1 : 0}>
+            {footer}
+          </Box>
         ) : null}
       </VStack>
     </Card>
