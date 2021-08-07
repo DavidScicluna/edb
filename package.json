@@ -29,6 +29,7 @@
     "react-scroll": "^1.8.3",
     "redux": "^4.1.0",
     "redux-persist": "^6.0.0",
+    "swiper": "^6.8.1",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
   },

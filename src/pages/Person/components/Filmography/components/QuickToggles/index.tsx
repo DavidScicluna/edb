@@ -31,44 +31,46 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
         Jump to:
       </Text>
 
-      <HorizontalScroll width='calc(100% - 61.47px)' spacing='0'>
-        <>
-          {!isLoading
-            ? departments.map((department, index) => (
-                <Fragment key={index}>
-                  <Link to={`${department.toLowerCase()}-accordion`} spy={true} smooth={true} offset={-81}>
-                    <Button
-                      color={utils.handleReturnColor(color)}
-                      onClick={() => onToggleAccordion(department)}
-                      size='sm'
-                      variant='text'>
-                      {department}
-                    </Button>
-                  </Link>
+      {!isLoading ? (
+        <HorizontalScroll width='calc(100% - 61.47px)' spacing='0'>
+          <>
+            {departments.map((department, index) => (
+              <Fragment key={index}>
+                <Link to={`${department.toLowerCase()}-accordion`} spy={true} smooth={true} offset={-81}>
+                  <Button
+                    color={utils.handleReturnColor(color)}
+                    onClick={() => onToggleAccordion(department)}
+                    size='sm'
+                    variant='text'>
+                    {department}
+                  </Button>
+                </Link>
 
-                  {index < departments.length - 1 ? (
-                    <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-                      •
-                    </Text>
-                  ) : null}
-                </Fragment>
-              ))
-            : _.range(0, 4).map((_dummy, index) => (
-                <Fragment key={index}>
-                  <Skeleton
-                    width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
-                    height='16px'
-                  />
+                {index < departments.length - 1 ? (
+                  <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+                    •
+                  </Text>
+                ) : null}
+              </Fragment>
+            ))}
+          </>
+        </HorizontalScroll>
+      ) : (
+        _.range(0, 4).map((_dummy, index) => (
+          <Fragment key={index}>
+            <Skeleton
+              width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
+              height='16px'
+            />
 
-                  {index < 3 ? (
-                    <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-                      •
-                    </Text>
-                  ) : null}
-                </Fragment>
-              ))}
-        </>
-      </HorizontalScroll>
+            {index < 3 ? (
+              <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+                •
+              </Text>
+            ) : null}
+          </Fragment>
+        ))
+      )}
     </HStack>
   );
 };

@@ -7400,6 +7400,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dom7@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "dom7@npm:3.0.0"
+  dependencies:
+    ssr-window: ^3.0.0-alpha.1
+  checksum: 8beff48475ec564d96a5bcec88eac784d1ff2ceca0f663cfb6a5f54fcebd5b5bf805b508161c24ededf7f84d02af7a976b340e86082b11673345d6c216abd8af
+  languageName: node
+  linkType: hard
+
 "domain-browser@npm:^1.1.1":
   version: 1.2.0
   resolution: "domain-browser@npm:1.2.0"
@@ -7570,6 +7579,7 @@ __metadata:
     react-scroll: ^1.8.3
     redux: ^4.1.0
     redux-persist: ^6.0.0
+    swiper: ^6.8.1
     typescript: ^4.2.4
     uuid: ^8.3.2
     web-vitals: ^1.1.1
@@ -16435,6 +16445,13 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
+"ssr-window@npm:^3.0.0, ssr-window@npm:^3.0.0-alpha.1":
+  version: 3.0.0
+  resolution: "ssr-window@npm:3.0.0"
+  checksum: 36ac4b6ba91d0cafc83f43aff094b1e32ce55e3f8b31e4538694b203f4b797690b66c7aca17a3f514df82868271a7248514b5b6aca766eb50c97e6fe77b32358
+  languageName: node
+  linkType: hard
+
 "ssri@npm:^6.0.1":
   version: 6.0.1
   resolution: "ssri@npm:6.0.1"
@@ -16915,6 +16932,16 @@ resolve@1.18.1:
   bin:
     svgo: ./bin/svgo
   checksum: e1659738423f625561fa23769d0a010f5ba08e83926ce697491153fa29a8cb2452fa5abb14c1bb489aa186718856f8768d4da870210a79302d47535c57c30d30
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^6.8.1":
+  version: 6.8.1
+  resolution: "swiper@npm:6.8.1"
+  dependencies:
+    dom7: ^3.0.0
+    ssr-window: ^3.0.0
+  checksum: 1bb2d303bd869e306ec92e430e4da6a11c05a12155e399f4b414ff4ec9c8511c8c309182d4897c1d93a129663ca4fdb02b3730539e7e8c86f1528c704e8a583d
   languageName: node
   linkType: hard
 
