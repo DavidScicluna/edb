@@ -11,11 +11,11 @@ import {
 } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
-import { useLocation, useParams, Link } from 'react-router-dom';
+import { useLocation, useParams, Link, useHistory } from 'react-router-dom';
 
 import useSelector from '../../../../../../common/hooks/useSelectorTyped';
-import { Breadcrumb as BreadcrumbType } from '../../../../../../common/types/types';
 import { Theme } from '../../../../../../theme/types';
+import breadcrumbs, { Breadcrumb as BreadcrumbType } from '../../../../common/data/breadcrumbs';
 import useStyles from './styles';
 import { Params } from './types';
 
@@ -26,67 +26,94 @@ const Breadcrumb = (): ReactElement => {
 
   const { id, mediaType } = useParams<Params>();
   const location = useLocation();
+  const history = useHistory();
 
   const lists = useSelector((state) => state.user.data.lists);
 
-  const [state, setstate] = useState<BreadcrumbType[]>([]);
+  // const [state, setstate] = useState<BreadcrumbType[]>([]);
 
-  const breadcrumbs: any[] = [];
+  const handleCheckBreadcrumb = (): boolean => {
+    const splitLocation = location.pathname.split('/');
 
-  useEffect(() => {
-    setstate([]);
+    // console.log(splitLocation);
 
-    if (location.pathname.includes('lists')) {
-      if (id && mediaType) {
-        const label =
-          mediaType === 'movie'
-            ? 'Movies'
-            : mediaType === 'tv'
-            ? 'TV Shows'
-            : mediaType === 'person'
-            ? 'People'
-            : 'Media-Type';
+    return false;
+  };
 
-        setstate([
-          {
-            label: lists.find((list) => list.id === id)?.label || 'List-Name',
-            path: `/lists/${id}`
-          },
-          {
-            label,
-            path: `/lists/${id}/${mediaType}`
-          }
-        ]);
-      } else if (id) {
-        setstate([
-          {
-            label: lists.find((list) => list.id === id)?.label || 'List-Name',
-            path: `/lists/${id}`
-          }
-        ]);
-      }
-    } else if (mediaType) {
-      const label =
-        mediaType === 'movie'
-          ? 'Movies'
-          : mediaType === 'tv'
-          ? 'TV Shows'
-          : mediaType === 'person'
-          ? 'People'
-          : 'Media-Type';
+  const handleGenericBreadcrumbLabel = (): string => {
+    return '';
+  };
 
-      setstate([
-        {
-          label,
-          path: location.pathname.includes('trending')
-            ? `/trending/${mediaType}`
-            : location.pathname.includes('liked')
-            ? `/liked/${mediaType}`
-            : ''
-        }
-      ]);
+  const handleReturnBreadcrumbs = (): string[] => {
+    if (breadcrumbs[location.pathname]) {
+      return breadcrumbs[location.pathname].consistsOf;
+    } else {
+      const splitLocation = location.pathname.split('/').filter((item) => item);
+      const breadcrumb = breadcrumbs[`/${splitLocation[0]}`];
+      // console.log(breadcrumb);
+
+      return [];
     }
-  }, [location]);
+  };
+
+  handleReturnBreadcrumbs();
+
+  // useEffect(() => {
+  //   setstate([]);
+
+  //   if (location.pathname.includes('lists')) {
+  //     if (id && mediaType) {
+  //       const label =
+  //         mediaType === 'movie'
+  //           ? 'Movies'
+  //           : mediaType === 'tv'
+  //           ? 'TV Shows'
+  //           : mediaType === 'person'
+  //           ? 'People'
+  //           : 'Media-Type';
+
+  //       setstate([
+  //         {
+  //           label: lists.find((list) => list.id === id)?.label || 'List-Name',
+  //           path: `/lists/${id}`
+  //         },
+  //         {
+  //           label,
+  //           path: `/lists/${id}/${mediaType}`
+  //         }
+  //       ]);
+  //     } else if (id) {
+  //       setstate([
+  //         {
+  //           label: lists.find((list) => list.id === id)?.label || 'List-Name',
+  //           path: `/lists/${id}`
+  //         }
+  //       ]);
+  //     }
+  //   } else if (mediaType) {
+  //     const label =
+  //       mediaType === 'movie'
+  //         ? 'Movies'
+  //         : mediaType === 'tv'
+  //         ? 'TV Shows'
+  //         : mediaType === 'person'
+  //         ? 'People'
+  //         : 'Media-Type';
+
+  //     setstate([
+  //       {
+  //         label,
+  //         path: location.pathname.includes('trending')
+  //           ? `/trending/${mediaType}`
+  //           : location.pathname.includes('liked')
+  //           ? `/liked/${mediaType}`
+  //           : ''
+  //       }
+  //     ]);
+  //   }
+  // }, [location]);
+
+  // console.log(history);
 
   return (
     <CUIBreadcrumb
@@ -98,26 +125,27 @@ const Breadcrumb = (): ReactElement => {
         />
       }
       spacing={1}>
-      {[...breadcrumbs, ...state].map((breadcrumb) => (
+      {/* {[...(breadcrumbs[location.pathname]?.consistsOf || [])].map((breadcrumb: string) => (
         <BreadcrumbItem
-          key={breadcrumb.label}
-          isCurrentPage={location.pathname === breadcrumb.path}
+          key={breadcrumb}
+          isCurrentPage={breadcrumb.includes(':') ? handleCheckBreadcrumb() : location.pathname === breadcrumb}
           fontSize={['xl']}
           sx={{ ...style.common.breadcrumbItem }}>
-          {location.pathname === breadcrumb.path ? (
+          {(breadcrumb.includes(':') ? handleCheckBreadcrumb() : location.pathname === breadcrumb) ? (
             <Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
-              {breadcrumb.label}
+              {(breadcrumb.includes(':') ? handleGenericBreadcrumbLabel() : breadcrumbs[breadcrumb].label) || ''}
             </Text>
           ) : (
             <BreadcrumbLink
               as={Link}
-              to={breadcrumb.path}
+              to={breadcrumb}
               sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}>
-              {breadcrumb.label}
+              {breadcrumbs[breadcrumb].label || ''}
             </BreadcrumbLink>
           )}
         </BreadcrumbItem>
-      ))}
+      ))} */}
+      <h1>Hello</h1>
     </CUIBreadcrumb>
   );
 };
