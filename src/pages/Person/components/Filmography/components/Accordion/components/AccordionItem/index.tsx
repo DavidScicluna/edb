@@ -47,10 +47,10 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
           {label}
           <Badge
             label={`${
-              (credits.cast?.movie.length || 0) +
-              (credits.cast?.tv.length || 0) +
-              (credits.crew?.movie.length || 0) +
-              (credits.crew?.tv.length || 0)
+              (credits.cast?.movie?.length || 0) +
+              (credits.cast?.tv?.length || 0) +
+              (credits.crew?.movie?.length || 0) +
+              (credits.crew?.tv?.length || 0)
             }`}
             ml={2}
           />
