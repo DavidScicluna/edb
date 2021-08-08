@@ -1,13 +1,286 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 
+import { useDisclosure, VStack } from '@chakra-ui/react';
+import arraySort from 'array-sort';
+import axios from 'axios';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
-import { FullPerson } from '../../common/types/person';
+import axiosInstance from '../../common/scripts/axios';
+import {
+  FullPerson,
+  Credits,
+  MovieCredits,
+  TVCredits,
+  ExternalIDs,
+  ImageResponse,
+  Image
+} from '../../common/types/person';
+import { Response } from '../../common/types/types';
+import Bio from './components/Bio';
+import Details from './components/Details';
+import Filmography from './components/Filmography';
+import KnownFor from './components/KnownFor';
+import MediaViewer from './components/MediaViewer';
+import Photos from './components/Photos';
+import { Department, KnownFor as KnownForType } from './types';
 
 const Person = (): ReactElement => {
+  const source = axios.CancelToken.source();
+
+  const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
+
   const { id } = useParams<{ id: string }>();
 
-  return <h1>{id}</h1>;
+  const [selectedPhoto, setSelectedPhoto] = useState<Image | undefined>();
+
+  // Fetching person details
+  const personQuery = useQuery([`person-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<FullPerson>(`/person/${id}`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching person known for list
+  const creditsQuery = useQuery([`person-combined_credits-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<Credits>(`/person/${id}/combined_credits`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching person movie credits
+  const movieCreditsQuery = useQuery([`person-movie_credits-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<MovieCredits>(`/person/${id}/movie_credits`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching person tv credits
+  const tvCreditsQuery = useQuery([`person-tv_credits-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<TVCredits>(`/person/${id}/tv_credits`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching person external ids
+  const externalIdsQuery = useQuery([`person-external_ids-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<ExternalIDs>(`/person/${id}/external_ids`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching person images
+  const imagesQuery = useQuery([`person-images-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<ImageResponse>(`/person/${id}/images`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching person tagged images
+  const taggedImagesQuery = useQuery([`person-tagged_images-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<Response<ImageResponse>>(`/person/${id}/tagged_images`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  /**
+   * This method will take all the credits and place them in their respective object
+   *
+   * @returns Array of Objects - Of Departments containing all credits
+   */
+  const handleGetDepartments = (): Department[] => {
+    let departments: Department[] = [];
+
+    if ((movieCreditsQuery.data?.cast.length || 0) > 0 || (tvCreditsQuery.data?.cast.length || 0) > 0) {
+      departments.push({
+        label: 'Actor',
+        credits: {
+          cast: {
+            movie: movieCreditsQuery.data?.cast || [],
+            tv: tvCreditsQuery.data?.cast || []
+          }
+        }
+      });
+    }
+
+    movieCreditsQuery.data?.crew.forEach((mediaItem) => {
+      if (departments.some((department) => department.label === mediaItem.job)) {
+        departments = departments.map((department) =>
+          department.label === mediaItem.job
+            ? {
+                ...department,
+                credits: {
+                  ...department.credits,
+                  crew: {
+                    ...department.credits.crew,
+                    movie: [...(department.credits.crew?.movie || []), { ...mediaItem }]
+                  }
+                }
+              }
+            : department
+        );
+      } else {
+        departments.push({
+          label: mediaItem.job,
+          credits: {
+            crew: {
+              movie: [{ ...mediaItem }],
+              tv: []
+            }
+          }
+        });
+      }
+    });
+
+    tvCreditsQuery.data?.crew.forEach((mediaItem) => {
+      if (departments.some((department) => department.label === mediaItem.job)) {
+        departments = departments.map((department) =>
+          department.label === mediaItem.job
+            ? {
+                ...department,
+                credits: {
+                  ...department.credits,
+                  crew: {
+                    ...department.credits.crew,
+                    tv: [...(department.credits.crew?.tv || []), { ...mediaItem }]
+                  }
+                }
+              }
+            : department
+        );
+      } else {
+        departments.push({
+          label: mediaItem.job,
+          credits: {
+            crew: {
+              movie: [],
+              tv: [{ ...mediaItem }]
+            }
+          }
+        });
+      }
+    });
+
+    return arraySort([...departments], 'label');
+  };
+
+  /**
+   * This method will filter from known for list and will return the 8 most voted movies/tv shows
+   *
+   * @returns Array of Objects - Known for list
+   */
+  const handleGetKnownFor = (): KnownForType => {
+    const filtered = new Set();
+    const credits = [...(creditsQuery.data?.cast || []), ...(creditsQuery.data?.crew || [])];
+    const knownFor = arraySort(
+      credits.filter((mediaItem) => {
+        const duplicate = filtered.has(mediaItem.id);
+        filtered.add(mediaItem.id);
+        return !duplicate;
+      }),
+      'vote_count',
+      { reverse: true }
+    ).filter((_item, index) => index < 8);
+
+    return [...knownFor];
+  };
+
+  /**
+   * This method will open the image passed in the media modal
+   *
+   * @param image - Image object
+   */
+  const handleOnImageClick = (image?: Image): void => {
+    setSelectedPhoto(image || undefined);
+    onMediaViewerOpen();
+  };
+
+  /**
+   * This method will find the image object from images and then it will open the media modal
+   *
+   * @param path - Image path
+   */
+  const handleOnPosterClick = (path: string): void => {
+    const image = imagesQuery.data?.profiles.find((image) => image.file_path === path);
+    handleOnImageClick(image);
+  };
+
+  const knownFor = creditsQuery.isSuccess ? handleGetKnownFor() : [];
+  const departments = movieCreditsQuery.isSuccess && tvCreditsQuery.isSuccess ? handleGetDepartments() : [];
+
+  useEffect(() => {
+    return () => source.cancel();
+  }, []);
+
+  return (
+    <VStack spacing={4} p={2}>
+      <Details
+        person={personQuery.data}
+        // totalMovieCredits={movieCreditsQuery.data?.cast.length || 0}
+        // totalTvCredits={tvCreditsQuery.data?.cast.length || 0}
+        // totalCrewCredits={(movieCreditsQuery.data?.crew.length || 0) + (tvCreditsQuery.data?.crew.length || 0)}
+        departments={departments.map((department) => department.label)}
+        socials={externalIdsQuery.data}
+        isLoading={
+          personQuery.isFetching || personQuery.isLoading || externalIdsQuery.isFetching || externalIdsQuery.isLoading
+        }
+        onClickPoster={handleOnPosterClick}
+      />
+
+      {personQuery.data?.biography || personQuery.isFetching || personQuery.isLoading ? (
+        <Bio
+          biography={personQuery.data?.biography || ''}
+          isLoading={personQuery.isFetching || personQuery.isLoading}
+        />
+      ) : null}
+
+      <KnownFor
+        knownFor={knownFor}
+        name={personQuery.data?.name}
+        isError={creditsQuery.isError}
+        isSuccess={creditsQuery.isSuccess}
+        isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
+      />
+
+      <Filmography
+        departments={departments}
+        isLoading={
+          movieCreditsQuery.isFetching ||
+          movieCreditsQuery.isLoading ||
+          tvCreditsQuery.isFetching ||
+          tvCreditsQuery.isLoading
+        }
+        isError={movieCreditsQuery.isError || tvCreditsQuery.isError}
+      />
+
+      <Photos
+        images={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
+        name={personQuery.data?.name}
+        isError={imagesQuery.isError || taggedImagesQuery.isError}
+        isSuccess={imagesQuery.isSuccess && taggedImagesQuery.isSuccess}
+        isLoading={
+          imagesQuery.isFetching || imagesQuery.isLoading || taggedImagesQuery.isFetching || taggedImagesQuery.isLoading
+        }
+        onClickImage={handleOnImageClick}
+      />
+
+      {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
+        <MediaViewer
+          isOpen={isMediaViewerOpen}
+          selectedImage={selectedPhoto}
+          images={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
+          onClose={onMediaViewerClose}
+        />
+      ) : null}
+    </VStack>
+  );
 };
 
 export default Person;
