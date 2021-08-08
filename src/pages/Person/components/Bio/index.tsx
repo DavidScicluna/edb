@@ -39,20 +39,18 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
 
         {!isLoading ? (
           <Collapse startingHeight={44} in={isExpanded}>
-            <SkeletonText isLoaded={!isLoading} noOfLines={5}>
-              <VStack width='100%' spacing={2}>
-                {biography.split('\n'[0]).map((paragraph, index) => (
-                  <Text
-                    key={index}
-                    align='left'
-                    color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-                    fontSize='md'
-                    fontWeight='medium'>
-                    {paragraph}
-                  </Text>
-                ))}
-              </VStack>
-            </SkeletonText>
+            <VStack width='100%' spacing={2}>
+              {biography.split('\n'[0]).map((paragraph, index) => (
+                <Text
+                  key={index}
+                  align='left'
+                  color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                  fontSize='md'
+                  fontWeight='medium'>
+                  {paragraph}
+                </Text>
+              ))}
+            </VStack>
           </Collapse>
         ) : (
           <VStack width='100%' spacing={2}>

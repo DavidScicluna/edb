@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
 import { AnimatePresence } from 'framer-motion';
 import { useLocation, Switch, Route } from 'react-router-dom';
@@ -24,6 +24,10 @@ import Page from '../../../Page';
 
 const Routes = (): ReactElement => {
   const location = useLocation();
+
+  useEffect(() => {
+    document.scrollingElement?.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <AnimatePresence exitBeforeEnter initial={false}>
