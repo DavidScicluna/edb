@@ -1,55 +1,43 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
-import {
-  useTheme,
-  useColorMode,
-  Breadcrumb as CUIBreadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Icon,
-  Text
-} from '@chakra-ui/react';
+import { useTheme, useColorMode, Breadcrumb as CUIBreadcrumb, Icon } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-import _ from 'lodash';
-import { useLocation, useParams, Link, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
 import { Theme } from '../../../../../../theme/types';
-import breadcrumbs, { Breadcrumb as BreadcrumbType } from '../../../../common/data/breadcrumbs';
-import useStyles from './styles';
-import { Params } from './types';
+import breadcrumbs from '../../../../common/data/breadcrumbs';
 
 const Breadcrumb = (): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const style = useStyles(theme);
+  // const style = useStyles(theme);
 
-  const { id, mediaType } = useParams<Params>();
+  // const { id, mediaType } = useParams<Params>();
   const location = useLocation();
-  const history = useHistory();
+  // const history = useHistory();
 
-  const lists = useSelector((state) => state.user.data.lists);
+  // const lists = useSelector((state) => state.user.data.lists);
 
   // const [state, setstate] = useState<BreadcrumbType[]>([]);
 
-  const handleCheckBreadcrumb = (): boolean => {
-    const splitLocation = location.pathname.split('/');
+  // const handleCheckBreadcrumb = (): boolean => {
+  //   const splitLocation = location.pathname.split('/');
 
-    // console.log(splitLocation);
+  //   console.log(splitLocation);
 
-    return false;
-  };
+  //   return false;
+  // };
 
-  const handleGenericBreadcrumbLabel = (): string => {
-    return '';
-  };
+  // const handleGenericBreadcrumbLabel = (): string => {
+  //   return '';
+  // };
 
   const handleReturnBreadcrumbs = (): string[] => {
     if (breadcrumbs[location.pathname]) {
       return breadcrumbs[location.pathname].consistsOf;
     } else {
-      const splitLocation = location.pathname.split('/').filter((item) => item);
-      const breadcrumb = breadcrumbs[`/${splitLocation[0]}`];
+      // const splitLocation = location.pathname.split('/').filter((item) => item);
+      // const breadcrumb = breadcrumbs[`/${splitLocation[0]}`];
       // console.log(breadcrumb);
 
       return [];

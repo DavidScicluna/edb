@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useTheme, useMediaQuery, Container, Box, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, Box, ScaleFade } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
