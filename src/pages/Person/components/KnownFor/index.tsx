@@ -54,10 +54,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
                 count: mediaItem?.vote_count || null
               }}
               title={mediaItem?.title || mediaItem?.name || ''}
-              subtitle={`${[
-                `${mediaItem?.job || mediaItem?.character ? `As ${mediaItem.character}` : 'Unknown'}`,
-                `${utils.handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}`
-              ].join(' • ')}`}
+              subtitle={`${utils.handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}`}
               isLoading={false}
             />
           ))}

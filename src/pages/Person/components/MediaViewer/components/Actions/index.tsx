@@ -9,7 +9,6 @@ import {
 } from '@material-ui/icons';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
-import Tooltip from '../../../../../../components/Tooltip';
 import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
@@ -47,29 +46,23 @@ const Actions = (props: ActionsProps): ReactElement => {
   return (
     <VStack position='absolute' top={2} right={2} zIndex={2} backgroundColor='transparent' spacing={0}>
       {/* Close button */}
-      <Tooltip label='Close Photos' placement='left' gutter={6}>
-        <IconButton aria-label='Close modal' icon={CloseOutlinedIcon} onClick={() => handleClose()} variant='icon' />
-      </Tooltip>
+      <IconButton aria-label='Close modal' icon={CloseOutlinedIcon} onClick={() => handleClose()} variant='icon' />
 
       {/* Gallery button */}
-      <Tooltip label='Open Gallery' placement='left' gutter={6}>
-        <IconButton
-          aria-label='Open Gallery'
-          icon={DashboardOutlinedIcon}
-          onClick={() => onGalleryClick()}
-          variant='icon'
-        />
-      </Tooltip>
+      <IconButton
+        aria-label='Open Gallery'
+        icon={DashboardOutlinedIcon}
+        onClick={() => onGalleryClick()}
+        variant='icon'
+      />
 
       {/* Fullscreen button */}
-      <Tooltip label={isFullscreen ? 'Exit fullscreen ' : 'Enter fullscreen'} placement='left' gutter={6}>
-        <IconButton
-          aria-label={isFullscreen ? 'Exit fullscreen ' : 'Enter fullscreen'}
-          icon={isFullscreen ? FullscreenExitOutlinedIcon : FullscreenOutlinedIcon}
-          onClick={isFullscreen ? () => handleCloseFullscreen() : () => handleOpenFullscreen()}
-          variant='icon'
-        />
-      </Tooltip>
+      <IconButton
+        aria-label={isFullscreen ? 'Exit fullscreen ' : 'Enter fullscreen'}
+        icon={isFullscreen ? FullscreenExitOutlinedIcon : FullscreenOutlinedIcon}
+        onClick={isFullscreen ? () => handleCloseFullscreen() : () => handleOpenFullscreen()}
+        variant='icon'
+      />
     </VStack>
   );
 };

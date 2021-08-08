@@ -15,6 +15,7 @@ import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownO
 import _ from 'lodash';
 
 import { Theme } from '../../../../../../../../theme/types';
+import Badge from './components/Badge';
 import CastMovies from './components/CastMovies';
 import CastTV from './components/CastTV';
 import CrewMovies from './components/CrewMovies';
@@ -44,6 +45,15 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
           fontSize='2xl'
           fontWeight='semibold'>
           {label}
+          <Badge
+            label={`${
+              (credits.cast?.movie.length || 0) +
+              (credits.cast?.tv.length || 0) +
+              (credits.crew?.movie.length || 0) +
+              (credits.crew?.tv.length || 0)
+            }`}
+            ml={2}
+          />
         </Text>
         <Icon
           as={KeyboardArrowDownOutlinedIcon}
