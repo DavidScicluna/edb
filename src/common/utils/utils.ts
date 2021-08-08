@@ -114,7 +114,7 @@ export default {
    * @returns - boringavatars URL
    */
   handleReturnFallbackSrc: (mediaType: MediaType, size: string, alt: string): string => {
-    const name = `${alt}-${(Math.floor(Math.random() * 1000000) + 1000000).toString().substring(1)}`;
+    const name = `${alt}-${(Math.floor(Math.random() * 1000000) + 1000000).toString().substring(1)}`.replace(/ /g, '');
     const colors: string = [
       theme.colors.red[400],
       theme.colors.orange[400],

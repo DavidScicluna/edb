@@ -26,7 +26,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
       const maxScroll = ref.scrollLeft + ref.offsetWidth;
 
       const isLeftDisabled = ref.scrollLeft === 0;
-      const isRightDisabled = maxScroll >= ref.scrollWidth;
+      const isRightDisabled = ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
 
       setScrollButtons({
         left: isLeftDisabled,
@@ -80,6 +80,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
         maxWidth='100%'
         overflowX='auto'
         spacing={spacing ? spacing : 1}
+        onLoad={(event) => handleScrollChange(event)}
         onScroll={(event) => handleScrollChange(event)}
         sx={{
           // CSS to hide scrollbar

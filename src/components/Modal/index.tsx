@@ -45,7 +45,7 @@ const Modal = (props: ModalProps): ReactElement => {
       <ModalContent
         backgroundColor={mode === 'light' ? 'gray.50' : 'gray.900'}
         borderRadius={size === 'full' || isXs ? 'none' : 'xl'}
-        mx={0}
+        m={0}
         sx={{ transition }}>
         <ModalHeader
           px={2}
