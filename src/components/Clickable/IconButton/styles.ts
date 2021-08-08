@@ -50,10 +50,7 @@ export default (
 
       'padding': 0,
 
-      'transition': 'none',
-      // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-      // transitionDuration: `${theme.transition.duration.normal} !important`,
-      // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
+      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       '&:focus': {
         boxShadow: 'none'
@@ -66,11 +63,8 @@ export default (
             : 'none'
       },
 
-      '& *': {
-        transition: 'none !important'
-        // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-        // transitionDuration: `${theme.transition.duration.normal} !important`,
-        // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
+      '& .MuiSvgIcon-root': {
+        transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
       }
     },
     front: {
@@ -91,10 +85,7 @@ export default (
 
       transform: variant !== 'icon' ? `translateY(${size !== 'sm' ? '-4px' : '-3px'})` : 'none',
 
-      transition: 'none'
-      // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-      // transitionDuration: `${theme.transition.duration.normal} !important`,
-      // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
     disabled: {
       'cursor': 'not-allowed',

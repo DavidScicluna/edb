@@ -29,10 +29,7 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
 
       'padding': 0,
 
-      'transition': 'none',
-      // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-      // transitionDuration: `${theme.transition.duration.normal} !important`,
-      // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
+      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`,
 
       '&:focus': {
         boxShadow: 'none'
@@ -43,10 +40,7 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
       },
 
       '& *': {
-        transition: 'none !important'
-        // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-        // transitionDuration: `${theme.transition.duration.normal} !important`,
-        // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
+        transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
       }
     },
     front: {
@@ -65,10 +59,7 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
 
       transform: 'translateY(-2px)',
 
-      transition: 'none'
-      // transitionProperty: `${[theme.transition.property.background, theme.transition.property.colors].join(', ')}`,
-      // transitionDuration: `${theme.transition.duration.normal} !important`,
-      // transitionTimingFunction: `${theme.transition.easing['ease-out']} !important`,
+      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
     },
     disabled: {
       'cursor': 'not-allowed',

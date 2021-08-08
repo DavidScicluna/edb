@@ -12,7 +12,7 @@ export default (theme: Theme, { color = 'gray', isChecked = false, isDisabled = 
   radio: {
     'opacity': isDisabled ? 0.5 : 1,
 
-    'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
+    'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
     '&:focus': {
       boxShadow: 'none !important'
@@ -22,11 +22,11 @@ export default (theme: Theme, { color = 'gray', isChecked = false, isDisabled = 
       boxShadow: 'none !important',
       background: isChecked ? `${color}.400` : 'transparent',
 
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
 
     '& svg': {
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     }
   },
   light: {
