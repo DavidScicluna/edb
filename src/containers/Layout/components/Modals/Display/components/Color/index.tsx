@@ -44,7 +44,7 @@ const colors: ColorType[] = [
 ];
 
 const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const background = form.watch('background');
 
@@ -54,7 +54,7 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       name='color'
       render={({ field: { value } }) => (
         <Container title='Color' colorMode={background}>
-          <SimpleGrid width='100%' columns={isMob ? 2 : 4} spacing={2}>
+          <SimpleGrid width='100%' columns={isSm ? 2 : 4} spacing={2}>
             {colors.map((color, index) => (
               <ColorItem
                 key={index}

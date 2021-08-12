@@ -11,7 +11,7 @@ import { MediaTypeProps } from './types';
 const MediaType = (props: MediaTypeProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const style = useStyles(props);
 
@@ -30,8 +30,8 @@ const MediaType = (props: MediaTypeProps): ReactElement => {
 
   return (
     <VStack
-      width={isMob ? `${screen.width - 32}px` : `${400 / 2}px`}
-      height={isMob ? `${screen.width - 32}px` : `${400 / 2}px`}
+      width={isSm ? `${screen.width - 32}px` : `${400 / 2}px`}
+      height={isSm ? `${screen.width - 32}px` : `${400 / 2}px`}
       alignItems='flex-start'
       justifyContent='space-between'
       spacing={0}

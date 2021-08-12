@@ -15,7 +15,7 @@ import Title from './components/Title';
 import { HorizontalPosterProps } from './types';
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const {
     mediaItem,
@@ -97,7 +97,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                   title={title}
                   mediaType={mediaType}
                   mediaItem={mediaItem}
-                  size={isMob ? 'sm' : 'md'}
+                  size={isSm ? 'sm' : 'md'}
                 />
               </Box>
               {/* List component */}
@@ -108,7 +108,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                     title={title}
                     mediaType={mediaType}
                     mediaItem={mediaItem}
-                    size={isMob ? 'sm' : 'md'}
+                    size={isSm ? 'sm' : 'md'}
                   />
                 </Box>
               ) : null}

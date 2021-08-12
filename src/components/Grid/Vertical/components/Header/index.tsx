@@ -6,7 +6,7 @@ import { VerticalGridProps } from '../../types';
 
 const Header = ({ title, header }: Omit<VerticalGridProps, 'children'>): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const headerTotal = header?.props?.children?.props?.children?.length || 0;
 
