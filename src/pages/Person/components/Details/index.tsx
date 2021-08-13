@@ -12,9 +12,19 @@ import Poster from './components/Poster';
 import Socials from './components/Socials';
 import { DetailsProps } from './types';
 
+const width = [
+  'calc(100% - 162.5px)',
+  'calc(100% - 162.5px)',
+  'calc(100% - 225px)',
+  'calc(100% - 287.5px)',
+  'calc(100% - 350px)',
+  'calc(100% - 412.5px)'
+];
+const left = ['162.5px', '162.5px', '225px', '287.5px', '350px', '412.5px'];
+
 const Details = (props: DetailsProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const {
     person,
@@ -29,8 +39,8 @@ const Details = (props: DetailsProps): ReactElement => {
 
   return (
     <Card isFullWidth p={2}>
-      <VStack width='100%' spacing={2}>
-        {isMob ? (
+      <VStack width='100%' alignItems='stretch' spacing={2}>
+        {isSm ? (
           <Poster name={person?.name} path={person?.profile_path} isLoading={isLoading} onClickPoster={onClickPoster} />
         ) : (
           <Background alt={`${person?.name || ''} background`} size='780'>
@@ -44,24 +54,24 @@ const Details = (props: DetailsProps): ReactElement => {
                 />
               ),
 
-              socials: <Socials socials={socials} name={person?.name} isLoading={isLoading} orientation='vertical' />
+              socials: <Socials socials={socials} name={person?.name} isLoading={isLoading} />
             }}
           </Background>
         )}
 
         <VStack
-          width={isMob ? '100%' : 'calc(100% - 22.5vw)'}
-          maxWidth={isMob ? '100%' : 'calc(100% - 22.5vw)'}
+          width={isSm ? '100%' : width}
+          maxWidth={isSm ? '100%' : width}
           position='relative'
-          left={isMob ? 0 : '11.25vw'}
+          left={isSm ? 0 : left}
           alignItems='flex-start'
           spacing={2}>
-          <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 1 : 0}>
+          <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={isLoading ? 1 : 0}>
             <SkeletonText isLoaded={!isLoading}>
               <Text
                 align='left'
                 color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-                fontSize={isMob ? '2xl' : '4xl'}
+                fontSize={isSm ? '2xl' : '4xl'}
                 fontWeight='bold'>
                 {person?.name || ''}
               </Text>
