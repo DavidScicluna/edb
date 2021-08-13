@@ -95,7 +95,7 @@ const Header = (props: HeaderProps): ReactElement => {
                   setDirection('left');
                 }
               }}
-              onMouseUp={() => handleIsMouseUp()}
+              onClick={() => handleIsMouseUp()}
               size={variant === 'transparent' ? 'md' : 'sm'}
               variant='outlined'
             />
@@ -118,7 +118,7 @@ const Header = (props: HeaderProps): ReactElement => {
                   setDirection('right');
                 }
               }}
-              onMouseUp={() => handleIsMouseUp()}
+              onClick={() => handleIsMouseUp()}
               size={variant === 'transparent' ? 'md' : 'sm'}
               variant='outlined'
             />

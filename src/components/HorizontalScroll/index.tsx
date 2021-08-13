@@ -1,6 +1,7 @@
-import React, { ReactElement, UIEvent, SyntheticEvent, useState, useCallback, useEffect } from 'react';
+import React, { ReactElement, UIEvent, SyntheticEvent, useRef, useState, useCallback, useEffect } from 'react';
 
 import { HStack } from '@chakra-ui/react';
+import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
 import Arrow from './components/Arrow';
@@ -12,30 +13,33 @@ const defaultScrollButtonsState = {
 };
 
 const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   const location = useLocation();
 
   const { children, width, spacing } = props;
 
-  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
-
   const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
   const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
 
-  const handleContainerRef = useCallback((ref: HTMLDivElement | null) => {
-    if (ref) {
-      const maxScroll = ref.scrollLeft + ref.offsetWidth;
+  const handleContainerRef = useCallback(
+    _.debounce((ref: HTMLDivElement | null) => {
+      if (ref) {
+        const maxScroll = ref.scrollLeft + ref.offsetWidth;
 
-      const isLeftDisabled = ref.scrollLeft === 0;
-      const isRightDisabled = ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
+        const isLeftDisabled = ref.scrollLeft === 0;
+        const isRightDisabled =
+          ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
 
-      setScrollButtons({
-        left: isLeftDisabled,
-        right: isRightDisabled
-      });
-      setContainerRef(ref);
-      setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
-    }
-  }, []);
+        setScrollButtons({
+          left: isLeftDisabled,
+          right: isRightDisabled
+        });
+        setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
+      }
+    }, 250),
+    []
+  );
 
   const handleScrollChange = (event: UIEvent<HTMLDivElement, globalThis.UIEvent> | SyntheticEvent<HTMLDivElement>) => {
     handleContainerRef(event.currentTarget);
@@ -48,11 +52,11 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
    */
   const handleScrollClick = useCallback(
     (direction: 'left' | 'right') => {
-      if (containerRef) {
+      if (containerRef && containerRef.current) {
         if (direction === 'left') {
-          containerRef.scrollLeft = containerRef.scrollLeft - 10;
+          containerRef.current.scrollLeft = containerRef.current.scrollLeft - 10;
         } else {
-          containerRef.scrollLeft = containerRef.scrollLeft + 10;
+          containerRef.current.scrollLeft = containerRef.current.scrollLeft + 10;
         }
       }
     },
@@ -62,6 +66,20 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
   useEffect(() => {
     setResetScrollButtons(true);
   }, [location]);
+
+  useEffect(() => {
+    const handleResize = (): void => {
+      handleContainerRef(containerRef.current);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <HStack width={width || '100%'} maxWidth={width || '100%'} position='relative' spacing={0}>
@@ -75,7 +93,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
 
       {/* Scrollable content */}
       <HStack
-        ref={handleContainerRef}
+        ref={containerRef}
         width='100%'
         maxWidth='100%'
         overflowX='auto'

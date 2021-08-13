@@ -1,6 +1,7 @@
-import React, { ReactElement, UIEvent, SyntheticEvent, useState, useCallback, useEffect } from 'react';
+import React, { ReactElement, UIEvent, SyntheticEvent, useRef, useState, useCallback, useEffect } from 'react';
 
 import { useColorMode, VStack, Box } from '@chakra-ui/react';
+import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
 import Card from '../../Card';
@@ -14,32 +15,36 @@ const defaultScrollButtonsState = {
 };
 
 const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
+  const gridRef = useRef<HTMLDivElement | null>(null);
+
   const { colorMode } = useColorMode();
 
   const { children, title, footer, isLoading, variant = 'transparent' } = props;
 
   const location = useLocation();
 
-  const [gridRef, setGridRef] = useState<HTMLDivElement | null>(null);
-
   const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
   const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
 
-  const handleGridRef = useCallback((ref: HTMLDivElement | null) => {
-    if (ref) {
-      const maxScroll = ref.scrollLeft + ref.offsetWidth;
+  const handleGridRef = useCallback(
+    _.debounce((ref: HTMLDivElement | null) => {
+      if (ref) {
+        const maxScroll = ref.scrollLeft + ref.offsetWidth;
 
-      const isLeftDisabled = ref.scrollLeft === 0;
-      const isRightDisabled = ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
+        const isLeftDisabled = ref.scrollLeft === 0;
+        const isRightDisabled =
+          ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
 
-      setScrollButtons({
-        left: isLeftDisabled,
-        right: isRightDisabled
-      });
-      setGridRef(ref);
-      setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
-    }
-  }, []);
+        setScrollButtons({
+          left: isLeftDisabled,
+          right: isRightDisabled
+        });
+
+        setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
+      }
+    }, 250),
+    []
+  );
 
   const handleScrollChange = (event: UIEvent<HTMLDivElement, globalThis.UIEvent> | SyntheticEvent<HTMLDivElement>) => {
     handleGridRef(event.currentTarget);
@@ -52,11 +57,11 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
    */
   const handleScrollClick = useCallback(
     (direction: 'left' | 'right') => {
-      if (gridRef) {
+      if (gridRef && gridRef.current) {
         if (direction === 'left') {
-          gridRef.scrollLeft = gridRef.scrollLeft - 10;
+          gridRef.current.scrollLeft = gridRef.current.scrollLeft - 10;
         } else {
-          gridRef.scrollLeft = gridRef.scrollLeft + 10;
+          gridRef.current.scrollLeft = gridRef.current.scrollLeft + 10;
         }
       }
     },
@@ -66,6 +71,20 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   useEffect(() => {
     setResetScrollButtons(true);
   }, [location]);
+
+  useEffect(() => {
+    const handleResize = (): void => {
+      handleGridRef(gridRef.current);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Card isFullWidth variant={variant} px={variant === 'outlined' ? 2 : 0}>
@@ -81,7 +100,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
         />
 
         {/* Grid */}
-        <Grid gridRef={handleGridRef} variant={variant} handleScrollChange={handleScrollChange}>
+        <Grid gridRef={gridRef} variant={variant} handleScrollChange={handleScrollChange}>
           {children}
         </Grid>
 

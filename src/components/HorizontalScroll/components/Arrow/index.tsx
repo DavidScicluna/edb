@@ -67,7 +67,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
                 onMouseDown();
               }
             }}
-            onMouseUp={() => handleIsMouseUp()}
+            onClick={() => handleIsMouseUp()}
             size='sm'
             variant='icon'
           />
