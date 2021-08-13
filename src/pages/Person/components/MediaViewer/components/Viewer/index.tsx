@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { Center, Image } from '@chakra-ui/react';
+import { useMediaQuery, Center, Image } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 
@@ -8,6 +8,8 @@ import utils from '../../../../../../common/utils/utils';
 import { ViewerProps } from './types';
 
 const Viewer = (props: ViewerProps): ReactElement => {
+  const [isSm] = useMediaQuery('(max-width: 480px)');
+
   const { name, images, onSwiper, onSlideChange } = props;
 
   return (
@@ -21,9 +23,9 @@ const Viewer = (props: ViewerProps): ReactElement => {
           <Center height='100vh' py={2}>
             <Image
               alt={`${name ? `"${name}"` : ''} image`}
-              width='auto'
+              width={isSm ? 'calc(100% - 64px)' : 'auto'}
               maxWidth='none'
-              height='calc(100% - 96px)'
+              height={isSm ? 'auto' : 'calc(100% - 128px)'}
               borderRadius='xl'
               src={`${process.env.REACT_APP_IMAGE_URL}/original${image.file_path}`}
               fallbackSrc={utils.handleReturnFallbackSrc('person', '780', `${name ? `"${name}"` : ''} image`)}

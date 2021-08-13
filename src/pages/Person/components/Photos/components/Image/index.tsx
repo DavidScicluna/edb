@@ -26,9 +26,12 @@ const Image = (props: ImageProps): ReactElement => {
   const { colorMode } = useColorMode();
   const [isHovering, setIsHovering] = useBoolean();
   const fontSize = useBreakpointValue({
-    base: theme.fontSizes['4xl'],
-    sm: theme.fontSizes['5xl'],
-    md: theme.fontSizes['6xl']
+    'base': theme.fontSizes['5xl'],
+    'sm': theme.fontSizes['5xl'],
+    'md': theme.fontSizes['6xl'],
+    'lg': theme.fontSizes['6xl'],
+    'xl': theme.fontSizes['7xl'],
+    '2xl': theme.fontSizes['7xl']
   });
 
   const { image, name, isLoading = false, onClickImage } = props;

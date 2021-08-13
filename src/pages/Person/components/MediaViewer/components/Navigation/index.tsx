@@ -15,7 +15,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
   const { current, total, onNavigation } = props;
 
   return (
-    <HStack position='absolute' bottom={2} right={2} zIndex={2} backgroundColor='transparent' spacing={0}>
+    <HStack position='absolute' bottom={1} right={1} zIndex={2} backgroundColor='transparent' spacing={0}>
       {/* Left button */}
       <IconButton
         aria-label='Previous photo'

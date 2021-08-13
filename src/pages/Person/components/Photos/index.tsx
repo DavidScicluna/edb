@@ -32,14 +32,16 @@ const Photos = (props: PhotosProps): ReactElement => {
         </Text>
       }
       footer={
-        <Button
-          color={utils.handleReturnColor(color)}
-          isFullWidth
-          isDisabled={isLoading || isError}
-          onClick={() => onClickImage()}
-          variant='text'>
-          {`View all ${name ? `"${name}"` : ''} photos`}
-        </Button>
+        images.length > 7 ? (
+          <Button
+            color={utils.handleReturnColor(color)}
+            isFullWidth
+            isDisabled={isLoading || isError}
+            onClick={() => onClickImage()}
+            variant='text'>
+            {`View all ${name ? `"${name}"` : ''} photos`}
+          </Button>
+        ) : undefined
       }
       isLoading={isLoading}
       variant='outlined'>
