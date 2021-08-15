@@ -33,7 +33,7 @@ const Poster = (props: PosterProps): ReactElement => {
     '2xl': theme.fontSizes['6xl']
   });
 
-  const { name, path, isLoading = false, onClickPoster } = props;
+  const { name, path, isLoading = false, isError = false, onClickPoster } = props;
 
   const [isHovering, setIsHovering] = useBoolean();
 
@@ -44,9 +44,9 @@ const Poster = (props: PosterProps): ReactElement => {
       border={isSm ? 'none' : '4px'}
       borderColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
       borderRadius={isSm ? 'base' : 'full'}
-      onClick={!isLoading && path ? () => onClickPoster(path) : undefined}
-      onMouseEnter={!isLoading && path ? () => setIsHovering.on() : undefined}
-      onMouseLeave={!isLoading && path ? () => setIsHovering.off() : undefined}>
+      onClick={!isLoading && !isError && path ? () => onClickPoster(path) : undefined}
+      onMouseEnter={!isLoading && !isError && path ? () => setIsHovering.on() : undefined}
+      onMouseLeave={!isLoading && !isError && path ? () => setIsHovering.off() : undefined}>
       <Center
         width='100%'
         height='100%'
@@ -60,7 +60,7 @@ const Poster = (props: PosterProps): ReactElement => {
               ? 'rgba(0, 0, 0, 0.25)'
               : 'rgba(255, 255, 255, 0.25)'
             : 'transparent',
-          transition: `${theme.transition.duration.fast} ${theme.transition.easing['ease-out']}`
+          transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
         }}>
         <Fade in={isHovering} unmountOnExit>
           <Icon

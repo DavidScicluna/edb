@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, VStack, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text, Fade } from '@chakra-ui/react';
 import moment from 'moment';
 
 import Card from '../../../../components/Card';
@@ -34,6 +34,7 @@ const Details = (props: DetailsProps): ReactElement => {
     departments,
     socials,
     isLoading = false,
+    isError = false,
     onClickPoster
   } = props;
 
@@ -41,7 +42,13 @@ const Details = (props: DetailsProps): ReactElement => {
     <Card isFullWidth p={2}>
       <VStack width='100%' alignItems='stretch' spacing={2}>
         {isSm ? (
-          <Poster name={person?.name} path={person?.profile_path} isLoading={isLoading} onClickPoster={onClickPoster} />
+          <Poster
+            name={person?.name}
+            path={person?.profile_path}
+            isLoading={isLoading}
+            isError={isError}
+            onClickPoster={onClickPoster}
+          />
         ) : (
           <Background alt={`${person?.name || ''} background`} size='780'>
             {{
@@ -50,6 +57,7 @@ const Details = (props: DetailsProps): ReactElement => {
                   name={person?.name}
                   path={person?.profile_path}
                   isLoading={isLoading}
+                  isError={isError}
                   onClickPoster={onClickPoster}
                 />
               ),
@@ -73,22 +81,24 @@ const Details = (props: DetailsProps): ReactElement => {
                 color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                 fontSize={isSm ? '2xl' : '4xl'}
                 fontWeight='bold'>
-                {person?.name || ''}
+                {person?.name || 'Unknown'}
               </Text>
             </SkeletonText>
 
             <Departments departments={departments} isLoading={isLoading} />
           </VStack>
 
-          <SkeletonText isLoaded={!isLoading}>
-            <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-              {`Born on ${moment(person?.birthday || '', 'YYYY-MM-DD').format('LL')}${
-                person?.place_of_birth ? ` in ${person?.place_of_birth}` : ''
-              }${person?.deathday ? ` - ${moment(person?.deathday || '', 'YYYY-MM-DD').format('LL')}` : ''} (${moment(
-                person?.deathday || new Date()
-              ).diff(moment(person?.birthday || '', 'YYYY-MM-DD'), 'years')} years old)`}
-            </Text>
-          </SkeletonText>
+          <Fade in={!isError} unmountOnExit>
+            <SkeletonText isLoaded={!isLoading}>
+              <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+                {`Born on ${moment(person?.birthday || '', 'YYYY-MM-DD').format('LL')}${
+                  person?.place_of_birth ? ` in ${person?.place_of_birth}` : ''
+                }${person?.deathday ? ` - ${moment(person?.deathday || '', 'YYYY-MM-DD').format('LL')}` : ''} (${moment(
+                  person?.deathday || new Date()
+                ).diff(moment(person?.birthday || '', 'YYYY-MM-DD'), 'years')} years old)`}
+              </Text>
+            </SkeletonText>
+          </Fade>
 
           {/* <Stats
             totalMovieCredits={totalMovieCredits}

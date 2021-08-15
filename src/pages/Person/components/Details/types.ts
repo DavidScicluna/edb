@@ -8,5 +8,6 @@ export type DetailsProps = {
   departments: string[];
   socials?: ExternalIDs;
   isLoading?: boolean;
+  isError?: boolean;
   onClickPoster: (path: string) => void;
 };
