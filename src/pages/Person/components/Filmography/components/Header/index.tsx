@@ -18,7 +18,7 @@ const Header = (props: HeaderProps): ReactElement => {
         borderBottom='solid2'
         borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
         spacing={0}
-        pb={1.25}>
+        pb={!isError ? 1.25 : 2}>
         <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' fontWeight='medium'>
           Filmography
         </Text>

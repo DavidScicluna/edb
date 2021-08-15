@@ -52,7 +52,7 @@ const Filmography = (props: FilmographyProps): ReactElement => {
   };
 
   return (
-    <Card colorMode={colorMode} isFullWidth variant='outlined' px={2} pt={1.25} pb={2}>
+    <Card colorMode={colorMode} isFullWidth variant='outlined' px={2} pt={!isError ? 1.25 : 2} pb={2}>
       <VStack width='100%' spacing={1.5}>
         <Header
           isAccordionsExpanded={handleCheckisAccordionsExpanded()}
@@ -72,7 +72,7 @@ const Filmography = (props: FilmographyProps): ReactElement => {
         {isError ? (
           <Error
             label='Oh no! Something went wrong'
-            description={`Failed to fetch ${name ? `"${name}"` : ''} Filmography credits list!`}
+            description={`Failed to fetch ${name ? `"${name}"` : ''} filmography credits list!`}
             variant='transparent'
           />
         ) : isSuccess && departments && departments.length === 0 ? (
