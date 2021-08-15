@@ -11,6 +11,8 @@ type NavItemStyle = {
 
 export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): NavItemStyle => ({
   common: {
+    cursor: 'pointer',
+
     minWidth: '46px',
     minHeight: '46px',
 
@@ -18,8 +20,6 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
 
     border: 'solid2',
     borderRadius: size === 'sm' || size === 'md' ? 'base' : 'lg',
-    backgroundColor: `${color}.400`,
-    borderColor: `${color}.400`,
 
     fontFamily: '"Pacifico", cursive',
     fontSize: size === 'sm' ? 'lg' : size === 'md' ? '4xl' : '6xl',
@@ -32,12 +32,34 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
     paddingLeft: size === 'sm' ? 1 : 2,
     paddingRight: size === 'sm' ? 1 : 2,
 
-    transition: `${theme.transition.duration.slower} ${theme.transition.easing['ease-in-out']}`
+    transition: [
+      `padding, ${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`,
+      `font-size, ${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`,
+      `background-color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
+      `border-color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
+      `color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+    ].join(', ')
   },
   light: {
-    color: 'gray.50'
+    'backgroundColor': `${color}.400`,
+    'borderColor': `${color}.400`,
+    'color': 'gray.50',
+
+    '&:hover': {
+      backgroundColor: `${color}.500`,
+      borderColor: `${color}.500`,
+      color: 'gray.50'
+    }
   },
   dark: {
-    color: 'gray.900'
+    'backgroundColor': `${color}.500`,
+    'borderColor': `${color}.500`,
+    'color': 'gray.900',
+
+    '&:hover': {
+      backgroundColor: `${color}.400`,
+      borderColor: `${color}.400`,
+      color: 'gray.900'
+    }
   }
 });

@@ -1,6 +1,6 @@
-import { Style } from '../../../../../../../../common/types/types';
-import { Theme as UserTheme } from '../../../../../../../../store/slices/User/types';
-import { Theme } from '../../../../../../../../theme/types';
+import { Style } from '../../../../common/types/types';
+import { Theme as UserTheme } from '../../../../store/slices/User/types';
+import { Theme } from '../../../../theme/types';
 
 type NavItemChildStyle = {
   common: {
@@ -29,14 +29,14 @@ export default (
       'backgroundColor': 'transparent',
       'borderRadius': isExpanded ? 'base' : isLastChild ? `0 0 ${theme.radii.base} ${theme.radii.base}` : 'none',
 
-      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
+      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       '& .chakra-text': {
-        transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+        transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
       }
     },
     link: {
-      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
+      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       '&:hover': {
         textDecoration: 'none'
@@ -65,14 +65,14 @@ export default (
   },
   dark: {
     child: {
-      'backgroundColor': isActive ? `${color}.400` : 'transparent',
+      'backgroundColor': isActive ? `${color}.500` : 'transparent',
 
       '& .chakra-text': {
         color: isActive ? 'gray.900' : 'gray.500'
       },
 
       '&:hover': {
-        'backgroundColor': isActive ? `${color}.500` : 'gray.700',
+        'backgroundColor': isActive ? `${color}.400` : 'gray.700',
 
         '& .chakra-text': {
           color: isActive ? 'gray.900' : 'gray.50'

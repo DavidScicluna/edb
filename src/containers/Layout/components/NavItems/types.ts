@@ -1,15 +1,7 @@
-import { Icon } from '../../../../common/types/types';
-
-export type NavItemChild = { renderChild: boolean } & Omit<NavItem, 'icon' | 'iconActive' | 'children'>;
-
-export type NavItem = {
-  label: string;
-  path: string;
-  iconActive: Icon;
-  icon: Icon;
-  children?: NavItemChild[];
-};
+import { NavItem } from '../../../../components/NavItem/types';
+import { SidebarMode } from '../../../../store/slices/App/types';
 
 export type NavItemsProps = {
   navItems: NavItem[];
+  sidebarMode?: SidebarMode;
 };

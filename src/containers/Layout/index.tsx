@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useTheme, useMediaQuery, Box, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, Box, SlideFade } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -32,10 +32,6 @@ const Layout = (): ReactElement => {
   const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
   const isSplashscreenOpen = useSelector((state) => state.modals.ui.isSplashscreenOpen);
-  const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
-  const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
-  const descriptionModal = useSelector((state) => state.modals.ui.descriptionModal);
-  const listsModal = useSelector((state) => state.modals.ui.listsModal);
 
   const [width, setWidth] = useState<string>('100%');
   const [left, setLeft] = useState<string>(`${sidebarWidth[sidebarMode]}px`);
@@ -91,13 +87,10 @@ const Layout = (): ReactElement => {
   }, [isLgUp]);
 
   return isSplashscreenOpen ? (
-    <ScaleFade in={isSplashscreenOpen} unmountOnExit>
-      <SplashscreenModal />
-    </ScaleFade>
+    <SplashscreenModal />
   ) : (
-    <>
+    <SlideFade in={!isSplashscreenOpen} unmountOnExit>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        {/* <Container maxWidth='container.xl' overflow='hidden' position='relative'> */}
         {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
         <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
           <Header width={width} left={left} />
@@ -107,26 +100,16 @@ const Layout = (): ReactElement => {
 
           <ScrollToTop />
         </Box>
-
-        {/* </Container> */}
       </BrowserRouter>
 
-      <ScaleFade in={confirmModal.open} unmountOnExit>
-        <ConfirmModal />
-      </ScaleFade>
+      <ConfirmModal />
 
-      <ScaleFade in={isDisplayModalOpen} unmountOnExit>
-        <DisplayModal />
-      </ScaleFade>
+      <DisplayModal />
 
-      <ScaleFade in={listsModal.open} unmountOnExit>
-        <ListsModal />
-      </ScaleFade>
+      <ListsModal />
 
-      <ScaleFade in={descriptionModal.open} unmountOnExit>
-        <DescriptionModal />
-      </ScaleFade>
-    </>
+      <DescriptionModal />
+    </SlideFade>
   );
 };
 

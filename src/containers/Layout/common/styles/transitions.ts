@@ -5,5 +5,5 @@ type TransitionsStyle = {
 };
 
 export default (theme: Theme): TransitionsStyle => ({
-  transition: `${theme.transition.duration.slower} ${theme.transition.easing['ease-in-out']}`
+  transition: `${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`
 });

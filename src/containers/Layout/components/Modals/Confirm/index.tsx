@@ -15,7 +15,7 @@ const ConfirmModal = (): ReactElement => {
     <Modal
       title={confirmModal.title}
       actions={confirmModal.submitButton}
-      isOpen
+      isOpen={confirmModal.open}
       isCentered
       onClose={() => dispatch(toggleConfirm({ ...confirmModal, open: false }))}
       size='md'>

@@ -13,7 +13,7 @@ import {
   WhatshotTwoTone as WhatshotTwoToneIcon
 } from '@material-ui/icons/';
 
-import { NavItem } from '../../components/NavItems/types';
+import { NavItem } from '../../../../components/NavItem/types';
 
 const navItems: NavItem[] = [
   {

@@ -18,6 +18,7 @@ const Display = (): ReactElement => {
   const { toggleColorMode } = useColorMode();
 
   const dispatch = useDispatch();
+  const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
   const theme = useSelector((state) => state.user.ui.theme);
 
   const form = useForm<Theme>({ defaultValues: { ...theme } });
@@ -63,7 +64,7 @@ const Display = (): ReactElement => {
         </Button>
       }
       colorMode={background}
-      isOpen
+      isOpen={isDisplayModalOpen}
       onClose={handleClose}
       isCentered
       size='2xl'>

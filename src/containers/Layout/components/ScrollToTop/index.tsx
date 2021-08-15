@@ -2,6 +2,7 @@ import React, { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, Box, ScaleFade } from '@chakra-ui/react';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
+import _ from 'lodash';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../common/utils/utils';
@@ -17,7 +18,7 @@ const ScrollToTop = (): ReactElement => {
   const [scrollHeight, setScrollHeight] = useState<number>(0);
 
   const handleScroll = useCallback(
-    () => setScrollHeight(document?.scrollingElement?.scrollTop || 0),
+    _.debounce(() => setScrollHeight(document?.scrollingElement?.scrollTop || 0), 50),
     [document, setScrollHeight]
   );
 

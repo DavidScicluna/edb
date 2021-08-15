@@ -4,26 +4,28 @@ import {
   useTheme,
   useColorMode,
   useDisclosure,
+  useBoolean,
   VStack,
   HStack,
   Collapse,
   Icon,
   Text,
-  Link,
+  Link as CUILink,
   Box,
   ScaleFade
 } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
-import { useLocation, Link as RRDLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
-import utils from '../../../../../../common/utils/utils';
-import Tooltip from '../../../../../../components/Tooltip';
-import { Theme } from '../../../../../../theme/types';
-import { NavItem as NavItemType } from '../../types';
+import useSelector from '../../common/hooks/useSelectorTyped';
+import utils from '../../common/utils/utils';
+import Link from '../../components/Clickable/Link';
+import { Theme } from '../../theme/types';
+import Tooltip from '../Tooltip';
 import NavItemChild from './components/NavItemChild';
 import useStyles from './styles';
+import { NavItem as NavItemType } from './types';
 
 const NavItem = (props: NavItemType): ReactElement => {
   const theme = useTheme<Theme>();
@@ -32,10 +34,11 @@ const NavItem = (props: NavItemType): ReactElement => {
 
   const location = useLocation();
 
-  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { label, path, icon, iconActive, children } = props;
+  const { children, label, path, icon, iconActive, sidebarMode, onClick } = props;
+
+  const [isHovering, setIsHovering] = useBoolean();
 
   const isActive: boolean = location.pathname === path;
   const isChildActive: boolean = children ? children.some((child) => location.pathname === child.path) : false;
@@ -62,23 +65,28 @@ const NavItem = (props: NavItemType): ReactElement => {
     <VStack
       width='100%'
       spacing={sidebarMode === 'expanded' ? 2 : 0}
-      sx={{ ..._.merge(style.common.container, style[colorMode].container) }}>
+      sx={{ ..._.merge(style.common.container, style[colorMode].container) }}
+      onClick={onClick ? () => onClick() : undefined}>
       <Tooltip
         aria-label={sidebarMode === 'collapsed' ? label : ''}
         width='100%'
-        closeOnClick={false}
-        closeOnMouseDown={false}
         label={sidebarMode === 'collapsed' ? label : ''}
         placement='right'
+        gutter={16}
         span>
-        <Link width='100%' as={RRDLink} to={path} sx={{ ...style.common.link }}>
+        <CUILink
+          width='100%'
+          as={Link}
+          to={{ pathname: path || '' }}
+          isDisabled={!path || isHovering}
+          sx={{ ...style.common.link }}>
           <HStack
             width='100%'
             justifyContent='space-between'
             px={sidebarMode === 'expanded' ? 2 : 1}
             py={1}
             spacing={2}
-            onClick={isOpen ? () => onClose() : () => onOpen()}
+            onClick={!isOpen ? () => onOpen() : undefined}
             sx={{ ..._.merge(style.common.main, style[colorMode].main) }}>
             <HStack width='100%' spacing={2}>
               <Icon
@@ -116,11 +124,13 @@ const NavItem = (props: NavItemType): ReactElement => {
                     fontSize: `${theme.fontSizes['2xl']} !important`,
                     transform: `rotate(${isOpen ? '90deg' : '0deg'})`
                   }}
+                  onMouseEnter={() => setIsHovering.on()}
+                  onMouseLeave={() => setIsHovering.off()}
                 />
               </ScaleFade>
             ) : null}
           </HStack>
-        </Link>
+        </CUILink>
       </Tooltip>
 
       {children && renderChildren ? (
