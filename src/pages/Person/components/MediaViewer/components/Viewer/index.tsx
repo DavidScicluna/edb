@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery, Center, Image } from '@chakra-ui/react';
+import { useMediaQuery, Center, Image, AspectRatio } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 
@@ -20,7 +20,7 @@ const Viewer = (props: ViewerProps): ReactElement => {
       onSlideChange={(swiper) => onSlideChange(swiper)}>
       {images.map((image, index) => (
         <SwiperSlide key={index}>
-          <Center height='100vh' py={2}>
+          <Center width='100vw' height='100vh' py={2}>
             <Image
               alt={`${name ? `"${name}"` : ''} image`}
               width={isSm ? 'calc(100% - 64px)' : 'auto'}

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, Text } from '@chakra-ui/react';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
 import { Image as ImageType } from '../../../../common/types/person';
@@ -14,6 +14,7 @@ import { PhotosProps } from './types';
 
 const Photos = (props: PhotosProps): ReactElement => {
   const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const { images, name, isError = false, isSuccess = false, isLoading = false, onClickImage } = props;
 
@@ -38,6 +39,7 @@ const Photos = (props: PhotosProps): ReactElement => {
             isFullWidth
             isDisabled={isLoading || isError}
             onClick={() => onClickImage()}
+            size={isSm ? 'sm' : 'md'}
             variant='text'>
             {`View all ${name ? `"${name}"` : ''} photos`}
           </Button>

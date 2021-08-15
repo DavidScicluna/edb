@@ -55,7 +55,7 @@ const Image = (props: ImageProps): ReactElement => {
                 ? 'rgba(0, 0, 0, 0.25)'
                 : 'rgba(255, 255, 255, 0.25)'
               : 'transparent',
-          transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
+          transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
         }}>
         <Fade in={isHovering || isActive} unmountOnExit>
           <Icon

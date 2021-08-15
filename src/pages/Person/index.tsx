@@ -231,6 +231,7 @@ const Person = (): ReactElement => {
         isLoading={
           personQuery.isFetching || personQuery.isLoading || externalIdsQuery.isFetching || externalIdsQuery.isLoading
         }
+        isError={personQuery.isError || personQuery.isError}
         onClickPoster={handleOnPosterClick}
       />
 
