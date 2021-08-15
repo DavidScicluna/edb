@@ -1,11 +1,11 @@
-import React, { ReactElement, UIEvent, SyntheticEvent, useRef, useState, useCallback, useEffect } from 'react';
+import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
 import Arrow from './components/Arrow';
-import { HorizontalScrollProps, ScrollButtonsState } from './types';
+import { HorizontalScrollProps, ScrollButtonsState, Direction } from './types';
 
 const defaultScrollButtonsState = {
   left: true,
@@ -36,14 +36,17 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
           right: isRightDisabled
         });
         setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
+      } else {
+        handleContainerRef(containerRef.current);
       }
-    }, 250),
-    []
+    }, 50),
+    [containerRef]
   );
 
-  const handleScrollChange = (event: UIEvent<HTMLDivElement, globalThis.UIEvent> | SyntheticEvent<HTMLDivElement>) => {
-    handleContainerRef(event.currentTarget);
-  };
+  const handleScrollChange = useCallback(
+    () => handleContainerRef(containerRef.current),
+    [containerRef, handleContainerRef]
+  );
 
   /**
    * This method will either scroll left or right depending on the direction passed as a param
@@ -51,7 +54,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
    * @param direction - The direction to scroll to
    */
   const handleScrollClick = useCallback(
-    (direction: 'left' | 'right') => {
+    (direction: Direction) => {
       if (containerRef && containerRef.current) {
         if (direction === 'left') {
           containerRef.current.scrollLeft = containerRef.current.scrollLeft - 10;
@@ -68,16 +71,12 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
   }, [location]);
 
   useEffect(() => {
-    const handleResize = (): void => {
-      handleContainerRef(containerRef.current);
-    };
+    handleScrollChange();
 
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
+    document.addEventListener('resize', handleScrollChange);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('resize', handleScrollChange);
     };
   }, []);
 
@@ -98,8 +97,8 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
         maxWidth='100%'
         overflowX='auto'
         spacing={spacing ? spacing : 1}
-        onLoad={(event) => handleScrollChange(event)}
-        onScroll={(event) => handleScrollChange(event)}
+        onLoad={() => handleScrollChange()}
+        onScroll={() => handleScrollChange()}
         sx={{
           // CSS to hide scrollbar
           'scrollbarWidth': 'none',

@@ -1,13 +1,13 @@
-import React, { ReactElement, UIEvent, SyntheticEvent, useRef, useState, useCallback, useEffect } from 'react';
+import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
-import { useColorMode, VStack, Box } from '@chakra-ui/react';
+import { useColorMode, VStack, Box, useMediaQuery } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
 import Card from '../../Card';
 import Grid from './components/Grid';
 import Header from './components/Header';
-import { HorizontalGridProps, ScrollButtonsState } from './types';
+import { HorizontalGridProps, ScrollButtonsState, Direction } from './types';
 
 const defaultScrollButtonsState = {
   left: true,
@@ -15,13 +15,13 @@ const defaultScrollButtonsState = {
 };
 
 const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
-  const gridRef = useRef<HTMLDivElement | null>(null);
-
   const { colorMode } = useColorMode();
 
-  const { children, title, footer, isLoading, variant = 'transparent' } = props;
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   const location = useLocation();
+
+  const { children, title, footer, isLoading, variant = 'transparent' } = props;
 
   const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
   const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
@@ -41,14 +41,14 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
         });
 
         setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
+      } else {
+        handleGridRef(gridRef.current);
       }
-    }, 250),
-    []
+    }, 50),
+    [gridRef]
   );
 
-  const handleScrollChange = (event: UIEvent<HTMLDivElement, globalThis.UIEvent> | SyntheticEvent<HTMLDivElement>) => {
-    handleGridRef(event.currentTarget);
-  };
+  const handleScrollChange = useCallback(() => handleGridRef(gridRef.current), [gridRef, handleGridRef]);
 
   /**
    * This method will either scroll left or right depending on the direction passed as a param
@@ -56,7 +56,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
    * @param direction - The direction to scroll to
    */
   const handleScrollClick = useCallback(
-    (direction: 'left' | 'right') => {
+    (direction: Direction) => {
       if (gridRef && gridRef.current) {
         if (direction === 'left') {
           gridRef.current.scrollLeft = gridRef.current.scrollLeft - 10;
@@ -73,16 +73,12 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   }, [location]);
 
   useEffect(() => {
-    const handleResize = (): void => {
-      handleGridRef(gridRef.current);
-    };
+    handleScrollChange();
 
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
+    document.addEventListener('resize', handleScrollChange);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('resize', handleScrollChange);
     };
   }, []);
 

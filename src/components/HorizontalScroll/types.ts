@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+export type Direction = 'left' | 'right';
+
 export type ScrollButtonsState = {
   left: boolean;
   right: boolean;

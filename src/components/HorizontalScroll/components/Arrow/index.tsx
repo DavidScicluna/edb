@@ -1,51 +1,57 @@
-import React, { ReactElement, useCallback, useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
-import { useTheme, useColorMode, useDisclosure, Center, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import {
   ChevronLeftOutlined as ChevronLeftOutlinedIcon,
   ChevronRightOutlined as ChevronRightOutlinedIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
 
+import useInterval from '../../../../common/hooks/useInterval';
 import { Theme } from '../../../../theme/types';
 import IconButton from '../../../Clickable/IconButton';
 import useStyles from './styles';
-import { ArrowProps } from './types';
-
-let interval: ReturnType<typeof setInterval>;
+import { ArrowProps, Event } from './types';
 
 const Arrow = (props: ArrowProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const { isOpen: isMouseDown, onOpen: onMouseDown, onClose: onMouseLeave } = useDisclosure();
 
   const style = useStyles(theme, props);
 
   const { direction, isDisabled = false, reset = false, onScrollClick } = props;
 
-  const handleIsMouseDown = useCallback(() => {
-    if (isMouseDown) {
-      interval = setInterval(() => {
-        onScrollClick(direction);
-      }, 25);
-    }
-  }, [isMouseDown, interval, direction, onScrollClick]);
+  const [isMouseDown, setIsMouseDown] = useBoolean();
 
-  const handleIsMouseUp = (): void => {
-    clearInterval(interval);
+  const handleOnClick = (event: Event): void => {
+    event.preventDefault();
 
-    onMouseLeave();
+    onScrollClick(direction);
   };
 
-  useEffect(() => {
-    handleIsMouseDown();
-  }, [isMouseDown]);
+  const handleIsMouseDown = (event: Event): void => {
+    event.preventDefault();
+
+    if (event.button === 0) {
+      setIsMouseDown.on();
+    } else {
+      setIsMouseDown.off();
+    }
+  };
+
+  const handleIsMouseUp = (event: Event): void => {
+    event.preventDefault();
+
+    setIsMouseDown.off();
+  };
+
+  useInterval(() => onScrollClick(direction), isMouseDown ? 25 : null);
 
   useEffect(() => {
-    if (reset) {
-      handleIsMouseUp();
+    if (reset || isDisabled) {
+      setIsMouseDown.off();
     }
-  }, [reset]);
+  }, [reset, isDisabled]);
 
   return (
     <Center
@@ -62,12 +68,9 @@ const Arrow = (props: ArrowProps): ReactElement => {
           <IconButton
             aria-label={`Scroll ${direction}`}
             icon={direction === 'left' ? ChevronLeftOutlinedIcon : ChevronRightOutlinedIcon}
-            onMouseDown={() => {
-              if (!isMouseDown) {
-                onMouseDown();
-              }
-            }}
-            onClick={() => handleIsMouseUp()}
+            onClick={(event: Event) => handleOnClick(event)}
+            onMouseDown={(event: Event) => handleIsMouseDown(event)}
+            onMouseUp={(event: Event) => handleIsMouseUp(event)}
             size='sm'
             variant='icon'
           />

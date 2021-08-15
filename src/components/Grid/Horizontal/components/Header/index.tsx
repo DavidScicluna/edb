@@ -1,56 +1,15 @@
-import React, { ReactElement, useState, useCallback, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useColorMode, useDisclosure, HStack, Text } from '@chakra-ui/react';
-import {
-  ArrowBackOutlined as ArrowBackOutlinedIcon,
-  ArrowForwardOutlined as ArrowForwardOutlinedIcon
-} from '@material-ui/icons';
+import { useColorMode, HStack, Text } from '@chakra-ui/react';
 
 import utils from '../../../../../common/utils/utils';
-import IconButton from '../../../../Clickable/IconButton';
-import Tooltip from '../../../../Tooltip';
+import Arrow from './components/Arrow';
 import { HeaderProps } from './types';
-
-let interval: ReturnType<typeof setInterval>;
 
 const Header = (props: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const { isOpen: isMouseDown, onOpen: onMouseDown, onClose: onMouseLeave } = useDisclosure();
 
-  const { title, isLoading = false, reset = false, scrollButtons, variant = 'transparent', onScrollClick } = props;
-
-  const [direction, setDirection] = useState<'left' | 'right' | ''>('');
-
-  const handleScroll = useCallback(() => {
-    if (direction === 'left' || direction === 'right') {
-      onScrollClick(direction);
-    }
-  }, [direction, onScrollClick]);
-
-  const handleIsMouseDown = useCallback(() => {
-    if (isMouseDown) {
-      interval = setInterval(() => {
-        handleScroll();
-      }, 25);
-    }
-  }, [isMouseDown, interval]);
-
-  const handleIsMouseUp = () => {
-    setDirection('');
-    clearInterval(interval);
-
-    onMouseLeave();
-  };
-
-  useEffect(() => {
-    handleIsMouseDown();
-  }, [isMouseDown]);
-
-  useEffect(() => {
-    if (reset) {
-      handleIsMouseUp();
-    }
-  }, [reset]);
+  const { title, scrollButtons, variant = 'transparent', ...rest } = props;
 
   return (
     <HStack
@@ -76,53 +35,8 @@ const Header = (props: HeaderProps): ReactElement => {
       {/* Scroll buttons */}
       {!utils.handleIsTouchDevice() && (
         <HStack spacing={variant === 'transparent' ? 2 : 1.25}>
-          {/* Maybe add an auto scroll button */}
-          <Tooltip
-            aria-label='Scroll left'
-            closeOnClick={false}
-            closeOnMouseDown={false}
-            label={`Scroll left (${!isMouseDown ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
-            placement='top'
-            isDisabled={isLoading || scrollButtons.left}
-            span>
-            <IconButton
-              aria-label='Scroll left'
-              isDisabled={isLoading || scrollButtons.left}
-              icon={ArrowBackOutlinedIcon}
-              onMouseDown={() => {
-                if (!isMouseDown) {
-                  onMouseDown();
-                  setDirection('left');
-                }
-              }}
-              onClick={() => handleIsMouseUp()}
-              size={variant === 'transparent' ? 'md' : 'sm'}
-              variant='outlined'
-            />
-          </Tooltip>
-          <Tooltip
-            aria-label='Scroll right'
-            closeOnClick={false}
-            closeOnMouseDown={false}
-            label={`Scroll right (${!isMouseDown ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
-            placement='top'
-            isDisabled={isLoading || scrollButtons.right}
-            span>
-            <IconButton
-              aria-label='Scroll right'
-              isDisabled={isLoading || scrollButtons.right}
-              icon={ArrowForwardOutlinedIcon}
-              onMouseDown={() => {
-                if (!isMouseDown) {
-                  onMouseDown();
-                  setDirection('right');
-                }
-              }}
-              onClick={() => handleIsMouseUp()}
-              size={variant === 'transparent' ? 'md' : 'sm'}
-              variant='outlined'
-            />
-          </Tooltip>
+          <Arrow {...rest} direction='left' isDisabled={scrollButtons.left} variant={variant} />
+          <Arrow {...rest} direction='right' isDisabled={scrollButtons.right} variant={variant} />
         </HStack>
       )}
     </HStack>

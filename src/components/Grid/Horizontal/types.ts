@@ -2,6 +2,8 @@ import { ReactElement } from 'react';
 
 import { CardVariant } from '../../../common/types/types';
 
+export type Direction = 'left' | 'right';
+
 export type ScrollButtonsState = {
   left: boolean;
   right: boolean;

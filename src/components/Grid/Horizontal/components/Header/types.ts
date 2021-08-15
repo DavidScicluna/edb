@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { CardVariant } from '../../../../../common/types/types';
-import { ScrollButtonsState } from '../../types';
+import { ScrollButtonsState, Direction } from '../../types';
 
 export type HeaderProps = {
   title: string | ReactElement;
@@ -9,5 +9,5 @@ export type HeaderProps = {
   reset: boolean;
   scrollButtons: ScrollButtonsState;
   variant?: CardVariant;
-  onScrollClick: (direction: 'left' | 'right') => void;
+  onScrollClick: (direction: Direction) => void;
 };
