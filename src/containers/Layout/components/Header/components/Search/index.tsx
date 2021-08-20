@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, VStack, Box, Fade, Collapse } from '@chakra-ui/react';
+import { useColorMode, useDisclosure, useMediaQuery, VStack, Box, Text, Fade, Collapse } from '@chakra-ui/react';
 import { SearchOutlined as SearchOutlinedIcon } from '@material-ui/icons/';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
@@ -22,7 +22,9 @@ import SearchForm from '../../../../../../components/SearchForm';
 import HorizontalTV from '../../../../../../components/TV/Grid/Horizontal';
 
 const Search = (): ReactElement => {
+  const { colorMode } = useColorMode();
   const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const location = useLocation();
 
@@ -35,6 +37,19 @@ const Search = (): ReactElement => {
   const [people, setPeople] = useState<Response<PartialPerson[]> | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleRenderTitle = (title: string): ReactElement => {
+    return (
+      <Text
+        align='left'
+        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+        fontSize='2xl'
+        fontWeight='semibold'
+        textTransform='capitalize'>
+        {title}
+      </Text>
+    );
+  };
 
   const handleResetModal = (): void => {
     setQuery('');
@@ -67,7 +82,7 @@ const Search = (): ReactElement => {
 
       <Modal title='Search' isOpen={isModalOpen} onClose={onModalClose} isCentered scrollBehavior='inside' size='full'>
         <VStack width='100%' spacing={0}>
-          <Box width='100%' px={2} pt={4} pb={2}>
+          <Box width='100%' p={2}>
             <SearchForm
               query={query}
               onQueryChange={(query: string) => setQuery(query)}
@@ -94,20 +109,26 @@ const Search = (): ReactElement => {
                 unmountOnExit
                 style={{ width: '100%' }}>
                 <HorizontalGrid
-                  title={`Found ${movies?.total_results || 0} movie${
-                    movies && movies.total_results
-                      ? movies.total_results === 0 || movies.total_results > 1
-                        ? 's'
+                  title={handleRenderTitle(
+                    `Found ${movies?.total_results || 0} movie${
+                      movies && movies.total_results
+                        ? movies.total_results === 0 || movies.total_results > 1
+                          ? 's'
+                          : ''
                         : ''
-                      : ''
-                  } with "${query}"`}
+                    } with "${query}"`
+                  )}
                   footer={
-                    <Link to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}>
+                    <Link
+                      to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}
+                      isFullWidth
+                      isDisabled={isLoading}>
                       <Button
                         color={utils.handleReturnColor(color)}
                         isFullWidth
                         isDisabled={isLoading}
                         onClick={() => onModalClose()}
+                        size={isSm ? 'sm' : 'md'}
                         variant='text'>
                         {`View all ${movies?.total_results || 0} movie${
                           movies && movies.total_results
@@ -130,16 +151,22 @@ const Search = (): ReactElement => {
                 unmountOnExit
                 style={{ width: '100%' }}>
                 <HorizontalGrid
-                  title={`Found ${tv?.total_results || 0} TV show${
-                    tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
-                  } with "${query}"`}
+                  title={handleRenderTitle(
+                    `Found ${tv?.total_results || 0} TV show${
+                      tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
+                    } with "${query}"`
+                  )}
                   footer={
-                    <Link to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}>
+                    <Link
+                      to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}
+                      isFullWidth
+                      isDisabled={isLoading}>
                       <Button
                         color={utils.handleReturnColor(color)}
                         isFullWidth
                         isDisabled={isLoading}
                         onClick={() => onModalClose()}
+                        size={isSm ? 'sm' : 'md'}
                         variant='text'>
                         {`View all ${tv?.total_results || 0} TV show${
                           tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
@@ -158,20 +185,26 @@ const Search = (): ReactElement => {
                 unmountOnExit
                 style={{ width: '100%' }}>
                 <HorizontalGrid
-                  title={`Found ${people?.total_results || 0} ${
-                    people && people.total_results
-                      ? people.total_results === 0 || people.total_results > 1
-                        ? 'people'
-                        : 'person'
-                      : ''
-                  } with "${query}"`}
+                  title={handleRenderTitle(
+                    `Found ${people?.total_results || 0} ${
+                      people && people.total_results
+                        ? people.total_results === 0 || people.total_results > 1
+                          ? 'people'
+                          : 'person'
+                        : ''
+                    } with "${query}"`
+                  )}
                   footer={
-                    <Link to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}>
+                    <Link
+                      to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}
+                      isFullWidth
+                      isDisabled={isLoading}>
                       <Button
                         color={utils.handleReturnColor(color)}
                         isFullWidth
                         isDisabled={isLoading}
                         onClick={() => onModalClose()}
+                        size={isSm ? 'sm' : 'md'}
                         variant='text'>
                         {`View all ${people?.total_results || 0} ${
                           people && people.total_results

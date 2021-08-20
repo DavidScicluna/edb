@@ -70,8 +70,8 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
         />
       </AccordionButton>
 
-      <AccordionPanel pb={4} sx={{ ..._.merge(style.common.panel) }}>
-        <VStack width='100%' spacing={3}>
+      <AccordionPanel sx={{ ..._.merge(style.common.panel) }}>
+        <VStack width='100%' spacing={6}>
           {label === 'Actor' ? (
             <>
               {credits.cast?.movie && credits.cast?.movie.length > 0 ? (

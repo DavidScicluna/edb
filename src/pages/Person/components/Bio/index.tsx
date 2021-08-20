@@ -1,10 +1,8 @@
 import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
-import { useColorMode, useBoolean, VStack, HStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
+import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
-import utils from '../../../../common/utils/utils';
 import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
 import SkeletonText from '../../../../components/Skeleton/Text';
@@ -14,8 +12,6 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
   const biographyRef = useRef<HTMLDivElement | null>(null);
 
   const { colorMode } = useColorMode();
-
-  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [isExpanded, setIsExpanded] = useBoolean();
 
@@ -45,26 +41,30 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
   }, []);
 
   return (
-    <Card minWidth='100%' px={2} pt={1.5} pb={2}>
-      <VStack width='100%' spacing={2}>
-        <HStack
-          width='100%'
-          justifyContent='space-between'
-          borderBottom='solid2'
-          borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-          spacing={0}
-          pb={1.5}>
-          <Text
-            width='100%'
-            align='left'
-            color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-            fontSize='md'
-            fontWeight='medium'>
-            Biography
-          </Text>
-        </HStack>
-
-        {!isLoading ? (
+    <Card
+      box={{
+        header: { pb: 2 },
+        body: { pt: 2 }
+      }}
+      isFullWidth
+      p={2}>
+      {{
+        header: {
+          title: 'Biography',
+          actions: (
+            <ScaleFade in={(height || 0) > 44} unmountOnExit>
+              <Button
+                isDisabled={isLoading}
+                isFullWidth
+                onClick={() => setIsExpanded.toggle()}
+                size='sm'
+                variant='text'>
+                {isExpanded ? 'Collapse' : 'Expand'}
+              </Button>
+            </ScaleFade>
+          )
+        },
+        body: !isLoading ? (
           <Collapse startingHeight={44} in={isExpanded}>
             <VStack ref={biographyRef} width='100%' spacing={2}>
               {biography.split('\n'[0]).map((paragraph, index) => (
@@ -90,20 +90,8 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
               </SkeletonText>
             ))}
           </VStack>
-        )}
-
-        <ScaleFade in={(height || 0) > 44} unmountOnExit>
-          <Button
-            color={utils.handleReturnColor(color)}
-            isDisabled={isLoading}
-            isFullWidth
-            onClick={() => setIsExpanded.toggle()}
-            size='sm'
-            variant='text'>
-            {isExpanded ? 'Collapse' : 'Expand'}
-          </Button>
-        </ScaleFade>
-      </VStack>
+        )
+      }}
     </Card>
   );
 };

@@ -33,7 +33,7 @@ export default (theme: Theme, { isExpanded = false }: AccordionItemProps): Accor
 
       'backgroundColor': 'transparent',
 
-      'padding': `${theme.space[1]} ${theme.space[2]}`,
+      'padding': `${theme.space[1.5]} ${theme.space[2]}`,
 
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
@@ -49,7 +49,7 @@ export default (theme: Theme, { isExpanded = false }: AccordionItemProps): Accor
       }
     },
     panel: {
-      padding: `${theme.space[1]} ${theme.space[2]}`,
+      padding: `${theme.space[0.5]} ${theme.space[2]} ${theme.space[2]} ${theme.space[2]}`,
 
       transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     }

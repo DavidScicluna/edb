@@ -94,30 +94,34 @@ const Error = (props: ErrorProps): ReactElement => {
   return (
     <Fade in style={{ width: '100%' }}>
       <Card isFullWidth variant={variant} p={handleReturnPadding()}>
-        <VStack width='100%' spacing={2}>
-          {hasIllustration ? (
-            <Image maxWidth={maxWidth} alt='Error illustration' src={handleReturnIllustration()} />
-          ) : null}
-          {label || description ? (
-            <VStack spacing={0}>
-              {label ? (
-                <Text
-                  align='center'
-                  fontSize='md'
-                  fontWeight='semibold'
-                  color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
-                  {label}
-                </Text>
+        {{
+          body: (
+            <VStack width='100%' spacing={2}>
+              {hasIllustration ? (
+                <Image maxWidth={maxWidth} alt='Error illustration' src={handleReturnIllustration()} />
               ) : null}
-              {description ? (
-                <Text align='center' fontSize='xs' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
-                  {description}
-                </Text>
+              {label || description ? (
+                <VStack spacing={0}>
+                  {label ? (
+                    <Text
+                      align='center'
+                      fontSize='md'
+                      fontWeight='semibold'
+                      color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
+                      {label}
+                    </Text>
+                  ) : null}
+                  {description ? (
+                    <Text align='center' fontSize='xs' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
+                      {description}
+                    </Text>
+                  ) : null}
+                </VStack>
               ) : null}
+              {button || null}
             </VStack>
-          ) : null}
-          {button || null}
-        </VStack>
+          )
+        }}
       </Card>
     </Fade>
   );

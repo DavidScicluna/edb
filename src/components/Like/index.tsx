@@ -1,5 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
+import { useBoolean } from '@chakra-ui/react';
 import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
   FavoriteOutlined as FavoriteOutlinedIcon
@@ -9,6 +10,7 @@ import { useDispatch } from 'react-redux';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
 import { setLiked } from '../../store/slices/User';
+import Button from '../Clickable/Button';
 import IconButton from '../Clickable/IconButton';
 import Tooltip from '../Tooltip';
 import { LikeProps } from './types';
@@ -17,9 +19,9 @@ const Like = (props: LikeProps): ReactElement => {
   const dispatch = useDispatch();
   const liked = useSelector((state) => state.user.data.liked);
 
-  const { isDisabled = false, title, mediaType, mediaItem, size = 'sm' } = props;
+  const { buttonType = 'iconButton', isDisabled = false, title, mediaType, mediaItem, size = 'sm' } = props;
 
-  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [isHoveringIconButton, setIsHoveringIconButton] = useBoolean();
 
   const isLiked: boolean =
     liked && mediaItem
@@ -79,26 +81,36 @@ const Like = (props: LikeProps): ReactElement => {
     dispatch(setLiked({ ...updatedLiked }));
   };
 
-  return (
+  return buttonType === 'iconButton' ? (
     <Tooltip
       aria-label={isLiked ? `Dislike "${title}" ${mediaType} (tooltip)` : `Like "${title}" ${mediaType} (tooltip)`}
       label={isLiked ? `Dislike "${title}"` : `Like "${title}"`}
       placement='top'
-      isOpen={isHovering}
+      isOpen={isHoveringIconButton}
       isDisabled={isDisabled || !mediaItem}
       gutter={0}>
       <IconButton
-        aria-label={isLiked ? `Dislike "${title}" ${mediaType} (tooltip)` : `Like "${title}" ${mediaType} (tooltip)`}
+        aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
         color={isLiked ? 'red' : 'gray'}
         isDisabled={isDisabled || !mediaItem}
         icon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
         onClick={isLiked ? () => handleRemoveLike() : () => handleLike()}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
+        onMouseEnter={() => setIsHoveringIconButton.on()}
+        onMouseLeave={() => setIsHoveringIconButton.off()}
         size={size}
         variant='icon'
       />
     </Tooltip>
+  ) : (
+    <Button
+      color={isLiked ? 'red' : 'gray'}
+      isDisabled={isDisabled || !mediaItem}
+      leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+      onClick={isLiked ? () => handleRemoveLike() : () => handleLike()}
+      size={size}
+      variant='outlined'>
+      Like
+    </Button>
   );
 };
 

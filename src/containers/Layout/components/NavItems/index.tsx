@@ -20,7 +20,9 @@ const NavItems = ({ navItems, sidebarMode: sidebarModeProp }: NavItemsProps): Re
       <Link to={{ pathname: '/' }} style={{ alignSelf: 'flex-start' }}>
         <Logo size={sidebarMode === 'expanded' ? 'md' : 'sm'} />
       </Link>
-      <Box width='100%' height='2px' border='solid1' borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+
+      <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+
       <VStack width='100%'>
         {navItems.map((navItem) => (
           <NavItem key={navItem.label} {...navItem} sidebarMode={sidebarMode} />
