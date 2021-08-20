@@ -14,5 +14,6 @@ export type HorizontalGridProps = {
   title: string | ReactElement;
   footer?: ReactElement;
   isLoading: boolean;
+  hasDivider?: boolean;
   variant?: CardVariant;
 };

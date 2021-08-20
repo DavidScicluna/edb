@@ -1,7 +1,6 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
-import { VStack, Fade, Collapse } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useMediaQuery, VStack, Text, Fade, Collapse, useColorMode } from '@chakra-ui/react';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../common/utils/utils';
@@ -10,16 +9,26 @@ import Link from '../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
 import VerticalMoviePoster from '../../../../components/Movies/Poster/Vertical';
 import VerticalShowPoster from '../../../../components/TV/Poster/Vertical';
-import { toggleDisplayMode } from '../../../../store/slices/App';
 import { AllProps } from './types';
 
 const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
-  const dispatch = useDispatch();
+  const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
+
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  useEffect(() => {
-    dispatch(toggleDisplayMode('grid'));
-  }, []);
+  const handleRenderTitle = (title: string): ReactElement => {
+    return (
+      <Text
+        align='left'
+        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+        fontSize='2xl'
+        fontWeight='semibold'
+        textTransform='capitalize'>
+        {title}
+      </Text>
+    );
+  };
 
   return (
     <Fade in={(movies && movies.length > 0) || (tv && tv.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
@@ -27,10 +36,12 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
         {/* Movies */}
         <Collapse in={(movies && movies.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`${movies.length || 0} movie${movies && (movies.length === 0 || movies.length > 1) ? 's' : ''}`}
+            title={handleRenderTitle(
+              `${movies.length || 0} movie${movies && (movies.length === 0 || movies.length > 1) ? 's' : ''}`
+            )}
             footer={
-              <Link to={{ pathname: `/lists/${list.id}/movie` }}>
-                <Button color={utils.handleReturnColor(color)} isFullWidth variant='text'>
+              <Link to={{ pathname: `/lists/${list.id}/movie` }} isFullWidth>
+                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${movies.length || 0} movie${
                     movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
                   }`}
@@ -49,10 +60,10 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
         {/* TV */}
         <Collapse in={(tv && tv.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`${tv.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
+            title={handleRenderTitle(`${tv.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`)}
             footer={
-              <Link to={{ pathname: `/lists/${list.id}/tv` }}>
-                <Button color={utils.handleReturnColor(color)} isFullWidth variant='text'>
+              <Link to={{ pathname: `/lists/${list.id}/tv` }} isFullWidth>
+                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${tv?.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
                 </Button>
               </Link>

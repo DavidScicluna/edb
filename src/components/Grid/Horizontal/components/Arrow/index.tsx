@@ -6,9 +6,9 @@ import {
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
 
-import useInterval from '../../../../../../../common/hooks/useInterval';
-import IconButton from '../../../../../../Clickable/IconButton';
-import Tooltip from '../../../../../../Tooltip';
+import useInterval from '../../../../../common/hooks/useInterval';
+import IconButton from '../../../../Clickable/IconButton';
+import Tooltip from '../../../../Tooltip';
 import { ArrowProps, Event } from './types';
 
 const Arrow = (props: ArrowProps): ReactElement => {

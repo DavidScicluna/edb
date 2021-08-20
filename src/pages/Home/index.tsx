@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
@@ -20,6 +20,9 @@ import HorizontalTV from '../../components/TV/Grid/Horizontal';
 
 const Home = (): ReactElement => {
   const source = axios.CancelToken.source();
+
+  const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -63,6 +66,19 @@ const Home = (): ReactElement => {
     return data.results;
   });
 
+  const handleRenderTitle = (title: string): ReactElement => {
+    return (
+      <Text
+        align='left'
+        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+        fontSize='2xl'
+        fontWeight='semibold'
+        textTransform='capitalize'>
+        {title}
+      </Text>
+    );
+  };
+
   useEffect(() => {
     return () => source.cancel();
   }, []);
@@ -70,13 +86,17 @@ const Home = (): ReactElement => {
   return (
     <VStack spacing={6}>
       <HorizontalGrid
-        title='Popular movies'
+        title={handleRenderTitle('Popular movies')}
         footer={
-          <Link to={!popularMovies.isFetching || !popularMovies.isLoading ? { pathname: '/movies/popular' } : {}}>
+          <Link
+            to={{ pathname: '/movies/popular' }}
+            isFullWidth
+            isDisabled={popularMovies.isFetching || popularMovies.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={popularMovies.isFetching || popularMovies.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Popular movies
             </Button>
@@ -91,13 +111,17 @@ const Home = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Trending movies'
+        title={handleRenderTitle('Trending movies')}
         footer={
-          <Link to={!trendingMovies.isFetching || !trendingMovies.isLoading ? { pathname: '/trending/movie' } : {}}>
+          <Link
+            to={{ pathname: '/trending/movie' }}
+            isFullWidth
+            isDisabled={trendingMovies.isFetching || trendingMovies.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={trendingMovies.isFetching || trendingMovies.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Trending movies
             </Button>
@@ -112,13 +136,14 @@ const Home = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Popular TV'
+        title={handleRenderTitle('Popular TV')}
         footer={
-          <Link to={!popularTV.isFetching || !popularTV.isLoading ? { pathname: '/tv/popular' } : {}}>
+          <Link to={{ pathname: '/tv/popular' }} isFullWidth isDisabled={popularTV.isFetching || popularTV.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={popularTV.isFetching || popularTV.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Popular TV
             </Button>
@@ -133,13 +158,17 @@ const Home = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Trending TV'
+        title={handleRenderTitle('Trending TV')}
         footer={
-          <Link to={!trendingTV.isFetching || !trendingTV.isLoading ? { pathname: '/trending/tv' } : {}}>
+          <Link
+            to={{ pathname: '/trending/tv' }}
+            isFullWidth
+            isDisabled={trendingTV.isFetching || trendingTV.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={trendingTV.isFetching || trendingTV.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Trending TV
             </Button>
@@ -154,13 +183,17 @@ const Home = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Trending People'
+        title={handleRenderTitle('Trending People')}
         footer={
-          <Link to={!trendingPeople.isFetching || !trendingPeople.isLoading ? { pathname: '/trending/person' } : {}}>
+          <Link
+            to={{ pathname: '/trending/person' }}
+            isFullWidth
+            isDisabled={trendingPeople.isFetching || trendingPeople.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={trendingPeople.isFetching || trendingPeople.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Trending People
             </Button>

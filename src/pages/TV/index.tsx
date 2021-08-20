@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
@@ -16,6 +16,9 @@ import HorizontalTV from '../../components/TV/Grid/Horizontal';
 
 const TV = (): ReactElement => {
   const source = axios.CancelToken.source();
+
+  const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -51,6 +54,19 @@ const TV = (): ReactElement => {
     return data.results;
   });
 
+  const handleRenderTitle = (title: string): ReactElement => {
+    return (
+      <Text
+        align='left'
+        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+        fontSize='2xl'
+        fontWeight='semibold'
+        textTransform='capitalize'>
+        {title}
+      </Text>
+    );
+  };
+
   useEffect(() => {
     return () => source.cancel();
   }, []);
@@ -58,13 +74,14 @@ const TV = (): ReactElement => {
   return (
     <VStack spacing={6}>
       <HorizontalGrid
-        title='Popular TV Shows'
+        title={handleRenderTitle('Popular TV Shows')}
         footer={
-          <Link to={!popularTV.isFetching || !popularTV.isLoading ? { pathname: '/tv/popular' } : {}}>
+          <Link to={{ pathname: '/tv/popular' }} isFullWidth isDisabled={popularTV.isFetching || popularTV.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={popularTV.isFetching || popularTV.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Popular TV Shows
             </Button>
@@ -79,13 +96,17 @@ const TV = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='TV Shows Airing Today'
+        title={handleRenderTitle('TV Shows Airing Today')}
         footer={
-          <Link to={!tvAiringToday.isFetching || !tvAiringToday.isLoading ? { pathname: '/tv/airing-today' } : {}}>
+          <Link
+            to={{ pathname: '/tv/airing-today' }}
+            isFullWidth
+            isDisabled={tvAiringToday.isFetching || tvAiringToday.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={tvAiringToday.isFetching || tvAiringToday.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all TV Shows Airing Today
             </Button>
@@ -100,13 +121,14 @@ const TV = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='TV Shows on at the moment'
+        title={handleRenderTitle('TV Shows on at the moment')}
         footer={
-          <Link to={!onTV.isFetching || !onTV.isLoading ? { pathname: '/tv/on-tv' } : {}}>
+          <Link to={{ pathname: '/tv/on-tv' }} isFullWidth isDisabled={onTV.isFetching || onTV.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={onTV.isFetching || onTV.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all TV Shows on at the moment
             </Button>
@@ -121,13 +143,17 @@ const TV = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Top Rated TV Shows'
+        title={handleRenderTitle('Top Rated TV Shows')}
         footer={
-          <Link to={!topRatedTV.isFetching || !topRatedTV.isLoading ? { pathname: '/tv/top-rated' } : {}}>
+          <Link
+            to={{ pathname: '/tv/top-rated' }}
+            isFullWidth
+            isDisabled={topRatedTV.isFetching || topRatedTV.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={topRatedTV.isFetching || topRatedTV.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Top Rated TV Shows
             </Button>
