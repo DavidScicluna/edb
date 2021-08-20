@@ -1,14 +1,14 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useMediaQuery, HStack, VStack, Box } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, HStack, VStack, Box } from '@chakra-ui/react';
 
 import { MediaType } from '../../../common/types/types';
 import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
 import Bookmark from '../../Bookmark';
-import Image from '../../Image';
 import Like from '../../Like';
 import Rating from '../../Rating';
+import Image from '../components/Image';
 import Description from './components/Description';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
@@ -28,15 +28,19 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
     isLoading = false
   } = props;
 
-  const [isHoveringLiked, setIsHoveringLiked] = useState<boolean>(false);
-  const [isHoveringBookmark, setIsHoveringBookmark] = useState<boolean>(false);
-  const [isHoveringDescription, setIsHoveringDescription] = useState<boolean>(false);
+  const [isHoveringLiked, setIsHoveringLiked] = useBoolean();
+  const [isHoveringBookmark, setIsHoveringBookmark] = useBoolean();
+  const [isHoveringDescription, setIsHoveringDescription] = useBoolean();
 
   return (
     <Link
       isDisabled={isLoading || isHoveringLiked || isHoveringBookmark || isHoveringDescription}
       to={{ pathname: `${mediaType}/${mediaItem?.id || ''}` }}>
-      <Card isFullWidth isDisabled={isLoading} isLightGray>
+      <Card
+        isFullWidth
+        isDisabled={isLoading}
+        isClickable={!isHoveringLiked && !isHoveringBookmark && !isHoveringDescription}
+        isLightGray>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
           <Image
@@ -70,8 +74,8 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 
             <Box width='100%'>
               <Box
-                onMouseEnter={() => setIsHoveringDescription(true)}
-                onMouseLeave={() => setIsHoveringDescription(false)}>
+                onMouseEnter={() => setIsHoveringDescription.on()}
+                onMouseLeave={() => setIsHoveringDescription.off()}>
                 <Description
                   mediaType={mediaType}
                   mediaItem={{ id: mediaItem?.id || -1, title, description }}
@@ -91,7 +95,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                 right: 1
               }}>
               {/* Like component */}
-              <Box onMouseEnter={() => setIsHoveringLiked(true)} onMouseLeave={() => setIsHoveringLiked(false)}>
+              <Box onMouseEnter={() => setIsHoveringLiked.on()} onMouseLeave={() => setIsHoveringLiked.off()}>
                 <Like
                   isDisabled={isLoading}
                   title={title}
@@ -102,7 +106,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               </Box>
               {/* List component */}
               {mediaType !== 'person' ? (
-                <Box onMouseEnter={() => setIsHoveringBookmark(true)} onMouseLeave={() => setIsHoveringBookmark(false)}>
+                <Box onMouseEnter={() => setIsHoveringBookmark.on()} onMouseLeave={() => setIsHoveringBookmark.off()}>
                   <Bookmark
                     isDisabled={isLoading}
                     title={title}

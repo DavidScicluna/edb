@@ -12,7 +12,10 @@ const HorizontalMovie = ({ isLoading = true, movie }: PosterProps): ReactElement
       image={{
         alt: `${movie?.title || ''} movie poster`,
         src: movie?.poster_path || '',
-        size: '780'
+        size: {
+          thumbnail: 'w92',
+          full: 'original'
+        }
       }}
       rating={{
         rating: movie?.vote_average || null,
@@ -27,20 +30,6 @@ const HorizontalMovie = ({ isLoading = true, movie }: PosterProps): ReactElement
       isLoading={isLoading}
     />
   );
-  // ) : (
-  //   <HorizontalPoster
-  //     mediaType='movie'
-  //     image={{
-  //       alt: 'Movie poster',
-  //       src: '',
-  //       size: '780'
-  //     }}
-  //     title='Lorem ipsum'
-  //     subtitle='Lorem ipsum'
-  //     description='Lorem ipsum'
-  //     isLoading
-  //   />
-  // );
 };
 
 export default HorizontalMovie;

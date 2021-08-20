@@ -8,17 +8,16 @@ import {
   Box,
   Center,
   AspectRatio,
-  Image as CUIImage,
   Icon,
   Fade
 } from '@chakra-ui/react';
 import { SearchOutlined as SearchOutlinedIcon, CheckOutlined as CheckOutlinedIcon } from '@material-ui/icons';
 
-import utils from '../../../../../../../../common/utils/utils';
+import Image from '../../../../../../../../components/Image';
 import { Theme } from '../../../../../../../../theme/types';
 import { ImageProps } from './types';
 
-const Image = (props: ImageProps): ReactElement => {
+const GalleryImage = (props: ImageProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const [isHovering, setIsHovering] = useBoolean();
@@ -68,17 +67,21 @@ const Image = (props: ImageProps): ReactElement => {
         </Fade>
       </Center>
       <AspectRatio borderRadius='base' ratio={1 / 1}>
-        <CUIImage
+        <Image
           alt={`${name ? `"${name}"` : ''} image`}
           maxWidth='none'
           height='100%'
           borderRadius='base'
-          src={`${process.env.REACT_APP_IMAGE_URL}/original${image.file_path}`}
-          fallbackSrc={utils.handleReturnFallbackSrc('person', '780', `${name ? `"${name}"` : ''} image`)}
+          mediaType='person'
+          src={image.file_path}
+          size={{
+            thumbnail: 'w45',
+            full: 'original'
+          }}
         />
       </AspectRatio>
     </Box>
   );
 };
 
-export default Image;
+export default GalleryImage;

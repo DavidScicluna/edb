@@ -16,29 +16,39 @@ const Background = ({ children }: BackgroundProps): ReactElement => {
 
   /**
    * This method will return 2 colors to be used in a gradient
-   *
-   * @returns String - Gradient colors
    */
   const handleReturnGradient = useCallback(
     _.debounce(() => {
-      const random: number = Math.floor(Math.random() * 5);
+      const random: number = Math.floor(Math.random() * 9);
       let gradient = '';
 
       switch (random) {
         case 0:
-          gradient = 'red.400, pink.400';
+          gradient = 'red.200, red.500';
           break;
         case 1:
-          gradient = 'orange.400, yellow.400';
+          gradient = 'orange.200, orange.500';
           break;
         case 2:
-          gradient = 'green.400, teal.400';
+          gradient = 'yellow.200, yellow.500';
           break;
         case 3:
-          gradient = 'blue.400, cyan.400';
+          gradient = 'green.200, green.500';
+          break;
+        case 4:
+          gradient = 'teal.200, teal.500';
+          break;
+        case 5:
+          gradient = 'blue.200, blue.500';
+          break;
+        case 6:
+          gradient = 'cyan.200, cyan.500';
+          break;
+        case 7:
+          gradient = 'purple.200, purple.500';
           break;
         default:
-          gradient = 'purple.400, pink.400';
+          gradient = 'pink.200, pink.500';
           break;
       }
 

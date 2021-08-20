@@ -13,27 +13,16 @@ const VerticalPerson = ({ width, isLoading = true, person }: PosterProps): React
       image={{
         alt: `${person?.name || ''} person poster`,
         src: person?.profile_path || '',
-        size: '780'
+        size: {
+          thumbnail: 'w45',
+          full: 'original'
+        }
       }}
       title={person?.name || ''}
       subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
       isLoading={isLoading}
     />
   );
-  // ) : (
-  //   <VerticalPoster
-  //     width={width || ['185px', '205px', '230px']}
-  //     mediaType='person'
-  //     image={{
-  //       alt: 'Person poster',
-  //       src: '',
-  //       size: '780'
-  //     }}
-  //     title='Lorem ipsum'
-  //     subtitle='Lorem ipsum'
-  //     isLoading
-  //   />
-  // );
 };
 
 export default VerticalPerson;

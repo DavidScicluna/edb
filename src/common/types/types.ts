@@ -7,6 +7,8 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type CardVariant = 'transparent' | 'outlined';
 
+export type ButtonType = 'button' | 'iconButton';
+
 export type ColorMode = 'light' | 'dark';
 
 export type SortBy = {
@@ -18,7 +20,10 @@ export type SortBy = {
 export type Image = {
   alt: string;
   src: string;
-  size: string;
+  size: {
+    thumbnail: string;
+    full: string;
+  };
 };
 
 // Data Types

@@ -9,13 +9,12 @@ import {
   Box,
   Center,
   AspectRatio,
-  Image,
   Icon,
   Fade
 } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
-import utils from '../../../../../../common/utils/utils';
+import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
 import { Theme } from '../../../../../../theme/types';
 import { PosterProps } from './types';
@@ -75,10 +74,14 @@ const Poster = (props: PosterProps): ReactElement => {
       <AspectRatio ratio={1 / 1}>
         <Skeleton isLoaded={!isLoading} borderRadius={isSm ? 'base' : 'full'}>
           <Image
-            alt={`${name ? `"${name}"` : ''} profile poster`}
             width='100%'
-            src={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
-            fallbackSrc={utils.handleReturnFallbackSrc('person', '780', `${name ? `"${name}"` : ''} profile poster`)}
+            alt={`${name ? `"${name}"` : ''} profile poster`}
+            mediaType='person'
+            src={path || ''}
+            size={{
+              thumbnail: 'w45',
+              full: 'original'
+            }}
           />
         </Skeleton>
       </AspectRatio>

@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery, Center, Image, AspectRatio } from '@chakra-ui/react';
+import { useMediaQuery, Center } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 
 import utils from '../../../../../../common/utils/utils';
+import Image from '../../../../../../components/Image';
 import { ViewerProps } from './types';
 
 const Viewer = (props: ViewerProps): ReactElement => {
@@ -26,9 +27,13 @@ const Viewer = (props: ViewerProps): ReactElement => {
               width={isSm ? 'calc(100% - 64px)' : 'auto'}
               maxWidth='none'
               height={isSm ? 'auto' : 'calc(100% - 128px)'}
+              mediaType='person'
               borderRadius='xl'
-              src={`${process.env.REACT_APP_IMAGE_URL}/original${image.file_path}`}
-              fallbackSrc={utils.handleReturnFallbackSrc('person', '780', `${name ? `"${name}"` : ''} image`)}
+              src={image.file_path}
+              size={{
+                thumbnail: 'w45',
+                full: 'original'
+              }}
             />
           </Center>
         </SwiperSlide>

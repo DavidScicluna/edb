@@ -12,7 +12,10 @@ const HorizontalTV = ({ isLoading = true, show }: PosterProps): ReactElement => 
       image={{
         alt: `${show?.name || ''} tv show poster`,
         src: show?.poster_path || '',
-        size: '780'
+        size: {
+          thumbnail: 'w92',
+          full: 'original'
+        }
       }}
       rating={{
         rating: show?.vote_average || null,
@@ -27,20 +30,6 @@ const HorizontalTV = ({ isLoading = true, show }: PosterProps): ReactElement => 
       isLoading={isLoading}
     />
   );
-  // ) : (
-  //   <HorizontalPoster
-  //     mediaType='tv'
-  //     image={{
-  //       alt: 'TV Show poster',
-  //       src: '',
-  //       size: '780'
-  //     }}
-  //     title='Lorem ipsum'
-  //     subtitle='Lorem ipsum'
-  //     description='Lorem ipsum'
-  //     isLoaded={false}
-  //   />
-  // );
 };
 
 export default HorizontalTV;

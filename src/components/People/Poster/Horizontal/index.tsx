@@ -21,26 +21,16 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
       image={{
         alt: `${person?.name || ''} person poster`,
         src: person?.profile_path || '',
-        size: '780'
+        size: {
+          thumbnail: 'w45',
+          full: 'original'
+        }
       }}
       title={person?.name || ''}
       subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
       description={handleKnownFor()} // TODO: Add a Link component and on click open item page
       isLoading={isLoading}
     />
-    // ) : (
-    //   <HorizontalPoster
-    //     mediaType='person'
-    //     image={{
-    //       alt: 'Person poster',
-    //       src: '',
-    //       size: '780'
-    //     }}
-    //     title='Lorem ipsum'
-    //     subtitle='Lorem ipsum'
-    //     description='Lorem ipsum'
-    //     isLoaded={false}
-    //   />
   );
 };
 

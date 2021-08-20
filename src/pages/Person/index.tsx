@@ -208,8 +208,7 @@ const Person = (): ReactElement => {
    * @param path - Image path
    */
   const handleOnPosterClick = (path: string): void => {
-    const image = imagesQuery.data?.profiles.find((image) => image.file_path === path);
-    handleOnImageClick(image);
+    handleOnImageClick(imagesQuery.data?.profiles.find((image) => image.file_path === path));
   };
 
   const knownFor = creditsQuery.isSuccess ? handleGetKnownFor() : [];
