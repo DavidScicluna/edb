@@ -15,6 +15,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
   const { direction, isLoading = false, isDisabled = false, reset = false, variant, onScrollClick } = props;
 
   const [isMouseDown, setIsMouseDown] = useBoolean();
+  const [isHovering, setIsHovering] = useBoolean();
 
   const handleOnClick = (event: Event): void => {
     event.preventDefault();
@@ -53,8 +54,9 @@ const Arrow = (props: ArrowProps): ReactElement => {
       closeOnMouseDown={false}
       label={`Scroll ${direction.toLowerCase()} (${!isMouseDown ? 'Hold for Auto-Scroll' : 'Auto-Scroll ON'})`}
       placement='top'
+      isOpen={isHovering}
       isDisabled={isLoading || isDisabled}
-      span>
+      gutter={isMouseDown ? 8 : 10}>
       <IconButton
         aria-label='Scroll left'
         isDisabled={isLoading || isDisabled}
@@ -62,6 +64,8 @@ const Arrow = (props: ArrowProps): ReactElement => {
         onClick={(event: Event) => handleOnClick(event)}
         onMouseDown={(event: Event) => handleIsMouseDown(event)}
         onMouseUp={(event: Event) => handleIsMouseUp(event)}
+        onMouseEnter={() => setIsHovering.on()}
+        onMouseLeave={() => setIsHovering.off()}
         size={variant === 'transparent' ? 'md' : 'sm'}
         variant='outlined'
       />

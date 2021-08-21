@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Link as CUILink, HStack, Text, Box } from '@chakra-ui/react';
+import { useTheme, useColorMode, useBoolean, HStack, Text, Box } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
@@ -21,6 +21,8 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const { label, path, isLastChild = false, sidebarMode: sidebarModeProp } = props;
+
+  const [isHoveringChild, setIsHoveringChild] = useBoolean();
 
   const sidebarMode = sidebarModeProp || sidebarModeState;
 
@@ -46,22 +48,27 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
   };
 
   return (
-    <CUILink width='100%' as={Link} to={{ pathname: path || '' }} isDisabled={!path} sx={{ ...style.common.link }}>
-      <HStack width='100%' spacing='15px'>
-        {sidebarMode === 'expanded' ? (
-          <Box height='44px' borderLeft='solid2' borderLeftColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
-        ) : null}
-        <Tooltip
-          aria-label={sidebarMode === 'collapsed' ? label : ''}
-          width='100%'
-          label={sidebarMode === 'collapsed' ? label : ''}
-          placement='right'
-          span>
+    <Link to={{ pathname: path || '' }} isFullWidth isDisabled={!path} sx={{ ...style.common.link }}>
+      <Tooltip
+        aria-label={sidebarMode === 'collapsed' ? label : ''}
+        width='100%'
+        label={sidebarMode === 'collapsed' ? label : ''}
+        isOpen={isHoveringChild}
+        isDisabled={sidebarMode === 'expanded'}
+        placement='right'
+        gutter={16}>
+        <HStack width='100%' spacing='12px'>
+          {sidebarMode === 'expanded' ? (
+            <Box width='2px' height='42px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+          ) : null}
+
           <HStack
             width='100%'
             justifyContent={sidebarMode === 'expanded' ? 'flex-start' : 'center'}
             px={sidebarMode === 'expanded' ? 2 : 1}
             py={1}
+            onMouseEnter={() => setIsHoveringChild.on()}
+            onMouseLeave={() => setIsHoveringChild.off()}
             spacing={0}
             sx={{ ..._.merge(style.common.child, style[colorMode].child) }}>
             <Text
@@ -73,9 +80,9 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
               {sidebarMode === 'expanded' ? label : handleGetInitials()}
             </Text>
           </HStack>
-        </Tooltip>
-      </HStack>
-    </CUILink>
+        </HStack>
+      </Tooltip>
+    </Link>
   );
 };
 

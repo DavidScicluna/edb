@@ -13,8 +13,8 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
   common: {
     cursor: 'pointer',
 
-    minWidth: '46px',
-    minHeight: '46px',
+    width: size === 'sm' ? '40px' : 'auto',
+    minHeight: '40px',
 
     alignSelf: 'flex-start',
 
@@ -24,7 +24,7 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
     fontFamily: '"Pacifico", cursive',
     fontSize: size === 'sm' ? 'lg' : size === 'md' ? '4xl' : '6xl',
     fontWeight: 'bold',
-    lineHeight: size === 'sm' ? '23px' : size === 'md' ? '45px' : '75px',
+    lineHeight: size === 'sm' ? '20px' : size === 'md' ? '40px' : '75px',
     textTransform: 'lowercase',
 
     paddingTop: size === 'sm' ? 0.5 : 1,

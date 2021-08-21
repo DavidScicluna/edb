@@ -1,18 +1,16 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useCallback, useEffect } from 'react';
 
 import {
   useTheme,
   useColorMode,
-  useDisclosure,
   useBoolean,
   VStack,
   HStack,
-  Collapse,
   Icon,
   Text,
-  Link as CUILink,
   Box,
-  ScaleFade
+  ScaleFade,
+  Collapse
 } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
@@ -30,7 +28,6 @@ import { NavItem as NavItemType } from './types';
 const NavItem = (props: NavItemType): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
 
@@ -38,7 +35,10 @@ const NavItem = (props: NavItemType): ReactElement => {
 
   const { children, label, path, icon, iconActive, sidebarMode, onClick } = props;
 
-  const [isHovering, setIsHovering] = useBoolean();
+  const [isChildrenOpen, setIsChildrenOpen] = useBoolean();
+
+  const [isHoveringNav, setIsHoveringNav] = useBoolean();
+  const [isHoveringIcon, setIsHoveringIcon] = useBoolean();
 
   const isActive: boolean = location.pathname === path;
   const isChildActive: boolean = children ? children.some((child) => location.pathname === child.path) : false;
@@ -52,12 +52,25 @@ const NavItem = (props: NavItemType): ReactElement => {
     isChildActive,
     renderChildren,
     sidebarMode === 'expanded',
-    children ? isOpen : false
+    children ? isChildrenOpen : false
+  );
+
+  const handleToggleChildren = useCallback(
+    _.debounce(() => {
+      setIsChildrenOpen.toggle();
+    }, 250),
+    [setIsChildrenOpen]
   );
 
   useEffect(() => {
-    if (isOpen) {
-      onClose();
+    if (isActive || isChildActive) {
+      handleToggleChildren();
+    }
+  }, [isActive, isChildActive]);
+
+  useEffect(() => {
+    if (isChildrenOpen) {
+      handleToggleChildren();
     }
   }, [sidebarMode]);
 
@@ -71,14 +84,14 @@ const NavItem = (props: NavItemType): ReactElement => {
         aria-label={sidebarMode === 'collapsed' ? label : ''}
         width='100%'
         label={sidebarMode === 'collapsed' ? label : ''}
+        isOpen={isHoveringNav}
+        isDisabled={sidebarMode === 'expanded'}
         placement='right'
-        gutter={16}
-        span>
-        <CUILink
-          width='100%'
-          as={Link}
+        gutter={16}>
+        <Link
           to={{ pathname: path || '' }}
-          isDisabled={!path || isHovering}
+          isFullWidth
+          isDisabled={!path || isHoveringIcon}
           sx={{ ...style.common.link }}>
           <HStack
             width='100%'
@@ -86,12 +99,13 @@ const NavItem = (props: NavItemType): ReactElement => {
             px={sidebarMode === 'expanded' ? 2 : 1}
             py={1}
             spacing={2}
-            onClick={!isOpen ? () => onOpen() : undefined}
+            onMouseEnter={() => setIsHoveringNav.on()}
+            onMouseLeave={() => setIsHoveringNav.off()}
             sx={{ ..._.merge(style.common.main, style[colorMode].main) }}>
             <HStack width='100%' spacing={2}>
               <Icon
                 as={isActive || isChildActive ? iconActive : icon}
-                sx={{ fontSize: `${theme.fontSizes['3xl']} !important` }}
+                sx={{ fontSize: `${theme.fontSizes['2xl']} !important` }}
               />
               <ScaleFade
                 in={sidebarMode === 'expanded'}
@@ -102,7 +116,7 @@ const NavItem = (props: NavItemType): ReactElement => {
                   ),
                   exit: 0
                 }}>
-                <Text align='left' fontSize='lg' fontWeight='semibold' whiteSpace='nowrap'>
+                <Text align='left' fontSize='xl' fontWeight='semibold' whiteSpace='nowrap'>
                   {label}
                 </Text>
               </ScaleFade>
@@ -121,26 +135,27 @@ const NavItem = (props: NavItemType): ReactElement => {
                 <Icon
                   as={ChevronRightOutlinedIcon}
                   sx={{
-                    fontSize: `${theme.fontSizes['2xl']} !important`,
-                    transform: `rotate(${isOpen ? '90deg' : '0deg'})`
+                    fontSize: `${theme.fontSizes.xl} !important`,
+                    transform: `rotate(${isChildrenOpen ? '90deg' : '0deg'})`
                   }}
-                  onMouseEnter={() => setIsHovering.on()}
-                  onMouseLeave={() => setIsHovering.off()}
+                  onClick={() => setIsChildrenOpen.toggle()}
+                  onMouseEnter={() => setIsHoveringIcon.on()}
+                  onMouseLeave={() => setIsHoveringIcon.off()}
                 />
               </ScaleFade>
             ) : null}
           </HStack>
-        </CUILink>
+        </Link>
       </Tooltip>
 
       {children && renderChildren ? (
-        <Collapse in={isOpen} unmountOnExit style={{ width: '100%' }}>
+        <Collapse in={isChildrenOpen} unmountOnExit style={{ width: '100%' }}>
           <VStack
             width='100%'
             spacing={0}
-            pl={sidebarMode === 'expanded' ? '31px' : '0px'}
-            pr={sidebarMode === 'expanded' ? 2 : '0px'}
-            mb={sidebarMode === 'expanded' ? 1 : '0px'}>
+            pl={sidebarMode === 'expanded' ? 3.5 : 0}
+            pr={sidebarMode === 'expanded' ? 2 : 0}
+            mb={sidebarMode === 'expanded' ? 1 : 0}>
             {sidebarMode === 'collapsed' ? (
               <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
             ) : null}

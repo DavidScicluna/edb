@@ -4,6 +4,7 @@ import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
+import { useWindowSize } from '../../common/hooks';
 import Arrow from './components/Arrow';
 import { HorizontalScrollProps, ScrollButtonsState, Direction } from './types';
 
@@ -14,6 +15,8 @@ const defaultScrollButtonsState = {
 
 const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const { width: windowWidth } = useWindowSize();
 
   const location = useLocation();
 
@@ -43,11 +46,6 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
     [containerRef]
   );
 
-  const handleScrollChange = useCallback(
-    () => handleContainerRef(containerRef.current),
-    [containerRef, handleContainerRef]
-  );
-
   /**
    * This method will either scroll left or right depending on the direction passed as a param
    *
@@ -71,14 +69,8 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
   }, [location]);
 
   useEffect(() => {
-    handleScrollChange();
-
-    document.addEventListener('resize', handleScrollChange);
-
-    return () => {
-      document.removeEventListener('resize', handleScrollChange);
-    };
-  }, []);
+    handleContainerRef(containerRef.current);
+  }, [windowWidth]);
 
   return (
     <HStack width={width || '100%'} maxWidth={width || '100%'} position='relative' spacing={0}>
@@ -97,8 +89,8 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
         maxWidth='100%'
         overflowX='auto'
         spacing={spacing ? spacing : 1}
-        onLoad={() => handleScrollChange()}
-        onScroll={() => handleScrollChange()}
+        onLoad={() => handleContainerRef(containerRef.current)}
+        onScroll={() => handleContainerRef(containerRef.current)}
         sx={{
           // CSS to hide scrollbar
           'scrollbarWidth': 'none',

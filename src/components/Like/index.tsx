@@ -88,7 +88,7 @@ const Like = (props: LikeProps): ReactElement => {
       placement='top'
       isOpen={isHoveringIconButton}
       isDisabled={isDisabled || !mediaItem}
-      gutter={0}>
+      gutter={8}>
       <IconButton
         aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
         color={isLiked ? 'red' : 'gray'}

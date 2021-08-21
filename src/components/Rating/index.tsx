@@ -46,50 +46,8 @@ const Rating = (props: RatingProps): ReactElement => {
     '2xl': theme.fontSizes['xl']
   });
 
-  // const handleRatingColor = (): 'red' | 'yellow' | 'blue' => {
-  //   if (rating.rating) {
-  //     if (rating.rating < 4) {
-  //       return 'red';
-  //     } else if (rating.rating < 7) {
-  //       return 'yellow';
-  //     } else {
-  //       return 'blue';
-  //     }
-  //   } else return 'yellow';
-  // };
-
   return (
-    // <Tooltip
-    //   aria-label='Showing rating information'
-    //   label={
-    //     <Center>
-    //       <VStack spacing={1}>
-    //         <CircularProgress
-    //           color={`${handleRatingColor()}.400`}
-    //           value={rating.rating ? rating.rating * 10 : 0}
-    //           size='54px'>
-    //           <CircularProgressLabel color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>{`${
-    //             rating.rating ? rating.rating * 10 : 'N/A'
-    //           }%`}</CircularProgressLabel>
-    //         </CircularProgress>
-    //         {rating.count ? (
-    //           <Text color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
-    //             {rating.count}
-    //           </Text>
-    //         ) : null}
-    //       </VStack>
-    //     </Center>
-    //   }
-    //   placement='top'
-    //   isDisabled={!rating.rating || !isLoaded}>
-    <Center
-      backgroundColor='transparent'
-      // borderRadius='sm'
-      // border='solid2'
-      // borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-      // py='0.5'
-      // px='1'
-      p={0}>
+    <Center backgroundColor='transparent' p={0}>
       <Icon
         as={StarOutlinedIcon}
         color='yellow.400'
@@ -107,7 +65,6 @@ const Rating = (props: RatingProps): ReactElement => {
         </Text>
       </SkeletonText>
     </Center>
-    // </Tooltip>
   );
 };
 

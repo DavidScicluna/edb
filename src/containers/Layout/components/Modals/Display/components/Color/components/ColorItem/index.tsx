@@ -23,8 +23,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
       isDisabled={isActive}
       label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
       placement='top'
-      gutter={8}
-      span>
+      gutter={8}>
       <Card
         color={isActive ? utils.handleReturnColor(value) : 'gray'}
         colorMode={background}

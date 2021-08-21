@@ -31,8 +31,6 @@ const Image = (props: ImageProps): ReactElement => {
     []
   );
 
-  console.log(fallbackSrc);
-
   useEffect(() => handleReturnFallbackSrc(), []);
 
   return (
