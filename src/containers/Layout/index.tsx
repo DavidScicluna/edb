@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useTheme, useMediaQuery, Box, SlideFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, Box } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -89,18 +89,16 @@ const Layout = (): ReactElement => {
   return isSplashscreenOpen ? (
     <SplashscreenModal />
   ) : (
-    <SlideFade in={!isSplashscreenOpen} unmountOnExit>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
-        <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
-          <Header width={width} left={left} />
-          <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4} sx={{ ...transition }}>
-            <Routes />
-          </Box>
-
-          <ScrollToTop />
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
+      <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
+        <Header width={width} left={left} />
+        <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4} sx={{ ...transition }}>
+          <Routes />
         </Box>
-      </BrowserRouter>
+
+        <ScrollToTop />
+      </Box>
 
       <ConfirmModal />
 
@@ -109,7 +107,7 @@ const Layout = (): ReactElement => {
       <ListsModal />
 
       <DescriptionModal />
-    </SlideFade>
+    </BrowserRouter>
   );
 };
 

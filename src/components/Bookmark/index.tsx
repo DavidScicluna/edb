@@ -1,5 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
+import { useBoolean } from '@chakra-ui/react';
 import {
   BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
   BookmarkOutlined as BookmarkOutlinedIcon
@@ -22,7 +23,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 
   const { isDisabled = false, title, mediaType, mediaItem, size = 'sm' } = props;
 
-  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [isHovering, setIsHovering] = useBoolean();
 
   const list = mediaItem
     ? lists.find((list) => {
@@ -100,7 +101,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
       placement='top'
       isOpen={isHovering}
       isDisabled={isDisabled || !mediaItem}
-      gutter={0}>
+      gutter={8}>
       <IconButton
         aria-label={
           isBookmarked
@@ -111,8 +112,8 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
         isDisabled={isDisabled || !mediaItem}
         icon={isBookmarked ? BookmarkOutlinedIcon : BookmarkBorderOutlinedIcon}
         onClick={isBookmarked && list ? () => handleRemoveBookmark(list) : () => handleOpenListsModal()}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
+        onMouseEnter={() => setIsHovering.on()}
+        onMouseLeave={() => setIsHovering.off()}
         size={size}
         variant='icon'
       />

@@ -13,7 +13,7 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
   common: {
     cursor: 'pointer',
 
-    width: size === 'sm' ? '40px' : 'auto',
+    width: size === 'sm' ? '40px' : '100px',
     minHeight: '40px',
 
     alignSelf: 'flex-start',
@@ -33,6 +33,7 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
     paddingRight: size === 'sm' ? 1 : 2,
 
     transition: [
+      `width, ${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`,
       `padding, ${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`,
       `font-size, ${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`,
       `background-color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,

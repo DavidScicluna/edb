@@ -87,6 +87,7 @@ const NavItem = (props: NavItemType): ReactElement => {
         isOpen={isHoveringNav}
         isDisabled={sidebarMode === 'expanded'}
         placement='right'
+        shouldWrapChildren
         gutter={16}>
         <Link
           to={{ pathname: path || '' }}

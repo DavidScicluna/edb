@@ -87,7 +87,7 @@ type Person = {
 };
 
 export type PartialPerson = {
-  known_for: (PartialMovie & PartialTV)[];
+  known_for?: (PartialMovie & PartialTV)[];
 } & Person;
 
 export type FullPerson = {

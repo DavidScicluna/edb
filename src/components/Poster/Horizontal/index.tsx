@@ -67,7 +67,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
             {mediaType !== 'person' ? <Rating rating={rating} isLoading={isLoading} isHorizontal /> : null}
 
             {/* Text */}
-            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 1 : 0}>
+            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
               <Title title={title} isLoading={isLoading} />
               <Subtitle subtitle={subtitle} isLoading={isLoading} />
             </VStack>

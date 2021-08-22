@@ -48,14 +48,7 @@ export default (
       }
     },
     link: {
-      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
-
-      '&:hover': {
-        textDecoration: 'none'
-      },
-      '&:focus': {
-        boxShadow: 'none'
-      }
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     }
   },
   light: {

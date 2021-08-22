@@ -4,7 +4,7 @@ import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
-import { useWindowSize } from '../../common/hooks';
+import { useWindowSize, useElementSize } from '../../common/hooks';
 import Arrow from './components/Arrow';
 import { HorizontalScrollProps, ScrollButtonsState, Direction } from './types';
 
@@ -17,6 +17,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const { width: windowWidth } = useWindowSize();
+  const { width: containerWidth } = useElementSize(containerRef);
 
   const location = useLocation();
 
@@ -70,7 +71,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
 
   useEffect(() => {
     handleContainerRef(containerRef.current);
-  }, [windowWidth]);
+  }, [windowWidth, containerWidth]);
 
   return (
     <HStack width={width || '100%'} maxWidth={width || '100%'} position='relative' spacing={0}>

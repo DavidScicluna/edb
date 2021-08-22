@@ -55,7 +55,7 @@ const Rating = (props: RatingProps): ReactElement => {
           fontSize: `${isHorizontal ? iconSize : theme.fontSizes.xl} !important`
         }}
       />
-      <SkeletonText isLoaded={!isLoading} ml={0.5}>
+      <SkeletonText offsetY={19} isLoaded={!isLoading} ml={0.5}>
         <Text
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={isHorizontal ? fontSize : 'md'}

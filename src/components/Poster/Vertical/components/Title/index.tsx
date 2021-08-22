@@ -27,8 +27,8 @@ const Title = (props: TitleProps): ReactElement => {
   return (
     <SkeletonText
       width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
-      isLoaded={!isLoading}
-      mb={isLoading ? 0.5 : 0}>
+      offsetY={16}
+      isLoaded={!isLoading}>
       <Text
         ref={handleIsTruncated}
         align='left'
@@ -38,7 +38,7 @@ const Title = (props: TitleProps): ReactElement => {
         isTruncated
         overflow='hidden'
         whiteSpace='nowrap'>
-        {title}
+        {!isLoading ? title : 'Lorem ipsum'}
       </Text>
     </SkeletonText>
   );

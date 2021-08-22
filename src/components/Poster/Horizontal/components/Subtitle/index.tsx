@@ -27,6 +27,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
   return (
     <SkeletonText
       width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
+      offsetY={23}
       isLoaded={!isLoading}>
       <Text
         ref={handleIsTruncated}
@@ -36,7 +37,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
         isTruncated
         overflow='hidden'
         whiteSpace='nowrap'>
-        {subtitle}
+        {!isLoading ? subtitle : 'Lorem ipsum dolor sit amet'}
       </Text>
     </SkeletonText>
   );
