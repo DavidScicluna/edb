@@ -82,7 +82,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
         ) : (
           <VStack width='100%' spacing={2}>
             {_.range(0, 3).map((_dummy, index) => (
-              <SkeletonText key={index} width='100%' isLoaded={!isLoading}>
+              <SkeletonText key={index} width='100%' offsetY={14} isLoaded={!isLoading}>
                 <Text align='left' fontSize='xs'>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                   dolore magna aliqua.

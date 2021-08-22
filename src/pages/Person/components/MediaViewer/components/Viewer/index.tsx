@@ -4,21 +4,23 @@ import { useMediaQuery, Center } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 
-import utils from '../../../../../../common/utils/utils';
 import Image from '../../../../../../components/Image';
 import { ViewerProps } from './types';
 
 const Viewer = (props: ViewerProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 480px)');
 
-  const { name, images, onSwiper, onSlideChange } = props;
+  const { current, name, images, onSwiper, onSlideChange } = props;
 
   return (
     <Swiper
+      allowSlideNext={current <= images.length}
+      allowSlidePrev={current >= 1}
       spaceBetween={96}
       slidesPerView={1}
       onSwiper={(swiper) => onSwiper(swiper)}
-      onSlideChange={(swiper) => onSlideChange(swiper)}>
+      onSlideChange={(swiper) => onSlideChange(swiper)}
+      onKeyPress={(event) => console.log(event)}>
       {images.map((image, index) => (
         <SwiperSlide key={index}>
           <Center width='100vw' height='100vh' py={2}>

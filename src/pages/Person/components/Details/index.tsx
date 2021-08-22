@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, VStack, Text, Fade, ScaleFade } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
 import moment from 'moment';
 
 import Card from '../../../../components/Card';
@@ -77,8 +77,8 @@ const Details = (props: DetailsProps): ReactElement => {
               left={isSm ? 0 : left}
               alignItems='flex-start'
               spacing={2}>
-              <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={isLoading ? 1 : 0}>
-                <SkeletonText isLoaded={!isLoading}>
+              <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+                <SkeletonText offsetY={isSm ? 28 : 42} isLoaded={!isLoading}>
                   <Text
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
@@ -91,8 +91,8 @@ const Details = (props: DetailsProps): ReactElement => {
                 <Departments departments={departments} isLoading={isLoading} />
               </VStack>
 
-              <Fade in={!isError} unmountOnExit>
-                <SkeletonText isLoaded={!isLoading}>
+              <ScaleFade in={!isError} unmountOnExit>
+                <SkeletonText offsetY={16} isLoaded={!isLoading}>
                   <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
                     {`Born on ${moment(person?.birthday || '', 'YYYY-MM-DD').format('LL')}${
                       person?.place_of_birth ? ` in ${person?.place_of_birth}` : ''
@@ -104,7 +104,7 @@ const Details = (props: DetailsProps): ReactElement => {
                     )} years old)`}
                   </Text>
                 </SkeletonText>
-              </Fade>
+              </ScaleFade>
 
               <ScaleFade in={!isError} unmountOnExit>
                 <Like

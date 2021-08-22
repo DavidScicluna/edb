@@ -8,7 +8,7 @@ import useSelector from '../../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../../common/utils/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
-import Skeleton from '../../../../../../components/Skeleton';
+import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { QuickTogglesProps } from './types';
 
 const dummyTextWidths = utils.handleReturnDummyWidths(200, 4);
@@ -58,9 +58,10 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
       ) : (
         _.range(0, 4).map((_dummy, index) => (
           <Fragment key={index}>
-            <Skeleton
+            <SkeletonText
               width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
-              height='16px'
+              height='28px'
+              offsetY={28}
             />
 
             {index < 3 ? (
