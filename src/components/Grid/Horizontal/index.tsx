@@ -1,12 +1,15 @@
-import React, { ReactElement, UIEvent, SyntheticEvent, useState, useCallback, useEffect } from 'react';
+import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
-import { useColorMode, VStack, Box } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
+import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
+import { useWindowSize } from '../../../common/hooks';
+import utils from '../../../common/utils/utils';
 import Card from '../../Card';
+import Arrow from './components/Arrow';
 import Grid from './components/Grid';
-import Header from './components/Header';
-import { HorizontalGridProps, ScrollButtonsState } from './types';
+import { HorizontalGridProps, ScrollButtonsState, Direction } from './types';
 
 const defaultScrollButtonsState = {
   left: true,
@@ -14,36 +17,38 @@ const defaultScrollButtonsState = {
 };
 
 const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
-  const { colorMode } = useColorMode();
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
-  const { children, title, footer, isLoading, variant = 'transparent' } = props;
+  const { width } = useWindowSize();
 
   const location = useLocation();
 
-  const [gridRef, setGridRef] = useState<HTMLDivElement | null>(null);
+  const { children, title, footer, isLoading = true, hasDivider = false, variant = 'transparent' } = props;
 
   const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
   const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
 
-  const handleGridRef = useCallback((ref: HTMLDivElement | null) => {
-    if (ref) {
-      const maxScroll = ref.scrollLeft + ref.offsetWidth;
+  const handleGridRef = useCallback(
+    _.debounce((ref: HTMLDivElement | null) => {
+      if (ref) {
+        const maxScroll = ref.scrollLeft + ref.offsetWidth;
 
-      const isLeftDisabled = ref.scrollLeft === 0;
-      const isRightDisabled = ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
+        const isLeftDisabled = ref.scrollLeft === 0;
+        const isRightDisabled =
+          ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
 
-      setScrollButtons({
-        left: isLeftDisabled,
-        right: isRightDisabled
-      });
-      setGridRef(ref);
-      setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
-    }
-  }, []);
+        setScrollButtons({
+          left: isLeftDisabled,
+          right: isRightDisabled
+        });
 
-  const handleScrollChange = (event: UIEvent<HTMLDivElement, globalThis.UIEvent> | SyntheticEvent<HTMLDivElement>) => {
-    handleGridRef(event.currentTarget);
-  };
+        setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
+      } else {
+        handleGridRef(gridRef.current);
+      }
+    }, 50),
+    [gridRef]
+  );
 
   /**
    * This method will either scroll left or right depending on the direction passed as a param
@@ -51,12 +56,12 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
    * @param direction - The direction to scroll to
    */
   const handleScrollClick = useCallback(
-    (direction: 'left' | 'right') => {
-      if (gridRef) {
+    (direction: Direction) => {
+      if (gridRef && gridRef.current) {
         if (direction === 'left') {
-          gridRef.scrollLeft = gridRef.scrollLeft - 10;
+          gridRef.current.scrollLeft = gridRef.current.scrollLeft - 10;
         } else {
-          gridRef.scrollLeft = gridRef.scrollLeft + 10;
+          gridRef.current.scrollLeft = gridRef.current.scrollLeft + 10;
         }
       }
     },
@@ -67,36 +72,55 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
     setResetScrollButtons(true);
   }, [location]);
 
+  useEffect(() => {
+    handleGridRef(gridRef.current);
+  }, [width]);
+
   return (
-    <Card isFullWidth variant={variant} px={variant === 'outlined' ? 2 : 0}>
-      <VStack width='100%' spacing={0}>
-        {/* Header */}
-        <Header
-          title={title}
-          isLoading={isLoading}
-          reset={resetScrollButtons}
-          scrollButtons={scrollButtons}
-          variant={variant}
-          onScrollClick={handleScrollClick}
-        />
-
-        {/* Grid */}
-        <Grid gridRef={handleGridRef} variant={variant} handleScrollChange={handleScrollChange}>
-          {children}
-        </Grid>
-
-        {/* Footer */}
-        {footer ? (
-          <Box
-            width='100%'
-            borderTop={variant === 'outlined' ? 'solid2' : 'none'}
-            borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-            pt={1}
-            pb={variant === 'outlined' ? 1 : 0}>
-            {footer}
-          </Box>
-        ) : null}
-      </VStack>
+    <Card
+      box={{
+        header: { px: variant === 'transparent' ? 2 : 0, py: 2 },
+        footer: { px: variant === 'transparent' ? 2 : 0, py: 1 }
+      }}
+      isFullWidth
+      hasDivider={hasDivider}
+      variant={variant}
+      px={variant === 'outlined' ? 2 : 0}>
+      {{
+        header: {
+          title,
+          actions: !utils.handleIsTouchDevice() ? (
+            <HStack spacing={variant === 'transparent' ? 2 : 1.25}>
+              <Arrow
+                direction='left'
+                isDisabled={scrollButtons.left}
+                isLoading={isLoading}
+                reset={resetScrollButtons}
+                onScrollClick={handleScrollClick}
+                variant={variant}
+              />
+              <Arrow
+                direction='right'
+                isDisabled={scrollButtons.right}
+                isLoading={isLoading}
+                reset={resetScrollButtons}
+                onScrollClick={handleScrollClick}
+                variant={variant}
+              />
+            </HStack>
+          ) : undefined
+        },
+        body: (
+          <Grid
+            gridRef={gridRef}
+            hasDivider={hasDivider}
+            handleScrollChange={() => handleGridRef(gridRef.current)}
+            variant={variant}>
+            {children}
+          </Grid>
+        ),
+        footer
+      }}
     </Card>
   );
 };

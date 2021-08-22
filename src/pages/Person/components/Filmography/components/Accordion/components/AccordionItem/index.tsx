@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import {
   useTheme,
   useColorMode,
+  useMediaQuery,
   AccordionItem as CUIAccordionItem,
   AccordionButton,
   AccordionPanel,
@@ -14,6 +15,8 @@ import {
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 import _ from 'lodash';
 
+import useSelector from '../../../../../../../../common/hooks/useSelectorTyped';
+import utils from '../../../../../../../../common/utils/utils';
 import { Theme } from '../../../../../../../../theme/types';
 import Badge from './components/Badge';
 import CastMovies from './components/CastMovies';
@@ -27,10 +30,13 @@ import { AccordionItemProps } from './types';
 const AccordionItem = (props: AccordionItemProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const style = useStyles(theme, props);
 
-  const { label, credits } = props;
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const { label, credits, isExpanded } = props;
 
   return (
     <CUIAccordionItem sx={{ ..._.merge(style.common.accordion, style[colorMode].accordion) }}>
@@ -42,7 +48,7 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
         <Text
           textAlign='left'
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-          fontSize='2xl'
+          fontSize={isSm ? 'xl' : '2xl'}
           fontWeight='semibold'>
           {label}
           <Badge
@@ -52,7 +58,9 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
               (credits.crew?.movie?.length || 0) +
               (credits.crew?.tv?.length || 0)
             }`}
-            ml={2}
+            color={isExpanded ? utils.handleReturnColor(color) : 'gray'}
+            size={isSm ? 'md' : 'lg'}
+            ml={isSm ? 1 : 2}
           />
         </Text>
         <Icon
@@ -62,18 +70,18 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
         />
       </AccordionButton>
 
-      <AccordionPanel pb={4} sx={{ ..._.merge(style.common.panel) }}>
-        <VStack width='100%' spacing={3}>
+      <AccordionPanel sx={{ ..._.merge(style.common.panel) }}>
+        <VStack width='100%' spacing={6}>
           {label === 'Actor' ? (
             <>
               {credits.cast?.movie && credits.cast?.movie.length > 0 ? (
-                <Panel title='Movies'>
+                <Panel title='Movies' total={credits.cast.movie.length}>
                   <CastMovies movies={credits.cast.movie} />
                 </Panel>
               ) : null}
 
               {credits.cast?.tv && credits.cast?.tv.length > 0 ? (
-                <Panel title='TV Shows'>
+                <Panel title='TV Shows' total={credits.cast.tv.length}>
                   <CastTV tv={credits.cast.tv} />
                 </Panel>
               ) : null}
@@ -81,13 +89,13 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
           ) : (
             <>
               {credits.crew?.movie && credits.crew?.movie.length > 0 ? (
-                <Panel title='Movies'>
+                <Panel title='Movies' total={credits.crew.movie.length}>
                   <CrewMovies movies={credits.crew.movie} />
                 </Panel>
               ) : null}
 
               {credits.crew?.tv && credits.crew?.tv.length > 0 ? (
-                <Panel title='TV Shows'>
+                <Panel title='TV Shows' total={credits.crew.tv.length}>
                   <CrewTV tv={credits.crew.tv} />
                 </Panel>
               ) : null}

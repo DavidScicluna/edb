@@ -14,7 +14,10 @@ type CardStyle = {
   dark: Omit<CommonStyle, 'icon'>;
 };
 
-export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray = false }: CardProps): CardStyle => ({
+export default (
+  theme: Theme,
+  { color = 'gray', isFullWidth = false, isLightGray = false, isClickable = true }: CardProps
+): CardStyle => ({
   card: {
     back: {
       'cursor': 'pointer',
@@ -29,18 +32,18 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
 
       'padding': 0,
 
-      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`,
+      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       '&:focus': {
         boxShadow: 'none'
       },
 
       '&:active .card_front': {
-        transform: 'translateY(0)'
+        transform: isClickable ? 'translateY(0)' : 'translateY(-2px)'
       },
 
-      '& *': {
-        transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
+      '& .MuiSvgIcon-root': {
+        transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
       }
     },
     front: {
@@ -59,7 +62,7 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false, isLightGray
 
       transform: 'translateY(-2px)',
 
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
     disabled: {
       'cursor': 'not-allowed',

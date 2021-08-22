@@ -3,22 +3,29 @@ import React, { ReactElement } from 'react';
 import { useColorMode, VStack, Box } from '@chakra-ui/react';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
+import Link from '../../../../components/Clickable/Link';
+import NavItem from '../../../../components/NavItem';
 import Logo from '../Logo';
-import NavItem from './components/NavItem';
-import { NavItemsProps, NavItem as NavItemType } from './types';
+import { NavItemsProps } from './types';
 
-const NavItems = ({ navItems }: NavItemsProps): ReactElement => {
+const NavItems = ({ navItems, sidebarMode: sidebarModeProp }: NavItemsProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+  const sidebarModeState = useSelector((state) => state.app.ui.sidebarMode);
+
+  const sidebarMode = sidebarModeProp || sidebarModeState;
 
   return (
     <VStack width='100%' spacing={2}>
-      <Logo size={sidebarMode === 'expanded' ? 'md' : 'sm'} />
-      <Box width='100%' height='2px' border='solid1' borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+      <Link to={{ pathname: '/' }} style={{ alignSelf: 'flex-start' }}>
+        <Logo size={sidebarMode === 'expanded' ? 'md' : 'sm'} />
+      </Link>
+
+      <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+
       <VStack width='100%'>
-        {navItems.map((navItem: NavItemType) => (
-          <NavItem key={navItem.label} {...navItem} />
+        {navItems.map((navItem) => (
+          <NavItem key={navItem.label} {...navItem} sidebarMode={sidebarMode} />
         ))}
       </VStack>
     </VStack>

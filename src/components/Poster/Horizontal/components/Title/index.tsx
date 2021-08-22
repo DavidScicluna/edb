@@ -27,17 +27,18 @@ const Title = (props: TitleProps): ReactElement => {
   return (
     <SkeletonText
       width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
+      offsetY={31.25}
       isLoaded={!isLoading}>
       <Text
         ref={handleIsTruncated}
         align='left'
-        fontSize={['md', 'lg', 'xl', '2xl']}
+        fontSize={['lg', 'xl', '2xl', '3xl']}
         fontWeight='semibold'
         color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
         isTruncated
         overflow='hidden'
         whiteSpace='nowrap'>
-        {title}
+        {!isLoading ? title : 'Lorem ipsum'}
       </Text>
     </SkeletonText>
   );

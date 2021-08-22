@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, MouseEvent } from 'react';
 
-import { useBoolean, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, VStack, HStack } from '@chakra-ui/react';
 import {
   CloseOutlined as CloseOutlinedIcon,
   DashboardOutlined as DashboardOutlinedIcon,
@@ -9,60 +9,113 @@ import {
 } from '@material-ui/icons';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
-import { ActionsProps } from './types';
+import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
-  const [isFullscreen, setIsFullscreen] = useBoolean();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const { onClose, onGalleryClick } = props;
+
+  const [isFullscreen, setIsFullscreen] = useBoolean();
+  const [isfullscreenNotSupported, setIsfullscreenNotSupported] = useBoolean();
 
   /**
    * This method will open fullscreen mode
    */
-  const handleOpenFullscreen = (): void => {
-    document.documentElement.requestFullscreen();
+  const handleOpenFullscreen = (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>): void => {
+    event.preventDefault();
+
+    const element: HTMLFullscreenElement = document.documentElement;
+
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    } else {
+      console.error('Fullscreen API is not supported.');
+      setIsfullscreenNotSupported.on();
+    }
+
     setIsFullscreen.on();
   };
 
   /**
    * This method will close fullscreen mode
    */
-  const handleCloseFullscreen = (): void => {
-    document.exitFullscreen();
+  const handleCloseFullscreen = (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>): void => {
+    event.preventDefault();
+
+    const doc: FullscreenDocument = document;
+
+    if (doc.exitFullscreen) {
+      doc.exitFullscreen();
+    } else if (doc.webkitExitFullscreen) {
+      doc.webkitExitFullscreen();
+    } else if (doc.mozCancelFullScreen) {
+      doc.mozCancelFullScreen();
+    } else if (doc.msExitFullscreen) {
+      doc.msExitFullscreen();
+    } else {
+      console.error('Fullscreen API is not supported.');
+      setIsfullscreenNotSupported.on();
+    }
+
     setIsFullscreen.off();
   };
 
   /**
    * This method will close the modal and will close fullscreen if fullscreen is open
    */
-  const handleClose = (): void => {
+  const handleClose = (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>): void => {
     if (isFullscreen) {
-      handleCloseFullscreen();
+      handleCloseFullscreen(event);
     }
 
     onClose();
   };
 
-  return (
-    <VStack position='absolute' top={2} right={2} zIndex={2} backgroundColor='transparent' spacing={0}>
-      {/* Close button */}
-      <IconButton aria-label='Close modal' icon={CloseOutlinedIcon} onClick={() => handleClose()} variant='icon' />
+  const actions = [
+    // Close button
+    <IconButton
+      key='close_button'
+      aria-label='Close modal'
+      icon={CloseOutlinedIcon}
+      onClick={(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => handleClose(event)}
+      variant='icon'
+    />,
 
-      {/* Gallery button */}
-      <IconButton
-        aria-label='Open Gallery'
-        icon={DashboardOutlinedIcon}
-        onClick={() => onGalleryClick()}
-        variant='icon'
-      />
+    // Gallery button
+    <IconButton
+      key='gallery_button'
+      aria-label='Open Gallery'
+      icon={DashboardOutlinedIcon}
+      onClick={() => onGalleryClick()}
+      variant='icon'
+    />,
 
-      {/* Fullscreen button */}
+    //  Fullscreen button
+    !isfullscreenNotSupported ? (
       <IconButton
+        key='fullscreen_button'
         aria-label={isFullscreen ? 'Exit fullscreen ' : 'Enter fullscreen'}
         icon={isFullscreen ? FullscreenExitOutlinedIcon : FullscreenOutlinedIcon}
-        onClick={isFullscreen ? () => handleCloseFullscreen() : () => handleOpenFullscreen()}
+        onClick={isFullscreen ? (event) => handleCloseFullscreen(event) : (event) => handleOpenFullscreen(event)}
         variant='icon'
       />
+    ) : null
+  ].filter((action) => action);
+
+  return isSm ? (
+    <HStack position='absolute' top={1} right={1} zIndex={2} backgroundColor='transparent' spacing={0}>
+      {actions.reverse()}
+    </HStack>
+  ) : (
+    <VStack position='absolute' top={1} right={1} zIndex={2} backgroundColor='transparent' spacing={0}>
+      {actions}
     </VStack>
   );
 };

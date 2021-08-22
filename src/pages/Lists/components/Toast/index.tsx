@@ -16,7 +16,7 @@ import { ToastProps } from './types';
 
 const Toast = (props: ToastProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const color = store.getState().user.ui.theme.color;
 
@@ -35,7 +35,7 @@ const Toast = (props: ToastProps): ReactElement => {
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
-          fontSize={isMob ? 'sm' : 'md'}
+          fontSize={isSm ? 'sm' : 'md'}
           fontWeight='normal'
           whiteSpace='nowrap'>
           {`"${selected.label}" list`}
@@ -43,7 +43,7 @@ const Toast = (props: ToastProps): ReactElement => {
       </HStack>
 
       <HStack spacing={1}>
-        {isMob ? (
+        {isSm ? (
           <IconButton
             aria-label='Information related to selected list'
             color={utils.handleReturnColor(color)}
@@ -62,7 +62,7 @@ const Toast = (props: ToastProps): ReactElement => {
           </Button>
         )}
 
-        {isMob ? (
+        {isSm ? (
           <IconButton
             aria-label='Edit selected list'
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
@@ -79,7 +79,7 @@ const Toast = (props: ToastProps): ReactElement => {
           </Button>
         )}
 
-        {isMob ? (
+        {isSm ? (
           <IconButton
             aria-label='Delete selected list'
             color='red'
@@ -104,7 +104,7 @@ const Toast = (props: ToastProps): ReactElement => {
         colorMode={colorMode === 'light' ? 'dark' : 'light'}
         icon={CloseOutlinedIcon}
         onClick={() => onClose()}
-        size={isMob ? 'sm' : 'md'}
+        size={isSm ? 'sm' : 'md'}
         variant='icon'
       />
     </HStack>

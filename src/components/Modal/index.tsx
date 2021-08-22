@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
 import {
   useTheme,
   useMediaQuery,
+  useBoolean,
   Modal as CUIModal,
   ModalOverlay,
   ModalContent,
@@ -15,23 +16,34 @@ import {
 } from '@chakra-ui/react';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
+import useTimeout from '../../common/hooks/useTimeout';
 import { ColorMode } from '../../common/types/types';
 import { Theme } from '../../theme/types';
 import Button from '../Clickable/Button';
 import IconButton from '../Clickable/IconButton';
 import { ModalProps } from './types';
 
-const Modal = (props: ModalProps): ReactElement => {
+const Modal = (props: ModalProps): ReactElement | null => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const [isXs] = useMediaQuery('(max-width: 40em)');
 
   const { children, actions, title, colorMode: colorModeProp, isOpen, onClose, size, ...rest } = props;
 
-  const mode: ColorMode = colorModeProp || colorMode;
-  const transition = `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`;
+  const [isMounted, setIsMounted] = useBoolean();
 
-  return (
+  const mode: ColorMode = colorModeProp || colorMode;
+  const transition = `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`;
+
+  useTimeout(() => setIsMounted.off(), !isOpen ? 1000 : null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsMounted.on();
+    }
+  }, [isOpen]);
+
+  return isMounted ? (
     <CUIModal
       {...rest}
       isOpen={isOpen}
@@ -87,7 +99,7 @@ const Modal = (props: ModalProps): ReactElement => {
         ) : null}
       </ModalContent>
     </CUIModal>
-  );
+  ) : null;
 };
 
 export default Modal;

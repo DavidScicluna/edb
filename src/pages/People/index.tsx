@@ -17,7 +17,7 @@ import VerticalPeople from '../../components/People/Grid/Vertical';
 
 const People = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const isMob = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -84,7 +84,7 @@ const People = (): ReactElement => {
 
   return (
     <VerticalGrid
-      title={isMob ? 'People' : ''}
+      title={isSm ? 'People' : ''}
       header={<Filters mediaType='person' isDisabled={!popularPeople.isSuccess} onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalPeople

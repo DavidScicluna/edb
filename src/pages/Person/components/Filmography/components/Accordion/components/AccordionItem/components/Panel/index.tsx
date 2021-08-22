@@ -1,30 +1,27 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
+import { useMediaQuery, VStack } from '@chakra-ui/react';
 
 import Card from '../../../../../../../../../../components/Card';
+import Badge from '../Badge';
 import { ListProps } from './types';
 
-const Panel = ({ children, title }: ListProps): ReactElement => {
-  const { colorMode } = useColorMode();
+const Panel = ({ children, title, total }: ListProps): ReactElement => {
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   return (
-    <Card isFullWidth variant='transparent'>
-      <VStack width='100%' alignItems='stretch' spacing={1}>
-        <HStack
-          borderBottom='solid2'
-          borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-          spacing={0}
-          pb={1}>
-          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='xl' fontWeight='medium'>
-            {title}
-          </Text>
-        </HStack>
-
-        <VStack width='100%' spacing={2}>
-          {children}
-        </VStack>
-      </VStack>
+    <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth variant='transparent'>
+      {{
+        header: {
+          title,
+          actions: <Badge label={String(total)} size={isSm ? 'sm' : 'md'} ml={2} />
+        },
+        body: (
+          <VStack width='100%' spacing={2}>
+            {children}
+          </VStack>
+        )
+      }}
     </Card>
   );
 };

@@ -90,7 +90,7 @@ const ListsModal = (): ReactElement => {
             </Button>
           )
         }
-        isOpen
+        isOpen={listsModal.open}
         onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
         isCentered
         size='2xl'>

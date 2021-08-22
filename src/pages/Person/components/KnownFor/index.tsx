@@ -1,7 +1,5 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
-
 import utils from '../../../../common/utils/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
@@ -10,24 +8,10 @@ import VerticalPoster from '../../../../components/Poster/Vertical';
 import { KnownForProps } from './types';
 
 const KnownFor = (props: KnownForProps): ReactElement => {
-  const { colorMode } = useColorMode();
-
   const { knownFor, name, isError = false, isSuccess = false, isLoading = false } = props;
 
   return (
-    <HorizontalGrid
-      title={
-        <Text
-          width='100%'
-          align='left'
-          color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-          fontSize='md'
-          fontWeight='medium'>
-          Known for
-        </Text>
-      }
-      isLoading={isLoading}
-      variant='outlined'>
+    <HorizontalGrid title='Known for' isLoading={isLoading} hasDivider variant='outlined'>
       {isError ? (
         <Error
           label='Oh no! Something went wrong'
@@ -47,7 +31,10 @@ const KnownFor = (props: KnownForProps): ReactElement => {
               image={{
                 alt: `${mediaItem?.title || mediaItem?.name || ''} ${mediaItem?.title ? 'movie' : 'tv'} poster`,
                 src: mediaItem?.poster_path || '',
-                size: '780'
+                size: {
+                  thumbnail: '45',
+                  full: 'original'
+                }
               }}
               rating={{
                 rating: mediaItem?.vote_average || null,
@@ -69,7 +56,10 @@ const KnownFor = (props: KnownForProps): ReactElement => {
               image={{
                 alt: 'Movie poster',
                 src: '',
-                size: '780'
+                size: {
+                  thumbnail: '45',
+                  full: 'original'
+                }
               }}
               title='Lorem ipsum'
               subtitle='Lorem ipsum'

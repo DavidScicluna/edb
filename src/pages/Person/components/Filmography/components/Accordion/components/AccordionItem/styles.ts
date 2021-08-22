@@ -23,7 +23,7 @@ export default (theme: Theme, { isExpanded = false }: AccordionItemProps): Accor
       border: 'none',
       borderRadius: 'lg',
 
-      transition: `${theme.transition.duration.fast} ${theme.transition.easing['ease-in-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
     button: {
       'width': '100%',
@@ -33,9 +33,9 @@ export default (theme: Theme, { isExpanded = false }: AccordionItemProps): Accor
 
       'backgroundColor': 'transparent',
 
-      'padding': `${theme.space[1]} ${theme.space[2]}`,
+      'padding': `${theme.space[1.5]} ${theme.space[2]}`,
 
-      'transition': `${theme.transition.duration.fast} ${theme.transition.easing['ease-in-out']}`,
+      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       '&:focus': { boxShadow: 'none' }
     },
@@ -45,13 +45,13 @@ export default (theme: Theme, { isExpanded = false }: AccordionItemProps): Accor
       '&.MuiSvgIcon-root': {
         fontSize: 'xl',
 
-        transition: `${theme.transition.duration.fast} ${theme.transition.easing['ease-in-out']}`
+        transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
       }
     },
     panel: {
-      padding: `${theme.space[1]} ${theme.space[2]}`,
+      padding: `${theme.space[0.5]} ${theme.space[2]} ${theme.space[2]} ${theme.space[2]}`,
 
-      transition: `${theme.transition.duration.fast} ${theme.transition.easing['ease-in-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     }
   },
   light: {

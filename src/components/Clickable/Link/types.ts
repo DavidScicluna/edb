@@ -6,5 +6,6 @@ import { Location } from 'history';
 export type LinkProps = {
   children: ReactElement;
   to: Partial<Location>;
+  isFullWidth?: boolean;
   isDisabled?: boolean;
 } & CUILinkProps;

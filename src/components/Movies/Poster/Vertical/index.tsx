@@ -13,7 +13,10 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
       image={{
         alt: `${movie?.title || ''} movie poster`,
         src: movie?.poster_path || '',
-        size: '780'
+        size: {
+          thumbnail: 'w92',
+          full: 'original'
+        }
       }}
       rating={{
         rating: movie?.vote_average || null,
@@ -27,20 +30,6 @@ const VerticalMovie = ({ width, isLoading = true, movie }: PosterProps): ReactEl
       isLoading={isLoading}
     />
   );
-  // ) : (
-  //   <VerticalPoster
-  //     width={width || ['185px', '205px', '230px']}
-  //     mediaType='movie'
-  //     image={{
-  //       alt: 'Movie poster',
-  //       src: '',
-  //       size: '780'
-  //     }}
-  //     title='Lorem ipsum'
-  //     subtitle='Lorem ipsum'
-  //     isLoading
-  //   />
-  // );
 };
 
 export default VerticalMovie;

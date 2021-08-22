@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import utils from '../../../../../../common/utils/utils';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
-import Skeleton from '../../../../../../components/Skeleton';
+import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { DepartmentsProps } from './types';
 
 const dummyTextWidths = utils.handleReturnDummyWidths(200, 4);
@@ -42,9 +42,10 @@ const Departments = (props: DepartmentsProps): ReactElement => {
       ) : (
         _.range(0, 4).map((_dummy, index) => (
           <Fragment key={index}>
-            <Skeleton
+            <SkeletonText
               width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
-              height='22px'
+              height='19px'
+              offsetY={19}
             />
 
             {index < 3 ? (

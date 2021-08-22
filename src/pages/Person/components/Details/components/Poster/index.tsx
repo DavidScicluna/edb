@@ -9,13 +9,12 @@ import {
   Box,
   Center,
   AspectRatio,
-  Image,
   Icon,
   Fade
 } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
-import utils from '../../../../../../common/utils/utils';
+import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
 import { Theme } from '../../../../../../theme/types';
 import { PosterProps } from './types';
@@ -23,33 +22,36 @@ import { PosterProps } from './types';
 const Poster = (props: PosterProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
   const fontSize = useBreakpointValue({
-    base: theme.fontSizes['4xl'],
-    sm: theme.fontSizes['5xl'],
-    md: theme.fontSizes['6xl']
+    'base': theme.fontSizes['6xl'],
+    'sm': theme.fontSizes['4xl'],
+    'md': theme.fontSizes['5xl'],
+    'lg': theme.fontSizes['5xl'],
+    'xl': theme.fontSizes['6xl'],
+    '2xl': theme.fontSizes['6xl']
   });
 
-  const { name, path, isLoading = false, onClickPoster } = props;
+  const { name, path, isLoading = false, isError = false, onClickPoster } = props;
 
   const [isHovering, setIsHovering] = useBoolean();
 
   return (
     <Box
       position='relative'
-      width={isMob ? '100%' : '20vw'}
-      border={isMob ? 'none' : '4px'}
+      width={isSm ? '100%' : ['125px', '125px', '175px', '225px', '275px', '325px']}
+      border={isSm ? 'none' : '4px'}
       borderColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
-      borderRadius={isMob ? 'base' : 'full'}
-      onClick={!isLoading && path ? () => onClickPoster(path) : undefined}
-      onMouseEnter={!isLoading && path ? () => setIsHovering.on() : undefined}
-      onMouseLeave={!isLoading && path ? () => setIsHovering.off() : undefined}>
+      borderRadius={isSm ? 'base' : 'full'}
+      onClick={!isLoading && !isError && path ? () => onClickPoster(path) : undefined}
+      onMouseEnter={!isLoading && !isError && path ? () => setIsHovering.on() : undefined}
+      onMouseLeave={!isLoading && !isError && path ? () => setIsHovering.off() : undefined}>
       <Center
         width='100%'
         height='100%'
         position='absolute'
         zIndex={1}
-        borderRadius={isMob ? 'base' : 'full'}
+        borderRadius={isSm ? 'base' : 'full'}
         sx={{
           cursor: 'pointer',
           backgroundColor: isHovering
@@ -57,7 +59,7 @@ const Poster = (props: PosterProps): ReactElement => {
               ? 'rgba(0, 0, 0, 0.25)'
               : 'rgba(255, 255, 255, 0.25)'
             : 'transparent',
-          transition: `${theme.transition.duration.fast} ${theme.transition.easing['ease-out']}`
+          transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
         }}>
         <Fade in={isHovering} unmountOnExit>
           <Icon
@@ -70,12 +72,16 @@ const Poster = (props: PosterProps): ReactElement => {
         </Fade>
       </Center>
       <AspectRatio ratio={1 / 1}>
-        <Skeleton isLoaded={!isLoading} borderRadius={isMob ? 'base' : 'full'}>
+        <Skeleton isLoaded={!isLoading} borderRadius={isSm ? 'base' : 'full'}>
           <Image
-            alt={`${name ? `"${name}"` : ''} profile poster`}
             width='100%'
-            src={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
-            fallbackSrc={utils.handleReturnFallbackSrc('person', '780', `${name ? `"${name}"` : ''} profile poster`)}
+            alt={`${name ? `"${name}"` : ''} profile poster`}
+            mediaType='person'
+            src={path || ''}
+            size={{
+              thumbnail: 'w45',
+              full: 'original'
+            }}
           />
         </Skeleton>
       </AspectRatio>

@@ -29,7 +29,7 @@ const Splashscreen = (): ReactElement => {
     <Modal
       closeOnEsc={false}
       closeOnOverlayClick={false}
-      isOpen
+      isOpen={isSplashscreenOpen}
       onClose={() => dispatch(toggleSplashscreen(false))}
       blockScrollOnMount
       preserveScrollBarGap

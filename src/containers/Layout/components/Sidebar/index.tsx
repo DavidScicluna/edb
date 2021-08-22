@@ -17,6 +17,7 @@ import { SidebarProps } from './types';
 const Sidebar = ({ width }: SidebarProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+
   const transition = useTransitionsStyle(theme);
 
   const dispatch = useDispatch();

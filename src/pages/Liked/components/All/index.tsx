@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { VStack, Fade, Collapse } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Fade, Text, Collapse } from '@chakra-ui/react';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../common/utils/utils';
@@ -13,7 +13,23 @@ import VerticalShowPoster from '../../../../components/TV/Poster/Vertical';
 import { AllProps } from './types';
 
 const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
+  const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
+
   const color = useSelector((state) => state.user.ui.theme.color);
+
+  const handleRenderTitle = (title: string): ReactElement => {
+    return (
+      <Text
+        align='left'
+        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+        fontSize='2xl'
+        fontWeight='semibold'
+        textTransform='capitalize'>
+        {title}
+      </Text>
+    );
+  };
 
   return (
     <Fade
@@ -24,12 +40,12 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
         {/* Movies */}
         <Collapse in={(movies && movies.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`${movies.length || 0} liked movie${
-              movies && (movies.length === 0 || movies.length > 1) ? 's' : ''
-            }`}
+            title={handleRenderTitle(
+              `${movies.length || 0} liked movie${movies && (movies.length === 0 || movies.length > 1) ? 's' : ''}`
+            )}
             footer={
-              <Link to={{ pathname: '/liked/movie' }}>
-                <Button color={utils.handleReturnColor(color)} isFullWidth variant='text'>
+              <Link to={{ pathname: '/liked/movie' }} isFullWidth>
+                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${movies.length || 0} liked movie${
                     movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
                   }`}
@@ -48,10 +64,12 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
         {/* TV */}
         <Collapse in={(tv && tv.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`${tv.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
+            title={handleRenderTitle(
+              `${tv.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`
+            )}
             footer={
-              <Link to={{ pathname: '/liked/tv' }}>
-                <Button color={utils.handleReturnColor(color)} isFullWidth variant='text'>
+              <Link to={{ pathname: '/liked/tv' }} isFullWidth>
+                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${tv?.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
                 </Button>
               </Link>
@@ -68,12 +86,14 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
         {/* People */}
         <Collapse in={(people && people.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`${people.length || 0} liked ${
-              (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
-            }`}
+            title={handleRenderTitle(
+              `${people.length || 0} liked ${
+                (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
+              }`
+            )}
             footer={
-              <Link to={{ pathname: '/liked/person' }}>
-                <Button color={utils.handleReturnColor(color)} isFullWidth variant='text'>
+              <Link to={{ pathname: '/liked/person' }} isFullWidth>
+                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${people.length || 0} liked ${
                     (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
                   }`}

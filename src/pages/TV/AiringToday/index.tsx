@@ -21,7 +21,7 @@ import { toggleConfirm, defaultConfirmModal } from '../../../store/slices/Modals
 
 const TVAiringToday = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const isMob = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const dispatch = useDispatch();
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
@@ -117,7 +117,7 @@ const TVAiringToday = (): ReactElement => {
 
   return (
     <VerticalGrid
-      title={isMob ? 'TV Shows Airing Today' : ''}
+      title={isSm ? 'TV Shows Airing Today' : ''}
       header={<Filters mediaType='tv' isDisabled={!tvAiringToday.isSuccess} onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalTV

@@ -8,27 +8,29 @@ import {
   Box,
   Center,
   AspectRatio,
-  Image as CUIImage,
   Icon,
   Fade
 } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
-import utils from '../../../../../../common/utils/utils';
+import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
 import { Theme } from '../../../../../../theme/types';
 import { ImageProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 
-const Image = (props: ImageProps): ReactElement => {
+const PhotoImage = (props: ImageProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const [isHovering, setIsHovering] = useBoolean();
   const fontSize = useBreakpointValue({
-    base: theme.fontSizes['4xl'],
-    sm: theme.fontSizes['5xl'],
-    md: theme.fontSizes['6xl']
+    'base': theme.fontSizes['5xl'],
+    'sm': theme.fontSizes['5xl'],
+    'md': theme.fontSizes['6xl'],
+    'lg': theme.fontSizes['6xl'],
+    'xl': theme.fontSizes['7xl'],
+    '2xl': theme.fontSizes['7xl']
   });
 
   const { image, name, isLoading = false, onClickImage } = props;
@@ -55,7 +57,7 @@ const Image = (props: ImageProps): ReactElement => {
               ? 'rgba(0, 0, 0, 0.25)'
               : 'rgba(255, 255, 255, 0.25)'
             : 'transparent',
-          transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
+          transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
         }}>
         <Fade in={isHovering} unmountOnExit>
           <Icon
@@ -69,13 +71,17 @@ const Image = (props: ImageProps): ReactElement => {
       </Center>
       <AspectRatio ratio={2 / 3}>
         <Skeleton isLoaded={!isLoading} borderRadius='base'>
-          <CUIImage
+          <Image
             alt={`${name ? `"${name}"` : ''} image`}
             maxWidth='none'
             height='100%'
             borderRadius='base'
-            src={`${process.env.REACT_APP_IMAGE_URL}/w780${image?.file_path}`}
-            fallbackSrc={utils.handleReturnFallbackSrc('person', '780', `${name ? `"${name}"` : ''} image`)}
+            mediaType='person'
+            src={image?.file_path || ''}
+            size={{
+              thumbnail: 'w45',
+              full: 'original'
+            }}
           />
         </Skeleton>
       </AspectRatio>
@@ -83,4 +89,4 @@ const Image = (props: ImageProps): ReactElement => {
   );
 };
 
-export default Image;
+export default PhotoImage;

@@ -3,8 +3,8 @@ import React, { ReactElement } from 'react';
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
+import Card from '../../../../../../../components/Card';
 import { Form } from '../../types';
-import Container from '../Container';
 import ColorItem from './components/ColorItem';
 import { Color as ColorType } from './types';
 
@@ -44,7 +44,7 @@ const colors: ColorType[] = [
 ];
 
 const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const background = form.watch('background');
 
@@ -53,19 +53,33 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='color'
       render={({ field: { value } }) => (
-        <Container title='Color' colorMode={background}>
-          <SimpleGrid width='100%' columns={isMob ? 2 : 4} spacing={2}>
-            {colors.map((color, index) => (
-              <ColorItem
-                key={index}
-                {...color}
-                background={background}
-                isActive={color.value === value}
-                onClick={() => form.setValue('color', color.value, { shouldDirty: true })}
-              />
-            ))}
-          </SimpleGrid>
-        </Container>
+        <Card
+          box={{
+            header: { pb: 2 },
+            body: { pt: 2 }
+          }}
+          colorMode={background}
+          isFullWidth
+          p={2}>
+          {{
+            header: {
+              title: 'Color'
+            },
+            body: (
+              <SimpleGrid width='100%' columns={isSm ? 2 : 4} spacing={2}>
+                {colors.map((color, index) => (
+                  <ColorItem
+                    key={index}
+                    {...color}
+                    background={background}
+                    isActive={color.value === value}
+                    onClick={() => form.setValue('color', color.value, { shouldDirty: true })}
+                  />
+                ))}
+              </SimpleGrid>
+            )
+          }}
+        </Card>
       )}
     />
   );

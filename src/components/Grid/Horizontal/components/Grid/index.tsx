@@ -7,7 +7,7 @@ import { GridProps } from './types';
 const Grid = (props: GridProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { children, gridRef, variant = 'transparent', handleScrollChange } = props;
+  const { children, gridRef, hasDivider = false, handleScrollChange, variant = 'transparent' } = props;
 
   return (
     <Box
@@ -15,6 +15,7 @@ const Grid = (props: GridProps): ReactElement => {
       width='100%'
       overflowX='auto'
       px={variant === 'transparent' ? 2 : 0}
+      py={hasDivider ? 2 : 0}
       sx={{
         // CSS to hide scrollbar
         'scrollbarWidth': 'none',
@@ -32,7 +33,7 @@ const Grid = (props: GridProps): ReactElement => {
         borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
         borderRadius='xl'
         px={variant === 'transparent' ? 2 : 0}
-        py={2}>
+        py={variant === 'transparent' ? 2 : 0}>
         <HStack spacing={2}>{children}</HStack>
       </Box>
     </Box>

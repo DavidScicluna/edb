@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
 import { Image as ImageType } from '../../../../common/types/person';
@@ -13,7 +13,7 @@ import Image from './components/Image';
 import { PhotosProps } from './types';
 
 const Photos = (props: PhotosProps): ReactElement => {
-  const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const { images, name, isError = false, isSuccess = false, isLoading = false, onClickImage } = props;
 
@@ -21,27 +21,22 @@ const Photos = (props: PhotosProps): ReactElement => {
 
   return (
     <HorizontalGrid
-      title={
-        <Text
-          width='100%'
-          align='left'
-          color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-          fontSize='md'
-          fontWeight='medium'>
-          Photos
-        </Text>
-      }
+      title='Photos'
       footer={
-        <Button
-          color={utils.handleReturnColor(color)}
-          isFullWidth
-          isDisabled={isLoading || isError}
-          onClick={() => onClickImage()}
-          variant='text'>
-          {`View all ${name ? `"${name}"` : ''} photos`}
-        </Button>
+        images.length > 7 ? (
+          <Button
+            color={utils.handleReturnColor(color)}
+            isFullWidth
+            isDisabled={isLoading || isError}
+            onClick={() => onClickImage()}
+            size={isSm ? 'sm' : 'md'}
+            variant='text'>
+            {`View all ${name ? `"${name}"` : ''} photos`}
+          </Button>
+        ) : undefined
       }
       isLoading={isLoading}
+      hasDivider
       variant='outlined'>
       {isError ? (
         <Error

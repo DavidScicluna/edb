@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { VStack, Fade, Collapse } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text, Fade, Collapse } from '@chakra-ui/react';
 import queryString from 'query-string';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
@@ -14,7 +14,23 @@ import HorizontalTV from '../../../../components/TV/Grid/Horizontal';
 import { AllProps } from './types';
 
 const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactElement => {
+  const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
+
   const color = useSelector((state) => state.user.ui.theme.color);
+
+  const handleRenderTitle = (title: string): ReactElement => {
+    return (
+      <Text
+        align='left'
+        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+        fontSize='2xl'
+        fontWeight='semibold'
+        textTransform='capitalize'>
+        {title}
+      </Text>
+    );
+  };
 
   return (
     <Fade
@@ -33,17 +49,26 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
           unmountOnExit
           style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`Found ${movies?.total_results || 0} movie${
-              movies && movies.total_results ? (movies.total_results === 0 || movies.total_results > 1 ? 's' : '') : ''
-            } with "${query}"`}
+            title={handleRenderTitle(
+              `Found ${movies?.total_results || 0} movie${
+                movies && movies.total_results
+                  ? movies.total_results === 0 || movies.total_results > 1
+                    ? 's'
+                    : ''
+                  : ''
+              } with "${query}"`
+            )}
             footer={
               <Link
-                to={
-                  !isLoading
-                    ? { pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }
-                    : {}
-                }>
-                <Button color={utils.handleReturnColor(color)} isFullWidth isDisabled={isLoading} variant='text'>
+                to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}
+                isFullWidth
+                isDisabled={isLoading}>
+                <Button
+                  color={utils.handleReturnColor(color)}
+                  isFullWidth
+                  isDisabled={isLoading}
+                  size={isSm ? 'sm' : 'md'}
+                  variant='text'>
                   {`View all ${movies?.total_results || 0} movie${
                     movies && movies.total_results
                       ? movies.total_results === 0 || movies.total_results > 1
@@ -62,15 +87,22 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
         {/* TV */}
         <Collapse in={(tv && tv.results && tv.results.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`Found ${tv?.total_results || 0} TV show${
-              tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
-            } with "${query}"`}
+            title={handleRenderTitle(
+              `Found ${tv?.total_results || 0} TV show${
+                tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
+              } with "${query}"`
+            )}
             footer={
               <Link
-                to={
-                  !isLoading ? { pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) } : {}
-                }>
-                <Button color={utils.handleReturnColor(color)} isFullWidth isDisabled={isLoading} variant='text'>
+                to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'tv' }) }}
+                isFullWidth
+                isDisabled={isLoading}>
+                <Button
+                  color={utils.handleReturnColor(color)}
+                  isFullWidth
+                  isDisabled={isLoading}
+                  size={isSm ? 'sm' : 'md'}
+                  variant='text'>
                   {`View all ${tv?.total_results || 0} TV show${
                     tv && tv.total_results ? (tv.total_results === 0 || tv.total_results > 1 ? 's' : '') : ''
                   } with "${query}"`}
@@ -88,21 +120,26 @@ const All = ({ query, isLoading = false, movies, tv, people }: AllProps): ReactE
           unmountOnExit
           style={{ width: '100%' }}>
           <HorizontalGrid
-            title={`Found ${people?.total_results || 0} ${
-              people && people.total_results
-                ? people.total_results === 0 || people.total_results > 1
-                  ? 'people'
-                  : 'person'
-                : ''
-            } with "${query}"`}
+            title={handleRenderTitle(
+              `Found ${people?.total_results || 0} ${
+                people && people.total_results
+                  ? people.total_results === 0 || people.total_results > 1
+                    ? 'people'
+                    : 'person'
+                  : ''
+              } with "${query}"`
+            )}
             footer={
               <Link
-                to={
-                  !isLoading
-                    ? { pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }
-                    : {}
-                }>
-                <Button color={utils.handleReturnColor(color)} isFullWidth isDisabled={isLoading} variant='text'>
+                to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'person' }) }}
+                isFullWidth
+                isDisabled={isLoading}>
+                <Button
+                  color={utils.handleReturnColor(color)}
+                  isFullWidth
+                  isDisabled={isLoading}
+                  size={isSm ? 'sm' : 'md'}
+                  variant='text'>
                   {`View all ${people?.total_results || 0} ${
                     people && people.total_results
                       ? people.total_results === 0 || people.total_results > 1

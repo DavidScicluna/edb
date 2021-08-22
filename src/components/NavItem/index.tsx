@@ -1,41 +1,44 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useCallback, useEffect } from 'react';
 
 import {
   useTheme,
   useColorMode,
-  useDisclosure,
+  useBoolean,
   VStack,
   HStack,
-  Collapse,
   Icon,
   Text,
-  Link,
   Box,
-  ScaleFade
+  ScaleFade,
+  Collapse
 } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
-import { useLocation, Link as RRDLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
-import utils from '../../../../../../common/utils/utils';
-import Tooltip from '../../../../../../components/Tooltip';
-import { Theme } from '../../../../../../theme/types';
-import { NavItem as NavItemType } from '../../types';
+import useSelector from '../../common/hooks/useSelectorTyped';
+import utils from '../../common/utils/utils';
+import Link from '../../components/Clickable/Link';
+import { Theme } from '../../theme/types';
+import Tooltip from '../Tooltip';
 import NavItemChild from './components/NavItemChild';
 import useStyles from './styles';
+import { NavItem as NavItemType } from './types';
 
 const NavItem = (props: NavItemType): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
 
-  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { label, path, icon, iconActive, children } = props;
+  const { children, label, path, icon, iconActive, sidebarMode, onClick } = props;
+
+  const [isChildrenOpen, setIsChildrenOpen] = useBoolean();
+
+  const [isHoveringNav, setIsHoveringNav] = useBoolean();
+  const [isHoveringIcon, setIsHoveringIcon] = useBoolean();
 
   const isActive: boolean = location.pathname === path;
   const isChildActive: boolean = children ? children.some((child) => location.pathname === child.path) : false;
@@ -49,12 +52,25 @@ const NavItem = (props: NavItemType): ReactElement => {
     isChildActive,
     renderChildren,
     sidebarMode === 'expanded',
-    children ? isOpen : false
+    children ? isChildrenOpen : false
+  );
+
+  const handleToggleChildren = useCallback(
+    _.debounce(() => {
+      setIsChildrenOpen.toggle();
+    }, 250),
+    [setIsChildrenOpen]
   );
 
   useEffect(() => {
-    if (isOpen) {
-      onClose();
+    if (isActive || isChildActive) {
+      handleToggleChildren();
+    }
+  }, [isActive, isChildActive]);
+
+  useEffect(() => {
+    if (isChildrenOpen) {
+      handleToggleChildren();
     }
   }, [sidebarMode]);
 
@@ -62,28 +78,35 @@ const NavItem = (props: NavItemType): ReactElement => {
     <VStack
       width='100%'
       spacing={sidebarMode === 'expanded' ? 2 : 0}
-      sx={{ ..._.merge(style.common.container, style[colorMode].container) }}>
+      sx={{ ..._.merge(style.common.container, style[colorMode].container) }}
+      onClick={onClick ? () => onClick() : undefined}>
       <Tooltip
         aria-label={sidebarMode === 'collapsed' ? label : ''}
         width='100%'
-        closeOnClick={false}
-        closeOnMouseDown={false}
         label={sidebarMode === 'collapsed' ? label : ''}
+        isOpen={isHoveringNav}
+        isDisabled={sidebarMode === 'expanded'}
         placement='right'
-        span>
-        <Link width='100%' as={RRDLink} to={path} sx={{ ...style.common.link }}>
+        shouldWrapChildren
+        gutter={16}>
+        <Link
+          to={{ pathname: path || '' }}
+          isFullWidth
+          isDisabled={!path || isHoveringIcon}
+          sx={{ ...style.common.link }}>
           <HStack
             width='100%'
             justifyContent='space-between'
             px={sidebarMode === 'expanded' ? 2 : 1}
             py={1}
             spacing={2}
-            onClick={isOpen ? () => onClose() : () => onOpen()}
+            onMouseEnter={() => setIsHoveringNav.on()}
+            onMouseLeave={() => setIsHoveringNav.off()}
             sx={{ ..._.merge(style.common.main, style[colorMode].main) }}>
             <HStack width='100%' spacing={2}>
               <Icon
                 as={isActive || isChildActive ? iconActive : icon}
-                sx={{ fontSize: `${theme.fontSizes['3xl']} !important` }}
+                sx={{ fontSize: `${theme.fontSizes['2xl']} !important` }}
               />
               <ScaleFade
                 in={sidebarMode === 'expanded'}
@@ -94,7 +117,7 @@ const NavItem = (props: NavItemType): ReactElement => {
                   ),
                   exit: 0
                 }}>
-                <Text align='left' fontSize='lg' fontWeight='semibold' whiteSpace='nowrap'>
+                <Text align='left' fontSize='xl' fontWeight='semibold' whiteSpace='nowrap'>
                   {label}
                 </Text>
               </ScaleFade>
@@ -113,9 +136,12 @@ const NavItem = (props: NavItemType): ReactElement => {
                 <Icon
                   as={ChevronRightOutlinedIcon}
                   sx={{
-                    fontSize: `${theme.fontSizes['2xl']} !important`,
-                    transform: `rotate(${isOpen ? '90deg' : '0deg'})`
+                    fontSize: `${theme.fontSizes.xl} !important`,
+                    transform: `rotate(${isChildrenOpen ? '90deg' : '0deg'})`
                   }}
+                  onClick={() => setIsChildrenOpen.toggle()}
+                  onMouseEnter={() => setIsHoveringIcon.on()}
+                  onMouseLeave={() => setIsHoveringIcon.off()}
                 />
               </ScaleFade>
             ) : null}
@@ -124,13 +150,13 @@ const NavItem = (props: NavItemType): ReactElement => {
       </Tooltip>
 
       {children && renderChildren ? (
-        <Collapse in={isOpen} unmountOnExit style={{ width: '100%' }}>
+        <Collapse in={isChildrenOpen} unmountOnExit style={{ width: '100%' }}>
           <VStack
             width='100%'
             spacing={0}
-            pl={sidebarMode === 'expanded' ? '31px' : '0px'}
-            pr={sidebarMode === 'expanded' ? 2 : '0px'}
-            mb={sidebarMode === 'expanded' ? 1 : '0px'}>
+            pl={sidebarMode === 'expanded' ? 3.5 : 0}
+            pr={sidebarMode === 'expanded' ? 2 : 0}
+            mb={sidebarMode === 'expanded' ? 1 : 0}>
             {sidebarMode === 'collapsed' ? (
               <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
             ) : null}

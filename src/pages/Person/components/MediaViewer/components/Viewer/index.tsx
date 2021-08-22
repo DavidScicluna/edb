@@ -1,32 +1,41 @@
 import React, { ReactElement } from 'react';
 
-import { Center, Image } from '@chakra-ui/react';
+import { useMediaQuery, Center } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 
-import utils from '../../../../../../common/utils/utils';
+import Image from '../../../../../../components/Image';
 import { ViewerProps } from './types';
 
 const Viewer = (props: ViewerProps): ReactElement => {
-  const { name, images, onSwiper, onSlideChange } = props;
+  const [isSm] = useMediaQuery('(max-width: 480px)');
+
+  const { current, name, images, onSwiper, onSlideChange } = props;
 
   return (
     <Swiper
+      allowSlideNext={current <= images.length}
+      allowSlidePrev={current >= 1}
       spaceBetween={96}
       slidesPerView={1}
       onSwiper={(swiper) => onSwiper(swiper)}
-      onSlideChange={(swiper) => onSlideChange(swiper)}>
+      onSlideChange={(swiper) => onSlideChange(swiper)}
+      onKeyPress={(event) => console.log(event)}>
       {images.map((image, index) => (
         <SwiperSlide key={index}>
-          <Center height='100vh' py={2}>
+          <Center width='100vw' height='100vh' py={2}>
             <Image
               alt={`${name ? `"${name}"` : ''} image`}
-              width='auto'
+              width={isSm ? 'calc(100% - 64px)' : 'auto'}
               maxWidth='none'
-              height='calc(100% - 96px)'
+              height={isSm ? 'auto' : 'calc(100% - 128px)'}
+              mediaType='person'
               borderRadius='xl'
-              src={`${process.env.REACT_APP_IMAGE_URL}/original${image.file_path}`}
-              fallbackSrc={utils.handleReturnFallbackSrc('person', '780', `${name ? `"${name}"` : ''} image`)}
+              src={image.file_path}
+              size={{
+                thumbnail: 'w45',
+                full: 'original'
+              }}
             />
           </Center>
         </SwiperSlide>

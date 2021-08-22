@@ -24,9 +24,9 @@ import {
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
+import NavItem from '../../../../../../components/NavItem';
+import { NavItem as NavItemType } from '../../../../../../components/NavItem/types';
 import { toggleDisplay } from '../../../../../../store/slices/Modals';
-import UserLink from './components/UserLink';
-import { UserLink as UserLinkType } from './types';
 
 const User = (): ReactElement => {
   const { colorMode } = useColorMode();
@@ -36,7 +36,7 @@ const User = (): ReactElement => {
 
   const location = useLocation();
 
-  const userLinks: UserLinkType[] = [
+  const userLinks: NavItemType[] = [
     {
       label: 'Liked',
       path: '/liked',
@@ -97,8 +97,8 @@ const User = (): ReactElement => {
               borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
             />
             <VStack width='100%' spacing={1}>
-              {userLinks.map((userLink: UserLinkType) => (
-                <UserLink key={userLink.label} {...userLink} />
+              {userLinks.map((userLink) => (
+                <NavItem key={userLink.label} {...userLink} sidebarMode='expanded' />
               ))}
             </VStack>
           </VStack>

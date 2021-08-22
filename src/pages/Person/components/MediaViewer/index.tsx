@@ -74,6 +74,7 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
             <Actions onClose={onClose} onGalleryClick={() => onGalleryOpen()} />
 
             <Viewer
+              current={activeIndex + 1}
               name={name}
               images={images}
               onSwiper={(swiper) => setSwiper(swiper)}

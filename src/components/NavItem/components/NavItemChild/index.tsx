@@ -1,23 +1,31 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Link, HStack, Text, Box } from '@chakra-ui/react';
+import { useTheme, useColorMode, useBoolean, HStack, Text, Box } from '@chakra-ui/react';
 import _ from 'lodash';
-import { useLocation, Link as RRDLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import useSelector from '../../../../../../../../common/hooks/useSelectorTyped';
-import Tooltip from '../../../../../../../../components/Tooltip';
-import { Theme } from '../../../../../../../../theme/types';
+import useSelector from '../../../../common/hooks/useSelectorTyped';
+import Link from '../../../../components/Clickable/Link';
+import { Theme } from '../../../../theme/types';
+import Tooltip from '../../../Tooltip';
 import useStyles from './styles';
 import { NavItemChildProps } from './types';
 
-const NavItemChild = ({ label, path, isLastChild = false }: NavItemChildProps): ReactElement => {
+const NavItemChild = (props: NavItemChildProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+  const location = useLocation();
+
+  const sidebarModeState = useSelector((state) => state.app.ui.sidebarMode);
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const location = useLocation();
+  const { label, path, isLastChild = false, sidebarMode: sidebarModeProp } = props;
+
+  const [isHoveringChild, setIsHoveringChild] = useBoolean();
+
+  const sidebarMode = sidebarModeProp || sidebarModeState;
+
   const isActive: boolean = location.pathname === path;
   const style = useStyles(theme, color, isActive, sidebarMode === 'expanded', isLastChild);
 
@@ -40,24 +48,27 @@ const NavItemChild = ({ label, path, isLastChild = false }: NavItemChildProps): 
   };
 
   return (
-    <Link width='100%' as={RRDLink} to={path} sx={{ ...style.common.link }}>
-      <HStack width='100%' spacing='15px'>
-        {sidebarMode === 'expanded' ? (
-          <Box height='44px' borderLeft='solid2' borderLeftColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
-        ) : null}
-        <Tooltip
-          aria-label={sidebarMode === 'collapsed' ? label : ''}
-          width='100%'
-          closeOnClick={false}
-          closeOnMouseDown={false}
-          label={sidebarMode === 'collapsed' ? label : ''}
-          placement='right'
-          span>
+    <Link to={{ pathname: path || '' }} isFullWidth isDisabled={!path} sx={{ ...style.common.link }}>
+      <Tooltip
+        aria-label={sidebarMode === 'collapsed' ? label : ''}
+        width='100%'
+        label={sidebarMode === 'collapsed' ? label : ''}
+        isOpen={isHoveringChild}
+        isDisabled={sidebarMode === 'expanded'}
+        placement='right'
+        gutter={16}>
+        <HStack width='100%' spacing='12px'>
+          {sidebarMode === 'expanded' ? (
+            <Box width='2px' height='42px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+          ) : null}
+
           <HStack
             width='100%'
             justifyContent={sidebarMode === 'expanded' ? 'flex-start' : 'center'}
             px={sidebarMode === 'expanded' ? 2 : 1}
             py={1}
+            onMouseEnter={() => setIsHoveringChild.on()}
+            onMouseLeave={() => setIsHoveringChild.off()}
             spacing={0}
             sx={{ ..._.merge(style.common.child, style[colorMode].child) }}>
             <Text
@@ -69,8 +80,8 @@ const NavItemChild = ({ label, path, isLastChild = false }: NavItemChildProps): 
               {sidebarMode === 'expanded' ? label : handleGetInitials()}
             </Text>
           </HStack>
-        </Tooltip>
-      </HStack>
+        </HStack>
+      </Tooltip>
     </Link>
   );
 };

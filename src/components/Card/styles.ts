@@ -1,5 +1,4 @@
 import { Style } from '../../common/types/types';
-import { Theme } from '../../theme/types';
 import { CardProps } from './types';
 
 type VariantStyle = {
@@ -13,20 +12,16 @@ type CardStyle = {
   dark: VariantStyle;
 };
 
-export default (theme: Theme, { color = 'gray', isFullWidth = false }: CardProps): CardStyle => ({
+export default (color: CardProps['color'] = 'gray', isFullWidth = false): CardStyle => ({
   card: {
     width: isFullWidth ? '100%' : 'auto',
     height: 'auto',
-
-    display: 'flex',
-    alignItems: 'stretch',
-    justifyContent: 'center',
 
     borderStyle: 'solid',
     borderWidth: '2px',
     borderRadius: 'lg',
 
-    transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+    transition: 'none'
   },
   light: {
     outlined: {

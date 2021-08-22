@@ -7,8 +7,8 @@ import {
 } from '@material-ui/icons';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
+import Card from '../../../../../../../components/Card';
 import { Form } from '../../types';
-import Container from '../Container';
 import BackgroundItem from './components/BackgroundItem';
 import { Background as BackgroundType } from './types';
 
@@ -33,20 +33,28 @@ const Background = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='background'
       render={({ field: { value } }) => (
-        <Container title='Background' colorMode={value}>
-          <HStack width='100%' spacing={2}>
-            {backgrounds.map((background) => (
-              <BackgroundItem
-                key={background.value}
-                {...background}
-                color={color}
-                background={value}
-                isActive={value === background.value}
-                onClick={() => form.setValue('background', background.value, { shouldDirty: true })}
-              />
-            ))}
-          </HStack>
-        </Container>
+        <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} colorMode={value} isFullWidth p={2}>
+          {{
+            header: {
+              title: 'Background'
+            },
+
+            body: (
+              <HStack width='100%' spacing={2}>
+                {backgrounds.map((background) => (
+                  <BackgroundItem
+                    key={background.value}
+                    {...background}
+                    color={color}
+                    background={value}
+                    isActive={value === background.value}
+                    onClick={() => form.setValue('background', background.value, { shouldDirty: true })}
+                  />
+                ))}
+              </HStack>
+            )
+          }}
+        </Card>
       )}
     />
   );

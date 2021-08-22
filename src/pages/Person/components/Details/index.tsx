@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, VStack, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
 import moment from 'moment';
 
 import Card from '../../../../components/Card';
+import Like from '../../../../components/Like';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import Background from './components/Background';
 import Departments from './components/Departments';
@@ -12,9 +13,19 @@ import Poster from './components/Poster';
 import Socials from './components/Socials';
 import { DetailsProps } from './types';
 
+const width = [
+  'calc(100% - 162.5px)',
+  'calc(100% - 162.5px)',
+  'calc(100% - 225px)',
+  'calc(100% - 287.5px)',
+  'calc(100% - 350px)',
+  'calc(100% - 412.5px)'
+];
+const left = ['162.5px', '162.5px', '225px', '287.5px', '350px', '412.5px'];
+
 const Details = (props: DetailsProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const {
     person,
@@ -24,70 +35,110 @@ const Details = (props: DetailsProps): ReactElement => {
     departments,
     socials,
     isLoading = false,
+    isError = false,
     onClickPoster
   } = props;
 
   return (
     <Card isFullWidth p={2}>
-      <VStack width='100%' spacing={2}>
-        {isMob ? (
-          <Poster name={person?.name} path={person?.profile_path} isLoading={isLoading} onClickPoster={onClickPoster} />
-        ) : (
-          <Background alt={`${person?.name || ''} background`} size='780'>
-            {{
-              poster: (
-                <Poster
-                  name={person?.name}
-                  path={person?.profile_path}
-                  isLoading={isLoading}
-                  onClickPoster={onClickPoster}
+      {{
+        body: (
+          <VStack width='100%' alignItems='stretch' spacing={2}>
+            {isSm ? (
+              <Poster
+                name={person?.name}
+                path={person?.profile_path}
+                isLoading={isLoading}
+                isError={isError}
+                onClickPoster={onClickPoster}
+              />
+            ) : (
+              <Background alt={`${person?.name || ''} background`} size='780'>
+                {{
+                  poster: (
+                    <Poster
+                      name={person?.name}
+                      path={person?.profile_path}
+                      isLoading={isLoading}
+                      isError={isError}
+                      onClickPoster={onClickPoster}
+                    />
+                  ),
+
+                  socials: <Socials socials={socials} name={person?.name} isLoading={isLoading} />
+                }}
+              </Background>
+            )}
+
+            <VStack
+              width={isSm ? '100%' : width}
+              maxWidth={isSm ? '100%' : width}
+              position='relative'
+              left={isSm ? 0 : left}
+              alignItems='flex-start'
+              spacing={2}>
+              <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+                <SkeletonText offsetY={isSm ? 28 : 42} isLoaded={!isLoading}>
+                  <Text
+                    align='left'
+                    color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                    fontSize={isSm ? '2xl' : '4xl'}
+                    fontWeight='bold'>
+                    {person?.name || 'Unknown'}
+                  </Text>
+                </SkeletonText>
+
+                <Departments departments={departments} isLoading={isLoading} />
+              </VStack>
+
+              <ScaleFade in={!isError} unmountOnExit>
+                <SkeletonText offsetY={16} isLoaded={!isLoading}>
+                  <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+                    {`Born on ${moment(person?.birthday || '', 'YYYY-MM-DD').format('LL')}${
+                      person?.place_of_birth ? ` in ${person?.place_of_birth}` : ''
+                    }${
+                      person?.deathday ? ` - ${moment(person?.deathday || '', 'YYYY-MM-DD').format('LL')}` : ''
+                    } (${moment(person?.deathday || new Date()).diff(
+                      moment(person?.birthday || '', 'YYYY-MM-DD'),
+                      'years'
+                    )} years old)`}
+                  </Text>
+                </SkeletonText>
+              </ScaleFade>
+
+              <ScaleFade in={!isError} unmountOnExit>
+                <Like
+                  buttonType='button'
+                  isDisabled={isLoading}
+                  title={person?.name || ''}
+                  mediaType='person'
+                  mediaItem={
+                    person
+                      ? {
+                          known_for_department: person.known_for_department,
+                          id: person.id,
+                          name: person.name,
+                          gender: person.gender,
+                          popularity: person.popularity,
+                          profile_path: person.profile_path,
+                          adult: person.adult
+                        }
+                      : undefined
+                  }
+                  size='md'
                 />
-              ),
+              </ScaleFade>
 
-              socials: <Socials socials={socials} name={person?.name} isLoading={isLoading} orientation='vertical' />
-            }}
-          </Background>
-        )}
-
-        <VStack
-          width={isMob ? '100%' : 'calc(100% - 22.5vw)'}
-          maxWidth={isMob ? '100%' : 'calc(100% - 22.5vw)'}
-          position='relative'
-          left={isMob ? 0 : '11.25vw'}
-          alignItems='flex-start'
-          spacing={2}>
-          <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 1 : 0}>
-            <SkeletonText isLoaded={!isLoading}>
-              <Text
-                align='left'
-                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-                fontSize={isMob ? '2xl' : '4xl'}
-                fontWeight='bold'>
-                {person?.name || ''}
-              </Text>
-            </SkeletonText>
-
-            <Departments departments={departments} isLoading={isLoading} />
-          </VStack>
-
-          <SkeletonText isLoaded={!isLoading}>
-            <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-              {`Born on ${moment(person?.birthday || '', 'YYYY-MM-DD').format('LL')}${
-                person?.place_of_birth ? ` in ${person?.place_of_birth}` : ''
-              }${person?.deathday ? ` - ${moment(person?.deathday || '', 'YYYY-MM-DD').format('LL')}` : ''} (${moment(
-                person?.deathday || new Date()
-              ).diff(moment(person?.birthday || '', 'YYYY-MM-DD'), 'years')} years old)`}
-            </Text>
-          </SkeletonText>
-
-          {/* <Stats
+              {/* <Stats
             totalMovieCredits={totalMovieCredits}
             totalTvCredits={totalTvCredits}
             totalCrewCredits={totalCrewCredits}
             isLoading={isLoading}
           /> */}
-        </VStack>
-      </VStack>
+            </VStack>
+          </VStack>
+        )
+      }}
     </Card>
   );
 };

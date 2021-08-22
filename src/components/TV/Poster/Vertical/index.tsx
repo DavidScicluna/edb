@@ -13,7 +13,10 @@ const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElemen
       image={{
         alt: `${show?.name || ''} tv show poster`,
         src: show?.poster_path || '',
-        size: '780'
+        size: {
+          thumbnail: 'w92',
+          full: 'original'
+        }
       }}
       rating={{
         rating: show?.vote_average || null,
@@ -27,20 +30,6 @@ const VerticalTV = ({ width, isLoading = true, show }: PosterProps): ReactElemen
       isLoading={isLoading}
     />
   );
-  // ) : (
-  //   <VerticalPoster
-  //     width={width || ['185px', '205px', '230px']}
-  //     mediaType='tv'
-  //     image={{
-  //       alt: 'TV Show poster',
-  //       src: '',
-  //       size: '780'
-  //     }}
-  //     title='Lorem ipsum'
-  //     subtitle='Lorem ipsum'
-  //     isLoading
-  //   />
-  // );
 };
 
 export default VerticalTV;

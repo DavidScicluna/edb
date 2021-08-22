@@ -17,7 +17,7 @@ import VerticalMovies from '../../../components/Movies/Grid/Vertical';
 
 const UpcomingMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const isMob = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -81,7 +81,7 @@ const UpcomingMovies = (): ReactElement => {
 
   return (
     <VerticalGrid
-      title={isMob ? 'Upcoming Movies' : ''}
+      title={isSm ? 'Upcoming Movies' : ''}
       header={<Filters mediaType='movie' onFilter={handleSetFilters} />}>
       <VStack width='100%' spacing={4} px={2}>
         <VerticalMovies

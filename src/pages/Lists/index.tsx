@@ -57,7 +57,7 @@ const Lists = (): ReactElement => {
   const { isOpen: isListInfoOpen, onOpen: onListInfoOpen, onClose: onListInfoClose } = useDisclosure();
 
   const [isSmallMob] = useMediaQuery('(max-width: 350px)');
-  const [isMob] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const toast = useToast();
 
@@ -191,7 +191,7 @@ const Lists = (): ReactElement => {
                 dispatch(
                   toggleConfirm({
                     open: true,
-                    title: isMob ? 'Delete' : `Delete ${selected?.label ? `"${selected.label}"` : ''} list`,
+                    title: isSm ? 'Delete' : `Delete ${selected?.label ? `"${selected.label}"` : ''} list`,
                     description: `Are you sure you want to delete the ${
                       selected?.label ? `"${selected.label}"` : ''
                     } list? You will not be able to retrieve this list back!`,

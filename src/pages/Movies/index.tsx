@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
@@ -16,6 +16,9 @@ import HorizontalMovies from '../../components/Movies/Grid/Horizontal';
 
 const Movies = (): ReactElement => {
   const source = axios.CancelToken.source();
+
+  const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -51,6 +54,19 @@ const Movies = (): ReactElement => {
     return data.results;
   });
 
+  const handleRenderTitle = (title: string): ReactElement => {
+    return (
+      <Text
+        align='left'
+        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+        fontSize='2xl'
+        fontWeight='semibold'
+        textTransform='capitalize'>
+        {title}
+      </Text>
+    );
+  };
+
   useEffect(() => {
     return () => source.cancel();
   }, []);
@@ -58,13 +74,17 @@ const Movies = (): ReactElement => {
   return (
     <VStack spacing={6}>
       <HorizontalGrid
-        title=''
+        title={handleRenderTitle('Popular movies')}
         footer={
-          <Link to={!popularMovies.isFetching || !popularMovies.isLoading ? { pathname: '/movies/popular' } : {}}>
+          <Link
+            to={{ pathname: '/movies/popular' }}
+            isFullWidth
+            isDisabled={popularMovies.isFetching || popularMovies.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={popularMovies.isFetching || popularMovies.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Popular Movies
             </Button>
@@ -79,13 +99,17 @@ const Movies = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Upcoming Movies'
+        title={handleRenderTitle('Upcoming Movies')}
         footer={
-          <Link to={!upcomingMovies.isFetching || !upcomingMovies.isLoading ? { pathname: '/movies/upcoming' } : {}}>
+          <Link
+            to={{ pathname: '/movies/upcoming' }}
+            isFullWidth
+            isDisabled={upcomingMovies.isFetching || upcomingMovies.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={upcomingMovies.isFetching || upcomingMovies.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Upcoming Movies
             </Button>
@@ -100,14 +124,17 @@ const Movies = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Movies Now Playing'
+        title={handleRenderTitle('Movies Now Playing')}
         footer={
           <Link
-            to={!moviesNowPlaying.isFetching || !moviesNowPlaying.isLoading ? { pathname: '/movies/now-playing' } : {}}>
+            to={{ pathname: '/movies/now-playing' }}
+            isFullWidth
+            isDisabled={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Movies Now Playing
             </Button>
@@ -122,13 +149,17 @@ const Movies = (): ReactElement => {
       </HorizontalGrid>
 
       <HorizontalGrid
-        title='Top Rated Movies'
+        title={handleRenderTitle('Top Rated Movies')}
         footer={
-          <Link to={!topRatedMovies.isFetching || !topRatedMovies.isLoading ? { pathname: '/movies/top-rated' } : {}}>
+          <Link
+            to={{ pathname: '/movies/top-rated' }}
+            isFullWidth
+            isDisabled={topRatedMovies.isFetching || topRatedMovies.isLoading}>
             <Button
               color={utils.handleReturnColor(color)}
               isFullWidth
               isDisabled={topRatedMovies.isFetching || topRatedMovies.isLoading}
+              size={isSm ? 'sm' : 'md'}
               variant='text'>
               View all Movies Now Playing
             </Button>

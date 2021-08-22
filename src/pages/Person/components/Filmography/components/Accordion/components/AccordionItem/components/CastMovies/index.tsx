@@ -11,16 +11,20 @@ const CastMovies = ({ movies }: { movies: CastMovieCredit[] }): ReactElement => 
    * 1: A list with movies that contain a date
    * 2: A list with movies that don't contain a date
    *
-   * It will sort the 1st list in desc by 'release_date' and it will
-   * combine both the lists together with the 2nd list being the first
+   * It will sort the 1st list in desc by 'release_date' and sort the second by 'title',
+   * then it will combine both the lists together with the 2nd list being the first
    *
    * @returns - Array of movies
    */
   const handleSort = (): CastMovieCredit[] => {
-    const withoutDate: CastMovieCredit[] = movies.filter((movie) => !movie.release_date);
     const withDate: CastMovieCredit[] = arraySort(
       movies.filter((movie) => movie.release_date),
       'release_date',
+      { reverse: true }
+    );
+    const withoutDate: CastMovieCredit[] = arraySort(
+      movies.filter((movie) => !movie.release_date),
+      'title',
       { reverse: true }
     );
 

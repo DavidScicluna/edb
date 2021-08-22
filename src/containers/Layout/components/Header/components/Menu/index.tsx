@@ -24,7 +24,7 @@ const Menu = (): ReactElement => {
         <DrawerOverlay />
         <DrawerContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
           <DrawerBody py={1} px={1}>
-            <NavItems navItems={navItems} />
+            <NavItems navItems={navItems} sidebarMode='expanded' />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

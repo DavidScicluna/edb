@@ -1,18 +1,16 @@
 import React, { ReactElement, useState } from 'react';
 
-import { ExpandedIndex, useColorMode, VStack, Collapse } from '@chakra-ui/react';
+import { ExpandedIndex, VStack, Collapse, ScaleFade } from '@chakra-ui/react';
 
 import Card from '../../../../components/Card';
+import Button from '../../../../components/Clickable/Button';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import Accordion from './components/Accordion';
-import Header from './components/Header';
 import QuickToggles from './components/QuickToggles';
 import { FilmographyProps } from './types';
 
 const Filmography = (props: FilmographyProps): ReactElement => {
-  const { colorMode } = useColorMode();
-
   const { departments, name, isSuccess = false, isLoading = false, isError = false } = props;
 
   const [expandedAccordions, setExpandedAccordions] = useState<ExpandedIndex>([]);
@@ -52,40 +50,47 @@ const Filmography = (props: FilmographyProps): ReactElement => {
   };
 
   return (
-    <Card colorMode={colorMode} isFullWidth variant='outlined' px={2} pt={1.25} pb={2}>
-      <VStack width='100%' spacing={1.5}>
-        <Header
-          isAccordionsExpanded={handleCheckisAccordionsExpanded()}
-          isLoading={isLoading}
-          isError={isError}
-          onToggleAccordions={handleToggleAccordions}
-        />
+    <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth variant='outlined' p={2}>
+      {{
+        header: {
+          title: 'Filmography',
+          actions: (
+            <ScaleFade in={!isError} unmountOnExit>
+              <Button isDisabled={isLoading} onClick={() => handleToggleAccordions()} size='sm' variant='text'>
+                {handleCheckisAccordionsExpanded() ? 'Hide all' : 'Show all'}
+              </Button>
+            </ScaleFade>
+          )
+        },
+        body: (
+          <VStack width='100%' spacing={2}>
+            <Collapse in={!isError} unmountOnExit style={{ width: '100%' }}>
+              <QuickToggles
+                departments={departments.map((department) => department.label)}
+                isLoading={isLoading}
+                onToggleAccordion={handleToggleAccordion}
+              />
+            </Collapse>
 
-        <Collapse in={!isError} unmountOnExit style={{ width: '100%' }}>
-          <QuickToggles
-            departments={departments.map((department) => department.label)}
-            isLoading={isLoading}
-            onToggleAccordion={handleToggleAccordion}
-          />
-        </Collapse>
-
-        {isError ? (
-          <Error
-            label='Oh no! Something went wrong'
-            description={`Failed to fetch ${name ? `"${name}"` : ''} Filmography credits list!`}
-            variant='transparent'
-          />
-        ) : isSuccess && departments && departments.length === 0 ? (
-          <Empty label={`${name ? `"${name}"` : ''} has no credits`} variant='transparent' />
-        ) : (
-          <Accordion
-            departments={departments}
-            expanded={expandedAccordions}
-            isLoading={isLoading}
-            onChange={(indexes: ExpandedIndex) => setExpandedAccordions(indexes)}
-          />
-        )}
-      </VStack>
+            {isError ? (
+              <Error
+                label='Oh no! Something went wrong'
+                description={`Failed to fetch ${name ? `"${name}"` : ''} filmography credits list!`}
+                variant='transparent'
+              />
+            ) : isSuccess && departments && departments.length === 0 ? (
+              <Empty label={`${name ? `"${name}"` : ''} has no credits`} variant='transparent' />
+            ) : (
+              <Accordion
+                departments={departments}
+                expanded={expandedAccordions}
+                isLoading={isLoading}
+                onChange={(indexes: ExpandedIndex) => setExpandedAccordions(indexes)}
+              />
+            )}
+          </VStack>
+        )
+      }}
     </Card>
   );
 };

@@ -1,6 +1,7 @@
-import { Style } from '../../../../../../common/types/types';
-import { Theme as UserTheme } from '../../../../../../store/slices/User/types';
-import { Theme } from '../../../../../../theme/types';
+import { Style } from '../../common/types/types';
+import { Theme as UserTheme } from '../../store/slices/User/types';
+import { Theme } from '../../theme/types';
+
 type NavItemStyle = {
   common: {
     container: Style;
@@ -30,31 +31,24 @@ export default (
     container: {
       borderRadius: 'base',
 
-      transition: `${theme.transition.duration.slower} ${theme.transition.easing['ease-in-out']}`
+      transition: `${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`
     },
     main: {
       'cursor': 'pointer',
 
       'borderRadius': !isExpanded && isOpen && renderChildren ? `${theme.radii.base} ${theme.radii.base} 0 0` : 'base',
 
-      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
+      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       '& .chakra-icon': {
-        transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+        transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
       },
       '& .chakra-text': {
-        transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+        transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
       }
     },
     link: {
-      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
-
-      '&:hover': {
-        textDecoration: 'none'
-      },
-      '&:focus': {
-        boxShadow: 'none'
-      }
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     }
   },
   light: {
@@ -75,10 +69,10 @@ export default (
         'backgroundColor': isChildActive ? 'gray.200' : isActive ? `${color}.500` : 'gray.200',
 
         '& .chakra-icon': {
-          color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.900'
+          color: isChildActive ? `${color}.500` : isActive ? 'gray.50' : 'gray.900'
         },
         '& .chakra-text': {
-          color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.900'
+          color: isChildActive ? `${color}.500` : isActive ? 'gray.50' : 'gray.900'
         }
       }
     }
@@ -88,17 +82,17 @@ export default (
       backgroundColor: !isExpanded && isOpen && renderChildren ? 'gray.700' : 'transparent'
     },
     main: {
-      'backgroundColor': isChildActive ? 'transparent' : isActive ? `${color}.400` : 'transparent',
+      'backgroundColor': isChildActive ? 'transparent' : isActive ? `${color}.500` : 'transparent',
 
       '& .chakra-icon': {
-        color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.500'
+        color: isChildActive ? `${color}.500` : isActive ? 'gray.900' : 'gray.400'
       },
       '& .chakra-text': {
-        color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.500'
+        color: isChildActive ? `${color}.500` : isActive ? 'gray.900' : 'gray.400'
       },
 
       '&:hover': {
-        'backgroundColor': isChildActive ? 'gray.700' : isActive ? `${color}.500` : 'gray.700',
+        'backgroundColor': isChildActive ? 'gray.700' : isActive ? `${color}.400` : 'gray.700',
 
         '& .chakra-icon': {
           color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.50'

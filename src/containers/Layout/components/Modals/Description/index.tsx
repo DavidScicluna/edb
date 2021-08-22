@@ -27,7 +27,7 @@ const DescriptionModal = (): ReactElement => {
           </Button>
         </Link>
       }
-      isOpen
+      isOpen={descriptionModal.open}
       onClose={() => dispatch(toggleDescription({ ...defaultDescriptionModal }))}
       isCentered
       size='2xl'>
