@@ -4,7 +4,7 @@ import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import _ from 'lodash';
 
-import { useSelectorTyped as useSelector, useWindowSize } from '../../../../common/hooks';
+import { useSelector, useWindowSize } from '../../../../common/hooks';
 import utils from '../../../../common/utils/utils';
 import IconButton from '../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../components/Tooltip';

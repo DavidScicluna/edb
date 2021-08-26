@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useMediaQuery, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
@@ -14,10 +14,11 @@ import Filters from '../../../components/Filters';
 import VerticalGrid from '../../../components/Grid/Vertical';
 import LoadMore from '../../../components/LoadMore';
 import VerticalMovies from '../../../components/Movies/Grid/Vertical';
+import Page from '../../../containers/Page';
+import { home, movies as moviesBreadcrumb } from '../../../containers/Page/common/data/breadcrumbs';
 
 const MoviesNowPlaying = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -80,29 +81,36 @@ const MoviesNowPlaying = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid
-      title={isSm ? 'Movies Now Playing' : ''}
-      header={<Filters mediaType='movie' isDisabled={!moviesNowPlaying.isSuccess} onFilter={handleSetFilters} />}>
-      <VStack width='100%' spacing={4} px={2}>
-        <VerticalMovies
-          isError={moviesNowPlaying.isError}
-          isSuccess={moviesNowPlaying.isSuccess && !moviesNowPlaying.isFetching && !moviesNowPlaying.isLoading}
-          movies={movies?.results || []}
-        />
+    <Page
+      title='Movies Now Playing'
+      breadcrumbs={[home, moviesBreadcrumb, { label: 'Now Playing', to: { pathname: '/movies/now-playing' } }]}>
+      {{
+        actions: <Filters mediaType='movie' isDisabled={!moviesNowPlaying.isSuccess} onFilter={handleSetFilters} />,
+        body: (
+          <VerticalGrid>
+            <VStack width='100%' spacing={4} px={2} pt={2}>
+              <VerticalMovies
+                isError={moviesNowPlaying.isError}
+                isSuccess={moviesNowPlaying.isSuccess && !moviesNowPlaying.isFetching && !moviesNowPlaying.isLoading}
+                movies={movies?.results || []}
+              />
 
-        {movies ? (
-          <LoadMore
-            amount={movies.results.length}
-            total={movies.total_results}
-            mediaType='movies'
-            isLoading={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}
-            isError={moviesNowPlaying.isError}
-            hasNextPage={moviesNowPlaying.hasNextPage || true}
-            onFetch={moviesNowPlaying.fetchNextPage}
-          />
-        ) : null}
-      </VStack>
-    </VerticalGrid>
+              {movies ? (
+                <LoadMore
+                  amount={movies.results.length}
+                  total={movies.total_results}
+                  mediaType='movies'
+                  isLoading={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}
+                  isError={moviesNowPlaying.isError}
+                  hasNextPage={moviesNowPlaying.hasNextPage || true}
+                  onFetch={moviesNowPlaying.fetchNextPage}
+                />
+              ) : null}
+            </VStack>
+          </VerticalGrid>
+        )
+      }}
+    </Page>
   );
 };
 

@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 
 import { Theme } from '../../../../theme/types';
 import useTransitionsStyle from '../../common/styles/transitions';
-import Breadcrumb from './components/Breadcrumb';
 import Menu from './components/Menu';
 import Search from './components/Search';
 import User from './components/User';
@@ -14,7 +13,6 @@ import { HeaderProps } from './types';
 const Header = (props: HeaderProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isMdUp] = useMediaQuery('(min-width: 640px)');
   const [isLgUp] = useMediaQuery('(min-width: 1280px)');
   const transition = useTransitionsStyle(theme);
 
@@ -37,10 +35,7 @@ const Header = (props: HeaderProps): ReactElement => {
       px={2}
       py={1}
       sx={{ ...transition }}>
-      <HStack spacing={1}>
-        {!isLgUp ? <Menu /> : null}
-        {isMdUp ? <Breadcrumb /> : null}
-      </HStack>
+      {!isLgUp ? <Menu /> : null}
       <HStack spacing={1}>
         <ScaleFade in={!location.pathname.includes('search')}>
           <Search />

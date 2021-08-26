@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 
-import { AnimatePresence } from 'framer-motion';
+import { Box } from '@chakra-ui/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation, Switch, Route } from 'react-router-dom';
 
 import Home from '../../../../pages/Home';
@@ -20,7 +21,23 @@ import TVAiringToday from '../../../../pages/TV/AiringToday';
 import OnTV from '../../../../pages/TV/OnTV';
 import PopularTV from '../../../../pages/TV/Popular';
 import TopRatedTV from '../../../../pages/TV/TopRated';
-import Page from '../../../Page';
+
+const ComponentBox = motion(Box);
+
+const Page = ({ children }: { children: ReactElement }): ReactElement => {
+  return (
+    <ComponentBox
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{
+        duration: 1,
+        ease: [0.76, 0, 0.24, 1]
+      }}>
+      {children}
+    </ComponentBox>
+  );
+};
 
 const Routes = (): ReactElement => {
   const location = useLocation();

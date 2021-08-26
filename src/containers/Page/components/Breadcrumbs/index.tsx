@@ -1,22 +1,47 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Breadcrumb as CUIBreadcrumb, Icon } from '@chakra-ui/react';
+import {
+  useTheme,
+  useColorMode,
+  useBreakpointValue,
+  Breadcrumb as CUIBreadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Text,
+  Icon
+} from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-import { useLocation } from 'react-router-dom';
+import _ from 'lodash';
+// import { useLocation } from 'react-router-dom';
 
-import { Theme } from '../../../../../../theme/types';
-import breadcrumbs from '../../../../common/data/breadcrumbs';
+import Link from '../../../../components/Clickable/Link';
+import SkeletonText from '../../../../components/Skeleton/Text';
+import { Theme } from '../../../../theme/types';
+import useStyles from './styles';
+import { BreadcrumbsProps } from './types';
 
-const Breadcrumb = (): ReactElement => {
+const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  // const style = useStyles(theme);
+
+  const iconFontSize = useBreakpointValue({
+    'base': theme.fontSizes.md,
+    'sm': theme.fontSizes.md,
+    'md': theme.fontSizes.lg,
+    'lg': theme.fontSizes.lg,
+    'xl': theme.fontSizes.lg,
+    '2xl': theme.fontSizes.lg
+  });
+
+  const style = useStyles(theme);
 
   // const { id, mediaType } = useParams<Params>();
-  const location = useLocation();
+  // const location = useLocation();
   // const history = useHistory();
 
   // const lists = useSelector((state) => state.user.data.lists);
+
+  const { breadcrumbs } = props;
 
   // const [state, setstate] = useState<BreadcrumbType[]>([]);
 
@@ -32,19 +57,19 @@ const Breadcrumb = (): ReactElement => {
   //   return '';
   // };
 
-  const handleReturnBreadcrumbs = (): string[] => {
-    if (breadcrumbs[location.pathname]) {
-      return breadcrumbs[location.pathname].consistsOf;
-    } else {
-      // const splitLocation = location.pathname.split('/').filter((item) => item);
-      // const breadcrumb = breadcrumbs[`/${splitLocation[0]}`];
-      // console.log(breadcrumb);
+  // const handleReturnBreadcrumbs = (): string[] => {
+  //   if (breadcrumbs[location.pathname]) {
+  //     return breadcrumbs[location.pathname].consistsOf;
+  //   } else {
+  //     // const splitLocation = location.pathname.split('/').filter((item) => item);
+  //     // const breadcrumb = breadcrumbs[`/${splitLocation[0]}`];
+  //     // console.log(breadcrumb);
 
-      return [];
-    }
-  };
+  //     return [];
+  //   }
+  // };
 
-  handleReturnBreadcrumbs();
+  // handleReturnBreadcrumbs();
 
   // useEffect(() => {
   //   setstate([]);
@@ -109,33 +134,34 @@ const Breadcrumb = (): ReactElement => {
         <Icon
           as={ChevronRightOutlinedIcon}
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-          sx={{ fontSize: `${theme.fontSizes.xl} !important` }}
+          sx={{ fontSize: `${iconFontSize} !important` }}
         />
       }
       spacing={1}>
-      {/* {[...(breadcrumbs[location.pathname]?.consistsOf || [])].map((breadcrumb: string) => (
+      {breadcrumbs.map((breadcrumb, index) => (
         <BreadcrumbItem
-          key={breadcrumb}
-          isCurrentPage={breadcrumb.includes(':') ? handleCheckBreadcrumb() : location.pathname === breadcrumb}
-          fontSize={['xl']}
+          key={breadcrumb.label}
+          isCurrentPage={index === breadcrumbs.length - 1}
+          fontSize={['sm', 'sm', 'md', 'md', 'md', 'md']}
           sx={{ ...style.common.breadcrumbItem }}>
-          {(breadcrumb.includes(':') ? handleCheckBreadcrumb() : location.pathname === breadcrumb) ? (
-            <Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
-              {(breadcrumb.includes(':') ? handleGenericBreadcrumbLabel() : breadcrumbs[breadcrumb].label) || ''}
-            </Text>
-          ) : (
-            <BreadcrumbLink
-              as={Link}
-              to={breadcrumb}
-              sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}>
-              {breadcrumbs[breadcrumb].label || ''}
-            </BreadcrumbLink>
-          )}
+          <SkeletonText isLoaded={!breadcrumb.isLoading}>
+            {index === breadcrumbs.length - 1 ? (
+              <Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
+                {breadcrumb.label || ''}
+              </Text>
+            ) : (
+              <BreadcrumbLink
+                as={Link}
+                to={{ ...breadcrumb.to }}
+                sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}>
+                {breadcrumb.label || ''}
+              </BreadcrumbLink>
+            )}
+          </SkeletonText>
         </BreadcrumbItem>
-      ))} */}
-      <h1>Hello</h1>
+      ))}
     </CUIBreadcrumb>
   );
 };
 
-export default Breadcrumb;
+export default Breadcrumbs;

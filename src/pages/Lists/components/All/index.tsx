@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery, VStack, Text, Fade, Collapse, useColorMode } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Center, Text, Fade, Collapse } from '@chakra-ui/react';
 
 import useSelector from '../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../common/utils/utils';
+import Badge from '../../../../components/Badge';
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
@@ -17,16 +18,19 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const handleRenderTitle = (title: string): ReactElement => {
+  const handleRenderTitle = (title: string, total: number): ReactElement => {
     return (
-      <Text
-        align='left'
-        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-        fontSize='2xl'
-        fontWeight='semibold'
-        textTransform='capitalize'>
-        {title}
-      </Text>
+      <Center>
+        <Text
+          align='left'
+          color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+          fontSize='2xl'
+          fontWeight='semibold'
+          textTransform='capitalize'>
+          {title}
+        </Text>
+        <Badge label={String(total)} color='gray' size='lg' ml={2} />
+      </Center>
     );
   };
 
@@ -36,23 +40,23 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
         {/* Movies */}
         <Collapse in={(movies && movies.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={handleRenderTitle(
-              `${movies.length || 0} movie${movies && (movies.length === 0 || movies.length > 1) ? 's' : ''}`
-            )}
+            title={handleRenderTitle('Movies', movies.length)}
             footer={
-              <Link to={{ pathname: `/lists/${list.id}/movie` }} isFullWidth>
-                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
-                  {`View all ${movies.length || 0} movie${
-                    movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
-                  }`}
-                </Button>
-              </Link>
+              movies.length > 20 ? (
+                <Link to={{ pathname: `/lists/${list.id}/movie` }} isFullWidth>
+                  <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                    {`View all ${movies.length || 0} movie${
+                      movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
+                    }`}
+                  </Button>
+                </Link>
+              ) : undefined
             }
             isLoading={false}>
             <>
-              {movies.map((movie) => (
-                <VerticalMoviePoster key={movie.id} isLoading={false} movie={movie} />
-              ))}
+              {movies.map((movie, index) =>
+                index < 20 ? <VerticalMoviePoster key={movie.id} isLoading={false} movie={movie} /> : null
+              )}
             </>
           </HorizontalGrid>
         </Collapse>
@@ -60,19 +64,21 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
         {/* TV */}
         <Collapse in={(tv && tv.length > 0) || false} unmountOnExit style={{ width: '100%' }}>
           <HorizontalGrid
-            title={handleRenderTitle(`${tv.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`)}
+            title={handleRenderTitle('TV shows', tv.length)}
             footer={
-              <Link to={{ pathname: `/lists/${list.id}/tv` }} isFullWidth>
-                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
-                  {`View all ${tv?.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
-                </Button>
-              </Link>
+              tv.length > 20 ? (
+                <Link to={{ pathname: `/lists/${list.id}/tv` }} isFullWidth>
+                  <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                    {`View all ${tv?.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
+                  </Button>
+                </Link>
+              ) : undefined
             }
             isLoading={false}>
             <>
-              {tv.map((show) => (
-                <VerticalShowPoster key={show.id} isLoading={false} show={show} />
-              ))}
+              {tv.map((show, index) =>
+                index < 20 ? <VerticalShowPoster key={show.id} isLoading={false} show={show} /> : null
+              )}
             </>
           </HorizontalGrid>
         </Collapse>

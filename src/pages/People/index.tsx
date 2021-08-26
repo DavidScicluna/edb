@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useMediaQuery, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
@@ -14,10 +14,11 @@ import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
 import LoadMore from '../../components/LoadMore';
 import VerticalPeople from '../../components/People/Grid/Vertical';
+import Page from '../../containers/Page';
+import { home, people as peopleBreadcrumb } from '../../containers/Page/common/data/breadcrumbs';
 
 const People = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -83,29 +84,34 @@ const People = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid
-      title={isSm ? 'People' : ''}
-      header={<Filters mediaType='person' isDisabled={!popularPeople.isSuccess} onFilter={handleSetFilters} />}>
-      <VStack width='100%' spacing={4} px={2}>
-        <VerticalPeople
-          isError={popularPeople.isError}
-          isSuccess={popularPeople.isSuccess && !popularPeople.isFetching && !popularPeople.isLoading}
-          people={people?.results || []}
-        />
+    <Page title='People' breadcrumbs={[home, peopleBreadcrumb]}>
+      {{
+        actions: <Filters mediaType='person' isDisabled={!popularPeople.isSuccess} onFilter={handleSetFilters} />,
+        body: (
+          <VerticalGrid>
+            <VStack width='100%' spacing={4} px={2} pt={2}>
+              <VerticalPeople
+                isError={popularPeople.isError}
+                isSuccess={popularPeople.isSuccess && !popularPeople.isFetching && !popularPeople.isLoading}
+                people={people?.results || []}
+              />
 
-        {people ? (
-          <LoadMore
-            amount={people.results.length}
-            total={people.total_results}
-            mediaType='people'
-            isLoading={popularPeople.isFetching || popularPeople.isLoading}
-            isError={popularPeople.isError}
-            hasNextPage={popularPeople.hasNextPage || true}
-            onFetch={popularPeople.fetchNextPage}
-          />
-        ) : null}
-      </VStack>
-    </VerticalGrid>
+              {people ? (
+                <LoadMore
+                  amount={people.results.length}
+                  total={people.total_results}
+                  mediaType='people'
+                  isLoading={popularPeople.isFetching || popularPeople.isLoading}
+                  isError={popularPeople.isError}
+                  hasNextPage={popularPeople.hasNextPage || true}
+                  onFetch={popularPeople.fetchNextPage}
+                />
+              ) : null}
+            </VStack>
+          </VerticalGrid>
+        )
+      }}
+    </Page>
   );
 };
 

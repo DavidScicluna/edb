@@ -1,12 +1,24 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useMediaQuery, HStack, SimpleGrid, Box, ScaleFade } from '@chakra-ui/react';
+import {
+  useColorMode,
+  useDisclosure,
+  useMediaQuery,
+  HStack,
+  SimpleGrid,
+  Box,
+  Center,
+  Text,
+  ScaleFade
+} from '@chakra-ui/react';
 import arraySort from 'array-sort';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Department } from '../../common/data/departments';
 import useSelector from '../../common/hooks/useSelectorTyped';
 import { Genre, MediaType, SortBy } from '../../common/types/types';
+import utils from '../../common/utils/utils';
+import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';
 import Empty from '../../components/Empty';
 import Filters from '../../components/Filters';
@@ -18,10 +30,14 @@ import HorizontalPersonPoster from '../../components/People/Poster/Horizontal';
 import VerticalPersonPoster from '../../components/People/Poster/Vertical';
 import HorizontalShowPoster from '../../components/TV/Poster/Horizontal';
 import VerticalShowPoster from '../../components/TV/Poster/Vertical';
+import Page from '../../containers/Page';
+import { home, liked as likedBreadcrumb } from '../../containers/Page/common/data/breadcrumbs';
+import { Breadcrumb } from '../../containers/Page/types';
 import { MediaItem } from '../../store/slices/User/types';
 import All from './components/All';
 
 const Liked = (): ReactElement => {
+  const { colorMode } = useColorMode();
   const {
     isOpen: isMediaTypePickerOpen,
     onOpen: onMediaTypePickerOpen,
@@ -37,6 +53,8 @@ const Liked = (): ReactElement => {
   const displayMode = useSelector((state) => state.app.ui.displayMode);
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [mediaType, setMediaType] = useState<MediaType | null>(null);
 
@@ -139,9 +157,36 @@ const Liked = (): ReactElement => {
     return mediaTypes;
   };
 
-  useEffect(() => {
-    setMediaType(null);
+  const handleReturnBreadcrumbs = (): Breadcrumb[] => {
+    const breadcrumbs: Breadcrumb[] = [home, likedBreadcrumb];
 
+    switch (mediaType) {
+      case 'person':
+        breadcrumbs.push({
+          label: 'People',
+          to: { pathname: '/liked/person' }
+        });
+        break;
+      case 'tv':
+        breadcrumbs.push({
+          label: 'TV Shows',
+          to: { pathname: '/liked/tv' }
+        });
+        break;
+      case 'movie':
+        breadcrumbs.push({
+          label: 'Movies',
+          to: { pathname: '/liked/movie' }
+        });
+        break;
+      default:
+        break;
+    }
+
+    return breadcrumbs;
+  };
+
+  useEffect(() => {
     if (paramMediaType) {
       switch (paramMediaType) {
         case 'person':
@@ -156,109 +201,137 @@ const Liked = (): ReactElement => {
         default:
           break;
       }
+    } else {
+      setMediaType(null);
     }
   }, [history.location.pathname]);
 
   return (
     <>
-      <VerticalGrid
+      <Page
         title={
-          mediaType === 'movie'
-            ? `${movies.length || 0} liked movie${movies && (movies.length === 0 || movies.length > 1) ? 's' : ''}`
-            : mediaType === 'tv'
-            ? `${tv.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`
-            : mediaType === 'person'
-            ? `${people.length || 0} liked ${
-                (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
-              }`
-            : `You have liked ${[
-                `${movies.length || 0} movie${movies && (movies.length === 0 || movies.length > 1) ? 's' : ''}`,
-                `${tv.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`,
-                `${people.length || 0} ${(people && people.length === 0) || people.length > 1 ? 'people' : 'person'}`
-              ].join(' • ')}`
+          <Center>
+            <Text
+              align='left'
+              color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+              fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
+              fontWeight='bold'>
+              {mediaType === 'movie'
+                ? 'Movies'
+                : mediaType === 'tv'
+                ? 'TV shows'
+                : mediaType === 'person'
+                ? 'People'
+                : 'Liked'}
+            </Text>
+            <Badge
+              label={
+                mediaType === 'movie'
+                  ? String(movies.length)
+                  : mediaType === 'tv'
+                  ? String(tv.length)
+                  : mediaType === 'person'
+                  ? String(people.length)
+                  : String(movies.length + tv.length + people.length)
+              }
+              color={mediaType ? utils.handleReturnColor(color) : 'gray'}
+              size='lg'
+              ml={2}
+            />
+          </Center>
         }
-        header={
-          <ScaleFade in={!!mediaType} unmountOnExit>
-            <HStack spacing={2}>
-              <ScaleFade in={handleHasMediaTypes()} unmountOnExit>
-                <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
-                  Change media-type
-                </Button>
-              </ScaleFade>
-              {mediaType ? <Filters mediaType={mediaType} isLikedLists onFilter={handleSetFilters} /> : null}
-            </HStack>
-          </ScaleFade>
-        }>
-        {(movies && movies.length > 0) || (tv && tv.length > 0) || (people && people.length > 0) ? (
-          mediaType === 'movie' ? (
-            movies.length > 0 ? (
-              <SimpleGrid
-                width='100%'
-                columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
-                spacing={2}
-                px={2}>
-                {movies.map((movie) =>
-                  displayMode === 'list' ? (
-                    <HorizontalMoviePoster key={movie.id} isLoading={false} movie={movie} />
+        breadcrumbs={handleReturnBreadcrumbs()}>
+        {{
+          actions: (
+            <ScaleFade in={!!mediaType} unmountOnExit>
+              <HStack spacing={2}>
+                <ScaleFade in={handleHasMediaTypes()} unmountOnExit>
+                  <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
+                    Change media type
+                  </Button>
+                </ScaleFade>
+                {mediaType ? <Filters mediaType={mediaType} isLikedLists onFilter={handleSetFilters} /> : null}
+              </HStack>
+            </ScaleFade>
+          ),
+          body: (
+            <VerticalGrid>
+              {(movies && movies.length > 0) || (tv && tv.length > 0) || (people && people.length > 0) ? (
+                mediaType === 'movie' ? (
+                  movies.length > 0 ? (
+                    <SimpleGrid
+                      width='100%'
+                      columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
+                      spacing={2}
+                      px={2}
+                      pt={2}>
+                      {movies.map((movie) =>
+                        displayMode === 'list' ? (
+                          <HorizontalMoviePoster key={movie.id} isLoading={false} movie={movie} />
+                        ) : (
+                          <VerticalMoviePoster key={movie.id} width='100%' isLoading={false} movie={movie} />
+                        )
+                      )}
+                    </SimpleGrid>
                   ) : (
-                    <VerticalMoviePoster key={movie.id} width='100%' isLoading={false} movie={movie} />
+                    <Box width='100%' px={2} py={0}>
+                      <Empty label='You have liked no movie!' variant='outlined' size='xl' />
+                    </Box>
                   )
-                )}
-              </SimpleGrid>
-            ) : (
-              <Box width='100%' px={2} py={0}>
-                <Empty label='You have liked no movie!' variant='outlined' size='xl' />
-              </Box>
-            )
-          ) : mediaType === 'tv' ? (
-            tv.length > 0 ? (
-              <SimpleGrid
-                width='100%'
-                columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
-                spacing={2}
-                px={2}>
-                {tv.map((show) =>
-                  displayMode === 'list' ? (
-                    <HorizontalShowPoster key={show.id} isLoading={false} show={show} />
+                ) : mediaType === 'tv' ? (
+                  tv.length > 0 ? (
+                    <SimpleGrid
+                      width='100%'
+                      columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
+                      spacing={2}
+                      px={2}
+                      pt={2}>
+                      {tv.map((show) =>
+                        displayMode === 'list' ? (
+                          <HorizontalShowPoster key={show.id} isLoading={false} show={show} />
+                        ) : (
+                          <VerticalShowPoster key={show.id} width='100%' isLoading={false} show={show} />
+                        )
+                      )}
+                    </SimpleGrid>
                   ) : (
-                    <VerticalShowPoster key={show.id} width='100%' isLoading={false} show={show} />
+                    <Box width='100%' px={2} py={0}>
+                      <Empty label='You have no liked no tv show!' variant='outlined' size='xl' />
+                    </Box>
                   )
-                )}
-              </SimpleGrid>
-            ) : (
-              <Box width='100%' px={2} py={0}>
-                <Empty label='You have no liked no tv show!' variant='outlined' size='xl' />
-              </Box>
-            )
-          ) : mediaType === 'person' ? (
-            people.length > 0 ? (
-              <SimpleGrid
-                width='100%'
-                columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
-                spacing={2}
-                px={2}>
-                {people.map((person) =>
-                  displayMode === 'list' ? (
-                    <HorizontalPersonPoster key={person.id} isLoading={false} person={person} />
+                ) : mediaType === 'person' ? (
+                  people.length > 0 ? (
+                    <SimpleGrid
+                      width='100%'
+                      columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
+                      spacing={2}
+                      px={2}
+                      pt={2}>
+                      {people.map((person) =>
+                        displayMode === 'list' ? (
+                          <HorizontalPersonPoster key={person.id} isLoading={false} person={person} />
+                        ) : (
+                          <VerticalPersonPoster key={person.id} width='100%' isLoading={false} person={person} />
+                        )
+                      )}
+                    </SimpleGrid>
                   ) : (
-                    <VerticalPersonPoster key={person.id} width='100%' isLoading={false} person={person} />
+                    <Box width='100%' px={2} py={0}>
+                      <Empty label='You have no liked nobody!' variant='outlined' size='xl' />
+                    </Box>
                   )
-                )}
-              </SimpleGrid>
-            ) : (
-              <Box width='100%' px={2} py={0}>
-                <Empty label='You have no liked nobody!' variant='outlined' size='xl' />
-              </Box>
-            )
-          ) : (
-            <All movies={movies} tv={tv} people={people} />
+                ) : (
+                  <All movies={movies} tv={tv} people={people} />
+                )
+              ) : (
+                <Box width='100%' px={2} py={0}>
+                  <Empty label='You have no liked items!' variant='outlined' size='xl' />
+                </Box>
+              )}
+            </VerticalGrid>
           )
-        ) : (
-          <Box width='100%' px={2} py={0}>
-            <Empty label='You have no liked items!' variant='outlined' size='xl' />
-          </Box>
-        )}
-      </VerticalGrid>
+        }}
+      </Page>
 
       <MediaTypePicker
         mediaTypes={handleReturnMediaTypes()}

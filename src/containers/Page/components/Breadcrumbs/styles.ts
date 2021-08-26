@@ -1,5 +1,5 @@
-import { Style } from '../../../../../../common/types/types';
-import { Theme } from '../../../../../../theme/types';
+import { Style } from '../../../../common/types/types';
+import { Theme } from '../../../../theme/types';
 
 type BreadcrumbsStyle = {
   common: {
@@ -21,10 +21,10 @@ export default (theme: Theme): BreadcrumbsStyle => ({
     breadcrumbItem: {
       fontWeight: 'medium',
 
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']} !important`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
     breadcrumbLink: {
-      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']} !important`,
+      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       '&:hover': {
         textDecoration: 'none'
@@ -33,8 +33,7 @@ export default (theme: Theme): BreadcrumbsStyle => ({
   },
   light: {
     breadcrumbActive: {
-      color: 'gray.900',
-      fontWeight: 'semibold'
+      color: 'gray.900'
     },
     breadcrumbLink: {
       'color': 'gray.400',

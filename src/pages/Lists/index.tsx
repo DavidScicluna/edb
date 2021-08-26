@@ -8,8 +8,10 @@ import {
   HStack,
   SimpleGrid,
   Box,
+  Center,
   Text,
-  ScaleFade
+  ScaleFade,
+  useColorMode
 } from '@chakra-ui/react';
 import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 import arraySort from 'array-sort';
@@ -19,7 +21,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import useSelector from '../../common/hooks/useSelectorTyped';
 import { Genre, MediaType, SortBy } from '../../common/types/types';
-import utils from '../../common/utils/utils';
+import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';
 import IconButton from '../../components/Clickable/IconButton';
 import Empty from '../../components/Empty';
@@ -30,12 +32,16 @@ import HorizontalMoviePoster from '../../components/Movies/Poster/Horizontal';
 import VerticalMoviePoster from '../../components/Movies/Poster/Vertical';
 import HorizontalShowPoster from '../../components/TV/Poster/Horizontal';
 import VerticalShowPoster from '../../components/TV/Poster/Vertical';
+import Page from '../../containers/Page';
+import { home, lists as listsBreadcrumb } from '../../containers/Page/common/data/breadcrumbs';
+import { Breadcrumb } from '../../containers/Page/types';
 import { toggleConfirm } from '../../store/slices/Modals';
 import { setLists } from '../../store/slices/User';
 import { List as ListType, MediaItem } from '../../store/slices/User/types';
 import All from './components/All';
 import CreateList from './components/CreateList';
 import EditList from './components/EditList';
+import EmptyList from './components/Empty';
 import ListInfo from './components/ListInfo';
 import ListPicker from './components/ListPicker';
 import List from './components/ListPicker/components/ListItem';
@@ -45,6 +51,7 @@ import { Param } from './types';
 const Lists = (): ReactElement => {
   const source = axios.CancelToken.source();
 
+  const { colorMode } = useColorMode();
   const {
     isOpen: isMediaTypePickerOpen,
     onOpen: onMediaTypePickerOpen,
@@ -67,7 +74,6 @@ const Lists = (): ReactElement => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
   const displayMode = useSelector((state) => state.app.ui.displayMode);
-  const color = useSelector((state) => state.user.ui.theme.color);
   const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
@@ -127,6 +133,38 @@ const Lists = (): ReactElement => {
       default:
         break;
     }
+  };
+
+  const handleReturnBreadcrumbs = (): Breadcrumb[] => {
+    const breadcrumbs: Breadcrumb[] = [home, listsBreadcrumb];
+
+    if (list) {
+      breadcrumbs.push({
+        label: list.label,
+        to: { pathname: `/lists/${list.id}` }
+      });
+
+      if (mediaType) {
+        switch (mediaType) {
+          case 'tv':
+            breadcrumbs.push({
+              label: 'TV Shows',
+              to: { pathname: `/lists/${list.id}/tv` }
+            });
+            break;
+          case 'movie':
+            breadcrumbs.push({
+              label: 'Movies',
+              to: { pathname: `/lists/${list.id}/movie` }
+            });
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    return breadcrumbs;
   };
 
   const handleSelectList = (id: ListType['id']): void => {
@@ -224,29 +262,36 @@ const Lists = (): ReactElement => {
 
   return (
     <>
-      <VStack width='100%' spacing={0} pb={mediaType ? 4 : 0}>
-        <VerticalGrid
-          title={
-            lists
-              ? list
-                ? mediaType
+      <Page
+        title={
+          <Center>
+            <Text
+              align='left'
+              color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+              fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
+              fontWeight='bold'>
+              {list
+                ? `"${list.label}" list ${mediaType === 'movie' ? 'Movies' : mediaType === 'tv' ? 'TV shows' : ''}`
+                : 'Lists'}
+            </Text>
+            <Badge
+              label={
+                list
                   ? mediaType === 'movie'
-                    ? `${movies.length || 0} movie${
-                        movies && (movies.length === 0 || movies.length > 1) ? 's' : ''
-                      } in "${list.label}" list`
+                    ? String(movies.length)
                     : mediaType === 'tv'
-                    ? `${tv.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')} in "${
-                        list.label
-                      }" list`
-                    : `${[
-                        `${movies.length} movie${movies.length === 0 || movies.length > 1 ? 's' : ''}`,
-                        `${tv.length} TV show${tv.length === 0 || tv.length > 1 ? 's' : ''}`
-                      ].join(' • ')} results in "${list.label}" list`
-                  : `"${list.label}" list`
-                : `${lists.length} list${lists.length === 0 || lists.length > 1 ? 's' : ''}`
-              : ''
-          }
-          header={
+                    ? String(tv.length)
+                    : String(movies.length + tv.length)
+                  : String(lists.length)
+              }
+              size='lg'
+              ml={2}
+            />
+          </Center>
+        }
+        breadcrumbs={handleReturnBreadcrumbs()}>
+        {{
+          actions:
             mediaType || (list && lists.length > 0) ? (
               <HStack spacing={2}>
                 <ScaleFade in={!!mediaType} unmountOnExit>
@@ -277,139 +322,79 @@ const Lists = (): ReactElement => {
               <Button onClick={() => onCreateListOpen()} variant='outlined'>
                 Create new list
               </Button>
-            )
-          }>
-          {list ? (
-            movies.length > 0 || tv.length > 0 ? (
-              mediaType === 'movie' ? (
-                movies.length > 0 ? (
-                  <SimpleGrid
-                    width='100%'
-                    columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]}
-                    spacing={2}
-                    px={2}>
-                    {movies.map((movie) =>
-                      displayMode === 'list' ? (
-                        <HorizontalMoviePoster key={movie.id} isLoading={false} movie={movie} />
+            ),
+          body: (
+            <VStack width='100%' spacing={0} pb={mediaType ? 4 : 0}>
+              <VerticalGrid>
+                {list ? (
+                  movies.length > 0 || tv.length > 0 ? (
+                    mediaType === 'movie' ? (
+                      movies.length > 0 ? (
+                        <SimpleGrid
+                          width='100%'
+                          columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]}
+                          spacing={2}
+                          px={2}
+                          pt={2}>
+                          {movies.map((movie) =>
+                            displayMode === 'list' ? (
+                              <HorizontalMoviePoster key={movie.id} isLoading={false} movie={movie} />
+                            ) : (
+                              <VerticalMoviePoster key={movie.id} width='100%' isLoading={false} movie={movie} />
+                            )
+                          )}
+                        </SimpleGrid>
                       ) : (
-                        <VerticalMoviePoster key={movie.id} width='100%' isLoading={false} movie={movie} />
+                        <EmptyList id={list.id} label={list.label} mediaTypeLabel='movies' />
                       )
-                    )}
+                    ) : mediaType === 'tv' ? (
+                      tv.length > 0 ? (
+                        <SimpleGrid
+                          width='100%'
+                          columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]}
+                          spacing={2}
+                          px={2}
+                          pt={2}>
+                          {tv.map((show) =>
+                            displayMode === 'list' ? (
+                              <HorizontalShowPoster key={show.id} isLoading={false} show={show} />
+                            ) : (
+                              <VerticalShowPoster key={show.id} width='100%' isLoading={false} show={show} />
+                            )
+                          )}
+                        </SimpleGrid>
+                      ) : (
+                        <EmptyList id={list.id} label={list.label} mediaTypeLabel='tv shows' />
+                      )
+                    ) : (
+                      <All list={list} movies={movies} tv={tv} />
+                    )
+                  ) : (
+                    <EmptyList id={list.id} label={list.label} />
+                  )
+                ) : lists && lists.length > 0 ? (
+                  <SimpleGrid width='100%' columns={[1, 2, 3, 4, 4]} spacing={2} px={2} pt={2}>
+                    {lists.map((list) => (
+                      <List
+                        key={list.id}
+                        {...list}
+                        isSelectable
+                        isSelected={selected?.id === list.id || false}
+                        onSelected={handleSelectList}
+                        onClick={(id: ListType['id']) => history.push({ pathname: `/lists/${id}` })}
+                      />
+                    ))}
                   </SimpleGrid>
                 ) : (
-                  <Box width='100%' px={2}>
-                    <Empty
-                      button={
-                        <HStack spacing={1}>
-                          <Button
-                            color={utils.handleReturnColor(color)}
-                            onClick={() => history.push({ pathname: `/lists/${list.id}` })}
-                            size='sm'
-                            variant='outlined'>
-                            {`Back to "${list.label}" list`}
-                          </Button>
-                          <Text align='center' fontSize='xs' fontWeight='medium'>
-                            OR
-                          </Text>
-                          <Button
-                            color={utils.handleReturnColor(color)}
-                            onClick={() => history.push({ pathname: '/lists' })}
-                            size='sm'
-                            variant='outlined'>
-                            Back to lists
-                          </Button>
-                        </HStack>
-                      }
-                      label={`No movies found in "${list.label}" list!`}
-                      variant='outlined'
-                    />
+                  <Box width='100%' p={2}>
+                    <Empty label='You have no lists!' variant='outlined' size='xl' />
                   </Box>
-                )
-              ) : mediaType === 'tv' ? (
-                tv.length > 0 ? (
-                  <SimpleGrid
-                    width='100%'
-                    columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]}
-                    spacing={2}
-                    px={2}>
-                    {tv.map((show) =>
-                      displayMode === 'list' ? (
-                        <HorizontalShowPoster key={show.id} isLoading={false} show={show} />
-                      ) : (
-                        <VerticalShowPoster key={show.id} width='100%' isLoading={false} show={show} />
-                      )
-                    )}
-                  </SimpleGrid>
-                ) : (
-                  <Box width='100%' px={2}>
-                    <Empty
-                      button={
-                        <HStack spacing={1}>
-                          <Button
-                            color={utils.handleReturnColor(color)}
-                            onClick={() => history.push({ pathname: `/lists/${list.id}` })}
-                            size='sm'
-                            variant='outlined'>
-                            {`Back to "${list.label}" list`}
-                          </Button>
-                          <Text align='center' fontSize='xs' fontWeight='medium'>
-                            OR
-                          </Text>
-                          <Button
-                            color={utils.handleReturnColor(color)}
-                            onClick={() => history.push({ pathname: '/lists' })}
-                            size='sm'
-                            variant='outlined'>
-                            Back to lists
-                          </Button>
-                        </HStack>
-                      }
-                      label={`No tv shows found in "${list.label}" list!`}
-                      variant='outlined'
-                    />
-                  </Box>
-                )
-              ) : (
-                <All list={list} movies={movies} tv={tv} />
-              )
-            ) : (
-              <Box width='100%' px={2}>
-                <Empty
-                  button={
-                    <Button
-                      color={utils.handleReturnColor(color)}
-                      onClick={() => history.push({ pathname: '/lists' })}
-                      size='sm'
-                      variant='outlined'>
-                      Back to lists
-                    </Button>
-                  }
-                  label={`You have no items in "${list.label}" list!`}
-                  variant='outlined'
-                  size='xl'
-                />
-              </Box>
-            )
-          ) : lists && lists.length > 0 ? (
-            <SimpleGrid width='100%' columns={[1, 2, 3, 4, 4]} spacing={2} px={2}>
-              {lists.map((list) => (
-                <List
-                  key={list.id}
-                  {...list}
-                  isSelectable
-                  isSelected={selected?.id === list.id || false}
-                  onSelected={handleSelectList}
-                  onClick={(id: ListType['id']) => history.push({ pathname: `/lists/${id}` })}
-                />
-              ))}
-            </SimpleGrid>
-          ) : (
-            <Box width='100%' p={2}>
-              <Empty label='You have no lists!' variant='outlined' size='xl' />
-            </Box>
-          )}
-        </VerticalGrid>
-      </VStack>
+                )}
+              </VerticalGrid>
+            </VStack>
+          )
+        }}
+      </Page>
 
       <ListPicker activeList={list} isOpen={isListPickerOpen} onClose={onListPickerClose} />
 

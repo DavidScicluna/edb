@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useMediaQuery, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
@@ -17,11 +17,12 @@ import Filters from '../../../components/Filters';
 import VerticalGrid from '../../../components/Grid/Vertical';
 import LoadMore from '../../../components/LoadMore';
 import VerticalTV from '../../../components/TV/Grid/Vertical';
+import Page from '../../../containers/Page';
+import { home, tv as tvBreadcrumb } from '../../../containers/Page/common/data/breadcrumbs';
 import { toggleConfirm, defaultConfirmModal } from '../../../store/slices/Modals';
 
 const TVAiringToday = (): ReactElement => {
   const source = axios.CancelToken.source();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
 
   const dispatch = useDispatch();
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
@@ -116,29 +117,36 @@ const TVAiringToday = (): ReactElement => {
   }, []);
 
   return (
-    <VerticalGrid
-      title={isSm ? 'TV Shows Airing Today' : ''}
-      header={<Filters mediaType='tv' isDisabled={!tvAiringToday.isSuccess} onFilter={handleSetFilters} />}>
-      <VStack width='100%' spacing={4} px={2}>
-        <VerticalTV
-          isError={tvAiringToday.isError}
-          isSuccess={tvAiringToday.isSuccess && !tvAiringToday.isFetching && !tvAiringToday.isLoading}
-          tv={tv?.results || []}
-        />
+    <Page
+      title='TV Shows Airing Today'
+      breadcrumbs={[home, tvBreadcrumb, { label: 'Airing Today,', to: { pathname: '/tv/airing-today' } }]}>
+      {{
+        actions: <Filters mediaType='tv' isDisabled={!tvAiringToday.isSuccess} onFilter={handleSetFilters} />,
+        body: (
+          <VerticalGrid>
+            <VStack width='100%' spacing={4} px={2} pt={2}>
+              <VerticalTV
+                isError={tvAiringToday.isError}
+                isSuccess={tvAiringToday.isSuccess && !tvAiringToday.isFetching && !tvAiringToday.isLoading}
+                tv={tv?.results || []}
+              />
 
-        {tv ? (
-          <LoadMore
-            amount={tv.results.length}
-            total={tv.total_results}
-            mediaType='TV shows'
-            isLoading={tvAiringToday.isFetching || tvAiringToday.isLoading}
-            isError={tvAiringToday.isError}
-            hasNextPage={tvAiringToday.hasNextPage || true}
-            onFetch={handleFetchNextPage}
-          />
-        ) : null}
-      </VStack>
-    </VerticalGrid>
+              {tv ? (
+                <LoadMore
+                  amount={tv.results.length}
+                  total={tv.total_results}
+                  mediaType='TV shows'
+                  isLoading={tvAiringToday.isFetching || tvAiringToday.isLoading}
+                  isError={tvAiringToday.isError}
+                  hasNextPage={tvAiringToday.hasNextPage || true}
+                  onFetch={handleFetchNextPage}
+                />
+              ) : null}
+            </VStack>
+          </VerticalGrid>
+        )
+      }}
+    </Page>
   );
 };
 
