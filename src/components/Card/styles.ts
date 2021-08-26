@@ -7,21 +7,29 @@ type VariantStyle = {
 };
 
 type CardStyle = {
-  card: Style;
+  card: VariantStyle;
   light: VariantStyle;
   dark: VariantStyle;
 };
 
 export default (color: CardProps['color'] = 'gray', isFullWidth = false): CardStyle => ({
   card: {
-    width: isFullWidth ? '100%' : 'auto',
-    height: 'auto',
+    outlined: {
+      width: isFullWidth ? '100%' : 'auto',
+      height: 'auto',
 
-    borderStyle: 'solid',
-    borderWidth: '2px',
-    borderRadius: 'lg',
+      borderStyle: 'solid',
+      borderWidth: '2px',
+      borderRadius: 'lg',
 
-    transition: 'none'
+      transition: 'none'
+    },
+    transparent: {
+      width: isFullWidth ? '100%' : 'auto',
+      height: 'auto',
+
+      transition: 'none'
+    }
   },
   light: {
     outlined: {
@@ -40,16 +48,13 @@ export default (color: CardProps['color'] = 'gray', isFullWidth = false): CardSt
     },
     transparent: {
       'backgroundColor': 'transparent',
-      'borderColor': 'transparent',
 
       '&:hover': {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent'
+        backgroundColor: 'transparent'
       },
 
       '&:active': {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent'
+        backgroundColor: 'transparent'
       }
     }
   },
@@ -70,16 +75,13 @@ export default (color: CardProps['color'] = 'gray', isFullWidth = false): CardSt
     },
     transparent: {
       'backgroundColor': 'transparent',
-      'borderColor': 'transparent',
 
       '&:hover': {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent'
+        backgroundColor: 'transparent'
       },
 
       '&:active': {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent'
+        backgroundColor: 'transparent'
       }
     }
   }

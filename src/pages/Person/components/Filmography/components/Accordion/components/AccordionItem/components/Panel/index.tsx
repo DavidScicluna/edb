@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
 
+import Badge from '../../../../../../../../../../components/Badge';
 import Card from '../../../../../../../../../../components/Card';
-import Badge from '../Badge';
 import { ListProps } from './types';
 
 const Panel = ({ children, title, total }: ListProps): ReactElement => {

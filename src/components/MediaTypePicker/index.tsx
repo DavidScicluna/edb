@@ -13,9 +13,7 @@ const MediaTypePicker = <MT extends unknown>(props: MediaTypePickerProps<MT>): R
   const { isOpen, onClose, ...rest } = props;
 
   useEffect(() => {
-    if (isOpen) {
-      onClose();
-    }
+    onClose();
   }, [location]);
 
   return (

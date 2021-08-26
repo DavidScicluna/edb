@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Badge as CUIBadge } from '@chakra-ui/react';
 
-import { Theme } from '../../../../../../../../../../theme/types';
+import { Theme } from '../../theme/types';
 import { BadgeProps } from './types';
 
 const Badge = (props: BadgeProps): ReactElement => {

@@ -8,6 +8,7 @@ import {
   AccordionButton,
   AccordionPanel,
   VStack,
+  Center,
   VisuallyHidden,
   Icon,
   Text
@@ -17,8 +18,8 @@ import _ from 'lodash';
 
 import useSelector from '../../../../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../../../../common/utils/utils';
+import Badge from '../../../../../../../../components/Badge';
 import { Theme } from '../../../../../../../../theme/types';
-import Badge from './components/Badge';
 import CastMovies from './components/CastMovies';
 import CastTV from './components/CastTV';
 import CrewMovies from './components/CrewMovies';
@@ -45,12 +46,14 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
       </VisuallyHidden>
 
       <AccordionButton sx={{ ..._.merge(style.common.button) }}>
-        <Text
-          textAlign='left'
-          color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-          fontSize={isSm ? 'xl' : '2xl'}
-          fontWeight='semibold'>
-          {label}
+        <Center>
+          <Text
+            textAlign='left'
+            color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+            fontSize={isSm ? 'xl' : '2xl'}
+            fontWeight='semibold'>
+            {label}
+          </Text>
           <Badge
             label={`${
               (credits.cast?.movie?.length || 0) +
@@ -62,7 +65,7 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
             size={isSm ? 'md' : 'lg'}
             ml={isSm ? 1 : 2}
           />
-        </Text>
+        </Center>
         <Icon
           as={KeyboardArrowDownOutlinedIcon}
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}

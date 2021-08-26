@@ -2,11 +2,14 @@ import { ReactElement } from 'react';
 
 import { TooltipProps as CUITooltipProps } from '@chakra-ui/react';
 
+import { ColorMode } from '../../common/types/types';
+
 type Delay = number | null;
 
 export type TooltipProps = {
   'children': ReactElement;
   'aria-label': string;
+  'colorMode'?: ColorMode;
   'isOpen': boolean;
   'closeDelay'?: Delay;
   'openDelay'?: Delay;

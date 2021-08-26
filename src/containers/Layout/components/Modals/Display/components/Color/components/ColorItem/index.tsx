@@ -19,10 +19,12 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
   return (
     <Tooltip
       aria-label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
+      colorMode={background}
       isOpen={isHovering}
       isDisabled={isActive}
       label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
       placement='top'
+      shouldWrapChildren
       gutter={8}>
       <Card
         color={isActive ? utils.handleReturnColor(value) : 'gray'}

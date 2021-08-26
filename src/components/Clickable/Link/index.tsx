@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 
 import { Link as CUILink, useTheme } from '@chakra-ui/react';
-import _ from 'lodash';
 import { Link as RRDLink } from 'react-router-dom';
 
 import { Theme } from '../../../theme/types';

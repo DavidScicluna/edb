@@ -33,7 +33,7 @@ const Card = (props: CardProps): ReactElement => {
       {...rest}
       divider={hasDivider ? <Divider colorMode={mode} /> : undefined}
       spacing={0}
-      sx={{ ..._.merge(style.card, style[mode][variant]) }}>
+      sx={{ ..._.merge(style.card[variant], style[mode][variant]) }}>
       {children.header?.title || children.header?.actions ? (
         <Header {...box?.header} actions={children.header.actions} colorMode={mode} title={children.header.title} />
       ) : null}

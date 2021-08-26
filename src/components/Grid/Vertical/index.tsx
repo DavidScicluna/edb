@@ -11,7 +11,7 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
   return (
     <VStack width='100%' spacing={0}>
       {/* Header */}
-      <Header title={title} header={header} />
+      {title || header ? <Header title={title} header={header} /> : null}
 
       {children}
     </VStack>

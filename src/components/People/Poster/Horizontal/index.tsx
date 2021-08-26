@@ -27,7 +27,11 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
         }
       }}
       title={person?.name || ''}
-      subtitle={departments.find((department) => department.value === person?.known_for_department)?.name || ''}
+      subtitle={
+        departments.find((department) => department.value === person?.known_for_department)?.name ||
+        person?.known_for_department ||
+        ''
+      }
       description={handleKnownFor()} // TODO: Add a Link component and on click open item page
       isLoading={isLoading}
     />

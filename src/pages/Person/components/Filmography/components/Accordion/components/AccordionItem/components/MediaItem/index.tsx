@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Link as CUILink, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Center, Link as CUILink, Text } from '@chakra-ui/react';
 import moment from 'moment';
 
 import useSelector from '../../../../../../../../../../common/hooks/useSelectorTyped';
 import utils from '../../../../../../../../../../common/utils/utils';
+import Badge from '../../../../../../../../../../components/Badge';
 import Link from '../../../../../../../../../../components/Clickable/Link';
 import { Theme } from '../../../../../../../../../../theme/types';
-import Badge from '../Badge';
 import { MediaItemProps } from './types';
 
 const MediaItem = (props: MediaItemProps): ReactElement => {
@@ -33,24 +33,26 @@ const MediaItem = (props: MediaItemProps): ReactElement => {
     <HStack justifyContent='space-between' width='100%' spacing={2}>
       <VStack alignItems='flex-start' spacing={0}>
         <HStack spacing={2}>
-          <Link to={{ pathname: `/${mediaType}/${id}` }}>
-            <CUILink
-              align='left'
-              color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-              fontSize={isSm ? 'sm' : 'md'}
-              fontWeight='semibold'
-              sx={{
-                transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
-              }}
-              _hover={{ color: `${color}.400` }}>
-              {`${title}  `}
-              {!date ? (
-                <Badge label='Announced' color={utils.handleReturnColor(color)} size={isSm ? 'xs' : 'sm'} />
-              ) : date && handleIfDateIsFuture(date) ? (
-                <Badge label='In Production' color={utils.handleReturnColor(color)} size={isSm ? 'xs' : 'sm'} />
-              ) : null}
-            </CUILink>
-          </Link>
+          <Center>
+            <Link to={{ pathname: `/${mediaType}/${id}` }}>
+              <CUILink
+                align='left'
+                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                fontSize={isSm ? 'sm' : 'md'}
+                fontWeight='semibold'
+                sx={{
+                  transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+                }}
+                _hover={{ color: `${color}.400` }}>
+                {`${title}  `}
+              </CUILink>
+            </Link>
+            {!date ? (
+              <Badge label='Announced' color={utils.handleReturnColor(color)} size={isSm ? 'xs' : 'sm'} ml={1} />
+            ) : date && handleIfDateIsFuture(date) ? (
+              <Badge label='In Production' color={utils.handleReturnColor(color)} size={isSm ? 'xs' : 'sm'} ml={1} />
+            ) : null}
+          </Center>
         </HStack>
 
         <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize={isSm ? 'xs' : 'sm'}>

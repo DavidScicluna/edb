@@ -24,6 +24,11 @@ const departments: Department[] = [
     id: 4,
     name: 'Writer',
     value: 'Writing'
+  },
+  {
+    id: 5,
+    name: 'Cinematography',
+    value: 'Camera'
   }
 ];
 
