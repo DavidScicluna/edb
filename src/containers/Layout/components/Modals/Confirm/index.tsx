@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../common/hooks';
 import Modal from '../../../../../components/Modal';
 import { toggleConfirm } from '../../../../../store/slices/Modals';
 

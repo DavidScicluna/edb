@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { useColorMode, VStack, Box } from '@chakra-ui/react';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import Link from '../../../../components/Clickable/Link';
 import NavItem from '../../../../components/NavItem';
 import Logo from '../Logo';

@@ -19,7 +19,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import { Genre, MediaType, SortBy } from '../../common/types/types';
 import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';

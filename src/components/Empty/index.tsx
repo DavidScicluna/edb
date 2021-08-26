@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useColorMode, useBreakpointValue, VStack, Image, Text, Fade } from '@chakra-ui/react';
 
 import * as empty from '../../common/assets/illustrations/empty';
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import Card from '../Card';
 import { EmptyProps } from './types';
 

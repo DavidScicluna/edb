@@ -14,7 +14,7 @@ import {
   peopleSortBy,
   likedListsPeopleSortBy
 } from '../../common/data/sort';
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import utils from '../../common/utils/utils';
 import Modal from '../../components/Modal';
 import { toggleDisplayMode, toggleSortDirection } from '../../store/slices/App';

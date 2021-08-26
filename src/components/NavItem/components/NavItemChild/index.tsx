@@ -4,7 +4,7 @@ import { useTheme, useColorMode, useBoolean, HStack, Text, Box } from '@chakra-u
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import Link from '../../../../components/Clickable/Link';
 import { Theme } from '../../../../theme/types';
 import Tooltip from '../../../Tooltip';

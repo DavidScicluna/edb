@@ -7,7 +7,7 @@ import {
 } from '@material-ui/icons';
 import moment from 'moment';
 
-import useSelector from '../../../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../../../common/hooks';
 import utils from '../../../../../../../common/utils/utils';
 import Card from '../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../theme/types';

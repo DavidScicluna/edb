@@ -1,10 +1,10 @@
 import React, { ReactElement, useState, useCallback } from 'react';
 
-import { useColorMode, VStack, ScaleFade } from '@chakra-ui/react';
+import { VStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
 import { setRecentSearches } from '../../../../store/slices/User';

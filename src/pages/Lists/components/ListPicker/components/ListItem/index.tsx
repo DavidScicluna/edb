@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../../common/hooks';
 import utils from '../../../../../../common/utils/utils';
 import Card from '../../../../../../components/Clickable/Card';
 import Radio from '../../../../../../components/Clickable/Radio';

@@ -4,7 +4,7 @@ import { useColorMode, VStack } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../common/hooks';
 import utils from '../../../../../common/utils/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';

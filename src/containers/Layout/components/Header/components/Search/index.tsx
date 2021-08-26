@@ -5,7 +5,7 @@ import { SearchOutlined as SearchOutlinedIcon } from '@material-ui/icons/';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../../common/hooks';
 import { PartialMovie } from '../../../../../../common/types/movie';
 import { PartialPerson } from '../../../../../../common/types/person';
 import { PartialTV } from '../../../../../../common/types/tv';

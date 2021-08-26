@@ -8,7 +8,7 @@ import {
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import { setLiked } from '../../store/slices/User';
 import Button from '../Clickable/Button';
 import IconButton from '../Clickable/IconButton';

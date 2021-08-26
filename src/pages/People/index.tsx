@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
 import { Department } from '../../common/data/departments';
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import axiosInstance from '../../common/scripts/axios';
 import { PartialPerson } from '../../common/types/person';
 import { Response, SortBy } from '../../common/types/types';

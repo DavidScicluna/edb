@@ -8,7 +8,7 @@ import { useInfiniteQuery } from 'react-query';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Department } from '../../common/data/departments';
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import axiosInstance from '../../common/scripts/axios';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';

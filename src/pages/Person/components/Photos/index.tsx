@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import { Image as ImageType } from '../../../../common/types/person';
 import utils from '../../../../common/utils/utils';
 import Button from '../../../../components/Clickable/Button';

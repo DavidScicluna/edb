@@ -6,7 +6,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 
-import useSelector from '../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../common/hooks';
 import axiosInstance from '../../../common/scripts/axios';
 import { PartialMovie } from '../../../common/types/movie';
 import { Response, SortBy, Genre } from '../../../common/types/types';

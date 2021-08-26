@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import { PartialTV } from '../../../../common/types/tv';
 import Empty from '../../../Empty';
 import Error from '../../../Error';

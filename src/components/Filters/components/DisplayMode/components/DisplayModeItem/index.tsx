@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { useTheme, HStack, Icon, Text } from '@chakra-ui/react';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../../common/hooks';
 import utils from '../../../../../../common/utils/utils';
 import { Theme } from '../../../../../../theme/types';
 import Card from '../../../../../Clickable/Card';

@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../common/hooks';
 import axiosInstance from '../../../common/scripts/axios';
 import { PartialTV } from '../../../common/types/tv';
 import { Response, SortBy, Genre } from '../../../common/types/types';

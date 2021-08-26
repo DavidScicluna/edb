@@ -4,7 +4,7 @@ import { useColorMode, useMediaQuery, VStack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import axiosInstance from '../../common/scripts/axios';
 import { PartialTV } from '../../common/types/tv';
 import { Response } from '../../common/types/types';

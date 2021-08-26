@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useColorMode, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../common/hooks';
 import utils from '../../../../../common/utils/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';

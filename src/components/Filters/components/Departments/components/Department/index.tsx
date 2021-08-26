@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../../common/hooks';
 import utils from '../../../../../../common/utils/utils';
 import Button from '../../../../../Clickable/Button';
 import { DepartmentProps } from './types';

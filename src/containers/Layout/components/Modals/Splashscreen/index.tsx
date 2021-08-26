@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../common/hooks';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
 import useStyles from './styles';
 

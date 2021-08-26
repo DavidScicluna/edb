@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useColorMode, useMediaQuery, VStack, Text, Fade, Collapse } from '@chakra-ui/react';
 import queryString from 'query-string';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import utils from '../../../../common/utils/utils';
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';

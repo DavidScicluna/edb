@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { useColorMode, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import utils from '../../common/utils/utils';
 import Button from '../Clickable/Button';
 import { LoadMoreProps } from './types';

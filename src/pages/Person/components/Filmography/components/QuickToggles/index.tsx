@@ -4,7 +4,7 @@ import { useColorMode, HStack, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Link } from 'react-scroll';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../../common/hooks';
 import utils from '../../../../../../common/utils/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';

@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Center, Link as CUILink, Text } from '@chakra-ui/react';
 import moment from 'moment';
 
-import useSelector from '../../../../../../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../../../../../../common/hooks';
 import utils from '../../../../../../../../../../common/utils/utils';
 import Badge from '../../../../../../../../../../components/Badge';
 import Link from '../../../../../../../../../../components/Clickable/Link';

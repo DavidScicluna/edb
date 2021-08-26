@@ -4,7 +4,7 @@ import { useMediaQuery, Box, VStack, HStack } from '@chakra-ui/react';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import Modal from '../../../../components/Modal';
 import { List } from '../../../../store/slices/User/types';
 import ListItem from './components/ListItem';

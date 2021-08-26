@@ -3,7 +3,7 @@ import useEventListener from './useEventListener';
 import useImageOnLoad from './useImageOnLoad';
 import useInterval from './useInterval';
 import useQueriesTyped from './useQueriesTyped';
-import useSelectorTyped from './useSelectorTyped';
+import useSelector from './useSelectorTyped';
 import useTimeout from './useTimeout';
 import useWindowSize from './useWindowSize';
 
@@ -13,7 +13,7 @@ export {
   useImageOnLoad,
   useInterval,
   useQueriesTyped,
-  useSelectorTyped,
+  useSelector,
   useTimeout,
   useWindowSize
 };

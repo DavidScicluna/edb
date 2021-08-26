@@ -15,7 +15,7 @@ import arraySort from 'array-sort';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Department } from '../../common/data/departments';
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import { Genre, MediaType, SortBy } from '../../common/types/types';
 import utils from '../../common/utils/utils';
 import Badge from '../../components/Badge';

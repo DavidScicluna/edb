@@ -5,7 +5,7 @@ import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
 import { toggleSidebarMode } from '../../../../store/slices/App';
 import { Theme } from '../../../../theme/types';

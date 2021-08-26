@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { Wrap, WrapItem } from '@chakra-ui/react';
 import { Controller } from 'react-hook-form';
 
-import useSelector from '../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../common/hooks';
 import { Genre as GenreType } from '../../../../common/types/types';
 import Button from '../../../../components/Clickable/Button';
 import Container from '../Container';

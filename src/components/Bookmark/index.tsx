@@ -7,7 +7,7 @@ import {
 } from '@material-ui/icons/';
 import { useDispatch } from 'react-redux';
 
-import useSelector from '../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../common/hooks';
 import utils from '../../common/utils/utils';
 import { toggleList } from '../../store/slices/Modals';
 import { setLists } from '../../store/slices/User';

@@ -4,7 +4,7 @@ import { useTheme, useColorMode, Text, HStack, ScaleFade, Icon, Button } from '@
 import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
 import _ from 'lodash';
 
-import useSelector from '../../../../../../common/hooks/useSelectorTyped';
+import { useSelector } from '../../../../../../common/hooks';
 import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
 import { SortByItemProps } from './types';

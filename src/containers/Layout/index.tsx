@@ -4,8 +4,8 @@ import { useTheme, useMediaQuery, Box } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+import { useSelector } from '../../common/hooks';
 import useQueriesTyped from '../../common/hooks/useQueriesTyped';
-import useSelector from '../../common/hooks/useSelectorTyped';
 import axiosInstance from '../../common/scripts/axios';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { setMovieGenres, setTVGenres, toggleHasDownloaded } from '../../store/slices/Options';
