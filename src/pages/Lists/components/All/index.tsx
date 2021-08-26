@@ -24,7 +24,7 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-          fontSize='2xl'
+          fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
           textTransform='capitalize'>
           {title}
