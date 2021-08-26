@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { MediaType, Image as ImageProps, Rating as RatingProps } from '../../../common/types/types';
 import { MediaItem } from '../../../store/slices/User/types';
 
@@ -8,6 +10,6 @@ export type HorizontalPosterProps<MT extends MediaType> = {
   rating?: RatingProps;
   title: string;
   subtitle: string;
-  description: string;
+  description: string | ReactElement;
   isLoading: boolean;
 };

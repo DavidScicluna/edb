@@ -1,18 +1,25 @@
 import React, { ReactElement } from 'react';
 
+import { useColorMode, Text, useTheme, HStack } from '@chakra-ui/react';
 import arraySort from 'array-sort';
 
 import departments from '../../../../common/data/departments';
+import { useSelector } from '../../../../common/hooks';
+import utils from '../../../../common/utils/utils';
+import { Theme } from '../../../../theme/types';
+import Link from '../../../Clickable/Link';
+import HorizontalScroll from '../../../HorizontalScroll';
 import HorizontalPoster from '../../../Poster/Horizontal';
+import SkeletonText from '../../../Skeleton/Text';
 import { PosterProps } from '../types';
 
-const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactElement => {
-  const handleKnownFor = (): string => {
-    const knownFor = arraySort(person?.known_for || [], 'vote_average');
-    const names: string[] = knownFor.map((item) => item.title || item.name || '');
+const dummyTextWidths = utils.handleReturnDummyWidths(100, 10);
 
-    return names.join(', ');
-  };
+const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactElement => {
+  const theme = useTheme<Theme>();
+  const { colorMode } = useColorMode();
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   return (
     <HorizontalPoster
@@ -32,7 +39,45 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
         person?.known_for_department ||
         ''
       }
-      description={handleKnownFor()} // TODO: Add a Link component and on click open item page
+      description={
+        <HorizontalScroll>
+          <HStack
+            divider={
+              <Text
+                align='left'
+                fontSize={['sm', 'md', 'lg', 'xl']}
+                color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+                pr={0.75}>
+                ,
+              </Text>
+            }>
+            {arraySort(person?.known_for || [], 'vote_average').map((mediaItem) => (
+              <Link
+                key={mediaItem.id}
+                to={{ pathname: `/${mediaItem?.title ? 'movie' : mediaItem?.name ? 'tv' : ''}/${mediaItem.id}` }}>
+                <SkeletonText
+                  width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
+                  offsetY={8.5}
+                  isLoaded={!isLoading}>
+                  <Text
+                    align='left'
+                    fontSize={['sm', 'md', 'lg', 'xl']}
+                    color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+                    isTruncated
+                    overflow='hidden'
+                    whiteSpace='nowrap'
+                    sx={{
+                      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+                    }}
+                    _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
+                    {!isLoading ? mediaItem?.title || mediaItem?.name || '' : 'Lorem ipsum dolor'}
+                  </Text>
+                </SkeletonText>
+              </Link>
+            ))}
+          </HStack>
+        </HorizontalScroll>
+      }
       isLoading={isLoading}
     />
   );

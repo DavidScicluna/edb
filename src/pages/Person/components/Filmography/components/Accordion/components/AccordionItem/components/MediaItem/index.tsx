@@ -43,7 +43,7 @@ const MediaItem = (props: MediaItemProps): ReactElement => {
                 sx={{
                   transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
                 }}
-                _hover={{ color: `${color}.400` }}>
+                _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
                 {`${title}  `}
               </CUILink>
             </Link>

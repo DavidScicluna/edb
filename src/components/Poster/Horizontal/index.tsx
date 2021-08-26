@@ -72,16 +72,19 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               <Subtitle subtitle={subtitle} isLoading={isLoading} />
             </VStack>
 
-            <Box width='100%'>
-              <Box
-                onMouseEnter={() => setIsHoveringDescription.on()}
-                onMouseLeave={() => setIsHoveringDescription.off()}>
+            <Box
+              width='100%'
+              onMouseEnter={() => setIsHoveringDescription.on()}
+              onMouseLeave={() => setIsHoveringDescription.off()}>
+              {typeof description === 'string' ? (
                 <Description
                   mediaType={mediaType}
                   mediaItem={{ id: mediaItem?.id || -1, title, description }}
                   isLoading={isLoading}
                 />
-              </Box>
+              ) : (
+                description
+              )}
             </Box>
           </VStack>
 
