@@ -144,7 +144,7 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
           isCurrentPage={index === breadcrumbs.length - 1}
           fontSize={['sm', 'sm', 'md', 'md', 'md', 'md']}
           sx={{ ...style.common.breadcrumbItem }}>
-          <SkeletonText isLoaded={!breadcrumb.isLoading}>
+          <SkeletonText offsetY={8} isLoaded={!breadcrumb.isLoading}>
             {index === breadcrumbs.length - 1 ? (
               <Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
                 {breadcrumb.label || ''}

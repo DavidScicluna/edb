@@ -37,14 +37,6 @@ const Rating = (props: RatingProps): ReactElement => {
     'xl': theme.fontSizes['2xl'],
     '2xl': theme.fontSizes['3xl']
   });
-  const fontSize = useBreakpointValue({
-    'base': theme.fontSizes['sm'],
-    'sm': theme.fontSizes['sm'],
-    'md': theme.fontSizes['md'],
-    'lg': theme.fontSizes['lg'],
-    'xl': theme.fontSizes['lg'],
-    '2xl': theme.fontSizes['xl']
-  });
 
   return (
     <Center backgroundColor='transparent' p={0}>
@@ -55,10 +47,10 @@ const Rating = (props: RatingProps): ReactElement => {
           fontSize: `${isHorizontal ? iconSize : theme.fontSizes.xl} !important`
         }}
       />
-      <SkeletonText offsetY={19} isLoaded={!isLoading} ml={0.5}>
+      <SkeletonText offsetY={8} isLoaded={!isLoading} ml={0.5}>
         <Text
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-          fontSize={isHorizontal ? fontSize : 'md'}
+          fontSize={isHorizontal ? ['sm', 'sm', 'md', 'lg', 'lg', 'xl'] : 'md'}
           fontWeight='medium'
           sx={{ lineHeight: 'normal' }}>
           {rating.rating || 'N/A'}

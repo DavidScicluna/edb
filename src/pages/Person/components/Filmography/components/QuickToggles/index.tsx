@@ -61,7 +61,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
             <SkeletonText
               width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
               height='28px'
-              offsetY={28}
+              offsetY={14}
             />
 
             {index < 3 ? (

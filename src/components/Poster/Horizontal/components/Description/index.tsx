@@ -31,7 +31,7 @@ const Description = (props: DescriptionProps): ReactElement => {
   return (
     <SkeletonText
       width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
-      offsetY={23}
+      offsetY={8.5}
       isLoaded={!isLoading}>
       <Text
         ref={handleIsTruncated}

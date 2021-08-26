@@ -27,7 +27,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
   return (
     <SkeletonText
       width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
-      offsetY={14}
+      offsetY={6}
       isLoaded={!isLoading}>
       <Text
         ref={handleIsTruncated}

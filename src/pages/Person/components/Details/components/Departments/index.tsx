@@ -45,7 +45,7 @@ const Departments = (props: DepartmentsProps): ReactElement => {
             <SkeletonText
               width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
               height='19px'
-              offsetY={19}
+              offsetY={9.5}
             />
 
             {index < 3 ? (

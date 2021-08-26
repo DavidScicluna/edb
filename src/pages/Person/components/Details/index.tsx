@@ -78,7 +78,7 @@ const Details = (props: DetailsProps): ReactElement => {
               alignItems='flex-start'
               spacing={2}>
               <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-                <SkeletonText offsetY={isSm ? 28 : 42} isLoaded={!isLoading}>
+                <SkeletonText offsetY={isSm ? 12 : 18} isLoaded={!isLoading}>
                   <Text
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
@@ -92,7 +92,7 @@ const Details = (props: DetailsProps): ReactElement => {
               </VStack>
 
               <ScaleFade in={!isError} unmountOnExit>
-                <SkeletonText offsetY={16} isLoaded={!isLoading}>
+                <SkeletonText offsetY={7} isLoaded={!isLoading}>
                   <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
                     {`Born on ${moment(person?.birthday || '', 'YYYY-MM-DD').format('LL')}${
                       person?.place_of_birth ? ` in ${person?.place_of_birth}` : ''
