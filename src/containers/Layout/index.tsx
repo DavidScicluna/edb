@@ -10,7 +10,7 @@ import axiosInstance from '../../common/scripts/axios';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { setMovieGenres, setTVGenres, toggleHasDownloaded } from '../../store/slices/Options';
 import { Theme } from '../../theme/types';
-import { sidebarWidth } from './common/data/sidebar';
+import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
 import Header from './components/Header';
 import ConfirmModal from './components/Modals/Confirm';
@@ -93,7 +93,13 @@ const Layout = (): ReactElement => {
       {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
       <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
         <Header width={width} left={left} />
-        <Box width='100%' maxWidth='100%' position='relative' top='66px' left='0px' pb={4} sx={{ ...transition }}>
+        <Box
+          width='100%'
+          maxWidth='100%'
+          position='relative'
+          top={`${headerHeight}px`}
+          left='0px'
+          sx={{ ...transition }}>
           <Routes />
         </Box>
 

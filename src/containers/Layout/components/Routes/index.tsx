@@ -2,8 +2,12 @@ import React, { ReactElement, useEffect } from 'react';
 
 import { Box } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useLocation, Switch, Route } from 'react-router-dom';
+import { useHistory, useLocation, Switch, Route } from 'react-router-dom';
 
+import { useSelector } from '../../../../common/hooks';
+import utils from '../../../../common/utils/utils';
+import Button from '../../../../components/Clickable/Button';
+import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';
 import Liked from '../../../../pages/Liked';
 import Lists from '../../../../pages/Lists';
@@ -40,10 +44,15 @@ const Page = ({ children }: { children: ReactElement }): ReactElement => {
 };
 
 const Routes = (): ReactElement => {
+  const history = useHistory();
   const location = useLocation();
 
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   useEffect(() => {
-    document.scrollingElement?.scrollTo(0, 0);
+    if (!location.pathname.includes('search')) {
+      document.scrollingElement?.scrollTo(0, 0);
+    }
   }, [location]);
 
   return (
@@ -167,6 +176,34 @@ const Routes = (): ReactElement => {
         <Route exact path='/person/:id'>
           <Page>
             <Person />
+          </Page>
+        </Route>
+
+        <Route>
+          <Page>
+            <Error
+              code={404}
+              title='Page not found!'
+              subtitle='Please check the URL in the address bar and try again.'
+              actions={
+                <>
+                  <Button
+                    color={utils.handleReturnColor(color)}
+                    onClick={() => history.push({ pathname: '/' })}
+                    variant='outlined'>
+                    Go back home
+                  </Button>
+                  <Button
+                    color={utils.handleReturnColor(color)}
+                    onClick={() => {
+                      window.location.reload();
+                      return false;
+                    }}>
+                    Try again
+                  </Button>
+                </>
+              }
+            />
           </Page>
         </Route>
       </Switch>
