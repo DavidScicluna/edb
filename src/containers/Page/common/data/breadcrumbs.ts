@@ -10,6 +10,11 @@ const search = {
   to: { pathname: '/search' }
 };
 
+const trending = {
+  label: 'Trending',
+  to: { pathname: '/trending' }
+};
+
 const movies: Breadcrumb = {
   label: 'Movies',
   to: { pathname: '/movies' }
@@ -35,26 +40,9 @@ const lists = {
   to: { pathname: '/lists' }
 };
 
-// '/trending': {
-//   label: 'Trending',
-//   consistsOf: ['/', '/trending']
-// },
-// '/trending/movie': {
-//   label: 'Movies',
-//   consistsOf: ['/', '/trending', '/trending/movie']
-// },
-// '/trending/tv': {
-//   label: 'TV Shows',
-//   consistsOf: ['/', '/trending', '/trending/tv']
-// },
-// '/trending/person': {
-//   label: 'People',
-//   consistsOf: ['/', '/trending', '/trending/person']
-// },
-
 // '/person/:id': {
 //   label: 'Person',
 //   consistsOf: ['/', '/people', '/person/:id']
 // }
 
-export { home, search, movies, tv, people, liked, lists };
+export { home, search, trending, movies, tv, people, liked, lists };

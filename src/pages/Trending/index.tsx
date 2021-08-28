@@ -24,6 +24,9 @@ import MediaTypes from '../../components/MediaTypePicker/components/MediaTypes';
 import VerticalMovies from '../../components/Movies/Grid/Vertical';
 import VerticalPeople from '../../components/People/Grid/Vertical';
 import VerticalTV from '../../components/TV/Grid/Vertical';
+import Page from '../../containers/Page';
+import { home, trending } from '../../containers/Page/common/data/breadcrumbs';
+import { Breadcrumb } from '../../containers/Page/types';
 
 const Trending = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -209,6 +212,37 @@ const Trending = (): ReactElement => {
     setMediaType(undefined);
   };
 
+  const handleReturnBreadcrumbs = (): Breadcrumb[] => {
+    const breadcrumbs: Breadcrumb[] = [home, trending];
+
+    if (mediaType) {
+      switch (mediaType) {
+        case 'person':
+          breadcrumbs.push({
+            label: 'People',
+            to: { pathname: '/search/person' }
+          });
+          break;
+        case 'tv':
+          breadcrumbs.push({
+            label: 'TV Shows',
+            to: { pathname: '/search/tv' }
+          });
+          break;
+        case 'movie':
+          breadcrumbs.push({
+            label: 'Movies',
+            to: { pathname: '/search/movie' }
+          });
+          break;
+        default:
+          break;
+      }
+    }
+
+    return breadcrumbs;
+  };
+
   useEffect(() => {
     handleResetState();
 
@@ -237,105 +271,112 @@ const Trending = (): ReactElement => {
 
   return (
     <>
-      <VerticalGrid
+      <Page
         title={
           mediaType
             ? `Trending ${mediaType === 'movie' ? 'Movies' : mediaType === 'person' ? 'People' : 'TV Shows' || ''}`
-            : 'Select media-type'
+            : 'Trending'
         }
-        header={
-          <Fade in={!!mediaType} unmountOnExit>
-            <HStack spacing={2}>
-              <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
-                Change media-type
-              </Button>
+        breadcrumbs={handleReturnBreadcrumbs()}>
+        {{
+          actions: (
+            <Fade in={!!mediaType} unmountOnExit>
+              <HStack spacing={2}>
+                <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
+                  Change media-type
+                </Button>
+                {mediaType ? (
+                  <Filters mediaType={mediaType} isDisabled={handleDisabledFilters()} onFilter={handleSetFilters} />
+                ) : null}
+              </HStack>
+            </Fade>
+          ),
+          body: (
+            <VerticalGrid>
               {mediaType ? (
-                <Filters mediaType={mediaType} isDisabled={handleDisabledFilters()} onFilter={handleSetFilters} />
-              ) : null}
-            </HStack>
-          </Fade>
-        }>
-        {mediaType ? (
-          <VStack width='100%' spacing={4} px={2}>
-            {mediaType === 'movie' ? (
-              <>
-                <VerticalMovies
-                  isError={trendingMovies.isError}
-                  isSuccess={trendingMovies.isSuccess && !trendingMovies.isFetching && !trendingMovies.isLoading}
-                  movies={movies?.results || []}
-                />
+                <VStack width='100%' spacing={4} px={2} pt={2}>
+                  {mediaType === 'movie' ? (
+                    <>
+                      <VerticalMovies
+                        isError={trendingMovies.isError}
+                        isSuccess={trendingMovies.isSuccess && !trendingMovies.isFetching && !trendingMovies.isLoading}
+                        movies={movies?.results || []}
+                      />
 
-                {movies ? (
-                  <LoadMore
-                    amount={movies.results.length}
-                    total={movies.total_results}
-                    mediaType='movies'
-                    isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
-                    isError={trendingMovies.isError}
-                    hasNextPage={trendingMovies.hasNextPage || true}
-                    onFetch={trendingMovies.fetchNextPage}
-                  />
-                ) : null}
-              </>
-            ) : mediaType === 'tv' ? (
-              <>
-                <VerticalTV
-                  isError={trendingTV.isError}
-                  isSuccess={trendingTV.isSuccess && !trendingTV.isFetching && !trendingTV.isLoading}
-                  tv={tv?.results || []}
-                />
+                      {movies ? (
+                        <LoadMore
+                          amount={movies.results.length}
+                          total={movies.total_results}
+                          mediaType='movies'
+                          isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
+                          isError={trendingMovies.isError}
+                          hasNextPage={trendingMovies.hasNextPage || true}
+                          onFetch={trendingMovies.fetchNextPage}
+                        />
+                      ) : null}
+                    </>
+                  ) : mediaType === 'tv' ? (
+                    <>
+                      <VerticalTV
+                        isError={trendingTV.isError}
+                        isSuccess={trendingTV.isSuccess && !trendingTV.isFetching && !trendingTV.isLoading}
+                        tv={tv?.results || []}
+                      />
 
-                {tv ? (
-                  <LoadMore
-                    amount={tv.results.length}
-                    total={tv.total_results}
-                    mediaType='tv shows'
-                    isLoading={trendingTV.isFetching || trendingTV.isLoading}
-                    isError={trendingTV.isError}
-                    hasNextPage={trendingTV.hasNextPage || true}
-                    onFetch={trendingTV.fetchNextPage}
-                  />
-                ) : null}
-              </>
-            ) : mediaType === 'person' ? (
-              <>
-                <VerticalPeople
-                  isError={trendingPeople.isError}
-                  isSuccess={trendingPeople.isSuccess && !trendingPeople.isFetching && !trendingPeople.isLoading}
-                  people={people?.results || []}
-                />
+                      {tv ? (
+                        <LoadMore
+                          amount={tv.results.length}
+                          total={tv.total_results}
+                          mediaType='tv shows'
+                          isLoading={trendingTV.isFetching || trendingTV.isLoading}
+                          isError={trendingTV.isError}
+                          hasNextPage={trendingTV.hasNextPage || true}
+                          onFetch={trendingTV.fetchNextPage}
+                        />
+                      ) : null}
+                    </>
+                  ) : mediaType === 'person' ? (
+                    <>
+                      <VerticalPeople
+                        isError={trendingPeople.isError}
+                        isSuccess={trendingPeople.isSuccess && !trendingPeople.isFetching && !trendingPeople.isLoading}
+                        people={people?.results || []}
+                      />
 
-                {people ? (
-                  <LoadMore
-                    amount={people.results.length}
-                    total={people.total_results}
-                    mediaType='people'
-                    isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
-                    isError={trendingPeople.isError}
-                    hasNextPage={trendingPeople.hasNextPage || true}
-                    onFetch={trendingPeople.fetchNextPage}
+                      {people ? (
+                        <LoadMore
+                          amount={people.results.length}
+                          total={people.total_results}
+                          mediaType='people'
+                          isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
+                          isError={trendingPeople.isError}
+                          hasNextPage={trendingPeople.hasNextPage || true}
+                          onFetch={trendingPeople.fetchNextPage}
+                        />
+                      ) : null}
+                    </>
+                  ) : null}
+                </VStack>
+              ) : (
+                <Box width='100%' px={2} pt={2}>
+                  <Empty
+                    button={
+                      <MediaTypes
+                        mediaType={mediaType}
+                        onSetType={(mediaType: MediaType) => history.push({ pathname: `/trending/${mediaType}` })}
+                      />
+                    }
+                    hasIllustration={false}
+                    label=''
+                    size='xl'
+                    variant='outlined'
                   />
-                ) : null}
-              </>
-            ) : null}
-          </VStack>
-        ) : (
-          <Box width='100%' px={2}>
-            <Empty
-              button={
-                <MediaTypes
-                  mediaType={mediaType}
-                  onSetType={(mediaType: MediaType) => history.push({ pathname: `/trending/${mediaType}` })}
-                />
-              }
-              hasIllustration={false}
-              label=''
-              size='xl'
-              variant='outlined'
-            />
-          </Box>
-        )}
-      </VerticalGrid>
+                </Box>
+              )}
+            </VerticalGrid>
+          )
+        }}
+      </Page>
 
       <MediaTypePicker
         mediaType={mediaType}
