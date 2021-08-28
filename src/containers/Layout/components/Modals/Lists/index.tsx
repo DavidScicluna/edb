@@ -78,7 +78,7 @@ const ListsModal = (): ReactElement => {
   return (
     <>
       <Modal
-        title={`Add "${listsModal.title} to a list`}
+        title={`Add "${listsModal.title}" to a list`}
         actions={
           selected.length > 0 ? (
             <Button color={utils.handleReturnColor(color)} onClick={() => handleSaveItem()} size='sm'>

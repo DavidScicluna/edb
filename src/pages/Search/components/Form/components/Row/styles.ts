@@ -1,5 +1,5 @@
-import { Style } from '../../../../common/types/types';
-import { Theme } from '../../../../theme/types';
+import { Style } from '../../../../../../common/types/types';
+import { Theme } from '../../../../../../theme/types';
 import { RowProps } from './types';
 
 type RowStyle = {
@@ -21,13 +21,13 @@ export default (theme: Theme, type?: RowProps['type']): RowStyle => ({
 
     'borderRadius': theme.radii.base,
 
-    'transition': `${theme.transition.duration['ultra-fast']} ${theme.transition.easing['ease-in-out']}`,
+    'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
     '& .chakra-icon': {
-      transition: `${theme.transition.duration['ultra-fast']} ${theme.transition.easing['ease-in-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
     '& .chakra-text': {
-      transition: `${theme.transition.duration['ultra-fast']} ${theme.transition.easing['ease-in-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     }
   },
   light: {

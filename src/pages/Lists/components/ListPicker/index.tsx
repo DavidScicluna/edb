@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 
 import { useMediaQuery, Box, VStack, HStack } from '@chakra-ui/react';
-import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
@@ -19,8 +18,7 @@ const MediaTypePicker = ({ activeList, isOpen, onClose }: ListPickerProps): Reac
 
   const handleClick = (id: List['id']): void => {
     history.push({
-      pathname: `/lists/${id}`,
-      search: queryString.stringify({ ...queryString.parse(history.location.search) })
+      pathname: `/lists/${id}`
     });
 
     onClose();

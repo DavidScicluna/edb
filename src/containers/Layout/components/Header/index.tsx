@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 import { Theme } from '../../../../theme/types';
 import useTransitionsStyle from '../../common/styles/transitions';
 import Menu from './components/Menu';
-import Search from './components/Search';
 import User from './components/User';
 import { HeaderProps } from './types';
 
@@ -36,12 +35,8 @@ const Header = (props: HeaderProps): ReactElement => {
       py={1}
       sx={{ ...transition }}>
       {!isLgUp ? <Menu /> : null}
-      <HStack spacing={1}>
-        <ScaleFade in={!location.pathname.includes('search')}>
-          <Search />
-        </ScaleFade>
-        <User />
-      </HStack>
+
+      <User />
     </HStack>
   );
 };

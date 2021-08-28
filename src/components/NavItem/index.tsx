@@ -63,10 +63,10 @@ const NavItem = (props: NavItemType): ReactElement => {
   );
 
   useEffect(() => {
-    if (isActive || isChildActive) {
+    if ((isActive || isChildActive) && !isChildrenOpen) {
       handleToggleChildren();
     }
-  }, [isActive, isChildActive]);
+  }, [isActive, isChildActive, isChildrenOpen]);
 
   useEffect(() => {
     if (isChildrenOpen) {

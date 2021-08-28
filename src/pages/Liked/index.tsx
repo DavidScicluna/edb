@@ -316,7 +316,7 @@ const Liked = (): ReactElement => {
                       )}
                     </SimpleGrid>
                   ) : (
-                    <Box width='100%' px={2} py={0}>
+                    <Box width='100%' px={2} pt={2}>
                       <Empty label='You have no liked nobody!' variant='outlined' size='xl' />
                     </Box>
                   )
@@ -324,7 +324,7 @@ const Liked = (): ReactElement => {
                   <All movies={movies} tv={tv} people={people} />
                 )
               ) : (
-                <Box width='100%' px={2} py={0}>
+                <Box width='100%' px={2} pt={2}>
                   <Empty label='You have no liked items!' variant='outlined' size='xl' />
                 </Box>
               )}

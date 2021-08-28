@@ -5,6 +5,11 @@ const home: Breadcrumb = {
   to: { pathname: '/' }
 };
 
+const search = {
+  label: 'Search',
+  to: { pathname: '/search' }
+};
+
 const movies: Breadcrumb = {
   label: 'Movies',
   to: { pathname: '/movies' }
@@ -30,10 +35,6 @@ const lists = {
   to: { pathname: '/lists' }
 };
 
-// '/search': {
-//   label: 'Search',
-//   consistsOf: ['/', '/search']
-// },
 // '/trending': {
 //   label: 'Trending',
 //   consistsOf: ['/', '/trending']
@@ -56,4 +57,4 @@ const lists = {
 //   consistsOf: ['/', '/people', '/person/:id']
 // }
 
-export { home, movies, tv, people, liked, lists };
+export { home, search, movies, tv, people, liked, lists };
