@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form';
 import { useSelector } from '../../../../common/hooks';
 import { Genre as GenreType } from '../../../../common/types/types';
 import Button from '../../../../components/Clickable/Button';
-import Container from '../Container';
+import Card from '../../../Card';
 import Genre from './components/Genre';
 import { GenresProps } from './types';
 
@@ -49,37 +49,43 @@ const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
       control={form.control}
       name='genres'
       render={({ field: { value } }) => (
-        <Container
-          title='Genres'
-          actions={
-            <Button onClick={() => handleAllClick()} size='sm' variant='text'>
-              {handleAllLabel()}
-            </Button>
-          }>
-          <Wrap width='100%' spacing={1}>
-            {mediaType === 'movie'
-              ? movieGenres.map((genre) => (
-                  <WrapItem key={genre.id}>
-                    <Genre
-                      {...genre}
-                      isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
-                      onClick={handleGenreClick}
-                    />
-                  </WrapItem>
-                ))
-              : mediaType === 'tv'
-              ? tvGenres.map((genre) => (
-                  <WrapItem key={genre.id}>
-                    <Genre
-                      {...genre}
-                      isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
-                      onClick={handleGenreClick}
-                    />
-                  </WrapItem>
-                ))
-              : null}
-          </Wrap>
-        </Container>
+        <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth p={2}>
+          {{
+            header: {
+              actions: (
+                <Button onClick={() => handleAllClick()} size='sm' variant='text'>
+                  {handleAllLabel()}
+                </Button>
+              ),
+              title: 'Genres'
+            },
+            body: (
+              <Wrap width='100%' spacing={1}>
+                {mediaType === 'movie'
+                  ? movieGenres.map((genre) => (
+                      <WrapItem key={genre.id}>
+                        <Genre
+                          {...genre}
+                          isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
+                          onClick={handleGenreClick}
+                        />
+                      </WrapItem>
+                    ))
+                  : mediaType === 'tv'
+                  ? tvGenres.map((genre) => (
+                      <WrapItem key={genre.id}>
+                        <Genre
+                          {...genre}
+                          isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
+                          onClick={handleGenreClick}
+                        />
+                      </WrapItem>
+                    ))
+                  : null}
+              </Wrap>
+            )
+          }}
+        </Card>
       )}
     />
   );

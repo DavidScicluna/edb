@@ -9,8 +9,8 @@ import {
 } from '@material-ui/icons';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
+import Card from '../../../Card';
 import { Form } from '../../types';
-import Container from '../Container';
 import DisplayModeItem from './components/DisplayModeItem';
 import { DisplayMode as DisplayModeType } from './types';
 
@@ -35,18 +35,23 @@ const DisplayMode = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='displayMode'
       render={({ field: { value } }) => (
-        <Container title='Display Mode'>
-          <HStack width='100%' spacing={2}>
-            {displayModes.map((displayMode) => (
-              <DisplayModeItem
-                key={displayMode.value}
-                {...displayMode}
-                isActive={value === displayMode.value}
-                onClick={() => form.setValue('displayMode', displayMode.value, { shouldDirty: true })}
-              />
-            ))}
-          </HStack>
-        </Container>
+        <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth p={2}>
+          {{
+            header: { title: 'Display Mode' },
+            body: (
+              <HStack width='100%' spacing={2}>
+                {displayModes.map((displayMode) => (
+                  <DisplayModeItem
+                    key={displayMode.value}
+                    {...displayMode}
+                    isActive={value === displayMode.value}
+                    onClick={() => form.setValue('displayMode', displayMode.value, { shouldDirty: true })}
+                  />
+                ))}
+              </HStack>
+            )
+          }}
+        </Card>
       )}
     />
   );

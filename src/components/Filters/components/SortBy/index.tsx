@@ -5,8 +5,8 @@ import { Controller, UseFormReturn } from 'react-hook-form';
 
 import { SortBy as SortByType } from '../../../../common/types/types';
 import { SortDirection } from '../../../../store/slices/App/types';
+import Card from '../../../Card';
 import { Form } from '../../types';
-import Container from '../Container';
 import SortByItem from './components/SortByItem';
 
 const SortBy = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
@@ -49,19 +49,26 @@ const SortBy = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='sort'
       render={({ field: { value } }) => (
-        <Container title='Sort by'>
-          <VStack width='100%' alignItems='stretch' justifyContent='flex-start' spacing={1}>
-            {value.sortBy.map((sort) => (
-              <SortByItem
-                key={sort.value}
-                {...sort}
-                direction={value.direction}
-                onSortChange={handleSortChange}
-                onDirectionChange={handleDirectionChange}
-              />
-            ))}
-          </VStack>
-        </Container>
+        <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth p={2}>
+          {{
+            header: {
+              title: 'Sort by'
+            },
+            body: (
+              <VStack width='100%' alignItems='stretch' justifyContent='flex-start' spacing={1}>
+                {value.sortBy.map((sort) => (
+                  <SortByItem
+                    key={sort.value}
+                    {...sort}
+                    direction={value.direction}
+                    onSortChange={handleSortChange}
+                    onDirectionChange={handleDirectionChange}
+                  />
+                ))}
+              </VStack>
+            )
+          }}
+        </Card>
       )}
     />
   );

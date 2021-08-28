@@ -139,8 +139,8 @@ const Filters = (props: FiltersProps): ReactElement => {
         isOpen={isOpen}
         onClose={handleClose}
         isCentered
-        size='2xl'>
-        <VStack spacing={3} p={2}>
+        size='3xl'>
+        <VStack spacing={2} p={2}>
           <DisplayMode form={form} />
 
           <SortBy form={form} />

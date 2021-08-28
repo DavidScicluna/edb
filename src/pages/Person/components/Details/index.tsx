@@ -91,7 +91,7 @@ const Details = (props: DetailsProps): ReactElement => {
                 <Departments departments={departments} isLoading={isLoading} />
               </VStack>
 
-              <ScaleFade in={!isError} unmountOnExit>
+              <ScaleFade in={isLoading ? true : !isError && (person?.birthday || '')?.length > 0} unmountOnExit>
                 <SkeletonText offsetY={7} isLoaded={!isLoading}>
                   <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
                     {`Born on ${moment(person?.birthday || '', 'YYYY-MM-DD').format('LL')}${

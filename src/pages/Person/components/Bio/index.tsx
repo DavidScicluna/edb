@@ -3,6 +3,7 @@ import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'r
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { useWindowSize, useElementSize } from '../../../../common/hooks';
 import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
 import SkeletonText from '../../../../components/Skeleton/Text';
@@ -14,6 +15,9 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   const [isExpanded, setIsExpanded] = useBoolean();
+
+  const { width: windowWidth } = useWindowSize();
+  const { height: elementHeight } = useElementSize(biographyRef);
 
   const [height, setHeight] = useState<number>();
 
@@ -32,13 +36,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
 
   useEffect(() => {
     handleResize();
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  }, [windowWidth]);
 
   return (
     <Card
@@ -65,7 +63,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
           )
         },
         body: !isLoading ? (
-          <Collapse startingHeight={44} in={isExpanded}>
+          <Collapse startingHeight={(height || 44) >= 44 ? 44 : elementHeight} in={isExpanded}>
             <VStack ref={biographyRef} width='100%' spacing={2}>
               {biography.split('\n'[0]).map((paragraph, index) => (
                 <Text

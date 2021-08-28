@@ -35,6 +35,7 @@ const Poster = (props: PosterProps): ReactElement => {
   const { name, path, isLoading = false, isError = false, onClickPoster } = props;
 
   const [isHovering, setIsHovering] = useBoolean();
+  const [isImageError, setIsImageError] = useBoolean();
 
   return (
     <Box
@@ -46,37 +47,41 @@ const Poster = (props: PosterProps): ReactElement => {
       onClick={!isLoading && !isError && path ? () => onClickPoster(path) : undefined}
       onMouseEnter={!isLoading && !isError && path ? () => setIsHovering.on() : undefined}
       onMouseLeave={!isLoading && !isError && path ? () => setIsHovering.off() : undefined}>
-      <Center
-        width='100%'
-        height='100%'
-        position='absolute'
-        zIndex={1}
-        borderRadius={isSm ? 'base' : 'full'}
-        sx={{
-          cursor: 'pointer',
-          backgroundColor: isHovering
-            ? colorMode === 'light'
-              ? 'rgba(0, 0, 0, 0.25)'
-              : 'rgba(255, 255, 255, 0.25)'
-            : 'transparent',
-          transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
-        }}>
-        <Fade in={isHovering} unmountOnExit>
-          <Icon
-            as={SearchOutlinedIcon}
-            color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
-            sx={{
-              fontSize: `${fontSize} !important`
-            }}
-          />
-        </Fade>
-      </Center>
+      <Fade in={!isImageError} unmountOnExit>
+        <Center
+          width='100%'
+          height='100%'
+          position='absolute'
+          zIndex={1}
+          borderRadius={isSm ? 'base' : 'full'}
+          sx={{
+            cursor: 'pointer',
+            backgroundColor: isHovering
+              ? colorMode === 'light'
+                ? 'rgba(0, 0, 0, 0.25)'
+                : 'rgba(255, 255, 255, 0.25)'
+              : 'transparent',
+            transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+          }}>
+          <Fade in={isHovering} unmountOnExit>
+            <Icon
+              as={SearchOutlinedIcon}
+              color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+              sx={{
+                fontSize: `${fontSize} !important`
+              }}
+            />
+          </Fade>
+        </Center>
+      </Fade>
       <AspectRatio ratio={1 / 1}>
         <Skeleton isLoaded={!isLoading} borderRadius={isSm ? 'base' : 'full'}>
           <Image
             width='100%'
             alt={`${name ? `"${name}"` : ''} profile poster`}
             mediaType='person'
+            onError={() => setIsImageError.on()}
+            onLoad={() => setIsImageError.off()}
             src={path || ''}
             size={{
               thumbnail: 'w45',
