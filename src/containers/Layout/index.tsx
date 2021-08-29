@@ -12,6 +12,7 @@ import { setMovieGenres, setTVGenres, toggleHasDownloaded } from '../../store/sl
 import { Theme } from '../../theme/types';
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import ConfirmModal from './components/Modals/Confirm';
 import DescriptionModal from './components/Modals/Description';
@@ -93,6 +94,7 @@ const Layout = (): ReactElement => {
       {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
       <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
         <Header width={width} left={left} />
+
         <Box
           width='100%'
           maxWidth='100%'
@@ -100,7 +102,11 @@ const Layout = (): ReactElement => {
           top={`${headerHeight}px`}
           left='0px'
           sx={{ ...transition }}>
-          <Routes />
+          <Box width='100%' minHeight={`calc(100vh - ${headerHeight}px)`} sx={{ ...transition }}>
+            <Routes />
+          </Box>
+
+          <Footer />
         </Box>
 
         <ScrollToTop />

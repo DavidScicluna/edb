@@ -1,0 +1,83 @@
+import React, { ReactElement } from 'react';
+
+import { useColorMode, VStack, Text, useTheme } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
+
+import { useSelector } from '../../../../../../common/hooks';
+import Link from '../../../../../../components/Clickable/Link';
+import { NavItem as NavItemProps } from '../../../../../../components/NavItem/types';
+import { Theme } from '../../../../../../theme/types';
+
+const NavItem = (props: NavItemProps): ReactElement => {
+  const theme = useTheme<Theme>();
+  const { colorMode } = useColorMode();
+
+  const location = useLocation();
+
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const { children, label, path } = props;
+
+  const isActive: boolean = location.pathname === path;
+  const isChildActive: boolean = children ? children.some((child) => location.pathname === child.path) : false;
+
+  const renderChildren: boolean = children ? children.every((child) => child.renderChild) : false;
+
+  return (
+    <VStack alignItems='flex-start' justifyContent='flex-start'>
+      <Link to={{ pathname: path }} isDisabled={isActive}>
+        <Text
+          cursor={isActive ? 'default' : 'pointer'}
+          align='left'
+          color={
+            isActive ? `${color}.${colorMode === 'light' ? 400 : 500}` : colorMode === 'light' ? 'gray.400' : 'gray.500'
+          }
+          fontSize='md'
+          fontWeight='semibold'
+          textTransform='uppercase'
+          sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
+          _hover={{
+            color: isActive
+              ? `${color}.${colorMode === 'light' ? 500 : 400}`
+              : colorMode === 'light'
+              ? 'gray.900'
+              : 'gray.50'
+          }}>
+          {label}
+        </Text>
+      </Link>
+
+      {children && children.length > 0 && renderChildren
+        ? children.map((child, index) => (
+            <Link key={index} to={{ pathname: child.path }} isDisabled={isChildActive}>
+              <Text
+                cursor={isActive ? 'default' : 'pointer'}
+                align='left'
+                color={
+                  isChildActive
+                    ? `${color}.${colorMode === 'light' ? 400 : 500}`
+                    : colorMode === 'light'
+                    ? 'gray.400'
+                    : 'gray.500'
+                }
+                fontSize='md'
+                fontWeight='medium'
+                textTransform='capitalize'
+                sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
+                _hover={{
+                  color: isActive
+                    ? `${color}.${colorMode === 'light' ? 500 : 400}`
+                    : colorMode === 'light'
+                    ? 'gray.900'
+                    : 'gray.50'
+                }}>
+                {child.label}
+              </Text>
+            </Link>
+          ))
+        : null}
+    </VStack>
+  );
+};
+
+export default NavItem;
