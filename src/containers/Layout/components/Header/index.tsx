@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, HStack, ScaleFade } from '@chakra-ui/react';
-import { useLocation } from 'react-router-dom';
+import { useTheme, useColorMode, useMediaQuery, HStack } from '@chakra-ui/react';
 
 import { Theme } from '../../../../theme/types';
 import useTransitionsStyle from '../../common/styles/transitions';
@@ -15,8 +14,6 @@ const Header = (props: HeaderProps): ReactElement => {
   const [isLgUp] = useMediaQuery('(min-width: 1280px)');
   const transition = useTransitionsStyle(theme);
 
-  const location = useLocation();
-
   const { width, left } = props;
 
   return (
@@ -27,7 +24,7 @@ const Header = (props: HeaderProps): ReactElement => {
       top='0px'
       left={left}
       zIndex={800}
-      justifyContent='space-between'
+      justifyContent={isLgUp ? 'flex-end' : 'space-between'}
       backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
       borderBottom='solid2'
       borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
