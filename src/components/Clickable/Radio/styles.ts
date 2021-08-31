@@ -19,6 +19,9 @@ export default (theme: Theme, { color = 'gray', isChecked = false, isDisabled = 
     },
 
     '&.chakra-radio__control': {
+      width: theme.space[3],
+      height: theme.space[3],
+
       boxShadow: 'none !important',
       background: isChecked ? `${color}.400` : 'transparent',
 

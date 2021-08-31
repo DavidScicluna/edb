@@ -1,28 +1,21 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
 import { useMediaQuery, Box, VStack, HStack } from '@chakra-ui/react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
 import Modal from '../../../../components/Modal';
-import { List } from '../../../../store/slices/User/types';
 import ListItem from './components/ListItem';
 import { ListPickerProps } from './types';
 
 const MediaTypePicker = ({ activeList, isOpen, onClose }: ListPickerProps): ReactElement => {
   const [isXs] = useMediaQuery('(max-width: 40em)');
 
-  const history = useHistory();
+  const location = useLocation();
 
   const lists = useSelector((state) => state.user.data.lists);
 
-  const handleClick = (id: List['id']): void => {
-    history.push({
-      pathname: `/lists/${id}`
-    });
-
-    onClose();
-  };
+  useEffect(() => onClose(), [location]);
 
   return (
     <Modal title='Select list' isOpen={isOpen} onClose={onClose} isCentered size='2xl'>
@@ -30,13 +23,13 @@ const MediaTypePicker = ({ activeList, isOpen, onClose }: ListPickerProps): Reac
         {isXs ? (
           <VStack justifyContent='space-between' spacing={3}>
             {lists.map((list) => (
-              <ListItem key={list.id} {...list} isActive={list.id === activeList?.id || false} onClick={handleClick} />
+              <ListItem key={list.id} {...list} isActive={list.id === activeList?.id || false} />
             ))}
           </VStack>
         ) : (
           <HStack justifyContent='space-between' spacing={3}>
             {lists.map((list) => (
-              <ListItem key={list.id} {...list} isActive={list.id === activeList?.id || false} onClick={handleClick} />
+              <ListItem key={list.id} {...list} isActive={list.id === activeList?.id || false} />
             ))}
           </HStack>
         )}

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, KeyboardEvent } from 'react';
 
 import { VStack, FormControl, FormLabel, Input, Textarea, FormHelperText, Collapse } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -31,11 +31,13 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
   const { isDirty } = useFormState({ control: form.control });
 
   const handleSubmit = (values: Form): void => {
+    const id = uuid();
+
     dispatch(
       setLists([
         ...lists,
         {
-          id: uuid(),
+          id,
           label: values.label,
           description: values?.description || '',
           date: moment(new Date()).toISOString(),
@@ -47,12 +49,18 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
       ])
     );
 
-    handleClose();
+    handleClose(id);
   };
 
-  const handleClose = (): void => {
+  const handleClose = (id?: string): void => {
     form.reset({ ...defaultValues });
-    onClose();
+    onClose(id);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter') {
+      form.handleSubmit((values) => handleSubmit(values));
+    }
   };
 
   const handleCheckClose = (): void => {
@@ -115,6 +123,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
                 name={name}
                 placeholder='Try "DC Movies"'
                 onChange={onChange}
+                onKeyDown={handleKeyDown}
                 size='lg'
                 value={value}
                 px={2}

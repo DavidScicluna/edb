@@ -1,4 +1,4 @@
-import React, { ReactElement, ForwardedRef, forwardRef } from 'react';
+import React, { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, Spinner, Icon, Button as CUIButton } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -6,9 +6,9 @@ import _ from 'lodash';
 import { ColorMode } from '../../../common/types/types';
 import { Theme } from '../../../theme/types';
 import useStyles from './styles';
-import { ButtonProps } from './types';
+import { ButtonRef, ButtonProps } from './types';
 
-const Button = forwardRef(function Button(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>): ReactElement {
+const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): ReactElement {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 

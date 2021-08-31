@@ -18,6 +18,7 @@ import ConfirmModal from './components/Modals/Confirm';
 import DescriptionModal from './components/Modals/Description';
 import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
+import QuickView from './components/Modals/QuickView';
 import SplashscreenModal from './components/Modals/Splashscreen';
 import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
@@ -102,7 +103,7 @@ const Layout = (): ReactElement => {
           top={`${headerHeight}px`}
           left='0px'
           sx={{ ...transition }}>
-          <Box width='100%' minHeight={`calc(100vh - ${headerHeight}px)`} sx={{ ...transition }}>
+          <Box width='100%' minHeight={`calc(100vh - ${headerHeight + 32}px)`} sx={{ ...transition }}>
             <Routes />
           </Box>
 
@@ -113,6 +114,8 @@ const Layout = (): ReactElement => {
       </Box>
 
       <ConfirmModal />
+
+      <QuickView />
 
       <DisplayModal />
 

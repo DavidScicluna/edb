@@ -3,6 +3,8 @@ import { IconButtonProps as CUIIconButtonProps } from '@chakra-ui/react';
 import { Icon, ButtonSize, ColorMode } from '../../../common/types/types';
 import { Color } from '../../../theme/types';
 
+export type IconButtonRef = HTMLButtonElement | null;
+
 type Variant = 'icon' | 'outlined' | 'contained';
 
 export type IconButtonProps = {

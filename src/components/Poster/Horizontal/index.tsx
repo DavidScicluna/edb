@@ -1,18 +1,21 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery, useBoolean, HStack, VStack, Box } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, HStack, VStack, Box, AspectRatio } from '@chakra-ui/react';
 
 import { MediaType } from '../../../common/types/types';
 import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
 import Bookmark from '../../Bookmark';
+import Image from '../../Image';
 import Like from '../../Like';
 import Rating from '../../Rating';
-import Image from '../components/Image';
+import Skeleton from '../../Skeleton';
 import Description from './components/Description';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { HorizontalPosterProps } from './types';
+
+const width = ['100px', '116px', '152px', '188px', '188px', '224px'];
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 480px)');
@@ -43,15 +46,20 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
         isLightGray>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
-          <Image
-            width={['100px', '116px', '152px', '188px', '188px', '224px']}
-            orientation='vertical'
-            mediaType={mediaType}
-            alt={image.alt}
-            src={image.src}
-            size={image.size}
-            isLoading={isLoading}
-          />
+          <AspectRatio width={width || '100%'} minWidth={width || '100%'} maxWidth={width || '100%'} ratio={16 / 9}>
+            <Skeleton isLoaded={!isLoading} borderRadius='base'>
+              <Image
+                alt={image.alt}
+                mediaType={mediaType}
+                maxWidth='none'
+                height='100%'
+                borderRadius='base'
+                src={image.src}
+                size={image.size}
+              />
+            </Skeleton>
+          </AspectRatio>
+
           <VStack
             width={[
               'calc(100% - 108px)',

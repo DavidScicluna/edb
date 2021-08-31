@@ -1,6 +1,6 @@
 export type CreateListProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (id?: string) => void;
 };
 
 export type Form = {

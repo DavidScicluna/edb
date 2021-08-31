@@ -44,46 +44,50 @@ const PhotoImage = (props: ImageProps): ReactElement => {
       onClick={image ? () => onClickImage(image) : undefined}
       onMouseEnter={image ? () => setIsHovering.on() : undefined}
       onMouseLeave={image ? () => setIsHovering.off() : undefined}>
-      <Center
-        width={width}
-        height='100%'
-        position='absolute'
-        zIndex={1}
-        borderRadius='base'
-        sx={{
-          cursor: 'pointer',
-          backgroundColor: isHovering
-            ? colorMode === 'light'
-              ? 'rgba(0, 0, 0, 0.25)'
-              : 'rgba(255, 255, 255, 0.25)'
-            : 'transparent',
-          transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
-        }}>
-        <Fade in={isHovering} unmountOnExit>
-          <Icon
-            as={SearchOutlinedIcon}
-            color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
-            sx={{
-              fontSize: `${fontSize} !important`
-            }}
-          />
-        </Fade>
-      </Center>
       <AspectRatio ratio={2 / 3}>
-        <Skeleton isLoaded={!isLoading} borderRadius='base'>
-          <Image
-            alt={`${name ? `"${name}"` : ''} image`}
-            maxWidth='none'
-            height='100%'
-            borderRadius='base'
-            mediaType='person'
-            src={image?.file_path || ''}
-            size={{
-              thumbnail: 'w45',
-              full: 'original'
-            }}
-          />
-        </Skeleton>
+        <>
+          <Fade in={!isLoading} unmountOnExit>
+            <Center
+              width={width}
+              height='100%'
+              position='absolute'
+              zIndex={1}
+              borderRadius='base'
+              sx={{
+                cursor: 'pointer',
+                backgroundColor: isHovering
+                  ? colorMode === 'light'
+                    ? 'rgba(0, 0, 0, 0.25)'
+                    : 'rgba(255, 255, 255, 0.25)'
+                  : 'transparent',
+                transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+              }}>
+              <Fade in={isHovering} unmountOnExit>
+                <Icon
+                  as={SearchOutlinedIcon}
+                  color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+                  sx={{
+                    fontSize: `${fontSize} !important`
+                  }}
+                />
+              </Fade>
+            </Center>
+          </Fade>
+          <Skeleton isLoaded={!isLoading} borderRadius='base'>
+            <Image
+              alt={`${name ? `"${name}"` : ''} image`}
+              maxWidth='none'
+              height='100%'
+              borderRadius='base'
+              mediaType='person'
+              src={image?.file_path || ''}
+              size={{
+                thumbnail: 'w45',
+                full: 'original'
+              }}
+            />
+          </Skeleton>
+        </>
       </AspectRatio>
     </Box>
   );
