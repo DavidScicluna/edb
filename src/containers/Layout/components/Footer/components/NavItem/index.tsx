@@ -19,7 +19,6 @@ const NavItem = (props: NavItemProps): ReactElement => {
   const { children, label, path } = props;
 
   const isActive: boolean = location.pathname === path;
-  const isChildActive: boolean = children ? children.some((child) => location.pathname === child.path) : false;
 
   const renderChildren: boolean = children ? children.every((child) => child.renderChild) : false;
 
@@ -49,12 +48,12 @@ const NavItem = (props: NavItemProps): ReactElement => {
 
       {children && children.length > 0 && renderChildren
         ? children.map((child, index) => (
-            <Link key={index} to={{ pathname: child.path }} isDisabled={isChildActive}>
+            <Link key={index} to={{ pathname: child.path }} isDisabled={location.pathname === child.path}>
               <Text
-                cursor={isActive ? 'default' : 'pointer'}
+                cursor={location.pathname === child.path ? 'default' : 'pointer'}
                 align='left'
                 color={
-                  isChildActive
+                  location.pathname === child.path
                     ? `${color}.${colorMode === 'light' ? 400 : 500}`
                     : colorMode === 'light'
                     ? 'gray.400'
@@ -65,11 +64,12 @@ const NavItem = (props: NavItemProps): ReactElement => {
                 textTransform='capitalize'
                 sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
                 _hover={{
-                  color: isActive
-                    ? `${color}.${colorMode === 'light' ? 500 : 400}`
-                    : colorMode === 'light'
-                    ? 'gray.900'
-                    : 'gray.50'
+                  color:
+                    location.pathname === child.path
+                      ? `${color}.${colorMode === 'light' ? 500 : 400}`
+                      : colorMode === 'light'
+                      ? 'gray.900'
+                      : 'gray.50'
                 }}>
                 {child.label}
               </Text>

@@ -23,11 +23,18 @@ export type ConfirmModal = {
   submitButton?: ReactElement;
 };
 
+export type QuickViewModal = {
+  open: boolean;
+  mediaType: MediaType;
+  mediaItem?: { id: number; title: string };
+};
+
 export type StateProps = {
   ui: {
     listsModal: ListModal;
     descriptionModal: DescriptionModal;
     confirmModal: ConfirmModal;
+    quickViewModal: QuickViewModal;
     isDisplayModalOpen: boolean;
     isSplashscreenOpen: boolean;
   };

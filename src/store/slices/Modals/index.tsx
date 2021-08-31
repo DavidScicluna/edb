@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import Button from '../../../components/Clickable/Button';
-import { StateProps, ListModal, DescriptionModal, ConfirmModal } from './types';
+import { StateProps, ListModal, DescriptionModal, ConfirmModal, QuickViewModal } from './types';
 
 export const defaultListsModal: ListModal = {
   open: false,
@@ -28,11 +28,18 @@ export const defaultConfirmModal: ConfirmModal = {
   )
 };
 
+export const defaultQuickViewModal: QuickViewModal = {
+  open: false,
+  mediaType: 'movie',
+  mediaItem: undefined
+};
+
 const initialState: StateProps = {
   ui: {
     listsModal: { ...defaultListsModal },
     descriptionModal: { ...defaultDescriptionModal },
     confirmModal: { ...defaultConfirmModal },
+    quickViewModal: { ...defaultQuickViewModal },
     isDisplayModalOpen: false,
     isSplashscreenOpen: true
   }
@@ -51,6 +58,9 @@ const modalsSlice = createSlice({
     toggleConfirm: (state: StateProps, action: PayloadAction<ConfirmModal>) => {
       state.ui.confirmModal = action.payload;
     },
+    toggleQuickView: (state: StateProps, action: PayloadAction<QuickViewModal>) => {
+      state.ui.quickViewModal = action.payload;
+    },
     toggleDisplay: (state: StateProps, action: PayloadAction<boolean>) => {
       state.ui.isDisplayModalOpen = action.payload;
     },
@@ -60,6 +70,7 @@ const modalsSlice = createSlice({
   }
 });
 
-export const { toggleList, toggleDescription, toggleConfirm, toggleDisplay, toggleSplashscreen } = modalsSlice.actions;
+export const { toggleList, toggleDescription, toggleConfirm, toggleQuickView, toggleDisplay, toggleSplashscreen } =
+  modalsSlice.actions;
 
 export default modalsSlice.reducer;

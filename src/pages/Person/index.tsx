@@ -25,6 +25,88 @@ import MediaViewer from './components/MediaViewer';
 import Photos from './components/Photos';
 import { Department, KnownFor as KnownForType } from './types';
 
+/**
+ * This method will take all the credits and place them in their respective object
+ *
+ * @returns Array of Objects - Of Departments containing all credits
+ */
+
+export const handleGetDepartments = (movies: MovieCredits, tv: TVCredits): Department[] => {
+  let departments: Department[] = [];
+
+  if ((movies?.cast.length || 0) > 0 || (tv.cast.length || 0) > 0) {
+    departments.push({
+      label: 'Actor',
+      credits: {
+        cast: {
+          movie: movies?.cast || [],
+          tv: tv.cast || []
+        }
+      }
+    });
+  }
+
+  movies?.crew.forEach((mediaItem) => {
+    if (departments.some((department) => department.label === mediaItem.job)) {
+      departments = departments.map((department) =>
+        department.label === mediaItem.job
+          ? {
+              ...department,
+              credits: {
+                ...department.credits,
+                crew: {
+                  ...department.credits.crew,
+                  movie: [...(department.credits.crew?.movie || []), { ...mediaItem }]
+                }
+              }
+            }
+          : department
+      );
+    } else {
+      departments.push({
+        label: mediaItem.job,
+        credits: {
+          crew: {
+            movie: [{ ...mediaItem }],
+            tv: []
+          }
+        }
+      });
+    }
+  });
+
+  tv.crew.forEach((mediaItem) => {
+    if (departments.some((department) => department.label === mediaItem.job)) {
+      departments = departments.map((department) =>
+        department.label === mediaItem.job
+          ? {
+              ...department,
+              credits: {
+                ...department.credits,
+                crew: {
+                  ...department.credits.crew,
+                  tv: [...(department.credits.crew?.tv || []), { ...mediaItem }]
+                }
+              }
+            }
+          : department
+      );
+    } else {
+      departments.push({
+        label: mediaItem.job,
+        credits: {
+          crew: {
+            movie: [],
+            tv: [{ ...mediaItem }]
+          }
+        }
+      });
+    }
+  });
+
+  return arraySort([...departments], 'label');
+};
+
 const Person = (): ReactElement => {
   const source = axios.CancelToken.source();
 
@@ -91,87 +173,6 @@ const Person = (): ReactElement => {
   });
 
   /**
-   * This method will take all the credits and place them in their respective object
-   *
-   * @returns Array of Objects - Of Departments containing all credits
-   */
-  const handleGetDepartments = (): Department[] => {
-    let departments: Department[] = [];
-
-    if ((movieCreditsQuery.data?.cast.length || 0) > 0 || (tvCreditsQuery.data?.cast.length || 0) > 0) {
-      departments.push({
-        label: 'Actor',
-        credits: {
-          cast: {
-            movie: movieCreditsQuery.data?.cast || [],
-            tv: tvCreditsQuery.data?.cast || []
-          }
-        }
-      });
-    }
-
-    movieCreditsQuery.data?.crew.forEach((mediaItem) => {
-      if (departments.some((department) => department.label === mediaItem.job)) {
-        departments = departments.map((department) =>
-          department.label === mediaItem.job
-            ? {
-                ...department,
-                credits: {
-                  ...department.credits,
-                  crew: {
-                    ...department.credits.crew,
-                    movie: [...(department.credits.crew?.movie || []), { ...mediaItem }]
-                  }
-                }
-              }
-            : department
-        );
-      } else {
-        departments.push({
-          label: mediaItem.job,
-          credits: {
-            crew: {
-              movie: [{ ...mediaItem }],
-              tv: []
-            }
-          }
-        });
-      }
-    });
-
-    tvCreditsQuery.data?.crew.forEach((mediaItem) => {
-      if (departments.some((department) => department.label === mediaItem.job)) {
-        departments = departments.map((department) =>
-          department.label === mediaItem.job
-            ? {
-                ...department,
-                credits: {
-                  ...department.credits,
-                  crew: {
-                    ...department.credits.crew,
-                    tv: [...(department.credits.crew?.tv || []), { ...mediaItem }]
-                  }
-                }
-              }
-            : department
-        );
-      } else {
-        departments.push({
-          label: mediaItem.job,
-          credits: {
-            crew: {
-              movie: [],
-              tv: [{ ...mediaItem }]
-            }
-          }
-        });
-      }
-    });
-
-    return arraySort([...departments], 'label');
-  };
-
-  /**
    * This method will filter from known for list and will return the 8 most voted movies/tv shows
    *
    * @returns Array of Objects - Known for list
@@ -212,7 +213,10 @@ const Person = (): ReactElement => {
   };
 
   const knownFor = creditsQuery.isSuccess ? handleGetKnownFor() : [];
-  const departments = movieCreditsQuery.isSuccess && tvCreditsQuery.isSuccess ? handleGetDepartments() : [];
+  const departments =
+    movieCreditsQuery.isSuccess && tvCreditsQuery.isSuccess
+      ? handleGetDepartments(movieCreditsQuery.data, tvCreditsQuery.data)
+      : [];
 
   useEffect(() => {
     return () => source.cancel();
@@ -222,9 +226,6 @@ const Person = (): ReactElement => {
     <VStack spacing={4} p={2}>
       <Details
         person={personQuery.data}
-        // totalMovieCredits={movieCreditsQuery.data?.cast.length || 0}
-        // totalTvCredits={tvCreditsQuery.data?.cast.length || 0}
-        // totalCrewCredits={(movieCreditsQuery.data?.crew.length || 0) + (tvCreditsQuery.data?.crew.length || 0)}
         departments={departments.map((department) => department.label)}
         socials={externalIdsQuery.data}
         isLoading={

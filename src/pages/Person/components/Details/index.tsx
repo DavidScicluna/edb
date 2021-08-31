@@ -1,15 +1,14 @@
 import React, { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
-import moment from 'moment';
 
 import Card from '../../../../components/Card';
 import Like from '../../../../components/Like';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import Background from './components/Background';
+import Date from './components/Date';
 import Departments from './components/Departments';
 import Poster from './components/Poster';
-// import Stats from './components/Stats';
 import Socials from './components/Socials';
 import { DetailsProps } from './types';
 
@@ -27,17 +26,7 @@ const Details = (props: DetailsProps): ReactElement => {
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 480px)');
 
-  const {
-    person,
-    // totalMovieCredits,
-    // totalTvCredits,
-    // totalCrewCredits,
-    departments,
-    socials,
-    isLoading = false,
-    isError = false,
-    onClickPoster
-  } = props;
+  const { person, departments, socials, isLoading = false, isError = false, onClickPoster } = props;
 
   return (
     <Card isFullWidth p={2}>
@@ -91,20 +80,13 @@ const Details = (props: DetailsProps): ReactElement => {
                 <Departments departments={departments} isLoading={isLoading} />
               </VStack>
 
-              <ScaleFade in={isLoading ? true : !isError && (person?.birthday || '')?.length > 0} unmountOnExit>
-                <SkeletonText offsetY={7} isLoaded={!isLoading}>
-                  <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-                    {`Born on ${moment(person?.birthday || '', 'YYYY-MM-DD').format('LL')}${
-                      person?.place_of_birth ? ` in ${person?.place_of_birth}` : ''
-                    }${
-                      person?.deathday ? ` - ${moment(person?.deathday || '', 'YYYY-MM-DD').format('LL')}` : ''
-                    } (${moment(person?.deathday || new Date()).diff(
-                      moment(person?.birthday || '', 'YYYY-MM-DD'),
-                      'years'
-                    )} years old)`}
-                  </Text>
-                </SkeletonText>
-              </ScaleFade>
+              <Date
+                birthday={person?.birthday}
+                place_of_birth={person?.place_of_birth}
+                deathday={person?.deathday}
+                isLoading={isLoading}
+                isError={isError}
+              />
 
               <ScaleFade in={!isError} unmountOnExit>
                 <Like
@@ -128,13 +110,6 @@ const Details = (props: DetailsProps): ReactElement => {
                   size='md'
                 />
               </ScaleFade>
-
-              {/* <Stats
-            totalMovieCredits={totalMovieCredits}
-            totalTvCredits={totalTvCredits}
-            totalCrewCredits={totalCrewCredits}
-            isLoading={isLoading}
-          /> */}
             </VStack>
           </VStack>
         )
