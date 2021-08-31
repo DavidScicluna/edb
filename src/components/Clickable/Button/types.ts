@@ -3,6 +3,8 @@ import { ButtonProps as CUIButtonProps } from '@chakra-ui/react';
 import { Icon, ButtonSize, ColorMode } from '../../../common/types/types';
 import { Color } from '../../../theme/types';
 
+export type ButtonRef = HTMLButtonElement | null;
+
 type Variant = 'text' | 'outlined' | 'contained';
 
 export type ButtonProps = {

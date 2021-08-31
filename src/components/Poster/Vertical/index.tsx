@@ -71,7 +71,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                   </Skeleton>
 
                   {/* Quick View component */}
-                  {mediaItem && utils.handleIsTouchDevice() ? (
+                  {mediaItem && !utils.handleIsTouchDevice() ? (
                     <ScaleFade in={isHoveringPoster && !isLoading} unmountOnExit>
                       <Box
                         position='absolute'

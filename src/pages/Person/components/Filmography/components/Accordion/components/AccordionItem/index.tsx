@@ -46,14 +46,12 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
       </VisuallyHidden>
 
       <AccordionButton sx={{ ..._.merge(style.common.button) }}>
-        <Center>
-          <Text
-            textAlign='left'
-            color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-            fontSize={isSm ? 'xl' : '2xl'}
-            fontWeight='semibold'>
-            {label}
-          </Text>
+        <Text
+          textAlign='left'
+          color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+          fontSize={isSm ? 'xl' : '2xl'}
+          fontWeight='semibold'>
+          {isSm ? `${label} ` : label}
           <Badge
             label={`${
               (credits.cast?.movie?.length || 0) +
@@ -63,9 +61,9 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
             }`}
             color={isExpanded ? utils.handleReturnColor(color) : 'gray'}
             size={isSm ? 'md' : 'lg'}
-            ml={isSm ? 1 : 2}
+            ml={isSm ? 0 : 2}
           />
-        </Center>
+        </Text>
         <Icon
           as={KeyboardArrowDownOutlinedIcon}
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
