@@ -1,6 +1,7 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
 import {
+  useColorMode,
   useDisclosure,
   useMediaQuery,
   useToast,
@@ -10,8 +11,8 @@ import {
   Box,
   Center,
   Text,
-  ScaleFade,
-  useColorMode
+  Fade,
+  ScaleFade
 } from '@chakra-ui/react';
 import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 import arraySort from 'array-sort';
@@ -293,33 +294,55 @@ const Lists = (): ReactElement => {
         {{
           actions:
             mediaType || (list && lists.length > 0) ? (
-              <HStack spacing={2}>
-                <ScaleFade in={!!mediaType} unmountOnExit>
-                  <HStack spacing={2}>
-                    {movies.length > 0 && tv.length > 0 ? (
-                      <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
-                        Change media-type
+              isSm ? (
+                <Fade in={!!mediaType || (!!list && lists.length > 1)} unmountOnExit style={{ width: '100%' }}>
+                  <VStack width='100%' spacing={2}>
+                    {mediaType ? (
+                      <HStack width='100%' spacing={2}>
+                        {movies.length > 0 && tv.length > 0 ? (
+                          <Button onClick={() => onMediaTypePickerOpen()} isFullWidth variant='outlined'>
+                            Change media-type
+                          </Button>
+                        ) : null}
+                        {mediaType ? <Filters mediaType={mediaType} isLikedLists onFilter={handleSetFilters} /> : null}
+                      </HStack>
+                    ) : null}
+                    {!!list && lists.length > 1 ? (
+                      <Button onClick={() => onListPickerOpen()} isFullWidth variant='outlined'>
+                        Change list
                       </Button>
                     ) : null}
-                    {mediaType ? <Filters mediaType={mediaType} isLikedLists onFilter={handleSetFilters} /> : null}
-                  </HStack>
-                </ScaleFade>
-                <ScaleFade in={!!list && lists.length > 1} unmountOnExit>
-                  <Button onClick={() => onListPickerOpen()} variant='outlined'>
-                    Change list
-                  </Button>
-                </ScaleFade>
-                <ScaleFade in={!!list} unmountOnExit>
-                  <IconButton
-                    aria-label='Open Information modal'
-                    icon={InfoTwoToneIcon}
-                    onClick={() => onListInfoOpen()}
-                    variant='outlined'
-                  />
-                </ScaleFade>
-              </HStack>
+                  </VStack>
+                </Fade>
+              ) : (
+                <HStack spacing={2}>
+                  <ScaleFade in={!!mediaType} unmountOnExit>
+                    <HStack spacing={2}>
+                      {movies.length > 0 && tv.length > 0 ? (
+                        <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
+                          Change media-type
+                        </Button>
+                      ) : null}
+                      {mediaType ? <Filters mediaType={mediaType} isLikedLists onFilter={handleSetFilters} /> : null}
+                    </HStack>
+                  </ScaleFade>
+                  <ScaleFade in={!!list && lists.length > 1} unmountOnExit>
+                    <Button onClick={() => onListPickerOpen()} variant='outlined'>
+                      Change list
+                    </Button>
+                  </ScaleFade>
+                  <ScaleFade in={!!list} unmountOnExit>
+                    <IconButton
+                      aria-label='Open Information modal'
+                      icon={InfoTwoToneIcon}
+                      onClick={() => onListInfoOpen()}
+                      variant='outlined'
+                    />
+                  </ScaleFade>
+                </HStack>
+              )
             ) : (
-              <Button onClick={() => onCreateListOpen()} variant='outlined'>
+              <Button onClick={() => onCreateListOpen()} isFullWidth={isSm} variant='outlined'>
                 Create new list
               </Button>
             ),
@@ -376,12 +399,11 @@ const Lists = (): ReactElement => {
                   <SimpleGrid width='100%' columns={[1, 2, 3, 4, 4]} spacing={2} px={2} pt={2}>
                     {lists.map((list) => (
                       <List
-                        key={list.id}
                         {...list}
+                        key={list.id}
                         isSelectable
                         isSelected={selected?.id === list.id || false}
                         onSelected={handleSelectList}
-                        onClick={(id: ListType['id']) => history.push({ pathname: `/lists/${id}` })}
                       />
                     ))}
                   </SimpleGrid>

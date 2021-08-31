@@ -5,5 +5,5 @@ import { Color } from '../../../theme/types';
 
 export type RadioProps = { color?: Color; colorMode?: ColorMode } & Omit<
   CUIRadioProps,
-  'color' | 'colorScheme' | 'iconColor' | 'value' | 'variant'
+  'color' | 'colorScheme' | 'iconColor' | 'size' | 'value' | 'variant'
 >;

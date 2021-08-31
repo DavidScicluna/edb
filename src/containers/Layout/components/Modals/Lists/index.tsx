@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, VStack } from '@chakra-ui/react';
 import moment from 'moment';
@@ -8,11 +8,12 @@ import { useSelector } from '../../../../../common/hooks';
 import utils from '../../../../../common/utils/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
+import CreateList from '../../../../../pages/Lists/components/CreateList';
 import { defaultListsModal, toggleList } from '../../../../../store/slices/Modals';
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
 import { setLists } from '../../../../../store/slices/User';
 import { List as ListType } from '../../../../../store/slices/User/types';
-import CreateList from './components/CreateList';
+// import CreateList from './components/CreateList';
 import List from './components/List';
 
 const ListsModal = (): ReactElement => {
@@ -68,12 +69,30 @@ const ListsModal = (): ReactElement => {
         });
       });
 
-      setSelected([]);
-
       dispatch(setLists([...updatedLists]));
-      dispatch(toggleList({ ...defaultListsModal }));
+
+      handleCloseLists();
     }
   };
+
+  const handleCloseLists = (): void => {
+    setSelected([]);
+    dispatch(toggleList({ ...defaultListsModal }));
+  };
+
+  const handleCloseCreateList = (id?: string): void => {
+    onCreateListClose();
+
+    if (id) {
+      handleIsSelected(id, false);
+    }
+  };
+
+  useEffect(() => {
+    if (!listsModal.open) {
+      handleCloseLists();
+    }
+  }, [listsModal.open]);
 
   return (
     <>
@@ -101,7 +120,7 @@ const ListsModal = (): ReactElement => {
         </VStack>
       </Modal>
 
-      <CreateList isOpen={isCreateListOpen} onClose={onCreateListClose} />
+      <CreateList isOpen={isCreateListOpen} onClose={handleCloseCreateList} />
     </>
   );
 };

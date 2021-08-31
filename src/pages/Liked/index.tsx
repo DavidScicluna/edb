@@ -223,29 +223,29 @@ const Liked = (): ReactElement => {
                 : mediaType === 'person'
                 ? 'People'
                 : 'Liked'}
+              <Badge
+                label={
+                  mediaType === 'movie'
+                    ? String(movies.length)
+                    : mediaType === 'tv'
+                    ? String(tv.length)
+                    : mediaType === 'person'
+                    ? String(people.length)
+                    : String(movies.length + tv.length + people.length)
+                }
+                color={mediaType ? utils.handleReturnColor(color) : 'gray'}
+                size='lg'
+                ml={2}
+              />
             </Text>
-            <Badge
-              label={
-                mediaType === 'movie'
-                  ? String(movies.length)
-                  : mediaType === 'tv'
-                  ? String(tv.length)
-                  : mediaType === 'person'
-                  ? String(people.length)
-                  : String(movies.length + tv.length + people.length)
-              }
-              color={mediaType ? utils.handleReturnColor(color) : 'gray'}
-              size='lg'
-              ml={2}
-            />
           </Center>
         }
         breadcrumbs={handleReturnBreadcrumbs()}>
         {{
           actions: (
-            <ScaleFade in={!!mediaType} unmountOnExit>
-              <HStack spacing={2}>
-                <ScaleFade in={handleHasMediaTypes()} unmountOnExit>
+            <ScaleFade in={!!mediaType} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
+              <HStack width={isSm ? '100%' : 'auto'} spacing={2}>
+                <ScaleFade in={handleHasMediaTypes()} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
                   <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
                     Change media type
                   </Button>
