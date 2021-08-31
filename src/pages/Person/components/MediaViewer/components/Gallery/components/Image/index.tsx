@@ -40,45 +40,47 @@ const GalleryImage = (props: ImageProps): ReactElement => {
       onClick={() => onClickImage(index)}
       onMouseEnter={() => setIsHovering.on()}
       onMouseLeave={() => setIsHovering.off()}>
-      <Center
-        width='100%'
-        height='100%'
-        position='absolute'
-        zIndex={1}
-        borderRadius='base'
-        sx={{
-          cursor: 'pointer',
-          backgroundColor:
-            isHovering || isActive
-              ? colorMode === 'light'
-                ? 'rgba(0, 0, 0, 0.25)'
-                : 'rgba(255, 255, 255, 0.25)'
-              : 'transparent',
-          transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
-        }}>
-        <Fade in={isHovering || isActive} unmountOnExit>
-          <Icon
-            as={isActive ? CheckOutlinedIcon : SearchOutlinedIcon}
-            color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+      <AspectRatio borderRadius='base' ratio={1 / 1}>
+        <>
+          <Center
+            width='100%'
+            height='100%'
+            position='absolute'
+            zIndex={1}
+            borderRadius='base'
             sx={{
-              fontSize: `${fontSize} !important`
+              cursor: 'pointer',
+              backgroundColor:
+                isHovering || isActive
+                  ? colorMode === 'light'
+                    ? 'rgba(0, 0, 0, 0.25)'
+                    : 'rgba(255, 255, 255, 0.25)'
+                  : 'transparent',
+              transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+            }}>
+            <Fade in={isHovering || isActive} unmountOnExit>
+              <Icon
+                as={isActive ? CheckOutlinedIcon : SearchOutlinedIcon}
+                color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+                sx={{
+                  fontSize: `${fontSize} !important`
+                }}
+              />
+            </Fade>
+          </Center>
+          <Image
+            alt={`${name ? `"${name}"` : ''} image`}
+            maxWidth='none'
+            height='100%'
+            borderRadius='base'
+            mediaType='person'
+            src={image.file_path}
+            size={{
+              thumbnail: 'w45',
+              full: 'original'
             }}
           />
-        </Fade>
-      </Center>
-      <AspectRatio borderRadius='base' ratio={1 / 1}>
-        <Image
-          alt={`${name ? `"${name}"` : ''} image`}
-          maxWidth='none'
-          height='100%'
-          borderRadius='base'
-          mediaType='person'
-          src={image.file_path}
-          size={{
-            thumbnail: 'w45',
-            full: 'original'
-          }}
-        />
+        </>
       </AspectRatio>
     </Box>
   );
