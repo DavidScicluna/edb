@@ -11,6 +11,7 @@ export type IconButtonProps = {
   color?: Color;
   colorMode?: ColorMode;
   icon: Icon;
+  isLight?: boolean;
   size?: ButtonSize;
   variant?: Variant;
 } & Omit<

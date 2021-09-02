@@ -22,7 +22,7 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
     size = 'md',
     variant = 'contained',
     ...rest
-  } = props;
+  } = _.omit(props, 'isLight');
 
   const mode: ColorMode = colorModeProp || colorMode;
 

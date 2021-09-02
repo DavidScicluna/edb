@@ -18,7 +18,7 @@ const Card = (props: CardProps): ReactElement => {
     colorMode: colorModeProp,
     isDisabled = false,
     ...rest
-  } = _.omit(props, ['color', 'isFullWidth', 'isLightGray', 'isClickable']);
+  } = _.omit(props, ['color', 'isFullWidth', 'isLight', 'isClickable']);
 
   const mode: ColorMode = colorModeProp || colorMode;
 

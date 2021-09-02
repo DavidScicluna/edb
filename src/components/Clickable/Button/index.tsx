@@ -25,7 +25,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
     size = 'md',
     variant = 'contained',
     ...rest
-  } = props;
+  } = _.omit(props, 'isLight');
 
   const mode: ColorMode = colorModeProp || colorMode;
 
