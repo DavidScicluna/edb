@@ -12,7 +12,7 @@ import IconButton from '../../../../../../components/Clickable/IconButton';
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { onClose, onGalleryClick } = props;
 

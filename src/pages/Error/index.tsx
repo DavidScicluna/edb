@@ -12,7 +12,7 @@ const Error = (props: ErrorProps): ReactElement => {
   const descriptionRef = useRef<HTMLDivElement | null>(null);
 
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { height } = useElementSize(descriptionRef);
 

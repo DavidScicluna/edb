@@ -17,7 +17,7 @@ const Person = (props: PersonProps): ReactElement => {
   const source = axios.CancelToken.source();
 
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { id } = props;
 

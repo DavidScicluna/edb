@@ -22,7 +22,7 @@ import { PosterProps } from './types';
 const Poster = (props: PosterProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
   const fontSize = useBreakpointValue({
     'base': theme.fontSizes['6xl'],
     'sm': theme.fontSizes['4xl'],

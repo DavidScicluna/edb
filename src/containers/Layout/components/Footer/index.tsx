@@ -8,7 +8,7 @@ import NavItem from './components/NavItem';
 
 const Footer = (): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   return (
     <VStack width='100%' backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'} spacing={4} p={4} mt={4}>

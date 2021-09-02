@@ -65,7 +65,7 @@ const Lists = (): ReactElement => {
   const { isOpen: isListInfoOpen, onOpen: onListInfoOpen, onClose: onListInfoClose } = useDisclosure();
 
   const [isSmallMob] = useMediaQuery('(max-width: 350px)');
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const toast = useToast();
 

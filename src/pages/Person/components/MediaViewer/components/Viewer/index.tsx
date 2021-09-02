@@ -8,7 +8,7 @@ import Image from '../../../../../../components/Image';
 import { ViewerProps } from './types';
 
 const Viewer = (props: ViewerProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { current, name, images, onSwiper, onSlideChange } = props;
 

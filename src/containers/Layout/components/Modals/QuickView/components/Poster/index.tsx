@@ -22,14 +22,14 @@ import { PosterProps } from './types';
 const Poster = (props: PosterProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
   const fontSize = useBreakpointValue({
     'base': theme.fontSizes['6xl'],
-    'sm': theme.fontSizes['4xl'],
-    'md': theme.fontSizes['5xl'],
-    'lg': theme.fontSizes['5xl'],
-    'xl': theme.fontSizes['6xl'],
-    '2xl': theme.fontSizes['6xl']
+    'sm': theme.fontSizes['6xl'],
+    'md': theme.fontSizes['7xl'],
+    'lg': theme.fontSizes['7xl'],
+    'xl': theme.fontSizes['7xl'],
+    '2xl': theme.fontSizes['7xl']
   });
 
   const { name, path, mediaType, isLoading = false, onClickPoster } = props;
@@ -81,7 +81,8 @@ const Poster = (props: PosterProps): ReactElement => {
               } poster`}
               mediaType={mediaType}
               maxWidth='none'
-              height='100%'
+              height={isSm ? 'auto' : '100%'}
+              width={isSm ? '100%' : 'auto'}
               borderRadius='lg'
               onError={() => setIsImageError.on()}
               onLoad={() => setIsImageError.off()}

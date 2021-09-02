@@ -36,7 +36,7 @@ const Trending = (): ReactElement => {
     onOpen: onMediaTypePickerOpen,
     onClose: onMediaTypePickerClose
   } = useDisclosure();
-  const [isSm] = useMediaQuery('(max-width: 640px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const history = useHistory();
   const { mediaType: paramMediaType } = useParams<{ mediaType: MediaType }>();

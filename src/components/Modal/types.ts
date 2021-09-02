@@ -8,4 +8,5 @@ export type ModalProps = {
   title: ReactElement | string;
   actions?: ReactElement;
   colorMode?: Theme['background'];
+  isConfirm?: boolean;
 } & CUIModalProps;

@@ -44,7 +44,7 @@ const Liked = (): ReactElement => {
     onClose: onMediaTypePickerClose
   } = useDisclosure();
   const [isSmallMob] = useMediaQuery('(max-width: 350px)');
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const history = useHistory();
   const { mediaType: paramMediaType } = useParams<{ mediaType: MediaType }>();

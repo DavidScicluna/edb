@@ -13,7 +13,7 @@ import Image from './components/Image';
 import { PhotosProps } from './types';
 
 const Photos = (props: PhotosProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { images, name, isError = false, isSuccess = false, isLoading = false, onClickImage } = props;
 

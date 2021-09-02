@@ -10,7 +10,7 @@ import { GalleryProps } from './types';
 
 const Gallery = (props: GalleryProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { isOpen, name, activeIndex, images, onClick, onClose } = props;
 

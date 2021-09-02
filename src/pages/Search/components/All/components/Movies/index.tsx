@@ -13,7 +13,7 @@ import { MoviesProps } from './types';
 
 const Movies = (props: MoviesProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 

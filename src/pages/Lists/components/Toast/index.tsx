@@ -16,7 +16,7 @@ import { ToastProps } from './types';
 
 const Toast = (props: ToastProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = store.getState().user.ui.theme.color;
 

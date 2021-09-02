@@ -30,7 +30,7 @@ import { AccordionItemProps } from './types';
 const AccordionItem = (props: AccordionItemProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const style = useStyles(theme, props);
 

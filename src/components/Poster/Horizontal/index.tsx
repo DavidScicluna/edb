@@ -18,7 +18,7 @@ import { HorizontalPosterProps } from './types';
 const width = ['100px', '116px', '152px', '188px', '188px', '224px'];
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const {
     mediaItem,

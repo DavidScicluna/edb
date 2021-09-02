@@ -9,7 +9,7 @@ import ListItem from './components/ListItem';
 import { ListPickerProps } from './types';
 
 const MediaTypePicker = ({ activeList, isOpen, onClose }: ListPickerProps): ReactElement => {
-  const [isXs] = useMediaQuery('(max-width: 40em)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const location = useLocation();
 
@@ -20,7 +20,7 @@ const MediaTypePicker = ({ activeList, isOpen, onClose }: ListPickerProps): Reac
   return (
     <Modal title='Select list' isOpen={isOpen} onClose={onClose} isCentered size='2xl'>
       <Box width='100%' height='100%' p={3}>
-        {isXs ? (
+        {isSm ? (
           <VStack justifyContent='space-between' spacing={3}>
             {lists.map((list) => (
               <ListItem key={list.id} {...list} isActive={list.id === activeList?.id || false} />

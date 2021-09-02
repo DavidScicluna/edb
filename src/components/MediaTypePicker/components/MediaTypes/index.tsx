@@ -36,7 +36,7 @@ const mediaTypesList: MediaTypeItemType[] = [
 ];
 
 const MediaTypes = <MT extends unknown>(props: MediaTypesProps<MT>): ReactElement => {
-  const [isXs] = useMediaQuery('(max-width: 40em)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { mediaTypes, mediaType, onSetType } = props;
 
@@ -44,7 +44,7 @@ const MediaTypes = <MT extends unknown>(props: MediaTypesProps<MT>): ReactElemen
     onSetType(mediaType);
   };
 
-  return isXs ? (
+  return isSm ? (
     <VStack width='100%' justifyContent='space-between' spacing={3}>
       {mediaTypesList.map((mediaTypeItem) =>
         (mediaTypes && mediaTypes.includes(mediaTypeItem.value)) || !mediaTypes ? (

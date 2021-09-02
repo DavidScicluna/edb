@@ -24,7 +24,7 @@ const left = ['162.5px', '162.5px', '225px', '287.5px', '350px', '412.5px'];
 
 const Details = (props: DetailsProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { person, departments, socials, isLoading = false, isError = false, onClickPoster } = props;
 

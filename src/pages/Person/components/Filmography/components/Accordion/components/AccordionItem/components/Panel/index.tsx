@@ -7,7 +7,7 @@ import Card from '../../../../../../../../../../components/Card';
 import { ListProps } from './types';
 
 const Panel = ({ children, title, total }: ListProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   return (
     <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth variant='transparent'>

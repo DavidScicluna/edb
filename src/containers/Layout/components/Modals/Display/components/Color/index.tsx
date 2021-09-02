@@ -44,7 +44,7 @@ const colors: ColorType[] = [
 ];
 
 const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const background = form.watch('background');
 

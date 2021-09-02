@@ -20,7 +20,7 @@ const TV = (): ReactElement => {
   const source = axios.CancelToken.source();
 
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
