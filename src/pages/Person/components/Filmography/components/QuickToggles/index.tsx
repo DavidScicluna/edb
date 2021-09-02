@@ -1,6 +1,6 @@
 import React, { Fragment, ReactElement } from 'react';
 
-import { useColorMode, HStack, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, HStack, Text, SlideFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Link } from 'react-scroll';
 
@@ -9,11 +9,13 @@ import utils from '../../../../../../common/utils/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
+import { Theme } from '../../../../../../theme/types';
 import { QuickTogglesProps } from './types';
 
 const dummyTextWidths = utils.handleReturnDummyWidths(200, 4);
 
 const QuickToggles = (props: QuickTogglesProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
   const color = useSelector((state) => state.user.ui.theme.color);
@@ -36,15 +38,20 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
           <>
             {departments.map((department, index) => (
               <Fragment key={index}>
-                <Link to={`${department.toLowerCase()}-accordion`} spy={true} smooth={true} offset={-81}>
-                  <Button
-                    color={utils.handleReturnColor(color)}
-                    onClick={() => onToggleAccordion(department)}
-                    size='sm'
-                    variant='text'>
-                    {department}
-                  </Button>
-                </Link>
+                <SlideFade
+                  in
+                  offsetY={14}
+                  delay={utils.handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}>
+                  <Link to={`${department.toLowerCase()}-accordion`} spy={true} smooth={true} offset={-81}>
+                    <Button
+                      color={utils.handleReturnColor(color)}
+                      onClick={() => onToggleAccordion(department)}
+                      size='sm'
+                      variant='text'>
+                      {department}
+                    </Button>
+                  </Link>
+                </SlideFade>
 
                 {index < departments.length - 1 ? (
                   <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>

@@ -8,7 +8,6 @@ import {
   AccordionButton,
   AccordionPanel,
   VStack,
-  Center,
   VisuallyHidden,
   Icon,
   Text

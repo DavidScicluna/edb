@@ -44,9 +44,9 @@ const Poster = (props: PosterProps): ReactElement => {
       border={isSm ? 'none' : '4px'}
       borderColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
       borderRadius={isSm ? 'base' : 'full'}
-      onClick={!isLoading && !isError && path ? () => onClickPoster(path) : undefined}
-      onMouseEnter={!isLoading && !isError && path ? () => setIsHovering.on() : undefined}
-      onMouseLeave={!isLoading && !isError && path ? () => setIsHovering.off() : undefined}>
+      onClick={!isLoading && !isError && !isImageError && path ? () => onClickPoster(path) : undefined}
+      onMouseEnter={!isLoading && !isError && !isImageError && path ? () => setIsHovering.on() : undefined}
+      onMouseLeave={!isLoading && !isError && !isImageError && path ? () => setIsHovering.off() : undefined}>
       <AspectRatio ratio={1 / 1}>
         <>
           <Fade in={!isImageError} unmountOnExit>

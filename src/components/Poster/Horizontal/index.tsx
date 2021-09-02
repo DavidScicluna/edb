@@ -43,7 +43,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
         isFullWidth
         isDisabled={isLoading}
         isClickable={!isHoveringLiked && !isHoveringBookmark && !isHoveringDescription}
-        isLightGray>
+        isLight>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
           <AspectRatio width={width || '100%'} minWidth={width || '100%'} maxWidth={width || '100%'} ratio={16 / 9}>

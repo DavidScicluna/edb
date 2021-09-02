@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Center, Link as CUILink, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Text } from '@chakra-ui/react';
 import moment from 'moment';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';

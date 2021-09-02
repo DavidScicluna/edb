@@ -5,4 +5,5 @@ export type PosterProps = {
   path: string;
   mediaType: MediaType;
   isLoading: boolean;
+  onClickPoster: (path: string) => void;
 };

@@ -52,7 +52,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
         <Card
           isDisabled={isLoading}
           isClickable={!isHoveringQuickView && !isHoveringLiked && !isHoveringBookmark}
-          isLightGray>
+          isLight>
           <VStack width={width} position='relative' spacing={1} p={1}>
             {/* Image */}
             <Box position='relative' width='100%' minWidth='100%' maxWidth='100%'>

@@ -1,16 +1,18 @@
 import React, { ReactElement, Fragment } from 'react';
 
-import { useColorMode, HStack, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, HStack, Text, SlideFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import utils from '../../../../../../common/utils/utils';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
+import { Theme } from '../../../../../../theme/types';
 import { DepartmentsProps } from './types';
 
 const dummyTextWidths = utils.handleReturnDummyWidths(200, 4);
 
 const Departments = (props: DepartmentsProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
   const { departments, isLoading = false } = props;
@@ -22,13 +24,18 @@ const Departments = (props: DepartmentsProps): ReactElement => {
           <>
             {departments.map((department, index) => (
               <Fragment key={index}>
-                <Text
-                  align='left'
-                  color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-                  fontSize='md'
-                  whiteSpace='nowrap'>
-                  {department}
-                </Text>
+                <SlideFade
+                  in
+                  offsetY={9.5}
+                  delay={utils.handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}>
+                  <Text
+                    align='left'
+                    color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+                    fontSize='md'
+                    whiteSpace='nowrap'>
+                    {department}
+                  </Text>
+                </SlideFade>
 
                 {index < departments.length - 1 ? (
                   <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
