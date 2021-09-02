@@ -1,7 +1,7 @@
-import { Image } from '../../../../../../../../common/types/person';
+import { Profile } from '../../../../../../../../common/types/person';
 
 export type ImageProps = {
-  image: Image;
+  image: Profile;
   index: number;
   name?: string;
   isActive?: boolean;

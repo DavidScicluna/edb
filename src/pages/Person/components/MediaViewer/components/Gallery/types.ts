@@ -1,10 +1,10 @@
-import { Image } from '../../../../../../common/types/person';
+import { Profile } from '../../../../../../common/types/person';
 
 export type GalleryProps = {
   isOpen: boolean;
   name?: string;
   activeIndex: number;
-  images: Image[];
+  images: Profile[];
   onClick: (index: number) => void;
   onClose: () => void;
 };

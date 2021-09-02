@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
-import { FullPerson, Image, ImageResponse, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
+import { FullPerson, Profile, ImageResponse, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
 import { Response } from '../../../../../../../common/types/types';
 import { handleGetDepartments } from '../../../../../../../pages/Person';
 import MediaViewer from '../../../../../../../pages/Person/components/MediaViewer';
@@ -21,7 +21,7 @@ const Person = (props: PersonProps): ReactElement => {
 
   const { id } = props;
 
-  const [selectedPhoto, setSelectedPhoto] = useState<Image | undefined>();
+  const [selectedPhoto, setSelectedPhoto] = useState<Profile | undefined>();
 
   // Fetching person details
   const personQuery = useQuery([`person-${id}`, id], async () => {

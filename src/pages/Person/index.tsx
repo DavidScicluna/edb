@@ -14,7 +14,7 @@ import {
   TVCredits,
   ExternalIDs,
   ImageResponse,
-  Image
+  Profile
 } from '../../common/types/person';
 import { Response } from '../../common/types/types';
 import Bio from './components/Bio';
@@ -114,7 +114,7 @@ const Person = (): ReactElement => {
 
   const { id } = useParams<{ id: string }>();
 
-  const [selectedPhoto, setSelectedPhoto] = useState<Image | undefined>();
+  const [selectedPhoto, setSelectedPhoto] = useState<Profile | undefined>();
 
   // Fetching person details
   const personQuery = useQuery([`person-${id}`, id], async () => {
@@ -198,7 +198,7 @@ const Person = (): ReactElement => {
    *
    * @param image - Image object
    */
-  const handleOnImageClick = (image?: Image): void => {
+  const handleOnImageClick = (image?: Profile): void => {
     setSelectedPhoto(image || undefined);
     onMediaViewerOpen();
   };

@@ -1,8 +1,8 @@
-import { Image } from '../../../../../../common/types/person';
+import { Profile } from '../../../../../../common/types/person';
 
 export type ImageProps = {
-  image?: Image;
+  image?: Profile;
   name?: string;
   isLoading?: boolean;
-  onClickImage: (image: Image) => void;
+  onClickImage: (image: Profile) => void;
 };

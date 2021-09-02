@@ -48,6 +48,16 @@ export type Genre = {
 
 export type Status = 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
 
+export type ImageResponse = {
+  aspect_ratio: number;
+  file_path: string;
+  width: number;
+  height: number;
+  iso_639_1: string | null;
+  vote_average: number;
+  vote_count: number;
+};
+
 export type ProductionCompany = {
   id: number;
   name: string;

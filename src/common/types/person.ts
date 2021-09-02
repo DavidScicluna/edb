@@ -1,6 +1,6 @@
 import { PartialMovie } from './movie';
 import { PartialTV } from './tv';
-import { MediaType } from './types';
+import { MediaType, ImageResponse as Image } from './types';
 
 export type Gender = 0 | 1 | 2 | 3;
 
@@ -46,23 +46,16 @@ export type Credits = {
   id?: number;
 };
 
-export type Image = {
+export type Profile = {
   id?: string;
   image_type?: string;
   media?: PartialMovie | PartialTV;
   media_type?: Omit<MediaType, 'person'>;
-  aspect_ratio: number;
-  file_path: string;
-  width: number;
-  height: number;
-  iso_639_1: null;
-  vote_average: number;
-  vote_count: number;
-};
+} & Image;
 
 export type ImageResponse = {
   id: number;
-  profiles: Image[];
+  profiles: Profile[];
 };
 
 export type ExternalIDs = {
@@ -76,7 +69,7 @@ export type ExternalIDs = {
   instagram_id: string | null;
 };
 
-type Person = {
+export type Person = {
   known_for_department: string;
   id: number;
   name: string;

@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useMediaQuery } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
-import { Image as ImageType } from '../../../../common/types/person';
+import { Profile } from '../../../../common/types/person';
 import utils from '../../../../common/utils/utils';
 import Button from '../../../../components/Clickable/Button';
 import Empty from '../../../../components/Empty';
@@ -50,7 +50,7 @@ const Photos = (props: PhotosProps): ReactElement => {
         <>
           {[...(images && images.length > 0 ? images : Array(5))]
             .filter((_image, index) => index < 8)
-            .map((image: ImageType | number, index) => (
+            .map((image: Profile | number, index) => (
               <Image
                 key={index}
                 image={typeof image !== 'number' && image ? image : undefined}
