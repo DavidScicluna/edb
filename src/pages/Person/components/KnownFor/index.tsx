@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 
+import _ from 'lodash';
+
 import utils from '../../../../common/utils/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
@@ -48,7 +50,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
         </>
       ) : (
         <>
-          {[...Array(knownFor ? knownFor.length : 10)].map((_dummy, index: number) => (
+          {[..._.range(20)].map((_dummy, index: number) => (
             <VerticalPoster
               key={index}
               width={['185px', '205px', '230px']}

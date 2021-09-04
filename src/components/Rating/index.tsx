@@ -12,6 +12,7 @@ import {
   // CircularProgressLabel
 } from '@chakra-ui/react';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
+import _ from 'lodash';
 
 import { Theme } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
@@ -53,7 +54,7 @@ const Rating = (props: RatingProps): ReactElement => {
           fontSize={isHorizontal ? ['sm', 'sm', 'md', 'lg', 'lg', 'xl'] : 'md'}
           fontWeight='medium'
           sx={{ lineHeight: 'normal' }}>
-          {rating.rating || 'N/A'}
+          {_.round(rating?.rating || 0, 1) || 'N/A'}
         </Text>
       </SkeletonText>
     </Center>

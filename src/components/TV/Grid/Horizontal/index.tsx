@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 
+import _ from 'lodash';
+
 import { PartialTV } from '../../../../common/types/tv';
 import Empty from '../../../Empty';
 import Error from '../../../Error';
@@ -19,7 +21,7 @@ const HorizontalTV = ({ isError, isSuccess, tv }: GridProps): ReactElement => {
     </>
   ) : (
     <>
-      {[...Array(20)].map((_dummy, index: number) => (
+      {[..._.range(20)].map((_dummy, index: number) => (
         <VerticalPoster key={index} isLoading />
       ))}
     </>

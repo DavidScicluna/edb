@@ -175,7 +175,7 @@ const Form = (props: FormProps): ReactElement => {
                   />
                 ))
               ) : (
-                [...Array(7)].map((_dummy, index) => (
+                [..._.range(7)].map((_dummy, index) => (
                   <Row key={index} id={String(index)} title='Lorem Ipsum' state='isLoading' type='isKeyword' />
                 ))
               )}

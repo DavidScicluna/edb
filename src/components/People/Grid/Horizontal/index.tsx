@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 
+import _ from 'lodash';
+
 import { PartialPerson } from '../../../../common/types/person';
 import Empty from '../../../Empty';
 import Error from '../../../Error';
@@ -19,7 +21,7 @@ const HorizontalPeople = ({ isError, isSuccess, people }: GridProps): ReactEleme
     </>
   ) : (
     <>
-      {[...Array(20)].map((_dummy, index: number) => (
+      {[..._.range(20)].map((_dummy, index: number) => (
         <VerticalPoster key={index} isLoading />
       ))}
     </>

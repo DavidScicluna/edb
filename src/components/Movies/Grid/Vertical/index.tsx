@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
+import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
 import { PartialMovie } from '../../../../common/types/movie';
@@ -31,7 +32,7 @@ const VerticalMovies = ({ isError, isSuccess, movies }: GridProps): ReactElement
     </SimpleGrid>
   ) : (
     <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]} spacing={2}>
-      {[...Array(movies ? movies.length : 20)].map((_dummy, index: number) =>
+      {[..._.range(movies ? movies.length : 20)].map((_dummy, index: number) =>
         displayMode === 'list' ? (
           <HorizontalPoster key={index} isLoading />
         ) : (

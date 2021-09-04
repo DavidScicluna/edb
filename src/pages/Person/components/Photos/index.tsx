@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
+import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
 import { Profile } from '../../../../common/types/person';
@@ -48,7 +49,7 @@ const Photos = (props: PhotosProps): ReactElement => {
         <Empty label={`${name ? `"${name}"` : ''} has no photos`} variant='transparent' />
       ) : (
         <>
-          {[...(images && images.length > 0 ? images : Array(5))]
+          {[...(images && images.length > 0 ? images : _.range(8))]
             .filter((_image, index) => index < 8)
             .map((image: Profile | number, index) => (
               <Image

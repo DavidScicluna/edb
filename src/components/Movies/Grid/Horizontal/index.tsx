@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 
+import _ from 'lodash';
+
 import { PartialMovie } from '../../../../common/types/movie';
 import Empty from '../../../Empty';
 import Error from '../../../Error';
@@ -19,7 +21,7 @@ const HorizontalMovies = ({ isError, isSuccess, movies }: GridProps): ReactEleme
     </>
   ) : (
     <>
-      {[...Array(20)].map((_dummy, index: number) => (
+      {[..._.range(20)].map((_dummy, index: number) => (
         <VerticalPoster key={index} isLoading />
       ))}
     </>
