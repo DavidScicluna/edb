@@ -6,7 +6,7 @@ import {
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
 
-import IconButton from '../../../../../../components/Clickable/IconButton';
+import IconButton from '../../../Clickable/IconButton';
 import { NavigationProps } from './types';
 
 const Navigation = (props: NavigationProps): ReactElement => {
@@ -25,6 +25,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
         variant='icon'
       />
 
+      {/* Current Slide */}
       <Text
         align='center'
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}

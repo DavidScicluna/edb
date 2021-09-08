@@ -7,8 +7,8 @@ import { useQuery } from 'react-query';
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { FullPerson, Profile, ImageResponse, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
 import { Response } from '../../../../../../../common/types/types';
+import MediaViewer from '../../../../../../../components/MediaViewer';
 import { handleGetDepartments } from '../../../../../../../pages/Person';
-import MediaViewer from '../../../../../../../pages/Person/components/MediaViewer';
 import Poster from '../Poster';
 import Container from './components/Container';
 import { PersonProps } from './types';
@@ -127,8 +127,9 @@ const Person = (props: PersonProps): ReactElement => {
       {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
         <MediaViewer
           isOpen={isMediaViewerOpen}
-          selectedImage={selectedPhoto}
-          images={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
+          selected={{ type: 'photo', asset: selectedPhoto }}
+          photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
+          mediaType='person'
           onClose={onMediaViewerClose}
         />
       ) : null}

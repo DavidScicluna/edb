@@ -17,11 +17,11 @@ import {
   Profile
 } from '../../common/types/person';
 import { Response } from '../../common/types/types';
+import MediaViewer from '../../components/MediaViewer';
 import Bio from './components/Bio';
 import Details from './components/Details';
 import Filmography from './components/Filmography';
 import KnownFor from './components/KnownFor';
-import MediaViewer from './components/MediaViewer';
 import Photos from './components/Photos';
 import { Department, KnownFor as KnownForType } from './types';
 
@@ -275,8 +275,12 @@ const Person = (): ReactElement => {
       {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
         <MediaViewer
           isOpen={isMediaViewerOpen}
-          selectedImage={selectedPhoto}
-          images={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
+          selected={{
+            type: 'photo',
+            asset: selectedPhoto
+          }}
+          photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
+          mediaType='person'
           onClose={onMediaViewerClose}
         />
       ) : null}

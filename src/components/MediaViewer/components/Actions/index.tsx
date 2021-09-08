@@ -8,13 +8,13 @@ import {
   FullscreenExitOutlined as FullscreenExitOutlinedIcon
 } from '@material-ui/icons';
 
-import IconButton from '../../../../../../components/Clickable/IconButton';
+import IconButton from '../../../Clickable/IconButton';
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { onClose, onGalleryClick } = props;
+  const { activeType, onClose, onGalleryClick } = props;
 
   const [isFullscreen, setIsFullscreen] = useBoolean();
   const [isfullscreenNotSupported, setIsfullscreenNotSupported] = useBoolean();
@@ -98,7 +98,7 @@ const Actions = (props: ActionsProps): ReactElement => {
     />,
 
     //  Fullscreen button
-    !isfullscreenNotSupported ? (
+    !isfullscreenNotSupported && activeType !== 'video' ? (
       <IconButton
         key='fullscreen_button'
         aria-label={isFullscreen ? 'Exit fullscreen ' : 'Enter fullscreen'}
