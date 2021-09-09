@@ -37,22 +37,16 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
   const [isHoveringPoster, setIsHoveringPoster] = useBoolean();
 
-  const [isHoveringQuickView, setIsHoveringQuickView] = useBoolean();
-
-  const [isHoveringLiked, setIsHoveringLiked] = useBoolean();
-  const [isHoveringBookmark, setIsHoveringBookmark] = useBoolean();
+  const [isDisabled, setIsDisabled] = useBoolean();
 
   return (
     <>
       <Link
-        isDisabled={isLoading || isHoveringQuickView || isHoveringLiked || isHoveringBookmark}
+        isDisabled={isLoading || isDisabled}
         to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}
         onMouseEnter={() => setIsHoveringPoster.on()}
         onMouseLeave={() => setIsHoveringPoster.off()}>
-        <Card
-          isDisabled={isLoading}
-          isClickable={!isHoveringQuickView && !isHoveringLiked && !isHoveringBookmark}
-          isLight>
+        <Card isDisabled={isLoading} isClickable={!isDisabled} isLight>
           <VStack width={width} position='relative' spacing={1} p={1}>
             {/* Image */}
             <Box position='relative' width='100%' minWidth='100%' maxWidth='100%'>
@@ -77,8 +71,8 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                         position='absolute'
                         bottom={theme.space[1]}
                         width='100%'
-                        onMouseEnter={() => setIsHoveringQuickView.on()}
-                        onMouseLeave={() => setIsHoveringQuickView.off()}
+                        onMouseEnter={() => setIsDisabled.on()}
+                        onMouseLeave={() => setIsDisabled.off()}
                         px={1}>
                         <Button
                           isFullWidth
@@ -100,11 +94,11 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
               {mediaType !== 'person' ? (
                 <HStack width='100%' justify='space-between' spacing={0}>
                   {/* Rating component */}
-                  <Rating rating={rating} isLoading={isLoading} />
+                  <Rating rating={rating} isLoading={isLoading} iconFontsize={theme.fontSizes.xl} textFontsize='md' />
 
                   <HStack spacing={0}>
                     {/* Like component */}
-                    <Box onMouseEnter={() => setIsHoveringLiked.on()} onMouseLeave={() => setIsHoveringLiked.off()}>
+                    <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                       <Like
                         isDisabled={isLoading}
                         title={title}
@@ -114,9 +108,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                       />
                     </Box>
                     {/* List component */}
-                    <Box
-                      onMouseEnter={() => setIsHoveringBookmark.on()}
-                      onMouseLeave={() => setIsHoveringBookmark.off()}>
+                    <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                       <Bookmark
                         isDisabled={isLoading}
                         title={title}
@@ -144,7 +136,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                   top: 1,
                   right: 2
                 }}>
-                <Box onMouseEnter={() => setIsHoveringLiked.on()} onMouseLeave={() => setIsHoveringLiked.off()}>
+                <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                   <Like isDisabled={isLoading} title={title} mediaType={mediaType} mediaItem={mediaItem} size='sm' />
                 </Box>
               </HStack>

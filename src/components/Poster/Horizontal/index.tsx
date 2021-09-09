@@ -1,10 +1,20 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery, useBoolean, HStack, VStack, Box, AspectRatio } from '@chakra-ui/react';
+import {
+  useTheme,
+  useMediaQuery,
+  useBreakpointValue,
+  useBoolean,
+  HStack,
+  VStack,
+  Box,
+  AspectRatio
+} from '@chakra-ui/react';
 
 import { MediaType } from '../../../common/types/types';
 import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
+import { Theme } from '../../../theme/types';
 import Bookmark from '../../Bookmark';
 import Image from '../../Image';
 import Like from '../../Like';
@@ -18,7 +28,16 @@ import { HorizontalPosterProps } from './types';
 const width = ['100px', '116px', '152px', '188px', '188px', '224px'];
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
+  const theme = useTheme<Theme>();
   const [isSm] = useMediaQuery('(max-width: 600px)');
+  const iconSize = useBreakpointValue({
+    'base': theme.fontSizes['lg'],
+    'sm': theme.fontSizes['lg'],
+    'md': theme.fontSizes['xl'],
+    'lg': theme.fontSizes['2xl'],
+    'xl': theme.fontSizes['2xl'],
+    '2xl': theme.fontSizes['3xl']
+  });
 
   const {
     mediaItem,
@@ -31,19 +50,11 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
     isLoading = false
   } = props;
 
-  const [isHoveringLiked, setIsHoveringLiked] = useBoolean();
-  const [isHoveringBookmark, setIsHoveringBookmark] = useBoolean();
-  const [isHoveringDescription, setIsHoveringDescription] = useBoolean();
+  const [isDisabled, setIsDisabled] = useBoolean();
 
   return (
-    <Link
-      isDisabled={isLoading || isHoveringLiked || isHoveringBookmark || isHoveringDescription}
-      to={{ pathname: `${mediaType}/${mediaItem?.id || ''}` }}>
-      <Card
-        isFullWidth
-        isDisabled={isLoading}
-        isClickable={!isHoveringLiked && !isHoveringBookmark && !isHoveringDescription}
-        isLight>
+    <Link isDisabled={isLoading || isDisabled} to={{ pathname: `${mediaType}/${mediaItem?.id || ''}` }}>
+      <Card isFullWidth isDisabled={isLoading} isClickable={!isDisabled} isLight>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
           <AspectRatio width={width || '100%'} minWidth={width || '100%'} maxWidth={width || '100%'} ratio={16 / 9}>
@@ -72,7 +83,14 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
             alignItems='flex-start'
             spacing={[1, 1, 2, 2, 2, 2]}>
             {/* Rating component */}
-            {mediaType !== 'person' ? <Rating rating={rating} isLoading={isLoading} isHorizontal /> : null}
+            {mediaType !== 'person' ? (
+              <Rating
+                rating={rating}
+                isLoading={isLoading}
+                iconFontsize={iconSize}
+                textFontsize={['sm', 'sm', 'md', 'lg', 'lg', 'xl']}
+              />
+            ) : null}
 
             {/* Text */}
             <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
@@ -80,10 +98,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               <Subtitle subtitle={subtitle} isLoading={isLoading} />
             </VStack>
 
-            <Box
-              width='100%'
-              onMouseEnter={() => setIsHoveringDescription.on()}
-              onMouseLeave={() => setIsHoveringDescription.off()}>
+            <Box width='100%' onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
               {typeof description === 'string' ? (
                 <Description
                   mediaType={mediaType}
@@ -106,7 +121,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                 right: 1
               }}>
               {/* Like component */}
-              <Box onMouseEnter={() => setIsHoveringLiked.on()} onMouseLeave={() => setIsHoveringLiked.off()}>
+              <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                 <Like
                   isDisabled={isLoading}
                   title={title}
@@ -117,7 +132,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               </Box>
               {/* List component */}
               {mediaType !== 'person' ? (
-                <Box onMouseEnter={() => setIsHoveringBookmark.on()} onMouseLeave={() => setIsHoveringBookmark.off()}>
+                <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                   <Bookmark
                     isDisabled={isLoading}
                     title={title}
