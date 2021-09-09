@@ -1,22 +1,36 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery } from '@chakra-ui/react';
+import { useBreakpointValue } from '@chakra-ui/react';
 
 import Image from '../../../Image';
 import { PhotoViewerProps } from './types';
 
 const PhotoViewer = (props: PhotoViewerProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 600px)');
-  const [isHorizontalSm] = useMediaQuery('(max-height: 500px)');
+  const width = useBreakpointValue({
+    'base': 'calc(100% - 2rem)',
+    'sm': 'auto',
+    'md': 'auto',
+    'lg': 'auto',
+    'xl': 'auto',
+    '2xl': 'auto'
+  });
+  const height = useBreakpointValue({
+    'base': 'auto',
+    'sm': 'calc(100% - 6rem)',
+    'md': 'calc(100% - 8rem)',
+    'lg': 'calc(100% - 10rem)',
+    'xl': 'calc(100% - 12rem)',
+    '2xl': 'calc(100% - 14rem)'
+  });
 
   const { name, path, mediaType } = props;
 
   return (
     <Image
       alt={`${name ? `"${name}"` : ''} image`}
-      width={isHorizontalSm || !isSm ? 'auto' : 'calc(100% - 32px)'}
+      width={width}
       maxWidth='none'
-      height={isHorizontalSm ? 'calc(100% - 32px)' : isSm ? 'auto' : 'calc(100% - 128px)'}
+      height={height}
       borderRadius='xl'
       mediaType={mediaType}
       src={path}

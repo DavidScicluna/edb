@@ -68,25 +68,28 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
   /**
    * This method will set the active path and active type on every change
    */
-  const handleSlideChange = useCallback((swiper: Swiper) => {
-    const item = data.find((_item, index) => index === swiper.activeIndex);
-    const path = item?.file_path || item?.key || '';
-    const type = photos?.some((image) => image.file_path === path)
-      ? 'photo'
-      : backdrops?.some((image) => image.file_path === path)
-      ? 'backdrop'
-      : videos?.some((video) => video.key === path)
-      ? 'video'
-      : '';
+  const handleSlideChange = useCallback(
+    (swiper: Swiper) => {
+      const item = data.find((_item, index) => index === swiper.activeIndex);
+      const path = item?.file_path || item?.key || '';
+      const type = photos?.some((image) => image.file_path === path)
+        ? 'photo'
+        : backdrops?.some((image) => image.file_path === path)
+        ? 'backdrop'
+        : videos?.some((video) => video.key === path)
+        ? 'video'
+        : '';
 
-    if (path) {
-      setActivePath(path);
-    }
+      if (path) {
+        setActivePath(path);
+      }
 
-    if (type) {
-      setActiveType(type);
-    }
-  }, []);
+      if (type) {
+        setActiveType(type);
+      }
+    },
+    [data, photos, backdrops, videos, setActivePath, setActiveType]
+  );
 
   /**
    * This method will close the gallery and display the file
@@ -106,15 +109,13 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
   };
 
   useEffect(() => {
-    if (selected && selected.asset && selected.type && data && data.length > 0) {
-      handleSlideTo(
-        data?.findIndex((item) => item.file_path === selected.asset?.file_path || item.key === selected.asset?.key) || 0
-      );
-
-      setActivePath(selected.asset?.file_path || selected.asset.key);
+    if (swiper && selected && selected.asset && selected.type && data && data.length > 0) {
+      setActivePath(selected.asset);
       setActiveType(selected.type);
+
+      handleSlideTo(data?.findIndex((item) => item.file_path === selected.asset || item.key === selected.asset) || 0);
     }
-  }, [selected]);
+  }, [swiper, selected]);
 
   return (
     <>

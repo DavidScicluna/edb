@@ -84,15 +84,12 @@ const Viewer = (props: ViewerProps): ReactElement => {
           <SwiperSlide key={index}>
             <SlideFade
               in={activeIndex - 1 === index}
-              offsetY='5vh'
-              delay={{
-                enter: utils.handleParseDurationForFramer(
-                  utils.handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
-                ),
-                exit: 0
-              }}
+              offsetY='10vh'
+              delay={utils.handleParseDurationForFramer(
+                utils.handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
+              )}
               unmountOnExit>
-              <Center width='100vw' height='100vh' position='relative' p={2}>
+              <Center width='100vw' height='100vh' position='relative'>
                 {renderSlide(slide)}
               </Center>
             </SlideFade>

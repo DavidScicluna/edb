@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import { useBoolean, Box } from '@chakra-ui/react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import YouTube, { Options } from 'react-youtube';
+import './styles.css';
 
 import ClickableImage from '../../../../../Clickable/Image';
 import { VideoProps } from './types';
@@ -16,12 +17,14 @@ const Video = (props: VideoProps): ReactElement => {
     playerVars: {
       autoplay: isHovering ? 1 : 0,
       controls: 0,
+      color: 'white',
+      enablejsapi: 1,
       disablekb: 1,
       mute: 1,
       fs: 0,
       loop: 1,
-      modestbranding: 1
-      // playsinline: 1
+      modestbranding: 1,
+      showinfo: 0
     }
   };
 
@@ -36,7 +39,12 @@ const Video = (props: VideoProps): ReactElement => {
         icon={PlayArrowIcon}
         isActive={isActive}
         onClick={() => onClickVideo(video.key, 'video')}>
-        <YouTube videoId={video.key} opts={opts} />
+        <YouTube
+          videoId={video.key}
+          className='VideoGalleryFrame'
+          containerClassName='VideoGalleryContainer'
+          opts={opts}
+        />
       </ClickableImage>
     </Box>
   );
