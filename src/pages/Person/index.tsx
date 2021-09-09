@@ -277,7 +277,7 @@ const Person = (): ReactElement => {
           isOpen={isMediaViewerOpen}
           selected={{
             type: 'photo',
-            asset: selectedPhoto
+            asset: selectedPhoto?.file_path
           }}
           photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
           mediaType='person'
