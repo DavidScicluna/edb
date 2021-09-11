@@ -17,52 +17,51 @@ const Departments = (props: DepartmentsProps): ReactElement => {
 
   const { departments, isLoading = false } = props;
 
-  return (
-    <HStack maxWidth='100%' spacing={isLoading ? 1 : 0}>
-      {!isLoading ? (
-        <HorizontalScroll>
-          <>
-            {departments.map((department, index) => (
-              <Fragment key={index}>
-                <SlideFade
-                  in
-                  offsetY={9.5}
-                  delay={utils.handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}>
-                  <Text
-                    align='left'
-                    color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-                    fontSize='md'
-                    whiteSpace='nowrap'>
-                    {department}
-                  </Text>
-                </SlideFade>
-
-                {index < departments.length - 1 ? (
-                  <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
-                    •
-                  </Text>
-                ) : null}
-              </Fragment>
-            ))}
-          </>
-        </HorizontalScroll>
-      ) : (
-        _.range(0, 4).map((_dummy, index) => (
-          <Fragment key={index}>
-            <SkeletonText
-              width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
-              height='19px'
-              offsetY={9.5}
-            />
-
-            {index < 3 ? (
-              <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
-                •
-              </Text>
-            ) : null}
-          </Fragment>
-        ))
-      )}
+  return !isLoading ? (
+    <HorizontalScroll>
+      <HStack
+        width='100%'
+        maxWidth='100%'
+        divider={
+          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' mx={0.75}>
+            •
+          </Text>
+        }>
+        {' '}
+        {departments.map((department, index) => (
+          <SlideFade
+            key={index}
+            in
+            offsetY={9.5}
+            delay={utils.handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}>
+            <Text
+              align='left'
+              color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+              fontSize='md'
+              whiteSpace='nowrap'>
+              {department}
+            </Text>
+          </SlideFade>
+        ))}
+      </HStack>
+    </HorizontalScroll>
+  ) : (
+    <HStack
+      width='100%'
+      maxWidth='100%'
+      divider={
+        <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' mx={0.75}>
+          •
+        </Text>
+      }>
+      {_.range(0, 4).map((_dummy, index) => (
+        <SkeletonText
+          key={index}
+          width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
+          height='19px'
+          offsetY={9.5}
+        />
+      ))}
     </HStack>
   );
 };

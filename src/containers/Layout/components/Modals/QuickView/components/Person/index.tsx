@@ -127,7 +127,7 @@ const Person = (props: PersonProps): ReactElement => {
       {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
         <MediaViewer
           isOpen={isMediaViewerOpen}
-          selected={{ type: 'photo', asset: selectedPhoto }}
+          selected={{ type: 'photo', asset: selectedPhoto?.file_path }}
           photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
           mediaType='person'
           onClose={onMediaViewerClose}

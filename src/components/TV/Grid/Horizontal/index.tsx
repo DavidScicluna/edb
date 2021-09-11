@@ -21,7 +21,7 @@ const HorizontalTV = ({ isError, isSuccess, tv }: GridProps): ReactElement => {
     </>
   ) : (
     <>
-      {[..._.range(20)].map((_dummy, index: number) => (
+      {[..._.range(0, 20)].map((_dummy, index: number) => (
         <VerticalPoster key={index} isLoading />
       ))}
     </>

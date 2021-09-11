@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useRef } from 'react';
 
 import {
   useTheme,
@@ -13,26 +13,24 @@ import {
 } from '@chakra-ui/react';
 import { SearchOutlined as SearchOutlinedIcon, CheckOutlined as CheckOutlinedIcon } from '@material-ui/icons';
 
+import { useElementSize } from '../../../common/hooks';
 import { Theme } from '../../../theme/types';
 import { ImageProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
+  const imageRef = useRef<HTMLDivElement | null>(null);
+
+  const { height } = useElementSize(imageRef);
+
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const fontSize = useBreakpointValue({
-    'base': theme.fontSizes['5xl'],
-    'sm': theme.fontSizes['5xl'],
-    'md': theme.fontSizes['6xl'],
-    'lg': theme.fontSizes['6xl'],
-    'xl': theme.fontSizes['7xl'],
-    '2xl': theme.fontSizes['7xl']
-  });
 
   const {
     children,
     width = '100%',
     borderRadius = 'base',
     ratio = 2 / 3,
+    icon,
     isDisabled = false,
     isActive = false,
     onClick,
@@ -44,6 +42,7 @@ const Image = (props: ImageProps): ReactElement => {
   return (
     <Box
       {...rest}
+      ref={imageRef}
       position='relative'
       width={width}
       minWidth={width}
@@ -72,13 +71,21 @@ const Image = (props: ImageProps): ReactElement => {
                 transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-in-out']}`
               }}>
               <Fade in={isHovering || isActive} unmountOnExit>
-                <Icon
-                  as={isActive ? CheckOutlinedIcon : SearchOutlinedIcon}
-                  color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
-                  sx={{
-                    fontSize: `${fontSize} !important`
-                  }}
-                />
+                {
+                  <Icon
+                    as={isActive ? CheckOutlinedIcon : icon || SearchOutlinedIcon}
+                    color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+                    sx={{
+                      fontSize: `${
+                        height > 375
+                          ? theme.fontSizes['8xl']
+                          : height > 275
+                          ? theme.fontSizes['7xl']
+                          : theme.fontSizes['6xl']
+                      } !important`
+                    }}
+                  />
+                }
               </Fade>
             </Center>
           </Fade>

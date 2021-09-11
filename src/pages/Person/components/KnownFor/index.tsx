@@ -50,7 +50,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
         </>
       ) : (
         <>
-          {[..._.range(20)].map((_dummy, index: number) => (
+          {[..._.range(0, 20)].map((_dummy, index: number) => (
             <VerticalPoster
               key={index}
               width={['185px', '205px', '230px']}

@@ -16,11 +16,11 @@ const PhotoViewer = (props: PhotoViewerProps): ReactElement => {
   });
   const height = useBreakpointValue({
     'base': 'auto',
-    'sm': 'calc(100% - 6rem)',
-    'md': 'calc(100% - 8rem)',
-    'lg': 'calc(100% - 10rem)',
-    'xl': 'calc(100% - 12rem)',
-    '2xl': 'calc(100% - 14rem)'
+    'sm': 'calc(100% - 8rem)',
+    'md': 'calc(100% - 6rem)',
+    'lg': 'calc(100% - 6rem)',
+    'xl': 'calc(100% - 6rem)',
+    '2xl': 'calc(100% - 8rem)'
   });
 
   const { name, path, mediaType } = props;

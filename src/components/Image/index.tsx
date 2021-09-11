@@ -15,7 +15,7 @@ const Image = (props: ImageProps): ReactElement => {
   const { width: elementWidth } = useElementSize(imageRef);
   const { css, handleIsLoaded } = useImageOnLoad(theme);
 
-  const { width, mediaType, alt, src, size, ...rest } = props;
+  const { mediaType, alt, src, size, ...rest } = props;
 
   const [fallbackSrc, setFallbackSrc] = useState<string>('');
 
@@ -39,7 +39,6 @@ const Image = (props: ImageProps): ReactElement => {
       <CUIImage
         {...rest}
         ref={imageRef}
-        width={width}
         position='absolute'
         alt={`${alt} thumbnail`}
         onError={() => handleIsLoaded(true)}
@@ -52,7 +51,6 @@ const Image = (props: ImageProps): ReactElement => {
       <CUIImage
         {...rest}
         ref={imageRef}
-        width={width}
         position='absolute'
         alt={alt}
         onLoad={() => handleIsLoaded(true)}

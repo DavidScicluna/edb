@@ -32,7 +32,7 @@ const VerticalPeople = ({ isError, isSuccess, people }: GridProps): ReactElement
     </SimpleGrid>
   ) : (
     <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]} spacing={2}>
-      {[..._.range(people ? people.length : 20)].map((_dummy, index: number) =>
+      {[..._.range(0, people ? people.length : 20)].map((_dummy, index: number) =>
         displayMode === 'list' ? (
           <HorizontalPoster key={index} isLoading />
         ) : (
