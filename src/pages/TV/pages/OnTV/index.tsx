@@ -1,25 +1,25 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import { useSelector } from '../../../common/hooks';
-import axiosInstance from '../../../common/scripts/axios';
-import { PartialTV } from '../../../common/types/tv';
-import { Response, SortBy, Genre } from '../../../common/types/types';
-import utils from '../../../common/utils/utils';
-import Button from '../../../components/Clickable/Button';
-import Filters from '../../../components/Filters';
-import VerticalGrid from '../../../components/Grid/Vertical';
-import LoadMore from '../../../components/LoadMore';
-import VerticalTV from '../../../components/TV/Grid/Vertical';
-import Page from '../../../containers/Page';
-import { home, tv as tvBreadcrumb } from '../../../containers/Page/common/data/breadcrumbs';
-import { toggleConfirm, defaultConfirmModal } from '../../../store/slices/Modals';
+import { useSelector } from '../../../../common/hooks';
+import axiosInstance from '../../../../common/scripts/axios';
+import { PartialTV } from '../../../../common/types/tv';
+import { Response, SortBy, Genre } from '../../../../common/types/types';
+import utils from '../../../../common/utils/utils';
+import Button from '../../../../components/Clickable/Button';
+import Filters from '../../../../components/Filters';
+import VerticalGrid from '../../../../components/Grid/Vertical';
+import LoadMore from '../../../../components/LoadMore';
+import Page from '../../../../containers/Page';
+import { home, tv as tvBreadcrumb } from '../../../../containers/Page/common/data/breadcrumbs';
+import { toggleConfirm, defaultConfirmModal } from '../../../../store/slices/Modals';
+import VerticalTV from '../../components/VerticalTV';
 
 const OnTV = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -34,7 +34,7 @@ const OnTV = (): ReactElement => {
   const [tv, setTV] = useState<Response<PartialTV[]>>();
 
   // Fetching on tv
-  const onTV = useInfiniteQuery(
+  const onTVQuery = useInfiniteQuery(
     'onTV',
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/on_the_air', {
@@ -79,7 +79,7 @@ const OnTV = (): ReactElement => {
 
     setGenres(genres);
 
-    onTV.refetch();
+    onTVQuery.refetch();
   };
 
   const handleResetFilters = (): void => {
@@ -89,7 +89,7 @@ const OnTV = (): ReactElement => {
     dispatch(toggleConfirm({ ...defaultConfirmModal }));
 
     setTimeout(() => {
-      onTV.fetchNextPage();
+      onTVQuery.fetchNextPage();
     }, 0);
   };
 
@@ -108,7 +108,7 @@ const OnTV = (): ReactElement => {
         })
       );
     } else {
-      onTV.fetchNextPage();
+      onTVQuery.fetchNextPage();
     }
   };
 
@@ -121,27 +121,28 @@ const OnTV = (): ReactElement => {
       title='TV Shows On At The Moment'
       breadcrumbs={[home, tvBreadcrumb, { label: 'On At The Moment', to: { pathname: '/tv/on-tv' } }]}>
       {{
-        actions: <Filters mediaType='tv' isDisabled={!onTV.isSuccess} onFilter={handleSetFilters} />,
+        actions: <Filters mediaType='tv' isDisabled={!onTVQuery.isSuccess} onFilter={handleSetFilters} />,
         body: (
           <VerticalGrid>
             <VStack width='100%' spacing={4} px={2} pt={2}>
               <VerticalTV
-                isError={onTV.isError}
-                isSuccess={onTV.isSuccess && !onTV.isFetching && !onTV.isLoading}
+                isError={onTVQuery.isError}
+                isSuccess={onTVQuery.isSuccess}
+                isLoading={onTVQuery.isFetching || onTVQuery.isLoading}
                 tv={tv?.results || []}
               />
 
-              {tv ? (
+              <ScaleFade in={!onTVQuery.isError} unmountOnExit>
                 <LoadMore
-                  amount={tv.results.length}
-                  total={tv.total_results}
+                  amount={tv?.results.length || 0}
+                  total={tv?.total_results || 0}
                   mediaType='TV shows'
-                  isLoading={onTV.isFetching || onTV.isLoading}
-                  isError={onTV.isError}
-                  hasNextPage={onTV.hasNextPage || true}
+                  isLoading={onTVQuery.isFetching || onTVQuery.isLoading}
+                  isError={onTVQuery.isError}
+                  hasNextPage={onTVQuery.hasNextPage || true}
                   onFetch={handleFetchNextPage}
                 />
-              ) : null}
+              </ScaleFade>
             </VStack>
           </VerticalGrid>
         )

@@ -12,9 +12,9 @@ import utils from '../../common/utils/utils';
 import Button from '../../components/Clickable/Button';
 import Link from '../../components/Clickable/Link';
 import HorizontalGrid from '../../components/Grid/Horizontal';
-import HorizontalTV from '../../components/TV/Grid/Horizontal';
 import Page from '../../containers/Page';
 import { home, tv } from '../../containers/Page/common/data/breadcrumbs';
+import HorizontalTV from './components/HorizontalTV';
 
 const TV = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -25,7 +25,7 @@ const TV = (): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   // Fetching popular tv
-  const popularTV = useQuery('popularTV', async () => {
+  const popularTVQuery = useQuery('popularTV', async () => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
       cancelToken: source.token
     });
@@ -33,7 +33,7 @@ const TV = (): ReactElement => {
   });
 
   // Fetching tv airing_today
-  const tvAiringToday = useQuery('tvAiringToday', async () => {
+  const tvAiringTodayQuery = useQuery('tvAiringToday', async () => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/airing_today', {
       cancelToken: source.token
     });
@@ -41,7 +41,7 @@ const TV = (): ReactElement => {
   });
 
   // Fetching on tv
-  const onTV = useQuery('onTV', async () => {
+  const onTVQuery = useQuery('onTV', async () => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/on_the_air', {
       cancelToken: source.token
     });
@@ -49,7 +49,7 @@ const TV = (): ReactElement => {
   });
 
   // Fetching top rated tv
-  const topRatedTV = useQuery('topRatedTV', async () => {
+  const topRatedTVQuery = useQuery('topRatedTV', async () => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/top_rated', {
       cancelToken: source.token
     });
@@ -84,22 +84,23 @@ const TV = (): ReactElement => {
                 <Link
                   to={{ pathname: '/tv/popular' }}
                   isFullWidth
-                  isDisabled={popularTV.isFetching || popularTV.isLoading}>
+                  isDisabled={popularTVQuery.isFetching || popularTVQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={popularTV.isFetching || popularTV.isLoading}
+                    isDisabled={popularTVQuery.isFetching || popularTVQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Popular TV Shows
                   </Button>
                 </Link>
               }
-              isLoading={popularTV.isFetching || popularTV.isLoading}>
+              isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}>
               <HorizontalTV
-                isError={popularTV.isError}
-                isSuccess={popularTV.isSuccess && !popularTV.isFetching && !popularTV.isLoading}
-                tv={popularTV.data}
+                isError={popularTVQuery.isError}
+                isSuccess={popularTVQuery.isSuccess}
+                isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}
+                tv={popularTVQuery.data}
               />
             </HorizontalGrid>
 
@@ -109,44 +110,49 @@ const TV = (): ReactElement => {
                 <Link
                   to={{ pathname: '/tv/airing-today' }}
                   isFullWidth
-                  isDisabled={tvAiringToday.isFetching || tvAiringToday.isLoading}>
+                  isDisabled={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={tvAiringToday.isFetching || tvAiringToday.isLoading}
+                    isDisabled={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all TV Shows Airing Today
                   </Button>
                 </Link>
               }
-              isLoading={tvAiringToday.isFetching || tvAiringToday.isLoading}>
+              isLoading={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}>
               <HorizontalTV
-                isError={tvAiringToday.isError}
-                isSuccess={tvAiringToday.isSuccess && !tvAiringToday.isFetching && !tvAiringToday.isLoading}
-                tv={tvAiringToday.data}
+                isError={tvAiringTodayQuery.isError}
+                isSuccess={tvAiringTodayQuery.isSuccess}
+                isLoading={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}
+                tv={tvAiringTodayQuery.data}
               />
             </HorizontalGrid>
 
             <HorizontalGrid
               title={handleRenderTitle('TV Shows on at the moment')}
               footer={
-                <Link to={{ pathname: '/tv/on-tv' }} isFullWidth isDisabled={onTV.isFetching || onTV.isLoading}>
+                <Link
+                  to={{ pathname: '/tv/on-tv' }}
+                  isFullWidth
+                  isDisabled={onTVQuery.isFetching || onTVQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={onTV.isFetching || onTV.isLoading}
+                    isDisabled={onTVQuery.isFetching || onTVQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all TV Shows on at the moment
                   </Button>
                 </Link>
               }
-              isLoading={onTV.isFetching || onTV.isLoading}>
+              isLoading={onTVQuery.isFetching || onTVQuery.isLoading}>
               <HorizontalTV
-                isError={onTV.isError}
-                isSuccess={onTV.isSuccess && !onTV.isFetching && !onTV.isLoading}
-                tv={onTV.data}
+                isError={onTVQuery.isError}
+                isSuccess={onTVQuery.isSuccess}
+                isLoading={onTVQuery.isFetching || onTVQuery.isLoading}
+                tv={onTVQuery.data}
               />
             </HorizontalGrid>
 
@@ -156,22 +162,23 @@ const TV = (): ReactElement => {
                 <Link
                   to={{ pathname: '/tv/top-rated' }}
                   isFullWidth
-                  isDisabled={topRatedTV.isFetching || topRatedTV.isLoading}>
+                  isDisabled={topRatedTVQuery.isFetching || topRatedTVQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={topRatedTV.isFetching || topRatedTV.isLoading}
+                    isDisabled={topRatedTVQuery.isFetching || topRatedTVQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Top Rated TV Shows
                   </Button>
                 </Link>
               }
-              isLoading={topRatedTV.isFetching || topRatedTV.isLoading}>
+              isLoading={topRatedTVQuery.isFetching || topRatedTVQuery.isLoading}>
               <HorizontalTV
-                isError={topRatedTV.isError}
-                isSuccess={topRatedTV.isSuccess && !topRatedTV.isFetching && !topRatedTV.isLoading}
-                tv={topRatedTV.data}
+                isError={topRatedTVQuery.isError}
+                isSuccess={topRatedTVQuery.isSuccess}
+                isLoading={topRatedTVQuery.isFetching || topRatedTVQuery.isLoading}
+                tv={topRatedTVQuery.data}
               />
             </HorizontalGrid>
           </VStack>
