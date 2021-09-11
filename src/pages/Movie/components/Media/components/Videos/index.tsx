@@ -21,7 +21,7 @@ const Videos = (props: VideosProps): ReactElement => {
     <Empty label={`${name ? `"${name}"` : ''} has no videos`} variant='transparent' />
   ) : (
     <>
-      {[...(videos && videos.length > 0 ? videos : _.range(8))]
+      {[...(videos && videos.length > 0 ? videos : _.range(0, 8))]
         .filter((_video, index) => index < 8)
         .map((video: VideoType | number, index) => (
           <Video key={index} video={video} isLoading={isLoading} onClick={onClick} />

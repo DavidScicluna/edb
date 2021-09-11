@@ -25,7 +25,7 @@ const Photos = (props: PhotosProps): ReactElement => {
     <Empty label={`${name ? `"${name}"` : ''} has no photos`} variant='transparent' />
   ) : (
     <>
-      {[...(photos && photos.length > 0 ? photos : _.range(8))]
+      {[...(photos && photos.length > 0 ? photos : _.range(0, 8))]
         .filter((_image, index) => index < 8)
         .map((image: ImageType | number, index) => (
           <ClickableImage

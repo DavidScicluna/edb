@@ -25,7 +25,7 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
     <Empty label={`${name ? `"${name}"` : ''} has no backdrops`} variant='transparent' />
   ) : (
     <>
-      {[...(backdrops && backdrops.length > 0 ? backdrops : _.range(8))]
+      {[...(backdrops && backdrops.length > 0 ? backdrops : _.range(0, 8))]
         .filter((_image, index) => index < 8)
         .map((image: ImageType | number, index) => (
           <ClickableImage
@@ -44,7 +44,7 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
                 mediaType='movie'
                 src={typeof image !== 'number' && image ? image?.file_path : ''}
                 size={{
-                  thumbnail: 'w92',
+                  thumbnail: 'w300',
                   full: 'original'
                 }}
               />

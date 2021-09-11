@@ -9,7 +9,7 @@ import Skeleton from '../../../../../../components/Skeleton';
 import { BackdropProps } from './types';
 
 const Backdrop = (props: BackdropProps): ReactElement => {
-  const { title, path, isLoading = false, isError = false, onClick } = props;
+  const { title, path, video = true, isLoading = false, isError = false, onClick } = props;
 
   const [isImageError, setIsImageError] = useBoolean();
 
@@ -18,19 +18,19 @@ const Backdrop = (props: BackdropProps): ReactElement => {
       width='100%'
       borderRadius='xl'
       ratio={6 / 3}
-      icon={YouTubeIcon}
+      icon={video ? YouTubeIcon : undefined}
       isDisabled={isLoading || isError || isImageError}
-      onClick={path ? () => onClick(path, 'backdrop') : undefined}>
+      onClick={path ? () => onClick(path, video ? 'video' : 'backdrop') : undefined}>
       <Skeleton width='100%' position='absolute' top={0} isLoaded={!isLoading} borderRadius='xl'>
         <Image
           width='100%'
-          alt={`${title ? `"${title}"` : ''} movie poster`}
+          alt={`${title ? `"${title}"` : ''} movie backdrop`}
           mediaType='movie'
           onError={() => setIsImageError.on()}
           onLoad={() => setIsImageError.off()}
           src={path || ''}
           size={{
-            thumbnail: 'w45',
+            thumbnail: 'w300',
             full: 'original'
           }}
         />

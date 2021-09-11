@@ -18,7 +18,7 @@ const Poster = (props: PosterProps): ReactElement => {
       borderRadius='xl'
       ratio={2 / 3}
       isDisabled={isLoading || isError || isImageError}
-      onClick={path ? () => onClick(path, 'poster') : undefined}>
+      onClick={path ? () => onClick(path, 'photo') : undefined}>
       <Skeleton isLoaded={!isLoading} borderRadius='xl'>
         <Image
           height='100%'
@@ -29,7 +29,7 @@ const Poster = (props: PosterProps): ReactElement => {
           onLoad={() => setIsImageError.off()}
           src={path || ''}
           size={{
-            thumbnail: 'w45',
+            thumbnail: 'w92',
             full: 'original'
           }}
         />
