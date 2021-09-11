@@ -7,15 +7,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../../common/scripts/axios';
-import {
-  FullPerson,
-  Credits,
-  MovieCredits,
-  TVCredits,
-  ExternalIDs,
-  ImageResponse,
-  Profile
-} from '../../common/types/person';
+import { FullPerson, Credits, MovieCredits, TVCredits, ExternalIDs, ImageResponse } from '../../common/types/person';
 import { Response } from '../../common/types/types';
 import MediaViewer from '../../components/MediaViewer';
 import Bio from './components/Bio';
