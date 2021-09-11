@@ -1,21 +1,21 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 
-import { useSelector } from '../../../common/hooks';
-import axiosInstance from '../../../common/scripts/axios';
-import { PartialMovie } from '../../../common/types/movie';
-import { Response, SortBy, Genre } from '../../../common/types/types';
-import Filters from '../../../components/Filters';
-import VerticalGrid from '../../../components/Grid/Vertical';
-import LoadMore from '../../../components/LoadMore';
-import VerticalMovies from '../../../components/Movies/Grid/Vertical';
-import Page from '../../../containers/Page';
-import { home, movies as moviesBreadcrumb } from '../../../containers/Page/common/data/breadcrumbs';
+import { useSelector } from '../../../../common/hooks';
+import axiosInstance from '../../../../common/scripts/axios';
+import { PartialMovie } from '../../../../common/types/movie';
+import { Response, SortBy, Genre } from '../../../../common/types/types';
+import Filters from '../../../../components/Filters';
+import VerticalGrid from '../../../../components/Grid/Vertical';
+import LoadMore from '../../../../components/LoadMore';
+import Page from '../../../../containers/Page';
+import { home, movies as moviesBreadcrumb } from '../../../../containers/Page/common/data/breadcrumbs';
+import VerticalMovies from '../../components/VerticalMovies';
 
 const PopularMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -28,7 +28,7 @@ const PopularMovies = (): ReactElement => {
   const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 
   // Fetching popular movies
-  const popularMovies = useInfiniteQuery(
+  const popularMoviesQuery = useInfiniteQuery(
     'popularMovies',
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/popular', {
@@ -73,7 +73,7 @@ const PopularMovies = (): ReactElement => {
 
     setGenres(genres);
 
-    popularMovies.refetch();
+    popularMoviesQuery.refetch();
   };
 
   useEffect(() => {
@@ -85,27 +85,30 @@ const PopularMovies = (): ReactElement => {
       title='Popular Movies'
       breadcrumbs={[home, moviesBreadcrumb, { label: 'Popular', to: { pathname: '/movies/popular' } }]}>
       {{
-        actions: <Filters mediaType='movie' isDisabled={!popularMovies.isSuccess} onFilter={handleSetFilters} />,
+        actions: <Filters mediaType='movie' isDisabled={!popularMoviesQuery.isSuccess} onFilter={handleSetFilters} />,
         body: (
           <VerticalGrid>
             <VStack width='100%' spacing={4} px={2} pt={2}>
               <VerticalMovies
-                isError={popularMovies.isError}
-                isSuccess={popularMovies.isSuccess && !popularMovies.isFetching && !popularMovies.isLoading}
+                isError={popularMoviesQuery.isError}
+                isSuccess={popularMoviesQuery.isSuccess}
+                isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}
                 movies={movies?.results || []}
               />
 
-              {movies ? (
+              <ScaleFade
+                in={!popularMoviesQuery.isError && !(popularMoviesQuery.isFetching || popularMoviesQuery.isLoading)}
+                unmountOnExit>
                 <LoadMore
-                  amount={movies.results.length}
-                  total={movies.total_results}
+                  amount={movies?.results.length || 0}
+                  total={movies?.total_results || 0}
                   mediaType='movies'
-                  isLoading={popularMovies.isFetching || popularMovies.isLoading}
-                  isError={popularMovies.isError}
-                  hasNextPage={popularMovies.hasNextPage || true}
-                  onFetch={popularMovies.fetchNextPage}
+                  isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}
+                  isError={popularMoviesQuery.isError}
+                  hasNextPage={popularMoviesQuery.hasNextPage || true}
+                  onFetch={popularMoviesQuery.fetchNextPage}
                 />
-              ) : null}
+              </ScaleFade>
             </VStack>
           </VerticalGrid>
         )

@@ -1,23 +1,23 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 
-import { useSelector } from '../../../common/hooks';
-import axiosInstance from '../../../common/scripts/axios';
-import { PartialMovie } from '../../../common/types/movie';
-import { Response, SortBy, Genre } from '../../../common/types/types';
-import Filters from '../../../components/Filters';
-import VerticalGrid from '../../../components/Grid/Vertical';
-import LoadMore from '../../../components/LoadMore';
-import VerticalMovies from '../../../components/Movies/Grid/Vertical';
-import Page from '../../../containers/Page';
-import { home, movies as moviesBreadcrumb } from '../../../containers/Page/common/data/breadcrumbs';
+import { useSelector } from '../../../../common/hooks';
+import axiosInstance from '../../../../common/scripts/axios';
+import { PartialMovie } from '../../../../common/types/movie';
+import { Response, SortBy, Genre } from '../../../../common/types/types';
+import Filters from '../../../../components/Filters';
+import VerticalGrid from '../../../../components/Grid/Vertical';
+import LoadMore from '../../../../components/LoadMore';
+import Page from '../../../../containers/Page';
+import { home, movies as moviesBreadcrumb } from '../../../../containers/Page/common/data/breadcrumbs';
+import VerticalMovies from '../../components/VerticalMovies';
 
-const UpcomingMovies = (): ReactElement => {
+const MoviesNowPlaying = (): ReactElement => {
   const source = axios.CancelToken.source();
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
@@ -27,11 +27,11 @@ const UpcomingMovies = (): ReactElement => {
 
   const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 
-  // Fetching upcoming movies
-  const upcomingMovies = useInfiniteQuery(
-    'upcomingMovies',
+  // Fetching movies now playing
+  const moviesNowPlayingQuery = useInfiniteQuery(
+    'moviesNowPlaying',
     async ({ pageParam = 1 }) => {
-      const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/upcoming', {
+      const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/now_playing', {
         params: { page: pageParam },
         cancelToken: source.token
       });
@@ -73,7 +73,7 @@ const UpcomingMovies = (): ReactElement => {
 
     setGenres(genres);
 
-    upcomingMovies.refetch();
+    moviesNowPlayingQuery.refetch();
   };
 
   useEffect(() => {
@@ -82,30 +82,38 @@ const UpcomingMovies = (): ReactElement => {
 
   return (
     <Page
-      title='Upcoming Movies'
-      breadcrumbs={[home, moviesBreadcrumb, { label: 'Upcoming', to: { pathname: '/movies/upcoming' } }]}>
+      title='Movies Now Playing'
+      breadcrumbs={[home, moviesBreadcrumb, { label: 'Now Playing', to: { pathname: '/movies/now-playing' } }]}>
       {{
-        actions: <Filters mediaType='movie' onFilter={handleSetFilters} />,
+        actions: (
+          <Filters mediaType='movie' isDisabled={!moviesNowPlayingQuery.isSuccess} onFilter={handleSetFilters} />
+        ),
         body: (
           <VerticalGrid>
             <VStack width='100%' spacing={4} px={2} pt={2}>
               <VerticalMovies
-                isError={upcomingMovies.isError}
-                isSuccess={upcomingMovies.isSuccess && !upcomingMovies.isFetching && !upcomingMovies.isLoading}
+                isError={moviesNowPlayingQuery.isError}
+                isSuccess={moviesNowPlayingQuery.isSuccess}
+                isLoading={moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading}
                 movies={movies?.results || []}
               />
 
-              {movies ? (
+              <ScaleFade
+                in={
+                  !moviesNowPlayingQuery.isError &&
+                  !(moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading)
+                }
+                unmountOnExit>
                 <LoadMore
-                  amount={movies.results.length}
-                  total={movies.total_results}
+                  amount={movies?.results.length || 0}
+                  total={movies?.total_results || 0}
                   mediaType='movies'
-                  isLoading={upcomingMovies.isFetching || upcomingMovies.isLoading}
-                  isError={upcomingMovies.isError}
-                  hasNextPage={upcomingMovies.hasNextPage || true}
-                  onFetch={upcomingMovies.fetchNextPage}
+                  isLoading={moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading}
+                  isError={moviesNowPlayingQuery.isError}
+                  hasNextPage={moviesNowPlayingQuery.hasNextPage || true}
+                  onFetch={moviesNowPlayingQuery.fetchNextPage}
                 />
-              ) : null}
+              </ScaleFade>
             </VStack>
           </VerticalGrid>
         )
@@ -114,4 +122,4 @@ const UpcomingMovies = (): ReactElement => {
   );
 };
 
-export default UpcomingMovies;
+export default MoviesNowPlaying;

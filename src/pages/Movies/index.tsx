@@ -12,9 +12,9 @@ import utils from '../../common/utils/utils';
 import Button from '../../components/Clickable/Button';
 import Link from '../../components/Clickable/Link';
 import HorizontalGrid from '../../components/Grid/Horizontal';
-import HorizontalMovies from '../../components/Movies/Grid/Horizontal';
 import Page from '../../containers/Page';
 import { home, movies } from '../../containers/Page/common/data/breadcrumbs';
+import HorizontalMovies from './components/HorizontalMovies';
 
 const Movies = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -25,7 +25,7 @@ const Movies = (): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   // Fetching popular movies
-  const popularMovies = useQuery('popularMovies', async () => {
+  const popularMoviesQuery = useQuery('popularMovies', async () => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/popular', {
       cancelToken: source.token
     });
@@ -33,7 +33,7 @@ const Movies = (): ReactElement => {
   });
 
   // Fetching upcoming movies
-  const upcomingMovies = useQuery('upcomingMovies', async () => {
+  const upcomingMoviesQuery = useQuery('upcomingMovies', async () => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/upcoming', {
       cancelToken: source.token
     });
@@ -41,7 +41,7 @@ const Movies = (): ReactElement => {
   });
 
   // Fetching movies now playing
-  const moviesNowPlaying = useQuery('moviesNowPlaying', async () => {
+  const moviesNowPlayingQuery = useQuery('moviesNowPlaying', async () => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/now_playing', {
       cancelToken: source.token
     });
@@ -49,7 +49,7 @@ const Movies = (): ReactElement => {
   });
 
   // Fetching top rated movies
-  const topRatedMovies = useQuery('topRatedMovies', async () => {
+  const topRatedMoviesQuery = useQuery('topRatedMovies', async () => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/top_rated', {
       cancelToken: source.token
     });
@@ -84,22 +84,23 @@ const Movies = (): ReactElement => {
                 <Link
                   to={{ pathname: '/movies/popular' }}
                   isFullWidth
-                  isDisabled={popularMovies.isFetching || popularMovies.isLoading}>
+                  isDisabled={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={popularMovies.isFetching || popularMovies.isLoading}
+                    isDisabled={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Popular Movies
                   </Button>
                 </Link>
               }
-              isLoading={popularMovies.isFetching || popularMovies.isLoading}>
+              isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}>
               <HorizontalMovies
-                isError={popularMovies.isError}
-                isSuccess={popularMovies.isSuccess && !popularMovies.isFetching && !popularMovies.isLoading}
-                movies={popularMovies.data}
+                isError={popularMoviesQuery.isError}
+                isSuccess={popularMoviesQuery.isSuccess}
+                isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}
+                movies={popularMoviesQuery.data}
               />
             </HorizontalGrid>
 
@@ -109,22 +110,23 @@ const Movies = (): ReactElement => {
                 <Link
                   to={{ pathname: '/movies/upcoming' }}
                   isFullWidth
-                  isDisabled={upcomingMovies.isFetching || upcomingMovies.isLoading}>
+                  isDisabled={upcomingMoviesQuery.isFetching || upcomingMoviesQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={upcomingMovies.isFetching || upcomingMovies.isLoading}
+                    isDisabled={upcomingMoviesQuery.isFetching || upcomingMoviesQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Upcoming Movies
                   </Button>
                 </Link>
               }
-              isLoading={upcomingMovies.isFetching || upcomingMovies.isLoading}>
+              isLoading={upcomingMoviesQuery.isFetching || upcomingMoviesQuery.isLoading}>
               <HorizontalMovies
-                isError={upcomingMovies.isError}
-                isSuccess={upcomingMovies.isSuccess && !upcomingMovies.isFetching && !upcomingMovies.isLoading}
-                movies={upcomingMovies.data}
+                isError={upcomingMoviesQuery.isError}
+                isSuccess={upcomingMoviesQuery.isSuccess}
+                isLoading={upcomingMoviesQuery.isFetching || upcomingMoviesQuery.isLoading}
+                movies={upcomingMoviesQuery.data}
               />
             </HorizontalGrid>
 
@@ -134,22 +136,23 @@ const Movies = (): ReactElement => {
                 <Link
                   to={{ pathname: '/movies/now-playing' }}
                   isFullWidth
-                  isDisabled={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}>
+                  isDisabled={moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}
+                    isDisabled={moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Movies Now Playing
                   </Button>
                 </Link>
               }
-              isLoading={moviesNowPlaying.isFetching || moviesNowPlaying.isLoading}>
+              isLoading={moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading}>
               <HorizontalMovies
-                isError={moviesNowPlaying.isError}
-                isSuccess={moviesNowPlaying.isSuccess && !moviesNowPlaying.isFetching && !moviesNowPlaying.isLoading}
-                movies={moviesNowPlaying.data}
+                isError={moviesNowPlayingQuery.isError}
+                isSuccess={moviesNowPlayingQuery.isSuccess}
+                isLoading={moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading}
+                movies={moviesNowPlayingQuery.data}
               />
             </HorizontalGrid>
 
@@ -159,22 +162,23 @@ const Movies = (): ReactElement => {
                 <Link
                   to={{ pathname: '/movies/top-rated' }}
                   isFullWidth
-                  isDisabled={topRatedMovies.isFetching || topRatedMovies.isLoading}>
+                  isDisabled={topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={topRatedMovies.isFetching || topRatedMovies.isLoading}
+                    isDisabled={topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Movies Now Playing
                   </Button>
                 </Link>
               }
-              isLoading={topRatedMovies.isFetching || topRatedMovies.isLoading}>
+              isLoading={topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading}>
               <HorizontalMovies
-                isError={topRatedMovies.isError}
-                isSuccess={topRatedMovies.isSuccess && !topRatedMovies.isFetching && !topRatedMovies.isLoading}
-                movies={topRatedMovies.data}
+                isError={topRatedMoviesQuery.isError}
+                isSuccess={topRatedMoviesQuery.isSuccess}
+                isLoading={topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading}
+                movies={topRatedMoviesQuery.data}
               />
             </HorizontalGrid>
           </VStack>

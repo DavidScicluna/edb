@@ -1,21 +1,21 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
 
-import { useSelector } from '../../../common/hooks';
-import axiosInstance from '../../../common/scripts/axios';
-import { PartialMovie } from '../../../common/types/movie';
-import { Response, SortBy, Genre } from '../../../common/types/types';
-import Filters from '../../../components/Filters';
-import VerticalGrid from '../../../components/Grid/Vertical';
-import LoadMore from '../../../components/LoadMore';
-import VerticalMovies from '../../../components/Movies/Grid/Vertical';
-import Page from '../../../containers/Page';
-import { home, movies as moviesBreadcrumb } from '../../../containers/Page/common/data/breadcrumbs';
+import { useSelector } from '../../../../common/hooks';
+import axiosInstance from '../../../../common/scripts/axios';
+import { PartialMovie } from '../../../../common/types/movie';
+import { Response, SortBy, Genre } from '../../../../common/types/types';
+import Filters from '../../../../components/Filters';
+import VerticalGrid from '../../../../components/Grid/Vertical';
+import LoadMore from '../../../../components/LoadMore';
+import Page from '../../../../containers/Page';
+import { home, movies as moviesBreadcrumb } from '../../../../containers/Page/common/data/breadcrumbs';
+import VerticalMovies from '../../components/VerticalMovies';
 
 const TopRatedMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -28,7 +28,7 @@ const TopRatedMovies = (): ReactElement => {
   const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 
   // Fetching top rated movies
-  const topRatedMovies = useInfiniteQuery(
+  const topRatedMoviesQuery = useInfiniteQuery(
     'topRatedMovies',
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/top_rated', {
@@ -73,7 +73,7 @@ const TopRatedMovies = (): ReactElement => {
 
     setGenres(genres);
 
-    topRatedMovies.refetch();
+    topRatedMoviesQuery.refetch();
   };
 
   useEffect(() => {
@@ -85,27 +85,30 @@ const TopRatedMovies = (): ReactElement => {
       title='Top Rated Movies'
       breadcrumbs={[home, moviesBreadcrumb, { label: 'Top Rated', to: { pathname: '/movies/top-rated' } }]}>
       {{
-        actions: <Filters mediaType='movie' isDisabled={!topRatedMovies.isSuccess} onFilter={handleSetFilters} />,
+        actions: <Filters mediaType='movie' isDisabled={!topRatedMoviesQuery.isSuccess} onFilter={handleSetFilters} />,
         body: (
           <VerticalGrid>
             <VStack width='100%' spacing={4} px={2} pt={2}>
               <VerticalMovies
-                isError={topRatedMovies.isError}
-                isSuccess={topRatedMovies.isSuccess && !topRatedMovies.isFetching && !topRatedMovies.isLoading}
+                isError={topRatedMoviesQuery.isError}
+                isSuccess={topRatedMoviesQuery.isSuccess}
+                isLoading={topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading}
                 movies={movies?.results || []}
               />
 
-              {movies ? (
+              <ScaleFade
+                in={!topRatedMoviesQuery.isError && !(topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading)}
+                unmountOnExit>
                 <LoadMore
-                  amount={movies.results.length}
-                  total={movies.total_results}
+                  amount={movies?.results.length || 0}
+                  total={movies?.total_results || 0}
                   mediaType='movies'
-                  isLoading={topRatedMovies.isFetching || topRatedMovies.isLoading}
-                  isError={topRatedMovies.isError}
-                  hasNextPage={topRatedMovies.hasNextPage || true}
-                  onFetch={topRatedMovies.fetchNextPage}
+                  isLoading={topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading}
+                  isError={topRatedMoviesQuery.isError}
+                  hasNextPage={topRatedMoviesQuery.hasNextPage || true}
+                  onFetch={topRatedMoviesQuery.fetchNextPage}
                 />
-              ) : null}
+              </ScaleFade>
             </VStack>
           </VerticalGrid>
         )
