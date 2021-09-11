@@ -114,7 +114,7 @@ const Person = (): ReactElement => {
 
   const { id } = useParams<{ id: string }>();
 
-  const [selectedPhoto, setSelectedPhoto] = useState<Profile | undefined>();
+  const [selectedPhoto, setSelectedPhoto] = useState<string>();
 
   // Fetching person details
   const personQuery = useQuery([`person-${id}`, id], async () => {
@@ -198,18 +198,9 @@ const Person = (): ReactElement => {
    *
    * @param image - Image object
    */
-  const handleOnImageClick = (image?: Profile): void => {
-    setSelectedPhoto(image || undefined);
+  const handleOnImageClick = (path: string): void => {
+    setSelectedPhoto(path || undefined);
     onMediaViewerOpen();
-  };
-
-  /**
-   * This method will find the image object from images and then it will open the media modal
-   *
-   * @param path - Image path
-   */
-  const handleOnPosterClick = (path: string): void => {
-    handleOnImageClick(imagesQuery.data?.profiles.find((image) => image.file_path === path));
   };
 
   const knownFor = creditsQuery.isSuccess ? handleGetKnownFor() : [];
@@ -232,7 +223,7 @@ const Person = (): ReactElement => {
           personQuery.isFetching || personQuery.isLoading || externalIdsQuery.isFetching || externalIdsQuery.isLoading
         }
         isError={personQuery.isError || personQuery.isError}
-        onClickPoster={handleOnPosterClick}
+        onClickPoster={handleOnImageClick}
       />
 
       {personQuery.data?.biography || personQuery.isFetching || personQuery.isLoading ? (
@@ -277,7 +268,7 @@ const Person = (): ReactElement => {
           isOpen={isMediaViewerOpen}
           selected={{
             type: 'photo',
-            asset: selectedPhoto?.file_path
+            asset: selectedPhoto
           }}
           photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
           mediaType='person'

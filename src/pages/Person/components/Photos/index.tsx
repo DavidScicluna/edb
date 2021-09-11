@@ -33,7 +33,7 @@ const Photos = (props: PhotosProps): ReactElement => {
             color={utils.handleReturnColor(color)}
             isFullWidth
             isDisabled={isLoading || isError}
-            onClick={() => onClickImage()}
+            onClick={() => onClickImage(images[0].file_path)}
             size={isSm ? 'sm' : 'md'}
             variant='text'>
             {`View all ${name ? `"${name}"` : ''} photos`}
@@ -62,7 +62,7 @@ const Photos = (props: PhotosProps): ReactElement => {
                 borderRadius='base'
                 ratio={2 / 3}
                 isDisabled={isLoading}
-                onClick={typeof image !== 'number' && image ? () => onClickImage(image) : undefined}>
+                onClick={typeof image !== 'number' && image ? () => onClickImage(image.file_path) : undefined}>
                 <Skeleton isLoaded={!isLoading} borderRadius='base'>
                   <Image
                     alt={`${name ? `"${name}"` : ''} image`}

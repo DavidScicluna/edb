@@ -20,7 +20,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
 
   const location = useLocation();
 
-  const { children, width, spacing } = props;
+  const { children, width, spacing, isLoading = false } = props;
 
   const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
   const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
@@ -43,7 +43,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
         handleContainerRef(containerRef.current);
       }
     }, 50),
-    [containerRef]
+    [containerRef, setScrollButtons, setResetScrollButtons]
   );
 
   /**
@@ -70,11 +70,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
 
   useEffect(() => {
     handleContainerRef(containerRef.current);
-  }, [windowWidth]);
-
-  useEffect(() => {
-    return () => setScrollButtons({ ...defaultScrollButtonsState });
-  }, []);
+  }, [windowWidth, isLoading]);
 
   return (
     <HStack width={width || '100%'} maxWidth={width || '100%'} position='relative' spacing={0}>

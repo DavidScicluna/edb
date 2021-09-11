@@ -6,5 +6,5 @@ export type PhotosProps = {
   isError?: boolean;
   isSuccess?: boolean;
   isLoading?: boolean;
-  onClickImage: (image?: Profile) => void;
+  onClickImage: (path: string) => void;
 };

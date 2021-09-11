@@ -11,4 +11,5 @@ export type HorizontalScrollProps = {
   children: ReactElement;
   width?: string;
   spacing?: string | number;
+  isLoading?: boolean;
 };

@@ -40,7 +40,7 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
         ''
       }
       description={
-        <HorizontalScroll>
+        <HorizontalScroll isLoading={isLoading}>
           <HStack
             divider={
               <Text
@@ -51,10 +51,11 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
                 ,
               </Text>
             }>
-            {arraySort(person?.known_for || [], 'vote_average').map((mediaItem) => (
+            {arraySort(person?.known_for || [], 'vote_average').map((mediaItem, index) => (
               <Link
-                key={mediaItem.id}
-                to={{ pathname: `/${mediaItem?.title ? 'movie' : mediaItem?.name ? 'tv' : ''}/${mediaItem.id}` }}>
+                key={index}
+                to={{ pathname: `/${mediaItem?.title ? 'movie' : mediaItem?.name ? 'tv' : ''}/${mediaItem.id}` }}
+                isDisabled={isLoading}>
                 <SkeletonText
                   width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
                   offsetY={8.5}
@@ -70,7 +71,7 @@ const HorizontalPerson = ({ isLoading = true, person }: PosterProps): ReactEleme
                       transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
                     }}
                     _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
-                    {!isLoading ? mediaItem?.title || mediaItem?.name || '' : 'Lorem ipsum dolor'}
+                    {mediaItem?.title || mediaItem?.name || ''}
                   </Text>
                 </SkeletonText>
               </Link>
