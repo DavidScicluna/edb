@@ -57,7 +57,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
       <Card isFullWidth isDisabled={isLoading} isClickable={!isDisabled} isLight>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
-          <AspectRatio width={width || '100%'} minWidth={width || '100%'} maxWidth={width || '100%'} ratio={16 / 9}>
+          <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
             <Skeleton isLoaded={!isLoading} borderRadius='base'>
               <Image
                 alt={image.alt}

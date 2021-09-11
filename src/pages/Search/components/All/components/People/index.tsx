@@ -8,7 +8,7 @@ import utils from '../../../../../../common/utils/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import Link from '../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
-import HorizontalPeople from '../../../../../../components/People/Grid/Horizontal';
+import HorizontalPeople from '../../../../../People/components/HorizontalPeople';
 import { PeopleProps } from './types';
 
 const People = (props: PeopleProps): ReactElement => {
@@ -54,7 +54,12 @@ const People = (props: PeopleProps): ReactElement => {
         ) : undefined
       }
       isLoading={isFetching || isLoading}>
-      <HorizontalPeople isError={isError} isSuccess={isSuccess} people={results || []} />
+      <HorizontalPeople
+        isError={isError}
+        isSuccess={isSuccess}
+        isLoading={isFetching || isLoading}
+        people={results || []}
+      />
     </HorizontalGrid>
   );
 };

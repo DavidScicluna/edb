@@ -21,12 +21,12 @@ import VerticalGrid from '../../components/Grid/Vertical';
 import LoadMore from '../../components/LoadMore';
 import MediaTypePicker from '../../components/MediaTypePicker';
 import MediaTypes from '../../components/MediaTypePicker/components/MediaTypes';
-import VerticalMovies from '../../components/Movies/Grid/Vertical';
-import VerticalPeople from '../../components/People/Grid/Vertical';
-import VerticalTV from '../../components/TV/Grid/Vertical';
 import Page from '../../containers/Page';
 import { home, trending } from '../../containers/Page/common/data/breadcrumbs';
 import { Breadcrumb } from '../../containers/Page/types';
+import VerticalMovies from '../Movies/components/VerticalMovies';
+import VerticalPeople from '../People/components/VerticalPeople';
+import VerticalTV from '../TV/components/VerticalTV';
 
 const Trending = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -299,7 +299,8 @@ const Trending = (): ReactElement => {
                     <>
                       <VerticalMovies
                         isError={trendingMovies.isError}
-                        isSuccess={trendingMovies.isSuccess && !trendingMovies.isFetching && !trendingMovies.isLoading}
+                        isSuccess={trendingMovies.isSuccess}
+                        isLoading={trendingMovies.isFetching && trendingMovies.isLoading}
                         movies={movies?.results || []}
                       />
 
@@ -319,7 +320,8 @@ const Trending = (): ReactElement => {
                     <>
                       <VerticalTV
                         isError={trendingTV.isError}
-                        isSuccess={trendingTV.isSuccess && !trendingTV.isFetching && !trendingTV.isLoading}
+                        isSuccess={trendingTV.isSuccess}
+                        isLoading={trendingTV.isFetching && trendingTV.isLoading}
                         tv={tv?.results || []}
                       />
 
@@ -339,7 +341,8 @@ const Trending = (): ReactElement => {
                     <>
                       <VerticalPeople
                         isError={trendingPeople.isError}
-                        isSuccess={trendingPeople.isSuccess && !trendingPeople.isFetching && !trendingPeople.isLoading}
+                        isSuccess={trendingPeople.isSuccess}
+                        isLoading={trendingPeople.isFetching && trendingPeople.isLoading}
                         people={people?.results || []}
                       />
 

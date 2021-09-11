@@ -14,10 +14,10 @@ import utils from '../../common/utils/utils';
 import Button from '../../components/Clickable/Button';
 import Link from '../../components/Clickable/Link';
 import HorizontalGrid from '../../components/Grid/Horizontal';
-import HorizontalMovies from '../../components/Movies/Grid/Horizontal';
-import HorizontalPeople from '../../components/People/Grid/Horizontal';
-import HorizontalTV from '../../components/TV/Grid/Horizontal';
 import Page from '../../containers/Page';
+import HorizontalMovies from '../Movies/components/HorizontalMovies';
+import HorizontalPeople from '../People/components/HorizontalPeople';
+import HorizontalTV from '../TV/components/HorizontalTV';
 
 const Home = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -28,7 +28,7 @@ const Home = (): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   // Fetching popular movies
-  const popularMovies = useQuery('popularMovies', async () => {
+  const popularMoviesQuery = useQuery('popularMovies', async () => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/popular', {
       cancelToken: source.token
     });
@@ -36,7 +36,7 @@ const Home = (): ReactElement => {
   });
 
   // Fetching trending movies
-  const trendingMovies = useQuery('trendingMovies', async () => {
+  const trendingMoviesQuery = useQuery('trendingMovies', async () => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
       cancelToken: source.token
     });
@@ -44,7 +44,7 @@ const Home = (): ReactElement => {
   });
 
   // Fetching popular TV
-  const popularTV = useQuery('popularTV', async () => {
+  const popularTVQuery = useQuery('popularTV', async () => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
       cancelToken: source.token
     });
@@ -52,7 +52,7 @@ const Home = (): ReactElement => {
   });
 
   // Fetching trending TV
-  const trendingTV = useQuery('trendingTV', async () => {
+  const trendingTVQuery = useQuery('trendingTV', async () => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
       cancelToken: source.token
     });
@@ -60,7 +60,7 @@ const Home = (): ReactElement => {
   });
 
   // Fetching trending People
-  const trendingPeople = useQuery('trendingPeople', async () => {
+  const trendingPeopleQuery = useQuery('trendingPeople', async () => {
     const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/day', {
       cancelToken: source.token
     });
@@ -95,22 +95,23 @@ const Home = (): ReactElement => {
                 <Link
                   to={{ pathname: '/movies/popular' }}
                   isFullWidth
-                  isDisabled={popularMovies.isFetching || popularMovies.isLoading}>
+                  isDisabled={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={popularMovies.isFetching || popularMovies.isLoading}
+                    isDisabled={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Popular movies
                   </Button>
                 </Link>
               }
-              isLoading={popularMovies.isFetching || popularMovies.isLoading}>
+              isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}>
               <HorizontalMovies
-                isError={popularMovies.isError}
-                isSuccess={popularMovies.isSuccess && !popularMovies.isFetching && !popularMovies.isLoading}
-                movies={popularMovies.data}
+                isError={popularMoviesQuery.isError}
+                isSuccess={popularMoviesQuery.isSuccess}
+                isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}
+                movies={popularMoviesQuery.data}
               />
             </HorizontalGrid>
 
@@ -120,22 +121,23 @@ const Home = (): ReactElement => {
                 <Link
                   to={{ pathname: '/trending/movie' }}
                   isFullWidth
-                  isDisabled={trendingMovies.isFetching || trendingMovies.isLoading}>
+                  isDisabled={trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={trendingMovies.isFetching || trendingMovies.isLoading}
+                    isDisabled={trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Trending movies
                   </Button>
                 </Link>
               }
-              isLoading={trendingMovies.isFetching || trendingMovies.isLoading}>
+              isLoading={trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading}>
               <HorizontalMovies
-                isError={trendingMovies.isError}
-                isSuccess={trendingMovies.isSuccess && !trendingMovies.isFetching && !trendingMovies.isLoading}
-                movies={trendingMovies.data}
+                isError={trendingMoviesQuery.isError}
+                isSuccess={trendingMoviesQuery.isSuccess}
+                isLoading={trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading}
+                movies={trendingMoviesQuery.data}
               />
             </HorizontalGrid>
 
@@ -145,22 +147,23 @@ const Home = (): ReactElement => {
                 <Link
                   to={{ pathname: '/tv/popular' }}
                   isFullWidth
-                  isDisabled={popularTV.isFetching || popularTV.isLoading}>
+                  isDisabled={popularTVQuery.isFetching || popularTVQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={popularTV.isFetching || popularTV.isLoading}
+                    isDisabled={popularTVQuery.isFetching || popularTVQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Popular TV
                   </Button>
                 </Link>
               }
-              isLoading={popularTV.isFetching || popularTV.isLoading}>
+              isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}>
               <HorizontalTV
-                isError={popularTV.isError}
-                isSuccess={popularTV.isSuccess && !popularTV.isFetching && !popularTV.isLoading}
-                tv={popularTV.data}
+                isError={popularTVQuery.isError}
+                isSuccess={popularTVQuery.isSuccess}
+                isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}
+                tv={popularTVQuery.data}
               />
             </HorizontalGrid>
 
@@ -170,22 +173,23 @@ const Home = (): ReactElement => {
                 <Link
                   to={{ pathname: '/trending/tv' }}
                   isFullWidth
-                  isDisabled={trendingTV.isFetching || trendingTV.isLoading}>
+                  isDisabled={trendingTVQuery.isFetching || trendingTVQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={trendingTV.isFetching || trendingTV.isLoading}
+                    isDisabled={trendingTVQuery.isFetching || trendingTVQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Trending TV
                   </Button>
                 </Link>
               }
-              isLoading={trendingTV.isFetching || trendingTV.isLoading}>
+              isLoading={trendingTVQuery.isFetching || trendingTVQuery.isLoading}>
               <HorizontalTV
-                isError={trendingTV.isError}
-                isSuccess={trendingTV.isSuccess && !trendingTV.isFetching && !trendingTV.isLoading}
-                tv={trendingTV.data}
+                isError={trendingTVQuery.isError}
+                isSuccess={trendingTVQuery.isSuccess}
+                isLoading={trendingTVQuery.isFetching || trendingTVQuery.isLoading}
+                tv={trendingTVQuery.data}
               />
             </HorizontalGrid>
 
@@ -195,22 +199,23 @@ const Home = (): ReactElement => {
                 <Link
                   to={{ pathname: '/trending/person' }}
                   isFullWidth
-                  isDisabled={trendingPeople.isFetching || trendingPeople.isLoading}>
+                  isDisabled={trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading}>
                   <Button
                     color={utils.handleReturnColor(color)}
                     isFullWidth
-                    isDisabled={trendingPeople.isFetching || trendingPeople.isLoading}
+                    isDisabled={trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading}
                     size={isSm ? 'sm' : 'md'}
                     variant='text'>
                     View all Trending People
                   </Button>
                 </Link>
               }
-              isLoading={trendingPeople.isFetching || trendingPeople.isLoading}>
+              isLoading={trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading}>
               <HorizontalPeople
-                isError={trendingPeople.isError}
-                isSuccess={trendingPeople.isSuccess && !trendingPeople.isFetching && !trendingPeople.isLoading}
-                people={trendingPeople.data}
+                isError={trendingPeopleQuery.isError}
+                isSuccess={trendingPeopleQuery.isSuccess}
+                isLoading={trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading}
+                people={trendingPeopleQuery.data}
               />
             </HorizontalGrid>
           </VStack>

@@ -12,11 +12,11 @@ import { HorizontalMoviesProps } from './types';
 const HorizontalMovies = (props: HorizontalMoviesProps): ReactElement => {
   const { isError = false, isSuccess = false, isLoading = true, movies } = props;
 
-  return isError ? (
+  return !isLoading && isError ? (
     <Error label='Oh no! Something went wrong' description='Failed to fetch movies list!' variant='transparent' />
-  ) : isSuccess && movies && movies.length === 0 ? (
+  ) : !isLoading && isSuccess && movies && movies.length === 0 ? (
     <Empty label='Movies list is currently empty!' variant='transparent' />
-  ) : isSuccess && movies && movies.length > 0 ? (
+  ) : !isLoading && isSuccess && movies && movies.length > 0 ? (
     <>
       {movies.map((movie: PartialMovie) => (
         <VerticalPoster
@@ -49,7 +49,7 @@ const HorizontalMovies = (props: HorizontalMoviesProps): ReactElement => {
     </>
   ) : (
     <>
-      {[..._.range(0, 20)].map((_dummy, index: number) => (
+      {_.range(0, 20).map((_dummy, index: number) => (
         <VerticalPoster
           key={index}
           width={['185px', '205px', '230px']}

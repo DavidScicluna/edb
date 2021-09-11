@@ -8,8 +8,7 @@ import Badge from '../../../../components/Badge';
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
-import VerticalMoviePoster from '../../../../components/Movies/Poster/Vertical';
-import VerticalShowPoster from '../../../../components/TV/Poster/Vertical';
+import VerticalPoster from '../../../../components/Poster/Vertical';
 import { AllProps } from './types';
 
 const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
@@ -55,7 +54,34 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
             isLoading={false}>
             <>
               {movies.map((movie, index) =>
-                index < 20 ? <VerticalMoviePoster key={movie.id} isLoading={false} movie={movie} /> : null
+                index < 20 ? (
+                  <VerticalPoster
+                    key={movie.id}
+                    width={['185px', '205px', '230px']}
+                    mediaItem={movie ? { ...movie } : undefined}
+                    mediaType='movie'
+                    image={{
+                      alt: `${movie?.title || ''} movie poster`,
+                      src: movie?.poster_path || '',
+                      size: {
+                        thumbnail: 'w92',
+                        full: 'original'
+                      }
+                    }}
+                    rating={{
+                      rating: movie?.vote_average || null,
+                      count: movie?.vote_count || null
+                    }}
+                    title={movie?.title || ''}
+                    subtitle={`${[
+                      `${utils.handleReturnDate(movie?.release_date || '', 'year')}`,
+                      `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
+                    ]
+                      .filter((subtitle) => subtitle)
+                      .join(' • ')}`}
+                    isLoading={false}
+                  />
+                ) : null
               )}
             </>
           </HorizontalGrid>
@@ -77,7 +103,34 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
             isLoading={false}>
             <>
               {tv.map((show, index) =>
-                index < 20 ? <VerticalShowPoster key={show.id} isLoading={false} show={show} /> : null
+                index < 20 ? (
+                  <VerticalPoster
+                    key={show.id}
+                    width={['185px', '205px', '230px']}
+                    mediaItem={show ? { ...show } : undefined}
+                    mediaType='tv'
+                    image={{
+                      alt: `${show?.name || ''} tv show poster`,
+                      src: show?.poster_path || '',
+                      size: {
+                        thumbnail: 'w92',
+                        full: 'original'
+                      }
+                    }}
+                    rating={{
+                      rating: show?.vote_average || null,
+                      count: show?.vote_count || null
+                    }}
+                    title={show?.name || ''}
+                    subtitle={`${[
+                      `${utils.handleReturnDate(show?.first_air_date || '', 'year')}`,
+                      `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
+                    ]
+                      .filter((subtitle) => subtitle)
+                      .join(' • ')}`}
+                    isLoading={false}
+                  />
+                ) : null
               )}
             </>
           </HorizontalGrid>

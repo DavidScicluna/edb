@@ -8,7 +8,7 @@ import utils from '../../../../../../common/utils/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import Link from '../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
-import HorizontalTV from '../../../../../../components/TV/Grid/Horizontal';
+import HorizontalTV from '../../../../../TV/components/HorizontalTV';
 import { TVProps } from './types';
 
 const TV = (props: TVProps): ReactElement => {
@@ -54,7 +54,7 @@ const TV = (props: TVProps): ReactElement => {
         ) : undefined
       }
       isLoading={isFetching || isLoading}>
-      <HorizontalTV isError={isError} isSuccess={isSuccess} tv={results || []} />
+      <HorizontalTV isError={isError} isSuccess={isSuccess} isLoading={isFetching || isLoading} tv={results || []} />
     </HorizontalGrid>
   );
 };

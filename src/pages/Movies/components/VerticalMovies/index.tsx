@@ -19,11 +19,11 @@ const VerticalMovies = (props: VerticalMoviesProps): ReactElement => {
 
   const { isError = false, isSuccess = false, isLoading = true, movies } = props;
 
-  return isError ? (
+  return !isLoading && isError ? (
     <Error label='Oh no! Something went wrong' description='Failed to fetch movies list!' variant='outlined' />
-  ) : isSuccess && movies && movies.length === 0 ? (
+  ) : !isLoading && isSuccess && movies && movies.length === 0 ? (
     <Empty label='Movies list is currently empty!' variant='outlined' />
-  ) : isSuccess && movies && movies.length > 0 ? (
+  ) : !isLoading && isSuccess && movies && movies.length > 0 ? (
     <SimpleGrid width='100%' columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]} spacing={2}>
       {movies.map((movie: PartialMovie) =>
         displayMode === 'list' ? (

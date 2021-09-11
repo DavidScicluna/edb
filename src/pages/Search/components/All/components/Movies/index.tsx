@@ -8,7 +8,7 @@ import utils from '../../../../../../common/utils/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import Link from '../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
-import HorizontalMovies from '../../../../../../components/Movies/Grid/Horizontal';
+import HorizontalMovies from '../../../../../Movies/components/HorizontalMovies';
 import { MoviesProps } from './types';
 
 const Movies = (props: MoviesProps): ReactElement => {
@@ -54,7 +54,12 @@ const Movies = (props: MoviesProps): ReactElement => {
         ) : undefined
       }
       isLoading={isFetching || isLoading}>
-      <HorizontalMovies isError={isError} isSuccess={isSuccess} movies={results || []} />
+      <HorizontalMovies
+        isError={isError}
+        isSuccess={isSuccess}
+        isLoading={isFetching || isLoading}
+        movies={results || []}
+      />
     </HorizontalGrid>
   );
 };

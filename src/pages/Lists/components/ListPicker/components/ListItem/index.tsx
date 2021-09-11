@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 
-import { useSelector } from '../../../../../../common/hooks';
+import { useElementSize, useSelector } from '../../../../../../common/hooks';
 import utils from '../../../../../../common/utils/utils';
 import Card from '../../../../../../components/Clickable/Card';
 import Link from '../../../../../../components/Clickable/Link';
@@ -12,10 +12,14 @@ import { Theme } from '../../../../../../theme/types';
 import { ListItemProps } from './types';
 
 const ListItem = (props: ListItemProps): ReactElement => {
+  const listRef = useRef<HTMLDivElement | null>(null);
+
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
   const location = useLocation();
+
+  const { width } = useElementSize(listRef);
 
   const { id, label, results, isActive = false, isSelectable = false, isSelected = false, onSelected } = props;
 
@@ -29,6 +33,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
   return (
     <Link isFullWidth isDisabled={isHoveringRadio} to={{ pathname: `/lists/${id}` }}>
       <Card
+        height={`${width}px`}
         color={location.pathname.includes(id) || isSelected ? utils.handleReturnColor(color) : 'gray'}
         isFullWidth
         isClickable={!isHoveringRadio}>
@@ -75,7 +80,9 @@ const ListItem = (props: ListItemProps): ReactElement => {
             {`${[
               `${movies} movie${movies === 0 || movies > 1 ? 's' : ''}`,
               `${tv} TV show${tv === 0 || tv > 1 ? 's' : ''}`
-            ].join(' • ')}`}
+            ]
+              .filter((item) => item)
+              .join(' • ')}`}
           </Text>
         </VStack>
       </Card>

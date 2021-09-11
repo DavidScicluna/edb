@@ -96,9 +96,7 @@ const TopRatedMovies = (): ReactElement => {
                 movies={movies?.results || []}
               />
 
-              <ScaleFade
-                in={!topRatedMoviesQuery.isError && !(topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading)}
-                unmountOnExit>
+              <ScaleFade in={!topRatedMoviesQuery.isError} unmountOnExit>
                 <LoadMore
                   amount={movies?.results.length || 0}
                   total={movies?.total_results || 0}

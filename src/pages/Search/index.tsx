@@ -23,13 +23,13 @@ import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
 import LoadMore from '../../components/LoadMore';
 import MediaTypePicker from '../../components/MediaTypePicker';
-import VerticalMovies from '../../components/Movies/Grid/Vertical';
-import VerticalPeople from '../../components/People/Grid/Vertical';
-import VerticalTV from '../../components/TV/Grid/Vertical';
 import Page from '../../containers/Page';
 import { home, search } from '../../containers/Page/common/data/breadcrumbs';
 import { Breadcrumb } from '../../containers/Page/types';
 import { setRecentSearches } from '../../store/slices/User';
+import VerticalMovies from '../Movies/components/VerticalMovies';
+import VerticalPeople from '../People/components/VerticalPeople';
+import VerticalTV from '../TV/components/VerticalTV';
 import All from './components/All';
 import Form from './components/Form';
 import { Keyword, InputKeyboardEvent, InputChangeEvent, TotalResults } from './types';
@@ -520,18 +520,21 @@ const Search = (): ReactElement => {
                           <VerticalMovies
                             isError={searchMovies.isError}
                             isSuccess={searchMovies.isSuccess}
+                            isLoading={searchMovies.isFetching || searchMovies.isLoading}
                             movies={movies?.results || []}
                           />
                         ) : mediaType === 'tv' ? (
                           <VerticalTV
                             isError={searchTV.isError}
                             isSuccess={searchTV.isSuccess}
+                            isLoading={searchTV.isFetching || searchTV.isLoading}
                             tv={tv?.results || []}
                           />
                         ) : mediaType === 'person' ? (
                           <VerticalPeople
                             isError={searchPeople.isError}
                             isSuccess={searchPeople.isSuccess}
+                            isLoading={searchPeople.isFetching || searchPeople.isLoading}
                             people={people?.results || []}
                           />
                         ) : undefined}

@@ -1,16 +1,6 @@
 import React, { ReactElement, useRef } from 'react';
 
-import {
-  useTheme,
-  useColorMode,
-  useBreakpointValue,
-  useBoolean,
-  Box,
-  AspectRatio,
-  Center,
-  Icon,
-  Fade
-} from '@chakra-ui/react';
+import { useTheme, useColorMode, useBoolean, Box, AspectRatio, Center, Icon, Fade } from '@chakra-ui/react';
 import { SearchOutlined as SearchOutlinedIcon, CheckOutlined as CheckOutlinedIcon } from '@material-ui/icons';
 
 import { useElementSize } from '../../../common/hooks';
@@ -76,13 +66,7 @@ const Image = (props: ImageProps): ReactElement => {
                     as={isActive ? CheckOutlinedIcon : icon || SearchOutlinedIcon}
                     color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
                     sx={{
-                      fontSize: `${
-                        height > 375
-                          ? theme.fontSizes['8xl']
-                          : height > 275
-                          ? theme.fontSizes['7xl']
-                          : theme.fontSizes['6xl']
-                      } !important`
+                      fontSize: `${height > 375 ? theme.fontSizes['7xl'] : theme.fontSizes['6xl']} !important`
                     }}
                   />
                 }

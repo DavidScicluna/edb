@@ -98,12 +98,7 @@ const MoviesNowPlaying = (): ReactElement => {
                 movies={movies?.results || []}
               />
 
-              <ScaleFade
-                in={
-                  !moviesNowPlayingQuery.isError &&
-                  !(moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading)
-                }
-                unmountOnExit>
+              <ScaleFade in={!moviesNowPlayingQuery.isError} unmountOnExit>
                 <LoadMore
                   amount={movies?.results.length || 0}
                   total={movies?.total_results || 0}
