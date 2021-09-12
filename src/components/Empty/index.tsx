@@ -40,7 +40,7 @@ const Empty = (props: EmptyProps): ReactElement => {
         case 'xs':
           return 1;
         case 'sm':
-          return 1.5;
+          return 2;
         case 'lg':
           return 4;
         case 'xl':

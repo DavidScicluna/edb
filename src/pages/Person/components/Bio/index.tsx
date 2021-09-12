@@ -41,11 +41,13 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
   return (
     <Card
       box={{
-        header: { pb: 2 },
-        body: { pt: 2 }
+        header: { pb: 1.5 },
+        body: { pt: 1.5 }
       }}
       isFullWidth
-      p={2}>
+      px={2}
+      pt={1.5}
+      pb={2}>
       {{
         header: {
           title: 'Biography',
@@ -63,7 +65,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
           )
         },
         body: !isLoading ? (
-          <Collapse startingHeight={(height || 44) >= 44 ? 44 : elementHeight} in={isExpanded}>
+          <Collapse startingHeight={(height || 44) >= 44 ? 44 : elementHeight || 44} in={isExpanded}>
             <VStack ref={biographyRef} width='100%' spacing={2}>
               {biography.split('\n'[0]).map((paragraph, index) => (
                 <Text

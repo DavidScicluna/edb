@@ -55,12 +55,14 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       render={({ field: { value } }) => (
         <Card
           box={{
-            header: { pb: 2 },
-            body: { pt: 2 }
+            header: { pb: 1.5 },
+            body: { pt: 1.5 }
           }}
           colorMode={background}
           isFullWidth
-          p={2}>
+          px={2}
+          pt={1.5}
+          pb={2}>
           {{
             header: {
               title: 'Color'

@@ -50,7 +50,7 @@ const Filmography = (props: FilmographyProps): ReactElement => {
   };
 
   return (
-    <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth variant='outlined' p={2}>
+    <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth variant='outlined' px={2} pt={1.5} pb={2}>
       {{
         header: {
           title: 'Filmography',

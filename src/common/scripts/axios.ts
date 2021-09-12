@@ -9,7 +9,7 @@ const handleAddAuthorization = (request: AxiosRequestConfig): AxiosRequestConfig
 };
 
 const handleDelay = async (response: AxiosResponse): Promise<AxiosResponse> => {
-  await new Promise((resolve) => _.delay(resolve, 1000));
+  await new Promise((resolve) => _.delay(resolve, 1250));
 
   return response;
 };

@@ -82,7 +82,7 @@ export default (
       borderWidth: variant !== 'icon' ? (size !== 'sm' ? '2px 2px 0' : '1px 1px 0') : '0',
       borderRadius: 'inherit',
 
-      padding: size === 'sm' ? theme.space[0.5] : size === 'md' ? theme.space[1] : theme.space[2],
+      padding: size === 'sm' ? theme.space[0.5] : size === 'md' ? theme.space[1] : theme.space[1.5],
 
       transform: variant !== 'icon' ? `translateY(${size !== 'sm' ? '-4px' : '-3px'})` : 'none',
 
@@ -130,7 +130,7 @@ export default (
       display: 'block',
 
       fontSize: `${
-        size === 'sm' ? theme.fontSizes.xl : size === 'md' ? theme.fontSizes['2xl'] : theme.fontSizes['3xl']
+        size === 'sm' ? theme.fontSizes.xl : size === 'md' ? theme.fontSizes.xl : theme.fontSizes['2xl']
       } !important`
     }
   },

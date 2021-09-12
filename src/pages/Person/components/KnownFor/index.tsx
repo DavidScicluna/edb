@@ -29,7 +29,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
               key={mediaItem.id}
               width={['185px', '205px', '230px']}
               mediaItem={mediaItem ? { ...mediaItem } : undefined}
-              mediaType={mediaItem ? 'movie' : 'tv'}
+              mediaType={mediaItem?.title ? 'movie' : 'tv'}
               image={{
                 alt: `${mediaItem?.title || mediaItem?.name || ''} ${mediaItem?.title ? 'movie' : 'tv'} poster`,
                 src: mediaItem?.poster_path || '',

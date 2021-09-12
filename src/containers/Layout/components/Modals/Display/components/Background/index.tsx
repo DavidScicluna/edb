@@ -33,7 +33,7 @@ const Background = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='background'
       render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} colorMode={value} isFullWidth p={2}>
+        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} colorMode={value} isFullWidth px={2} pt={1.5} pb={2}>
           {{
             header: {
               title: 'Background'

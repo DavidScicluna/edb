@@ -59,16 +59,16 @@ const Photos = (props: PhotosProps): ReactElement => {
               <ClickableImage
                 key={index}
                 width={width}
-                borderRadius='base'
+                borderRadius='lg'
                 ratio={2 / 3}
                 isDisabled={isLoading}
                 onClick={typeof image !== 'number' && image ? () => onClickImage(image.file_path) : undefined}>
-                <Skeleton isLoaded={!isLoading} borderRadius='base'>
+                <Skeleton isLoaded={!isLoading} borderRadius='lg'>
                   <Image
                     alt={`${name ? `"${name}"` : ''} image`}
                     maxWidth='none'
                     height='100%'
-                    borderRadius='base'
+                    borderRadius='lg'
                     mediaType='person'
                     src={typeof image !== 'number' && image ? image?.file_path : ''}
                     size={{

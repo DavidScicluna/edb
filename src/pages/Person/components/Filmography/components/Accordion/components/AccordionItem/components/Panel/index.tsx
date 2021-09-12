@@ -10,7 +10,7 @@ const Panel = ({ children, title, total }: ListProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   return (
-    <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth variant='transparent'>
+    <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth variant='transparent'>
       {{
         header: {
           title,

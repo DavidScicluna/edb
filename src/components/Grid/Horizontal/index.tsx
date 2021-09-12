@@ -79,7 +79,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   return (
     <Card
       box={{
-        header: { px: variant === 'transparent' ? 2 : 0, py: 2 },
+        header: { px: variant === 'transparent' ? 2 : 0, py: 1.5 },
         footer: { px: variant === 'transparent' ? 2 : 0, py: 1 }
       }}
       isFullWidth
@@ -90,7 +90,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
         header: {
           title,
           actions: !utils.handleIsTouchDevice() ? (
-            <HStack spacing={variant === 'transparent' ? 2 : 1.25}>
+            <HStack spacing={1}>
               <Arrow
                 direction='left'
                 isDisabled={scrollButtons.left}

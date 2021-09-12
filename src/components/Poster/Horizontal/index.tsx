@@ -127,7 +127,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                   title={title}
                   mediaType={mediaType}
                   mediaItem={mediaItem}
-                  size={isSm ? 'sm' : 'md'}
+                  size={isSm ? 'md' : 'lg'}
                 />
               </Box>
               {/* List component */}
@@ -138,7 +138,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                     title={title}
                     mediaType={mediaType}
                     mediaItem={mediaItem}
-                    size={isSm ? 'sm' : 'md'}
+                    size={isSm ? 'md' : 'lg'}
                   />
                 </Box>
               ) : null}
