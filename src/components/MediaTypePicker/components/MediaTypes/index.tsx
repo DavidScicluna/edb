@@ -38,10 +38,14 @@ const mediaTypesList: MediaTypeItemType[] = [
 const MediaTypes = <MT extends unknown>(props: MediaTypesProps<MT>): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { mediaTypes, mediaType, onSetType } = props;
+  const { mediaTypes, mediaType, onSetType, onClose } = props;
 
   const handleClick = (mediaType: MediaType): void => {
     onSetType(mediaType);
+
+    if (onClose) {
+      onClose();
+    }
   };
 
   return isSm ? (
