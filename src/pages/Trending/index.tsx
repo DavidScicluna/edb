@@ -296,69 +296,93 @@ const Trending = (): ReactElement => {
               {mediaType ? (
                 <VStack width='100%' spacing={4} px={2} pt={2}>
                   {mediaType === 'movie' ? (
-                    <>
-                      <VerticalMovies
-                        isError={trendingMovies.isError}
-                        isSuccess={trendingMovies.isSuccess}
-                        isLoading={trendingMovies.isFetching && trendingMovies.isLoading}
-                        movies={movies?.results || []}
-                      />
-
-                      {movies ? (
-                        <LoadMore
-                          amount={movies.results.length}
-                          total={movies.total_results}
-                          mediaType='movies'
-                          isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
-                          isError={trendingMovies.isError}
-                          hasNextPage={trendingMovies.hasNextPage || true}
-                          onFetch={trendingMovies.fetchNextPage}
-                        />
-                      ) : null}
-                    </>
+                    <VerticalMovies
+                      isError={trendingMovies.isError}
+                      isSuccess={trendingMovies.isSuccess}
+                      isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
+                      movies={movies?.results || []}
+                    />
                   ) : mediaType === 'tv' ? (
-                    <>
-                      <VerticalTV
-                        isError={trendingTV.isError}
-                        isSuccess={trendingTV.isSuccess}
-                        isLoading={trendingTV.isFetching && trendingTV.isLoading}
-                        tv={tv?.results || []}
-                      />
-
-                      {tv ? (
-                        <LoadMore
-                          amount={tv.results.length}
-                          total={tv.total_results}
-                          mediaType='tv shows'
-                          isLoading={trendingTV.isFetching || trendingTV.isLoading}
-                          isError={trendingTV.isError}
-                          hasNextPage={trendingTV.hasNextPage || true}
-                          onFetch={trendingTV.fetchNextPage}
-                        />
-                      ) : null}
-                    </>
+                    <VerticalTV
+                      isError={trendingTV.isError}
+                      isSuccess={trendingTV.isSuccess}
+                      isLoading={trendingTV.isFetching || trendingTV.isLoading}
+                      tv={tv?.results || []}
+                    />
                   ) : mediaType === 'person' ? (
-                    <>
-                      <VerticalPeople
-                        isError={trendingPeople.isError}
-                        isSuccess={trendingPeople.isSuccess}
-                        isLoading={trendingPeople.isFetching && trendingPeople.isLoading}
-                        people={people?.results || []}
-                      />
-
-                      {people ? (
-                        <LoadMore
-                          amount={people.results.length}
-                          total={people.total_results}
-                          mediaType='people'
-                          isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
-                          isError={trendingPeople.isError}
-                          hasNextPage={trendingPeople.hasNextPage || true}
-                          onFetch={trendingPeople.fetchNextPage}
-                        />
-                      ) : null}
-                    </>
+                    <VerticalPeople
+                      isError={trendingPeople.isError}
+                      isSuccess={trendingPeople.isSuccess}
+                      isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
+                      people={people?.results || []}
+                    />
                   ) : null}
+
+                  <LoadMore
+                    amount={
+                      mediaType === 'movie'
+                        ? movies?.results.length || 0
+                        : mediaType === 'tv'
+                        ? tv?.results.length || 0
+                        : mediaType === 'person'
+                        ? people?.results.length || 0
+                        : 0
+                    }
+                    total={
+                      mediaType === 'movie'
+                        ? movies?.total_results || 0
+                        : mediaType === 'tv'
+                        ? tv?.total_results || 0
+                        : mediaType === 'person'
+                        ? people?.total_results || 0
+                        : 0
+                    }
+                    mediaType={
+                      mediaType === 'movie'
+                        ? 'Movies'
+                        : mediaType === 'tv'
+                        ? 'TV Shows'
+                        : mediaType === 'person'
+                        ? 'People'
+                        : ''
+                    }
+                    isLoading={
+                      mediaType === 'movie'
+                        ? trendingMovies.isFetching || trendingMovies.isLoading
+                        : mediaType === 'tv'
+                        ? trendingTV.isFetching || trendingTV.isLoading
+                        : mediaType === 'person'
+                        ? trendingPeople.isFetching || trendingPeople.isLoading
+                        : false
+                    }
+                    isError={
+                      mediaType === 'movie'
+                        ? trendingMovies.isError
+                        : mediaType === 'tv'
+                        ? trendingTV.isError
+                        : mediaType === 'person'
+                        ? trendingPeople.isError
+                        : false
+                    }
+                    hasNextPage={
+                      mediaType === 'movie'
+                        ? trendingMovies.hasNextPage
+                        : mediaType === 'tv'
+                        ? trendingTV.hasNextPage
+                        : mediaType === 'person'
+                        ? trendingPeople.hasNextPage
+                        : true
+                    }
+                    onFetch={() =>
+                      mediaType === 'movie'
+                        ? trendingMovies.fetchNextPage
+                        : mediaType === 'tv'
+                        ? trendingTV.fetchNextPage
+                        : mediaType === 'person'
+                        ? trendingPeople.fetchNextPage
+                        : undefined
+                    }
+                  />
                 </VStack>
               ) : (
                 <Box width='100%' px={2} pt={2}>
