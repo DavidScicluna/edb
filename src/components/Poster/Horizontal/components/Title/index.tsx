@@ -2,11 +2,11 @@ import React, { ReactElement, useCallback, useState } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
 
-import utils from '../../../../../common/utils/utils';
+import { handleReturnDummyWidths, handleIsOverflowing } from '../../../../../common/utils';
 import SkeletonText from '../../../../Skeleton/Text';
 import { TitleProps } from './types';
 
-const dummyTextWidths = utils.handleReturnDummyWidths(100, 10);
+const dummyTextWidths = handleReturnDummyWidths(100, 10);
 
 const Title = (props: TitleProps): ReactElement => {
   const { colorMode } = useColorMode();
@@ -18,7 +18,7 @@ const Title = (props: TitleProps): ReactElement => {
   const handleIsTruncated = useCallback(
     (ref: HTMLParagraphElement | null) => {
       if (ref) {
-        setIsTruncated(utils.handleIsOverflowing(ref));
+        setIsTruncated(handleIsOverflowing(ref));
       }
     },
     [isTruncated, setIsTruncated]

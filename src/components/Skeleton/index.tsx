@@ -2,10 +2,10 @@ import React, { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Skeleton as CUISkeleton } from '@chakra-ui/react';
 
-import utils from '../../common/utils/utils';
+import { handleReturnNumberFromString } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import commonProps from './common/props';
-import skeletonUtils from './common/utils/utils';
+import { handleReturnColors } from './common/utils';
 import { SkeletonProps } from './types';
 
 const Skeleton = (props: SkeletonProps): ReactElement => {
@@ -21,11 +21,11 @@ const Skeleton = (props: SkeletonProps): ReactElement => {
       isLoaded={isLoaded}
       fadeDuration={
         type === 'default' && !isLoaded
-          ? utils.handleReturnNumberFromString(theme.transition.duration['normal'], 'ms') / 250
+          ? handleReturnNumberFromString(theme.transition.duration['normal'], 'ms') / 250
           : 0
       }
-      startColor={skeletonUtils.handleReturnColors('start', color, colorMode)}
-      endColor={skeletonUtils.handleReturnColors('end', color, colorMode)}>
+      startColor={handleReturnColors('start', color, colorMode)}
+      endColor={handleReturnColors('end', color, colorMode)}>
       {children}
     </CUISkeleton>
   );

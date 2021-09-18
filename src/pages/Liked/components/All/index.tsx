@@ -4,7 +4,7 @@ import { useColorMode, useMediaQuery, VStack, Center, Text, Collapse } from '@ch
 
 import departments from '../../../../common/data/departments';
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor, handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
 import Badge from '../../../../components/Badge';
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
@@ -43,7 +43,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             movies.length > 20 ? (
               <Link to={{ pathname: '/liked/movie' }} isFullWidth>
-                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${movies.length || 0} liked movie${
                     movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
                   }`}
@@ -74,8 +74,8 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
                   }}
                   title={movie?.title || ''}
                   subtitle={`${[
-                    `${utils.handleReturnDate(movie?.release_date || '', 'year')}`,
-                    `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
+                    `${handleReturnDate(movie?.release_date || '', 'year')}`,
+                    `${handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
                   ]
                     .filter((subtitle) => subtitle)
                     .join(' • ')}`}
@@ -94,7 +94,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             tv.length > 20 ? (
               <Link to={{ pathname: '/liked/tv' }} isFullWidth>
-                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${tv?.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
                 </Button>
               </Link>
@@ -123,8 +123,8 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
                   }}
                   title={show?.name || ''}
                   subtitle={`${[
-                    `${utils.handleReturnDate(show?.first_air_date || '', 'year')}`,
-                    `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
+                    `${handleReturnDate(show?.first_air_date || '', 'year')}`,
+                    `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
                   ]
                     .filter((subtitle) => subtitle)
                     .join(' • ')}`}
@@ -143,7 +143,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             people.length > 20 ? (
               <Link to={{ pathname: '/liked/person' }} isFullWidth>
-                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${people.length || 0} liked ${
                     (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
                   }`}

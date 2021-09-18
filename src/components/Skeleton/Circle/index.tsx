@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useColorMode, SkeletonCircle as CUISkeletonCircle, SkeletonProps } from '@chakra-ui/react';
 
 import commonProps from '../common/props';
-import utils from '../common/utils/utils';
+import { handleReturnColors } from '../common/utils';
 
 const SkeletonCircle = (props: SkeletonProps): ReactElement => {
   const { colorMode } = useColorMode();
@@ -14,8 +14,8 @@ const SkeletonCircle = (props: SkeletonProps): ReactElement => {
     <CUISkeletonCircle
       {...rest}
       {...commonProps}
-      startColor={utils.handleReturnColors('start', 'gray', colorMode)}
-      endColor={utils.handleReturnColors('end', 'gray', colorMode)}>
+      startColor={handleReturnColors('start', 'gray', colorMode)}
+      endColor={handleReturnColors('end', 'gray', colorMode)}>
       {children}
     </CUISkeletonCircle>
   );

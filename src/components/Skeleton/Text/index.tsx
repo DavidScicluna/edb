@@ -2,11 +2,11 @@ import React, { ReactElement } from 'react';
 
 import { useColorMode, SlideFade, useTheme } from '@chakra-ui/react';
 
-import utils from '../../../common/utils/utils';
+import { handleReturnNumberFromString } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
 import Skeleton from '../../Skeleton';
 import commonProps from '../common/props';
-import skeletonUtils from '../common/utils/utils';
+import { handleReturnColors } from '../common/utils';
 import { SkeletonTextProps } from './types';
 
 const SkeletonText = (props: SkeletonTextProps): ReactElement => {
@@ -21,12 +21,12 @@ const SkeletonText = (props: SkeletonTextProps): ReactElement => {
       {...commonProps}
       isLoaded={isLoaded}
       type='text'
-      startColor={skeletonUtils.handleReturnColors('start', color, colorMode)}
-      endColor={skeletonUtils.handleReturnColors('end', color, colorMode)}>
+      startColor={handleReturnColors('start', color, colorMode)}
+      endColor={handleReturnColors('end', color, colorMode)}>
       <SlideFade
         in={isLoaded}
         offsetY={offsetY}
-        delay={utils.handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}>
+        delay={handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}>
         {children}
       </SlideFade>
     </Skeleton>

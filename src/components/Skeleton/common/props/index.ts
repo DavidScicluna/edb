@@ -1,6 +1,6 @@
-import utils from '../../../../common/utils/utils';
+import { handleReturnNumberFromString } from '../../../../common/utils';
 import theme from '../../../../theme';
 
 export default {
-  speed: utils.handleReturnNumberFromString(theme.transition.duration['slower'], 'ms') / 750
+  speed: handleReturnNumberFromString(theme.transition.duration['slower'], 'ms') / 750
 };

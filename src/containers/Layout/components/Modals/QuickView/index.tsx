@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
-import utils from '../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import Modal from '../../../../../components/Modal';
@@ -24,7 +24,7 @@ const QuickView = (): ReactElement => {
       title={`Quick View ${quickViewModal.mediaItem ? `"${quickViewModal.mediaItem.title}"` : 'Unknown'}`}
       actions={
         <Link to={{ pathname: `/${quickViewModal.mediaType}/${quickViewModal.mediaItem?.id}` }}>
-          <Button color={utils.handleReturnColor(color)} onClick={() => handleClose()} size='sm'>
+          <Button color={handleReturnColor(color)} onClick={() => handleClose()} size='sm'>
             View full details
           </Button>
         </Link>

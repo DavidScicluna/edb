@@ -7,7 +7,7 @@ import _ from 'lodash';
 import departments from '../../../../common/data/departments';
 import { useSelector } from '../../../../common/hooks';
 import { PartialPerson } from '../../../../common/types/person';
-import utils from '../../../../common/utils/utils';
+import { handleReturnDummyWidths } from '../../../../common/utils';
 import Link from '../../../../components/Clickable/Link';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
@@ -18,7 +18,7 @@ import SkeletonText from '../../../../components/Skeleton/Text';
 import { Theme } from '../../../../theme/types';
 import { VerticalPeopleProps } from './types';
 
-const dummyTextWidths = utils.handleReturnDummyWidths(100, 3);
+const dummyTextWidths = handleReturnDummyWidths(100, 3);
 
 const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
   const theme = useTheme<Theme>();

@@ -17,7 +17,7 @@ import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
-import utils from '../../common/utils/utils';
+import { handleParseDurationForFramer, handleReturnNumberFromString } from '../../common/utils';
 import Link from '../../components/Clickable/Link';
 import { Theme } from '../../theme/types';
 import Tooltip from '../Tooltip';
@@ -112,8 +112,8 @@ const NavItem = (props: NavItemType): ReactElement => {
                 in={sidebarMode === 'expanded'}
                 unmountOnExit
                 delay={{
-                  enter: utils.handleParseDurationForFramer(
-                    utils.handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
+                  enter: handleParseDurationForFramer(
+                    handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
                   ),
                   exit: 0
                 }}>
@@ -128,8 +128,8 @@ const NavItem = (props: NavItemType): ReactElement => {
                 in={sidebarMode === 'expanded'}
                 unmountOnExit
                 delay={{
-                  enter: utils.handleParseDurationForFramer(
-                    utils.handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
+                  enter: handleParseDurationForFramer(
+                    handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
                   ),
                   exit: 0
                 }}>

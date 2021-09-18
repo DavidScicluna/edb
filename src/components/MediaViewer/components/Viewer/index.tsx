@@ -6,7 +6,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 
 import { useEventListener } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import {
+  handleIsTouchDevice,
+  handleParseDurationForFramer,
+  handleReturnNumberFromString
+} from '../../../../common/utils';
 import { Theme } from '../../../../theme/types';
 import Navigation from '../Navigation';
 import { ViewerProps, SwiperDirection } from './types';
@@ -60,7 +64,7 @@ const Viewer = (props: ViewerProps): ReactElement => {
    * @param Swiper - Swiper data object
    */
   const handleSwipe = (swiper: SwiperDirection): void => {
-    if (utils.handleIsTouchDevice() && swiper.swipeDirection === undefined) {
+    if (handleIsTouchDevice() && swiper.swipeDirection === undefined) {
       onClose();
     }
   };
@@ -85,9 +89,7 @@ const Viewer = (props: ViewerProps): ReactElement => {
             <SlideFade
               in={activeIndex - 1 === index}
               offsetY='10vh'
-              delay={utils.handleParseDurationForFramer(
-                utils.handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
-              )}
+              delay={handleParseDurationForFramer(handleReturnNumberFromString(theme.transition.duration.slow, 'ms'))}
               unmountOnExit>
               <Center width='100vw' height='100vh' position='relative'>
                 {renderSlide(slide)}

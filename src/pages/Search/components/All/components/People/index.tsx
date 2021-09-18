@@ -4,7 +4,7 @@ import { useColorMode, useMediaQuery, Text } from '@chakra-ui/react';
 import queryString from 'query-string';
 
 import { useSelector } from '../../../../../../common/hooks';
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../common/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import Link from '../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
@@ -40,7 +40,7 @@ const People = (props: PeopleProps): ReactElement => {
             isFullWidth
             isDisabled={isFetching || isLoading}>
             <Button
-              color={utils.handleReturnColor(color)}
+              color={handleReturnColor(color)}
               isFullWidth
               isDisabled={isFetching || isLoading}
               onClick={() => refetch()}

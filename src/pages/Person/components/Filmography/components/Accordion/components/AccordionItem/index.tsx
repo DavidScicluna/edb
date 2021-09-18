@@ -16,7 +16,7 @@ import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownO
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import utils from '../../../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../../../common/utils';
 import Badge from '../../../../../../../../components/Badge';
 import { Theme } from '../../../../../../../../theme/types';
 import CastMovies from './components/CastMovies';
@@ -58,7 +58,7 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
               (credits.crew?.movie?.length || 0) +
               (credits.crew?.tv?.length || 0)
             }`}
-            color={isExpanded ? utils.handleReturnColor(color) : 'gray'}
+            color={isExpanded ? handleReturnColor(color) : 'gray'}
             size={isSm ? 'md' : 'lg'}
             ml={isSm ? 0 : 2}
           />

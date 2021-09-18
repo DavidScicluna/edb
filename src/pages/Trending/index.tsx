@@ -375,11 +375,11 @@ const Trending = (): ReactElement => {
                     }
                     onFetch={() =>
                       mediaType === 'movie'
-                        ? trendingMovies.fetchNextPage
+                        ? trendingMovies.fetchNextPage()
                         : mediaType === 'tv'
-                        ? trendingTV.fetchNextPage
+                        ? trendingTV.fetchNextPage()
                         : mediaType === 'person'
-                        ? trendingPeople.fetchNextPage
+                        ? trendingPeople.fetchNextPage()
                         : undefined
                     }
                   />

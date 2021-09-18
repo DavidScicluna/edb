@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useColorMode, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
 import { useSelector } from '../../common/hooks';
-import utils from '../../common/utils/utils';
+import { handleReturnColor } from '../../common/utils';
 import Button from '../Clickable/Button';
 import { LoadMoreProps } from './types';
 
@@ -28,7 +28,7 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
           borderRadius='full'
           size='sm'
           value={Math.round((amount / total) * 100)}
-          sx={{ '& div': { backgroundColor: `${utils.handleReturnColor(color)}.400` } }}
+          sx={{ '& div': { backgroundColor: `${handleReturnColor(color)}.400` } }}
         />
       </VStack>
 

@@ -11,7 +11,7 @@ import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
 import { PartialTV } from '../../../../common/types/tv';
 import { Response, SortBy, Genre } from '../../../../common/types/types';
-import utils from '../../../../common/utils/utils';
+import { handleCheckHasFilters, handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import Filters from '../../../../components/Filters';
 import VerticalGrid from '../../../../components/Grid/Vertical';
@@ -94,14 +94,14 @@ const OnTV = (): ReactElement => {
   };
 
   const handleFetchNextPage = (): void => {
-    if (utils.handleCheckHasFilters(sortBy, genres)) {
+    if (handleCheckHasFilters(sortBy, genres)) {
       dispatch(
         toggleConfirm({
           open: true,
           title: 'Filters',
           description: 'Are you sure you want to load more TV shows? Filters will be reset!',
           submitButton: (
-            <Button color={utils.handleReturnColor(color)} onClick={() => handleResetFilters()} size='sm'>
+            <Button color={handleReturnColor(color)} onClick={() => handleResetFilters()} size='sm'>
               Load more
             </Button>
           )

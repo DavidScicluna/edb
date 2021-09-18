@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
 import { PartialTV } from '../../../../common/types/tv';
-import utils from '../../../../common/utils/utils';
+import { handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalPoster from '../../../../components/Poster/Horizontal';
@@ -45,8 +45,8 @@ const VerticalTV = (props: VerticalTVProps): ReactElement => {
             }}
             title={show?.name || ''}
             subtitle={`${[
-              `${utils.handleReturnDate(show?.first_air_date || '', 'full')}`,
-              `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
+              `${handleReturnDate(show?.first_air_date || '', 'full')}`,
+              `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
             ]
               .filter((subtitle) => subtitle)
               .join(' • ')}`}
@@ -73,8 +73,8 @@ const VerticalTV = (props: VerticalTVProps): ReactElement => {
             }}
             title={show?.name || ''}
             subtitle={`${[
-              `${utils.handleReturnDate(show?.first_air_date || '', 'year')}`,
-              `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
+              `${handleReturnDate(show?.first_air_date || '', 'year')}`,
+              `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
             ]
               .filter((subtitle) => subtitle)
               .join(' • ')}`}

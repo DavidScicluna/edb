@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import utils from '../../../../common/utils/utils';
+import { handleReturnDate } from '../../../../common/utils';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
 import VerticalPoster from '../../../../components/Poster/Vertical';
 import { CollectionProps } from './types';
@@ -38,7 +38,7 @@ const Collection = (props: CollectionProps): ReactElement => {
               count: mediaItem?.vote_count || null
             }}
             title={mediaItem?.title || mediaItem?.name || ''}
-            subtitle={`${utils.handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}`}
+            subtitle={`${handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}`}
             isLoading={false}
           />
         ))}

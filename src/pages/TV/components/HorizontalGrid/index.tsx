@@ -4,7 +4,7 @@ import { useColorMode, useMediaQuery, Box, Text, Fade } from '@chakra-ui/react';
 import { useInView } from 'react-intersection-observer';
 
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
@@ -41,7 +41,7 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
           footer={
             <Link to={{ pathname }} isFullWidth isDisabled={isLoading}>
               <Button
-                color={utils.handleReturnColor(color)}
+                color={handleReturnColor(color)}
                 isFullWidth
                 isDisabled={isLoading}
                 size={isSm ? 'sm' : 'md'}

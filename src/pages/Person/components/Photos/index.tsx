@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
 import { Profile } from '../../../../common/types/person';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import ClickableImage from '../../../../components/Clickable/Image';
 import Empty from '../../../../components/Empty';
@@ -30,7 +30,7 @@ const Photos = (props: PhotosProps): ReactElement => {
       footer={
         images.length > 7 ? (
           <Button
-            color={utils.handleReturnColor(color)}
+            color={handleReturnColor(color)}
             isFullWidth
             isDisabled={isLoading || isError}
             onClick={() => onClickImage(images[0].file_path)}

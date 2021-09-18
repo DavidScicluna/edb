@@ -4,7 +4,7 @@ import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Text } from '@ch
 import moment from 'moment';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';
-import utils from '../../../../../../../../../../common/utils/utils';
+import { handleReturnColor, handleReturnDate } from '../../../../../../../../../../common/utils';
 import Badge from '../../../../../../../../../../components/Badge';
 import Link from '../../../../../../../../../../components/Clickable/Link';
 import { Theme } from '../../../../../../../../../../theme/types';
@@ -45,16 +45,11 @@ const MediaItem = (props: MediaItemProps): ReactElement => {
               _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
               {isSm ? `${title} ` : title}
               {!date ? (
-                <Badge
-                  label='Announced'
-                  color={utils.handleReturnColor(color)}
-                  size={isSm ? 'xs' : 'sm'}
-                  ml={isSm ? 0 : 1}
-                />
+                <Badge label='Announced' color={handleReturnColor(color)} size={isSm ? 'xs' : 'sm'} ml={isSm ? 0 : 1} />
               ) : date && handleIfDateIsFuture(date) ? (
                 <Badge
                   label='In Production'
-                  color={utils.handleReturnColor(color)}
+                  color={handleReturnColor(color)}
                   size={isSm ? 'xs' : 'sm'}
                   ml={isSm ? 0 : 1}
                 />
@@ -70,7 +65,7 @@ const MediaItem = (props: MediaItemProps): ReactElement => {
 
       {date ? (
         <Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize={isSm ? 'xs' : 'sm'}>
-          {utils.handleReturnDate(date || '', 'year')}
+          {handleReturnDate(date || '', 'year')}
         </Text>
       ) : null}
     </HStack>

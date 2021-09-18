@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../common/hooks';
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnDummyWidths } from '../../../../../../common/utils';
 import Badge from '../../../../../../components/Badge';
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
@@ -16,7 +16,7 @@ import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
 import { RowProps } from './types';
 
-const dummyTextWidths = utils.handleReturnDummyWidths(100, 10);
+const dummyTextWidths = handleReturnDummyWidths(100, 10);
 
 const Row = (props: RowProps): ReactElement => {
   const theme = useTheme<Theme>();

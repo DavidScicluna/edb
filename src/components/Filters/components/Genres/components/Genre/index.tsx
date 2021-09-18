@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 
 import { useSelector } from '../../../../../../common/hooks';
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../common/utils';
 import Button from '../../../../../Clickable/Button';
 import { GenreProps } from './types';
 
@@ -12,7 +12,7 @@ const Genre = ({ id, name, isActive = false, onClick }: GenreProps): ReactElemen
 
   return (
     <Button
-      color={isActive ? utils.handleReturnColor(color) : 'gray'}
+      color={isActive ? handleReturnColor(color) : 'gray'}
       leftIcon={isActive ? CheckOutlinedIcon : undefined}
       onClick={() => onClick({ id, name })}
       size='sm'

@@ -4,7 +4,7 @@ import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-u
 import { useLocation } from 'react-router-dom';
 
 import { useElementSize, useSelector } from '../../../../../../common/hooks';
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../common/utils';
 import Card from '../../../../../../components/Clickable/Card';
 import Link from '../../../../../../components/Clickable/Link';
 import Radio from '../../../../../../components/Clickable/Radio';
@@ -34,14 +34,14 @@ const ListItem = (props: ListItemProps): ReactElement => {
     <Link isFullWidth isDisabled={isHoveringRadio} to={{ pathname: `/lists/${id}` }}>
       <Card
         height={`${width}px`}
-        color={location.pathname.includes(id) || isSelected ? utils.handleReturnColor(color) : 'gray'}
+        color={location.pathname.includes(id) || isSelected ? handleReturnColor(color) : 'gray'}
         isFullWidth
         isClickable={!isHoveringRadio}>
         <VStack position='relative' width='100%' spacing={0} px={2} py={6}>
           {isSelectable && onSelected ? (
             <Box position='absolute' top={theme.space[2]} left={theme.space[2]}>
               <Radio
-                color={utils.handleReturnColor(color)}
+                color={handleReturnColor(color)}
                 isChecked={isSelected}
                 onMouseEnter={() => setIsHoveringRadio.on()}
                 onMouseLeave={() => setIsHoveringRadio.off()}
@@ -53,7 +53,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
             align='center'
             color={
               isActive || isSelected
-                ? `${utils.handleReturnColor(color)}.400`
+                ? `${handleReturnColor(color)}.400`
                 : colorMode === 'light'
                 ? 'gray.900'
                 : 'gray.50'
@@ -68,7 +68,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
             align='center'
             color={
               isActive || isSelected
-                ? `${utils.handleReturnColor(color)}.400`
+                ? `${handleReturnColor(color)}.400`
                 : colorMode === 'light'
                 ? 'gray.400'
                 : 'gray.500'

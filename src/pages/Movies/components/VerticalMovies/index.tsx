@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
 import { PartialMovie } from '../../../../common/types/movie';
-import utils from '../../../../common/utils/utils';
+import { handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalPoster from '../../../../components/Poster/Horizontal';
@@ -45,8 +45,8 @@ const VerticalMovies = (props: VerticalMoviesProps): ReactElement => {
             }}
             title={movie?.title || ''}
             subtitle={`${[
-              `${utils.handleReturnDate(movie?.release_date || '', 'full')}`,
-              `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
+              `${handleReturnDate(movie?.release_date || '', 'full')}`,
+              `${handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
             ]
               .filter((subtitle) => subtitle)
               .join(' • ')}`}
@@ -73,8 +73,8 @@ const VerticalMovies = (props: VerticalMoviesProps): ReactElement => {
             }}
             title={movie?.title || ''}
             subtitle={`${[
-              `${utils.handleReturnDate(movie?.release_date || '', 'year')}`,
-              `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
+              `${handleReturnDate(movie?.release_date || '', 'year')}`,
+              `${handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
             ]
               .filter((subtitle) => subtitle)
               .join(' • ')}`}

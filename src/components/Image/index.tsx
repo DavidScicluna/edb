@@ -4,7 +4,7 @@ import { useTheme, Image as CUIImage } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useElementSize, useImageOnLoad } from '../../common/hooks';
-import utils from '../../common/utils/utils';
+import { handleReturnFallbackSrc } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import { ImageProps } from './types';
 
@@ -22,20 +22,16 @@ const Image = (props: ImageProps): ReactElement => {
   /**
    * This method will return the url for the fallback src
    */
-  const handleReturnFallbackSrc = useCallback(
+  const handleFallbackSrc = useCallback(
     _.debounce(() => {
-      const fallbackSrc: string = utils.handleReturnFallbackSrc(
-        mediaType,
-        String(isLoaded ? elementWidth || 780 : 50),
-        alt
-      );
+      const fallbackSrc: string = handleReturnFallbackSrc(mediaType, String(isLoaded ? elementWidth || 780 : 50), alt);
 
       setFallbackSrc(fallbackSrc);
     }, 500),
     []
   );
 
-  useEffect(() => handleReturnFallbackSrc(), []);
+  useEffect(() => handleFallbackSrc(), []);
 
   return (
     <>

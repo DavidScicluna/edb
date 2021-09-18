@@ -8,7 +8,7 @@ import {
   CloseOutlined as CloseOutlinedIcon
 } from '@material-ui/icons';
 
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';
 import store from '../../../../store';
@@ -46,7 +46,7 @@ const Toast = (props: ToastProps): ReactElement => {
         {isSm ? (
           <IconButton
             aria-label='Information related to selected list'
-            color={utils.handleReturnColor(color)}
+            color={handleReturnColor(color)}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             icon={InfoTwoToneIcon}
             onClick={() => onInfo()}
@@ -54,7 +54,7 @@ const Toast = (props: ToastProps): ReactElement => {
           />
         ) : (
           <Button
-            color={utils.handleReturnColor(color)}
+            color={handleReturnColor(color)}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             leftIcon={InfoTwoToneIcon}
             onClick={() => onInfo()}>

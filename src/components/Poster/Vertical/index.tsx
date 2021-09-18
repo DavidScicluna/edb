@@ -4,7 +4,7 @@ import { useTheme, useBoolean, VStack, HStack, Box, AspectRatio, ScaleFade } fro
 import { useDispatch } from 'react-redux';
 
 import { MediaType } from '../../../common/types/types';
-import utils from '../../../common/utils/utils';
+import { handleIsTouchDevice } from '../../../common/utils';
 import Button from '../../../components/Clickable/Button';
 import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
@@ -64,7 +64,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                 </Skeleton>
 
                 {/* Quick View component */}
-                {mediaItem && !utils.handleIsTouchDevice() ? (
+                {mediaItem && !handleIsTouchDevice() ? (
                   <ScaleFade in={isHoveringPoster && !isLoading} unmountOnExit>
                     <Box
                       position='absolute'

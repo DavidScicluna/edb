@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import _ from 'lodash';
 
 import { PartialTV } from '../../../../common/types/tv';
-import utils from '../../../../common/utils/utils';
+import { handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import VerticalPoster from '../../../../components/Poster/Vertical';
@@ -38,8 +38,8 @@ const HorizontalTV = (props: HorizontalTVProps): ReactElement => {
           }}
           title={show?.name || ''}
           subtitle={`${[
-            `${utils.handleReturnDate(show?.first_air_date || '', 'year')}`,
-            `${utils.handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
+            `${handleReturnDate(show?.first_air_date || '', 'year')}`,
+            `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
           ]
             .filter((subtitle) => subtitle)
             .join(' • ')}`}

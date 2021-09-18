@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import Modal from '../../../../components/Modal';
 import { toggleConfirm } from '../../../../store/slices/Modals';
@@ -74,7 +74,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
           description: 'Are you sure you want to close the modal, the data inserted will be lost unless you save it!',
           submitButton: (
             <Button
-              color={utils.handleReturnColor(color)}
+              color={handleReturnColor(color)}
               onClick={() => {
                 dispatch(toggleConfirm({ ...confirmModal, open: false }));
                 handleClose();
@@ -93,7 +93,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
       title='Create a new List'
       actions={
         <Button
-          color={utils.handleReturnColor(color)}
+          color={handleReturnColor(color)}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
           size='sm'>
@@ -116,7 +116,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
               <Input
                 autoComplete='off'
                 errorBorderColor='red.400'
-                focusBorderColor={`${utils.handleReturnColor(color)}.400`}
+                focusBorderColor={`${handleReturnColor(color)}.400`}
                 isFullWidth
                 isInvalid={Boolean(error)}
                 fontSize='md'
@@ -145,7 +145,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
               <Textarea
                 autoComplete='off'
                 errorBorderColor='red.400'
-                focusBorderColor={`${utils.handleReturnColor(color)}.400`}
+                focusBorderColor={`${handleReturnColor(color)}.400`}
                 isFullWidthname={name}
                 isInvalid={Boolean(error)}
                 fontSize='md'

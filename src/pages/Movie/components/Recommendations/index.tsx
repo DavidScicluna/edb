@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import arraySort from 'array-sort';
 import _ from 'lodash';
 
-import utils from '../../../../common/utils/utils';
+import { handleReturnDate } from '../../../../common/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
@@ -44,7 +44,7 @@ const Recommendations = (props: RecommendationsProps): ReactElement => {
                 count: movie?.vote_count || null
               }}
               title={movie?.title || ''}
-              subtitle={`${utils.handleReturnDate(movie?.release_date || '', 'year')}`}
+              subtitle={`${handleReturnDate(movie?.release_date || '', 'year')}`}
               isLoading={false}
             />
           ))}

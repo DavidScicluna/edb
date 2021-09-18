@@ -5,13 +5,13 @@ import _ from 'lodash';
 import { Link } from 'react-scroll';
 
 import { useSelector } from '../../../../../../common/hooks';
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnDummyWidths, handleReturnColor } from '../../../../../../common/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { QuickTogglesProps } from './types';
 
-const dummyTextWidths = utils.handleReturnDummyWidths(200, 4);
+const dummyTextWidths = handleReturnDummyWidths(200, 4);
 
 const QuickToggles = (props: QuickTogglesProps): ReactElement => {
   const { colorMode } = useColorMode();
@@ -56,7 +56,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
                 smooth={true}
                 offset={-81}>
                 <Button
-                  color={utils.handleReturnColor(color)}
+                  color={handleReturnColor(color)}
                   onClick={typeof department !== 'number' ? () => onToggleAccordion(department) : undefined}
                   isDisabled={isLoading}
                   size='sm'

@@ -3,12 +3,12 @@ import React, { ReactElement } from 'react';
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnDummyWidths } from '../../../../../../common/utils';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { DepartmentsProps } from './types';
 
-const dummyTextWidths = utils.handleReturnDummyWidths(200, 4);
+const dummyTextWidths = handleReturnDummyWidths(200, 4);
 
 const Departments = (props: DepartmentsProps): ReactElement => {
   const { colorMode } = useColorMode();

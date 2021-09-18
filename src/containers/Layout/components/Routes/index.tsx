@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory, useLocation, Switch, Route } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';
@@ -194,13 +194,13 @@ const Routes = (): ReactElement => {
               actions={
                 <>
                   <Button
-                    color={utils.handleReturnColor(color)}
+                    color={handleReturnColor(color)}
                     onClick={() => history.push({ pathname: '/' })}
                     variant='outlined'>
                     Go back home
                   </Button>
                   <Button
-                    color={utils.handleReturnColor(color)}
+                    color={handleReturnColor(color)}
                     onClick={() => {
                       window.location.reload();
                       return false;

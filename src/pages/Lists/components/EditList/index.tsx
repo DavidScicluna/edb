@@ -7,7 +7,7 @@ import { useForm, useFormState, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import Modal from '../../../../components/Modal';
 import { toggleConfirm } from '../../../../store/slices/Modals';
@@ -69,7 +69,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
           description: 'Are you sure you want to close the modal, the data inserted will be lost unless you save it!',
           submitButton: (
             <Button
-              color={utils.handleReturnColor(color)}
+              color={handleReturnColor(color)}
               onClick={() => {
                 dispatch(toggleConfirm({ ...confirmModal, open: false }));
                 handleClose();
@@ -97,7 +97,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
       title={`Edit ${list?.label ? `"${list.label}"` : ''} List`}
       actions={
         <Button
-          color={utils.handleReturnColor(color)}
+          color={handleReturnColor(color)}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
           size='sm'>
@@ -120,7 +120,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
               <Input
                 autoComplete='off'
                 errorBorderColor='red.400'
-                focusBorderColor={`${utils.handleReturnColor(color)}.400`}
+                focusBorderColor={`${handleReturnColor(color)}.400`}
                 isFullWidth
                 isInvalid={Boolean(error)}
                 fontSize='md'
@@ -148,7 +148,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
               <Textarea
                 autoComplete='off'
                 errorBorderColor='red.400'
-                focusBorderColor={`${utils.handleReturnColor(color)}.400`}
+                focusBorderColor={`${handleReturnColor(color)}.400`}
                 isFullWidthname={name}
                 isInvalid={Boolean(error)}
                 fontSize='md'

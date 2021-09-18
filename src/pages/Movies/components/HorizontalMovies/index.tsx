@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import _ from 'lodash';
 
 import { PartialMovie } from '../../../../common/types/movie';
-import utils from '../../../../common/utils/utils';
+import { handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import VerticalPoster from '../../../../components/Poster/Vertical';
@@ -38,8 +38,8 @@ const HorizontalMovies = (props: HorizontalMoviesProps): ReactElement => {
           }}
           title={movie?.title || ''}
           subtitle={`${[
-            `${utils.handleReturnDate(movie?.release_date || '', 'year')}`,
-            `${utils.handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
+            `${handleReturnDate(movie?.release_date || '', 'year')}`,
+            `${handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
           ]
             .filter((subtitle) => subtitle)
             .join(' • ')}`}

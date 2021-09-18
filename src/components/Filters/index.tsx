@@ -15,7 +15,7 @@ import {
   likedListsPeopleSortBy
 } from '../../common/data/sort';
 import { useSelector } from '../../common/hooks';
-import utils from '../../common/utils/utils';
+import { handleReturnColor } from '../../common/utils';
 import Modal from '../../components/Modal';
 import { toggleDisplayMode, toggleSortDirection } from '../../store/slices/App';
 import Button from '../Clickable/Button';
@@ -118,7 +118,7 @@ const Filters = (props: FiltersProps): ReactElement => {
     <>
       <IconButton
         aria-label='Open filters modal'
-        color={isOpen ? utils.handleReturnColor(color) : 'gray'}
+        color={isOpen ? handleReturnColor(color) : 'gray'}
         icon={VisibilityOutlinedIcon}
         isDisabled={isDisabled}
         onClick={() => onOpen()}
@@ -129,7 +129,7 @@ const Filters = (props: FiltersProps): ReactElement => {
         title='Filter'
         actions={
           <Button
-            color={utils.handleReturnColor(color)}
+            color={handleReturnColor(color)}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
             size='sm'>

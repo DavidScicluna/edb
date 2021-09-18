@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useMediaQuery } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../../../common/hooks';
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../common/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import { FooterProps } from './types';
 
@@ -29,7 +29,7 @@ const Footer = (props: FooterProps): ReactElement => {
 
   return (
     <Button
-      color={utils.handleReturnColor(color)}
+      color={handleReturnColor(color)}
       isFullWidth
       isDisabled={isDisabled}
       onClick={onClick ? () => onClick() : undefined}

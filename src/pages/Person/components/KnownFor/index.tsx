@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import _ from 'lodash';
 
-import utils from '../../../../common/utils/utils';
+import { handleReturnDate } from '../../../../common/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
@@ -43,7 +43,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
                 count: mediaItem?.vote_count || null
               }}
               title={mediaItem?.title || mediaItem?.name || ''}
-              subtitle={`${utils.handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}`}
+              subtitle={`${handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}`}
               isLoading={false}
             />
           ))}

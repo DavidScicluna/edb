@@ -3,12 +3,12 @@ import React, { ReactElement, useCallback, useState } from 'react';
 import { useColorMode, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
-import utils from '../../../../../common/utils/utils';
+import { handleReturnDummyWidths, handleIsOverflowing } from '../../../../../common/utils';
 import { toggleDescription } from '../../../../../store/slices/Modals';
 import SkeletonText from '../../../../Skeleton/Text';
 import { DescriptionProps } from './types';
 
-const dummyTextWidths = utils.handleReturnDummyWidths(100, 10);
+const dummyTextWidths = handleReturnDummyWidths(100, 10);
 
 const Description = (props: DescriptionProps): ReactElement => {
   const { colorMode } = useColorMode();
@@ -22,7 +22,7 @@ const Description = (props: DescriptionProps): ReactElement => {
   const handleIsTruncated = useCallback(
     (ref: HTMLParagraphElement | null) => {
       if (ref) {
-        setIsTruncated(utils.handleIsOverflowing(ref));
+        setIsTruncated(handleIsOverflowing(ref));
       }
     },
     [isTruncated, setIsTruncated]
