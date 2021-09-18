@@ -108,14 +108,6 @@ const VerticalMovies = (props: VerticalMoviesProps): ReactElement => {
             key={index}
             width='100%'
             mediaType='movie'
-            image={{
-              alt: 'Movie poster',
-              src: '',
-              size: {
-                thumbnail: 'w92',
-                full: 'original'
-              }
-            }}
             title='Lorem ipsum'
             subtitle='2021 • Lorem ipsum dolor sit amet'
             isLoading

@@ -150,14 +150,6 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
             key={index}
             width='100%'
             mediaType='person'
-            image={{
-              alt: 'Person poster',
-              src: '',
-              size: {
-                thumbnail: 'w45',
-                full: 'original'
-              }
-            }}
             title='Lorem ipsum'
             subtitle='2021 • Lorem ipsum dolor sit amet'
             isLoading

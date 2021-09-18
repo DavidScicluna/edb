@@ -49,14 +49,6 @@ const HorizontalPeople = (props: HorizontalPeopleProps): ReactElement => {
           key={index}
           width={['185px', '205px', '230px']}
           mediaType='person'
-          image={{
-            alt: 'Person poster',
-            src: '',
-            size: {
-              thumbnail: 'w45',
-              full: 'original'
-            }
-          }}
           title='Lorem ipsum'
           subtitle='2021 • Lorem ipsum dolor sit amet'
           isLoading

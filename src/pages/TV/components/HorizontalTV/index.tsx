@@ -54,14 +54,6 @@ const HorizontalTV = (props: HorizontalTVProps): ReactElement => {
           key={index}
           width={['185px', '205px', '230px']}
           mediaType='tv'
-          image={{
-            alt: 'TV Show poster',
-            src: '',
-            size: {
-              thumbnail: 'w92',
-              full: 'original'
-            }
-          }}
           title='Lorem ipsum'
           subtitle='2021 • Lorem ipsum dolor sit amet'
           isLoading

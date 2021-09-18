@@ -5,7 +5,7 @@ export type VerticalPosterProps<MT extends MediaType> = {
   width: string | string[];
   mediaItem?: MediaItem<MT>;
   mediaType: MediaType;
-  image: ImageProps;
+  image?: ImageProps;
   rating?: RatingProps;
   title: string;
   subtitle: string;

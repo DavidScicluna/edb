@@ -108,14 +108,6 @@ const VerticalTV = (props: VerticalTVProps): ReactElement => {
             key={index}
             width='100%'
             mediaType='tv'
-            image={{
-              alt: 'TV Show poster',
-              src: '',
-              size: {
-                thumbnail: 'w92',
-                full: 'original'
-              }
-            }}
             title='Lorem ipsum'
             subtitle='2021 • Lorem ipsum dolor sit amet'
             isLoading

@@ -13,7 +13,7 @@ const Image = (props: ImageProps): ReactElement => {
   const imageRef = useRef<HTMLImageElement | null>(null);
 
   const { width: elementWidth } = useElementSize(imageRef);
-  const { css, handleIsLoaded } = useImageOnLoad(theme);
+  const { css, isLoaded, handleIsLoaded } = useImageOnLoad(theme);
 
   const { mediaType, alt, src, size, ...rest } = props;
 
@@ -24,7 +24,11 @@ const Image = (props: ImageProps): ReactElement => {
    */
   const handleReturnFallbackSrc = useCallback(
     _.debounce(() => {
-      const fallbackSrc: string = utils.handleReturnFallbackSrc(mediaType, String(elementWidth || 780), alt);
+      const fallbackSrc: string = utils.handleReturnFallbackSrc(
+        mediaType,
+        String(isLoaded ? elementWidth || 780 : 50),
+        alt
+      );
 
       setFallbackSrc(fallbackSrc);
     }, 500),
@@ -39,11 +43,11 @@ const Image = (props: ImageProps): ReactElement => {
       <CUIImage
         {...rest}
         ref={imageRef}
-        position='absolute'
         alt={`${alt} thumbnail`}
+        position='absolute'
         onError={() => handleIsLoaded(true)}
         src={`${process.env.REACT_APP_IMAGE_URL}/${size.thumbnail}${src}`}
-        fallbackSrc={fallbackSrc}
+        ignoreFallback
         sx={{ ...css.thumbnail }}
       />
 
@@ -51,8 +55,8 @@ const Image = (props: ImageProps): ReactElement => {
       <CUIImage
         {...rest}
         ref={imageRef}
-        position='absolute'
         alt={alt}
+        position='absolute'
         onLoad={() => handleIsLoaded(true)}
         src={`${process.env.REACT_APP_IMAGE_URL}/${size.full}${src}`}
         fallbackSrc={fallbackSrc}

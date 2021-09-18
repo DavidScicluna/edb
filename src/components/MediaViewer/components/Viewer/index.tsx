@@ -27,13 +27,13 @@ const Viewer = (props: ViewerProps): ReactElement => {
       if (!isGalleryOpen) {
         switch (event?.key) {
           case 'ArrowLeft': {
-            if (activeIndex > 1) {
+            if (activeIndex >= 1) {
               onNavigation('prev');
             }
             break;
           }
           case 'ArrowRight': {
-            if (activeIndex < (data?.length || 0)) {
+            if (activeIndex <= (data?.length || 0)) {
               onNavigation('next');
             }
             break;

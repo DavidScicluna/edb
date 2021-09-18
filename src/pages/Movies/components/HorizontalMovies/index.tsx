@@ -54,14 +54,6 @@ const HorizontalMovies = (props: HorizontalMoviesProps): ReactElement => {
           key={index}
           width={['185px', '205px', '230px']}
           mediaType='movie'
-          image={{
-            alt: 'Movie poster',
-            src: '',
-            size: {
-              thumbnail: 'w92',
-              full: 'original'
-            }
-          }}
           title='Lorem ipsum'
           subtitle='2021 • Lorem ipsum dolor sit amet'
           isLoading

@@ -58,15 +58,15 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
           <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
-            <Skeleton isLoaded={!isLoading} borderRadius='base'>
+            <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
               <Image
-                alt={image.alt}
+                alt={image?.alt || ''}
                 mediaType={mediaType}
                 maxWidth='none'
                 height='100%'
                 borderRadius='base'
-                src={image.src}
-                size={image.size}
+                src={image?.src || ''}
+                size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
               />
             </Skeleton>
           </AspectRatio>

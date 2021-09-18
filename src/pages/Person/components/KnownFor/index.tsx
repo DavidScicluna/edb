@@ -34,7 +34,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
                 alt: `${mediaItem?.title || mediaItem?.name || ''} ${mediaItem?.title ? 'movie' : 'tv'} poster`,
                 src: mediaItem?.poster_path || '',
                 size: {
-                  thumbnail: '45',
+                  thumbnail: 'w92',
                   full: 'original'
                 }
               }}
@@ -55,14 +55,6 @@ const KnownFor = (props: KnownForProps): ReactElement => {
               key={index}
               width={['185px', '205px', '230px']}
               mediaType='movie'
-              image={{
-                alt: 'Movie poster',
-                src: '',
-                size: {
-                  thumbnail: '45',
-                  full: 'original'
-                }
-              }}
               title='Lorem ipsum'
               subtitle='Lorem ipsum'
               isLoading
