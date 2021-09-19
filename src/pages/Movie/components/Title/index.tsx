@@ -1,16 +1,20 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useBreakpointValue, HStack, Center, VStack, Box, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, useBreakpointValue, HStack, VStack, Text, SlideFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
-import Link from '../../../../components/Clickable/Link';
-import HorizontalScroll from '../../../../components/HorizontalScroll';
+import {
+  handleReturnDummyWidths,
+  handleReturnDate,
+  handleReturnNumberFromString,
+  handleReturnRuntime
+} from '../../../../common/utils';
 import Rating from '../../../../components/Rating';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import { Theme } from '../../../../theme/types';
 import { TitleProps } from './types';
+
+const dummyTextWidths = handleReturnDummyWidths(100, 3);
 
 const Title = (props: TitleProps): ReactElement => {
   const theme = useTheme<Theme>();
@@ -32,27 +36,18 @@ const Title = (props: TitleProps): ReactElement => {
     '2xl': theme.fontSizes['3xl']
   });
 
-  const color = useSelector((state) => state.user.ui.theme.color);
-
-  const { title, rating, release_date, certification, genres, runtime, isLoading = true, isError = true } = props;
+  const { title, rating, release_date, certification, genres, runtime, isLoading = true } = props;
 
   return (
-    <VStack alignItems='flex-start' spacing={isLoading || isError ? 1 : 0}>
-      <HStack
-      // spacing={isLoading ? 1 : 0}
-      // divider={
-      //   <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' mx={1}>
-      //     •
-      //   </Text>
-      // }
-      >
-        <SkeletonText offsetY={offsetY} isLoaded={!isLoading && !isError}>
+    <VStack alignItems='flex-start' spacing={isLoading ? 1 : 0}>
+      <HStack>
+        <SkeletonText offsetY={offsetY} isLoaded={!isLoading}>
           <Text
             align='left'
             color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
             fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
             fontWeight='bold'>
-            {title || 'Movie title'}
+            {title || 'Movie Title'}
           </Text>
         </SkeletonText>
         <Rating
@@ -70,16 +65,18 @@ const Title = (props: TitleProps): ReactElement => {
             •
           </Text>
         }>
-        <SkeletonText offsetY={7} isLoaded={!isLoading && !isError}>
+        <SkeletonText offsetY={7} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-            {utils.handleReturnDate(release_date || '', 'year') || 2021}
+            {handleReturnDate(release_date || '', 'year') || 'N/A'}
           </Text>
         </SkeletonText>
 
-        <SkeletonText offsetY={7} isLoaded={!isLoading && !isError}>
+        <SkeletonText offsetY={7} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-            {!isLoading && !isError
-              ? certification && certification?.release_dates.length > 0
+            {!isLoading
+              ? certification &&
+                certification?.release_dates.length > 0 &&
+                certification?.release_dates[0].certification
                 ? certification?.release_dates[0].certification
                 : 'N/A'
               : 'PG-13'}
@@ -87,23 +84,37 @@ const Title = (props: TitleProps): ReactElement => {
         </SkeletonText>
 
         <HStack
+          spacing={isLoading ? 1 : 0}
           divider={
             <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' pr={0.75}>
               ,
             </Text>
           }>
-          {[...(!isLoading || !isError ? genres || [] : _.range(3))]?.map((genre, index) => (
-            <SkeletonText key={index} offsetY={7} isLoaded={!isLoading && !isError}>
-              <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-                {!isLoading && !isError && typeof genre !== 'number' ? genre.name : 'Lorem'}
-              </Text>
-            </SkeletonText>
-          ))}
+          {!isLoading && genres
+            ? genres.map((genre, index) => (
+                <SlideFade
+                  key={index}
+                  in
+                  offsetY={7}
+                  delay={handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}>
+                  <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+                    {genre.name}
+                  </Text>
+                </SlideFade>
+              ))
+            : _.range(0, 2).map((_dummy, index) => (
+                <SkeletonText
+                  key={index}
+                  width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
+                  height='19px'
+                  offsetY={7}
+                />
+              ))}
         </HStack>
 
-        <SkeletonText offsetY={7} isLoaded={!isLoading && !isError}>
+        <SkeletonText offsetY={7} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-            {runtime ? utils.handleReturnRuntime(runtime) : '1hr 15m'}
+            {runtime ? handleReturnRuntime(runtime) : '1hr 15m'}
           </Text>
         </SkeletonText>
       </HStack>

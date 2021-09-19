@@ -9,5 +9,4 @@ export type TitleProps = {
   certification?: ReleaseDates;
   runtime?: number | null;
   isLoading?: boolean;
-  isError?: boolean;
 };
