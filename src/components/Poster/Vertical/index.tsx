@@ -11,10 +11,10 @@ import Link from '../../../components/Clickable/Link';
 import Skeleton from '../../../components/Skeleton';
 import { toggleQuickView } from '../../../store/slices/Modals';
 import { Theme } from '../../../theme/types';
-import Bookmark from '../../Bookmark';
 import Image from '../../Image';
 import Like from '../../Like';
 import Rating from '../../Rating';
+import Bookmark from '../components/Bookmark';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { VerticalPosterProps } from './types';
@@ -32,7 +32,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
     rating,
     title = 'Lorem ipsum',
     subtitle = 'Lorem ipsum',
-    isLoading = false
+    isLoading = true
   } = props;
 
   const [isHoveringPoster, setIsHoveringPoster] = useBoolean();
@@ -103,10 +103,10 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                   {/* List component */}
                   <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                     <Bookmark
-                      isDisabled={isLoading}
                       title={title}
                       mediaType={mediaType}
                       mediaItem={mediaItem}
+                      isLoading={isLoading}
                       size='sm'
                     />
                   </Box>

@@ -15,11 +15,11 @@ import { MediaType } from '../../../common/types/types';
 import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
 import { Theme } from '../../../theme/types';
-import Bookmark from '../../Bookmark';
 import Image from '../../Image';
 import Like from '../../Like';
 import Rating from '../../Rating';
 import Skeleton from '../../Skeleton';
+import Bookmark from '../components/Bookmark';
 import Description from './components/Description';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
@@ -134,10 +134,10 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               {mediaType !== 'person' ? (
                 <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                   <Bookmark
-                    isDisabled={isLoading}
                     title={title}
                     mediaType={mediaType}
                     mediaItem={mediaItem}
+                    isLoading={isLoading}
                     size={isSm ? 'md' : 'lg'}
                   />
                 </Box>

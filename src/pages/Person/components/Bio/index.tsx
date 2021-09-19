@@ -80,7 +80,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
             </VStack>
           </Collapse>
         ) : (
-          <VStack width='100%' spacing={2}>
+          <VStack width='100%' spacing={1}>
             {_.range(0, 3).map((_dummy, index) => (
               <SkeletonText key={index} width='100%' offsetY={6} isLoaded={!isLoading}>
                 <Text align='left' fontSize='xs'>
