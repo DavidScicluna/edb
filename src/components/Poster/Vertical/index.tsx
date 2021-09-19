@@ -12,9 +12,9 @@ import Skeleton from '../../../components/Skeleton';
 import { toggleQuickView } from '../../../store/slices/Modals';
 import { Theme } from '../../../theme/types';
 import Image from '../../Image';
-import Like from '../../Like';
 import Rating from '../../Rating';
 import Bookmark from '../components/Bookmark';
+import Like from '../components/Like';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { VerticalPosterProps } from './types';
@@ -98,7 +98,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                 <HStack spacing={0}>
                   {/* Like component */}
                   <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                    <Like isDisabled={isLoading} title={title} mediaType={mediaType} mediaItem={mediaItem} size='sm' />
+                    <Like title={title} mediaType={mediaType} mediaItem={mediaItem} size='sm' isLoading={isLoading} />
                   </Box>
                   {/* List component */}
                   <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
@@ -130,7 +130,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                 right: 2
               }}>
               <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                <Like isDisabled={isLoading} title={title} mediaType={mediaType} mediaItem={mediaItem} size='sm' />
+                <Like title={title} mediaType={mediaType} mediaItem={mediaItem} isLoading={isLoading} size='sm' />
               </Box>
             </HStack>
           ) : null}

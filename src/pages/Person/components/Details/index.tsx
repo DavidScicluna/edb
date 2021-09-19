@@ -1,8 +1,13 @@
 import React, { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
+import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon
+} from '@material-ui/icons';
 
 import Card from '../../../../components/Card';
+import Button from '../../../../components/Clickable/Button';
 import Like from '../../../../components/Like';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import Background from './components/Background';
@@ -90,24 +95,20 @@ const Details = (props: DetailsProps): ReactElement => {
 
               <ScaleFade in={!isError} unmountOnExit>
                 <Like
-                  buttonType='button'
-                  isDisabled={isLoading}
-                  title={person?.name || ''}
+                  renderButton={({ isLiked, onClick }) => (
+                    <Button
+                      color={isLiked ? 'red' : 'gray'}
+                      isFullWidth={isSm}
+                      isDisabled={isLoading || !person}
+                      leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+                      onClick={() => onClick()}
+                      size='md'
+                      variant='outlined'>
+                      Like
+                    </Button>
+                  )}
                   mediaType='person'
-                  mediaItem={
-                    person
-                      ? {
-                          known_for_department: person.known_for_department,
-                          id: person.id,
-                          name: person.name,
-                          gender: person.gender,
-                          popularity: person.popularity,
-                          profile_path: person.profile_path,
-                          adult: person.adult
-                        }
-                      : undefined
-                  }
-                  size='md'
+                  mediaItem={person}
                 />
               </ScaleFade>
             </VStack>

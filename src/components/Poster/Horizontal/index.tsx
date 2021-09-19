@@ -16,10 +16,10 @@ import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
 import { Theme } from '../../../theme/types';
 import Image from '../../Image';
-import Like from '../../Like';
 import Rating from '../../Rating';
 import Skeleton from '../../Skeleton';
 import Bookmark from '../components/Bookmark';
+import Like from '../components/Like';
 import Description from './components/Description';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
@@ -123,10 +123,10 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               {/* Like component */}
               <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                 <Like
-                  isDisabled={isLoading}
                   title={title}
                   mediaType={mediaType}
                   mediaItem={mediaItem}
+                  isLoading={isLoading}
                   size={isSm ? 'md' : 'lg'}
                 />
               </Box>

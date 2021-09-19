@@ -19,7 +19,7 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { title, mediaType, mediaItem, isLoading = true } = props;
+  const { title, mediaType, mediaItem, isLoading = true, size } = props;
 
   return (
     <Bookmark
@@ -51,7 +51,7 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
             onClick={() => onClick()}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}
-            size='sm'
+            size={size}
             variant='icon'
           />
         </Tooltip>

@@ -1,11 +1,17 @@
+import { ReactElement } from 'react';
+
 import { MediaType } from '../../common/types/types';
-import { GetMediaType } from '../../store/slices/User/types';
-import { IconButtonProps } from '../Clickable/IconButton/types';
+import { GetMediaType, List } from '../../store/slices/User/types';
+
+type RenderButtonProps = {
+  list?: List;
+  isBookmarked: boolean;
+  onClick: () => void;
+};
 
 export interface BookmarkProps {
-  isDisabled: boolean;
+  renderButton: (props: RenderButtonProps) => ReactElement;
   title: string;
   mediaType: MediaType;
   mediaItem?: GetMediaType<this['mediaType']>;
-  size: IconButtonProps['size'];
 }

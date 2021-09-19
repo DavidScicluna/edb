@@ -1,6 +1,10 @@
 import React, { ReactElement, useRef } from 'react';
 
 import { useColorMode, useMediaQuery, HStack, Box } from '@chakra-ui/react';
+import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon
+} from '@material-ui/icons';
 
 import { useElementSize, useSelector } from '../../../../common/hooks';
 import { handleReturnColor } from '../../../../common/utils';
@@ -44,12 +48,20 @@ const Actions = (props: ActionsProps): ReactElement => {
         mediaItem={mediaItem ? { ...mediaItem } : undefined}
       />
       <Like
-        buttonType='button'
-        isDisabled={isLoading}
-        title={title || ''}
+        renderButton={({ isLiked, onClick }) => (
+          <Button
+            color={isLiked ? 'red' : 'gray'}
+            isFullWidth={isSm}
+            isDisabled={isLoading || !mediaItem}
+            leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+            onClick={() => onClick()}
+            size='md'
+            variant='outlined'>
+            Like
+          </Button>
+        )}
         mediaType='movie'
         mediaItem={mediaItem ? { ...mediaItem } : undefined}
-        size='md'
       />
     </HStack>
   );
