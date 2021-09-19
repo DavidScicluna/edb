@@ -1,4 +1,4 @@
-import { MediaViewerType } from '../../../../../../components/MediaViewer/types';
+import { MediaViewerType } from '../../../../../../../../components/MediaViewer/types';
 
 export type BackdropProps = {
   title?: string;

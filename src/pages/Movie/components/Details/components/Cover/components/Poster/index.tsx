@@ -2,9 +2,9 @@ import React, { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import ClickableImage from '../../../../../../components/Clickable/Image';
-import Image from '../../../../../../components/Image';
-import Skeleton from '../../../../../../components/Skeleton';
+import ClickableImage from '../../../../../../../../components/Clickable/Image';
+import Image from '../../../../../../../../components/Image';
+import Skeleton from '../../../../../../../../components/Skeleton';
 import { PosterProps } from './types';
 
 const Poster = (props: PosterProps): ReactElement => {
@@ -15,15 +15,16 @@ const Poster = (props: PosterProps): ReactElement => {
   return (
     <ClickableImage
       width='100%'
-      borderRadius='xl'
+      borderRadius='base'
       ratio={2 / 3}
       isDisabled={isLoading || isError || isImageError}
       onClick={path ? () => onClick(path, 'photo') : undefined}>
-      <Skeleton isLoaded={!isLoading} borderRadius='xl'>
+      <Skeleton isLoaded={!isLoading} borderRadius='base'>
         <Image
+          alt={`${title ? `"${title}"` : ''} movie poster`}
           height='100%'
           maxWidth='none'
-          alt={`${title ? `"${title}"` : ''} movie poster`}
+          borderRadius='base'
           mediaType='movie'
           onError={() => setIsImageError.on()}
           onLoad={() => setIsImageError.off()}
