@@ -1,7 +1,7 @@
 import { ImageResponse as Image, VideoResponse as Video } from '../../../../../../common/types/types';
 import { MediaViewerType } from '../../../../../../components/MediaViewer/types';
 
-type Status = {
+export type Status = {
   images?: boolean;
   videos?: boolean;
 };

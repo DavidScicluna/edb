@@ -1,23 +1,30 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, TabList as CUITabList, HStack } from '@chakra-ui/react';
+import { TabList as CUITabList } from '@chakra-ui/react';
 
 import Tab from './components/Tab';
+import { TabListProps } from './types';
 
-const tabs = ['photos', 'backdrops', 'videos'];
-
-const TabList = ({ activeIndex }: { activeIndex: number }): ReactElement => {
-  const { colorMode } = useColorMode();
+const TabList = ({ activeIndex, isLoading }: TabListProps): ReactElement => {
+  const renderTabs = [
+    {
+      label: 'photos',
+      isDisabled: isLoading.images
+    },
+    {
+      label: 'backdrops',
+      isDisabled: isLoading.images
+    },
+    {
+      label: 'videos',
+      isDisabled: isLoading.videos
+    }
+  ];
 
   return (
-    <CUITabList
-      as={HStack}
-      borderRadius='base'
-      backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'}
-      spacing={0}
-      p={0.75}>
-      {tabs.map((tab, index) => (
-        <Tab key={index} label={tab} isActive={activeIndex === index} />
+    <CUITabList>
+      {renderTabs.map((tab, index) => (
+        <Tab key={index} label={tab.label} isSelected={activeIndex === index} isDisabled={tab.isDisabled} />
       ))}
     </CUITabList>
   );

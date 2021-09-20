@@ -73,13 +73,11 @@ const Title = (props: TitleProps): ReactElement => {
 
         <SkeletonText offsetY={7} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-            {!isLoading
-              ? certification &&
-                certification?.release_dates.length > 0 &&
-                certification?.release_dates[0].certification
-                ? certification?.release_dates[0].certification
-                : 'N/A'
-              : 'PG-13'}
+            {certification && certification?.release_dates.length > 0 && certification?.release_dates[0].certification
+              ? certification?.release_dates[0].certification
+              : isLoading
+              ? 'PG-13'
+              : 'N/A'}
           </Text>
         </SkeletonText>
 

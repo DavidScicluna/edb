@@ -44,7 +44,7 @@ const Recommendations = (props: RecommendationsProps): ReactElement => {
                 count: movie?.vote_count || null
               }}
               title={movie?.title || ''}
-              subtitle={`${handleReturnDate(movie?.release_date || '', 'year')}`}
+              subtitle={`${handleReturnDate(movie?.release_date || '', 'year')}` || 'N/A'}
               isLoading={false}
             />
           ))}

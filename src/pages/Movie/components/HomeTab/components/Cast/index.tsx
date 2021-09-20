@@ -23,7 +23,6 @@ const Cast = (props: CastProps): ReactElement => {
   return (
     <HorizontalGrid
       title='Cast'
-      // TODO: Once tabs are implemented add logic to re-direct to cast/crew tab
       footer={
         <Button
           color={handleReturnColor(color)}
@@ -44,25 +43,27 @@ const Cast = (props: CastProps): ReactElement => {
         <Empty label='People list is currently empty!' variant='transparent' />
       ) : !isLoading && isSuccess && cast && cast.length > 0 ? (
         <>
-          {cast.map((person: CastType) => (
-            <VerticalPoster
-              key={person.id}
-              width={['185px', '205px', '230px']}
-              mediaItem={person ? { ...person } : undefined}
-              mediaType='person'
-              image={{
-                alt: `${person?.name || ''} person poster`,
-                src: person?.profile_path || '',
-                size: {
-                  thumbnail: 'w45',
-                  full: 'original'
-                }
-              }}
-              title={person?.name || ''}
-              subtitle={`As ${person.character}`}
-              isLoading={isLoading}
-            />
-          ))}
+          {cast
+            .filter((_person, index) => index < 20)
+            .map((person: CastType) => (
+              <VerticalPoster
+                key={person.id}
+                width={['185px', '205px', '230px']}
+                mediaItem={person ? { ...person } : undefined}
+                mediaType='person'
+                image={{
+                  alt: `${person?.name || ''} person poster`,
+                  src: person?.profile_path || '',
+                  size: {
+                    thumbnail: 'w45',
+                    full: 'original'
+                  }
+                }}
+                title={person?.name || ''}
+                subtitle={`As ${person.character}`}
+                isLoading={isLoading}
+              />
+            ))}
         </>
       ) : (
         <>

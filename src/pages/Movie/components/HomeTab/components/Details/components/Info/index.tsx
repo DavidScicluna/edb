@@ -22,7 +22,7 @@ const Info = (props: InfoProps): ReactElement => {
       children: (
         <SkeletonText offsetY={8} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>
-            {budget ? `$${handleFormatMoney(budget)}` : 'N/A'}
+            {budget ? `$${handleFormatMoney(budget)}` : isLoading ? '1,000,000' : 'N/A'}
           </Text>
         </SkeletonText>
       )
@@ -32,7 +32,7 @@ const Info = (props: InfoProps): ReactElement => {
       children: (
         <SkeletonText offsetY={8} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>
-            {revenue ? `$${handleFormatMoney(revenue)}` : 'N/A'}
+            {revenue ? `$${handleFormatMoney(revenue)}` : isLoading ? '1,000,000' : 'N/A'}
           </Text>
         </SkeletonText>
       )

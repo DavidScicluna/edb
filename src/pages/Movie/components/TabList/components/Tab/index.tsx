@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Tab as CUITab } from '@chakra-ui/react';
+import { useTheme, Tab as CUITab, useColorMode } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { useSelector } from '../../../../../../../../../../common/hooks';
-import { Theme } from '../../../../../../../../../../theme/types';
+import { useSelector } from '../../../../../../common/hooks';
+import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
-import { TabProps } from './types';
+import { TabsProps } from './types';
 
-const Tab = ({ label, isSelected = false, isDisabled = false }: TabProps): ReactElement => {
+const Tab = ({ label, isDisabled, isSelected }: TabsProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
@@ -18,10 +18,8 @@ const Tab = ({ label, isSelected = false, isDisabled = false }: TabProps): React
 
   return (
     <CUITab
-      px={1}
-      py={0.5}
-      isSelected={isSelected}
       isDisabled={isDisabled}
+      isSelected={isSelected}
       sx={{ ..._.merge(style.tab, style[colorMode]) }}
       _disabled={{ ...style.disabled }}>
       {label}

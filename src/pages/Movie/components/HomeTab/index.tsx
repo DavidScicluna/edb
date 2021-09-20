@@ -26,7 +26,7 @@ const HomeTab = (props: HomeTabProps): ReactElement => {
   } = props;
 
   return (
-    <VStack spacing={4} p={2}>
+    <VStack width='100%' maxWidth='100%' spacing={4}>
       <Details
         renderCover={
           <Cover>

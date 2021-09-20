@@ -43,7 +43,7 @@ const Media = (props: MediaProps): ReactElement => {
   return (
     <Tabs width='100%' index={activeIndex} onChange={(index) => setActiveIndex(index)} isLazy variant='unstyled'>
       <HorizontalGrid
-        title={<TabList activeIndex={activeIndex} />}
+        title={<TabList activeIndex={activeIndex} isLoading={isLoading} />}
         footer={
           (activeIndex === 0 && (photos?.length || 0) > 7) ||
           (activeIndex === 1 && (backdrops?.length || 0) > 7) ||
