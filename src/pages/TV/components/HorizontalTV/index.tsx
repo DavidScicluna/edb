@@ -38,7 +38,7 @@ const HorizontalTV = (props: HorizontalTVProps): ReactElement => {
           }}
           title={show?.name || ''}
           subtitle={`${[
-            `${handleReturnDate(show?.first_air_date || '', 'year')}`,
+            `${handleReturnDate(show?.first_air_date || '', 'year')}` || 'N/A',
             `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
           ]
             .filter((subtitle) => subtitle)

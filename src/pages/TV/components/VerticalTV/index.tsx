@@ -45,7 +45,7 @@ const VerticalTV = (props: VerticalTVProps): ReactElement => {
             }}
             title={show?.name || ''}
             subtitle={`${[
-              `${handleReturnDate(show?.first_air_date || '', 'full')}`,
+              `${handleReturnDate(show?.first_air_date || '', 'full')}` || 'N/A',
               `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
             ]
               .filter((subtitle) => subtitle)
@@ -73,7 +73,7 @@ const VerticalTV = (props: VerticalTVProps): ReactElement => {
             }}
             title={show?.name || ''}
             subtitle={`${[
-              `${handleReturnDate(show?.first_air_date || '', 'year')}`,
+              `${handleReturnDate(show?.first_air_date || '', 'year')}` || 'N/A',
               `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
             ]
               .filter((subtitle) => subtitle)

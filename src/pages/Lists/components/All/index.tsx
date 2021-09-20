@@ -74,7 +74,7 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
                     }}
                     title={movie?.title || ''}
                     subtitle={`${[
-                      `${handleReturnDate(movie?.release_date || '', 'year')}`,
+                      `${handleReturnDate(movie?.release_date || '', 'year')} ` || 'N/A',
                       `${handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
                     ]
                       .filter((subtitle) => subtitle)
@@ -123,7 +123,7 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
                     }}
                     title={show?.name || ''}
                     subtitle={`${[
-                      `${handleReturnDate(show?.first_air_date || '', 'year')}`,
+                      `${handleReturnDate(show?.first_air_date || '', 'year')}` || 'N/A',
                       `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
                     ]
                       .filter((subtitle) => subtitle)

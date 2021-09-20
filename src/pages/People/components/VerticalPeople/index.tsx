@@ -54,7 +54,7 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
             subtitle={
               departments.find((department) => department.value === person?.known_for_department)?.name ||
               person?.known_for_department ||
-              ''
+              'N/A'
             }
             description={
               <HorizontalScroll isLoading={isLoading}>
@@ -118,7 +118,7 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
             subtitle={
               departments.find((department) => department.value === person?.known_for_department)?.name ||
               person?.known_for_department ||
-              ''
+              'N/A'
             }
             isLoading={isLoading}
           />

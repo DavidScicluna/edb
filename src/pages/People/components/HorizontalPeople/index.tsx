@@ -36,7 +36,7 @@ const HorizontalPeople = (props: HorizontalPeopleProps): ReactElement => {
           subtitle={
             departments.find((department) => department.value === person?.known_for_department)?.name ||
             person?.known_for_department ||
-            ''
+            'N/A'
           }
           isLoading={isLoading}
         />

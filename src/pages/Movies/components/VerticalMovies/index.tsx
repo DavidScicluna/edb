@@ -45,7 +45,7 @@ const VerticalMovies = (props: VerticalMoviesProps): ReactElement => {
             }}
             title={movie?.title || ''}
             subtitle={`${[
-              `${handleReturnDate(movie?.release_date || '', 'full')}`,
+              `${handleReturnDate(movie?.release_date || '', 'full')}` || 'N/A',
               `${handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
             ]
               .filter((subtitle) => subtitle)
@@ -73,7 +73,7 @@ const VerticalMovies = (props: VerticalMoviesProps): ReactElement => {
             }}
             title={movie?.title || ''}
             subtitle={`${[
-              `${handleReturnDate(movie?.release_date || '', 'year')}`,
+              `${handleReturnDate(movie?.release_date || '', 'year')}` || 'N/A',
               `${handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
             ]
               .filter((subtitle) => subtitle)

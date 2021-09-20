@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
 import { useWindowSize } from '../../../common/hooks';
-import utils from '../../../common/utils/utils';
+import { handleIsTouchDevice } from '../../../common/utils';
 import Card from '../../Card';
 import Arrow from './components/Arrow';
 import Grid from './components/Grid';
@@ -89,7 +89,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
       {{
         header: {
           title,
-          actions: !utils.handleIsTouchDevice() ? (
+          actions: !handleIsTouchDevice() ? (
             <HStack spacing={1}>
               <Arrow
                 direction='left'
