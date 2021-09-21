@@ -1,11 +1,14 @@
+import { PartialMovie } from './movie';
+import { PartialTV } from './tv';
+
 // Component Types
 export type Style = { [key: string]: number | string | unknown | Style };
 
 export type Icon = any;
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
-
 export type CardVariant = 'transparent' | 'outlined';
+
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonType = 'button' | 'iconButton';
 
@@ -48,6 +51,19 @@ export type Genre = {
 
 export type Status = 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
 
+export type VideoResponse = {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+  id: string;
+};
+
 export type ImageResponse = {
   aspect_ratio: number;
   file_path: string;
@@ -68,6 +84,15 @@ export type ProductionCompany = {
 export type ProductionCountry = {
   iso_3166_1: string;
   name: string;
+};
+
+export type Collection = {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  parts: (PartialMovie & PartialTV)[];
 };
 
 export type Language = {
