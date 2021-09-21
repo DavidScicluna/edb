@@ -1,7 +1,7 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, VStack } from '@chakra-ui/react';
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -95,7 +95,7 @@ export const handleGetDepartments = (movies: MovieCredits, tv: TVCredits): Depar
     }
   });
 
-  return arraySort([...departments], 'label');
+  return sort([...departments], 'label');
 };
 
 const Person = (): ReactElement => {
@@ -171,7 +171,7 @@ const Person = (): ReactElement => {
   const handleGetKnownFor = (): KnownForType => {
     const filtered = new Set();
     const credits = [...(creditsQuery.data?.cast || []), ...(creditsQuery.data?.crew || [])];
-    const knownFor = arraySort(
+    const knownFor = sort(
       credits.filter((mediaItem) => {
         const duplicate = filtered.has(mediaItem.id);
         filtered.add(mediaItem.id);

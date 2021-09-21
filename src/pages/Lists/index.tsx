@@ -11,7 +11,7 @@ import {
   Center,
   Text
 } from '@chakra-ui/react';
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -87,7 +87,7 @@ const Lists = (): ReactElement => {
         filteredMovies = filteredMovies.filter((movie) => genres.some((genre) => movie.genre_ids.includes(genre.id)));
       }
       if (sortBy && sortBy.find((sort) => sort.isActive)) {
-        filteredMovies = arraySort(filteredMovies, sortBy.find((sort) => sort.isActive)?.value, {
+        filteredMovies = sort(filteredMovies, sortBy.find((sort) => sort.isActive)?.value, {
           reverse: sortDirection === 'desc'
         });
       }
@@ -105,7 +105,7 @@ const Lists = (): ReactElement => {
       }
 
       if (sortBy && sortBy.find((sort) => sort.isActive)) {
-        filteredTV = arraySort(filteredTV, sortBy.find((sort) => sort.isActive)?.value, {
+        filteredTV = sort(filteredTV, sortBy.find((sort) => sort.isActive)?.value, {
           reverse: sortDirection === 'desc'
         });
       }

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 
 import { CrewTVCredit } from '../../../../../../../../../../common/types/person';
 import MediaItem from '../MediaItem';
@@ -17,12 +17,12 @@ const CrewTV = ({ tv }: { tv: CrewTVCredit[] }): ReactElement => {
    * @returns - Array of tv shows
    */
   const handleSort = (): CrewTVCredit[] => {
-    const withoutDate: CrewTVCredit[] = arraySort(
+    const withoutDate: CrewTVCredit[] = sort(
       tv.filter((show) => !show.first_air_date),
       'name',
       { reverse: true }
     );
-    const withDate: CrewTVCredit[] = arraySort(
+    const withDate: CrewTVCredit[] = sort(
       tv.filter((show) => show.first_air_date),
       'first_air_date',
       { reverse: true }

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 import _ from 'lodash';
 
 import { handleReturnDate } from '../../../../../../common/utils';
@@ -25,7 +25,7 @@ const Recommendations = (props: RecommendationsProps): ReactElement => {
         <Empty label={`No recommended movies found for ${name ? `"${name}"` : ''}`} variant='transparent' />
       ) : isSuccess && recommendations && recommendations.length > 0 ? (
         <>
-          {arraySort(recommendations, 'popularity', { reverse: true }).map((movie) => (
+          {sort(recommendations, 'popularity', { reverse: true }).map((movie) => (
             <VerticalPoster
               key={movie.id}
               width={['185px', '205px', '230px']}

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, SimpleGrid, HStack, Text } from '@chakra-ui/react';
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 import _ from 'lodash';
 
 import departments from '../../../../common/data/departments';
@@ -68,7 +68,7 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
                       ,
                     </Text>
                   }>
-                  {arraySort(person?.known_for || [], 'vote_average').map((mediaItem, index) => (
+                  {sort(person?.known_for || [], 'vote_average').map((mediaItem, index) => (
                     <Link
                       key={index}
                       to={{ pathname: `/${mediaItem?.title ? 'movie' : mediaItem?.name ? 'tv' : ''}/${mediaItem.id}` }}

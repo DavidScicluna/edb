@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 
 import { CrewMovieCredit } from '../../../../../../../../../../common/types/person';
 import MediaItem from '../MediaItem';
@@ -17,12 +17,12 @@ const CrewMovies = ({ movies }: { movies: CrewMovieCredit[] }): ReactElement => 
    * @returns - Array of movies
    */
   const handleSort = (): CrewMovieCredit[] => {
-    const withDate: CrewMovieCredit[] = arraySort(
+    const withDate: CrewMovieCredit[] = sort(
       movies.filter((movie) => movie.release_date),
       'release_date',
       { reverse: true }
     );
-    const withoutDate: CrewMovieCredit[] = arraySort(
+    const withoutDate: CrewMovieCredit[] = sort(
       movies.filter((movie) => !movie.release_date),
       'title',
       { reverse: true }

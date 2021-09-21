@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 
 import VerticalGrid from '../../../../components/Grid/Vertical';
 import Cast from './components/Cast';
@@ -42,7 +42,7 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
       }
     });
 
-    return arraySort([...departments], 'title');
+    return sort([...departments], 'title');
   };
 
   const departments = handleReturnCrew();

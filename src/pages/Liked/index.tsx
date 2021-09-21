@@ -1,7 +1,7 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
 import { useColorMode, useDisclosure, useMediaQuery, HStack, Box, Center, Text, ScaleFade } from '@chakra-ui/react';
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Department } from '../../common/data/departments';
@@ -55,7 +55,7 @@ const Liked = (): ReactElement => {
     }
 
     if (sortBy && sortBy.find((sort) => sort.isActive)) {
-      filteredMovies = arraySort(filteredMovies, sortBy.find((sort) => sort.isActive)?.value, {
+      filteredMovies = sort(filteredMovies, sortBy.find((sort) => sort.isActive)?.value, {
         reverse: sortDirection === 'desc'
       });
     }
@@ -71,7 +71,7 @@ const Liked = (): ReactElement => {
     }
 
     if (sortBy && sortBy.find((sort) => sort.isActive)) {
-      filteredTV = arraySort(filteredTV, sortBy.find((sort) => sort.isActive)?.value, {
+      filteredTV = sort(filteredTV, sortBy.find((sort) => sort.isActive)?.value, {
         reverse: sortDirection === 'desc'
       });
     }
@@ -89,7 +89,7 @@ const Liked = (): ReactElement => {
     }
 
     if (sortBy && sortBy.find((sort) => sort.isActive)) {
-      filteredPeople = arraySort(filteredPeople, sortBy.find((sort) => sort.isActive)?.value, {
+      filteredPeople = sort(filteredPeople, sortBy.find((sort) => sort.isActive)?.value, {
         reverse: sortDirection === 'desc'
       });
     }
