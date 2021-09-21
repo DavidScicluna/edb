@@ -18,8 +18,8 @@ const Tab = ({ label, isSelected = false, isDisabled = false }: TabProps): React
 
   return (
     <CUITab
-      px={1}
-      py={0.5}
+      px={1.5}
+      py={0.75}
       isSelected={isSelected}
       isDisabled={isDisabled}
       sx={{ ..._.merge(style.tab, style[colorMode]) }}

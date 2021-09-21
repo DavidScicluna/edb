@@ -28,7 +28,10 @@ const Cast = (props: CastProps): ReactElement => {
           color={handleReturnColor(color)}
           isFullWidth
           isDisabled={isLoading}
-          onClick={() => onViewCastCrewTab()}
+          onClick={() => {
+            document.scrollingElement?.scrollTo(0, 0);
+            onViewCastCrewTab();
+          }}
           size={isSm ? 'sm' : 'md'}
           variant='text'>
           {`View all ${cast?.length || 0} cast member${cast && (cast.length === 0 || cast.length > 1 ? 's' : '')}`}

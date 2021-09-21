@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
-import { Tabs, TabPanels, TabPanel, HStack } from '@chakra-ui/react';
+import { Tabs, TabPanels, TabPanel, ScaleFade } from '@chakra-ui/react';
 
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
 import Backdrops from './components/Backdrops';
@@ -13,10 +13,10 @@ import { MediaProps } from './types';
 const Media = (props: MediaProps): ReactElement => {
   const { name, photos, backdrops, videos, isError, isSuccess, isLoading, onClick } = props;
 
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<number>(0);
 
   const handleFooterOnClick = (): void => {
-    switch (activeIndex) {
+    switch (activeTab) {
       case 0: {
         if (photos && photos.length > 0) {
           onClick(photos[0].file_path, 'photo');
@@ -41,18 +41,18 @@ const Media = (props: MediaProps): ReactElement => {
   };
 
   return (
-    <Tabs width='100%' index={activeIndex} onChange={(index) => setActiveIndex(index)} isLazy variant='unstyled'>
+    <Tabs width='100%' index={activeTab} onChange={(index) => setActiveTab(index)} isLazy variant='unstyled'>
       <HorizontalGrid
-        title={<TabList activeIndex={activeIndex} isLoading={isLoading} />}
+        title={<TabList activeIndex={activeTab} isLoading={isLoading} />}
         footer={
-          (activeIndex === 0 && (photos?.length || 0) > 7) ||
-          (activeIndex === 1 && (backdrops?.length || 0) > 7) ||
-          (activeIndex === 2 && (videos?.length || 0) > 7) ? (
+          (activeTab === 0 && (photos?.length || 0) > 7) ||
+          (activeTab === 1 && (backdrops?.length || 0) > 7) ||
+          (activeTab === 2 && (videos?.length || 0) > 7) ? (
             <Footer
-              activeIndex={activeIndex}
+              activeIndex={activeTab}
               name={name}
               isDisabled={
-                activeIndex === 2
+                activeTab === 2
                   ? isLoading.videos || isError.videos || false
                   : isLoading.images || isError.images || false
               }
@@ -60,11 +60,11 @@ const Media = (props: MediaProps): ReactElement => {
             />
           ) : undefined
         }
-        isLoading={activeIndex === 2 ? isLoading.videos || false : isLoading.images || false}
+        isLoading={activeTab === 2 ? isLoading.videos || false : isLoading.images || false}
         hasDivider
         variant='outlined'>
         <TabPanels>
-          <TabPanel as={HStack} p={0} spacing={2}>
+          <TabPanel as={ScaleFade} in={activeTab === 0} p={0}>
             <Photos
               name={name}
               photos={photos}
@@ -74,7 +74,7 @@ const Media = (props: MediaProps): ReactElement => {
               onClick={onClick}
             />
           </TabPanel>
-          <TabPanel as={HStack} p={0} spacing={2}>
+          <TabPanel as={ScaleFade} in={activeTab === 1} p={0}>
             <Backdrops
               name={name}
               backdrops={backdrops}
@@ -84,7 +84,7 @@ const Media = (props: MediaProps): ReactElement => {
               onClick={onClick}
             />
           </TabPanel>
-          <TabPanel as={HStack} p={0} spacing={2}>
+          <TabPanel as={ScaleFade} in={activeTab === 2} p={0}>
             <Videos
               name={name}
               videos={videos}

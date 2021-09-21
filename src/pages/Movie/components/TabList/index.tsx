@@ -3,27 +3,37 @@ import React, { ReactElement } from 'react';
 import { TabList as CUITabList } from '@chakra-ui/react';
 
 import Tab from './components/Tab';
-import { TabListProps } from './types';
+import { TabListProps, Tab as TabType } from './types';
 
-const TabList = ({ activeTab, isLoading }: TabListProps): ReactElement => {
-  const renderTabs = [
+const TabList = (props: TabListProps): ReactElement => {
+  const { activeTab, reviews, castCrew, isLoading } = props;
+
+  const renderTabs: TabType[] = [
     {
-      label: 'Home'
+      label: 'Overview'
     },
     {
       label: 'Cast & Crew',
-      isDisabled: isLoading.credits
+      isDisabled: isLoading.credits,
+      badge: castCrew ? String(castCrew) : undefined
     },
     {
       label: 'Reviews',
-      isDisabled: isLoading.reviews
+      isDisabled: isLoading.reviews || reviews === 0,
+      badge: String(reviews)
     }
   ];
 
   return (
     <CUITabList mb={2}>
       {renderTabs.map((tab, index) => (
-        <Tab key={index} label={tab.label} isSelected={activeTab === index} isDisabled={tab.isDisabled || false} />
+        <Tab
+          key={index}
+          label={tab.label}
+          badge={tab.badge}
+          isSelected={activeTab === index}
+          isDisabled={tab.isDisabled || false}
+        />
       ))}
     </CUITabList>
   );

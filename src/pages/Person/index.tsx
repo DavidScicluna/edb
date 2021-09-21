@@ -22,7 +22,6 @@ import { Department, KnownFor as KnownForType } from './types';
  *
  * @returns Array of Objects - Of Departments containing all credits
  */
-
 export const handleGetDepartments = (movies: MovieCredits, tv: TVCredits): Department[] => {
   let departments: Department[] = [];
 
