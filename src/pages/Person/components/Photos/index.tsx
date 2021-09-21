@@ -1,19 +1,24 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
+import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
-import { Image as ImageType } from '../../../../common/types/person';
-import utils from '../../../../common/utils/utils';
+import { Profile } from '../../../../common/types/person';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
+import ClickableImage from '../../../../components/Clickable/Image';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
-import Image from './components/Image';
+import Image from '../../../../components/Image';
+import Skeleton from '../../../../components/Skeleton';
 import { PhotosProps } from './types';
 
+const width = ['185px', '205px', '230px'];
+
 const Photos = (props: PhotosProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { images, name, isError = false, isSuccess = false, isLoading = false, onClickImage } = props;
 
@@ -25,10 +30,10 @@ const Photos = (props: PhotosProps): ReactElement => {
       footer={
         images.length > 7 ? (
           <Button
-            color={utils.handleReturnColor(color)}
+            color={handleReturnColor(color)}
             isFullWidth
             isDisabled={isLoading || isError}
-            onClick={() => onClickImage()}
+            onClick={() => onClickImage(images[0].file_path)}
             size={isSm ? 'sm' : 'md'}
             variant='text'>
             {`View all ${name ? `"${name}"` : ''} photos`}
@@ -48,16 +53,31 @@ const Photos = (props: PhotosProps): ReactElement => {
         <Empty label={`${name ? `"${name}"` : ''} has no photos`} variant='transparent' />
       ) : (
         <>
-          {[...(images && images.length > 0 ? images : Array(5))]
+          {[...(images && images.length > 0 ? images : _.range(0, 8))]
             .filter((_image, index) => index < 8)
-            .map((image: ImageType | number, index) => (
-              <Image
+            .map((image: Profile | number, index) => (
+              <ClickableImage
                 key={index}
-                image={typeof image !== 'number' && image ? image : undefined}
-                name={name}
-                isLoading={isLoading}
-                onClickImage={onClickImage}
-              />
+                width={width}
+                borderRadius='lg'
+                ratio={2 / 3}
+                isDisabled={isLoading}
+                onClick={typeof image !== 'number' && image ? () => onClickImage(image.file_path) : undefined}>
+                <Skeleton isLoaded={!isLoading} borderRadius='lg'>
+                  <Image
+                    alt={`${name ? `"${name}"` : ''} image`}
+                    maxWidth='none'
+                    height='100%'
+                    borderRadius='lg'
+                    mediaType='person'
+                    src={typeof image !== 'number' && image ? image?.file_path : ''}
+                    size={{
+                      thumbnail: 'w45',
+                      full: 'original'
+                    }}
+                  />
+                </Skeleton>
+              </ClickableImage>
             ))}
         </>
       )}

@@ -1,10 +1,10 @@
-import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 
-import { useWindowSize, useElementSize } from '../../common/hooks';
+import { useWindowSize } from '../../common/hooks';
 import Arrow from './components/Arrow';
 import { HorizontalScrollProps, ScrollButtonsState, Direction } from './types';
 
@@ -17,11 +17,10 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const { width: windowWidth } = useWindowSize();
-  const { width: containerWidth } = useElementSize(containerRef);
 
   const location = useLocation();
 
-  const { children, width, spacing } = props;
+  const { children, width, spacing, isLoading = false } = props;
 
   const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
   const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
@@ -44,7 +43,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
         handleContainerRef(containerRef.current);
       }
     }, 50),
-    [containerRef]
+    [containerRef, setScrollButtons, setResetScrollButtons]
   );
 
   /**
@@ -71,7 +70,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
 
   useEffect(() => {
     handleContainerRef(containerRef.current);
-  }, [windowWidth, containerWidth]);
+  }, [windowWidth, isLoading]);
 
   return (
     <HStack width={width || '100%'} maxWidth={width || '100%'} position='relative' spacing={0}>

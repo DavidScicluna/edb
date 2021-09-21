@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useBoolean, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 
-import utils from '../../../../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../../../../common/utils';
 import Card from '../../../../../../../../../components/Clickable/Card';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 import { Theme } from '../../../../../../../../../theme/types';
@@ -27,7 +27,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
       shouldWrapChildren
       gutter={8}>
       <Card
-        color={isActive ? utils.handleReturnColor(value) : 'gray'}
+        color={isActive ? handleReturnColor(value) : 'gray'}
         colorMode={background}
         onClick={!isActive && onClick ? () => onClick(value) : undefined}
         onMouseEnter={() => setIsHovering.on()}

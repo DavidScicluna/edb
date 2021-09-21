@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, Icon, Text, HStack } from '@chakra-ui/react';
 
-import utils from '../../../../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../../../../common/utils';
 import Card from '../../../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../../../theme/types';
 import { BackgroundItemProps } from './types';
@@ -14,7 +14,7 @@ const BackgroundItem = (props: BackgroundItemProps): ReactElement => {
 
   return (
     <Card
-      color={isActive ? utils.handleReturnColor(color) : 'gray'}
+      color={isActive ? handleReturnColor(color) : 'gray'}
       colorMode={background}
       isFullWidth
       onClick={onClick ? () => onClick(value) : undefined}

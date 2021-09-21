@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, HStack, Icon, Text } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../../../common/hooks';
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../common/utils';
 import { Theme } from '../../../../../../theme/types';
 import Card from '../../../../../Clickable/Card';
 import { DisplayModeItemProps } from './types';
@@ -17,7 +17,7 @@ const DisplayModeItem = (props: DisplayModeItemProps): ReactElement => {
 
   return (
     <Card
-      color={isActive ? utils.handleReturnColor(color) : 'gray'}
+      color={isActive ? handleReturnColor(color) : 'gray'}
       isFullWidth
       onClick={onClick ? () => onClick(value) : undefined}
       p={2}>

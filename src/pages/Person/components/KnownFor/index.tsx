@@ -1,6 +1,8 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
-import utils from '../../../../common/utils/utils';
+import _ from 'lodash';
+
+import { handleReturnDate } from '../../../../common/utils';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
@@ -27,12 +29,12 @@ const KnownFor = (props: KnownForProps): ReactElement => {
               key={mediaItem.id}
               width={['185px', '205px', '230px']}
               mediaItem={mediaItem ? { ...mediaItem } : undefined}
-              mediaType={mediaItem ? 'movie' : 'tv'}
+              mediaType={mediaItem?.title ? 'movie' : 'tv'}
               image={{
                 alt: `${mediaItem?.title || mediaItem?.name || ''} ${mediaItem?.title ? 'movie' : 'tv'} poster`,
                 src: mediaItem?.poster_path || '',
                 size: {
-                  thumbnail: '45',
+                  thumbnail: 'w92',
                   full: 'original'
                 }
               }}
@@ -41,26 +43,20 @@ const KnownFor = (props: KnownForProps): ReactElement => {
                 count: mediaItem?.vote_count || null
               }}
               title={mediaItem?.title || mediaItem?.name || ''}
-              subtitle={`${utils.handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}`}
+              subtitle={
+                `${handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}` || 'N/A'
+              }
               isLoading={false}
             />
           ))}
         </>
       ) : (
         <>
-          {[...Array(knownFor ? knownFor.length : 10)].map((_dummy, index: number) => (
+          {[..._.range(0, 20)].map((_dummy, index: number) => (
             <VerticalPoster
               key={index}
               width={['185px', '205px', '230px']}
               mediaType='movie'
-              image={{
-                alt: 'Movie poster',
-                src: '',
-                size: {
-                  thumbnail: '45',
-                  full: 'original'
-                }
-              }}
               title='Lorem ipsum'
               subtitle='Lorem ipsum'
               isLoading

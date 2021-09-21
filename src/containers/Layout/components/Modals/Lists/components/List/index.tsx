@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 import {
@@ -8,7 +8,7 @@ import {
 import moment from 'moment';
 
 import { useSelector } from '../../../../../../../common/hooks';
-import utils from '../../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../../common/utils';
 import Card from '../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../theme/types';
 import { ListProps } from './types';
@@ -20,7 +20,7 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
 
   return (
     <Card
-      color={isSelected ? utils.handleReturnColor(color) : 'gray'}
+      color={isSelected ? handleReturnColor(color) : 'gray'}
       isFullWidth
       onClick={() => onClick(id, isSelected)}
       px={2}

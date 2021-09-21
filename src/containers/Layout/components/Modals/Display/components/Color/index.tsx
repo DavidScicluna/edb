@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import { UseFormReturn, Controller } from 'react-hook-form';
@@ -44,7 +44,7 @@ const colors: ColorType[] = [
 ];
 
 const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const background = form.watch('background');
 
@@ -55,12 +55,14 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       render={({ field: { value } }) => (
         <Card
           box={{
-            header: { pb: 2 },
-            body: { pt: 2 }
+            header: { pb: 1.5 },
+            body: { pt: 1.5 }
           }}
           colorMode={background}
           isFullWidth
-          p={2}>
+          px={2}
+          pt={1.5}
+          pb={2}>
           {{
             header: {
               title: 'Color'

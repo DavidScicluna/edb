@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import {
   useTheme,
@@ -8,7 +8,6 @@ import {
   AccordionButton,
   AccordionPanel,
   VStack,
-  Center,
   VisuallyHidden,
   Icon,
   Text
@@ -17,7 +16,7 @@ import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownO
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import utils from '../../../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../../../common/utils';
 import Badge from '../../../../../../../../components/Badge';
 import { Theme } from '../../../../../../../../theme/types';
 import CastMovies from './components/CastMovies';
@@ -31,7 +30,7 @@ import { AccordionItemProps } from './types';
 const AccordionItem = (props: AccordionItemProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const style = useStyles(theme, props);
 
@@ -59,7 +58,7 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
               (credits.crew?.movie?.length || 0) +
               (credits.crew?.tv?.length || 0)
             }`}
-            color={isExpanded ? utils.handleReturnColor(color) : 'gray'}
+            color={isExpanded ? handleReturnColor(color) : 'gray'}
             size={isSm ? 'md' : 'lg'}
             ml={isSm ? 0 : 2}
           />

@@ -1,15 +1,15 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, HStack, Icon } from '@chakra-ui/react';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 import _ from 'lodash';
 
-import utils from '../../../../../../../../common/utils/utils';
+import { handleReturnDummyWidths } from '../../../../../../../../common/utils';
 import Skeleton from '../../../../../../../../components/Skeleton';
 import { Theme } from '../../../../../../../../theme/types';
 import useStyles from './styles';
 
-const dummyTextWidths = utils.handleReturnDummyWidths(300, 5);
+const dummyTextWidths = handleReturnDummyWidths(300, 5);
 
 const DummyAccordion = (): ReactElement => {
   const theme = useTheme<Theme>();

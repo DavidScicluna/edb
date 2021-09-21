@@ -39,7 +39,9 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
       `background-color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
       `border-color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
       `color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
-    ].join(', ')
+    ]
+      .filter((style) => style)
+      .join(', ')
   },
   light: {
     'backgroundColor': `${color}.400`,

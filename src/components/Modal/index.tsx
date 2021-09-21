@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import {
   useTheme,
@@ -26,9 +26,19 @@ import { ModalProps } from './types';
 const Modal = (props: ModalProps): ReactElement | null => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isXs] = useMediaQuery('(max-width: 40em)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { children, actions, title, colorMode: colorModeProp, isOpen, onClose, size, ...rest } = props;
+  const {
+    children,
+    actions,
+    title,
+    colorMode: colorModeProp,
+    isConfirm = false,
+    isOpen,
+    onClose,
+    size,
+    ...rest
+  } = props;
 
   const [isMounted, setIsMounted] = useBoolean();
 
@@ -52,12 +62,12 @@ const Modal = (props: ModalProps): ReactElement | null => {
       preserveScrollBarGap
       motionPreset='scale'
       scrollBehavior='inside'
-      size={isXs ? 'full' : size}>
+      size={isSm && !isConfirm ? 'full' : size}>
       <ModalOverlay />
       <ModalContent
         backgroundColor={mode === 'light' ? 'gray.50' : 'gray.900'}
-        borderRadius={size === 'full' || isXs ? 'none' : 'xl'}
-        m={0}
+        borderRadius={size === 'full' || (isSm && !isConfirm) ? 'none' : 'xl'}
+        m={isSm && isConfirm ? 2 : 0}
         sx={{ transition }}>
         <ModalHeader
           px={2}

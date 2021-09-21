@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { HStack, Text } from '@chakra-ui/react';
 
@@ -14,7 +14,7 @@ const Header = (props: HeaderProps): ReactElement => {
           <Text
             align='left'
             color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-            fontSize='md'
+            fontSize='lg'
             fontWeight='semibold'>
             {title}
           </Text>

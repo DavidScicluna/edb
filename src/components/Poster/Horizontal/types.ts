@@ -6,7 +6,7 @@ import { MediaItem } from '../../../store/slices/User/types';
 export type HorizontalPosterProps<MT extends MediaType> = {
   mediaItem?: MediaItem<MT>;
   mediaType: MediaType;
-  image: ImageProps;
+  image?: ImageProps;
   rating?: RatingProps;
   title: string;
   subtitle: string;

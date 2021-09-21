@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react';
+import { ReactElement, useRef } from 'react';
 
 import { useBoolean, useColorMode, VStack, Box, HStack, Icon, Input, Collapse, ScaleFade } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
@@ -175,7 +175,7 @@ const Form = (props: FormProps): ReactElement => {
                   />
                 ))
               ) : (
-                [...Array(7)].map((_dummy, index) => (
+                [..._.range(0, 7)].map((_dummy, index) => (
                   <Row key={index} id={String(index)} title='Lorem Ipsum' state='isLoading' type='isKeyword' />
                 ))
               )}

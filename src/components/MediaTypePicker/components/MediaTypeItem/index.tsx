@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, VStack, Icon, Text } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Card from '../../../../components/Clickable/Card';
 import { Theme } from '../../../../theme/types';
 import { MediaTypeItemProps } from './types';
@@ -16,12 +16,7 @@ const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
   const { label, value, iconActive, icon, isActive = false, onClick } = props;
 
   return (
-    <Card
-      color={isActive ? utils.handleReturnColor(color) : 'gray'}
-      isFullWidth
-      onClick={() => onClick(value)}
-      px={2}
-      py={6}>
+    <Card color={isActive ? handleReturnColor(color) : 'gray'} isFullWidth onClick={() => onClick(value)} px={2} py={6}>
       <VStack width='100%' spacing={0}>
         <Icon as={isActive ? iconActive : icon} sx={{ fontSize: `${theme.fontSizes['3xl']} !important` }} />
         <Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase'>

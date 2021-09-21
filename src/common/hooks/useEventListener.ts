@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RefObject, useEffect, useRef } from 'react';
 
 /**
@@ -5,7 +6,7 @@ import { RefObject, useEffect, useRef } from 'react';
  */
 const useEventListener = <T extends HTMLElement = HTMLDivElement>(
   eventName: keyof WindowEventMap,
-  handler: (event: Event) => void,
+  handler: (event: any) => void,
   element?: RefObject<T>
 ): void => {
   // Create a ref that stores handler

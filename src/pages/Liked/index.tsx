@@ -1,39 +1,26 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
-import {
-  useColorMode,
-  useDisclosure,
-  useMediaQuery,
-  HStack,
-  SimpleGrid,
-  Box,
-  Center,
-  Text,
-  ScaleFade
-} from '@chakra-ui/react';
-import arraySort from 'array-sort';
+import { useColorMode, useDisclosure, useMediaQuery, HStack, Box, Center, Text, ScaleFade } from '@chakra-ui/react';
+import sort from 'array-sort';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Department } from '../../common/data/departments';
 import { useSelector } from '../../common/hooks';
 import { Genre, MediaType, SortBy } from '../../common/types/types';
-import utils from '../../common/utils/utils';
+import { handleReturnColor } from '../../common/utils';
 import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';
 import Empty from '../../components/Empty';
 import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
 import MediaTypePicker from '../../components/MediaTypePicker';
-import HorizontalMoviePoster from '../../components/Movies/Poster/Horizontal';
-import VerticalMoviePoster from '../../components/Movies/Poster/Vertical';
-import HorizontalPersonPoster from '../../components/People/Poster/Horizontal';
-import VerticalPersonPoster from '../../components/People/Poster/Vertical';
-import HorizontalShowPoster from '../../components/TV/Poster/Horizontal';
-import VerticalShowPoster from '../../components/TV/Poster/Vertical';
 import Page from '../../containers/Page';
 import { home, liked as likedBreadcrumb } from '../../containers/Page/common/data/breadcrumbs';
 import { Breadcrumb } from '../../containers/Page/types';
 import { MediaItem } from '../../store/slices/User/types';
+import VerticalMovies from '../Movies/components/VerticalMovies';
+import VerticalPeople from '../People/components/VerticalPeople';
+import VerticalTV from '../TV/components/VerticalTV';
 import All from './components/All';
 
 const Liked = (): ReactElement => {
@@ -43,14 +30,12 @@ const Liked = (): ReactElement => {
     onOpen: onMediaTypePickerOpen,
     onClose: onMediaTypePickerClose
   } = useDisclosure();
-  const [isSmallMob] = useMediaQuery('(max-width: 350px)');
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const history = useHistory();
   const { mediaType: paramMediaType } = useParams<{ mediaType: MediaType }>();
 
   const liked = useSelector((state) => state.user.data.liked);
-  const displayMode = useSelector((state) => state.app.ui.displayMode);
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -70,7 +55,7 @@ const Liked = (): ReactElement => {
     }
 
     if (sortBy && sortBy.find((sort) => sort.isActive)) {
-      filteredMovies = arraySort(filteredMovies, sortBy.find((sort) => sort.isActive)?.value, {
+      filteredMovies = sort(filteredMovies, sortBy.find((sort) => sort.isActive)?.value, {
         reverse: sortDirection === 'desc'
       });
     }
@@ -86,7 +71,7 @@ const Liked = (): ReactElement => {
     }
 
     if (sortBy && sortBy.find((sort) => sort.isActive)) {
-      filteredTV = arraySort(filteredTV, sortBy.find((sort) => sort.isActive)?.value, {
+      filteredTV = sort(filteredTV, sortBy.find((sort) => sort.isActive)?.value, {
         reverse: sortDirection === 'desc'
       });
     }
@@ -104,7 +89,7 @@ const Liked = (): ReactElement => {
     }
 
     if (sortBy && sortBy.find((sort) => sort.isActive)) {
-      filteredPeople = arraySort(filteredPeople, sortBy.find((sort) => sort.isActive)?.value, {
+      filteredPeople = sort(filteredPeople, sortBy.find((sort) => sort.isActive)?.value, {
         reverse: sortDirection === 'desc'
       });
     }
@@ -233,7 +218,7 @@ const Liked = (): ReactElement => {
                     ? String(people.length)
                     : String(movies.length + tv.length + people.length)
                 }
-                color={mediaType ? utils.handleReturnColor(color) : 'gray'}
+                color={mediaType ? handleReturnColor(color) : 'gray'}
                 size='lg'
                 ml={2}
               />
@@ -258,68 +243,11 @@ const Liked = (): ReactElement => {
             <VerticalGrid>
               {(movies && movies.length > 0) || (tv && tv.length > 0) || (people && people.length > 0) ? (
                 mediaType === 'movie' ? (
-                  movies.length > 0 ? (
-                    <SimpleGrid
-                      width='100%'
-                      columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
-                      spacing={2}
-                      px={2}
-                      pt={2}>
-                      {movies.map((movie) =>
-                        displayMode === 'list' ? (
-                          <HorizontalMoviePoster key={movie.id} isLoading={false} movie={movie} />
-                        ) : (
-                          <VerticalMoviePoster key={movie.id} width='100%' isLoading={false} movie={movie} />
-                        )
-                      )}
-                    </SimpleGrid>
-                  ) : (
-                    <Box width='100%' px={2} py={0}>
-                      <Empty label='You have liked no movie!' variant='outlined' size='xl' />
-                    </Box>
-                  )
+                  <VerticalMovies isError={false} isSuccess isLoading={false} movies={movies} />
                 ) : mediaType === 'tv' ? (
-                  tv.length > 0 ? (
-                    <SimpleGrid
-                      width='100%'
-                      columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
-                      spacing={2}
-                      px={2}
-                      pt={2}>
-                      {tv.map((show) =>
-                        displayMode === 'list' ? (
-                          <HorizontalShowPoster key={show.id} isLoading={false} show={show} />
-                        ) : (
-                          <VerticalShowPoster key={show.id} width='100%' isLoading={false} show={show} />
-                        )
-                      )}
-                    </SimpleGrid>
-                  ) : (
-                    <Box width='100%' px={2} py={0}>
-                      <Empty label='You have no liked no tv show!' variant='outlined' size='xl' />
-                    </Box>
-                  )
+                  <VerticalTV isError={false} isSuccess isLoading={false} tv={tv} />
                 ) : mediaType === 'person' ? (
-                  people.length > 0 ? (
-                    <SimpleGrid
-                      width='100%'
-                      columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5]}
-                      spacing={2}
-                      px={2}
-                      pt={2}>
-                      {people.map((person) =>
-                        displayMode === 'list' ? (
-                          <HorizontalPersonPoster key={person.id} isLoading={false} person={person} />
-                        ) : (
-                          <VerticalPersonPoster key={person.id} width='100%' isLoading={false} person={person} />
-                        )
-                      )}
-                    </SimpleGrid>
-                  ) : (
-                    <Box width='100%' px={2} pt={2}>
-                      <Empty label='You have no liked nobody!' variant='outlined' size='xl' />
-                    </Box>
-                  )
+                  <VerticalPeople isError={false} isSuccess isLoading={false} people={people} />
                 ) : (
                   <All movies={movies} tv={tv} people={people} />
                 )

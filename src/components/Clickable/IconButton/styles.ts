@@ -27,7 +27,8 @@ export default (
     color = 'gray',
     size = 'md',
     variant = 'contained',
-    isLoading = false
+    isLoading = false,
+    isLight = false
   }: Omit<IconButtonProps, 'aria-label' | 'icon'>
 ): IconButtonStyle => ({
   button: {
@@ -81,7 +82,7 @@ export default (
       borderWidth: variant !== 'icon' ? (size !== 'sm' ? '2px 2px 0' : '1px 1px 0') : '0',
       borderRadius: 'inherit',
 
-      padding: size === 'sm' ? theme.space[0.5] : size === 'md' ? theme.space[1] : theme.space[2],
+      padding: size === 'sm' ? theme.space[0.5] : size === 'md' ? theme.space[1] : theme.space[1.5],
 
       transform: variant !== 'icon' ? `translateY(${size !== 'sm' ? '-4px' : '-3px'})` : 'none',
 
@@ -129,55 +130,55 @@ export default (
       display: 'block',
 
       fontSize: `${
-        size === 'sm' ? theme.fontSizes.xl : size === 'md' ? theme.fontSizes['2xl'] : theme.fontSizes['3xl']
+        size === 'sm' ? theme.fontSizes.xl : size === 'md' ? theme.fontSizes.xl : theme.fontSizes['2xl']
       } !important`
     }
   },
   light: {
     back: {
       contained: {
-        'backgroundColor': `${color}.600`,
+        'backgroundColor': `${color}.${isLight ? 400 : 600}`,
 
         '&:hover': {
-          'backgroundColor': `${color}.600`,
+          'backgroundColor': `${color}.${isLight ? 400 : 600}`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.500`,
-            backgroundColor: `${color}.500`,
+            borderColor: `${color}.${isLight ? 300 : 500}`,
+            backgroundColor: `${color}.${isLight ? 300 : 500}`,
             color: 'gray.50'
           }
         },
 
         '&:active': {
-          'backgroundColor': `${color}.600`,
+          'backgroundColor': `${color}.${isLight ? 400 : 600}`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.500`,
-            backgroundColor: `${color}.500`,
+            borderColor: `${color}.${isLight ? 300 : 500}`,
+            backgroundColor: `${color}.${isLight ? 300 : 500}`,
             color: 'gray.50'
           }
         }
       },
       outlined: {
-        'backgroundColor': `${color}.400`,
+        'backgroundColor': `${color}.${isLight ? 200 : 400}`,
 
         '&:hover': {
-          'backgroundColor': `${color}.500`,
+          'backgroundColor': `${color}.${isLight ? 300 : 500}`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.500`,
+            borderColor: `${color}.${isLight ? 300 : 500}`,
             backgroundColor: 'gray.50',
-            color: `${color}.500`
+            color: `${color}.${isLight ? 300 : 500}`
           }
         },
 
         '&:active': {
-          'backgroundColor': `${color}.500`,
+          'backgroundColor': `${color}.${isLight ? 300 : 500}`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.500`,
+            borderColor: `${color}.${isLight ? 300 : 500}`,
             backgroundColor: 'gray.50',
-            color: `${color}.500`
+            color: `${color}.${isLight ? 300 : 500}`
           }
         }
       },
@@ -190,7 +191,7 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: `${color}.500`
+            color: `${color}.${isLight ? 300 : 500}`
           }
         },
 
@@ -200,104 +201,104 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: `${color}.500`
+            color: `${color}.${isLight ? 300 : 500}`
           }
         }
       }
     },
     front: {
       contained: {
-        borderColor: `${color}.400`,
-        backgroundColor: `${color}.400`,
+        borderColor: `${color}.${isLight ? 200 : 400}`,
+        backgroundColor: `${color}.${isLight ? 200 : 400}`,
         color: 'gray.50'
       },
       outlined: {
-        borderColor: `${color}.400`,
+        borderColor: `${color}.${isLight ? 200 : 400}`,
         backgroundColor: 'gray.50',
-        color: `${color}.400`
+        color: `${color}.${isLight ? 200 : 400}`
       },
       icon: {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
-        color: `${color}.400`
+        color: `${color}.${isLight ? 200 : 400}`
       }
     },
     disabled: {
       contained: {
-        'backgroundColor': 'gray.600',
+        'backgroundColor': `gray.${isLight ? 400 : 600}`,
 
         '& .icon_button_front': {
-          borderColor: 'gray.400',
-          backgroundColor: 'gray.400',
+          borderColor: `gray.${isLight ? 200 : 400}`,
+          backgroundColor: `gray.${isLight ? 200 : 400}`,
           color: 'gray.50'
         },
 
         '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-          'backgroundColor': 'gray.600',
+          'backgroundColor': `gray.${isLight ? 400 : 600}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.500',
-            backgroundColor: 'gray.500',
+            borderColor: `gray.${isLight ? 300 : 500}`,
+            backgroundColor: `gray.${isLight ? 300 : 500}`,
             color: 'gray.50'
           }
         },
 
         '&:hover': {
-          'backgroundColor': 'gray.600',
+          'backgroundColor': `gray.${isLight ? 400 : 600}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.500',
-            backgroundColor: 'gray.500',
+            borderColor: `gray.${isLight ? 300 : 500}`,
+            backgroundColor: `gray.${isLight ? 300 : 500}`,
             color: 'gray.50'
           }
         },
 
         '&:active': {
-          'backgroundColor': 'gray.600',
+          'backgroundColor': `gray.${isLight ? 400 : 600}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.500',
-            backgroundColor: 'gray.500',
+            borderColor: `gray.${isLight ? 300 : 500}`,
+            backgroundColor: `gray.${isLight ? 300 : 500}`,
             color: 'gray.50'
           }
         }
       },
       outlined: {
-        'backgroundColor': 'gray.400',
+        'backgroundColor': `gray.${isLight ? 200 : 400}`,
 
         '& .icon_button_front': {
-          borderColor: 'gray.400',
+          borderColor: `gray.${isLight ? 200 : 400}`,
           backgroundColor: 'gray.50',
-          color: 'gray.400'
+          color: `gray.${isLight ? 200 : 400}`
         },
 
         '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-          'backgroundColor': 'gray.500',
+          'backgroundColor': `gray.${isLight ? 300 : 500}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.500',
+            borderColor: `gray.${isLight ? 300 : 500}`,
             backgroundColor: 'gray.50',
-            color: 'gray.500'
+            color: `gray.${isLight ? 300 : 500}`
           }
         },
 
         '&:hover': {
-          'backgroundColor': 'gray.500',
+          'backgroundColor': `gray.${isLight ? 300 : 500}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.500',
+            borderColor: `gray.${isLight ? 300 : 500}`,
             backgroundColor: 'gray.50',
-            color: 'gray.500'
+            color: `gray.${isLight ? 300 : 500}`
           }
         },
 
         '&:active': {
-          'backgroundColor': 'gray.500',
+          'backgroundColor': `gray.${isLight ? 300 : 500}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.500',
+            borderColor: `gray.${isLight ? 300 : 500}`,
             backgroundColor: 'gray.50',
-            color: 'gray.500'
+            color: `gray.${isLight ? 300 : 500}`
           }
         }
       },
@@ -307,7 +308,7 @@ export default (
         '& .icon_button_front': {
           borderColor: 'transparent',
           backgroundColor: 'transparent',
-          color: 'gray.400'
+          color: `gray.${isLight ? 200 : 400}`
         },
 
         '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
@@ -316,7 +317,7 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: 'gray.500'
+            color: `gray.${isLight ? 300 : 500}`
           }
         },
 
@@ -326,7 +327,7 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: 'gray.500'
+            color: `gray.${isLight ? 300 : 500}`
           }
         },
 
@@ -336,7 +337,7 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: 'gray.500'
+            color: `gray.${isLight ? 300 : 500}`
           }
         }
       }
@@ -345,48 +346,48 @@ export default (
   dark: {
     back: {
       contained: {
-        'backgroundColor': `${color}.300`,
+        'backgroundColor': `${color}.${isLight ? 500 : 300}`,
 
         '&:hover': {
-          'backgroundColor': `${color}.300`,
+          'backgroundColor': `${color}.${isLight ? 500 : 300}`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.400`,
-            backgroundColor: `${color}.400`,
+            borderColor: `${color}.${isLight ? 600 : 400}`,
+            backgroundColor: `${color}.${isLight ? 600 : 400}`,
             color: 'gray.900'
           }
         },
 
         '&:active': {
-          'backgroundColor': `${color}.300`,
+          'backgroundColor': `${color}.${isLight ? 500 : 300}`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.400`,
-            backgroundColor: `${color}.400`,
+            borderColor: `${color}.${isLight ? 600 : 400}`,
+            backgroundColor: `${color}.${isLight ? 600 : 400}`,
             color: 'gray.900'
           }
         }
       },
       outlined: {
-        'backgroundColor': `${color}.500`,
+        'backgroundColor': `${color}.${isLight ? 700 : 500}`,
 
         '&:hover': {
-          'backgroundColor': `${color}.400`,
+          'backgroundColor': `${color}.${isLight ? 600 : 400}`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.400`,
+            borderColor: `${color}.${isLight ? 600 : 400}`,
             backgroundColor: 'gray.900',
-            color: `${color}.400`
+            color: `${color}.${isLight ? 600 : 400}`
           }
         },
 
         '&:active': {
-          'backgroundColor': `${color}.400`,
+          'backgroundColor': `${color}.${isLight ? 600 : 400}`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.400`,
+            borderColor: `${color}.${isLight ? 600 : 400}`,
             backgroundColor: 'gray.900',
-            color: `${color}.400`
+            color: `${color}.${isLight ? 600 : 400}`
           }
         }
       },
@@ -399,7 +400,7 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: `${color}.400`
+            color: `${color}.${isLight ? 600 : 400}`
           }
         },
 
@@ -409,104 +410,104 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: `${color}.400`
+            color: `${color}.${isLight ? 600 : 400}`
           }
         }
       }
     },
     front: {
       contained: {
-        borderColor: `${color}.500`,
-        backgroundColor: `${color}.500`,
+        borderColor: `${color}.${isLight ? 700 : 500}`,
+        backgroundColor: `${color}.${isLight ? 700 : 500}`,
         color: 'gray.900'
       },
       outlined: {
-        borderColor: `${color}.500`,
+        borderColor: `${color}.${isLight ? 700 : 500}`,
         backgroundColor: 'gray.900',
-        color: `${color}.500`
+        color: `${color}.${isLight ? 700 : 500}`
       },
       icon: {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
-        color: `${color}.500`
+        color: `${color}.${isLight ? 700 : 500}`
       }
     },
     disabled: {
       contained: {
-        'backgroundColor': 'gray.300',
+        'backgroundColor': `gray.${isLight ? 500 : 300}`,
 
         '& .icon_button_front': {
-          borderColor: 'gray.500',
-          backgroundColor: 'gray.500',
+          borderColor: `gray.${isLight ? 700 : 500}`,
+          backgroundColor: `gray.${isLight ? 700 : 500}`,
           color: 'gray.900'
         },
 
         '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-          'backgroundColor': 'gray.300',
+          'backgroundColor': `gray.${isLight ? 500 : 300}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.400',
-            backgroundColor: 'gray.400',
+            borderColor: `gray.${isLight ? 600 : 400}`,
+            backgroundColor: `gray.${isLight ? 600 : 400}`,
             color: 'gray.900'
           }
         },
 
         '&:hover': {
-          'backgroundColor': 'gray.300',
+          'backgroundColor': `gray.${isLight ? 500 : 300}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.400',
-            backgroundColor: 'gray.400',
+            borderColor: `gray.${isLight ? 600 : 400}`,
+            backgroundColor: `gray.${isLight ? 600 : 400}`,
             color: 'gray.900'
           }
         },
 
         '&:active': {
-          'backgroundColor': 'gray.300',
+          'backgroundColor': `gray.${isLight ? 500 : 300}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.400',
-            backgroundColor: 'gray.400',
+            borderColor: `gray.${isLight ? 600 : 400}`,
+            backgroundColor: `gray.${isLight ? 600 : 400}`,
             color: 'gray.900'
           }
         }
       },
       outlined: {
-        'backgroundColor': 'gray.500',
+        'backgroundColor': `gray.${isLight ? 700 : 500}`,
 
         '& .icon_button_front': {
-          borderColor: 'gray.500',
+          borderColor: `gray.${isLight ? 700 : 500}`,
           backgroundColor: 'gray.900',
-          color: 'gray.500'
+          color: `gray.${isLight ? 700 : 500}`
         },
 
         '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
-          'backgroundColor': 'gray.400',
+          'backgroundColor': `gray.${isLight ? 600 : 400}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.400',
+            borderColor: `gray.${isLight ? 600 : 400}`,
             backgroundColor: 'gray.900',
-            color: 'gray.400'
+            color: `gray.${isLight ? 600 : 400}`
           }
         },
 
         '&:hover': {
-          'backgroundColor': 'gray.400',
+          'backgroundColor': `gray.${isLight ? 600 : 400}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.400',
+            borderColor: `gray.${isLight ? 600 : 400}`,
             backgroundColor: 'gray.900',
-            color: 'gray.400'
+            color: `gray.${isLight ? 600 : 400}`
           }
         },
 
         '&:active': {
-          'backgroundColor': 'gray.400',
+          'backgroundColor': `gray.${isLight ? 600 : 400}`,
 
           '& .icon_button_front': {
-            borderColor: 'gray.400',
+            borderColor: `gray.${isLight ? 600 : 400}`,
             backgroundColor: 'gray.900',
-            color: 'gray.400'
+            color: `gray.${isLight ? 600 : 400}`
           }
         }
       },
@@ -516,7 +517,7 @@ export default (
         '& .icon_button_front': {
           borderColor: 'transparent',
           backgroundColor: 'transparent',
-          color: 'gray.500'
+          color: `gray.${isLight ? 700 : 500}`
         },
 
         '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
@@ -525,7 +526,7 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: 'gray.400'
+            color: `gray.${isLight ? 600 : 400}`
           }
         },
 
@@ -535,7 +536,7 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: 'gray.400'
+            color: `gray.${isLight ? 600 : 400}`
           }
         },
 
@@ -545,7 +546,7 @@ export default (
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: 'gray.400'
+            color: `gray.${isLight ? 600 : 400}`
           }
         }
       }

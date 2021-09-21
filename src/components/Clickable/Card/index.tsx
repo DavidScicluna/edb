@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Box } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -18,7 +18,7 @@ const Card = (props: CardProps): ReactElement => {
     colorMode: colorModeProp,
     isDisabled = false,
     ...rest
-  } = _.omit(props, ['color', 'isFullWidth', 'isLightGray', 'isClickable']);
+  } = _.omit(props, ['color', 'isFullWidth', 'isLight', 'isClickable']);
 
   const mode: ColorMode = colorModeProp || colorMode;
 

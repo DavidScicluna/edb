@@ -1,12 +1,16 @@
-import { ButtonType, MediaType } from '../../common/types/types';
+import { ReactElement } from 'react';
+
+import { MediaType } from '../../common/types/types';
 import { GetMediaType } from '../../store/slices/User/types';
-import { IconButtonProps } from '../Clickable/IconButton/types';
+
+type RenderButtonProps = {
+  // list?: List;
+  isLiked: boolean;
+  onClick: () => void;
+};
 
 export interface LikeProps {
-  buttonType?: ButtonType;
-  isDisabled: boolean;
-  title: string;
+  renderButton: (props: RenderButtonProps) => ReactElement;
   mediaType: MediaType;
   mediaItem?: GetMediaType<this['mediaType']>;
-  size: IconButtonProps['size'];
 }

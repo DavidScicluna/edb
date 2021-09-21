@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useBreakpointValue, VStack, Image, Text, Fade } from '@chakra-ui/react';
 
@@ -40,7 +40,7 @@ const Error = (props: ErrorProps): ReactElement => {
         case 'xs':
           return 1;
         case 'sm':
-          return 1.5;
+          return 2;
         case 'lg':
           return 4;
         case 'xl':

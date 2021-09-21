@@ -1,21 +1,20 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, VStack, Center, Text, Collapse } from '@chakra-ui/react';
 
+import departments from '../../../../common/data/departments';
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor, handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
 import Badge from '../../../../components/Badge';
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
-import VerticalMoviePoster from '../../../../components/Movies/Poster/Vertical';
-import VerticalPersonPoster from '../../../../components/People/Poster/Vertical';
-import VerticalShowPoster from '../../../../components/TV/Poster/Vertical';
+import VerticalPoster from '../../../../components/Poster/Vertical';
 import { AllProps } from './types';
 
 const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -44,7 +43,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             movies.length > 20 ? (
               <Link to={{ pathname: '/liked/movie' }} isFullWidth>
-                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${movies.length || 0} liked movie${
                     movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
                   }`}
@@ -55,7 +54,34 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           isLoading={false}>
           <>
             {movies.map((movie, index) =>
-              index < 20 ? <VerticalMoviePoster key={movie.id} isLoading={false} movie={movie} /> : null
+              index < 20 ? (
+                <VerticalPoster
+                  key={movie.id}
+                  width={['185px', '205px', '230px']}
+                  mediaItem={movie ? { ...movie } : undefined}
+                  mediaType='movie'
+                  image={{
+                    alt: `${movie?.title || ''} movie poster`,
+                    src: movie?.poster_path || '',
+                    size: {
+                      thumbnail: 'w92',
+                      full: 'original'
+                    }
+                  }}
+                  rating={{
+                    rating: movie?.vote_average || null,
+                    count: movie?.vote_count || null
+                  }}
+                  title={movie?.title || ''}
+                  subtitle={`${[
+                    `${handleReturnDate(movie?.release_date || '', 'year')}` || 'N/A',
+                    `${handleReturnGenresByID(movie?.genre_ids || [], 'movie')}`
+                  ]
+                    .filter((subtitle) => subtitle)
+                    .join(' • ')}`}
+                  isLoading={false}
+                />
+              ) : null
             )}
           </>
         </HorizontalGrid>
@@ -68,7 +94,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             tv.length > 20 ? (
               <Link to={{ pathname: '/liked/tv' }} isFullWidth>
-                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${tv?.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
                 </Button>
               </Link>
@@ -77,7 +103,34 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           isLoading={false}>
           <>
             {tv.map((show, index) =>
-              index < 20 ? <VerticalShowPoster key={show.id} isLoading={false} show={show} /> : null
+              index < 20 ? (
+                <VerticalPoster
+                  key={show.id}
+                  width={['185px', '205px', '230px']}
+                  mediaItem={show ? { ...show } : undefined}
+                  mediaType='tv'
+                  image={{
+                    alt: `${show?.name || ''} tv show poster`,
+                    src: show?.poster_path || '',
+                    size: {
+                      thumbnail: 'w92',
+                      full: 'original'
+                    }
+                  }}
+                  rating={{
+                    rating: show?.vote_average || null,
+                    count: show?.vote_count || null
+                  }}
+                  title={show?.name || ''}
+                  subtitle={`${[
+                    `${handleReturnDate(show?.first_air_date || '', 'year')}` || 'N/A',
+                    `${handleReturnGenresByID(show?.genre_ids || [], 'tv')}`
+                  ]
+                    .filter((subtitle) => subtitle)
+                    .join(' • ')}`}
+                  isLoading={false}
+                />
+              ) : null
             )}
           </>
         </HorizontalGrid>
@@ -90,7 +143,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             people.length > 20 ? (
               <Link to={{ pathname: '/liked/person' }} isFullWidth>
-                <Button color={utils.handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${people.length || 0} liked ${
                     (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
                   }`}
@@ -101,7 +154,29 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           isLoading={false}>
           <>
             {people.map((person, index) =>
-              index < 20 ? <VerticalPersonPoster key={person.id} isLoading={false} person={person} /> : null
+              index < 20 ? (
+                <VerticalPoster
+                  key={person.id}
+                  width={['185px', '205px', '230px']}
+                  mediaItem={person ? { ...person } : undefined}
+                  mediaType='person'
+                  image={{
+                    alt: `${person?.name || ''} person poster`,
+                    src: person?.profile_path || '',
+                    size: {
+                      thumbnail: 'w45',
+                      full: 'original'
+                    }
+                  }}
+                  title={person?.name || ''}
+                  subtitle={
+                    departments.find((department) => department.value === person?.known_for_department)?.name ||
+                    person?.known_for_department ||
+                    'N/A'
+                  }
+                  isLoading={false}
+                />
+              ) : null
             )}
           </>
         </HorizontalGrid>

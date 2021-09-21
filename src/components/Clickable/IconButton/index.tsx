@@ -1,4 +1,4 @@
-import React, { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, Spinner, Icon, IconButton as CUIIconButton } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -22,7 +22,7 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
     size = 'md',
     variant = 'contained',
     ...rest
-  } = props;
+  } = _.omit(props, 'isLight');
 
   const mode: ColorMode = colorModeProp || colorMode;
 

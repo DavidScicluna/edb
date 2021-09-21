@@ -1,14 +1,14 @@
-import React, { ReactElement, Fragment } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnDummyWidths } from '../../../../../../common/utils';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { DepartmentsProps } from './types';
 
-const dummyTextWidths = utils.handleReturnDummyWidths(200, 4);
+const dummyTextWidths = handleReturnDummyWidths(200, 4);
 
 const Departments = (props: DepartmentsProps): ReactElement => {
   const { colorMode } = useColorMode();
@@ -16,47 +16,32 @@ const Departments = (props: DepartmentsProps): ReactElement => {
   const { departments, isLoading = false } = props;
 
   return (
-    <HStack maxWidth='100%' spacing={isLoading ? 1 : 0}>
-      {!isLoading ? (
-        <HorizontalScroll>
-          <>
-            {departments.map((department, index) => (
-              <Fragment key={index}>
-                <Text
-                  align='left'
-                  color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-                  fontSize='md'
-                  whiteSpace='nowrap'>
-                  {department}
-                </Text>
-
-                {index < departments.length - 1 ? (
-                  <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
-                    •
-                  </Text>
-                ) : null}
-              </Fragment>
-            ))}
-          </>
-        </HorizontalScroll>
-      ) : (
-        _.range(0, 4).map((_dummy, index) => (
-          <Fragment key={index}>
-            <SkeletonText
-              width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`}
-              height='19px'
-              offsetY={9.5}
-            />
-
-            {index < 3 ? (
-              <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
-                •
-              </Text>
-            ) : null}
-          </Fragment>
-        ))
-      )}
-    </HStack>
+    <HorizontalScroll isLoading={isLoading}>
+      <HStack
+        width='100%'
+        maxWidth='100%'
+        divider={
+          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' mx={0.75}>
+            •
+          </Text>
+        }>
+        {[...(!isLoading ? departments : _.range(0, 4))].map((department, index) => (
+          <SkeletonText
+            key={index}
+            width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
+            offsetY={9.5}
+            isLoaded={!isLoading}>
+            <Text
+              align='left'
+              color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+              fontSize='md'
+              whiteSpace='nowrap'>
+              {typeof department !== 'number' ? department : 'Lorem'}
+            </Text>
+          </SkeletonText>
+        ))}
+      </HStack>
+    </HorizontalScroll>
   );
 };
 

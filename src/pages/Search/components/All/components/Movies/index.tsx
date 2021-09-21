@@ -1,19 +1,19 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, Text } from '@chakra-ui/react';
 import queryString from 'query-string';
 
 import { useSelector } from '../../../../../../common/hooks';
-import utils from '../../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../../common/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import Link from '../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
-import HorizontalMovies from '../../../../../../components/Movies/Grid/Horizontal';
+import HorizontalMovies from '../../../../../Movies/components/HorizontalMovies';
 import { MoviesProps } from './types';
 
 const Movies = (props: MoviesProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -40,7 +40,7 @@ const Movies = (props: MoviesProps): ReactElement => {
             isFullWidth
             isDisabled={isFetching || isLoading}>
             <Button
-              color={utils.handleReturnColor(color)}
+              color={handleReturnColor(color)}
               isFullWidth
               isDisabled={isFetching || isLoading}
               onClick={() => refetch()}
@@ -54,7 +54,12 @@ const Movies = (props: MoviesProps): ReactElement => {
         ) : undefined
       }
       isLoading={isFetching || isLoading}>
-      <HorizontalMovies isError={isError} isSuccess={isSuccess} movies={results || []} />
+      <HorizontalMovies
+        isError={isError}
+        isSuccess={isSuccess}
+        isLoading={isFetching || isLoading}
+        movies={results || []}
+      />
     </HorizontalGrid>
   );
 };

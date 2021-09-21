@@ -12,6 +12,7 @@ export type ButtonProps = {
   colorMode?: ColorMode;
   leftIcon?: Icon;
   rightIcon?: Icon;
+  isLight?: boolean;
   size?: ButtonSize;
   variant?: Variant;
 } & Omit<

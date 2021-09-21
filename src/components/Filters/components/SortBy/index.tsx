@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 import { Controller, UseFormReturn } from 'react-hook-form';
@@ -49,7 +49,7 @@ const SortBy = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='sort'
       render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth p={2}>
+        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth px={2} pt={1.5} pb={2}>
           {{
             header: {
               title: 'Sort by'

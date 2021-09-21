@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import {
   useTheme,
@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
-// import { useLocation } from 'react-router-dom';
 
 import Link from '../../../../components/Clickable/Link';
 import SkeletonText from '../../../../components/Skeleton/Text';
@@ -35,98 +34,7 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
 
   const style = useStyles(theme);
 
-  // const { id, mediaType } = useParams<Params>();
-  // const location = useLocation();
-  // const history = useHistory();
-
-  // const lists = useSelector((state) => state.user.data.lists);
-
   const { breadcrumbs } = props;
-
-  // const [state, setstate] = useState<BreadcrumbType[]>([]);
-
-  // const handleCheckBreadcrumb = (): boolean => {
-  //   const splitLocation = location.pathname.split('/');
-
-  //   console.log(splitLocation);
-
-  //   return false;
-  // };
-
-  // const handleGenericBreadcrumbLabel = (): string => {
-  //   return '';
-  // };
-
-  // const handleReturnBreadcrumbs = (): string[] => {
-  //   if (breadcrumbs[location.pathname]) {
-  //     return breadcrumbs[location.pathname].consistsOf;
-  //   } else {
-  //     // const splitLocation = location.pathname.split('/').filter((item) => item);
-  //     // const breadcrumb = breadcrumbs[`/${splitLocation[0]}`];
-  //     // console.log(breadcrumb);
-
-  //     return [];
-  //   }
-  // };
-
-  // handleReturnBreadcrumbs();
-
-  // useEffect(() => {
-  //   setstate([]);
-
-  //   if (location.pathname.includes('lists')) {
-  //     if (id && mediaType) {
-  //       const label =
-  //         mediaType === 'movie'
-  //           ? 'Movies'
-  //           : mediaType === 'tv'
-  //           ? 'TV Shows'
-  //           : mediaType === 'person'
-  //           ? 'People'
-  //           : 'Media-Type';
-
-  //       setstate([
-  //         {
-  //           label: lists.find((list) => list.id === id)?.label || 'List-Name',
-  //           path: `/lists/${id}`
-  //         },
-  //         {
-  //           label,
-  //           path: `/lists/${id}/${mediaType}`
-  //         }
-  //       ]);
-  //     } else if (id) {
-  //       setstate([
-  //         {
-  //           label: lists.find((list) => list.id === id)?.label || 'List-Name',
-  //           path: `/lists/${id}`
-  //         }
-  //       ]);
-  //     }
-  //   } else if (mediaType) {
-  //     const label =
-  //       mediaType === 'movie'
-  //         ? 'Movies'
-  //         : mediaType === 'tv'
-  //         ? 'TV Shows'
-  //         : mediaType === 'person'
-  //         ? 'People'
-  //         : 'Media-Type';
-
-  //     setstate([
-  //       {
-  //         label,
-  //         path: location.pathname.includes('trending')
-  //           ? `/trending/${mediaType}`
-  //           : location.pathname.includes('liked')
-  //           ? `/liked/${mediaType}`
-  //           : ''
-  //       }
-  //     ]);
-  //   }
-  // }, [location]);
-
-  // console.log(history);
 
   return (
     <CUIBreadcrumb

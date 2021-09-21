@@ -1,9 +1,10 @@
-import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useWindowSize, useElementSize } from '../../../../common/hooks';
+import { handleFormatIntoParagraphs } from '../../../../common/utils';
 import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
 import SkeletonText from '../../../../components/Skeleton/Text';
@@ -32,40 +33,35 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
     [biographyRef]
   );
 
-  const handleResize = useCallback(() => handleBiographyRef(biographyRef.current), [biographyRef, handleBiographyRef]);
-
   useEffect(() => {
-    handleResize();
+    handleBiographyRef(biographyRef.current);
   }, [windowWidth]);
 
   return (
     <Card
       box={{
-        header: { pb: 2 },
-        body: { pt: 2 }
+        header: { pb: 1.5 },
+        body: { pt: 1.5 }
       }}
       isFullWidth
-      p={2}>
+      px={2}
+      pt={1.5}
+      pb={2}>
       {{
         header: {
           title: 'Biography',
           actions: (
             <ScaleFade in={(height || 0) > 44} unmountOnExit>
-              <Button
-                isDisabled={isLoading}
-                isFullWidth
-                onClick={() => setIsExpanded.toggle()}
-                size='sm'
-                variant='text'>
+              <Button isDisabled={isLoading} onClick={() => setIsExpanded.toggle()} size='sm' variant='text'>
                 {isExpanded ? 'Collapse' : 'Expand'}
               </Button>
             </ScaleFade>
           )
         },
         body: !isLoading ? (
-          <Collapse startingHeight={(height || 44) >= 44 ? 44 : elementHeight} in={isExpanded}>
-            <VStack ref={biographyRef} width='100%' spacing={2}>
-              {biography.split('\n'[0]).map((paragraph, index) => (
+          <Collapse startingHeight={(height || 44) >= 44 ? 44 : elementHeight || 44} in={isExpanded}>
+            <VStack ref={biographyRef} width='100%' alignItems='flex-start' spacing={2}>
+              {handleFormatIntoParagraphs(biography).map((paragraph, index) => (
                 <Text
                   key={index}
                   align='left'
@@ -78,7 +74,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
             </VStack>
           </Collapse>
         ) : (
-          <VStack width='100%' spacing={2}>
+          <VStack width='100%' spacing={1}>
             {_.range(0, 3).map((_dummy, index) => (
               <SkeletonText key={index} width='100%' offsetY={6} isLoaded={!isLoading}>
                 <Text align='left' fontSize='xs'>

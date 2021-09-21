@@ -1,11 +1,11 @@
-import React, { ReactElement, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import _ from 'lodash';
 
 import { useSelector, useWindowSize } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import IconButton from '../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../components/Tooltip';
 import { Theme } from '../../../../theme/types';
@@ -54,7 +54,7 @@ const ScrollToTop = (): ReactElement => {
         <Tooltip aria-label='Scroll to top' label='Scroll to the top' placement='left' isOpen={isHovering} gutter={6}>
           <IconButton
             aria-label='Scroll to top'
-            color={utils.handleReturnColor(color)}
+            color={handleReturnColor(color)}
             icon={ArrowUpwardOutlinedIcon}
             onClick={() => document.scrollingElement?.scrollTo(0, 0)}
             onMouseEnter={() => setIsHovering.on()}

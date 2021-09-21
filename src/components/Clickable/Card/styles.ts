@@ -16,7 +16,7 @@ type CardStyle = {
 
 export default (
   theme: Theme,
-  { color = 'gray', isFullWidth = false, isLightGray = false, isClickable = true }: CardProps
+  { color = 'gray', isFullWidth = false, isLight = false, isClickable = true }: CardProps
 ): CardStyle => ({
   card: {
     back: {
@@ -98,49 +98,49 @@ export default (
   },
   light: {
     back: {
-      'backgroundColor': isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
+      'backgroundColor': `${color}.${isLight ? 200 : 400}`,
 
       '&:hover': {
-        'backgroundColor': isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`,
+        'backgroundColor': `${color}.${isLight ? 300 : 500}`,
 
         '& .card_front': {
-          borderColor: isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`,
+          borderColor: `${color}.${isLight ? 300 : 500}`,
           backgroundColor: 'gray.50',
-          color: isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`
+          color: `${color}.${isLight ? 300 : 500}`
         }
       },
 
       '&:active': {
-        'backgroundColor': isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`,
+        'backgroundColor': `${color}.${isLight ? 300 : 500}`,
 
         '& .card_front': {
-          borderColor: isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`,
+          borderColor: `${color}.${isLight ? 300 : 500}`,
           backgroundColor: 'gray.50',
-          color: isLightGray && color === 'gray' ? 'gray.300' : `${color}.500`
+          color: `${color}.${isLight ? 300 : 500}`
         }
       }
     },
     front: {
-      borderColor: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`,
+      borderColor: `${color}.${isLight ? 200 : 400}`,
       backgroundColor: 'gray.50',
-      color: isLightGray && color === 'gray' ? 'gray.200' : `${color}.400`
+      color: `${color}.${isLight ? 200 : 400}`
     },
     disabled: {
       'backgroundColor': 'gray.50',
 
       '& .card_front': {
-        borderColor: 'gray.200',
+        borderColor: `gray.${isLight ? 200 : 400}`,
         backgroundColor: 'gray.50',
-        color: 'gray.200'
+        color: `gray.${isLight ? 200 : 400}`
       },
 
       '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
         'backgroundColor': 'gray.50',
 
         '& .card_front': {
-          borderColor: 'gray.300',
+          borderColor: `gray.${isLight ? 300 : 500}`,
           backgroundColor: 'gray.50',
-          color: 'gray.300'
+          color: `gray.${isLight ? 300 : 500}`
         }
       },
 
@@ -148,9 +148,9 @@ export default (
         'backgroundColor': 'gray.50',
 
         '& .card_front': {
-          borderColor: 'gray.300',
+          borderColor: `gray.${isLight ? 300 : 500}`,
           backgroundColor: 'gray.50',
-          color: 'gray.300'
+          color: `gray.${isLight ? 300 : 500}`
         }
       },
 
@@ -158,58 +158,58 @@ export default (
         'backgroundColor': 'gray.50',
 
         '& .card_front': {
-          borderColor: 'gray.300',
+          borderColor: `gray.${isLight ? 300 : 500}`,
           backgroundColor: 'gray.50',
-          color: 'gray.300'
+          color: `gray.${isLight ? 300 : 500}`
         }
       }
     }
   },
   dark: {
     back: {
-      'backgroundColor': isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
+      'backgroundColor': `${color}.${isLight ? 700 : 500}`,
 
       '&:hover': {
-        'backgroundColor': isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`,
+        'backgroundColor': `${color}.${isLight ? 600 : 400}`,
 
         '& .card_front': {
-          borderColor: isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`,
+          borderColor: `${color}.${isLight ? 600 : 400}`,
           backgroundColor: 'gray.900',
-          color: isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`
+          color: `${color}.${isLight ? 600 : 400}`
         }
       },
 
       '&:active': {
-        'backgroundColor': isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`,
+        'backgroundColor': `${color}.${isLight ? 600 : 400}`,
 
         '& .card_front': {
-          borderColor: isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`,
+          borderColor: `${color}.${isLight ? 600 : 400}`,
           backgroundColor: 'gray.900',
-          color: isLightGray && color === 'gray' ? 'gray.600' : `${color}.400`
+          color: `${color}.${isLight ? 600 : 400}`
         }
       }
     },
     front: {
-      borderColor: isLightGray && color === 'gray' ? 'gray.700' : `${color}.500`,
+      borderColor: `${color}.${isLight ? 700 : 500}`,
       backgroundColor: 'gray.900',
-      color: `${color}.500`
+      color: `${color}.${isLight ? 700 : 500}`
     },
     disabled: {
       'backgroundColor': 'transparent',
 
       '& .card_front': {
-        borderColor: 'gray.700',
+        borderColor: `gray.${isLight ? 700 : 500}`,
         backgroundColor: 'gray.900',
-        color: 'gray.700'
+        color: `gray.${isLight ? 700 : 500}`
       },
 
       '&:hover[disabled], :hover[aria-disabled=true], :hover[data-disabled], [data-hover][data-disabled]': {
         'backgroundColor': 'transparent',
 
         '& .card_front': {
-          borderColor: 'gray.600',
+          borderColor: `gray.${isLight ? 600 : 400}`,
           backgroundColor: 'gray.900',
-          color: 'gray.600'
+          color: `gray.${isLight ? 600 : 400}`
         }
       },
 
@@ -217,9 +217,9 @@ export default (
         'backgroundColor': 'transparent',
 
         '& .card_front': {
-          borderColor: 'gray.600',
+          borderColor: `gray.${isLight ? 600 : 400}`,
           backgroundColor: 'gray.900',
-          color: 'gray.600'
+          color: `gray.${isLight ? 600 : 400}`
         }
       },
 
@@ -227,9 +227,9 @@ export default (
         'backgroundColor': 'transparent',
 
         '& .card_front': {
-          borderColor: 'gray.600',
+          borderColor: `gray.${isLight ? 600 : 400}`,
           backgroundColor: 'gray.900',
-          color: 'gray.600'
+          color: `gray.${isLight ? 600 : 400}`
         }
       }
     }

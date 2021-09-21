@@ -1,11 +1,11 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, VStack } from '@chakra-ui/react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
-import utils from '../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import CreateList from '../../../../../pages/Lists/components/CreateList';
@@ -100,11 +100,11 @@ const ListsModal = (): ReactElement => {
         title={`Add "${listsModal.title}" to a list`}
         actions={
           selected.length > 0 ? (
-            <Button color={utils.handleReturnColor(color)} onClick={() => handleSaveItem()} size='sm'>
+            <Button color={handleReturnColor(color)} onClick={() => handleSaveItem()} size='sm'>
               {`Save to List${selected.length > 1 ? 's' : ''}`}
             </Button>
           ) : (
-            <Button color={utils.handleReturnColor(color)} onClick={() => onCreateListOpen()} size='sm'>
+            <Button color={handleReturnColor(color)} onClick={() => onCreateListOpen()} size='sm'>
               Create a new List
             </Button>
           )

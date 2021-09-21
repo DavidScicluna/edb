@@ -1,6 +1,6 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
@@ -13,9 +13,9 @@ import { Response, SortBy } from '../../common/types/types';
 import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
 import LoadMore from '../../components/LoadMore';
-import VerticalPeople from '../../components/People/Grid/Vertical';
 import Page from '../../containers/Page';
 import { home, people as peopleBreadcrumb } from '../../containers/Page/common/data/breadcrumbs';
+import VerticalPeople from './components/VerticalPeople';
 
 const People = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -28,7 +28,7 @@ const People = (): ReactElement => {
   const [people, setPeople] = useState<Response<PartialPerson[]>>();
 
   // Fetching people
-  const popularPeople = useInfiniteQuery(
+  const popularPeopleQuery = useInfiniteQuery(
     'popularPeople',
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/person/popular', {
@@ -76,7 +76,7 @@ const People = (): ReactElement => {
 
     setDepartments(departments);
 
-    popularPeople.refetch();
+    popularPeopleQuery.refetch();
   };
 
   useEffect(() => {
@@ -86,27 +86,28 @@ const People = (): ReactElement => {
   return (
     <Page title='People' breadcrumbs={[home, peopleBreadcrumb]}>
       {{
-        actions: <Filters mediaType='person' isDisabled={!popularPeople.isSuccess} onFilter={handleSetFilters} />,
+        actions: <Filters mediaType='person' isDisabled={!popularPeopleQuery.isSuccess} onFilter={handleSetFilters} />,
         body: (
           <VerticalGrid>
             <VStack width='100%' spacing={4} px={2} pt={2}>
               <VerticalPeople
-                isError={popularPeople.isError}
-                isSuccess={popularPeople.isSuccess && !popularPeople.isFetching && !popularPeople.isLoading}
+                isError={popularPeopleQuery.isError}
+                isSuccess={popularPeopleQuery.isSuccess}
+                isLoading={popularPeopleQuery.isFetching || popularPeopleQuery.isLoading}
                 people={people?.results || []}
               />
 
-              {people ? (
+              <ScaleFade in={!popularPeopleQuery.isError} unmountOnExit>
                 <LoadMore
-                  amount={people.results.length}
-                  total={people.total_results}
+                  amount={people?.results.length || 0}
+                  total={people?.total_results || 0}
                   mediaType='people'
-                  isLoading={popularPeople.isFetching || popularPeople.isLoading}
-                  isError={popularPeople.isError}
-                  hasNextPage={popularPeople.hasNextPage || true}
-                  onFetch={popularPeople.fetchNextPage}
+                  isLoading={popularPeopleQuery.isFetching || popularPeopleQuery.isLoading}
+                  isError={popularPeopleQuery.isError}
+                  hasNextPage={popularPeopleQuery.hasNextPage || true}
+                  onFetch={popularPeopleQuery.fetchNextPage}
                 />
-              ) : null}
+              </ScaleFade>
             </VStack>
           </VerticalGrid>
         )

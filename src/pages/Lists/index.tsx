@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import {
   useColorMode,
@@ -6,16 +6,12 @@ import {
   useMediaQuery,
   useToast,
   VStack,
-  HStack,
   SimpleGrid,
   Box,
   Center,
-  Text,
-  Fade,
-  ScaleFade
+  Text
 } from '@chakra-ui/react';
-import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -24,21 +20,18 @@ import { useSelector } from '../../common/hooks';
 import { Genre, MediaType, SortBy } from '../../common/types/types';
 import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';
-import IconButton from '../../components/Clickable/IconButton';
 import Empty from '../../components/Empty';
-import Filters from '../../components/Filters';
 import VerticalGrid from '../../components/Grid/Vertical';
 import MediaTypePicker from '../../components/MediaTypePicker';
-import HorizontalMoviePoster from '../../components/Movies/Poster/Horizontal';
-import VerticalMoviePoster from '../../components/Movies/Poster/Vertical';
-import HorizontalShowPoster from '../../components/TV/Poster/Horizontal';
-import VerticalShowPoster from '../../components/TV/Poster/Vertical';
 import Page from '../../containers/Page';
 import { home, lists as listsBreadcrumb } from '../../containers/Page/common/data/breadcrumbs';
 import { Breadcrumb } from '../../containers/Page/types';
 import { toggleConfirm } from '../../store/slices/Modals';
 import { setLists } from '../../store/slices/User';
 import { List as ListType, MediaItem } from '../../store/slices/User/types';
+import VerticalMovies from '../Movies/components/VerticalMovies';
+import VerticalTV from '../TV/components/VerticalTV';
+import Actions from './components/Actions';
 import All from './components/All';
 import CreateList from './components/CreateList';
 import EditList from './components/EditList';
@@ -64,8 +57,7 @@ const Lists = (): ReactElement => {
   const { isOpen: isEditListOpen, onOpen: onEditListOpen, onClose: onEditListClose } = useDisclosure();
   const { isOpen: isListInfoOpen, onOpen: onListInfoOpen, onClose: onListInfoClose } = useDisclosure();
 
-  const [isSmallMob] = useMediaQuery('(max-width: 350px)');
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const toast = useToast();
 
@@ -74,7 +66,6 @@ const Lists = (): ReactElement => {
 
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
-  const displayMode = useSelector((state) => state.app.ui.displayMode);
   const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
@@ -96,7 +87,7 @@ const Lists = (): ReactElement => {
         filteredMovies = filteredMovies.filter((movie) => genres.some((genre) => movie.genre_ids.includes(genre.id)));
       }
       if (sortBy && sortBy.find((sort) => sort.isActive)) {
-        filteredMovies = arraySort(filteredMovies, sortBy.find((sort) => sort.isActive)?.value, {
+        filteredMovies = sort(filteredMovies, sortBy.find((sort) => sort.isActive)?.value, {
           reverse: sortDirection === 'desc'
         });
       }
@@ -114,7 +105,7 @@ const Lists = (): ReactElement => {
       }
 
       if (sortBy && sortBy.find((sort) => sort.isActive)) {
-        filteredTV = arraySort(filteredTV, sortBy.find((sort) => sort.isActive)?.value, {
+        filteredTV = sort(filteredTV, sortBy.find((sort) => sort.isActive)?.value, {
           reverse: sortDirection === 'desc'
         });
       }
@@ -292,60 +283,20 @@ const Lists = (): ReactElement => {
         }
         breadcrumbs={handleReturnBreadcrumbs()}>
         {{
-          actions:
-            mediaType || (list && lists.length > 0) ? (
-              isSm ? (
-                <Fade in={!!mediaType || (!!list && lists.length > 1)} unmountOnExit style={{ width: '100%' }}>
-                  <VStack width='100%' spacing={2}>
-                    {mediaType ? (
-                      <HStack width='100%' spacing={2}>
-                        {movies.length > 0 && tv.length > 0 ? (
-                          <Button onClick={() => onMediaTypePickerOpen()} isFullWidth variant='outlined'>
-                            Change media-type
-                          </Button>
-                        ) : null}
-                        {mediaType ? <Filters mediaType={mediaType} isLikedLists onFilter={handleSetFilters} /> : null}
-                      </HStack>
-                    ) : null}
-                    {!!list && lists.length > 1 ? (
-                      <Button onClick={() => onListPickerOpen()} isFullWidth variant='outlined'>
-                        Change list
-                      </Button>
-                    ) : null}
-                  </VStack>
-                </Fade>
-              ) : (
-                <HStack spacing={2}>
-                  <ScaleFade in={!!mediaType} unmountOnExit>
-                    <HStack spacing={2}>
-                      {movies.length > 0 && tv.length > 0 ? (
-                        <Button onClick={() => onMediaTypePickerOpen()} variant='outlined'>
-                          Change media-type
-                        </Button>
-                      ) : null}
-                      {mediaType ? <Filters mediaType={mediaType} isLikedLists onFilter={handleSetFilters} /> : null}
-                    </HStack>
-                  </ScaleFade>
-                  <ScaleFade in={!!list && lists.length > 1} unmountOnExit>
-                    <Button onClick={() => onListPickerOpen()} variant='outlined'>
-                      Change list
-                    </Button>
-                  </ScaleFade>
-                  <ScaleFade in={!!list} unmountOnExit>
-                    <IconButton
-                      aria-label='Open Information modal'
-                      icon={InfoTwoToneIcon}
-                      onClick={() => onListInfoOpen()}
-                      variant='outlined'
-                    />
-                  </ScaleFade>
-                </HStack>
-              )
-            ) : (
-              <Button onClick={() => onCreateListOpen()} isFullWidth={isSm} variant='outlined'>
-                Create new list
-              </Button>
-            ),
+          actions: (
+            <Actions
+              mediaType={mediaType}
+              lists={lists}
+              list={list}
+              movies={movies}
+              tv={tv}
+              onFilter={handleSetFilters}
+              onMediaTypePickerOpen={onMediaTypePickerOpen}
+              onListPickerOpen={onListPickerOpen}
+              onListInfoOpen={onListInfoOpen}
+              onCreateListOpen={onCreateListOpen}
+            />
+          ),
           body: (
             <VStack width='100%' spacing={0} pb={mediaType ? 4 : 0}>
               <VerticalGrid>
@@ -353,39 +304,13 @@ const Lists = (): ReactElement => {
                   movies.length > 0 || tv.length > 0 ? (
                     mediaType === 'movie' ? (
                       movies.length > 0 ? (
-                        <SimpleGrid
-                          width='100%'
-                          columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]}
-                          spacing={2}
-                          px={2}
-                          pt={2}>
-                          {movies.map((movie) =>
-                            displayMode === 'list' ? (
-                              <HorizontalMoviePoster key={movie.id} isLoading={false} movie={movie} />
-                            ) : (
-                              <VerticalMoviePoster key={movie.id} width='100%' isLoading={false} movie={movie} />
-                            )
-                          )}
-                        </SimpleGrid>
+                        <VerticalMovies isError={false} isSuccess isLoading={false} movies={movies} />
                       ) : (
                         <EmptyList id={list.id} label={list.label} mediaTypeLabel='movies' />
                       )
                     ) : mediaType === 'tv' ? (
                       tv.length > 0 ? (
-                        <SimpleGrid
-                          width='100%'
-                          columns={displayMode === 'list' ? 1 : [isSmallMob ? 1 : 2, 2, 4, 5, 5, 6]}
-                          spacing={2}
-                          px={2}
-                          pt={2}>
-                          {tv.map((show) =>
-                            displayMode === 'list' ? (
-                              <HorizontalShowPoster key={show.id} isLoading={false} show={show} />
-                            ) : (
-                              <VerticalShowPoster key={show.id} width='100%' isLoading={false} show={show} />
-                            )
-                          )}
-                        </SimpleGrid>
+                        <VerticalTV isError={false} isSuccess isLoading={false} tv={tv} />
                       ) : (
                         <EmptyList id={list.id} label={list.label} mediaTypeLabel='tv shows' />
                       )

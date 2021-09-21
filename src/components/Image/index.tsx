@@ -1,10 +1,10 @@
-import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, Image as CUIImage } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useElementSize, useImageOnLoad } from '../../common/hooks';
-import utils from '../../common/utils/utils';
+import { handleReturnFallbackSrc } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import { ImageProps } from './types';
 
@@ -13,25 +13,25 @@ const Image = (props: ImageProps): ReactElement => {
   const imageRef = useRef<HTMLImageElement | null>(null);
 
   const { width: elementWidth } = useElementSize(imageRef);
-  const { css, handleIsLoaded } = useImageOnLoad(theme);
+  const { css, isLoaded, handleIsLoaded } = useImageOnLoad(theme);
 
-  const { width, mediaType, alt, src, size, ...rest } = props;
+  const { mediaType, alt, src, size, ...rest } = props;
 
   const [fallbackSrc, setFallbackSrc] = useState<string>('');
 
   /**
    * This method will return the url for the fallback src
    */
-  const handleReturnFallbackSrc = useCallback(
+  const handleFallbackSrc = useCallback(
     _.debounce(() => {
-      const fallbackSrc: string = utils.handleReturnFallbackSrc(mediaType, String(elementWidth || 780), alt);
+      const fallbackSrc: string = handleReturnFallbackSrc(mediaType, String(isLoaded ? elementWidth || 780 : 50), alt);
 
       setFallbackSrc(fallbackSrc);
     }, 500),
     []
   );
 
-  useEffect(() => handleReturnFallbackSrc(), []);
+  useEffect(() => handleFallbackSrc(), []);
 
   return (
     <>
@@ -39,12 +39,11 @@ const Image = (props: ImageProps): ReactElement => {
       <CUIImage
         {...rest}
         ref={imageRef}
-        width={width}
-        position='absolute'
         alt={`${alt} thumbnail`}
+        position='absolute'
         onError={() => handleIsLoaded(true)}
         src={`${process.env.REACT_APP_IMAGE_URL}/${size.thumbnail}${src}`}
-        fallbackSrc={fallbackSrc}
+        ignoreFallback
         sx={{ ...css.thumbnail }}
       />
 
@@ -52,9 +51,8 @@ const Image = (props: ImageProps): ReactElement => {
       <CUIImage
         {...rest}
         ref={imageRef}
-        width={width}
-        position='absolute'
         alt={alt}
+        position='absolute'
         onLoad={() => handleIsLoaded(true)}
         src={`${process.env.REACT_APP_IMAGE_URL}/${size.full}${src}`}
         fallbackSrc={fallbackSrc}

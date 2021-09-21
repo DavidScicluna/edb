@@ -1,27 +1,19 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, VStack } from '@chakra-ui/react';
-import arraySort from 'array-sort';
+import sort from 'array-sort';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../../common/scripts/axios';
-import {
-  FullPerson,
-  Credits,
-  MovieCredits,
-  TVCredits,
-  ExternalIDs,
-  ImageResponse,
-  Image
-} from '../../common/types/person';
+import { FullPerson, Credits, MovieCredits, TVCredits, ExternalIDs, ImageResponse } from '../../common/types/person';
 import { Response } from '../../common/types/types';
+import MediaViewer from '../../components/MediaViewer';
 import Bio from './components/Bio';
 import Details from './components/Details';
 import Filmography from './components/Filmography';
 import KnownFor from './components/KnownFor';
-import MediaViewer from './components/MediaViewer';
 import Photos from './components/Photos';
 import { Department, KnownFor as KnownForType } from './types';
 
@@ -30,7 +22,6 @@ import { Department, KnownFor as KnownForType } from './types';
  *
  * @returns Array of Objects - Of Departments containing all credits
  */
-
 export const handleGetDepartments = (movies: MovieCredits, tv: TVCredits): Department[] => {
   let departments: Department[] = [];
 
@@ -104,7 +95,7 @@ export const handleGetDepartments = (movies: MovieCredits, tv: TVCredits): Depar
     }
   });
 
-  return arraySort([...departments], 'label');
+  return sort([...departments], 'label');
 };
 
 const Person = (): ReactElement => {
@@ -114,7 +105,7 @@ const Person = (): ReactElement => {
 
   const { id } = useParams<{ id: string }>();
 
-  const [selectedPhoto, setSelectedPhoto] = useState<Image | undefined>();
+  const [selectedPhoto, setSelectedPhoto] = useState<string>();
 
   // Fetching person details
   const personQuery = useQuery([`person-${id}`, id], async () => {
@@ -180,7 +171,7 @@ const Person = (): ReactElement => {
   const handleGetKnownFor = (): KnownForType => {
     const filtered = new Set();
     const credits = [...(creditsQuery.data?.cast || []), ...(creditsQuery.data?.crew || [])];
-    const knownFor = arraySort(
+    const knownFor = sort(
       credits.filter((mediaItem) => {
         const duplicate = filtered.has(mediaItem.id);
         filtered.add(mediaItem.id);
@@ -198,18 +189,9 @@ const Person = (): ReactElement => {
    *
    * @param image - Image object
    */
-  const handleOnImageClick = (image?: Image): void => {
-    setSelectedPhoto(image || undefined);
+  const handleOnImageClick = (path: string): void => {
+    setSelectedPhoto(path || undefined);
     onMediaViewerOpen();
-  };
-
-  /**
-   * This method will find the image object from images and then it will open the media modal
-   *
-   * @param path - Image path
-   */
-  const handleOnPosterClick = (path: string): void => {
-    handleOnImageClick(imagesQuery.data?.profiles.find((image) => image.file_path === path));
   };
 
   const knownFor = creditsQuery.isSuccess ? handleGetKnownFor() : [];
@@ -232,7 +214,7 @@ const Person = (): ReactElement => {
           personQuery.isFetching || personQuery.isLoading || externalIdsQuery.isFetching || externalIdsQuery.isLoading
         }
         isError={personQuery.isError || personQuery.isError}
-        onClickPoster={handleOnPosterClick}
+        onClickPoster={handleOnImageClick}
       />
 
       {personQuery.data?.biography || personQuery.isFetching || personQuery.isLoading ? (
@@ -275,8 +257,12 @@ const Person = (): ReactElement => {
       {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
         <MediaViewer
           isOpen={isMediaViewerOpen}
-          selectedImage={selectedPhoto}
-          images={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
+          selected={{
+            type: 'photo',
+            asset: selectedPhoto
+          }}
+          photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
+          mediaType='person'
           onClose={onMediaViewerClose}
         />
       ) : null}

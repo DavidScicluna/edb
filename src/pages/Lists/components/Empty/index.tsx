@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Box, HStack, Text } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import Empty from '../../../../components/Empty';
 import { EmptyListProps } from './types';
@@ -24,7 +24,7 @@ const EmptyList = (props: EmptyListProps): ReactElement => {
             {mediaTypeLabel ? (
               <>
                 <Button
-                  color={utils.handleReturnColor(color)}
+                  color={handleReturnColor(color)}
                   onClick={() => history.push({ pathname: `/lists/${id}` })}
                   size='sm'
                   variant='outlined'>
@@ -36,7 +36,7 @@ const EmptyList = (props: EmptyListProps): ReactElement => {
               </>
             ) : null}
             <Button
-              color={utils.handleReturnColor(color)}
+              color={handleReturnColor(color)}
               onClick={() => history.push({ pathname: '/lists' })}
               size='sm'
               variant='outlined'>

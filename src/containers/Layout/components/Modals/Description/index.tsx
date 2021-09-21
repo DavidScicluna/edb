@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
-import utils from '../../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import Modal from '../../../../../components/Modal';
@@ -22,7 +22,7 @@ const DescriptionModal = (): ReactElement => {
       title={`${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : 'Unknown'} description`}
       actions={
         <Link to={{ pathname: `/${defaultDescriptionModal.mediaType}/${descriptionModal.mediaItem?.id}` }}>
-          <Button color={utils.handleReturnColor(color)} size='sm'>
+          <Button color={handleReturnColor(color)} size='sm'>
             {`View ${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : ''}`}
           </Button>
         </Link>

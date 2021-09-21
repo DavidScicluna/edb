@@ -1,30 +1,31 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { Box } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory, useLocation, Switch, Route } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
-import utils from '../../../../common/utils/utils';
+import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';
 import Liked from '../../../../pages/Liked';
 import Lists from '../../../../pages/Lists';
+import Movie from '../../../../pages/Movie';
 import Movies from '../../../../pages/Movies';
-import MoviesNowPlaying from '../../../../pages/Movies/NowPlaying';
-import PopularMovies from '../../../../pages/Movies/Popular';
-import TopRatedMovies from '../../../../pages/Movies/TopRated';
-import UpcomingMovies from '../../../../pages/Movies/Upcoming';
+import MoviesNowPlaying from '../../../../pages/Movies/pages/NowPlaying';
+import PopularMovies from '../../../../pages/Movies/pages/Popular';
+import TopRatedMovies from '../../../../pages/Movies/pages/TopRated';
+import UpcomingMovies from '../../../../pages/Movies/pages/Upcoming';
 import People from '../../../../pages/People';
 import Person from '../../../../pages/Person';
 import Search from '../../../../pages/Search';
 import Trending from '../../../../pages/Trending';
 import TV from '../../../../pages/TV';
-import TVAiringToday from '../../../../pages/TV/AiringToday';
-import OnTV from '../../../../pages/TV/OnTV';
-import PopularTV from '../../../../pages/TV/Popular';
-import TopRatedTV from '../../../../pages/TV/TopRated';
+import TVAiringToday from '../../../../pages/TV/pages/AiringToday';
+import OnTV from '../../../../pages/TV/pages/OnTV';
+import PopularTV from '../../../../pages/TV/pages/Popular';
+import TopRatedTV from '../../../../pages/TV/pages/TopRated';
 
 const ComponentBox = motion(Box);
 
@@ -139,6 +140,11 @@ const Routes = (): ReactElement => {
             <TopRatedMovies />
           </Page>
         </Route>
+        <Route exact path='/movie/:id'>
+          <Page>
+            <Movie />
+          </Page>
+        </Route>
 
         {/* TV Routes */}
         <Route exact path='/tv'>
@@ -188,13 +194,13 @@ const Routes = (): ReactElement => {
               actions={
                 <>
                   <Button
-                    color={utils.handleReturnColor(color)}
+                    color={handleReturnColor(color)}
                     onClick={() => history.push({ pathname: '/' })}
                     variant='outlined'>
                     Go back home
                   </Button>
                   <Button
-                    color={utils.handleReturnColor(color)}
+                    color={handleReturnColor(color)}
                     onClick={() => {
                       window.location.reload();
                       return false;

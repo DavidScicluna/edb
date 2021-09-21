@@ -1,7 +1,12 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
+import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon
+} from '@material-ui/icons';
 
+import Button from '../../../../../../../../../components/Clickable/Button';
 import Like from '../../../../../../../../../components/Like';
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import Date from '../../../../../../../../../pages/Person/components/Details/components/Date';
@@ -11,7 +16,7 @@ import { ContainerProps } from './types';
 
 const Container = (props: ContainerProps): ReactElement => {
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const {
     person,
@@ -50,24 +55,20 @@ const Container = (props: ContainerProps): ReactElement => {
 
         <ScaleFade in={!isError} unmountOnExit>
           <Like
-            buttonType='button'
-            isDisabled={isLoading}
-            title={person?.name || ''}
+            renderButton={({ isLiked, onClick }) => (
+              <Button
+                color={isLiked ? 'red' : 'gray'}
+                isFullWidth={isSm}
+                isDisabled={isLoading || !person}
+                leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+                onClick={() => onClick()}
+                size='md'
+                variant='outlined'>
+                Like
+              </Button>
+            )}
             mediaType='person'
-            mediaItem={
-              person
-                ? {
-                    known_for_department: person.known_for_department,
-                    id: person.id,
-                    name: person.name,
-                    gender: person.gender,
-                    popularity: person.popularity,
-                    profile_path: person.profile_path,
-                    adult: person.adult
-                  }
-                : undefined
-            }
-            size='md'
+            mediaItem={person}
           />
         </ScaleFade>
       </VStack>

@@ -1,10 +1,10 @@
-import { Image } from '../../../../common/types/person';
+import { Profile } from '../../../../common/types/person';
 
 export type PhotosProps = {
-  images: Image[];
+  images: Profile[];
   name?: string;
   isError?: boolean;
   isSuccess?: boolean;
   isLoading?: boolean;
-  onClickImage: (image?: Image) => void;
+  onClickImage: (path: string) => void;
 };

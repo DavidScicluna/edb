@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Wrap, WrapItem } from '@chakra-ui/react';
 import { Controller } from 'react-hook-form';
@@ -49,7 +49,7 @@ const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
       control={form.control}
       name='genres'
       render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth p={2}>
+        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth px={2} pt={1.5} pb={2}>
           {{
             header: {
               actions: (

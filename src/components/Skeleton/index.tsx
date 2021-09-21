@@ -1,22 +1,31 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
-import { useColorMode, Skeleton as CUISkeleton } from '@chakra-ui/react';
+import { useTheme, useColorMode, Skeleton as CUISkeleton } from '@chakra-ui/react';
 
+import { handleReturnNumberFromString } from '../../common/utils';
+import { Theme } from '../../theme/types';
 import commonProps from './common/props';
-import utils from './common/utils/utils';
+import { handleReturnColors } from './common/utils';
 import { SkeletonProps } from './types';
 
 const Skeleton = (props: SkeletonProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { children, color = 'gray', ...rest } = props;
+  const { children, color = 'gray', isLoaded = false, type = 'default', ...rest } = props;
 
   return (
     <CUISkeleton
       {...rest}
       {...commonProps}
-      startColor={utils.handleReturnColors('start', color, colorMode)}
-      endColor={utils.handleReturnColors('end', color, colorMode)}>
+      isLoaded={isLoaded}
+      fadeDuration={
+        type === 'default' && !isLoaded
+          ? handleReturnNumberFromString(theme.transition.duration['normal'], 'ms') / 250
+          : 0
+      }
+      startColor={handleReturnColors('start', color, colorMode)}
+      endColor={handleReturnColors('end', color, colorMode)}>
       {children}
     </CUISkeleton>
   );

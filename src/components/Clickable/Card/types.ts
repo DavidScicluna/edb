@@ -10,7 +10,7 @@ export type CardProps = {
   color?: Theme['color'];
   colorMode?: ColorMode;
   isFullWidth?: boolean;
-  isLightGray?: boolean;
+  isLight?: boolean;
   isDisabled?: boolean;
   isClickable?: boolean;
 } & BoxProps;

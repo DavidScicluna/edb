@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
 
@@ -7,10 +7,10 @@ import Card from '../../../../../../../../../../components/Card';
 import { ListProps } from './types';
 
 const Panel = ({ children, title, total }: ListProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 480px)');
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   return (
-    <Card box={{ header: { pb: 2 }, body: { pt: 2 } }} isFullWidth variant='transparent'>
+    <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth variant='transparent'>
       {{
         header: {
           title,
