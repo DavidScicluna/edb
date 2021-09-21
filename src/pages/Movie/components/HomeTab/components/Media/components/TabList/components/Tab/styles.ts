@@ -44,7 +44,7 @@ export default (theme: Theme, color: UserTheme['color'], isSelected = false): Ta
   },
   dark: {
     'color': isSelected ? 'gray.900' : 'gray.500',
-    'backgroundColor': isSelected ? `${color}.200` : 'transparent',
+    'backgroundColor': isSelected ? `${color}.500` : 'transparent',
 
     '&:hover': {
       color: isSelected ? 'gray.900' : 'gray.400',

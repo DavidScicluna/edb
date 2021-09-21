@@ -4,6 +4,7 @@ import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@ch
 import _ from 'lodash';
 
 import { useWindowSize, useElementSize } from '../../../../common/hooks';
+import { handleFormatIntoParagraphs } from '../../../../common/utils';
 import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
 import SkeletonText from '../../../../components/Skeleton/Text';
@@ -32,10 +33,8 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
     [biographyRef]
   );
 
-  const handleResize = useCallback(() => handleBiographyRef(biographyRef.current), [biographyRef, handleBiographyRef]);
-
   useEffect(() => {
-    handleResize();
+    handleBiographyRef(biographyRef.current);
   }, [windowWidth]);
 
   return (
@@ -53,12 +52,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
           title: 'Biography',
           actions: (
             <ScaleFade in={(height || 0) > 44} unmountOnExit>
-              <Button
-                isDisabled={isLoading}
-                isFullWidth
-                onClick={() => setIsExpanded.toggle()}
-                size='sm'
-                variant='text'>
+              <Button isDisabled={isLoading} onClick={() => setIsExpanded.toggle()} size='sm' variant='text'>
                 {isExpanded ? 'Collapse' : 'Expand'}
               </Button>
             </ScaleFade>
@@ -66,8 +60,8 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
         },
         body: !isLoading ? (
           <Collapse startingHeight={(height || 44) >= 44 ? 44 : elementHeight || 44} in={isExpanded}>
-            <VStack ref={biographyRef} width='100%' spacing={2}>
-              {biography.split('\n'[0]).map((paragraph, index) => (
+            <VStack ref={biographyRef} width='100%' alignItems='flex-start' spacing={2}>
+              {handleFormatIntoParagraphs(biography).map((paragraph, index) => (
                 <Text
                   key={index}
                   align='left'

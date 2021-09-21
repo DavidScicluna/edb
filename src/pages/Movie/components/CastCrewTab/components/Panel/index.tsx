@@ -11,14 +11,7 @@ const Panel = ({ children, title, total }: PanelProps): ReactElement => {
   const [isSmallMob] = useMediaQuery('(max-width: 340px)');
 
   return (
-    <Card
-      box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }}
-      isFullWidth
-      hasDivider
-      variant='outlined'
-      px={2}
-      pt={1.5}
-      pb={2}>
+    <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth hasDivider px={2} pt={1.5} pb={2}>
       {{
         header: {
           title,

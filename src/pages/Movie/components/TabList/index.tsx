@@ -6,7 +6,7 @@ import Tab from './components/Tab';
 import { TabListProps, Tab as TabType } from './types';
 
 const TabList = (props: TabListProps): ReactElement => {
-  const { activeTab, reviews, castCrew, isLoading } = props;
+  const { activeTab, reviews, castCrew, isDisabled } = props;
 
   const renderTabs: TabType[] = [
     {
@@ -14,12 +14,12 @@ const TabList = (props: TabListProps): ReactElement => {
     },
     {
       label: 'Cast & Crew',
-      isDisabled: isLoading.credits,
+      isDisabled: isDisabled.credits,
       badge: castCrew ? String(castCrew) : undefined
     },
     {
       label: 'Reviews',
-      isDisabled: isLoading.reviews || reviews === 0,
+      isDisabled: isDisabled.reviews || reviews === 0,
       badge: String(reviews)
     }
   ];

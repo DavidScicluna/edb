@@ -17,6 +17,16 @@ export const handleFormatMoney = (money: number): string => {
 };
 
 /**
+ * This method will take a block of string and will format it into paragraphs
+ *
+ * @param content String - The content block to format into paragraphs
+ * @returns Array of paragraphs
+ */
+export const handleFormatIntoParagraphs = (content: string): string[] => {
+  return content.split('\n'[0]);
+};
+
+/**
  * This method will return the genres names from the genre ids
  *
  * @param genres - Genres ids

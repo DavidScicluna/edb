@@ -8,5 +8,5 @@ export type TabListProps = {
   activeTab: number;
   reviews: number;
   castCrew: number;
-  isLoading: { credits: boolean; reviews: boolean };
+  isDisabled: { credits: boolean; reviews: boolean };
 };
