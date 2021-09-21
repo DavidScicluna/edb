@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RefObject, useEffect, useRef } from 'react';
 
 /**

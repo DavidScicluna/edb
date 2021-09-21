@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import sort from 'array-sort';
 import _ from 'lodash';

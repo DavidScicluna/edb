@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { VStack, SlideFade } from '@chakra-ui/react';
 

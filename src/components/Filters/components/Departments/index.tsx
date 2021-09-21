@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Wrap, WrapItem } from '@chakra-ui/react';
 import { Controller, UseFormReturn } from 'react-hook-form';

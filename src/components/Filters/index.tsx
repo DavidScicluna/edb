@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { useDisclosure, VStack } from '@chakra-ui/react';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';

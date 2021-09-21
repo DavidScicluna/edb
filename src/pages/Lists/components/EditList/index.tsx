@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { VStack, FormControl, FormLabel, Input, Textarea, FormHelperText, Collapse } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';

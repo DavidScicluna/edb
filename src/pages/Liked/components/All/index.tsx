@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, VStack, Center, Text, Collapse } from '@chakra-ui/react';
 

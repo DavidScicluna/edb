@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, Text } from '@chakra-ui/react';
 import queryString from 'query-string';

@@ -1,4 +1,4 @@
-import React, { ReactElement, MouseEvent } from 'react';
+import { ReactElement, MouseEvent } from 'react';
 
 import { useMediaQuery, useBoolean, VStack, HStack } from '@chakra-ui/react';
 import {

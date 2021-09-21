@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, Center, Icon, Text } from '@chakra-ui/react';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';

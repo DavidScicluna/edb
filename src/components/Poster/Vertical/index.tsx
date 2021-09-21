@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useBoolean, VStack, HStack, Box, AspectRatio, ScaleFade } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';

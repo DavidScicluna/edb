@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, Icon, Text, HStack } from '@chakra-ui/react';
 

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, VStack } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';

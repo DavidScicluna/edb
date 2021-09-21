@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { useTheme, useColorMode, useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import {

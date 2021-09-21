@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Box, HStack, Text } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';

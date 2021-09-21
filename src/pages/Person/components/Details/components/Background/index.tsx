@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, Box } from '@chakra-ui/react';
 import _ from 'lodash';

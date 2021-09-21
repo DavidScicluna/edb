@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 import {

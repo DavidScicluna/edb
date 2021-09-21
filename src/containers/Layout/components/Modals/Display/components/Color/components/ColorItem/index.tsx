@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useBoolean, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';

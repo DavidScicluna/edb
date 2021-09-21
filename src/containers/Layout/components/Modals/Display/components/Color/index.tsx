@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import { UseFormReturn, Controller } from 'react-hook-form';

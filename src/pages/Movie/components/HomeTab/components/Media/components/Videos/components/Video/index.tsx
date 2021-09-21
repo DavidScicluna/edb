@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useBoolean, Box } from '@chakra-ui/react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';

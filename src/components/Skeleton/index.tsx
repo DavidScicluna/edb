@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Skeleton as CUISkeleton } from '@chakra-ui/react';
 

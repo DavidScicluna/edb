@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { useMediaQuery, Box, VStack, HStack } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 import _ from 'lodash';

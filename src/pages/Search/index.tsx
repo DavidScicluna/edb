@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useDisclosure, useMediaQuery, useBoolean, VStack, HStack, Box, ScaleFade, SlideFade } from '@chakra-ui/react';
 import sort from 'array-sort';

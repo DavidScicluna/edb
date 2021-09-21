@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, SkeletonCircle as CUISkeletonCircle, SkeletonProps } from '@chakra-ui/react';
 

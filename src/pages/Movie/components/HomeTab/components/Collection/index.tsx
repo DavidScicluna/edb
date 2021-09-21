@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { handleReturnDate } from '../../../../../../common/utils';
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';

@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react';
+import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';

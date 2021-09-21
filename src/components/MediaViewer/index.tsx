@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useColorMode, useDisclosure, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
 import { Swiper } from 'swiper';

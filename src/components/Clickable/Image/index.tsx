@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react';
+import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, Box, AspectRatio, Center, Icon, Fade } from '@chakra-ui/react';
 import { SearchOutlined as SearchOutlinedIcon, CheckOutlined as CheckOutlinedIcon } from '@material-ui/icons';

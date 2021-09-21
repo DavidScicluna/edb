@@ -1,4 +1,4 @@
-import React, { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, Spinner, Icon, Button as CUIButton } from '@chakra-ui/react';
 import _ from 'lodash';

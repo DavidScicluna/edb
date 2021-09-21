@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { Box } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, Box, Text, Fade } from '@chakra-ui/react';
 import { useInView } from 'react-intersection-observer';

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, HStack, VStack, Avatar, Text } from '@chakra-ui/react';
 import moment from 'moment';

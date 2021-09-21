@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, useDisclosure, Tabs, TabPanels, TabPanel, ScaleFade, SlideFade } from '@chakra-ui/react';
 import sort from 'array-sort';
@@ -11,7 +11,7 @@ import {
   Review,
   FullMovie,
   Credits,
-  ExternalIDs,
+  // ExternalIDs,
   ImageResponse,
   VideoResponse,
   PartialMovie
@@ -61,12 +61,12 @@ const Movie = (): ReactElement => {
   });
 
   // Fetching movie external ids
-  const externalIdsQuery = useQuery([`movie-external_ids-${id}`, id], async () => {
-    const { data } = await axiosInstance.get<ExternalIDs>(`/movie/${id}/external_ids`, {
-      cancelToken: source.token
-    });
-    return data;
-  });
+  // const externalIdsQuery = useQuery([`movie-external_ids-${id}`, id], async () => {
+  //   const { data } = await axiosInstance.get<ExternalIDs>(`/movie/${id}/external_ids`, {
+  //     cancelToken: source.token
+  //   });
+  //   return data;
+  // });
 
   // Fetching movie images
   const imagesQuery = useQuery([`movie-images-${id}`, id], async () => {

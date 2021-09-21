@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { ExpandedIndex, VStack, Collapse, ScaleFade } from '@chakra-ui/react';
 

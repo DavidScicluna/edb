@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 import YouTubeIcon from '@material-ui/icons/YouTube';

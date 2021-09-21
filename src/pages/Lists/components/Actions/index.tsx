@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery, HStack, VStack, Fade, ScaleFade } from '@chakra-ui/react';
 import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
