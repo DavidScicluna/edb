@@ -16,6 +16,19 @@ import { setLists } from '../../../../store/slices/User';
 import { CreateListProps, Form } from './types';
 import { defaultValues, schema } from './validation';
 
+const placeholders = [
+  'Action Movies',
+  'DC Movies',
+  'Leonardo DiCaprio',
+  'Classics',
+  'Comedy',
+  'Mafia Movies & TV Shows',
+  'Jennifer Lawrence',
+  'Johnny Depp',
+  'Angelina Jolie'
+];
+const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
+
 const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
@@ -111,7 +124,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
           render={({ field: { onChange, value, name }, fieldState: { error } }) => (
             <FormControl id={name} isRequired>
               <FormLabel fontSize='sm' mb={1}>
-                Label
+                Name
               </FormLabel>
               <Input
                 autoComplete='off'
@@ -121,7 +134,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
                 isInvalid={Boolean(error)}
                 fontSize='md'
                 name={name}
-                placeholder='Try "DC Movies"'
+                placeholder={`Try "${placeholder}"`}
                 onChange={onChange}
                 onKeyDown={handleKeyDown}
                 size='lg'

@@ -4,7 +4,7 @@ import { MediaType } from '../../common/types/types';
 import { GetMediaType, List } from '../../store/slices/User/types';
 
 type RenderButtonProps = {
-  list?: List;
+  lists?: List[];
   isBookmarked: boolean;
   onClick: () => void;
 };

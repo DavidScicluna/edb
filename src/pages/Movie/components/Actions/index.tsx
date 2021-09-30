@@ -33,7 +33,7 @@ const Actions = (props: ActionsProps): ReactElement => {
       divider={<Box width='2px' height={height} backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />}
       spacing={2}>
       <Bookmark
-        renderButton={({ list, isBookmarked, onClick }) => (
+        renderButton={({ lists, isBookmarked, onClick }) => (
           <Button
             color={isBookmarked ? handleReturnColor(color) : 'gray'}
             isFullWidth={isSm}
@@ -41,7 +41,11 @@ const Actions = (props: ActionsProps): ReactElement => {
             onClick={() => onClick()}
             size='md'
             variant='outlined'>
-            {isBookmarked ? `In ${list?.label ? `"${list.label}"` : ''} list` : 'Add to a list'}
+            {isBookmarked
+              ? `In ${
+                  lists && (lists?.length || 0) === 1 ? `${lists[0].label ? `"${lists[0].label}" list` : ''}` : 'lists'
+                }`
+              : 'Add to a list'}
           </Button>
         )}
         title={title || ''}

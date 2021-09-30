@@ -3,19 +3,23 @@ import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../common/hooks';
-import { toggleList } from '../../store/slices/Modals';
+import { handleReturnColor } from '../../common/utils';
+import { toggleConfirm, toggleList } from '../../store/slices/Modals';
 import { setLists } from '../../store/slices/User';
 import { List } from '../../store/slices/User/types';
+import Button from '../Clickable/Button';
 import { BookmarkProps } from './types';
 
 const Bookmark = (props: BookmarkProps): ReactElement => {
   const dispatch = useDispatch();
-  const lists = useSelector((state) => state.user.data.lists);
+  const allLists = useSelector((state) => state.user.data.lists);
+  const color = useSelector((state) => state.user.ui.theme.color);
+  const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
 
   const { renderButton, title, mediaType, mediaItem } = props;
 
-  const list = mediaItem
-    ? lists.find((list) => {
+  const lists = mediaItem
+    ? allLists.filter((list) => {
         switch (mediaType) {
           case 'movie':
             return list.results.movies.some((movie) => movie.id === mediaItem.id);
@@ -26,37 +30,57 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
         }
       })
     : undefined;
-  const isBookmarked: boolean = list
-    ? mediaType === 'movie'
-      ? list.results.movies.some((movie) => movie.id === mediaItem?.id)
-      : list.results.tv.some((show) => show.id === mediaItem?.id)
-    : false;
+  const isBookmarked: boolean = lists && (lists.length || 0) > 0 ? true : false;
 
-  const handleRemoveBookmark = (list: List): void => {
-    const results = { ...list.results };
-
-    switch (mediaType) {
-      case 'movie':
-        results.movies = results.movies.filter((movie) => movie.id !== mediaItem?.id) || [];
-        break;
-      case 'tv':
-        results.tv = results.tv.filter((show) => show.id !== mediaItem?.id) || [];
-        break;
-      default:
-        break;
-    }
-
+  const handleRemoveBookmark = (lists: List[]): void => {
     dispatch(
       setLists(
-        lists.map((paramList) =>
-          paramList.id === list.id
-            ? {
-                ...paramList,
-                results: { ...results }
-              }
-            : paramList
-        )
+        allLists.map((list) => {
+          if (lists.includes(list)) {
+            const results = { ...list.results };
+
+            switch (mediaType) {
+              case 'movie':
+                results.movies = results.movies.filter((movie) => movie.id !== mediaItem?.id) || [];
+                break;
+              case 'tv':
+                results.tv = results.tv.filter((show) => show.id !== mediaItem?.id) || [];
+                break;
+              default:
+                break;
+            }
+
+            return { ...list, results: { ...results } };
+          } else {
+            return list;
+          }
+        })
       )
+    );
+  };
+
+  const handleOpenConfirmModal = (): void => {
+    dispatch(
+      toggleConfirm({
+        open: true,
+        title: `Remove "${title}" ${mediaType} from lists?`,
+        description: `Are you sure you want to remove "${title}" ${mediaType} from ${lists
+          ?.map((list) => `"${list.label}"`)
+          .filter((list) => list)
+          .join(', ')} lists?`,
+        submitButton: (
+          <Button
+            color={handleReturnColor(color)}
+            onClick={() => {
+              handleRemoveBookmark(lists || []);
+
+              dispatch(toggleConfirm({ ...confirmModal, open: false }));
+            }}
+            size='sm'>
+            Remove
+          </Button>
+        )
+      })
     );
   };
 
@@ -76,9 +100,14 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
   };
 
   return renderButton({
-    list,
+    lists,
     isBookmarked,
-    onClick: isBookmarked && list ? () => handleRemoveBookmark(list) : () => handleOpenListsModal()
+    onClick:
+      isBookmarked && lists && (lists?.length || 0) > 0
+        ? lists.length > 1
+          ? () => handleOpenConfirmModal()
+          : () => handleRemoveBookmark(lists)
+        : () => handleOpenListsModal()
   });
 };
 
