@@ -99,7 +99,7 @@ const OnTV = (): ReactElement => {
           open: true,
           title: 'Filters',
           description: 'Are you sure you want to load more TV shows? Filters will be reset!',
-          stringifiedButtonProps: JSON.stringify({
+          stringifiedButtonProps: _.toString({
             color: handleReturnColor(color),
             label: 'Load more',
             onClick: () => handleResetFilters()

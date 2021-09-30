@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import _ from 'lodash';
 
 import { StateProps, ListModal, DescriptionModal, ConfirmModal, QuickViewModal } from './types';
 
@@ -19,7 +20,7 @@ export const defaultConfirmModal: ConfirmModal = {
   open: false,
   title: 'Lorem ipsum',
   description: 'Lorem ipsum dolor sit amet',
-  stringifiedButtonProps: JSON.stringify({
+  stringifiedButtonProps: _.toString({
     label: 'Close',
     isDisabled: true
   })

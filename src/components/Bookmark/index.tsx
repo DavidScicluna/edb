@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 
+import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../common/hooks';
@@ -67,7 +68,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
           ?.map((list) => `"${list.label}"`)
           .filter((list) => list)
           .join(', ')} lists?`,
-        stringifiedButtonProps: JSON.stringify({
+        stringifiedButtonProps: _.toString({
           color: handleReturnColor(color),
           label: 'Remove',
           onClick: () => {

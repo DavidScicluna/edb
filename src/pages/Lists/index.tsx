@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
+import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -224,7 +225,7 @@ const Lists = (): ReactElement => {
                     description: `Are you sure you want to delete the ${
                       selected?.label ? `"${selected.label}"` : ''
                     } list? You will not be able to retrieve this list back!`,
-                    stringifiedButtonProps: JSON.stringify({
+                    stringifiedButtonProps: _.toString({
                       color: 'red',
                       label: 'Delete',
                       onClick: () => {

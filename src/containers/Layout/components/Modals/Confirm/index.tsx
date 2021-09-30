@@ -13,7 +13,7 @@ const ConfirmModal = (): ReactElement => {
   const dispatch = useDispatch();
   const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
 
-  const buttonProps = JSON.parse(confirmModal.stringifiedButtonProps || '');
+  const buttonProps = _.toPlainObject(confirmModal.stringifiedButtonProps || '');
 
   return (
     <Modal

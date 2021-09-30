@@ -2,6 +2,7 @@ import { ReactElement, useEffect } from 'react';
 
 import { VStack, FormControl, FormLabel, Input, Textarea, FormHelperText, Collapse } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import _ from 'lodash';
 import moment from 'moment';
 import { useForm, useFormState, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -67,7 +68,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
           open: true,
           title: 'Unsaved data!',
           description: 'Are you sure you want to close the modal, the data inserted will be lost unless you save it!',
-          stringifiedButtonProps: JSON.stringify({
+          stringifiedButtonProps: _.toString({
             color: handleReturnColor(color),
             label: 'Close',
             onClick: () => {
