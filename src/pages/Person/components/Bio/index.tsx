@@ -53,13 +53,13 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
           actions: (
             <ScaleFade in={(height || 0) > 44} unmountOnExit>
               <Button isDisabled={isLoading} onClick={() => setIsExpanded.toggle()} size='sm' variant='text'>
-                {isExpanded ? 'Collapse' : 'Expand'}
+                {`Read ${isExpanded ? 'Less' : 'More'}`}
               </Button>
             </ScaleFade>
           )
         },
         body: !isLoading ? (
-          <Collapse startingHeight={(height || 44) >= 44 ? 44 : elementHeight || 44} in={isExpanded}>
+          <Collapse in={isExpanded} startingHeight={(height || 44) >= 44 ? 44 : elementHeight || 44}>
             <VStack ref={biographyRef} width='100%' alignItems='flex-start' spacing={2}>
               {handleFormatIntoParagraphs(biography).map((paragraph, index) => (
                 <Text
@@ -78,8 +78,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
             {_.range(0, 3).map((_dummy, index) => (
               <SkeletonText key={index} width='100%' offsetY={6} isLoaded={!isLoading}>
                 <Text align='left' fontSize='xs'>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
+                  Lorem ipsum dolor sit amet
                 </Text>
               </SkeletonText>
             ))}

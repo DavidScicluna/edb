@@ -15,7 +15,7 @@ const Collection = (props: CollectionProps): ReactElement => {
   };
 
   return (
-    <HorizontalGrid title={`Part of the "${handleTitle()}" franchise`} isLoading={false} hasDivider variant='outlined'>
+    <HorizontalGrid title={`Part of the "${handleTitle()}" Franchise`} isLoading={false} hasDivider variant='outlined'>
       <>
         {parts.map((mediaItem) => (
           <VerticalPoster

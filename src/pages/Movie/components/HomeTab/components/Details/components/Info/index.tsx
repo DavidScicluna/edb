@@ -86,6 +86,16 @@ const Info = (props: InfoProps): ReactElement => {
     }
   ];
 
+  const handleMaxWidth = (): string => {
+    let elements = 3;
+
+    if ((languages?.length || 0) > 1) {
+      elements = elements + 1;
+    }
+
+    return `${100 / elements}%`;
+  };
+
   return (
     <Stack
       width='100%'
@@ -95,7 +105,12 @@ const Info = (props: InfoProps): ReactElement => {
       spacing={isSm ? 2 : 4}>
       {renderInfo.map((item, index) =>
         item.children ? (
-          <Label key={index} width={isSm ? '100%' : 'auto'} flex={1} label={item.label}>
+          <Label
+            key={index}
+            width={isSm ? '100%' : 'auto'}
+            maxWidth={isSm ? '100%' : !isLoading ? handleMaxWidth() : `${100 / 4}%`}
+            flex={1}
+            label={item.label}>
             {item.children}
           </Label>
         ) : null
