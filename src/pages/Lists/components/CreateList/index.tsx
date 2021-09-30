@@ -85,17 +85,14 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
           open: true,
           title: 'Unsaved data!',
           description: 'Are you sure you want to close the modal, the data inserted will be lost unless you save it!',
-          submitButton: (
-            <Button
-              color={handleReturnColor(color)}
-              onClick={() => {
-                dispatch(toggleConfirm({ ...confirmModal, open: false }));
-                handleClose();
-              }}
-              size='sm'>
-              Close
-            </Button>
-          )
+          stringifiedButtonProps: JSON.stringify({
+            color: handleReturnColor(color),
+            label: 'Close',
+            onClick: () => {
+              dispatch(toggleConfirm({ ...confirmModal, open: false }));
+              handleClose();
+            }
+          })
         })
       );
     }
@@ -130,7 +127,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
                 autoComplete='off'
                 errorBorderColor='red.400'
                 focusBorderColor={`${handleReturnColor(color)}.400`}
-                isFullWidth
+                // isFullWidth
                 isInvalid={Boolean(error)}
                 fontSize='md'
                 name={name}
@@ -159,9 +156,10 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
                 autoComplete='off'
                 errorBorderColor='red.400'
                 focusBorderColor={`${handleReturnColor(color)}.400`}
-                isFullWidthname={name}
+                // isFullWidth
                 isInvalid={Boolean(error)}
                 fontSize='md'
+                name={name}
                 onChange={onChange}
                 size='lg'
                 value={value}

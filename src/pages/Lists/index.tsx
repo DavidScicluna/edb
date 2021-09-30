@@ -19,7 +19,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from '../../common/hooks';
 import { Genre, MediaType, SortBy } from '../../common/types/types';
 import Badge from '../../components/Badge';
-import Button from '../../components/Clickable/Button';
 import Empty from '../../components/Empty';
 import VerticalGrid from '../../components/Grid/Vertical';
 import MediaTypePicker from '../../components/MediaTypePicker';
@@ -225,18 +224,15 @@ const Lists = (): ReactElement => {
                     description: `Are you sure you want to delete the ${
                       selected?.label ? `"${selected.label}"` : ''
                     } list? You will not be able to retrieve this list back!`,
-                    submitButton: (
-                      <Button
-                        color='red'
-                        onClick={() => {
-                          dispatch(setLists(lists.filter((paramList) => paramList.id !== selected?.id)));
-                          dispatch(toggleConfirm({ ...confirmModal, open: false }));
-                          handleCloseToast();
-                        }}
-                        size='sm'>
-                        Delete
-                      </Button>
-                    )
+                    stringifiedButtonProps: JSON.stringify({
+                      color: 'red',
+                      label: 'Delete',
+                      onClick: () => {
+                        dispatch(setLists(lists.filter((paramList) => paramList.id !== selected?.id)));
+                        dispatch(toggleConfirm({ ...confirmModal, open: false }));
+                        handleCloseToast();
+                      }
+                    })
                   })
                 )
               }

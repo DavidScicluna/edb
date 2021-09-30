@@ -1,6 +1,5 @@
-import { ReactElement } from 'react';
-
 import { MediaType } from '../../../common/types/types';
+import { ButtonProps } from '../../../components/Clickable/Button/types';
 import { GetMediaType } from '../User/types';
 
 export interface ListModal {
@@ -20,7 +19,7 @@ export type ConfirmModal = {
   open: boolean;
   title: string;
   description: string;
-  submitButton?: ReactElement;
+  stringifiedButtonProps?: string;
 };
 
 export type QuickViewModal = {

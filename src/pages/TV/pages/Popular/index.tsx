@@ -12,7 +12,6 @@ import axiosInstance from '../../../../common/scripts/axios';
 import { PartialTV } from '../../../../common/types/tv';
 import { Response, SortBy, Genre } from '../../../../common/types/types';
 import { handleCheckHasFilters, handleReturnColor } from '../../../../common/utils';
-import Button from '../../../../components/Clickable/Button';
 import Filters from '../../../../components/Filters';
 import VerticalGrid from '../../../../components/Grid/Vertical';
 import LoadMore from '../../../../components/LoadMore';
@@ -100,11 +99,11 @@ const PopularTV = (): ReactElement => {
           open: true,
           title: 'Filters',
           description: 'Are you sure you want to load more TV shows? Filters will be reset!',
-          submitButton: (
-            <Button color={handleReturnColor(color)} onClick={() => handleResetFilters()} size='sm'>
-              Load more
-            </Button>
-          )
+          stringifiedButtonProps: JSON.stringify({
+            color: handleReturnColor(color),
+            label: 'Load more',
+            onClick: () => handleResetFilters()
+          })
         })
       );
     } else {

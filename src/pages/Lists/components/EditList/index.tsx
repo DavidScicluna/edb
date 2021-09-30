@@ -67,17 +67,14 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
           open: true,
           title: 'Unsaved data!',
           description: 'Are you sure you want to close the modal, the data inserted will be lost unless you save it!',
-          submitButton: (
-            <Button
-              color={handleReturnColor(color)}
-              onClick={() => {
-                dispatch(toggleConfirm({ ...confirmModal, open: false }));
-                handleClose();
-              }}
-              size='sm'>
-              Close
-            </Button>
-          )
+          stringifiedButtonProps: JSON.stringify({
+            color: handleReturnColor(color),
+            label: 'Close',
+            onClick: () => {
+              dispatch(toggleConfirm({ ...confirmModal, open: false }));
+              handleClose();
+            }
+          })
         })
       );
     }

@@ -7,7 +7,6 @@ import { handleReturnColor } from '../../common/utils';
 import { toggleConfirm, toggleList } from '../../store/slices/Modals';
 import { setLists } from '../../store/slices/User';
 import { List } from '../../store/slices/User/types';
-import Button from '../Clickable/Button';
 import { BookmarkProps } from './types';
 
 const Bookmark = (props: BookmarkProps): ReactElement => {
@@ -68,18 +67,15 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
           ?.map((list) => `"${list.label}"`)
           .filter((list) => list)
           .join(', ')} lists?`,
-        submitButton: (
-          <Button
-            color={handleReturnColor(color)}
-            onClick={() => {
-              handleRemoveBookmark(lists || []);
+        stringifiedButtonProps: JSON.stringify({
+          color: handleReturnColor(color),
+          label: 'Remove',
+          onClick: () => {
+            handleRemoveBookmark(lists || []);
 
-              dispatch(toggleConfirm({ ...confirmModal, open: false }));
-            }}
-            size='sm'>
-            Remove
-          </Button>
-        )
+            dispatch(toggleConfirm({ ...confirmModal, open: false }));
+          }
+        })
       })
     );
   };
