@@ -38,7 +38,6 @@
   "scripts": {
     "lint": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc",
-    "pnpify": "pnpify --sdk vscode",
     "start": "react-scripts start",
     "test": "react-scripts test",
     "build": "react-scripts build",
@@ -73,7 +72,6 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
-    "@yarnpkg/pnpify": "^3.0.0-rc.3",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-config-react": "^1.1.7",
