@@ -2,8 +2,8 @@ import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, Box, AspectRatio, Center, Icon, Fade } from '@chakra-ui/react';
 import { SearchOutlined as SearchOutlinedIcon, CheckOutlined as CheckOutlinedIcon } from '@material-ui/icons';
+import { useElementSize } from 'usehooks-ts';
 
-import { useElementSize } from '../../../common/hooks';
 import { Theme } from '../../../theme/types';
 import { ImageProps } from './types';
 

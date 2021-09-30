@@ -12,8 +12,8 @@ import {
 } from '@chakra-ui/react';
 import _ from 'lodash';
 import moment from 'moment';
+import { useWindowSize, useElementSize } from 'usehooks-ts';
 
-import { useWindowSize, useElementSize } from '../../../../../../common/hooks';
 import { handleFormatIntoParagraphs } from '../../../../../../common/utils';
 import Card from '../../../../../../components/Card';
 import Button from '../../../../../../components/Clickable/Button';

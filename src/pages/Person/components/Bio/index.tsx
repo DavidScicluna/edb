@@ -2,8 +2,8 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
+import { useWindowSize, useElementSize } from 'usehooks-ts';
 
-import { useWindowSize, useElementSize } from '../../../../common/hooks';
 import { handleFormatIntoParagraphs } from '../../../../common/utils';
 import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';

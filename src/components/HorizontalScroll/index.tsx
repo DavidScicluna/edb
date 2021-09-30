@@ -3,8 +3,8 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
+import { useWindowSize } from 'usehooks-ts';
 
-import { useWindowSize } from '../../common/hooks';
 import Arrow from './components/Arrow';
 import { HorizontalScrollProps, ScrollButtonsState, Direction } from './types';
 

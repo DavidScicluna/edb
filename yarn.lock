@@ -7263,6 +7263,7 @@ __metadata:
     redux-persist: ^6.0.0
     swiper: ^6.8.1
     typescript: ^4.2.4
+    usehooks-ts: ^1.0.3
     uuid: ^8.3.2
     web-vitals: ^1.1.1
     yup: ^0.32.9
@@ -17193,6 +17194,15 @@ typescript@^4.2.4:
   version: 3.1.1
   resolution: "use@npm:3.1.1"
   checksum: 8dd3bdeeda53864c779e0fa8d799064739708f80b45d06fa48a1a6ba192dc3f9e3266d4556f223cd718d27aedfd957922152e7463c00ac46e185f8331353fb6f
+  languageName: node
+  linkType: hard
+
+"usehooks-ts@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "usehooks-ts@npm:1.0.3"
+  peerDependencies:
+    react: ^17.0.2
+  checksum: ec7d641f0dea748744bd8d0baf62f44271d89bf7d1f8dcac9c514d8381a0f9da698da61cdefc603d6e022f8c9142001f85540971ff8e4b8c2bcaf951ab1b3936
   languageName: node
   linkType: hard
 

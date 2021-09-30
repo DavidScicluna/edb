@@ -2,8 +2,9 @@ import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
+import { useElementSize } from 'usehooks-ts';
 
-import { useElementSize, useSelector } from '../../../../../../common/hooks';
+import { useSelector } from '../../../../../../common/hooks';
 import { handleReturnColor } from '../../../../../../common/utils';
 import Card from '../../../../../../components/Clickable/Card';
 import Link from '../../../../../../components/Clickable/Link';

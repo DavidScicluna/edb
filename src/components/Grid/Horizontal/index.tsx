@@ -3,8 +3,8 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
+import { useWindowSize } from 'usehooks-ts';
 
-import { useWindowSize } from '../../../common/hooks';
 import { handleIsTouchDevice } from '../../../common/utils';
 import Card from '../../Card';
 import Arrow from './components/Arrow';

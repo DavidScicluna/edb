@@ -6,8 +6,8 @@ import {
   ChevronRightOutlined as ChevronRightOutlinedIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
+import { useInterval } from 'usehooks-ts';
 
-import useInterval from '../../../../common/hooks/useInterval';
 import { Theme } from '../../../../theme/types';
 import IconButton from '../../../Clickable/IconButton';
 import useStyles from './styles';

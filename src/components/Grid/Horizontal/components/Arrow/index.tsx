@@ -5,8 +5,8 @@ import {
   ArrowBackOutlined as ArrowBackOutlinedIcon,
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
+import { useInterval } from 'usehooks-ts';
 
-import useInterval from '../../../../../common/hooks/useInterval';
 import IconButton from '../../../../Clickable/IconButton';
 import Tooltip from '../../../../Tooltip';
 import { ArrowProps, Event } from './types';

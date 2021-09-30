@@ -2,8 +2,9 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, Image as CUIImage } from '@chakra-ui/react';
 import _ from 'lodash';
+import { useElementSize } from 'usehooks-ts';
 
-import { useElementSize, useImageOnLoad } from '../../common/hooks';
+import { useImageOnLoad } from '../../common/hooks';
 import { handleReturnFallbackSrc } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import { ImageProps } from './types';

@@ -15,8 +15,8 @@ import {
   useColorMode
 } from '@chakra-ui/react';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+import { useTimeout } from 'usehooks-ts';
 
-import useTimeout from '../../common/hooks/useTimeout';
 import { ColorMode } from '../../common/types/types';
 import { Theme } from '../../theme/types';
 import Button from '../Clickable/Button';
