@@ -28,7 +28,8 @@ const Grid = (props: GridProps): ReactElement => {
       <Box
         width='auto'
         minWidth='100%'
-        display='inline-block'
+        height='100%'
+        display={variant === 'transparent' ? 'inline-block' : 'block'}
         border={variant === 'transparent' ? 'solid2' : 'none'}
         borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
         borderRadius='xl'

@@ -7250,9 +7250,9 @@ __metadata:
     prop-types: ^15.7.2
     query-string: ^7.0.0
     react: ^17.0.2
+    react-cool-inview: ^2.0.7
     react-dom: ^17.0.2
     react-hook-form: ^7.9.0
-    react-intersection-observer: ^8.32.1
     react-query: ^3.16.0
     react-redux: ^7.2.4
     react-router-dom: ^5.2.0
@@ -14220,6 +14220,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-cool-inview@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "react-cool-inview@npm:2.0.7"
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: 426d2790913db9eab22e52a0cf4811df760459ee19038feec82939683c04ba1e2e0f27b77f5affc4fa7276906725d79f7c3f110dd33d3dfe6f96b7d4f2817bc8
+  languageName: node
+  linkType: hard
+
 "react-dev-utils@npm:^11.0.3":
   version: 11.0.4
   resolution: "react-dev-utils@npm:11.0.4"
@@ -14301,15 +14310,6 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ^16.8.0 || ^17
   checksum: 99bbae35ca15ec4462f306a9a5a326d262fadd7518b3542fd0f133170af86d088581536209d3601b3d4ba02b06dfe357b84992b8832930d633cc9b2e4e7ba240
-  languageName: node
-  linkType: hard
-
-"react-intersection-observer@npm:^8.32.1":
-  version: 8.32.1
-  resolution: "react-intersection-observer@npm:8.32.1"
-  peerDependencies:
-    react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
-  checksum: c2ea2e0ca50479d110632c08a800b70d90898ca9058bdbaa811559fab20108452ac276c301be685aeaea3fecfff2464934ea38bb78e53443adb2a349f0ef0256
   languageName: node
   linkType: hard
 

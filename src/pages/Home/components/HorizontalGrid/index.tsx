@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, Box, Text, Fade } from '@chakra-ui/react';
-import { useInView } from 'react-intersection-observer';
+import useInView from 'react-cool-inview';
 
 import { useSelector } from '../../../../common/hooks';
 import { handleReturnColor } from '../../../../common/utils';
@@ -16,10 +16,7 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 1
-  });
+  const { observe: ref, inView } = useInView({ unobserveOnEnter: true });
 
   const { children, title, pathname, isLoading = false } = props;
 

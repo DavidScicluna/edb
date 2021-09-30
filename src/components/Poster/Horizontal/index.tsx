@@ -8,8 +8,10 @@ import {
   HStack,
   VStack,
   Box,
-  AspectRatio
+  AspectRatio,
+  Fade
 } from '@chakra-ui/react';
+import useInView from 'react-cool-inview';
 
 import { MediaType } from '../../../common/types/types';
 import Card from '../../../components/Clickable/Card';
@@ -39,6 +41,8 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
     '2xl': theme.fontSizes['3xl']
   });
 
+  const { observe: ref, inView } = useInView({ unobserveOnEnter: true });
+
   const {
     mediaItem,
     mediaType,
@@ -53,100 +57,104 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
   const [isDisabled, setIsDisabled] = useBoolean();
 
   return (
-    <Link isDisabled={isLoading || isDisabled} to={{ pathname: `${mediaType}/${mediaItem?.id || ''}` }}>
-      <Card isFullWidth isDisabled={isLoading} isClickable={!isDisabled} isLight>
-        <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
-          {/* Image */}
-          <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
-            <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
-              <Image
-                alt={image?.alt || ''}
-                mediaType={mediaType}
-                maxWidth='none'
-                height='100%'
-                borderRadius='base'
-                src={image?.src || ''}
-                size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
-              />
-            </Skeleton>
-          </AspectRatio>
-
-          <VStack
-            width={[
-              'calc(100% - 108px)',
-              'calc(100% - 124px)',
-              'calc(100% - 168px)',
-              'calc(100% - 204px)',
-              'calc(100% - 204px)',
-              'calc(100% - 240px)'
-            ]}
-            alignItems='flex-start'
-            spacing={[1, 1, 2, 2, 2, 2]}>
-            {/* Rating component */}
-            {mediaType !== 'person' ? (
-              <Rating
-                rating={rating}
-                isLoading={isLoading}
-                iconFontsize={iconSize}
-                textFontsize={['sm', 'sm', 'md', 'lg', 'lg', 'xl']}
-              />
-            ) : null}
-
-            {/* Text */}
-            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-              <Title title={title} isLoading={isLoading} />
-              <Subtitle subtitle={subtitle} isLoading={isLoading} />
-            </VStack>
-
-            <Box width='100%' onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-              {typeof description === 'string' ? (
-                <Description
-                  mediaType={mediaType}
-                  mediaItem={{ id: mediaItem?.id || -1, title, description }}
-                  isLoading={isLoading}
-                />
-              ) : (
-                description
-              )}
-            </Box>
-          </VStack>
-
-          {/* Like / List Icon buttons */}
-          {mediaItem ? (
-            <HStack
-              spacing={0}
-              sx={{
-                position: 'absolute',
-                top: 1,
-                right: 1
-              }}>
-              {/* Like component */}
-              <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                <Like
-                  title={title}
-                  mediaType={mediaType}
-                  mediaItem={mediaItem}
-                  isLoading={isLoading}
-                  size={isSm ? 'md' : 'lg'}
-                />
-              </Box>
-              {/* List component */}
-              {mediaType !== 'person' ? (
-                <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                  <Bookmark
-                    title={title}
+    <Box ref={ref} width={width}>
+      <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit' }}>
+        <Link isDisabled={isLoading || isDisabled} to={{ pathname: `${mediaType}/${mediaItem?.id || ''}` }}>
+          <Card isFullWidth isDisabled={isLoading} isClickable={!isDisabled} isLight>
+            <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
+              {/* Image */}
+              <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
+                <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
+                  <Image
+                    alt={image?.alt || ''}
                     mediaType={mediaType}
-                    mediaItem={mediaItem}
-                    isLoading={isLoading}
-                    size={isSm ? 'md' : 'lg'}
+                    maxWidth='none'
+                    height='100%'
+                    borderRadius='base'
+                    src={image?.src || ''}
+                    size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
                   />
+                </Skeleton>
+              </AspectRatio>
+
+              <VStack
+                width={[
+                  'calc(100% - 108px)',
+                  'calc(100% - 124px)',
+                  'calc(100% - 168px)',
+                  'calc(100% - 204px)',
+                  'calc(100% - 204px)',
+                  'calc(100% - 240px)'
+                ]}
+                alignItems='flex-start'
+                spacing={[1, 1, 2, 2, 2, 2]}>
+                {/* Rating component */}
+                {mediaType !== 'person' ? (
+                  <Rating
+                    rating={rating}
+                    isLoading={isLoading}
+                    iconFontsize={iconSize}
+                    textFontsize={['sm', 'sm', 'md', 'lg', 'lg', 'xl']}
+                  />
+                ) : null}
+
+                {/* Text */}
+                <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+                  <Title title={title} isLoading={isLoading} />
+                  <Subtitle subtitle={subtitle} isLoading={isLoading} />
+                </VStack>
+
+                <Box width='100%' onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                  {typeof description === 'string' ? (
+                    <Description
+                      mediaType={mediaType}
+                      mediaItem={{ id: mediaItem?.id || -1, title, description }}
+                      isLoading={isLoading}
+                    />
+                  ) : (
+                    description
+                  )}
                 </Box>
+              </VStack>
+
+              {/* Like / List Icon buttons */}
+              {mediaItem ? (
+                <HStack
+                  spacing={0}
+                  sx={{
+                    position: 'absolute',
+                    top: 1,
+                    right: 1
+                  }}>
+                  {/* Like component */}
+                  <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                    <Like
+                      title={title}
+                      mediaType={mediaType}
+                      mediaItem={mediaItem}
+                      isLoading={isLoading}
+                      size={isSm ? 'md' : 'lg'}
+                    />
+                  </Box>
+                  {/* List component */}
+                  {mediaType !== 'person' ? (
+                    <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                      <Bookmark
+                        title={title}
+                        mediaType={mediaType}
+                        mediaItem={mediaItem}
+                        isLoading={isLoading}
+                        size={isSm ? 'md' : 'lg'}
+                      />
+                    </Box>
+                  ) : null}
+                </HStack>
               ) : null}
             </HStack>
-          ) : null}
-        </HStack>
-      </Card>
-    </Link>
+          </Card>
+        </Link>
+      </Fade>
+    </Box>
   );
 };
 
