@@ -1,20 +1,21 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { useDisclosure } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../common/hooks';
-import { handleReturnColor } from '../../common/utils';
-import { toggleConfirm, toggleList } from '../../store/slices/Modals';
+import { toggleList } from '../../store/slices/Modals';
 import { setLists } from '../../store/slices/User';
 import { List } from '../../store/slices/User/types';
+import Button from '../Clickable/Button';
+import ConfirmModal from '../ConfirmModal';
 import { BookmarkProps } from './types';
 
 const Bookmark = (props: BookmarkProps): ReactElement => {
+  const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
+
   const dispatch = useDispatch();
   const allLists = useSelector((state) => state.user.data.lists);
-  const color = useSelector((state) => state.user.ui.theme.color);
-  const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
 
   const { renderButton, title, mediaType, mediaItem } = props;
 
@@ -59,28 +60,6 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
     );
   };
 
-  const handleOpenConfirmModal = (): void => {
-    dispatch(
-      toggleConfirm({
-        open: true,
-        title: `Remove "${title}" ${mediaType} from lists?`,
-        description: `Are you sure you want to remove "${title}" ${mediaType} from ${lists
-          ?.map((list) => `"${list.label}"`)
-          .filter((list) => list)
-          .join(', ')} lists?`,
-        stringifiedButtonProps: _.toString({
-          color: handleReturnColor(color),
-          label: 'Remove',
-          onClick: () => {
-            handleRemoveBookmark(lists || []);
-
-            dispatch(toggleConfirm({ ...confirmModal, open: false }));
-          }
-        })
-      })
-    );
-  };
-
   const handleOpenListsModal = (): void => {
     if (mediaItem) {
       dispatch(
@@ -96,16 +75,40 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
     }
   };
 
-  return renderButton({
-    lists,
-    isBookmarked,
-    onClick:
-      isBookmarked && lists && (lists?.length || 0) > 0
-        ? lists.length > 1
-          ? () => handleOpenConfirmModal()
-          : () => handleRemoveBookmark(lists)
-        : () => handleOpenListsModal()
-  });
+  const handleCloseConfirm = (): void => {
+    handleRemoveBookmark(lists || []);
+    onCloseConfirm();
+  };
+
+  return (
+    <>
+      {renderButton({
+        lists,
+        isBookmarked,
+        onClick:
+          isBookmarked && lists && (lists?.length || 0) > 0
+            ? lists.length > 1
+              ? () => onOpenConfirm()
+              : () => handleRemoveBookmark(lists)
+            : () => handleOpenListsModal()
+      })}
+
+      <ConfirmModal
+        renderButton={
+          <Button color='red' onClick={() => handleCloseConfirm()} size='sm'>
+            Remove
+          </Button>
+        }
+        title={`Remove "${title}" ${mediaType} from lists?`}
+        description={`Are you sure you want to remove "${title}" ${mediaType} from ${lists
+          ?.map((list) => `"${list.label}"`)
+          .filter((list) => list)
+          .join(', ')} lists?`}
+        isOpen={isConfirmOpen}
+        onClose={onCloseConfirm}
+      />
+    </>
+  );
 };
 
 export default Bookmark;

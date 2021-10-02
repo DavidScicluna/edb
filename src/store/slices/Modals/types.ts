@@ -15,13 +15,6 @@ export type DescriptionModal = {
   mediaItem?: { id: number; title: string; description: string };
 };
 
-export type ConfirmModal = {
-  open: boolean;
-  title: string;
-  description: string;
-  stringifiedButtonProps?: string;
-};
-
 export type QuickViewModal = {
   open: boolean;
   mediaType: MediaType;
@@ -32,7 +25,6 @@ export type StateProps = {
   ui: {
     listsModal: ListModal;
     descriptionModal: DescriptionModal;
-    confirmModal: ConfirmModal;
     quickViewModal: QuickViewModal;
     isDisplayModalOpen: boolean;
     isSplashscreenOpen: boolean;

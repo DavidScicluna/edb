@@ -1,20 +1,8 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import {
-  useColorMode,
-  useDisclosure,
-  useMediaQuery,
-  useToast,
-  VStack,
-  SimpleGrid,
-  Box,
-  Center,
-  Text
-} from '@chakra-ui/react';
+import { useColorMode, useDisclosure, useToast, VStack, SimpleGrid, Box, Center, Text } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
-import _ from 'lodash';
-import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
@@ -26,14 +14,13 @@ import MediaTypePicker from '../../components/MediaTypePicker';
 import Page from '../../containers/Page';
 import { home, lists as listsBreadcrumb } from '../../containers/Page/common/data/breadcrumbs';
 import { Breadcrumb } from '../../containers/Page/types';
-import { toggleConfirm } from '../../store/slices/Modals';
-import { setLists } from '../../store/slices/User';
 import { List as ListType, MediaItem } from '../../store/slices/User/types';
 import VerticalMovies from '../Movies/components/VerticalMovies';
 import VerticalTV from '../TV/components/VerticalTV';
 import Actions from './components/Actions';
 import All from './components/All';
 import CreateList from './components/CreateList';
+import DeleteList from './components/DeleteList';
 import EditList from './components/EditList';
 import EmptyList from './components/Empty';
 import ListInfo from './components/ListInfo';
@@ -54,19 +41,16 @@ const Lists = (): ReactElement => {
   const { isOpen: isListPickerOpen, onOpen: onListPickerOpen, onClose: onListPickerClose } = useDisclosure();
 
   const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
+  const { isOpen: isDeleteListOpen, onOpen: onDeleteListOpen, onClose: onDeleteListClose } = useDisclosure();
   const { isOpen: isEditListOpen, onOpen: onEditListOpen, onClose: onEditListClose } = useDisclosure();
   const { isOpen: isListInfoOpen, onOpen: onListInfoOpen, onClose: onListInfoClose } = useDisclosure();
-
-  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const toast = useToast();
 
   const { id, mediaType: paramMediaType } = useParams<Param>();
   const history = useHistory();
 
-  const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
-  const confirmModal = useSelector((state) => state.modals.ui.confirmModal);
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -217,26 +201,7 @@ const Lists = (): ReactElement => {
               selected={selected}
               onInfo={() => onListInfoOpen()}
               onEdit={() => onEditListOpen()}
-              onDelete={() =>
-                dispatch(
-                  toggleConfirm({
-                    open: true,
-                    title: isSm ? 'Delete' : `Delete ${selected?.label ? `"${selected.label}"` : ''} list`,
-                    description: `Are you sure you want to delete the ${
-                      selected?.label ? `"${selected.label}"` : ''
-                    } list? You will not be able to retrieve this list back!`,
-                    stringifiedButtonProps: _.toString({
-                      color: 'red',
-                      label: 'Delete',
-                      onClick: () => {
-                        dispatch(setLists(lists.filter((paramList) => paramList.id !== selected?.id)));
-                        dispatch(toggleConfirm({ ...confirmModal, open: false }));
-                        handleCloseToast();
-                      }
-                    })
-                  })
-                )
-              }
+              onDelete={() => onDeleteListOpen()}
               onClose={() => handleCloseToast()}
             />
           );
@@ -343,6 +308,14 @@ const Lists = (): ReactElement => {
       <ListPicker activeList={list} isOpen={isListPickerOpen} onClose={onListPickerClose} />
 
       <CreateList isOpen={isCreateListOpen} onClose={onCreateListClose} />
+
+      <DeleteList
+        id={selected?.id}
+        label={selected?.label}
+        isOpen={isDeleteListOpen}
+        onClose={onDeleteListClose}
+        onCloseToast={() => handleCloseToast()}
+      />
 
       <EditList list={selected} isOpen={isEditListOpen} onClose={() => onEditListClose()} />
 
