@@ -251,6 +251,7 @@ const Movie = (): ReactElement => {
                 </TabPanel>
                 <TabPanel as={SlideFade} in={activeTab === 2} offsetY='15vh' p={0} unmountOnExit>
                   <ReviewsTab
+                    movie={movieQuery.data}
                     reviews={reviews}
                     isError={reviewsQuery.isError}
                     isSuccess={reviewsQuery.isSuccess}

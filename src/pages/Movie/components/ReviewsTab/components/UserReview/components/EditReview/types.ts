@@ -1,7 +1,7 @@
-import { Review } from '../../../../../../../../common/types/movie';
+import { UserReview } from '../../../../../../../../store/slices/User/types';
 
 export type EditReviewProps = {
-  review: Review;
+  review: UserReview;
 };
 
 export type Form = {

@@ -6,12 +6,12 @@ import _ from 'lodash';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import LoadMore from '../../../../../../components/LoadMore';
-import { ReviewsTabProps } from '../../types';
 import Panel from '../Panel';
 import Review from '../Review';
 import ThumbButton from './components/ThumbButton';
+import { OtherReviewsProps } from './types';
 
-const OtherReviews = (props: ReviewsTabProps): ReactElement => {
+const OtherReviews = (props: OtherReviewsProps): ReactElement => {
   const { reviews, isError = false, isSuccess = false, isLoading = true, hasNextPage = false, onFetchNextPage } = props;
 
   return (

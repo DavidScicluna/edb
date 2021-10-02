@@ -1,4 +1,4 @@
-import { PartialMovie, Review } from '../../../common/types/movie';
+import { FullMovie, PartialMovie, Review } from '../../../common/types/movie';
 import { PartialPerson } from '../../../common/types/person';
 import { PartialTV } from '../../../common/types/tv';
 import { MediaType } from '../../../common/types/types';
@@ -40,12 +40,16 @@ export type List = {
 
 export type ReviewState = 'isLiked' | 'isDisliked';
 
+export type UserReview = {
+  mediaItem: FullMovie;
+} & Review;
+
 export type OtherReview = {
   state?: ReviewState;
 } & Review;
 
 export type UserReviews = {
-  user: Review[];
+  user: UserReview[];
   other: OtherReview[];
 };
 

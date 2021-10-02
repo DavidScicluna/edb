@@ -6,10 +6,10 @@ import OtherReviews from './components/OtherReviews';
 import UserReview from './components/UserReview';
 import { ReviewsTabProps } from './types';
 
-const ReviewsTab = ({ isLoading = true, ...rest }: ReviewsTabProps): ReactElement => {
+const ReviewsTab = ({ movie, isLoading = true, ...rest }: ReviewsTabProps): ReactElement => {
   return (
     <VStack width='100%' spacing={6}>
-      <UserReview isLoading={isLoading} />
+      <UserReview movie={movie} isLoading={isLoading} />
 
       <OtherReviews {...rest} isLoading={isLoading} />
     </VStack>

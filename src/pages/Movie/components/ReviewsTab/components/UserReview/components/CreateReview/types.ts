@@ -1,6 +1,7 @@
+import { ReviewsTabProps } from '../../../../types';
+
 export type CreateReviewProps = {
-  isOpen: boolean;
-  onClose: () => void;
+  movie: ReviewsTabProps['movie'];
 };
 
 export type Form = {

@@ -1,10 +1,8 @@
 import React, { ReactElement } from 'react';
 
-import { useDisclosure, HStack } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../common/utils';
-import Button from '../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../components/Empty';
 import Panel from '../Panel';
 import Review from '../Review';
@@ -13,18 +11,16 @@ import DeleteReview from './components/DeleteReview';
 import EditReview from './components/EditReview';
 import { UserReviewProps } from './types';
 
-const UserReview = ({ isLoading = true }: UserReviewProps): ReactElement => {
-  const { isOpen: isCreateOpen, onOpen: onOpenCreate, onClose: onCloseCreate } = useDisclosure();
-
+const UserReview = ({ movie, isLoading = true }: UserReviewProps): ReactElement => {
   const userReviews = useSelector((state) => state.user.data.reviews.user);
-  const color = useSelector((state) => state.user.ui.theme.color);
+  const movieUserReviews = userReviews.filter((review) => review.mediaItem.id === movie?.id);
 
   return (
     <>
       <Panel title='My Review' total={0}>
-        {userReviews.length > 0 ? (
+        {movieUserReviews.length > 0 ? (
           <>
-            {userReviews.map((review) => (
+            {movieUserReviews.map((review) => (
               <Review
                 key={review.id}
                 renderFooterActions={
@@ -41,20 +37,18 @@ const UserReview = ({ isLoading = true }: UserReviewProps): ReactElement => {
         ) : (
           <Empty
             hasIllustration={false}
-            button={
-              <Button color={handleReturnColor(color)} onClick={() => onOpenCreate()} size='sm'>
-                Create a new review
-              </Button>
-            }
-            label='You currently have not written any reviews'
-            description='Enter a review and leave your taughts about the movie to help others make up their mind.'
+            button={<CreateReview movie={movie} />}
+            label={`You currently have not written any reviews ${
+              movie && movie.title ? `for "${movie.title}" movie` : ''
+            }`}
+            description={`Enter a review and leave your taughts about ${
+              movie && movie.title ? `for "${movie.title}" movie` : ''
+            } to help others make up their mind.`}
             variant='outlined'
             size='lg'
           />
         )}
       </Panel>
-
-      <CreateReview isOpen={isCreateOpen} onClose={onCloseCreate} />
     </>
   );
 };

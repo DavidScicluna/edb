@@ -2,8 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-import { Review } from '../../../common/types/movie';
-import { StateProps, Search, MediaItems, List, OtherReview, Theme } from './types';
+import { StateProps, Search, MediaItems, List, UserReview, OtherReview, Theme } from './types';
 
 const initialState: StateProps = {
   data: {
@@ -63,7 +62,7 @@ const userSlice = createSlice({
     setLists: (state: StateProps, action: PayloadAction<List[]>) => {
       state.data.lists = action.payload;
     },
-    setUserReviews: (state: StateProps, action: PayloadAction<Review[]>) => {
+    setUserReviews: (state: StateProps, action: PayloadAction<UserReview[]>) => {
       state.data.reviews.user = action.payload;
     },
     setOtherReviews: (state: StateProps, action: PayloadAction<OtherReview[]>) => {

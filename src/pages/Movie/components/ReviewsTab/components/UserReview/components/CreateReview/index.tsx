@@ -28,8 +28,9 @@ import Rating from '../Rating';
 import { CreateReviewProps, Form } from './types';
 import { defaultValues, schema } from './validation';
 
-const CreateReview = ({ isOpen, onClose }: CreateReviewProps): ReactElement => {
+const CreateReview = ({ movie }: CreateReviewProps): ReactElement => {
   const { colorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
   const dispatch = useDispatch();
@@ -45,23 +46,26 @@ const CreateReview = ({ isOpen, onClose }: CreateReviewProps): ReactElement => {
   const { isDirty } = useFormState({ control: form.control });
 
   const handleSubmit = (values: Form): void => {
-    const id = uuid();
+    if (movie) {
+      const id = uuid();
 
-    dispatch(
-      setUserReviews([
-        ...userReviews,
-        {
-          id,
-          author: 'Name', // TODO use user name
-          author_details: { name: 'Name', username: 'Username', avatar_path: '', rating: values.rating }, // TODO use user details
-          content: values.review,
-          created_at: moment(new Date()).toISOString(),
-          updated_at: moment(new Date()).toISOString()
-        }
-      ])
-    );
+      dispatch(
+        setUserReviews([
+          ...userReviews,
+          {
+            id,
+            author: 'Name', // TODO use user name
+            author_details: { name: 'Name', username: 'Username', avatar_path: '', rating: values.rating }, // TODO use user details
+            content: values.review,
+            created_at: moment(new Date()).toISOString(),
+            updated_at: moment(new Date()).toISOString(),
+            mediaItem: { ...movie }
+          }
+        ])
+      );
 
-    handleClose();
+      handleClose();
+    }
   };
 
   const handleCloseConfirm = (): void => {
@@ -84,6 +88,10 @@ const CreateReview = ({ isOpen, onClose }: CreateReviewProps): ReactElement => {
 
   return (
     <>
+      <Button color={handleReturnColor(color)} onClick={() => onOpen()} size='sm'>
+        Create a new review
+      </Button>
+
       <Modal
         title='Create a new review'
         actions={
