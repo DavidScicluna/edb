@@ -101,7 +101,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
             size='sm'>
-            Submit List
+            Save List
           </Button>
         }
         isOpen={isOpen}

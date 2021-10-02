@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useTheme, useColorMode, Box, Icon } from '@chakra-ui/react';
 import { StarOutlineOutlined as StarOutlineOutlinedIcon, StarOutlined as StarOutlinedIcon } from '@material-ui/icons';
 
-import { Theme } from '../../../../../../../../../../../../theme/types';
+import { Theme } from '../../../../../../../../../../theme/types';
 import { StarProps } from './types';
 
 const Star = ({ value, hoveringNumber, isChecked, onChange, onHover }: StarProps): ReactElement => {

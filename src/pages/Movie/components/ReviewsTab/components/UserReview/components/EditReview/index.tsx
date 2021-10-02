@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
 import {
   useColorMode,
@@ -12,29 +12,33 @@ import {
   Collapse
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { EditOutlined as EditOutlinedIcon } from '@material-ui/icons';
 import moment from 'moment';
 import { Controller, useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { handleReturnColor } from '../../../../../../../../common/utils';
 import Card from '../../../../../../../../components/Card';
 import Button from '../../../../../../../../components/Clickable/Button';
+import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Modal from '../../../../../../../../components/Modal';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
 import Rating from '../Rating';
-import { CreateReviewProps, Form } from './types';
+import { EditReviewProps, Form } from './types';
 import { defaultValues, schema } from './validation';
 
-const CreateReview = ({ isOpen, onClose }: CreateReviewProps): ReactElement => {
+const EditReview = ({ review }: EditReviewProps): ReactElement => {
   const { colorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
   const dispatch = useDispatch();
   const userReviews = useSelector((state) => state.user.data.reviews.user);
   const color = useSelector((state) => state.user.ui.theme.color);
+
+  const { id } = review;
 
   const form = useForm<Form>({
     defaultValues,
@@ -45,23 +49,22 @@ const CreateReview = ({ isOpen, onClose }: CreateReviewProps): ReactElement => {
   const { isDirty } = useFormState({ control: form.control });
 
   const handleSubmit = (values: Form): void => {
-    const id = uuid();
-
     dispatch(
-      setUserReviews([
-        ...userReviews,
-        {
-          id,
-          author: 'Name', // TODO use user name
-          author_details: { name: 'Name', username: 'Username', avatar_path: '', rating: values.rating }, // TODO use user details
-          content: values.review,
-          created_at: moment(new Date()).toISOString(),
-          updated_at: moment(new Date()).toISOString()
-        }
-      ])
+      setUserReviews(
+        userReviews.map((review) =>
+          review.id === id
+            ? {
+                ...review,
+                author_details: { ...review.author_details, rating: values.rating }, // TODO use user details
+                content: values.review,
+                updated_at: moment(new Date()).toISOString()
+              }
+            : { ...review }
+        )
+      )
     );
 
-    handleClose();
+    onClose();
   };
 
   const handleCloseConfirm = (): void => {
@@ -82,17 +85,34 @@ const CreateReview = ({ isOpen, onClose }: CreateReviewProps): ReactElement => {
     }
   };
 
+  useEffect(() => {
+    if (isOpen && review) {
+      form.reset({
+        rating: review.author_details.rating,
+        review: review.content
+      });
+    }
+  }, [isOpen]);
+
   return (
     <>
+      <IconButton
+        aria-label='Edit review'
+        color={handleReturnColor(color)}
+        icon={EditOutlinedIcon}
+        onClick={() => onOpen()}
+        size='sm'
+      />
+
       <Modal
-        title='Create a new review'
+        title='Edit review'
         actions={
           <Button
             color={handleReturnColor(color)}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
             size='sm'>
-            Submit Review
+            Save Review
           </Button>
         }
         isOpen={isOpen}
@@ -188,4 +208,4 @@ const CreateReview = ({ isOpen, onClose }: CreateReviewProps): ReactElement => {
   );
 };
 
-export default CreateReview;
+export default EditReview;
