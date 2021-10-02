@@ -7,6 +7,8 @@ import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import Image from './components/Image';
 import { HeaderProps } from './types';
 
+// TODO: Check if author is user and render header text differently
+
 const Header = (props: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();
 

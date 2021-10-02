@@ -9,10 +9,12 @@ import Empty from '../../../../../../components/Empty';
 import Panel from '../Panel';
 import Review from '../Review';
 import CreateReview from './components/CreateReview';
+import DeleteReview from './components/DeleteReview';
 import { UserReviewProps } from './types';
 
 const UserReview = ({ isLoading = true }: UserReviewProps): ReactElement => {
   const { isOpen: isCreateOpen, onOpen: onOpenCreate, onClose: onCloseCreate } = useDisclosure();
+  // const { isOpen: isDeleteOpen, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
 
   const userReviews = useSelector((state) => state.user.data.reviews.user);
   const color = useSelector((state) => state.user.ui.theme.color);
@@ -26,9 +28,9 @@ const UserReview = ({ isLoading = true }: UserReviewProps): ReactElement => {
               <Review
                 key={review.id}
                 renderFooterActions={
-                  <HStack spacing={0}>
+                  <HStack>
                     <h6>Edit Button</h6>
-                    <h6>Delete Button</h6>
+                    <DeleteReview id={review.id} />
                   </HStack>
                 }
                 review={review}
