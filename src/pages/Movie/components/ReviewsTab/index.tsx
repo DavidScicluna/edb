@@ -26,7 +26,7 @@ const ReviewsTab = (props: ReviewsTabProps): ReactElement => {
       ) : !isLoading && isSuccess && reviews && reviews.results.length > 0 ? (
         <>
           {reviews?.results.map((review) => (
-            <Review key={review.id} {...review} isLoading={isLoading} />
+            <Review key={review.id} review={review} isLoading={isLoading} />
           ))}
         </>
       ) : (

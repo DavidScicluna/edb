@@ -5,7 +5,6 @@ import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import _ from 'lodash';
 
 import SkeletonText from '../Skeleton/Text';
-// import Tooltip from '../Tooltip';
 import { RatingProps } from './types';
 
 const defaultRating = {

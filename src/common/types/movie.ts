@@ -19,7 +19,7 @@ export type Review = {
   content: string;
   created_at: string;
   updated_at: string;
-  url: string;
+  url?: string;
 };
 
 type ReleaseDate = {

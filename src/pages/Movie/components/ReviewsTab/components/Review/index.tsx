@@ -1,18 +1,18 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useBreakpointValue, Text } from '@chakra-ui/react';
-import moment from 'moment';
+import { useTheme, useBreakpointValue } from '@chakra-ui/react';
 
+import { useSelector } from '../../../../../../common/hooks';
 import Card from '../../../../../../components/Card';
 import Rating from '../../../../../../components/Rating';
 import { Theme } from '../../../../../../theme/types';
 import Body from './components/Body';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import { ReviewProps } from './types';
 
 const Review = (props: ReviewProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
   const iconFontsize = useBreakpointValue({
     'base': theme.fontSizes['2xl'],
     'sm': theme.fontSizes['2xl'],
@@ -22,17 +22,13 @@ const Review = (props: ReviewProps): ReactElement => {
     '2xl': theme.fontSizes['3xl']
   });
 
-  const { author, author_details, created_at, updated_at, content, isLoading = true } = props;
+  const userReviews = useSelector((state) => state.user.data.reviews);
 
-  const hasFooter = updated_at && !moment(updated_at).isSame(created_at);
+  const { review, isLoading = true } = props;
+  const { id, author, author_details, created_at, content } = review || {};
 
   return (
-    <Card
-      box={{ header: { pb: 1.5 }, body: { pt: 1.5, pb: hasFooter ? 1.5 : 0 }, footer: { pt: 1.5 } }}
-      isFullWidth
-      px={2}
-      pt={1.5}
-      pb={hasFooter ? 1.5 : 2}>
+    <Card box={{ header: { pb: 1.5 }, body: { py: 1.5 }, footer: { pt: 1 } }} isFullWidth px={2} pt={1.5} pb={1}>
       {{
         header: {
           title: (
@@ -56,12 +52,20 @@ const Review = (props: ReviewProps): ReactElement => {
           ) : undefined
         },
         body: <Body content={content} isLoading={isLoading} />,
-        footer:
-          updated_at && !moment(updated_at).isSame(created_at) ? (
-            <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='xs'>
-              {`* Updated on: ${moment(updated_at).format('LLL')}`}
-            </Text>
-          ) : undefined
+        footer: (
+          <Footer
+            review={
+              review
+                ? {
+                    ...review,
+                    state: userReviews.some((review) => review.id === id)
+                      ? userReviews.find((review) => review.id === id)?.state
+                      : undefined
+                  }
+                : undefined
+            }
+          />
+        )
       }}
     </Card>
   );

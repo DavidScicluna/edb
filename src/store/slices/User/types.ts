@@ -1,4 +1,4 @@
-import { PartialMovie } from '../../../common/types/movie';
+import { PartialMovie, Review } from '../../../common/types/movie';
 import { PartialPerson } from '../../../common/types/person';
 import { PartialTV } from '../../../common/types/tv';
 import { MediaType } from '../../../common/types/types';
@@ -38,6 +38,12 @@ export type List = {
   results: Omit<MediaItems, 'people'>;
 };
 
+export type ReviewState = 'isLiked' | 'isDisliked';
+
+export type UserReview = {
+  state?: ReviewState;
+} & Review;
+
 export type Theme = {
   color: Omit<Color, 'gray' | 'red'>;
   background: 'light' | 'dark';
@@ -49,6 +55,7 @@ export type StateProps = {
     recentlyViewed: MediaItems;
     liked: MediaItems;
     lists: List[];
+    reviews: UserReview[];
   };
   ui: {
     theme: Theme;

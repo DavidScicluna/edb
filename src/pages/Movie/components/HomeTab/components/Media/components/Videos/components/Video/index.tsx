@@ -15,6 +15,7 @@ const Video = (props: VideoProps): ReactElement => {
   const { video, isLoading = false, onClick } = props;
 
   const [isHovering, setIsHovering] = useBoolean();
+  const [isError, setIsError] = useBoolean();
 
   const opts: Options = {
     playerVars: {
@@ -37,15 +38,18 @@ const Video = (props: VideoProps): ReactElement => {
       onMouseEnter={() => setIsHovering.on()}
       onMouseLeave={() => setIsHovering.off()}>
       <ClickableImage
+        width={width}
         borderRadius='base'
         ratio={1 / 1}
-        icon={PlayArrowIcon}
+        icon={<PlayArrowIcon />}
+        isDisabled={isError || isLoading}
         onClick={typeof video !== 'number' && video ? () => onClick(video.key, 'video') : undefined}>
         <Skeleton isLoaded={!isLoading} borderRadius='base'>
           <YouTube
             videoId={typeof video !== 'number' && video ? video?.key : ''}
             className='VideoGalleryFrame'
             containerClassName='VideoGalleryContainer'
+            onError={() => setIsError.on()}
             opts={opts}
           />
         </Skeleton>
