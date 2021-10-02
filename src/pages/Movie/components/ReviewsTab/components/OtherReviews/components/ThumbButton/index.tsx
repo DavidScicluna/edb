@@ -9,37 +9,37 @@ import {
 } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 
-import { useSelector } from '../../../../../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../../../../../common/utils';
-import IconButton from '../../../../../../../../../../components/Clickable/IconButton';
-import Tooltip from '../../../../../../../../../../components/Tooltip';
-import { setReviews } from '../../../../../../../../../../store/slices/User';
-import { ReviewButtonProps } from './types';
+import { useSelector } from '../../../../../../../../common/hooks';
+import { handleReturnColor } from '../../../../../../../../common/utils';
+import IconButton from '../../../../../../../../components/Clickable/IconButton';
+import Tooltip from '../../../../../../../../components/Tooltip';
+import { setOtherReviews } from '../../../../../../../../store/slices/User';
+import { ThumbButtonProps } from './types';
 
-const ReviewButton = (props: ReviewButtonProps): ReactElement => {
+const ThumbButton = (props: ThumbButtonProps): ReactElement => {
   const dispatch = useDispatch();
   const color = useSelector((state) => state.user.ui.theme.color);
-  const userReviews = useSelector((state) => state.user.data.reviews);
+  const otherReviews = useSelector((state) => state.user.data.reviews.other);
 
-  const { review, state, label } = props;
+  const { review, state, label, isDisabled = false } = props;
   const { id } = review || {};
 
   const [isHovering, setIsHovering] = useBoolean();
 
-  const isActive = review?.state === state || false;
+  const isActive = otherReviews.some((review) => review.id === id && review?.state === state) || false;
 
   const handleReview = (): void => {
     if (review) {
-      if (userReviews.some((review) => review.id === id)) {
+      if (otherReviews.some((review) => review.id === id)) {
         dispatch(
-          setReviews(
-            userReviews.map((review) =>
+          setOtherReviews(
+            otherReviews.map((review) =>
               review.id === id ? { ...review, state: !isActive ? state : undefined } : review
             )
           )
         );
       } else {
-        dispatch(setReviews([...userReviews, { ...review, state }]));
+        dispatch(setOtherReviews([...otherReviews, { ...review, state }]));
       }
     }
   };
@@ -63,6 +63,7 @@ const ReviewButton = (props: ReviewButtonProps): ReactElement => {
             ? ThumbDownIcon
             : ThumbDownOutlinedIcon
         }
+        isDisabled={isDisabled}
         onClick={() => handleReview()}
         onMouseEnter={() => setIsHovering.on()}
         onMouseLeave={() => setIsHovering.off()}
@@ -72,4 +73,4 @@ const ReviewButton = (props: ReviewButtonProps): ReactElement => {
   );
 };
 
-export default ReviewButton;
+export default ThumbButton;

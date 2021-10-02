@@ -3,4 +3,5 @@ export type HeaderProps = {
   name: string;
   username: string;
   date: string;
+  isLoading: boolean;
 };

@@ -40,9 +40,14 @@ export type List = {
 
 export type ReviewState = 'isLiked' | 'isDisliked';
 
-export type UserReview = {
+export type OtherReview = {
   state?: ReviewState;
 } & Review;
+
+export type UserReviews = {
+  user: Review[];
+  other: OtherReview[];
+};
 
 export type Theme = {
   color: Omit<Color, 'gray' | 'red'>;
@@ -55,7 +60,7 @@ export type StateProps = {
     recentlyViewed: MediaItems;
     liked: MediaItems;
     lists: List[];
-    reviews: UserReview[];
+    reviews: UserReviews;
   };
   ui: {
     theme: Theme;

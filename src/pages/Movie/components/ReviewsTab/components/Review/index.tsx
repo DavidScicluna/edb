@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useBreakpointValue } from '@chakra-ui/react';
+import { useTheme, useBreakpointValue, SlideFade } from '@chakra-ui/react';
 
-import { useSelector } from '../../../../../../common/hooks';
 import Card from '../../../../../../components/Card';
 import Rating from '../../../../../../components/Rating';
 import { Theme } from '../../../../../../theme/types';
@@ -22,10 +21,8 @@ const Review = (props: ReviewProps): ReactElement => {
     '2xl': theme.fontSizes['3xl']
   });
 
-  const userReviews = useSelector((state) => state.user.data.reviews);
-
-  const { review, isLoading = true } = props;
-  const { id, author, author_details, created_at, content } = review || {};
+  const { renderFooterActions, review, isLoading = true } = props;
+  const { author, author_details, created_at, updated_at, content } = review || {};
 
   return (
     <Card box={{ header: { pb: 1.5 }, body: { py: 1.5 }, footer: { pt: 1 } }} isFullWidth px={2} pt={1.5} pb={1}>
@@ -37,35 +34,25 @@ const Review = (props: ReviewProps): ReactElement => {
               name={author_details?.name || author || ''}
               username={author_details?.username || ''}
               date={created_at || ''}
+              isLoading={isLoading}
             />
           ),
-          actions: author_details?.rating ? (
-            <Rating
-              rating={{
-                rating: author_details?.rating || null,
-                count: null
-              }}
-              isLoading={isLoading}
-              iconFontsize={iconFontsize}
-              textFontsize={['lg', 'lg', 'xl', 'xl', 'xl', 'xl']}
-            />
-          ) : undefined
+          actions: (
+            <SlideFade in={isLoading || Boolean(author_details?.rating)} unmountOnExit>
+              <Rating
+                rating={{
+                  rating: author_details?.rating || null,
+                  count: null
+                }}
+                isLoading={isLoading}
+                iconFontsize={iconFontsize}
+                textFontsize={['lg', 'lg', 'xl', 'xl', 'xl', 'xl']}
+              />
+            </SlideFade>
+          )
         },
         body: <Body content={content} isLoading={isLoading} />,
-        footer: (
-          <Footer
-            review={
-              review
-                ? {
-                    ...review,
-                    state: userReviews.some((review) => review.id === id)
-                      ? userReviews.find((review) => review.id === id)?.state
-                      : undefined
-                  }
-                : undefined
-            }
-          />
-        )
+        footer: <Footer renderActions={renderFooterActions} updated_at={updated_at} created_at={created_at} />
       }}
     </Card>
   );

@@ -4,9 +4,10 @@ import { AspectRatio, Image as CUIImage } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { handleReturnFallbackSrc } from '../../../../../../../../../../common/utils';
+import Skeleton from '../../../../../../../../../../components/Skeleton';
 import { ImageProps } from './types';
 
-const Image = ({ alt, avatar }: ImageProps): ReactElement => {
+const Image = ({ alt, avatar, isLoading = true }: ImageProps): ReactElement => {
   const [fallbackSrc, setFallbackSrc] = useState<string>('');
 
   /**
@@ -38,7 +39,9 @@ const Image = ({ alt, avatar }: ImageProps): ReactElement => {
 
   return (
     <AspectRatio width='48px' borderRadius='full' ratio={1 / 1}>
-      <CUIImage alt={alt} borderRadius='full' src={handleSrc() || ''} fallbackSrc={fallbackSrc} />
+      <Skeleton borderRadius='full' isLoaded={!isLoading}>
+        <CUIImage alt={alt} borderRadius='full' src={handleSrc() || ''} fallbackSrc={fallbackSrc} />
+      </Skeleton>
     </AspectRatio>
   );
 };
