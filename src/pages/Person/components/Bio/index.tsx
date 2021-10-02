@@ -61,16 +61,18 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
         body: !isLoading ? (
           <Collapse in={isExpanded} startingHeight={(height || 44) >= 44 ? 44 : elementHeight || 44}>
             <VStack ref={biographyRef} width='100%' alignItems='flex-start' spacing={2}>
-              {handleFormatIntoParagraphs(biography).map((paragraph, index) => (
-                <Text
-                  key={index}
-                  align='left'
-                  color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-                  fontSize='md'
-                  fontWeight='medium'>
-                  {paragraph}
-                </Text>
-              ))}
+              {handleFormatIntoParagraphs(biography)
+                .filter((paragraph) => paragraph)
+                .map((paragraph, index) => (
+                  <Text
+                    key={index}
+                    align='left'
+                    color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                    fontSize='md'
+                    fontWeight='medium'>
+                    {paragraph}
+                  </Text>
+                ))}
             </VStack>
           </Collapse>
         ) : (

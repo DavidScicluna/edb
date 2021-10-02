@@ -58,16 +58,18 @@ const Body = (props: BodyProps): ReactElement => {
           startingHeight={(height || 176) >= 176 ? 176 : elementHeight || 176}
           style={{ width: '100%' }}>
           <VStack ref={contentRef} width='100%' alignItems='flex-start' spacing={2}>
-            {handleFormatIntoParagraphs(content).map((paragraph, index) => (
-              <Text
-                key={index}
-                align='left'
-                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-                fontSize='md'
-                fontWeight='medium'>
-                {paragraph}
-              </Text>
-            ))}
+            {handleFormatIntoParagraphs(content)
+              .filter((paragraph) => paragraph)
+              .map((paragraph, index) => (
+                <Text
+                  key={index}
+                  align='left'
+                  color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                  fontSize='md'
+                  fontWeight='medium'>
+                  {paragraph}
+                </Text>
+              ))}
           </VStack>
         </Collapse>
       ) : (
