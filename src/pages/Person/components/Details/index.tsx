@@ -104,7 +104,7 @@ const Details = (props: DetailsProps): ReactElement => {
                       onClick={() => onClick()}
                       size='md'
                       variant='outlined'>
-                      Like
+                      {isLiked ? 'Liked' : 'Like'}
                     </Button>
                   )}
                   mediaType='person'

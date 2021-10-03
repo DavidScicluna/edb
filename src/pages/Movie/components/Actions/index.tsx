@@ -62,7 +62,7 @@ const Actions = (props: ActionsProps): ReactElement => {
             onClick={() => onClick()}
             size='md'
             variant='outlined'>
-            Like
+            {isLiked ? 'Liked' : 'Like'}
           </Button>
         )}
         mediaType='movie'

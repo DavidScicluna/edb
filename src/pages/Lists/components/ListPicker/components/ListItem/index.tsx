@@ -22,7 +22,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 
   const { width } = useElementSize(listRef);
 
-  const { id, label, results, isActive = false, isSelectable = false, isSelected = false, onSelected } = props;
+  const { id, label, results, isActive = false, isSelectable = false, isSelected = false, onSelected, onClose } = props;
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -37,7 +37,8 @@ const ListItem = (props: ListItemProps): ReactElement => {
         height={`${width}px`}
         color={location.pathname.includes(id) || isSelected ? handleReturnColor(color) : 'gray'}
         isFullWidth
-        isClickable={!isHoveringRadio}>
+        isClickable={!isHoveringRadio}
+        onClick={onClose ? () => onClose() : undefined}>
         <VStack position='relative' width='100%' spacing={0} px={2} py={6}>
           {isSelectable && onSelected ? (
             <Box position='absolute' top={theme.space[2]} left={theme.space[2]}>

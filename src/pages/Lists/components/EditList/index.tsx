@@ -1,4 +1,4 @@
-import { ReactElement, KeyboardEvent, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import {
   useDisclosure,
@@ -63,12 +63,6 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter') {
-      form.handleSubmit((values) => handleSubmit(values));
-    }
-  };
-
   const handleCloseConfirm = (): void => {
     onCloseConfirm();
     onClose();
@@ -127,7 +121,6 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
                   name={name}
                   placeholder='Try "DC Movies"'
                   onChange={onChange}
-                  onKeyPress={handleKeyDown}
                   size='lg'
                   value={value}
                   px={2}
