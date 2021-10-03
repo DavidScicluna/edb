@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useBoolean, VStack, HStack, Box, AspectRatio, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useBoolean, VStack, HStack, Box, AspectRatio, ScaleFade, Fade } from '@chakra-ui/react';
+import useInView from 'react-cool-inview';
 import { useDispatch } from 'react-redux';
 
 import { MediaType } from '../../../common/types/types';
@@ -23,6 +24,11 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
   const theme = useTheme<Theme>();
 
   const dispatch = useDispatch();
+
+  const { observe: ref, inView } = useInView<HTMLDivElement>({
+    threshold: [0.2, 0.4, 0.6, 0.8, 1],
+    unobserveOnEnter: true
+  });
 
   const {
     width,
@@ -48,44 +54,54 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
       <Card isDisabled={isLoading} isClickable={!isDisabled} isLight>
         <VStack width={width} position='relative' spacing={1} p={1}>
           {/* Image */}
-          <Box position='relative' width='100%' minWidth='100%' maxWidth='100%'>
-            <AspectRatio width='100%' minWidth='100%' maxWidth='100%' ratio={2 / 3}>
-              <>
-                <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
-                  <Image
-                    alt={image?.alt || ''}
-                    mediaType={mediaType}
-                    maxWidth='none'
-                    height='100%'
-                    borderRadius='base'
-                    src={image?.src || ''}
-                    size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
-                  />
-                </Skeleton>
+          <Box
+            as={AspectRatio}
+            ref={ref}
+            position='relative'
+            width='100%'
+            minWidth='100%'
+            maxWidth='100%'
+            borderRadius='base'
+            ratio={2 / 3}>
+            <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
+              <AspectRatio width='100%' minWidth='100%' maxWidth='100%' borderRadius='base' ratio={2 / 3}>
+                <>
+                  <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
+                    <Image
+                      alt={image?.alt || ''}
+                      mediaType={mediaType}
+                      maxWidth='none'
+                      height='100%'
+                      borderRadius='base'
+                      src={image?.src || ''}
+                      size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
+                    />
+                  </Skeleton>
 
-                {/* Quick View component */}
-                {mediaItem && !handleIsTouchDevice() ? (
-                  <ScaleFade in={isHoveringPoster && !isLoading} unmountOnExit>
-                    <Box
-                      position='absolute'
-                      bottom={theme.space[1]}
-                      width='100%'
-                      onMouseEnter={() => setIsDisabled.on()}
-                      onMouseLeave={() => setIsDisabled.off()}
-                      px={1}>
-                      <Button
-                        isFullWidth
-                        onClick={() =>
-                          dispatch(toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } }))
-                        }
-                        size='sm'>
-                        Quick view
-                      </Button>
-                    </Box>
-                  </ScaleFade>
-                ) : null}
-              </>
-            </AspectRatio>
+                  {/* Quick View component */}
+                  {mediaItem && !handleIsTouchDevice() ? (
+                    <ScaleFade in={isHoveringPoster && !isLoading} unmountOnExit>
+                      <Box
+                        position='absolute'
+                        bottom={theme.space[1]}
+                        width='100%'
+                        onMouseEnter={() => setIsDisabled.on()}
+                        onMouseLeave={() => setIsDisabled.off()}
+                        px={1}>
+                        <Button
+                          isFullWidth
+                          onClick={() =>
+                            dispatch(toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } }))
+                          }
+                          size='sm'>
+                          Quick view
+                        </Button>
+                      </Box>
+                    </ScaleFade>
+                  ) : null}
+                </>
+              </AspectRatio>
+            </Fade>
           </Box>
 
           <VStack width='100%' spacing={mediaType !== 'person' ? 0.5 : 1}>

@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { VStack, SlideFade } from '@chakra-ui/react';
 
 import Modal from '../../../Modal';
-import Grid from './components/Grid';
+import Panel from './components/Panel';
 import Photo from './components/Photo';
 import Video from './components/Video';
 import { GalleryProps } from './types';
@@ -16,7 +16,7 @@ const Gallery = (props: GalleryProps): ReactElement => {
       <VStack width='100%' p={2} spacing={10}>
         {/* Photos Section */}
         <SlideFade in={photos && photos.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Grid title='Photos'>
+          <Panel title='Photos' total={photos?.length || 0}>
             <>
               {photos?.map((photo, index) => (
                 <Photo
@@ -30,12 +30,12 @@ const Gallery = (props: GalleryProps): ReactElement => {
                 />
               ))}
             </>
-          </Grid>
+          </Panel>
         </SlideFade>
 
         {/* Backdrops Section */}
         <SlideFade in={backdrops && backdrops.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Grid title='Backdrops'>
+          <Panel title='Backdrops' total={backdrops?.length || 0}>
             <>
               {backdrops?.map((backdrop, index) => (
                 <Photo
@@ -49,18 +49,18 @@ const Gallery = (props: GalleryProps): ReactElement => {
                 />
               ))}
             </>
-          </Grid>
+          </Panel>
         </SlideFade>
 
         {/* Videos Section */}
         <SlideFade in={videos && videos.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Grid title='Videos'>
+          <Panel title='Videos' total={videos?.length || 0}>
             <>
               {videos?.map((video, index) => (
                 <Video key={index} video={video} isActive={video.key === activePath} onClickVideo={onClick} />
               ))}
             </>
-          </Grid>
+          </Panel>
         </SlideFade>
       </VStack>
     </Modal>

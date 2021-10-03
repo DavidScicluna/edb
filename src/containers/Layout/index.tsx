@@ -14,7 +14,6 @@ import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import ConfirmModal from './components/Modals/Confirm';
 import DescriptionModal from './components/Modals/Description';
 import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
@@ -112,8 +111,6 @@ const Layout = (): ReactElement => {
 
         <ScrollToTop />
       </Box>
-
-      <ConfirmModal />
 
       <QuickView />
 

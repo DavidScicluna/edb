@@ -4,8 +4,8 @@ import { useTheme, Center, SlideFade } from '@chakra-ui/react';
 import { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
+import { useEventListener } from 'usehooks-ts';
 
-import { useEventListener } from '../../../../common/hooks';
 import {
   handleIsTouchDevice,
   handleParseDurationForFramer,
@@ -13,7 +13,7 @@ import {
 } from '../../../../common/utils';
 import { Theme } from '../../../../theme/types';
 import Navigation from '../Navigation';
-import { ViewerProps, SwiperDirection } from './types';
+import { ViewerProps, SwiperDirection, ViewerEvent } from './types';
 
 const Viewer = (props: ViewerProps): ReactElement => {
   const theme = useTheme<Theme>();
@@ -27,7 +27,7 @@ const Viewer = (props: ViewerProps): ReactElement => {
    * And depending if its allowed to navigate left/right
    */
   const handleKeyPress = useCallback(
-    (event: globalThis.KeyboardEvent): void => {
+    (event: ViewerEvent): void => {
       if (!isGalleryOpen) {
         switch (event?.key) {
           case 'ArrowLeft': {

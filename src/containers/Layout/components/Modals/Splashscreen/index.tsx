@@ -1,9 +1,10 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import { useColorMode, Modal, ModalContent, ModalBody, VStack, Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
+import { useInterval } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../common/hooks';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
@@ -19,9 +20,21 @@ const Splashscreen = (): ReactElement => {
 
   const style = useStyles();
 
+  const [loadingDots, setLoadingDots] = useState<string>('.');
+
+  const handleLoadingDots = (): void => {
+    if (loadingDots.length === 4) {
+      setLoadingDots('.');
+    } else {
+      setLoadingDots(`${loadingDots}.`);
+    }
+  };
+
+  useInterval(() => handleLoadingDots(), isSplashscreenOpen ? 250 : null);
+
   useEffect(() => {
     if (isSplashscreenOpen) {
-      setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
+      setTimeout(() => dispatch(toggleSplashscreen(false)), 2500);
     }
   }, [isSplashscreenOpen]);
 
@@ -31,8 +44,6 @@ const Splashscreen = (): ReactElement => {
       closeOnOverlayClick={false}
       isOpen={isSplashscreenOpen}
       onClose={() => dispatch(toggleSplashscreen(false))}
-      blockScrollOnMount
-      preserveScrollBarGap
       motionPreset='scale'
       scrollBehavior='inside'
       size='full'>
@@ -69,7 +80,7 @@ const Splashscreen = (): ReactElement => {
               color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
               fontSize='sm'
               fontWeight='medium'>
-              Loading...
+              {`Loading${loadingDots}`}
             </Text>
           </VStack>
         </ModalBody>

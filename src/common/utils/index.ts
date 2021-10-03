@@ -22,8 +22,8 @@ export const handleFormatMoney = (money: number): string => {
  * @param content String - The content block to format into paragraphs
  * @returns Array of paragraphs
  */
-export const handleFormatIntoParagraphs = (content: string): string[] => {
-  return content.split('\n'[0]);
+export const handleFormatIntoParagraphs = (paragraph: string): string[] => {
+  return paragraph.split('\n'[0]).filter((paragraph) => paragraph !== '\r');
 };
 
 /**

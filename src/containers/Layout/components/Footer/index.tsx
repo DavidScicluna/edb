@@ -1,14 +1,19 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, VStack, HStack, Box, Center, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, HStack, Box, Link, Text, useTheme } from '@chakra-ui/react';
 import moment from 'moment';
 
+import { useSelector } from '../../../../common/hooks';
+import { Theme } from '../../../../theme/types';
 import navItems from '../../common/data/navItems';
 import NavItem from './components/NavItem';
 
 const Footer = (): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   return (
     <VStack width='100%' backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'} spacing={4} p={4} mt={4}>
@@ -28,11 +33,27 @@ const Footer = (): ReactElement => {
 
       <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
 
-      <Center width='100%'>
+      <HStack width='100%' justifyContent='space-between'>
         <Text align='center' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' fontWeight='medium'>
           {`© ${moment().format('YYYY')} EDB, All rights reserved.`}
         </Text>
-      </Center>
+
+        <Text align='center' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' fontWeight='medium'>
+          {'Made by'}{' '}
+          <Link
+            color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+            fontWeight='bold'
+            href='https://davidscicluna.com'
+            isExternal
+            sx={{
+              transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+            }}
+            _focus={{ boxShadow: 'none' }}
+            _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
+            davidscicluna.com
+          </Link>
+        </Text>
+      </HStack>
     </VStack>
   );
 };

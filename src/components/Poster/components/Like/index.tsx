@@ -8,7 +8,7 @@ import {
 
 import { MediaType } from '../../../../common/types/types';
 import IconButton from '../../../Clickable/IconButton';
-import Like from '../../../Like';
+import Like from '../../../Clickable/Like';
 import Tooltip from '../../../Tooltip';
 import { PosterLikeProps } from './types';
 

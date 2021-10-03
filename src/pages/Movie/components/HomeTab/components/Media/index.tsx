@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
 
-import { Tabs, TabPanels, TabPanel, ScaleFade } from '@chakra-ui/react';
+import { useBoolean, Tabs, TabPanels, TabPanel, Fade } from '@chakra-ui/react';
 
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
 import Backdrops from './components/Backdrops';
@@ -14,6 +14,15 @@ const Media = (props: MediaProps): ReactElement => {
   const { name, photos, backdrops, videos, isError, isSuccess, isLoading, onClick } = props;
 
   const [activeTab, setActiveTab] = useState<number>(0);
+  const [resetScroll, setResetScroll] = useBoolean();
+
+  const handleTabChange = (index: number): void => {
+    setResetScroll.on();
+
+    setActiveTab(index);
+
+    setTimeout(() => setResetScroll.off(), 250);
+  };
 
   const handleFooterOnClick = (): void => {
     switch (activeTab) {
@@ -41,7 +50,7 @@ const Media = (props: MediaProps): ReactElement => {
   };
 
   return (
-    <Tabs width='100%' index={activeTab} onChange={(index) => setActiveTab(index)} isLazy variant='unstyled'>
+    <Tabs width='100%' index={activeTab} onChange={handleTabChange} isLazy variant='unstyled'>
       <HorizontalGrid
         title={<TabList activeIndex={activeTab} isLoading={isLoading} />}
         footer={
@@ -62,9 +71,10 @@ const Media = (props: MediaProps): ReactElement => {
         }
         isLoading={activeTab === 2 ? isLoading.videos || false : isLoading.images || false}
         hasDivider
+        resetScroll={resetScroll}
         variant='outlined'>
         <TabPanels>
-          <TabPanel as={ScaleFade} in={activeTab === 0} p={0}>
+          <TabPanel as={Fade} in={activeTab === 0} unmountOnExit p={0}>
             <Photos
               name={name}
               photos={photos}
@@ -74,7 +84,7 @@ const Media = (props: MediaProps): ReactElement => {
               onClick={onClick}
             />
           </TabPanel>
-          <TabPanel as={ScaleFade} in={activeTab === 1} p={0}>
+          <TabPanel as={Fade} in={activeTab === 1} unmountOnExit p={0}>
             <Backdrops
               name={name}
               backdrops={backdrops}
@@ -84,7 +94,7 @@ const Media = (props: MediaProps): ReactElement => {
               onClick={onClick}
             />
           </TabPanel>
-          <TabPanel as={ScaleFade} in={activeTab === 2} p={0}>
+          <TabPanel as={Fade} in={activeTab === 2} unmountOnExit p={0}>
             <Videos
               name={name}
               videos={videos}

@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, Tabs, TabPanels, TabPanel, ScaleFade, SlideFade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, Tabs, TabPanels, TabPanel, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useQuery, useInfiniteQuery } from 'react-query';
@@ -227,7 +227,7 @@ const Movie = (): ReactElement => {
                 }}
               />
               <TabPanels>
-                <TabPanel as={SlideFade} in={activeTab === 0} offsetY='15vh' p={0} unmountOnExit>
+                <TabPanel as={ScaleFade} in={activeTab === 0} p={0} unmountOnExit>
                   <HomeTab
                     movieQuery={movieQuery}
                     creditsQuery={creditsQuery}
@@ -240,7 +240,7 @@ const Movie = (): ReactElement => {
                     onChangeTab={(index: number) => setActiveTab(index)}
                   />
                 </TabPanel>
-                <TabPanel as={SlideFade} in={activeTab === 1} offsetY='15vh' p={0} unmountOnExit>
+                <TabPanel as={ScaleFade} in={activeTab === 1} p={0} unmountOnExit>
                   <CastCrewTab
                     cast={creditsQuery.data?.cast}
                     crew={creditsQuery.data?.crew}
@@ -249,8 +249,9 @@ const Movie = (): ReactElement => {
                     isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
                   />
                 </TabPanel>
-                <TabPanel as={SlideFade} in={activeTab === 2} offsetY='15vh' p={0} unmountOnExit>
+                <TabPanel as={ScaleFade} in={activeTab === 2} p={0} unmountOnExit>
                   <ReviewsTab
+                    movie={movieQuery.data}
                     reviews={reviews}
                     isError={reviewsQuery.isError}
                     isSuccess={reviewsQuery.isSuccess}

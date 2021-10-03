@@ -8,8 +8,10 @@ import {
   HStack,
   VStack,
   Box,
-  AspectRatio
+  AspectRatio,
+  Fade
 } from '@chakra-ui/react';
+import useInView from 'react-cool-inview';
 
 import { MediaType } from '../../../common/types/types';
 import Card from '../../../components/Clickable/Card';
@@ -39,6 +41,11 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
     '2xl': theme.fontSizes['3xl']
   });
 
+  const { observe: ref, inView } = useInView<HTMLDivElement>({
+    threshold: [0.2, 0.4, 0.6, 0.8, 1],
+    unobserveOnEnter: true
+  });
+
   const {
     mediaItem,
     mediaType,
@@ -53,23 +60,34 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
   const [isDisabled, setIsDisabled] = useBoolean();
 
   return (
-    <Link isDisabled={isLoading || isDisabled} to={{ pathname: `${mediaType}/${mediaItem?.id || ''}` }}>
+    <Link isDisabled={isLoading || isDisabled} to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}>
       <Card isFullWidth isDisabled={isLoading} isClickable={!isDisabled} isLight>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
-          <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
-            <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
-              <Image
-                alt={image?.alt || ''}
-                mediaType={mediaType}
-                maxWidth='none'
-                height='100%'
-                borderRadius='base'
-                src={image?.src || ''}
-                size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
-              />
-            </Skeleton>
-          </AspectRatio>
+          <Box
+            ref={ref}
+            as={AspectRatio}
+            width={width}
+            minWidth={width}
+            maxWidth={width}
+            borderRadius='base'
+            ratio={2 / 3}>
+            <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
+              <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
+                <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
+                  <Image
+                    alt={image?.alt || ''}
+                    mediaType={mediaType}
+                    maxWidth='none'
+                    height='100%'
+                    borderRadius='base'
+                    src={image?.src || ''}
+                    size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
+                  />
+                </Skeleton>
+              </AspectRatio>
+            </Fade>
+          </Box>
 
           <VStack
             width={[

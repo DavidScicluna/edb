@@ -2,8 +2,9 @@ import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
+import { useElementSize } from 'usehooks-ts';
 
-import { useElementSize, useSelector } from '../../../../../../common/hooks';
+import { useSelector } from '../../../../../../common/hooks';
 import { handleReturnColor } from '../../../../../../common/utils';
 import Card from '../../../../../../components/Clickable/Card';
 import Link from '../../../../../../components/Clickable/Link';
@@ -21,7 +22,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 
   const { width } = useElementSize(listRef);
 
-  const { id, label, results, isActive = false, isSelectable = false, isSelected = false, onSelected } = props;
+  const { id, label, results, isActive = false, isSelectable = false, isSelected = false, onSelected, onClose } = props;
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -36,7 +37,8 @@ const ListItem = (props: ListItemProps): ReactElement => {
         height={`${width}px`}
         color={location.pathname.includes(id) || isSelected ? handleReturnColor(color) : 'gray'}
         isFullWidth
-        isClickable={!isHoveringRadio}>
+        isClickable={!isHoveringRadio}
+        onClick={onClose ? () => onClose() : undefined}>
         <VStack position='relative' width='100%' spacing={0} px={2} py={6}>
           {isSelectable && onSelected ? (
             <Box position='absolute' top={theme.space[2]} left={theme.space[2]}>

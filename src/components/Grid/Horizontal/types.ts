@@ -15,5 +15,6 @@ export type HorizontalGridProps = {
   footer?: ReactElement;
   isLoading: boolean;
   hasDivider?: boolean;
+  resetScroll?: boolean;
   variant?: CardVariant;
 };

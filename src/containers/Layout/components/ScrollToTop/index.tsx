@@ -3,8 +3,9 @@ import { ReactElement, useState, useCallback, useEffect } from 'react';
 import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import _ from 'lodash';
+import { useWindowSize } from 'usehooks-ts';
 
-import { useSelector, useWindowSize } from '../../../../common/hooks';
+import { useSelector } from '../../../../common/hooks';
 import { handleReturnColor } from '../../../../common/utils';
 import IconButton from '../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../components/Tooltip';

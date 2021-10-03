@@ -5,4 +5,5 @@ export type ListItemProps = {
   isSelectable?: boolean;
   isSelected?: boolean;
   onSelected?: (id: List['id']) => void;
+  onClose?: () => void;
 } & List;

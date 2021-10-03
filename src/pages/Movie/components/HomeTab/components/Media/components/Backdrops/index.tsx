@@ -35,7 +35,6 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
                 key={index}
                 width={width}
                 borderRadius='base'
-                ratio={2 / 3}
                 isDisabled={isLoading}
                 onClick={typeof image !== 'number' && image ? () => onClick(image.file_path, 'backdrop') : undefined}>
                 <Skeleton isLoaded={!isLoading} borderRadius='base'>

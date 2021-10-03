@@ -1,11 +1,10 @@
 import { ReactElement, useEffect, useState } from 'react';
 
-import { VStack, ScaleFade } from '@chakra-ui/react';
+import { useDisclosure, VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import { useInfiniteQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
@@ -13,18 +12,19 @@ import { PartialTV } from '../../../../common/types/tv';
 import { Response, SortBy, Genre } from '../../../../common/types/types';
 import { handleCheckHasFilters, handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
+import LoadMore from '../../../../components/Clickable/LoadMore';
+import ConfirmModal from '../../../../components/ConfirmModal';
 import Filters from '../../../../components/Filters';
 import VerticalGrid from '../../../../components/Grid/Vertical';
-import LoadMore from '../../../../components/LoadMore';
 import Page from '../../../../containers/Page';
 import { home, tv as tvBreadcrumb } from '../../../../containers/Page/common/data/breadcrumbs';
-import { toggleConfirm, defaultConfirmModal } from '../../../../store/slices/Modals';
 import VerticalTV from '../../components/VerticalTV';
 
 const TVAiringToday = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const dispatch = useDispatch();
+  const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
+
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -86,7 +86,7 @@ const TVAiringToday = (): ReactElement => {
     setSortBy(undefined);
     setGenres([]);
 
-    dispatch(toggleConfirm({ ...defaultConfirmModal }));
+    onCloseConfirm();
 
     setTimeout(() => {
       tvAiringTodayQuery.fetchNextPage();
@@ -95,18 +95,7 @@ const TVAiringToday = (): ReactElement => {
 
   const handleFetchNextPage = (): void => {
     if (handleCheckHasFilters(sortBy, genres)) {
-      dispatch(
-        toggleConfirm({
-          open: true,
-          title: 'Filters',
-          description: 'Are you sure you want to load more TV shows? Filters will be reset!',
-          submitButton: (
-            <Button color={handleReturnColor(color)} onClick={() => handleResetFilters()} size='sm'>
-              Load more
-            </Button>
-          )
-        })
-      );
+      onOpenConfirm();
     } else {
       tvAiringTodayQuery.fetchNextPage();
     }
@@ -117,37 +106,51 @@ const TVAiringToday = (): ReactElement => {
   }, []);
 
   return (
-    <Page
-      title='TV Shows Airing Today'
-      breadcrumbs={[home, tvBreadcrumb, { label: 'Airing Today,', to: { pathname: '/tv/airing-today' } }]}>
-      {{
-        actions: <Filters mediaType='tv' isDisabled={!tvAiringTodayQuery.isSuccess} onFilter={handleSetFilters} />,
-        body: (
-          <VerticalGrid>
-            <VStack width='100%' spacing={4} px={2} pt={2}>
-              <VerticalTV
-                isError={tvAiringTodayQuery.isError}
-                isSuccess={tvAiringTodayQuery.isSuccess}
-                isLoading={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}
-                tv={tv?.results || []}
-              />
-
-              <ScaleFade in={!tvAiringTodayQuery.isError} unmountOnExit>
-                <LoadMore
-                  amount={tv?.results.length || 0}
-                  total={tv?.total_results || 0}
-                  mediaType='TV shows'
-                  isLoading={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}
+    <>
+      <Page
+        title='TV Shows Airing Today'
+        breadcrumbs={[home, tvBreadcrumb, { label: 'Airing Today,', to: { pathname: '/tv/airing-today' } }]}>
+        {{
+          actions: <Filters mediaType='tv' isDisabled={!tvAiringTodayQuery.isSuccess} onFilter={handleSetFilters} />,
+          body: (
+            <VerticalGrid>
+              <VStack width='100%' spacing={4} px={2} pt={2}>
+                <VerticalTV
                   isError={tvAiringTodayQuery.isError}
-                  hasNextPage={tvAiringTodayQuery.hasNextPage || true}
-                  onFetch={handleFetchNextPage}
+                  isSuccess={tvAiringTodayQuery.isSuccess}
+                  isLoading={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}
+                  tv={tv?.results || []}
                 />
-              </ScaleFade>
-            </VStack>
-          </VerticalGrid>
-        )
-      }}
-    </Page>
+
+                <ScaleFade in={!tvAiringTodayQuery.isError} unmountOnExit>
+                  <LoadMore
+                    amount={tv?.results.length || 0}
+                    total={tv?.total_results || 0}
+                    mediaType='TV shows'
+                    isLoading={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}
+                    isError={tvAiringTodayQuery.isError}
+                    hasNextPage={tvAiringTodayQuery.hasNextPage || true}
+                    onFetch={handleFetchNextPage}
+                  />
+                </ScaleFade>
+              </VStack>
+            </VerticalGrid>
+          )
+        }}
+      </Page>
+
+      <ConfirmModal
+        renderButton={
+          <Button color={handleReturnColor(color)} onClick={() => handleResetFilters()} size='sm'>
+            Load more
+          </Button>
+        }
+        title='Filters'
+        description='Are you sure you want to load more TV shows? Filters will be reset!'
+        isOpen={isConfirmOpen}
+        onClose={onCloseConfirm}
+      />
+    </>
   );
 };
 

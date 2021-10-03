@@ -1,10 +1,10 @@
 import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
-import { HStack } from '@chakra-ui/react';
+import { useBoolean, HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
+import { useWindowSize } from 'usehooks-ts';
 
-import { useWindowSize } from '../../../common/hooks';
 import { handleIsTouchDevice } from '../../../common/utils';
 import Card from '../../Card';
 import Arrow from './components/Arrow';
@@ -23,10 +23,18 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
 
   const location = useLocation();
 
-  const { children, title, footer, isLoading = true, hasDivider = false, variant = 'transparent' } = props;
+  const {
+    children,
+    title,
+    footer,
+    isLoading = true,
+    hasDivider = false,
+    resetScroll = false,
+    variant = 'transparent'
+  } = props;
 
   const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
-  const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
+  const [resetScrollButtons, setResetScrollButtons] = useBoolean();
 
   const handleGridRef = useCallback(
     _.debounce((ref: HTMLDivElement | null) => {
@@ -42,7 +50,11 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
           right: isRightDisabled
         });
 
-        setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
+        if (isLeftDisabled || isRightDisabled) {
+          setResetScrollButtons.on();
+        } else {
+          setResetScrollButtons.off();
+        }
       } else {
         handleGridRef(gridRef.current);
       }
@@ -68,9 +80,17 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
     [gridRef]
   );
 
-  useEffect(() => {
-    setResetScrollButtons(true);
-  }, [location]);
+  const handleResetScrollButton = useCallback(() => {
+    setResetScrollButtons.on();
+
+    if (gridRef && gridRef.current) {
+      gridRef.current.scrollLeft = 0;
+
+      handleGridRef(gridRef.current);
+    }
+  }, [gridRef, setResetScrollButtons, handleGridRef]);
+
+  useEffect(() => handleResetScrollButton(), [location, resetScroll]);
 
   useEffect(() => {
     handleGridRef(gridRef.current);

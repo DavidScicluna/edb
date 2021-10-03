@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useBreakpointValue, HStack, VStack, Text, SlideFade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useBreakpointValue, HStack, VStack, Text, Badge, SlideFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import {
@@ -47,15 +47,17 @@ const Title = (props: TitleProps): ReactElement => {
             color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
             fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
             fontWeight='bold'>
-            {title || 'Movie Title'}
+            {title || 'Movie Title'}{' '}
+            <Badge height={['28px', '28px', '35px', '35px', '35px', '35px']} background='transparent' p={0}>
+              <Rating
+                rating={rating}
+                isLoading={isLoading}
+                iconFontsize={iconFontsize}
+                textFontsize={['lg', 'lg', 'xl', 'xl', 'xl', 'xl']}
+              />
+            </Badge>
           </Text>
         </SkeletonText>
-        <Rating
-          rating={rating}
-          isLoading={isLoading}
-          iconFontsize={iconFontsize}
-          textFontsize={['lg', 'lg', 'xl', 'xl', 'xl', 'xl']}
-        />
       </HStack>
       <HStack
         spacing={isLoading ? 1 : 0}
@@ -82,6 +84,7 @@ const Title = (props: TitleProps): ReactElement => {
         </SkeletonText>
 
         <HStack
+          wrap='wrap'
           spacing={isLoading ? 1 : 0}
           divider={
             <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' pr={0.75}>

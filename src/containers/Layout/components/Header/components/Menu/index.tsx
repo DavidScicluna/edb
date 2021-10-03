@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 
 import { useColorMode, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerBody } from '@chakra-ui/react';
-import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
+import { MenuOutlined as MenuOutlinedIcon, CloseOutlined as CloseOutlinedIcon } from '@material-ui/icons';
 import { useLocation } from 'react-router-dom';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
@@ -23,7 +23,17 @@ const Menu = (): ReactElement => {
       <Drawer isOpen={isOpen} blockScrollOnMount={false} placement='left' onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
-          <DrawerBody py={1} px={1}>
+          <DrawerBody position='relative' py={1} px={1}>
+            <IconButton
+              aria-label='Close modal?'
+              position='absolute'
+              top={1}
+              right={1}
+              icon={CloseOutlinedIcon}
+              onClick={() => onClose()}
+              variant='icon'
+            />
+
             <NavItems navItems={navItems} sidebarMode='expanded' />
           </DrawerBody>
         </DrawerContent>

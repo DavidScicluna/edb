@@ -4,6 +4,8 @@ import { Swiper } from 'swiper';
 
 import { NavigationDirection, MediaViewerProps, MediaViewerData } from '../../types';
 
+export type ViewerEvent = any;
+
 export type SwiperDirection = { swipeDirection?: NavigationDirection } & Swiper;
 
 export type ViewerProps = {

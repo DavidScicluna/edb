@@ -5,12 +5,13 @@ import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
   FavoriteOutlined as FavoriteOutlinedIcon
 } from '@material-ui/icons';
+import { useElementSize } from 'usehooks-ts';
 
-import { useElementSize, useSelector } from '../../../../common/hooks';
+import { useSelector } from '../../../../common/hooks';
 import { handleReturnColor } from '../../../../common/utils';
-import Bookmark from '../../../../components/Bookmark';
+import Bookmark from '../../../../components/Clickable/Bookmark';
 import Button from '../../../../components/Clickable/Button';
-import Like from '../../../../components/Like';
+import Like from '../../../../components/Clickable/Like';
 import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
@@ -32,7 +33,7 @@ const Actions = (props: ActionsProps): ReactElement => {
       divider={<Box width='2px' height={height} backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />}
       spacing={2}>
       <Bookmark
-        renderButton={({ list, isBookmarked, onClick }) => (
+        renderButton={({ lists, isBookmarked, onClick }) => (
           <Button
             color={isBookmarked ? handleReturnColor(color) : 'gray'}
             isFullWidth={isSm}
@@ -40,7 +41,11 @@ const Actions = (props: ActionsProps): ReactElement => {
             onClick={() => onClick()}
             size='md'
             variant='outlined'>
-            {isBookmarked ? `In ${list?.label ? `"${list.label}"` : ''} list` : 'Add to a list'}
+            {isBookmarked
+              ? `In ${
+                  lists && (lists?.length || 0) === 1 ? `${lists[0].label ? `"${lists[0].label}" list` : ''}` : 'lists'
+                }`
+              : 'Add to a list'}
           </Button>
         )}
         title={title || ''}
@@ -57,7 +62,7 @@ const Actions = (props: ActionsProps): ReactElement => {
             onClick={() => onClick()}
             size='md'
             variant='outlined'>
-            Like
+            {isLiked ? 'Liked' : 'Like'}
           </Button>
         )}
         mediaType='movie'

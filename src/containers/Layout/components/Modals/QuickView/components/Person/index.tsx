@@ -1,11 +1,11 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, useMediaQuery, VStack, HStack, Box } from '@chakra-ui/react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
-import { FullPerson, Profile, ImageResponse, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
+import { FullPerson, ImageResponse, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
 import { Response } from '../../../../../../../common/types/types';
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import { handleGetDepartments } from '../../../../../../../pages/Person';
@@ -21,7 +21,7 @@ const Person = (props: PersonProps): ReactElement => {
 
   const { id } = props;
 
-  const [selectedPhoto, setSelectedPhoto] = useState<Profile | undefined>();
+  const [selectedPhoto, setSelectedPhoto] = useState<string>();
 
   // Fetching person details
   const personQuery = useQuery([`person-${id}`, id], async () => {
@@ -74,9 +74,13 @@ const Person = (props: PersonProps): ReactElement => {
    * @param path - Image path
    */
   const handleOnPosterClick = (path: string): void => {
-    setSelectedPhoto(imagesQuery.data?.profiles.find((image) => image.file_path === path) || undefined);
+    setSelectedPhoto(path);
     onMediaViewerOpen();
   };
+
+  useEffect(() => {
+    return () => source.cancel();
+  }, []);
 
   return (
     <>
@@ -96,7 +100,7 @@ const Person = (props: PersonProps): ReactElement => {
             totalTvCredits={tvCreditsQuery.data?.cast.length || 0}
             totalCrewCredits={(movieCreditsQuery.data?.crew.length || 0) + (tvCreditsQuery.data?.crew.length || 0)}
             isLoading={personQuery.isFetching || personQuery.isLoading}
-            isError={personQuery.isError || personQuery.isError}
+            isError={personQuery.isError}
           />
         </VStack>
       ) : (
@@ -118,7 +122,7 @@ const Person = (props: PersonProps): ReactElement => {
               totalTvCredits={tvCreditsQuery.data?.cast.length || 0}
               totalCrewCredits={(movieCreditsQuery.data?.crew.length || 0) + (tvCreditsQuery.data?.crew.length || 0)}
               isLoading={personQuery.isFetching || personQuery.isLoading}
-              isError={personQuery.isError || personQuery.isError}
+              isError={personQuery.isError}
             />
           </Box>
         </HStack>
@@ -127,7 +131,7 @@ const Person = (props: PersonProps): ReactElement => {
       {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
         <MediaViewer
           isOpen={isMediaViewerOpen}
-          selected={{ type: 'photo', asset: selectedPhoto?.file_path }}
+          selected={{ type: 'photo', asset: selectedPhoto }}
           photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
           mediaType='person'
           onClose={onMediaViewerClose}

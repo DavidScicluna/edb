@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { VStack, ScaleFade } from '@chakra-ui/react';
+import { VStack, Fade } from '@chakra-ui/react';
 
 import Cast from './components/Cast';
 import Collection from './components/Collection';
@@ -100,12 +100,13 @@ const HomeTab = (props: HomeTabProps): ReactElement => {
         onClick={onMediaClick}
       />
 
-      <ScaleFade
-        in={collectionsQuery.isSuccess && Boolean(collectionsQuery.data)}
-        unmountOnExit
-        style={{ width: '100%' }}>
-        <Collection name={collectionsQuery.data?.name || ''} parts={collectionsQuery.data?.parts || []} />
-      </ScaleFade>
+      <Fade in={collectionsQuery.isSuccess && Boolean(collectionsQuery.data)} unmountOnExit style={{ width: '100%' }}>
+        <Collection
+          movieId={movieQuery.data?.id}
+          name={collectionsQuery.data?.name || ''}
+          parts={collectionsQuery.data?.parts || []}
+        />
+      </Fade>
 
       <Recommendations
         recommendations={recommendationsQuery.data}

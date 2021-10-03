@@ -4,12 +4,12 @@ import { useBoolean } from '@chakra-ui/react';
 import {
   BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
   BookmarkOutlined as BookmarkOutlinedIcon
-} from '@material-ui/icons/';
+} from '@material-ui/icons';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types/types';
 import { handleReturnColor } from '../../../../common/utils';
-import Bookmark from '../../../Bookmark';
+import Bookmark from '../../../Clickable/Bookmark';
 import IconButton from '../../../Clickable/IconButton';
 import Tooltip from '../../../Tooltip';
 import { PosterBookmarkProps } from './types';
@@ -23,16 +23,20 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 
   return (
     <Bookmark
-      renderButton={({ list, isBookmarked, onClick }) => (
+      renderButton={({ lists, isBookmarked, onClick }) => (
         <Tooltip
           aria-label={
             isBookmarked
-              ? `Remove "${title}" ${mediaType} from ${list?.label ? `"${list.label}"` : ''} (tooltip)`
+              ? `Remove "${title}" ${mediaType} from ${
+                  lists && (lists?.length || 0) === 1 ? `${lists[0].label ? `"${lists[0].label}" list` : ''}` : 'lists'
+                } (tooltip)`
               : `Add "${title}" ${mediaType} to a list (tooltip)`
           }
           label={
             isBookmarked
-              ? `Remove "${title}" from ${list?.label ? `"${list.label}"` : ''} list`
+              ? `Remove "${title}" from ${
+                  lists && (lists?.length || 0) === 1 ? `${lists[0].label ? `"${lists[0].label}" list` : ''}` : 'lists'
+                }`
               : `Add "${title}" to a list`
           }
           placement='top'
@@ -42,7 +46,11 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
           <IconButton
             aria-label={
               isBookmarked
-                ? `Remove "${title}" ${mediaType} from ${list?.label ? `"${list.label}"` : ''} (tooltip)`
+                ? `Remove "${title}" ${mediaType} from ${
+                    lists && (lists?.length || 0) === 1
+                      ? `${lists[0].label ? `"${lists[0].label}" list` : ''}`
+                      : 'lists'
+                  } (tooltip)`
                 : `Add "${title}" ${mediaType} to a list (tooltip)`
             }
             color={isBookmarked ? handleReturnColor(color) : 'gray'}

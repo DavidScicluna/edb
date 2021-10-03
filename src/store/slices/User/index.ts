@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-import { StateProps, Search, MediaItems, List, Theme } from './types';
+import { StateProps, Search, MediaItems, List, UserReview, OtherReview, Theme } from './types';
 
 const initialState: StateProps = {
   data: {
@@ -29,7 +29,11 @@ const initialState: StateProps = {
           tv: []
         }
       }
-    ]
+    ],
+    reviews: {
+      user: [],
+      other: []
+    }
   },
   ui: {
     theme: {
@@ -57,10 +61,17 @@ const userSlice = createSlice({
     },
     setLists: (state: StateProps, action: PayloadAction<List[]>) => {
       state.data.lists = action.payload;
+    },
+    setUserReviews: (state: StateProps, action: PayloadAction<UserReview[]>) => {
+      state.data.reviews.user = action.payload;
+    },
+    setOtherReviews: (state: StateProps, action: PayloadAction<OtherReview[]>) => {
+      state.data.reviews.other = action.payload;
     }
   }
 });
 
-export const { setTheme, setRecentSearches, setRecentlyViewed, setLiked, setLists } = userSlice.actions;
+export const { setTheme, setRecentSearches, setRecentlyViewed, setLiked, setLists, setUserReviews, setOtherReviews } =
+  userSlice.actions;
 
 export default userSlice.reducer;
