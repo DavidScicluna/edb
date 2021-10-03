@@ -16,7 +16,10 @@ const Image = (props: ImageProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { observe, inView } = useInView({ unobserveOnEnter: true });
+  const { observe: ref, inView } = useInView<HTMLDivElement>({
+    threshold: [0.2, 0.4, 0.6, 0.8, 1],
+    unobserveOnEnter: true
+  });
 
   const {
     children,
@@ -33,8 +36,15 @@ const Image = (props: ImageProps): ReactElement => {
   const [isHovering, setIsHovering] = useBoolean();
 
   return (
-    <Box ref={observe} width={width}>
-      <Fade in={inView} unmountOnExit style={{ width: 'inherit' }}>
+    <Box
+      ref={ref}
+      as={AspectRatio}
+      width={width}
+      minWidth={width}
+      maxWidth={width}
+      borderRadius={borderRadius}
+      ratio={ratio}>
+      <Fade in={isActive || inView} unmountOnExit style={{ width: 'inherit' }}>
         <Box
           {...rest}
           ref={imageRef}

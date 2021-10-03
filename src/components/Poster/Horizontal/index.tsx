@@ -41,7 +41,10 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
     '2xl': theme.fontSizes['3xl']
   });
 
-  const { observe: ref, inView } = useInView({ unobserveOnEnter: true });
+  const { observe: ref, inView } = useInView<HTMLDivElement>({
+    threshold: [0.2, 0.4, 0.6, 0.8, 1],
+    unobserveOnEnter: true
+  });
 
   const {
     mediaItem,
@@ -57,12 +60,19 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
   const [isDisabled, setIsDisabled] = useBoolean();
 
   return (
-    <Box ref={ref} width={width}>
-      <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit' }}>
-        <Link isDisabled={isLoading || isDisabled} to={{ pathname: `${mediaType}/${mediaItem?.id || ''}` }}>
-          <Card isFullWidth isDisabled={isLoading} isClickable={!isDisabled} isLight>
-            <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
-              {/* Image */}
+    <Link isDisabled={isLoading || isDisabled} to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}>
+      <Card isFullWidth isDisabled={isLoading} isClickable={!isDisabled} isLight>
+        <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
+          {/* Image */}
+          <Box
+            ref={ref}
+            as={AspectRatio}
+            width={width}
+            minWidth={width}
+            maxWidth={width}
+            borderRadius='base'
+            ratio={2 / 3}>
+            <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
               <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
                 <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
                   <Image
@@ -76,85 +86,85 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                   />
                 </Skeleton>
               </AspectRatio>
+            </Fade>
+          </Box>
 
-              <VStack
-                width={[
-                  'calc(100% - 108px)',
-                  'calc(100% - 124px)',
-                  'calc(100% - 168px)',
-                  'calc(100% - 204px)',
-                  'calc(100% - 204px)',
-                  'calc(100% - 240px)'
-                ]}
-                alignItems='flex-start'
-                spacing={[1, 1, 2, 2, 2, 2]}>
-                {/* Rating component */}
-                {mediaType !== 'person' ? (
-                  <Rating
-                    rating={rating}
+          <VStack
+            width={[
+              'calc(100% - 108px)',
+              'calc(100% - 124px)',
+              'calc(100% - 168px)',
+              'calc(100% - 204px)',
+              'calc(100% - 204px)',
+              'calc(100% - 240px)'
+            ]}
+            alignItems='flex-start'
+            spacing={[1, 1, 2, 2, 2, 2]}>
+            {/* Rating component */}
+            {mediaType !== 'person' ? (
+              <Rating
+                rating={rating}
+                isLoading={isLoading}
+                iconFontsize={iconSize}
+                textFontsize={['sm', 'sm', 'md', 'lg', 'lg', 'xl']}
+              />
+            ) : null}
+
+            {/* Text */}
+            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+              <Title title={title} isLoading={isLoading} />
+              <Subtitle subtitle={subtitle} isLoading={isLoading} />
+            </VStack>
+
+            <Box width='100%' onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+              {typeof description === 'string' ? (
+                <Description
+                  mediaType={mediaType}
+                  mediaItem={{ id: mediaItem?.id || -1, title, description }}
+                  isLoading={isLoading}
+                />
+              ) : (
+                description
+              )}
+            </Box>
+          </VStack>
+
+          {/* Like / List Icon buttons */}
+          {mediaItem ? (
+            <HStack
+              spacing={0}
+              sx={{
+                position: 'absolute',
+                top: 1,
+                right: 1
+              }}>
+              {/* Like component */}
+              <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                <Like
+                  title={title}
+                  mediaType={mediaType}
+                  mediaItem={mediaItem}
+                  isLoading={isLoading}
+                  size={isSm ? 'md' : 'lg'}
+                />
+              </Box>
+              {/* List component */}
+              {mediaType !== 'person' ? (
+                <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                  <Bookmark
+                    title={title}
+                    mediaType={mediaType}
+                    mediaItem={mediaItem}
                     isLoading={isLoading}
-                    iconFontsize={iconSize}
-                    textFontsize={['sm', 'sm', 'md', 'lg', 'lg', 'xl']}
+                    size={isSm ? 'md' : 'lg'}
                   />
-                ) : null}
-
-                {/* Text */}
-                <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-                  <Title title={title} isLoading={isLoading} />
-                  <Subtitle subtitle={subtitle} isLoading={isLoading} />
-                </VStack>
-
-                <Box width='100%' onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                  {typeof description === 'string' ? (
-                    <Description
-                      mediaType={mediaType}
-                      mediaItem={{ id: mediaItem?.id || -1, title, description }}
-                      isLoading={isLoading}
-                    />
-                  ) : (
-                    description
-                  )}
                 </Box>
-              </VStack>
-
-              {/* Like / List Icon buttons */}
-              {mediaItem ? (
-                <HStack
-                  spacing={0}
-                  sx={{
-                    position: 'absolute',
-                    top: 1,
-                    right: 1
-                  }}>
-                  {/* Like component */}
-                  <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                    <Like
-                      title={title}
-                      mediaType={mediaType}
-                      mediaItem={mediaItem}
-                      isLoading={isLoading}
-                      size={isSm ? 'md' : 'lg'}
-                    />
-                  </Box>
-                  {/* List component */}
-                  {mediaType !== 'person' ? (
-                    <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                      <Bookmark
-                        title={title}
-                        mediaType={mediaType}
-                        mediaItem={mediaItem}
-                        isLoading={isLoading}
-                        size={isSm ? 'md' : 'lg'}
-                      />
-                    </Box>
-                  ) : null}
-                </HStack>
               ) : null}
             </HStack>
-          </Card>
-        </Link>
-      </Fade>
-    </Box>
+          ) : null}
+        </HStack>
+      </Card>
+    </Link>
   );
 };
 

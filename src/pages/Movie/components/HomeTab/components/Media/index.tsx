@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
 
-import { Tabs, TabPanels, TabPanel, ScaleFade } from '@chakra-ui/react';
+import { Tabs, TabPanels, TabPanel, Fade } from '@chakra-ui/react';
 
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
 import Backdrops from './components/Backdrops';
@@ -64,7 +64,7 @@ const Media = (props: MediaProps): ReactElement => {
         hasDivider
         variant='outlined'>
         <TabPanels>
-          <TabPanel as={ScaleFade} in={activeTab === 0} p={0}>
+          <TabPanel as={Fade} in={activeTab === 0} unmountOnExit p={0}>
             <Photos
               name={name}
               photos={photos}
@@ -74,7 +74,7 @@ const Media = (props: MediaProps): ReactElement => {
               onClick={onClick}
             />
           </TabPanel>
-          <TabPanel as={ScaleFade} in={activeTab === 1} p={0}>
+          <TabPanel as={Fade} in={activeTab === 1} unmountOnExit p={0}>
             <Backdrops
               name={name}
               backdrops={backdrops}
@@ -84,7 +84,7 @@ const Media = (props: MediaProps): ReactElement => {
               onClick={onClick}
             />
           </TabPanel>
-          <TabPanel as={ScaleFade} in={activeTab === 2} p={0}>
+          <TabPanel as={Fade} in={activeTab === 2} unmountOnExit p={0}>
             <Videos
               name={name}
               videos={videos}

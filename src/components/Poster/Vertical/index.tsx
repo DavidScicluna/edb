@@ -25,7 +25,10 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
   const dispatch = useDispatch();
 
-  const { observe: ref, inView } = useInView({ unobserveOnEnter: true });
+  const { observe: ref, inView } = useInView<HTMLDivElement>({
+    threshold: [0.2, 0.4, 0.6, 0.8, 1],
+    unobserveOnEnter: true
+  });
 
   const {
     width,
@@ -43,115 +46,113 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
   const [isDisabled, setIsDisabled] = useBoolean();
 
   return (
-    <Box ref={ref} width={width}>
-      <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit' }}>
-        <Link
-          isDisabled={isLoading || isDisabled}
-          to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}
-          onMouseEnter={() => setIsHoveringPoster.on()}
-          onMouseLeave={() => setIsHoveringPoster.off()}>
-          <Card isDisabled={isLoading} isClickable={!isDisabled} isLight>
-            <VStack width={width} position='relative' spacing={1} p={1}>
-              {/* Image */}
-              <Box position='relative' width='100%' minWidth='100%' maxWidth='100%'>
-                <AspectRatio width='100%' minWidth='100%' maxWidth='100%' ratio={2 / 3}>
-                  <>
-                    <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
-                      <Image
-                        alt={image?.alt || ''}
-                        mediaType={mediaType}
-                        maxWidth='none'
-                        height='100%'
-                        borderRadius='base'
-                        src={image?.src || ''}
-                        size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
-                      />
-                    </Skeleton>
+    <Link
+      isDisabled={isLoading || isDisabled}
+      to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}
+      onMouseEnter={() => setIsHoveringPoster.on()}
+      onMouseLeave={() => setIsHoveringPoster.off()}>
+      <Card isDisabled={isLoading} isClickable={!isDisabled} isLight>
+        <VStack width={width} position='relative' spacing={1} p={1}>
+          {/* Image */}
+          <Box
+            as={AspectRatio}
+            ref={ref}
+            position='relative'
+            width='100%'
+            minWidth='100%'
+            maxWidth='100%'
+            borderRadius='base'
+            ratio={2 / 3}>
+            <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
+              <AspectRatio width='100%' minWidth='100%' maxWidth='100%' borderRadius='base' ratio={2 / 3}>
+                <>
+                  <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
+                    <Image
+                      alt={image?.alt || ''}
+                      mediaType={mediaType}
+                      maxWidth='none'
+                      height='100%'
+                      borderRadius='base'
+                      src={image?.src || ''}
+                      size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
+                    />
+                  </Skeleton>
 
-                    {/* Quick View component */}
-                    {mediaItem && !handleIsTouchDevice() ? (
-                      <ScaleFade in={isHoveringPoster && !isLoading} unmountOnExit>
-                        <Box
-                          position='absolute'
-                          bottom={theme.space[1]}
-                          width='100%'
-                          onMouseEnter={() => setIsDisabled.on()}
-                          onMouseLeave={() => setIsDisabled.off()}
-                          px={1}>
-                          <Button
-                            isFullWidth
-                            onClick={() =>
-                              dispatch(
-                                toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } })
-                              )
-                            }
-                            size='sm'>
-                            Quick view
-                          </Button>
-                        </Box>
-                      </ScaleFade>
-                    ) : null}
-                  </>
-                </AspectRatio>
-              </Box>
-
-              <VStack width='100%' spacing={mediaType !== 'person' ? 0.5 : 1}>
-                {/* Header */}
-                {mediaType !== 'person' ? (
-                  <HStack width='100%' justify='space-between' spacing={0}>
-                    {/* Rating component */}
-                    <Rating rating={rating} isLoading={isLoading} iconFontsize={theme.fontSizes.xl} textFontsize='md' />
-
-                    <HStack spacing={0}>
-                      {/* Like component */}
-                      <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                        <Like
-                          title={title}
-                          mediaType={mediaType}
-                          mediaItem={mediaItem}
-                          size='sm'
-                          isLoading={isLoading}
-                        />
+                  {/* Quick View component */}
+                  {mediaItem && !handleIsTouchDevice() ? (
+                    <ScaleFade in={isHoveringPoster && !isLoading} unmountOnExit>
+                      <Box
+                        position='absolute'
+                        bottom={theme.space[1]}
+                        width='100%'
+                        onMouseEnter={() => setIsDisabled.on()}
+                        onMouseLeave={() => setIsDisabled.off()}
+                        px={1}>
+                        <Button
+                          isFullWidth
+                          onClick={() =>
+                            dispatch(toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } }))
+                          }
+                          size='sm'>
+                          Quick view
+                        </Button>
                       </Box>
-                      {/* List component */}
-                      <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                        <Bookmark
-                          title={title}
-                          mediaType={mediaType}
-                          mediaItem={mediaItem}
-                          isLoading={isLoading}
-                          size='sm'
-                        />
-                      </Box>
-                    </HStack>
-                  </HStack>
-                ) : null}
-                {/* Text */}
-                <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-                  <Title title={title} isLoading={isLoading} />
-                  <Subtitle subtitle={subtitle} isLoading={isLoading} />
-                </VStack>
-              </VStack>
+                    </ScaleFade>
+                  ) : null}
+                </>
+              </AspectRatio>
+            </Fade>
+          </Box>
 
-              {/* Like component */}
-              {mediaType === 'person' ? (
-                <HStack
-                  spacing={0}
-                  sx={{
-                    position: 'absolute',
-                    top: 1,
-                    right: 2
-                  }}>
+          <VStack width='100%' spacing={mediaType !== 'person' ? 0.5 : 1}>
+            {/* Header */}
+            {mediaType !== 'person' ? (
+              <HStack width='100%' justify='space-between' spacing={0}>
+                {/* Rating component */}
+                <Rating rating={rating} isLoading={isLoading} iconFontsize={theme.fontSizes.xl} textFontsize='md' />
+
+                <HStack spacing={0}>
+                  {/* Like component */}
                   <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                    <Like title={title} mediaType={mediaType} mediaItem={mediaItem} isLoading={isLoading} size='sm' />
+                    <Like title={title} mediaType={mediaType} mediaItem={mediaItem} size='sm' isLoading={isLoading} />
+                  </Box>
+                  {/* List component */}
+                  <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                    <Bookmark
+                      title={title}
+                      mediaType={mediaType}
+                      mediaItem={mediaItem}
+                      isLoading={isLoading}
+                      size='sm'
+                    />
                   </Box>
                 </HStack>
-              ) : null}
+              </HStack>
+            ) : null}
+            {/* Text */}
+            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+              <Title title={title} isLoading={isLoading} />
+              <Subtitle subtitle={subtitle} isLoading={isLoading} />
             </VStack>
-          </Card>
-        </Link>
-      </Fade>
-    </Box>
+          </VStack>
+
+          {/* Like component */}
+          {mediaType === 'person' ? (
+            <HStack
+              spacing={0}
+              sx={{
+                position: 'absolute',
+                top: 1,
+                right: 2
+              }}>
+              <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                <Like title={title} mediaType={mediaType} mediaItem={mediaItem} isLoading={isLoading} size='sm' />
+              </Box>
+            </HStack>
+          ) : null}
+        </VStack>
+      </Card>
+    </Link>
   );
 };
 

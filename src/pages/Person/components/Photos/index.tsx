@@ -60,7 +60,6 @@ const Photos = (props: PhotosProps): ReactElement => {
                 key={index}
                 width={width}
                 borderRadius='lg'
-                ratio={2 / 3}
                 isDisabled={isLoading}
                 onClick={typeof image !== 'number' && image ? () => onClickImage(image.file_path) : undefined}>
                 <Skeleton isLoaded={!isLoading} borderRadius='lg'>

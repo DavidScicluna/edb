@@ -16,7 +16,6 @@ const Poster = (props: PosterProps): ReactElement => {
     <ClickableImage
       width='100%'
       borderRadius='base'
-      ratio={2 / 3}
       isDisabled={isLoading || isError || isImageError}
       onClick={path ? () => onClick(path, 'photo') : undefined}>
       <Skeleton isLoaded={!isLoading} borderRadius='base'>

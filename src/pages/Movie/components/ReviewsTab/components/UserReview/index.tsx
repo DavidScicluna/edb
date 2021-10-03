@@ -41,8 +41,8 @@ const UserReview = ({ movie, isLoading = true }: UserReviewProps): ReactElement 
             label={`You currently have not written any reviews ${
               movie && movie.title ? `for "${movie.title}" movie` : ''
             }`}
-            description={`Enter a review and leave your taughts about ${
-              movie && movie.title ? `for "${movie.title}" movie` : ''
+            description={`Write a review and leave your taughts about ${
+              movie && movie.title ? `"${movie.title}" movie` : ''
             } to help others make up their mind.`}
             variant='outlined'
             size='lg'
