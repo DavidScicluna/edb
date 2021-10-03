@@ -1,17 +1,16 @@
 import { ReactElement } from 'react';
 
-import { MediaType } from '../../common/types/types';
-import { GetMediaType, List } from '../../store/slices/User/types';
+import { MediaType } from '../../../common/types/types';
+import { GetMediaType } from '../../../store/slices/User/types';
 
 type RenderButtonProps = {
-  lists?: List[];
-  isBookmarked: boolean;
+  // list?: List;
+  isLiked: boolean;
   onClick: () => void;
 };
 
-export interface BookmarkProps {
+export interface LikeProps {
   renderButton: (props: RenderButtonProps) => ReactElement;
-  title: string;
   mediaType: MediaType;
   mediaItem?: GetMediaType<this['mediaType']>;
 }

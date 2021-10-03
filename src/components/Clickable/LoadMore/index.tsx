@@ -2,9 +2,9 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
-import { useSelector } from '../../common/hooks';
-import { handleReturnColor } from '../../common/utils';
-import Button from '../Clickable/Button';
+import { useSelector } from '../../../common/hooks';
+import { handleReturnColor } from '../../../common/utils';
+import Button from '../Button';
 import { LoadMoreProps } from './types';
 
 const LoadMore = (props: LoadMoreProps): ReactElement => {

@@ -4,12 +4,12 @@ import { useBoolean } from '@chakra-ui/react';
 import {
   BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
   BookmarkOutlined as BookmarkOutlinedIcon
-} from '@material-ui/icons/';
+} from '@material-ui/icons';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types/types';
 import { handleReturnColor } from '../../../../common/utils';
-import Bookmark from '../../../Bookmark';
+import Bookmark from '../../../Clickable/Bookmark';
 import IconButton from '../../../Clickable/IconButton';
 import Tooltip from '../../../Tooltip';
 import { PosterBookmarkProps } from './types';

@@ -11,7 +11,7 @@ import {
   TvTwoTone as TvTwoToneIcon,
   WhatshotOutlined as WhatshotOutlinedIcon,
   WhatshotTwoTone as WhatshotTwoToneIcon
-} from '@material-ui/icons/';
+} from '@material-ui/icons';
 
 import { NavItem } from '../../../../components/NavItem/types';
 

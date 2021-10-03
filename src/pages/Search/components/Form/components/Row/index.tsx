@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useBoolean, VStack, Center, ListItem, Text, ScaleFade } from '@chakra-ui/react';
-import { ClearOutlined as ClearOutlinedIcon } from '@material-ui/icons/';
+import { ClearOutlined as ClearOutlinedIcon } from '@material-ui/icons';
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 

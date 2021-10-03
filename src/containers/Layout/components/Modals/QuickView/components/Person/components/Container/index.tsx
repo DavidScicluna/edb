@@ -7,7 +7,7 @@ import {
 } from '@material-ui/icons';
 
 import Button from '../../../../../../../../../components/Clickable/Button';
-import Like from '../../../../../../../../../components/Like';
+import Like from '../../../../../../../../../components/Clickable/Like';
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import Date from '../../../../../../../../../pages/Person/components/Details/components/Date';
 import Departments from '../../../../../../../../../pages/Person/components/Details/components/Departments';

@@ -3,8 +3,8 @@ import { ReactElement } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
-import { useSelector } from '../../common/hooks';
-import { setLiked } from '../../store/slices/User';
+import { useSelector } from '../../../common/hooks';
+import { setLiked } from '../../../store/slices/User';
 import { LikeProps } from './types';
 
 const Like = (props: LikeProps): ReactElement => {

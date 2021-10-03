@@ -8,7 +8,7 @@ import {
 
 import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
-import Like from '../../../../components/Like';
+import Like from '../../../../components/Clickable/Like';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import Background from './components/Background';
 import Date from './components/Date';

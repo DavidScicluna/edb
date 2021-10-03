@@ -3,9 +3,9 @@ import React, { ReactElement } from 'react';
 import { VStack, ScaleFade, HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
-import LoadMore from '../../../../../../components/LoadMore';
 import Panel from '../Panel';
 import Review from '../Review';
 import ThumbButton from './components/ThumbButton';

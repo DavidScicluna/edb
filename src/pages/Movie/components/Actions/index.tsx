@@ -9,9 +9,9 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
 import { handleReturnColor } from '../../../../common/utils';
-import Bookmark from '../../../../components/Bookmark';
+import Bookmark from '../../../../components/Clickable/Bookmark';
 import Button from '../../../../components/Clickable/Button';
-import Like from '../../../../components/Like';
+import Like from '../../../../components/Clickable/Like';
 import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {

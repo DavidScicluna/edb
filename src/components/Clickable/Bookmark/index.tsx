@@ -3,12 +3,12 @@ import { ReactElement } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
-import { useSelector } from '../../common/hooks';
-import { toggleList } from '../../store/slices/Modals';
-import { setLists } from '../../store/slices/User';
-import { List } from '../../store/slices/User/types';
-import Button from '../Clickable/Button';
-import ConfirmModal from '../ConfirmModal';
+import { useSelector } from '../../../common/hooks';
+import { toggleList } from '../../../store/slices/Modals';
+import { setLists } from '../../../store/slices/User';
+import { List } from '../../../store/slices/User/types';
+import ConfirmModal from '../../ConfirmModal';
+import Button from '../Button';
 import { BookmarkProps } from './types';
 
 const Bookmark = (props: BookmarkProps): ReactElement => {

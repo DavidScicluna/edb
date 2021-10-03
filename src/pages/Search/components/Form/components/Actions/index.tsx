@@ -5,7 +5,7 @@ import {
   ClearOutlined as ClearOutlinedIcon,
   LockOpenOutlined as LockOpenOutlinedIcon,
   LockOutlined as LockOutlinedIcon
-} from '@material-ui/icons/';
+} from '@material-ui/icons';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../../../components/Tooltip';

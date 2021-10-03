@@ -13,7 +13,6 @@ import { defaultListsModal, toggleList } from '../../../../../store/slices/Modal
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
 import { setLists } from '../../../../../store/slices/User';
 import { List as ListType } from '../../../../../store/slices/User/types';
-// import CreateList from './components/CreateList';
 import List from './components/List';
 
 const ListsModal = (): ReactElement => {
