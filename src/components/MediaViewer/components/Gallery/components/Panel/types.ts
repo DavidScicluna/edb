@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-export type GridProps = {
+export type ListProps = {
   children: ReactElement;
-  title?: string;
+  title: string;
+  total: number;
 };
