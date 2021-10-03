@@ -35,7 +35,7 @@ const Details = (props: DetailsProps): ReactElement => {
           <VStack position='relative' alignItems='stretch' spacing={2}>
             {renderCover}
 
-            <ScaleFade in={(tagline?.length || 0) > 0 && !isLoading} unmountOnExit>
+            <ScaleFade in={(tagline?.length || 0) > 0} unmountOnExit>
               <Label width='100%' label='Tagline'>
                 <SkeletonText offsetY={8} isLoaded={!isLoading?.details}>
                   <Text

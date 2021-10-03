@@ -101,7 +101,11 @@ const HomeTab = (props: HomeTabProps): ReactElement => {
       />
 
       <Fade in={collectionsQuery.isSuccess && Boolean(collectionsQuery.data)} unmountOnExit style={{ width: '100%' }}>
-        <Collection name={collectionsQuery.data?.name || ''} parts={collectionsQuery.data?.parts || []} />
+        <Collection
+          movieId={movieQuery.data?.id}
+          name={collectionsQuery.data?.name || ''}
+          parts={collectionsQuery.data?.parts || []}
+        />
       </Fade>
 
       <Recommendations

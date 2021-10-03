@@ -6,5 +6,5 @@ export type ErrorProps = {
   code: number;
   title: string;
   subtitle: string;
-  actions: ReactElement;
+  actions?: ReactElement;
 };

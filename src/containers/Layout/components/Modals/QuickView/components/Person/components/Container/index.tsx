@@ -29,7 +29,7 @@ const Container = (props: ContainerProps): ReactElement => {
   } = props;
 
   return (
-    <VStack width='100%' alignItems='flex-start' spacing={6}>
+    <VStack width='100%' alignItems='flex-start' spacing={4}>
       <VStack width='100%' alignItems='flex-start' spacing={2}>
         <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
           <SkeletonText offsetY={isSm ? 12 : 18} isLoaded={!isLoading}>
