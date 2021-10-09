@@ -55,8 +55,8 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
                     ? `${department.toLowerCase()}${department !== 'cast' ? '-crew' : ''}`
                     : ''
                 }`}
-                spy={true}
-                smooth={true}
+                spy
+                smooth
                 offset={-145}>
                 <Button color={handleReturnColor(color)} isDisabled={isLoading} size='sm' variant='text'>
                   {typeof department !== 'number' ? department : 'Lorem'}

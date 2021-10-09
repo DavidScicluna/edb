@@ -8,7 +8,7 @@ const Tabs = (props: TabsProps): ReactElement => {
   const { children, activeTab, onChange } = props;
 
   return (
-    <CUITabs index={activeTab} onChange={onChange} variant='unstyled' isLazy p={2}>
+    <CUITabs maxWidth='100%' index={activeTab} onChange={onChange} variant='unstyled' isLazy>
       {children}
     </CUITabs>
   );

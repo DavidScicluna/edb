@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, VStack, HStack, Box, Link, Text, useTheme } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, HStack, Stack, Box, Link, Text, useTheme } from '@chakra-ui/react';
 import moment from 'moment';
 
 import { useSelector } from '../../../../common/hooks';
@@ -33,7 +33,7 @@ const Footer = (): ReactElement => {
 
       <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
 
-      <HStack width='100%' justifyContent='space-between'>
+      <Stack width='100%' direction={isSm ? 'column' : 'row'} justifyContent='space-between'>
         <Text align='center' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' fontWeight='medium'>
           {`© ${moment().format('YYYY')} EDB, All rights reserved.`}
         </Text>
@@ -42,7 +42,7 @@ const Footer = (): ReactElement => {
           {'Made by'}{' '}
           <Link
             color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-            fontWeight='bold'
+            fontWeight='semibold'
             href='https://davidscicluna.com'
             isExternal
             sx={{
@@ -53,7 +53,7 @@ const Footer = (): ReactElement => {
             davidscicluna.com
           </Link>
         </Text>
-      </HStack>
+      </Stack>
     </VStack>
   );
 };

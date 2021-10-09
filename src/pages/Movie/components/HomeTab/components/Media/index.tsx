@@ -59,14 +59,17 @@ const Media = (props: MediaProps): ReactElement => {
             renderTabs={[
               {
                 label: 'photos',
+                badge: String(photos?.length || 0),
                 isDisabled: isLoading.images
               },
               {
                 label: 'backdrops',
+                badge: String(backdrops?.length || 0),
                 isDisabled: isLoading.images
               },
               {
                 label: 'videos',
+                badge: String(videos?.length || 0),
                 isDisabled: isLoading.videos
               }
             ]}

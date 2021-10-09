@@ -51,13 +51,13 @@ const Body = (props: BodyProps): ReactElement => {
   }, []);
 
   return (
-    <VStack width='100%' spacing={2}>
+    <VStack width='100%' maxWidth='100%' spacing={2}>
       {!isLoading && content ? (
         <Collapse
           in={isExpanded}
           startingHeight={(height || 176) >= 176 ? 176 : elementHeight || 176}
-          style={{ width: '100%' }}>
-          <VStack ref={contentRef} width='100%' alignItems='flex-start' spacing={2}>
+          style={{ width: 'inherit', maxWidth: 'inherit' }}>
+          <VStack ref={contentRef} width='100%' maxWidth='100%' alignItems='flex-start' spacing={2}>
             {handleFormatIntoParagraphs(content)
               .filter((paragraph) => paragraph)
               .map((paragraph, index) => (

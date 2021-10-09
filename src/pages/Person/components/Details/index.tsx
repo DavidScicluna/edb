@@ -93,7 +93,7 @@ const Details = (props: DetailsProps): ReactElement => {
                 isError={isError}
               />
 
-              <ScaleFade in={!isError} unmountOnExit>
+              <ScaleFade in={!isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
                 <Like
                   renderButton={({ isLiked, onClick }) => (
                     <Button

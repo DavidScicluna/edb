@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useBreakpointValue, SlideFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, useBreakpointValue, SlideFade } from '@chakra-ui/react';
+import moment from 'moment';
 
 import Card from '../../../../../../components/Card';
 import Rating from '../../../../../../components/Rating';
@@ -12,6 +13,7 @@ import { ReviewProps } from './types';
 
 const Review = (props: ReviewProps): ReactElement => {
   const theme = useTheme<Theme>();
+  const [isSm] = useMediaQuery('(max-width: 600px)');
   const iconFontsize = useBreakpointValue({
     'base': theme.fontSizes['2xl'],
     'sm': theme.fontSizes['2xl'],
@@ -24,6 +26,8 @@ const Review = (props: ReviewProps): ReactElement => {
   const { renderFooterActions, review, isLoading = true } = props;
   const { author, author_details, created_at, updated_at, content } = review || {};
 
+  const hasUpdated = updated_at && !moment(updated_at).isSame(created_at);
+
   return (
     <Card box={{ header: { pb: 1.5 }, body: { py: 1.5 }, footer: { pt: 1 } }} isFullWidth px={2} pt={1.5} pb={1}>
       {{
@@ -33,7 +37,7 @@ const Review = (props: ReviewProps): ReactElement => {
               avatar={author_details?.avatar_path || ''}
               name={author_details?.name || author || ''}
               username={author_details?.username || ''}
-              date={created_at || ''}
+              date={!isSm ? created_at : ''}
               isLoading={isLoading}
             />
           ),
@@ -52,7 +56,19 @@ const Review = (props: ReviewProps): ReactElement => {
           )
         },
         body: <Body content={content} isLoading={isLoading} />,
-        footer: <Footer renderActions={renderFooterActions} updated_at={updated_at} created_at={created_at} />
+        footer: (
+          <Footer
+            date={
+              hasUpdated
+                ? `* Updated on: ${moment(updated_at).format('LLL')}`
+                : isSm
+                ? moment(created_at).format('LLL')
+                : ''
+            }
+            renderDate={hasUpdated || isSm || false}
+            renderActions={renderFooterActions}
+          />
+        )
       }}
     </Card>
   );

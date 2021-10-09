@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Box, Icon } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, Box, Icon } from '@chakra-ui/react';
 import { StarOutlineOutlined as StarOutlineOutlinedIcon, StarOutlined as StarOutlinedIcon } from '@material-ui/icons';
 
 import { Theme } from '../../../../../../../../../../theme/types';
@@ -9,11 +9,12 @@ import { StarProps } from './types';
 const Star = ({ value, hoveringNumber, isChecked, onChange, onHover }: StarProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   return (
     <Box
       cursor='pointer'
-      p={1}
+      p={isSm ? 0.5 : 1}
       onClick={() => onChange(value)}
       onMouseEnter={() => onHover(value)}
       onMouseLeave={() => onHover(0)}
@@ -36,6 +37,7 @@ const Star = ({ value, hoveringNumber, isChecked, onChange, onHover }: StarProps
       <Icon
         as={isChecked ? StarOutlinedIcon : StarOutlineOutlinedIcon}
         sx={{
+          fontSize: `${isSm ? theme.fontSizes.xl : theme.fontSizes['2xl']} !important`,
           transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
         }}
       />

@@ -28,7 +28,7 @@ const Tab = ({ label, badge, isDisabled, isSelected, size = 'md' }: TabsProps): 
       sx={{ ..._.merge(style.tab, style[colorMode]) }}
       _disabled={{ ...style.disabled }}>
       {label}
-      {badge ? (
+      {badge && badge !== '0' ? (
         <Badge color={isSelected ? handleReturnColor(color) : 'gray'} label={badge} size={isSm ? 'sm' : 'md'} ml={1} />
       ) : null}
     </CUITab>

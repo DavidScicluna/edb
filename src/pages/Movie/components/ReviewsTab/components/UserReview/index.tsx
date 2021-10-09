@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { HStack } from '@chakra-ui/react';
+import { useMediaQuery, HStack } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Empty from '../../../../../../components/Empty';
@@ -12,6 +12,8 @@ import EditReview from './components/EditReview';
 import { UserReviewProps } from './types';
 
 const UserReview = ({ movie, isLoading = true }: UserReviewProps): ReactElement => {
+  const [isSm] = useMediaQuery('(max-width: 600px)');
+
   const userReviews = useSelector((state) => state.user.data.reviews.user);
   const movieUserReviews = userReviews.filter((review) => review.mediaItem.id === movie?.id);
 
@@ -38,12 +40,20 @@ const UserReview = ({ movie, isLoading = true }: UserReviewProps): ReactElement 
           <Empty
             hasIllustration={false}
             button={<CreateReview movie={movie} />}
-            label={`You currently have not written any reviews ${
-              movie && movie.title ? `for "${movie.title}" movie` : ''
-            }`}
-            description={`Write a review and leave your taughts about ${
-              movie && movie.title ? `"${movie.title}" movie` : ''
-            } to help others make up their mind.`}
+            label={
+              isSm
+                ? 'Write a review'
+                : `You currently have not written any reviews ${
+                    movie && movie.title ? `for "${movie.title}" movie` : ''
+                  }`
+            }
+            description={
+              isSm
+                ? 'You currently have not written any reviews!'
+                : `Write a review and leave your taughts about ${
+                    movie && movie.title ? `"${movie.title}" movie` : ''
+                  } to help others make up their mind.`
+            }
             variant='outlined'
             size='lg'
           />

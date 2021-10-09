@@ -48,6 +48,7 @@ const ScrollToTop = (): ReactElement => {
       position='fixed'
       bottom={theme.space[2]}
       right={theme.space[2]}
+      zIndex={10000}
       borderRadius='lg'
       boxShadow='lg'
       backgroundColor='transparent'>

@@ -10,7 +10,7 @@ const TabList = (props: TabListProps): ReactElement => {
   const { renderTabs, activeTab, size } = props;
 
   return (
-    <CUITabList mb={2}>
+    <CUITabList width='100%'>
       <HorizontalScroll>
         <>
           {renderTabs.map((tab, index) => (
