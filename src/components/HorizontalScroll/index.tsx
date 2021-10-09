@@ -73,7 +73,7 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
   }, [windowWidth, isLoading]);
 
   return (
-    <HStack width={width || '100%'} maxWidth={width || '100%'} position='relative' spacing={0}>
+    <HStack width={width || '100%'} maxWidth={width || '100%'} height='100%' position='relative' spacing={0}>
       {/* Left Arrow Button */}
       <Arrow
         direction='left'

@@ -18,7 +18,7 @@ export default (theme: Theme, { isDisabled = false }: ArrowProps): ArrowStyle =>
     content: '""',
 
     width: '30px',
-    height: '30px',
+    height: '100%',
 
     display: 'block',
 

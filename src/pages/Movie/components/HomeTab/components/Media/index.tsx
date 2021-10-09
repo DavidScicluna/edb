@@ -1,12 +1,14 @@
 import { ReactElement, useState } from 'react';
 
-import { useBoolean, Tabs, TabPanels, TabPanel, Fade } from '@chakra-ui/react';
+import { useBoolean } from '@chakra-ui/react';
 
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
+import Tabs from '../../../../../../components/Tabs';
+import TabsList from '../../../../../../components/Tabs/components/TabList';
+import TabPanels from '../../../../../../components/Tabs/components/TabPanels';
 import Backdrops from './components/Backdrops';
 import Footer from './components/Footer';
 import Photos from './components/Photos';
-import TabList from './components/TabList';
 import Videos from './components/Videos';
 import { MediaProps } from './types';
 
@@ -50,9 +52,28 @@ const Media = (props: MediaProps): ReactElement => {
   };
 
   return (
-    <Tabs width='100%' index={activeTab} onChange={handleTabChange} isLazy variant='unstyled'>
+    <Tabs activeTab={activeTab} onChange={handleTabChange}>
       <HorizontalGrid
-        title={<TabList activeIndex={activeTab} isLoading={isLoading} />}
+        title={
+          <TabsList
+            renderTabs={[
+              {
+                label: 'photos',
+                isDisabled: isLoading.images
+              },
+              {
+                label: 'backdrops',
+                isDisabled: isLoading.images
+              },
+              {
+                label: 'videos',
+                isDisabled: isLoading.videos
+              }
+            ]}
+            activeTab={activeTab}
+            size='sm'
+          />
+        }
         footer={
           (activeTab === 0 && (photos?.length || 0) > 7) ||
           (activeTab === 1 && (backdrops?.length || 0) > 7) ||
@@ -73,37 +94,31 @@ const Media = (props: MediaProps): ReactElement => {
         hasDivider
         resetScroll={resetScroll}
         variant='outlined'>
-        <TabPanels>
-          <TabPanel as={Fade} in={activeTab === 0} unmountOnExit p={0}>
-            <Photos
-              name={name}
-              photos={photos}
-              isError={isError.images}
-              isSuccess={isSuccess.images}
-              isLoading={isLoading.images}
-              onClick={onClick}
-            />
-          </TabPanel>
-          <TabPanel as={Fade} in={activeTab === 1} unmountOnExit p={0}>
-            <Backdrops
-              name={name}
-              backdrops={backdrops}
-              isError={isError.images}
-              isSuccess={isSuccess.images}
-              isLoading={isLoading.images}
-              onClick={onClick}
-            />
-          </TabPanel>
-          <TabPanel as={Fade} in={activeTab === 2} unmountOnExit p={0}>
-            <Videos
-              name={name}
-              videos={videos}
-              isError={isError.images}
-              isSuccess={isSuccess.images}
-              isLoading={isLoading.images}
-              onClick={onClick}
-            />
-          </TabPanel>
+        <TabPanels activeTab={activeTab}>
+          <Photos
+            name={name}
+            photos={photos}
+            isError={isError.images}
+            isSuccess={isSuccess.images}
+            isLoading={isLoading.images}
+            onClick={onClick}
+          />
+          <Backdrops
+            name={name}
+            backdrops={backdrops}
+            isError={isError.images}
+            isSuccess={isSuccess.images}
+            isLoading={isLoading.images}
+            onClick={onClick}
+          />
+          <Videos
+            name={name}
+            videos={videos}
+            isError={isError.images}
+            isSuccess={isSuccess.images}
+            isLoading={isLoading.images}
+            onClick={onClick}
+          />
         </TabPanels>
       </HorizontalGrid>
     </Tabs>

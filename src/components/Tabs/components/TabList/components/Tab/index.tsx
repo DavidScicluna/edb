@@ -5,12 +5,12 @@ import _ from 'lodash';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { handleReturnColor } from '../../../../../../common/utils';
-import Badge from '../../../../../../components/Badge';
 import { Theme } from '../../../../../../theme/types';
+import Badge from '../../../../../Badge';
 import useStyles from './styles';
 import { TabsProps } from './types';
 
-const Tab = ({ label, badge, isDisabled, isSelected }: TabsProps): ReactElement => {
+const Tab = ({ label, badge, isDisabled, isSelected, size = 'md' }: TabsProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -23,6 +23,8 @@ const Tab = ({ label, badge, isDisabled, isSelected }: TabsProps): ReactElement 
     <CUITab
       isDisabled={isDisabled}
       isSelected={isSelected}
+      px={size === 'sm' ? 1.5 : 2}
+      py={size === 'sm' ? 0.75 : 1}
       sx={{ ..._.merge(style.tab, style[colorMode]) }}
       _disabled={{ ...style.disabled }}>
       {label}

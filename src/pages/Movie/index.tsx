@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, Tabs, TabPanels, TabPanel, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useQuery, useInfiniteQuery } from 'react-query';
@@ -19,12 +19,14 @@ import {
 import { Response, Collection as CollectionType } from '../../common/types/types';
 import MediaViewer from '../../components/MediaViewer';
 import { MediaViewerType, MediaViewerProps } from '../../components/MediaViewer/types';
+import Tabs from '../../components/Tabs';
+import TabList from '../../components/Tabs/components/TabList';
+import TabPanels from '../../components/Tabs/components/TabPanels';
 import Page from '../../containers/Page';
 import Actions from './components/Actions';
 import CastCrewTab from './components/CastCrewTab';
 import HomeTab from './components/HomeTab';
 import ReviewsTab from './components/ReviewsTab';
-import TabList from './components/TabList';
 import Title from './components/Title';
 
 const Movie = (): ReactElement => {
@@ -216,50 +218,57 @@ const Movie = (): ReactElement => {
             </ScaleFade>
           ),
           body: (
-            <Tabs index={activeTab} onChange={(index: number) => setActiveTab(index)} variant='unstyled' p={2}>
+            <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
               <TabList
+                renderTabs={[
+                  {
+                    label: 'Overview'
+                  },
+                  {
+                    label: 'Cast & Crew',
+                    isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
+                    badge: String((creditsQuery.data?.cast.length || 0) + (creditsQuery.data?.crew.length || 0))
+                  },
+                  {
+                    label: 'Reviews',
+                    isDisabled:
+                      reviewsQuery.isError ||
+                      reviewsQuery.isFetching ||
+                      reviewsQuery.isLoading ||
+                      (reviews?.total_results || 0) === 0,
+                    badge: String(reviews?.total_results || 0)
+                  }
+                ]}
                 activeTab={activeTab}
-                reviews={reviews?.total_results || 0}
-                castCrew={(creditsQuery.data?.cast.length || 0) + (creditsQuery.data?.crew.length || 0)}
-                isDisabled={{
-                  credits: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
-                  reviews: (reviewsQuery.isError || reviewsQuery.isFetching || reviewsQuery.isLoading) && !reviews
-                }}
               />
-              <TabPanels>
-                <TabPanel as={ScaleFade} in={activeTab === 0} p={0} unmountOnExit>
-                  <HomeTab
-                    movieQuery={movieQuery}
-                    creditsQuery={creditsQuery}
-                    imagesQuery={imagesQuery}
-                    videosQuery={videosQuery}
-                    collectionsQuery={collectionsQuery}
-                    recommendationsQuery={recommendationsQuery}
-                    onCoverClick={handleOnCoverClick}
-                    onMediaClick={handleMediaClick}
-                    onChangeTab={(index: number) => setActiveTab(index)}
-                  />
-                </TabPanel>
-                <TabPanel as={ScaleFade} in={activeTab === 1} p={0} unmountOnExit>
-                  <CastCrewTab
-                    cast={creditsQuery.data?.cast}
-                    crew={creditsQuery.data?.crew}
-                    isError={creditsQuery.isError}
-                    isSuccess={creditsQuery.isSuccess}
-                    isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
-                  />
-                </TabPanel>
-                <TabPanel as={ScaleFade} in={activeTab === 2} p={0} unmountOnExit>
-                  <ReviewsTab
-                    movie={movieQuery.data}
-                    reviews={reviews}
-                    isError={reviewsQuery.isError}
-                    isSuccess={reviewsQuery.isSuccess}
-                    isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
-                    hasNextPage={reviewsQuery.hasNextPage}
-                    onFetchNextPage={reviewsQuery.fetchNextPage}
-                  />
-                </TabPanel>
+              <TabPanels activeTab={activeTab}>
+                <HomeTab
+                  movieQuery={movieQuery}
+                  creditsQuery={creditsQuery}
+                  imagesQuery={imagesQuery}
+                  videosQuery={videosQuery}
+                  collectionsQuery={collectionsQuery}
+                  recommendationsQuery={recommendationsQuery}
+                  onCoverClick={handleOnCoverClick}
+                  onMediaClick={handleMediaClick}
+                  onChangeTab={(index: number) => setActiveTab(index)}
+                />
+                <CastCrewTab
+                  cast={creditsQuery.data?.cast}
+                  crew={creditsQuery.data?.crew}
+                  isError={creditsQuery.isError}
+                  isSuccess={creditsQuery.isSuccess}
+                  isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
+                />
+                <ReviewsTab
+                  movie={movieQuery.data}
+                  reviews={reviews}
+                  isError={reviewsQuery.isError}
+                  isSuccess={reviewsQuery.isSuccess}
+                  isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
+                  hasNextPage={reviewsQuery.hasNextPage}
+                  onFetchNextPage={reviewsQuery.fetchNextPage}
+                />
               </TabPanels>
             </Tabs>
           )

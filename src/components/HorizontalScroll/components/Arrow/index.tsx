@@ -56,6 +56,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
   return (
     <Center
       width='auto'
+      height='100%'
       position='absolute'
       left={direction === 'left' ? 0 : undefined}
       right={direction === 'right' ? 0 : undefined}
@@ -63,8 +64,8 @@ const Arrow = (props: ArrowProps): ReactElement => {
       backgroundColor='transparent'
       _after={direction === 'left' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}
       _before={direction === 'right' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}>
-      <ScaleFade in={!isDisabled} unmountOnExit>
-        <Center backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
+      <ScaleFade in={!isDisabled} unmountOnExit style={{ height: '100%' }}>
+        <Center height='100%' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
           <IconButton
             aria-label={`Scroll ${direction}`}
             icon={direction === 'left' ? ChevronLeftOutlinedIcon : ChevronRightOutlinedIcon}

@@ -1,3 +1,5 @@
+export type Size = 'sm' | 'md';
+
 export type Tab = {
   label: string;
   badge?: string;
@@ -5,8 +7,7 @@ export type Tab = {
 };
 
 export type TabListProps = {
+  renderTabs: Tab[];
   activeTab: number;
-  reviews: number;
-  castCrew: number;
-  isDisabled: { credits: boolean; reviews: boolean };
+  size?: Size;
 };
