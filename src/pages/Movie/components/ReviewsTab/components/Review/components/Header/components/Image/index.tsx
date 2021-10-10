@@ -1,13 +1,15 @@
 import React, { ReactElement, useState, useCallback, useEffect } from 'react';
 
-import { AspectRatio, Image as CUIImage } from '@chakra-ui/react';
+import { useColorMode, AspectRatio, Image as CUIImage } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { handleReturnFallbackSrc } from '../../../../../../../../../../common/utils';
+import { handleReturnBoringSrc } from '../../../../../../../../../../common/utils';
 import Skeleton from '../../../../../../../../../../components/Skeleton';
 import { ImageProps } from './types';
 
 const Image = ({ alt, avatar, isLoading = true }: ImageProps): ReactElement => {
+  const { colorMode } = useColorMode();
+
   const [fallbackSrc, setFallbackSrc] = useState<string>('');
 
   /**
@@ -28,7 +30,7 @@ const Image = ({ alt, avatar, isLoading = true }: ImageProps): ReactElement => {
    */
   const handleFallbackSrc = useCallback(
     _.debounce(() => {
-      const fallbackSrc: string = handleReturnFallbackSrc('person', '780', alt);
+      const fallbackSrc: string = handleReturnBoringSrc('beam', colorMode === 'light' ? 400 : 500, alt);
 
       setFallbackSrc(fallbackSrc);
     }, 500),

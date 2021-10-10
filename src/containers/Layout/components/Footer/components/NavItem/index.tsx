@@ -35,6 +35,7 @@ const NavItem = (props: NavItemProps): ReactElement => {
           fontWeight='semibold'
           textTransform='uppercase'
           sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
+          _focus={{ boxShadow: 'none' }}
           _hover={{
             color: isActive
               ? `${color}.${colorMode === 'light' ? 500 : 400}`
@@ -63,6 +64,7 @@ const NavItem = (props: NavItemProps): ReactElement => {
                 fontWeight='medium'
                 textTransform='capitalize'
                 sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
+                _focus={{ boxShadow: 'none' }}
                 _hover={{
                   color:
                     location.pathname === child.path

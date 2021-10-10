@@ -47,7 +47,7 @@ const Details = (props: DetailsProps): ReactElement => {
                 onClickPoster={onClickPoster}
               />
             ) : (
-              <Background alt={`${person?.name || ''} background`} size='780'>
+              <Background alt={`${person?.name || 'Person'} background`}>
                 {{
                   poster: (
                     <Poster

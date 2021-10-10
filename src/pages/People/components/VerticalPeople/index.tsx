@@ -89,6 +89,7 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
                           sx={{
                             transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
                           }}
+                          _focus={{ boxShadow: 'none' }}
                           _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
                           {mediaItem?.title || mediaItem?.name || ''}
                         </Text>

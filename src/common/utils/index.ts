@@ -1,12 +1,17 @@
 import _ from 'lodash';
 import queryString from 'query-string';
+import { v4 as uuid } from 'uuid';
 
 import { ButtonProps } from '../../components/Clickable/Button/types';
 import store from '../../store';
 import theme from '../../theme';
 import { months } from '../data/date';
 import { Department } from '../data/departments';
-import { Genre, MediaType, SortBy } from '../types/types';
+import { Genre, SortBy } from '../types/types';
+
+type BoringType = 'marble' | 'beam' | 'pixel' | 'sunset' | 'bauhaus' | 'ring';
+
+type ColorSize = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
 export const handleReturnNumberFromString = (number: string, string: string): number => {
   return parseInt(_.replace(number, string));
@@ -135,29 +140,26 @@ export const handleReturnColor = (color: unknown): ButtonProps['color'] => {
  * This method will return a url that will fetch an img from boringavatars
  * boringavatars - https://boringavatars.com/
  *
- * @param mediaType - Poster mediaType (Movie, TV or Person)
- * @param size - Size of poster
+ * @param type - Type of asset from BoringAvatars
+ * @param size - Size of the color spectrum
  * @param alt - Image alt
  * @returns - boringavatars URL
  */
-export const handleReturnFallbackSrc = (mediaType: MediaType, size: string, alt: string): string => {
-  const name = `${alt}-${(Math.floor(Math.random() * 1000000) + 1000000).toString().substring(1)}`.replace(/ /g, '');
-  const colors: string = [
-    theme.colors.red[400],
-    theme.colors.orange[400],
-    theme.colors.yellow[400],
-    theme.colors.green[400],
-    theme.colors.teal[400],
-    theme.colors.blue[400],
-    theme.colors.cyan[400],
-    theme.colors.purple[400],
-    theme.colors.pink[400]
-  ].join(',');
-
+export const handleReturnBoringSrc = (type: BoringType, size: ColorSize, alt: string): string => {
   return queryString.stringifyUrl({
-    url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${mediaType === 'person' ? 'beam' : 'marble'}/${size}/${name}`,
+    url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${type}/${size}/${`${alt}-${uuid()}`.split(' ').join('')}`,
     query: {
-      colors,
+      colors: [
+        theme.colors.red[size],
+        theme.colors.orange[size],
+        theme.colors.yellow[size],
+        theme.colors.green[size],
+        theme.colors.teal[size],
+        theme.colors.blue[size],
+        theme.colors.cyan[size],
+        theme.colors.purple[size],
+        theme.colors.pink[size]
+      ].join(','),
       square: true
     }
   });

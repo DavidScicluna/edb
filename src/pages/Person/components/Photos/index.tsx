@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, Center, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
 import { Profile } from '../../../../common/types/person';
 import { handleReturnColor } from '../../../../common/utils';
+import Badge from '../../../../components/Badge';
 import Button from '../../../../components/Clickable/Button';
 import ClickableImage from '../../../../components/Clickable/Image';
 import Empty from '../../../../components/Empty';
@@ -18,6 +19,7 @@ import { PhotosProps } from './types';
 const width = ['185px', '205px', '230px'];
 
 const Photos = (props: PhotosProps): ReactElement => {
+  const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { images, name, isError = false, isSuccess = false, isLoading = false, onClickImage } = props;
@@ -26,7 +28,18 @@ const Photos = (props: PhotosProps): ReactElement => {
 
   return (
     <HorizontalGrid
-      title='Photos'
+      title={
+        <Center>
+          <Text
+            align='left'
+            color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+            fontSize='lg'
+            fontWeight='semibold'>
+            Photos
+          </Text>
+          <Badge label={String(images.length)} size='md' ml={2} />
+        </Center>
+      }
       footer={
         images.length > 7 ? (
           <Button

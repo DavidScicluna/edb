@@ -96,6 +96,7 @@ const Credits = (props: CreditsProps): ReactElement => {
                         sx={{
                           transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
                         }}
+                        _focus={{ boxShadow: 'none' }}
                         _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
                         {typeof person !== 'number' ? person.name : 'Lorem Ipsum'}
                       </Text>

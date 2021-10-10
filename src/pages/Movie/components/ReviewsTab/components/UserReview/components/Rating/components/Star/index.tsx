@@ -18,12 +18,10 @@ const Star = ({ value, hoveringNumber, isChecked, onChange, onHover }: StarProps
       onClick={() => onChange(value)}
       onMouseEnter={() => onHover(value)}
       onMouseLeave={() => onHover(0)}
+      _focus={{ boxShadow: 'none' }}
       _hover={{
         transform: 'scale(1.25)',
         color: `yellow.${colorMode === 'light' ? 400 : 500}`
-      }}
-      _focus={{
-        boxShadow: 'none'
       }}
       sx={{
         color:

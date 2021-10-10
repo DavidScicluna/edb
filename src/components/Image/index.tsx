@@ -1,20 +1,19 @@
 import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
-import { useTheme, Image as CUIImage } from '@chakra-ui/react';
+import { useTheme, useColorMode, Image as CUIImage } from '@chakra-ui/react';
 import _ from 'lodash';
-import { useElementSize } from 'usehooks-ts';
 
 import { useImageOnLoad } from '../../common/hooks';
-import { handleReturnFallbackSrc } from '../../common/utils';
+import { handleReturnBoringSrc } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import { ImageProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
-  const theme = useTheme<Theme>();
   const imageRef = useRef<HTMLImageElement | null>(null);
 
-  const { width: elementWidth } = useElementSize(imageRef);
-  const { css, isLoaded, handleIsLoaded } = useImageOnLoad(theme);
+  const theme = useTheme<Theme>();
+  const { colorMode } = useColorMode();
+  const { css, handleIsLoaded } = useImageOnLoad(theme);
 
   const { mediaType, alt, src, size, ...rest } = props;
 
@@ -25,7 +24,11 @@ const Image = (props: ImageProps): ReactElement => {
    */
   const handleFallbackSrc = useCallback(
     _.debounce(() => {
-      const fallbackSrc: string = handleReturnFallbackSrc(mediaType, String(isLoaded ? elementWidth || 780 : 50), alt);
+      const fallbackSrc: string = handleReturnBoringSrc(
+        mediaType === 'person' ? 'beam' : 'marble',
+        colorMode === 'light' ? 400 : 500,
+        alt
+      );
 
       setFallbackSrc(fallbackSrc);
     }, 500),

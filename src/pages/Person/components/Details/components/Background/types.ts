@@ -6,5 +6,4 @@ export type BackgroundProps = {
     socials: ReactElement;
   };
   alt: string;
-  size: string;
 };
