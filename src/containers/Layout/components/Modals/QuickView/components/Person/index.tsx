@@ -8,7 +8,7 @@ import axiosInstance from '../../../../../../../common/scripts/axios';
 import { FullPerson, ImageResponse, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
 import { Response } from '../../../../../../../common/types/types';
 import MediaViewer from '../../../../../../../components/MediaViewer';
-import { handleGetDepartments } from '../../../../../../../pages/Person';
+import { handleGetDepartments } from '../../../../../../../pages/View/Person';
 import Poster from '../Poster';
 import Container from './components/Container';
 import { PersonProps } from './types';

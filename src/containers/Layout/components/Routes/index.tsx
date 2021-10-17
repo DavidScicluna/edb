@@ -18,7 +18,6 @@ import PopularMovies from '../../../../pages/Movies/pages/Popular';
 import TopRatedMovies from '../../../../pages/Movies/pages/TopRated';
 import UpcomingMovies from '../../../../pages/Movies/pages/Upcoming';
 import People from '../../../../pages/People';
-import Person from '../../../../pages/Person';
 import Search from '../../../../pages/Search';
 import Trending from '../../../../pages/Trending';
 import TV from '../../../../pages/TV';
@@ -26,6 +25,7 @@ import TVAiringToday from '../../../../pages/TV/pages/AiringToday';
 import OnTV from '../../../../pages/TV/pages/OnTV';
 import PopularTV from '../../../../pages/TV/pages/Popular';
 import TopRatedTV from '../../../../pages/TV/pages/TopRated';
+import Person from '../../../../pages/View/Person';
 
 const ComponentBox = motion(Box);
 
