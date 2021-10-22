@@ -1,5 +1,5 @@
-import { ImageResponse as Image, Video } from '../../../../../../../common/types/types';
-import { MediaViewerType } from '../../../../../../../components/MediaViewer/types';
+import { ImageResponse as Image, Video } from '../../../../common/types/types';
+import { MediaViewerType } from '../../../../components/MediaViewer/types';
 
 export type Status = {
   images?: boolean;
@@ -7,7 +7,7 @@ export type Status = {
 };
 
 export type MediaProps = {
-  name?: string;
+  title?: string;
   photos?: Image[];
   backdrops?: Image[];
   videos?: Video[];

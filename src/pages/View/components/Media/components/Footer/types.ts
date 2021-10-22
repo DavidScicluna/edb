@@ -1,6 +1,6 @@
 export type FooterProps = {
   activeIndex: number;
-  name?: string;
+  title?: string;
   isDisabled: boolean;
   onClick?: () => void;
 };

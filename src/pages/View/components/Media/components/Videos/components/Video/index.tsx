@@ -4,8 +4,8 @@ import { useBoolean, Box } from '@chakra-ui/react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import YouTube, { Options } from 'react-youtube';
 
-import ClickableImage from '../../../../../../../../../../../components/Clickable/Image';
-import Skeleton from '../../../../../../../../../../../components/Skeleton';
+import ClickableImage from '../../../../../../../../components/Clickable/Image';
+import Skeleton from '../../../../../../../../components/Skeleton';
 import { VideoProps } from './types';
 import './styles.css';
 

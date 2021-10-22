@@ -2,10 +2,10 @@ import { ReactElement, useState } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import HorizontalGrid from '../../../../../../../components/Grid/Horizontal';
-import Tabs from '../../../../../../../components/Tabs';
-import TabsList from '../../../../../../../components/Tabs/components/TabList';
-import TabPanels from '../../../../../../../components/Tabs/components/TabPanels';
+import HorizontalGrid from '../../../../components/Grid/Horizontal';
+import Tabs from '../../../../components/Tabs';
+import TabsList from '../../../../components/Tabs/components/TabList';
+import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Backdrops from './components/Backdrops';
 import Footer from './components/Footer';
 import Photos from './components/Photos';
@@ -13,7 +13,7 @@ import Videos from './components/Videos';
 import { MediaProps } from './types';
 
 const Media = (props: MediaProps): ReactElement => {
-  const { name, photos, backdrops, videos, isError, isSuccess, isLoading, onClick } = props;
+  const { title, photos, backdrops, videos, isError, isSuccess, isLoading, onClick } = props;
 
   const [activeTab, setActiveTab] = useState<number>(0);
   const [resetScroll, setResetScroll] = useBoolean();
@@ -83,7 +83,7 @@ const Media = (props: MediaProps): ReactElement => {
           (activeTab === 2 && (videos?.length || 0) > 7) ? (
             <Footer
               activeIndex={activeTab}
-              name={name}
+              title={title}
               isDisabled={
                 activeTab === 2
                   ? isLoading.videos || isError.videos || false
@@ -99,7 +99,7 @@ const Media = (props: MediaProps): ReactElement => {
         variant='outlined'>
         <TabPanels activeTab={activeTab}>
           <Photos
-            name={name}
+            title={title}
             photos={photos}
             isError={isError.images}
             isSuccess={isSuccess.images}
@@ -107,7 +107,7 @@ const Media = (props: MediaProps): ReactElement => {
             onClick={onClick}
           />
           <Backdrops
-            name={name}
+            title={title}
             backdrops={backdrops}
             isError={isError.images}
             isSuccess={isSuccess.images}
@@ -115,7 +115,7 @@ const Media = (props: MediaProps): ReactElement => {
             onClick={onClick}
           />
           <Videos
-            name={name}
+            title={title}
             videos={videos}
             isError={isError.images}
             isSuccess={isSuccess.images}

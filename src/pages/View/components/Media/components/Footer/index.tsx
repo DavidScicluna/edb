@@ -2,9 +2,9 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { useSelector } from '../../../../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../../../../common/utils';
-import Button from '../../../../../../../../../components/Clickable/Button';
+import { useSelector } from '../../../../../../common/hooks';
+import { handleReturnColor } from '../../../../../../common/utils';
+import Button from '../../../../../../components/Clickable/Button';
 import { FooterProps } from './types';
 
 const Footer = (props: FooterProps): ReactElement => {
@@ -12,7 +12,7 @@ const Footer = (props: FooterProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { activeIndex, name, isDisabled, onClick } = props;
+  const { activeIndex, title, isDisabled, onClick } = props;
 
   const handleReturnLabel = (): string => {
     switch (activeIndex) {
@@ -35,7 +35,7 @@ const Footer = (props: FooterProps): ReactElement => {
       onClick={onClick ? () => onClick() : undefined}
       size={isSm ? 'sm' : 'md'}
       variant='text'>
-      {`View all ${name ? `"${name}"` : ''} ${handleReturnLabel()}`}
+      {`View all ${title ? `"${title}"` : ''} ${handleReturnLabel()}`}
     </Button>
   );
 };
