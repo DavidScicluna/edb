@@ -1,7 +1,19 @@
 import { ReactElement, useRef } from 'react';
 
-import { useBoolean, useColorMode, VStack, Box, HStack, Icon, Input, Collapse, ScaleFade } from '@chakra-ui/react';
+import {
+  useBoolean,
+  useColorMode,
+  useOutsideClick,
+  VStack,
+  Box,
+  HStack,
+  Icon,
+  Input,
+  Collapse,
+  ScaleFade
+} from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import sort from 'array-sort';
 import _ from 'lodash';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
@@ -84,6 +96,11 @@ const Form = (props: FormProps): ReactElement => {
     }
   };
 
+  useOutsideClick({
+    ref: inputRef,
+    handler: !isHoveringLock && !isFormLocked && !isHoveringForm ? () => setIsFormFocused.off() : undefined
+  });
+
   return (
     <VStack width='100%' spacing={1} p={2}>
       <Box
@@ -109,7 +126,6 @@ const Form = (props: FormProps): ReactElement => {
             placeholder={`Try "${placeholder}"`}
             isDisabled={isInputDisabled}
             onFocus={!isHoveringLock && !isFormLocked ? () => setIsFormFocused.on() : undefined}
-            onBlur={!isHoveringLock && !isFormLocked && !isHoveringForm ? () => setIsFormFocused.off() : undefined}
             onKeyPress={(event: InputKeyboardEvent) => onInputKeyPress(event)}
             onChange={(event: InputChangeEvent) => onInputChange(event)}
             variant='unstyled'
@@ -140,7 +156,7 @@ const Form = (props: FormProps): ReactElement => {
             <>
               {!hasUnsubmitted ? (
                 recentSearches.length > 0 ? (
-                  _.sortBy(recentSearches, 'date').map((search) => (
+                  sort([...recentSearches], 'date', { reverse: true }).map((search) => (
                     <Row
                       key={search.id}
                       id={search.id}
