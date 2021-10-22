@@ -1,7 +1,7 @@
 import { UseQueryResult } from 'react-query';
 
 import { FullMovie, Credits, PartialMovie } from '../../../../../common/types/movie';
-import { Collection as CollectionType, Images, Videos } from '../../../../../common/types/types';
+import { Collection, Images, Videos } from '../../../../../common/types/types';
 import { MediaViewerType } from '../../../../../components/MediaViewer/types';
 
 export type HomeTabProps = {
@@ -9,7 +9,7 @@ export type HomeTabProps = {
   creditsQuery: UseQueryResult<Credits>;
   imagesQuery: UseQueryResult<Images>;
   videosQuery: UseQueryResult<Videos>;
-  collectionsQuery: UseQueryResult<CollectionType>;
+  collectionsQuery: UseQueryResult<Collection>;
   recommendationsQuery: UseQueryResult<PartialMovie[]>;
   onCoverClick: (path: string, type: MediaViewerType) => void;
   onMediaClick: (asset: string, type: MediaViewerType) => void;

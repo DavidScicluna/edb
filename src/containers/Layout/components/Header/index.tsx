@@ -17,6 +17,7 @@ const Header = (props: HeaderProps): ReactElement => {
   const { width, left } = props;
 
   return (
+    // TODO: Hide user profile on large screen (Move user container within nav with a border) only show on devices with Menu
     <HStack
       width={width}
       maxWidth={width}

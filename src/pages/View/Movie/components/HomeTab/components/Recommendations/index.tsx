@@ -11,18 +11,18 @@ import VerticalPoster from '../../../../../../../components/Poster/Vertical';
 import { RecommendationsProps } from './types';
 
 const Recommendations = (props: RecommendationsProps): ReactElement => {
-  const { recommendations, name, isError = false, isSuccess = false, isLoading = false } = props;
+  const { recommendations, title, isError = false, isSuccess = false, isLoading = false } = props;
 
   return (
     <HorizontalGrid title='Recommended Movies' isLoading={isLoading} hasDivider variant='outlined'>
       {isError ? (
         <Error
           label='Oh no! Something went wrong'
-          description={`Failed to fetch ${name ? `"${name}"` : ''} recommended movies list!`}
+          description={`Failed to fetch ${title ? `"${title}"` : ''} recommended movies list!`}
           variant='transparent'
         />
       ) : isSuccess && recommendations && recommendations.length === 0 ? (
-        <Empty label={`No recommended movies found for ${name ? `"${name}"` : ''}`} variant='transparent' />
+        <Empty label={`No recommended movies found for ${title ? `"${title}"` : ''}`} variant='transparent' />
       ) : isSuccess && recommendations && recommendations.length > 0 ? (
         <>
           {sort(recommendations, 'popularity', { reverse: true }).map((movie) => (

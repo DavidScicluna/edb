@@ -6,7 +6,7 @@ import VerticalPoster from '../../../../../../../components/Poster/Vertical';
 import { CollectionProps } from './types';
 
 const Collection = (props: CollectionProps): ReactElement => {
-  const { movieId, name, parts } = props;
+  const { id, name, parts } = props;
 
   const handleTitle = (): string => {
     const nameSplit = name.split(' ');
@@ -18,7 +18,7 @@ const Collection = (props: CollectionProps): ReactElement => {
     <HorizontalGrid title={`Part of the "${handleTitle()}" Franchise`} isLoading={false} hasDivider variant='outlined'>
       <>
         {parts
-          .filter((mediaItem) => mediaItem.id !== movieId)
+          .filter((mediaItem) => mediaItem.id !== id)
           .map((mediaItem) => (
             <VerticalPoster
               key={mediaItem.id}

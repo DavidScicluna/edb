@@ -6,11 +6,11 @@ import Cover from '../../../components/Cover';
 import Backdrop from '../../../components/Cover/components/Backdrop';
 import Poster from '../../../components/Cover/components/Poster';
 import Details from '../../../components/Details';
+import Media from '../../../components/Media';
 import Cast from './components/Cast';
 import Collection from './components/Collection';
 import Credits from './components/Credits';
 import Info from './components/Info';
-import Media from './components/Media';
 import Recommendations from './components/Recommendations';
 import { HomeTabProps } from './types';
 
@@ -91,7 +91,7 @@ const HomeTab = (props: HomeTabProps): ReactElement => {
       />
 
       <Media
-        name={movieQuery.data?.title}
+        title={movieQuery.data?.title}
         photos={imagesQuery.data?.posters}
         backdrops={imagesQuery.data?.backdrops}
         videos={videosQuery.data?.results}
@@ -112,7 +112,7 @@ const HomeTab = (props: HomeTabProps): ReactElement => {
 
       <Fade in={collectionsQuery.isSuccess && Boolean(collectionsQuery.data)} unmountOnExit style={{ width: '100%' }}>
         <Collection
-          movieId={movieQuery.data?.id}
+          id={movieQuery.data?.id}
           name={collectionsQuery.data?.name || ''}
           parts={collectionsQuery.data?.parts || []}
         />
@@ -120,7 +120,7 @@ const HomeTab = (props: HomeTabProps): ReactElement => {
 
       <Recommendations
         recommendations={recommendationsQuery.data}
-        name={movieQuery.data?.title}
+        title={movieQuery.data?.title}
         isError={recommendationsQuery.isError}
         isSuccess={recommendationsQuery.isSuccess}
         isLoading={recommendationsQuery.isFetching || recommendationsQuery.isLoading}
