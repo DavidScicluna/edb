@@ -1,26 +1,5 @@
 import { Person } from './person';
-import {
-  Genre,
-  ProductionCompany,
-  ProductionCountry,
-  Language,
-  Status,
-  ImageResponse as Image,
-  VideoResponse as Video,
-  Collection
-} from './types';
-
-type Author = { name: string; username: string; avatar_path: string | null; rating: number | null };
-
-export type Review = {
-  id: string;
-  author: string;
-  author_details: Author;
-  content: string;
-  created_at: string;
-  updated_at: string;
-  url?: string;
-};
+import { Genre, ProductionCompany, ProductionCountry, Language, Status, Collection } from './types';
 
 type ReleaseDate = {
   certification: string;
@@ -33,17 +12,6 @@ type ReleaseDate = {
 export type ReleaseDates = {
   iso_3166_1: string;
   release_dates: ReleaseDate[];
-};
-
-export type VideoResponse = {
-  id: number;
-  results: Video[];
-};
-
-export type ImageResponse = {
-  id: number;
-  backdrops: Image[];
-  posters: Image[];
 };
 
 export type Cast = {

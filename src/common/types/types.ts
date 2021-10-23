@@ -51,7 +51,7 @@ export type Genre = {
 
 export type Status = 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
 
-export type VideoResponse = {
+export type Video = {
   iso_639_1: string;
   iso_3166_1: string;
   name: string;
@@ -64,6 +64,11 @@ export type VideoResponse = {
   id: string;
 };
 
+export type Videos = {
+  id: number;
+  results: Video[];
+};
+
 export type ImageResponse = {
   aspect_ratio: number;
   file_path: string;
@@ -72,6 +77,24 @@ export type ImageResponse = {
   iso_639_1: string | null;
   vote_average: number;
   vote_count: number;
+};
+
+export type Images = {
+  id: number;
+  backdrops: ImageResponse[];
+  posters: ImageResponse[];
+};
+
+type Author = { name: string; username: string; avatar_path: string | null; rating: number | null };
+
+export type Review = {
+  id: string;
+  author: string;
+  author_details: Author;
+  content: string;
+  created_at: string;
+  updated_at: string;
+  url?: string;
 };
 
 export type ProductionCompany = {

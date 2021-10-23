@@ -1,4 +1,4 @@
-import { VideoResponse as Video } from '../../../../../../common/types/types';
+import { Video } from '../../../../../../common/types/types';
 import { MediaViewerType } from '../../../../types';
 
 export type VideoProps = {

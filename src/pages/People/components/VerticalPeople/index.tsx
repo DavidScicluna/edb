@@ -68,9 +68,9 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
                       ,
                     </Text>
                   }>
-                  {sort(person?.known_for || [], 'vote_average').map((mediaItem, index) => (
+                  {sort(person?.known_for || [], 'vote_average').map((mediaItem) => (
                     <Link
-                      key={index}
+                      key={mediaItem.id}
                       to={{ pathname: `/${mediaItem?.title ? 'movie' : mediaItem?.name ? 'tv' : ''}/${mediaItem.id}` }}
                       isDisabled={isLoading}>
                       <SkeletonText

@@ -1,5 +1,47 @@
-import { Gender } from './person';
+import { Gender, Person } from './person';
 import { Genre, ProductionCompany, ProductionCountry, Language, Status } from './types';
+
+type Role = {
+  credit_id: string;
+  character: string;
+  episode_count: number;
+};
+
+type Job = {
+  credit_id: string;
+  job: string;
+  episode_count: number;
+};
+
+export type Cast = {
+  original_name: string;
+  roles: Role[];
+  total_episode_count: number;
+  order: number;
+} & Person;
+
+export type Crew = {
+  original_name: string;
+  jobs: Job[];
+  department: string;
+  total_episode_count: number;
+} & Person;
+
+export type Credits = {
+  id: number;
+  cast: Cast[];
+  crew: Crew[];
+};
+
+export type Certification = {
+  iso_3166_1: string;
+  rating: string;
+};
+
+export type Certifications = {
+  results: Certification[];
+  id: number;
+};
 
 export type CreatedBy = {
   id: number;
