@@ -96,7 +96,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 
   return (
     <>
-      <IconButton aria-label='Edit review' icon={EditOutlinedIcon} onClick={() => onOpen()} size='sm' />
+      <IconButton aria-label='Edit review' icon={EditOutlinedIcon} onClick={() => onOpen()} variant='icon' size='sm' />
 
       <Modal
         title='Edit review'

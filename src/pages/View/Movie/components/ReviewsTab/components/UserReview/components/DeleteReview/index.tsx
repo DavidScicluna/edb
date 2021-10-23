@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useDisclosure } from '@chakra-ui/react';
+import { useDisclosure, useBoolean } from '@chakra-ui/react';
 import { DeleteOutlineOutlined as DeleteOutlineOutlinedIcon } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 
@@ -16,6 +16,8 @@ const DeleteReview = ({ id }: { id: string }): ReactElement => {
   const dispatch = useDispatch();
   const userReviews = useSelector((state) => state.user.data.reviews.user);
 
+  const [isHovering, setIsHovering] = useBoolean();
+
   const handleDelete = (): void => {
     dispatch(setUserReviews(userReviews.filter((review) => review.id !== id)));
     onCloseConfirm();
@@ -25,8 +27,12 @@ const DeleteReview = ({ id }: { id: string }): ReactElement => {
     <>
       <IconButton
         aria-label='Delete review'
+        color={isHovering ? 'red' : 'gray'}
         icon={DeleteOutlineOutlinedIcon}
         onClick={() => onOpenConfirm()}
+        onMouseEnter={() => setIsHovering.on()}
+        onMouseLeave={() => setIsHovering.off()}
+        variant='icon'
         size='sm'
       />
 
