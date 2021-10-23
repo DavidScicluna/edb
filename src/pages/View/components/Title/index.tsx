@@ -3,12 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, useColorMode, useBreakpointValue, HStack, VStack, Text, Badge, SlideFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import {
-  handleReturnDummyWidths,
-  handleReturnDate,
-  handleReturnNumberFromString,
-  handleReturnRuntime
-} from '../../../../common/utils';
+import { handleReturnDummyWidths, handleReturnNumberFromString, handleReturnRuntime } from '../../../../common/utils';
 import Rating from '../../../../components/Rating';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import { Theme } from '../../../../theme/types';
@@ -36,7 +31,7 @@ const Title = (props: TitleProps): ReactElement => {
     '2xl': theme.fontSizes['3xl']
   });
 
-  const { mediaType, title, rating, date, certification, genres, runtime, isLoading = true } = props;
+  const { title, rating, date, certification, genres, runtime, isLoading = true } = props;
 
   return (
     <VStack alignItems='flex-start' wrap='wrap' spacing={isLoading ? 1 : 0}>
@@ -80,19 +75,15 @@ const Title = (props: TitleProps): ReactElement => {
         }>
         <SkeletonText offsetY={7} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-            {handleReturnDate(date || '', 'full') || 'N/A'}
+            {date || 'N/A'}
           </Text>
         </SkeletonText>
 
-        {/* <SkeletonText offsetY={7} isLoaded={!isLoading}>
+        <SkeletonText offsetY={7} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-            {certification && certification?.release_dates.length > 0 && certification?.release_dates[0].certification
-              ? certification?.release_dates[0].certification
-              : isLoading
-              ? 'PG-13'
-              : 'N/A'}
+            {certification || 'N/A'}
           </Text>
-        </SkeletonText> */}
+        </SkeletonText>
 
         <HStack
           wrap='wrap'
@@ -124,13 +115,11 @@ const Title = (props: TitleProps): ReactElement => {
               ))}
         </HStack>
 
-        {mediaType === 'movie' ? (
-          <SkeletonText offsetY={7} isLoaded={!isLoading}>
-            <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-              {runtime ? handleReturnRuntime(runtime) : '1hr 15m'}
-            </Text>
-          </SkeletonText>
-        ) : null}
+        <SkeletonText offsetY={7} isLoaded={!isLoading}>
+          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+            {!isLoading ? handleReturnRuntime(runtime || 0) : '1hr 15m'}
+          </Text>
+        </SkeletonText>
       </HStack>
     </VStack>
   );
