@@ -1,7 +1,7 @@
-import { Crew } from '../../../../../../../common/types/movie';
+import { Crew } from '../../types';
 
 export type CrewProps = {
-  crew?: Crew[];
+  crew?: Crew;
   title: string;
   isLoading?: boolean;
   isError?: boolean;

@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, SimpleGrid } from '@chakra-ui/react';
 
-import Badge from '../../../../../../../components/Badge';
-import Card from '../../../../../../../components/Card';
+import Badge from '../../../../../../components/Badge';
+import Card from '../../../../../../components/Card';
 import { PanelProps } from './types';
 
 const Panel = ({ children, title, total }: PanelProps): ReactElement => {

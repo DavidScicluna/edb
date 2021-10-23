@@ -1,7 +1,7 @@
-import { Cast } from '../../../../../../../common/types/movie';
+import { Cast } from '../../types';
 
 export type CastProps = {
-  cast?: Cast[];
+  cast?: Cast;
   isLoading?: boolean;
   isError?: boolean;
   isSuccess?: boolean;

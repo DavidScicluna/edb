@@ -4,11 +4,11 @@ import { useColorMode, HStack, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Link } from 'react-scroll';
 
-import { useSelector } from '../../../../../../../common/hooks';
-import { handleReturnDummyWidths, handleReturnColor } from '../../../../../../../common/utils';
-import Button from '../../../../../../../components/Clickable/Button';
-import HorizontalScroll from '../../../../../../../components/HorizontalScroll';
-import SkeletonText from '../../../../../../../components/Skeleton/Text';
+import { useSelector } from '../../../../../../common/hooks';
+import { handleReturnDummyWidths, handleReturnColor } from '../../../../../../common/utils';
+import Button from '../../../../../../components/Clickable/Button';
+import HorizontalScroll from '../../../../../../components/HorizontalScroll';
+import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { QuickTogglesProps } from './types';
 
 const dummyTextWidths = handleReturnDummyWidths(200, 4);

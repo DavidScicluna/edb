@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { VStack } from '@chakra-ui/react';
 import sort from 'array-sort';
 
-import VerticalGrid from '../../../../../components/Grid/Vertical';
+import VerticalGrid from '../../../../components/Grid/Vertical';
 import Cast from './components/Cast';
 import Crew from './components/Crew';
 import QuickToggles from './components/QuickToggles';
@@ -36,7 +36,7 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
         );
       } else {
         departments.push({
-          title: person.department,
+          title: person.department || '',
           crew: [person]
         });
       }
