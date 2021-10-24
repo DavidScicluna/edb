@@ -11,7 +11,6 @@ import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';
 import Liked from '../../../../pages/Liked';
 import Lists from '../../../../pages/Lists';
-import Movie from '../../../../pages/Movie';
 import Movies from '../../../../pages/Movies';
 import MoviesNowPlaying from '../../../../pages/Movies/pages/NowPlaying';
 import PopularMovies from '../../../../pages/Movies/pages/Popular';
@@ -25,7 +24,9 @@ import TVAiringToday from '../../../../pages/TV/pages/AiringToday';
 import OnTV from '../../../../pages/TV/pages/OnTV';
 import PopularTV from '../../../../pages/TV/pages/Popular';
 import TopRatedTV from '../../../../pages/TV/pages/TopRated';
+import Movie from '../../../../pages/View/Movie';
 import Person from '../../../../pages/View/Person';
+import Show from '../../../../pages/View/Show';
 
 const ComponentBox = motion(Box);
 
@@ -170,6 +171,11 @@ const Routes = (): ReactElement => {
         <Route exact path='/tv/top-rated'>
           <Page>
             <TopRatedTV />
+          </Page>
+        </Route>
+        <Route exact path='/tv/:id'>
+          <Page>
+            <Show />
           </Page>
         </Route>
 
