@@ -10,7 +10,7 @@ import QuickToggles from './components/QuickToggles';
 import { CastCrewTabProps, Department } from './types';
 
 const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
-  const { cast, crew, isError = false, isSuccess = false, isLoading = true } = props;
+  const { mediaType, mediaItemTitle, cast, crew, isError = false, isSuccess = false, isLoading = true } = props;
 
   const handleReturnCrew = (): Department[] => {
     let departments: Department[] = [];
@@ -47,6 +47,8 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
 
   const departments = handleReturnCrew();
 
+  console.log(departments);
+
   return (
     <VerticalGrid>
       <VStack width='100%' spacing={2}>
@@ -56,11 +58,20 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
         />
 
         <VStack width='100%' spacing={4}>
-          <Cast cast={cast} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
+          <Cast
+            mediaType={mediaType}
+            mediaItemTitle={mediaItemTitle}
+            cast={cast}
+            isLoading={isLoading}
+            isError={isError}
+            isSuccess={isSuccess}
+          />
 
           {departments.map((department, index) => (
             <Crew
               key={index}
+              mediaType={mediaType}
+              mediaItemTitle={mediaItemTitle}
               title={department.title}
               crew={department.crew}
               isLoading={isLoading}

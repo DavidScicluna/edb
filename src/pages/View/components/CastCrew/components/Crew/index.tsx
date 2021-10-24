@@ -6,11 +6,12 @@ import _ from 'lodash';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
+import { handleReturnPersonJobLabel } from '../../../../Show/common/utils';
 import Panel from '../Panel';
 import { CrewProps } from './types';
 
 const Crew = (props: CrewProps): ReactElement => {
-  const { crew, title, isLoading = true, isError = false, isSuccess = false } = props;
+  const { mediaType, mediaItemTitle, crew, title, isLoading = true, isError = false, isSuccess = false } = props;
 
   return (
     <Panel title={title} total={crew?.length || 0}>
@@ -22,18 +23,38 @@ const Crew = (props: CrewProps): ReactElement => {
         {!isLoading && isError ? (
           <Error
             label='Oh no! Something went wrong'
-            description='Failed to fetch {MOVIE TITLE} ${title} Crew list!'
+            description={`Failed to fetch ${mediaItemTitle ? `"${mediaItemTitle}"` : ''} ${
+              mediaType === 'tv' ? 'tv show' : 'movie'
+            } ${title} crew list!`}
             variant='outlined'
           />
         ) : !isLoading && isSuccess && crew && crew.length === 0 ? (
-          <Empty label='{MOVIE TITLE} ${title} Crew list is currently empty!' variant='outlined' />
+          <Empty
+            label={`${mediaItemTitle ? `"${mediaItemTitle}"` : ''} ${
+              mediaType === 'tv' ? 'tv show' : 'movie'
+            } ${title} crew list is currently empty!`}
+            variant='outlined'
+          />
         ) : !isLoading && isSuccess && crew && crew.length > 0 ? (
           <>
             {crew.map((person) => (
               <VerticalPoster
                 key={person.id}
                 width='100%'
-                // mediaItem={person ? { ...person } : undefined}
+                mediaItem={
+                  person
+                    ? {
+                        known_for_department: person.known_for_department || '',
+                        id: person.id || -1,
+                        name: person.name || '',
+                        gender: person.gender || 0,
+                        popularity: person.popularity || -1,
+                        profile_path: person.profile_path || null,
+                        adult: person.adult || false,
+                        known_for: undefined
+                      }
+                    : undefined
+                }
                 mediaType='person'
                 image={{
                   alt: `${person?.name || ''} person poster`,
@@ -44,7 +65,13 @@ const Crew = (props: CrewProps): ReactElement => {
                   }
                 }}
                 title={person?.name || ''}
-                subtitle={person.job || 'N/A'}
+                subtitle={
+                  mediaType === 'movie' && person.job
+                    ? person.job
+                    : mediaType === 'tv' && person.jobs && person.jobs.length > 0
+                    ? handleReturnPersonJobLabel(person.jobs)
+                    : 'N/A'
+                }
                 isLoading={false}
               />
             ))}
@@ -57,7 +84,7 @@ const Crew = (props: CrewProps): ReactElement => {
                 width='100%'
                 mediaType='person'
                 title='Lorem ipsum'
-                subtitle='2021 • Lorem ipsum dolor sit amet'
+                subtitle='Lorem ipsum dolor sit amet'
                 isLoading
               />
             ))}

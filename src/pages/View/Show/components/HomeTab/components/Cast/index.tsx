@@ -11,6 +11,7 @@ import Empty from '../../../../../../../components/Empty';
 import Error from '../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal';
 import VerticalPoster from '../../../../../../../components/Poster/Vertical';
+import { handleReturnPersonRoleLabel } from '../../../../common/utils';
 import { CastProps } from './types';
 
 const Cast = (props: CastProps): ReactElement => {
@@ -64,9 +65,7 @@ const Cast = (props: CastProps): ReactElement => {
                   }
                 }}
                 title={person?.name || ''}
-                subtitle={`${person.total_episode_count} episode${
-                  person.total_episode_count === 0 || person.total_episode_count > 1 ? 's' : ''
-                }`}
+                subtitle={person.roles && person.roles.length > 0 ? handleReturnPersonRoleLabel(person.roles) : 'N/A'}
                 isLoading={isLoading}
               />
             ))}
