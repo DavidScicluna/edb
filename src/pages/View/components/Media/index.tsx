@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -51,6 +51,18 @@ const Media = (props: MediaProps): ReactElement => {
     }
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      if ((photos?.length || 0) > 0) {
+        setActiveTab(0);
+      } else if ((backdrops?.length || 0) > 0) {
+        setActiveTab(1);
+      } else if ((videos?.length || 0) > 0) {
+        setActiveTab(2);
+      }
+    }
+  }, [isSuccess]);
+
   return (
     <Tabs activeTab={activeTab} onChange={handleTabChange}>
       <HorizontalGrid
@@ -60,17 +72,17 @@ const Media = (props: MediaProps): ReactElement => {
               {
                 label: 'photos',
                 badge: String(photos?.length || 0),
-                isDisabled: isLoading.images
+                isDisabled: isLoading.images || (photos?.length || 0) === 0
               },
               {
                 label: 'backdrops',
                 badge: String(backdrops?.length || 0),
-                isDisabled: isLoading.images
+                isDisabled: isLoading.images || (backdrops?.length || 0) === 0
               },
               {
                 label: 'videos',
                 badge: String(videos?.length || 0),
-                isDisabled: isLoading.videos
+                isDisabled: isLoading.videos || (videos?.length || 0) === 0
               }
             ]}
             activeTab={activeTab}
