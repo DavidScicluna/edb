@@ -39,7 +39,7 @@
   "scripts": {
     "lint": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc",
-    "start": "react-scripts start",
+    "start": "BROWSER=none react-scripts start",
     "test": "react-scripts test",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build"

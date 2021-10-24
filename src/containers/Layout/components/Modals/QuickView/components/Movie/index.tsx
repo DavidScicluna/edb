@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
-import { FullMovie, ImageResponse } from '../../../../../../../common/types/movie';
+import { FullMovie } from '../../../../../../../common/types/movie';
+import { Images } from '../../../../../../../common/types/types';
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import Poster from '../Poster';
 import Container from './components/Container';
@@ -42,7 +43,7 @@ const Movie = (props: MovieProps): ReactElement => {
 
   // Fetching movie images
   const imagesQuery = useQuery([`movie-images-${id}`, id], async () => {
-    const { data } = await axiosInstance.get<ImageResponse>(`/movie/${id}/images`, {
+    const { data } = await axiosInstance.get<Images>(`/movie/${id}/images`, {
       cancelToken: source.token
     });
     return data;

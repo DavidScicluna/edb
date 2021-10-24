@@ -4,7 +4,7 @@ import { useColorMode, useMediaQuery, Stack, Text } from '@chakra-ui/react';
 
 import { handleReturnDummyWidths, handleFormatMoney } from '../../../../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../../../../components/Skeleton/Text';
-import Label from '../../../../../../../../../../../pages/Movie/components/HomeTab/components/Details/components/Label';
+import Label from '../../../../../../../../../../../pages/View/components/Details/components/Label';
 import { InfoProps, List } from './types';
 
 const dummyTextWidths = handleReturnDummyWidths(200, 4);

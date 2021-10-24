@@ -1,13 +1,13 @@
 import { Gender, Person } from './person';
 import { Genre, ProductionCompany, ProductionCountry, Language, Status } from './types';
 
-type Role = {
+export type Role = {
   credit_id: string;
   character: string;
   episode_count: number;
 };
 
-type Job = {
+export type Job = {
   credit_id: string;
   job: string;
   episode_count: number;
@@ -88,7 +88,7 @@ type TV = {
   backdrop_path: string | null;
   vote_average: number;
   vote_count: number;
-  overview: string;
+  overview: string | null;
   first_air_date: string;
   origin_country: string[];
   original_language: string;
@@ -104,7 +104,7 @@ export type FullTV = {
   created_by: CreatedBy[];
   episode_run_time: number[];
   genres: Genre[];
-  homepage: string;
+  homepage: string | null;
   in_production: boolean;
   languages: string[];
   last_air_date: string;
@@ -118,6 +118,6 @@ export type FullTV = {
   seasons: Season[];
   spoken_languages: Language[];
   status: Status;
-  tagline: string;
+  tagline: string | null;
   type: string;
 } & TV;

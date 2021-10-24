@@ -3,8 +3,8 @@ import { ReactElement } from 'react';
 import { useColorMode, VStack, Text, ScaleFade } from '@chakra-ui/react';
 
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
-import Label from '../../../../../../../../../pages/Movie/components/HomeTab/components/Details/components/Label';
-import Title from '../../../../../../../../../pages/Movie/components/Title';
+import Label from '../../../../../../../../../pages/View/components/Details/components/Label';
+import Title from '../../../../../../../../../pages/View/components/Title';
 import Actions from './components/Actions';
 import Info from './components/Info';
 import Overview from './components/Overview';
@@ -24,8 +24,8 @@ const Container = (props: ContainerProps): ReactElement => {
             rating: movie?.vote_average || null,
             count: movie?.vote_count || null
           }}
-          release_date={movie?.release_date}
-          certification={movie?.release_dates.results.find((item) => item.iso_3166_1 === 'US')}
+          date={movie?.release_date}
+          // certification={movie?.release_dates.results.find((item) => item.iso_3166_1 === 'US')}
           genres={movie?.genres}
           runtime={movie?.runtime}
           isLoading={isLoading}
