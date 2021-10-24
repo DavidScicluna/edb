@@ -10,6 +10,7 @@ import { useSelector } from '../../../common/hooks';
 import axiosInstance from '../../../common/scripts/axios';
 import { FullMovie, Credits, PartialMovie } from '../../../common/types/movie';
 import { Response, Collection as CollectionType, Images, Videos, Review } from '../../../common/types/types';
+import { handleReturnDate } from '../../../common/utils';
 import MediaViewer from '../../../components/MediaViewer';
 import { MediaViewerType, MediaViewerProps } from '../../../components/MediaViewer/types';
 import Tabs from '../../../components/Tabs';
@@ -17,8 +18,8 @@ import TabList from '../../../components/Tabs/components/TabList';
 import TabPanels from '../../../components/Tabs/components/TabPanels';
 import Page from '../../../containers/Page';
 import Actions from '../components/Actions';
+import CastCrewTab from '../components/CastCrew';
 import Title from '../components/Title';
-import CastCrewTab from './components/CastCrewTab';
 import HomeTab from './components/HomeTab';
 import ReviewsTab from './components/ReviewsTab';
 
@@ -128,6 +129,16 @@ const Movie = (): ReactElement => {
     return data.results.filter((_result, index) => index < 20);
   });
 
+  const handleReturnCertification = (): string | undefined => {
+    const certification = movieQuery.data?.release_dates.results.find((item) => item.iso_3166_1 === 'US');
+
+    if (certification && certification?.release_dates.length > 0 && certification?.release_dates[0].certification) {
+      return certification?.release_dates[0].certification;
+    } else {
+      return undefined;
+    }
+  };
+
   const handleMediaClick = (asset: string, type: MediaViewerType): void => {
     setSelectedAsset({ type, asset: asset });
     onMediaViewerOpen();
@@ -163,14 +174,13 @@ const Movie = (): ReactElement => {
       <Page
         title={
           <Title
-            mediaType='movie'
             title={movieQuery.data?.title}
             rating={{
               rating: movieQuery.data?.vote_average || null,
               count: movieQuery.data?.vote_count || null
             }}
-            date={movieQuery.data?.release_date}
-            // certification={movieQuery.data?.release_dates.results.find((item) => item.iso_3166_1 === 'US')}
+            date={handleReturnDate(movieQuery.data?.release_date || '', 'full')}
+            certification={handleReturnCertification()}
             genres={movieQuery.data?.genres}
             runtime={movieQuery.data?.runtime}
             isLoading={movieQuery.isFetching || movieQuery.isLoading}
@@ -244,6 +254,7 @@ const Movie = (): ReactElement => {
                     }}
                   />
                   <CastCrewTab
+                    mediaType='movie'
                     cast={creditsQuery.data?.cast}
                     crew={creditsQuery.data?.crew}
                     isError={creditsQuery.isError}
