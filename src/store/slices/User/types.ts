@@ -1,6 +1,6 @@
 import { FullMovie, PartialMovie } from '../../../common/types/movie';
 import { PartialPerson } from '../../../common/types/person';
-import { PartialTV } from '../../../common/types/tv';
+import { FullTV, PartialTV } from '../../../common/types/tv';
 import { MediaType, Review } from '../../../common/types/types';
 import { Color } from '../../../theme/types';
 
@@ -41,7 +41,7 @@ export type List = {
 export type ReviewState = 'isLiked' | 'isDisliked';
 
 export type UserReview = {
-  mediaItem: FullMovie;
+  mediaItem: { mediaType: Omit<MediaType, 'person'> } & Partial<FullMovie & FullTV>;
 } & Review;
 
 export type OtherReview = {

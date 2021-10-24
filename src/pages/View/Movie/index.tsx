@@ -19,9 +19,9 @@ import TabPanels from '../../../components/Tabs/components/TabPanels';
 import Page from '../../../containers/Page';
 import Actions from '../components/Actions';
 import CastCrewTab from '../components/CastCrew';
+import ReviewsTab from '../components/Reviews';
 import Title from '../components/Title';
 import HomeTab from './components/HomeTab';
-import ReviewsTab from './components/ReviewsTab';
 
 const Movie = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -232,8 +232,14 @@ const Movie = (): ReactElement => {
                     },
                     {
                       label: 'Reviews',
-                      isDisabled: reviewsQuery.isError || reviewsQuery.isFetching || reviewsQuery.isLoading,
-                      badge: String(reviews?.total_results || 0 + movieUserReviews.length)
+                      isDisabled:
+                        movieQuery.isError ||
+                        movieQuery.isFetching ||
+                        movieQuery.isLoading ||
+                        reviewsQuery.isError ||
+                        reviewsQuery.isFetching ||
+                        reviewsQuery.isLoading,
+                      badge: String((reviews?.total_results || 0) + movieUserReviews.length)
                     }
                   ]}
                   activeTab={activeTab}
@@ -262,7 +268,8 @@ const Movie = (): ReactElement => {
                     isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
                   />
                   <ReviewsTab
-                    movie={movieQuery.data}
+                    mediaItem={movieQuery.data ? { ...movieQuery.data } : undefined}
+                    mediaType='movie'
                     reviews={reviews}
                     isError={reviewsQuery.isError}
                     isSuccess={reviewsQuery.isSuccess}
