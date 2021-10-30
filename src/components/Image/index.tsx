@@ -47,20 +47,22 @@ const Image = (props: ImageProps): ReactElement => {
         ref={imageRef}
         alt={`${alt} thumbnail`}
         position='absolute'
-        onError={(error) => {
-          handleIsLoaded(true);
+        // onError={(error) => {
+        //   handleIsLoaded(true);
 
-          if (onError) {
-            onError(error);
-          }
-        }}
-        onLoad={(event) => {
-          handleIsLoaded(true);
+        //   if (onError) {
+        //     onError(error);
+        //   }
+        // }}
+        // onLoad={(event) => {
+        //   handleIsLoaded(true);
 
-          if (onLoad) {
-            onLoad(event);
-          }
-        }}
+        //   if (onLoad) {
+        //     onLoad(event);
+        //   }
+        // }}
+        onError={onError ? (error) => onError(error) : undefined}
+        onLoad={onLoad ? (event) => onLoad(event) : undefined}
         src={thumbnailSrc}
         fallbackSrc={colorMode === 'light' ? lightFallback : darkFallback}
         sx={{ ...css.thumbnail }}
