@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
 import { useSelector } from '../../../common/hooks';
 import { handleReturnColor } from '../../../common/utils';
@@ -9,13 +9,14 @@ import { LoadMoreProps } from './types';
 
 const LoadMore = (props: LoadMoreProps): ReactElement => {
   const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const { amount = 0, total = 0, label, isLoading = false, isButtonVisible = true, onClick } = props;
 
   return (
-    <VStack width='auto' spacing={3}>
+    <VStack width={isSm ? '100%' : 'auto'} spacing={3}>
       <VStack width='100%'>
         <Text align='center' fontSize='sm' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
           {amount >= total ? `You've viewed all ${total} ${label}` : `You've viewed ${amount} of ${total} ${label}`}

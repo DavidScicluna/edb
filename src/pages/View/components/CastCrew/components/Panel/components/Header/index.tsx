@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, useBoolean, HStack, Text, Icon } from '@chakra-ui/react';
+import { useTheme, useColorMode, HStack, Text, Icon } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 
 import Badge from '../../../../../../../../components/Badge';
@@ -10,7 +10,6 @@ import { HeaderProps } from './types';
 const Header = (props: HeaderProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { title, total, isOpen = true, onToggle } = props;
 
@@ -49,7 +48,7 @@ const Header = (props: HeaderProps): ReactElement => {
       </Text>
 
       <HStack>
-        <Badge label={String(total)} size={isSm ? 'sm' : 'md'} />
+        <Badge label={String(total)} size='md' />
         <Icon as={ChevronRightOutlinedIcon} />
       </HStack>
     </HStack>

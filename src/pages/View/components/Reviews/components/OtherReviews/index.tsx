@@ -67,7 +67,7 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
             />
           ))}
 
-          <ScaleFade in={!isError && hasNextPage} unmountOnExit>
+          <ScaleFade in={!isError && hasNextPage} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
             <LoadMore
               amount={reviews?.results.length || 0}
               total={reviews?.total_results || 0}

@@ -318,69 +318,71 @@ const Trending = (): ReactElement => {
                     />
                   ) : null}
 
-                  <LoadMore
-                    amount={
-                      mediaType === 'movie'
-                        ? movies?.results.length || 0
-                        : mediaType === 'tv'
-                        ? tv?.results.length || 0
-                        : mediaType === 'person'
-                        ? people?.results.length || 0
-                        : 0
-                    }
-                    total={
-                      mediaType === 'movie'
-                        ? movies?.total_results || 0
-                        : mediaType === 'tv'
-                        ? tv?.total_results || 0
-                        : mediaType === 'person'
-                        ? people?.total_results || 0
-                        : 0
-                    }
-                    label={
-                      mediaType === 'movie'
-                        ? 'Movies'
-                        : mediaType === 'tv'
-                        ? 'TV Shows'
-                        : mediaType === 'person'
-                        ? 'People'
-                        : ''
-                    }
-                    isLoading={
-                      mediaType === 'movie'
-                        ? trendingMovies.isFetching || trendingMovies.isLoading
-                        : mediaType === 'tv'
-                        ? trendingTV.isFetching || trendingTV.isLoading
-                        : mediaType === 'person'
-                        ? trendingPeople.isFetching || trendingPeople.isLoading
-                        : false
-                    }
-                    isButtonVisible={
-                      (mediaType === 'movie'
-                        ? trendingMovies.hasNextPage
-                        : mediaType === 'tv'
-                        ? trendingTV.hasNextPage
-                        : mediaType === 'person'
-                        ? trendingPeople.hasNextPage
-                        : true) &&
-                      (mediaType === 'movie'
-                        ? !trendingMovies.isError
-                        : mediaType === 'tv'
-                        ? !trendingTV.isError
-                        : mediaType === 'person'
-                        ? !trendingPeople.isError
-                        : false)
-                    }
-                    onClick={() =>
-                      mediaType === 'movie'
-                        ? trendingMovies.fetchNextPage()
-                        : mediaType === 'tv'
-                        ? trendingTV.fetchNextPage()
-                        : mediaType === 'person'
-                        ? trendingPeople.fetchNextPage()
-                        : undefined
-                    }
-                  />
+                  <Box style={{ width: isSm ? '100%' : 'auto' }}>
+                    <LoadMore
+                      amount={
+                        mediaType === 'movie'
+                          ? movies?.results.length || 0
+                          : mediaType === 'tv'
+                          ? tv?.results.length || 0
+                          : mediaType === 'person'
+                          ? people?.results.length || 0
+                          : 0
+                      }
+                      total={
+                        mediaType === 'movie'
+                          ? movies?.total_results || 0
+                          : mediaType === 'tv'
+                          ? tv?.total_results || 0
+                          : mediaType === 'person'
+                          ? people?.total_results || 0
+                          : 0
+                      }
+                      label={
+                        mediaType === 'movie'
+                          ? 'Movies'
+                          : mediaType === 'tv'
+                          ? 'TV Shows'
+                          : mediaType === 'person'
+                          ? 'People'
+                          : ''
+                      }
+                      isLoading={
+                        mediaType === 'movie'
+                          ? trendingMovies.isFetching || trendingMovies.isLoading
+                          : mediaType === 'tv'
+                          ? trendingTV.isFetching || trendingTV.isLoading
+                          : mediaType === 'person'
+                          ? trendingPeople.isFetching || trendingPeople.isLoading
+                          : false
+                      }
+                      isButtonVisible={
+                        (mediaType === 'movie'
+                          ? trendingMovies.hasNextPage
+                          : mediaType === 'tv'
+                          ? trendingTV.hasNextPage
+                          : mediaType === 'person'
+                          ? trendingPeople.hasNextPage
+                          : true) &&
+                        (mediaType === 'movie'
+                          ? !trendingMovies.isError
+                          : mediaType === 'tv'
+                          ? !trendingTV.isError
+                          : mediaType === 'person'
+                          ? !trendingPeople.isError
+                          : false)
+                      }
+                      onClick={() =>
+                        mediaType === 'movie'
+                          ? trendingMovies.fetchNextPage()
+                          : mediaType === 'tv'
+                          ? trendingTV.fetchNextPage()
+                          : mediaType === 'person'
+                          ? trendingPeople.fetchNextPage()
+                          : undefined
+                      }
+                    />
+                  </Box>
                 </VStack>
               ) : (
                 <Box width='100%' px={2} pt={2}>
