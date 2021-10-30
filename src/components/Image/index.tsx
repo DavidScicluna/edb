@@ -3,6 +3,8 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 import { useTheme, useColorMode, Image as CUIImage } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import darkFallback from '../../common/assets/fallback/dark.png';
+import lightFallback from '../../common/assets/fallback/light.png';
 import { useImageOnLoad } from '../../common/hooks';
 import { handleReturnBoringSrc } from '../../common/utils';
 import { Theme } from '../../theme/types';
@@ -15,7 +17,7 @@ const Image = (props: ImageProps): ReactElement => {
   const { colorMode } = useColorMode();
   const { css, handleIsLoaded } = useImageOnLoad(theme);
 
-  const { mediaType, alt, src, size, ...rest } = props;
+  const { mediaType, alt, thumbnailSrc, fullSrc, onError, onLoad, ...rest } = props;
 
   const [fallbackSrc, setFallbackSrc] = useState<string>('');
 
@@ -45,9 +47,22 @@ const Image = (props: ImageProps): ReactElement => {
         ref={imageRef}
         alt={`${alt} thumbnail`}
         position='absolute'
-        onError={() => handleIsLoaded(true)}
-        src={`${process.env.REACT_APP_IMAGE_URL}/${size.thumbnail}${src}`}
-        ignoreFallback
+        onError={(error) => {
+          handleIsLoaded(true);
+
+          if (onError) {
+            onError(error);
+          }
+        }}
+        onLoad={(event) => {
+          handleIsLoaded(true);
+
+          if (onLoad) {
+            onLoad(event);
+          }
+        }}
+        src={thumbnailSrc}
+        fallbackSrc={colorMode === 'light' ? lightFallback : darkFallback}
         sx={{ ...css.thumbnail }}
       />
 
@@ -57,8 +72,21 @@ const Image = (props: ImageProps): ReactElement => {
         ref={imageRef}
         alt={alt}
         position='absolute'
-        onLoad={() => handleIsLoaded(true)}
-        src={`${process.env.REACT_APP_IMAGE_URL}/${size.full}${src}`}
+        onError={(error) => {
+          handleIsLoaded(true);
+
+          if (onError) {
+            onError(error);
+          }
+        }}
+        onLoad={(event) => {
+          handleIsLoaded(true);
+
+          if (onLoad) {
+            onLoad(event);
+          }
+        }}
+        src={fullSrc}
         fallbackSrc={fallbackSrc}
         sx={{ ...css.fullSize }}
       />

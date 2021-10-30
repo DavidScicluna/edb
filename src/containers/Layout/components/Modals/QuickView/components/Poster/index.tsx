@@ -32,11 +32,8 @@ const Poster = (props: PosterProps): ReactElement => {
           borderRadius='lg'
           onError={() => setIsImageError.on()}
           onLoad={() => setIsImageError.off()}
-          src={path || ''}
-          size={{
-            thumbnail: mediaType === 'person' ? 'w45' : 'w92',
-            full: 'original'
-          }}
+          thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${mediaType === 'person' ? 'w45' : 'w92'}${path}`}
+          fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
         />
       </Skeleton>
     </ClickableImage>

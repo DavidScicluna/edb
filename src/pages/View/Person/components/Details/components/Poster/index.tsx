@@ -31,11 +31,8 @@ const Poster = (props: PosterProps): ReactElement => {
           mediaType='person'
           onError={() => setIsImageError.on()}
           onLoad={() => setIsImageError.off()}
-          src={path || ''}
-          size={{
-            thumbnail: 'w45',
-            full: 'original'
-          }}
+          thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w45${path}`}
+          fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
         />
       </Skeleton>
     </ClickableImage>

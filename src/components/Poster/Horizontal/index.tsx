@@ -81,8 +81,10 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                     maxWidth='none'
                     height='100%'
                     borderRadius='base'
-                    src={image?.src || ''}
-                    size={{ thumbnail: image?.size.thumbnail || '', full: image?.size.full || '' }}
+                    thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.thumbnail || ''}${
+                      image?.src || ''
+                    }`}
+                    fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.full || ''}${image?.src || ''}`}
                   />
                 </Skeleton>
               </AspectRatio>

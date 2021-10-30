@@ -33,11 +33,8 @@ const PhotoViewer = (props: PhotoViewerProps): ReactElement => {
       height={height}
       borderRadius='xl'
       mediaType={mediaType}
-      src={path}
-      size={{
-        thumbnail: 'w92',
-        full: 'original'
-      }}
+      thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w92${path}`}
+      fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
     />
   );
 };
