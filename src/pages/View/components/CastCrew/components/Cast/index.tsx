@@ -3,11 +3,11 @@ import { ReactElement, useState } from 'react';
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
 import { handleReturnPersonRoleLabel } from '../../../../Show/common/utils';
-import LoadMore from '../LoadMore';
 import Panel from '../Panel';
 import { CastProps } from './types';
 
@@ -38,7 +38,12 @@ const Cast = (props: CastProps): ReactElement => {
       onToggle={onToggle}
       footer={
         (cast?.length || 0) > incrementBy ? (
-          <LoadMore onClick={() => setTotalVisible(totalVisible + incrementBy)} />
+          <LoadMore
+            amount={totalVisible}
+            total={cast?.length || 0}
+            label='Cast'
+            onClick={() => setTotalVisible(totalVisible + incrementBy)}
+          />
         ) : undefined
       }>
       {!isLoading && isError ? (
