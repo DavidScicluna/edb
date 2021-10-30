@@ -18,7 +18,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { departments, isLoading = true, onTogglePanel } = props;
+  const { departments, openedPanels, isLoading = true, onTogglePanel, onToggleAllPanels } = props;
 
   return (
     <HStack width='100%' maxWidth='100%' justifyContent='stretch' spacing={isLoading ? 1 : 0}>
@@ -31,7 +31,10 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
         Jump to:
       </Text>
 
-      <HorizontalScroll width='calc(100% - 61.47px)' spacing='0' isLoading={isLoading}>
+      <HorizontalScroll
+        width={`calc(100% - ${departments.length === openedPanels ? 140.1 : 148.19}px)`}
+        spacing='0'
+        isLoading={isLoading}>
         <HStack
           width='100%'
           maxWidth='100%'
@@ -59,7 +62,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
                 spy
                 smooth
                 isDynamic={false}
-                offset={-96}
+                offset={-82}
                 delay={1000}>
                 <Button
                   color={handleReturnColor(color)}
@@ -78,6 +81,10 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
           ))}
         </HStack>
       </HorizontalScroll>
+
+      <Button isDisabled={isLoading} onClick={() => onToggleAllPanels()} size='sm' variant='text'>
+        {departments.length === openedPanels ? 'Hide all' : 'Show all'}
+      </Button>
     </HStack>
   );
 };

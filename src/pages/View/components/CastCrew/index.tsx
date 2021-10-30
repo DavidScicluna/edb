@@ -10,7 +10,7 @@ import QuickToggles from './components/QuickToggles';
 import { CastCrewTabProps, Department } from './types';
 
 const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
-  const [openedPanels, setOpenedPanels] = useState<number[]>([]);
+  const [openedPanels, setOpenedPanels] = useState<number[]>([0]);
 
   const { mediaType, mediaItemTitle, cast, crew, isError = false, isSuccess = false, isLoading = true } = props;
 
@@ -19,6 +19,14 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
       setOpenedPanels(openedPanels.filter((number) => number !== index));
     } else {
       setOpenedPanels([...openedPanels, index]);
+    }
+  };
+
+  const handleToggleAllPanels = (): void => {
+    if (departments.length === openedPanels.length - 1) {
+      setOpenedPanels([]);
+    } else {
+      setOpenedPanels([0, ...departments.map((_department, index) => index + 1)]);
     }
   };
 
@@ -62,8 +70,10 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
       <VStack width='100%' spacing={2}>
         <QuickToggles
           departments={['cast', ...departments.map((department) => department.title)]}
+          openedPanels={openedPanels.length}
           isLoading={isLoading}
           onTogglePanel={(index: number) => setOpenedPanels([...openedPanels, index])}
+          onToggleAllPanels={handleToggleAllPanels}
         />
 
         <VStack width='100%' spacing={2}>
