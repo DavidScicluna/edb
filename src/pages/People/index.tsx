@@ -101,11 +101,10 @@ const People = (): ReactElement => {
                 <LoadMore
                   amount={people?.results.length || 0}
                   total={people?.total_results || 0}
-                  mediaType='people'
+                  label='people'
                   isLoading={popularPeopleQuery.isFetching || popularPeopleQuery.isLoading}
-                  isError={popularPeopleQuery.isError}
-                  hasNextPage={popularPeopleQuery.hasNextPage || true}
-                  onFetch={popularPeopleQuery.fetchNextPage}
+                  isButtonVisible={(popularPeopleQuery.hasNextPage || true) && popularPeopleQuery.isError}
+                  onClick={popularPeopleQuery.fetchNextPage}
                 />
               </ScaleFade>
             </VStack>

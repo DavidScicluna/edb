@@ -102,11 +102,10 @@ const MoviesNowPlaying = (): ReactElement => {
                 <LoadMore
                   amount={movies?.results.length || 0}
                   total={movies?.total_results || 0}
-                  mediaType='movies'
+                  label='movies'
                   isLoading={moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading}
-                  isError={moviesNowPlayingQuery.isError}
-                  hasNextPage={moviesNowPlayingQuery.hasNextPage || true}
-                  onFetch={moviesNowPlayingQuery.fetchNextPage}
+                  isButtonVisible={(moviesNowPlayingQuery.hasNextPage || true) && !moviesNowPlayingQuery.isError}
+                  onClick={moviesNowPlayingQuery.fetchNextPage}
                 />
               </ScaleFade>
             </VStack>

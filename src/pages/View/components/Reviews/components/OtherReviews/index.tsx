@@ -71,11 +71,10 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
             <LoadMore
               amount={reviews?.results.length || 0}
               total={reviews?.total_results || 0}
-              mediaType='reviews'
+              label='reviews'
               isLoading={isLoading}
-              isError={isError}
-              hasNextPage={hasNextPage}
-              onFetch={onFetchNextPage}
+              isButtonVisible={hasNextPage && !isError}
+              onClick={onFetchNextPage}
             />
           </ScaleFade>
         </>

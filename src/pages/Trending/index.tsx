@@ -337,7 +337,7 @@ const Trending = (): ReactElement => {
                         ? people?.total_results || 0
                         : 0
                     }
-                    mediaType={
+                    label={
                       mediaType === 'movie'
                         ? 'Movies'
                         : mediaType === 'tv'
@@ -355,25 +355,23 @@ const Trending = (): ReactElement => {
                         ? trendingPeople.isFetching || trendingPeople.isLoading
                         : false
                     }
-                    isError={
-                      mediaType === 'movie'
-                        ? trendingMovies.isError
-                        : mediaType === 'tv'
-                        ? trendingTV.isError
-                        : mediaType === 'person'
-                        ? trendingPeople.isError
-                        : false
-                    }
-                    hasNextPage={
-                      mediaType === 'movie'
+                    isButtonVisible={
+                      (mediaType === 'movie'
                         ? trendingMovies.hasNextPage
                         : mediaType === 'tv'
                         ? trendingTV.hasNextPage
                         : mediaType === 'person'
                         ? trendingPeople.hasNextPage
-                        : true
+                        : true) &&
+                      (mediaType === 'movie'
+                        ? trendingMovies.isError
+                        : mediaType === 'tv'
+                        ? trendingTV.isError
+                        : mediaType === 'person'
+                        ? trendingPeople.isError
+                        : false)
                     }
-                    onFetch={() =>
+                    onClick={() =>
                       mediaType === 'movie'
                         ? trendingMovies.fetchNextPage()
                         : mediaType === 'tv'

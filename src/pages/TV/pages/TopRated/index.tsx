@@ -126,11 +126,10 @@ const TopRatedTV = (): ReactElement => {
                   <LoadMore
                     amount={tv?.results.length || 0}
                     total={tv?.total_results || 0}
-                    mediaType='TV shows'
+                    label='TV shows'
                     isLoading={topRatedTVQuery.isFetching || topRatedTVQuery.isLoading}
-                    isError={topRatedTVQuery.isError}
-                    hasNextPage={topRatedTVQuery.hasNextPage || true}
-                    onFetch={handleFetchNextPage}
+                    isButtonVisible={(topRatedTVQuery.hasNextPage || true) && topRatedTVQuery.isError}
+                    onClick={handleFetchNextPage}
                   />
                 </ScaleFade>
               </VStack>

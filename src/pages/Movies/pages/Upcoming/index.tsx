@@ -100,11 +100,10 @@ const UpcomingMovies = (): ReactElement => {
                 <LoadMore
                   amount={movies?.results.length || 0}
                   total={movies?.total_results || 0}
-                  mediaType='movies'
+                  label='movies'
                   isLoading={upcomingMoviesQuery.isFetching || upcomingMoviesQuery.isLoading}
-                  isError={upcomingMoviesQuery.isError}
-                  hasNextPage={upcomingMoviesQuery.hasNextPage || true}
-                  onFetch={upcomingMoviesQuery.fetchNextPage}
+                  isButtonVisible={(upcomingMoviesQuery.hasNextPage || true) && !upcomingMoviesQuery.isError}
+                  onClick={upcomingMoviesQuery.fetchNextPage}
                 />
               </ScaleFade>
             </VStack>

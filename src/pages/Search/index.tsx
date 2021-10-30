@@ -558,7 +558,7 @@ const Search = (): ReactElement => {
                               ? people?.total_results || 0
                               : 0
                           }
-                          mediaType={`${
+                          label={`${
                             mediaType === 'movie'
                               ? 'Movies'
                               : mediaType === 'tv'
@@ -576,7 +576,7 @@ const Search = (): ReactElement => {
                               ? searchPeople.isFetching || searchPeople.isLoading
                               : false
                           }
-                          onFetch={() =>
+                          onClick={() =>
                             handleSetLocation(
                               submittedQuery,
                               mediaType,
