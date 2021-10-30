@@ -14,24 +14,35 @@ const Header = (props: HeaderProps): ReactElement => {
 
   const { title, total, isOpen = true, onToggle } = props;
 
-  const [isHovering, setIsHovering] = useBoolean();
-
   return (
     <HStack
       width='100%'
       justifyContent='space-between'
       onClick={() => onToggle()}
-      onMouseEnter={() => setIsHovering.on()}
-      onMouseLeave={() => setIsHovering.off()}
       p={2}
       sx={{
-        cursor: 'pointer',
+        'cursor': 'pointer',
 
-        width: '100%',
+        'width': '100%',
 
-        backgroundColor: 'transparent',
+        'backgroundColor': 'transparent',
 
-        transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+        'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
+
+        '& .MuiSvgIcon-root': {
+          color: colorMode === 'light' ? 'gray.400' : 'gray.500',
+
+          fontSize: `${theme.fontSizes.xl} !important`,
+          transform: `rotate(${isOpen ? '90deg' : '0deg'})`,
+
+          transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+        },
+
+        '&:hover': {
+          '& .MuiSvgIcon-root': {
+            color: colorMode === 'light' ? 'gray.900' : 'gray.50'
+          }
+        }
       }}>
       <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='lg' fontWeight='semibold'>
         {title}
@@ -39,15 +50,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
       <HStack>
         <Badge label={String(total)} size={isSm ? 'sm' : 'md'} />
-        <Icon
-          as={ChevronRightOutlinedIcon}
-          color={colorMode === 'light' ? (isHovering ? 'gray.900' : 'gray.400') : isHovering ? 'gray.50' : 'gray.500'}
-          sx={{
-            fontSize: `${theme.fontSizes.xl} !important`,
-            transform: `rotate(${isOpen ? '90deg' : '0deg'})`,
-            transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
-          }}
-        />
+        <Icon as={ChevronRightOutlinedIcon} />
       </HStack>
     </HStack>
   );

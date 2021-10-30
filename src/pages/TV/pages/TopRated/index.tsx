@@ -126,9 +126,9 @@ const TopRatedTV = (): ReactElement => {
                   <LoadMore
                     amount={tv?.results.length || 0}
                     total={tv?.total_results || 0}
-                    label='TV shows'
+                    label='TV Shows'
                     isLoading={topRatedTVQuery.isFetching || topRatedTVQuery.isLoading}
-                    isButtonVisible={(topRatedTVQuery.hasNextPage || true) && topRatedTVQuery.isError}
+                    isButtonVisible={(topRatedTVQuery.hasNextPage || true) && !topRatedTVQuery.isError}
                     onClick={handleFetchNextPage}
                   />
                 </ScaleFade>

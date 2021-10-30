@@ -364,11 +364,11 @@ const Trending = (): ReactElement => {
                         ? trendingPeople.hasNextPage
                         : true) &&
                       (mediaType === 'movie'
-                        ? trendingMovies.isError
+                        ? !trendingMovies.isError
                         : mediaType === 'tv'
-                        ? trendingTV.isError
+                        ? !trendingTV.isError
                         : mediaType === 'person'
-                        ? trendingPeople.isError
+                        ? !trendingPeople.isError
                         : false)
                     }
                     onClick={() =>

@@ -42,7 +42,7 @@ const Crew = (props: CrewProps): ReactElement => {
           <LoadMore
             amount={totalVisible}
             total={crew?.length || 0}
-            label={title}
+            label={`${title} members`}
             onClick={() => setTotalVisible(totalVisible + incrementBy)}
           />
         ) : undefined
@@ -64,44 +64,46 @@ const Crew = (props: CrewProps): ReactElement => {
         />
       ) : !isLoading && isSuccess && crew && crew.length > 0 ? (
         <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 4, 5]} spacing={2}>
-          {crew.map((person) => (
-            <VerticalPoster
-              key={person.id}
-              width='100%'
-              mediaItem={
-                person
-                  ? {
-                      known_for_department: person.known_for_department || '',
-                      id: person.id || -1,
-                      name: person.name || '',
-                      gender: person.gender || 0,
-                      popularity: person.popularity || -1,
-                      profile_path: person.profile_path || null,
-                      adult: person.adult || false,
-                      known_for: undefined
-                    }
-                  : undefined
-              }
-              mediaType='person'
-              image={{
-                alt: `${person?.name || ''} person poster`,
-                src: person?.profile_path || '',
-                size: {
-                  thumbnail: 'w45',
-                  full: 'original'
+          {crew
+            .filter((_person, index) => index < totalVisible)
+            .map((person) => (
+              <VerticalPoster
+                key={person.id}
+                width='100%'
+                mediaItem={
+                  person
+                    ? {
+                        known_for_department: person.known_for_department || '',
+                        id: person.id || -1,
+                        name: person.name || '',
+                        gender: person.gender || 0,
+                        popularity: person.popularity || -1,
+                        profile_path: person.profile_path || null,
+                        adult: person.adult || false,
+                        known_for: undefined
+                      }
+                    : undefined
                 }
-              }}
-              title={person?.name || ''}
-              subtitle={
-                mediaType === 'movie' && person.job
-                  ? person.job
-                  : mediaType === 'tv' && person.jobs && person.jobs.length > 0
-                  ? handleReturnPersonJobLabel(person.jobs)
-                  : 'N/A'
-              }
-              isLoading={false}
-            />
-          ))}
+                mediaType='person'
+                image={{
+                  alt: `${person?.name || ''} person poster`,
+                  src: person?.profile_path || '',
+                  size: {
+                    thumbnail: 'w45',
+                    full: 'original'
+                  }
+                }}
+                title={person?.name || ''}
+                subtitle={
+                  mediaType === 'movie' && person.job
+                    ? person.job
+                    : mediaType === 'tv' && person.jobs && person.jobs.length > 0
+                    ? handleReturnPersonJobLabel(person.jobs)
+                    : 'N/A'
+                }
+                isLoading={false}
+              />
+            ))}
         </SimpleGrid>
       ) : (
         <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 4, 5]} spacing={2}>

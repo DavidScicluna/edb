@@ -102,7 +102,7 @@ const MoviesNowPlaying = (): ReactElement => {
                 <LoadMore
                   amount={movies?.results.length || 0}
                   total={movies?.total_results || 0}
-                  label='movies'
+                  label='Movies'
                   isLoading={moviesNowPlayingQuery.isFetching || moviesNowPlayingQuery.isLoading}
                   isButtonVisible={(moviesNowPlayingQuery.hasNextPage || true) && !moviesNowPlayingQuery.isError}
                   onClick={moviesNowPlayingQuery.fetchNextPage}

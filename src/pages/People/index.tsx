@@ -101,9 +101,9 @@ const People = (): ReactElement => {
                 <LoadMore
                   amount={people?.results.length || 0}
                   total={people?.total_results || 0}
-                  label='people'
+                  label='People'
                   isLoading={popularPeopleQuery.isFetching || popularPeopleQuery.isLoading}
-                  isButtonVisible={(popularPeopleQuery.hasNextPage || true) && popularPeopleQuery.isError}
+                  isButtonVisible={(popularPeopleQuery.hasNextPage || true) && !popularPeopleQuery.isError}
                   onClick={popularPeopleQuery.fetchNextPage}
                 />
               </ScaleFade>

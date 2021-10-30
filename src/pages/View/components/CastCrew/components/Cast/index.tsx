@@ -41,7 +41,7 @@ const Cast = (props: CastProps): ReactElement => {
           <LoadMore
             amount={totalVisible}
             total={cast?.length || 0}
-            label='Cast'
+            label='Cast members'
             onClick={() => setTotalVisible(totalVisible + incrementBy)}
           />
         ) : undefined
@@ -64,7 +64,7 @@ const Cast = (props: CastProps): ReactElement => {
       ) : !isLoading && isSuccess && cast && cast.length > 0 ? (
         <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 4, 5]} spacing={2}>
           {cast
-            .filter((_person, index) => index <= totalVisible)
+            .filter((_person, index) => index < totalVisible)
             .map((person) => (
               <VerticalPoster
                 key={person.id}

@@ -100,7 +100,7 @@ const TopRatedMovies = (): ReactElement => {
                 <LoadMore
                   amount={movies?.results.length || 0}
                   total={movies?.total_results || 0}
-                  label='movies'
+                  label='Movies'
                   isLoading={topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading}
                   isButtonVisible={(topRatedMoviesQuery.hasNextPage || true) && !topRatedMoviesQuery.isError}
                   onClick={topRatedMoviesQuery.fetchNextPage}

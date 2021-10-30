@@ -71,7 +71,7 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
             <LoadMore
               amount={reviews?.results.length || 0}
               total={reviews?.total_results || 0}
-              label='reviews'
+              label='Reviews'
               isLoading={isLoading}
               isButtonVisible={hasNextPage && !isError}
               onClick={onFetchNextPage}
