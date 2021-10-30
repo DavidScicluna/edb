@@ -18,10 +18,10 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { departments, isLoading = true } = props;
+  const { departments, isLoading = true, onTogglePanel } = props;
 
   return (
-    <HStack width='100%' maxWidth='100%' spacing={isLoading ? 1 : 0}>
+    <HStack width='100%' maxWidth='100%' justifyContent='stretch' spacing={isLoading ? 1 : 0}>
       <Text
         align='left'
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
@@ -34,6 +34,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
       <HorizontalScroll width='calc(100% - 61.47px)' spacing='0' isLoading={isLoading}>
         <HStack
           width='100%'
+          maxWidth='100%'
           divider={
             <Text
               align='left'
@@ -47,7 +48,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
             <SkeletonText
               key={index}
               width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
-              offsetY={14}
+              offsetY={6}
               isLoaded={!isLoading}>
               <Link
                 to={`${
@@ -57,8 +58,19 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
                 }`}
                 spy
                 smooth
-                offset={-145}>
-                <Button color={handleReturnColor(color)} isDisabled={isLoading} size='sm' variant='text'>
+                isDynamic={false}
+                offset={-96}
+                delay={1000}>
+                <Button
+                  color={handleReturnColor(color)}
+                  onClick={
+                    typeof department !== 'number'
+                      ? () => onTogglePanel(departments.findIndex((paramDepartment) => paramDepartment === department))
+                      : undefined
+                  }
+                  isDisabled={isLoading}
+                  size='sm'
+                  variant='text'>
                   {typeof department !== 'number' ? department : 'Lorem'}
                 </Button>
               </Link>

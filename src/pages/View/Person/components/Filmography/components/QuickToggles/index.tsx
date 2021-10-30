@@ -48,12 +48,12 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
             <SkeletonText
               key={index}
               width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
-              offsetY={14}
+              offsetY={6}
               isLoaded={!isLoading}>
               <Link
                 to={`${typeof department !== 'number' ? department.toLowerCase() : ''}-accordion`}
-                spy={true}
-                smooth={true}
+                spy
+                smooth
                 offset={-81}>
                 <Button
                   color={handleReturnColor(color)}

@@ -19,7 +19,7 @@ export default (theme: Theme): DummyAccordionItemStyle => ({
 
       'padding': `${theme.space[1]} ${theme.space[2]}`,
 
-      'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`,
+      'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       '&:focus': { boxShadow: 'none' }
     },
@@ -29,7 +29,7 @@ export default (theme: Theme): DummyAccordionItemStyle => ({
       '&.MuiSvgIcon-root': {
         fontSize: 'xl',
 
-        transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
+        transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
       }
     }
   }

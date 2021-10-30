@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, Box, VStack } from '@chakra-ui/react';
+import { useTheme, useColorMode, Box, VStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { ColorMode } from '../../common/types/types';
+import { Theme } from '../../theme/types';
 import Divider from './components/Divider';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -11,20 +12,19 @@ import useStyles from './styles';
 import { CardProps } from './types';
 
 const Card = (props: CardProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
   const {
     children,
     box,
-    color,
     colorMode: colorModeProp,
-    isFullWidth,
     hasDivider = true,
     variant = 'outlined',
     ...rest
-  } = props;
+  } = _.omit(props, ['color', 'isFullWidth']);
 
-  const style = useStyles(color, isFullWidth);
+  const style = useStyles(theme, props);
 
   const mode: ColorMode = colorModeProp || colorMode;
 

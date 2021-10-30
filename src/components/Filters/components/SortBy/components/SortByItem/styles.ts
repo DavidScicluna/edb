@@ -17,14 +17,14 @@ export default (theme: Theme, color: UserTheme['color'], isActive = false): Butt
     'border': 'none',
     'borderRadius': 'base',
 
-    'transition': `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`,
+    'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
     '& .chakra-icon': {
       fontSize: `${theme.fontSizes.xl} !important`,
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
     '& .chakra-text': {
-      transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-out']}`
+      transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
 
     '&:focus': {
