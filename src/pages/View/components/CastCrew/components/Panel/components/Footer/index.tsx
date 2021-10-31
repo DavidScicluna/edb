@@ -10,7 +10,7 @@ const Footer = ({ children }: FooterProps): ReactElement => {
     <VStack width='100%' spacing={1.5} px={2} pb={1.5}>
       <Divider />
 
-      <Box width='100%'>{children}</Box>
+      <Box width='auto'>{children}</Box>
     </VStack>
   );
 };

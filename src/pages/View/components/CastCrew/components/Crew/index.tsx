@@ -42,7 +42,7 @@ const Crew = (props: CrewProps): ReactElement => {
           <LoadMore
             amount={totalVisible}
             total={crew?.length || 0}
-            label={`${title} members`}
+            label={`${title} Members`}
             onClick={() => setTotalVisible(totalVisible + incrementBy)}
           />
         ) : undefined

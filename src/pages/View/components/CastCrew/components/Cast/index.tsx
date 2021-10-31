@@ -41,7 +41,7 @@ const Cast = (props: CastProps): ReactElement => {
           <LoadMore
             amount={totalVisible}
             total={cast?.length || 0}
-            label='Cast members'
+            label='Cast Members'
             onClick={() => setTotalVisible(totalVisible + incrementBy)}
           />
         ) : undefined
@@ -94,7 +94,7 @@ const Cast = (props: CastProps): ReactElement => {
                 }}
                 title={person?.name || ''}
                 subtitle={
-                  mediaType === 'movie'
+                  mediaType === 'movie' && person.character
                     ? `As ${person.character}`
                     : mediaType === 'tv' && person.roles && person.roles.length > 0
                     ? handleReturnPersonRoleLabel(person.roles)
