@@ -1,16 +1,15 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Link as CUILink, Box, Icon } from '@chakra-ui/react';
+import { useTheme, Link as CUILink, Box, Icon } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import Skeleton from '../../../../../../../../../components/Skeleton';
-import { Theme } from '../../../../../../../../../theme/types';
+import Skeleton from '../../../../../../components/Skeleton';
+import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
 import { LinkProps } from './types';
 
 const Link = (props: LinkProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
 
   const style = useStyles(theme, props);
 
@@ -27,7 +26,7 @@ const Link = (props: LinkProps): ReactElement => {
       aria-label={`${name ? `"${name}"` : ''} ${type} link`}
       href={!isDisabled ? href : ''}
       isExternal
-      sx={{ ..._.merge(style.common.link, style[colorMode]) }}>
+      sx={{ ...style.common.link }}>
       {iconComponent}
     </CUILink>
   ) : (

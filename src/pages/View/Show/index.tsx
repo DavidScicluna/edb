@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, VStack, ScaleFade } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, useDisclosure, HStack, VStack } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useInfiniteQuery, useQuery } from 'react-query';
@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from '../../../common/hooks';
 import axiosInstance from '../../../common/scripts/axios';
 import { Credits, Certifications, FullTV, PartialTV } from '../../../common/types/tv';
-import { Response, Images, Videos, Review } from '../../../common/types/types';
+import { Response, Images, Videos, Review, ExternalIDs } from '../../../common/types/types';
 import { handleReturnDate } from '../../../common/utils';
 import MediaViewer from '../../../components/MediaViewer';
 import { MediaViewerProps, MediaViewerType } from '../../../components/MediaViewer/types';
@@ -20,21 +20,21 @@ import Page from '../../../containers/Page';
 import Actions from '../components/Actions';
 import CastCrewTab from '../components/CastCrew';
 import ReviewsTab from '../components/Reviews';
+import Socials from '../components/Socials';
 import Title from '../components/Title';
 import HomeTab from './components/HomeTab';
 
 const Show = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const [isSm] = useMediaQuery('(max-width: 600px)');
+  const { colorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 960px)');
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
   const { id } = useParams<{ id: string }>();
 
   const userReviews = useSelector((state) => state.user.data.reviews.user);
   const tvShowUserReviews = userReviews.filter((review) => review.mediaItem.id === Number(id));
-
-  console.log(userReviews);
 
   const [selectedAsset, setSelectedAsset] = useState<MediaViewerProps['selected']>();
 
@@ -80,6 +80,14 @@ const Show = (): ReactElement => {
   // Fetching tv show certifications
   const certificationsQuery = useQuery([`tv-show-certifications-${id}`, id], async () => {
     const { data } = await axiosInstance.get<Certifications>(`/tv/${id}/content_ratings`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching tv show external ids
+  const externalIdsQuery = useQuery([`tv-show-external_ids-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<ExternalIDs>(`/tv/${id}/external_ids`, {
       cancelToken: source.token
     });
     return data;
@@ -231,35 +239,48 @@ const Show = (): ReactElement => {
           body: (
             <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
               <VStack alignItems='stretch' justifyContent='stretch' spacing={2} p={2}>
-                <TabList
-                  renderTabs={[
-                    {
-                      label: 'Overview'
-                    },
-                    {
-                      label: 'Series Cast & Crew',
-                      isDisabled:
-                        aggregateCreditsQuery.isError ||
-                        aggregateCreditsQuery.isFetching ||
-                        aggregateCreditsQuery.isLoading,
-                      badge: String(
-                        (aggregateCreditsQuery.data?.cast.length || 0) + (aggregateCreditsQuery.data?.crew.length || 0)
-                      )
-                    },
-                    {
-                      label: 'Reviews',
-                      isDisabled:
-                        tvShowQuery.isError ||
-                        tvShowQuery.isFetching ||
-                        tvShowQuery.isLoading ||
-                        reviewsQuery.isError ||
-                        reviewsQuery.isFetching ||
-                        reviewsQuery.isLoading,
-                      badge: String((reviews?.total_results || 0) + tvShowUserReviews.length)
-                    }
-                  ]}
-                  activeTab={activeTab}
-                />
+                <HStack width='100%' justifyContent='space-between' spacing={2}>
+                  <TabList
+                    renderTabs={[
+                      {
+                        label: 'Overview'
+                      },
+                      {
+                        label: 'Series Cast & Crew',
+                        isDisabled:
+                          aggregateCreditsQuery.isError ||
+                          aggregateCreditsQuery.isFetching ||
+                          aggregateCreditsQuery.isLoading,
+                        badge: String(
+                          (aggregateCreditsQuery.data?.cast.length || 0) +
+                            (aggregateCreditsQuery.data?.crew.length || 0)
+                        )
+                      },
+                      {
+                        label: 'Reviews',
+                        isDisabled:
+                          tvShowQuery.isError ||
+                          tvShowQuery.isFetching ||
+                          tvShowQuery.isLoading ||
+                          reviewsQuery.isError ||
+                          reviewsQuery.isFetching ||
+                          reviewsQuery.isLoading,
+                        badge: String((reviews?.total_results || 0) + tvShowUserReviews.length)
+                      }
+                    ]}
+                    activeTab={activeTab}
+                  />
+
+                  {!isSm ? (
+                    <Socials
+                      socials={externalIdsQuery.data}
+                      name={tvShowQuery.data?.name}
+                      orientation='horizontal'
+                      color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+                      isLoading={externalIdsQuery.isFetching || externalIdsQuery.isLoading}
+                    />
+                  ) : null}
+                </HStack>
                 <TabPanels activeTab={activeTab}>
                   <HomeTab
                     tvShowQuery={tvShowQuery}

@@ -1,5 +1,5 @@
-import { Style } from '../../../../../../../../../common/types/types';
-import { Theme } from '../../../../../../../../../theme/types';
+import { Style } from '../../../../../../common/types/types';
+import { Theme } from '../../../../../../theme/types';
 import { LinkProps } from './types';
 
 type LinkStyle = {
@@ -7,11 +7,9 @@ type LinkStyle = {
     link: Style;
     icon: Style;
   };
-  light: Style;
-  dark: Style;
 };
 
-export default (theme: Theme, { color, isDisabled = false }: LinkProps): LinkStyle => ({
+export default (theme: Theme, { defaultColor, color, isDisabled = false }: LinkProps): LinkStyle => ({
   common: {
     link: {
       'cursor': 'pointer',
@@ -34,6 +32,12 @@ export default (theme: Theme, { color, isDisabled = false }: LinkProps): LinkSty
 
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
+      'color': defaultColor,
+
+      '&:hover': {
+        color
+      },
+
       '&:focus': {
         boxShadow: 'none'
       },
@@ -46,20 +50,6 @@ export default (theme: Theme, { color, isDisabled = false }: LinkProps): LinkSty
       display: 'block',
 
       fontSize: `${theme.fontSizes['2xl']} !important`
-    }
-  },
-  light: {
-    'color': 'gray.50',
-
-    '&:hover': {
-      color
-    }
-  },
-  dark: {
-    'color': 'gray.900',
-
-    '&:hover': {
-      color
     }
   }
 });

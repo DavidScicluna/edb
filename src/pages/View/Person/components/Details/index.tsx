@@ -10,11 +10,11 @@ import Card from '../../../../../components/Card';
 import Button from '../../../../../components/Clickable/Button';
 import Like from '../../../../../components/Clickable/Like';
 import SkeletonText from '../../../../../components/Skeleton/Text';
+import Socials from '../../../components/Socials';
 import Background from './components/Background';
 import Date from './components/Date';
 import Departments from './components/Departments';
 import Poster from './components/Poster';
-import Socials from './components/Socials';
 import { DetailsProps } from './types';
 
 const width = [
@@ -59,7 +59,14 @@ const Details = (props: DetailsProps): ReactElement => {
                     />
                   ),
 
-                  socials: <Socials socials={socials} name={person?.name} isLoading={isLoading} />
+                  socials: (
+                    <Socials
+                      socials={socials}
+                      name={person?.name}
+                      color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+                      isLoading={isLoading}
+                    />
+                  )
                 }}
               </Background>
             )}

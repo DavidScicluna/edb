@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useColorMode, useTheme } from '@chakra-ui/react';
 import { Facebook as FacebookIcon, Twitter as TwitterIcon, Instagram as InstagramIcon } from '@material-ui/icons';
 
-import { Theme } from '../../../../../../../../../theme/types';
+import { Theme } from '../../../../../../theme/types';
 import Link from '../Link';
 import { LinksProps } from './types';
 
@@ -29,13 +29,14 @@ const Links = (props: LinksProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { socials, name, isLoading = false } = props;
+  const { socials, name, color, isLoading = false } = props;
 
   return (
     <>
       {/* Facebook */}
       {socials?.facebook_id ? (
         <Link
+          defaultColor={color}
           color='#4267B2'
           name={name}
           href={`https://www.facebook.com/${socials.facebook_id}`}
@@ -48,6 +49,7 @@ const Links = (props: LinksProps): ReactElement => {
       {/* Twitter */}
       {socials?.twitter_id ? (
         <Link
+          defaultColor={color}
           color='#1DA1F2'
           name={name}
           href={`https://www.twitter.com/${socials.twitter_id}`}
@@ -60,6 +62,7 @@ const Links = (props: LinksProps): ReactElement => {
       {/* Instagram */}
       {socials?.instagram_id ? (
         <Link
+          defaultColor={color}
           color={colorMode === 'light' ? theme.colors.gray[900] : theme.colors.gray[50]}
           name={name}
           href={`https://www.instagram.com/${socials.instagram_id}`}
@@ -72,6 +75,7 @@ const Links = (props: LinksProps): ReactElement => {
       {/* IMDB */}
       {socials?.imdb_id ? (
         <Link
+          defaultColor={color}
           color='#F5C518'
           name={name}
           href={`https://www.imdb.com/name/${socials.imdb_id}`}
