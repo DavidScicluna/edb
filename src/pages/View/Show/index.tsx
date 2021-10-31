@@ -202,32 +202,31 @@ const Show = (): ReactElement => {
         breadcrumbs={[]}>
         {{
           actions: (
-            <ScaleFade in={!tvShowQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
-              <Actions
-                mediaItem={
-                  tvShowQuery.data
-                    ? {
-                        poster_path: tvShowQuery.data.poster_path,
-                        popularity: tvShowQuery.data.popularity,
-                        id: tvShowQuery.data.id,
-                        backdrop_path: tvShowQuery.data.backdrop_path,
-                        vote_average: tvShowQuery.data.vote_average,
-                        vote_count: tvShowQuery.data.vote_count,
-                        overview: tvShowQuery.data.overview,
-                        first_air_date: tvShowQuery.data.first_air_date,
-                        origin_country: tvShowQuery.data.origin_country,
-                        original_language: tvShowQuery.data.original_language,
-                        original_name: tvShowQuery.data.original_name,
-                        name: tvShowQuery.data.name,
-                        genre_ids: tvShowQuery.data.genres.map((genre) => genre.id)
-                      }
-                    : undefined
-                }
-                mediaType='tv'
-                title={tvShowQuery.data?.name}
-                isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
-              />
-            </ScaleFade>
+            <Actions
+              mediaItem={
+                tvShowQuery.data
+                  ? {
+                      poster_path: tvShowQuery.data.poster_path,
+                      popularity: tvShowQuery.data.popularity,
+                      id: tvShowQuery.data.id,
+                      backdrop_path: tvShowQuery.data.backdrop_path,
+                      vote_average: tvShowQuery.data.vote_average,
+                      vote_count: tvShowQuery.data.vote_count,
+                      overview: tvShowQuery.data.overview,
+                      first_air_date: tvShowQuery.data.first_air_date,
+                      origin_country: tvShowQuery.data.origin_country,
+                      original_language: tvShowQuery.data.original_language,
+                      original_name: tvShowQuery.data.original_name,
+                      name: tvShowQuery.data.name,
+                      genre_ids: tvShowQuery.data.genres.map((genre) => genre.id)
+                    }
+                  : undefined
+              }
+              mediaType='tv'
+              title={tvShowQuery.data?.name}
+              isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+              isError={tvShowQuery.isError}
+            />
           ),
           body: (
             <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
@@ -307,7 +306,7 @@ const Show = (): ReactElement => {
           photos={[...(imagesQuery.data?.posters || [])]}
           backdrops={[...(imagesQuery.data?.backdrops || [])]}
           videos={[...(videosQuery.data?.results.filter((video) => video.site === 'YouTube') || [])]}
-          mediaType='movie'
+          mediaType='tv'
           onClose={onMediaViewerClose}
         />
       ) : null}

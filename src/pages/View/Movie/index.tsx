@@ -189,33 +189,32 @@ const Movie = (): ReactElement => {
         breadcrumbs={[]}>
         {{
           actions: (
-            <ScaleFade in={!movieQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
-              <Actions
-                mediaItem={
-                  movieQuery.data
-                    ? {
-                        adult: movieQuery.data.adult,
-                        poster_path: movieQuery.data.poster_path,
-                        overview: movieQuery.data.overview,
-                        release_date: movieQuery.data.release_date,
-                        id: movieQuery.data.id,
-                        original_language: movieQuery.data.original_language,
-                        original_title: movieQuery.data.original_title,
-                        title: movieQuery.data.title,
-                        backdrop_path: movieQuery.data.backdrop_path,
-                        popularity: movieQuery.data.popularity,
-                        video: movieQuery.data.video,
-                        vote_average: movieQuery.data.vote_average,
-                        vote_count: movieQuery.data.vote_count,
-                        genre_ids: movieQuery.data.genres.map((genre) => genre.id)
-                      }
-                    : undefined
-                }
-                mediaType='movie'
-                title={movieQuery.data?.title}
-                isLoading={movieQuery.isFetching || movieQuery.isLoading}
-              />
-            </ScaleFade>
+            <Actions
+              mediaItem={
+                movieQuery.data
+                  ? {
+                      adult: movieQuery.data.adult,
+                      poster_path: movieQuery.data.poster_path,
+                      overview: movieQuery.data.overview,
+                      release_date: movieQuery.data.release_date,
+                      id: movieQuery.data.id,
+                      original_language: movieQuery.data.original_language,
+                      original_title: movieQuery.data.original_title,
+                      title: movieQuery.data.title,
+                      backdrop_path: movieQuery.data.backdrop_path,
+                      popularity: movieQuery.data.popularity,
+                      video: movieQuery.data.video,
+                      vote_average: movieQuery.data.vote_average,
+                      vote_count: movieQuery.data.vote_count,
+                      genre_ids: movieQuery.data.genres.map((genre) => genre.id)
+                    }
+                  : undefined
+              }
+              mediaType='movie'
+              title={movieQuery.data?.title}
+              isLoading={movieQuery.isFetching || movieQuery.isLoading}
+              isError={movieQuery.isError}
+            />
           ),
           body: (
             <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
