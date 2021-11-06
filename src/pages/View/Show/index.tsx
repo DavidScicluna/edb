@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useMediaQuery, useDisclosure, HStack, VStack } from '@chakra-ui/react';
+import { useColorMode, useDisclosure } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useInfiniteQuery, useQuery } from 'react-query';
@@ -16,19 +16,19 @@ import { MediaViewerProps, MediaViewerType } from '../../../components/MediaView
 import Tabs from '../../../components/Tabs';
 import TabList from '../../../components/Tabs/components/TabList';
 import TabPanels from '../../../components/Tabs/components/TabPanels';
-import Page from '../../../containers/Page';
 import Actions from '../components/Actions';
 import CastCrewTab from '../components/CastCrew';
 import ReviewsTab from '../components/Reviews';
 import Socials from '../components/Socials';
+import Structure from '../components/Structure';
 import Title from '../components/Title';
 import HomeTab from './components/HomeTab';
+import SeasonsTab from './components/SeasonsTab';
 
 const Show = (): ReactElement => {
   const source = axios.CancelToken.source();
 
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 960px)');
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
   const { id } = useParams<{ id: string }>();
@@ -45,9 +45,6 @@ const Show = (): ReactElement => {
   // Fetching tv show details
   const tvShowQuery = useQuery([`tv-show-${id}`, id], async () => {
     const { data } = await axiosInstance.get<FullTV>(`/tv/${id}`, {
-      // params: {
-      //   append_to_response: 'release_dates'
-      // },
       cancelToken: source.token
     });
     return data;
@@ -60,22 +57,6 @@ const Show = (): ReactElement => {
     });
     return data;
   });
-
-  // Fetching tv credits
-  // const creditsQuery = useQuery([`tv-credits-${id}`, id], async () => {
-  //   const { data } = await axiosInstance.get<Credits>(`/tv/${id}/credits`, {
-  //     cancelToken: source.token
-  //   });
-  //   return data;
-  // });
-
-  // Fetching tv external ids
-  // const externalIdsQuery = useQuery([`tv-external_ids-${id}`, id], async () => {
-  //   const { data } = await axiosInstance.get<ExternalIDs>(`/tv/${id}/external_ids`, {
-  //     cancelToken: source.token
-  //   });
-  //   return data;
-  // });
 
   // Fetching tv show certifications
   const certificationsQuery = useQuery([`tv-show-certifications-${id}`, id], async () => {
@@ -180,145 +161,153 @@ const Show = (): ReactElement => {
 
   return (
     <>
-      <Page
-        title={
-          <Title
-            title={tvShowQuery.data?.name}
-            rating={{
-              rating: tvShowQuery.data?.vote_average || null,
-              count: tvShowQuery.data?.vote_count || null
-            }}
-            date={
-              !tvShowQuery.data?.in_production && tvShowQuery.data?.last_air_date
-                ? `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - ${handleReturnDate(
-                    tvShowQuery.data?.last_air_date || '',
-                    'year'
-                  )}`
-                : `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - present`
-            }
-            certification={certificationsQuery.data?.results.find((item) => item.iso_3166_1 === 'US')?.rating}
-            genres={tvShowQuery.data?.genres}
-            runtime={
-              tvShowQuery.data?.episode_run_time
-                ? tvShowQuery.data.episode_run_time.reduce((a, b) => a + b, 0) /
-                  tvShowQuery.data?.episode_run_time.length
-                : undefined
-            }
-            isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
-          />
-        }
-        breadcrumbs={[]}>
-        {{
-          actions: (
-            <Actions
-              mediaItem={
-                tvShowQuery.data
-                  ? {
-                      poster_path: tvShowQuery.data.poster_path,
-                      popularity: tvShowQuery.data.popularity,
-                      id: tvShowQuery.data.id,
-                      backdrop_path: tvShowQuery.data.backdrop_path,
-                      vote_average: tvShowQuery.data.vote_average,
-                      vote_count: tvShowQuery.data.vote_count,
-                      overview: tvShowQuery.data.overview,
-                      first_air_date: tvShowQuery.data.first_air_date,
-                      origin_country: tvShowQuery.data.origin_country,
-                      original_language: tvShowQuery.data.original_language,
-                      original_name: tvShowQuery.data.original_name,
-                      name: tvShowQuery.data.name,
-                      genre_ids: tvShowQuery.data.genres.map((genre) => genre.id)
-                    }
-                  : undefined
-              }
-              mediaType='tv'
-              title={tvShowQuery.data?.name}
-              isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
-              isError={tvShowQuery.isError}
-            />
-          ),
-          body: (
-            <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
-              <VStack alignItems='stretch' justifyContent='stretch' spacing={2} p={2}>
-                <HStack width='100%' justifyContent='space-between' spacing={2}>
-                  <TabList
-                    renderTabs={[
-                      {
-                        label: 'Overview'
-                      },
-                      {
-                        label: 'Series Cast & Crew',
-                        isDisabled:
-                          aggregateCreditsQuery.isError ||
-                          aggregateCreditsQuery.isFetching ||
-                          aggregateCreditsQuery.isLoading,
-                        badge: String(
-                          (aggregateCreditsQuery.data?.cast.length || 0) +
-                            (aggregateCreditsQuery.data?.crew.length || 0)
-                        )
-                      },
-                      {
-                        label: 'Reviews',
-                        isDisabled:
-                          tvShowQuery.isError ||
-                          tvShowQuery.isFetching ||
-                          tvShowQuery.isLoading ||
-                          reviewsQuery.isError ||
-                          reviewsQuery.isFetching ||
-                          reviewsQuery.isLoading,
-                        badge: String((reviews?.total_results || 0) + tvShowUserReviews.length)
+      <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+        <Structure>
+          {{
+            title: (
+              <Title
+                title={tvShowQuery.data?.name}
+                rating={{
+                  rating: tvShowQuery.data?.vote_average || null,
+                  count: tvShowQuery.data?.vote_count || null
+                }}
+                date={
+                  !tvShowQuery.data?.in_production && tvShowQuery.data?.last_air_date
+                    ? `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - ${handleReturnDate(
+                        tvShowQuery.data?.last_air_date || '',
+                        'year'
+                      )}`
+                    : `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - present`
+                }
+                certification={certificationsQuery.data?.results.find((item) => item.iso_3166_1 === 'US')?.rating}
+                genres={tvShowQuery.data?.genres}
+                runtime={
+                  tvShowQuery.data?.episode_run_time
+                    ? tvShowQuery.data.episode_run_time.reduce((a, b) => a + b, 0) /
+                      tvShowQuery.data?.episode_run_time.length
+                    : undefined
+                }
+                isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+              />
+            ),
+            actions: (
+              <Actions
+                mediaItem={
+                  tvShowQuery.data
+                    ? {
+                        poster_path: tvShowQuery.data.poster_path,
+                        popularity: tvShowQuery.data.popularity,
+                        id: tvShowQuery.data.id,
+                        backdrop_path: tvShowQuery.data.backdrop_path,
+                        vote_average: tvShowQuery.data.vote_average,
+                        vote_count: tvShowQuery.data.vote_count,
+                        overview: tvShowQuery.data.overview,
+                        first_air_date: tvShowQuery.data.first_air_date,
+                        origin_country: tvShowQuery.data.origin_country,
+                        original_language: tvShowQuery.data.original_language,
+                        original_name: tvShowQuery.data.original_name,
+                        name: tvShowQuery.data.name,
+                        genre_ids: tvShowQuery.data.genres.map((genre) => genre.id)
                       }
-                    ]}
-                    activeTab={activeTab}
-                  />
-
-                  {!isSm ? (
-                    <Socials
-                      socials={externalIdsQuery.data}
-                      name={tvShowQuery.data?.name}
-                      orientation='horizontal'
-                      color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-                      isLoading={externalIdsQuery.isFetching || externalIdsQuery.isLoading}
-                    />
-                  ) : null}
-                </HStack>
-                <TabPanels activeTab={activeTab}>
-                  <HomeTab
-                    tvShowQuery={tvShowQuery}
-                    creditsQuery={aggregateCreditsQuery}
-                    imagesQuery={imagesQuery}
-                    videosQuery={videosQuery}
-                    recommendationsQuery={recommendationsQuery}
-                    onCoverClick={handleOnCoverClick}
-                    onMediaClick={handleMediaClick}
-                    onChangeTab={(index: number) => {
-                      setActiveTab(index);
-                      document.scrollingElement?.scrollTo(0, 0);
-                    }}
-                  />
-                  <CastCrewTab
-                    mediaType='tv'
-                    cast={aggregateCreditsQuery.data?.cast}
-                    crew={aggregateCreditsQuery.data?.crew}
-                    isError={aggregateCreditsQuery.isError}
-                    isSuccess={aggregateCreditsQuery.isSuccess}
-                    isLoading={aggregateCreditsQuery.isFetching || aggregateCreditsQuery.isLoading}
-                  />
-                  <ReviewsTab
-                    mediaItem={tvShowQuery.data ? { ...tvShowQuery.data } : undefined}
-                    mediaType='tv'
-                    reviews={reviews}
-                    isError={reviewsQuery.isError}
-                    isSuccess={reviewsQuery.isSuccess}
-                    isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
-                    hasNextPage={reviewsQuery.hasNextPage}
-                    onFetchNextPage={reviewsQuery.fetchNextPage}
-                  />
-                </TabPanels>
-              </VStack>
-            </Tabs>
-          )
-        }}
-      </Page>
+                    : undefined
+                }
+                mediaType='tv'
+                title={tvShowQuery.data?.name}
+                isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+                isError={tvShowQuery.isError}
+              />
+            ),
+            tabList: (
+              <TabList
+                renderTabs={[
+                  {
+                    label: 'Overview'
+                  },
+                  {
+                    label: 'Series Cast & Crew',
+                    isDisabled:
+                      aggregateCreditsQuery.isError ||
+                      aggregateCreditsQuery.isFetching ||
+                      aggregateCreditsQuery.isLoading,
+                    badge: String(
+                      (aggregateCreditsQuery.data?.cast.length || 0) + (aggregateCreditsQuery.data?.crew.length || 0)
+                    )
+                  },
+                  {
+                    label: 'Seasons',
+                    isDisabled: tvShowQuery.isError || tvShowQuery.isFetching || tvShowQuery.isLoading,
+                    badge: String(tvShowQuery.data?.number_of_seasons || 0)
+                  },
+                  {
+                    label: 'Reviews',
+                    isDisabled:
+                      tvShowQuery.isError ||
+                      tvShowQuery.isFetching ||
+                      tvShowQuery.isLoading ||
+                      reviewsQuery.isError ||
+                      reviewsQuery.isFetching ||
+                      reviewsQuery.isLoading,
+                    badge: String((reviews?.total_results || 0) + tvShowUserReviews.length)
+                  }
+                ]}
+                activeTab={activeTab}
+              />
+            ),
+            socials: (
+              <Socials
+                socials={externalIdsQuery.data}
+                name={tvShowQuery.data?.name}
+                orientation='horizontal'
+                color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+                isLoading={externalIdsQuery.isFetching || externalIdsQuery.isLoading}
+              />
+            ),
+            tabPanels: (
+              <TabPanels activeTab={activeTab}>
+                <HomeTab
+                  tvShowQuery={tvShowQuery}
+                  creditsQuery={aggregateCreditsQuery}
+                  imagesQuery={imagesQuery}
+                  videosQuery={videosQuery}
+                  recommendationsQuery={recommendationsQuery}
+                  onCoverClick={handleOnCoverClick}
+                  onMediaClick={handleMediaClick}
+                  onChangeTab={(index: number) => {
+                    setActiveTab(index);
+                    document.scrollingElement?.scrollTo(0, 0);
+                  }}
+                />
+                <CastCrewTab
+                  mediaType='tv'
+                  cast={aggregateCreditsQuery.data?.cast}
+                  crew={aggregateCreditsQuery.data?.crew}
+                  isError={aggregateCreditsQuery.isError}
+                  isSuccess={aggregateCreditsQuery.isSuccess}
+                  isLoading={aggregateCreditsQuery.isFetching || aggregateCreditsQuery.isLoading}
+                />
+                <SeasonsTab
+                  seasons={tvShowQuery.data?.seasons}
+                  tvId={tvShowQuery.data?.id}
+                  name={tvShowQuery.data?.name}
+                  isError={tvShowQuery.isError}
+                  isSuccess={tvShowQuery.isSuccess}
+                  isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+                />
+                <ReviewsTab
+                  mediaItem={tvShowQuery.data ? { ...tvShowQuery.data } : undefined}
+                  mediaType='tv'
+                  reviews={reviews}
+                  isError={reviewsQuery.isError}
+                  isSuccess={reviewsQuery.isSuccess}
+                  isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
+                  hasNextPage={reviewsQuery.hasNextPage}
+                  onFetchNextPage={reviewsQuery.fetchNextPage}
+                />
+              </TabPanels>
+            )
+          }}
+        </Structure>
+      </Tabs>
 
       {imagesQuery.isSuccess || videosQuery.isSuccess ? (
         <MediaViewer
