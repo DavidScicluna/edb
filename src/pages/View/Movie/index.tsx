@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useMediaQuery, useDisclosure, HStack, VStack } from '@chakra-ui/react';
+import { useColorMode, useDisclosure } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useQuery, useInfiniteQuery } from 'react-query';
@@ -23,11 +23,11 @@ import { MediaViewerType, MediaViewerProps } from '../../../components/MediaView
 import Tabs from '../../../components/Tabs';
 import TabList from '../../../components/Tabs/components/TabList';
 import TabPanels from '../../../components/Tabs/components/TabPanels';
-import Page from '../../../containers/Page';
 import Actions from '../components/Actions';
 import CastCrewTab from '../components/CastCrew';
 import ReviewsTab from '../components/Reviews';
 import Socials from '../components/Socials';
+import Structure from '../components/Structure';
 import Title from '../components/Title';
 import HomeTab from './components/HomeTab';
 
@@ -35,7 +35,6 @@ const Movie = (): ReactElement => {
   const source = axios.CancelToken.source();
 
   const { colorMode } = useColorMode();
-  const [isSm] = useMediaQuery('(max-width: 960px)');
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
   const { id } = useParams<{ id: string }>();
@@ -188,130 +187,125 @@ const Movie = (): ReactElement => {
 
   return (
     <>
-      <Page
-        title={
-          <Title
-            title={movieQuery.data?.title}
-            rating={{
-              rating: movieQuery.data?.vote_average || null,
-              count: movieQuery.data?.vote_count || null
-            }}
-            date={handleReturnDate(movieQuery.data?.release_date || '', 'full')}
-            certification={handleReturnCertification()}
-            genres={movieQuery.data?.genres}
-            runtime={movieQuery.data?.runtime}
-            isLoading={movieQuery.isFetching || movieQuery.isLoading}
-          />
-        }
-        breadcrumbs={[]}>
-        {{
-          actions: (
-            <Actions
-              mediaItem={
-                movieQuery.data
-                  ? {
-                      adult: movieQuery.data.adult,
-                      poster_path: movieQuery.data.poster_path,
-                      overview: movieQuery.data.overview,
-                      release_date: movieQuery.data.release_date,
-                      id: movieQuery.data.id,
-                      original_language: movieQuery.data.original_language,
-                      original_title: movieQuery.data.original_title,
-                      title: movieQuery.data.title,
-                      backdrop_path: movieQuery.data.backdrop_path,
-                      popularity: movieQuery.data.popularity,
-                      video: movieQuery.data.video,
-                      vote_average: movieQuery.data.vote_average,
-                      vote_count: movieQuery.data.vote_count,
-                      genre_ids: movieQuery.data.genres.map((genre) => genre.id)
-                    }
-                  : undefined
-              }
-              mediaType='movie'
-              title={movieQuery.data?.title}
-              isLoading={movieQuery.isFetching || movieQuery.isLoading}
-              isError={movieQuery.isError}
-            />
-          ),
-          body: (
-            <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
-              <VStack alignItems='stretch' justifyContent='stretch' spacing={2} p={2}>
-                <HStack width='100%' justifyContent='space-between' spacing={2}>
-                  <TabList
-                    renderTabs={[
-                      {
-                        label: 'Overview'
-                      },
-                      {
-                        label: 'Cast & Crew',
-                        isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
-                        badge: String((creditsQuery.data?.cast.length || 0) + (creditsQuery.data?.crew.length || 0))
-                      },
-                      {
-                        label: 'Reviews',
-                        isDisabled:
-                          movieQuery.isError ||
-                          movieQuery.isFetching ||
-                          movieQuery.isLoading ||
-                          reviewsQuery.isError ||
-                          reviewsQuery.isFetching ||
-                          reviewsQuery.isLoading,
-                        badge: String((reviews?.total_results || 0) + movieUserReviews.length)
+      <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+        <Structure>
+          {{
+            title: (
+              <Title
+                title={movieQuery.data?.title}
+                rating={{
+                  rating: movieQuery.data?.vote_average || null,
+                  count: movieQuery.data?.vote_count || null
+                }}
+                date={handleReturnDate(movieQuery.data?.release_date || '', 'full')}
+                certification={handleReturnCertification()}
+                genres={movieQuery.data?.genres}
+                runtime={movieQuery.data?.runtime}
+                isLoading={movieQuery.isFetching || movieQuery.isLoading}
+              />
+            ),
+            actions: (
+              <Actions
+                mediaItem={
+                  movieQuery.data
+                    ? {
+                        adult: movieQuery.data.adult,
+                        poster_path: movieQuery.data.poster_path,
+                        overview: movieQuery.data.overview,
+                        release_date: movieQuery.data.release_date,
+                        id: movieQuery.data.id,
+                        original_language: movieQuery.data.original_language,
+                        original_title: movieQuery.data.original_title,
+                        title: movieQuery.data.title,
+                        backdrop_path: movieQuery.data.backdrop_path,
+                        popularity: movieQuery.data.popularity,
+                        video: movieQuery.data.video,
+                        vote_average: movieQuery.data.vote_average,
+                        vote_count: movieQuery.data.vote_count,
+                        genre_ids: movieQuery.data.genres.map((genre) => genre.id)
                       }
-                    ]}
-                    activeTab={activeTab}
-                  />
-
-                  {!isSm ? (
-                    <Socials
-                      socials={externalIdsQuery.data}
-                      name={movieQuery.data?.title}
-                      orientation='horizontal'
-                      color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-                      isLoading={externalIdsQuery.isFetching || externalIdsQuery.isLoading}
-                    />
-                  ) : null}
-                </HStack>
-
-                <TabPanels activeTab={activeTab}>
-                  <HomeTab
-                    movieQuery={movieQuery}
-                    creditsQuery={creditsQuery}
-                    imagesQuery={imagesQuery}
-                    videosQuery={videosQuery}
-                    collectionsQuery={collectionsQuery}
-                    recommendationsQuery={recommendationsQuery}
-                    onCoverClick={handleOnCoverClick}
-                    onMediaClick={handleMediaClick}
-                    onChangeTab={(index: number) => {
-                      setActiveTab(index);
-                      document.scrollingElement?.scrollTo(0, 0);
-                    }}
-                  />
-                  <CastCrewTab
-                    mediaType='movie'
-                    cast={creditsQuery.data?.cast}
-                    crew={creditsQuery.data?.crew}
-                    isError={creditsQuery.isError}
-                    isSuccess={creditsQuery.isSuccess}
-                    isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
-                  />
-                  <ReviewsTab
-                    mediaItem={movieQuery.data ? { ...movieQuery.data } : undefined}
-                    mediaType='movie'
-                    reviews={reviews}
-                    isError={reviewsQuery.isError}
-                    isSuccess={reviewsQuery.isSuccess}
-                    isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
-                    hasNextPage={reviewsQuery.hasNextPage}
-                    onFetchNextPage={reviewsQuery.fetchNextPage}
-                  />
-                </TabPanels>
-              </VStack>
-            </Tabs>
-          )
-        }}
-      </Page>
+                    : undefined
+                }
+                mediaType='movie'
+                title={movieQuery.data?.title}
+                isLoading={movieQuery.isFetching || movieQuery.isLoading}
+                isError={movieQuery.isError}
+              />
+            ),
+            tabList: (
+              <TabList
+                renderTabs={[
+                  {
+                    label: 'Overview'
+                  },
+                  {
+                    label: 'Cast & Crew',
+                    isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
+                    badge: String((creditsQuery.data?.cast.length || 0) + (creditsQuery.data?.crew.length || 0))
+                  },
+                  {
+                    label: 'Reviews',
+                    isDisabled:
+                      movieQuery.isError ||
+                      movieQuery.isFetching ||
+                      movieQuery.isLoading ||
+                      reviewsQuery.isError ||
+                      reviewsQuery.isFetching ||
+                      reviewsQuery.isLoading,
+                    badge: String((reviews?.total_results || 0) + movieUserReviews.length)
+                  }
+                ]}
+                activeTab={activeTab}
+              />
+            ),
+            socials: (
+              <Socials
+                socials={externalIdsQuery.data}
+                name={movieQuery.data?.title}
+                orientation='horizontal'
+                color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+                isLoading={externalIdsQuery.isFetching || externalIdsQuery.isLoading}
+              />
+            ),
+            tabPanels: (
+              <TabPanels activeTab={activeTab}>
+                <HomeTab
+                  movieQuery={movieQuery}
+                  creditsQuery={creditsQuery}
+                  imagesQuery={imagesQuery}
+                  videosQuery={videosQuery}
+                  collectionsQuery={collectionsQuery}
+                  recommendationsQuery={recommendationsQuery}
+                  onCoverClick={handleOnCoverClick}
+                  onMediaClick={handleMediaClick}
+                  onChangeTab={(index: number) => {
+                    setActiveTab(index);
+                    document.scrollingElement?.scrollTo(0, 0);
+                  }}
+                />
+                <CastCrewTab
+                  mediaType='movie'
+                  cast={creditsQuery.data?.cast}
+                  crew={creditsQuery.data?.crew}
+                  isError={creditsQuery.isError}
+                  isSuccess={creditsQuery.isSuccess}
+                  isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
+                />
+                <ReviewsTab
+                  mediaItem={movieQuery.data ? { ...movieQuery.data } : undefined}
+                  mediaType='movie'
+                  reviews={reviews}
+                  isError={reviewsQuery.isError}
+                  isSuccess={reviewsQuery.isSuccess}
+                  isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
+                  hasNextPage={reviewsQuery.hasNextPage}
+                  onFetchNextPage={reviewsQuery.fetchNextPage}
+                />
+              </TabPanels>
+            )
+          }}
+        </Structure>
+      </Tabs>
 
       {imagesQuery.isSuccess || videosQuery.isSuccess ? (
         <MediaViewer
