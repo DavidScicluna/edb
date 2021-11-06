@@ -9,8 +9,8 @@ import {
 import Button from '../../../../../../../../../components/Clickable/Button';
 import Like from '../../../../../../../../../components/Clickable/Like';
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
-import Date from '../../../../../../../../../pages/View/Person/components/Details/components/Date';
-import Departments from '../../../../../../../../../pages/View/Person/components/Details/components/Departments';
+import Date from '../../../../../../../../../pages/Person/components/Details/components/Date';
+import Departments from '../../../../../../../../../pages/Person/components/Details/components/Departments';
 import Stats from '../Stats';
 import { ContainerProps } from './types';
 
