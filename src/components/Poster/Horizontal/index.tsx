@@ -14,9 +14,9 @@ import {
 import useInView from 'react-cool-inview';
 
 import { MediaType } from '../../../common/types/types';
-import Card from '../../../components/Clickable/Card';
-import Link from '../../../components/Clickable/Link';
 import { Theme } from '../../../theme/types';
+import Card from '../..//Clickable/Card';
+import Link from '../../Clickable/Link';
 import Image from '../../Image';
 import Rating from '../../Rating';
 import Skeleton from '../../Skeleton';
@@ -102,7 +102,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
             ]}
             alignItems='flex-start'
             spacing={[1, 1, 2, 2, 2, 2]}>
-            {/* Rating component */}
+            {/* Rating */}
             {mediaType !== 'person' ? (
               <Rating
                 rating={rating}
@@ -112,7 +112,6 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               />
             ) : null}
 
-            {/* Text */}
             <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
               <Title title={title} isLoading={isLoading} />
               <Subtitle subtitle={subtitle} isLoading={isLoading} />
