@@ -14,7 +14,7 @@ const Panel = ({ children, footer, id, title, total, isOpen = true, onToggle }: 
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const style = useStyles(theme);
+  const style = useStyles(theme, isOpen);
 
   return (
     <VStack spacing={0} sx={{ ..._.merge(style.panel, style[colorMode]) }}>

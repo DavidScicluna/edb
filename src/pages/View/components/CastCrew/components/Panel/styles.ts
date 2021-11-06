@@ -7,7 +7,7 @@ type PanelStyle = {
   dark: Style;
 };
 
-export default (theme: Theme): PanelStyle => ({
+export default (theme: Theme, isOpen = true): PanelStyle => ({
   panel: {
     width: '100%',
     maxWidth: '100%',
@@ -25,12 +25,12 @@ export default (theme: Theme): PanelStyle => ({
 
     '&:hover': {
       backgroundColor: 'transparent',
-      borderColor: 'gray.200'
+      borderColor: !isOpen ? 'gray.400' : 'gray.200'
     },
 
     '&:active': {
       backgroundColor: 'transparent',
-      borderColor: 'gray.200'
+      borderColor: !isOpen ? 'gray.400' : 'gray.200'
     }
   },
   dark: {
@@ -39,12 +39,12 @@ export default (theme: Theme): PanelStyle => ({
 
     '&:hover': {
       backgroundColor: 'transparent',
-      borderColor: 'gray.700'
+      borderColor: !isOpen ? 'gray.500' : 'gray.700'
     },
 
     '&:active': {
       backgroundColor: 'transparent',
-      borderColor: 'gray.700'
+      borderColor: !isOpen ? 'gray.500' : 'gray.700'
     }
   }
 });
