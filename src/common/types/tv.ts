@@ -71,15 +71,52 @@ export type Network = {
   origin_country: string;
 };
 
-export type Season = {
+type EpisodeCrew = {
+  department: string;
+  job: string;
+  credit_id: string;
+  original_name: string;
+} & Person;
+
+type EpisodeGuest = {
+  credit_id: string;
+  order: number;
+  character: string;
+  original_name: string;
+} & Person;
+
+type Episode = {
   air_date: string;
-  episode_count: number;
+  episode_number: number;
+  crew: EpisodeCrew[];
+  guest_stars: EpisodeGuest[];
+  id: number;
+  name: string;
+  overview: string;
+  production_code: string;
+  season_number: number;
+  still_path: string;
+  vote_average: number;
+  vote_count: number;
+};
+
+type Season = {
+  air_date: string;
   id: number;
   name: string;
   overview: string;
   poster_path: string;
   season_number: number;
 };
+
+export type PartialSeason = {
+  episode_count: number;
+} & Season;
+
+export type FullSeason = {
+  _id: string;
+  episodes: Episode[];
+} & Season;
 
 type TV = {
   poster_path: string | null;
@@ -115,7 +152,7 @@ export type FullTV = {
   number_of_seasons: number;
   production_companies: ProductionCompany[];
   production_countries: ProductionCountry[];
-  seasons: Season[];
+  seasons: PartialSeason[];
   spoken_languages: Language[];
   status: Status;
   tagline: string | null;
