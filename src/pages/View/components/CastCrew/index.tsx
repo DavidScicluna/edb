@@ -3,7 +3,6 @@ import { ReactElement, useState } from 'react';
 import { VStack } from '@chakra-ui/react';
 import sort from 'array-sort';
 
-import VerticalGrid from '../../../../components/Grid/Vertical';
 import Cast from './components/Cast';
 import Crew from './components/Crew';
 import QuickToggles from './components/QuickToggles';
@@ -66,45 +65,43 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
   const departments = handleReturnCrew();
 
   return (
-    <VerticalGrid>
+    <VStack width='100%' spacing={2}>
+      <QuickToggles
+        departments={['cast', ...departments.map((department) => department.title)]}
+        openedPanels={openedPanels.length}
+        isLoading={isLoading}
+        onTogglePanel={(index: number) => setOpenedPanels([...openedPanels, index])}
+        onToggleAllPanels={handleToggleAllPanels}
+      />
+
       <VStack width='100%' spacing={2}>
-        <QuickToggles
-          departments={['cast', ...departments.map((department) => department.title)]}
-          openedPanels={openedPanels.length}
+        <Cast
+          mediaType={mediaType}
+          mediaItemTitle={mediaItemTitle}
+          cast={cast}
           isLoading={isLoading}
-          onTogglePanel={(index: number) => setOpenedPanels([...openedPanels, index])}
-          onToggleAllPanels={handleToggleAllPanels}
+          isError={isError}
+          isSuccess={isSuccess}
+          isOpen={openedPanels.includes(0)}
+          onToggle={() => handleTogglePanel(0)}
         />
 
-        <VStack width='100%' spacing={2}>
-          <Cast
+        {departments.map((department, index) => (
+          <Crew
+            key={index}
             mediaType={mediaType}
             mediaItemTitle={mediaItemTitle}
-            cast={cast}
+            title={department.title}
+            crew={department.crew}
             isLoading={isLoading}
             isError={isError}
             isSuccess={isSuccess}
-            isOpen={openedPanels.includes(0)}
-            onToggle={() => handleTogglePanel(0)}
+            isOpen={openedPanels.includes(index + 1)}
+            onToggle={() => handleTogglePanel(index + 1)}
           />
-
-          {departments.map((department, index) => (
-            <Crew
-              key={index}
-              mediaType={mediaType}
-              mediaItemTitle={mediaItemTitle}
-              title={department.title}
-              crew={department.crew}
-              isLoading={isLoading}
-              isError={isError}
-              isSuccess={isSuccess}
-              isOpen={openedPanels.includes(index + 1)}
-              onToggle={() => handleTogglePanel(index + 1)}
-            />
-          ))}
-        </VStack>
+        ))}
       </VStack>
-    </VerticalGrid>
+    </VStack>
   );
 };
 
