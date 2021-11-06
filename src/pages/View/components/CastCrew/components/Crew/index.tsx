@@ -1,8 +1,9 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
-import { VisuallyHidden } from '@chakra-ui/react';
+import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
@@ -10,34 +11,62 @@ import { handleReturnPersonJobLabel } from '../../../../Show/common/utils';
 import Panel from '../Panel';
 import { CrewProps } from './types';
 
+const incrementBy = 25;
+
 const Crew = (props: CrewProps): ReactElement => {
-  const { mediaType, mediaItemTitle, crew, title, isLoading = true, isError = false, isSuccess = false } = props;
+  const [isSmallMob] = useMediaQuery('(max-width: 340px)');
+
+  const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
+
+  const {
+    mediaType,
+    mediaItemTitle,
+    crew,
+    title,
+    isLoading = true,
+    isError = false,
+    isSuccess = false,
+    isOpen = true,
+    onToggle
+  } = props;
 
   return (
-    <Panel title={title} total={crew?.length || 0}>
-      <>
-        <VisuallyHidden>
-          <span id={`${title.toLowerCase()}-crew`} />
-        </VisuallyHidden>
-
-        {!isLoading && isError ? (
-          <Error
-            label='Oh no! Something went wrong'
-            description={`Failed to fetch ${mediaItemTitle ? `"${mediaItemTitle}"` : ''} ${
-              mediaType === 'tv' ? 'tv show' : 'movie'
-            } ${title} crew list!`}
-            variant='outlined'
+    <Panel
+      id={`${title.toLowerCase()}-crew`}
+      title={title}
+      total={crew?.length || 0}
+      isOpen={isOpen}
+      onToggle={onToggle}
+      footer={
+        (crew?.length || 0) > incrementBy ? (
+          <LoadMore
+            amount={totalVisible}
+            total={crew?.length || 0}
+            label={`${title} Members`}
+            onClick={() => setTotalVisible(totalVisible + incrementBy)}
           />
-        ) : !isLoading && isSuccess && crew && crew.length === 0 ? (
-          <Empty
-            label={`${mediaItemTitle ? `"${mediaItemTitle}"` : ''} ${
-              mediaType === 'tv' ? 'tv show' : 'movie'
-            } ${title} crew list is currently empty!`}
-            variant='outlined'
-          />
-        ) : !isLoading && isSuccess && crew && crew.length > 0 ? (
-          <>
-            {crew.map((person) => (
+        ) : undefined
+      }>
+      {!isLoading && isError ? (
+        <Error
+          label='Oh no! Something went wrong'
+          description={`Failed to fetch ${mediaItemTitle ? `"${mediaItemTitle}"` : ''} ${
+            mediaType === 'tv' ? 'tv show' : 'movie'
+          } ${title} crew list!`}
+          variant='outlined'
+        />
+      ) : !isLoading && isSuccess && crew && crew.length === 0 ? (
+        <Empty
+          label={`${mediaItemTitle ? `"${mediaItemTitle}"` : ''} ${
+            mediaType === 'tv' ? 'tv show' : 'movie'
+          } ${title} crew list is currently empty!`}
+          variant='outlined'
+        />
+      ) : !isLoading && isSuccess && crew && crew.length > 0 ? (
+        <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 4, 5]} spacing={2}>
+          {crew
+            .filter((_person, index) => index < totalVisible)
+            .map((person) => (
               <VerticalPoster
                 key={person.id}
                 width='100%'
@@ -75,22 +104,21 @@ const Crew = (props: CrewProps): ReactElement => {
                 isLoading={false}
               />
             ))}
-          </>
-        ) : (
-          <>
-            {_.range(0, isSuccess && crew && crew.length > 0 ? crew.length : 20).map((_dummy, index: number) => (
-              <VerticalPoster
-                key={index}
-                width='100%'
-                mediaType='person'
-                title='Lorem ipsum'
-                subtitle='Lorem ipsum dolor sit amet'
-                isLoading
-              />
-            ))}
-          </>
-        )}
-      </>
+        </SimpleGrid>
+      ) : (
+        <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 4, 5]} spacing={2}>
+          {_.range(0, 20).map((_dummy, index: number) => (
+            <VerticalPoster
+              key={index}
+              width='100%'
+              mediaType='person'
+              title='Lorem ipsum'
+              subtitle='Lorem ipsum dolor sit amet'
+              isLoading
+            />
+          ))}
+        </SimpleGrid>
+      )}
     </Panel>
   );
 };

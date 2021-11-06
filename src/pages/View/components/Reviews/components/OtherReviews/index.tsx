@@ -67,15 +67,14 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
             />
           ))}
 
-          <ScaleFade in={!isError && hasNextPage} unmountOnExit>
+          <ScaleFade in={!isError && hasNextPage} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
             <LoadMore
               amount={reviews?.results.length || 0}
               total={reviews?.total_results || 0}
-              mediaType='reviews'
+              label='Reviews'
               isLoading={isLoading}
-              isError={isError}
-              hasNextPage={hasNextPage}
-              onFetch={onFetchNextPage}
+              isButtonVisible={hasNextPage && !isError}
+              onClick={onFetchNextPage}
             />
           </ScaleFade>
         </>

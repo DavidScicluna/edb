@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, ScaleFade, VStack } from '@chakra-ui/react';
+import { useColorMode, useDisclosure } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useQuery, useInfiniteQuery } from 'react-query';
@@ -9,24 +9,32 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from '../../../common/hooks';
 import axiosInstance from '../../../common/scripts/axios';
 import { FullMovie, Credits, PartialMovie } from '../../../common/types/movie';
-import { Response, Collection as CollectionType, Images, Videos, Review } from '../../../common/types/types';
+import {
+  Response,
+  Collection as CollectionType,
+  Images,
+  Videos,
+  Review,
+  ExternalIDs
+} from '../../../common/types/types';
 import { handleReturnDate } from '../../../common/utils';
 import MediaViewer from '../../../components/MediaViewer';
 import { MediaViewerType, MediaViewerProps } from '../../../components/MediaViewer/types';
 import Tabs from '../../../components/Tabs';
 import TabList from '../../../components/Tabs/components/TabList';
 import TabPanels from '../../../components/Tabs/components/TabPanels';
-import Page from '../../../containers/Page';
 import Actions from '../components/Actions';
 import CastCrewTab from '../components/CastCrew';
 import ReviewsTab from '../components/Reviews';
+import Socials from '../components/Socials';
+import Structure from '../components/Structure';
 import Title from '../components/Title';
 import HomeTab from './components/HomeTab';
 
 const Movie = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const [isSm] = useMediaQuery('(max-width: 600px)');
+  const { colorMode } = useColorMode();
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
   const { id } = useParams<{ id: string }>();
@@ -54,6 +62,14 @@ const Movie = (): ReactElement => {
   // Fetching movie credits
   const creditsQuery = useQuery([`movie-credits-${id}`, id], async () => {
     const { data } = await axiosInstance.get<Credits>(`/movie/${id}/credits`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching movie external ids
+  const externalIdsQuery = useQuery([`movie-external_ids-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<ExternalIDs>(`/movie/${id}/external_ids`, {
       cancelToken: source.token
     });
     return data;
@@ -171,25 +187,24 @@ const Movie = (): ReactElement => {
 
   return (
     <>
-      <Page
-        title={
-          <Title
-            title={movieQuery.data?.title}
-            rating={{
-              rating: movieQuery.data?.vote_average || null,
-              count: movieQuery.data?.vote_count || null
-            }}
-            date={handleReturnDate(movieQuery.data?.release_date || '', 'full')}
-            certification={handleReturnCertification()}
-            genres={movieQuery.data?.genres}
-            runtime={movieQuery.data?.runtime}
-            isLoading={movieQuery.isFetching || movieQuery.isLoading}
-          />
-        }
-        breadcrumbs={[]}>
-        {{
-          actions: (
-            <ScaleFade in={!movieQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
+      <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+        <Structure>
+          {{
+            title: (
+              <Title
+                title={movieQuery.data?.title}
+                rating={{
+                  rating: movieQuery.data?.vote_average || null,
+                  count: movieQuery.data?.vote_count || null
+                }}
+                date={handleReturnDate(movieQuery.data?.release_date || '', 'full')}
+                certification={handleReturnCertification()}
+                genres={movieQuery.data?.genres}
+                runtime={movieQuery.data?.runtime}
+                isLoading={movieQuery.isFetching || movieQuery.isLoading}
+              />
+            ),
+            actions: (
               <Actions
                 mediaItem={
                   movieQuery.data
@@ -214,75 +229,83 @@ const Movie = (): ReactElement => {
                 mediaType='movie'
                 title={movieQuery.data?.title}
                 isLoading={movieQuery.isFetching || movieQuery.isLoading}
+                isError={movieQuery.isError}
               />
-            </ScaleFade>
-          ),
-          body: (
-            <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
-              <VStack alignItems='stretch' justifyContent='stretch' spacing={2} p={2}>
-                <TabList
-                  renderTabs={[
-                    {
-                      label: 'Overview'
-                    },
-                    {
-                      label: 'Cast & Crew',
-                      isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
-                      badge: String((creditsQuery.data?.cast.length || 0) + (creditsQuery.data?.crew.length || 0))
-                    },
-                    {
-                      label: 'Reviews',
-                      isDisabled:
-                        movieQuery.isError ||
-                        movieQuery.isFetching ||
-                        movieQuery.isLoading ||
-                        reviewsQuery.isError ||
-                        reviewsQuery.isFetching ||
-                        reviewsQuery.isLoading,
-                      badge: String((reviews?.total_results || 0) + movieUserReviews.length)
-                    }
-                  ]}
-                  activeTab={activeTab}
+            ),
+            tabList: (
+              <TabList
+                renderTabs={[
+                  {
+                    label: 'Overview'
+                  },
+                  {
+                    label: 'Cast & Crew',
+                    isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
+                    badge: String((creditsQuery.data?.cast.length || 0) + (creditsQuery.data?.crew.length || 0))
+                  },
+                  {
+                    label: 'Reviews',
+                    isDisabled:
+                      movieQuery.isError ||
+                      movieQuery.isFetching ||
+                      movieQuery.isLoading ||
+                      reviewsQuery.isError ||
+                      reviewsQuery.isFetching ||
+                      reviewsQuery.isLoading,
+                    badge: String((reviews?.total_results || 0) + movieUserReviews.length)
+                  }
+                ]}
+                activeTab={activeTab}
+              />
+            ),
+            socials: (
+              <Socials
+                socials={externalIdsQuery.data}
+                name={movieQuery.data?.title}
+                orientation='horizontal'
+                color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+                isLoading={externalIdsQuery.isFetching || externalIdsQuery.isLoading}
+              />
+            ),
+            tabPanels: (
+              <TabPanels activeTab={activeTab}>
+                <HomeTab
+                  movieQuery={movieQuery}
+                  creditsQuery={creditsQuery}
+                  imagesQuery={imagesQuery}
+                  videosQuery={videosQuery}
+                  collectionsQuery={collectionsQuery}
+                  recommendationsQuery={recommendationsQuery}
+                  onCoverClick={handleOnCoverClick}
+                  onMediaClick={handleMediaClick}
+                  onChangeTab={(index: number) => {
+                    setActiveTab(index);
+                    document.scrollingElement?.scrollTo(0, 0);
+                  }}
                 />
-                <TabPanels activeTab={activeTab}>
-                  <HomeTab
-                    movieQuery={movieQuery}
-                    creditsQuery={creditsQuery}
-                    imagesQuery={imagesQuery}
-                    videosQuery={videosQuery}
-                    collectionsQuery={collectionsQuery}
-                    recommendationsQuery={recommendationsQuery}
-                    onCoverClick={handleOnCoverClick}
-                    onMediaClick={handleMediaClick}
-                    onChangeTab={(index: number) => {
-                      setActiveTab(index);
-                      document.scrollingElement?.scrollTo(0, 0);
-                    }}
-                  />
-                  <CastCrewTab
-                    mediaType='movie'
-                    cast={creditsQuery.data?.cast}
-                    crew={creditsQuery.data?.crew}
-                    isError={creditsQuery.isError}
-                    isSuccess={creditsQuery.isSuccess}
-                    isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
-                  />
-                  <ReviewsTab
-                    mediaItem={movieQuery.data ? { ...movieQuery.data } : undefined}
-                    mediaType='movie'
-                    reviews={reviews}
-                    isError={reviewsQuery.isError}
-                    isSuccess={reviewsQuery.isSuccess}
-                    isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
-                    hasNextPage={reviewsQuery.hasNextPage}
-                    onFetchNextPage={reviewsQuery.fetchNextPage}
-                  />
-                </TabPanels>
-              </VStack>
-            </Tabs>
-          )
-        }}
-      </Page>
+                <CastCrewTab
+                  mediaType='movie'
+                  cast={creditsQuery.data?.cast}
+                  crew={creditsQuery.data?.crew}
+                  isError={creditsQuery.isError}
+                  isSuccess={creditsQuery.isSuccess}
+                  isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
+                />
+                <ReviewsTab
+                  mediaItem={movieQuery.data ? { ...movieQuery.data } : undefined}
+                  mediaType='movie'
+                  reviews={reviews}
+                  isError={reviewsQuery.isError}
+                  isSuccess={reviewsQuery.isSuccess}
+                  isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
+                  hasNextPage={reviewsQuery.hasNextPage}
+                  onFetchNextPage={reviewsQuery.fetchNextPage}
+                />
+              </TabPanels>
+            )
+          }}
+        </Structure>
+      </Tabs>
 
       {imagesQuery.isSuccess || videosQuery.isSuccess ? (
         <MediaViewer

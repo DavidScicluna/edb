@@ -29,11 +29,8 @@ const Backdrop = (props: BackdropProps): ReactElement => {
           mediaType='movie'
           onError={() => setIsImageError.on()}
           onLoad={() => setIsImageError.off()}
-          src={path || ''}
-          size={{
-            thumbnail: 'w300',
-            full: 'original'
-          }}
+          thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w300${path}`}
+          fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
         />
       </Skeleton>
     </ClickableImage>

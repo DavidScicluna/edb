@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, Stack, HStack, Text } from '@chakra-ui/react';
+import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { handleReturnDummyWidths } from '../../../../../../../common/utils';
@@ -33,8 +34,12 @@ const Info = (props: InfoProps): ReactElement => {
                 ,
               </Text>
             }>
-            {createdBy?.map((person) => (
-              <Link key={person.id} to={{ pathname: `/person/${person.id}` }} isDisabled={isLoading}>
+            {[...(!isLoading ? createdBy || [] : _.range(0, 2))].map((person, index) => (
+              <Link
+                key={typeof person !== 'number' ? person.id : index}
+                to={typeof person !== 'number' ? { pathname: `/person/${person.id}` } : {}}
+                isDisabled={isLoading}
+                whiteSpace='nowrap'>
                 <SkeletonText
                   width={
                     isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'
@@ -45,13 +50,12 @@ const Info = (props: InfoProps): ReactElement => {
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                     fontSize='md'
-                    whiteSpace='nowrap'
                     sx={{
                       transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
                     }}
                     _focus={{ boxShadow: 'none' }}
                     _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
-                    {person.name || ''}
+                    {typeof person !== 'number' ? person.name : 'Lorem Ipsum'}
                   </Text>
                 </SkeletonText>
               </Link>

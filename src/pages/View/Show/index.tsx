@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, VStack, ScaleFade } from '@chakra-ui/react';
+import { useColorMode, useDisclosure } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useInfiniteQuery, useQuery } from 'react-query';
@@ -9,32 +9,32 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from '../../../common/hooks';
 import axiosInstance from '../../../common/scripts/axios';
 import { Credits, Certifications, FullTV, PartialTV } from '../../../common/types/tv';
-import { Response, Images, Videos, Review } from '../../../common/types/types';
+import { Response, Images, Videos, Review, ExternalIDs } from '../../../common/types/types';
 import { handleReturnDate } from '../../../common/utils';
 import MediaViewer from '../../../components/MediaViewer';
 import { MediaViewerProps, MediaViewerType } from '../../../components/MediaViewer/types';
 import Tabs from '../../../components/Tabs';
 import TabList from '../../../components/Tabs/components/TabList';
 import TabPanels from '../../../components/Tabs/components/TabPanels';
-import Page from '../../../containers/Page';
 import Actions from '../components/Actions';
 import CastCrewTab from '../components/CastCrew';
 import ReviewsTab from '../components/Reviews';
+import Socials from '../components/Socials';
+import Structure from '../components/Structure';
 import Title from '../components/Title';
 import HomeTab from './components/HomeTab';
+import SeasonsTab from './components/SeasonsTab';
 
 const Show = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const [isSm] = useMediaQuery('(max-width: 600px)');
+  const { colorMode } = useColorMode();
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
   const { id } = useParams<{ id: string }>();
 
   const userReviews = useSelector((state) => state.user.data.reviews.user);
   const tvShowUserReviews = userReviews.filter((review) => review.mediaItem.id === Number(id));
-
-  console.log(userReviews);
 
   const [selectedAsset, setSelectedAsset] = useState<MediaViewerProps['selected']>();
 
@@ -45,9 +45,6 @@ const Show = (): ReactElement => {
   // Fetching tv show details
   const tvShowQuery = useQuery([`tv-show-${id}`, id], async () => {
     const { data } = await axiosInstance.get<FullTV>(`/tv/${id}`, {
-      // params: {
-      //   append_to_response: 'release_dates'
-      // },
       cancelToken: source.token
     });
     return data;
@@ -61,25 +58,17 @@ const Show = (): ReactElement => {
     return data;
   });
 
-  // Fetching tv credits
-  // const creditsQuery = useQuery([`tv-credits-${id}`, id], async () => {
-  //   const { data } = await axiosInstance.get<Credits>(`/tv/${id}/credits`, {
-  //     cancelToken: source.token
-  //   });
-  //   return data;
-  // });
-
-  // Fetching tv external ids
-  // const externalIdsQuery = useQuery([`tv-external_ids-${id}`, id], async () => {
-  //   const { data } = await axiosInstance.get<ExternalIDs>(`/tv/${id}/external_ids`, {
-  //     cancelToken: source.token
-  //   });
-  //   return data;
-  // });
-
   // Fetching tv show certifications
   const certificationsQuery = useQuery([`tv-show-certifications-${id}`, id], async () => {
     const { data } = await axiosInstance.get<Certifications>(`/tv/${id}/content_ratings`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
+  // Fetching tv show external ids
+  const externalIdsQuery = useQuery([`tv-show-external_ids-${id}`, id], async () => {
+    const { data } = await axiosInstance.get<ExternalIDs>(`/tv/${id}/external_ids`, {
       cancelToken: source.token
     });
     return data;
@@ -172,37 +161,36 @@ const Show = (): ReactElement => {
 
   return (
     <>
-      <Page
-        title={
-          <Title
-            title={tvShowQuery.data?.name}
-            rating={{
-              rating: tvShowQuery.data?.vote_average || null,
-              count: tvShowQuery.data?.vote_count || null
-            }}
-            date={
-              !tvShowQuery.data?.in_production && tvShowQuery.data?.last_air_date
-                ? `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - ${handleReturnDate(
-                    tvShowQuery.data?.last_air_date || '',
-                    'year'
-                  )}`
-                : `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - present`
-            }
-            certification={certificationsQuery.data?.results.find((item) => item.iso_3166_1 === 'US')?.rating}
-            genres={tvShowQuery.data?.genres}
-            runtime={
-              tvShowQuery.data?.episode_run_time
-                ? tvShowQuery.data.episode_run_time.reduce((a, b) => a + b, 0) /
-                  tvShowQuery.data?.episode_run_time.length
-                : undefined
-            }
-            isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
-          />
-        }
-        breadcrumbs={[]}>
-        {{
-          actions: (
-            <ScaleFade in={!tvShowQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
+      <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+        <Structure>
+          {{
+            title: (
+              <Title
+                title={tvShowQuery.data?.name}
+                rating={{
+                  rating: tvShowQuery.data?.vote_average || null,
+                  count: tvShowQuery.data?.vote_count || null
+                }}
+                date={
+                  !tvShowQuery.data?.in_production && tvShowQuery.data?.last_air_date
+                    ? `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - ${handleReturnDate(
+                        tvShowQuery.data?.last_air_date || '',
+                        'year'
+                      )}`
+                    : `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - present`
+                }
+                certification={certificationsQuery.data?.results.find((item) => item.iso_3166_1 === 'US')?.rating}
+                genres={tvShowQuery.data?.genres}
+                runtime={
+                  tvShowQuery.data?.episode_run_time
+                    ? tvShowQuery.data.episode_run_time.reduce((a, b) => a + b, 0) /
+                      tvShowQuery.data?.episode_run_time.length
+                    : undefined
+                }
+                isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+              />
+            ),
+            actions: (
               <Actions
                 mediaItem={
                   tvShowQuery.data
@@ -226,79 +214,100 @@ const Show = (): ReactElement => {
                 mediaType='tv'
                 title={tvShowQuery.data?.name}
                 isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+                isError={tvShowQuery.isError}
               />
-            </ScaleFade>
-          ),
-          body: (
-            <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
-              <VStack alignItems='stretch' justifyContent='stretch' spacing={2} p={2}>
-                <TabList
-                  renderTabs={[
-                    {
-                      label: 'Overview'
-                    },
-                    {
-                      label: 'Series Cast & Crew',
-                      isDisabled:
-                        aggregateCreditsQuery.isError ||
-                        aggregateCreditsQuery.isFetching ||
-                        aggregateCreditsQuery.isLoading,
-                      badge: String(
-                        (aggregateCreditsQuery.data?.cast.length || 0) + (aggregateCreditsQuery.data?.crew.length || 0)
-                      )
-                    },
-                    {
-                      label: 'Reviews',
-                      isDisabled:
-                        tvShowQuery.isError ||
-                        tvShowQuery.isFetching ||
-                        tvShowQuery.isLoading ||
-                        reviewsQuery.isError ||
-                        reviewsQuery.isFetching ||
-                        reviewsQuery.isLoading,
-                      badge: String((reviews?.total_results || 0) + tvShowUserReviews.length)
-                    }
-                  ]}
-                  activeTab={activeTab}
+            ),
+            tabList: (
+              <TabList
+                renderTabs={[
+                  {
+                    label: 'Overview'
+                  },
+                  {
+                    label: 'Series Cast & Crew',
+                    isDisabled:
+                      aggregateCreditsQuery.isError ||
+                      aggregateCreditsQuery.isFetching ||
+                      aggregateCreditsQuery.isLoading,
+                    badge: String(
+                      (aggregateCreditsQuery.data?.cast.length || 0) + (aggregateCreditsQuery.data?.crew.length || 0)
+                    )
+                  },
+                  {
+                    label: 'Seasons',
+                    isDisabled: tvShowQuery.isError || tvShowQuery.isFetching || tvShowQuery.isLoading,
+                    badge: String(tvShowQuery.data?.number_of_seasons || 0)
+                  },
+                  {
+                    label: 'Reviews',
+                    isDisabled:
+                      tvShowQuery.isError ||
+                      tvShowQuery.isFetching ||
+                      tvShowQuery.isLoading ||
+                      reviewsQuery.isError ||
+                      reviewsQuery.isFetching ||
+                      reviewsQuery.isLoading,
+                    badge: String((reviews?.total_results || 0) + tvShowUserReviews.length)
+                  }
+                ]}
+                activeTab={activeTab}
+              />
+            ),
+            socials: (
+              <Socials
+                socials={externalIdsQuery.data}
+                name={tvShowQuery.data?.name}
+                orientation='horizontal'
+                color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+                isLoading={externalIdsQuery.isFetching || externalIdsQuery.isLoading}
+              />
+            ),
+            tabPanels: (
+              <TabPanels activeTab={activeTab}>
+                <HomeTab
+                  tvShowQuery={tvShowQuery}
+                  creditsQuery={aggregateCreditsQuery}
+                  imagesQuery={imagesQuery}
+                  videosQuery={videosQuery}
+                  recommendationsQuery={recommendationsQuery}
+                  onCoverClick={handleOnCoverClick}
+                  onMediaClick={handleMediaClick}
+                  onChangeTab={(index: number) => {
+                    setActiveTab(index);
+                    document.scrollingElement?.scrollTo(0, 0);
+                  }}
                 />
-                <TabPanels activeTab={activeTab}>
-                  <HomeTab
-                    tvShowQuery={tvShowQuery}
-                    creditsQuery={aggregateCreditsQuery}
-                    imagesQuery={imagesQuery}
-                    videosQuery={videosQuery}
-                    recommendationsQuery={recommendationsQuery}
-                    onCoverClick={handleOnCoverClick}
-                    onMediaClick={handleMediaClick}
-                    onChangeTab={(index: number) => {
-                      setActiveTab(index);
-                      document.scrollingElement?.scrollTo(0, 0);
-                    }}
-                  />
-                  <CastCrewTab
-                    mediaType='tv'
-                    cast={aggregateCreditsQuery.data?.cast}
-                    crew={aggregateCreditsQuery.data?.crew}
-                    isError={aggregateCreditsQuery.isError}
-                    isSuccess={aggregateCreditsQuery.isSuccess}
-                    isLoading={aggregateCreditsQuery.isFetching || aggregateCreditsQuery.isLoading}
-                  />
-                  <ReviewsTab
-                    mediaItem={tvShowQuery.data ? { ...tvShowQuery.data } : undefined}
-                    mediaType='tv'
-                    reviews={reviews}
-                    isError={reviewsQuery.isError}
-                    isSuccess={reviewsQuery.isSuccess}
-                    isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
-                    hasNextPage={reviewsQuery.hasNextPage}
-                    onFetchNextPage={reviewsQuery.fetchNextPage}
-                  />
-                </TabPanels>
-              </VStack>
-            </Tabs>
-          )
-        }}
-      </Page>
+                <CastCrewTab
+                  mediaType='tv'
+                  cast={aggregateCreditsQuery.data?.cast}
+                  crew={aggregateCreditsQuery.data?.crew}
+                  isError={aggregateCreditsQuery.isError}
+                  isSuccess={aggregateCreditsQuery.isSuccess}
+                  isLoading={aggregateCreditsQuery.isFetching || aggregateCreditsQuery.isLoading}
+                />
+                <SeasonsTab
+                  seasons={tvShowQuery.data?.seasons}
+                  tvId={tvShowQuery.data?.id}
+                  name={tvShowQuery.data?.name}
+                  isError={tvShowQuery.isError}
+                  isSuccess={tvShowQuery.isSuccess}
+                  isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+                />
+                <ReviewsTab
+                  mediaItem={tvShowQuery.data ? { ...tvShowQuery.data } : undefined}
+                  mediaType='tv'
+                  reviews={reviews}
+                  isError={reviewsQuery.isError}
+                  isSuccess={reviewsQuery.isSuccess}
+                  isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
+                  hasNextPage={reviewsQuery.hasNextPage}
+                  onFetchNextPage={reviewsQuery.fetchNextPage}
+                />
+              </TabPanels>
+            )
+          }}
+        </Structure>
+      </Tabs>
 
       {imagesQuery.isSuccess || videosQuery.isSuccess ? (
         <MediaViewer
@@ -307,7 +316,7 @@ const Show = (): ReactElement => {
           photos={[...(imagesQuery.data?.posters || [])]}
           backdrops={[...(imagesQuery.data?.backdrops || [])]}
           videos={[...(videosQuery.data?.results.filter((video) => video.site === 'YouTube') || [])]}
-          mediaType='movie'
+          mediaType='tv'
           onClose={onMediaViewerClose}
         />
       ) : null}

@@ -539,57 +539,59 @@ const Search = (): ReactElement => {
                           />
                         ) : undefined}
 
-                        <LoadMore
-                          amount={
-                            mediaType === 'movie'
-                              ? movies?.results.length || 0
-                              : mediaType === 'tv'
-                              ? tv?.results.length || 0
-                              : mediaType === 'person'
-                              ? people?.results.length || 0
-                              : 0
-                          }
-                          total={
-                            mediaType === 'movie'
-                              ? movies?.total_results || 0
-                              : mediaType === 'tv'
-                              ? tv?.total_results || 0
-                              : mediaType === 'person'
-                              ? people?.total_results || 0
-                              : 0
-                          }
-                          mediaType={`${
-                            mediaType === 'movie'
-                              ? 'Movies'
-                              : mediaType === 'tv'
-                              ? 'TV Shows'
-                              : mediaType === 'person'
-                              ? 'People'
-                              : ''
-                          } for "${query}"`}
-                          isLoading={
-                            mediaType === 'movie'
-                              ? searchMovies.isFetching || searchMovies.isLoading
-                              : mediaType === 'tv'
-                              ? searchTV.isFetching || searchTV.isLoading
-                              : mediaType === 'person'
-                              ? searchPeople.isFetching || searchPeople.isLoading
-                              : false
-                          }
-                          onFetch={() =>
-                            handleSetLocation(
-                              submittedQuery,
-                              mediaType,
+                        <Box style={{ width: isSm ? '100%' : 'auto' }}>
+                          <LoadMore
+                            amount={
                               mediaType === 'movie'
-                                ? (movies?.page || 0) + 1
+                                ? movies?.results.length || 0
                                 : mediaType === 'tv'
-                                ? (tv?.page || 0) + 1
+                                ? tv?.results.length || 0
                                 : mediaType === 'person'
-                                ? (people?.page || 0) + 1
-                                : 1
-                            )
-                          }
-                        />
+                                ? people?.results.length || 0
+                                : 0
+                            }
+                            total={
+                              mediaType === 'movie'
+                                ? movies?.total_results || 0
+                                : mediaType === 'tv'
+                                ? tv?.total_results || 0
+                                : mediaType === 'person'
+                                ? people?.total_results || 0
+                                : 0
+                            }
+                            label={`${
+                              mediaType === 'movie'
+                                ? 'Movies'
+                                : mediaType === 'tv'
+                                ? 'TV Shows'
+                                : mediaType === 'person'
+                                ? 'People'
+                                : ''
+                            } for "${query}"`}
+                            isLoading={
+                              mediaType === 'movie'
+                                ? searchMovies.isFetching || searchMovies.isLoading
+                                : mediaType === 'tv'
+                                ? searchTV.isFetching || searchTV.isLoading
+                                : mediaType === 'person'
+                                ? searchPeople.isFetching || searchPeople.isLoading
+                                : false
+                            }
+                            onClick={() =>
+                              handleSetLocation(
+                                submittedQuery,
+                                mediaType,
+                                mediaType === 'movie'
+                                  ? (movies?.page || 0) + 1
+                                  : mediaType === 'tv'
+                                  ? (tv?.page || 0) + 1
+                                  : mediaType === 'person'
+                                  ? (people?.page || 0) + 1
+                                  : 1
+                              )
+                            }
+                          />
+                        </Box>
                       </VStack>
                     </VerticalGrid>
                   ) : (

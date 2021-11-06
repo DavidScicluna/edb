@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
 import { useSelector } from '../../../common/hooks';
 import { handleReturnColor } from '../../../common/utils';
@@ -9,18 +9,17 @@ import { LoadMoreProps } from './types';
 
 const LoadMore = (props: LoadMoreProps): ReactElement => {
   const { colorMode } = useColorMode();
-
-  const { amount = 0, total = 0, mediaType, isLoading = false, isError = false, hasNextPage = true, onFetch } = props;
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
+  const { amount = 0, total = 0, label, isLoading = false, isButtonVisible = true, onClick } = props;
+
   return (
-    <VStack spacing={3}>
-      <VStack max='50%' spacing={1}>
+    <VStack width={isSm ? '100%' : 'auto'} spacing={3}>
+      <VStack width='100%'>
         <Text align='center' fontSize='sm' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
-          {amount >= total
-            ? `You've viewed all ${total} ${mediaType}`
-            : `You've viewed ${amount} of ${total} ${mediaType}`}
+          {amount >= total ? `You've viewed all ${total} ${label}` : `You've viewed ${amount} of ${total} ${label}`}
         </Text>
         <Progress
           width='100%'
@@ -32,8 +31,14 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
         />
       </VStack>
 
-      <ScaleFade in={hasNextPage && !isError && amount < total} unmountOnExit>
-        <Button isDisabled={amount >= total} isLoading={isLoading} onClick={() => onFetch()} variant='outlined'>
+      <ScaleFade in={isButtonVisible && amount < total} unmountOnExit style={{ width: '100%' }}>
+        <Button
+          color={handleReturnColor(color)}
+          isDisabled={amount >= total}
+          isLoading={isLoading}
+          isFullWidth
+          onClick={() => onClick()}
+          variant='outlined'>
           Load more
         </Button>
       </ScaleFade>

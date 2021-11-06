@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 
-import { VStack, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
@@ -19,6 +19,8 @@ import VerticalPeople from './components/VerticalPeople';
 
 const People = (): ReactElement => {
   const source = axios.CancelToken.source();
+
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -97,15 +99,14 @@ const People = (): ReactElement => {
                 people={people?.results || []}
               />
 
-              <ScaleFade in={!popularPeopleQuery.isError} unmountOnExit>
+              <ScaleFade in={!popularPeopleQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
                 <LoadMore
                   amount={people?.results.length || 0}
                   total={people?.total_results || 0}
-                  mediaType='people'
+                  label='People'
                   isLoading={popularPeopleQuery.isFetching || popularPeopleQuery.isLoading}
-                  isError={popularPeopleQuery.isError}
-                  hasNextPage={popularPeopleQuery.hasNextPage || true}
-                  onFetch={popularPeopleQuery.fetchNextPage}
+                  isButtonVisible={(popularPeopleQuery.hasNextPage || true) && !popularPeopleQuery.isError}
+                  onClick={popularPeopleQuery.fetchNextPage}
                 />
               </ScaleFade>
             </VStack>

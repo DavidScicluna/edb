@@ -24,12 +24,12 @@ const Actions = (props: ActionsProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { mediaItem, mediaType, title, isLoading = false } = props;
+  const { mediaItem, mediaType, title, isLoading = true, isError = false } = props;
 
   return (
     <HStack
       ref={ref}
-      width='100%'
+      width={isSm ? '100%' : 'auto'}
       divider={<Box width='2px' height={height} backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />}
       spacing={2}>
       <Bookmark
@@ -37,7 +37,7 @@ const Actions = (props: ActionsProps): ReactElement => {
           <Button
             color={isBookmarked ? handleReturnColor(color) : 'gray'}
             isFullWidth={isSm}
-            isDisabled={isLoading || !mediaItem}
+            isDisabled={isError || isLoading || !mediaItem}
             onClick={() => onClick()}
             size='md'
             variant='outlined'>
@@ -57,7 +57,7 @@ const Actions = (props: ActionsProps): ReactElement => {
           <Button
             color={isLiked ? 'red' : 'gray'}
             isFullWidth={isSm}
-            isDisabled={isLoading || !mediaItem}
+            isDisabled={isError || isLoading || !mediaItem}
             leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
             onClick={() => onClick()}
             size='md'

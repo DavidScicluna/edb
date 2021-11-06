@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, HStack, VStack, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, HStack, VStack, AspectRatio, Text } from '@chakra-ui/react';
 import moment from 'moment';
 
+import Image from '../../../../../../../../components/Image';
+import Skeleton from '../../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import Image from './components/Image';
 import { HeaderProps } from './types';
 
 // TODO: Check if author is user and render header text differently
@@ -15,9 +16,32 @@ const Header = (props: HeaderProps): ReactElement => {
 
   const { avatar, name, username, date, isLoading = true } = props;
 
+  /**
+   * This method will check if avatar url has a / in the beginning of the string
+   * If so it will remove it
+   *
+   * @returns String - Avatar URL
+   */
+  const handleSrc = (): string => {
+    if (avatar && avatar.charAt(0) === '/') {
+      return avatar.substring(1);
+    }
+    return avatar || '';
+  };
+
   return (
     <HStack>
-      <Image alt={`${name} (${username}) Avatar`} avatar={avatar} isLoading={isLoading} />
+      <AspectRatio width='48px' borderRadius='full' ratio={1 / 1}>
+        <Skeleton borderRadius='full' isLoaded={!isLoading}>
+          <Image
+            alt={`${name} (${username}) Avatar`}
+            borderRadius='full'
+            mediaType='person'
+            thumbnailSrc={handleSrc() || ''}
+            fullSrc={handleSrc() || ''}
+          />
+        </Skeleton>
+      </AspectRatio>
 
       <VStack alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
         <SkeletonText isLoaded={!isLoading} offsetY={10}>

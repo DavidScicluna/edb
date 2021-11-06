@@ -7,4 +7,5 @@ export type ActionsProps = {
   mediaType: MediaType;
   title?: string;
   isLoading?: boolean;
+  isError?: boolean;
 };

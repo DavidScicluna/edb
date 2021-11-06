@@ -44,11 +44,12 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
                     height='100%'
                     borderRadius='base'
                     mediaType='movie'
-                    src={typeof image !== 'number' && image ? image?.file_path : ''}
-                    size={{
-                      thumbnail: 'w300',
-                      full: 'original'
-                    }}
+                    thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w300${
+                      typeof image !== 'number' && image ? image?.file_path : ''
+                    }`}
+                    fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${
+                      typeof image !== 'number' && image ? image?.file_path : ''
+                    }`}
                   />
                 </Skeleton>
               </ClickableImage>

@@ -19,11 +19,8 @@ const Photo = (props: PhotoProps): ReactElement => {
         height='100%'
         borderRadius='base'
         mediaType={mediaType}
-        src={photo.file_path}
-        size={{
-          thumbnail: 'w45',
-          full: 'original'
-        }}
+        thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w45${photo.file_path}`}
+        fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${photo.file_path}`}
       />
     </ClickableImage>
   );

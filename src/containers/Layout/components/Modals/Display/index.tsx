@@ -31,16 +31,14 @@ const Display = (): ReactElement => {
     handleClose();
 
     dispatch(toggleSplashscreen(true));
+    dispatch(setTheme(newTheme));
+
+    form.reset({ ...newTheme });
 
     if (dirtyFields.background) {
       toggleColorMode();
     }
 
-    setTimeout(() => {
-      form.reset({ ...newTheme });
-
-      dispatch(setTheme(newTheme));
-    }, 2500);
     setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
   };
 

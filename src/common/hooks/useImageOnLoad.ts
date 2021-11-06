@@ -26,7 +26,6 @@ const useImageOnLoad = (theme: Theme): ImageOnLoadType => {
   const css: ImageStyle = {
     // Thumbnail style.
     thumbnail: {
-      filter: 'blur(2.5px)',
       opacity: isLoaded ? 0 : 1,
       visibility: isLoaded ? 'hidden' : 'visible',
       transition: `${theme.transition.duration.slower} ${theme.transition.easing['ease-in-out']}`

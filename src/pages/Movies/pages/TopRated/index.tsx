@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 
-import { VStack, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
@@ -19,6 +19,8 @@ import VerticalMovies from '../../components/VerticalMovies';
 
 const TopRatedMovies = (): ReactElement => {
   const source = axios.CancelToken.source();
+
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
 
@@ -96,15 +98,14 @@ const TopRatedMovies = (): ReactElement => {
                 movies={movies?.results || []}
               />
 
-              <ScaleFade in={!topRatedMoviesQuery.isError} unmountOnExit>
+              <ScaleFade in={!topRatedMoviesQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
                 <LoadMore
                   amount={movies?.results.length || 0}
                   total={movies?.total_results || 0}
-                  mediaType='movies'
+                  label='Movies'
                   isLoading={topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading}
-                  isError={topRatedMoviesQuery.isError}
-                  hasNextPage={topRatedMoviesQuery.hasNextPage || true}
-                  onFetch={topRatedMoviesQuery.fetchNextPage}
+                  isButtonVisible={(topRatedMoviesQuery.hasNextPage || true) && !topRatedMoviesQuery.isError}
+                  onClick={topRatedMoviesQuery.fetchNextPage}
                 />
               </ScaleFade>
             </VStack>

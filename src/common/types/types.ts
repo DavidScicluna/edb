@@ -37,6 +37,17 @@ export type Response<Data> = {
   total_results: number;
 };
 
+export type ExternalIDs = {
+  imdb_id?: string | null;
+  facebook_id?: string | null;
+  freebase_mid?: string | null;
+  freebase_id?: string | null;
+  tvrage_id?: number | null;
+  twitter_id?: string | null;
+  id?: number;
+  instagram_id?: string | null;
+};
+
 export type MediaType = 'movie' | 'tv' | 'person';
 
 export type Rating = {

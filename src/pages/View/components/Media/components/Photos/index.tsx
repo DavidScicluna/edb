@@ -44,11 +44,12 @@ const Photos = (props: PhotosProps): ReactElement => {
                     height='100%'
                     borderRadius='base'
                     mediaType='movie'
-                    src={typeof image !== 'number' && image ? image?.file_path : ''}
-                    size={{
-                      thumbnail: 'w92',
-                      full: 'original'
-                    }}
+                    thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w92${
+                      typeof image !== 'number' && image ? image?.file_path : ''
+                    }`}
+                    fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${
+                      typeof image !== 'number' && image ? image?.file_path : ''
+                    }`}
                   />
                 </Skeleton>
               </ClickableImage>

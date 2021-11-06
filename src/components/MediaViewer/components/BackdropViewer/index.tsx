@@ -25,11 +25,8 @@ const BackdropViewer = (props: BackdropViewerProps): ReactElement => {
       height='auto'
       mediaType={mediaType}
       borderRadius='xl'
-      src={path}
-      size={{
-        thumbnail: 'w300',
-        full: 'original'
-      }}
+      thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w300${path}`}
+      fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
     />
   );
 };

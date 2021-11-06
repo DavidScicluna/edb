@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 
-import { useDisclosure, VStack, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, VStack, ScaleFade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
@@ -23,6 +23,7 @@ import VerticalTV from '../../components/VerticalTV';
 const OnTV = (): ReactElement => {
   const source = axios.CancelToken.source();
 
+  const [isSm] = useMediaQuery('(max-width: 600px)');
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
@@ -122,15 +123,14 @@ const OnTV = (): ReactElement => {
                   tv={tv?.results || []}
                 />
 
-                <ScaleFade in={!onTVQuery.isError} unmountOnExit>
+                <ScaleFade in={!onTVQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
                   <LoadMore
                     amount={tv?.results.length || 0}
                     total={tv?.total_results || 0}
-                    mediaType='TV shows'
+                    label='TV Shows'
                     isLoading={onTVQuery.isFetching || onTVQuery.isLoading}
-                    isError={onTVQuery.isError}
-                    hasNextPage={onTVQuery.hasNextPage || true}
-                    onFetch={handleFetchNextPage}
+                    isButtonVisible={(onTVQuery.hasNextPage || true) && !onTVQuery.isError}
+                    onClick={handleFetchNextPage}
                   />
                 </ScaleFade>
               </VStack>
