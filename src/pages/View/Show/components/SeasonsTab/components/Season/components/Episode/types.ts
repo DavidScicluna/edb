@@ -1,11 +1,8 @@
-import { Image as ImageProps, Rating as RatingProps } from '../../../../../../../../../common/types/types';
+import { Episode } from '../../../../../../../../../common/types/tv';
 
 export type EpisodeProps = {
-  image?: ImageProps;
-  rating?: RatingProps;
-  name: string;
-  date: string;
-  overview: string;
-  number?: number;
+  tvId?: number;
+  seasonNumber?: number;
+  episode?: Episode;
   isLoading: boolean;
 };

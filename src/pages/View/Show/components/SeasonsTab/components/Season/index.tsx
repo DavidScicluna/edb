@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useTheme, useColorMode, VStack, VisuallyHidden, Text, Collapse } from '@chakra-ui/react';
+import { useTheme, useColorMode, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
 import axios from 'axios';
 import _ from 'lodash';
 import { useQuery } from 'react-query';
@@ -15,6 +15,7 @@ import Divider from './components/Divider';
 import Episode from './components/Episode';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import Overview from './components/Overview';
 import useStyles from './styles';
 import { SeasonProps } from './types';
 
@@ -27,7 +28,7 @@ const Season = (props: SeasonProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   const { tvId, season, isOpen = true, onToggle } = props;
-  const { name, air_date, episode_count, season_number, overview } = season;
+  const { name, air_date, episode_count, season_number: number, overview } = season;
 
   const style = useStyles(theme, isOpen);
 
@@ -35,9 +36,9 @@ const Season = (props: SeasonProps): ReactElement => {
 
   // Fetching tv show season
   const seasonQuery = useQuery(
-    [`tv-show-${tvId}-season-${season_number}`, tvId],
+    [`tv-show-${tvId}-season-${number}`, tvId],
     async () => {
-      const { data } = await axiosInstance.get<FullSeason>(`/tv/${tvId}/season/${season_number}`, {
+      const { data } = await axiosInstance.get<FullSeason>(`/tv/${tvId}/season/${number}`, {
         cancelToken: source.token
       });
       return data;
@@ -64,11 +65,9 @@ const Season = (props: SeasonProps): ReactElement => {
         <VStack width='100%' spacing={2} px={2} pb={2}>
           <Divider />
 
-          <VStack width='100%' maxWidth='100%' spacing={2}>
+          <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={2}>
             {overview ? (
-              <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-                {overview}
-              </Text>
+              <Overview overview={overview} isLoading={seasonQuery.isFetching || seasonQuery.isLoading} />
             ) : null}
 
             {!isLoading && seasonQuery.isError ? (
@@ -83,45 +82,10 @@ const Season = (props: SeasonProps): ReactElement => {
               episodes
                 .filter((_person, index) => index < totalVisible)
                 .map((episode) => (
-                  <Episode
-                    key={episode.id}
-                    image={{
-                      alt: `${episode?.name || ''} episode poster`,
-                      src: episode?.still_path || '',
-                      size: {
-                        thumbnail: 'w92',
-                        full: 'original'
-                      }
-                    }}
-                    rating={{
-                      rating: episode?.vote_average || null,
-                      count: episode?.vote_count || null
-                    }}
-                    name={episode?.name || ''}
-                    date={episode.air_date}
-                    overview={episode?.overview || ''}
-                    number={episode.episode_number}
-                    isLoading={isLoading}
-                  />
+                  <Episode key={episode.id} tvId={tvId} seasonNumber={number} episode={episode} isLoading={isLoading} />
                 ))
             ) : (
-              _.range(0, 5).map((_dummy, index: number) => (
-                <Episode
-                  key={index}
-                  image={{
-                    alt: 'Episode poster',
-                    src: '',
-                    size: {
-                      thumbnail: 'w92',
-                      full: 'original'
-                    }
-                  }}
-                  name='Lorem ipsum'
-                  date='Lorem ipsum'
-                  overview='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                  isLoading
-                />
-              ))
+              _.range(0, 5).map((_dummy, index: number) => <Episode key={index} isLoading />)
             )}
           </VStack>
 

@@ -9,8 +9,7 @@ import {
   VStack,
   Box,
   AspectRatio,
-  Fade,
-  ScaleFade
+  Fade
 } from '@chakra-ui/react';
 import useInView from 'react-cool-inview';
 
@@ -46,15 +45,13 @@ const Episode = (props: EpisodeProps): ReactElement => {
     unobserveOnEnter: true
   });
 
+  const { tvId, seasonNumber, episode, isLoading = false } = props;
   const {
-    image,
-    rating,
     name = 'Lorem ipsum',
-    date = 'Lorem ipsum',
+    air_date: date = 'Lorem ipsum',
     overview = 'Lorem ipsum',
-    number,
-    isLoading = false
-  } = props;
+    episode_number: number
+  } = episode || {};
 
   return (
     <>
@@ -71,17 +68,15 @@ const Episode = (props: EpisodeProps): ReactElement => {
             ratio={2 / 3}>
             <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
               <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
-                <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
+                <Skeleton isLoaded={!isLoading} borderRadius='base'>
                   <Image
-                    alt={image?.alt || ''}
+                    alt={`${episode?.name || ''} episode poster`}
                     maxWidth='none'
                     height='100%'
                     mediaType='tv'
                     borderRadius='base'
-                    thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.thumbnail || ''}${
-                      image?.src || ''
-                    }`}
-                    fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.full || ''}${image?.src || ''}`}
+                    thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w92${episode?.still_path || ''}`}
+                    fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${episode?.still_path || ''}`}
                   />
                 </Skeleton>
               </AspectRatio>
@@ -101,7 +96,10 @@ const Episode = (props: EpisodeProps): ReactElement => {
             spacing={[1, 1, 2, 2, 2, 2]}>
             {/* Rating */}
             <Rating
-              rating={rating}
+              rating={{
+                rating: episode?.vote_average || null,
+                count: episode?.vote_count || null
+              }}
               isLoading={isLoading}
               iconFontsize={iconSize}
               textFontsize={['sm', 'sm', 'md', 'lg', 'lg', 'xl']}
@@ -118,7 +116,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
           </VStack>
 
           {/* Episode number */}
-          <ScaleFade in={!isLoading} unmountOnExit>
+          <Fade in={!isLoading} unmountOnExit>
             <Box
               sx={{
                 position: 'absolute',
@@ -127,11 +125,13 @@ const Episode = (props: EpisodeProps): ReactElement => {
               }}>
               <Badge label={`Episode ${number}`} size={isSm ? 'sm' : 'md'} />
             </Box>
-          </ScaleFade>
+          </Fade>
         </HStack>
       </Card>
 
-      <Modal isOpen={isOpen} name={name} date={date} onClose={onClose} />
+      {episode && tvId && seasonNumber ? (
+        <Modal tvId={tvId} seasonNumber={seasonNumber} episode={episode} isOpen={isOpen} onClose={onClose} />
+      ) : null}
     </>
   );
 };
