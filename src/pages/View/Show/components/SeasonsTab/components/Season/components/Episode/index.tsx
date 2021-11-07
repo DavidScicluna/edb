@@ -11,6 +11,7 @@ import {
   AspectRatio,
   Fade
 } from '@chakra-ui/react';
+import moment from 'moment';
 import useInView from 'react-cool-inview';
 
 import Badge from '../../../../../../../../../components/Badge';
@@ -53,9 +54,11 @@ const Episode = (props: EpisodeProps): ReactElement => {
     episode_number: number
   } = episode || {};
 
+  const hasReleased = moment().diff(date) > 0;
+
   return (
     <>
-      <Card isFullWidth isDisabled={isLoading} isClickable onClick={() => onOpen()} isLight>
+      <Card isFullWidth isDisabled={isLoading} isClickable={hasReleased} onClick={() => onOpen()} isLight>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
           <Box
@@ -129,7 +132,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
         </HStack>
       </Card>
 
-      {episode && tvId && seasonNumber ? (
+      {episode && tvId && seasonNumber && hasReleased ? (
         <Modal tvId={tvId} seasonNumber={seasonNumber} episode={episode} isOpen={isOpen} onClose={onClose} />
       ) : null}
     </>
