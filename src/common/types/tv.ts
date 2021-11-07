@@ -27,6 +27,26 @@ export type Crew = {
   total_episode_count: number;
 } & Person;
 
+type EpisodeCreditsCast = {
+  original_name: string;
+  character: string;
+  credit_id: string;
+  order: number;
+} & Person;
+
+type EpisodeCreditsCrew = {
+  department: string;
+  job: string;
+  credit_id: string;
+} & Person;
+
+export type EpisodeCredits = {
+  id: number;
+  cast: EpisodeCreditsCast[];
+  crew: EpisodeCreditsCrew[];
+  guest_stars: EpisodeCreditsCast[];
+};
+
 export type Credits = {
   id: number;
   cast: Cast[];
@@ -51,7 +71,14 @@ export type CreatedBy = {
   profile_path: string | null;
 };
 
-export type LastEpisode = {
+export type Network = {
+  name: string;
+  id: number;
+  logo_path: string | null;
+  origin_country: string;
+};
+
+export type Episode = {
   air_date: string;
   episode_number: number;
   id: number;
@@ -62,13 +89,6 @@ export type LastEpisode = {
   still_path: string | null;
   vote_average: number;
   vote_count: number;
-};
-
-export type Network = {
-  name: string;
-  id: number;
-  logo_path: string | null;
-  origin_country: string;
 };
 
 type EpisodeCrew = {
@@ -85,20 +105,10 @@ type EpisodeGuest = {
   original_name: string;
 } & Person;
 
-type Episode = {
-  air_date: string;
-  episode_number: number;
+export type FullEpisode = {
   crew: EpisodeCrew[];
   guest_stars: EpisodeGuest[];
-  id: number;
-  name: string;
-  overview: string;
-  production_code: string;
-  season_number: number;
-  still_path: string;
-  vote_average: number;
-  vote_count: number;
-};
+} & Episode;
 
 type Season = {
   air_date: string;
@@ -145,7 +155,7 @@ export type FullTV = {
   in_production: boolean;
   languages: string[];
   last_air_date: string;
-  last_episode_to_air: LastEpisode;
+  last_episode_to_air: Episode;
   next_episode_to_air: null;
   networks: Network[];
   number_of_episodes: number;

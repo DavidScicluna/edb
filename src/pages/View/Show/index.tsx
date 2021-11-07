@@ -129,6 +129,24 @@ const Show = (): ReactElement => {
     return data.results.filter((_result, index) => index < 20);
   });
 
+  const handleCheckDate = (): string => {
+    if (!tvShowQuery.data?.in_production && tvShowQuery.data?.last_air_date) {
+      const firstYear = handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year');
+      const lastYear = handleReturnDate(tvShowQuery.data?.last_air_date || '', 'year');
+
+      if (firstYear === lastYear) {
+        return lastYear;
+      } else {
+        return `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - ${handleReturnDate(
+          tvShowQuery.data?.last_air_date || '',
+          'year'
+        )}`;
+      }
+    } else {
+      return `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - present`;
+    }
+  };
+
   const handleMediaClick = (asset: string, type: MediaViewerType): void => {
     setSelectedAsset({ type, asset: asset });
     onMediaViewerOpen();
@@ -171,14 +189,7 @@ const Show = (): ReactElement => {
                   rating: tvShowQuery.data?.vote_average || null,
                   count: tvShowQuery.data?.vote_count || null
                 }}
-                date={
-                  !tvShowQuery.data?.in_production && tvShowQuery.data?.last_air_date
-                    ? `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - ${handleReturnDate(
-                        tvShowQuery.data?.last_air_date || '',
-                        'year'
-                      )}`
-                    : `${handleReturnDate(tvShowQuery.data?.first_air_date || '', 'year')} - present`
-                }
+                date={handleCheckDate()}
                 certification={certificationsQuery.data?.results.find((item) => item.iso_3166_1 === 'US')?.rating}
                 genres={tvShowQuery.data?.genres}
                 runtime={

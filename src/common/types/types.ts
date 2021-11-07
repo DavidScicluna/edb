@@ -92,8 +92,9 @@ export type ImageResponse = {
 
 export type Images = {
   id: number;
-  backdrops: ImageResponse[];
-  posters: ImageResponse[];
+  stills?: ImageResponse[];
+  backdrops?: ImageResponse[];
+  posters?: ImageResponse[];
 };
 
 type Author = { name: string; username: string; avatar_path: string | null; rating: number | null };
