@@ -1,7 +1,5 @@
 import { ReactElement, useEffect } from 'react';
 
-import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
-
 import {
   useTheme,
   useMediaQuery,
@@ -16,6 +14,7 @@ import {
   Text,
   useColorMode
 } from '@chakra-ui/react';
+import { X as XIcon } from 'react-feather';
 import { useTimeout } from 'usehooks-ts';
 
 import { ColorMode } from '../../common/types/types';
@@ -63,22 +62,19 @@ const Modal = (props: ModalProps): ReactElement | null => {
       preserveScrollBarGap
       motionPreset='scale'
       scrollBehavior='inside'
-      size={isSm && !isConfirm ? 'full' : size}
-    >
+      size={isSm && !isConfirm ? 'full' : size}>
       <ModalOverlay />
       <ModalContent
         backgroundColor={mode === 'light' ? 'gray.50' : 'gray.900'}
         borderRadius={size === 'full' || (isSm && !isConfirm) ? 'none' : 'xl'}
         m={isSm && isConfirm ? 2 : 0}
-        sx={{ transition }}
-      >
+        sx={{ transition }}>
         <ModalHeader
           px={2}
           py={1.25}
           borderBottom='solid2'
           borderBottomColor={mode === 'light' ? 'gray.200' : 'gray.700'}
-          sx={{ transition }}
-        >
+          sx={{ transition }}>
           <HStack justifyContent='space-between'>
             {typeof title !== 'string' ? (
               title
@@ -91,7 +87,7 @@ const Modal = (props: ModalProps): ReactElement | null => {
             <IconButton
               aria-label='Close modal?'
               colorMode={mode}
-              icon={CloseOutlinedIcon}
+              icon={XIcon}
               onClick={() => onClose()}
               variant='icon'
             />
@@ -104,8 +100,7 @@ const Modal = (props: ModalProps): ReactElement | null => {
             p={2}
             borderTop='solid2'
             borderTopColor={mode === 'light' ? 'gray.200' : 'gray.700'}
-            sx={{ transition }}
-          >
+            sx={{ transition }}>
             <Button colorMode={mode} onClick={() => onClose()} size='sm' variant='outlined'>
               Cancel
             </Button>

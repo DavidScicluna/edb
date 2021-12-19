@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-
 import { useTheme, useColorMode, HStack, VStack, Text, Icon } from '@chakra-ui/react';
+import { ChevronRight as ChevronRightIcon } from 'react-feather';
 
 import SkeletonText from '../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../theme/types';
@@ -22,8 +21,7 @@ const DummySeason = (): ReactElement => {
         width: '100%',
 
         backgroundColor: 'transparent'
-      }}
-    >
+      }}>
       <VStack alignItems='flex-start' spacing={0}>
         <SkeletonText offsetY={9} isLoaded={false}>
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='lg' fontWeight='semibold'>
@@ -38,7 +36,7 @@ const DummySeason = (): ReactElement => {
       </VStack>
 
       <Icon
-        as={ChevronRightOutlinedIcon}
+        as={ChevronRightIcon}
         sx={{
           color: colorMode === 'light' ? 'gray.400' : 'gray.500',
 

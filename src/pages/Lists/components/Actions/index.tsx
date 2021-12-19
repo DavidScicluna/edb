@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
-
 import { useMediaQuery, HStack, VStack, Fade, ScaleFade } from '@chakra-ui/react';
+import { Info as InfoIcon } from 'react-feather';
 
 import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';
@@ -66,7 +65,7 @@ const Actions = (props: ActionsProps): ReactElement => {
         <ScaleFade in={!!list} unmountOnExit>
           <IconButton
             aria-label='Open Information modal'
-            icon={InfoTwoToneIcon}
+            icon={InfoIcon}
             onClick={() => onListInfoOpen()}
             variant='outlined'
           />

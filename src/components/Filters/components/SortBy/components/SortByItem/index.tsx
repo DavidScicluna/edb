@@ -1,9 +1,8 @@
 import { ReactElement } from 'react';
 
-import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
-
 import { useTheme, useColorMode, Text, HStack, ScaleFade, Icon, Button } from '@chakra-ui/react';
 import _ from 'lodash';
+import { ArrowDown as ArrowDownIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { Theme } from '../../../../../../theme/types';
@@ -33,8 +32,7 @@ const SortByItem = ({
       }
       px={2}
       py={1}
-      sx={{ ..._.merge(style.common, style[colorMode]) }}
-    >
+      sx={{ ..._.merge(style.common, style[colorMode]) }}>
       <HStack width='100%' justifyContent='space-between' spacing={2}>
         <Text align='left' fontSize='md' fontWeight='medium'>
           {label}
@@ -42,7 +40,7 @@ const SortByItem = ({
 
         <ScaleFade in={isActive} unmountOnExit>
           <Icon
-            as={ArrowDownwardOutlinedIcon}
+            as={ArrowDownIcon}
             sx={{
               transform: direction === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)'
             }}

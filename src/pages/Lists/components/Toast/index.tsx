@@ -1,13 +1,7 @@
 import { ReactElement } from 'react';
 
-import {
-  InfoTwoTone as InfoTwoToneIcon,
-  EditOutlined as EditOutlinedIcon,
-  DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
-  CloseOutlined as CloseOutlinedIcon
-} from '@material-ui/icons';
-
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
+import { Info as InfoIcon, Edit as EditIcon, Trash2 as TrashIcon, X as XIcon } from 'react-feather';
 
 import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
@@ -31,16 +25,14 @@ const Toast = (props: ToastProps): ReactElement => {
       spacing={2}
       px={2}
       py={1.5}
-      mb={1.5}
-    >
+      mb={1.5}>
       <HStack spacing={0.25}>
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
           fontSize={isSm ? 'sm' : 'md'}
           fontWeight='normal'
-          whiteSpace='nowrap'
-        >
+          whiteSpace='nowrap'>
           {`"${selected.label}" list`}
         </Text>
       </HStack>
@@ -51,7 +43,7 @@ const Toast = (props: ToastProps): ReactElement => {
             aria-label='Information related to selected list'
             color={handleReturnColor(color)}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            icon={InfoTwoToneIcon}
+            icon={InfoIcon}
             onClick={() => onInfo()}
             size='sm'
           />
@@ -59,9 +51,8 @@ const Toast = (props: ToastProps): ReactElement => {
           <Button
             color={handleReturnColor(color)}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            leftIcon={InfoTwoToneIcon}
-            onClick={() => onInfo()}
-          >
+            leftIcon={InfoIcon}
+            onClick={() => onInfo()}>
             Info
           </Button>
         )}
@@ -70,16 +61,12 @@ const Toast = (props: ToastProps): ReactElement => {
           <IconButton
             aria-label='Edit selected list'
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            icon={EditOutlinedIcon}
+            icon={EditIcon}
             onClick={() => onEdit()}
             size='sm'
           />
         ) : (
-          <Button
-            colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            leftIcon={EditOutlinedIcon}
-            onClick={() => onEdit()}
-          >
+          <Button colorMode={colorMode === 'light' ? 'dark' : 'light'} leftIcon={EditIcon} onClick={() => onEdit()}>
             Edit
           </Button>
         )}
@@ -89,7 +76,7 @@ const Toast = (props: ToastProps): ReactElement => {
             aria-label='Delete selected list'
             color='red'
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            icon={DeleteOutlineOutlinedIcon}
+            icon={TrashIcon}
             onClick={() => onDelete()}
             size='sm'
           />
@@ -97,9 +84,8 @@ const Toast = (props: ToastProps): ReactElement => {
           <Button
             color='red'
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            leftIcon={DeleteOutlineOutlinedIcon}
-            onClick={() => onDelete()}
-          >
+            leftIcon={TrashIcon}
+            onClick={() => onDelete()}>
             Delete
           </Button>
         )}
@@ -108,7 +94,7 @@ const Toast = (props: ToastProps): ReactElement => {
       <IconButton
         aria-label='Close'
         colorMode={colorMode === 'light' ? 'dark' : 'light'}
-        icon={CloseOutlinedIcon}
+        icon={XIcon}
         onClick={() => onClose()}
         size={isSm ? 'sm' : 'md'}
         variant='icon'

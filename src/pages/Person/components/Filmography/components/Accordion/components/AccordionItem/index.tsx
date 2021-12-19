@@ -1,7 +1,5 @@
 import { ReactElement } from 'react';
 
-import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
-
 import {
   useTheme,
   useColorMode,
@@ -15,6 +13,7 @@ import {
   Text
 } from '@chakra-ui/react';
 import _ from 'lodash';
+import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { handleReturnColor } from '../../../../../../../../common/utils';
@@ -50,8 +49,7 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
           textAlign='left'
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={isSm ? 'xl' : '2xl'}
-          fontWeight='semibold'
-        >
+          fontWeight='semibold'>
           {isSm ? `${label} ` : label}
           <Badge
             label={`${
@@ -66,7 +64,7 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
           />
         </Text>
         <Icon
-          as={KeyboardArrowDownOutlinedIcon}
+          as={ChevronDownIcon}
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
           sx={{ ..._.merge(style.common.icon) }}
         />

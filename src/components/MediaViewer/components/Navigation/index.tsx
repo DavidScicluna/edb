@@ -1,11 +1,7 @@
 import { ReactElement } from 'react';
 
-import {
-  ArrowBackOutlined as ArrowBackOutlinedIcon,
-  ArrowForwardOutlined as ArrowForwardOutlinedIcon
-} from '@material-ui/icons';
-
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
+import { ArrowLeft as ArrowLeftIcon, ArrowRight as ArrowRightIcon } from 'react-feather';
 
 import IconButton from '../../../Clickable/IconButton';
 import { NavigationProps } from './types';
@@ -20,7 +16,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
       {/* Left button */}
       <IconButton
         aria-label='Previous photo'
-        icon={ArrowBackOutlinedIcon}
+        icon={ArrowLeftIcon}
         isDisabled={current <= 1}
         onClick={() => onNavigation('prev')}
         variant='icon'
@@ -30,13 +26,12 @@ const Navigation = (props: NavigationProps): ReactElement => {
       <Text
         align='center'
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-        fontSize='md'
-      >{`${current} / ${total}`}</Text>
+        fontSize='md'>{`${current} / ${total}`}</Text>
 
       {/* Right button */}
       <IconButton
         aria-label='Next photo'
-        icon={ArrowForwardOutlinedIcon}
+        icon={ArrowRightIcon}
         isDisabled={current >= total}
         onClick={() => onNavigation('next')}
         variant='icon'

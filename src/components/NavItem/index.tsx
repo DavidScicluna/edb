@@ -1,7 +1,5 @@
 import { ReactElement, useCallback, useEffect } from 'react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-
 import {
   useTheme,
   useColorMode,
@@ -15,6 +13,7 @@ import {
   Collapse
 } from '@chakra-ui/react';
 import _ from 'lodash';
+import { ChevronRight as ChevronRightIcon } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
@@ -80,8 +79,7 @@ const NavItem = (props: NavItemType): ReactElement => {
       width='100%'
       spacing={sidebarMode === 'expanded' ? 2 : 0}
       sx={{ ..._.merge(style.common.container, style[colorMode].container) }}
-      onClick={onClick ? () => onClick() : undefined}
-    >
+      onClick={onClick ? () => onClick() : undefined}>
       <Tooltip
         aria-label={sidebarMode === 'collapsed' ? label : ''}
         width='100%'
@@ -90,14 +88,12 @@ const NavItem = (props: NavItemType): ReactElement => {
         isDisabled={sidebarMode === 'expanded'}
         placement='right'
         shouldWrapChildren
-        gutter={16}
-      >
+        gutter={16}>
         <Link
           to={{ pathname: path || '' }}
           isFullWidth
           isDisabled={!path || isHoveringIcon}
-          sx={{ ...style.common.link }}
-        >
+          sx={{ ...style.common.link }}>
           <HStack
             width='100%'
             justifyContent='space-between'
@@ -106,8 +102,7 @@ const NavItem = (props: NavItemType): ReactElement => {
             spacing={2}
             onMouseEnter={() => setIsHoveringNav.on()}
             onMouseLeave={() => setIsHoveringNav.off()}
-            sx={{ ..._.merge(style.common.main, style[colorMode].main) }}
-          >
+            sx={{ ..._.merge(style.common.main, style[colorMode].main) }}>
             <HStack width='100%' spacing={2}>
               <Icon
                 as={isActive || isChildActive ? iconActive : icon}
@@ -121,8 +116,7 @@ const NavItem = (props: NavItemType): ReactElement => {
                     handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
                   ),
                   exit: 0
-                }}
-              >
+                }}>
                 <Text align='left' fontSize='xl' fontWeight='semibold' whiteSpace='nowrap'>
                   {label}
                 </Text>
@@ -138,10 +132,9 @@ const NavItem = (props: NavItemType): ReactElement => {
                     handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
                   ),
                   exit: 0
-                }}
-              >
+                }}>
                 <Icon
-                  as={ChevronRightOutlinedIcon}
+                  as={ChevronRightIcon}
                   sx={{
                     fontSize: `${theme.fontSizes.xl} !important`,
                     transform: `rotate(${isChildrenOpen ? '90deg' : '0deg'})`
@@ -163,8 +156,7 @@ const NavItem = (props: NavItemType): ReactElement => {
             spacing={0}
             pl={sidebarMode === 'expanded' ? 3.5 : 0}
             pr={sidebarMode === 'expanded' ? 2 : 0}
-            mb={sidebarMode === 'expanded' ? 1 : 0}
-          >
+            mb={sidebarMode === 'expanded' ? 1 : 0}>
             {sidebarMode === 'collapsed' ? (
               <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
             ) : null}

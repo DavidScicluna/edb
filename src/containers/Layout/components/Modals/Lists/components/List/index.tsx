@@ -1,12 +1,8 @@
 import { ReactElement } from 'react';
 
-import {
-  CheckBoxTwoTone as CheckBoxTwoToneIcon,
-  CheckBoxOutlineBlankOutlined as CheckBoxOutlineBlankOutlinedIcon
-} from '@material-ui/icons';
-
 import { useTheme, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 import moment from 'moment';
+import { Square as SquareIcon, CheckSquare as CheckSquareIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { handleReturnColor } from '../../../../../../../common/utils';
@@ -25,8 +21,7 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
       isFullWidth
       onClick={() => onClick(id, isSelected)}
       px={2}
-      py={1}
-    >
+      py={1}>
       <HStack width='100%' justifyContent='space-between' spacing={2}>
         <VStack width='calc(100% - 46px)' alignItems='flex-start' spacing={0}>
           <Text align='left' fontSize='md' fontWeight='semibold' textTransform='capitalize'>
@@ -40,8 +35,7 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
               fontSize='xs'
               fontWeight='400'
               textTransform='capitalize'
-              isTruncated
-            >
+              isTruncated>
               {description}
             </Text>
           ) : null}
@@ -55,7 +49,7 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
         </VStack>
 
         <Icon
-          as={isSelected ? CheckBoxTwoToneIcon : CheckBoxOutlineBlankOutlinedIcon}
+          as={isSelected ? CheckSquareIcon : SquareIcon}
           sx={{ fontSize: `${theme.fontSizes['3xl']} !important` }}
         />
       </HStack>

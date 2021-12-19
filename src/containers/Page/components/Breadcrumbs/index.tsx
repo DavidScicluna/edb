@@ -1,7 +1,5 @@
 import { ReactElement } from 'react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-
 import {
   useTheme,
   useColorMode,
@@ -13,6 +11,7 @@ import {
   Icon
 } from '@chakra-ui/react';
 import _ from 'lodash';
+import { ChevronRight as ChevronRightIcon } from 'react-feather';
 
 import Link from '../../../../components/Clickable/Link';
 import SkeletonText from '../../../../components/Skeleton/Text';
@@ -41,20 +40,18 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
     <CUIBreadcrumb
       separator={
         <Icon
-          as={ChevronRightOutlinedIcon}
+          as={ChevronRightIcon}
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
           sx={{ fontSize: `${iconFontSize} !important` }}
         />
       }
-      spacing={1}
-    >
+      spacing={1}>
       {breadcrumbs.map((breadcrumb, index) => (
         <BreadcrumbItem
           key={breadcrumb.label}
           isCurrentPage={index === breadcrumbs.length - 1}
           fontSize={['sm', 'sm', 'md', 'md', 'md', 'md']}
-          sx={{ ...style.common.breadcrumbItem }}
-        >
+          sx={{ ...style.common.breadcrumbItem }}>
           <SkeletonText offsetY={8} isLoaded={!breadcrumb.isLoading}>
             {index === breadcrumbs.length - 1 ? (
               <Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
@@ -64,8 +61,7 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
               <BreadcrumbLink
                 as={Link}
                 to={{ ...breadcrumb.to }}
-                sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}
-              >
+                sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}>
                 {breadcrumb.label || ''}
               </BreadcrumbLink>
             )}

@@ -1,11 +1,7 @@
 import { ReactElement } from 'react';
 
-import {
-  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-  FavoriteOutlined as FavoriteOutlinedIcon
-} from '@material-ui/icons';
-
 import { useBoolean } from '@chakra-ui/react';
+import { Heart as HeartIcon } from 'react-feather';
 
 import { MediaType } from '../../../../common/types/types';
 import IconButton from '../../../Clickable/IconButton';
@@ -27,13 +23,13 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
           placement='top'
           isOpen={isHovering}
           isDisabled={isLoading || !mediaItem}
-          gutter={8}
-        >
+          gutter={8}>
           <IconButton
             aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
             color={isLiked ? 'red' : 'gray'}
             isDisabled={isLoading || !mediaItem}
-            icon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+            // icon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+            icon={HeartIcon}
             onClick={() => onClick()}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}

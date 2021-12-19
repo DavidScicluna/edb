@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-
 import { useBoolean, Box } from '@chakra-ui/react';
+import { Play as PlayIcon } from 'react-feather';
 import YouTube, { Options } from 'react-youtube';
 
 import ClickableImage from '../../../../../../../../components/Clickable/Image';
@@ -37,16 +36,14 @@ const Video = (props: VideoProps): ReactElement => {
       width={width}
       borderRadius='base'
       onMouseEnter={() => setIsHovering.on()}
-      onMouseLeave={() => setIsHovering.off()}
-    >
+      onMouseLeave={() => setIsHovering.off()}>
       <ClickableImage
         width={width}
         borderRadius='base'
         ratio={1 / 1}
-        icon={<PlayArrowIcon />}
+        icon={PlayIcon}
         isDisabled={isError || isLoading}
-        onClick={typeof video !== 'number' && video ? () => onClick(video.key, 'video') : undefined}
-      >
+        onClick={typeof video !== 'number' && video ? () => onClick(video.key, 'video') : undefined}>
         <Skeleton isLoaded={!isLoading} borderRadius='base'>
           <YouTube
             videoId={typeof video !== 'number' && video ? video?.key : ''}

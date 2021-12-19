@@ -1,8 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 
-import { MenuOutlined as MenuOutlinedIcon, CloseOutlined as CloseOutlinedIcon } from '@material-ui/icons';
-
 import { useColorMode, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerBody } from '@chakra-ui/react';
+import { Menu as MenuIcon, X as XIcon } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
@@ -19,7 +18,7 @@ const Menu = (): ReactElement => {
 
   return (
     <>
-      <IconButton aria-label='Open Menu' icon={MenuOutlinedIcon} onClick={onOpen} variant='icon' />
+      <IconButton aria-label='Open Menu' icon={MenuIcon} onClick={onOpen} variant='icon' />
 
       <Drawer isOpen={isOpen} blockScrollOnMount={false} placement='left' onClose={onClose}>
         <DrawerOverlay />
@@ -30,7 +29,7 @@ const Menu = (): ReactElement => {
               position='absolute'
               top={1}
               right={1}
-              icon={CloseOutlinedIcon}
+              icon={XIcon}
               onClick={() => onClose()}
               variant='icon'
             />

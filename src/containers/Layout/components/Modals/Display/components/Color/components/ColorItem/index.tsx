@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-
 import { useTheme, useBoolean, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
+import { Check as CheckIcon } from 'react-feather';
 
 import { handleReturnColor } from '../../../../../../../../../common/utils';
 import Card from '../../../../../../../../../components/Clickable/Card';
@@ -26,16 +25,14 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
       label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
       placement='top'
       shouldWrapChildren
-      gutter={8}
-    >
+      gutter={8}>
       <Card
         color={isActive ? handleReturnColor(value) : 'gray'}
         colorMode={background}
         onClick={!isActive && onClick ? () => onClick(value) : undefined}
         onMouseEnter={() => setIsHovering.on()}
         onMouseLeave={() => setIsHovering.off()}
-        p={2}
-      >
+        p={2}>
         <VStack width='100%' spacing={0.75}>
           <Box
             sx={{
@@ -48,11 +45,10 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 
               backgroundColor: `${value}.400`,
               borderRadius: 'full'
-            }}
-          >
+            }}>
             <ScaleFade in={isActive} unmountOnExit>
               <Icon
-                as={CheckOutlinedIcon}
+                as={CheckIcon}
                 sx={{
                   fontSize: `${theme.fontSizes['4xl']} !important`,
                   color: background === 'light' ? 'gray.50' : 'gray.900'

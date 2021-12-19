@@ -1,11 +1,7 @@
 import { ReactElement, useRef } from 'react';
 
-import {
-  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-  FavoriteOutlined as FavoriteOutlinedIcon
-} from '@material-ui/icons';
-
 import { useColorMode, useMediaQuery, HStack, Box } from '@chakra-ui/react';
+import { Heart as HeartIcon } from 'react-feather';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
@@ -32,8 +28,7 @@ const Actions = (props: ActionsProps): ReactElement => {
       ref={ref}
       width={isSm ? '100%' : 'auto'}
       divider={<Box width='2px' height={height} backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />}
-      spacing={2}
-    >
+      spacing={2}>
       <Bookmark
         renderButton={({ lists, isBookmarked, onClick }) => (
           <Button
@@ -42,8 +37,7 @@ const Actions = (props: ActionsProps): ReactElement => {
             isDisabled={isError || isLoading || !mediaItem}
             onClick={() => onClick()}
             size='md'
-            variant='outlined'
-          >
+            variant='outlined'>
             {isBookmarked
               ? `In ${
                   lists && (lists?.length || 0) === 1 ? `${lists[0].label ? `"${lists[0].label}" list` : ''}` : 'lists'
@@ -61,11 +55,11 @@ const Actions = (props: ActionsProps): ReactElement => {
             color={isLiked ? 'red' : 'gray'}
             isFullWidth={isSm}
             isDisabled={isError || isLoading || !mediaItem}
-            leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+            // leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+            leftIcon={HeartIcon}
             onClick={() => onClick()}
             size='md'
-            variant='outlined'
-          >
+            variant='outlined'>
             {isLiked ? 'Liked' : 'Like'}
           </Button>
         )}

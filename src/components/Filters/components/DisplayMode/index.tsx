@@ -1,13 +1,7 @@
 import { ReactElement } from 'react';
 
-import {
-  GridOnOutlined as GridOnOutlinedIcon,
-  GridOnTwoTone as GridOnTwoToneIcon,
-  ListAltOutlined as ListAltOutlinedIcon,
-  ListAltTwoTone as ListAltTwoToneIcon
-} from '@material-ui/icons';
-
 import { HStack } from '@chakra-ui/react';
+import { Grid as GridIcon, List as ListIcon } from 'react-feather';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 import Card from '../../../Card';
@@ -19,14 +13,12 @@ const displayModes: DisplayModeType[] = [
   {
     label: 'Grid',
     value: 'grid',
-    iconActive: GridOnTwoToneIcon,
-    icon: GridOnOutlinedIcon
+    icon: GridIcon
   },
   {
     label: 'List',
     value: 'list',
-    iconActive: ListAltTwoToneIcon,
-    icon: ListAltOutlinedIcon
+    icon: ListIcon
   }
 ];
 

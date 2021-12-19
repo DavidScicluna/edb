@@ -1,12 +1,8 @@
 import { ReactElement, useEffect } from 'react';
 
-import {
-  ChevronLeftOutlined as ChevronLeftOutlinedIcon,
-  ChevronRightOutlined as ChevronRightOutlinedIcon
-} from '@material-ui/icons';
-
 import { useTheme, useColorMode, useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
+import { ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon } from 'react-feather';
 import { useInterval } from 'usehooks-ts';
 
 import { Theme } from '../../../../theme/types';
@@ -64,13 +60,12 @@ const Arrow = (props: ArrowProps): ReactElement => {
       zIndex={1}
       backgroundColor='transparent'
       _after={direction === 'left' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}
-      _before={direction === 'right' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}
-    >
+      _before={direction === 'right' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}>
       <ScaleFade in={!isDisabled} unmountOnExit style={{ height: '100%' }}>
         <Center height='100%' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
           <IconButton
             aria-label={`Scroll ${direction}`}
-            icon={direction === 'left' ? ChevronLeftOutlinedIcon : ChevronRightOutlinedIcon}
+            icon={direction === 'left' ? ChevronLeftIcon : ChevronRightIcon}
             onClick={(event: Event) => handleOnClick(event)}
             onMouseDown={(event: Event) => handleIsMouseDown(event)}
             onMouseUp={(event: Event) => handleIsMouseUp(event)}

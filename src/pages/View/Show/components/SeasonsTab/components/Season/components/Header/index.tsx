@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-
 import { useTheme, useColorMode, HStack, Text, Icon, VStack } from '@chakra-ui/react';
+import { ChevronRight as ChevronRightIcon } from 'react-feather';
 
 import { handleReturnDate } from '../../../../../../../../../common/utils';
 import Badge from '../../../../../../../../../components/Badge';
@@ -44,8 +43,7 @@ const Header = (props: HeaderProps): ReactElement => {
             color: colorMode === 'light' ? 'gray.900' : 'gray.50'
           }
         }
-      }}
-    >
+      }}>
       <VStack alignItems='flex-start' spacing={0}>
         <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='lg' fontWeight='semibold'>
           {title || 'N/A'}
@@ -59,7 +57,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
       <HStack>
         <Badge label={`${episodes} episode${episodes === 0 || episodes > 1 ? 's' : ''}`} size='md' />
-        <Icon as={ChevronRightOutlinedIcon} />
+        <Icon as={ChevronRightIcon} />
       </HStack>
     </HStack>
   );
