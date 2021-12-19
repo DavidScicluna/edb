@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import { useTheme } from '@chakra-ui/react';
 
-import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../common/utils';
-import { Theme } from '../../../../theme/types';
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../common/utils';
+import { Theme } from '../../../../../theme/types';
 import { IconProps } from './types';
 
 const Icon = ({ icon: Icon, size = 'md' }: IconProps): ReactElement => {

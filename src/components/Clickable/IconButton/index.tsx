@@ -3,7 +3,7 @@ import { ReactElement, forwardRef } from 'react';
 import { ColorMode, useTheme, useColorMode, IconButton as CUIIconButton, Center, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { Theme } from '../../theme/types';
+import { Theme } from '../../../theme/types';
 import Icon from './components/Icon';
 import Spinner from './components/Spinner';
 import useStyles from './styles';
@@ -42,14 +42,12 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
           style.iconButton.disabled[size],
           style[colorMode].disabled[variant]
         )
-      }}
-    >
+      }}>
       <Center
         className='icon_button_front'
         sx={{
           ..._.merge(style.iconButton.front.default, style.iconButton.front[size], style[colorMode].front[variant])
-        }}
-      >
+        }}>
         <ScaleFade in={isLoading} unmountOnExit>
           <Spinner color={color} colorMode={colorMode} size={size} variant={variant} />
         </ScaleFade>
