@@ -1,9 +1,8 @@
 import { ReactElement } from 'react';
 
+import { ModalProps } from '../Modal/types';
+
 export type ConfirmModalProps = {
-  renderButton: ReactElement;
-  title: string;
+  actions: ReactElement;
   description: string;
-  isOpen: boolean;
-  onClose: () => void;
-};
+} & Omit<ModalProps, 'actions' | 'isConfirm'>;
