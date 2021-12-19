@@ -14,9 +14,9 @@ const Spinner = ({ color, colorMode, size = 'md', variant = 'contained' }: Spinn
   /**
    * This method will return the appropriate color in HEX depending on color & colorMode props
    *
-   * @returns - string | undefined: HEX color
+   * @returns - string: HEX color
    */
-  const handleReturnColorHEX = (): string | undefined => {
+  const handleReturnColorHEX = (): string => {
     switch (variant) {
       case 'outlined':
       case 'icon': {

@@ -28,7 +28,9 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           fontWeight='semibold'
           textTransform='capitalize'>
           {title}
-          <Badge label={String(total)} color='gray' size='lg' ml={2} />
+          <Badge color='gray' size='lg' ml={2}>
+            {String(total)}
+          </Badge>
         </Text>
       </Center>
     );

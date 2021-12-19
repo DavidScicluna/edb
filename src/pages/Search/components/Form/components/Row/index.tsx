@@ -59,11 +59,9 @@ const Row = (props: RowProps): ReactElement => {
               {title}
             </Text>
             {mediaType ? (
-              <Badge
-                color={mediaType === 'movie' ? 'teal' : mediaType === 'tv' ? 'cyan' : 'purple'}
-                label={mediaType}
-                ml={1}
-              />
+              <Badge color={mediaType === 'movie' ? 'teal' : mediaType === 'tv' ? 'cyan' : 'purple'} ml={1}>
+                {mediaType}
+              </Badge>
             ) : null}
           </Center>
           {type === 'default' && subtitle ? (

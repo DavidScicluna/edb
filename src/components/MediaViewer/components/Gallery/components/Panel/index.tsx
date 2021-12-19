@@ -15,7 +15,7 @@ const Panel = ({ children, title, total }: ListProps): ReactElement => {
       {{
         header: {
           title,
-          actions: total > 0 ? <Badge label={String(total)} size={isSm ? 'sm' : 'md'} /> : undefined
+          actions: total > 0 ? <Badge size={isSm ? 'sm' : 'md'}>{String(total)}</Badge> : undefined
         },
         body: (
           <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 5, 6]} spacing={2}>

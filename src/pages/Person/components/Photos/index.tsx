@@ -36,7 +36,9 @@ const Photos = (props: PhotosProps): ReactElement => {
             fontWeight='semibold'>
             Photos
           </Text>
-          <Badge label={String(images.length)} size='md' ml={2} />
+          <Badge size='md' ml={2}>
+            {String(images.length)}
+          </Badge>
         </Center>
       }
       footer={

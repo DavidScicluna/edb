@@ -48,7 +48,7 @@ const Header = (props: HeaderProps): ReactElement => {
       </Text>
 
       <HStack>
-        <Badge label={String(total)} size='md' />
+        <Badge size='md'>{String(total)}</Badge>
         <Icon as={ChevronRightIcon} />
       </HStack>
     </HStack>

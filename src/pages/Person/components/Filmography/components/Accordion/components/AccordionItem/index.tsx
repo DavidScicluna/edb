@@ -50,17 +50,14 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
           fontSize={isSm ? 'xl' : '2xl'}
           fontWeight='semibold'>
           {isSm ? `${label} ` : label}
-          <Badge
-            label={`${
+          <Badge color={isExpanded ? color : 'gray'} size={isSm ? 'md' : 'lg'} ml={isSm ? 0 : 2}>
+            {`${
               (credits.cast?.movie?.length || 0) +
               (credits.cast?.tv?.length || 0) +
               (credits.crew?.movie?.length || 0) +
               (credits.crew?.tv?.length || 0)
             }`}
-            color={isExpanded ? color : 'gray'}
-            size={isSm ? 'md' : 'lg'}
-            ml={isSm ? 0 : 2}
-          />
+          </Badge>
         </Text>
         <Icon
           as={ChevronDownIcon}

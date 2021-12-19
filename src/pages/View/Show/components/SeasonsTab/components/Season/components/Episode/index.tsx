@@ -65,8 +65,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
             minWidth={width}
             maxWidth={width}
             borderRadius='base'
-            ratio={2 / 3}
-          >
+            ratio={2 / 3}>
             <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
               <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
                 <Skeleton isLoaded={!isLoading} borderRadius='base'>
@@ -94,8 +93,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
               'calc(100% - 240px)'
             ]}
             alignItems='flex-start'
-            spacing={[1, 1, 2, 2, 2, 2]}
-          >
+            spacing={[1, 1, 2, 2, 2, 2]}>
             {/* Rating */}
             <Rating
               rating={{
@@ -124,9 +122,8 @@ const Episode = (props: EpisodeProps): ReactElement => {
                 position: 'absolute',
                 top: isSm ? 1 : 2,
                 right: isSm ? 1 : 2
-              }}
-            >
-              <Badge label={`Episode ${number}`} size={isSm ? 'sm' : 'md'} />
+              }}>
+              <Badge size={isSm ? 'sm' : 'md'}>{`Episode ${number}`}</Badge>
             </Box>
           </Fade>
         </HStack>

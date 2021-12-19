@@ -14,7 +14,7 @@ const Panel = ({ children, title, total }: ListProps): ReactElement => {
       {{
         header: {
           title,
-          actions: <Badge label={String(total)} size={isSm ? 'sm' : 'md'} />
+          actions: <Badge size={isSm ? 'sm' : 'md'}>{String(total)}</Badge>
         },
         body: (
           <VStack width='100%' spacing={2}>

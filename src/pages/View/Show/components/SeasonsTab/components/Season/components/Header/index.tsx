@@ -56,7 +56,7 @@ const Header = (props: HeaderProps): ReactElement => {
       </VStack>
 
       <HStack>
-        <Badge label={`${episodes} episode${episodes === 0 || episodes > 1 ? 's' : ''}`} size='md' />
+        <Badge size='md'>{`${episodes} episode${episodes === 0 || episodes > 1 ? 's' : ''}`}</Badge>
         <Icon as={ChevronRightIcon} />
       </HStack>
     </HStack>

@@ -228,19 +228,15 @@ const Lists = (): ReactElement => {
                 ? `"${list.label}" list ${mediaType === 'movie' ? 'Movies' : mediaType === 'tv' ? 'TV shows' : ''}`
                 : 'Lists'}
             </Text>
-            <Badge
-              label={
-                list
-                  ? mediaType === 'movie'
-                    ? String(movies.length)
-                    : mediaType === 'tv'
-                    ? String(tv.length)
-                    : String(movies.length + tv.length)
-                  : String(lists.length)
-              }
-              size='lg'
-              ml={2}
-            />
+            <Badge size='lg' ml={2}>
+              {list
+                ? mediaType === 'movie'
+                  ? String(movies.length)
+                  : mediaType === 'tv'
+                  ? String(tv.length)
+                  : String(movies.length + tv.length)
+                : String(lists.length)}
+            </Badge>
           </Center>
         }
         breadcrumbs={handleReturnBreadcrumbs()}>

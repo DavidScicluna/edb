@@ -7,7 +7,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Department } from '../../common/data/departments';
 import { useSelector } from '../../common/hooks';
 import { Genre, MediaType, SortBy } from '../../common/types';
-
 import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';
 import Empty from '../../components/Empty';
@@ -208,20 +207,15 @@ const Liked = (): ReactElement => {
                 : mediaType === 'person'
                 ? 'People'
                 : 'Liked'}
-              <Badge
-                label={
-                  mediaType === 'movie'
-                    ? String(movies.length)
-                    : mediaType === 'tv'
-                    ? String(tv.length)
-                    : mediaType === 'person'
-                    ? String(people.length)
-                    : String(movies.length + tv.length + people.length)
-                }
-                color={mediaType ? color : 'gray'}
-                size='lg'
-                ml={2}
-              />
+              <Badge color={mediaType ? color : 'gray'} size='lg' ml={2}>
+                {mediaType === 'movie'
+                  ? String(movies.length)
+                  : mediaType === 'tv'
+                  ? String(tv.length)
+                  : mediaType === 'person'
+                  ? String(people.length)
+                  : String(movies.length + tv.length + people.length)}
+              </Badge>
             </Text>
           </Center>
         }
