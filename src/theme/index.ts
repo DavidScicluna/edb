@@ -1,4 +1,3 @@
-// theme.js
 import { extendTheme, Theme } from '@chakra-ui/react';
 
 import foundations from './foundations';
