@@ -1,41 +1,47 @@
-import { ReactElement } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, useColorMode, Box } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Box } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { ColorMode } from '../../../common/types';
 import { Theme } from '../../../theme/types';
 import useStyles from './styles';
-import { CardProps } from './types';
+import { CardRef, CardProps } from './types';
 
-const Card = (props: CardProps): ReactElement => {
+const Card = forwardRef<CardRef, CardProps>(function Card(props, ref): ReactElement {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
-  const style = useStyles(theme, props);
+  const { colorMode: colorModeHook } = useColorMode();
 
   const {
     children,
+    color = 'gray',
     colorMode: colorModeProp,
+    isFullWidth = false,
+    isLight = false,
     isDisabled = false,
+    isClickable = false,
     ...rest
-  } = _.omit(props, ['color', 'isFullWidth', 'isLight', 'isClickable']);
+  } = props;
 
-  const mode: ColorMode = colorModeProp || colorMode;
+  const colorMode: ColorMode = colorModeProp || colorModeHook;
+
+  const style = useStyles(theme, { color, isFullWidth, isLight, isClickable });
 
   return (
     <Box
-      sx={
-        isDisabled
-          ? {
-              ..._.merge(style.card.back, style.card.disabled, style[mode].back, style[mode].disabled)
-            }
-          : { ..._.merge(style.card.back, style[mode].back) }
-      }>
-      <Box {...rest} className='card_front' sx={{ ..._.merge(style.card.front, style[mode].front) }}>
+      ref={ref}
+      sx={{
+        ..._.merge(
+          style.card.back,
+          style[colorMode].back,
+          isDisabled ? style.card.disabled : {},
+          isDisabled ? style[colorMode].disabled : {}
+        )
+      }}>
+      <Box {...rest} className='card_front' sx={{ ..._.merge(style.card.front, style[colorMode].front) }}>
         {children}
       </Box>
     </Box>
   );
-};
+});
 
 export default Card;

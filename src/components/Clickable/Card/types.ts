@@ -1,13 +1,14 @@
 import { ReactElement, ReactNode } from 'react';
 
-import { BoxProps } from '@chakra-ui/react';
+import { ColorMode, BoxProps } from '@chakra-ui/react';
 
-import { ColorMode } from '../../../common/types';
-import { Theme } from '../../../store/slices/User/types';
+import { Color } from '../../../theme/types';
+
+export type CardRef = HTMLDivElement | null;
 
 export type CardProps = {
   children: ReactElement | ReactNode;
-  color?: Theme['color'];
+  color?: keyof Color;
   colorMode?: ColorMode;
   isFullWidth?: boolean;
   isLight?: boolean;
