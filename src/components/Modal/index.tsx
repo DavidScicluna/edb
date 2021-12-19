@@ -1,7 +1,9 @@
 import { ReactElement, useEffect } from 'react';
 
 import {
+  ColorMode,
   useTheme,
+  useColorMode,
   useMediaQuery,
   useBoolean,
   Modal as CUIModal,
@@ -11,13 +13,12 @@ import {
   ModalBody,
   ModalFooter,
   HStack,
-  Text,
-  useColorMode
+  Text
 } from '@chakra-ui/react';
 import { X as XIcon } from 'react-feather';
 import { useTimeout } from 'usehooks-ts';
 
-import { ColorMode } from '../../common/types/types';
+import { handleConvertStringToNumber } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import Button from '../Clickable/Button';
 import IconButton from '../Clickable/IconButton';
@@ -25,7 +26,8 @@ import { ModalProps } from './types';
 
 const Modal = (props: ModalProps): ReactElement | null => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
+  const { colorMode: colorModeHook } = useColorMode();
+
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const {
@@ -42,10 +44,13 @@ const Modal = (props: ModalProps): ReactElement | null => {
 
   const [isMounted, setIsMounted] = useBoolean();
 
-  const mode: ColorMode = colorModeProp || colorMode;
+  const colorMode: ColorMode = colorModeProp || colorModeHook;
   const transition = `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`;
 
-  useTimeout(() => setIsMounted.off(), !isOpen ? 1000 : null);
+  useTimeout(
+    () => setIsMounted.off(),
+    !isOpen ? handleConvertStringToNumber(theme.transition.duration.faster, 'ms') : null
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -65,28 +70,32 @@ const Modal = (props: ModalProps): ReactElement | null => {
       size={isSm && !isConfirm ? 'full' : size}>
       <ModalOverlay />
       <ModalContent
-        backgroundColor={mode === 'light' ? 'gray.50' : 'gray.900'}
+        backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
         borderRadius={size === 'full' || (isSm && !isConfirm) ? 'none' : 'xl'}
         m={isSm && isConfirm ? 2 : 0}
         sx={{ transition }}>
         <ModalHeader
-          px={2}
-          py={1.25}
           borderBottom='solid2'
-          borderBottomColor={mode === 'light' ? 'gray.200' : 'gray.700'}
+          borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+          px={2}
+          py={1.5}
           sx={{ transition }}>
           <HStack justifyContent='space-between'>
-            {typeof title !== 'string' ? (
-              title
-            ) : (
-              <Text align='left' fontSize='xl' fontWeight='semibold' color={mode === 'light' ? 'gray.900' : 'gray.50'}>
+            {typeof title === 'string' ? (
+              <Text
+                align='left'
+                fontSize='xl'
+                fontWeight='semibold'
+                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
                 {title}
               </Text>
+            ) : (
+              title
             )}
 
             <IconButton
               aria-label='Close modal?'
-              colorMode={mode}
+              colorMode={colorMode}
               icon={XIcon}
               onClick={() => onClose()}
               variant='icon'
@@ -97,13 +106,14 @@ const Modal = (props: ModalProps): ReactElement | null => {
         {actions ? (
           <ModalFooter
             justifyContent='space-between'
-            p={2}
             borderTop='solid2'
-            borderTopColor={mode === 'light' ? 'gray.200' : 'gray.700'}
+            borderTopColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+            p={2}
             sx={{ transition }}>
-            <Button colorMode={mode} onClick={() => onClose()} size='sm' variant='outlined'>
+            <Button colorMode={colorMode} onClick={() => onClose()} size='sm' variant='outlined'>
               Cancel
             </Button>
+
             {actions}
           </ModalFooter>
         ) : null}

@@ -1,12 +1,10 @@
 import { ReactElement } from 'react';
 
-import { ModalProps as CUIModalProps } from '@chakra-ui/react';
-
-import { Theme } from '../../store/slices/User/types';
+import { ColorMode, ModalProps as CUIModalProps } from '@chakra-ui/react';
 
 export type ModalProps = {
   title: ReactElement | string;
   actions?: ReactElement;
-  colorMode?: Theme['background'];
+  colorMode?: ColorMode;
   isConfirm?: boolean;
 } & CUIModalProps;
