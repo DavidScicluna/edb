@@ -40,7 +40,7 @@ const DeleteReview = ({ id }: { id: string }): ReactElement => {
       </Tooltip>
 
       <ConfirmModal
-        renderButton={
+        actions={
           <Button color='red' onClick={() => handleDelete()} size='sm'>
             Delete
           </Button>

@@ -94,7 +94,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
       })}
 
       <ConfirmModal
-        renderButton={
+        actions={
           <Button color='red' onClick={() => handleCloseConfirm()} size='sm'>
             Remove
           </Button>

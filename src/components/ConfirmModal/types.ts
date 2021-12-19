@@ -5,4 +5,4 @@ import { ModalProps } from '../Modal/types';
 export type ConfirmModalProps = {
   actions: ReactElement;
   description: string;
-} & Omit<ModalProps, 'actions' | 'isConfirm'>;
+} & Omit<ModalProps, 'children' | 'actions' | 'isConfirm'>;

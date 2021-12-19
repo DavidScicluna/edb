@@ -26,7 +26,7 @@ const DeleteList = (props: DeleteListProps): ReactElement => {
 
   return (
     <ConfirmModal
-      renderButton={
+      actions={
         <Button color='red' onClick={() => handleDelete()} size='sm'>
           Delete
         </Button>

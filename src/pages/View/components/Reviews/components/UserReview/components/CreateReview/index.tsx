@@ -179,7 +179,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
       </Modal>
 
       <ConfirmModal
-        renderButton={
+        actions={
           <Button color={color} onClick={() => handleCloseConfirm()} size='sm'>
             Close
           </Button>

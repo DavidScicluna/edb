@@ -140,7 +140,7 @@ const TVAiringToday = (): ReactElement => {
       </Page>
 
       <ConfirmModal
-        renderButton={
+        actions={
           <Button color={color} onClick={() => handleResetFilters()} size='sm'>
             Load more
           </Button>

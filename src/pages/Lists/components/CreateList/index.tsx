@@ -171,7 +171,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
       </Modal>
 
       <ConfirmModal
-        renderButton={
+        actions={
           <Button color={color} onClick={() => handleCloseConfirm()} size='sm'>
             Close
           </Button>

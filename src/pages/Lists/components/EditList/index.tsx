@@ -16,7 +16,6 @@ import { useForm, useFormState, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../common/hooks';
-
 import Button from '../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../components/ConfirmModal';
 import Modal from '../../../../components/Modal';
@@ -164,7 +163,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
       </Modal>
 
       <ConfirmModal
-        renderButton={
+        actions={
           <Button color={color} onClick={() => handleCloseConfirm()} size='sm'>
             Close
           </Button>
