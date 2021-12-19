@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useColorMode, useMediaQuery, Text } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
-import { handleReturnColor } from '../../../../common/utils';
+
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../components/Grid/Horizontal';
@@ -25,26 +25,18 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'
-        >
+          textTransform='capitalize'>
           {title}
         </Text>
       }
       footer={
         <Link to={{ pathname }} isFullWidth isDisabled={isLoading}>
-          <Button
-            color={handleReturnColor(color)}
-            isFullWidth
-            isDisabled={isLoading}
-            size={isSm ? 'sm' : 'md'}
-            variant='text'
-          >
+          <Button color={color} isFullWidth isDisabled={isLoading} size={isSm ? 'sm' : 'md'} variant='text'>
             {`View all ${title}`}
           </Button>
         </Link>
       }
-      isLoading={isLoading}
-    >
+      isLoading={isLoading}>
       {children}
     </HorizontalGrid>
   );

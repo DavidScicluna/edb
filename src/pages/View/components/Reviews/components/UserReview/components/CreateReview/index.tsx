@@ -18,7 +18,6 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../../../common/utils';
 import Card from '../../../../../../../../components/Card';
 import Button from '../../../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
@@ -86,7 +85,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
 
   return (
     <>
-      <Button color={handleReturnColor(color)} onClick={() => onOpen()} size='sm'>
+      <Button color={color} onClick={() => onOpen()} size='sm'>
         Create a new review
       </Button>
 
@@ -94,7 +93,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
         title='Create a new review'
         actions={
           <Button
-            color={handleReturnColor(color)}
+            color={color}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
             size='sm'>
@@ -161,7 +160,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
                   border='solid2'
                   boxShadow='none'
                   errorBorderColor='red.400'
-                  focusBorderColor={`${handleReturnColor(color)}.400`}
+                  focusBorderColor={`${color}.400`}
                   isInvalid={Boolean(error)}
                   fontSize='md'
                   name={name}
@@ -181,7 +180,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
 
       <ConfirmModal
         renderButton={
-          <Button color={handleReturnColor(color)} onClick={() => handleCloseConfirm()} size='sm'>
+          <Button color={color} onClick={() => handleCloseConfirm()} size='sm'>
             Close
           </Button>
         }

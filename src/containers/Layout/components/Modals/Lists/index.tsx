@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../common/utils';
+
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import CreateList from '../../../../../pages/Lists/components/CreateList';
@@ -99,11 +99,11 @@ const ListsModal = (): ReactElement => {
         title={`Add "${listsModal.title}" to a list`}
         actions={
           selected.length > 0 ? (
-            <Button color={handleReturnColor(color)} onClick={() => handleSaveItem()} size='sm'>
+            <Button color={color} onClick={() => handleSaveItem()} size='sm'>
               {`Save to List${selected.length > 1 ? 's' : ''}`}
             </Button>
           ) : (
-            <Button color={handleReturnColor(color)} onClick={() => onCreateListOpen()} size='sm'>
+            <Button color={color} onClick={() => onCreateListOpen()} size='sm'>
               Create a new List
             </Button>
           )
@@ -111,8 +111,7 @@ const ListsModal = (): ReactElement => {
         isOpen={listsModal.open}
         onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
         isCentered
-        size='2xl'
-      >
+        size='2xl'>
         <VStack spacing={2} p={2}>
           {lists.map((list) => (
             <List key={list.id} {...list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />

@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 import { Info as InfoIcon, Edit as EditIcon, Trash2 as TrashIcon, X as XIcon } from 'react-feather';
 
-import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';
 import store from '../../../../store';
@@ -41,7 +40,7 @@ const Toast = (props: ToastProps): ReactElement => {
         {isSm ? (
           <IconButton
             aria-label='Information related to selected list'
-            color={handleReturnColor(color)}
+            color={color}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             icon={InfoIcon}
             onClick={() => onInfo()}
@@ -49,7 +48,7 @@ const Toast = (props: ToastProps): ReactElement => {
           />
         ) : (
           <Button
-            color={handleReturnColor(color)}
+            color={color}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             leftIcon={InfoIcon}
             onClick={() => onInfo()}>

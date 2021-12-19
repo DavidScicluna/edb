@@ -10,7 +10,7 @@ import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
 import { Response, SortBy, Genre } from '../../../../common/types';
 import { PartialTV } from '../../../../common/types/tv';
-import { handleCheckHasFilters, handleReturnColor } from '../../../../common/utils';
+import { handleCheckHasFilters } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import ConfirmModal from '../../../../components/ConfirmModal';
@@ -141,7 +141,7 @@ const PopularTV = (): ReactElement => {
 
       <ConfirmModal
         renderButton={
-          <Button color={handleReturnColor(color)} onClick={() => handleResetFilters()} size='sm'>
+          <Button color={color} onClick={() => handleResetFilters()} size='sm'>
             Load more
           </Button>
         }

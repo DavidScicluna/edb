@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
 import { useSelector } from '../../../common/hooks';
-import { handleReturnColor } from '../../../common/utils';
 import Button from '../Button';
 import { LoadMoreProps } from './types';
 
@@ -27,19 +26,18 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
           borderRadius='full'
           size='sm'
           value={Math.round((amount / total) * 100)}
-          sx={{ '& div': { backgroundColor: `${handleReturnColor(color)}.400` } }}
+          sx={{ '& div': { backgroundColor: `${color}.400` } }}
         />
       </VStack>
 
       <ScaleFade in={isButtonVisible && amount < total} unmountOnExit style={{ width: '100%' }}>
         <Button
-          color={handleReturnColor(color)}
+          color={color}
           isDisabled={amount >= total}
           isLoading={isLoading}
           isFullWidth
           onClick={() => onClick()}
-          variant='outlined'
-        >
+          variant='outlined'>
           Load more
         </Button>
       </ScaleFade>

@@ -6,7 +6,7 @@ import { ArrowUp as ArrowUpIcon } from 'react-feather';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
-import { handleReturnColor } from '../../../../common/utils';
+
 import IconButton from '../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../components/Tooltip';
 import { Theme } from '../../../../theme/types';
@@ -56,7 +56,7 @@ const ScrollToTop = (): ReactElement => {
         <Tooltip aria-label='Scroll to top' label='Scroll to the top' placement='left' isOpen={isHovering} gutter={6}>
           <IconButton
             aria-label='Scroll to top'
-            color={handleReturnColor(color)}
+            color={color}
             icon={ArrowUpIcon}
             onClick={() => document.scrollingElement?.scrollTo(0, 0)}
             onMouseEnter={() => setIsHovering.on()}

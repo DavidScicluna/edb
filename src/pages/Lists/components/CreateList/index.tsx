@@ -17,7 +17,6 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import { useSelector } from '../../../../common/hooks';
-import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../components/ConfirmModal';
 import Modal from '../../../../components/Modal';
@@ -99,19 +98,17 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
         title='Create a new List'
         actions={
           <Button
-            color={handleReturnColor(color)}
+            color={color}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
-            size='sm'
-          >
+            size='sm'>
             Submit List
           </Button>
         }
         isOpen={isOpen}
         onClose={handleCheckClose}
         isCentered
-        size='lg'
-      >
+        size='lg'>
         <VStack spacing={3} p={2}>
           <Controller
             control={form.control}
@@ -125,7 +122,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
                   autoComplete='off'
                   border='solid2'
                   errorBorderColor='red.400'
-                  focusBorderColor={`${handleReturnColor(color)}.400`}
+                  focusBorderColor={`${color}.400`}
                   isInvalid={Boolean(error)}
                   fontSize='md'
                   name={name}
@@ -154,7 +151,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
                   autoComplete='off'
                   border='solid2'
                   errorBorderColor='red.400'
-                  focusBorderColor={`${handleReturnColor(color)}.400`}
+                  focusBorderColor={`${color}.400`}
                   isInvalid={Boolean(error)}
                   fontSize='md'
                   name={name}
@@ -175,7 +172,7 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
 
       <ConfirmModal
         renderButton={
-          <Button color={handleReturnColor(color)} onClick={() => handleCloseConfirm()} size='sm'>
+          <Button color={color} onClick={() => handleCloseConfirm()} size='sm'>
             Close
           </Button>
         }

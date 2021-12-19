@@ -7,7 +7,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Department } from '../../common/data/departments';
 import { useSelector } from '../../common/hooks';
 import { Genre, MediaType, SortBy } from '../../common/types';
-import { handleReturnColor } from '../../common/utils';
+
 import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';
 import Empty from '../../components/Empty';
@@ -218,7 +218,7 @@ const Liked = (): ReactElement => {
                     ? String(people.length)
                     : String(movies.length + tv.length + people.length)
                 }
-                color={mediaType ? handleReturnColor(color) : 'gray'}
+                color={mediaType ? color : 'gray'}
                 size='lg'
                 ml={2}
               />

@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, useBoolean, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
 import { Check as CheckIcon } from 'react-feather';
 
-import { handleReturnColor } from '../../../../../../../../../common/utils';
 import Card from '../../../../../../../../../components/Clickable/Card';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 import { Theme } from '../../../../../../../../../theme/types';

@@ -133,33 +133,6 @@ export const handleCheckHasFilters = (sortBy?: SortBy, genres?: Genre[], departm
 };
 
 /**
- * This method will return the proper typed button color depending on the color passed
- *
- * @param color - Current user selected color from display modal
- * @returns - Proper typed color to be used in IconButton/Button
- */
-export const handleReturnColor = (color: unknown): ButtonProps['color'] => {
-  switch (color) {
-    case 'orange':
-      return 'orange';
-    case 'yellow':
-      return 'yellow';
-    case 'green':
-      return 'green';
-    case 'teal':
-      return 'teal';
-    case 'cyan':
-      return 'cyan';
-    case 'purple':
-      return 'purple';
-    case 'pink':
-      return 'pink';
-    default:
-      return 'blue';
-  }
-};
-
-/**
  * This method will return a url that will fetch an img from boringavatars
  * boringavatars - https://boringavatars.com/
  *

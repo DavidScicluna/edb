@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { Check as CheckIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../common/utils';
+
 import Button from '../../../../../Clickable/Button';
 import { DepartmentProps } from './types';
 
@@ -12,7 +12,7 @@ const Department = ({ id, name, value, isActive = false, onClick }: DepartmentPr
 
   return (
     <Button
-      color={isActive ? handleReturnColor(color) : 'gray'}
+      color={isActive ? color : 'gray'}
       leftIcon={isActive ? CheckIcon : undefined}
       onClick={() => onClick({ id, name, value })}
       size='sm'

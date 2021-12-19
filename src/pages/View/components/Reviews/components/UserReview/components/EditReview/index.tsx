@@ -19,7 +19,6 @@ import { Controller, useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../../../common/utils';
 import Card from '../../../../../../../../components/Card';
 import Button from '../../../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
@@ -116,7 +115,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
         title='Edit review'
         actions={
           <Button
-            color={handleReturnColor(color)}
+            color={color}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
             size='sm'>
@@ -183,7 +182,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
                   border='solid2'
                   boxShadow='none'
                   errorBorderColor='red.400'
-                  focusBorderColor={`${handleReturnColor(color)}.400`}
+                  focusBorderColor={`${color}.400`}
                   isInvalid={Boolean(error)}
                   fontSize='md'
                   name={name}
@@ -203,7 +202,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 
       <ConfirmModal
         renderButton={
-          <Button color={handleReturnColor(color)} onClick={() => handleCloseConfirm()} size='sm'>
+          <Button color={color} onClick={() => handleCloseConfirm()} size='sm'>
             Close
           </Button>
         }

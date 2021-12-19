@@ -4,7 +4,7 @@ import { useTheme, useColorMode, useMediaQuery, Tab as CUITab } from '@chakra-ui
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../common/utils';
+
 import { Theme } from '../../../../../../theme/types';
 import Badge from '../../../../../Badge';
 import useStyles from './styles';
@@ -26,16 +26,10 @@ const Tab = ({ label, badge, isDisabled, isSelected, size = 'md' }: TabsProps): 
       px={size === 'sm' ? 1.5 : 2}
       py={size === 'sm' ? 0.75 : 1}
       sx={{ ..._.merge(style.tab, style[colorMode]) }}
-      _disabled={{ ...style.disabled }}
-    >
+      _disabled={{ ...style.disabled }}>
       {label}
       {badge ? (
-        <Badge
-          color={isSelected ? handleReturnColor(color) : 'gray'}
-          label={badge}
-          size={isSm || size === 'sm' ? 'sm' : 'md'}
-          ml={1}
-        />
+        <Badge color={isSelected ? color : 'gray'} label={badge} size={isSm || size === 'sm' ? 'sm' : 'md'} ml={1} />
       ) : null}
     </CUITab>
   );

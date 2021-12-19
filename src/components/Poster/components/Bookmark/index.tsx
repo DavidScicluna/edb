@@ -5,7 +5,6 @@ import { Bookmark as BookmarkIcon } from 'react-feather';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
-import { handleReturnColor } from '../../../../common/utils';
 import Bookmark from '../../../Clickable/Bookmark';
 import IconButton from '../../../Clickable/IconButton';
 import Tooltip from '../../../Tooltip';
@@ -50,7 +49,7 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
                   } (tooltip)`
                 : `Add "${title}" ${mediaType} to a list (tooltip)`
             }
-            color={isBookmarked ? handleReturnColor(color) : 'gray'}
+            color={isBookmarked ? color : 'gray'}
             isDisabled={isLoading || !mediaItem}
             // icon={isBookmarked ? BookmarkOutlinedIcon : BookmarkBorderOutlinedIcon}
             icon={BookmarkIcon}

@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory, useLocation, Switch, Route } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
-import { handleReturnColor } from '../../../../common/utils';
+
 import Button from '../../../../components/Clickable/Button';
 import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';
@@ -39,8 +39,7 @@ const Page = ({ children }: { children: ReactElement }): ReactElement => {
       transition={{
         duration: 1,
         ease: [0.76, 0, 0.24, 1]
-      }}
-    >
+      }}>
       {children}
     </ComponentBox>
   );
@@ -200,20 +199,15 @@ const Routes = (): ReactElement => {
               subtitle='Please check the URL in the address bar and try again.'
               actions={
                 <>
-                  <Button
-                    color={handleReturnColor(color)}
-                    onClick={() => history.push({ pathname: '/' })}
-                    variant='outlined'
-                  >
+                  <Button color={color} onClick={() => history.push({ pathname: '/' })} variant='outlined'>
                     Go back home
                   </Button>
                   <Button
-                    color={handleReturnColor(color)}
+                    color={color}
                     onClick={() => {
                       window.location.reload();
                       return false;
-                    }}
-                  >
+                    }}>
                     Try again
                   </Button>
                 </>

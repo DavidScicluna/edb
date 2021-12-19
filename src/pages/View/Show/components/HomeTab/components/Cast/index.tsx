@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { Cast as CastType } from '../../../../../../../common/types/tv';
-import { handleReturnColor } from '../../../../../../../common/utils';
+
 import Button from '../../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../../components/Empty';
 import Error from '../../../../../../../components/Error';
@@ -26,20 +26,18 @@ const Cast = (props: CastProps): ReactElement => {
       title='Series Cast'
       footer={
         <Button
-          color={handleReturnColor(color)}
+          color={color}
           isFullWidth
           isDisabled={isLoading}
           onClick={() => onChangeTab()}
           size={isSm ? 'sm' : 'md'}
-          variant='text'
-        >
+          variant='text'>
           {`View all ${cast?.length || 0} cast member${cast && (cast.length === 0 || cast.length > 1 ? 's' : '')}`}
         </Button>
       }
       isLoading={isLoading}
       hasDivider
-      variant='outlined'
-    >
+      variant='outlined'>
       {!isLoading && isError ? (
         <Error
           label='Oh no! Something went wrong'

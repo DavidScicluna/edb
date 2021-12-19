@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { Check as CheckIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../common/utils';
+
 import Button from '../../../../../Clickable/Button';
 import { GenreProps } from './types';
 
@@ -12,7 +12,7 @@ const Genre = ({ id, name, isActive = false, onClick }: GenreProps): ReactElemen
 
   return (
     <Button
-      color={isActive ? handleReturnColor(color) : 'gray'}
+      color={isActive ? color : 'gray'}
       leftIcon={isActive ? CheckIcon : undefined}
       onClick={() => onClick({ id, name })}
       size='sm'

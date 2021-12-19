@@ -5,7 +5,6 @@ import { ThumbsUp as ThumbsUpIcon, ThumbsDown as ThumbsDown } from 'react-feathe
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../../../common/utils';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { setOtherReviews } from '../../../../../../../../store/slices/User';
@@ -48,7 +47,7 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
       gutter={4}>
       <IconButton
         aria-label={isActive ? `Un-${label} review` : `${label} review`}
-        color={isActive ? handleReturnColor(color) : 'gray'}
+        color={isActive ? color : 'gray'}
         // icon={
         //   state === 'isLiked'
         //     ? isActive

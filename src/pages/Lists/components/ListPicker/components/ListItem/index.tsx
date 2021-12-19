@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../common/utils';
 import Card from '../../../../../../components/Clickable/Card';
 import Link from '../../../../../../components/Clickable/Link';
 import Radio from '../../../../../../components/Clickable/Radio';
@@ -35,16 +34,15 @@ const ListItem = (props: ListItemProps): ReactElement => {
     <Link isFullWidth isDisabled={isHoveringRadio} to={{ pathname: `/lists/${id}` }}>
       <Card
         height={`${width}px`}
-        color={location.pathname.includes(id) || isSelected ? handleReturnColor(color) : 'gray'}
+        color={location.pathname.includes(id) || isSelected ? color : 'gray'}
         isFullWidth
         isClickable={!isHoveringRadio}
-        onClick={onClose ? () => onClose() : undefined}
-      >
+        onClick={onClose ? () => onClose() : undefined}>
         <VStack position='relative' width='100%' spacing={0} px={2} py={6}>
           {isSelectable && onSelected ? (
             <Box position='absolute' top={theme.space[2]} left={theme.space[2]}>
               <Radio
-                color={handleReturnColor(color)}
+                color={color}
                 isChecked={isSelected}
                 onMouseEnter={() => setIsHoveringRadio.on()}
                 onMouseLeave={() => setIsHoveringRadio.off()}
@@ -54,34 +52,20 @@ const ListItem = (props: ListItemProps): ReactElement => {
           ) : null}
           <Text
             align='center'
-            color={
-              isActive || isSelected
-                ? `${handleReturnColor(color)}.400`
-                : colorMode === 'light'
-                ? 'gray.900'
-                : 'gray.50'
-            }
+            color={isActive || isSelected ? `${color}.400` : colorMode === 'light' ? 'gray.900' : 'gray.50'}
             fontSize='md'
             fontWeight='semibold'
             textTransform='capitalize'
-            sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
-          >
+            sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}>
             {label}
           </Text>
           <Text
             align='center'
-            color={
-              isActive || isSelected
-                ? `${handleReturnColor(color)}.400`
-                : colorMode === 'light'
-                ? 'gray.400'
-                : 'gray.500'
-            }
+            color={isActive || isSelected ? `${color}.400` : colorMode === 'light' ? 'gray.400' : 'gray.500'}
             fontSize='xs'
             fontWeight='400'
             textTransform='capitalize'
-            sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
-          >
+            sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}>
             {`${[
               `${movies} movie${movies === 0 || movies > 1 ? 's' : ''}`,
               `${tv} TV show${tv === 0 || tv > 1 ? 's' : ''}`

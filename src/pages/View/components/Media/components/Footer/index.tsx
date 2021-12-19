@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useMediaQuery } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../common/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import { FooterProps } from './types';
 
@@ -29,13 +28,12 @@ const Footer = (props: FooterProps): ReactElement => {
 
   return (
     <Button
-      color={handleReturnColor(color)}
+      color={color}
       isFullWidth
       isDisabled={isDisabled}
       onClick={onClick ? () => onClick() : undefined}
       size={isSm ? 'sm' : 'md'}
-      variant='text'
-    >
+      variant='text'>
       {`View all ${title ? `"${title}"` : ''} ${handleReturnLabel()}`}
     </Button>
   );

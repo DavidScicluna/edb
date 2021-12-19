@@ -4,7 +4,6 @@ import { Box, HStack, Text } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
-import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import Empty from '../../../../components/Empty';
 import { EmptyListProps } from './types';
@@ -24,11 +23,10 @@ const EmptyList = (props: EmptyListProps): ReactElement => {
             {mediaTypeLabel ? (
               <>
                 <Button
-                  color={handleReturnColor(color)}
+                  color={color}
                   onClick={() => history.push({ pathname: `/lists/${id}` })}
                   size='sm'
-                  variant='outlined'
-                >
+                  variant='outlined'>
                   {`Back to "${label}" list`}
                 </Button>
                 <Text align='center' fontSize='xs' fontWeight='medium'>
@@ -36,12 +34,7 @@ const EmptyList = (props: EmptyListProps): ReactElement => {
                 </Text>
               </>
             ) : null}
-            <Button
-              color={handleReturnColor(color)}
-              onClick={() => history.push({ pathname: '/lists' })}
-              size='sm'
-              variant='outlined'
-            >
+            <Button color={color} onClick={() => history.push({ pathname: '/lists' })} size='sm' variant='outlined'>
               Back to lists
             </Button>
           </HStack>

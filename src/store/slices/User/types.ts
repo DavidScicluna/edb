@@ -1,3 +1,5 @@
+import { ColorMode } from '@chakra-ui/react';
+
 import { MediaType, Review } from '../../../common/types';
 import { FullMovie, PartialMovie } from '../../../common/types/movie';
 import { PartialPerson } from '../../../common/types/person';
@@ -54,8 +56,8 @@ export type UserReviews = {
 };
 
 export type Theme = {
-  color: Omit<Color, 'gray' | 'red'>;
-  background: 'light' | 'dark';
+  color: keyof Omit<Color, 'gray' | 'red'>;
+  background: ColorMode;
 };
 
 export type StateProps = {

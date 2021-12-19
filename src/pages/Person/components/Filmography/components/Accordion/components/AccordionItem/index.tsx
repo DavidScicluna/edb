@@ -16,7 +16,6 @@ import _ from 'lodash';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../../../common/utils';
 import Badge from '../../../../../../../../components/Badge';
 import { Theme } from '../../../../../../../../theme/types';
 import CastMovies from './components/CastMovies';
@@ -58,7 +57,7 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
               (credits.crew?.movie?.length || 0) +
               (credits.crew?.tv?.length || 0)
             }`}
-            color={isExpanded ? handleReturnColor(color) : 'gray'}
+            color={isExpanded ? color : 'gray'}
             size={isSm ? 'md' : 'lg'}
             ml={isSm ? 0 : 2}
           />

@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Square as SquareIcon, CheckSquare as CheckSquareIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../../common/utils';
+
 import Card from '../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../theme/types';
 import { ListProps } from './types';
@@ -16,12 +16,7 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
   const color = useSelector((state) => state.user.ui.theme.color);
 
   return (
-    <Card
-      color={isSelected ? handleReturnColor(color) : 'gray'}
-      isFullWidth
-      onClick={() => onClick(id, isSelected)}
-      px={2}
-      py={1}>
+    <Card color={isSelected ? color : 'gray'} isFullWidth onClick={() => onClick(id, isSelected)} px={2} py={1}>
       <HStack width='100%' justifyContent='space-between' spacing={2}>
         <VStack width='calc(100% - 46px)' alignItems='flex-start' spacing={0}>
           <Text align='left' fontSize='md' fontWeight='semibold' textTransform='capitalize'>

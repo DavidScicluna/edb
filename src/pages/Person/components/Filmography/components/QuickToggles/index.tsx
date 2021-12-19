@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { Link } from 'react-scroll';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnDummyWidths, handleReturnColor } from '../../../../../../common/utils';
+import { handleReturnDummyWidths } from '../../../../../../common/utils';
 import Button from '../../../../../../components/Clickable/Button';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
@@ -27,8 +27,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
         fontSize='sm'
         whiteSpace='nowrap'
-        py={0.75}
-      >
+        py={0.75}>
         Jump to:
       </Text>
 
@@ -41,32 +40,27 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
               fontSize='md'
-              mx={isLoading ? 0.75 : 0}
-            >
+              mx={isLoading ? 0.75 : 0}>
               •
             </Text>
-          }
-        >
+          }>
           {[...(!isLoading ? departments : _.range(0, 4))].map((department, index) => (
             <SkeletonText
               key={index}
               width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
               offsetY={6}
-              isLoaded={!isLoading}
-            >
+              isLoaded={!isLoading}>
               <Link
                 to={`${typeof department !== 'number' ? department.toLowerCase() : ''}-accordion`}
                 spy
                 smooth
-                offset={-81}
-              >
+                offset={-81}>
                 <Button
-                  color={handleReturnColor(color)}
+                  color={color}
                   onClick={typeof department !== 'number' ? () => onToggleAccordion(department) : undefined}
                   isDisabled={isLoading}
                   size='sm'
-                  variant='text'
-                >
+                  variant='text'>
                   {typeof department !== 'number' ? department : 'Lorem'}
                 </Button>
               </Link>

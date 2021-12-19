@@ -5,7 +5,7 @@ import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../common/utils';
+
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
@@ -54,11 +54,10 @@ const Display = (): ReactElement => {
       actions={
         <Button
           colorMode={background}
-          color={handleReturnColor(color)}
+          color={color}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
-          size='sm'
-        >
+          size='sm'>
           Save
         </Button>
       }
@@ -66,8 +65,7 @@ const Display = (): ReactElement => {
       isOpen={isDisplayModalOpen}
       onClose={handleClose}
       isCentered
-      size='2xl'
-    >
+      size='2xl'>
       <VStack spacing={2} p={2}>
         <Color form={form} />
         <Background form={form} />

@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useColorMode, useMediaQuery, VStack, Center, Text, Fade, Collapse } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
-import { handleReturnColor, handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
+import { handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
 import Badge from '../../../../components/Badge';
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
@@ -25,8 +25,7 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'
-        >
+          textTransform='capitalize'>
           {title}
         </Text>
         <Badge label={String(total)} color='gray' size='lg' ml={2} />
@@ -44,7 +43,7 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
             footer={
               movies.length > 20 ? (
                 <Link to={{ pathname: `/lists/${list.id}/movie` }} isFullWidth>
-                  <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                  <Button color={color} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                     {`View all ${movies.length || 0} movie${
                       movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
                     }`}
@@ -52,8 +51,7 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
                 </Link>
               ) : undefined
             }
-            isLoading={false}
-          >
+            isLoading={false}>
             <>
               {movies.map((movie, index) =>
                 index < 20 ? (
@@ -96,14 +94,13 @@ const All = ({ list, movies = [], tv = [] }: AllProps): ReactElement => {
             footer={
               tv.length > 20 ? (
                 <Link to={{ pathname: `/lists/${list.id}/tv` }} isFullWidth>
-                  <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                  <Button color={color} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                     {`View all ${tv?.length || 0} TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
                   </Button>
                 </Link>
               ) : undefined
             }
-            isLoading={false}
-          >
+            isLoading={false}>
             <>
               {tv.map((show, index) =>
                 index < 20 ? (

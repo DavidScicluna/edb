@@ -4,7 +4,7 @@ import { useColorMode, useMediaQuery, VStack, Center, Text, Collapse } from '@ch
 
 import departments from '../../../../common/data/departments';
 import { useSelector } from '../../../../common/hooks';
-import { handleReturnColor, handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
+import { handleReturnDate, handleReturnGenresByID } from '../../../../common/utils';
 import Badge from '../../../../components/Badge';
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
@@ -26,8 +26,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'
-        >
+          textTransform='capitalize'>
           {title}
           <Badge label={String(total)} color='gray' size='lg' ml={2} />
         </Text>
@@ -44,7 +43,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             movies.length > 20 ? (
               <Link to={{ pathname: '/liked/movie' }} isFullWidth>
-                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={color} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${movies.length || 0} liked movie${
                     movies && (movies.length === 0 || movies.length > 1 ? 's' : '')
                   }`}
@@ -52,8 +51,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
               </Link>
             ) : undefined
           }
-          isLoading={false}
-        >
+          isLoading={false}>
           <>
             {movies.map((movie, index) =>
               index < 20 ? (
@@ -96,14 +94,13 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             tv.length > 20 ? (
               <Link to={{ pathname: '/liked/tv' }} isFullWidth>
-                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={color} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${tv?.length || 0} liked TV show${tv && (tv.length === 0 || tv.length > 1 ? 's' : '')}`}
                 </Button>
               </Link>
             ) : undefined
           }
-          isLoading={false}
-        >
+          isLoading={false}>
           <>
             {tv.map((show, index) =>
               index < 20 ? (
@@ -146,7 +143,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           footer={
             people.length > 20 ? (
               <Link to={{ pathname: '/liked/person' }} isFullWidth>
-                <Button color={handleReturnColor(color)} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
+                <Button color={color} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
                   {`View all ${people.length || 0} liked ${
                     (people && people.length === 0) || people.length > 1 ? 'people' : 'person'
                   }`}
@@ -154,8 +151,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
               </Link>
             ) : undefined
           }
-          isLoading={false}
-        >
+          isLoading={false}>
           <>
             {people.map((person, index) =>
               index < 20 ? (

@@ -5,7 +5,6 @@ import { Heart as HeartIcon } from 'react-feather';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../../../../../../common/utils';
 import Bookmark from '../../../../../../../../../../../components/Clickable/Bookmark';
 import Button from '../../../../../../../../../../../components/Clickable/Button';
 import Like from '../../../../../../../../../../../components/Clickable/Like';
@@ -31,7 +30,7 @@ const Actions = (props: ActionsProps): ReactElement => {
       <Bookmark
         renderButton={({ lists, isBookmarked, onClick }) => (
           <Button
-            color={isBookmarked ? handleReturnColor(color) : 'gray'}
+            color={isBookmarked ? color : 'gray'}
             isFullWidth
             isDisabled={isLoading || !mediaItem}
             onClick={() => onClick()}
