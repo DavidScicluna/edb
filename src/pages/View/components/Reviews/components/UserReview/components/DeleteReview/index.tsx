@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
 import { Trash2 as TrashIcon } from 'react-feather';

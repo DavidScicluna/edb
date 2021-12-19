@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, HStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -33,8 +33,7 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
         (reviews?.results.length || 0) > 0 ? (
           <Badge label={String(reviews?.results.length)} size={isSm ? 'sm' : 'md'} />
         ) : undefined
-      }
-    >
+      }>
       {!isLoading && isError ? (
         <Error
           label='Oh no! Something went wrong'

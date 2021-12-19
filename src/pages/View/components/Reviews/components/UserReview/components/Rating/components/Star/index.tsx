@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, Box, Icon } from '@chakra-ui/react';
 import { Star as StarIcon } from 'react-feather';

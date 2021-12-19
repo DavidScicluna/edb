@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import { useColorMode, useDisclosure, VStack, Text } from '@chakra-ui/react';
 import axios from 'axios';
@@ -85,16 +85,14 @@ const EpisodeModal = (props: EpisodeModalProps): ReactElement => {
               align='left'
               fontSize='xl'
               fontWeight='semibold'
-              color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-            >
+              color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
               {name}
             </Text>
             <Text
               align='left'
               fontSize='sm'
               fontWeight='normal'
-              color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-            >
+              color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
               {handleReturnDate(date, 'full')}
             </Text>
           </VStack>
@@ -102,8 +100,7 @@ const EpisodeModal = (props: EpisodeModalProps): ReactElement => {
         isOpen={isOpen}
         onClose={onClose}
         isCentered
-        size='6xl'
-      >
+        size='6xl'>
         <VStack width='100%' spacing={4} p={2}>
           <Overview overview={overview} isLoading={!isOpen} />
 

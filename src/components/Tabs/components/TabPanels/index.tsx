@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { TabPanels as CUITabPanels, TabPanel, Fade } from '@chakra-ui/react';
 

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery, HStack } from '@chakra-ui/react';
 
@@ -23,8 +23,7 @@ const UserReview = ({ mediaItem, mediaType, isLoading = true }: UserReviewProps)
         title='My Review'
         actions={
           mediaItemUserReviews.length > 0 ? <CreateReview mediaItem={mediaItem} mediaType={mediaType} /> : undefined
-        }
-      >
+        }>
         {mediaItemUserReviews.length > 0 ? (
           <>
             {mediaItemUserReviews.map((review) => (

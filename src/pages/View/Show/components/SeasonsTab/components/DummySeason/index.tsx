@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 import { ChevronRight as ChevronRightIcon } from 'react-feather';

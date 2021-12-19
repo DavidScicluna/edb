@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
