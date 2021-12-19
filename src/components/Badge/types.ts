@@ -1,9 +1,18 @@
-import { BadgeProps as CUIBadgeProps } from '@chakra-ui/react';
+import { ColorMode, BadgeProps as CUIBadgeProps } from '@chakra-ui/react';
+import { Icon } from 'react-feather';
 
-import { Color } from '../../theme/types';
+import { Color, FontSizes } from '../../theme/types';
+
+export type Variant = 'contained' | 'outlined' | 'text';
+
+export type Size = keyof FontSizes;
 
 export type BadgeProps = {
-  label: string;
-  color?: Color;
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-} & Omit<CUIBadgeProps, 'color' | 'colorScheme' | 'size'>;
+  children: string;
+  color?: keyof Color;
+  colorMode?: ColorMode;
+  leftIcon?: Icon;
+  rightIcon?: Icon;
+  size?: Size;
+  variant?: Variant;
+} & Omit<CUIBadgeProps, 'colorScheme' | 'size' | 'variant'>;

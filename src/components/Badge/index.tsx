@@ -1,48 +1,68 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Badge as CUIBadge } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Badge as CUIBadge, HStack } from '@chakra-ui/react';
+import _ from 'lodash';
 
-import { Theme } from '../../theme/types';
+import { Theme, Space } from '../../theme/types';
+import Icon from './components/Icon';
+import useStyles from './styles';
 import { BadgeProps } from './types';
 
 const Badge = (props: BadgeProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
+  const { colorMode: colorModeHook } = useColorMode();
 
-  const { label, color = 'gray', size = 'sm', ...rest } = props;
+  const {
+    children,
+    color = 'gray',
+    colorMode: colorModeProp,
+    leftIcon,
+    rightIcon,
+    size = 'md',
+    variant = 'contained'
+  } = props;
 
-  const handleReturnColor = (): string => {
-    switch (color) {
-      case 'gray':
-        return `gray.${colorMode === 'light' ? '900' : '50'}`;
+  const colorMode: ColorMode = colorModeProp || colorModeHook;
+
+  const style = useStyles(theme, { color, variant });
+
+  /**
+   * This method will return the appropriate spacing depending on the size passed
+   *
+   * @returns - number: Spacing value
+   */
+  const handleReturnSpacing = (): keyof Space => {
+    switch (size) {
+      case 'xs':
+        return 0.5;
+      case 'sm':
+        return 0.5;
+      case 'lg':
+      case 'xl':
+      case '2xl':
+      case '3xl':
+      case '4xl':
+      case '5xl':
+        return 1;
+      case '6xl':
+      case '7xl':
+        return 2;
+      case '8xl':
+        return 3;
+      case '9xl':
+        return 3;
       default:
-        return `${color}.600`;
-    }
-  };
-
-  const handleReturnBackground = (): string => {
-    switch (color) {
-      case 'gray':
-        return `gray.${colorMode === 'light' ? '200' : '700'}`;
-      default:
-        return `${color}.50`;
+        return 1;
     }
   };
 
   return (
-    <CUIBadge
-      {...rest}
-      color={handleReturnColor()}
-      background={handleReturnBackground()}
-      variant='subtle'
-      fontSize={size === 'xs' ? '10px' : size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'lg'}
-      fontWeight='bold'
-      lineHeight='none'
-      px={size === 'xs' || size === 'sm' ? 0.5 : size === 'md' ? 0.75 : 1}
-      py={size === 'xs' || size === 'sm' ? 0.25 : size === 'md' ? 0.5 : 0.5}
-      sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
-    >
-      {label}
+    <CUIBadge variant='unstyled' sx={{ ..._.merge(style.badge.default, style.badge[size], style[colorMode][variant]) }}>
+      <HStack width='100%' spacing={handleReturnSpacing()}>
+        {leftIcon ? <Icon icon={leftIcon} size={size} /> : null}
+        <span>{children}</span>
+        {rightIcon ? <Icon icon={rightIcon} size={size} /> : null}
+      </HStack>
     </CUIBadge>
   );
 };
