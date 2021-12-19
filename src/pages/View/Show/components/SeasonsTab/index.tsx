@@ -27,7 +27,7 @@ const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
     if (seasons?.length === openedSeasons.length) {
       setOpenedSeasons([]);
     } else {
-      setOpenedSeasons([...(seasons || [])?.map((_season, index) => index)]);
+      setOpenedSeasons([...(seasons || []).map((_season, index) => index)]);
     }
   };
 
