@@ -105,7 +105,8 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
       isFullWidth
       hasDivider={hasDivider}
       variant={variant}
-      px={variant === 'outlined' ? 2 : 0}>
+      px={variant === 'outlined' ? 2 : 0}
+    >
       {{
         header: {
           title,
@@ -135,7 +136,8 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
             gridRef={gridRef}
             hasDivider={hasDivider}
             handleScrollChange={() => handleGridRef(gridRef.current)}
-            variant={variant}>
+            variant={variant}
+          >
             {children}
           </Grid>
         ),

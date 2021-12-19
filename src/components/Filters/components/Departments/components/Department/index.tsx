@@ -16,7 +16,8 @@ const Department = ({ id, name, value, isActive = false, onClick }: DepartmentPr
       leftIcon={isActive ? CheckOutlinedIcon : undefined}
       onClick={() => onClick({ id, name, value })}
       size='sm'
-      variant='outlined'>
+      variant='outlined'
+    >
       {name}
     </Button>
   );

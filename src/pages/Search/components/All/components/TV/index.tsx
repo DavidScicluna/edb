@@ -27,7 +27,8 @@ const TV = (props: TVProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'>
+          textTransform='capitalize'
+        >
           {`Found ${total_results || 0} TV show${
             total_results ? (total_results === 0 || total_results > 1 ? 's' : '') : ''
           } with "${query}"`}
@@ -38,14 +39,16 @@ const TV = (props: TVProps): ReactElement => {
           <Link
             to={{ pathname: '/search', search: queryString.stringify({ query, page: 1, mediaType: 'tv' }) }}
             isFullWidth
-            isDisabled={isFetching || isLoading}>
+            isDisabled={isFetching || isLoading}
+          >
             <Button
               color={handleReturnColor(color)}
               isFullWidth
               isDisabled={isFetching || isLoading}
               onClick={() => refetch()}
               size={isSm ? 'sm' : 'md'}
-              variant='text'>
+              variant='text'
+            >
               {`View all ${total_results || 0} TV show${
                 total_results ? (total_results === 0 || total_results > 1 ? 's' : '') : ''
               } with "${query}"`}
@@ -53,7 +56,8 @@ const TV = (props: TVProps): ReactElement => {
           </Link>
         ) : undefined
       }
-      isLoading={isFetching || isLoading}>
+      isLoading={isFetching || isLoading}
+    >
       <HorizontalTV isError={isError} isSuccess={isSuccess} isLoading={isFetching || isLoading} tv={results || []} />
     </HorizontalGrid>
   );

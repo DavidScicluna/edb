@@ -21,7 +21,8 @@ const Structure = ({ children }: StructureProps): ReactElement => {
               <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
             }
             spacing={0}
-            px={2}>
+            px={2}
+          >
             <HStack
               width='100%'
               justifyContent='space-between'
@@ -29,7 +30,8 @@ const Structure = ({ children }: StructureProps): ReactElement => {
                 <Box width='2px' height='38px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
               }
               spacing={2}
-              py={2}>
+              py={2}
+            >
               {children.tabList}
 
               {!isSm ? children.socials : null}

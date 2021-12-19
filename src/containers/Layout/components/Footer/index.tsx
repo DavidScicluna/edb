@@ -49,7 +49,8 @@ const Footer = (): ReactElement => {
               transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
             }}
             _focus={{ boxShadow: 'none' }}
-            _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
+            _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}
+          >
             davidscicluna.com
           </Link>
         </Text>

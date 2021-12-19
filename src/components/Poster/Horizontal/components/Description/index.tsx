@@ -32,7 +32,8 @@ const Description = (props: DescriptionProps): ReactElement => {
     <SkeletonText
       width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
       offsetY={8.5}
-      isLoaded={!isLoading}>
+      isLoaded={!isLoading}
+    >
       <Text
         ref={handleIsTruncated}
         cursor={isTruncated ? 'pointer' : 'text'}
@@ -50,7 +51,8 @@ const Description = (props: DescriptionProps): ReactElement => {
               mediaItem
             })
           )
-        }>
+        }
+      >
         {!isLoading
           ? mediaItem.description
           : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}

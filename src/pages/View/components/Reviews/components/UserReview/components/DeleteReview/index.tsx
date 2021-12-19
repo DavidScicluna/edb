@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react';
 
-import { useDisclosure, useBoolean } from '@chakra-ui/react';
 import { DeleteOutlineOutlined as DeleteOutlineOutlinedIcon } from '@material-ui/icons';
+
+import { useDisclosure, useBoolean } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../../../common/hooks';

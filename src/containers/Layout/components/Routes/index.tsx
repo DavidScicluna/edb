@@ -39,7 +39,8 @@ const Page = ({ children }: { children: ReactElement }): ReactElement => {
       transition={{
         duration: 1,
         ease: [0.76, 0, 0.24, 1]
-      }}>
+      }}
+    >
       {children}
     </ComponentBox>
   );
@@ -202,7 +203,8 @@ const Routes = (): ReactElement => {
                   <Button
                     color={handleReturnColor(color)}
                     onClick={() => history.push({ pathname: '/' })}
-                    variant='outlined'>
+                    variant='outlined'
+                  >
                     Go back home
                   </Button>
                   <Button
@@ -210,7 +212,8 @@ const Routes = (): ReactElement => {
                     onClick={() => {
                       window.location.reload();
                       return false;
-                    }}>
+                    }}
+                  >
                     Try again
                   </Button>
                 </>

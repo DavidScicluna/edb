@@ -56,7 +56,8 @@ const Body = (props: BodyProps): ReactElement => {
         <Collapse
           in={isExpanded}
           startingHeight={(height || 176) >= 176 ? 176 : elementHeight || 176}
-          style={{ width: 'inherit', maxWidth: 'inherit' }}>
+          style={{ width: 'inherit', maxWidth: 'inherit' }}
+        >
           <VStack ref={contentRef} width='100%' maxWidth='100%' alignItems='flex-start' spacing={2}>
             {handleFormatIntoParagraphs(content)
               .filter((paragraph) => paragraph)
@@ -66,7 +67,8 @@ const Body = (props: BodyProps): ReactElement => {
                   align='left'
                   color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                   fontSize='md'
-                  fontWeight='medium'>
+                  fontWeight='medium'
+                >
                   {paragraph}
                 </Text>
               ))}

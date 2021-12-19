@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, HStack, Icon } from '@chakra-ui/react';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
+
+import { useTheme, useColorMode, HStack, Icon } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { handleReturnDummyWidths } from '../../../../../../../../common/utils';

@@ -21,14 +21,16 @@ const Background = ({ children, alt }: BackgroundProps): ReactElement => {
         backgroundPosition: 'center',
         backgroundRepeat: 'repeat',
         backgroundImage: `url(${handleReturnBoringSrc('pixel', colorMode === 'light' ? 500 : 400, alt)})`
-      }}>
+      }}
+    >
       <Box position='absolute' top={theme.space[2]} right={theme.space[2]}>
         {children.socials}
       </Box>
       <Box
         position='absolute'
         bottom={['-37.5px', '-37.5px', '-50px', '-62.5px', '-75px', '-87.5px']}
-        left={['37.5px', '37.5px', '50px', '62.5px', '75px', '87.5px']}>
+        left={['37.5px', '37.5px', '50px', '62.5px', '75px', '87.5px']}
+      >
         {children.poster}
       </Box>
     </Box>

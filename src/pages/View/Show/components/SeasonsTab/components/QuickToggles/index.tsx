@@ -27,14 +27,16 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
         fontSize='sm'
         whiteSpace='nowrap'
-        py={0.75}>
+        py={0.75}
+      >
         Jump to:
       </Text>
 
       <HorizontalScroll
         width={`calc(100% - ${seasons?.length === openedSeasons ? 140.1 : 148.19}px)`}
         spacing='0'
-        isLoading={isLoading}>
+        isLoading={isLoading}
+      >
         <HStack
           width='100%'
           maxWidth='100%'
@@ -43,23 +45,27 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
               fontSize='md'
-              mx={isLoading ? 0.75 : 0}>
+              mx={isLoading ? 0.75 : 0}
+            >
               •
             </Text>
-          }>
+          }
+        >
           {[...(!isLoading && seasons ? seasons : _.range(0, 4))].map((season, index) => (
             <SkeletonText
               key={index}
               width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
               offsetY={6}
-              isLoaded={!isLoading}>
+              isLoaded={!isLoading}
+            >
               <Link
                 to={!isError ? `${typeof season !== 'number' ? season.toLowerCase() : ''}` : ''}
                 spy
                 smooth
                 isDynamic={false}
                 offset={-82}
-                delay={1000}>
+                delay={1000}
+              >
                 <Button
                   color={handleReturnColor(color)}
                   onClick={
@@ -69,7 +75,8 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
                   }
                   isDisabled={isError || isLoading}
                   size='sm'
-                  variant='text'>
+                  variant='text'
+                >
                   {typeof season !== 'number' ? season : 'Lorem'}
                 </Button>
               </Link>

@@ -31,7 +31,8 @@ const Overview = (props: OverviewProps): ReactElement => {
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
         isTruncated
         overflow='hidden'
-        whiteSpace='nowrap'>
+        whiteSpace='nowrap'
+      >
         {!isLoading ? overview : 'Lorem ipsum'}
       </Text>
     </SkeletonText>

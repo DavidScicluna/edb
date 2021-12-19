@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Text, HStack, ScaleFade, Icon, Button } from '@chakra-ui/react';
 import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
+
+import { useTheme, useColorMode, Text, HStack, ScaleFade, Icon, Button } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../common/hooks';
@@ -32,7 +33,8 @@ const SortByItem = ({
       }
       px={2}
       py={1}
-      sx={{ ..._.merge(style.common, style[colorMode]) }}>
+      sx={{ ..._.merge(style.common, style[colorMode]) }}
+    >
       <HStack width='100%' justifyContent='space-between' spacing={2}>
         <Text align='left' fontSize='md' fontWeight='medium'>
           {label}

@@ -1,8 +1,9 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { useTheme, Center, SlideFade } from '@chakra-ui/react';
 import { Swiper as SwiperType } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import { useEventListener } from 'usehooks-ts';
 
@@ -83,14 +84,16 @@ const Viewer = (props: ViewerProps): ReactElement => {
         onUpdate={(swiper) => onSwiper(swiper)}
         onSwiper={(swiper) => onSwiper(swiper)}
         onSlideChange={(swiper) => onSlideChange(swiper)}
-        onTouchEnd={(swiper: SwiperType) => handleSwipe(swiper)}>
+        onTouchEnd={(swiper: SwiperType) => handleSwipe(swiper)}
+      >
         {data?.map((slide, index) => (
           <SwiperSlide key={index}>
             <SlideFade
               in={activeIndex - 1 === index}
               offsetY='10vh'
               delay={handleParseDurationForFramer(handleReturnNumberFromString(theme.transition.duration.slow, 'ms'))}
-              unmountOnExit>
+              unmountOnExit
+            >
               <Center width='100vw' height='100vh' position='relative'>
                 {renderSlide(slide)}
               </Center>

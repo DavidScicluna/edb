@@ -1,12 +1,13 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 import {
   InfoTwoTone as InfoTwoToneIcon,
   EditOutlined as EditOutlinedIcon,
   DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
   CloseOutlined as CloseOutlinedIcon
 } from '@material-ui/icons';
+
+import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
 import { handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
@@ -30,14 +31,16 @@ const Toast = (props: ToastProps): ReactElement => {
       spacing={2}
       px={2}
       py={1.5}
-      mb={1.5}>
+      mb={1.5}
+    >
       <HStack spacing={0.25}>
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
           fontSize={isSm ? 'sm' : 'md'}
           fontWeight='normal'
-          whiteSpace='nowrap'>
+          whiteSpace='nowrap'
+        >
           {`"${selected.label}" list`}
         </Text>
       </HStack>
@@ -57,7 +60,8 @@ const Toast = (props: ToastProps): ReactElement => {
             color={handleReturnColor(color)}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             leftIcon={InfoTwoToneIcon}
-            onClick={() => onInfo()}>
+            onClick={() => onInfo()}
+          >
             Info
           </Button>
         )}
@@ -74,7 +78,8 @@ const Toast = (props: ToastProps): ReactElement => {
           <Button
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             leftIcon={EditOutlinedIcon}
-            onClick={() => onEdit()}>
+            onClick={() => onEdit()}
+          >
             Edit
           </Button>
         )}
@@ -93,7 +98,8 @@ const Toast = (props: ToastProps): ReactElement => {
             color='red'
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             leftIcon={DeleteOutlineOutlinedIcon}
-            onClick={() => onDelete()}>
+            onClick={() => onDelete()}
+          >
             Delete
           </Button>
         )}

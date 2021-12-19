@@ -51,7 +51,8 @@ const Display = ({ query = '', mediaType, hasUnsubmitted, totalResults }: Displa
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-          fontSize='sm'>{`Your search results for "${query}"`}</Text>
+          fontSize='sm'
+        >{`Your search results for "${query}"`}</Text>
         <Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>{`${
           mediaType ? handleReturnMediaTypeResults() : handleMultiply()
         } ${handleReturnMediaTypeLabel()} found`}</Text>

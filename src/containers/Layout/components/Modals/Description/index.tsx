@@ -30,14 +30,16 @@ const DescriptionModal = (): ReactElement => {
       isOpen={descriptionModal.open}
       onClose={() => dispatch(toggleDescription({ ...defaultDescriptionModal }))}
       isCentered
-      size='2xl'>
+      size='2xl'
+    >
       <Text
         align='left'
         color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
         fontSize='lg'
         fontWeight='normal'
         px={3}
-        py={2}>
+        py={2}
+      >
         {descriptionModal.mediaItem ? descriptionModal.mediaItem.description : 'N/A'}
       </Text>
     </Modal>

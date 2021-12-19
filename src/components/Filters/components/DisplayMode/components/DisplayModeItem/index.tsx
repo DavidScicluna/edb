@@ -20,7 +20,8 @@ const DisplayModeItem = (props: DisplayModeItemProps): ReactElement => {
       color={isActive ? handleReturnColor(color) : 'gray'}
       isFullWidth
       onClick={onClick ? () => onClick(value) : undefined}
-      p={2}>
+      p={2}
+    >
       <HStack width='100%' justifyContent='center' spacing={1}>
         <Icon as={icon} sx={{ fontSize: `${theme.fontSizes['2xl']} !important` }} />
         <Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase'>

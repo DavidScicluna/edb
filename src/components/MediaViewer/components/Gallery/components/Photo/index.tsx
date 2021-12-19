@@ -12,7 +12,8 @@ const Photo = (props: PhotoProps): ReactElement => {
       borderRadius='lg'
       ratio={1 / 1}
       isActive={isActive}
-      onClick={() => onClickImage(photo.file_path, type)}>
+      onClick={() => onClickImage(photo.file_path, type)}
+    >
       <Image
         alt={`${name ? `"${name}"` : ''} image`}
         maxWidth='none'

@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { useBoolean } from '@chakra-ui/react';
 import {
   BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
   BookmarkOutlined as BookmarkOutlinedIcon
 } from '@material-ui/icons';
+
+import { useBoolean } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types/types';
@@ -42,7 +43,8 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
           placement='top'
           isOpen={isHovering}
           isDisabled={isLoading || !mediaItem}
-          gutter={8}>
+          gutter={8}
+        >
           <IconButton
             aria-label={
               isBookmarked

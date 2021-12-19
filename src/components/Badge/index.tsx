@@ -40,7 +40,8 @@ const Badge = (props: BadgeProps): ReactElement => {
       lineHeight='none'
       px={size === 'xs' || size === 'sm' ? 0.5 : size === 'md' ? 0.75 : 1}
       py={size === 'xs' || size === 'sm' ? 0.25 : size === 'md' ? 0.5 : 0.5}
-      sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}>
+      sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
+    >
       {label}
     </CUIBadge>
   );

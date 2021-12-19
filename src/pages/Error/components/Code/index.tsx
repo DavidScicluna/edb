@@ -16,7 +16,8 @@ const Code = ({ code }: CodeProps): ReactElement => {
       color={`${color}.${colorMode === 'light' ? 400 : 500}`}
       fontSize='6xl'
       fontWeight='bold'
-      lineHeight='normal'>
+      lineHeight='normal'
+    >
       {code}
     </Text>
   );

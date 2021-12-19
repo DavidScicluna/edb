@@ -26,7 +26,8 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'>
+          textTransform='capitalize'
+        >
           {title}
           <Badge label={String(total)} color='gray' size='lg' ml={2} />
         </Text>
@@ -51,7 +52,8 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
               </Link>
             ) : undefined
           }
-          isLoading={false}>
+          isLoading={false}
+        >
           <>
             {movies.map((movie, index) =>
               index < 20 ? (
@@ -100,7 +102,8 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
               </Link>
             ) : undefined
           }
-          isLoading={false}>
+          isLoading={false}
+        >
           <>
             {tv.map((show, index) =>
               index < 20 ? (
@@ -151,7 +154,8 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
               </Link>
             ) : undefined
           }
-          isLoading={false}>
+          isLoading={false}
+        >
           <>
             {people.map((person, index) =>
               index < 20 ? (

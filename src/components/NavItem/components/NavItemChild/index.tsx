@@ -56,7 +56,8 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
         isOpen={isHoveringChild}
         isDisabled={sidebarMode === 'expanded'}
         placement='right'
-        gutter={16}>
+        gutter={16}
+      >
         <HStack width='100%' spacing='12px'>
           {sidebarMode === 'expanded' ? (
             <Box width='2px' height='42px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
@@ -70,13 +71,15 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
             onMouseEnter={() => setIsHoveringChild.on()}
             onMouseLeave={() => setIsHoveringChild.off()}
             spacing={0}
-            sx={{ ..._.merge(style.common.child, style[colorMode].child) }}>
+            sx={{ ..._.merge(style.common.child, style[colorMode].child) }}
+          >
             <Text
               align='left'
               fontSize={sidebarMode === 'expanded' ? 'md' : 'sm'}
               fontWeight='semibold'
               whiteSpace='nowrap'
-              textTransform={sidebarMode === 'expanded' ? 'capitalize' : 'uppercase'}>
+              textTransform={sidebarMode === 'expanded' ? 'capitalize' : 'uppercase'}
+            >
               {sidebarMode === 'expanded' ? label : handleGetInitials()}
             </Text>
           </HStack>

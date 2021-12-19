@@ -107,7 +107,8 @@ const Empty = (props: EmptyProps): ReactElement => {
                       align='center'
                       fontSize='md'
                       fontWeight='semibold'
-                      color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
+                      color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                    >
                       {label}
                     </Text>
                   ) : null}

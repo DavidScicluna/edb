@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useBoolean, VStack, Center, ListItem, Text, ScaleFade } from '@chakra-ui/react';
 import { ClearOutlined as ClearOutlinedIcon } from '@material-ui/icons';
+
+import { useTheme, useColorMode, useBoolean, VStack, Center, ListItem, Text, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 
@@ -45,14 +46,16 @@ const Row = (props: RowProps): ReactElement => {
       onClick={!isHoveringDelete && state !== 'isLoading' && onSearch ? () => onSearch(title) : undefined}
       onMouseEnter={state !== 'isLoading' ? () => setIsHoveringRow.on() : undefined}
       onMouseLeave={state !== 'isLoading' ? () => setIsHoveringRow.off() : undefined}
-      sx={{ ..._.merge(style.common, style[colorMode]) }}>
+      sx={{ ..._.merge(style.common, style[colorMode]) }}
+    >
       <SkeletonText
         width={
           state === 'isLoading' ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : 'auto'
         }
         height={state === 'isLoading' ? '22px' : 'auto'}
         offsetY='11px'
-        isLoaded={state === 'isLoaded'}>
+        isLoaded={state === 'isLoaded'}
+      >
         <VStack alignItems='flex-start' spacing={0}>
           <Center>
             <Text align='left' fontSize='md'>

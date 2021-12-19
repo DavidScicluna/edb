@@ -14,7 +14,8 @@ const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
       <Fade
         in={(movies.data?.pages[movies.data?.pages.length - 1]?.results.length || 0) > 0}
         unmountOnExit
-        style={{ width: '100%' }}>
+        style={{ width: '100%' }}
+      >
         <Movies
           query={query}
           results={movies.data?.pages[movies.data?.pages.length - 1].results || []}
@@ -31,7 +32,8 @@ const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
       <Fade
         in={(tv.data?.pages[tv.data?.pages.length - 1]?.results.length || 0) > 0}
         unmountOnExit
-        style={{ width: '100%' }}>
+        style={{ width: '100%' }}
+      >
         <TV
           query={query}
           results={tv.data?.pages[tv.data?.pages.length - 1].results || []}
@@ -48,7 +50,8 @@ const All = ({ query, movies, tv, people }: AllProps): ReactElement => {
       <Fade
         in={(people.data?.pages[people.data?.pages.length - 1]?.results.length || 0) > 0}
         unmountOnExit
-        style={{ width: '100%' }}>
+        style={{ width: '100%' }}
+      >
         <People
           query={query}
           results={people.data?.pages[people.data?.pages.length - 1].results || []}

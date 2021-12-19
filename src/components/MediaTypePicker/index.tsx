@@ -6,7 +6,7 @@ import Modal from '../Modal';
 import MediaTypes from './components/MediaTypes';
 import { MediaTypePickerProps } from './types';
 
-const MediaTypePicker = <MT extends unknown>(props: MediaTypePickerProps<MT>): ReactElement => {
+const MediaTypePicker = <MT,>(props: MediaTypePickerProps<MT>): ReactElement => {
   const { isOpen, onClose, ...rest } = props;
 
   return (

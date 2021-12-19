@@ -26,7 +26,8 @@ const Tooltip = (props: TooltipProps): ReactElement => {
         '& .chakra-tooltip__arrow': {
           backgroundColor: `${mode === 'light' ? theme.colors.gray[700] : theme.colors.gray[200]} !important`
         }
-      }}>
+      }}
+    >
       {shouldWrapChildren ? <span style={{ width: '100%' }}>{children}</span> : children}
     </CUITooltip>
   ) : (

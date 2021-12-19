@@ -19,7 +19,8 @@ const Poster = (props: PosterProps): ReactElement => {
       borderRadius='lg'
       ratio={isSm ? 1 / 1 : 2 / 3}
       isDisabled={isLoading || isImageError}
-      onClick={path ? () => onClickPoster(path, 'photo') : undefined}>
+      onClick={path ? () => onClickPoster(path, 'photo') : undefined}
+    >
       <Skeleton isLoaded={!isLoading} borderRadius='lg'>
         <Image
           alt={`${name ? `"${name}"` : ''} ${

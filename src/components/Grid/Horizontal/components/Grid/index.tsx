@@ -24,7 +24,8 @@ const Grid = (props: GridProps): ReactElement => {
         }
       }}
       onLoad={(event) => handleScrollChange(event)}
-      onScroll={(event) => handleScrollChange(event)}>
+      onScroll={(event) => handleScrollChange(event)}
+    >
       <Box
         width='auto'
         minWidth='100%'
@@ -34,7 +35,8 @@ const Grid = (props: GridProps): ReactElement => {
         borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
         borderRadius='xl'
         px={variant === 'transparent' ? 2 : 0}
-        py={variant === 'transparent' ? 2 : 0}>
+        py={variant === 'transparent' ? 2 : 0}
+      >
         <HStack spacing={2}>{children}</HStack>
       </Box>
     </Box>

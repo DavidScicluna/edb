@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react';
 
-import { useBoolean } from '@chakra-ui/react';
 import {
   ThumbDownOutlined as ThumbDownOutlinedIcon,
   ThumbUpOutlined as ThumbUpOutlinedIcon,
   ThumbDown as ThumbDownIcon,
   ThumbUp as ThumbUpIcon
 } from '@material-ui/icons';
+
+import { useBoolean } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../../../common/hooks';
@@ -50,7 +51,8 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
       label={isActive ? `Un-${label} review` : `${label} review`}
       isOpen={isHovering}
       placement='top'
-      gutter={4}>
+      gutter={4}
+    >
       <IconButton
         aria-label={isActive ? `Un-${label} review` : `${label} review`}
         color={isActive ? handleReturnColor(color) : 'gray'}

@@ -20,7 +20,8 @@ const Link = (props: LinkProps): ReactElement => {
       as={RRDLink}
       to={{ ...to }}
       onClick={isDisabled ? (event) => event.preventDefault() : undefined}
-      sx={{ ...style }}>
+      sx={{ ...style }}
+    >
       {children}
     </CUILink>
   );

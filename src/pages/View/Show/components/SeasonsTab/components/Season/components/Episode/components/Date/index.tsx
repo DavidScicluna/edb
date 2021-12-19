@@ -17,7 +17,8 @@ const Date = (props: DateProps): ReactElement => {
     <SkeletonText
       width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
       offsetY={11.5}
-      isLoaded={!isLoading}>
+      isLoaded={!isLoading}
+    >
       <Text align='left' fontSize={['sm', 'md', 'lg', 'xl']} color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
         {!isLoading ? handleReturnDate(date, 'full') : 'Lorem ipsum'}
       </Text>

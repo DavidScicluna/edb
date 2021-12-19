@@ -45,7 +45,8 @@ const Cast = (props: CastProps): ReactElement => {
             onClick={() => setTotalVisible(totalVisible + incrementBy)}
           />
         ) : undefined
-      }>
+      }
+    >
       {!isLoading && isError ? (
         <Error
           label='Oh no! Something went wrong'

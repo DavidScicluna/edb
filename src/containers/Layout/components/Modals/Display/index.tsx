@@ -57,7 +57,8 @@ const Display = (): ReactElement => {
           color={handleReturnColor(color)}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
-          size='sm'>
+          size='sm'
+        >
           Save
         </Button>
       }
@@ -65,7 +66,8 @@ const Display = (): ReactElement => {
       isOpen={isDisplayModalOpen}
       onClose={handleClose}
       isCentered
-      size='2xl'>
+      size='2xl'
+    >
       <VStack spacing={2} p={2}>
         <Color form={form} />
         <Background form={form} />

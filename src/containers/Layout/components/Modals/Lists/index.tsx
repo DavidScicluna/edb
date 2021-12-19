@@ -111,7 +111,8 @@ const ListsModal = (): ReactElement => {
         isOpen={listsModal.open}
         onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
         isCentered
-        size='2xl'>
+        size='2xl'
+      >
         <VStack spacing={2} p={2}>
           {lists.map((list) => (
             <List key={list.id} {...list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />

@@ -54,7 +54,8 @@ const Header = (props: HeaderProps): ReactElement => {
             <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' mx={0.75}>
               •
             </Text>
-          }>
+          }
+        >
           {[isLoading ? '@Lorem' : `@${username}`, date ? moment(date).format('LLL') : undefined]
             .filter((item) => item)
             .map((item, index) => (

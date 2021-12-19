@@ -85,7 +85,8 @@ const PopularMovies = (): ReactElement => {
   return (
     <Page
       title='Popular Movies'
-      breadcrumbs={[home, moviesBreadcrumb, { label: 'Popular', to: { pathname: '/movies/popular' } }]}>
+      breadcrumbs={[home, moviesBreadcrumb, { label: 'Popular', to: { pathname: '/movies/popular' } }]}
+    >
       {{
         actions: <Filters mediaType='movie' isDisabled={!popularMoviesQuery.isSuccess} onFilter={handleSetFilters} />,
         body: (

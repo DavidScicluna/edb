@@ -30,7 +30,8 @@ const Card = (props: CardProps): ReactElement => {
               ..._.merge(style.card.back, style.card.disabled, style[mode].back, style[mode].disabled)
             }
           : { ..._.merge(style.card.back, style[mode].back) }
-      }>
+      }
+    >
       <Box {...rest} className='card_front' sx={{ ..._.merge(style.card.front, style[mode].front) }}>
         {children}
       </Box>

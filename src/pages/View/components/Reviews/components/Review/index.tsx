@@ -36,7 +36,8 @@ const Review = (props: ReviewProps): ReactElement => {
       isFullWidth
       px={2}
       pt={1.5}
-      pb={1}>
+      pb={1}
+    >
       {{
         header: {
           title: (

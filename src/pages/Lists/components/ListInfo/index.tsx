@@ -29,7 +29,8 @@ const ListInfo = ({ list, isOpen, onClose }: ListInfoProps): ReactElement => {
       isOpen={isOpen}
       onClose={onClose}
       isCentered
-      size='md'>
+      size='md'
+    >
       <VStack width='100%' spacing={2} p={2}>
         {list?.description ? (
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='lg' fontWeight='normal'>

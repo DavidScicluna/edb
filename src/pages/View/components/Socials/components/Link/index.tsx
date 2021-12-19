@@ -26,7 +26,8 @@ const Link = (props: LinkProps): ReactElement => {
       aria-label={`${name ? `"${name}"` : ''} ${type} link`}
       href={!isDisabled ? href : ''}
       isExternal
-      sx={{ ...style.common.link }}>
+      sx={{ ...style.common.link }}
+    >
       {iconComponent}
     </CUILink>
   ) : (

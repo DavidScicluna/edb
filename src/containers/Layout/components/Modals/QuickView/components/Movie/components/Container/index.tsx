@@ -37,7 +37,8 @@ const Container = (props: ContainerProps): ReactElement => {
                 align='left'
                 color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                 fontSize='md'
-                fontStyle='italic'>
+                fontStyle='italic'
+              >
                 {movie?.tagline}
               </Text>
             </SkeletonText>

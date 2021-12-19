@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { HStack } from '@chakra-ui/react';
 import {
   WbSunnyOutlined as WbSunnyOutlinedIcon,
   Brightness2Outlined as Brightness2OutlinedIcon
 } from '@material-ui/icons';
+
+import { HStack } from '@chakra-ui/react';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
 import Card from '../../../../../../../components/Card';

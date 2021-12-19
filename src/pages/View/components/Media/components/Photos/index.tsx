@@ -36,7 +36,8 @@ const Photos = (props: PhotosProps): ReactElement => {
                 width={width}
                 borderRadius='base'
                 isDisabled={isLoading}
-                onClick={typeof image !== 'number' && image ? () => onClick(image.file_path, 'photo') : undefined}>
+                onClick={typeof image !== 'number' && image ? () => onClick(image.file_path, 'photo') : undefined}
+              >
                 <Skeleton isLoaded={!isLoading} borderRadius='base'>
                   <Image
                     alt={`${title ? `"${title}"` : ''} image`}

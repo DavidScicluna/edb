@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import { useBoolean, Box } from '@chakra-ui/react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+
+import { useBoolean, Box } from '@chakra-ui/react';
 import YouTube, { Options } from 'react-youtube';
 import './styles.css';
 
@@ -32,13 +33,15 @@ const Video = (props: VideoProps): ReactElement => {
     <Box
       borderRadius='lg'
       onMouseEnter={!isActive ? () => setIsHovering.on() : undefined}
-      onMouseLeave={!isActive ? () => setIsHovering.off() : undefined}>
+      onMouseLeave={!isActive ? () => setIsHovering.off() : undefined}
+    >
       <ClickableImage
         borderRadius='lg'
         ratio={1 / 1}
         icon={PlayArrowIcon}
         isActive={isActive}
-        onClick={() => onClickVideo(video.key, 'video')}>
+        onClick={() => onClickVideo(video.key, 'video')}
+      >
         <YouTube
           videoId={video.key}
           className='VideoGalleryFrame'

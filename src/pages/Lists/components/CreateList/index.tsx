@@ -102,14 +102,16 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
             color={handleReturnColor(color)}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
-            size='sm'>
+            size='sm'
+          >
             Submit List
           </Button>
         }
         isOpen={isOpen}
         onClose={handleCheckClose}
         isCentered
-        size='lg'>
+        size='lg'
+      >
         <VStack spacing={3} p={2}>
           <Controller
             control={form.control}

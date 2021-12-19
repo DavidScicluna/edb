@@ -108,7 +108,8 @@ const Media = (props: MediaProps): ReactElement => {
         isLoading={activeTab === 2 ? isLoading.videos || false : isLoading.images || false}
         hasDivider
         resetScroll={resetScroll}
-        variant='outlined'>
+        variant='outlined'
+      >
         <TabPanels activeTab={activeTab}>
           <Photos
             title={title}

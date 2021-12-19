@@ -39,7 +39,8 @@ const QuickView = (): ReactElement => {
       isOpen={quickViewModal.open}
       onClose={() => handleClose()}
       isCentered
-      size='3xl'>
+      size='3xl'
+    >
       {quickViewModal.mediaType === 'movie' ? (
         <Movie id={quickViewModal.mediaItem?.id} />
       ) : quickViewModal.mediaType === 'tv' ? (

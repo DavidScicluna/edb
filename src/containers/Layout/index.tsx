@@ -101,7 +101,8 @@ const Layout = (): ReactElement => {
           position='relative'
           top={`${headerHeight}px`}
           left='0px'
-          sx={{ ...transition }}>
+          sx={{ ...transition }}
+        >
           <Box width='100%' minHeight={`calc(100vh - ${headerHeight + 32}px)`} sx={{ ...transition }}>
             <Routes />
           </Box>

@@ -60,7 +60,8 @@ const Credits = (props: CreditsProps): ReactElement => {
       maxWidth='100%'
       justifyContent='stretch'
       direction={isSm ? 'column' : 'row'}
-      spacing={isSm ? 2 : 4}>
+      spacing={isSm ? 2 : 4}
+    >
       {renderCredits.map((credit, index) =>
         isLoading || credit.data.length > 0 ? (
           <Label
@@ -68,7 +69,8 @@ const Credits = (props: CreditsProps): ReactElement => {
             width={isSm ? '100%' : 'auto'}
             maxWidth={isSm ? '100%' : !isLoading ? handleMaxWidth() : `${100 / 4}%`}
             flex={1}
-            label={credit.label}>
+            label={credit.label}
+          >
             <HorizontalScroll isLoading={isLoading}>
               <HStack
                 wrap='nowrap'
@@ -76,19 +78,22 @@ const Credits = (props: CreditsProps): ReactElement => {
                   <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' pr={0.75}>
                     ,
                   </Text>
-                }>
+                }
+              >
                 {[...(!isLoading ? credit.data : _.range(0, 2))].map((person, index) => (
                   <Link
                     key={index}
                     to={typeof person !== 'number' ? { pathname: `/person/${person.id}` } : {}}
                     isDisabled={isLoading}
-                    whiteSpace='nowrap'>
+                    whiteSpace='nowrap'
+                  >
                     <SkeletonText
                       width={
                         isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'
                       }
                       offsetY={8}
-                      isLoaded={!isLoading}>
+                      isLoaded={!isLoading}
+                    >
                       <Text
                         align='left'
                         color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
@@ -97,7 +102,8 @@ const Credits = (props: CreditsProps): ReactElement => {
                           transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
                         }}
                         _focus={{ boxShadow: 'none' }}
-                        _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
+                        _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}
+                      >
                         {typeof person !== 'number' ? person.name : 'Lorem Ipsum'}
                       </Text>
                     </SkeletonText>

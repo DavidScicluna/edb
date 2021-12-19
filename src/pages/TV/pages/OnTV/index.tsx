@@ -110,7 +110,8 @@ const OnTV = (): ReactElement => {
     <>
       <Page
         title='TV Shows On At The Moment'
-        breadcrumbs={[home, tvBreadcrumb, { label: 'On At The Moment', to: { pathname: '/tv/on-tv' } }]}>
+        breadcrumbs={[home, tvBreadcrumb, { label: 'On At The Moment', to: { pathname: '/tv/on-tv' } }]}
+      >
         {{
           actions: <Filters mediaType='tv' isDisabled={!onTVQuery.isSuccess} onFilter={handleSetFilters} />,
           body: (

@@ -97,14 +97,16 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
             color={handleReturnColor(color)}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
-            size='sm'>
+            size='sm'
+          >
             Submit Review
           </Button>
         }
         isOpen={isOpen}
         onClose={handleCheckClose}
         isCentered
-        size='lg'>
+        size='lg'
+      >
         <VStack spacing={3} p={2}>
           <Controller
             control={form.control}
@@ -116,7 +118,8 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
                 isFullWidth
                 px={2}
                 pt={1.5}
-                pb={1}>
+                pb={1}
+              >
                 {{
                   header: {
                     title: (

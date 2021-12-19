@@ -26,7 +26,8 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'>
+          textTransform='capitalize'
+        >
           {title}
         </Text>
       }
@@ -37,12 +38,14 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
             isFullWidth
             isDisabled={isLoading}
             size={isSm ? 'sm' : 'md'}
-            variant='text'>
+            variant='text'
+          >
             {`View all ${title}`}
           </Button>
         </Link>
       }
-      isLoading={isLoading}>
+      isLoading={isLoading}
+    >
       <HorizontalTV isError={isError} isSuccess={isSuccess} isLoading={isLoading} tv={tv} />
     </HorizontalGrid>
   );

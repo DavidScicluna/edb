@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
 import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
   FavoriteOutlined as FavoriteOutlinedIcon
 } from '@material-ui/icons';
+
+import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
 
 import Button from '../../../../../../../../../components/Clickable/Button';
 import Like from '../../../../../../../../../components/Clickable/Like';
@@ -37,7 +38,8 @@ const Container = (props: ContainerProps): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
               fontSize={isSm ? '2xl' : '4xl'}
-              fontWeight='bold'>
+              fontWeight='bold'
+            >
               {person?.name || 'Unknown'}
             </Text>
           </SkeletonText>
@@ -63,7 +65,8 @@ const Container = (props: ContainerProps): ReactElement => {
                 leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
                 onClick={() => onClick()}
                 size='md'
-                variant='outlined'>
+                variant='outlined'
+              >
                 {isLiked ? 'Liked' : 'Like'}
               </Button>
             )}

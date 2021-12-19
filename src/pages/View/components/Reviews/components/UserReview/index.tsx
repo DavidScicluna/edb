@@ -23,7 +23,8 @@ const UserReview = ({ mediaItem, mediaType, isLoading = true }: UserReviewProps)
         title='My Review'
         actions={
           mediaItemUserReviews.length > 0 ? <CreateReview mediaItem={mediaItem} mediaType={mediaType} /> : undefined
-        }>
+        }
+      >
         {mediaItemUserReviews.length > 0 ? (
           <>
             {mediaItemUserReviews.map((review) => (

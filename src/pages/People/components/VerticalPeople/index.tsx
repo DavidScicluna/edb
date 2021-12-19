@@ -64,21 +64,25 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
                       align='left'
                       fontSize={['sm', 'md', 'lg', 'xl']}
                       color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-                      pr={0.75}>
+                      pr={0.75}
+                    >
                       ,
                     </Text>
-                  }>
+                  }
+                >
                   {sort(person?.known_for || [], 'vote_average').map((mediaItem) => (
                     <Link
                       key={mediaItem.id}
                       to={{ pathname: `/${mediaItem?.title ? 'movie' : mediaItem?.name ? 'tv' : ''}/${mediaItem.id}` }}
-                      isDisabled={isLoading}>
+                      isDisabled={isLoading}
+                    >
                       <SkeletonText
                         width={
                           isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'
                         }
                         offsetY={8.5}
-                        isLoaded={!isLoading}>
+                        isLoaded={!isLoading}
+                      >
                         <Text
                           align='left'
                           fontSize={['sm', 'md', 'lg', 'xl']}
@@ -90,7 +94,8 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
                             transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
                           }}
                           _focus={{ boxShadow: 'none' }}
-                          _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
+                          _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}
+                        >
                           {mediaItem?.title || mediaItem?.name || ''}
                         </Text>
                       </SkeletonText>

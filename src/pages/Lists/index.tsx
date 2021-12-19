@@ -223,7 +223,8 @@ const Lists = (): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
               fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
-              fontWeight='bold'>
+              fontWeight='bold'
+            >
               {list
                 ? `"${list.label}" list ${mediaType === 'movie' ? 'Movies' : mediaType === 'tv' ? 'TV shows' : ''}`
                 : 'Lists'}
@@ -243,7 +244,8 @@ const Lists = (): ReactElement => {
             />
           </Center>
         }
-        breadcrumbs={handleReturnBreadcrumbs()}>
+        breadcrumbs={handleReturnBreadcrumbs()}
+      >
         {{
           actions: (
             <Actions

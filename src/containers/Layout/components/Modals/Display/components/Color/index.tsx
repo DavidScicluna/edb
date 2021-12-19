@@ -62,7 +62,8 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
           isFullWidth
           px={2}
           pt={1.5}
-          pb={2}>
+          pb={2}
+        >
           {{
             header: {
               title: 'Color'

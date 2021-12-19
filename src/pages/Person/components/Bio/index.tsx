@@ -46,7 +46,8 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
       isFullWidth
       px={2}
       pt={1.5}
-      pb={2}>
+      pb={2}
+    >
       {{
         header: {
           title: 'Biography',
@@ -69,7 +70,8 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                     fontSize='md'
-                    fontWeight='medium'>
+                    fontWeight='medium'
+                  >
                     {paragraph}
                   </Text>
                 ))}

@@ -27,7 +27,8 @@ const EmptyList = (props: EmptyListProps): ReactElement => {
                   color={handleReturnColor(color)}
                   onClick={() => history.push({ pathname: `/lists/${id}` })}
                   size='sm'
-                  variant='outlined'>
+                  variant='outlined'
+                >
                   {`Back to "${label}" list`}
                 </Button>
                 <Text align='center' fontSize='xs' fontWeight='medium'>
@@ -39,7 +40,8 @@ const EmptyList = (props: EmptyListProps): ReactElement => {
               color={handleReturnColor(color)}
               onClick={() => history.push({ pathname: '/lists' })}
               size='sm'
-              variant='outlined'>
+              variant='outlined'
+            >
               Back to lists
             </Button>
           </HStack>

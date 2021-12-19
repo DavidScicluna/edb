@@ -1,6 +1,15 @@
 import { ReactElement, useEffect } from 'react';
 
 import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon,
+  BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
+  BookmarkOutlined as BookmarkOutlinedIcon,
+  PaletteTwoTone as PaletteTwoToneIcon,
+  PaletteOutlined as PaletteOutlinedIcon
+} from '@material-ui/icons';
+
+import {
   useColorMode,
   useDisclosure,
   Avatar,
@@ -13,14 +22,6 @@ import {
   Text,
   Box
 } from '@chakra-ui/react';
-import {
-  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-  FavoriteOutlined as FavoriteOutlinedIcon,
-  BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
-  BookmarkOutlined as BookmarkOutlinedIcon,
-  PaletteTwoTone as PaletteTwoToneIcon,
-  PaletteOutlined as PaletteOutlinedIcon
-} from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -78,7 +79,8 @@ const User = (): ReactElement => {
             '&:focus': {
               boxShadow: 'none'
             }
-          }}>
+          }}
+        >
           <VStack width='100%' spacing={2}>
             <HStack width='100%' justifyContent='flex-start' spacing={1}>
               <Avatar cursor='pointer' name='Test User' size='md' />
@@ -86,7 +88,8 @@ const User = (): ReactElement => {
                 align='left'
                 color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                 fontSize='md'
-                fontWeight='semibold'>
+                fontWeight='semibold'
+              >
                 Test User
               </Text>
             </HStack>

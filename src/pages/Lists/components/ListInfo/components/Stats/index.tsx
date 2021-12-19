@@ -30,12 +30,14 @@ const Stats = (props: StatsProps): ReactElement => {
       border='solid2'
       borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       borderRadius='base'
-      p={1}>
+      p={1}
+    >
       <HStack
         width='100%'
         justifyContent='space-between'
         divider={<Box width='2px' height='44px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />}
-        spacing={1}>
+        spacing={1}
+      >
         {stats.map((stat: StatType, index: number) => (
           <Stat key={index} justifyContent='center'>
             <VStack spacing={0}>
@@ -46,7 +48,8 @@ const Stats = (props: StatsProps): ReactElement => {
                 color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
                 fontSize='xs'
                 whiteSpace='nowrap'
-                textTransform='uppercase'>
+                textTransform='uppercase'
+              >
                 {stat.label}
               </StatLabel>
             </VStack>

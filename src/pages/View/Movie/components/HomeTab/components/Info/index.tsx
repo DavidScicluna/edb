@@ -43,7 +43,8 @@ const Info = (props: InfoProps): ReactElement => {
         <SkeletonText
           width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
           offsetY={8}
-          isLoaded={!isLoading}>
+          isLoaded={!isLoading}
+        >
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>
             {languages?.find((language) => language.iso_639_1 === originalLanguage)?.english_name || 'N/A'}
           </Text>
@@ -60,7 +61,8 @@ const Info = (props: InfoProps): ReactElement => {
                 <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' pr={0.75}>
                   ,
                 </Text>
-              }>
+              }
+            >
               {languages
                 ?.filter((language) => language.iso_639_1 !== originalLanguage)
                 ?.map((language, index) => (
@@ -70,12 +72,14 @@ const Info = (props: InfoProps): ReactElement => {
                       isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'
                     }
                     offsetY={8}
-                    isLoaded={!isLoading}>
+                    isLoaded={!isLoading}
+                  >
                     <Text
                       align='left'
                       color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                       fontSize='md'
-                      whiteSpace='nowrap'>
+                      whiteSpace='nowrap'
+                    >
                       {language.english_name || ''}
                     </Text>
                   </SkeletonText>
@@ -102,7 +106,8 @@ const Info = (props: InfoProps): ReactElement => {
       maxWidth='100%'
       justifyContent='stretch'
       direction={isSm ? 'column' : 'row'}
-      spacing={isSm ? 2 : 4}>
+      spacing={isSm ? 2 : 4}
+    >
       {renderInfo.map((item, index) =>
         item.children ? (
           <Label
@@ -110,7 +115,8 @@ const Info = (props: InfoProps): ReactElement => {
             width={isSm ? '100%' : 'auto'}
             maxWidth={isSm ? '100%' : !isLoading ? handleMaxWidth() : `${100 / 4}%`}
             flex={1}
-            label={item.label}>
+            label={item.label}
+          >
             {item.children}
           </Label>
         ) : null

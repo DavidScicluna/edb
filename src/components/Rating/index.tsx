@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, Center, Icon, Text } from '@chakra-ui/react';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
+
+import { useColorMode, Center, Icon, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import SkeletonText from '../Skeleton/Text';
@@ -31,7 +32,8 @@ const Rating = (props: RatingProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={textFontsize}
           fontWeight='medium'
-          sx={{ lineHeight: 'normal' }}>
+          sx={{ lineHeight: 'normal' }}
+        >
           {_.round(rating?.rating || 0, 1) || 'N/A'}
         </Text>
       </SkeletonText>

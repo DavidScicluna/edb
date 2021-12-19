@@ -46,7 +46,8 @@ const Splashscreen = (): ReactElement => {
       onClose={() => dispatch(toggleSplashscreen(false))}
       motionPreset='scale'
       scrollBehavior='inside'
-      size='full'>
+      size='full'
+    >
       <ModalContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} borderRadius='none' m={0}>
         <ModalBody zIndex={10000} p={0}>
           <VStack width='100%' height='100vh' justifyContent='space-between' p={3}>
@@ -54,7 +55,8 @@ const Splashscreen = (): ReactElement => {
               align='center'
               color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
               fontSize='sm'
-              fontWeight='medium'>
+              fontWeight='medium'
+            >
               Entertainment database
             </Text>
             <MotionBox
@@ -72,14 +74,16 @@ const Splashscreen = (): ReactElement => {
               bgSize='500%'
               bgGradient='linear(to-r, red.400, orange.400, yellow.400, green.400, teal.400, blue.400, cyan.400, purple.400, pink.400)'
               bgClip='text'
-              sx={{ ...style }}>
+              sx={{ ...style }}
+            >
               edb
             </MotionBox>
             <Text
               align='center'
               color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
               fontSize='sm'
-              fontWeight='medium'>
+              fontWeight='medium'
+            >
               {`Loading${loadingDots}`}
             </Text>
           </VStack>

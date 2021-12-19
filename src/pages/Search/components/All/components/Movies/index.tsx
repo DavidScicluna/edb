@@ -27,7 +27,8 @@ const Movies = (props: MoviesProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'>
+          textTransform='capitalize'
+        >
           {`Found ${total_results || 0} movie${
             total_results ? (total_results === 0 || total_results > 1 ? 's' : '') : ''
           } with "${query}"`}
@@ -38,14 +39,16 @@ const Movies = (props: MoviesProps): ReactElement => {
           <Link
             to={{ pathname: '/search', search: queryString.stringify({ query, mediaType: 'movie' }) }}
             isFullWidth
-            isDisabled={isFetching || isLoading}>
+            isDisabled={isFetching || isLoading}
+          >
             <Button
               color={handleReturnColor(color)}
               isFullWidth
               isDisabled={isFetching || isLoading}
               onClick={() => refetch()}
               size={isSm ? 'sm' : 'md'}
-              variant='text'>
+              variant='text'
+            >
               {`View all ${total_results || 0} movie${
                 total_results ? (total_results === 0 || total_results > 1 ? 's' : '') : ''
               } with "${query}"`}
@@ -53,7 +56,8 @@ const Movies = (props: MoviesProps): ReactElement => {
           </Link>
         ) : undefined
       }
-      isLoading={isFetching || isLoading}>
+      isLoading={isFetching || isLoading}
+    >
       <HorizontalMovies
         isError={isError}
         isSuccess={isSuccess}

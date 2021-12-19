@@ -16,7 +16,8 @@ const Genre = ({ id, name, isActive = false, onClick }: GenreProps): ReactElemen
       leftIcon={isActive ? CheckOutlinedIcon : undefined}
       onClick={() => onClick({ id, name })}
       size='sm'
-      variant='outlined'>
+      variant='outlined'
+    >
       {name}
     </Button>
   );

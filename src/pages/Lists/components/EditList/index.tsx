@@ -94,14 +94,16 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
             color={handleReturnColor(color)}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
-            size='sm'>
+            size='sm'
+          >
             Save List
           </Button>
         }
         isOpen={isOpen}
         onClose={handleCheckClose}
         isCentered
-        size='lg'>
+        size='lg'
+      >
         <VStack spacing={3} p={2}>
           <Controller
             control={form.control}

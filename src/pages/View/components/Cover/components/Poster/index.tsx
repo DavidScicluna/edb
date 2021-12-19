@@ -17,7 +17,8 @@ const Poster = (props: PosterProps): ReactElement => {
       width='100%'
       borderRadius='base'
       isDisabled={isLoading || isError || isImageError}
-      onClick={path ? () => onClick(path, 'photo') : undefined}>
+      onClick={path ? () => onClick(path, 'photo') : undefined}
+    >
       <Skeleton isLoaded={!isLoading} borderRadius='base'>
         <Image
           alt={`${title ? `"${title}"` : ''} movie poster`}

@@ -28,7 +28,8 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
     <SkeletonText
       width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
       offsetY={8.5}
-      isLoaded={!isLoading}>
+      isLoaded={!isLoading}
+    >
       <Text
         ref={handleIsTruncated}
         align='left'
@@ -36,7 +37,8 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
         isTruncated
         overflow='hidden'
-        whiteSpace='nowrap'>
+        whiteSpace='nowrap'
+      >
         {!isLoading ? subtitle : 'Lorem ipsum dolor sit amet'}
       </Text>
     </SkeletonText>

@@ -15,7 +15,8 @@ const SkeletonCircle = (props: SkeletonProps): ReactElement => {
       {...rest}
       {...commonProps}
       startColor={handleReturnColors('start', 'gray', colorMode)}
-      endColor={handleReturnColors('end', 'gray', colorMode)}>
+      endColor={handleReturnColors('end', 'gray', colorMode)}
+    >
       {children}
     </CUISkeletonCircle>
   );

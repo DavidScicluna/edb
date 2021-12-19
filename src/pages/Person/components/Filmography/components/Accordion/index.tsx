@@ -19,7 +19,8 @@ const Accordion = (props: AccordionProps): ReactElement => {
           allowToggle
           defaultIndex={[]}
           index={expanded}
-          onChange={(indexes) => onChange(indexes)}>
+          onChange={(indexes) => onChange(indexes)}
+        >
           <VStack width='100%' spacing={2}>
             {departments.map((department, index) => (
               <AccordionItem

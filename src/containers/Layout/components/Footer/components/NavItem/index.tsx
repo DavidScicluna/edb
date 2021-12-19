@@ -42,7 +42,8 @@ const NavItem = (props: NavItemProps): ReactElement => {
               : colorMode === 'light'
               ? 'gray.900'
               : 'gray.50'
-          }}>
+          }}
+        >
           {label}
         </Text>
       </Link>
@@ -72,7 +73,8 @@ const NavItem = (props: NavItemProps): ReactElement => {
                       : colorMode === 'light'
                       ? 'gray.900'
                       : 'gray.50'
-                }}>
+                }}
+              >
                 {child.label}
               </Text>
             </Link>

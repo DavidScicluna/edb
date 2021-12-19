@@ -1,10 +1,11 @@
 import { ReactElement, useEffect } from 'react';
 
-import { useBoolean } from '@chakra-ui/react';
 import {
   ArrowBackOutlined as ArrowBackOutlinedIcon,
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
+
+import { useBoolean } from '@chakra-ui/react';
 import { useInterval } from 'usehooks-ts';
 
 import IconButton from '../../../../Clickable/IconButton';
@@ -56,7 +57,8 @@ const Arrow = (props: ArrowProps): ReactElement => {
       placement='top'
       isOpen={isHovering}
       isDisabled={isLoading || isDisabled}
-      gutter={isMouseDown ? 8 : 10}>
+      gutter={isMouseDown ? 8 : 10}
+    >
       <IconButton
         aria-label='Scroll left'
         isDisabled={isLoading || isDisabled}

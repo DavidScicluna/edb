@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
-import { useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import {
   ClearOutlined as ClearOutlinedIcon,
   LockOpenOutlined as LockOpenOutlinedIcon,
   LockOutlined as LockOutlinedIcon
 } from '@material-ui/icons';
+
+import { useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../../../components/Tooltip';
@@ -31,7 +32,8 @@ const Actions = (props: ActionsProps): ReactElement => {
           label='Clear search'
           isOpen={isHoveringClear}
           isDisabled={!hasQuery}
-          placement='top'>
+          placement='top'
+        >
           <IconButton
             aria-label='Clear search'
             icon={ClearOutlinedIcon}
@@ -48,7 +50,8 @@ const Actions = (props: ActionsProps): ReactElement => {
         aria-label={isFormLocked ? 'Unlock Search' : 'Lock Search'}
         label={isFormLocked ? 'Unlock Search' : 'Lock Search'}
         isOpen={isHoveringLock}
-        placement='top'>
+        placement='top'
+      >
         <IconButton
           aria-label={isFormLocked ? 'Unlock Search' : 'Lock Search'}
           icon={isFormLocked ? LockOutlinedIcon : LockOpenOutlinedIcon}

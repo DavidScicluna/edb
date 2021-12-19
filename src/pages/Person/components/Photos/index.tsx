@@ -34,7 +34,8 @@ const Photos = (props: PhotosProps): ReactElement => {
             align='left'
             color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
             fontSize='lg'
-            fontWeight='semibold'>
+            fontWeight='semibold'
+          >
             Photos
           </Text>
           <Badge label={String(images.length)} size='md' ml={2} />
@@ -48,14 +49,16 @@ const Photos = (props: PhotosProps): ReactElement => {
             isDisabled={isLoading || isError}
             onClick={() => onClickImage(images[0].file_path)}
             size={isSm ? 'sm' : 'md'}
-            variant='text'>
+            variant='text'
+          >
             {`View all ${name ? `"${name}"` : ''} photos`}
           </Button>
         ) : undefined
       }
       isLoading={isLoading}
       hasDivider
-      variant='outlined'>
+      variant='outlined'
+    >
       {isError ? (
         <Error
           label='Oh no! Something went wrong'
@@ -74,7 +77,8 @@ const Photos = (props: PhotosProps): ReactElement => {
                 width={width}
                 borderRadius='lg'
                 isDisabled={isLoading}
-                onClick={typeof image !== 'number' && image ? () => onClickImage(image.file_path) : undefined}>
+                onClick={typeof image !== 'number' && image ? () => onClickImage(image.file_path) : undefined}
+              >
                 <Skeleton isLoaded={!isLoading} borderRadius='lg'>
                   <Image
                     alt={`${name ? `"${name}"` : ''} image`}

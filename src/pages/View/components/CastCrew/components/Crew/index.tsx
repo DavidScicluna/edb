@@ -46,7 +46,8 @@ const Crew = (props: CrewProps): ReactElement => {
             onClick={() => setTotalVisible(totalVisible + incrementBy)}
           />
         ) : undefined
-      }>
+      }
+    >
       {!isLoading && isError ? (
         <Error
           label='Oh no! Something went wrong'

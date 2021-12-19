@@ -15,7 +15,8 @@ const Header = (props: HeaderProps): ReactElement => {
             align='left'
             color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
             fontSize='lg'
-            fontWeight='semibold'>
+            fontWeight='semibold'
+          >
             {title}
           </Text>
         ) : (

@@ -53,7 +53,8 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
       isFullWidth={isFullWidth}
       variant='unstyled'
       sx={{ ..._.merge(style.button.back, style[mode].back[variant]) }}
-      _disabled={{ ..._.merge(style.button.disabled, style[mode].disabled[variant]) }}>
+      _disabled={{ ..._.merge(style.button.disabled, style[mode].disabled[variant]) }}
+    >
       <Center className='button_front' sx={{ ..._.merge(style.button.front, style[mode].front[variant]) }}>
         {isLoading ? (
           <Spinner

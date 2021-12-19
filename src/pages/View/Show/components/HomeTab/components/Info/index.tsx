@@ -33,19 +33,22 @@ const Info = (props: InfoProps): ReactElement => {
               <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' pr={0.75}>
                 ,
               </Text>
-            }>
+            }
+          >
             {[...(!isLoading ? createdBy || [] : _.range(0, 2))].map((person, index) => (
               <Link
                 key={typeof person !== 'number' ? person.id : index}
                 to={typeof person !== 'number' ? { pathname: `/person/${person.id}` } : {}}
                 isDisabled={isLoading}
-                whiteSpace='nowrap'>
+                whiteSpace='nowrap'
+              >
                 <SkeletonText
                   width={
                     isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'
                   }
                   offsetY={8}
-                  isLoaded={!isLoading}>
+                  isLoaded={!isLoading}
+                >
                   <Text
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
@@ -54,7 +57,8 @@ const Info = (props: InfoProps): ReactElement => {
                       transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
                     }}
                     _focus={{ boxShadow: 'none' }}
-                    _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}>
+                    _hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}
+                  >
                     {typeof person !== 'number' ? person.name : 'Lorem Ipsum'}
                   </Text>
                 </SkeletonText>
@@ -70,7 +74,8 @@ const Info = (props: InfoProps): ReactElement => {
         <SkeletonText
           width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
           offsetY={8}
-          isLoaded={!isLoading}>
+          isLoaded={!isLoading}
+        >
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>
             {languages?.find((language) => language.iso_639_1 === originalLanguage)?.english_name || 'N/A'}
           </Text>
@@ -87,7 +92,8 @@ const Info = (props: InfoProps): ReactElement => {
                 <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' pr={0.75}>
                   ,
                 </Text>
-              }>
+              }
+            >
               {languages
                 ?.filter((language) => language.iso_639_1 !== originalLanguage)
                 ?.map((language, index) => (
@@ -97,12 +103,14 @@ const Info = (props: InfoProps): ReactElement => {
                       isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'
                     }
                     offsetY={8}
-                    isLoaded={!isLoading}>
+                    isLoaded={!isLoading}
+                  >
                     <Text
                       align='left'
                       color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                       fontSize='md'
-                      whiteSpace='nowrap'>
+                      whiteSpace='nowrap'
+                    >
                       {language.english_name || ''}
                     </Text>
                   </SkeletonText>
@@ -117,7 +125,8 @@ const Info = (props: InfoProps): ReactElement => {
         <SkeletonText
           width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
           offsetY={8}
-          isLoaded={!isLoading}>
+          isLoaded={!isLoading}
+        >
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>
             {status || 'N/A'}
           </Text>
@@ -142,7 +151,8 @@ const Info = (props: InfoProps): ReactElement => {
       maxWidth='100%'
       justifyContent='stretch'
       direction={isSm ? 'column' : 'row'}
-      spacing={isSm ? 2 : 4}>
+      spacing={isSm ? 2 : 4}
+    >
       {renderInfo.map((item, index) =>
         item.children ? (
           <Label
@@ -150,7 +160,8 @@ const Info = (props: InfoProps): ReactElement => {
             width={isSm ? '100%' : 'auto'}
             maxWidth={isSm ? '100%' : !isLoading ? handleMaxWidth() : `${100 / 4}%`}
             flex={1}
-            label={item.label}>
+            label={item.label}
+          >
             {item.children}
           </Label>
         ) : null

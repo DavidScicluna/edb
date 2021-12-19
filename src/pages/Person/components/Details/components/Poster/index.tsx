@@ -23,7 +23,8 @@ const Poster = (props: PosterProps): ReactElement => {
       borderRadius={isSm ? 'base' : 'full'}
       ratio={1 / 1}
       isDisabled={isLoading || isError || isImageError}
-      onClick={path ? () => onClickPoster(path) : undefined}>
+      onClick={path ? () => onClickPoster(path) : undefined}
+    >
       <Skeleton isLoaded={!isLoading} borderRadius={isSm ? 'base' : 'full'}>
         <Image
           width='100%'

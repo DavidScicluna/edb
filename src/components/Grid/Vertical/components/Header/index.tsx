@@ -18,14 +18,16 @@ const Header = ({ title, header }: Omit<VerticalGridProps, 'children'>): ReactEl
       justify={title ? 'space-between' : 'flex-end'}
       wrap='wrap'
       spacing={2}
-      p={[2]}>
+      p={[2]}
+    >
       {title ? (
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize='2xl'
           fontWeight='semibold'
-          textTransform='capitalize'>
+          textTransform='capitalize'
+        >
           {title}
         </Text>
       ) : null}

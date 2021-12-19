@@ -1,10 +1,11 @@
 import { ReactElement, useEffect } from 'react';
 
-import { useTheme, useColorMode, useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import {
   ChevronLeftOutlined as ChevronLeftOutlinedIcon,
   ChevronRightOutlined as ChevronRightOutlinedIcon
 } from '@material-ui/icons';
+
+import { useTheme, useColorMode, useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useInterval } from 'usehooks-ts';
 
@@ -63,7 +64,8 @@ const Arrow = (props: ArrowProps): ReactElement => {
       zIndex={1}
       backgroundColor='transparent'
       _after={direction === 'left' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}
-      _before={direction === 'right' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}>
+      _before={direction === 'right' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}
+    >
       <ScaleFade in={!isDisabled} unmountOnExit style={{ height: '100%' }}>
         <Center height='100%' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
           <IconButton

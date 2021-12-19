@@ -97,7 +97,8 @@ const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
           '&::-webkit-scrollbar': {
             display: 'none'
           }
-        }}>
+        }}
+      >
         {children}
       </HStack>
 

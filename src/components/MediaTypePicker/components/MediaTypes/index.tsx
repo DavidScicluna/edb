@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 import {
   PeopleAltOutlined as PeopleAltOutlinedIcon,
   PeopleAltTwoTone as PeopleAltTwoToneIcon,
@@ -8,6 +7,8 @@ import {
   TvOutlined as TvOutlinedIcon,
   TvTwoTone as TvTwoToneIcon
 } from '@material-ui/icons';
+
+import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 
 import { MediaType as MediaType } from '../../../../common/types/types';
 import { MediaTypeItem as MediaTypeItemType } from '../../types';
@@ -35,7 +36,7 @@ const mediaTypesList: MediaTypeItemType[] = [
   }
 ];
 
-const MediaTypes = <MT extends unknown>(props: MediaTypesProps<MT>): ReactElement => {
+const MediaTypes = <MT,>(props: MediaTypesProps<MT>): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { mediaTypes, mediaType, onSetType, onClose } = props;

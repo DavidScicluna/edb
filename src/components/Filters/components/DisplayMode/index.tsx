@@ -1,12 +1,13 @@
 import { ReactElement } from 'react';
 
-import { HStack } from '@chakra-ui/react';
 import {
   GridOnOutlined as GridOnOutlinedIcon,
   GridOnTwoTone as GridOnTwoToneIcon,
   ListAltOutlined as ListAltOutlinedIcon,
   ListAltTwoTone as ListAltTwoToneIcon
 } from '@material-ui/icons';
+
+import { HStack } from '@chakra-ui/react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 import Card from '../../../Card';

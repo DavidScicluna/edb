@@ -110,7 +110,8 @@ const PopularTV = (): ReactElement => {
     <>
       <Page
         title='Popular TV Shows'
-        breadcrumbs={[home, tvBreadcrumb, { label: 'Popular', to: { pathname: '/tv/popular' } }]}>
+        breadcrumbs={[home, tvBreadcrumb, { label: 'Popular', to: { pathname: '/tv/popular' } }]}
+      >
         {{
           actions: <Filters mediaType='tv' isDisabled={!popularTVQuery.isSuccess} onFilter={handleSetFilters} />,
           body: (

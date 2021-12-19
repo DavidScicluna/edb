@@ -31,7 +31,8 @@ const Header = (props: HeaderProps): ReactElement => {
       borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       px={2}
       py={1}
-      sx={{ ...transition }}>
+      sx={{ ...transition }}
+    >
       {!isLgUp ? <Menu /> : null}
 
       <User />
