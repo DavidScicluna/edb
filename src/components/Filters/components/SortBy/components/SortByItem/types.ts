@@ -1,4 +1,4 @@
-import { SortBy } from '../../../../../../common/types/types';
+import { SortBy } from '../../../../../../common/types';
 import { SortDirection } from '../../../../../../store/slices/App/types';
 
 export type SortByItemProps = {

@@ -1,4 +1,4 @@
-import { Genre, Rating } from '../../../../common/types/types';
+import { Genre, Rating } from '../../../../common/types';
 
 export type TitleProps = {
   title?: string;

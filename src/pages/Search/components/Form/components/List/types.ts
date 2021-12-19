@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { MediaType } from '../../../../../../common/types/types';
+import { MediaType } from '../../../../../../common/types';
 
 export type Trending = {
   label: string;

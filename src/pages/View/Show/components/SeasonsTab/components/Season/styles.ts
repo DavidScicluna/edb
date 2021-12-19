@@ -1,4 +1,4 @@
-import { Style } from '../../../../../../../common/types/types';
+import { Style } from '../../../../../../../common/types';
 import { Theme } from '../../../../../../../theme/types';
 
 type SeasonStyle = {

@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { VStack } from '@chakra-ui/react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
-import { SortBy as SortByType } from '../../../../common/types/types';
+import { SortBy as SortByType } from '../../../../common/types';
 import { SortDirection } from '../../../../store/slices/App/types';
 import Card from '../../../Card';
 import { Form } from '../../types';

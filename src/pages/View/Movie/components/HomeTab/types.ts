@@ -1,7 +1,7 @@
 import { UseQueryResult } from 'react-query';
 
+import { Collection, Images, Videos } from '../../../../../common/types';
 import { FullMovie, Credits, PartialMovie } from '../../../../../common/types/movie';
-import { Collection, Images, Videos } from '../../../../../common/types/types';
 import { MediaViewerType } from '../../../../../components/MediaViewer/types';
 
 export type HomeTabProps = {

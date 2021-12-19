@@ -1,6 +1,6 @@
+import { MediaType, ImageResponse as Image } from '.';
 import { PartialMovie } from './movie';
 import { PartialTV } from './tv';
-import { MediaType, ImageResponse as Image } from './types';
 
 export type Gender = 0 | 1 | 2 | 3;
 

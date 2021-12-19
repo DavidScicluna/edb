@@ -1,4 +1,4 @@
-import { Style } from '../../../../common/types/types';
+import { Style } from '../../../../common/types';
 import { Theme as UserTheme } from '../../../../store/slices/User/types';
 import { Theme } from '../../../../theme/types';
 import { Size } from './types';

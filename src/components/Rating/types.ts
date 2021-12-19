@@ -1,4 +1,4 @@
-import { Rating } from '../../common/types/types';
+import { Rating } from '../../common/types';
 
 export type RatingProps = {
   rating?: Rating;

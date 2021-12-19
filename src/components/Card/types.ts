@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { BoxProps as CUIBoxProps } from '@chakra-ui/react';
 
-import { CardVariant, ColorMode } from '../../common/types/types';
+import { CardVariant, ColorMode } from '../../common/types';
 import { Theme } from '../../store/slices/User/types';
 
 type BoxProps = {

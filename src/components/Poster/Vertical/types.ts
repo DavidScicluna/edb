@@ -1,4 +1,4 @@
-import { MediaType, Image as ImageProps, Rating as RatingProps } from '../../../common/types/types';
+import { MediaType, Image as ImageProps, Rating as RatingProps } from '../../../common/types';
 import { MediaItem } from '../../../store/slices/User/types';
 
 export type VerticalPosterProps<MT extends MediaType> = {

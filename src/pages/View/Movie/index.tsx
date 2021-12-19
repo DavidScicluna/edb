@@ -8,15 +8,8 @@ import { useParams } from 'react-router-dom';
 
 import { useSelector } from '../../../common/hooks';
 import axiosInstance from '../../../common/scripts/axios';
+import { Response, Collection as CollectionType, Images, Videos, Review, ExternalIDs } from '../../../common/types';
 import { FullMovie, Credits, PartialMovie } from '../../../common/types/movie';
-import {
-  Response,
-  Collection as CollectionType,
-  Images,
-  Videos,
-  Review,
-  ExternalIDs
-} from '../../../common/types/types';
 import { handleReturnDate } from '../../../common/utils';
 import MediaViewer from '../../../components/MediaViewer';
 import { MediaViewerType, MediaViewerProps } from '../../../components/MediaViewer/types';

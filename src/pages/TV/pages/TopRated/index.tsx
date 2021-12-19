@@ -8,8 +8,8 @@ import { useInfiniteQuery } from 'react-query';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
+import { Response, SortBy, Genre } from '../../../../common/types';
 import { PartialTV } from '../../../../common/types/tv';
-import { Response, SortBy, Genre } from '../../../../common/types/types';
 import { handleCheckHasFilters, handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import LoadMore from '../../../../components/Clickable/LoadMore';
@@ -110,8 +110,7 @@ const TopRatedTV = (): ReactElement => {
     <>
       <Page
         title='Top Rated TV Shows'
-        breadcrumbs={[home, tvBreadcrumb, { label: 'Top Rated', to: { pathname: '/tv/top-rated' } }]}
-      >
+        breadcrumbs={[home, tvBreadcrumb, { label: 'Top Rated', to: { pathname: '/tv/top-rated' } }]}>
         {{
           actions: <Filters mediaType='tv' isDisabled={!topRatedTVQuery.isSuccess} onFilter={handleSetFilters} />,
           body: (

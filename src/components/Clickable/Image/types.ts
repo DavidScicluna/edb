@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { BoxProps, AspectRatioProps } from '@chakra-ui/react';
 
-import { Icon } from '../../../common/types/types';
+import { Icon } from '../../../common/types';
 
 export type ImageProps = {
   children: ReactElement;

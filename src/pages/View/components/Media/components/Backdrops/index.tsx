@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { ImageResponse as ImageType } from '../../../../../../common/types/types';
+import { ImageResponse as ImageType } from '../../../../../../common/types';
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
@@ -36,8 +36,7 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
                 width={width}
                 borderRadius='base'
                 isDisabled={isLoading}
-                onClick={typeof image !== 'number' && image ? () => onClick(image.file_path, 'backdrop') : undefined}
-              >
+                onClick={typeof image !== 'number' && image ? () => onClick(image.file_path, 'backdrop') : undefined}>
                 <Skeleton isLoaded={!isLoading} borderRadius='base'>
                   <Image
                     alt={`${title ? `"${title}"` : ''} image`}

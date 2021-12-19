@@ -1,4 +1,4 @@
-import { ExternalIDs } from '../../../../common/types/types';
+import { ExternalIDs } from '../../../../common/types';
 
 export type SocialsProps = {
   socials?: ExternalIDs;

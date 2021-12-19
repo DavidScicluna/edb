@@ -1,4 +1,4 @@
-import { ImageResponse as Image, Video } from '../../../../common/types/types';
+import { ImageResponse as Image, Video } from '../../../../common/types';
 import { MediaViewerType } from '../../../../components/MediaViewer/types';
 
 export type Status = {

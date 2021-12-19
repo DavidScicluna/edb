@@ -1,6 +1,9 @@
 import { PartialMovie } from './movie';
 import { PartialTV } from './tv';
 
+// Utility Types
+export type NonNullable<T> = Exclude<T, null | undefined>; // Remove null and undefined from Type
+
 // Component Types
 export type Style = { [key: string]: number | string | unknown | Style };
 

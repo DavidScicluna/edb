@@ -1,5 +1,5 @@
+import { ExternalIDs } from '../../../../common/types';
 import { FullPerson } from '../../../../common/types/person';
-import { ExternalIDs } from '../../../../common/types/types';
 
 export type DetailsProps = {
   person?: FullPerson;

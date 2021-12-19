@@ -8,8 +8,8 @@ import { useInfiniteQuery } from 'react-query';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
+import { Response, SortBy, Genre } from '../../../../common/types';
 import { PartialTV } from '../../../../common/types/tv';
-import { Response, SortBy, Genre } from '../../../../common/types/types';
 import { handleCheckHasFilters, handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import LoadMore from '../../../../components/Clickable/LoadMore';
@@ -110,8 +110,7 @@ const PopularTV = (): ReactElement => {
     <>
       <Page
         title='Popular TV Shows'
-        breadcrumbs={[home, tvBreadcrumb, { label: 'Popular', to: { pathname: '/tv/popular' } }]}
-      >
+        breadcrumbs={[home, tvBreadcrumb, { label: 'Popular', to: { pathname: '/tv/popular' } }]}>
         {{
           actions: <Filters mediaType='tv' isDisabled={!popularTVQuery.isSuccess} onFilter={handleSetFilters} />,
           body: (

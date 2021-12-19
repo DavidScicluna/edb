@@ -5,8 +5,8 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
+import { Response } from '../../../../../../../common/types';
 import { FullPerson, ImageResponse, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
-import { Response } from '../../../../../../../common/types/types';
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import { handleGetDepartments } from '../../../../../../../pages/Person';
 import Poster from '../Poster';

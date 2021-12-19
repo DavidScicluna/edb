@@ -5,8 +5,8 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
+import { Images } from '../../../../../../../common/types';
 import { FullMovie } from '../../../../../../../common/types/movie';
-import { Images } from '../../../../../../../common/types/types';
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import Poster from '../Poster';
 import Container from './components/Container';

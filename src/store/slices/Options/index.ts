@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Genre } from '../../../common/types/types';
+import { Genre } from '../../../common/types';
 import { StateProps } from './types';
 
 const initialState: StateProps = {

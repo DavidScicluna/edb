@@ -1,4 +1,4 @@
-import { ColorMode } from '../../../../common/types/types';
+import { ColorMode } from '../../../../common/types';
 import { Color } from '../../../../theme/types';
 
 export const handleReturnColors = (type: 'start' | 'end', color: Color, colorMode: ColorMode): string => {

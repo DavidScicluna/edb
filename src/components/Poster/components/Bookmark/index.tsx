@@ -4,7 +4,7 @@ import { useBoolean } from '@chakra-ui/react';
 import { Bookmark as BookmarkIcon } from 'react-feather';
 
 import { useSelector } from '../../../../common/hooks';
-import { MediaType } from '../../../../common/types/types';
+import { MediaType } from '../../../../common/types';
 import { handleReturnColor } from '../../../../common/utils';
 import Bookmark from '../../../Clickable/Bookmark';
 import IconButton from '../../../Clickable/IconButton';

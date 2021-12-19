@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 
-import { CardVariant } from '../../../../../common/types/types';
+import { CardVariant } from '../../../../../common/types';
 import { Direction } from '../../types';
 
 export type Event = MouseEvent<HTMLButtonElement, globalThis.MouseEvent>;

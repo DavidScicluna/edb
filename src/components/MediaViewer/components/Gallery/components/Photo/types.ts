@@ -1,4 +1,4 @@
-import { ImageResponse as Image, MediaType } from '../../../../../../common/types/types';
+import { ImageResponse as Image, MediaType } from '../../../../../../common/types';
 import { MediaViewerType } from '../../../../types';
 
 export type PhotoProps = {

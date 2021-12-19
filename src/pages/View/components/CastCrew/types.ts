@@ -1,6 +1,6 @@
+import { MediaType } from '../../../../common/types';
 import { Cast as MovieCast, Crew as MovieCrew } from '../../../../common/types/movie';
 import { Cast as TVCast, Crew as TVCrew } from '../../../../common/types/tv';
-import { MediaType } from '../../../../common/types/types';
 
 export type Cast = Partial<MovieCast & TVCast>[];
 

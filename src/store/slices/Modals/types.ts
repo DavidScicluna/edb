@@ -1,4 +1,4 @@
-import { MediaType } from '../../../common/types/types';
+import { MediaType } from '../../../common/types';
 import { ButtonProps } from '../../../components/Clickable/Button/types';
 import { GetMediaType } from '../User/types';
 

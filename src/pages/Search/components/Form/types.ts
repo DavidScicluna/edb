@@ -1,6 +1,6 @@
 import { UseQueryResult } from 'react-query';
 
-import { MediaType } from '../../../../common/types/types';
+import { MediaType } from '../../../../common/types';
 import { InputKeyboardEvent, InputChangeEvent, Keyword, TotalResults } from '../../types';
 
 export type FormProps = {

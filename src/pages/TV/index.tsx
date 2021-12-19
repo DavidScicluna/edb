@@ -5,8 +5,8 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../common/scripts/axios';
+import { Response } from '../../common/types';
 import { PartialTV } from '../../common/types/tv';
-import { Response } from '../../common/types/types';
 import Page from '../../containers/Page';
 import { home, tv } from '../../containers/Page/common/data/breadcrumbs';
 import HorizontalGrid from './components/HorizontalGrid';

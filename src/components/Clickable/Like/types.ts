@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { MediaType } from '../../../common/types/types';
+import { MediaType } from '../../../common/types';
 import { GetMediaType } from '../../../store/slices/User/types';
 
 type RenderButtonProps = {

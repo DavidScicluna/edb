@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, useColorMode, Box, VStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { ColorMode } from '../../common/types/types';
+import { ColorMode } from '../../common/types';
 import { Theme } from '../../theme/types';
 import Divider from './components/Divider';
 import Footer from './components/Footer';
@@ -33,8 +33,7 @@ const Card = (props: CardProps): ReactElement => {
       {...rest}
       divider={hasDivider ? <Divider colorMode={mode} /> : undefined}
       spacing={0}
-      sx={{ ..._.merge(style.card[variant], style[mode][variant]) }}
-    >
+      sx={{ ..._.merge(style.card[variant], style[mode][variant]) }}>
       {children.header?.title || children.header?.actions ? (
         <Header {...box?.header} actions={children.header.actions} colorMode={mode} title={children.header.title} />
       ) : null}

@@ -1,4 +1,4 @@
-import { MediaType, ImageResponse as Image, Video } from '../../common/types/types';
+import { MediaType, ImageResponse as Image, Video } from '../../common/types';
 
 export type NavigationDirection = 'prev' | 'next';
 

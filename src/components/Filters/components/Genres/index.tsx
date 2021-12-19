@@ -4,7 +4,7 @@ import { Wrap, WrapItem } from '@chakra-ui/react';
 import { Controller } from 'react-hook-form';
 
 import { useSelector } from '../../../../common/hooks';
-import { Genre as GenreType } from '../../../../common/types/types';
+import { Genre as GenreType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
 import Card from '../../../Card';
 import Genre from './components/Genre';

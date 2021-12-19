@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
-import { Genre, MediaType, SortBy } from '../../common/types/types';
+import { Genre, MediaType, SortBy } from '../../common/types';
 import Badge from '../../components/Badge';
 import Empty from '../../components/Empty';
 import VerticalGrid from '../../components/Grid/Vertical';
@@ -223,8 +223,7 @@ const Lists = (): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
               fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
-              fontWeight='bold'
-            >
+              fontWeight='bold'>
               {list
                 ? `"${list.label}" list ${mediaType === 'movie' ? 'Movies' : mediaType === 'tv' ? 'TV shows' : ''}`
                 : 'Lists'}
@@ -244,8 +243,7 @@ const Lists = (): ReactElement => {
             />
           </Center>
         }
-        breadcrumbs={handleReturnBreadcrumbs()}
-      >
+        breadcrumbs={handleReturnBreadcrumbs()}>
         {{
           actions: (
             <Actions

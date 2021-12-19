@@ -1,7 +1,7 @@
+import { MediaType, Review } from '../../../common/types';
 import { FullMovie, PartialMovie } from '../../../common/types/movie';
 import { PartialPerson } from '../../../common/types/person';
 import { FullTV, PartialTV } from '../../../common/types/tv';
-import { MediaType, Review } from '../../../common/types/types';
 import { Color } from '../../../theme/types';
 
 type SearchType = 'isTrending' | 'isKeyword';

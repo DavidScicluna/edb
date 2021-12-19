@@ -5,8 +5,8 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../../../../../common/scripts/axios';
+import { Images, Videos } from '../../../../../../../../../../../common/types';
 import { EpisodeCredits } from '../../../../../../../../../../../common/types/tv';
-import { Images, Videos } from '../../../../../../../../../../../common/types/types';
 import { handleReturnDate } from '../../../../../../../../../../../common/utils';
 import MediaViewer from '../../../../../../../../../../../components/MediaViewer';
 import { MediaViewerProps, MediaViewerType } from '../../../../../../../../../../../components/MediaViewer/types';

@@ -1,6 +1,6 @@
 import { ImageProps as CUIImageProps } from '@chakra-ui/react';
 
-import { MediaType, Image as ImageType } from '../../common/types/types';
+import { MediaType, Image as ImageType } from '../../common/types';
 
 export type ImageProps = {
   thumbnailSrc: string;

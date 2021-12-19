@@ -8,8 +8,8 @@ import { useInfiniteQuery } from 'react-query';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
+import { Response, SortBy, Genre } from '../../../../common/types';
 import { PartialMovie } from '../../../../common/types/movie';
-import { Response, SortBy, Genre } from '../../../../common/types/types';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import Filters from '../../../../components/Filters';
 import VerticalGrid from '../../../../components/Grid/Vertical';
@@ -85,8 +85,7 @@ const TopRatedMovies = (): ReactElement => {
   return (
     <Page
       title='Top Rated Movies'
-      breadcrumbs={[home, moviesBreadcrumb, { label: 'Top Rated', to: { pathname: '/movies/top-rated' } }]}
-    >
+      breadcrumbs={[home, moviesBreadcrumb, { label: 'Top Rated', to: { pathname: '/movies/top-rated' } }]}>
       {{
         actions: <Filters mediaType='movie' isDisabled={!topRatedMoviesQuery.isSuccess} onFilter={handleSetFilters} />,
         body: (

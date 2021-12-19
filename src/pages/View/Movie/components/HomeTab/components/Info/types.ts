@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Language } from '../../../../../../../common/types/types';
+import { Language } from '../../../../../../../common/types';
 
 export type List = {
   label: string;

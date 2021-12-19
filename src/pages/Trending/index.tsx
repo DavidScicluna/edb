@@ -10,10 +10,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Department } from '../../common/data/departments';
 import { useSelector } from '../../common/hooks';
 import axiosInstance from '../../common/scripts/axios';
+import { MediaType, Response, SortBy, Genre } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
-import { MediaType, Response, SortBy, Genre } from '../../common/types/types';
 import Button from '../../components/Clickable/Button';
 import LoadMore from '../../components/Clickable/LoadMore';
 import Empty from '../../components/Empty';
@@ -277,8 +277,7 @@ const Trending = (): ReactElement => {
             ? `Trending ${mediaType === 'movie' ? 'Movies' : mediaType === 'person' ? 'People' : 'TV Shows' || ''}`
             : 'Trending'
         }
-        breadcrumbs={handleReturnBreadcrumbs()}
-      >
+        breadcrumbs={handleReturnBreadcrumbs()}>
         {{
           actions: (
             <Fade in={!!mediaType} unmountOnExit>

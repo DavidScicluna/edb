@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, useColorMode, Radio as CUIRadio } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { ColorMode } from '../../../common/types/types';
+import { ColorMode } from '../../../common/types';
 import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { RadioProps } from './types';

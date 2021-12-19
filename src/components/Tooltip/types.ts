@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { TooltipProps as CUITooltipProps } from '@chakra-ui/react';
 
-import { ColorMode } from '../../common/types/types';
+import { ColorMode } from '../../common/types';
 
 type Delay = number | null;
 

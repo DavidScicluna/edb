@@ -1,4 +1,4 @@
-import { Icon } from '../../../../../../../common/types/types';
+import { Icon } from '../../../../../../../common/types';
 import { Form } from '../../types';
 
 export type Background = {

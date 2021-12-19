@@ -1,6 +1,6 @@
+import { MediaType, Response, Review } from '../../../../common/types';
 import { FullMovie } from '../../../../common/types/movie';
 import { FullTV } from '../../../../common/types/tv';
-import { MediaType, Response, Review } from '../../../../common/types/types';
 
 type ReviewMediaItem = Partial<FullMovie & FullTV>;
 

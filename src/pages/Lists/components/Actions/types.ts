@@ -1,4 +1,4 @@
-import { MediaType, SortBy, Genre } from '../../../../common/types/types';
+import { MediaType, SortBy, Genre } from '../../../../common/types';
 import { List, MediaItem } from '../../../../store/slices/User/types';
 
 export type ActionsProps = {

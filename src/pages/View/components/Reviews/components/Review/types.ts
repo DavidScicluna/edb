@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Review } from '../../../../../../common/types/types';
+import { Review } from '../../../../../../common/types';
 
 export type ReviewProps = {
   renderFooterActions?: ReactElement;

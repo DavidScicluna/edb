@@ -1,4 +1,4 @@
-import { MediaType } from '../../../../../../../common/types/types';
+import { MediaType } from '../../../../../../../common/types';
 import { MediaViewerType } from '../../../../../../../components/MediaViewer/types';
 
 export type PosterProps = {

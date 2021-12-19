@@ -1,6 +1,6 @@
 import { ReactElement, Ref, UIEvent, SyntheticEvent } from 'react';
 
-import { CardVariant } from '../../../../../common/types/types';
+import { CardVariant } from '../../../../../common/types';
 
 export type GridProps = {
   children: ReactElement;

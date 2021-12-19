@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { Department } from '../../common/data/departments';
 import { useSelector } from '../../common/hooks';
-import { Genre, MediaType, SortBy } from '../../common/types/types';
+import { Genre, MediaType, SortBy } from '../../common/types';
 import { handleReturnColor } from '../../common/utils';
 import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';
@@ -200,8 +200,7 @@ const Liked = (): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
               fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
-              fontWeight='bold'
-            >
+              fontWeight='bold'>
               {mediaType === 'movie'
                 ? 'Movies'
                 : mediaType === 'tv'
@@ -226,8 +225,7 @@ const Liked = (): ReactElement => {
             </Text>
           </Center>
         }
-        breadcrumbs={handleReturnBreadcrumbs()}
-      >
+        breadcrumbs={handleReturnBreadcrumbs()}>
         {{
           actions: (
             <ScaleFade in={!!mediaType} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>

@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { Video as VideoType } from '../../../../../../common/types/types';
+import { Video as VideoType } from '../../../../../../common/types';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import Video from './components/Video';

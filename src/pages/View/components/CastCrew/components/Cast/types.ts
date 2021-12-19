@@ -1,4 +1,4 @@
-import { MediaType } from '../../../../../../common/types/types';
+import { MediaType } from '../../../../../../common/types';
 import { Cast } from '../../types';
 import { PanelProps } from '../Panel/types';
 

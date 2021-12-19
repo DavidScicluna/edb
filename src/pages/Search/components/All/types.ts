@@ -1,9 +1,9 @@
 import { UseInfiniteQueryResult } from 'react-query';
 
+import { Response } from '../../../../common/types';
 import { PartialMovie } from '../../../../common/types/movie';
 import { PartialPerson } from '../../../../common/types/person';
 import { PartialTV } from '../../../../common/types/tv';
-import { Response } from '../../../../common/types/types';
 
 export type AllProps = {
   query: string;

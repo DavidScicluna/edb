@@ -1,5 +1,5 @@
 import { Department } from '../../common/data/departments';
-import { MediaType, SortBy, Genre } from '../../common/types/types';
+import { MediaType, SortBy, Genre } from '../../common/types';
 import { DisplayMode, SortDirection } from '../../store/slices/App/types';
 
 export type FiltersProps = {

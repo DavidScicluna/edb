@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { Heart as HeartIcon } from 'react-feather';
 
-import { MediaType } from '../../../../common/types/types';
+import { MediaType } from '../../../../common/types';
 import IconButton from '../../../Clickable/IconButton';
 import Like from '../../../Clickable/Like';
 import Tooltip from '../../../Tooltip';

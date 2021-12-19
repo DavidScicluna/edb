@@ -1,8 +1,8 @@
 import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, Box, AspectRatio, Center, Icon, Fade } from '@chakra-ui/react';
-import { SearchOutlined as SearchOutlinedIcon, CheckOutlined as CheckOutlinedIcon } from '@material-ui/icons';
 import useInView from 'react-cool-inview';
+import { Search as SearchIcon, Check as CheckIcon } from 'react-feather';
 import { useElementSize } from 'usehooks-ts';
 
 import { Theme } from '../../../theme/types';
@@ -75,7 +75,7 @@ const Image = (props: ImageProps): ReactElement => {
                   <Fade in={isHovering || isActive} unmountOnExit>
                     {
                       <Icon
-                        as={isActive ? CheckOutlinedIcon : icon || SearchOutlinedIcon}
+                        as={isActive ? CheckIcon : icon || SearchIcon}
                         color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
                         sx={{
                           fontSize: `${height > 375 ? theme.fontSizes['7xl'] : theme.fontSizes['6xl']} !important`

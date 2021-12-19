@@ -2,7 +2,7 @@ import { ReactElement, ReactNode } from 'react';
 
 import { BoxProps } from '@chakra-ui/react';
 
-import { ColorMode } from '../../../common/types/types';
+import { ColorMode } from '../../../common/types';
 import { Theme } from '../../../store/slices/User/types';
 
 export type CardProps = {

@@ -1,4 +1,4 @@
-import { SortBy } from '../types/types';
+import { SortBy } from '../types';
 
 export const likedListsSortBy: SortBy[] = [
   {

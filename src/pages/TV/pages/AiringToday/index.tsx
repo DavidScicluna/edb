@@ -8,8 +8,8 @@ import { useInfiniteQuery } from 'react-query';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
+import { Response, SortBy, Genre } from '../../../../common/types';
 import { PartialTV } from '../../../../common/types/tv';
-import { Response, SortBy, Genre } from '../../../../common/types/types';
 import { handleCheckHasFilters, handleReturnColor } from '../../../../common/utils';
 import Button from '../../../../components/Clickable/Button';
 import LoadMore from '../../../../components/Clickable/LoadMore';
@@ -110,8 +110,7 @@ const TVAiringToday = (): ReactElement => {
     <>
       <Page
         title='TV Shows Airing Today'
-        breadcrumbs={[home, tvBreadcrumb, { label: 'Airing Today,', to: { pathname: '/tv/airing-today' } }]}
-      >
+        breadcrumbs={[home, tvBreadcrumb, { label: 'Airing Today,', to: { pathname: '/tv/airing-today' } }]}>
         {{
           actions: <Filters mediaType='tv' isDisabled={!tvAiringTodayQuery.isSuccess} onFilter={handleSetFilters} />,
           body: (

@@ -1,5 +1,5 @@
+import { Genre, ProductionCompany, ProductionCountry, Language, Status } from '.';
 import { Gender, Person } from './person';
-import { Genre, ProductionCompany, ProductionCountry, Language, Status } from './types';
 
 export type Role = {
   credit_id: string;

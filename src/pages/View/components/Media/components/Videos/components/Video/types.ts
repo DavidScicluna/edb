@@ -1,4 +1,4 @@
-import { Video } from '../../../../../../../../common/types/types';
+import { Video } from '../../../../../../../../common/types';
 import { VideosProps } from '../../types';
 
 export type VideoProps = {

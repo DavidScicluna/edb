@@ -1,5 +1,5 @@
+import { Genre, ProductionCompany, ProductionCountry, Language, Status, Collection } from '.';
 import { Person } from './person';
-import { Genre, ProductionCompany, ProductionCountry, Language, Status, Collection } from './types';
 
 type ReleaseDate = {
   certification: string;

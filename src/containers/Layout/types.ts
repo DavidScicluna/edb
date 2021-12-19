@@ -1,4 +1,4 @@
-import { Genre } from '../../common/types/types';
+import { Genre } from '../../common/types';
 
 export type GenreResponse = {
   genres: Genre[];

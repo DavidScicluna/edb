@@ -1,4 +1,4 @@
-import { MediaType, Icon } from '../../common/types/types';
+import { MediaType, Icon } from '../../common/types';
 
 export type MediaTypeItem = {
   label: string;

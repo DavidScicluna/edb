@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { CardVariant } from '../../common/types/types';
+import { CardVariant } from '../../common/types';
 
 export type ErrorProps = {
   button?: ReactElement;

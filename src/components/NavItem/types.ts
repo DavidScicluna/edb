@@ -1,4 +1,4 @@
-import { Icon } from '../../common/types/types';
+import { Icon } from '../../common/types';
 import { SidebarMode } from '../../store/slices/App/types';
 
 export type NavItemChild = { renderChild: boolean } & Omit<NavItem, 'icon' | 'iconActive' | 'children'>;

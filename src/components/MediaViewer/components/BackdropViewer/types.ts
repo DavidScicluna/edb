@@ -1,4 +1,4 @@
-import { MediaType } from '../../../../common/types/types';
+import { MediaType } from '../../../../common/types';
 
 export type BackdropViewerProps = {
   name?: string;
