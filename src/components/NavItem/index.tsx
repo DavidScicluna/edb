@@ -17,7 +17,7 @@ import { ChevronRight as ChevronRightIcon } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
-import { handleParseDurationForFramer, handleReturnNumberFromString } from '../../common/utils';
+import { handleParseDurationForFramer, handleConvertStringToNumber } from '../../common/utils';
 import Link from '../../components/Clickable/Link';
 import { Theme } from '../../theme/types';
 import Tooltip from '../Tooltip';
@@ -113,7 +113,7 @@ const NavItem = (props: NavItemType): ReactElement => {
                 unmountOnExit
                 delay={{
                   enter: handleParseDurationForFramer(
-                    handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
+                    handleConvertStringToNumber(theme.transition.duration.slow, 'ms')
                   ),
                   exit: 0
                 }}>
@@ -129,7 +129,7 @@ const NavItem = (props: NavItemType): ReactElement => {
                 unmountOnExit
                 delay={{
                   enter: handleParseDurationForFramer(
-                    handleReturnNumberFromString(theme.transition.duration.slow, 'ms')
+                    handleConvertStringToNumber(theme.transition.duration.slow, 'ms')
                   ),
                   exit: 0
                 }}>

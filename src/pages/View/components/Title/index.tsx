@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, useColorMode, useBreakpointValue, HStack, VStack, Text, Badge, SlideFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { handleReturnDummyWidths, handleReturnNumberFromString, handleReturnRuntime } from '../../../../common/utils';
+import { handleReturnDummyWidths, handleConvertStringToNumber, handleReturnRuntime } from '../../../../common/utils';
 import Rating from '../../../../components/Rating';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import { Theme } from '../../../../theme/types';
@@ -41,8 +41,7 @@ const Title = (props: TitleProps): ReactElement => {
             align='left'
             color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
             fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
-            fontWeight='bold'
-          >
+            fontWeight='bold'>
             {title || 'Movie Title'}{' '}
             <Badge height={['28px', '28px', '35px', '35px', '35px', '35px']} background='transparent' p={0}>
               <Rating
@@ -73,8 +72,7 @@ const Title = (props: TitleProps): ReactElement => {
           <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' mx={1}>
             •
           </Text>
-        }
-      >
+        }>
         <SkeletonText offsetY={7} isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
             {date || 'N/A'}
@@ -94,16 +92,14 @@ const Title = (props: TitleProps): ReactElement => {
             <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' pr={0.75}>
               ,
             </Text>
-          }
-        >
+          }>
           {!isLoading && genres
             ? genres.map((genre, index) => (
                 <SlideFade
                   key={index}
                   in
                   offsetY={7}
-                  delay={handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}
-                >
+                  delay={handleConvertStringToNumber(theme.transition.duration['faster'], 'ms') / 250}>
                   <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
                     {genre.name}
                   </Text>

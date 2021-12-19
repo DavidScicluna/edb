@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, SlideFade, useTheme } from '@chakra-ui/react';
 
-import { handleReturnNumberFromString } from '../../../common/utils';
+import { handleConvertStringToNumber } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
 import Skeleton from '../../Skeleton';
 import commonProps from '../common/props';
@@ -22,13 +22,11 @@ const SkeletonText = (props: SkeletonTextProps): ReactElement => {
       isLoaded={isLoaded}
       type='text'
       startColor={handleReturnColors('start', color, colorMode)}
-      endColor={handleReturnColors('end', color, colorMode)}
-    >
+      endColor={handleReturnColors('end', color, colorMode)}>
       <SlideFade
         in={isLoaded}
         offsetY={offsetY}
-        delay={handleReturnNumberFromString(theme.transition.duration['faster'], 'ms') / 250}
-      >
+        delay={handleConvertStringToNumber(theme.transition.duration['faster'], 'ms') / 250}>
         {children}
       </SlideFade>
     </Skeleton>

@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory, useLocation, Switch, Route } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
-
 import Button from '../../../../components/Clickable/Button';
 import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';

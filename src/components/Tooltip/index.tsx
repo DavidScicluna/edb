@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, Theme, useColorMode, Tooltip as CUITooltip } from '@chakra-ui/react';
 
-import { handleIsTouchDevice, handleReturnNumberFromString } from '../../common/utils';
+import { handleIsTouchDevice, handleConvertStringToNumber } from '../../common/utils';
 import { TooltipProps } from './types';
 
 const Tooltip = (props: TooltipProps): ReactElement => {
@@ -19,15 +19,14 @@ const Tooltip = (props: TooltipProps): ReactElement => {
       arrowSize={8}
       color={mode === 'light' ? 'gray.50' : 'gray.900'}
       backgroundColor={mode === 'light' ? 'gray.700' : 'gray.200'}
-      closeDelay={closeDelay ? closeDelay : handleReturnNumberFromString(theme.transition.duration.slow, 'ms')}
-      openDelay={openDelay ? openDelay : handleReturnNumberFromString(theme.transition.duration.normal, 'ms')}
+      closeDelay={closeDelay ? closeDelay : handleConvertStringToNumber(theme.transition.duration.slow, 'ms')}
+      openDelay={openDelay ? openDelay : handleConvertStringToNumber(theme.transition.duration.normal, 'ms')}
       hasArrow
       sx={{
         '& .chakra-tooltip__arrow': {
           backgroundColor: `${mode === 'light' ? theme.colors.gray[700] : theme.colors.gray[200]} !important`
         }
-      }}
-    >
+      }}>
       {shouldWrapChildren ? <span style={{ width: '100%' }}>{children}</span> : children}
     </CUITooltip>
   ) : (

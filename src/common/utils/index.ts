@@ -2,7 +2,6 @@ import _ from 'lodash';
 import queryString from 'query-string';
 import { v4 as uuid } from 'uuid';
 
-import { ButtonProps } from '../../components/Clickable/Button/types';
 import store from '../../store';
 import theme from '../../theme';
 import { months } from '../data/date';
