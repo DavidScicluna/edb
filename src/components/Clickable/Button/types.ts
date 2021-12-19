@@ -1,7 +1,7 @@
 import { ColorMode, ButtonProps as CUIButtonProps } from '@chakra-ui/react';
 import { Icon } from 'react-feather';
 
-import { Color } from '../../theme/types';
+import { Color } from '../../../theme/types';
 
 export type ButtonRef = HTMLButtonElement | null;
 
