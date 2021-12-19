@@ -1,20 +1,21 @@
-import { IconButtonProps as CUIIconButtonProps } from '@chakra-ui/react';
+import { ColorMode, IconButtonProps as CUIIconButtonProps } from '@chakra-ui/react';
+import { Icon } from 'react-feather';
 
-import { Icon, ButtonSize, ColorMode } from '../../../common/types/types';
-import { Color } from '../../../theme/types';
+import { Color } from '../../theme/types';
 
 export type IconButtonRef = HTMLButtonElement | null;
 
-type Variant = 'icon' | 'outlined' | 'contained';
+export type Size = 'sm' | 'md' | 'lg';
+
+export type Variant = 'contained' | 'outlined' | 'icon';
 
 export type IconButtonProps = {
-  color?: Color;
+  color?: keyof Color;
   colorMode?: ColorMode;
   icon: Icon;
-  isLight?: boolean;
-  size?: ButtonSize;
+  size?: Size;
   variant?: Variant;
 } & Omit<
   CUIIconButtonProps,
-  'color' | 'colorScheme' | 'icon' | 'isActive' | 'isRound' | 'size' | 'spinner' | 'variant'
+  'color' | 'colorScheme' | 'icon' | 'isActive' | 'isRound' | 'spinner' | 'spinnerPlacement' | 'size' | 'variant'
 >;
