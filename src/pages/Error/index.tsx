@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, Center, HStack, Box, VStack } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
@@ -9,12 +9,10 @@ import Description from './components/Description';
 import { ErrorProps } from './types';
 
 const Error = (props: ErrorProps): ReactElement => {
-  const descriptionRef = useRef<HTMLDivElement | null>(null);
-
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { height } = useElementSize(descriptionRef);
+  const [descriptionRef, { height }] = useElementSize();
 
   const { code = 404, title, subtitle, actions } = props;
 

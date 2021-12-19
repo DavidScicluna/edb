@@ -1,4 +1,4 @@
-import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -11,14 +11,12 @@ import SkeletonText from '../../../../components/Skeleton/Text';
 import { BioProps } from './types';
 
 const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
-  const biographyRef = useRef<HTMLDivElement | null>(null);
-
   const { colorMode } = useColorMode();
 
   const [isExpanded, setIsExpanded] = useBoolean();
 
   const { width: windowWidth } = useWindowSize();
-  const { height: elementHeight } = useElementSize(biographyRef);
+  const [biographyRef, { height: elementHeight }] = useElementSize();
 
   const [height, setHeight] = useState<number>();
 
@@ -46,8 +44,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
       isFullWidth
       px={2}
       pt={1.5}
-      pb={2}
-    >
+      pb={2}>
       {{
         header: {
           title: 'Biography',
@@ -70,8 +67,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                     fontSize='md'
-                    fontWeight='medium'
-                  >
+                    fontWeight='medium'>
                     {paragraph}
                   </Text>
                 ))}

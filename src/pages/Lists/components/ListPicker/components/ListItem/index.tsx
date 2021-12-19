@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
@@ -12,14 +12,12 @@ import { Theme } from '../../../../../../theme/types';
 import { ListItemProps } from './types';
 
 const ListItem = (props: ListItemProps): ReactElement => {
-  const listRef = useRef<HTMLDivElement | null>(null);
-
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
   const location = useLocation();
 
-  const { width } = useElementSize(listRef);
+  const [listRef, { width }] = useElementSize();
 
   const { id, label, results, isActive = false, isSelectable = false, isSelected = false, onSelected, onClose } = props;
 
@@ -33,6 +31,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
   return (
     <Link isFullWidth isDisabled={isHoveringRadio} to={{ pathname: `/lists/${id}` }}>
       <Card
+        ref={listRef}
         height={`${width}px`}
         color={location.pathname.includes(id) || isSelected ? color : 'gray'}
         isFullWidth

@@ -1,4 +1,4 @@
-import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -10,12 +10,10 @@ import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { BodyProps } from './types';
 
 const Body = (props: BodyProps): ReactElement => {
-  const contentRef = useRef<HTMLDivElement | null>(null);
-
   const { colorMode } = useColorMode();
 
   const { width: windowWidth } = useWindowSize();
-  const { height: elementHeight } = useElementSize(contentRef);
+  const [contentRef, { height: elementHeight }] = useElementSize();
 
   const { content, isLoading = true } = props;
 
@@ -56,8 +54,7 @@ const Body = (props: BodyProps): ReactElement => {
         <Collapse
           in={isExpanded}
           startingHeight={(height || 176) >= 176 ? 176 : elementHeight || 176}
-          style={{ width: 'inherit', maxWidth: 'inherit' }}
-        >
+          style={{ width: 'inherit', maxWidth: 'inherit' }}>
           <VStack ref={contentRef} width='100%' maxWidth='100%' alignItems='flex-start' spacing={2}>
             {handleFormatIntoParagraphs(content)
               .filter((paragraph) => paragraph)
@@ -67,8 +64,7 @@ const Body = (props: BodyProps): ReactElement => {
                   align='left'
                   color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                   fontSize='md'
-                  fontWeight='medium'
-                >
+                  fontWeight='medium'>
                   {paragraph}
                 </Text>
               ))}

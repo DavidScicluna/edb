@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useBoolean, Box, AspectRatio, Center, Icon, Fade } from '@chakra-ui/react';
 import useInView from 'react-cool-inview';
@@ -9,9 +9,7 @@ import { Theme } from '../../../theme/types';
 import { ImageProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
-  const imageRef = useRef<HTMLDivElement | null>(null);
-
-  const { height } = useElementSize(imageRef);
+  const [imageRef, { height }] = useElementSize();
 
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();

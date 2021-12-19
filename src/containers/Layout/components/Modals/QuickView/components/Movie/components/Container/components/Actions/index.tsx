@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Box } from '@chakra-ui/react';
 import { Heart as HeartIcon } from 'react-feather';
@@ -11,11 +11,9 @@ import Like from '../../../../../../../../../../../components/Clickable/Like';
 import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
-  const ref = useRef<HTMLDivElement | null>(null);
-
   const { colorMode } = useColorMode();
 
-  const { height } = useElementSize(ref);
+  const [ref, { height }] = useElementSize();
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
