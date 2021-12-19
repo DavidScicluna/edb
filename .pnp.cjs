@@ -91,7 +91,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-youtube", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:7.13.1"],
             ["redux", "npm:4.1.2"],
             ["redux-persist", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:6.0.0"],
-            ["swiper", "npm:7.3.3"],
+            ["swiper", "npm:6.8.1"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"],
             ["usehooks-ts", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.1.1"],
             ["uuid", "npm:8.3.2"],
@@ -11645,11 +11645,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["dom7", [
-        ["npm:4.0.2", {
-          "packageLocation": "./.yarn/cache/dom7-npm-4.0.2-090041acd6-83a64234c3.zip/node_modules/dom7/",
+        ["npm:3.0.0", {
+          "packageLocation": "./.yarn/cache/dom7-npm-3.0.0-28768f2034-5a1b8979ed.zip/node_modules/dom7/",
           "packageDependencies": [
-            ["dom7", "npm:4.0.2"],
-            ["ssr-window", "npm:4.0.2"]
+            ["dom7", "npm:3.0.0"],
+            ["ssr-window", "npm:3.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -11817,7 +11817,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-youtube", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:7.13.1"],
             ["redux", "npm:4.1.2"],
             ["redux-persist", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:6.0.0"],
-            ["swiper", "npm:7.3.3"],
+            ["swiper", "npm:6.8.1"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"],
             ["usehooks-ts", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.1.1"],
             ["uuid", "npm:8.3.2"],
@@ -20787,10 +20787,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ssr-window", [
-        ["npm:4.0.2", {
-          "packageLocation": "./.yarn/cache/ssr-window-npm-4.0.2-01f9c0151e-df18260092.zip/node_modules/ssr-window/",
+        ["npm:3.0.0", {
+          "packageLocation": "./.yarn/cache/ssr-window-npm-3.0.0-8a2d34cc37-e619db7437.zip/node_modules/ssr-window/",
           "packageDependencies": [
-            ["ssr-window", "npm:4.0.2"]
+            ["ssr-window", "npm:3.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -21259,12 +21259,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["swiper", [
-        ["npm:7.3.3", {
-          "packageLocation": "./.yarn/unplugged/swiper-npm-7.3.3-bc3be06d89/node_modules/swiper/",
+        ["npm:6.8.1", {
+          "packageLocation": "./.yarn/unplugged/swiper-npm-6.8.1-24318b361a/node_modules/swiper/",
           "packageDependencies": [
-            ["swiper", "npm:7.3.3"],
-            ["dom7", "npm:4.0.2"],
-            ["ssr-window", "npm:4.0.2"]
+            ["swiper", "npm:6.8.1"],
+            ["dom7", "npm:3.0.0"],
+            ["ssr-window", "npm:3.0.0"]
           ],
           "linkType": "HARD",
         }]
