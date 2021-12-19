@@ -1,21 +1,21 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, useColorMode, Center, Spinner, Icon, Button as CUIButton } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { ColorMode } from '../../../common/types/types';
-import { Theme } from '../../../theme/types';
+import { Theme, Space } from '../../theme/types';
+import Icon from './components/Icon';
+import Spinner from './components/Spinner';
 import useStyles from './styles';
 import { ButtonRef, ButtonProps } from './types';
 
 const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): ReactElement {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
-
-  const style = useStyles(theme, props);
+  const { colorMode: colorModeHook } = useColorMode();
 
   const {
     children,
+    color = 'gray',
     colorMode: colorModeProp,
     leftIcon,
     rightIcon,
@@ -25,23 +25,25 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
     size = 'md',
     variant = 'contained',
     ...rest
-  } = _.omit(props, 'isLight');
+  } = props;
 
-  const mode: ColorMode = colorModeProp || colorMode;
+  const colorMode: ColorMode = colorModeProp || colorModeHook;
+
+  const style = useStyles(theme, { color, isFullWidth, isLoading, variant });
 
   /**
    * This method will return the appropriate spacing depending on the size passed
    *
-   * @returns - Spacing number
+   * @returns - number: Spacing value
    */
-  const handleReturnSpacing = (): number => {
+  const handleReturnSpacing = (): keyof Space => {
     switch (size) {
       case 'sm':
-        return 0.5;
+        return 0.75;
       case 'lg':
-        return 1.5;
+        return 2;
       default:
-        return 1;
+        return 1.5;
     }
   };
 
@@ -49,31 +51,29 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
     <CUIButton
       {...rest}
       ref={ref}
+      tabIndex={0}
       isDisabled={isLoading || isDisabled}
       isFullWidth={isFullWidth}
       variant='unstyled'
-      sx={{ ..._.merge(style.button.back, style[mode].back[variant]) }}
-      _disabled={{ ..._.merge(style.button.disabled, style[mode].disabled[variant]) }}
+      sx={{ ..._.merge(style.button.back.default, style.button.back[size], style[colorMode].back[variant]) }}
+      _disabled={{
+        ..._.merge(style.button.disabled.default, style.button.disabled[size], style[colorMode].disabled[variant])
+      }}
     >
-      <Center className='button_front' sx={{ ..._.merge(style.button.front, style[mode].front[variant]) }}>
-        {isLoading ? (
-          <Spinner
-            thickness={size === 'sm' ? '2px' : size === 'md' ? '3px' : '4px'}
-            size={size}
-            speed={theme.transition.duration.slow}
-            sx={{ ..._.merge(style.button.icon) }}
-          />
-        ) : (
-          <>
-            {leftIcon ? (
-              <Icon as={leftIcon} mr={children ? handleReturnSpacing() : 0} sx={{ ..._.merge(style.button.icon) }} />
-            ) : null}
-            {children}
-            {rightIcon ? (
-              <Icon as={rightIcon} ml={children ? handleReturnSpacing() : 0} sx={{ ..._.merge(style.button.icon) }} />
-            ) : null}
-          </>
-        )}
+      <Center
+        className='button_front'
+        sx={{ ..._.merge(style.button.front.default, style.button.front[size], style[colorMode].front[variant]) }}
+      >
+        <ScaleFade in={isLoading} unmountOnExit>
+          <Spinner color={color} colorMode={colorMode} size={size} variant={variant} />
+        </ScaleFade>
+        <ScaleFade in={!isLoading} unmountOnExit>
+          <HStack width='100%' spacing={handleReturnSpacing()}>
+            {leftIcon ? <Icon icon={leftIcon} size={size} /> : null}
+            <span>{children}</span>
+            {rightIcon ? <Icon icon={rightIcon} size={size} /> : null}
+          </HStack>
+        </ScaleFade>
       </Center>
     </CUIButton>
   );

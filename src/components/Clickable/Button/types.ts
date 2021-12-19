@@ -1,19 +1,20 @@
-import { ButtonProps as CUIButtonProps } from '@chakra-ui/react';
+import { ColorMode, ButtonProps as CUIButtonProps } from '@chakra-ui/react';
+import { Icon } from 'react-feather';
 
-import { Icon, ButtonSize, ColorMode } from '../../../common/types/types';
-import { Color } from '../../../theme/types';
+import { Color } from '../../theme/types';
 
 export type ButtonRef = HTMLButtonElement | null;
 
-type Variant = 'text' | 'outlined' | 'contained';
+export type Size = 'sm' | 'md' | 'lg';
+
+export type Variant = 'contained' | 'outlined' | 'text';
 
 export type ButtonProps = {
-  color?: Color;
+  color?: keyof Color;
   colorMode?: ColorMode;
   leftIcon?: Icon;
   rightIcon?: Icon;
-  isLight?: boolean;
-  size?: ButtonSize;
+  size?: Size;
   variant?: Variant;
 } & Omit<
   CUIButtonProps,
