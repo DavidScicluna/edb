@@ -1,7 +1,13 @@
 import { ReactElement } from 'react';
 
+import {
+  ThumbDownOutlined as ThumbDownOutlinedIcon,
+  ThumbUpOutlined as ThumbUpOutlinedIcon,
+  ThumbDown as ThumbDownIcon,
+  ThumbUp as ThumbUpIcon
+} from '@material-ui/icons';
+
 import { useBoolean } from '@chakra-ui/react';
-import { ThumbsUp as ThumbsUpIcon, ThumbsDown as ThumbsDown } from 'react-feather';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../../../common/hooks';
@@ -44,21 +50,19 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
       label={isActive ? `Un-${label} review` : `${label} review`}
       isOpen={isHovering}
       placement='top'
-      gutter={4}
-    >
+      gutter={4}>
       <IconButton
         aria-label={isActive ? `Un-${label} review` : `${label} review`}
         color={isActive ? color : 'gray'}
-        // icon={
-        //   state === 'isLiked'
-        //     ? isActive
-        //       ? ThumbUpIcon
-        //       : ThumbUpOutlinedIcon
-        //     : isActive
-        //     ? ThumbDownIcon
-        //     : ThumbDownOutlinedIcon
-        // }
-        icon={state === 'isLiked' ? ThumbsUpIcon : ThumbsDown}
+        icon={
+          state === 'isLiked'
+            ? isActive
+              ? ThumbUpIcon
+              : ThumbUpOutlinedIcon
+            : isActive
+            ? ThumbDownIcon
+            : ThumbDownOutlinedIcon
+        }
         isDisabled={isDisabled}
         onClick={() => handleReview()}
         onMouseEnter={() => setIsHovering.on()}

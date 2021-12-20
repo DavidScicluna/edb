@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
+import { StarOutlineOutlined as StarOutlineOutlinedIcon, StarOutlined as StarOutlinedIcon } from '@material-ui/icons';
+
 import { useTheme, useColorMode, useMediaQuery, Box, Icon } from '@chakra-ui/react';
-import { Star as StarIcon } from 'react-feather';
 
 import { Theme } from '../../../../../../../../../../theme/types';
 import { StarProps } from './types';
@@ -34,8 +35,7 @@ const Star = ({ value, hoveringNumber, isChecked, onChange, onHover }: StarProps
       }}
     >
       <Icon
-        // as={isChecked ? StarOutlinedIcon : StarOutlineOutlinedIcon}
-        as={StarIcon}
+        as={isChecked ? StarOutlinedIcon : StarOutlineOutlinedIcon}
         sx={{
           fontSize: `${isSm ? theme.fontSizes.xl : theme.fontSizes['2xl']} !important`,
           transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`

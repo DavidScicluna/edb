@@ -1,5 +1,7 @@
 import { ReactElement, useCallback, useEffect } from 'react';
 
+import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
+
 import {
   useTheme,
   useColorMode,
@@ -13,7 +15,6 @@ import {
   Collapse
 } from '@chakra-ui/react';
 import _ from 'lodash';
-import { ChevronRight as ChevronRightIcon } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
@@ -141,7 +142,7 @@ const NavItem = (props: NavItemType): ReactElement => {
                 }}
               >
                 <Icon
-                  as={ChevronRightIcon}
+                  as={ChevronRightOutlinedIcon}
                   sx={{
                     fontSize: `${theme.fontSizes.xl} !important`,
                     transform: `rotate(${isChildrenOpen ? '90deg' : '0deg'})`

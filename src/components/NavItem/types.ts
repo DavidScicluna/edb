@@ -7,6 +7,7 @@ export type NavItem = {
   children?: NavItemChild[];
   label: string;
   path?: string;
+  iconActive: Icon;
   icon: Icon;
   sidebarMode?: SidebarMode;
   onClick?: () => void;

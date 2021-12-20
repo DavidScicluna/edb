@@ -1,6 +1,15 @@
 import { ReactElement, useEffect } from 'react';
 
 import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon,
+  BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
+  BookmarkOutlined as BookmarkOutlinedIcon,
+  PaletteTwoTone as PaletteTwoToneIcon,
+  PaletteOutlined as PaletteOutlinedIcon
+} from '@material-ui/icons';
+
+import {
   useColorMode,
   useDisclosure,
   Avatar,
@@ -13,7 +22,6 @@ import {
   Text,
   Box
 } from '@chakra-ui/react';
-import { Heart as HeartIcon, Bookmark as BookmarkIcon, Sliders as SlidersIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -33,16 +41,19 @@ const User = (): ReactElement => {
     {
       label: 'Liked',
       path: '/liked',
-      icon: HeartIcon
+      iconActive: FavoriteOutlinedIcon,
+      icon: FavoriteBorderOutlinedIcon
     },
     {
       label: 'Lists',
       path: '/lists',
-      icon: BookmarkIcon
+      iconActive: BookmarkOutlinedIcon,
+      icon: BookmarkBorderOutlinedIcon
     },
     {
       label: 'Display',
-      icon: SlidersIcon,
+      iconActive: PaletteTwoToneIcon,
+      icon: PaletteOutlinedIcon,
       onClick: () => dispatch(toggleDisplay(true))
     }
   ];

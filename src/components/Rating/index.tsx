@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
+
 import { useColorMode, Center, Icon, Text } from '@chakra-ui/react';
 import _ from 'lodash';
-import { Star as StarIcon } from 'react-feather';
 
 import SkeletonText from '../Skeleton/Text';
 import { RatingProps } from './types';
@@ -12,7 +13,6 @@ const defaultRating = {
   count: null
 };
 
-// TODO: Refactor to use new Badge
 const Rating = (props: RatingProps): ReactElement => {
   const { colorMode } = useColorMode();
 
@@ -21,7 +21,7 @@ const Rating = (props: RatingProps): ReactElement => {
   return (
     <Center backgroundColor='transparent' p={0}>
       <Icon
-        as={StarIcon}
+        as={StarOutlinedIcon}
         color='yellow.400'
         sx={{
           fontSize: `${iconFontsize} !important`

@@ -1,7 +1,13 @@
 import { ReactElement, MouseEvent } from 'react';
 
+import {
+  CloseOutlined as CloseOutlinedIcon,
+  DashboardOutlined as DashboardOutlinedIcon,
+  FullscreenOutlined as FullscreenOutlinedIcon,
+  FullscreenExitOutlined as FullscreenExitOutlinedIcon
+} from '@material-ui/icons';
+
 import { useMediaQuery, useBoolean, VStack, HStack } from '@chakra-ui/react';
-import { X as XIcon, Grid as GridIcon, Minimize as MinimizeIcon, Maximize as MaximizeIcon } from 'react-feather';
 
 import IconButton from '../../../Clickable/IconButton';
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
@@ -78,7 +84,7 @@ const Actions = (props: ActionsProps): ReactElement => {
     <IconButton
       key='close_button'
       aria-label='Close modal'
-      icon={XIcon}
+      icon={CloseOutlinedIcon}
       onClick={(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => handleClose(event)}
       variant='icon'
     />,
@@ -87,7 +93,7 @@ const Actions = (props: ActionsProps): ReactElement => {
     <IconButton
       key='gallery_button'
       aria-label='Open Gallery'
-      icon={GridIcon}
+      icon={DashboardOutlinedIcon}
       onClick={() => onGalleryClick()}
       variant='icon'
     />,
@@ -97,7 +103,7 @@ const Actions = (props: ActionsProps): ReactElement => {
       <IconButton
         key='fullscreen_button'
         aria-label={isFullscreen ? 'Exit fullscreen ' : 'Enter fullscreen'}
-        icon={isFullscreen ? MinimizeIcon : MaximizeIcon}
+        icon={isFullscreen ? FullscreenExitOutlinedIcon : FullscreenOutlinedIcon}
         onClick={isFullscreen ? (event) => handleCloseFullscreen(event) : (event) => handleOpenFullscreen(event)}
         variant='icon'
       />

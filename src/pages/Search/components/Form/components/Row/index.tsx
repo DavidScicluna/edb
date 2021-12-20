@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import { ClearOutlined as ClearOutlinedIcon } from '@material-ui/icons';
+
 import { useTheme, useColorMode, useBoolean, VStack, Center, ListItem, Text, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
-import { X as XIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../common/hooks';
@@ -79,7 +80,7 @@ const Row = (props: RowProps): ReactElement => {
           <Tooltip aria-label='Remove search' label={`Remove "${title}"`} isOpen={isHoveringDelete} placement='top'>
             <IconButton
               aria-label='Remove search'
-              icon={XIcon}
+              icon={ClearOutlinedIcon}
               onClick={() => handleDelete()}
               onMouseEnter={state !== 'isLoading' ? () => setIsHoveringDelete.on() : undefined}
               onMouseLeave={state !== 'isLoading' ? () => setIsHoveringDelete.off() : undefined}

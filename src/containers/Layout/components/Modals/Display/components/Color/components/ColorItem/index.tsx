@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
+import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
+
 import { useTheme, useBoolean, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
-import { Check as CheckIcon } from 'react-feather';
 
 import Card from '../../../../../../../../../components/Clickable/Card';
 import Tooltip from '../../../../../../../../../components/Tooltip';
@@ -50,7 +51,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
           >
             <ScaleFade in={isActive} unmountOnExit>
               <Icon
-                as={CheckIcon}
+                as={CheckOutlinedIcon}
                 sx={{
                   fontSize: `${theme.fontSizes['4xl']} !important`,
                   color: background === 'light' ? 'gray.50' : 'gray.900'

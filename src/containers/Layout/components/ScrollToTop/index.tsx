@@ -1,8 +1,9 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
+import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
+
 import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
 import _ from 'lodash';
-import { ArrowUp as ArrowUpIcon } from 'react-feather';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
@@ -50,14 +51,13 @@ const ScrollToTop = (): ReactElement => {
       zIndex={theme.zIndices.toast}
       borderRadius='lg'
       boxShadow='lg'
-      backgroundColor='transparent'
-    >
+      backgroundColor='transparent'>
       <SlideFade in={scrollHeight > screen.height} unmountOnExit offsetY={theme.space[2]}>
         <Tooltip aria-label='Scroll to top' label='Scroll to the top' placement='left' isOpen={isHovering} gutter={6}>
           <IconButton
             aria-label='Scroll to top'
             color={color}
-            icon={ArrowUpIcon}
+            icon={ArrowUpwardOutlinedIcon}
             onClick={() => document.scrollingElement?.scrollTo(0, 0)}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}

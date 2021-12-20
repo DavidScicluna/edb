@@ -1,5 +1,7 @@
 import { ReactElement, useRef } from 'react';
 
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+
 import {
   useBoolean,
   useColorMode,
@@ -15,7 +17,6 @@ import {
 import sort from 'array-sort';
 import _ from 'lodash';
 import moment from 'moment';
-import { Search as SearchIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../common/hooks';
@@ -113,15 +114,13 @@ const Form = (props: FormProps): ReactElement => {
         py={1.5}
         onClick={() => handleFocusOnInput()}
         onMouseEnter={!keywords.isFetching || !keywords.isLoading ? () => setIsHoveringForm.on() : undefined}
-        onMouseLeave={!keywords.isFetching || !keywords.isLoading ? () => setIsHoveringForm.off() : undefined}
-      >
+        onMouseLeave={!keywords.isFetching || !keywords.isLoading ? () => setIsHoveringForm.off() : undefined}>
         <HStack
           borderBottom={isFormFocused || isFormLocked ? 'solid2' : 'none'}
           borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
           pb={isFormFocused || isFormLocked ? 1.5 : 0}
-          mb={isFormFocused || isFormLocked ? 2 : 0}
-        >
-          <Icon as={SearchIcon} color={colorMode === 'light' ? 'gray.400' : 'gray.500'} />
+          mb={isFormFocused || isFormLocked ? 2 : 0}>
+          <Icon as={SearchOutlinedIcon} color={colorMode === 'light' ? 'gray.400' : 'gray.500'} />
           <Input
             ref={inputRef}
             borderRadius='none'
@@ -154,8 +153,7 @@ const Form = (props: FormProps): ReactElement => {
                   </Button>
                 </ScaleFade>
               ) : undefined
-            }
-          >
+            }>
             <>
               {!hasUnsubmitted ? (
                 recentSearches.length > 0 ? (

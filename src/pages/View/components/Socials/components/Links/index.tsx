@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
+import { Facebook as FacebookIcon, Twitter as TwitterIcon, Instagram as InstagramIcon } from '@material-ui/icons';
+
 import { useColorMode, useTheme } from '@chakra-ui/react';
-import { Facebook as FacebookIcon, Twitter as TwitterIcon, Instagram as InstagramIcon } from 'react-feather';
 
 import { Theme } from '../../../../../../theme/types';
 import Link from '../Link';

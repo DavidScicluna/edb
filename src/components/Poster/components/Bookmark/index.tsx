@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
+import {
+  BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
+  BookmarkOutlined as BookmarkOutlinedIcon
+} from '@material-ui/icons';
+
 import { useBoolean } from '@chakra-ui/react';
-import { Bookmark as BookmarkIcon } from 'react-feather';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
@@ -52,8 +56,7 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
             }
             color={isBookmarked ? color : 'gray'}
             isDisabled={isLoading || !mediaItem}
-            // icon={isBookmarked ? BookmarkOutlinedIcon : BookmarkBorderOutlinedIcon}
-            icon={BookmarkIcon}
+            icon={isBookmarked ? BookmarkOutlinedIcon : BookmarkBorderOutlinedIcon}
             onClick={() => onClick()}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}

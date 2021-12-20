@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
+
 import { useTheme, useColorMode, HStack, Icon } from '@chakra-ui/react';
 import _ from 'lodash';
-import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
 import { handleReturnDummyWidths } from '../../../../../../../../common/utils';
 import Skeleton from '../../../../../../../../components/Skeleton';
@@ -22,7 +23,7 @@ const DummyAccordion = (): ReactElement => {
       <Skeleton width={`${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px`} height='16px' />
 
       <Icon
-        as={ChevronDownIcon}
+        as={KeyboardArrowDownOutlinedIcon}
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
         sx={{ ..._.merge(style.common.icon) }}
       />

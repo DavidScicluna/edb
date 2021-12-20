@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
+import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon
+} from '@material-ui/icons';
+
 import { useColorMode, useMediaQuery, HStack, Box } from '@chakra-ui/react';
-import { Heart as HeartIcon } from 'react-feather';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
@@ -54,8 +58,7 @@ const Actions = (props: ActionsProps): ReactElement => {
             color={isLiked ? 'red' : 'gray'}
             isFullWidth={isSm}
             isDisabled={isError || isLoading || !mediaItem}
-            // leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
-            leftIcon={HeartIcon}
+            leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
             onClick={() => onClick()}
             size='md'
             variant='outlined'

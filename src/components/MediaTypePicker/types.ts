@@ -3,6 +3,7 @@ import { MediaType, Icon } from '../../common/types';
 export type MediaTypeItem = {
   label: string;
   value: MediaType;
+  iconActive: Icon;
   icon: Icon;
 };
 

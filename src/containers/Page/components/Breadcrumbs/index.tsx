@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
+
 import {
   useTheme,
   useColorMode,
@@ -11,7 +13,6 @@ import {
   Icon
 } from '@chakra-ui/react';
 import _ from 'lodash';
-import { ChevronRight as ChevronRightIcon } from 'react-feather';
 
 import Link from '../../../../components/Clickable/Link';
 import SkeletonText from '../../../../components/Skeleton/Text';
@@ -40,7 +41,7 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
     <CUIBreadcrumb
       separator={
         <Icon
-          as={ChevronRightIcon}
+          as={ChevronRightOutlinedIcon}
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
           sx={{ fontSize: `${iconFontSize} !important` }}
         />

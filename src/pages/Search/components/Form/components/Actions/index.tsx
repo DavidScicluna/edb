@@ -1,7 +1,12 @@
 import { ReactElement } from 'react';
 
+import {
+  ClearOutlined as ClearOutlinedIcon,
+  LockOpenOutlined as LockOpenOutlinedIcon,
+  LockOutlined as LockOutlinedIcon
+} from '@material-ui/icons';
+
 import { useBoolean, Center, ScaleFade } from '@chakra-ui/react';
-import { X as XIcon, Unlock as UnlockIcon, Lock as LockIcon } from 'react-feather';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../../../components/Tooltip';
@@ -31,7 +36,7 @@ const Actions = (props: ActionsProps): ReactElement => {
         >
           <IconButton
             aria-label='Clear search'
-            icon={XIcon}
+            icon={ClearOutlinedIcon}
             isDisabled={!hasQuery}
             onClick={() => onClearQuery()}
             onMouseEnter={() => setIsHoveringClear.on()}
@@ -49,7 +54,7 @@ const Actions = (props: ActionsProps): ReactElement => {
       >
         <IconButton
           aria-label={isFormLocked ? 'Unlock Search' : 'Lock Search'}
-          icon={isFormLocked ? LockIcon : UnlockIcon}
+          icon={isFormLocked ? LockOutlinedIcon : LockOpenOutlinedIcon}
           onClick={() => onToggleLock()}
           onMouseEnter={() => onHoverLock(true)}
           onMouseLeave={() => onHoverLock(false)}

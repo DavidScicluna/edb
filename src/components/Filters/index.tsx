@@ -1,7 +1,8 @@
 import { ReactElement, useEffect } from 'react';
 
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+
 import { useDisclosure, VStack } from '@chakra-ui/react';
-import { Eye as EyeIcon } from 'react-feather';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -118,7 +119,7 @@ const Filters = (props: FiltersProps): ReactElement => {
       <IconButton
         aria-label='Open filters modal'
         color={isOpen ? color : 'gray'}
-        icon={EyeIcon}
+        icon={VisibilityOutlinedIcon}
         isDisabled={isDisabled}
         onClick={() => onOpen()}
         variant='outlined'
@@ -131,16 +132,14 @@ const Filters = (props: FiltersProps): ReactElement => {
             color={color}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
-            size='sm'
-          >
+            size='sm'>
             Submit
           </Button>
         }
         isOpen={isOpen}
         onClose={handleClose}
         isCentered
-        size='3xl'
-      >
+        size='3xl'>
         <VStack spacing={2} p={2}>
           <DisplayMode form={form} />
 

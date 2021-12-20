@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
+import {
+  WbSunnyOutlined as WbSunnyOutlinedIcon,
+  Brightness2Outlined as Brightness2OutlinedIcon
+} from '@material-ui/icons';
+
 import { HStack } from '@chakra-ui/react';
-import { Sun as SunIcon, Moon as MoonIcon } from 'react-feather';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
 import Panel from '../../../../../../../components/Panel';
@@ -13,12 +17,12 @@ const backgrounds: BackgroundType[] = [
   {
     label: 'Light',
     value: 'light',
-    icon: SunIcon
+    icon: WbSunnyOutlinedIcon
   },
   {
     label: 'Dark',
     value: 'dark',
-    icon: MoonIcon
+    icon: Brightness2OutlinedIcon
   }
 ];
 

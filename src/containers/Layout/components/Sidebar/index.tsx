@@ -1,7 +1,9 @@
 import { ReactElement } from 'react';
 
+import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
+
 import { useTheme, useColorMode, VStack } from '@chakra-ui/react';
-import { Plus as PlusIcon, Minus as MinusIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../common/hooks';
@@ -37,16 +39,14 @@ const Sidebar = ({ width }: SidebarProps): ReactElement => {
       borderRightColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       p={1}
       spacing={2}
-      sx={{ ...transition }}
-    >
+      sx={{ ...transition }}>
       <NavItems navItems={navItems} />
 
       <Button
         isFullWidth
         onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
-        leftIcon={sidebarMode === 'expanded' ? MinusIcon : PlusIcon}
-        variant='outlined'
-      >
+        leftIcon={sidebarMode === 'expanded' ? RemoveOutlinedIcon : AddOutlinedIcon}
+        variant='outlined'>
         {sidebarMode === 'expanded' ? 'Collapse' : ''}
       </Button>
     </VStack>

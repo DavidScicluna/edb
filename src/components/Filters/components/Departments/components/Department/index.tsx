@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Check as CheckIcon } from 'react-feather';
+import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../Clickable/Button';
@@ -12,11 +12,10 @@ const Department = ({ id, name, value, isActive = false, onClick }: DepartmentPr
   return (
     <Button
       color={isActive ? color : 'gray'}
-      leftIcon={isActive ? CheckIcon : undefined}
+      leftIcon={isActive ? CheckOutlinedIcon : undefined}
       onClick={() => onClick({ id, name, value })}
       size='sm'
-      variant='outlined'
-    >
+      variant='outlined'>
       {name}
     </Button>
   );

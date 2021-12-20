@@ -1,11 +1,17 @@
 import {
-  Home as HomeIcon,
-  Search as SearchIcon,
-  TrendingUp as TrendingUpIcon,
-  Film as FilmIcon,
-  Tv as TVIcon,
-  Users as UsersIcon
-} from 'react-feather';
+  HomeTwoTone as HomeTwoToneIcon,
+  HomeOutlined as HomeOutlinedIcon,
+  PeopleAltOutlined as PeopleAltOutlinedIcon,
+  PeopleAltTwoTone as PeopleAltTwoToneIcon,
+  SearchOutlined as SearchOutlinedIcon,
+  SearchTwoTone as SearchTwoToneIcon,
+  TheatersOutlined as TheatersOutlinedIcon,
+  TheatersTwoTone as TheatersTwoToneIcon,
+  TvOutlined as TvOutlinedIcon,
+  TvTwoTone as TvTwoToneIcon,
+  WhatshotOutlined as WhatshotOutlinedIcon,
+  WhatshotTwoTone as WhatshotTwoToneIcon
+} from '@material-ui/icons';
 
 import { NavItem } from '../../../../components/NavItem/types';
 
@@ -13,17 +19,20 @@ const navItems: NavItem[] = [
   {
     label: 'Home',
     path: '/',
-    icon: HomeIcon
+    iconActive: HomeTwoToneIcon,
+    icon: HomeOutlinedIcon
   },
   {
     label: 'Search',
     path: '/search',
-    icon: SearchIcon
+    iconActive: SearchTwoToneIcon,
+    icon: SearchOutlinedIcon
   },
   {
     label: 'Trending',
     path: '/trending',
-    icon: TrendingUpIcon,
+    iconActive: WhatshotTwoToneIcon,
+    icon: WhatshotOutlinedIcon,
     children: [
       { label: 'Trending Movies', path: '/trending/movie', renderChild: false },
       { label: 'Trending TV', path: '/trending/tv', renderChild: false },
@@ -33,7 +42,8 @@ const navItems: NavItem[] = [
   {
     label: 'Movies',
     path: '/movies',
-    icon: FilmIcon,
+    iconActive: TheatersTwoToneIcon,
+    icon: TheatersOutlinedIcon,
     children: [
       { label: 'Popular', path: '/movies/popular', renderChild: true },
       { label: 'Upcoming', path: '/movies/upcoming', renderChild: true },
@@ -44,7 +54,8 @@ const navItems: NavItem[] = [
   {
     label: 'TV Shows',
     path: '/tv',
-    icon: TVIcon,
+    iconActive: TvTwoToneIcon,
+    icon: TvOutlinedIcon,
     children: [
       { label: 'Popular', path: '/tv/popular', renderChild: true },
       { label: 'Airing Today', path: '/tv/airing-today', renderChild: true },
@@ -55,7 +66,8 @@ const navItems: NavItem[] = [
   {
     label: 'People',
     path: '/people',
-    icon: UsersIcon
+    iconActive: PeopleAltTwoToneIcon,
+    icon: PeopleAltOutlinedIcon
   }
   // {
   //   label: 'Companies',

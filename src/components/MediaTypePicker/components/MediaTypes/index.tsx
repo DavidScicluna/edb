@@ -1,7 +1,14 @@
 import { ReactElement } from 'react';
 
+import {
+  PeopleAltOutlined as PeopleAltOutlinedIcon,
+  PeopleAltTwoTone as PeopleAltTwoToneIcon,
+  TheatersOutlined as TheatersOutlinedIcon,
+  TvOutlined as TvOutlinedIcon,
+  TvTwoTone as TvTwoToneIcon
+} from '@material-ui/icons';
+
 import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
-import { Users as UsersIcon, Film as FilmIcon, Tv as TVIcon } from 'react-feather';
 
 import { MediaType as MediaType } from '../../../../common/types';
 import { MediaTypeItem as MediaTypeItemType } from '../../types';
@@ -12,17 +19,20 @@ const mediaTypesList: MediaTypeItemType[] = [
   {
     label: 'Movies',
     value: 'movie',
-    icon: FilmIcon
+    iconActive: TheatersOutlinedIcon,
+    icon: TheatersOutlinedIcon
   },
   {
     label: 'TV Shows',
     value: 'tv',
-    icon: TVIcon
+    iconActive: TvTwoToneIcon,
+    icon: TvOutlinedIcon
   },
   {
     label: 'People',
     value: 'person',
-    icon: UsersIcon
+    iconActive: PeopleAltTwoToneIcon,
+    icon: PeopleAltOutlinedIcon
   }
 ];
 

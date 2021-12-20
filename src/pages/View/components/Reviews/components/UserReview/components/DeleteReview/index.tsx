@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
+import { DeleteOutlineOutlined as DeleteOutlineOutlinedIcon } from '@material-ui/icons';
+
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
-import { Trash2 as TrashIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../../../common/hooks';
@@ -30,7 +31,7 @@ const DeleteReview = ({ id }: { id: string }): ReactElement => {
         <IconButton
           aria-label='Delete review'
           color={isHovering ? 'red' : 'gray'}
-          icon={TrashIcon}
+          icon={DeleteOutlineOutlinedIcon}
           onClick={() => onOpenConfirm()}
           onMouseEnter={() => setIsHovering.on()}
           onMouseLeave={() => setIsHovering.off()}
