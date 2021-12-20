@@ -23,7 +23,8 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
           placement='top'
           isOpen={isHovering}
           isDisabled={isLoading || !mediaItem}
-          gutter={8}>
+          gutter={8}
+        >
           <IconButton
             aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
             color={isLiked ? 'red' : 'gray'}

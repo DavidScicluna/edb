@@ -20,7 +20,8 @@ const Backdrop = (props: BackdropProps): ReactElement => {
       ratio={6 / 3}
       icon={video ? YoutubeIcon : undefined}
       isDisabled={isLoading || isError || isImageError}
-      onClick={path ? () => onClick(path, video ? 'video' : 'backdrop') : undefined}>
+      onClick={path ? () => onClick(path, video ? 'video' : 'backdrop') : undefined}
+    >
       <Skeleton width='100%' position='absolute' top={0} isLoaded={!isLoading} borderRadius='base'>
         <Image
           width='100%'

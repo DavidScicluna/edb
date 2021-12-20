@@ -43,7 +43,8 @@ const Header = (props: HeaderProps): ReactElement => {
             color: colorMode === 'light' ? 'gray.900' : 'gray.50'
           }
         }
-      }}>
+      }}
+    >
       <VStack alignItems='flex-start' spacing={0}>
         <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='lg' fontWeight='semibold'>
           {title || 'N/A'}

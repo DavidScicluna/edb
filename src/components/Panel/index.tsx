@@ -76,7 +76,8 @@ const Panel = (props: PanelProps): ReactElement => {
       divider={hasDivider ? <Divider colorMode={colorMode} /> : undefined}
       p={handleReturnPadding()}
       spacing={handleReturnSpacing()}
-      sx={{ ..._.merge(style.panel[variant], style[colorMode][variant][size], style[colorMode][variant]) }}>
+      sx={{ ..._.merge(style.panel[variant], style[colorMode][variant][size], style[colorMode][variant]) }}
+    >
       {!_.isNil(children.header?.title) || !_.isNil(children.header?.actions) ? (
         <Header actions={children.header?.actions} colorMode={colorMode} title={children.header?.title} size={size} />
       ) : null}

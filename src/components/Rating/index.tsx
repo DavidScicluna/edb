@@ -32,7 +32,8 @@ const Rating = (props: RatingProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={textFontsize}
           fontWeight='medium'
-          sx={{ lineHeight: 'normal' }}>
+          sx={{ lineHeight: 'normal' }}
+        >
           {_.round(rating?.rating || 0, 1) || 'N/A'}
         </Text>
       </SkeletonText>

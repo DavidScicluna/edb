@@ -36,7 +36,8 @@ const ListItem = (props: ListItemProps): ReactElement => {
         color={location.pathname.includes(id) || isSelected ? color : 'gray'}
         isFullWidth
         isClickable={!isHoveringRadio}
-        onClick={onClose ? () => onClose() : undefined}>
+        onClick={onClose ? () => onClose() : undefined}
+      >
         <VStack position='relative' width='100%' spacing={0} px={2} py={6}>
           {isSelectable && onSelected ? (
             <Box position='absolute' top={theme.space[2]} left={theme.space[2]}>
@@ -55,7 +56,8 @@ const ListItem = (props: ListItemProps): ReactElement => {
             fontSize='md'
             fontWeight='semibold'
             textTransform='capitalize'
-            sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}>
+            sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
+          >
             {label}
           </Text>
           <Text
@@ -64,7 +66,8 @@ const ListItem = (props: ListItemProps): ReactElement => {
             fontSize='xs'
             fontWeight='400'
             textTransform='capitalize'
-            sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}>
+            sx={{ transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}` }}
+          >
             {`${[
               `${movies} movie${movies === 0 || movies > 1 ? 's' : ''}`,
               `${tv} TV show${tv === 0 || tv > 1 ? 's' : ''}`

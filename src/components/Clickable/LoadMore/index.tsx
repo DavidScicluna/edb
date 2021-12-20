@@ -37,7 +37,8 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
           isLoading={isLoading}
           isFullWidth
           onClick={() => onClick()}
-          variant='outlined'>
+          variant='outlined'
+        >
           Load more
         </Button>
       </ScaleFade>

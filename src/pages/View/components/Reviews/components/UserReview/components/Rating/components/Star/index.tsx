@@ -31,7 +31,8 @@ const Star = ({ value, hoveringNumber, isChecked, onChange, onHover }: StarProps
             ? 'gray.400'
             : 'gray.500',
         transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
-      }}>
+      }}
+    >
       <Icon
         // as={isChecked ? StarOutlinedIcon : StarOutlineOutlinedIcon}
         as={StarIcon}

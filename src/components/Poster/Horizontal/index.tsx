@@ -71,7 +71,8 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
             minWidth={width}
             maxWidth={width}
             borderRadius='base'
-            ratio={2 / 3}>
+            ratio={2 / 3}
+          >
             <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
               <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
                 <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
@@ -101,7 +102,8 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               'calc(100% - 240px)'
             ]}
             alignItems='flex-start'
-            spacing={[1, 1, 2, 2, 2, 2]}>
+            spacing={[1, 1, 2, 2, 2, 2]}
+          >
             {/* Rating */}
             {mediaType !== 'person' ? (
               <Rating
@@ -138,7 +140,8 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                 position: 'absolute',
                 top: 1,
                 right: 1
-              }}>
+              }}
+            >
               {/* Like component */}
               <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                 <Like

@@ -34,7 +34,8 @@ const Container = (props: ContainerProps): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
               fontSize={isSm ? '2xl' : '4xl'}
-              fontWeight='bold'>
+              fontWeight='bold'
+            >
               {person?.name || 'Unknown'}
             </Text>
           </SkeletonText>
@@ -61,7 +62,8 @@ const Container = (props: ContainerProps): ReactElement => {
                 leftIcon={HeartIcon}
                 onClick={() => onClick()}
                 size='md'
-                variant='outlined'>
+                variant='outlined'
+              >
                 {isLiked ? 'Liked' : 'Like'}
               </Button>
             )}

@@ -131,14 +131,16 @@ const Filters = (props: FiltersProps): ReactElement => {
             color={color}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
-            size='sm'>
+            size='sm'
+          >
             Submit
           </Button>
         }
         isOpen={isOpen}
         onClose={handleClose}
         isCentered
-        size='3xl'>
+        size='3xl'
+      >
         <VStack spacing={2} p={2}>
           <DisplayMode form={form} />
 

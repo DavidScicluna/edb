@@ -24,7 +24,8 @@ const Actions = (props: ActionsProps): ReactElement => {
       ref={ref}
       width='100%'
       divider={<Box width='2px' height={height} backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />}
-      spacing={2}>
+      spacing={2}
+    >
       <Bookmark
         renderButton={({ lists, isBookmarked, onClick }) => (
           <Button
@@ -33,7 +34,8 @@ const Actions = (props: ActionsProps): ReactElement => {
             isDisabled={isLoading || !mediaItem}
             onClick={() => onClick()}
             size='md'
-            variant='outlined'>
+            variant='outlined'
+          >
             {isBookmarked
               ? `In ${
                   lists && (lists?.length || 0) === 1 ? `${lists[0].label ? `"${lists[0].label}" list` : ''}` : 'lists'
@@ -55,7 +57,8 @@ const Actions = (props: ActionsProps): ReactElement => {
             leftIcon={HeartIcon}
             onClick={() => onClick()}
             size='md'
-            variant='outlined'>
+            variant='outlined'
+          >
             {isLiked ? 'Liked' : 'Like'}
           </Button>
         )}

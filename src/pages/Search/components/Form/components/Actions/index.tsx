@@ -27,7 +27,8 @@ const Actions = (props: ActionsProps): ReactElement => {
           label='Clear search'
           isOpen={isHoveringClear}
           isDisabled={!hasQuery}
-          placement='top'>
+          placement='top'
+        >
           <IconButton
             aria-label='Clear search'
             icon={XIcon}
@@ -44,7 +45,8 @@ const Actions = (props: ActionsProps): ReactElement => {
         aria-label={isFormLocked ? 'Unlock Search' : 'Lock Search'}
         label={isFormLocked ? 'Unlock Search' : 'Lock Search'}
         isOpen={isHoveringLock}
-        placement='top'>
+        placement='top'
+      >
         <IconButton
           aria-label={isFormLocked ? 'Unlock Search' : 'Lock Search'}
           icon={isFormLocked ? LockIcon : UnlockIcon}

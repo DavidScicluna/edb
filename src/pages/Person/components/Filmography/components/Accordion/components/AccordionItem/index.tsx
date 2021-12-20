@@ -48,7 +48,8 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
           textAlign='left'
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={isSm ? 'xl' : '2xl'}
-          fontWeight='semibold'>
+          fontWeight='semibold'
+        >
           {isSm ? `${label} ` : label}
           <Badge color={isExpanded ? color : 'gray'} size={isSm ? 'md' : 'lg'} ml={isSm ? 0 : 2}>
             {`${

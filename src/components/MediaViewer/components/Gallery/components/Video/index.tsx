@@ -32,13 +32,15 @@ const Video = (props: VideoProps): ReactElement => {
     <Box
       borderRadius='lg'
       onMouseEnter={!isActive ? () => setIsHovering.on() : undefined}
-      onMouseLeave={!isActive ? () => setIsHovering.off() : undefined}>
+      onMouseLeave={!isActive ? () => setIsHovering.off() : undefined}
+    >
       <ClickableImage
         borderRadius='lg'
         ratio={1 / 1}
         icon={PlayIcon}
         isActive={isActive}
-        onClick={() => onClickVideo(video.key, 'video')}>
+        onClick={() => onClickVideo(video.key, 'video')}
+      >
         <YouTube
           videoId={video.key}
           className='VideoGalleryFrame'

@@ -32,7 +32,8 @@ const List = (props: ListProps): ReactElement => {
               spacing={0}
               maxHeight='35vh'
               overflowY='auto'
-              pr={isOverflown ? 2 : 0}>
+              pr={isOverflown ? 2 : 0}
+            >
               {children}
             </VStack>
           )

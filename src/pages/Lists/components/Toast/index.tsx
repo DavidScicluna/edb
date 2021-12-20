@@ -24,14 +24,16 @@ const Toast = (props: ToastProps): ReactElement => {
       spacing={2}
       px={2}
       py={1.5}
-      mb={1.5}>
+      mb={1.5}
+    >
       <HStack spacing={0.25}>
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
           fontSize={isSm ? 'sm' : 'md'}
           fontWeight='normal'
-          whiteSpace='nowrap'>
+          whiteSpace='nowrap'
+        >
           {`"${selected.label}" list`}
         </Text>
       </HStack>
@@ -51,7 +53,8 @@ const Toast = (props: ToastProps): ReactElement => {
             color={color}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             leftIcon={InfoIcon}
-            onClick={() => onInfo()}>
+            onClick={() => onInfo()}
+          >
             Info
           </Button>
         )}
@@ -84,7 +87,8 @@ const Toast = (props: ToastProps): ReactElement => {
             color='red'
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
             leftIcon={TrashIcon}
-            onClick={() => onDelete()}>
+            onClick={() => onDelete()}
+          >
             Delete
           </Button>
         )}

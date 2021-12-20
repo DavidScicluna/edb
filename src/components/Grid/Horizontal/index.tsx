@@ -127,7 +127,8 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
             gridRef={gridRef}
             hasDivider={hasDivider}
             handleScrollChange={() => handleGridRef(gridRef.current)}
-            variant={variant}>
+            variant={variant}
+          >
             {children}
           </Grid>
         ),

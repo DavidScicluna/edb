@@ -59,7 +59,8 @@ const Overview = ({ overview, isLoading = false }: OverviewProps): ReactElement 
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                     fontSize='md'
-                    fontWeight='medium'>
+                    fontWeight='medium'
+                  >
                     {paragraph}
                   </Text>
                 ))}

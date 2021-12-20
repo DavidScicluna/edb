@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Check as CheckIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../common/hooks';
-
 import Button from '../../../../../Clickable/Button';
 import { GenreProps } from './types';
 
@@ -16,7 +15,8 @@ const Genre = ({ id, name, isActive = false, onClick }: GenreProps): ReactElemen
       leftIcon={isActive ? CheckIcon : undefined}
       onClick={() => onClick({ id, name })}
       size='sm'
-      variant='outlined'>
+      variant='outlined'
+    >
       {name}
     </Button>
   );

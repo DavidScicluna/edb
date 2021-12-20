@@ -83,14 +83,16 @@ const Viewer = (props: ViewerProps): ReactElement => {
         onUpdate={(swiper) => onSwiper(swiper)}
         onSwiper={(swiper) => onSwiper(swiper)}
         onSlideChange={(swiper) => onSlideChange(swiper)}
-        onTouchEnd={(swiper: SwiperType) => handleSwipe(swiper)}>
+        onTouchEnd={(swiper: SwiperType) => handleSwipe(swiper)}
+      >
         {data?.map((slide, index) => (
           <SwiperSlide key={index}>
             <SlideFade
               in={activeIndex - 1 === index}
               offsetY='10vh'
               delay={handleParseDurationForFramer(handleConvertStringToNumber(theme.transition.duration.slow, 'ms'))}
-              unmountOnExit>
+              unmountOnExit
+            >
               <Center width='100vw' height='100vh' position='relative'>
                 {renderSlide(slide)}
               </Center>

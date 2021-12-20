@@ -32,7 +32,8 @@ const SortByItem = ({
       }
       px={2}
       py={1}
-      sx={{ ..._.merge(style.common, style[colorMode]) }}>
+      sx={{ ..._.merge(style.common, style[colorMode]) }}
+    >
       <HStack width='100%' justifyContent='space-between' spacing={2}>
         <Text align='left' fontSize='md' fontWeight='medium'>
           {label}

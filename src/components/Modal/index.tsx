@@ -67,26 +67,30 @@ const Modal = (props: ModalProps): ReactElement | null => {
       preserveScrollBarGap
       motionPreset='scale'
       scrollBehavior='inside'
-      size={isSm && !isConfirm ? 'full' : size}>
+      size={isSm && !isConfirm ? 'full' : size}
+    >
       <ModalOverlay />
       <ModalContent
         backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
         borderRadius={size === 'full' || (isSm && !isConfirm) ? 'none' : 'xl'}
         m={isSm && isConfirm ? 2 : 0}
-        sx={{ transition }}>
+        sx={{ transition }}
+      >
         <ModalHeader
           borderBottom='solid2'
           borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
           px={2}
           py={1.5}
-          sx={{ transition }}>
+          sx={{ transition }}
+        >
           <HStack justifyContent='space-between'>
             {typeof title === 'string' ? (
               <Text
                 align='left'
                 fontSize='xl'
                 fontWeight='semibold'
-                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
+                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+              >
                 {title}
               </Text>
             ) : (
@@ -109,7 +113,8 @@ const Modal = (props: ModalProps): ReactElement | null => {
             borderTop='solid2'
             borderTopColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
             p={2}
-            sx={{ transition }}>
+            sx={{ transition }}
+          >
             <Button colorMode={colorMode} onClick={() => onClose()} size='sm' variant='outlined'>
               Cancel
             </Button>

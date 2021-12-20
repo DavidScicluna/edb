@@ -25,7 +25,8 @@ const Tab = ({ label, badge, isDisabled, isSelected, size = 'md' }: TabsProps): 
       px={size === 'sm' ? 1.5 : 2}
       py={size === 'sm' ? 0.75 : 1}
       sx={{ ..._.merge(style.tab, style[colorMode]) }}
-      _disabled={{ ...style.disabled }}>
+      _disabled={{ ...style.disabled }}
+    >
       {label}
       {badge ? (
         <Badge color={isSelected ? color : 'gray'} size={isSm || size === 'sm' ? 'sm' : 'md'} ml={1}>

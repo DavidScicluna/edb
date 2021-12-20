@@ -74,14 +74,16 @@ const Details = (props: DetailsProps): ReactElement => {
               position='relative'
               left={isSm ? 0 : left}
               alignItems='flex-start'
-              spacing={2}>
+              spacing={2}
+            >
               <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
                 <SkeletonText offsetY={isSm ? 12 : 18} isLoaded={!isLoading}>
                   <Text
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                     fontSize={isSm ? '2xl' : '4xl'}
-                    fontWeight='bold'>
+                    fontWeight='bold'
+                  >
                     {person?.name || 'Unknown'}
                   </Text>
                 </SkeletonText>
@@ -108,7 +110,8 @@ const Details = (props: DetailsProps): ReactElement => {
                       leftIcon={HeartIcon}
                       onClick={() => onClick()}
                       size='md'
-                      variant='outlined'>
+                      variant='outlined'
+                    >
                       {isLiked ? 'Liked' : 'Like'}
                     </Button>
                   )}

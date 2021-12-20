@@ -37,14 +37,16 @@ const Sidebar = ({ width }: SidebarProps): ReactElement => {
       borderRightColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       p={1}
       spacing={2}
-      sx={{ ...transition }}>
+      sx={{ ...transition }}
+    >
       <NavItems navItems={navItems} />
 
       <Button
         isFullWidth
         onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
         leftIcon={sidebarMode === 'expanded' ? MinusIcon : PlusIcon}
-        variant='outlined'>
+        variant='outlined'
+      >
         {sidebarMode === 'expanded' ? 'Collapse' : ''}
       </Button>
     </VStack>

@@ -53,7 +53,8 @@ const Arrow = (props: ArrowProps): ReactElement => {
       placement='top'
       isOpen={isHovering}
       isDisabled={isLoading || isDisabled}
-      gutter={isMouseDown ? 8 : 10}>
+      gutter={isMouseDown ? 8 : 10}
+    >
       <IconButton
         aria-label='Scroll left'
         isDisabled={isLoading || isDisabled}

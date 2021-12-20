@@ -42,12 +42,14 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
           style.iconButton.disabled[size],
           style[colorMode].disabled[variant]
         )
-      }}>
+      }}
+    >
       <Center
         className='icon_button_front'
         sx={{
           ..._.merge(style.iconButton.front.default, style.iconButton.front[size], style[colorMode].front[variant])
-        }}>
+        }}
+      >
         <ScaleFade in={isLoading} unmountOnExit>
           <Spinner color={color} colorMode={colorMode} size={size} variant={variant} />
         </ScaleFade>

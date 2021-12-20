@@ -22,11 +22,13 @@ const SkeletonText = (props: SkeletonTextProps): ReactElement => {
       isLoaded={isLoaded}
       type='text'
       startColor={handleReturnColors('start', color, colorMode)}
-      endColor={handleReturnColors('end', color, colorMode)}>
+      endColor={handleReturnColors('end', color, colorMode)}
+    >
       <SlideFade
         in={isLoaded}
         offsetY={offsetY}
-        delay={handleConvertStringToNumber(theme.transition.duration['faster'], 'ms') / 250}>
+        delay={handleConvertStringToNumber(theme.transition.duration['faster'], 'ms') / 250}
+      >
         {children}
       </SlideFade>
     </Skeleton>

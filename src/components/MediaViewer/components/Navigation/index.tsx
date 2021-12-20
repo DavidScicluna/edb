@@ -26,7 +26,8 @@ const Navigation = (props: NavigationProps): ReactElement => {
       <Text
         align='center'
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-        fontSize='md'>{`${current} / ${total}`}</Text>
+        fontSize='md'
+      >{`${current} / ${total}`}</Text>
 
       {/* Right button */}
       <IconButton

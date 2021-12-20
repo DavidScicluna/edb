@@ -4,7 +4,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
-
 import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import Empty from '../../../../../components/Empty';
@@ -39,7 +38,8 @@ const QuickView = (): ReactElement => {
       isOpen={quickViewModal.open}
       onClose={() => handleClose()}
       isCentered
-      size='3xl'>
+      size='3xl'
+    >
       {quickViewModal.mediaType === 'movie' ? (
         <Movie id={quickViewModal.mediaItem?.id} />
       ) : quickViewModal.mediaType === 'tv' ? (

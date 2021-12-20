@@ -160,7 +160,8 @@ const Empty = (props: EmptyProps): ReactElement => {
         width='100%'
         spacing={handleReturnSpacing()}
         p={handleReturnPadding()}
-        sx={{ ..._.merge(style.empty[variant], style[colorMode][variant]) }}>
+        sx={{ ..._.merge(style.empty[variant], style[colorMode][variant]) }}
+      >
         {hasIllustration ? (
           <Image
             maxWidth={`${handleReturnIllustrationWidth()}%`}
@@ -181,7 +182,8 @@ const Empty = (props: EmptyProps): ReactElement => {
                 : color === 'gray'
                 ? 'gray.50'
                 : `${color}.400`
-            }>
+            }
+          >
             {label}
           </Text>
           {description ? (
@@ -196,7 +198,8 @@ const Empty = (props: EmptyProps): ReactElement => {
                   : color === 'gray'
                   ? 'gray.50'
                   : `${color}.600`
-              }>
+              }
+            >
               {description}
             </Text>
           ) : null}

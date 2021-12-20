@@ -4,7 +4,6 @@ import { useColorMode, useMediaQuery, Text } from '@chakra-ui/react';
 import queryString from 'query-string';
 
 import { useSelector } from '../../../../../../common/hooks';
-
 import Button from '../../../../../../components/Clickable/Button';
 import Link from '../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../components/Grid/Horizontal';
@@ -27,7 +26,8 @@ const People = (props: PeopleProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'>
+          textTransform='capitalize'
+        >
           {`Found ${total_results || 0} ${
             total_results ? (total_results === 0 || total_results > 1 ? 'people' : 'person') : ''
           } with "${query}"`}
@@ -38,14 +38,16 @@ const People = (props: PeopleProps): ReactElement => {
           <Link
             to={{ pathname: '/search', search: queryString.stringify({ query, page: 1, mediaType: 'person' }) }}
             isFullWidth
-            isDisabled={isFetching || isLoading}>
+            isDisabled={isFetching || isLoading}
+          >
             <Button
               color={color}
               isFullWidth
               isDisabled={isFetching || isLoading}
               onClick={() => refetch()}
               size={isSm ? 'sm' : 'md'}
-              variant='text'>
+              variant='text'
+            >
               {`View all ${total_results || 0} ${
                 total_results ? (total_results === 0 || total_results > 1 ? 'people' : 'person') : ''
               } with "${query}"`}
@@ -53,7 +55,8 @@ const People = (props: PeopleProps): ReactElement => {
           </Link>
         ) : undefined
       }
-      isLoading={isFetching || isLoading}>
+      isLoading={isFetching || isLoading}
+    >
       <HorizontalPeople
         isError={isError}
         isSuccess={isSuccess}

@@ -33,7 +33,8 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
         (reviews?.results.length || 0) > 0 ? (
           <Badge size={isSm ? 'sm' : 'md'}>{String(reviews?.results.length)}</Badge>
         ) : undefined
-      }>
+      }
+    >
       {!isLoading && isError ? (
         <Error
           label='Oh no! Something went wrong'

@@ -17,7 +17,8 @@ const BackgroundItem = (props: BackgroundItemProps): ReactElement => {
       colorMode={background}
       isFullWidth
       onClick={onClick ? () => onClick(value) : undefined}
-      p={2}>
+      p={2}
+    >
       <HStack width='100%' justifyContent='center' spacing={1}>
         <Icon as={icon} sx={{ fontSize: `${theme.fontSizes['2xl']} !important` }} />
         <Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase'>

@@ -41,7 +41,8 @@ const Image = (props: ImageProps): ReactElement => {
       minWidth={width}
       maxWidth={width}
       borderRadius={borderRadius}
-      ratio={ratio}>
+      ratio={ratio}
+    >
       <Fade in={isActive || inView} unmountOnExit style={{ width: 'inherit' }}>
         <Box
           {...rest}
@@ -50,7 +51,8 @@ const Image = (props: ImageProps): ReactElement => {
           borderRadius={borderRadius}
           onClick={children && !isDisabled && onClick ? () => onClick() : undefined}
           onMouseEnter={children && !isDisabled ? () => setIsHovering.on() : undefined}
-          onMouseLeave={children && !isDisabled ? () => setIsHovering.off() : undefined}>
+          onMouseLeave={children && !isDisabled ? () => setIsHovering.off() : undefined}
+        >
           <AspectRatio ratio={ratio}>
             <>
               <Fade in={!isDisabled} unmountOnExit style={{ width: '100%', height: '100%' }}>
@@ -69,7 +71,8 @@ const Image = (props: ImageProps): ReactElement => {
                           : 'rgba(255, 255, 255, 0.2)'
                         : 'transparent',
                     transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-in-out']}`
-                  }}>
+                  }}
+                >
                   <Fade in={isHovering || isActive} unmountOnExit>
                     {
                       <Icon

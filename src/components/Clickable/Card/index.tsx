@@ -36,7 +36,8 @@ const Card = forwardRef<CardRef, CardProps>(function Card(props, ref): ReactElem
           isDisabled ? style.card.disabled : {},
           isDisabled ? style[colorMode].disabled : {}
         )
-      }}>
+      }}
+    >
       <Box {...rest} className='card_front' sx={{ ..._.merge(style.card.front, style[colorMode].front) }}>
         {children}
       </Box>

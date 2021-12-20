@@ -50,7 +50,8 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
       isDisabled={isLoading || isDisabled}
       to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}
       onMouseEnter={() => setIsHoveringPoster.on()}
-      onMouseLeave={() => setIsHoveringPoster.off()}>
+      onMouseLeave={() => setIsHoveringPoster.off()}
+    >
       <Card isDisabled={isLoading} isClickable={!isDisabled} isLight>
         <VStack width={width} position='relative' spacing={1} p={1}>
           {/* Image */}
@@ -62,7 +63,8 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
             minWidth='100%'
             maxWidth='100%'
             borderRadius='base'
-            ratio={2 / 3}>
+            ratio={2 / 3}
+          >
             <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
               <AspectRatio width='100%' minWidth='100%' maxWidth='100%' borderRadius='base' ratio={2 / 3}>
                 <>
@@ -89,13 +91,15 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                         width='100%'
                         onMouseEnter={() => setIsDisabled.on()}
                         onMouseLeave={() => setIsDisabled.off()}
-                        px={1}>
+                        px={1}
+                      >
                         <Button
                           isFullWidth
                           onClick={() =>
                             dispatch(toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } }))
                           }
-                          size='sm'>
+                          size='sm'
+                        >
                           Quick view
                         </Button>
                       </Box>
@@ -146,7 +150,8 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                 position: 'absolute',
                 top: 1,
                 right: 2
-              }}>
+              }}
+            >
               <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                 <Like title={title} mediaType={mediaType} mediaItem={mediaItem} isLoading={isLoading} size='sm' />
               </Box>

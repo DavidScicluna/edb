@@ -5,7 +5,6 @@ import moment from 'moment';
 import { Square as SquareIcon, CheckSquare as CheckSquareIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../../common/hooks';
-
 import Card from '../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../theme/types';
 import { ListProps } from './types';
@@ -30,7 +29,8 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
               fontSize='xs'
               fontWeight='400'
               textTransform='capitalize'
-              isTruncated>
+              isTruncated
+            >
               {description}
             </Text>
           ) : null}

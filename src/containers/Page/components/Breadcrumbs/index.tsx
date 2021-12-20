@@ -45,13 +45,15 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
           sx={{ fontSize: `${iconFontSize} !important` }}
         />
       }
-      spacing={1}>
+      spacing={1}
+    >
       {breadcrumbs.map((breadcrumb, index) => (
         <BreadcrumbItem
           key={breadcrumb.label}
           isCurrentPage={index === breadcrumbs.length - 1}
           fontSize={['sm', 'sm', 'md', 'md', 'md', 'md']}
-          sx={{ ...style.common.breadcrumbItem }}>
+          sx={{ ...style.common.breadcrumbItem }}
+        >
           <SkeletonText offsetY={8} isLoaded={!breadcrumb.isLoading}>
             {index === breadcrumbs.length - 1 ? (
               <Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
@@ -61,7 +63,8 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
               <BreadcrumbLink
                 as={Link}
                 to={{ ...breadcrumb.to }}
-                sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}>
+                sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}
+              >
                 {breadcrumb.label || ''}
               </BreadcrumbLink>
             )}

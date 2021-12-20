@@ -68,7 +68,8 @@ const User = (): ReactElement => {
             '&:focus': {
               boxShadow: 'none'
             }
-          }}>
+          }}
+        >
           <VStack width='100%' spacing={2}>
             <HStack width='100%' justifyContent='flex-start' spacing={1}>
               <Avatar cursor='pointer' name='Test User' size='md' />
@@ -76,7 +77,8 @@ const User = (): ReactElement => {
                 align='left'
                 color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                 fontSize='md'
-                fontWeight='semibold'>
+                fontWeight='semibold'
+              >
                 Test User
               </Text>
             </HStack>

@@ -33,7 +33,8 @@ const Footer = (props: FooterProps): ReactElement => {
       isDisabled={isDisabled}
       onClick={onClick ? () => onClick() : undefined}
       size={isSm ? 'sm' : 'md'}
-      variant='text'>
+      variant='text'
+    >
       {`View all ${title ? `"${title}"` : ''} ${handleReturnLabel()}`}
     </Button>
   );

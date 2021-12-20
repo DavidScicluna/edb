@@ -26,7 +26,8 @@ const EmptyList = (props: EmptyListProps): ReactElement => {
                   color={color}
                   onClick={() => history.push({ pathname: `/lists/${id}` })}
                   size='sm'
-                  variant='outlined'>
+                  variant='outlined'
+                >
                   {`Back to "${label}" list`}
                 </Button>
                 <Text align='center' fontSize='xs' fontWeight='medium'>

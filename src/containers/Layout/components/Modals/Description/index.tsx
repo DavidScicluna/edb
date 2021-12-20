@@ -4,7 +4,6 @@ import { useColorMode, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
-
 import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import Modal from '../../../../../components/Modal';
@@ -30,14 +29,16 @@ const DescriptionModal = (): ReactElement => {
       isOpen={descriptionModal.open}
       onClose={() => dispatch(toggleDescription({ ...defaultDescriptionModal }))}
       isCentered
-      size='2xl'>
+      size='2xl'
+    >
       <Text
         align='left'
         color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
         fontSize='lg'
         fontWeight='normal'
         px={3}
-        py={2}>
+        py={2}
+      >
         {descriptionModal.mediaItem ? descriptionModal.mediaItem.description : 'N/A'}
       </Text>
     </Modal>

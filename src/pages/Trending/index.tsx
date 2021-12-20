@@ -277,7 +277,8 @@ const Trending = (): ReactElement => {
             ? `Trending ${mediaType === 'movie' ? 'Movies' : mediaType === 'person' ? 'People' : 'TV Shows' || ''}`
             : 'Trending'
         }
-        breadcrumbs={handleReturnBreadcrumbs()}>
+        breadcrumbs={handleReturnBreadcrumbs()}
+      >
         {{
           actions: (
             <Fade in={!!mediaType} unmountOnExit>

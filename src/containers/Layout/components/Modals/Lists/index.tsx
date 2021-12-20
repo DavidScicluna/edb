@@ -5,7 +5,6 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
-
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import CreateList from '../../../../../pages/Lists/components/CreateList';
@@ -111,7 +110,8 @@ const ListsModal = (): ReactElement => {
         isOpen={listsModal.open}
         onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
         isCentered
-        size='2xl'>
+        size='2xl'
+      >
         <VStack spacing={2} p={2}>
           {lists.map((list) => (
             <List key={list.id} {...list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />

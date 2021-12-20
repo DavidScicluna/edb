@@ -6,7 +6,6 @@ import { ArrowUp as ArrowUpIcon } from 'react-feather';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
-
 import IconButton from '../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../components/Tooltip';
 import { Theme } from '../../../../theme/types';
@@ -51,7 +50,8 @@ const ScrollToTop = (): ReactElement => {
       zIndex={theme.zIndices.toast}
       borderRadius='lg'
       boxShadow='lg'
-      backgroundColor='transparent'>
+      backgroundColor='transparent'
+    >
       <SlideFade in={scrollHeight > screen.height} unmountOnExit offsetY={theme.space[2]}>
         <Tooltip aria-label='Scroll to top' label='Scroll to the top' placement='left' isOpen={isHovering} gutter={6}>
           <IconButton

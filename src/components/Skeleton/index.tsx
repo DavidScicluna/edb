@@ -25,7 +25,8 @@ const Skeleton = (props: SkeletonProps): ReactElement => {
           : 0
       }
       startColor={handleReturnColors('start', color, colorMode)}
-      endColor={handleReturnColors('end', color, colorMode)}>
+      endColor={handleReturnColors('end', color, colorMode)}
+    >
       {children}
     </CUISkeleton>
   );

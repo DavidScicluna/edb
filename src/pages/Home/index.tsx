@@ -70,7 +70,8 @@ const Home = (): ReactElement => {
             <HorizontalGrid
               title='Popular movies'
               pathname='/movies/popular'
-              isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}>
+              isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}
+            >
               <HorizontalMovies
                 isError={popularMoviesQuery.isError}
                 isSuccess={popularMoviesQuery.isSuccess}
@@ -82,7 +83,8 @@ const Home = (): ReactElement => {
             <HorizontalGrid
               title='Trending movies'
               pathname='/trending/movie'
-              isLoading={trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading}>
+              isLoading={trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading}
+            >
               <HorizontalMovies
                 isError={trendingMoviesQuery.isError}
                 isSuccess={trendingMoviesQuery.isSuccess}
@@ -94,7 +96,8 @@ const Home = (): ReactElement => {
             <HorizontalGrid
               title='Popular TV shows'
               pathname='/tv/popular'
-              isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}>
+              isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}
+            >
               <HorizontalTV
                 isError={popularTVQuery.isError}
                 isSuccess={popularTVQuery.isSuccess}
@@ -106,7 +109,8 @@ const Home = (): ReactElement => {
             <HorizontalGrid
               title='Trending TV shows'
               pathname='/trending/tv'
-              isLoading={trendingTVQuery.isFetching || trendingTVQuery.isLoading}>
+              isLoading={trendingTVQuery.isFetching || trendingTVQuery.isLoading}
+            >
               <HorizontalTV
                 isError={trendingTVQuery.isError}
                 isSuccess={trendingTVQuery.isSuccess}
@@ -118,7 +122,8 @@ const Home = (): ReactElement => {
             <HorizontalGrid
               title='Trending People'
               pathname='/trending/person'
-              isLoading={trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading}>
+              isLoading={trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading}
+            >
               <HorizontalPeople
                 isError={trendingPeopleQuery.isError}
                 isSuccess={trendingPeopleQuery.isSuccess}

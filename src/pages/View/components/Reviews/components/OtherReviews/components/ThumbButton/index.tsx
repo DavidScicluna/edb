@@ -44,7 +44,8 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
       label={isActive ? `Un-${label} review` : `${label} review`}
       isOpen={isHovering}
       placement='top'
-      gutter={4}>
+      gutter={4}
+    >
       <IconButton
         aria-label={isActive ? `Un-${label} review` : `${label} review`}
         color={isActive ? color : 'gray'}

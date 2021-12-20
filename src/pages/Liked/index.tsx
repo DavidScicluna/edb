@@ -199,7 +199,8 @@ const Liked = (): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
               fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
-              fontWeight='bold'>
+              fontWeight='bold'
+            >
               {mediaType === 'movie'
                 ? 'Movies'
                 : mediaType === 'tv'
@@ -219,7 +220,8 @@ const Liked = (): ReactElement => {
             </Text>
           </Center>
         }
-        breadcrumbs={handleReturnBreadcrumbs()}>
+        breadcrumbs={handleReturnBreadcrumbs()}
+      >
         {{
           actions: (
             <ScaleFade in={!!mediaType} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>

@@ -110,7 +110,8 @@ const TopRatedTV = (): ReactElement => {
     <>
       <Page
         title='Top Rated TV Shows'
-        breadcrumbs={[home, tvBreadcrumb, { label: 'Top Rated', to: { pathname: '/tv/top-rated' } }]}>
+        breadcrumbs={[home, tvBreadcrumb, { label: 'Top Rated', to: { pathname: '/tv/top-rated' } }]}
+      >
         {{
           actions: <Filters mediaType='tv' isDisabled={!topRatedTVQuery.isSuccess} onFilter={handleSetFilters} />,
           body: (

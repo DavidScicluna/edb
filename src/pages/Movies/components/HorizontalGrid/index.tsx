@@ -25,7 +25,8 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize={['xl', 'xl', '2xl', '2xl', '2xl', '2xl']}
           fontWeight='semibold'
-          textTransform='capitalize'>
+          textTransform='capitalize'
+        >
           {title}
         </Text>
       }
@@ -36,7 +37,8 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
           </Button>
         </Link>
       }
-      isLoading={isLoading}>
+      isLoading={isLoading}
+    >
       <HorizontalMovies isError={isError} isSuccess={isSuccess} isLoading={isLoading} movies={movies} />
     </HorizontalGrid>
   );

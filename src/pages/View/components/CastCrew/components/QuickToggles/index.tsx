@@ -27,14 +27,16 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
         fontSize='sm'
         whiteSpace='nowrap'
-        py={0.75}>
+        py={0.75}
+      >
         Jump to:
       </Text>
 
       <HorizontalScroll
         width={`calc(100% - ${departments.length === openedPanels ? 140.1 : 148.19}px)`}
         spacing='0'
-        isLoading={isLoading}>
+        isLoading={isLoading}
+      >
         <HStack
           width='100%'
           maxWidth='100%'
@@ -43,16 +45,19 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
               align='left'
               color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
               fontSize='md'
-              mx={isLoading ? 0.75 : 0}>
+              mx={isLoading ? 0.75 : 0}
+            >
               •
             </Text>
-          }>
+          }
+        >
           {[...(!isLoading ? departments : _.range(0, 4))].map((department, index) => (
             <SkeletonText
               key={index}
               width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
               offsetY={6}
-              isLoaded={!isLoading}>
+              isLoaded={!isLoading}
+            >
               <Link
                 to={`${
                   typeof department !== 'number'
@@ -63,7 +68,8 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
                 smooth
                 isDynamic={false}
                 offset={-82}
-                delay={1000}>
+                delay={1000}
+              >
                 <Button
                   color={color}
                   onClick={
@@ -73,7 +79,8 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
                   }
                   isDisabled={isLoading}
                   size='sm'
-                  variant='text'>
+                  variant='text'
+                >
                   {typeof department !== 'number' ? department : 'Lorem'}
                 </Button>
               </Link>

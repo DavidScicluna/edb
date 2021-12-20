@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Check as CheckIcon } from 'react-feather';
 
 import { useSelector } from '../../../../../../common/hooks';
-
 import Button from '../../../../../Clickable/Button';
 import { DepartmentProps } from './types';
 
@@ -16,7 +15,8 @@ const Department = ({ id, name, value, isActive = false, onClick }: DepartmentPr
       leftIcon={isActive ? CheckIcon : undefined}
       onClick={() => onClick({ id, name, value })}
       size='sm'
-      variant='outlined'>
+      variant='outlined'
+    >
       {name}
     </Button>
   );
