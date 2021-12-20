@@ -66,7 +66,7 @@ export default (
         }
       },
       sm: {
-        'borderRadius': 'xs',
+        'borderRadius': 'sm',
 
         '&:hover .button_front': {
           transform: variant !== 'text' ? 'translateY(-4px)' : 'none'
@@ -81,7 +81,7 @@ export default (
         }
       },
       md: {
-        'borderRadius': 'sm',
+        'borderRadius': 'base',
 
         '&:hover .button_front': {
           transform: variant !== 'text' ? 'translateY(-5px)' : 'none'
@@ -96,7 +96,7 @@ export default (
         }
       },
       lg: {
-        'borderRadius': 'base',
+        'borderRadius': 'lg',
 
         '&:hover .button_front': {
           transform: variant !== 'text' ? 'translateY(-6px)' : 'none'
@@ -137,7 +137,7 @@ export default (
       sm: {
         fontSize: 'xs',
 
-        borderRadius: 'xs',
+        borderRadius: 'sm',
         borderWidth: variant !== 'text' ? '1px 1px 0' : '0',
 
         padding: `${theme.space[0.5]} ${theme.space[1]}`,
@@ -147,7 +147,7 @@ export default (
       md: {
         fontSize: 'sm',
 
-        borderRadius: 'sm',
+        borderRadius: 'base',
         borderWidth: variant !== 'text' ? '2px 2px 0' : '0',
 
         padding: `${theme.space[1]} ${theme.space[2]}`,
@@ -157,7 +157,7 @@ export default (
       lg: {
         fontSize: 'md',
 
-        borderRadius: 'base',
+        borderRadius: 'lg',
         borderWidth: variant !== 'text' ? '2px 2px 0' : '0',
 
         padding: `${theme.space[1.5]} ${theme.space[3]}`,

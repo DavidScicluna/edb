@@ -65,7 +65,7 @@ export default (
         }
       },
       sm: {
-        'borderRadius': 'xs',
+        'borderRadius': 'sm',
 
         '&:hover .icon_button_front': {
           transform: variant !== 'icon' ? 'translateY(-4px)' : 'none'
@@ -80,7 +80,7 @@ export default (
         }
       },
       md: {
-        'borderRadius': 'sm',
+        'borderRadius': 'base',
 
         '&:hover .icon_button_front': {
           transform: variant !== 'icon' ? 'translateY(-5px)' : 'none'
@@ -95,7 +95,7 @@ export default (
         }
       },
       lg: {
-        'borderRadius': 'base',
+        'borderRadius': 'lg',
 
         '&:hover .icon_button_front': {
           transform: variant !== 'icon' ? 'translateY(-6px)' : 'none'
@@ -129,7 +129,7 @@ export default (
         transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
       },
       sm: {
-        borderRadius: 'xs',
+        borderRadius: 'sm',
         borderWidth: variant !== 'icon' ? '1px 1px 0' : '0',
 
         padding: theme.space['0.75'],
@@ -137,7 +137,7 @@ export default (
         transform: variant !== 'icon' ? 'translateY(-3px)' : 'none'
       },
       md: {
-        borderRadius: 'sm',
+        borderRadius: 'base',
         borderWidth: variant !== 'icon' ? '2px 2px 0' : '0',
 
         padding: theme.space[1.5],
@@ -145,7 +145,7 @@ export default (
         transform: variant !== 'icon' ? 'translateY(-4px)' : 'none'
       },
       lg: {
-        borderRadius: 'base',
+        borderRadius: 'lg',
         borderWidth: variant !== 'icon' ? '2px 2px 0' : '0',
 
         padding: theme.space[2],
