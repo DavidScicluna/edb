@@ -4,7 +4,7 @@ import { HStack } from '@chakra-ui/react';
 import { Sun as SunIcon, Moon as MoonIcon } from 'react-feather';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
-import Card from '../../../../../../../components/Card';
+import Panel from '../../../../../../../components/Panel';
 import { Form } from '../../types';
 import BackgroundItem from './components/BackgroundItem';
 import { Background as BackgroundType } from './types';
@@ -30,7 +30,7 @@ const Background = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='background'
       render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} colorMode={value} isFullWidth px={2} pt={1.5} pb={2}>
+        <Panel colorMode={value} isFullWidth size='sm'>
           {{
             header: {
               title: 'Background'
@@ -51,7 +51,7 @@ const Background = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
               </HStack>
             )
           }}
-        </Card>
+        </Panel>
       )}
     />
   );

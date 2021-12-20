@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { CardVariant } from '../../../common/types';
+import { Variant } from '../../Panel/types';
 
 export type Direction = 'left' | 'right';
 
@@ -16,5 +16,5 @@ export type HorizontalGridProps = {
   isLoading: boolean;
   hasDivider?: boolean;
   resetScroll?: boolean;
-  variant?: CardVariant;
+  variant?: Variant;
 };

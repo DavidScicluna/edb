@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useWindowSize } from 'usehooks-ts';
 
 import { handleIsTouchDevice } from '../../../common/utils';
-import Card from '../../Card';
+import Panel from '../../Panel';
 import Arrow from './components/Arrow';
 import Grid from './components/Grid';
 import { HorizontalGridProps, ScrollButtonsState, Direction } from './types';
@@ -97,16 +97,7 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
   }, [width]);
 
   return (
-    <Card
-      box={{
-        header: { px: variant === 'transparent' ? 2 : 0, py: 1.5 },
-        footer: { px: variant === 'transparent' ? 2 : 0, py: 1 }
-      }}
-      isFullWidth
-      hasDivider={hasDivider}
-      variant={variant}
-      px={variant === 'outlined' ? 2 : 0}
-    >
+    <Panel isFullWidth hasDivider={hasDivider} variant={variant} size='xs'>
       {{
         header: {
           title,
@@ -136,14 +127,13 @@ const HorizontalGrid = (props: HorizontalGridProps): ReactElement => {
             gridRef={gridRef}
             hasDivider={hasDivider}
             handleScrollChange={() => handleGridRef(gridRef.current)}
-            variant={variant}
-          >
+            variant={variant}>
             {children}
           </Grid>
         ),
         footer
       }}
-    </Card>
+    </Panel>
   );
 };
 

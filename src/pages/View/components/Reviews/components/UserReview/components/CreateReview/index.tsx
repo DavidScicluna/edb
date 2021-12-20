@@ -18,10 +18,10 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import Card from '../../../../../../../../components/Card';
 import Button from '../../../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Modal from '../../../../../../../../components/Modal';
+import Panel from '../../../../../../../../components/Panel';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
 import Rating from '../Rating';
 import { CreateReviewProps, Form } from './types';
@@ -109,13 +109,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
             control={form.control}
             name='rating'
             render={({ field: { value, name }, fieldState: { error } }) => (
-              <Card
-                box={{ header: { pb: 1.5 }, body: { pt: 1 } }}
-                color={error ? 'red' : 'gray'}
-                isFullWidth
-                px={2}
-                pt={1.5}
-                pb={1}>
+              <Panel color={error ? 'red' : 'gray'} isFullWidth size='xs'>
                 {{
                   header: {
                     title: (
@@ -144,7 +138,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
                     </Collapse>
                   ) : undefined
                 }}
-              </Card>
+              </Panel>
             )}
           />
           <Controller

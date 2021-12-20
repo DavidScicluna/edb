@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, Text, ScaleFade } from '@chakra-ui/react';
 
-import Card from '../../../../components/Card';
+import Panel from '../../../../components/Panel';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import Label from './components/Label';
 import Overview from './components/Overview';
@@ -14,7 +14,7 @@ const Details = (props: DetailsProps): ReactElement => {
   const { renderCover, renderDetails, tagline, overview, isLoading = true } = props;
 
   return (
-    <Card isFullWidth p={2}>
+    <Panel isFullWidth>
       {{
         body: (
           <VStack position='relative' alignItems='stretch' spacing={2}>
@@ -27,8 +27,7 @@ const Details = (props: DetailsProps): ReactElement => {
                     align='left'
                     color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
                     fontSize='md'
-                    fontStyle='italic'
-                  >
+                    fontStyle='italic'>
                     {tagline}
                   </Text>
                 </SkeletonText>
@@ -43,7 +42,7 @@ const Details = (props: DetailsProps): ReactElement => {
           </VStack>
         )
       }}
-    </Card>
+    </Panel>
   );
 };
 

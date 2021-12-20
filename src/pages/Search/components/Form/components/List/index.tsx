@@ -2,7 +2,7 @@ import { ReactElement, useState, useCallback } from 'react';
 
 import { VStack, List as CUIList } from '@chakra-ui/react';
 
-import Card from '../../../../../../components/Card';
+import Panel from '../../../../../../components/Panel';
 import { ListProps } from './types';
 
 const List = (props: ListProps): ReactElement => {
@@ -18,14 +18,7 @@ const List = (props: ListProps): ReactElement => {
 
   return (
     <CUIList spacing={0}>
-      <Card
-        box={{
-          header: { pb: 1 }
-        }}
-        isFullWidth
-        hasDivider={false}
-        variant='transparent'
-      >
+      <Panel isFullWidth hasDivider={false} variant='transparent' size='xs'>
         {{
           header: {
             title,
@@ -39,13 +32,12 @@ const List = (props: ListProps): ReactElement => {
               spacing={0}
               maxHeight='35vh'
               overflowY='auto'
-              pr={isOverflown ? 2 : 0}
-            >
+              pr={isOverflown ? 2 : 0}>
               {children}
             </VStack>
           )
         }}
-      </Card>
+      </Panel>
     </CUIList>
   );
 };

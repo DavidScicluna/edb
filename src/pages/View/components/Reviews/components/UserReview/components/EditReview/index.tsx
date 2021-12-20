@@ -19,11 +19,11 @@ import { Controller, useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import Card from '../../../../../../../../components/Card';
 import Button from '../../../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Modal from '../../../../../../../../components/Modal';
+import Panel from '../../../../../../../../components/Panel';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
 import Rating from '../Rating';
@@ -131,13 +131,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
             control={form.control}
             name='rating'
             render={({ field: { value, name }, fieldState: { error } }) => (
-              <Card
-                box={{ header: { pb: 1.5 }, body: { pt: 1 } }}
-                color={error ? 'red' : 'gray'}
-                isFullWidth
-                px={2}
-                pt={1.5}
-                pb={1}>
+              <Panel color={error ? 'red' : 'gray'} isFullWidth size='xs'>
                 {{
                   header: {
                     title: (
@@ -166,7 +160,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
                     </Collapse>
                   ) : undefined
                 }}
-              </Card>
+              </Panel>
             )}
           />
           <Controller

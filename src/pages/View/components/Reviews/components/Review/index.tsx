@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, useMediaQuery, useBreakpointValue, SlideFade } from '@chakra-ui/react';
 import moment from 'moment';
 
-import Card from '../../../../../../components/Card';
+import Panel from '../../../../../../components/Panel';
 import Rating from '../../../../../../components/Rating';
 import { Theme } from '../../../../../../theme/types';
 import Body from './components/Body';
@@ -31,13 +31,7 @@ const Review = (props: ReviewProps): ReactElement => {
   const hasFooter = hasDate || renderFooterActions;
 
   return (
-    <Card
-      box={{ header: { pb: 1.5 }, body: { pt: 1.5, pb: hasFooter ? 1.5 : 0 }, footer: { pt: hasFooter ? 1 : 0 } }}
-      isFullWidth
-      px={2}
-      pt={1.5}
-      pb={1}
-    >
+    <Panel isFullWidth size='sm'>
       {{
         header: {
           title: (
@@ -77,7 +71,7 @@ const Review = (props: ReviewProps): ReactElement => {
           />
         ) : undefined
       }}
-    </Card>
+    </Panel>
   );
 };
 

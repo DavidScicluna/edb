@@ -5,7 +5,7 @@ import { Controller, UseFormReturn } from 'react-hook-form';
 
 import { SortBy as SortByType } from '../../../../common/types';
 import { SortDirection } from '../../../../store/slices/App/types';
-import Card from '../../../Card';
+import Panel from '../../../Panel';
 import { Form } from '../../types';
 import SortByItem from './components/SortByItem';
 
@@ -49,7 +49,7 @@ const SortBy = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='sort'
       render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth px={2} pt={1.5} pb={2}>
+        <Panel isFullWidth size='sm'>
           {{
             header: {
               title: 'Sort by'
@@ -68,7 +68,7 @@ const SortBy = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
               </VStack>
             )
           }}
-        </Card>
+        </Panel>
       )}
     />
   );

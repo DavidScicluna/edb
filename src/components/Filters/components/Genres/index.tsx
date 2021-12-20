@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form';
 import { useSelector } from '../../../../common/hooks';
 import { Genre as GenreType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
-import Card from '../../../Card';
+import Panel from '../../../Panel';
 import Genre from './components/Genre';
 import { GenresProps } from './types';
 
@@ -49,7 +49,7 @@ const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
       control={form.control}
       name='genres'
       render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth px={2} pt={1.5} pb={2}>
+        <Panel isFullWidth size='sm'>
           {{
             header: {
               actions: (
@@ -85,7 +85,7 @@ const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
               </Wrap>
             )
           }}
-        </Card>
+        </Panel>
       )}
     />
   );

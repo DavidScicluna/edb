@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
-import Card from '../../../../../../../components/Card';
+import Panel from '../../../../../../../components/Panel';
 import { Form } from '../../types';
 import ColorItem from './components/ColorItem';
 import { Color as ColorType } from './types';
@@ -53,17 +53,7 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='color'
       render={({ field: { value } }) => (
-        <Card
-          box={{
-            header: { pb: 1.5 },
-            body: { pt: 1.5 }
-          }}
-          colorMode={background}
-          isFullWidth
-          px={2}
-          pt={1.5}
-          pb={2}
-        >
+        <Panel colorMode={background} isFullWidth size='sm'>
           {{
             header: {
               title: 'Color'
@@ -82,7 +72,7 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
               </SimpleGrid>
             )
           }}
-        </Card>
+        </Panel>
       )}
     />
   );

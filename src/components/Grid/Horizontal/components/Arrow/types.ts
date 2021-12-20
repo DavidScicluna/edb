@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 
-import { CardVariant } from '../../../../../common/types';
+import { Variant } from '../../../../Panel/types';
 import { Direction } from '../../types';
 
 export type Event = MouseEvent<HTMLButtonElement, globalThis.MouseEvent>;
@@ -11,5 +11,5 @@ export type ArrowProps = {
   isLoading: boolean;
   reset: boolean;
   onScrollClick: (direction: Direction) => void;
-  variant?: CardVariant;
+  variant?: Variant;
 };

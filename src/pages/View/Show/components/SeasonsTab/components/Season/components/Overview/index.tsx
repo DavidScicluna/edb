@@ -1,12 +1,12 @@
-import { ReactElement, useState, useCallback, useEffect } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
-import { useWindowSize, useElementSize } from 'usehooks-ts';
+import { useElementSize } from 'usehooks-ts';
 
 import { handleFormatIntoParagraphs } from '../../../../../../../../../common/utils';
-import Card from '../../../../../../../../../components/Card';
 import Button from '../../../../../../../../../components/Clickable/Button';
+import Panel from '../../../../../../../../../components/Panel';
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import { OverviewProps } from './types';
 
@@ -15,36 +15,28 @@ const Overview = ({ overview, isLoading = false }: OverviewProps): ReactElement 
 
   const [isExpanded, setIsExpanded] = useBoolean();
 
-  const { width: windowWidth } = useWindowSize();
-  const [overviewRef, { height: elementHeight }] = useElementSize();
+  // const { width } = useWindowSize();
+  const [overviewRef, { height }] = useElementSize();
 
-  const [height, setHeight] = useState<number>();
+  // const [height, setHeight] = useState<number>();
 
-  const handleOverviewRef = useCallback(
-    _.debounce((ref: HTMLDivElement | null) => {
-      if (ref) {
-        setHeight(ref.offsetHeight);
-      } else {
-        handleOverviewRef(overviewRef.current);
-      }
-    }, 250),
-    [overviewRef]
-  );
+  // const handleOverviewRef = useCallback(
+  //   _.debounce((ref: unknown | null) => {
+  //     if (ref) {
+  //       setHeight(ref.offsetHeight);
+  //     } else {
+  //       handleOverviewRef(overviewRef);
+  //     }
+  //   }, 250),
+  //   [overviewRef]
+  // );
 
-  useEffect(() => {
-    handleOverviewRef(overviewRef.current);
-  }, [windowWidth]);
+  // useEffect(() => {
+  //   handleOverviewRef(overviewRef);
+  // }, [windowWidth]);
 
   return (
-    <Card
-      box={{
-        header: { pb: 1.5 },
-        body: { pt: 1.5 }
-      }}
-      isFullWidth
-      px={2}
-      pt={1.5}
-      pb={2}>
+    <Panel isFullWidth size='sm'>
       {{
         header: {
           title: 'Overview',
@@ -57,7 +49,7 @@ const Overview = ({ overview, isLoading = false }: OverviewProps): ReactElement 
           )
         },
         body: !isLoading ? (
-          <Collapse in={isExpanded} startingHeight={(height || 44) >= 44 ? 44 : elementHeight || 44}>
+          <Collapse in={isExpanded} startingHeight={(height || 44) >= 44 ? 44 : height || 44}>
             <VStack ref={overviewRef} width='100%' alignItems='flex-start' spacing={2}>
               {handleFormatIntoParagraphs(overview)
                 .filter((paragraph: string) => paragraph)
@@ -85,7 +77,7 @@ const Overview = ({ overview, isLoading = false }: OverviewProps): ReactElement 
           </VStack>
         )
       }}
-    </Card>
+    </Panel>
   );
 };
 

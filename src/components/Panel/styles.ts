@@ -1,20 +1,22 @@
 import { Style } from '../../common/types';
 import { Theme } from '../../theme/types';
-import { CardProps } from './types';
+import { PanelProps, Variant } from './types';
 
-type VariantStyle = {
-  outlined: Style;
-  transparent: Style;
-};
+type VariantStyle = { [key in Variant]: Style };
 
-type CardStyle = {
-  card: VariantStyle;
+type PanelStyle = {
+  panel: VariantStyle;
   light: VariantStyle;
   dark: VariantStyle;
 };
 
-export default (theme: Theme, { color = 'gray', isFullWidth = false }: CardProps): CardStyle => ({
-  card: {
+type StylePanelProps = {
+  color: PanelProps['color'];
+  isFullWidth: PanelProps['isFullWidth'];
+};
+
+export default (theme: Theme, { color = 'gray', isFullWidth = false }: StylePanelProps): PanelStyle => ({
+  panel: {
     outlined: {
       width: isFullWidth ? '100%' : 'auto',
       height: 'auto',

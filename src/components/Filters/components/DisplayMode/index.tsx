@@ -4,7 +4,7 @@ import { HStack } from '@chakra-ui/react';
 import { Grid as GridIcon, List as ListIcon } from 'react-feather';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
-import Card from '../../../Card';
+import Panel from '../../../Panel';
 import { Form } from '../../types';
 import DisplayModeItem from './components/DisplayModeItem';
 import { DisplayMode as DisplayModeType } from './types';
@@ -28,7 +28,7 @@ const DisplayMode = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='displayMode'
       render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth px={2} pt={1.5} pb={2}>
+        <Panel isFullWidth size='sm'>
           {{
             header: { title: 'Display Mode' },
             body: (
@@ -44,7 +44,7 @@ const DisplayMode = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
               </HStack>
             )
           }}
-        </Card>
+        </Panel>
       )}
     />
   );

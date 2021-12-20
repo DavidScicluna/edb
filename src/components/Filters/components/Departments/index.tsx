@@ -5,7 +5,7 @@ import { Controller, UseFormReturn } from 'react-hook-form';
 
 import departments, { Department } from '../../../../common/data/departments';
 import Button from '../../../../components/Clickable/Button';
-import Card from '../../../Card';
+import Panel from '../../../Panel';
 import { Form } from '../../types';
 import Genre from './components/Department';
 
@@ -37,7 +37,7 @@ const Departments = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='departments'
       render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth px={2} pt={1.5} pb={2}>
+        <Panel isFullWidth size='sm'>
           {{
             header: {
               actions: (
@@ -62,7 +62,7 @@ const Departments = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
               </Wrap>
             )
           }}
-        </Card>
+        </Panel>
       )}
     />
   );

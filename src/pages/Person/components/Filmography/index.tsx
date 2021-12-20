@@ -2,10 +2,10 @@ import { ReactElement, useState } from 'react';
 
 import { ExpandedIndex, VStack, Collapse, ScaleFade } from '@chakra-ui/react';
 
-import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
+import Panel from '../../../../components/Panel';
 import Accordion from './components/Accordion';
 import QuickToggles from './components/QuickToggles';
 import { FilmographyProps } from './types';
@@ -50,7 +50,7 @@ const Filmography = (props: FilmographyProps): ReactElement => {
   };
 
   return (
-    <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth variant='outlined' px={2} pt={1.5} pb={2}>
+    <Panel isFullWidth variant='outlined' size='sm'>
       {{
         header: {
           title: 'Filmography',
@@ -91,7 +91,7 @@ const Filmography = (props: FilmographyProps): ReactElement => {
           </VStack>
         )
       }}
-    </Card>
+    </Panel>
   );
 };
 

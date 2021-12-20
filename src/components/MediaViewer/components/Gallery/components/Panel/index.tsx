@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
 import Badge from '../../../../../../components/Badge';
-import Card from '../../../../../../components/Card';
+import EDBPanel from '../../../../../../components/Panel';
 import { ListProps } from './types';
 
 const Panel = ({ children, title, total }: ListProps): ReactElement => {
@@ -11,7 +11,7 @@ const Panel = ({ children, title, total }: ListProps): ReactElement => {
   const [isSmallMob] = useMediaQuery('(max-width: 340px)');
 
   return (
-    <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth variant='transparent'>
+    <EDBPanel isFullWidth variant='transparent' size='sm'>
       {{
         header: {
           title,
@@ -23,7 +23,7 @@ const Panel = ({ children, title, total }: ListProps): ReactElement => {
           </SimpleGrid>
         )
       }}
-    </Card>
+    </EDBPanel>
   );
 };
 

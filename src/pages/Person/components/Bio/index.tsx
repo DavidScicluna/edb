@@ -1,12 +1,12 @@
-import { ReactElement, useState, useCallback, useEffect } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
-import { useWindowSize, useElementSize } from 'usehooks-ts';
+import { useElementSize } from 'usehooks-ts';
 
 import { handleFormatIntoParagraphs } from '../../../../common/utils';
-import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
+import Panel from '../../../../components/Panel';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import { BioProps } from './types';
 
@@ -15,36 +15,27 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
 
   const [isExpanded, setIsExpanded] = useBoolean();
 
-  const { width: windowWidth } = useWindowSize();
-  const [biographyRef, { height: elementHeight }] = useElementSize();
+  const [biographyRef, { height }] = useElementSize();
 
-  const [height, setHeight] = useState<number>();
+  // const [height, setHeight] = useState<number>();
 
-  const handleBiographyRef = useCallback(
-    _.debounce((ref: HTMLDivElement | null) => {
-      if (ref) {
-        setHeight(ref.offsetHeight);
-      } else {
-        handleBiographyRef(biographyRef.current);
-      }
-    }, 250),
-    [biographyRef]
-  );
+  // const handleBiographyRef = useCallback(
+  //   _.debounce((ref: HTMLDivElement | null) => {
+  //     if (ref) {
+  //       setHeight(ref.offsetHeight);
+  //     } else {
+  //       handleBiographyRef(biographyRef.current);
+  //     }
+  //   }, 250),
+  //   [biographyRef]
+  // );
 
-  useEffect(() => {
-    handleBiographyRef(biographyRef.current);
-  }, [windowWidth]);
+  // useEffect(() => {
+  //   handleBiographyRef(biographyRef.current);
+  // }, [windowWidth]);
 
   return (
-    <Card
-      box={{
-        header: { pb: 1.5 },
-        body: { pt: 1.5 }
-      }}
-      isFullWidth
-      px={2}
-      pt={1.5}
-      pb={2}>
+    <Panel isFullWidth size='sm'>
       {{
         header: {
           title: 'Biography',
@@ -57,7 +48,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
           )
         },
         body: !isLoading ? (
-          <Collapse in={isExpanded} startingHeight={(height || 44) >= 44 ? 44 : elementHeight || 44}>
+          <Collapse in={isExpanded} startingHeight={(height || 44) >= 44 ? 44 : height || 44}>
             <VStack ref={biographyRef} width='100%' alignItems='flex-start' spacing={2}>
               {handleFormatIntoParagraphs(biography)
                 .filter((paragraph) => paragraph)
@@ -85,7 +76,7 @@ const Bio = ({ biography, isLoading = false }: BioProps): ReactElement => {
           </VStack>
         )
       }}
-    </Card>
+    </Panel>
   );
 };
 

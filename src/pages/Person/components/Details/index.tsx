@@ -3,9 +3,9 @@ import { ReactElement } from 'react';
 import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
 import { Heart as HeartIcon } from 'react-feather';
 
-import Card from '../../../../components/Card';
 import Button from '../../../../components/Clickable/Button';
 import Like from '../../../../components/Clickable/Like';
+import Panel from '../../../../components/Panel';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import Socials from '../../../View/components/Socials';
 import Background from './components/Background';
@@ -31,7 +31,7 @@ const Details = (props: DetailsProps): ReactElement => {
   const { person, departments, socials, isLoading = false, isError = false, onClickPoster } = props;
 
   return (
-    <Card isFullWidth p={2}>
+    <Panel isFullWidth>
       {{
         body: (
           <VStack width='100%' alignItems='stretch' spacing={2}>
@@ -120,7 +120,7 @@ const Details = (props: DetailsProps): ReactElement => {
           </VStack>
         )
       }}
-    </Card>
+    </Panel>
   );
 };
 
