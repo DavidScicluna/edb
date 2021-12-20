@@ -9,8 +9,6 @@ export type Style = { [key: string]: number | string | unknown | Style };
 
 export type Icon = any;
 
-export type CardVariant = 'transparent' | 'outlined';
-
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonType = 'button' | 'iconButton';

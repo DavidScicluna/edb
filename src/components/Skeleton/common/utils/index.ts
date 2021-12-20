@@ -1,7 +1,8 @@
-import { ColorMode } from '../../../../common/types';
+import { ColorMode } from '@chakra-ui/react';
+
 import { Color } from '../../../../theme/types';
 
-export const handleReturnColors = (type: 'start' | 'end', color: Color, colorMode: ColorMode): string => {
+export const handleReturnColors = (type: 'start' | 'end', color: keyof Color, colorMode: ColorMode): string => {
   switch (color) {
     default:
       return colorMode === 'light'

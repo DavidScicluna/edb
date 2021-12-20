@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import _ from 'lodash';
 
 const handleAddAuthorization = (request: AxiosRequestConfig): AxiosRequestConfig => {
-  if (!request.headers['Authorization']) {
+  if (request && request.headers && request.headers['Authorization']) {
     request.headers['Authorization'] = `Bearer ${process.env.REACT_APP_KEY}`;
   }
   return request;

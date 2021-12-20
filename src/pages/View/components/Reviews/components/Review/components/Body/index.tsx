@@ -1,8 +1,8 @@
-import { ReactElement, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
-import { useWindowSize, useElementSize } from 'usehooks-ts';
+import { useElementSize } from 'usehooks-ts';
 
 import { handleFormatIntoParagraphs } from '../../../../../../../../common/utils';
 import Button from '../../../../../../../../components/Clickable/Button';
@@ -12,38 +12,35 @@ import { BodyProps } from './types';
 const Body = (props: BodyProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { width: windowWidth } = useWindowSize();
-  const [contentRef, { height: elementHeight }] = useElementSize();
+  const [contentRef, { height }] = useElementSize();
 
   const { content, isLoading = true } = props;
 
   const [isExpanded, setIsExpanded] = useBoolean();
 
-  const [height, setHeight] = useState<number>();
+  // const [height, setHeight] = useState<number>();
 
-  const handleContentRef = useCallback(
-    _.debounce((ref: HTMLDivElement | null) => {
-      if (ref) {
-        setHeight(ref.offsetHeight);
-      } else {
-        handleContentRef(contentRef.current);
-      }
-    }, 250),
-    [contentRef]
-  );
+  // const handleContentRef = useCallback(
+  //   _.debounce((ref: HTMLDivElement | null) => {
+  //     if (ref) {
+  //       setHeight(ref.offsetHeight);
+  //     } else {
+  //       handleContentRef(contentRef.current);
+  //     }
+  //   }, 250),
+  //   [contentRef]
+  // );
+
+  // useEffect(() => {
+  //   handleContentRef(contentRef.current);
+  // }, [windowWidth]);
 
   useEffect(() => {
     setIsExpanded.off();
   }, [isLoading]);
 
   useEffect(() => {
-    handleContentRef(contentRef.current);
-  }, [windowWidth]);
-
-  useEffect(() => {
     return () => {
-      setHeight(undefined);
-
       setIsExpanded.off();
     };
   }, []);
@@ -53,7 +50,7 @@ const Body = (props: BodyProps): ReactElement => {
       {!isLoading && content ? (
         <Collapse
           in={isExpanded}
-          startingHeight={(height || 176) >= 176 ? 176 : elementHeight || 176}
+          startingHeight={(height || 176) >= 176 ? 176 : height || 176}
           style={{ width: 'inherit', maxWidth: 'inherit' }}>
           <VStack ref={contentRef} width='100%' maxWidth='100%' alignItems='flex-start' spacing={2}>
             {handleFormatIntoParagraphs(content)

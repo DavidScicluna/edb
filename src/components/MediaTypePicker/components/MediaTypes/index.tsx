@@ -46,7 +46,7 @@ const MediaTypes = <MT,>(props: MediaTypesProps<MT>): ReactElement => {
           <MediaTypeItem
             key={mediaTypeItem.value}
             {...mediaTypeItem}
-            isActive={mediaTypeItem.value === mediaType}
+            // isActive={mediaTypeItem.value === mediaType}
             onClick={handleClick}
           />
         ) : null
@@ -59,7 +59,7 @@ const MediaTypes = <MT,>(props: MediaTypesProps<MT>): ReactElement => {
           <MediaTypeItem
             key={mediaTypeItem.value}
             {...mediaTypeItem}
-            isActive={mediaTypeItem.value === mediaType}
+            // isActive={mediaTypeItem.value === mediaType}
             onClick={handleClick}
           />
         ) : null

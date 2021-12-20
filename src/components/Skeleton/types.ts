@@ -5,6 +5,6 @@ import { Color } from '../../theme/types';
 type SkeletonType = 'default' | 'text';
 
 export type SkeletonProps = {
-  color?: Color;
+  color?: keyof Color;
   type?: SkeletonType;
 } & Omit<CUISkeletonProps, 'colorScheme' | 'color' | 'fadeDuration' | 'size' | 'speed' | 'variant'>;

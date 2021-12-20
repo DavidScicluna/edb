@@ -26,7 +26,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
       shouldWrapChildren
       gutter={8}>
       <Card
-        color={isActive ? handleReturnColor(value) : 'gray'}
+        color={isActive ? value : 'gray'}
         colorMode={background}
         onClick={!isActive && onClick ? () => onClick(value) : undefined}
         onMouseEnter={() => setIsHovering.on()}

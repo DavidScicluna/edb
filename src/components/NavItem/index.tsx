@@ -33,7 +33,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { children, label, path, icon, iconActive, sidebarMode, onClick } = props;
+  const { children, label, path, icon, sidebarMode, onClick } = props;
 
   const [isChildrenOpen, setIsChildrenOpen] = useBoolean();
 
@@ -105,7 +105,8 @@ const NavItem = (props: NavItemType): ReactElement => {
             sx={{ ..._.merge(style.common.main, style[colorMode].main) }}>
             <HStack width='100%' spacing={2}>
               <Icon
-                as={isActive || isChildActive ? iconActive : icon}
+                // as={isActive || isChildActive ? iconActive : icon}
+                as={icon}
                 sx={{ fontSize: `${theme.fontSizes['2xl']} !important` }}
               />
               <ScaleFade
