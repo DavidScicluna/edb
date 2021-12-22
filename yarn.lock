@@ -7629,6 +7629,7 @@ __metadata:
     redux-persist: ^6.0.0
     swiper: 6.8.1
     typescript: ^4.5.4
+    use-react-router-breadcrumbs: ^3.0.1
     usehooks-ts: ^2.1.1
     uuid: ^8.3.2
     web-vitals: ^2.1.2
@@ -15893,6 +15894,16 @@ __metadata:
     "@types/react":
       optional: true
   checksum: b0027242311ed3fb006575c3be69efe31946f17129f2464707f4fcf2e167b91917236569a1d622c57b36843bc05efd9740a4ba51591553ad6fe2799cc12b138e
+  languageName: node
+  linkType: hard
+
+"use-react-router-breadcrumbs@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "use-react-router-breadcrumbs@npm:3.0.1"
+  peerDependencies:
+    react: ">=16.8"
+    react-router: ">=6.0.0"
+  checksum: a1745e461d85e9c545cc5f09764889b91bc4edbffaef906ebeed4bb1486d88ec7ecc445328dca2b3ef1637e7330c9fea4a3f4b3bea997d695acb45c5b1a8a234
   languageName: node
   linkType: hard
 

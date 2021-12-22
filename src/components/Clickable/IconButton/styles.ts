@@ -129,28 +129,40 @@ export default (
         transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
       },
       sm: {
-        borderRadius: 'sm',
-        borderWidth: variant !== 'icon' ? '1px 1px 0' : '0',
+        'borderRadius': 'sm',
+        'borderWidth': variant !== 'icon' ? '1px 1px 0' : '0',
 
-        padding: theme.space['0.5'],
+        'padding': theme.space['0.5'],
 
-        transform: variant !== 'icon' ? 'translateY(-3px)' : 'none'
+        'transform': variant !== 'icon' ? 'translateY(-3px)' : 'none',
+
+        '& svg': {
+          fontSize: 'lg'
+        }
       },
       md: {
-        borderRadius: 'base',
-        borderWidth: variant !== 'icon' ? '2px 2px 0' : '0',
+        'borderRadius': 'base',
+        'borderWidth': variant !== 'icon' ? '2px 2px 0' : '0',
 
-        padding: theme.space[1],
+        'padding': theme.space[1],
 
-        transform: variant !== 'icon' ? 'translateY(-4px)' : 'none'
+        'transform': variant !== 'icon' ? 'translateY(-4px)' : 'none',
+
+        '& svg': {
+          fontSize: 'xl'
+        }
       },
       lg: {
-        borderRadius: 'lg',
-        borderWidth: variant !== 'icon' ? '2px 2px 0' : '0',
+        'borderRadius': 'lg',
+        'borderWidth': variant !== 'icon' ? '2px 2px 0' : '0',
 
-        padding: theme.space[1.5],
+        'padding': theme.space[1.5],
 
-        transform: variant !== 'icon' ? 'translateY(-5px)' : 'none'
+        'transform': variant !== 'icon' ? 'translateY(-5px)' : 'none',
+
+        '& svg': {
+          fontSize: '2xl'
+        }
       }
     },
     disabled: {

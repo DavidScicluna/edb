@@ -51,7 +51,7 @@ const Movies = (): ReactElement => {
   }, []);
 
   return (
-    <Page title='Movies' breadcrumbs={[home, movies]}>
+    <Page title='Movies'>
       {{
         body: (
           <VStack spacing={6}>

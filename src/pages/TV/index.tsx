@@ -51,7 +51,7 @@ const TV = (): ReactElement => {
   }, []);
 
   return (
-    <Page title='TV Shows' breadcrumbs={[home, tv]}>
+    <Page title='TV Shows'>
       {{
         body: (
           <VStack spacing={6}>

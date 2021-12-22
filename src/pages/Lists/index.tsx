@@ -240,7 +240,6 @@ const Lists = (): ReactElement => {
             </Badge>
           </Center>
         }
-        breadcrumbs={handleReturnBreadcrumbs()}
       >
         {{
           actions: (

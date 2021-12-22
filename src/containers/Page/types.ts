@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
-import { PartialLocation } from 'history';
+import { Location } from 'history';
 
 export type Breadcrumb = {
   label: string;
-  to: PartialLocation;
+  to: Partial<Location>;
   isLoading?: boolean;
 };
 
@@ -13,6 +13,5 @@ export type PageProps = {
     actions?: ReactElement;
     body: ReactElement;
   };
-  breadcrumbs: Breadcrumb[];
-  title: string | ReactElement;
+  title?: string | ReactElement;
 };

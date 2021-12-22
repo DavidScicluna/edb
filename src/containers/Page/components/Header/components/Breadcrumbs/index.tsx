@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import {
   useTheme,
@@ -12,14 +12,16 @@ import {
 } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
+import { useLocation } from 'react-router-dom';
 
-import Link from '../../../../components/Clickable/Link';
-import SkeletonText from '../../../../components/Skeleton/Text';
-import { Theme } from '../../../../theme/types';
+import Link from '../../../../../../components/Clickable/Link';
+import SkeletonText from '../../../../../../components/Skeleton/Text';
+import { Theme } from '../../../../../../theme/types';
+import routes from '../../../../../Layout/components/Routes/data';
+import { Route } from '../../../../../Layout/components/Routes/types';
 import useStyles from './styles';
-import { BreadcrumbsProps } from './types';
 
-const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
+const Breadcrumbs = (): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
@@ -32,9 +34,27 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
     '2xl': theme.fontSizes.lg
   });
 
+  const location = useLocation();
+
   const style = useStyles(theme);
 
-  const { breadcrumbs } = props;
+  const [breadcrumbs, setBreadcrumbs] = useState<Omit<Route, 'children'>[]>([]);
+
+  const handleGenerateBreadcrumbs = useCallback(
+    _.debounce(() => {
+      setBreadcrumbs([
+        // ...breadcrumbs.filter((breadcrumb) => breadcrumb.path !== '/'),
+        ...routes
+          .filter(({ path }) => location.pathname.includes(String(path)))
+          .map(({ path, name }) => ({ path, name }))
+      ]);
+    }, 250),
+    []
+  );
+
+  // console.log(breadcrumbs);
+
+  useEffect(() => handleGenerateBreadcrumbs(), [location]);
 
   return (
     <CUIBreadcrumb
@@ -49,23 +69,24 @@ const Breadcrumbs = (props: BreadcrumbsProps): ReactElement => {
     >
       {breadcrumbs.map((breadcrumb, index) => (
         <BreadcrumbItem
-          key={breadcrumb.label}
+          key={index}
           isCurrentPage={index === breadcrumbs.length - 1}
           fontSize={['sm', 'sm', 'md', 'md', 'md', 'md']}
           sx={{ ...style.common.breadcrumbItem }}
         >
-          <SkeletonText offsetY={8} isLoaded={!breadcrumb.isLoading}>
+          <SkeletonText offsetY={8} isLoaded={!_.isNil(breadcrumb)}>
             {index === breadcrumbs.length - 1 ? (
               <Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
-                {breadcrumb.label || ''}
+                {breadcrumb.name || ''}
               </Text>
             ) : (
               <BreadcrumbLink
                 as={Link}
-                to={{ ...breadcrumb.to }}
+                // to={{ ...breadcrumb.to }}
+                to={{ ...breadcrumb.location }}
                 sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}
               >
-                {breadcrumb.label || ''}
+                {breadcrumb.name || ''}
               </BreadcrumbLink>
             )}
           </SkeletonText>

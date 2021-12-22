@@ -86,7 +86,7 @@ const People = (): ReactElement => {
   }, []);
 
   return (
-    <Page title='People' breadcrumbs={[home, peopleBreadcrumb]}>
+    <Page title='People'>
       {{
         actions: <Filters mediaType='person' isDisabled={!popularPeopleQuery.isSuccess} onFilter={handleSetFilters} />,
         body: (

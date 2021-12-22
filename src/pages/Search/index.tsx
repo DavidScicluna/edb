@@ -475,7 +475,7 @@ const Search = (): ReactElement => {
 
   return (
     <>
-      <Page title='Search' breadcrumbs={handleReturnBreadcrumbs()}>
+      <Page title='Search'>
         {{
           actions: (
             <ScaleFade in={!!mediaType && !!query} unmountOnExit>

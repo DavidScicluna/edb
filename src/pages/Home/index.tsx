@@ -63,7 +63,7 @@ const Home = (): ReactElement => {
   }, []);
 
   return (
-    <Page title='Home' breadcrumbs={[]}>
+    <Page>
       {{
         body: (
           <VStack spacing={6}>

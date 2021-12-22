@@ -83,10 +83,7 @@ const MoviesNowPlaying = (): ReactElement => {
   }, []);
 
   return (
-    <Page
-      title='Movies Now Playing'
-      breadcrumbs={[home, moviesBreadcrumb, { label: 'Now Playing', to: { pathname: '/movies/now-playing' } }]}
-    >
+    <Page title='Movies Now Playing'>
       {{
         actions: (
           <Filters mediaType='movie' isDisabled={!moviesNowPlayingQuery.isSuccess} onFilter={handleSetFilters} />

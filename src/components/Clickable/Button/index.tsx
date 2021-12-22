@@ -39,11 +39,11 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
   const handleReturnSpacing = (): keyof Space => {
     switch (size) {
       case 'sm':
-        return 0.75;
+        return 0.5;
       case 'lg':
         return 2;
       default:
-        return 1.5;
+        return 1;
     }
   };
 
@@ -69,7 +69,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
         ) : (
           <HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing()}>
             {leftIcon ? <Icon icon={leftIcon} size={size} /> : null}
-            <span>{children}</span>
+            {children ? <span>{children}</span> : null}
             {rightIcon ? <Icon icon={rightIcon} size={size} /> : null}
           </HStack>
         )}

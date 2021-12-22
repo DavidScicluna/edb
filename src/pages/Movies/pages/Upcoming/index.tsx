@@ -83,10 +83,7 @@ const UpcomingMovies = (): ReactElement => {
   }, []);
 
   return (
-    <Page
-      title='Upcoming Movies'
-      breadcrumbs={[home, moviesBreadcrumb, { label: 'Upcoming', to: { pathname: '/movies/upcoming' } }]}
-    >
+    <Page title='Upcoming Movies'>
       {{
         actions: <Filters mediaType='movie' onFilter={handleSetFilters} />,
         body: (

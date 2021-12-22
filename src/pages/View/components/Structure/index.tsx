@@ -10,7 +10,7 @@ const Structure = ({ children }: StructureProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 960px)');
 
   return (
-    <Page title={children.title} breadcrumbs={[]}>
+    <Page title={children.title}>
       {{
         actions: children.actions,
         body: (

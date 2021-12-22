@@ -220,7 +220,6 @@ const Liked = (): ReactElement => {
             </Text>
           </Center>
         }
-        breadcrumbs={handleReturnBreadcrumbs()}
       >
         {{
           actions: (

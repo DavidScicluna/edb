@@ -107,10 +107,7 @@ const TVAiringToday = (): ReactElement => {
 
   return (
     <>
-      <Page
-        title='TV Shows Airing Today'
-        breadcrumbs={[home, tvBreadcrumb, { label: 'Airing Today,', to: { pathname: '/tv/airing-today' } }]}
-      >
+      <Page title='TV Shows Airing Today'>
         {{
           actions: <Filters mediaType='tv' isDisabled={!tvAiringTodayQuery.isSuccess} onFilter={handleSetFilters} />,
           body: (

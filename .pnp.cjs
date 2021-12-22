@@ -95,6 +95,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["redux-persist", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:6.0.0"],
             ["swiper", "npm:6.8.1"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"],
+            ["use-react-router-breadcrumbs", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.0.1"],
             ["usehooks-ts", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.1.1"],
             ["uuid", "npm:8.3.2"],
             ["web-vitals", "npm:2.1.2"],
@@ -12112,6 +12113,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["redux-persist", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:6.0.0"],
             ["swiper", "npm:6.8.1"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"],
+            ["use-react-router-breadcrumbs", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.0.1"],
             ["usehooks-ts", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.1.1"],
             ["uuid", "npm:8.3.2"],
             ["web-vitals", "npm:2.1.2"],
@@ -22490,6 +22492,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "packagePeers": [
             "@types/react",
+            "react"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["use-react-router-breadcrumbs", [
+        ["npm:3.0.1", {
+          "packageLocation": "./.yarn/cache/use-react-router-breadcrumbs-npm-3.0.1-549bd7ee37-a1745e461d.zip/node_modules/use-react-router-breadcrumbs/",
+          "packageDependencies": [
+            ["use-react-router-breadcrumbs", "npm:3.0.1"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.0.1", {
+          "packageLocation": "./.yarn/__virtual__/use-react-router-breadcrumbs-virtual-0c08f43f8a/0/cache/use-react-router-breadcrumbs-npm-3.0.1-549bd7ee37-a1745e461d.zip/node_modules/use-react-router-breadcrumbs/",
+          "packageDependencies": [
+            ["use-react-router-breadcrumbs", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.0.1"],
+            ["@types/react", "npm:17.0.37"],
+            ["@types/react-router", null],
+            ["react", "npm:17.0.2"],
+            ["react-router", null]
+          ],
+          "packagePeers": [
+            "@types/react-router",
+            "@types/react",
+            "react-router",
             "react"
           ],
           "linkType": "HARD",
