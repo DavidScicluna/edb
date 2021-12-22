@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, Text } from '@chakra-ui/react';
-import queryString from 'query-string';
+import qs from 'query-string';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
@@ -36,7 +36,7 @@ const TV = (props: TVProps): ReactElement => {
       footer={
         (total_results || 0) > 20 ? (
           <Link
-            to={{ pathname: '/search', search: queryString.stringify({ query, page: 1, mediaType: 'tv' }) }}
+            to={{ pathname: '/search', search: qs.stringify({ query, page: 1, mediaType: 'tv' }) }}
             isFullWidth
             isDisabled={isFetching || isLoading}
           >

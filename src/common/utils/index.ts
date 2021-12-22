@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import queryString from 'query-string';
+import qs from 'query-string';
 import { v4 as uuid } from 'uuid';
 
 import store from '../../store';
@@ -141,7 +141,7 @@ export const handleCheckHasFilters = (sortBy?: SortBy, genres?: Genre[], departm
  * @returns - boringavatars URL
  */
 export const handleReturnBoringSrc = (type: BoringType, size: ColorSize, alt: string): string => {
-  return queryString.stringifyUrl({
+  return qs.stringifyUrl({
     url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${type}/${size}/${`${alt}-${uuid()}`.split(' ').join('')}`,
     query: {
       colors: [

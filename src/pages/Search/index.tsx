@@ -5,7 +5,7 @@ import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
-import queryString from 'query-string';
+import qs from 'query-string';
 import { useQuery, useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -86,8 +86,8 @@ const Search = (): ReactElement => {
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/search/movie', {
         params: {
-          query: query || queryString.parse(location.search)?.query || '',
-          page: pageParam || queryString.parse(location.search)?.page || 1
+          query: query || qs.parse(location.search)?.query || '',
+          page: pageParam || qs.parse(location.search)?.page || 1
         },
 
         cancelToken: source.token
@@ -147,8 +147,8 @@ const Search = (): ReactElement => {
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<PartialTV[]>>('/search/tv', {
         params: {
-          query: query || queryString.parse(location.search)?.query || '',
-          page: pageParam || queryString.parse(location.search)?.page || 1
+          query: query || qs.parse(location.search)?.query || '',
+          page: pageParam || qs.parse(location.search)?.page || 1
         },
 
         cancelToken: source.token
@@ -208,8 +208,8 @@ const Search = (): ReactElement => {
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/search/person', {
         params: {
-          query: query || queryString.parse(location.search)?.query || '',
-          page: pageParam || queryString.parse(location.search)?.page || 1
+          query: query || qs.parse(location.search)?.query || '',
+          page: pageParam || qs.parse(location.search)?.page || 1
         },
 
         cancelToken: source.token
@@ -292,7 +292,7 @@ const Search = (): ReactElement => {
 
       history.push({
         pathname: '/search',
-        search: queryString.stringify({ ...search })
+        search: qs.stringify({ ...search })
       });
     },
     [history]
@@ -350,7 +350,7 @@ const Search = (): ReactElement => {
     if (submittedQuery) {
       breadcrumbs.push({
         label: submittedQuery,
-        to: { pathname: '/search', search: queryString.stringify({ query: submittedQuery }) }
+        to: { pathname: '/search', search: qs.stringify({ query: submittedQuery }) }
       });
 
       if (mediaType) {
@@ -360,7 +360,7 @@ const Search = (): ReactElement => {
               label: 'People',
               to: {
                 pathname: '/search',
-                search: queryString.stringify({ query: submittedQuery, mediaType: 'person' })
+                search: qs.stringify({ query: submittedQuery, mediaType: 'person' })
               }
             });
             break;
@@ -369,7 +369,7 @@ const Search = (): ReactElement => {
               label: 'TV Shows',
               to: {
                 pathname: '/search',
-                search: queryString.stringify({ query: submittedQuery, mediaType: 'tv' })
+                search: qs.stringify({ query: submittedQuery, mediaType: 'tv' })
               }
             });
             break;
@@ -378,7 +378,7 @@ const Search = (): ReactElement => {
               label: 'Movies',
               to: {
                 pathname: '/search',
-                search: queryString.stringify({ query: submittedQuery, mediaType: 'movie' })
+                search: qs.stringify({ query: submittedQuery, mediaType: 'movie' })
               }
             });
             break;
@@ -392,7 +392,7 @@ const Search = (): ReactElement => {
   };
 
   useEffect(() => {
-    const params = queryString.parse(history.location.search);
+    const params = qs.parse(history.location.search);
 
     if (params && params.mediaType) {
       switch (params.mediaType) {
