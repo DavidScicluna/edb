@@ -14,18 +14,17 @@ const DescriptionModal = (): ReactElement => {
 
   const dispatch = useDispatch();
   const descriptionModal = useSelector((state) => state.modals.ui.descriptionModal);
-  const color = useSelector((state) => state.user.ui.theme.color);
 
   return (
     <Modal
       title={`${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : 'Unknown'} description`}
-      actions={
+      renderActions={({ color, colorMode, size }) => (
         <Link to={{ pathname: `/${defaultDescriptionModal.mediaType}/${descriptionModal.mediaItem?.id}` }}>
-          <Button color={color} size='sm'>
+          <Button color={color} colorMode={colorMode} size={size}>
             {`View ${descriptionModal.mediaItem ? `"${descriptionModal.mediaItem.title}"` : ''}`}
           </Button>
         </Link>
-      }
+      )}
       isOpen={descriptionModal.open}
       onClose={() => dispatch(toggleDescription({ ...defaultDescriptionModal }))}
       isCentered

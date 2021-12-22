@@ -41,11 +41,11 @@ const DeleteReview = ({ id }: { id: string }): ReactElement => {
       </Tooltip>
 
       <ConfirmModal
-        actions={
-          <Button color='red' onClick={() => handleDelete()} size='sm'>
+        renderActions={({ colorMode, size }) => (
+          <Button color='red' colorMode={colorMode} onClick={() => handleDelete()} size={size}>
             Delete
           </Button>
-        }
+        )}
         title='Delete review'
         description='Are you sure you want to delete the review? You will not be able to retrieve this review back!'
         isOpen={isConfirmOpen}

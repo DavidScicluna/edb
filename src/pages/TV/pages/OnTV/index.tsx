@@ -27,7 +27,6 @@ const OnTV = (): ReactElement => {
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
   const sortDirection = useSelector((state) => state.app.data.sortDirection);
-  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [sortBy, setSortBy] = useState<SortBy | undefined>();
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -141,11 +140,11 @@ const OnTV = (): ReactElement => {
       </Page>
 
       <ConfirmModal
-        actions={
-          <Button color={color} onClick={() => handleResetFilters()} size='sm'>
+        renderActions={({ color, colorMode, size }) => (
+          <Button color={color} colorMode={colorMode} onClick={() => handleResetFilters()} size={size}>
             Load more
           </Button>
-        }
+        )}
         title='Filters'
         description='Are you sure you want to load more TV shows? Filters will be reset!'
         isOpen={isConfirmOpen}

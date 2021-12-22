@@ -26,11 +26,11 @@ const DeleteList = (props: DeleteListProps): ReactElement => {
 
   return (
     <ConfirmModal
-      actions={
-        <Button color='red' onClick={() => handleDelete()} size='sm'>
+      renderActions={({ colorMode, size }) => (
+        <Button color='red' colorMode={colorMode} onClick={() => handleDelete()} size={size}>
           Delete
         </Button>
-      }
+      )}
       title={isSm ? 'Delete' : `Delete ${label ? `"${label}"` : ''} list`}
       description={`Are you sure you want to delete the ${
         label ? `"${label}"` : ''

@@ -132,7 +132,7 @@ export default (
         borderRadius: 'sm',
         borderWidth: variant !== 'icon' ? '1px 1px 0' : '0',
 
-        padding: theme.space['0.75'],
+        padding: theme.space['0.5'],
 
         transform: variant !== 'icon' ? 'translateY(-3px)' : 'none'
       },
@@ -140,7 +140,7 @@ export default (
         borderRadius: 'base',
         borderWidth: variant !== 'icon' ? '2px 2px 0' : '0',
 
-        padding: theme.space[1.5],
+        padding: theme.space[1],
 
         transform: variant !== 'icon' ? 'translateY(-4px)' : 'none'
       },
@@ -148,7 +148,7 @@ export default (
         borderRadius: 'lg',
         borderWidth: variant !== 'icon' ? '2px 2px 0' : '0',
 
-        padding: theme.space[2],
+        padding: theme.space[1.5],
 
         transform: variant !== 'icon' ? 'translateY(-5px)' : 'none'
       }

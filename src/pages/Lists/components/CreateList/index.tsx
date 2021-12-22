@@ -96,16 +96,17 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
     <>
       <Modal
         title='Create a new List'
-        actions={
+        renderActions={({ color, colorMode, size }) => (
           <Button
             color={color}
+            colorMode={colorMode}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
-            size='sm'
+            size={size}
           >
             Submit List
           </Button>
-        }
+        )}
         isOpen={isOpen}
         onClose={handleCheckClose}
         isCentered
@@ -173,11 +174,11 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
       </Modal>
 
       <ConfirmModal
-        actions={
-          <Button color={color} onClick={() => handleCloseConfirm()} size='sm'>
+        renderActions={({ color, colorMode, size }) => (
+          <Button color={color} colorMode={colorMode} onClick={() => handleCloseConfirm()} size={size}>
             Close
           </Button>
-        }
+        )}
         title='Unsaved data!'
         description='Are you sure you want to close the modal, the data inserted will be lost unless you save it!'
         isOpen={isConfirmOpen}

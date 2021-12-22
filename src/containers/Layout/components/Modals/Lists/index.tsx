@@ -20,7 +20,6 @@ const ListsModal = (): ReactElement => {
   const dispatch = useDispatch();
   const listsModal: ListModalType = useSelector((state) => state.modals.ui.listsModal);
   const lists: ListType[] = useSelector((state) => state.user.data.lists);
-  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [selected, setSelected] = useState<ListType['id'][]>([]);
 
@@ -96,17 +95,16 @@ const ListsModal = (): ReactElement => {
     <>
       <Modal
         title={`Add "${listsModal.title}" to a list`}
-        actions={
-          selected.length > 0 ? (
-            <Button color={color} onClick={() => handleSaveItem()} size='sm'>
-              {`Save to List${selected.length > 1 ? 's' : ''}`}
-            </Button>
-          ) : (
-            <Button color={color} onClick={() => onCreateListOpen()} size='sm'>
-              Create a new List
-            </Button>
-          )
-        }
+        renderActions={({ color, colorMode, size }) => (
+          <Button
+            color={color}
+            colorMode={colorMode}
+            onClick={() => (selected.length > 0 ? handleSaveItem() : onCreateListOpen())}
+            size={size}
+          >
+            {selected.length > 0 ? `Save to List${selected.length > 1 ? 's' : ''}` : 'Create a new List'}
+          </Button>
+        )}
         isOpen={listsModal.open}
         onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
         isCentered

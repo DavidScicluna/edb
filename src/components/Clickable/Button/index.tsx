@@ -1,6 +1,6 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack, ScaleFade } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { Theme, Space } from '../../../theme/types';
@@ -64,16 +64,15 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
         className='button_front'
         sx={{ ..._.merge(style.button.front.default, style.button.front[size], style[colorMode].front[variant]) }}
       >
-        <ScaleFade in={isLoading} unmountOnExit>
+        {isLoading ? (
           <Spinner color={color} colorMode={colorMode} size={size} variant={variant} />
-        </ScaleFade>
-        <ScaleFade in={!isLoading} unmountOnExit>
-          <HStack width='100%' spacing={handleReturnSpacing()}>
+        ) : (
+          <HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing()}>
             {leftIcon ? <Icon icon={leftIcon} size={size} /> : null}
             <span>{children}</span>
             {rightIcon ? <Icon icon={rightIcon} size={size} /> : null}
           </HStack>
-        </ScaleFade>
+        )}
       </Center>
     </CUIButton>
   );

@@ -114,16 +114,17 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 
       <Modal
         title='Edit review'
-        actions={
+        renderActions={({ color, colorMode, size }) => (
           <Button
             color={color}
+            colorMode={colorMode}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
-            size='sm'
+            size={size}
           >
             Save Review
           </Button>
-        }
+        )}
         isOpen={isOpen}
         onClose={handleCheckClose}
         isCentered
@@ -198,12 +199,12 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
       </Modal>
 
       <ConfirmModal
-        actions={
-          <Button color={color} onClick={() => handleCloseConfirm()} size='sm'>
+        title='Unsaved data!'
+        renderActions={({ colorMode, size }) => (
+          <Button color={color} colorMode={colorMode} onClick={() => handleCloseConfirm()} size={size}>
             Close
           </Button>
-        }
-        title='Unsaved data!'
+        )}
         description='Are you sure you want to close the modal, the data inserted will be lost unless you save it!'
         isOpen={isConfirmOpen}
         onClose={onCloseConfirm}

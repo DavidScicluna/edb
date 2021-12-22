@@ -127,16 +127,17 @@ const Filters = (props: FiltersProps): ReactElement => {
 
       <Modal
         title='Filter'
-        actions={
+        renderActions={({ colorMode, size }) => (
           <Button
             color={color}
+            colorMode={colorMode}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmitFilters(values))}
-            size='sm'
+            size={size}
           >
             Submit
           </Button>
-        }
+        )}
         isOpen={isOpen}
         onClose={handleClose}
         isCentered

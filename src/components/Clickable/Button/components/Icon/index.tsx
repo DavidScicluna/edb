@@ -25,7 +25,7 @@ const Icon = ({ icon: Icon, size = 'md' }: IconProps): ReactElement => {
     }
   };
 
-  return <Icon size={handleReturnSize()} strokeWidth={2} />;
+  return <Icon style={{ fontSize: `${handleReturnSize()}px` }} />;
 };
 
 export default Icon;

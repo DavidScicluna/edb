@@ -94,11 +94,11 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
       })}
 
       <ConfirmModal
-        actions={
-          <Button color='red' onClick={() => handleCloseConfirm()} size='sm'>
+        renderActions={({ colorMode, size }) => (
+          <Button color='red' colorMode={colorMode} onClick={() => handleCloseConfirm()} size={size}>
             Remove
           </Button>
-        }
+        )}
         title={`Remove "${title}" ${mediaType} from lists?`}
         description={`Are you sure you want to remove "${title}" ${mediaType} from ${lists
           ?.map((list) => `"${list.label}"`)

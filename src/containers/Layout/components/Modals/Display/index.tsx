@@ -50,17 +50,17 @@ const Display = (): ReactElement => {
   return (
     <Modal
       title='Edit Application Theme'
-      actions={
+      renderActions={({ size }) => (
         <Button
-          colorMode={background}
           color={color}
+          colorMode={background}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
-          size='sm'
+          size={size}
         >
           Save
         </Button>
-      }
+      )}
       colorMode={background}
       isOpen={isDisplayModalOpen}
       onClose={handleClose}

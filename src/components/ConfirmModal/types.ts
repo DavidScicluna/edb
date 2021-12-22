@@ -1,8 +1,7 @@
-import { ReactElement } from 'react';
-
+import { NonNullable } from '../../common/types';
 import { ModalProps } from '../Modal/types';
 
 export type ConfirmModalProps = {
-  actions: ReactElement;
+  renderActions: NonNullable<ModalProps['renderActions']>;
   description: string;
-} & Omit<ModalProps, 'children' | 'actions' | 'isConfirm'>;
+} & Omit<ModalProps, 'children' | 'renderActions' | 'isConfirm'>;

@@ -17,7 +17,6 @@ const QuickView = (): ReactElement => {
 
   const dispatch = useDispatch();
   const quickViewModal = useSelector((state) => state.modals.ui.quickViewModal);
-  const color = useSelector((state) => state.user.ui.theme.color);
 
   const handleClose = (): void => {
     dispatch(toggleQuickView({ ...defaultQuickViewModal }));
@@ -28,13 +27,13 @@ const QuickView = (): ReactElement => {
       title={
         !isSm ? `Quick View ${quickViewModal.mediaItem ? `"${quickViewModal.mediaItem.title}"` : ''}` : 'Quick View'
       }
-      actions={
+      renderActions={({ color, colorMode, size }) => (
         <Link to={{ pathname: `/${quickViewModal.mediaType}/${quickViewModal.mediaItem?.id}` }}>
-          <Button color={color} onClick={() => handleClose()} size='sm'>
+          <Button color={color} colorMode={colorMode} onClick={() => handleClose()} size={size}>
             View full details
           </Button>
         </Link>
-      }
+      )}
       isOpen={quickViewModal.open}
       onClose={() => handleClose()}
       isCentered

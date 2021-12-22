@@ -18,6 +18,7 @@ import {
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import { useTimeout } from 'usehooks-ts';
 
+import { useSelector } from '../../common/hooks';
 import { handleConvertStringToNumber } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import Button from '../Clickable/Button';
@@ -30,10 +31,12 @@ const Modal = (props: ModalProps): ReactElement | null => {
 
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   const {
     children,
-    actions,
     title,
+    renderActions,
     colorMode: colorModeProp,
     isConfirm = false,
     isOpen,
@@ -103,7 +106,7 @@ const Modal = (props: ModalProps): ReactElement | null => {
           </HStack>
         </ModalHeader>
         <ModalBody p={0}>{children}</ModalBody>
-        {actions ? (
+        {renderActions ? (
           <ModalFooter
             justifyContent='space-between'
             borderTop='solid2'
@@ -111,11 +114,11 @@ const Modal = (props: ModalProps): ReactElement | null => {
             p={2}
             sx={{ transition }}
           >
-            <Button colorMode={colorMode} onClick={() => onClose()} size='sm' variant='outlined'>
+            <Button colorMode={colorMode} onClick={() => onClose()} variant='outlined'>
               Cancel
             </Button>
 
-            {actions}
+            {renderActions({ color, colorMode, size: 'md' })}
           </ModalFooter>
         ) : null}
       </ModalContent>
