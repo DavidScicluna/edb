@@ -20,6 +20,7 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
     isLoading = false,
     size = 'md',
     variant = 'contained',
+    sx,
     ...rest
   } = props;
 
@@ -34,7 +35,14 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
       tabIndex={0}
       isDisabled={isLoading || isDisabled}
       variant='unstyled'
-      sx={{ ..._.merge(style.iconButton.back.default, style.iconButton.back[size], style[colorMode].back[variant]) }}
+      sx={{
+        ..._.merge(
+          style.iconButton.back.default,
+          style.iconButton.back[size],
+          style[colorMode].back[variant],
+          sx?.back || {}
+        )
+      }}
       _disabled={{
         ..._.merge(
           style.iconButton.disabled.default,
@@ -46,7 +54,12 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
       <Center
         className='icon_button_front'
         sx={{
-          ..._.merge(style.iconButton.front.default, style.iconButton.front[size], style[colorMode].front[variant])
+          ..._.merge(
+            style.iconButton.front.default,
+            style.iconButton.front[size],
+            style[colorMode].front[variant],
+            sx?.front || {}
+          )
         }}
       >
         {isLoading ? <Spinner color={color} colorMode={colorMode} size={size} variant={variant} /> : children}
