@@ -10,9 +10,9 @@ export type Size = 'sm' | 'md' | 'lg';
 export type Variant = 'contained' | 'outlined' | 'icon';
 
 export type IconButtonProps = {
+  children: Icon;
   color?: keyof Color;
   colorMode?: ColorMode;
-  icon: Icon;
   size?: Size;
   variant?: Variant;
 } & Omit<

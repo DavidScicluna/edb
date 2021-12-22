@@ -118,11 +118,12 @@ const Filters = (props: FiltersProps): ReactElement => {
       <IconButton
         aria-label='Open filters modal'
         color={isOpen ? color : 'gray'}
-        icon={VisibilityOutlinedIcon}
         isDisabled={isDisabled}
         onClick={() => onOpen()}
         variant='outlined'
-      />
+      >
+        <VisibilityOutlinedIcon />
+      </IconButton>
 
       <Modal
         title='Filter'

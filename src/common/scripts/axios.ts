@@ -1,12 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import _ from 'lodash';
-
-const handleAddAuthorization = (request: AxiosRequestConfig): AxiosRequestConfig => {
-  if (request && request.headers && request.headers['Authorization']) {
-    request.headers['Authorization'] = `Bearer ${process.env.REACT_APP_KEY}`;
-  }
-  return request;
-};
 
 const handleDelay = async (response: AxiosResponse): Promise<AxiosResponse> => {
   await new Promise((resolve) => _.delay(resolve, 1250));
@@ -15,10 +8,12 @@ const handleDelay = async (response: AxiosResponse): Promise<AxiosResponse> => {
 };
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL
+  baseURL: process.env.REACT_APP_BASE_URL,
+  headers: {
+    Authorization: `Bearer ${process.env.REACT_APP_KEY}`
+  }
 });
 
-instance.interceptors.request.use(handleAddAuthorization);
 instance.interceptors.response.use(handleDelay);
 
 export default instance;

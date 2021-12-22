@@ -8,7 +8,6 @@ import {
   CloseOutlined as CloseOutlinedIcon
 } from '@material-ui/icons';
 
-
 import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';
 import store from '../../../../store';
@@ -50,10 +49,11 @@ const Toast = (props: ToastProps): ReactElement => {
             aria-label='Information related to selected list'
             color={color}
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            icon={InfoTwoToneIcon}
             onClick={() => onInfo()}
             size='sm'
-          />
+          >
+            <InfoTwoToneIcon />
+          </IconButton>
         ) : (
           <Button
             color={color}
@@ -69,10 +69,11 @@ const Toast = (props: ToastProps): ReactElement => {
           <IconButton
             aria-label='Edit selected list'
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            icon={EditOutlinedIcon}
             onClick={() => onEdit()}
             size='sm'
-          />
+          >
+            <EditOutlinedIcon />
+          </IconButton>
         ) : (
           <Button
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
@@ -88,10 +89,11 @@ const Toast = (props: ToastProps): ReactElement => {
             aria-label='Delete selected list'
             color='red'
             colorMode={colorMode === 'light' ? 'dark' : 'light'}
-            icon={DeleteOutlineOutlinedIcon}
             onClick={() => onDelete()}
             size='sm'
-          />
+          >
+            <DeleteOutlineOutlinedIcon />
+          </IconButton>
         ) : (
           <Button
             color='red'
@@ -107,11 +109,12 @@ const Toast = (props: ToastProps): ReactElement => {
       <IconButton
         aria-label='Close'
         colorMode={colorMode === 'light' ? 'dark' : 'light'}
-        icon={CloseOutlinedIcon}
         onClick={() => onClose()}
         size={isSm ? 'sm' : 'md'}
         variant='icon'
-      />
+      >
+        <CloseOutlinedIcon />
+      </IconButton>
     </HStack>
   );
 };

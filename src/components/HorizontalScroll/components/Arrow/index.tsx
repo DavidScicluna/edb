@@ -69,13 +69,14 @@ const Arrow = (props: ArrowProps): ReactElement => {
         <Center height='100%' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
           <IconButton
             aria-label={`Scroll ${direction}`}
-            icon={direction === 'left' ? ChevronLeftOutlinedIcon : ChevronRightOutlinedIcon}
             onClick={(event: Event) => handleOnClick(event)}
             onMouseDown={(event: Event) => handleIsMouseDown(event)}
             onMouseUp={(event: Event) => handleIsMouseUp(event)}
             size='sm'
             variant='icon'
-          />
+          >
+            {direction === 'left' ? <ChevronLeftOutlinedIcon /> : <ChevronRightOutlinedIcon />}
+          </IconButton>
         </Center>
       </ScaleFade>
     </Center>

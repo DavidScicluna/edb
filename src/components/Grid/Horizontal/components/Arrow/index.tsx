@@ -61,7 +61,6 @@ const Arrow = (props: ArrowProps): ReactElement => {
       <IconButton
         aria-label='Scroll left'
         isDisabled={isLoading || isDisabled}
-        icon={direction === 'left' ? ArrowBackOutlinedIcon : ArrowForwardOutlinedIcon}
         onClick={(event: Event) => handleOnClick(event)}
         onMouseDown={(event: Event) => handleIsMouseDown(event)}
         onMouseUp={(event: Event) => handleIsMouseUp(event)}
@@ -69,7 +68,9 @@ const Arrow = (props: ArrowProps): ReactElement => {
         onMouseLeave={() => setIsHovering.off()}
         size={variant === 'transparent' ? 'md' : 'sm'}
         variant='outlined'
-      />
+      >
+        {direction === 'left' ? <ArrowBackOutlinedIcon /> : <ArrowForwardOutlinedIcon />}
+      </IconButton>
     </Tooltip>
   );
 };

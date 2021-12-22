@@ -54,21 +54,24 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
       <IconButton
         aria-label={isActive ? `Un-${label} review` : `${label} review`}
         color={isActive ? color : 'gray'}
-        icon={
-          state === 'isLiked'
-            ? isActive
-              ? ThumbUpIcon
-              : ThumbUpOutlinedIcon
-            : isActive
-            ? ThumbDownIcon
-            : ThumbDownOutlinedIcon
-        }
         isDisabled={isDisabled}
         onClick={() => handleReview()}
         onMouseEnter={() => setIsHovering.on()}
         onMouseLeave={() => setIsHovering.off()}
         variant='icon'
-      />
+      >
+        {state === 'isLiked' ? (
+          isActive ? (
+            <ThumbUpIcon />
+          ) : (
+            <ThumbUpOutlinedIcon />
+          )
+        ) : isActive ? (
+          <ThumbDownIcon />
+        ) : (
+          <ThumbDownOutlinedIcon />
+        )}
+      </IconButton>
     </Tooltip>
   );
 };

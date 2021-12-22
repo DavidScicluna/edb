@@ -102,13 +102,14 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
       <Tooltip aria-label='Edit review' label='Edit review' isOpen={isHovering} placement='top' gutter={6}>
         <IconButton
           aria-label='Edit review'
-          icon={EditOutlinedIcon}
           onClick={() => onOpen()}
           onMouseEnter={() => setIsHovering.on()}
           onMouseLeave={() => setIsHovering.off()}
           variant='icon'
           size='sm'
-        />
+        >
+          <EditOutlinedIcon />
+        </IconButton>
       </Tooltip>
 
       <Modal

@@ -7,7 +7,6 @@ import {
   LockOutlined as LockOutlinedIcon
 } from '@material-ui/icons';
 
-
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../../../components/Tooltip';
 import { ActionsProps } from './types';
@@ -36,14 +35,15 @@ const Actions = (props: ActionsProps): ReactElement => {
         >
           <IconButton
             aria-label='Clear search'
-            icon={ClearOutlinedIcon}
             isDisabled={!hasQuery}
             onClick={() => onClearQuery()}
             onMouseEnter={() => setIsHoveringClear.on()}
             onMouseLeave={() => setIsHoveringClear.off()}
             size='sm'
             variant='icon'
-          />
+          >
+            <ClearOutlinedIcon />
+          </IconButton>
         </Tooltip>
       </ScaleFade>
       <Tooltip
@@ -54,13 +54,14 @@ const Actions = (props: ActionsProps): ReactElement => {
       >
         <IconButton
           aria-label={isFormLocked ? 'Unlock Search' : 'Lock Search'}
-          icon={isFormLocked ? LockOutlinedIcon : LockOpenOutlinedIcon}
           onClick={() => onToggleLock()}
           onMouseEnter={() => onHoverLock(true)}
           onMouseLeave={() => onHoverLock(false)}
           size='sm'
           variant='icon'
-        />
+        >
+          {isFormLocked ? <LockOutlinedIcon /> : <LockOpenOutlinedIcon />}
+        </IconButton>
       </Tooltip>
     </Center>
   );

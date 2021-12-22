@@ -6,7 +6,6 @@ import {
   BookmarkOutlined as BookmarkOutlinedIcon
 } from '@material-ui/icons';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
 import Bookmark from '../../../Clickable/Bookmark';
@@ -56,13 +55,14 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
             }
             color={isBookmarked ? color : 'gray'}
             isDisabled={isLoading || !mediaItem}
-            icon={isBookmarked ? BookmarkOutlinedIcon : BookmarkBorderOutlinedIcon}
             onClick={() => onClick()}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}
             size={size}
             variant='icon'
-          />
+          >
+            {isBookmarked ? <BookmarkOutlinedIcon /> : <BookmarkBorderOutlinedIcon />}
+          </IconButton>
         </Tooltip>
       )}
       title={title}

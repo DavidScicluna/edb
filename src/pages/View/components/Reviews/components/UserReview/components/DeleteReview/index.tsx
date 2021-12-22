@@ -30,13 +30,14 @@ const DeleteReview = ({ id }: { id: string }): ReactElement => {
         <IconButton
           aria-label='Delete review'
           color={isHovering ? 'red' : 'gray'}
-          icon={DeleteOutlineOutlinedIcon}
           onClick={() => onOpenConfirm()}
           onMouseEnter={() => setIsHovering.on()}
           onMouseLeave={() => setIsHovering.off()}
           variant='icon'
           size='sm'
-        />
+        >
+          <DeleteOutlineOutlinedIcon />
+        </IconButton>
       </Tooltip>
 
       <ConfirmModal

@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useMediaQuery, HStack, VStack, Fade, ScaleFade } from '@chakra-ui/react';
 import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 
-
 import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';
 import Filters from '../../../../components/Filters';
@@ -64,12 +63,9 @@ const Actions = (props: ActionsProps): ReactElement => {
           </Button>
         </ScaleFade>
         <ScaleFade in={!!list} unmountOnExit>
-          <IconButton
-            aria-label='Open Information modal'
-            icon={InfoTwoToneIcon}
-            onClick={() => onListInfoOpen()}
-            variant='outlined'
-          />
+          <IconButton aria-label='Open Information modal' onClick={() => onListInfoOpen()} variant='outlined'>
+            <InfoTwoToneIcon />
+          </IconButton>
         </ScaleFade>
       </HStack>
     )

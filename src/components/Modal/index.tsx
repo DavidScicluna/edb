@@ -97,13 +97,9 @@ const Modal = (props: ModalProps): ReactElement | null => {
               title
             )}
 
-            <IconButton
-              aria-label='Close modal?'
-              colorMode={colorMode}
-              icon={CloseOutlinedIcon}
-              onClick={() => onClose()}
-              variant='icon'
-            />
+            <IconButton aria-label='Close modal?' colorMode={colorMode} onClick={() => onClose()} variant='icon'>
+              <CloseOutlinedIcon />
+            </IconButton>
           </HStack>
         </ModalHeader>
         <ModalBody p={0}>{children}</ModalBody>

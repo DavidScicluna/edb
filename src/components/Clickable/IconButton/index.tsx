@@ -1,10 +1,9 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { ColorMode, useTheme, useColorMode, IconButton as CUIIconButton, Center, ScaleFade } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, IconButton as CUIIconButton, Center } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { Theme } from '../../../theme/types';
-import Icon from './components/Icon';
 import Spinner from './components/Spinner';
 import useStyles from './styles';
 import { IconButtonRef, IconButtonProps } from './types';
@@ -14,9 +13,9 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
   const { colorMode: colorModeHook } = useColorMode();
 
   const {
+    children,
     color = 'gray',
     colorMode: colorModeProp,
-    icon,
     isDisabled = false,
     isLoading = false,
     size = 'md',
@@ -50,12 +49,7 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
           ..._.merge(style.iconButton.front.default, style.iconButton.front[size], style[colorMode].front[variant])
         }}
       >
-        <ScaleFade in={isLoading} unmountOnExit>
-          <Spinner color={color} colorMode={colorMode} size={size} variant={variant} />
-        </ScaleFade>
-        <ScaleFade in={!isLoading} unmountOnExit>
-          <Icon icon={icon} size={size} />
-        </ScaleFade>
+        {isLoading ? <Spinner color={color} colorMode={colorMode} size={size} variant={variant} /> : children}
       </Center>
     </CUIIconButton>
   );

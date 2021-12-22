@@ -57,11 +57,12 @@ const ScrollToTop = (): ReactElement => {
           <IconButton
             aria-label='Scroll to top'
             color={color}
-            icon={ArrowUpwardOutlinedIcon}
             onClick={() => document.scrollingElement?.scrollTo(0, 0)}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}
-          />
+          >
+            <ArrowUpwardOutlinedIcon />
+          </IconButton>
         </Tooltip>
       </SlideFade>
     </Box>

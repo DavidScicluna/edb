@@ -6,7 +6,6 @@ import {
   FavoriteOutlined as FavoriteOutlinedIcon
 } from '@material-ui/icons';
 
-
 import { MediaType } from '../../../../common/types';
 import IconButton from '../../../Clickable/IconButton';
 import Like from '../../../Clickable/Like';
@@ -33,13 +32,14 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
             aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
             color={isLiked ? 'red' : 'gray'}
             isDisabled={isLoading || !mediaItem}
-            icon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
             onClick={() => onClick()}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}
             size={size}
             variant='icon'
-          />
+          >
+            {isLiked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
+          </IconButton>
         </Tooltip>
       )}
       mediaType={mediaType}

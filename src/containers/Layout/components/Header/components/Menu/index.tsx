@@ -18,7 +18,9 @@ const Menu = (): ReactElement => {
 
   return (
     <>
-      <IconButton aria-label='Open Menu' icon={MenuOutlinedIcon} onClick={onOpen} variant='icon' />
+      <IconButton aria-label='Open Menu' onClick={onOpen} variant='icon'>
+        <MenuOutlinedIcon />
+      </IconButton>
 
       <Drawer isOpen={isOpen} blockScrollOnMount={false} placement='left' onClose={onClose}>
         <DrawerOverlay />
@@ -29,10 +31,11 @@ const Menu = (): ReactElement => {
               position='absolute'
               top={1}
               right={1}
-              icon={CloseOutlinedIcon}
               onClick={() => onClose()}
               variant='icon'
-            />
+            >
+              <CloseOutlinedIcon />
+            </IconButton>
 
             <NavItems navItems={navItems} sidebarMode='expanded' />
           </DrawerBody>

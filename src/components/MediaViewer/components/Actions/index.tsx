@@ -8,7 +8,6 @@ import {
   FullscreenExitOutlined as FullscreenExitOutlinedIcon
 } from '@material-ui/icons';
 
-
 import IconButton from '../../../Clickable/IconButton';
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
@@ -84,29 +83,27 @@ const Actions = (props: ActionsProps): ReactElement => {
     <IconButton
       key='close_button'
       aria-label='Close modal'
-      icon={CloseOutlinedIcon}
       onClick={(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => handleClose(event)}
       variant='icon'
-    />,
+    >
+      <CloseOutlinedIcon />
+    </IconButton>,
 
     // Gallery button
-    <IconButton
-      key='gallery_button'
-      aria-label='Open Gallery'
-      icon={DashboardOutlinedIcon}
-      onClick={() => onGalleryClick()}
-      variant='icon'
-    />,
+    <IconButton key='gallery_button' aria-label='Open Gallery' onClick={() => onGalleryClick()} variant='icon'>
+      <DashboardOutlinedIcon />
+    </IconButton>,
 
     //  Fullscreen button
     !isfullscreenNotSupported && activeType !== 'video' ? (
       <IconButton
         key='fullscreen_button'
         aria-label={isFullscreen ? 'Exit fullscreen ' : 'Enter fullscreen'}
-        icon={isFullscreen ? FullscreenExitOutlinedIcon : FullscreenOutlinedIcon}
         onClick={isFullscreen ? (event) => handleCloseFullscreen(event) : (event) => handleOpenFullscreen(event)}
         variant='icon'
-      />
+      >
+        {isFullscreen ? <FullscreenExitOutlinedIcon /> : <FullscreenOutlinedIcon />}
+      </IconButton>
     ) : null
   ].filter((action) => action);
 

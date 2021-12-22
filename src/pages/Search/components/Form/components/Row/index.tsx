@@ -79,13 +79,14 @@ const Row = (props: RowProps): ReactElement => {
           <Tooltip aria-label='Remove search' label={`Remove "${title}"`} isOpen={isHoveringDelete} placement='top'>
             <IconButton
               aria-label='Remove search'
-              icon={ClearOutlinedIcon}
               onClick={() => handleDelete()}
               onMouseEnter={state !== 'isLoading' ? () => setIsHoveringDelete.on() : undefined}
               onMouseLeave={state !== 'isLoading' ? () => setIsHoveringDelete.off() : undefined}
               size='sm'
               variant='icon'
-            />
+            >
+              <ClearOutlinedIcon />
+            </IconButton>
           </Tooltip>
         </ScaleFade>
       ) : null}
