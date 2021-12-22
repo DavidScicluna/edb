@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
 
+import { useColorMode, HStack, Box } from '@chakra-ui/react';
 import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
   FavoriteOutlined as FavoriteOutlinedIcon
 } from '@material-ui/icons';
-
-import { useColorMode, HStack, Box } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../../../../../../common/hooks';

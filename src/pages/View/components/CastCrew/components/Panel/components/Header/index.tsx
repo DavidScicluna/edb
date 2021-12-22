@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-
 import { useTheme, useColorMode, HStack, Text, Icon } from '@chakra-ui/react';
+import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 
 import Badge from '../../../../../../../../components/Badge';
 import { Theme } from '../../../../../../../../theme/types';
@@ -43,7 +42,8 @@ const Header = (props: HeaderProps): ReactElement => {
             color: colorMode === 'light' ? 'gray.900' : 'gray.50'
           }
         }
-      }}>
+      }}
+    >
       <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='lg' fontWeight='semibold'>
         {title}
       </Text>

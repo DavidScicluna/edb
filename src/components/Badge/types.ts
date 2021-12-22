@@ -1,6 +1,6 @@
 import { ColorMode, BadgeProps as CUIBadgeProps } from '@chakra-ui/react';
-import { Icon } from 'react-feather';
 
+import { Icon } from '../../common/types';
 import { Color, FontSizes } from '../../theme/types';
 
 export type Variant = 'contained' | 'outlined' | 'text';

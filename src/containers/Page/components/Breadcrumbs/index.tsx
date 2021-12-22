@@ -1,7 +1,5 @@
 import { ReactElement } from 'react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-
 import {
   useTheme,
   useColorMode,
@@ -12,6 +10,7 @@ import {
   Text,
   Icon
 } from '@chakra-ui/react';
+import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
 
 import Link from '../../../../components/Clickable/Link';

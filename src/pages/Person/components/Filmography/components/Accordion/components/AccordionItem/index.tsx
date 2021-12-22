@@ -1,7 +1,5 @@
 import { ReactElement } from 'react';
 
-import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
-
 import {
   useTheme,
   useColorMode,
@@ -14,6 +12,7 @@ import {
   Icon,
   Text
 } from '@chakra-ui/react';
+import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';

@@ -1,5 +1,4 @@
-import { Icon } from 'react-feather';
-
+import { Icon } from '../../../../common/types';
 import { Size } from '../../types';
 
 export type IconProps = {

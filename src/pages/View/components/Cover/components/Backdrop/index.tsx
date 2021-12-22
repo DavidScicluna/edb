@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
+import { useBoolean } from '@chakra-ui/react';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 
-import { useBoolean } from '@chakra-ui/react';
 
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Image from '../../../../../../components/Image';

@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
+import { useTheme, useColorMode, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 
-import { useTheme, useColorMode, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 
 import SkeletonText from '../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../theme/types';

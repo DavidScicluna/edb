@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
-
 import { useTheme, useColorMode, Text, HStack, ScaleFade, Icon, Button } from '@chakra-ui/react';
+import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../common/hooks';

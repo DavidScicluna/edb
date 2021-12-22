@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 
+import { useColorMode, HStack, Text } from '@chakra-ui/react';
 import {
   ArrowBackOutlined as ArrowBackOutlinedIcon,
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
 
-import { useColorMode, HStack, Text } from '@chakra-ui/react';
 
 import IconButton from '../../../Clickable/IconButton';
 import { NavigationProps } from './types';

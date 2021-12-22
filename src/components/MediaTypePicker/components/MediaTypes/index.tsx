@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 
+import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 import {
   PeopleAltOutlined as PeopleAltOutlinedIcon,
   PeopleAltTwoTone as PeopleAltTwoToneIcon,
@@ -8,7 +9,6 @@ import {
   TvTwoTone as TvTwoToneIcon
 } from '@material-ui/icons';
 
-import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 
 import { MediaType as MediaType } from '../../../../common/types';
 import { MediaTypeItem as MediaTypeItemType } from '../../types';

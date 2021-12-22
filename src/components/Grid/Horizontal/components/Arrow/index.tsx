@@ -1,11 +1,10 @@
 import { ReactElement, useEffect } from 'react';
 
+import { useBoolean } from '@chakra-ui/react';
 import {
   ArrowBackOutlined as ArrowBackOutlinedIcon,
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
-
-import { useBoolean } from '@chakra-ui/react';
 import { useInterval } from 'usehooks-ts';
 
 import IconButton from '../../../../Clickable/IconButton';

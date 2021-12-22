@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-
 import { useBoolean, Box } from '@chakra-ui/react';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import YouTube, { Options } from 'react-youtube';
 import './styles.css';
 

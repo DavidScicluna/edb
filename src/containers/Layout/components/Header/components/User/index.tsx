@@ -1,15 +1,6 @@
 import { ReactElement, useEffect } from 'react';
 
 import {
-  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-  FavoriteOutlined as FavoriteOutlinedIcon,
-  BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
-  BookmarkOutlined as BookmarkOutlinedIcon,
-  PaletteTwoTone as PaletteTwoToneIcon,
-  PaletteOutlined as PaletteOutlinedIcon
-} from '@material-ui/icons';
-
-import {
   useColorMode,
   useDisclosure,
   Avatar,
@@ -22,6 +13,14 @@ import {
   Text,
   Box
 } from '@chakra-ui/react';
+import {
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+  FavoriteOutlined as FavoriteOutlinedIcon,
+  BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
+  BookmarkOutlined as BookmarkOutlinedIcon,
+  PaletteTwoTone as PaletteTwoToneIcon,
+  PaletteOutlined as PaletteOutlinedIcon
+} from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 

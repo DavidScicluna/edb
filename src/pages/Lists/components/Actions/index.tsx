@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
+import { useMediaQuery, HStack, VStack, Fade, ScaleFade } from '@chakra-ui/react';
 import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 
-import { useMediaQuery, HStack, VStack, Fade, ScaleFade } from '@chakra-ui/react';
 
 import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';

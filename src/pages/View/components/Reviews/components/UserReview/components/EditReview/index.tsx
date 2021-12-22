@@ -1,7 +1,5 @@
 import { ReactElement, useEffect } from 'react';
 
-import { EditOutlined as EditOutlinedIcon } from '@material-ui/icons';
-
 import {
   useColorMode,
   useDisclosure,
@@ -15,6 +13,7 @@ import {
   Collapse
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { EditOutlined as EditOutlinedIcon } from '@material-ui/icons';
 import moment from 'moment';
 import { Controller, useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -119,14 +118,16 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
             color={color}
             isDisabled={!isDirty}
             onClick={form.handleSubmit((values) => handleSubmit(values))}
-            size='sm'>
+            size='sm'
+          >
             Save Review
           </Button>
         }
         isOpen={isOpen}
         onClose={handleCheckClose}
         isCentered
-        size='lg'>
+        size='lg'
+      >
         <VStack spacing={3} p={2}>
           <Controller
             control={form.control}

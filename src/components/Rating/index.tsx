@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
-
 import { useColorMode, Center, Icon, Text } from '@chakra-ui/react';
+import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import _ from 'lodash';
 
 import SkeletonText from '../Skeleton/Text';

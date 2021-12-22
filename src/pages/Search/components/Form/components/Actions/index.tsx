@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 
+import { useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import {
   ClearOutlined as ClearOutlinedIcon,
   LockOpenOutlined as LockOpenOutlinedIcon,
   LockOutlined as LockOutlinedIcon
 } from '@material-ui/icons';
 
-import { useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../../../components/Tooltip';

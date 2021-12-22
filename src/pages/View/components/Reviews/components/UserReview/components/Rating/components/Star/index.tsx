@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import { StarOutlineOutlined as StarOutlineOutlinedIcon, StarOutlined as StarOutlinedIcon } from '@material-ui/icons';
-
 import { useTheme, useColorMode, useMediaQuery, Box, Icon } from '@chakra-ui/react';
+import { StarOutlineOutlined as StarOutlineOutlinedIcon, StarOutlined as StarOutlinedIcon } from '@material-ui/icons';
 
 import { Theme } from '../../../../../../../../../../theme/types';
 import { StarProps } from './types';

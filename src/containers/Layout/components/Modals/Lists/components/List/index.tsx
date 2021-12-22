@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
 
+import { useTheme, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 import {
   CheckBoxTwoTone as CheckBoxTwoToneIcon,
   CheckBoxOutlineBlankOutlined as CheckBoxOutlineBlankOutlinedIcon
 } from '@material-ui/icons';
-
-import { useTheme, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 import moment from 'moment';
 
 import { useSelector } from '../../../../../../../common/hooks';
@@ -33,7 +32,8 @@ const List = ({ id, label, description, date, results, isSelected = false, onCli
               fontSize='xs'
               fontWeight='400'
               textTransform='capitalize'
-              isTruncated>
+              isTruncated
+            >
               {description}
             </Text>
           ) : null}

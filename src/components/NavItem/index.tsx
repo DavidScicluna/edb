@@ -1,7 +1,5 @@
 import { ReactElement, useCallback, useEffect } from 'react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-
 import {
   useTheme,
   useColorMode,
@@ -14,6 +12,7 @@ import {
   ScaleFade,
   Collapse
 } from '@chakra-ui/react';
+import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
 import { useLocation } from 'react-router-dom';
 

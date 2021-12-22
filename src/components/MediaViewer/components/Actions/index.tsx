@@ -1,5 +1,6 @@
 import { ReactElement, MouseEvent } from 'react';
 
+import { useMediaQuery, useBoolean, VStack, HStack } from '@chakra-ui/react';
 import {
   CloseOutlined as CloseOutlinedIcon,
   DashboardOutlined as DashboardOutlinedIcon,
@@ -7,7 +8,6 @@ import {
   FullscreenExitOutlined as FullscreenExitOutlinedIcon
 } from '@material-ui/icons';
 
-import { useMediaQuery, useBoolean, VStack, HStack } from '@chakra-ui/react';
 
 import IconButton from '../../../Clickable/IconButton';
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';

@@ -1,11 +1,10 @@
 import { ReactElement, useEffect } from 'react';
 
+import { useTheme, useColorMode, useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import {
   ChevronLeftOutlined as ChevronLeftOutlinedIcon,
   ChevronRightOutlined as ChevronRightOutlinedIcon
 } from '@material-ui/icons';
-
-import { useTheme, useColorMode, useBoolean, Center, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useInterval } from 'usehooks-ts';
 

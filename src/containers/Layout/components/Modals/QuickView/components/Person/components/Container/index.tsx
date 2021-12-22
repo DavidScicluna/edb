@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 
+import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
 import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
   FavoriteOutlined as FavoriteOutlinedIcon
 } from '@material-ui/icons';
 
-import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
 
 import Button from '../../../../../../../../../components/Clickable/Button';
 import Like from '../../../../../../../../../components/Clickable/Like';

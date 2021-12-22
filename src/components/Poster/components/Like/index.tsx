@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 
+import { useBoolean } from '@chakra-ui/react';
 import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
   FavoriteOutlined as FavoriteOutlinedIcon
 } from '@material-ui/icons';
 
-import { useBoolean } from '@chakra-ui/react';
 
 import { MediaType } from '../../../../common/types';
 import IconButton from '../../../Clickable/IconButton';
