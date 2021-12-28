@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { ColorMode, ButtonProps as CUIButtonProps } from '@chakra-ui/react';
 
 import { Icon } from '../../../common/types';
@@ -9,11 +11,17 @@ export type Size = 'sm' | 'md' | 'lg';
 
 export type Variant = 'contained' | 'outlined' | 'text';
 
+export type IconProps = {
+  width?: string;
+  height?: string;
+  fontSize?: string;
+};
+
 export type ButtonProps = {
   color?: keyof Color;
   colorMode?: ColorMode;
-  leftIcon?: Icon;
-  rightIcon?: Icon;
+  renderLeftIcon?: (props: IconProps) => Icon;
+  renderRightIcon?: (props: IconProps) => Icon;
   size?: Size;
   variant?: Variant;
 } & Omit<

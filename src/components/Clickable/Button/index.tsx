@@ -3,8 +3,8 @@ import { ReactElement, forwardRef } from 'react';
 import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
 import { Theme, Space } from '../../../theme/types';
-import Icon from './components/Icon';
 import Spinner from './components/Spinner';
 import useStyles from './styles';
 import { ButtonRef, ButtonProps } from './types';
@@ -17,8 +17,8 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
     children,
     color = 'gray',
     colorMode: colorModeProp,
-    leftIcon,
-    rightIcon,
+    renderLeftIcon,
+    renderRightIcon,
     isDisabled = false,
     isFullWidth = false,
     isLoading = false,
@@ -47,6 +47,24 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
     }
   };
 
+  /**
+   * This method will return the appropriate font-size in PX depending on size prop
+   *
+   * @returns - number: Font-size in PX
+   */
+  const handleReturnIconSize = (): number => {
+    switch (size) {
+      case 'sm':
+        return handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.xs, 'rem')) + 2;
+      case 'lg':
+        return handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.md, 'rem')) + 3;
+      default:
+        return handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.sm, 'rem')) + 2;
+    }
+  };
+
+  const iconSize = `${handleReturnIconSize()}px`;
+
   return (
     <CUIButton
       {...rest}
@@ -68,9 +86,21 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
           <Spinner color={color} colorMode={colorMode} size={size} variant={variant} />
         ) : (
           <HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing()}>
-            {leftIcon ? <Icon icon={leftIcon} size={size} /> : null}
+            {renderLeftIcon
+              ? renderLeftIcon({
+                  width: iconSize,
+                  height: iconSize,
+                  fontSize: iconSize
+                })
+              : null}
             {children ? <span>{children}</span> : null}
-            {rightIcon ? <Icon icon={rightIcon} size={size} /> : null}
+            {renderRightIcon
+              ? renderRightIcon({
+                  width: iconSize,
+                  height: iconSize,
+                  fontSize: iconSize
+                })
+              : null}
           </HStack>
         )}
       </Center>
