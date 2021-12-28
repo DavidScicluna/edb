@@ -1,5 +1,6 @@
+import { MediaType } from '../../../../common/types';
 import { MediaTypePickerProps } from '../../types';
 
-export type MediaTypesProps<MT> = {
+export type MediaTypesProps<MT extends MediaType> = {
   onClose?: () => void;
-} & Omit<MediaTypePickerProps<MT>, 'isOpen' | 'onClose'>;
+} & Omit<MediaTypePickerProps<MT>, 'renderToggleModal'>;

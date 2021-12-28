@@ -1,16 +1,18 @@
-import { MediaType, Icon } from '../../common/types';
+import { ReactElement } from 'react';
 
-export type MediaTypeItem = {
+import { MediaType, Icon } from '../../common/types';
+import { Color } from '../../theme/types';
+
+export type RenderToggleModalProps = {
+  color: keyof Color;
   label: string;
-  value: MediaType;
-  iconActive: Icon;
-  icon: Icon;
+  icon?: Icon;
+  onClick: () => void;
 };
 
-export type MediaTypePickerProps<MT> = {
+export type MediaTypePickerProps<MT extends MediaType> = {
+  renderToggleModal: (props: RenderToggleModalProps) => ReactElement;
   mediaTypes?: MediaType[];
-  mediaType: MT | null;
-  isOpen: boolean;
-  onClose: () => void;
+  mediaType?: MT;
   onSetType: (mediaType: MediaType) => void;
 };
