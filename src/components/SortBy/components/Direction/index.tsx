@@ -1,0 +1,71 @@
+import { ReactElement } from 'react';
+
+import { HStack } from '@chakra-ui/react';
+import {
+  ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
+  ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
+  CheckOutlined as CheckOutlinedIcon
+} from '@material-ui/icons';
+import { Controller } from 'react-hook-form';
+
+import { useSelector } from '../../../../common/hooks';
+import Button from '../../../Clickable/Button';
+import Panel from '../../../Panel';
+import { SortDirection } from '../../types';
+import { DirectionProps } from './types';
+
+const Direction = ({ form }: DirectionProps): ReactElement => {
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const handleOnChange = (direction: SortDirection) => {
+    form.setValue('direction', direction, { shouldDirty: true });
+  };
+
+  return (
+    <Controller
+      control={form.control}
+      name='direction'
+      render={({ field: { value } }) => (
+        <Panel isFullWidth>
+          {{
+            header: {
+              title: 'Direction'
+            },
+            body: (
+              <HStack width='100%' spacing={2}>
+                <Button
+                  color={value === 'asc' ? color : 'gray'}
+                  renderLeftIcon={({ fontSize }) => <ArrowUpwardOutlinedIcon style={{ fontSize }} />}
+                  renderRightIcon={
+                    value === 'asc' ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined
+                  }
+                  isFullWidth
+                  onClick={value !== 'asc' ? () => handleOnChange('asc') : undefined}
+                  size='lg'
+                  variant='outlined'
+                >
+                  Ascending order
+                </Button>
+                <Button
+                  color={value === 'desc' ? color : 'gray'}
+                  renderLeftIcon={({ fontSize }) => <ArrowDownwardOutlinedIcon style={{ fontSize }} />}
+                  renderRightIcon={
+                    value === 'desc' ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined
+                  }
+                  isFullWidth
+                  onClick={value !== 'desc' ? () => handleOnChange('desc') : undefined}
+                  size='lg'
+                  variant='outlined'
+                >
+                  Descending order
+                </Button>
+              </HStack>
+            )
+          }}
+        </Panel>
+      )}
+    />
+  );
+};
+
+export default Direction;
