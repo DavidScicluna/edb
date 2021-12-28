@@ -13,6 +13,9 @@ import People from '../../../../pages/People';
 import Person from '../../../../pages/Person';
 import Search from '../../../../pages/Search';
 import Trending from '../../../../pages/Trending';
+import TrendingMovies from '../../../../pages/Trending/pages/Movies';
+import TrendingPeople from '../../../../pages/Trending/pages/People';
+import TrendingTV from '../../../../pages/Trending/pages/TV';
 import TV from '../../../../pages/TV';
 // import TVAiringToday from '../../../../pages/TV/pages/AiringToday';
 // import OnTV from '../../../../pages/TV/pages/OnTV';
@@ -47,6 +50,21 @@ const routes: Route[] = [
     path: '/trending',
     name: 'Trending',
     children: <Trending />
+  },
+  {
+    path: '/trending/movie',
+    name: 'Movies',
+    children: <TrendingMovies />
+  },
+  {
+    path: '/trending/tv',
+    name: 'TV Shows',
+    children: <TrendingTV />
+  },
+  {
+    path: '/trending/person',
+    name: 'People',
+    children: <TrendingPeople />
   },
   {
     path: '/movies',
