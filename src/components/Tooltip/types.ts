@@ -1,18 +1,16 @@
 import { ReactElement } from 'react';
 
-import { TooltipProps as CUITooltipProps } from '@chakra-ui/react';
+import { ColorMode, TooltipProps as CUITooltipProps } from '@chakra-ui/react';
 
-import { ColorMode } from '../../common/types';
-
-type Delay = number | null;
+export type TooltipRef = HTMLDivElement | null;
 
 export type TooltipProps = {
   'children': ReactElement;
   'aria-label': string;
   'colorMode'?: ColorMode;
   'isOpen': boolean;
-  'closeDelay'?: Delay;
-  'openDelay'?: Delay;
+  'closeDelay'?: number;
+  'openDelay'?: number;
 } & Omit<
   CUITooltipProps,
   | 'children'
@@ -22,11 +20,13 @@ export type TooltipProps = {
   | 'arrowSize'
   | 'closeDelay'
   | 'colorScheme'
+  | 'direction'
   | 'hasArrow'
   | 'isOpen'
   | 'modifiers'
-  | 'openDelay'
   | 'offset'
+  | 'openDelay'
+  | 'portalProps'
   | 'size'
   | 'variant'
 >;

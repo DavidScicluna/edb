@@ -1,30 +1,54 @@
-import { ReactElement } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, Theme, useColorMode, Tooltip as CUITooltip } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Tooltip as CUITooltip } from '@chakra-ui/react';
 
 import { handleIsTouchDevice, handleConvertStringToNumber } from '../../common/utils';
-import { TooltipProps } from './types';
+import { Theme } from '../../theme/types';
+import { TooltipRef, TooltipProps } from './types';
 
-const Tooltip = (props: TooltipProps): ReactElement => {
+const Tooltip = forwardRef<TooltipRef, TooltipProps>(function Tooltip(props, ref): ReactElement {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
+  const { colorMode: colorModeHook } = useColorMode();
 
-  const { children, colorMode: colorModeProp, closeDelay, openDelay, shouldWrapChildren = false, ...rest } = props;
+  const {
+    children,
+    colorMode: colorModeProp,
+    closeDelay = handleConvertStringToNumber(theme.transition.duration.slow, 'ms') || 500,
+    openDelay = handleConvertStringToNumber(theme.transition.duration.normal, 'ms') || 250,
+    shouldWrapChildren = false,
+    ...rest
+  } = props;
 
-  const mode = colorModeProp || colorMode;
+  const colorMode: ColorMode = colorModeProp || colorModeHook;
 
   return !handleIsTouchDevice() ? (
     <CUITooltip
       {...rest}
+      ref={ref}
       arrowSize={8}
-      color={mode === 'light' ? 'gray.50' : 'gray.900'}
-      backgroundColor={mode === 'light' ? 'gray.700' : 'gray.200'}
-      closeDelay={closeDelay ? closeDelay : handleConvertStringToNumber(theme.transition.duration.slow, 'ms')}
-      openDelay={openDelay ? openDelay : handleConvertStringToNumber(theme.transition.duration.normal, 'ms')}
+      color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+      backgroundColor={colorMode === 'light' ? 'gray.700' : 'gray.200'}
+      closeDelay={closeDelay}
+      openDelay={openDelay}
       hasArrow
       sx={{
+        'color': `gray.${colorMode === 'light' ? 50 : 900}`,
+
+        'fontSize': 'sm',
+        'fontWeight': 'normal',
+
+        'boxShadow': 'base',
+        'borderRadius': 'sm',
+        'background': `gray.${colorMode === 'light' ? 700 : 200}`,
+        'backgroundColor': `gray.${colorMode === 'light' ? 700 : 200}`,
+
+        'px': 1.5,
+        'py': 0.75,
+
         '& .chakra-tooltip__arrow': {
-          backgroundColor: `${mode === 'light' ? theme.colors.gray[700] : theme.colors.gray[200]} !important`
+          boxShadow: `${theme.shadows.base} !important`,
+          background: `${colorMode === 'light' ? theme.colors.gray[700] : theme.colors.gray[200]} !important`,
+          backgroundColor: `${colorMode === 'light' ? theme.colors.gray[700] : theme.colors.gray[200]} !important`
         }
       }}
     >
@@ -33,6 +57,6 @@ const Tooltip = (props: TooltipProps): ReactElement => {
   ) : (
     children
   );
-};
+});
 
 export default Tooltip;
