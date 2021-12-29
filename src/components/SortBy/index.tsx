@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
 import ImportExportOutlinedIcon from '@material-ui/icons/ImportExportOutlined';
 import { useForm, useFormState } from 'react-hook-form';
 
@@ -12,6 +12,7 @@ import Sort from './components/Sort';
 import { SortByProps, Form } from './types';
 
 const SortBy = (props: SortByProps): ReactElement => {
+  const [isMd] = useMediaQuery('(max-width: 900px)');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const color = useSelector((state) => state.user.ui.theme.color);
@@ -66,14 +67,14 @@ const SortBy = (props: SortByProps): ReactElement => {
               onClick={form.handleSubmit((values) => handleSubmit(values))}
               size={size}
             >
-              Search
+              Sort
             </Button>
           </HStack>
         )}
         isOpen={isOpen}
         onClose={handleClose}
         isCentered
-        size='3xl'
+        size={isMd ? 'full' : '4xl'}
       >
         <VStack width='100%' spacing={2} p={2}>
           <Direction form={form} />
