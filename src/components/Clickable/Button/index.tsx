@@ -24,6 +24,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
     isLoading = false,
     size = 'md',
     variant = 'contained',
+    sx,
     ...rest
   } = props;
 
@@ -73,14 +74,23 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
       isDisabled={isLoading || isDisabled}
       isFullWidth={isFullWidth}
       variant='unstyled'
-      sx={{ ..._.merge(style.button.back.default, style.button.back[size], style[colorMode].back[variant]) }}
+      sx={{
+        ..._.merge(style.button.back.default, style.button.back[size], style[colorMode].back[variant], sx?.back || {})
+      }}
       _disabled={{
         ..._.merge(style.button.disabled.default, style.button.disabled[size], style[colorMode].disabled[variant])
       }}
     >
       <Center
         className='button_front'
-        sx={{ ..._.merge(style.button.front.default, style.button.front[size], style[colorMode].front[variant]) }}
+        sx={{
+          ..._.merge(
+            style.button.front.default,
+            style.button.front[size],
+            style[colorMode].front[variant],
+            sx?.front || {}
+          )
+        }}
       >
         {isLoading ? (
           <Spinner color={color} colorMode={colorMode} size={size} variant={variant} />

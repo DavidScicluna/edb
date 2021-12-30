@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 import { ColorMode, ButtonProps as CUIButtonProps } from '@chakra-ui/react';
 
 import { Icon } from '../../../common/types';
@@ -24,6 +22,10 @@ export type ButtonProps = {
   renderRightIcon?: (props: IconProps) => Icon;
   size?: Size;
   variant?: Variant;
+  sx?: {
+    back?: CUIButtonProps['sx'];
+    front?: CUIButtonProps['sx'];
+  };
 } & Omit<
   CUIButtonProps,
   | 'color'
@@ -37,4 +39,5 @@ export type ButtonProps = {
   | 'spinnerPlacement'
   | 'size'
   | 'variant'
+  | 'sx'
 >;
