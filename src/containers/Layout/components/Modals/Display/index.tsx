@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, VStack } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
@@ -15,6 +15,7 @@ import Color from './components/Color';
 
 const Display = (): ReactElement => {
   const { toggleColorMode } = useColorMode();
+  const [isSm] = useMediaQuery('(max-width: 672px)');
 
   const dispatch = useDispatch();
   const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
@@ -65,7 +66,7 @@ const Display = (): ReactElement => {
       isOpen={isDisplayModalOpen}
       onClose={handleClose}
       isCentered
-      size='2xl'
+      size={isSm ? 'full' : '2xl'}
     >
       <VStack spacing={2} p={2}>
         <Color form={form} />

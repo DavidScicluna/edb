@@ -53,7 +53,7 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
       control={form.control}
       name='color'
       render={({ field: { value } }) => (
-        <Panel colorMode={background} isFullWidth size='sm'>
+        <Panel colorMode={background} isFullWidth>
           {{
             header: {
               title: 'Color'

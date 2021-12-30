@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useBoolean, VStack, Box, Icon, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useBoolean, VStack, Box, Center, Text, ScaleFade } from '@chakra-ui/react';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-
 
 import Card from '../../../../../../../../../components/Clickable/Card';
 import Tooltip from '../../../../../../../../../components/Tooltip';
@@ -14,6 +13,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 
   const { label, value, background, isActive, onClick } = props;
 
+  const [isMouseDown, setIsMouseDown] = useBoolean();
   const [isHovering, setIsHovering] = useBoolean();
 
   return (
@@ -25,12 +25,15 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
       label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
       placement='top'
       shouldWrapChildren
-      gutter={8}
+      gutter={isMouseDown ? 8 : 11}
     >
       <Card
         color={isActive ? value : 'gray'}
         colorMode={background}
+        isClickable
         onClick={!isActive && onClick ? () => onClick(value) : undefined}
+        onMouseDown={() => setIsMouseDown.on()}
+        onMouseUp={() => setIsMouseDown.off()}
         onMouseEnter={() => setIsHovering.on()}
         onMouseLeave={() => setIsHovering.off()}
         p={2}
@@ -50,13 +53,14 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
             }}
           >
             <ScaleFade in={isActive} unmountOnExit>
-              <Icon
-                as={CheckOutlinedIcon}
-                sx={{
-                  fontSize: `${theme.fontSizes['4xl']} !important`,
-                  color: background === 'light' ? 'gray.50' : 'gray.900'
-                }}
-              />
+              <Center>
+                <CheckOutlinedIcon
+                  style={{
+                    fontSize: theme.fontSizes['4xl'],
+                    color: theme.colors.gray[background === 'light' ? 50 : 900]
+                  }}
+                />
+              </Center>
             </ScaleFade>
           </Box>
           <Text align='center' fontSize='sm' fontWeight='medium'>
