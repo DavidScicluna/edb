@@ -17,12 +17,12 @@ import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Badge from '../../../../../../../../components/Badge';
+import Panel from '../../../../../../../../components/Panel';
 import { Theme } from '../../../../../../../../theme/types';
 import CastMovies from './components/CastMovies';
 import CastTV from './components/CastTV';
 import CrewMovies from './components/CrewMovies';
 import CrewTV from './components/CrewTV';
-import Panel from './components/Panel';
 import useStyles from './styles';
 import { AccordionItemProps } from './types';
 
@@ -72,28 +72,68 @@ const AccordionItem = (props: AccordionItemProps): ReactElement => {
           {label === 'Actor' ? (
             <>
               {credits.cast?.movie && credits.cast?.movie.length > 0 ? (
-                <Panel title='Movies' total={credits.cast.movie.length}>
-                  <CastMovies movies={credits.cast.movie} />
+                <Panel isFullWidth variant='transparent' size='sm'>
+                  {{
+                    header: {
+                      title: 'Movies',
+                      actions: <Badge size={isSm ? 'sm' : 'md'}>{String(credits.cast.movie.length)}</Badge>
+                    },
+                    body: (
+                      <VStack width='100%' spacing={2}>
+                        <CastMovies movies={credits.cast.movie} />
+                      </VStack>
+                    )
+                  }}
                 </Panel>
               ) : null}
 
               {credits.cast?.tv && credits.cast?.tv.length > 0 ? (
-                <Panel title='TV Shows' total={credits.cast.tv.length}>
-                  <CastTV tv={credits.cast.tv} />
+                <Panel isFullWidth variant='transparent' size='sm'>
+                  {{
+                    header: {
+                      title: 'TV Shows',
+                      actions: <Badge size={isSm ? 'sm' : 'md'}>{String(credits.cast.tv.length)}</Badge>
+                    },
+                    body: (
+                      <VStack width='100%' spacing={2}>
+                        <CastTV tv={credits.cast.tv} />
+                      </VStack>
+                    )
+                  }}
                 </Panel>
               ) : null}
             </>
           ) : (
             <>
               {credits.crew?.movie && credits.crew?.movie.length > 0 ? (
-                <Panel title='Movies' total={credits.crew.movie.length}>
-                  <CrewMovies movies={credits.crew.movie} />
+                <Panel isFullWidth variant='transparent' size='sm'>
+                  {{
+                    header: {
+                      title: 'Movies',
+                      actions: <Badge size={isSm ? 'sm' : 'md'}>{String(credits.crew.movie.length)}</Badge>
+                    },
+                    body: (
+                      <VStack width='100%' spacing={2}>
+                        <CrewMovies movies={credits.crew.movie} />
+                      </VStack>
+                    )
+                  }}
                 </Panel>
               ) : null}
 
               {credits.crew?.tv && credits.crew?.tv.length > 0 ? (
-                <Panel title='TV Shows' total={credits.crew.tv.length}>
-                  <CrewTV tv={credits.crew.tv} />
+                <Panel isFullWidth variant='transparent' size='sm'>
+                  {{
+                    header: {
+                      title: 'TV Shows',
+                      actions: <Badge size={isSm ? 'sm' : 'md'}>{String(credits.crew.tv.length)}</Badge>
+                    },
+                    body: (
+                      <VStack width='100%' spacing={2}>
+                        <CrewTV tv={credits.crew.tv} />
+                      </VStack>
+                    )
+                  }}
                 </Panel>
               ) : null}
             </>
