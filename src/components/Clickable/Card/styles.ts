@@ -52,7 +52,7 @@ export default (
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
       '&:hover .card_front': {
-        transform: `translateY(${isClickable ? '-6px' : '-2px'})`
+        transform: `translateY(${isClickable ? '-5px' : '-2px'})`
       },
 
       '&:active .card_front': {
@@ -85,7 +85,7 @@ export default (
       borderWidth: '2px 2px 0',
       borderRadius: 'lg',
 
-      transform: `translateY(${isClickable ? '-5px' : '-2px'})`,
+      transform: `translateY(${isClickable ? '-4px' : '-2px'})`,
 
       transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
     },
@@ -101,85 +101,85 @@ export default (
   },
   light: {
     back: {
-      'backgroundColor': `${color}.${isLight ? 200 : 500}`,
+      'backgroundColor': `${color}.${isLight ? 200 : 400}`,
 
       '&:hover': {
-        'backgroundColor': `${color}.${isLight ? 200 : 500}`,
+        'backgroundColor': `${color}.${isLight ? 200 : 400}`,
 
         '& .card_front': {
-          borderColor: `${color}.${isLight ? 200 : 500}`,
+          borderColor: `${color}.${isLight ? 200 : 400}`,
           backgroundColor: 'gray.50',
-          color: `${color}.${isLight ? 200 : 500}`
+          color: `${color}.${isLight ? 200 : 400}`
         }
       },
 
       '&:active': {
-        'backgroundColor': isClickable ? `${color}.${isLight ? 500 : 700}` : `${color}.${isLight ? 200 : 500}`,
+        'backgroundColor': isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`,
 
         '& .card_front': {
-          borderColor: isClickable ? `${color}.${isLight ? 500 : 700}` : `${color}.${isLight ? 200 : 500}`,
+          borderColor: isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`,
           backgroundColor: 'gray.50',
-          color: isClickable ? `${color}.${isLight ? 500 : 700}` : `${color}.${isLight ? 200 : 500}`
+          color: isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`
         }
       },
 
       '&:focus': {
-        outlineColor: `${color}.700`
+        outlineColor: `${color}.600`
       }
     },
     front: {
-      borderColor: `${color}.${isLight ? 200 : 500}`,
+      borderColor: `${color}.${isLight ? 200 : 400}`,
       backgroundColor: 'gray.50',
-      color: `${color}.${isLight ? 200 : 500}`
+      color: `${color}.${isLight ? 200 : 400}`
     },
     disabled: {
-      'background': `${theme.colors.gray[isLight ? 200 : 500]} !important`,
-      'backgroundColor': `${theme.colors.gray[isLight ? 200 : 500]} !important`,
+      'background': `${theme.colors.gray[isLight ? 200 : 400]} !important`,
+      'backgroundColor': `${theme.colors.gray[isLight ? 200 : 400]} !important`,
 
       '& .button_front': {
-        borderColor: `${theme.colors.gray[isLight ? 200 : 500]} !important`,
+        borderColor: `${theme.colors.gray[isLight ? 200 : 400]} !important`,
         backgroundColor: `${theme.colors.gray[50]} !important`,
-        color: `${theme.colors.gray[isLight ? 200 : 500]} !important`
+        color: `${theme.colors.gray[isLight ? 200 : 400]} !important`
       }
     }
   },
   dark: {
     back: {
-      'backgroundColor': `${color}.${isLight ? 700 : 400}`,
+      'backgroundColor': `${color}.${isLight ? 700 : 500}`,
 
       '&:hover': {
-        'backgroundColor': `${color}.${isLight ? 700 : 400}`,
+        'backgroundColor': `${color}.${isLight ? 700 : 500}`,
 
         '& .card_front': {
-          borderColor: `${color}.${isLight ? 700 : 400}`,
+          borderColor: `${color}.${isLight ? 700 : 500}`,
           backgroundColor: 'gray.900',
-          color: `${color}.${isLight ? 700 : 400}`
+          color: `${color}.${isLight ? 700 : 500}`
         }
       },
 
       '&:active': {
-        'backgroundColor': isClickable ? `${color}.${isLight ? 400 : 200}` : `${color}.${isLight ? 700 : 400}`,
+        'backgroundColor': isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`,
 
         '& .card_front': {
-          borderColor: isClickable ? `${color}.${isLight ? 400 : 200}` : `${color}.${isLight ? 700 : 400}`,
+          borderColor: isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`,
           backgroundColor: 'gray.900',
-          color: isClickable ? `${color}.${isLight ? 400 : 200}` : `${color}.${isLight ? 700 : 400}`
+          color: isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`
         }
       }
     },
     front: {
-      borderColor: `${color}.${isLight ? 700 : 400}`,
+      borderColor: `${color}.${isLight ? 700 : 500}`,
       backgroundColor: 'gray.900',
-      color: `${color}.${isLight ? 700 : 400}`
+      color: `${color}.${isLight ? 700 : 500}`
     },
     disabled: {
-      'background': `${theme.colors.gray[isLight ? 700 : 400]} !important`,
-      'backgroundColor': `${theme.colors.gray[isLight ? 700 : 400]} !important`,
+      'background': `${theme.colors.gray[isLight ? 700 : 500]} !important`,
+      'backgroundColor': `${theme.colors.gray[isLight ? 700 : 500]} !important`,
 
       '& .button_front': {
-        borderColor: `${theme.colors.gray[isLight ? 700 : 400]} !important`,
-        backgroundColor: `${theme.colors.gray[50]} !important`,
-        color: `${theme.colors.gray[isLight ? 700 : 400]} !important`
+        borderColor: `${theme.colors.gray[isLight ? 700 : 500]} !important`,
+        backgroundColor: `${theme.colors.gray[900]} !important`,
+        color: `${theme.colors.gray[isLight ? 700 : 500]} !important`
       }
     }
   }
