@@ -68,7 +68,7 @@ export default (
         'borderRadius': 'sm',
 
         '&:hover .icon_button_front': {
-          transform: variant !== 'icon' ? 'translateY(-4px)' : 'none'
+          transform: variant !== 'icon' ? 'translateY(-3px)' : 'none'
         },
 
         '&:active .icon_button_front': {
@@ -98,7 +98,7 @@ export default (
         'borderRadius': 'lg',
 
         '&:hover .icon_button_front': {
-          transform: variant !== 'icon' ? 'translateY(-6px)' : 'none'
+          transform: variant !== 'icon' ? 'translateY(-5px)' : 'none'
         },
 
         '&:active .icon_button_front': {
@@ -134,7 +134,7 @@ export default (
 
         'padding': theme.space['0.5'],
 
-        'transform': variant !== 'icon' ? 'translateY(-3px)' : 'none',
+        'transform': variant !== 'icon' ? 'translateY(-2px)' : 'none',
 
         '& svg': {
           fontSize: 'lg'
@@ -158,7 +158,7 @@ export default (
 
         'padding': theme.space[1.5],
 
-        'transform': variant !== 'icon' ? 'translateY(-5px)' : 'none',
+        'transform': variant !== 'icon' ? 'translateY(-4px)' : 'none',
 
         '& svg': {
           fontSize: '2xl'
@@ -191,10 +191,20 @@ export default (
   light: {
     back: {
       contained: {
-        'backgroundColor': `${color}.700`,
+        'backgroundColor': `${color}.600`,
 
         '&:hover': {
-          'backgroundColor': `${color}.700`,
+          'backgroundColor': `${color}.600`,
+
+          '& .icon_button_front': {
+            borderColor: `${color}.400`,
+            backgroundColor: `${color}.400`,
+            color: 'gray.50'
+          }
+        },
+
+        '&:active': {
+          'backgroundColor': `${color}.600`,
 
           '& .icon_button_front': {
             borderColor: `${color}.500`,
@@ -203,18 +213,142 @@ export default (
           }
         },
 
-        '&:active': {
-          'backgroundColor': `${color}.700`,
+        '&:focus': {
+          outlineColor: `${color}.600`
+        }
+      },
+      outlined: {
+        'backgroundColor': `${color}.400`,
+
+        '&:hover': {
+          'backgroundColor': `${color}.400`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.700`,
-            backgroundColor: `${color}.700`,
-            color: 'gray.50'
+            borderColor: `${color}.400`,
+            backgroundColor: 'gray.50',
+            color: `${color}.400`
+          }
+        },
+
+        '&:active': {
+          'backgroundColor': `${color}.500`,
+
+          '& .icon_button_front': {
+            borderColor: `${color}.500`,
+            backgroundColor: 'gray.50',
+            color: `${color}.500`
           }
         },
 
         '&:focus': {
-          outlineColor: `${color}.700`
+          outlineColor: `${color}.600`
+        }
+      },
+      icon: {
+        'backgroundColor': 'transparent',
+
+        '&:hover': {
+          'backgroundColor': 'transparent',
+
+          '& .icon_button_front': {
+            borderColor: 'transparent',
+            backgroundColor: 'transparent',
+            color: `${color}.500`
+          }
+        },
+
+        '&:active': {
+          'backgroundColor': 'transparent',
+
+          '& .icon_button_front': {
+            borderColor: 'transparent',
+            backgroundColor: 'transparent',
+            color: `${color}.600`
+          }
+        },
+
+        '&:focus': {
+          outlineColor: `${color}.600`
+        }
+      }
+    },
+    front: {
+      contained: {
+        borderColor: `${color}.400`,
+        backgroundColor: `${color}.400`,
+        color: 'gray.50'
+      },
+      outlined: {
+        borderColor: `${color}.400`,
+        backgroundColor: 'gray.50',
+        color: `${color}.400`
+      },
+      icon: {
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        color: `${color}.400`
+      }
+    },
+    disabled: {
+      contained: {
+        'background': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+        'backgroundColor': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+
+        '& .icon_button_front': {
+          borderColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+          backgroundColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+          color: `${theme.colors.gray[50]} !important`
+        }
+      },
+      outlined: {
+        'background': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+        'backgroundColor': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+
+        '& .icon_button_front': {
+          borderColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+          backgroundColor: `${theme.colors.gray[50]} !important`,
+          color: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`
+        }
+      },
+      icon: {
+        'background': 'transparent !important',
+        'backgroundColor': 'transparent !important',
+
+        '& .icon_button_front': {
+          borderColor: 'transparent !important',
+          backgroundColor: 'transparent !important',
+          color: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`
+        }
+      }
+    }
+  },
+  dark: {
+    back: {
+      contained: {
+        'backgroundColor': `${color}.300`,
+
+        '&:hover': {
+          'backgroundColor': `${color}.300`,
+
+          '& .icon_button_front': {
+            borderColor: `${color}.500`,
+            backgroundColor: `${color}.500`,
+            color: 'gray.900'
+          }
+        },
+
+        '&:active': {
+          'backgroundColor': `${color}.300`,
+
+          '& .icon_button_front': {
+            borderColor: `${color}.400`,
+            backgroundColor: `${color}.400`,
+            color: 'gray.900'
+          }
+        },
+
+        '&:focus': {
+          outlineColor: `${color}.300`
         }
       },
       outlined: {
@@ -225,53 +359,50 @@ export default (
 
           '& .icon_button_front': {
             borderColor: `${color}.500`,
-            backgroundColor: 'gray.50',
+            backgroundColor: 'gray.900',
             color: `${color}.500`
           }
         },
 
         '&:active': {
-          'backgroundColor': `${color}.700`,
+          'backgroundColor': `${color}.400`,
 
           '& .icon_button_front': {
-            borderColor: `${color}.700`,
-            backgroundColor: 'gray.50',
-            color: `${color}.700`
+            borderColor: `${color}.400`,
+            backgroundColor: 'gray.900',
+            color: `${color}.400`
           }
         },
 
         '&:focus': {
-          outlineColor: `${color}.700`
+          outlineColor: `${color}.300`
         }
       },
       icon: {
         'backgroundColor': 'transparent',
-        'borderColor': 'transparent',
 
         '&:hover': {
           'backgroundColor': 'transparent',
-          'borderColor': 'transparent',
 
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: `${color}.600`
+            color: `${color}.400`
           }
         },
 
         '&:active': {
           'backgroundColor': 'transparent',
-          'borderColor': 'transparent',
 
           '& .icon_button_front': {
             borderColor: 'transparent',
             backgroundColor: 'transparent',
-            color: `${color}.700`
+            color: `${color}.300`
           }
         },
 
         '&:focus': {
-          outlineColor: `${color}.700`
+          outlineColor: `${color}.300`
         }
       }
     },
@@ -279,11 +410,11 @@ export default (
       contained: {
         borderColor: `${color}.500`,
         backgroundColor: `${color}.500`,
-        color: 'gray.50'
+        color: 'gray.900'
       },
       outlined: {
         borderColor: `${color}.500`,
-        backgroundColor: 'gray.50',
+        backgroundColor: 'gray.900',
         color: `${color}.500`
       },
       icon: {
@@ -300,7 +431,7 @@ export default (
         '& .icon_button_front': {
           borderColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
           backgroundColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
-          color: `${theme.colors.gray[50]} !important`
+          color: `${theme.colors.gray[900]} !important`
         }
       },
       outlined: {
@@ -309,7 +440,7 @@ export default (
 
         '& .icon_button_front': {
           borderColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
-          backgroundColor: `${theme.colors.gray[50]} !important`,
+          backgroundColor: `${theme.colors.gray[900]} !important`,
           color: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`
         }
       },
@@ -321,143 +452,6 @@ export default (
           borderColor: 'transparent !important',
           backgroundColor: 'transparent !important',
           color: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`
-        }
-      }
-    }
-  },
-  dark: {
-    back: {
-      contained: {
-        'backgroundColor': `${color}.200`,
-
-        '&:hover': {
-          'backgroundColor': `${color}.200`,
-
-          '& .icon_button_front': {
-            borderColor: `${color}.400`,
-            backgroundColor: `${color}.400`,
-            color: 'gray.900'
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': `${color}.200`,
-
-          '& .icon_button_front': {
-            borderColor: `${color}.200`,
-            backgroundColor: `${color}.200`,
-            color: 'gray.900'
-          }
-        },
-
-        '&:focus': {
-          outlineColor: `${color}.200`
-        }
-      },
-      outlined: {
-        'backgroundColor': `${color}.400`,
-
-        '&:hover': {
-          'backgroundColor': `${color}.400`,
-
-          '& .icon_button_front': {
-            borderColor: `${color}.400`,
-            backgroundColor: 'gray.900',
-            color: `${color}.400`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': `${color}.200`,
-
-          '& .icon_button_front': {
-            borderColor: `${color}.200`,
-            backgroundColor: 'gray.900',
-            color: `${color}.200`
-          }
-        },
-
-        '&:focus': {
-          outlineColor: `${color}.200`
-        }
-      },
-      icon: {
-        'backgroundColor': 'transparent',
-        'borderColor': 'transparent',
-
-        '&:hover': {
-          'backgroundColor': 'transparent',
-          'borderColor': 'transparent',
-
-          '& .icon_button_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: `${color}.300`
-          }
-        },
-
-        '&:active': {
-          'backgroundColor': 'transparent',
-          'borderColor': 'transparent',
-
-          '& .icon_button_front': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: `${color}.200`
-          }
-        },
-
-        '&:focus': {
-          outlineColor: `${color}.200`
-        }
-      }
-    },
-    front: {
-      contained: {
-        borderColor: `${color}.400`,
-        backgroundColor: `${color}.400`,
-        color: 'gray.900'
-      },
-      outlined: {
-        borderColor: `${color}.400`,
-        backgroundColor: 'gray.900',
-        color: `${color}.400`
-      },
-      icon: {
-        borderColor: 'transparent',
-        backgroundColor: 'transparent',
-        color: `${color}.400`
-      }
-    },
-    disabled: {
-      contained: {
-        'background': `${theme.colors.gray[400]} !important`,
-        'backgroundColor': `${theme.colors.gray[400]} !important`,
-
-        '& .icon_button_front': {
-          borderColor: `${theme.colors.gray[400]} !important`,
-          backgroundColor: `${theme.colors.gray[400]} !important`,
-          color: `${theme.colors.gray[50]} !important`
-        }
-      },
-      outlined: {
-        'background': `${theme.colors.gray[400]} !important`,
-        'backgroundColor': `${theme.colors.gray[400]} !important`,
-
-        '& .icon_button_front': {
-          borderColor: `${theme.colors.gray[400]} !important`,
-          backgroundColor: `${theme.colors.gray[50]} !important`,
-          color: `${theme.colors.gray[400]} !important`
-        }
-      },
-      icon: {
-        'background': 'transparent !important',
-        'backgroundColor': 'transparent !important',
-
-        '& .icon_button_front': {
-          borderColor: 'transparent !important',
-          backgroundColor: 'transparent !important',
-          color: `${theme.colors.gray[400]} !important`
         }
       }
     }
