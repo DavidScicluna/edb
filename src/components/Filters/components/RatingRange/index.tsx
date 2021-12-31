@@ -1,0 +1,106 @@
+import React, { ReactElement } from 'react';
+
+import { useTheme, useMediaQuery, ButtonGroup, HStack, ScaleFade } from '@chakra-ui/react';
+import _ from 'lodash';
+import { Controller } from 'react-hook-form';
+
+import { useSelector } from '../../../../common/hooks';
+import { Theme } from '../../../../theme/types';
+import Button from '../../../Clickable/Button';
+import Panel from '../../../Panel';
+import Rating from '../../../Rating';
+import { Form } from '../../types';
+import { RatingRangeProps } from './types';
+
+const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
+  const theme = useTheme<Theme>();
+  const [isMd] = useMediaQuery('(max-width: 760px)');
+
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const handleOnChange = (rating: Form['rating'], number: number): void => {
+    if (rating.some((num) => num === number)) {
+      form.setValue(
+        'rating',
+        [...rating].filter((num) => num !== number),
+        { shouldDirty: true }
+      );
+    } else {
+      form.setValue(
+        'rating',
+        rating.length > 1 ? [...rating, number].filter((_num, index) => index !== 0) : [...rating, number],
+        {
+          shouldDirty: true
+        }
+      );
+    }
+  };
+
+  return (
+    <Controller
+      control={form.control}
+      name='rating'
+      render={({ field: { value } }) => (
+        <Panel isFullWidth>
+          {{
+            header: {
+              title: 'Rating Range',
+              actions: (
+                <HStack spacing={2}>
+                  <ScaleFade in={value.length > 0} unmountOnExit>
+                    <Rating>{value.sort((a, b) => a - b).join(' - ')}</Rating>
+                  </ScaleFade>
+                  <Button
+                    color={color}
+                    isDisabled={value.length === 0}
+                    onClick={() => form.setValue('rating', [], { shouldDirty: true })}
+                    size='sm'
+                    variant='text'
+                  >
+                    Clear
+                  </Button>
+                </HStack>
+              )
+            },
+            body: (
+              <ButtonGroup width='100%' isAttached>
+                {_.range(0, 11).map((number) => (
+                  <Button
+                    key={number}
+                    color={value.some((rating) => rating === number) ? color : 'gray'}
+                    isFullWidth
+                    onClick={() => handleOnChange(value, number)}
+                    size={isMd ? 'sm' : 'md'}
+                    variant='outlined'
+                    sx={{
+                      back: {
+                        borderRadius:
+                          number === 0
+                            ? `${theme.radii.base} 0 0 ${theme.radii.base}`
+                            : number === 10
+                            ? `0 ${theme.radii.base} ${theme.radii.base} 0`
+                            : 0
+                      },
+                      front: {
+                        borderRadius:
+                          number === 0
+                            ? `${theme.radii.base} 0 0 ${theme.radii.base}`
+                            : number === 10
+                            ? `0 ${theme.radii.base} ${theme.radii.base} 0`
+                            : 0
+                      }
+                    }}
+                  >
+                    {String(number)}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            )
+          }}
+        </Panel>
+      )}
+    />
+  );
+};
+
+export default RatingRange;
