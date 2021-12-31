@@ -1,23 +1,29 @@
 import { ReactElement } from 'react';
 
-import { Wrap, WrapItem } from '@chakra-ui/react';
+import { useMediaQuery, Wrap, WrapItem } from '@chakra-ui/react';
+import _ from 'lodash';
 import { Controller } from 'react-hook-form';
 
 import { useSelector } from '../../../../common/hooks';
 import { Genre as GenreType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
+import Empty from '../../../../components/Empty';
+import Error from '../../../../components/Error';
 import Panel from '../../../Panel';
 import Genre from './components/Genre';
 import { GenresProps } from './types';
 
-const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
-  const movieGenres = useSelector((state) => state.options.data.data.genres.movie);
-  const tvGenres = useSelector((state) => state.options.data.data.genres.tv);
+const Genres = (props: GenresProps): ReactElement => {
+  const [isSm] = useMediaQuery('(max-width: 600px)');
+
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const { genres, form, isLoading = true, isError = false } = props;
 
   const handleGenreClick = (genre: GenreType): void => {
     const genres = form.getValues().genres;
 
-    if (form.getValues().genres.some((activeGenre) => activeGenre.id === genre.id)) {
+    if (genres.some((activeGenre) => activeGenre.id === genre.id)) {
       form.setValue(
         'genres',
         genres.filter((activeGenre) => activeGenre.id !== genre.id),
@@ -29,19 +35,15 @@ const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
   };
 
   const handleAllClick = (): void => {
-    const genres = mediaType === 'movie' ? [...movieGenres] : [...tvGenres];
-
-    if (form.getValues().genres.length === genres.length) {
+    if (form.getValues().genres.length === (genres || []).length) {
       form.setValue('genres', [], { shouldDirty: true });
     } else {
-      form.setValue('genres', [...genres], { shouldDirty: true });
+      form.setValue('genres', [...(genres || [])], { shouldDirty: true });
     }
   };
 
   const handleAllLabel = (): string => {
-    const genres = mediaType === 'movie' ? [...movieGenres] : [...tvGenres];
-
-    return `${form.getValues().genres.length === genres.length ? 'Remove' : 'Select'} All`;
+    return `${form.getValues().genres.length === (genres || []).length ? 'Remove' : 'Select'} All`;
   };
 
   return (
@@ -49,39 +51,62 @@ const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
       control={form.control}
       name='genres'
       render={({ field: { value } }) => (
-        <Panel isFullWidth size='sm'>
+        <Panel isFullWidth>
           {{
             header: {
               actions: (
-                <Button onClick={() => handleAllClick()} size='sm' variant='text'>
+                <Button
+                  color={color}
+                  isDisabled={isLoading || isError}
+                  onClick={() => handleAllClick()}
+                  size='sm'
+                  variant='text'
+                >
                   {handleAllLabel()}
                 </Button>
               ),
               title: 'Genres'
             },
             body: (
-              <Wrap width='100%' spacing={1}>
-                {mediaType === 'movie'
-                  ? movieGenres.map((genre) => (
-                      <WrapItem key={genre.id}>
-                        <Genre
-                          {...genre}
-                          isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
-                          onClick={handleGenreClick}
-                        />
-                      </WrapItem>
-                    ))
-                  : mediaType === 'tv'
-                  ? tvGenres.map((genre) => (
-                      <WrapItem key={genre.id}>
-                        <Genre
-                          {...genre}
-                          isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
-                          onClick={handleGenreClick}
-                        />
-                      </WrapItem>
-                    ))
-                  : null}
+              <Wrap width='100%' spacing={isSm ? 1 : 1.5}>
+                {!isLoading && isError ? (
+                  <WrapItem width='100%'>
+                    <Error
+                      hasIllustration={false}
+                      label='Oh no! Something went wrong 😭'
+                      description='Failed to fetch genres!'
+                      size='sm'
+                      variant='transparent'
+                    />
+                  </WrapItem>
+                ) : !isLoading && _.isNil(genres) ? (
+                  <WrapItem width='100%'>
+                    <Empty
+                      hasIllustration={false}
+                      label='Oh no!'
+                      description='Failed to find any genres!'
+                      size='sm'
+                      variant='transparent'
+                    />
+                  </WrapItem>
+                ) : !isLoading && !_.isNil(genres) ? (
+                  genres.map((genre) => (
+                    <WrapItem key={genre.id}>
+                      <Genre
+                        {...genre}
+                        isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
+                        isLoading={false}
+                        onClick={handleGenreClick}
+                      />
+                    </WrapItem>
+                  ))
+                ) : (
+                  _.range(0, 15).map((_dummy, index) => (
+                    <WrapItem key={index}>
+                      <Genre isLoading />
+                    </WrapItem>
+                  ))
+                )}
               </Wrap>
             )
           }}

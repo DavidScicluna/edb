@@ -1,9 +1,11 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import { MediaType } from '../../../../common/types';
+import { Genre } from '../../../../common/types';
 import { Form } from '../../types';
 
 export type GenresProps = {
-  mediaType: Omit<MediaType, 'person'>;
+  genres?: Genre[];
   form: UseFormReturn<Form>;
+  isLoading?: boolean;
+  isError?: boolean;
 };
