@@ -14,7 +14,8 @@ import { DatesProps } from './types';
 const minDate = new Date(1900, 1);
 const maxDate = new Date(2100, 1);
 
-const format = 'ddd, MMMM DD YYYY';
+const dataFormat = 'YYYY-MM-DD';
+const visibleFormat = 'ddd, MMMM DD YYYY';
 
 const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
   const { colorMode } = useColorMode();
@@ -36,8 +37,8 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
                   <ScaleFade in={value.every((date) => !_.isNil(date))} unmountOnExit>
                     <Text color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' fontWeight='medium'>
                       {moment(value[0]).isSame(moment(value[1]), 'date')
-                        ? moment(value[0]).format(format)
-                        : value.map((date) => moment(date).format(format)).join(' - ')}
+                        ? moment(value[0]).format(visibleFormat)
+                        : value.map((date) => moment(date).format(visibleFormat)).join(' - ')}
                     </Text>
                   </ScaleFade>
                   <Button
@@ -71,7 +72,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
                         onClick={onClick}
                         variant='outlined'
                       >
-                        {value[0] ? moment(value[0]).format(format) : 'Select Start Date'}
+                        {value[0] ? moment(value[0]).format(visibleFormat) : 'Select Start Date'}
                       </Button>
                       // )
                       //  : (
@@ -91,11 +92,18 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
                   minDate={minDate}
                   maxDate={maxDate}
                   firstDayOfWeek={1}
-                  value={value[0]}
+                  value={value[0] ? moment(value[0], dataFormat).toDate() : undefined}
                   onSetDate={(date) =>
-                    form.setValue('date', [date, value[1] || moment(date).add(1, 'days').toDate()], {
-                      shouldDirty: true
-                    })
+                    form.setValue(
+                      'date',
+                      [
+                        moment(date).format(dataFormat),
+                        moment(moment(value[1]).format(dataFormat) || moment(date).add(1, 'days')).format(dataFormat)
+                      ],
+                      {
+                        shouldDirty: true
+                      }
+                    )
                   }
                 />
                 <Text
@@ -117,7 +125,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
                         onClick={onClick}
                         variant='outlined'
                       >
-                        {value[1] ? moment(value[1]).format(format) : 'Select To Date'}
+                        {value[1] ? moment(value[1]).format(visibleFormat) : 'Select To Date'}
                       </Button>
                       // )
                       //  : (
@@ -134,11 +142,15 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
                     // )
                   }
                   color={color}
-                  minDate={value[0] || minDate}
+                  minDate={moment(value[0], dataFormat).toDate() || minDate}
                   maxDate={maxDate}
                   firstDayOfWeek={1}
-                  value={value[1]}
-                  onSetDate={(date) => form.setValue('date', [value[0], date], { shouldDirty: true })}
+                  value={value[1] ? moment(value[1], dataFormat).toDate() : undefined}
+                  onSetDate={(date) =>
+                    form.setValue('date', [moment(value[0]).format(dataFormat), moment(date).format(dataFormat)], {
+                      shouldDirty: true
+                    })
+                  }
                 />
               </Stack>
             )

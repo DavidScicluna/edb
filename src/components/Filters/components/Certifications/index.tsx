@@ -23,18 +23,14 @@ const Certifications = (props: CertificationsProps): ReactElement => {
   const handleCertificationClick = (certification: CertificationType): void => {
     const certifications = form.getValues().certifications;
 
-    if (
-      certifications.some((activeCertification) => activeCertification.certification === certification.certification)
-    ) {
+    if (certifications.some((activeCertification) => activeCertification === certification.certification)) {
       form.setValue(
         'certifications',
-        certifications.filter(
-          (activeCertification) => activeCertification.certification !== certification.certification
-        ),
+        certifications.filter((activeCertification) => activeCertification !== certification.certification),
         { shouldDirty: true }
       );
     } else {
-      form.setValue('certifications', [...certifications, certification], { shouldDirty: true });
+      form.setValue('certifications', [...certifications, certification.certification], { shouldDirty: true });
     }
   };
 
@@ -42,7 +38,9 @@ const Certifications = (props: CertificationsProps): ReactElement => {
     if (form.getValues().certifications.length === (certifications || []).length) {
       form.setValue('certifications', [], { shouldDirty: true });
     } else {
-      form.setValue('certifications', [...(certifications || [])], { shouldDirty: true });
+      form.setValue('certifications', [...(certifications || []).map((certification) => certification.certification)], {
+        shouldDirty: true
+      });
     }
   };
 
@@ -99,7 +97,7 @@ const Certifications = (props: CertificationsProps): ReactElement => {
                       <Certification
                         {...certification}
                         isActive={value.some(
-                          (activeCertification) => activeCertification.certification === certification.certification
+                          (activeCertification) => activeCertification === certification.certification
                         )}
                         isLoading={false}
                         onClick={handleCertificationClick}

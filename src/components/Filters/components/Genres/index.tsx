@@ -23,14 +23,14 @@ const Genres = (props: GenresProps): ReactElement => {
   const handleGenreClick = (genre: GenreType): void => {
     const genres = form.getValues().genres;
 
-    if (genres.some((activeGenre) => activeGenre.id === genre.id)) {
+    if (genres.some((activeGenre) => activeGenre === genre.id)) {
       form.setValue(
         'genres',
-        genres.filter((activeGenre) => activeGenre.id !== genre.id),
+        genres.filter((activeGenre) => activeGenre !== genre.id),
         { shouldDirty: true }
       );
     } else {
-      form.setValue('genres', [...genres, genre], { shouldDirty: true });
+      form.setValue('genres', [...genres, genre.id], { shouldDirty: true });
     }
   };
 
@@ -38,7 +38,7 @@ const Genres = (props: GenresProps): ReactElement => {
     if (form.getValues().genres.length === (genres || []).length) {
       form.setValue('genres', [], { shouldDirty: true });
     } else {
-      form.setValue('genres', [...(genres || [])], { shouldDirty: true });
+      form.setValue('genres', [...(genres || []).map((genre) => genre.id)], { shouldDirty: true });
     }
   };
 
@@ -94,7 +94,7 @@ const Genres = (props: GenresProps): ReactElement => {
                     <WrapItem key={genre.id}>
                       <Genre
                         {...genre}
-                        isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
+                        isActive={value.some((activeGenre) => activeGenre === genre.id)}
                         isLoading={false}
                         onClick={handleGenreClick}
                       />

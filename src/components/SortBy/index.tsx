@@ -45,14 +45,14 @@ const SortBy = (props: SortByProps): ReactElement => {
   };
 
   const handleOpen = (): void => {
-    const sort = qs.parse(location.search);
+    const search = qs.parse(location.search);
 
-    if (!_.isEmpty(sort) && sort && sort['sort_by']) {
-      const splitSort = String(sort['sort_by']).split('.');
-      const sortItem = sortBy.find((sort) => sort.value === splitSort[0]);
+    if (!_.isEmpty(search) && search && search['sort_by']) {
+      const splitSort = String(search['sort_by']).split('.');
+      const sort = sortBy.find((sort) => sort.value === splitSort[0]);
 
       form.reset({
-        sortBy: sortItem,
+        sortBy: sort,
         direction: splitSort[1] === 'asc' ? 'asc' : 'desc'
       });
     }
