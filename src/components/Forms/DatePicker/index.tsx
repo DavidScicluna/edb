@@ -1,46 +1,66 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
 import {
   DateRangeOutlined as DateRangeOutlinedIcon,
   DateRangeTwoTone as DateRangeTwoToneIcon
 } from '@material-ui/icons';
-import { useDayzed } from 'dayzed';
+import { DateObj, useDayzed } from 'dayzed';
 import _ from 'lodash';
 import moment from 'moment';
-import { useElementSize } from 'usehooks-ts';
 
 import Button from '../../Clickable/Button';
 import Modal from '../../Modal';
 import Calendar from './components/Calendar';
-import Divider from './components/Divider';
+import Months from './components/Months';
+import Years from './components/Years';
 import { DatePickerProps } from './types';
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { selected, renderToggleModal, color, ...rest } = props;
+  const { renderToggleModal, color, onSetDate, value, minDate, maxDate, ...rest } = props;
 
-  const [ref, { height }] = useElementSize();
+  const [date, setDate] = useState<DateObj['date']>();
 
   const [isShowingYears, setIsShowingYears] = useBoolean();
   const [isShowingMonths, setIsShowingMonths] = useBoolean();
 
-  const dayzed = useDayzed({ ...rest, selected });
+  const handleSetDate = (): void => {
+    if (date && !Array.isArray(date)) {
+      onSetDate(date);
+    }
 
-  // const handleSubmit = (): void => {
-  //   form.reset({ ...defaultValues });
-  //   onClose();
-  // };
-
-  const handleClose = (): void => {
-    // form.reset({ ...defaultValues });
     onClose();
   };
 
-  // console.log(dayzed.getDateProps());
-  // console.log(dayzed.getDateProps({ dateObj: dayzed.calendars[0].weeks[0][0] }));
-  // console.log(getForwardProps());
+  const handleSetYear = (year: number): void => {
+    setDate(new Date(year, (date || new Date()).getMonth()));
+
+    setIsShowingYears.off();
+  };
+
+  const handleSetMonth = (month: number): void => {
+    setDate(new Date((date || new Date()).getFullYear(), month));
+
+    setIsShowingMonths.off();
+  };
+
+  const dayzed = useDayzed({
+    ...rest,
+    date,
+    minDate,
+    maxDate,
+    monthsToDisplay: 1,
+    selected: date,
+    onDateSelected: (dateObj) => setDate(dateObj.date)
+  });
+
+  useEffect(() => {
+    if (value) {
+      setDate(value);
+    }
+  }, [isOpen]);
 
   return (
     <>
@@ -53,15 +73,13 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
       <Modal
         title='Date Picker'
         renderActions={({ color, colorMode, size }) => (
-          <HStack spacing={2}>
-            <Fade
-              in={selected && !Array.isArray(selected) ? moment(selected).isSame(new Date(), 'day') : false}
-              unmountOnExit
-            >
+          <HStack>
+            <Fade in={date && !Array.isArray(date) ? !moment(date).isSame(new Date(), 'day') : false} unmountOnExit>
               <Button
                 color={color}
                 colorMode={colorMode}
-                // onClick={() => form.reset({ ...defaultValues })}
+                isDisabled={isShowingYears || isShowingMonths}
+                onClick={() => setDate(new Date())}
                 size={size}
                 variant='text'
               >
@@ -71,8 +89,8 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
             <Button
               color={color}
               colorMode={colorMode}
-              isDisabled={_.isNil(selected)}
-              // onClick={form.handleSubmit((values) => handleSubmit(values))}
+              isDisabled={_.isNil(date) || isShowingYears || isShowingMonths}
+              onClick={() => handleSetDate()}
               size={size}
             >
               Set Date
@@ -80,12 +98,29 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
           </HStack>
         )}
         isOpen={isOpen}
-        onClose={handleClose}
+        onClose={() => onClose()}
         isCentered
-        size='xl'
+        size='md'
       >
-        <HStack ref={ref} width='100%' divider={<Divider height={height} />}>
-          {dayzed.calendars.map((calendar, index) => (
+        {isShowingMonths ? (
+          <Months
+            color={color}
+            month={(date || new Date()).getMonth()}
+            year={(date || new Date()).getFullYear()}
+            minDate={minDate}
+            maxDate={maxDate}
+            onMonthClick={handleSetMonth}
+          />
+        ) : isShowingYears ? (
+          <Years
+            color={color}
+            year={(date || new Date()).getFullYear()}
+            minDate={minDate}
+            maxDate={maxDate}
+            onYearsClick={handleSetYear}
+          />
+        ) : (
+          dayzed.calendars.map((calendar, index) => (
             <Calendar
               {...calendar}
               key={index}
@@ -94,8 +129,8 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
               onToggleYears={() => setIsShowingYears.on()}
               onToggleMonths={() => setIsShowingMonths.on()}
             />
-          ))}
-        </HStack>
+          ))
+        )}
       </Modal>
     </>
   );
