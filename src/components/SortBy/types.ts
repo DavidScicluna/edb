@@ -15,14 +15,14 @@ export type Form = {
   direction: SortDirection;
 };
 
-export type RenderToggleModalProps = {
+export type RenderButtonProps = {
   color: keyof Color;
   icon: Icon;
   onClick: () => void;
 };
 
 export type SortByProps = {
-  renderButton: (props: RenderToggleModalProps) => ReactElement;
+  renderButton: (props: RenderButtonProps) => ReactElement;
   sortBy: SortBy[];
   onSort: (form: Form) => void;
 };
