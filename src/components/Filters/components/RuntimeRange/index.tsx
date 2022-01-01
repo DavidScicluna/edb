@@ -22,13 +22,15 @@ const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
     if (runtime.some((num) => num === number)) {
       form.setValue(
         'runtime',
-        [...runtime].filter((num) => num !== number),
+        [...runtime].filter((num) => num !== number).sort((a, b) => a - b),
         { shouldDirty: true }
       );
     } else {
       form.setValue(
         'runtime',
-        runtime.length > 1 ? [...runtime, number].filter((_num, index) => index !== 0) : [...runtime, number],
+        runtime.length > 1
+          ? [...runtime, number].filter((_num, index) => index !== 0).sort((a, b) => a - b)
+          : [...runtime, number].sort((a, b) => a - b),
         {
           shouldDirty: true
         }
@@ -48,16 +50,8 @@ const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
               actions: (
                 <HStack spacing={2}>
                   <ScaleFade in={value.length > 0} unmountOnExit>
-                    <Text
-                      color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-                      fontSize='md'
-                      fontWeight='medium'
-                      lineHeight='normal'
-                    >
-                      {value
-                        .sort((a, b) => a - b)
-                        .map((runtime) => `${runtime} minutes`)
-                        .join(' - ')}
+                    <Text color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' fontWeight='medium'>
+                      {value.map((runtime) => `${runtime} minutes`).join(' - ')}
                     </Text>
                   </ScaleFade>
                   <Button

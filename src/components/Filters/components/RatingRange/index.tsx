@@ -22,13 +22,15 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
     if (rating.some((num) => num === number)) {
       form.setValue(
         'rating',
-        [...rating].filter((num) => num !== number),
+        [...rating].filter((num) => num !== number).sort((a, b) => a - b),
         { shouldDirty: true }
       );
     } else {
       form.setValue(
         'rating',
-        rating.length > 1 ? [...rating, number].filter((_num, index) => index !== 0) : [...rating, number],
+        rating.length > 1
+          ? [...rating, number].filter((_num, index) => index !== 0).sort((a, b) => a - b)
+          : [...rating, number].sort((a, b) => a - b),
         {
           shouldDirty: true
         }
@@ -48,7 +50,7 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
               actions: (
                 <HStack spacing={2}>
                   <ScaleFade in={value.length > 0} unmountOnExit>
-                    <Rating>{value.sort((a, b) => a - b).join(' - ')}</Rating>
+                    <Rating>{value.join(' - ')}</Rating>
                   </ScaleFade>
                   <Button
                     color={color}
