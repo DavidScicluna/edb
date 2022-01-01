@@ -21,11 +21,8 @@ export type RenderToggleModalProps = {
   onClick: () => void;
 };
 
-export type PartialForm = Partial<Form>;
-
 export type SortByProps = {
-  renderToggleModal: (props: RenderToggleModalProps) => ReactElement;
-  defaultValues: Form;
+  renderButton: (props: RenderToggleModalProps) => ReactElement;
   sortBy: SortBy[];
-  onSort: (form: PartialForm) => void;
+  onSort: (form: Form) => void;
 };

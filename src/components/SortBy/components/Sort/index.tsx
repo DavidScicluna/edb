@@ -30,21 +30,22 @@ const Sort = ({ form, sortBy }: SortProps): ReactElement => {
             body: (
               <VStack width='100%' spacing={2}>
                 {sortBy.map((sort) => (
-                  <Button
-                    key={sort.value}
-                    color={sort.value === value.value ? color : 'gray'}
-                    renderRightIcon={
-                      sort.value === value.value
-                        ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} />
-                        : undefined
-                    }
-                    isFullWidth
-                    onClick={sort.value !== value.value ? () => handleOnChange(sort) : undefined}
-                    size='lg'
-                    variant='outlined'
-                  >
-                    {sort.label}
-                  </Button>
+                  <span key={sort.value} style={{ width: '100%' }}>
+                    <Button
+                      color={sort.value === value.value ? color : 'gray'}
+                      renderRightIcon={
+                        sort.value === value.value
+                          ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} />
+                          : undefined
+                      }
+                      isFullWidth
+                      onClick={sort.value !== value.value ? () => handleOnChange(sort) : undefined}
+                      size='lg'
+                      variant='outlined'
+                    >
+                      {sort.label}
+                    </Button>
+                  </span>
                 ))}
               </VStack>
             )
