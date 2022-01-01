@@ -68,6 +68,8 @@ export default (
       sm: {
         'borderRadius': 'sm',
 
+        'marginTop': variant !== 'text' ? '2px !important' : 0,
+
         '&:hover .button_front': {
           transform: variant !== 'text' ? 'translateY(-3px)' : 'none'
         },
@@ -83,6 +85,8 @@ export default (
       md: {
         'borderRadius': 'base',
 
+        'marginTop': variant !== 'text' ? '4px !important' : 0,
+
         '&:hover .button_front': {
           transform: variant !== 'text' ? 'translateY(-5px)' : 'none'
         },
@@ -97,6 +101,8 @@ export default (
       },
       lg: {
         'borderRadius': 'lg',
+
+        'marginTop': variant !== 'text' ? '4px !important' : 0,
 
         '&:hover .button_front': {
           transform: variant !== 'text' ? 'translateY(-5px)' : 'none'

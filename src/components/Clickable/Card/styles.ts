@@ -48,6 +48,7 @@ export default (
       'outlineStyle': 'dashed',
 
       'padding': 0,
+      'marginTop': '4px !important',
 
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
