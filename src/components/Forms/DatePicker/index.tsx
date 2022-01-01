@@ -46,6 +46,12 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
     setIsShowingMonths.off();
   };
 
+  const handleClose = (): void => {
+    setDate(undefined);
+
+    onClose();
+  };
+
   const dayzed = useDayzed({
     ...rest,
     date,
@@ -98,7 +104,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
           </HStack>
         )}
         isOpen={isOpen}
-        onClose={() => onClose()}
+        onClose={() => handleClose()}
         isCentered
         size='md'
       >
