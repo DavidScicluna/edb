@@ -55,7 +55,7 @@ export default (theme: Theme, { color = 'gray' }: StyleDayProps): DayStyle => ({
 
       'fontSize': 'sm',
 
-      'padding': `${theme.space[1]} ${theme.space[2]}`,
+      'padding': theme.space[1],
 
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
@@ -108,12 +108,12 @@ export default (theme: Theme, { color = 'gray' }: StyleDayProps): DayStyle => ({
       contained: {
         borderColor: `${theme.colors.gray[400]} !important`,
         backgroundColor: `${theme.colors.gray[400]} !important`,
-        color: `${theme.colors.gray[50]} !important`
+        color: `${theme.colors.gray[400]} !important`
       },
       text: {
         borderColor: 'transparent !important',
         backgroundColor: 'transparent !important',
-        color: `${theme.colors.gray[50]} !important`
+        color: `${theme.colors.gray[400]} !important`
       }
     }
   },

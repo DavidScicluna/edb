@@ -11,7 +11,7 @@ const Calendar = (props: CalendarProps): ReactElement => {
   const { dayzed, color, month, year, weeks, onToggleYears, onToggleMonths } = props;
 
   return (
-    <VStack width='100%' px={2} pt={1} pb={2}>
+    <VStack width='100%' p={2}>
       <Header dayzed={dayzed} month={month} year={year} onToggleYears={onToggleYears} onToggleMonths={onToggleMonths} />
       <Weekdays />
       {weeks.map((week, index) => (

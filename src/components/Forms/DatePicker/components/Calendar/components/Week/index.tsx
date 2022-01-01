@@ -19,7 +19,7 @@ const Week = (props: WeekProps): ReactElement => {
   const { dayzed, color, weekdays } = props;
 
   return (
-    <HStack width='100%' justifyContent='space-between' spacing={2}>
+    <HStack width='100%' justifyContent='space-between' spacing={0}>
       {weekdays.map((weekday, index) => (
         <Day
           {...(weekday ? dayzed.getDateProps({ dateObj: weekday }) : {})}

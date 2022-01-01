@@ -8,7 +8,7 @@ const Weekdays = (): ReactElement => {
   const { colorMode } = useColorMode();
 
   return (
-    <HStack width='100%' justifyContent='space-between' spacing={2}>
+    <HStack width='100%' justifyContent='space-between' spacing={0}>
       {weekdays.map((weekday, index) => (
         <Text
           key={index}
@@ -18,8 +18,6 @@ const Weekdays = (): ReactElement => {
           fontWeight='semibold'
           fontSize='sm'
           textTransform='uppercase'
-          px={2}
-          py={1}
         >
           {weekday}
         </Text>

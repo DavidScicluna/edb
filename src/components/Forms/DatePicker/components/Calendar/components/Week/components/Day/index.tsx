@@ -29,7 +29,7 @@ const Day = (props: DayProps): ReactElement => {
         ..._.merge(style.day.disabled, style[colorMode].disabled[variant])
       }}
     >
-      <span style={{ opacity: children ? 1 : 0 }}>{children || '#'}</span>
+      <span style={{ opacity: !_.isNil(children) ? 1 : 0 }}>{children || '#'}</span>
     </CUIButton>
   );
 };
