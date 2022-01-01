@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useMediaQuery, ButtonGroup } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, ButtonGroup, HStack, Text, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Controller } from 'react-hook-form';
 
@@ -9,19 +9,32 @@ import { Theme } from '../../../../theme/types';
 import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
 import { Form } from '../../types';
-import { CountProps } from './types';
+import { CountRangeProps } from './types';
 
-const Count = ({ form }: CountProps): ReactElement => {
+const CountRange = ({ form }: CountRangeProps): ReactElement => {
   const theme = useTheme<Theme>();
+  const { colorMode } = useColorMode();
   const [isMd] = useMediaQuery('(max-width: 760px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const handleOnChange = (count: Form['count'], number: number): void => {
-    if (count === number) {
-      form.setValue('count', undefined, { shouldDirty: true });
+    if (count.some((num) => num === number)) {
+      form.setValue(
+        'count',
+        [...count].filter((num) => num !== number).sort((a, b) => a - b),
+        { shouldDirty: true }
+      );
     } else {
-      form.setValue('count', number, { shouldDirty: true });
+      form.setValue(
+        'count',
+        count.length > 1
+          ? [...count, number].filter((_num, index) => index !== 0).sort((a, b) => a - b)
+          : [...count, number].sort((a, b) => a - b),
+        {
+          shouldDirty: true
+        }
+      );
     }
   };
 
@@ -33,17 +46,24 @@ const Count = ({ form }: CountProps): ReactElement => {
         <Panel isFullWidth>
           {{
             header: {
-              title: 'Number of Ratings',
+              title: 'Number of Ratings Range',
               actions: (
-                <Button
-                  color={color}
-                  isDisabled={!value}
-                  onClick={() => form.setValue('count', undefined, { shouldDirty: true })}
-                  size='sm'
-                  variant='text'
-                >
-                  Clear
-                </Button>
+                <HStack spacing={2}>
+                  <ScaleFade in={value.length > 0} unmountOnExit>
+                    <Text color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' fontWeight='medium'>
+                      {value.map((count) => `${count} ratings`).join(' - ')}
+                    </Text>
+                  </ScaleFade>
+                  <Button
+                    color={color}
+                    isDisabled={value.length === 0}
+                    onClick={() => form.setValue('count', [], { shouldDirty: true })}
+                    size='sm'
+                    variant='text'
+                  >
+                    Clear
+                  </Button>
+                </HStack>
               )
             },
             body: (
@@ -51,7 +71,7 @@ const Count = ({ form }: CountProps): ReactElement => {
                 {_.range(0, 550, 50).map((number) => (
                   <Button
                     key={number}
-                    color={value === number ? color : 'gray'}
+                    color={value.some((count) => count === number) ? color : 'gray'}
                     isFullWidth
                     onClick={() => handleOnChange(value, number)}
                     size={isMd ? 'sm' : 'md'}
@@ -87,4 +107,4 @@ const Count = ({ form }: CountProps): ReactElement => {
   );
 };
 
-export default Count;
+export default CountRange;
