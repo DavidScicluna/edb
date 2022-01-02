@@ -8,4 +8,4 @@ export type LinkProps = {
   to: Partial<Location>;
   isFullWidth?: boolean;
   isDisabled?: boolean;
-} & CUILinkProps;
+} & Omit<CUILinkProps, 'colorScheme' | 'href' | 'target' | 'isExternal' | 'size' | 'variant'>;
