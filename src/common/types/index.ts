@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { PartialMovie } from './movie';
 import { PartialTV } from './tv';
 
@@ -7,19 +9,13 @@ export type NonNullable<T> = Exclude<T, null | undefined>; // Remove null and un
 // Component Types
 export type Style = { [key: string]: number | string | unknown | Style };
 
-export type Icon = any;
+export type Icon = ReactElement;
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonType = 'button' | 'iconButton';
 
 export type ColorMode = 'light' | 'dark';
-
-export type SortBy = {
-  label: string;
-  value: string;
-  isActive: boolean;
-};
 
 export type Image = {
   alt: string;
@@ -56,7 +52,7 @@ export type Rating = {
   count: number | null;
 };
 
-export type Genre = {
+export type Keyword = {
   id: number;
   name: string;
 };
@@ -131,8 +127,40 @@ export type Collection = {
   parts: (PartialMovie & PartialTV)[];
 };
 
+export type Genre = {
+  id?: number;
+  name?: string;
+};
+
+export type Genres = {
+  genres?: Genre[];
+};
+
+export type Certification = {
+  certification?: string;
+  meaning?: string;
+  order?: number;
+};
+
+type CertificationKey = 'US' | 'CA' | 'DE' | 'GB' | 'AU' | 'BR' | 'FR' | 'NZ' | 'IN';
+
+export type Certifications = {
+  certifications?: { [key in CertificationKey]: Certification[] };
+};
+
+// export type WatchProvider = {
+//   display_priority?: number;
+//   logo_path?: string;
+//   provider_name?: string;
+//   provider_id?: number;
+// };
+
+// export type WatchProviders = {
+//   results?: WatchProvider[];
+// };
+
 export type Language = {
-  iso_639_1: string;
+  iso_639_1?: string;
   english_name?: string;
-  name: string;
+  name?: string;
 };
