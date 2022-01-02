@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { HStack } from '@chakra-ui/react';
+import { useMediaQuery, Stack } from '@chakra-ui/react';
 import {
   ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
   ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
@@ -15,6 +15,8 @@ import { SortDirection } from '../../types';
 import { DirectionProps } from './types';
 
 const Direction = ({ form }: DirectionProps): ReactElement => {
+  const [isSm] = useMediaQuery('(max-width: 600px)');
+
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const handleOnChange = (direction: SortDirection) => {
@@ -32,34 +34,38 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
               title: 'Direction'
             },
             body: (
-              <HStack width='100%' spacing={2}>
-                <Button
-                  color={value === 'asc' ? color : 'gray'}
-                  renderLeftIcon={({ fontSize }) => <ArrowUpwardOutlinedIcon style={{ fontSize }} />}
-                  renderRightIcon={
-                    value === 'asc' ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined
-                  }
-                  isFullWidth
-                  onClick={value !== 'asc' ? () => handleOnChange('asc') : undefined}
-                  size='lg'
-                  variant='outlined'
-                >
-                  Ascending order
-                </Button>
-                <Button
-                  color={value === 'desc' ? color : 'gray'}
-                  renderLeftIcon={({ fontSize }) => <ArrowDownwardOutlinedIcon style={{ fontSize }} />}
-                  renderRightIcon={
-                    value === 'desc' ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined
-                  }
-                  isFullWidth
-                  onClick={value !== 'desc' ? () => handleOnChange('desc') : undefined}
-                  size='lg'
-                  variant='outlined'
-                >
-                  Descending order
-                </Button>
-              </HStack>
+              <Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
+                <span style={{ width: '100%' }}>
+                  <Button
+                    color={value === 'asc' ? color : 'gray'}
+                    renderLeftIcon={({ fontSize }) => <ArrowUpwardOutlinedIcon style={{ fontSize }} />}
+                    renderRightIcon={
+                      value === 'asc' ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined
+                    }
+                    isFullWidth
+                    onClick={value !== 'asc' ? () => handleOnChange('asc') : undefined}
+                    size='lg'
+                    variant='outlined'
+                  >
+                    Ascending order
+                  </Button>
+                </span>
+                <span style={{ width: '100%' }}>
+                  <Button
+                    color={value === 'desc' ? color : 'gray'}
+                    renderLeftIcon={({ fontSize }) => <ArrowDownwardOutlinedIcon style={{ fontSize }} />}
+                    renderRightIcon={
+                      value === 'desc' ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined
+                    }
+                    isFullWidth
+                    onClick={value !== 'desc' ? () => handleOnChange('desc') : undefined}
+                    size='lg'
+                    variant='outlined'
+                  >
+                    Descending order
+                  </Button>
+                </span>
+              </Stack>
             )
           }}
         </Panel>
