@@ -97,6 +97,16 @@ const Filters = (props: FiltersProps): ReactElement => {
     { enabled: isOpen && mediaType === 'tv' }
   );
 
+  const handleReset = (): void => {
+    form.setValue('date', defaultValues.date, { shouldDirty: true });
+    form.setValue('genres', defaultValues.genres, { shouldDirty: true });
+    form.setValue('certifications', defaultValues.certifications, { shouldDirty: true });
+    form.setValue('rating', defaultValues.rating, { shouldDirty: true });
+    form.setValue('count', defaultValues.count, { shouldDirty: true });
+    form.setValue('runtime', defaultValues.runtime, { shouldDirty: true });
+    form.setValue('adult', defaultValues.adult, { shouldDirty: true });
+  };
+
   const handleSubmit = (values: Form): void => {
     onFilter({ ...values });
 
@@ -187,15 +197,9 @@ const Filters = (props: FiltersProps): ReactElement => {
         title='Filter'
         renderActions={({ color, colorMode, size }) => (
           <HStack spacing={2}>
-            <Fade in={isDirty} unmountOnExit>
-              <Button
-                color={color}
-                colorMode={colorMode}
-                onClick={() => form.reset({ ...defaultValues })}
-                size={size}
-                variant='text'
-              >
-                Clear
+            <Fade in={isDirty || !_.isEqual(defaultValues, form.getValues())} unmountOnExit>
+              <Button color={color} colorMode={colorMode} onClick={() => handleReset()} size={size} variant='text'>
+                Reset
               </Button>
             </Fade>
             <Button
