@@ -72,10 +72,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
                       full: 'original'
                     }
                   }}
-                  rating={{
-                    rating: movie?.vote_average || null,
-                    count: movie?.vote_count || null
-                  }}
+                  rating={movie?.vote_average || null}
                   title={movie?.title || ''}
                   subtitle={`${[
                     `${handleReturnDate(movie?.release_date || '', 'year')}` || 'N/A',
@@ -122,10 +119,7 @@ const All = ({ movies = [], tv = [], people = [] }: AllProps): ReactElement => {
                       full: 'original'
                     }
                   }}
-                  rating={{
-                    rating: show?.vote_average || null,
-                    count: show?.vote_count || null
-                  }}
+                  rating={show?.vote_average || null}
                   title={show?.name || ''}
                   subtitle={`${[
                     `${handleReturnDate(show?.first_air_date || '', 'year')}` || 'N/A',

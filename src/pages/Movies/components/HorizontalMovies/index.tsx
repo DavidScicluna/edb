@@ -32,10 +32,7 @@ const HorizontalMovies = (props: HorizontalMoviesProps): ReactElement => {
               full: 'original'
             }
           }}
-          rating={{
-            rating: movie?.vote_average || null,
-            count: movie?.vote_count || null
-          }}
+          rating={movie?.vote_average || null}
           title={movie?.title || ''}
           subtitle={`${[
             `${handleReturnDate(movie?.release_date || '', 'year')} ` || 'N/A',

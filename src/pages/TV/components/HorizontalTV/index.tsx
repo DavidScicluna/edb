@@ -32,10 +32,7 @@ const HorizontalTV = (props: HorizontalTVProps): ReactElement => {
               full: 'original'
             }
           }}
-          rating={{
-            rating: show?.vote_average || null,
-            count: show?.vote_count || null
-          }}
+          rating={show?.vote_average || null}
           title={show?.name || ''}
           subtitle={`${[
             `${handleReturnDate(show?.first_air_date || '', 'year')}` || 'N/A',

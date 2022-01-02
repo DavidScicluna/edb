@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import {
-  useTheme,
   useMediaQuery,
   useBreakpointValue,
   useBoolean,
@@ -14,7 +13,6 @@ import {
 import useInView from 'react-cool-inview';
 
 import { MediaType } from '../../../common/types';
-import { Theme } from '../../../theme/types';
 import Card from '../..//Clickable/Card';
 import Link from '../../Clickable/Link';
 import Image from '../../Image';
@@ -30,15 +28,14 @@ import { HorizontalPosterProps } from './types';
 const width = ['100px', '116px', '152px', '188px', '188px', '224px'];
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
-  const theme = useTheme<Theme>();
   const [isSm] = useMediaQuery('(max-width: 600px)');
-  const iconSize = useBreakpointValue({
-    'base': theme.fontSizes['lg'],
-    'sm': theme.fontSizes['lg'],
-    'md': theme.fontSizes['xl'],
-    'lg': theme.fontSizes['2xl'],
-    'xl': theme.fontSizes['2xl'],
-    '2xl': theme.fontSizes['3xl']
+  const ratingSize = useBreakpointValue({
+    'base': 'sm',
+    'sm': 'sm',
+    'md': 'md',
+    'lg': 'lg',
+    'xl': 'lg',
+    '2xl': 'xl'
   });
 
   const { observe: ref, inView } = useInView<HTMLDivElement>({
@@ -106,12 +103,9 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
           >
             {/* Rating */}
             {mediaType !== 'person' ? (
-              <Rating
-                rating={rating}
-                isLoading={isLoading}
-                iconFontsize={iconSize}
-                textFontsize={['sm', 'sm', 'md', 'lg', 'lg', 'xl']}
-              />
+              <Rating count={rating?.count} isLoading={isLoading} size={ratingSize}>
+                {rating?.rating}
+              </Rating>
             ) : null}
 
             <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>

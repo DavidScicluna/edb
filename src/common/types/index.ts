@@ -47,11 +47,6 @@ export type ExternalIDs = {
 
 export type MediaType = 'movie' | 'tv' | 'person';
 
-export type Rating = {
-  rating: number | null;
-  count: number | null;
-};
-
 export type Keyword = {
   id: number;
   name: string;

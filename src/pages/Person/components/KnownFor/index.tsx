@@ -38,10 +38,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
                   full: 'original'
                 }
               }}
-              rating={{
-                rating: mediaItem?.vote_average || null,
-                count: mediaItem?.vote_count || null
-              }}
+              rating={mediaItem?.vote_average || null}
               title={mediaItem?.title || mediaItem?.name || ''}
               subtitle={
                 `${handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')}` || 'N/A'

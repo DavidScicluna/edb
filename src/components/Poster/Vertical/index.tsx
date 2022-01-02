@@ -115,7 +115,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
             {mediaType !== 'person' ? (
               <HStack width='100%' justify='space-between' spacing={0}>
                 {/* Rating component */}
-                <Rating rating={rating} isLoading={isLoading} iconFontsize={theme.fontSizes.xl} textFontsize='md' />
+                <Rating isLoading={isLoading}>{rating}</Rating>
 
                 <HStack spacing={0}>
                   {/* Like component */}
