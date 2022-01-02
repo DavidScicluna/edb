@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, ButtonGroup, HStack, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, ButtonGroup, Text, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Controller } from 'react-hook-form';
 
@@ -9,11 +9,11 @@ import { Theme } from '../../../../theme/types';
 import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
 import { Form } from '../../types';
+import Header from '../Header';
 import { RuntimeRangeProps } from './types';
 
 const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
   const [isMd] = useMediaQuery('(max-width: 760px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
@@ -45,27 +45,29 @@ const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
       render={({ field: { value } }) => (
         <Panel isFullWidth>
           {{
-            header: {
-              title: 'Runtime Range',
-              actions: (
-                <HStack spacing={2}>
+            header: (
+              <Header
+                label='Runtime Range'
+                renderMessage={({ color, fontSize, fontWeight }) => (
                   <ScaleFade in={value.length > 0} unmountOnExit>
-                    <Text color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' fontWeight='medium'>
-                      {value.map((runtime) => `${runtime} minutes`).join(' - ')}
+                    <Text color={color} fontSize={fontSize} fontWeight={fontWeight}>
+                      {value.map((runtime) => `${runtime} minutes`).join(' -> ')}
                     </Text>
                   </ScaleFade>
+                )}
+                renderButton={({ color, size, variant }) => (
                   <Button
                     color={color}
                     isDisabled={value.length === 0}
                     onClick={() => form.setValue('runtime', [], { shouldDirty: true })}
-                    size='sm'
-                    variant='text'
+                    size={size}
+                    variant={variant}
                   >
                     Clear
                   </Button>
-                </HStack>
-              )
-            },
+                )}
+              />
+            ),
             body: (
               <ButtonGroup width='100%' isAttached>
                 {_.range(0, 475, 45).map((number) => (
