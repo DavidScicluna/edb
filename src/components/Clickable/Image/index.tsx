@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useBoolean, Box, AspectRatio, Center, Icon, Fade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useBoolean, Box, AspectRatio, Center, Fade } from '@chakra-ui/react';
 import { SearchOutlined as SearchOutlinedIcon, CheckOutlined as CheckOutlinedIcon } from '@material-ui/icons';
 import useInView from 'react-cool-inview';
 import { useElementSize } from 'usehooks-ts';
 
 import { Theme } from '../../../theme/types';
-import { ImageProps } from './types';
+import { ImageProps, RenderIconProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
   const [imageRef, { height }] = useElementSize();
@@ -24,7 +24,7 @@ const Image = (props: ImageProps): ReactElement => {
     width = '100%',
     borderRadius = 'base',
     ratio = 2 / 3,
-    icon,
+    renderIcon,
     isDisabled = false,
     isActive = false,
     onClick,
@@ -32,6 +32,11 @@ const Image = (props: ImageProps): ReactElement => {
   } = props;
 
   const [isHovering, setIsHovering] = useBoolean();
+
+  const iconProps: RenderIconProps = {
+    color: colorMode === 'light' ? 'gray.50' : 'gray.900',
+    fontSize: height > 375 ? theme.fontSizes['7xl'] : theme.fontSizes['6xl']
+  };
 
   return (
     <Box
@@ -74,15 +79,13 @@ const Image = (props: ImageProps): ReactElement => {
                   }}
                 >
                   <Fade in={isHovering || isActive} unmountOnExit>
-                    {
-                      <Icon
-                        as={isActive ? CheckOutlinedIcon : icon || SearchOutlinedIcon}
-                        color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
-                        sx={{
-                          fontSize: `${height > 375 ? theme.fontSizes['7xl'] : theme.fontSizes['6xl']} !important`
-                        }}
-                      />
-                    }
+                    {isActive ? (
+                      <CheckOutlinedIcon style={{ ...iconProps }} />
+                    ) : renderIcon ? (
+                      renderIcon({ ...iconProps })
+                    ) : (
+                      <SearchOutlinedIcon style={{ ...iconProps }} />
+                    )}
                   </Fade>
                 </Center>
               </Fade>

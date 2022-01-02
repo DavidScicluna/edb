@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 
-
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
@@ -19,7 +18,7 @@ const Backdrop = (props: BackdropProps): ReactElement => {
       width='100%'
       borderRadius='base'
       ratio={6 / 3}
-      icon={video ? YouTubeIcon : undefined}
+      renderIcon={video ? ({ color, fontSize }) => <YouTubeIcon style={{ color, fontSize }} /> : undefined}
       isDisabled={isLoading || isError || isImageError}
       onClick={path ? () => onClick(path, video ? 'video' : 'backdrop') : undefined}
     >

@@ -42,7 +42,7 @@ const Video = (props: VideoProps): ReactElement => {
         width={width}
         borderRadius='base'
         ratio={1 / 1}
-        icon={<PlayArrowIcon />}
+        renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
         isDisabled={isError || isLoading}
         onClick={typeof video !== 'number' && video ? () => onClick(video.key, 'video') : undefined}
       >

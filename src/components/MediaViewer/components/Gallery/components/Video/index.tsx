@@ -37,7 +37,7 @@ const Video = (props: VideoProps): ReactElement => {
       <ClickableImage
         borderRadius='lg'
         ratio={1 / 1}
-        icon={PlayArrowIcon}
+        renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
         isActive={isActive}
         onClick={() => onClickVideo(video.key, 'video')}
       >
