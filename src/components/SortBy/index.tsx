@@ -36,6 +36,11 @@ const SortBy = (props: SortByProps): ReactElement => {
 
   const { isDirty } = useFormState({ control: form.control });
 
+  const handleReset = (): void => {
+    form.setValue('sortBy', defaultValues.sortBy, { shouldDirty: true });
+    form.setValue('direction', defaultValues.direction, { shouldDirty: true });
+  };
+
   const handleSubmit = (values: Form): void => {
     onSort({ ...values });
 
@@ -79,13 +84,7 @@ const SortBy = (props: SortByProps): ReactElement => {
         renderActions={({ color, colorMode, size }) => (
           <HStack spacing={2}>
             <Fade in={isDirty || !_.isEqual(defaultValues, form.getValues())} unmountOnExit>
-              <Button
-                color={color}
-                colorMode={colorMode}
-                onClick={() => form.reset({ ...defaultValues })}
-                size={size}
-                variant='text'
-              >
+              <Button color={color} colorMode={colorMode} onClick={() => handleReset()} size={size} variant='text'>
                 Reset
               </Button>
             </Fade>
