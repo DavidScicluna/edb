@@ -1,6 +1,6 @@
 import { Style } from '../../../../../../common/types';
 import { Theme } from '../../../../../../theme/types';
-import { LinkProps } from './types';
+import { SocialProps } from './types';
 
 type LinkStyle = {
   common: {
@@ -9,7 +9,13 @@ type LinkStyle = {
   };
 };
 
-export default (theme: Theme, { defaultColor, color, isDisabled = false }: LinkProps): LinkStyle => ({
+type StyleSocialProps = {
+  defaultColor: SocialProps['defaultColor'];
+  color: SocialProps['color'];
+  isDisabled: SocialProps['isDisabled'];
+};
+
+export default (theme: Theme, { defaultColor, color, isDisabled = false }: StyleSocialProps): LinkStyle => ({
   common: {
     link: {
       'cursor': 'pointer',

@@ -1,28 +1,26 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Center } from '@chakra-ui/react';
+import { useTheme, Center, Link } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import Link from '../../../../../../components/Clickable/Link';
 import Skeleton from '../../../../../../components/Skeleton';
 import { Theme } from '../../../../../../theme/types';
 import useStyles from './styles';
-import { LinkProps } from './types';
+import { SocialProps } from './types';
 
-const Social = (props: LinkProps): ReactElement => {
+const Social = (props: SocialProps): ReactElement => {
   const theme = useTheme<Theme>();
 
-  const style = useStyles(theme, props);
+  const { defaultColor, color, name, type, href, icon, isDisabled = false } = props;
 
-  const { name, type, href, icon, isDisabled = false } = props;
+  const style = useStyles(theme, { defaultColor, color, isDisabled });
 
   return (
     <Link
       aria-label={`${name ? `"${name}"` : ''} ${type} link`}
       href={href}
-      to={{}}
-      isExternal
-      isDisabled={isDisabled}
+      target='_blank'
+      onClick={isDisabled ? (event) => event.preventDefault() : undefined}
       sx={{ ...style.common.link }}
     >
       <Center sx={{ ..._.merge(style.common.icon) }}>
