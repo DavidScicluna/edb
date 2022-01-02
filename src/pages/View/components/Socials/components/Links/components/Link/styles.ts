@@ -1,6 +1,6 @@
-import { Style } from '../../../../../../common/types';
-import { Theme } from '../../../../../../theme/types';
-import { SocialProps } from './types';
+import { Style } from '../../../../../../../../common/types';
+import { Theme } from '../../../../../../../../theme/types';
+import { LinkProps } from './types';
 
 type LinkStyle = {
   common: {
@@ -9,13 +9,12 @@ type LinkStyle = {
   };
 };
 
-type StyleSocialProps = {
-  defaultColor: SocialProps['defaultColor'];
-  color: SocialProps['color'];
-  isDisabled: SocialProps['isDisabled'];
+type StyleLinkProps = {
+  defaultColor: LinkProps['defaultColor'];
+  color: LinkProps['color'];
 };
 
-export default (theme: Theme, { defaultColor, color, isDisabled = false }: StyleSocialProps): LinkStyle => ({
+export default (theme: Theme, { defaultColor, color }: StyleLinkProps): LinkStyle => ({
   common: {
     link: {
       'cursor': 'pointer',
@@ -34,8 +33,6 @@ export default (theme: Theme, { defaultColor, color, isDisabled = false }: Style
 
       'padding': theme.space[1],
 
-      'opacity': !isDisabled ? 1 : 0.5,
-
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
       'color': defaultColor,
@@ -53,11 +50,12 @@ export default (theme: Theme, { defaultColor, color, isDisabled = false }: Style
       }
     },
     icon: {
+      'width': theme.fontSizes['2xl'],
+      'height': theme.fontSizes['2xl'],
+
       '& svg': {
         display: 'block',
 
-        width: theme.fontSizes['2xl'],
-        height: theme.fontSizes['2xl'],
         fontSize: theme.fontSizes['2xl']
       }
     }

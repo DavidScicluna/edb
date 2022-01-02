@@ -2,9 +2,10 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useTheme } from '@chakra-ui/react';
 import { Facebook as FacebookIcon, Twitter as TwitterIcon, Instagram as InstagramIcon } from '@material-ui/icons';
+import _ from 'lodash';
 
 import { Theme } from '../../../../../../theme/types';
-import Link from '../Social';
+import Link from './components/Link';
 import { LinksProps } from './types';
 
 const ImdbIcon = (): ReactElement => {
@@ -30,9 +31,9 @@ const Links = (props: LinksProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { socials, name, color, isLoading = false } = props;
+  const { socials, name, color, isLoading = true } = props;
 
-  return (
+  return !isLoading ? (
     <>
       {/* Facebook */}
       {socials?.facebook_id ? (
@@ -43,7 +44,6 @@ const Links = (props: LinksProps): ReactElement => {
           href={`https://www.facebook.com/${socials.facebook_id}`}
           type='Facebook'
           icon={<FacebookIcon />}
-          isDisabled={isLoading}
         />
       ) : null}
 
@@ -56,7 +56,6 @@ const Links = (props: LinksProps): ReactElement => {
           href={`https://www.twitter.com/${socials.twitter_id}`}
           type='Twitter'
           icon={<TwitterIcon />}
-          isDisabled={isLoading}
         />
       ) : null}
 
@@ -69,7 +68,6 @@ const Links = (props: LinksProps): ReactElement => {
           href={`https://www.instagram.com/${socials.instagram_id}`}
           type='Instagram'
           icon={<InstagramIcon />}
-          isDisabled={isLoading}
         />
       ) : null}
 
@@ -82,9 +80,14 @@ const Links = (props: LinksProps): ReactElement => {
           href={`https://www.imdb.com/name/${socials.imdb_id}`}
           type='IMDB'
           icon={<ImdbIcon />}
-          isDisabled={isLoading}
         />
       ) : null}
+    </>
+  ) : (
+    <>
+      {_.range(0, 4).map((_dummy, index) => (
+        <Link key={index} isDisabled />
+      ))}
     </>
   );
 };
