@@ -5,7 +5,9 @@ import { Box } from '@chakra-ui/react';
 import { Space } from '../../../../theme/types';
 import { BodyProps } from './types';
 
-const Body = ({ children, size = 'md' }: BodyProps): ReactElement => {
+const Body = (props: BodyProps): ReactElement => {
+  const { children, hasHeader = false, hasFooter = false, size = 'md' } = props;
+
   /**
    * This method will return the appropriate padding depending on the size passed
    *
@@ -27,7 +29,7 @@ const Body = ({ children, size = 'md' }: BodyProps): ReactElement => {
   };
 
   return (
-    <Box width='100%' pt={handleReturnPadding()} pb={handleReturnPadding()}>
+    <Box width='100%' pt={hasHeader ? handleReturnPadding() : 0} pb={hasFooter ? handleReturnPadding() : 0}>
       {children}
     </Box>
   );

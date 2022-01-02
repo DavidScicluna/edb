@@ -30,12 +30,7 @@ const Header = ({ actions, colorMode, title, size = 'md' }: HeaderProps): ReactE
     <HStack width='100%' alignItems='stretch' justifyContent='space-between' pb={handleReturnPadding()}>
       {title ? (
         typeof title === 'string' ? (
-          <Text
-            align='left'
-            color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-            fontSize='lg'
-            fontWeight='semibold'
-          >
+          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' fontWeight='bold'>
             {title}
           </Text>
         ) : (

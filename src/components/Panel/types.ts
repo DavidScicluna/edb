@@ -17,7 +17,7 @@ export type Header = {
 
 export type PanelProps = {
   children: {
-    header?: Header;
+    header?: Header | ReactElement;
     body: ReactElement;
     footer?: ReactElement;
   };
