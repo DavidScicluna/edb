@@ -36,6 +36,7 @@ export const defaultValues: Form = {
 const Filters = (props: FiltersProps): ReactElement => {
   const source = axios.CancelToken.source();
 
+  const [isSm] = useMediaQuery('(max-width: 600px)');
   const [isLg] = useMediaQuery('(max-width: 1024px)');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -196,7 +197,7 @@ const Filters = (props: FiltersProps): ReactElement => {
       <Modal
         title='Filter'
         renderActions={({ color, colorMode, size }) => (
-          <HStack spacing={2}>
+          <HStack spacing={isSm ? 1 : 2}>
             <Fade in={isDirty || !_.isEqual(defaultValues, form.getValues())} unmountOnExit>
               <Button color={color} colorMode={colorMode} onClick={() => handleReset()} size={size} variant='text'>
                 Reset

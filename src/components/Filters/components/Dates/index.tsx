@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, Stack, Text, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, Stack, Text, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import moment from 'moment';
 import { Controller } from 'react-hook-form';
@@ -19,7 +19,6 @@ const dataFormat = 'YYYY-MM-DD';
 const visibleFormat = 'ddd, MMMM DD YYYY';
 
 const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
-  const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
