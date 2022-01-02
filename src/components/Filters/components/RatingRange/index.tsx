@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useMediaQuery, ButtonGroup, HStack, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, ButtonGroup, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Controller } from 'react-hook-form';
 
@@ -10,6 +10,7 @@ import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
 import Rating from '../../../Rating';
 import { Form } from '../../types';
+import Header from '../Header';
 import { RatingRangeProps } from './types';
 
 const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
@@ -45,25 +46,27 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
       render={({ field: { value } }) => (
         <Panel isFullWidth>
           {{
-            header: {
-              title: 'Rating Range',
-              actions: (
-                <HStack spacing={2}>
+            header: (
+              <Header
+                label='Rating Range'
+                renderMessage={({ fontSize }) => (
                   <ScaleFade in={value.length > 0} unmountOnExit>
-                    <Rating>{value.join(' - ')}</Rating>
+                    <Rating>{value.join(' -> ')}</Rating>
                   </ScaleFade>
+                )}
+                renderButton={({ color, size, variant }) => (
                   <Button
                     color={color}
                     isDisabled={value.length === 0}
                     onClick={() => form.setValue('rating', [], { shouldDirty: true })}
-                    size='sm'
-                    variant='text'
+                    size={size}
+                    variant={variant}
                   >
                     Clear
                   </Button>
-                </HStack>
-              )
-            },
+                )}
+              />
+            ),
             body: (
               <ButtonGroup width='100%' isAttached>
                 {_.range(0, 11).map((number) => (
