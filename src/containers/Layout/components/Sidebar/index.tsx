@@ -9,8 +9,8 @@ import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
 import { toggleSidebarMode } from '../../../../store/slices/App';
 import { Theme } from '../../../../theme/types';
-import navItems from '../../common/data/navItems';
 import useTransitionsStyle from '../../common/styles/transitions';
+import { navItems } from '../../index';
 import NavItems from '../NavItems';
 import { SidebarProps } from './types';
 
@@ -45,7 +45,13 @@ const Sidebar = ({ width }: SidebarProps): ReactElement => {
       <Button
         isFullWidth
         onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
-        leftIcon={sidebarMode === 'expanded' ? RemoveOutlinedIcon : AddOutlinedIcon}
+        renderLeftIcon={({ fontSize }) =>
+          sidebarMode === 'expanded' ? (
+            <RemoveOutlinedIcon style={{ fontSize }} />
+          ) : (
+            <AddOutlinedIcon style={{ fontSize }} />
+          )
+        }
         variant='outlined'
       >
         {sidebarMode === 'expanded' ? 'Collapse' : ''}

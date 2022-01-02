@@ -56,7 +56,13 @@ const Actions = (props: ActionsProps): ReactElement => {
             color={isLiked ? 'red' : 'gray'}
             isFullWidth
             isDisabled={isLoading || !mediaItem}
-            leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+            renderLeftIcon={({ fontSize }) =>
+              isLiked ? (
+                <FavoriteOutlinedIcon style={{ fontSize }} />
+              ) : (
+                <FavoriteBorderOutlinedIcon style={{ fontSize }} />
+              )
+            }
             onClick={() => onClick()}
             size='md'
             variant='outlined'

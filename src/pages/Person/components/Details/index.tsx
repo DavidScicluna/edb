@@ -6,7 +6,6 @@ import {
   FavoriteOutlined as FavoriteOutlinedIcon
 } from '@material-ui/icons';
 
-
 import Button from '../../../../components/Clickable/Button';
 import Like from '../../../../components/Clickable/Like';
 import Panel from '../../../../components/Panel';
@@ -110,7 +109,13 @@ const Details = (props: DetailsProps): ReactElement => {
                       color={isLiked ? 'red' : 'gray'}
                       isFullWidth={isSm}
                       isDisabled={isLoading || !person}
-                      leftIcon={isLiked ? FavoriteOutlinedIcon : FavoriteBorderOutlinedIcon}
+                      renderLeftIcon={({ fontSize }) =>
+                        isLiked ? (
+                          <FavoriteOutlinedIcon style={{ fontSize }} />
+                        ) : (
+                          <FavoriteBorderOutlinedIcon style={{ fontSize }} />
+                        )
+                      }
                       onClick={() => onClick()}
                       size='md'
                       variant='outlined'

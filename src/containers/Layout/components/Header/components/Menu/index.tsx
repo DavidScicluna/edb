@@ -5,7 +5,7 @@ import { MenuOutlined as MenuOutlinedIcon, CloseOutlined as CloseOutlinedIcon } 
 import { useLocation } from 'react-router-dom';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
-import navItems from '../../../../common/data/navItems';
+import { navItems } from '../../../../index';
 import NavItems from '../../../NavItems';
 
 const Menu = (): ReactElement => {

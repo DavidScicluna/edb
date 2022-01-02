@@ -16,12 +16,12 @@ const backgrounds: BackgroundType[] = [
   {
     label: 'Light',
     value: 'light',
-    icon: WbSunnyOutlinedIcon
+    renderIcon: ({ fontSize }) => <WbSunnyOutlinedIcon style={{ fontSize }} />
   },
   {
     label: 'Dark',
     value: 'dark',
-    icon: Brightness2OutlinedIcon
+    renderIcon: ({ fontSize }) => <Brightness2OutlinedIcon style={{ fontSize }} />
   }
 ];
 

@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
-import navItems from '../../common/data/navItems';
+import { navItems } from '../../index';
 import NavItem from './components/NavItem';
 
 const Footer = (): ReactElement => {

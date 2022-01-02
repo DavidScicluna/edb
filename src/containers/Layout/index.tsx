@@ -1,14 +1,26 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useTheme, useMediaQuery, Box } from '@chakra-ui/react';
+import {
+  HomeTwoTone as HomeTwoToneIcon,
+  HomeOutlined as HomeOutlinedIcon,
+  PeopleAltOutlined as PeopleAltOutlinedIcon,
+  PeopleAltTwoTone as PeopleAltTwoToneIcon,
+  SearchOutlined as SearchOutlinedIcon,
+  SearchTwoTone as SearchTwoToneIcon,
+  TheatersOutlined as TheatersOutlinedIcon,
+  TheatersTwoTone as TheatersTwoToneIcon,
+  TvOutlined as TvOutlinedIcon,
+  TvTwoTone as TvTwoToneIcon,
+  WhatshotOutlined as WhatshotOutlinedIcon,
+  WhatshotTwoTone as WhatshotTwoToneIcon
+} from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
-import useQueriesTyped from '../../common/hooks/useQueriesTyped';
-import axiosInstance from '../../common/scripts/axios';
+import { NavItem } from '../../components/NavItem/types';
 import { toggleSidebarMode } from '../../store/slices/App';
-import { setMovieGenres, setTVGenres, toggleHasDownloaded } from '../../store/slices/Options';
 import { Theme } from '../../theme/types';
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
@@ -22,7 +34,45 @@ import SplashscreenModal from './components/Modals/Splashscreen';
 import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
-import { GenreResponse } from './types';
+
+export const navItems: NavItem[] = [
+  {
+    renderIcon: ({ isActive, fontSize }) =>
+      isActive ? <HomeTwoToneIcon style={{ fontSize }} /> : <HomeOutlinedIcon style={{ fontSize }} />,
+    label: 'Home',
+    path: '/'
+  },
+  {
+    renderIcon: ({ isActive, fontSize }) =>
+      isActive ? <SearchTwoToneIcon style={{ fontSize }} /> : <SearchOutlinedIcon style={{ fontSize }} />,
+    label: 'Search',
+    path: '/search'
+  },
+  {
+    renderIcon: ({ isActive, fontSize }) =>
+      isActive ? <WhatshotTwoToneIcon style={{ fontSize }} /> : <WhatshotOutlinedIcon style={{ fontSize }} />,
+    label: 'Trending',
+    path: '/trending'
+  },
+  {
+    renderIcon: ({ isActive, fontSize }) =>
+      isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
+    label: 'Movies',
+    path: '/movies'
+  },
+  {
+    renderIcon: ({ isActive, fontSize }) =>
+      isActive ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
+    label: 'TV Shows',
+    path: '/tv'
+  },
+  {
+    renderIcon: ({ isActive, fontSize }) =>
+      isActive ? <PeopleAltTwoToneIcon style={{ fontSize }} /> : <PeopleAltOutlinedIcon style={{ fontSize }} />,
+    label: 'People',
+    path: '/people'
+  }
+];
 
 const Layout = (): ReactElement => {
   const theme = useTheme<Theme>();
@@ -32,49 +82,8 @@ const Layout = (): ReactElement => {
   const dispatch = useDispatch();
   const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
-  const isSplashscreenOpen = useSelector((state) => state.modals.ui.isSplashscreenOpen);
-
   const [width, setWidth] = useState<string>('100%');
   const [left, setLeft] = useState<string>(`${sidebarWidth[sidebarMode]}px`);
-
-  const queries = useQueriesTyped([
-    {
-      queryKey: ['movieGenres'],
-      queryFn: async () => {
-        const { data } = await axiosInstance.get<GenreResponse>('/genre/movie/list');
-        return data;
-      }
-    },
-    {
-      queryKey: 'tvGenres',
-      queryFn: async () => {
-        const { data } = await axiosInstance.get<GenreResponse>('/genre/tv/list');
-        return data;
-      }
-    }
-  ]);
-
-  // Saving Movie genres data to redux store
-  useEffect(() => {
-    if (queries[0].isSuccess) {
-      dispatch(setMovieGenres(queries[0].data.genres));
-    }
-  }, [queries[0]]);
-
-  // Saving TV genres data to redux store
-  useEffect(() => {
-    if (queries[1].isSuccess) {
-      dispatch(setTVGenres(queries[1].data.genres));
-    }
-  }, [queries[1]]);
-
-  useEffect(() => {
-    if (queries.some((query) => query.isError || query.isLoading)) {
-      dispatch(toggleHasDownloaded(false));
-    } else {
-      dispatch(toggleHasDownloaded(true));
-    }
-  }, [queries]);
 
   useEffect(() => {
     setWidth(isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%');
@@ -87,40 +96,42 @@ const Layout = (): ReactElement => {
     }
   }, [isLgUp]);
 
-  return isSplashscreenOpen ? (
-    <SplashscreenModal />
-  ) : (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
-      <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
-        <Header width={width} left={left} />
+  return (
+    <>
+      <SplashscreenModal />
 
-        <Box
-          width='100%'
-          maxWidth='100%'
-          position='relative'
-          top={`${headerHeight}px`}
-          left='0px'
-          sx={{ ...transition }}
-        >
-          <Box width='100%' minHeight={`calc(100vh - ${headerHeight + 32}px)`} sx={{ ...transition }}>
-            <Routes />
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
+        <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
+          <Header width={width} left={left} />
+
+          <Box
+            width='100%'
+            maxWidth='100%'
+            position='relative'
+            top={`${headerHeight}px`}
+            left='0px'
+            sx={{ ...transition }}
+          >
+            <Box width='100%' minHeight={`calc(100vh - ${headerHeight + 32}px)`} sx={{ ...transition }}>
+              <Routes />
+            </Box>
+
+            <Footer />
           </Box>
 
-          <Footer />
+          <ScrollToTop />
         </Box>
 
-        <ScrollToTop />
-      </Box>
+        <QuickView />
 
-      <QuickView />
+        <DisplayModal />
 
-      <DisplayModal />
+        <ListsModal />
 
-      <ListsModal />
-
-      <DescriptionModal />
-    </BrowserRouter>
+        <DescriptionModal />
+      </BrowserRouter>
+    </>
   );
 };
 

@@ -38,21 +38,22 @@ const User = (): ReactElement => {
 
   const userLinks: NavItemType[] = [
     {
+      renderIcon: ({ isActive, fontSize }) =>
+        isActive ? <FavoriteOutlinedIcon style={{ fontSize }} /> : <FavoriteBorderOutlinedIcon style={{ fontSize }} />,
       label: 'Liked',
-      path: '/liked',
-      iconActive: FavoriteOutlinedIcon,
-      icon: FavoriteBorderOutlinedIcon
+      path: '/liked'
     },
     {
+      renderIcon: ({ isActive, fontSize }) =>
+        isActive ? <BookmarkOutlinedIcon style={{ fontSize }} /> : <BookmarkBorderOutlinedIcon style={{ fontSize }} />,
       label: 'Lists',
-      path: '/lists',
-      iconActive: BookmarkOutlinedIcon,
-      icon: BookmarkBorderOutlinedIcon
+      path: '/lists'
     },
     {
+      renderIcon: ({ isActive, fontSize }) =>
+        isActive ? <PaletteTwoToneIcon style={{ fontSize }} /> : <PaletteOutlinedIcon style={{ fontSize }} />,
       label: 'Display',
-      iconActive: PaletteTwoToneIcon,
-      icon: PaletteOutlinedIcon,
+
       onClick: () => dispatch(toggleDisplay(true))
     }
   ];

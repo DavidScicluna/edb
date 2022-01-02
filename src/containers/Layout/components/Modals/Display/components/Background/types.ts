@@ -1,8 +1,13 @@
 import { Icon } from '../../../../../../../common/types';
+import { FontSizes } from '../../../../../../../theme/types';
 import { Form } from '../../types';
+
+type RenderIconProps = {
+  fontSize: FontSizes['2xl'];
+};
 
 export type Background = {
   label: string;
   value: Form['background'];
-  icon: Icon;
+  renderIcon: (props: RenderIconProps) => Icon;
 };
