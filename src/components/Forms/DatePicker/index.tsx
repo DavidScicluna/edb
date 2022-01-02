@@ -106,6 +106,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
         isOpen={isOpen}
         onClose={() => handleClose()}
         isCentered
+        isConfirm
         size='md'
       >
         {isShowingMonths ? (

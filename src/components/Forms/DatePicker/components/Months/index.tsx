@@ -29,7 +29,7 @@ const Months = (props: MonthsProps): ReactElement => {
   };
 
   return (
-    <SimpleGrid width='100%' columns={3} spacing={0} p={2}>
+    <SimpleGrid width='100%' columns={[2, 3]} spacing={0} p={2}>
       {full.map((paramMonth, index) => (
         <Button
           key={index}

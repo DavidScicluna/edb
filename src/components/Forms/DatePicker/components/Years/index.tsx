@@ -75,7 +75,7 @@ const Years = (props: YearsProps): ReactElement => {
         maxDate={maxDate}
         onNavigateClick={handleNavigate}
       />
-      <SimpleGrid width='100%' columns={4} spacing={0}>
+      <SimpleGrid width='100%' columns={[3, 4]} spacing={0}>
         {currentYears.length > 0
           ? currentYears.map((paramYears) => (
               <Button
