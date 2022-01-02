@@ -4,7 +4,7 @@ import { useColorMode, useTheme } from '@chakra-ui/react';
 import { Facebook as FacebookIcon, Twitter as TwitterIcon, Instagram as InstagramIcon } from '@material-ui/icons';
 
 import { Theme } from '../../../../../../theme/types';
-import Link from '../Link';
+import Link from '../Social';
 import { LinksProps } from './types';
 
 const ImdbIcon = (): ReactElement => {
@@ -42,7 +42,7 @@ const Links = (props: LinksProps): ReactElement => {
           name={name}
           href={`https://www.facebook.com/${socials.facebook_id}`}
           type='Facebook'
-          icon={FacebookIcon}
+          icon={<FacebookIcon />}
           isDisabled={isLoading}
         />
       ) : null}
@@ -55,7 +55,7 @@ const Links = (props: LinksProps): ReactElement => {
           name={name}
           href={`https://www.twitter.com/${socials.twitter_id}`}
           type='Twitter'
-          icon={TwitterIcon}
+          icon={<TwitterIcon />}
           isDisabled={isLoading}
         />
       ) : null}
@@ -68,7 +68,7 @@ const Links = (props: LinksProps): ReactElement => {
           name={name}
           href={`https://www.instagram.com/${socials.instagram_id}`}
           type='Instagram'
-          icon={InstagramIcon}
+          icon={<InstagramIcon />}
           isDisabled={isLoading}
         />
       ) : null}
@@ -81,7 +81,7 @@ const Links = (props: LinksProps): ReactElement => {
           name={name}
           href={`https://www.imdb.com/name/${socials.imdb_id}`}
           type='IMDB'
-          icon={ImdbIcon}
+          icon={<ImdbIcon />}
           isDisabled={isLoading}
         />
       ) : null}

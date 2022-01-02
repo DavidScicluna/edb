@@ -47,9 +47,13 @@ export default (theme: Theme, { defaultColor, color, isDisabled = false }: LinkP
       }
     },
     icon: {
-      display: 'block',
+      '& svg': {
+        display: 'block',
 
-      fontSize: `${theme.fontSizes['2xl']} !important`
+        width: theme.fontSizes['2xl'],
+        height: theme.fontSizes['2xl'],
+        fontSize: theme.fontSizes['2xl']
+      }
     }
   }
 });
