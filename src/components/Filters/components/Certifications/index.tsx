@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery, Wrap, WrapItem } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, Wrap, WrapItem, HStack, Box } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Controller } from 'react-hook-form';
+import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
 import { Certification as CertificationType } from '../../../../common/types';
@@ -14,9 +15,12 @@ import Certification from './components/Certification';
 import { CertificationsProps } from './types';
 
 const Certifications = (props: CertificationsProps): ReactElement => {
+  const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
+
+  const [ref, { height }] = useElementSize();
 
   const { certifications, form, isLoading = true, isError = false } = props;
 
@@ -56,18 +60,40 @@ const Certifications = (props: CertificationsProps): ReactElement => {
         <Panel isFullWidth>
           {{
             header: {
+              title: 'Certifications',
               actions: (
-                <Button
-                  color={color}
-                  isDisabled={isLoading || isError}
-                  onClick={() => handleAllClick()}
-                  size='sm'
-                  variant='text'
+                <HStack
+                  ref={ref}
+                  divider={
+                    <Box
+                      width='2px'
+                      height={height}
+                      backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+                    />
+                  }
                 >
-                  {handleAllLabel()}
-                </Button>
-              ),
-              title: 'Certification'
+                  <Button
+                    color={color}
+                    isDisabled={
+                      isLoading || isError || value.length === 0 || value.length === (certifications?.length || 0)
+                    }
+                    onClick={() => form.setValue('certifications', [], { shouldDirty: true })}
+                    size='sm'
+                    variant='text'
+                  >
+                    Clear
+                  </Button>
+                  <Button
+                    color={color}
+                    isDisabled={isLoading || isError}
+                    onClick={() => handleAllClick()}
+                    size='sm'
+                    variant='text'
+                  >
+                    {handleAllLabel()}
+                  </Button>
+                </HStack>
+              )
             },
             body: (
               <Wrap width='100%' spacing={isSm ? 1 : 1.5}>
