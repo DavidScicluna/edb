@@ -48,7 +48,7 @@ export default (
       'outlineStyle': 'dashed',
 
       'padding': 0,
-      'marginTop': '4px !important',
+      'marginTop': isClickable ? '4px !important' : 0,
 
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
@@ -94,6 +94,8 @@ export default (
       'cursor': 'not-allowed',
 
       'opacity': 0.5,
+
+      'marginTop': 0,
 
       '& .card_front': {
         transform: 'translateY(-2px) !important'
