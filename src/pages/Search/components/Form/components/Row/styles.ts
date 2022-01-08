@@ -23,10 +23,11 @@ export default (theme: Theme, type?: RowProps['type']): RowStyle => ({
 
     'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
-    '& .chakra-icon': {
+    '& .chakra-text': {
       transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     },
-    '& .chakra-text': {
+
+    '& svg': {
       transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
     }
   },
