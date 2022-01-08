@@ -18,13 +18,13 @@ const HorizontalMovies = (props: HorizontalMoviesProps): ReactElement => {
   ) : !isLoading && isSuccess && movies && movies.length > 0 ? (
     <>
       {movies.map((movie: PartialMovie) => (
-        <VerticalMoviePoster key={movie.id} movie={movie} isLoading={false} />
+        <VerticalMoviePoster key={movie.id} width={['185px', '205px', '230px']} movie={movie} isLoading={false} />
       ))}
     </>
   ) : (
     <>
       {_.range(0, 20).map((_dummy, index: number) => (
-        <VerticalMoviePoster key={index} isLoading />
+        <VerticalMoviePoster key={index} width={['185px', '205px', '230px']} isLoading />
       ))}
     </>
   );

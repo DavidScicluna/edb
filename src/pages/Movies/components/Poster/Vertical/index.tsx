@@ -5,12 +5,12 @@ import VerticalPoster from '../../../../../components/Poster/Vertical';
 import { VerticalMoviePosterProps } from './types';
 
 const VerticalMoviePoster = (props: VerticalMoviePosterProps): ReactElement => {
-  const { movie, isLoading = true } = props;
+  const { movie, width, isLoading = true } = props;
   const { title, poster_path, vote_average, release_date, genre_ids } = movie || {};
 
   return (
     <VerticalPoster
-      width={['185px', '205px', '230px']}
+      width={width || '100%'}
       mediaItem={movie ? { ...movie } : undefined}
       mediaType='movie'
       image={{
