@@ -18,13 +18,13 @@ const HorizontalTV = (props: HorizontalTVProps): ReactElement => {
   ) : !isLoading && isSuccess && shows && shows.length > 0 ? (
     <>
       {shows.map((show: PartialTV) => (
-        <VerticalTVShowPoster key={show.id} show={show} isLoading={false} />
+        <VerticalTVShowPoster key={show.id} width={['185px', '205px', '230px']} show={show} isLoading={false} />
       ))}
     </>
   ) : (
     <>
       {_.range(0, 20).map((_dummy, index: number) => (
-        <VerticalTVShowPoster key={index} isLoading />
+        <VerticalTVShowPoster key={index} width={['185px', '205px', '230px']} isLoading />
       ))}
     </>
   );

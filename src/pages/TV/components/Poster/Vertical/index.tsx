@@ -5,12 +5,12 @@ import VerticalPoster from '../../../../../components/Poster/Vertical';
 import { VerticalTVShowPosterProps } from './types';
 
 const VerticalTVShowPoster = (props: VerticalTVShowPosterProps): ReactElement => {
-  const { show, isLoading = true } = props;
+  const { show, width, isLoading = true } = props;
   const { name, poster_path, vote_average, first_air_date, genre_ids } = show || {};
 
   return (
     <VerticalPoster
-      width={['185px', '205px', '230px']}
+      width={width || '100%'}
       mediaItem={show ? { ...show } : undefined}
       mediaType='tv'
       image={{
