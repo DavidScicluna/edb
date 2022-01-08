@@ -31,7 +31,7 @@ const defaultFilters = {
   'vote_average.lte': '10',
   'vote_count.gte': '300',
   'with_runtime.gte': '0',
-  'with_runtime.lte': '405'
+  'with_runtime.lte': '450'
 };
 
 const Movies = (): ReactElement => {
