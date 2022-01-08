@@ -1,4 +1,4 @@
-import { PartialMovie } from '../../../../common/types/movie';
+import { PartialMovie } from '../../../../../common/types/movie';
 
 export type VerticalMoviesProps = {
   isError?: boolean;
