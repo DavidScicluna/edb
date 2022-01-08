@@ -14,7 +14,7 @@ import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import MediaTypePicker from '../../../../components/MediaTypePicker';
 import Page from '../../../../containers/Page';
-import VerticalPeople from '../../../People/components/VerticalPeople';
+import VerticalPeople from '../../../People/components/Orientation/Vertical';
 
 const People = (): ReactElement => {
   const source = axios.CancelToken.source();

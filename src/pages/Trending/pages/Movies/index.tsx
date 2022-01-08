@@ -14,7 +14,7 @@ import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import MediaTypePicker from '../../../../components/MediaTypePicker';
 import Page from '../../../../containers/Page';
-import VerticalMovies from '../../../Movies/components/VerticalMovies';
+import VerticalMovies from '../../../Movies/components/Orientation/Vertical';
 
 const Movies = (): ReactElement => {
   const source = axios.CancelToken.source();

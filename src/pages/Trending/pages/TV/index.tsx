@@ -14,7 +14,7 @@ import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import MediaTypePicker from '../../../../components/MediaTypePicker';
 import Page from '../../../../containers/Page';
-import VerticalTV from '../../../TV/components/VerticalTV';
+import VerticalTV from '../../../TV/components/Orientation/Vertical';
 
 const TV = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -82,7 +82,7 @@ const TV = (): ReactElement => {
               isError={trendingTVQuery.isError}
               isSuccess={trendingTVQuery.isSuccess}
               isLoading={trendingTVQuery.isFetching || trendingTVQuery.isLoading}
-              tv={tvShows?.results || []}
+              shows={tvShows?.results || []}
             />
 
             <Box style={{ width: isSm ? '100%' : 'auto' }}>
