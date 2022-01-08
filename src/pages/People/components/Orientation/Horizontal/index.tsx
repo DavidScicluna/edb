@@ -18,13 +18,13 @@ const HorizontalPeople = (props: HorizontalPeopleProps): ReactElement => {
   ) : !isLoading && isSuccess && people && people.length > 0 ? (
     <>
       {people.map((person: PartialPerson) => (
-        <VerticalPersonPoster key={person.id} person={person} isLoading={false} />
+        <VerticalPersonPoster key={person.id} width={['185px', '205px', '230px']} person={person} isLoading={false} />
       ))}
     </>
   ) : (
     <>
       {_.range(0, 20).map((_dummy, index: number) => (
-        <VerticalPersonPoster key={index} isLoading />
+        <VerticalPersonPoster key={index} width={['185px', '205px', '230px']} isLoading />
       ))}
     </>
   );
