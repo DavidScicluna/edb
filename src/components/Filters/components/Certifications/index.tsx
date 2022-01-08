@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, Wrap, WrapItem, HStack, Box } from '@chakra-ui/react';
+import sort from 'array-sort';
 import _ from 'lodash';
 import { Controller } from 'react-hook-form';
 import { useElementSize } from 'usehooks-ts';
@@ -118,7 +119,7 @@ const Certifications = (props: CertificationsProps): ReactElement => {
                     />
                   </WrapItem>
                 ) : !isLoading && !_.isNil(certifications) ? (
-                  certifications.map((certification) => (
+                  sort(certifications, 'order').map((certification) => (
                     <WrapItem key={certification.certification}>
                       <Certification
                         {...certification}

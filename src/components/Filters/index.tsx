@@ -27,9 +27,9 @@ export const defaultValues: Form = {
   date: [undefined, undefined],
   genres: [],
   certifications: [],
-  rating: [],
-  count: [],
-  runtime: [],
+  rating: [0, 10],
+  count: [300],
+  runtime: [0, 450],
   adult: false
 };
 
@@ -198,7 +198,7 @@ const Filters = (props: FiltersProps): ReactElement => {
         title='Filter'
         renderActions={({ color, colorMode, size }) => (
           <HStack spacing={isSm ? 1 : 2}>
-            <Fade in={isDirty || !_.isEqual(defaultValues, form.getValues())} unmountOnExit>
+            <Fade in={!_.isEqual(defaultValues, form.getValues())} unmountOnExit>
               <Button color={color} colorMode={colorMode} onClick={() => handleReset()} size={size} variant='text'>
                 Reset
               </Button>

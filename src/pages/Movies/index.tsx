@@ -3,6 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { HStack, ScaleFade, useMediaQuery, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import _ from 'lodash';
+import moment from 'moment';
 import qs from 'query-string';
 import { useInfiniteQuery } from 'react-query';
 import { useHistory } from 'react-router-dom';
@@ -20,6 +21,18 @@ import { movieSortBy as sortBy } from '../../components/SortBy/common/data/sort'
 import { Form as SortForm } from '../../components/SortBy/types';
 import Page from '../../containers/Page';
 import VerticalMovies from './components/Orientation/Vertical';
+
+const defaultFilters = {
+  'language': 'en-US', // TODO: Make this dynamic
+  'ott_region': 'US', // TODO: Make this dynamic
+  'certification_country': 'US', // TODO: Make this dynamic
+  'primary_release_date.lte': moment().subtract(1, 'months').format('YYYY-MM-DD'),
+  'vote_average.gte': '0',
+  'vote_average.lte': '10',
+  'vote_count.gte': '300',
+  'with_runtime.gte': '0',
+  'with_runtime.lte': '405'
+};
 
 const Movies = (): ReactElement => {
   const source = axios.CancelToken.source();
@@ -70,9 +83,8 @@ const Movies = (): ReactElement => {
     Object.keys(currentSearch).forEach((key) => key === 'sort_by' || delete currentSearch[key]);
 
     const filters = _.omitBy(
-      {
-        'language': 'en-US', // TODO: Make this dynamic
-        'certification_country': form.certifications.length > 0 ? 'US' : undefined, // TODO: Make this dynamic
+      _.merge({
+        ...defaultFilters,
         'certification': form.certifications.length > 0 ? form.certifications.join('|') : undefined,
         'include_adult': form.adult ? String(form.adult) : undefined,
         'primary_release_date.gte': form.date.length > 0 && form.date[0] ? form.date[0] : undefined,
@@ -84,7 +96,7 @@ const Movies = (): ReactElement => {
         'vote_count.lte': form.count.length > 0 && form.count[1] ? form.count[1] : undefined,
         'with_runtime.gte': form.runtime.length > 0 && form.runtime[0] ? form.runtime[0] : undefined,
         'with_runtime.lte': form.runtime.length > 0 && form.runtime[1] ? form.runtime[1] : undefined
-      },
+      }),
       _.isNil
     );
 
@@ -117,7 +129,9 @@ const Movies = (): ReactElement => {
     history.push({
       location: '/movies',
       search: qs.stringify(
-        Object.keys(currentSearch).length > 0 ? { ...currentSearch } : { language: 'en-US', sort_by: 'popularity.desc' }
+        Object.keys(currentSearch).length > 0
+          ? _.merge({ ...defaultFilters, ...currentSearch })
+          : _.merge({ ...defaultFilters, sort_by: 'popularity.desc' })
       )
     });
 
