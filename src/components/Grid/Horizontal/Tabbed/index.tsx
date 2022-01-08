@@ -1,7 +1,7 @@
 import React, { ReactElement, Fragment, useRef, useState, useCallback, useEffect } from 'react';
 
 import '../common/styles/styles.css';
-import { useBoolean, VStack } from '@chakra-ui/react';
+import { useBoolean, HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import Panel from '../../../Panel';
@@ -66,42 +66,44 @@ const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement =>
   useEffect(() => handleCheckIsDisabled(), [isFirstItemVisible, isLastItemVisible, visibleItemsWithoutSeparators]);
 
   return (
-    <Panel {...rest} isFullWidth>
-      {{
-        header: {
-          title: typeof title === 'string' ? <Title>{title}</Title> : title,
-          actions: (
-            <Actions
-              isLeftDisabled={isDisabled || isLeftDisabled}
-              isRightDisabled={isDisabled || isRightDisabled}
-              onLeftClick={scrollPrev}
-              onRightClick={scrollNext}
-            />
-          )
-        },
-        body: (
-          <Tabs activeTab={activeTab} onChange={handleOnChange}>
-            <VStack width='100%' spacing={2}>
-              <TabList {...renderTabListProps} activeTab={activeTab} />
-              <TabPanels activeTab={activeTab}>
-                {children.map((panel, index) => (
-                  <Fragment key={index}>
-                    {panel.props.children && panel.props.children.length > 0 ? (
-                      <Scroll apiRef={ref} onInit={handleUpdateApi} onUpdate={handleUpdateApi}>
-                        {panel.props.children}
-                      </Scroll>
-                    ) : (
-                      panel
-                    )}
-                  </Fragment>
-                ))}
-              </TabPanels>
-            </VStack>
-          </Tabs>
-        ),
-        footer
-      }}
-    </Panel>
+    <Tabs activeTab={activeTab} onChange={handleOnChange}>
+      <Panel {...rest} isFullWidth>
+        {{
+          header: {
+            title: (
+              <HStack spacing={2}>
+                {typeof title === 'string' ? <Title>{title}</Title> : title}
+                <TabList {...renderTabListProps} activeTab={activeTab} />
+              </HStack>
+            ),
+            actions: (
+              <Actions
+                isLeftDisabled={isDisabled || isLeftDisabled}
+                isRightDisabled={isDisabled || isRightDisabled}
+                onLeftClick={scrollPrev}
+                onRightClick={scrollNext}
+              />
+            )
+          },
+          body: (
+            <TabPanels activeTab={activeTab}>
+              {children.map((panel, index) => (
+                <Fragment key={index}>
+                  {panel.props.children && panel.props.children.length > 0 ? (
+                    <Scroll apiRef={ref} onInit={handleUpdateApi} onUpdate={handleUpdateApi}>
+                      {panel.props.children}
+                    </Scroll>
+                  ) : (
+                    panel
+                  )}
+                </Fragment>
+              ))}
+            </TabPanels>
+          ),
+          footer
+        }}
+      </Panel>
+    </Tabs>
   );
 };
 

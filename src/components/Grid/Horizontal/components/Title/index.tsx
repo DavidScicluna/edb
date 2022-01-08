@@ -8,7 +8,13 @@ const Title = ({ children }: TitleProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   return (
-    <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='xl' fontWeight='bold'>
+    <Text
+      align='left'
+      color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+      fontSize='xl'
+      fontWeight='bold'
+      whiteSpace='nowrap'
+    >
       {children}
     </Text>
   );
