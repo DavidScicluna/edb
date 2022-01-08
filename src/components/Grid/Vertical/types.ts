@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
+import { DisplayMode } from '../../../store/slices/App/types';
+
+type ChildrenProps = {
+  displayMode: DisplayMode;
+};
+
 export type VerticalGridProps = {
-  children: ReactElement;
-  title?: string;
-  header?: ReactElement;
+  children: (props: ChildrenProps) => ReactElement[];
 };
