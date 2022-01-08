@@ -1,4 +1,4 @@
-import { PartialPerson } from '../../../../common/types/person';
+import { PartialPerson } from '../../../../../common/types/person';
 
 export type HorizontalPeopleProps = {
   isError?: boolean;
