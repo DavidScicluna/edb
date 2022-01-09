@@ -23,7 +23,7 @@ const movieSortBy: SortBy[] = [
   },
   {
     label: 'Title',
-    value: 'original_title'
+    value: 'title'
   },
   {
     label: 'Ratings Count',
