@@ -1,21 +1,20 @@
 import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
-import {
-  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-  FavoriteOutlined as FavoriteOutlinedIcon
-} from '@material-ui/icons';
 
 import { MediaType } from '../../../../common/types';
 import IconButton from '../../../Clickable/IconButton';
-import Like from '../../../Clickable/Like';
+import Like, { handleReturnIcon } from '../../../Clickable/Like';
 import Tooltip from '../../../Tooltip';
 import { PosterLikeProps } from './types';
 
 const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElement => {
+  const { title, mediaType, mediaItem, isLoading = true, size } = props;
+
+  const [isMouseDown, setIsMouseDown] = useBoolean();
   const [isHovering, setIsHovering] = useBoolean();
 
-  const { title, mediaType, mediaItem, isLoading = true, size } = props;
+  const isDisabled: boolean = isLoading || !mediaItem;
 
   return (
     <Like
@@ -24,21 +23,23 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
           aria-label={isLiked ? `Dislike "${title}" ${mediaType} (tooltip)` : `Like "${title}" ${mediaType} (tooltip)`}
           label={isLiked ? `Dislike "${title}"` : `Like "${title}"`}
           placement='top'
-          isOpen={isHovering}
-          isDisabled={isLoading || !mediaItem}
-          gutter={8}
+          isOpen={!isDisabled && isHovering}
+          isDisabled={isDisabled}
+          gutter={isMouseDown ? 7 : 10}
         >
           <IconButton
             aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
             color={isLiked ? 'red' : 'gray'}
-            isDisabled={isLoading || !mediaItem}
+            isDisabled={isDisabled}
             onClick={() => onClick()}
+            onMouseDown={() => setIsMouseDown.on()}
+            onMouseUp={() => setIsMouseDown.off()}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}
             size={size}
             variant='icon'
           >
-            {isLiked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
+            {handleReturnIcon(isLiked)}
           </IconButton>
         </Tooltip>
       )}

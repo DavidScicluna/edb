@@ -1,16 +1,12 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, HStack, Box } from '@chakra-ui/react';
-import {
-  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-  FavoriteOutlined as FavoriteOutlinedIcon
-} from '@material-ui/icons';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
 import Bookmark from '../../../../components/Clickable/Bookmark';
 import Button from '../../../../components/Clickable/Button';
-import Like from '../../../../components/Clickable/Like';
+import Like, { handleReturnIcon } from '../../../../components/Clickable/Like';
 import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
@@ -22,6 +18,8 @@ const Actions = (props: ActionsProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const { mediaItem, mediaType, title, isLoading = true, isError = false } = props;
+
+  const isDisabled: boolean = isError || isLoading || !mediaItem;
 
   return (
     <HStack
@@ -35,7 +33,7 @@ const Actions = (props: ActionsProps): ReactElement => {
           <Button
             color={isBookmarked ? color : 'gray'}
             isFullWidth={isSm}
-            isDisabled={isError || isLoading || !mediaItem}
+            isDisabled={isDisabled}
             onClick={() => onClick()}
             size='md'
             variant='outlined'
@@ -55,15 +53,9 @@ const Actions = (props: ActionsProps): ReactElement => {
         renderButton={({ isLiked, onClick }) => (
           <Button
             color={isLiked ? 'red' : 'gray'}
+            renderLeftIcon={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
             isFullWidth={isSm}
-            isDisabled={isError || isLoading || !mediaItem}
-            renderLeftIcon={({ fontSize }) =>
-              isLiked ? (
-                <FavoriteOutlinedIcon style={{ fontSize }} />
-              ) : (
-                <FavoriteBorderOutlinedIcon style={{ fontSize }} />
-              )
-            }
+            isDisabled={isDisabled}
             onClick={() => onClick()}
             size='md'
             variant='outlined'

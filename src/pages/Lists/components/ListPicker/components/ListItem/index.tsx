@@ -7,7 +7,7 @@ import { useElementSize } from 'usehooks-ts';
 import { useSelector } from '../../../../../../common/hooks';
 import Card from '../../../../../../components/Clickable/Card';
 import Link from '../../../../../../components/Clickable/Link';
-import Radio from '../../../../../../components/Clickable/Radio';
+import Radio from '../../../../../../components/Forms/Radio';
 import { Theme } from '../../../../../../theme/types';
 import { ListItemProps } from './types';
 

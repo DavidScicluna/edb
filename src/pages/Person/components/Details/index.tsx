@@ -1,13 +1,9 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, VStack, Text, ScaleFade } from '@chakra-ui/react';
-import {
-  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-  FavoriteOutlined as FavoriteOutlinedIcon
-} from '@material-ui/icons';
 
 import Button from '../../../../components/Clickable/Button';
-import Like from '../../../../components/Clickable/Like';
+import Like, { handleReturnIcon } from '../../../../components/Clickable/Like';
 import Panel from '../../../../components/Panel';
 import SkeletonText from '../../../../components/Skeleton/Text';
 import Socials from '../../../View/components/Socials';
@@ -107,15 +103,9 @@ const Details = (props: DetailsProps): ReactElement => {
                   renderButton={({ isLiked, onClick }) => (
                     <Button
                       color={isLiked ? 'red' : 'gray'}
+                      renderLeftIcon={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
                       isFullWidth={isSm}
                       isDisabled={isLoading || !person}
-                      renderLeftIcon={({ fontSize }) =>
-                        isLiked ? (
-                          <FavoriteOutlinedIcon style={{ fontSize }} />
-                        ) : (
-                          <FavoriteBorderOutlinedIcon style={{ fontSize }} />
-                        )
-                      }
                       onClick={() => onClick()}
                       size='md'
                       variant='outlined'
