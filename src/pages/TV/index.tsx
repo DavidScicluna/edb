@@ -1,95 +1,203 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { HStack, ScaleFade, useMediaQuery, VStack } from '@chakra-ui/react';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import _ from 'lodash';
+import moment from 'moment';
+import qs from 'query-string';
+import { useInfiniteQuery } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 import axiosInstance from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialTV } from '../../common/types/tv';
+import Button from '../../components/Clickable/Button';
+import DisplayMode from '../../components/Clickable/DisplayMode';
+import LoadMore from '../../components/Clickable/LoadMore';
+import Filters from '../../components/Filters';
+import { Form as FiltersForm } from '../../components/Filters/types';
+import SortBy from '../../components/SortBy';
+import { tvSortBy as sortBy } from '../../components/SortBy/common/data/sort';
+import { Form as SortForm } from '../../components/SortBy/types';
 import Page from '../../containers/Page';
-import { home, tv } from '../../containers/Page/common/data/breadcrumbs';
-import HorizontalGrid from './components/HorizontalGrid';
+import VerticalTV from './components/Orientation/Vertical';
+
+const defaultFilters = {
+  'language': 'en-US', // TODO: Make this dynamic
+  'ott_region': 'US', // TODO: Make this dynamic
+  'certification_country': 'US', // TODO: Make this dynamic
+  'first_air_date.lte': moment().subtract(1, 'months').format('YYYY-MM-DD'),
+  'vote_average.gte': '0',
+  'vote_average.lte': '10',
+  'vote_count.gte': '250',
+  'with_runtime.gte': '0',
+  'with_runtime.lte': '450'
+};
 
 const TV = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  // Fetching popular tv
-  const popularTVQuery = useQuery('popularTV', async () => {
-    const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
-      cancelToken: source.token
-    });
-    return data.results;
-  });
+  const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  // Fetching tv airing_today
-  const tvAiringTodayQuery = useQuery('tvAiringToday', async () => {
-    const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/airing_today', {
-      cancelToken: source.token
-    });
-    return data.results;
-  });
+  const history = useHistory();
 
-  // Fetching on tv
-  const onTVQuery = useQuery('onTV', async () => {
-    const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/on_the_air', {
-      cancelToken: source.token
-    });
-    return data.results;
-  });
+  const [shows, setShows] = useState<Response<PartialTV[]>>();
 
-  // Fetching top rated tv
-  const topRatedTVQuery = useQuery('topRatedTV', async () => {
-    const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/top_rated', {
-      cancelToken: source.token
+  // Fetching TV Shows
+  const tvShowsQuery = useInfiniteQuery(
+    'tv-shows',
+    async ({ pageParam = 1 }) => {
+      const { data } = await axiosInstance.get<Response<PartialTV[]>>('/discover/tv', {
+        params: {
+          page: pageParam,
+          ...(qs.parse(history.location.search || '') || {})
+        },
+        cancelToken: source.token
+      });
+      return data;
+    },
+    {
+      enabled: false,
+      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
+      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
+      onSuccess: (data) => {
+        let shows: PartialTV[] = [];
+
+        data.pages.forEach((page) => {
+          shows = [...shows, ...page.results];
+        });
+
+        setShows({
+          page: data.pages[data.pages.length - 1].page,
+          results: [..._.uniqBy(shows, 'id')],
+          total_pages: data.pages[data.pages.length - 1].total_pages,
+          total_results: data.pages[data.pages.length - 1].total_results
+        });
+        return;
+      }
+    }
+  );
+
+  const handleSetFilters = (form: FiltersForm): void => {
+    const currentSearch = qs.parse(history.location.search);
+    Object.keys(currentSearch).forEach((key) => key === 'sort_by' || delete currentSearch[key]);
+
+    const filters = _.omitBy(
+      _.merge({
+        ...defaultFilters,
+        'certification': form.certifications.length > 0 ? form.certifications.join('|') : undefined,
+        'first_air_date.gte': form.date.length > 0 && form.date[0] ? form.date[0] : undefined,
+        'first_air_date.lte': form.date.length > 0 && form.date[1] ? form.date[1] : undefined,
+        'with_genres': form.genres.length > 0 ? form.genres.join(',') : undefined,
+        'vote_average.gte': form.rating.length > 0 && form.rating[0] ? form.rating[0] : undefined,
+        'vote_average.lte': form.rating.length > 0 && form.rating[1] ? form.rating[1] : undefined,
+        'vote_count.gte': form.count.length > 0 && form.count[0] ? form.count[0] : undefined,
+        'vote_count.lte': form.count.length > 0 && form.count[1] ? form.count[1] : undefined,
+        'with_runtime.gte': form.runtime.length > 0 && form.runtime[0] ? form.runtime[0] : undefined,
+        'with_runtime.lte': form.runtime.length > 0 && form.runtime[1] ? form.runtime[1] : undefined
+      }),
+      _.isNil
+    );
+
+    history.push({
+      location: '/tv',
+      search: qs.stringify({ ..._.mergeWith(currentSearch, filters) })
     });
-    return data.results;
-  });
+
+    setTimeout(() => tvShowsQuery.refetch(), 250);
+  };
+
+  const handleSetSortBy = (form: SortForm): void => {
+    const currentSearch = _.omit(qs.parse(history.location.search), 'sort_by');
+
+    const sortBy = {
+      sort_by: `${form.sortBy.value}.${form.direction}`
+    };
+
+    history.push({
+      location: '/tv',
+      search: qs.stringify({ ..._.mergeWith(currentSearch, sortBy) })
+    });
+
+    setTimeout(() => tvShowsQuery.refetch(), 250);
+  };
 
   useEffect(() => {
+    const currentSearch = qs.parse(history.location.search);
+
+    history.push({
+      location: '/tv',
+      search: qs.stringify(
+        Object.keys(currentSearch).length > 0
+          ? _.merge({ ...defaultFilters, ...currentSearch })
+          : _.merge({ ...defaultFilters, sort_by: 'popularity.desc' })
+      )
+    });
+
+    setTimeout(() => tvShowsQuery.refetch(), 250);
+
     return () => source.cancel();
   }, []);
 
   return (
     <Page title='TV Shows'>
       {{
+        actions: (
+          <HStack width={isSm ? '100%' : 'auto'} spacing={2}>
+            <SortBy
+              renderButton={({ color, onClick }) => (
+                <Button
+                  color={color}
+                  isFullWidth={isSm}
+                  isDisabled={tvShowsQuery.isFetching || tvShowsQuery.isLoading || tvShowsQuery.isError}
+                  onClick={onClick}
+                  variant='outlined'
+                  sx={{ back: { height: '38px' } }}
+                >
+                  Sort By
+                </Button>
+              )}
+              sortBy={[...sortBy]}
+              onSort={handleSetSortBy}
+            />
+            <Filters
+              renderButton={({ color, onClick }) => (
+                <Button
+                  color={color}
+                  isFullWidth={isSm}
+                  isDisabled={tvShowsQuery.isFetching || tvShowsQuery.isLoading || tvShowsQuery.isError}
+                  onClick={onClick}
+                  variant='outlined'
+                  sx={{ back: { height: '38px' } }}
+                >
+                  Filter
+                </Button>
+              )}
+              mediaType='tv'
+              onFilter={handleSetFilters}
+            />
+            <DisplayMode />
+          </HStack>
+        ),
         body: (
-          <VStack spacing={6}>
-            <HorizontalGrid
-              tv={popularTVQuery.data}
-              title='Popular TV Shows'
-              pathname='/tv/popular'
-              isError={popularTVQuery.isError}
-              isSuccess={popularTVQuery.isSuccess}
-              isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}
+          <VStack width='100%' spacing={4} px={2} pt={2}>
+            <VerticalTV
+              isError={tvShowsQuery.isError}
+              isSuccess={tvShowsQuery.isSuccess}
+              isLoading={tvShowsQuery.isFetching || tvShowsQuery.isLoading}
+              shows={shows?.results || []}
             />
 
-            <HorizontalGrid
-              tv={tvAiringTodayQuery.data}
-              title='TV Shows Airing Today'
-              pathname='/tv/airing-today'
-              isError={tvAiringTodayQuery.isError}
-              isSuccess={tvAiringTodayQuery.isSuccess}
-              isLoading={tvAiringTodayQuery.isFetching || tvAiringTodayQuery.isLoading}
-            />
-
-            <HorizontalGrid
-              tv={onTVQuery.data}
-              title='TV Shows on at the moment'
-              pathname='/tv/on-tv'
-              isError={onTVQuery.isError}
-              isSuccess={onTVQuery.isSuccess}
-              isLoading={onTVQuery.isFetching || onTVQuery.isLoading}
-            />
-
-            <HorizontalGrid
-              tv={topRatedTVQuery.data}
-              title='Top Rated TV Shows'
-              pathname='/tv/top-rated'
-              isError={topRatedTVQuery.isError}
-              isSuccess={topRatedTVQuery.isSuccess}
-              isLoading={topRatedTVQuery.isFetching || topRatedTVQuery.isLoading}
-            />
+            <ScaleFade in={!tvShowsQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
+              <LoadMore
+                amount={shows?.results.length || 0}
+                total={shows?.total_results || 0}
+                label='TV Shows'
+                isLoading={tvShowsQuery.isFetching || tvShowsQuery.isLoading}
+                isButtonVisible={(tvShowsQuery.hasNextPage || true) && !tvShowsQuery.isError}
+                onClick={tvShowsQuery.fetchNextPage}
+              />
+            </ScaleFade>
           </VStack>
         )
       }}
