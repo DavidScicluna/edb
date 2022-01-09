@@ -17,7 +17,7 @@ import { useLocation } from 'react-router-dom';
 import Link from '../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../theme/types';
-import routes from '../../../../../Layout/components/Routes/data';
+import { routes } from '../../../../../Layout/components/Routes';
 import { Route } from '../../../../../Layout/components/Routes/types';
 import useStyles from './styles';
 
