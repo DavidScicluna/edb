@@ -85,9 +85,7 @@ const Home = (): ReactElement => {
               title='Popular'
               to={({ mediaType }) => {
                 if (mediaType === 'movie') {
-                  return {
-                    pathname: '/movies'
-                  };
+                  return { pathname: '/movies' };
                 } else {
                   return { pathname: '/tv' };
                 }
