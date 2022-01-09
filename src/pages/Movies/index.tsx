@@ -29,7 +29,7 @@ const defaultFilters = {
   'primary_release_date.lte': moment().subtract(1, 'months').format('YYYY-MM-DD'),
   'vote_average.gte': '0',
   'vote_average.lte': '10',
-  'vote_count.gte': '300',
+  'vote_count.gte': '250',
   'with_runtime.gte': '0',
   'with_runtime.lte': '450'
 };
@@ -43,7 +43,7 @@ const Movies = (): ReactElement => {
 
   const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 
-  // Fetching  movies
+  // Fetching Movies
   const moviesQuery = useInfiniteQuery(
     'movies',
     async ({ pageParam = 1 }) => {
