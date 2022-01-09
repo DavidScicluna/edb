@@ -139,7 +139,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
             ) : null}
 
             {/* Text */}
-            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0.25}>
               <Title title={title} isLoading={isLoading} inView={inView} />
               <Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
             </VStack>

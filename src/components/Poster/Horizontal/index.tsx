@@ -165,12 +165,12 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               width='100%'
               alignItems='flex-start'
               spacing={[
-                isLoading ? 0.5 : 0,
-                isLoading ? 0.5 : 0,
-                isLoading ? 1 : 0,
-                isLoading ? 1 : 0,
-                isLoading ? 1 : 0,
-                isLoading ? 1 : 0
+                isLoading ? 0.5 : 0.25,
+                isLoading ? 0.5 : 0.25,
+                isLoading ? 1 : 0.5,
+                isLoading ? 1 : 0.5,
+                isLoading ? 1 : 0.5,
+                isLoading ? 1 : 0.5
               ]}
             >
               <Title title={title} isLoading={isLoading} inView={inView} />
