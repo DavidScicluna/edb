@@ -11,7 +11,7 @@ const dummyTextWidths = handleReturnDummyWidths(100, 10);
 const Title = (props: TitleProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { title, isLoading = false } = props;
+  const { title, isLoading = false, inView = true } = props;
 
   const [isTruncated, setIsTruncated] = useState<boolean>(false);
 
@@ -26,9 +26,11 @@ const Title = (props: TitleProps): ReactElement => {
 
   return (
     <SkeletonText
-      width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
+      width={inView && isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : 'auto'}
+      maxWidth='100%'
+      height='19.5px'
       offsetY={7}
-      isLoaded={!isLoading}
+      isLoaded={inView && !isLoading}
     >
       <Text
         ref={handleIsTruncated}

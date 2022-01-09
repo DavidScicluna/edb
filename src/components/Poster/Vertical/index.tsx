@@ -4,6 +4,7 @@ import { useTheme, useBoolean, VStack, HStack, Box, AspectRatio, ScaleFade, Fade
 import useInView from 'react-cool-inview';
 import { useDispatch } from 'react-redux';
 
+import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
 import { handleIsTouchDevice } from '../../../common/utils';
 import Button from '../../../components/Clickable/Button';
@@ -24,6 +25,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
   const theme = useTheme<Theme>();
 
   const dispatch = useDispatch();
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const { observe: ref, inView } = useInView<HTMLDivElement>({
     threshold: [0.2, 0.4, 0.6, 0.8, 1],
@@ -41,24 +43,23 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
     isLoading = true
   } = props;
 
-  const [isHoveringPoster, setIsHoveringPoster] = useBoolean();
-
+  const [isHovering, setIsHovering] = useBoolean();
   const [isDisabled, setIsDisabled] = useBoolean();
 
   return (
     <Link
+      isFullWidth
       isDisabled={isLoading || isDisabled}
       to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}
-      onMouseEnter={() => setIsHoveringPoster.on()}
-      onMouseLeave={() => setIsHoveringPoster.off()}
+      onMouseEnter={() => setIsHovering.on()}
+      onMouseLeave={() => setIsHovering.off()}
     >
-      <Card isDisabled={isLoading} isClickable={!isDisabled} isLight>
+      <Card isFullWidth isDisabled={isLoading} isClickable isFixed={isDisabled} isLight>
         <VStack width={width} position='relative' spacing={1} p={1}>
           {/* Image */}
           <Box
-            as={AspectRatio}
             ref={ref}
-            position='relative'
+            as={AspectRatio}
             width='100%'
             minWidth='100%'
             maxWidth='100%'
@@ -84,7 +85,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
                   {/* Quick View component */}
                   {mediaItem && !handleIsTouchDevice() ? (
-                    <ScaleFade in={isHoveringPoster && !isLoading} unmountOnExit>
+                    <ScaleFade in={isHovering && !isLoading} unmountOnExit>
                       <Box
                         position='absolute'
                         bottom={theme.space[1]}
@@ -94,6 +95,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                         px={1}
                       >
                         <Button
+                          color={color}
                           isFullWidth
                           onClick={() =>
                             dispatch(toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } }))
@@ -110,7 +112,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
             </Fade>
           </Box>
 
-          <VStack width='100%' spacing={mediaType !== 'person' ? 0.5 : 1}>
+          <VStack width='100%' spacing={isLoading ? 1 : 0.5}>
             {/* Header */}
             {mediaType !== 'person' ? (
               <HStack width='100%' justify='space-between' spacing={0}>
@@ -135,17 +137,17 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                 </HStack>
               </HStack>
             ) : null}
+
             {/* Text */}
             <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-              <Title title={title} isLoading={isLoading} />
-              <Subtitle subtitle={subtitle} isLoading={isLoading} />
+              <Title title={title} isLoading={isLoading} inView={inView} />
+              <Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
             </VStack>
           </VStack>
 
           {/* Like component */}
           {mediaType === 'person' ? (
             <HStack
-              spacing={0}
               sx={{
                 position: 'absolute',
                 top: 1,
