@@ -11,7 +11,6 @@ import { PosterLikeProps } from './types';
 const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElement => {
   const { title, mediaType, mediaItem, isLoading = true, size } = props;
 
-  const [isMouseDown, setIsMouseDown] = useBoolean();
   const [isHovering, setIsHovering] = useBoolean();
 
   const isDisabled: boolean = isLoading || !mediaItem;
@@ -25,15 +24,13 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
           placement='top'
           isOpen={!isDisabled && isHovering}
           isDisabled={isDisabled}
-          gutter={isMouseDown ? 7 : 10}
+          gutter={2}
         >
           <IconButton
             aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
             color={isLiked ? 'red' : 'gray'}
             isDisabled={isDisabled}
             onClick={() => onClick()}
-            onMouseDown={() => setIsMouseDown.on()}
-            onMouseUp={() => setIsMouseDown.off()}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}
             size={size}

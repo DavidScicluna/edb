@@ -20,6 +20,8 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 
   const { title, mediaType, mediaItem, isLoading = true, size } = props;
 
+  const isDisabled: boolean = isLoading || !mediaItem;
+
   return (
     <Bookmark
       renderButton={({ lists, isBookmarked, onClick }) => (
@@ -39,9 +41,9 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
               : `Add "${title}" to a list`
           }
           placement='top'
-          isOpen={isHovering}
-          isDisabled={isLoading || !mediaItem}
-          gutter={8}
+          isOpen={!isDisabled && isHovering}
+          isDisabled={isDisabled}
+          gutter={2}
         >
           <IconButton
             aria-label={
@@ -54,7 +56,7 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
                 : `Add "${title}" ${mediaType} to a list (tooltip)`
             }
             color={isBookmarked ? color : 'gray'}
-            isDisabled={isLoading || !mediaItem}
+            isDisabled={isDisabled}
             onClick={() => onClick()}
             onMouseEnter={() => setIsHovering.on()}
             onMouseLeave={() => setIsHovering.off()}
