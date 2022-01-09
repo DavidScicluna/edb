@@ -28,7 +28,7 @@ export const defaultValues: Form = {
   genres: [],
   certifications: [],
   rating: [0, 10],
-  count: [300],
+  count: [250],
   runtime: [0, 450],
   adult: false
 };
@@ -122,13 +122,24 @@ const Filters = (props: FiltersProps): ReactElement => {
     if (!_.isEmpty(search) && search) {
       const filters: Form = { ...defaultValues };
 
-      if (
-        search['primary_release_date.gte'] &&
-        typeof search['primary_release_date.gte'] === 'string' &&
-        search['primary_release_date.lte'] &&
-        typeof search['primary_release_date.lte'] === 'string'
-      ) {
-        filters.date = [search['primary_release_date.gte'], search['primary_release_date.lte']];
+      if (mediaType === 'movie') {
+        if (
+          search['primary_release_date.gte'] &&
+          typeof search['primary_release_date.gte'] === 'string' &&
+          search['primary_release_date.lte'] &&
+          typeof search['primary_release_date.lte'] === 'string'
+        ) {
+          filters.date = [search['primary_release_date.gte'], search['primary_release_date.lte']];
+        }
+      } else if (mediaType === 'tv') {
+        if (
+          search['first_air_date.gte'] &&
+          typeof search['first_air_date.gte'] === 'string' &&
+          search['first_air_date.lte'] &&
+          typeof search['first_air_date.lte'] === 'string'
+        ) {
+          filters.date = [search['first_air_date.gte'], search['first_air_date.lte']];
+        }
       }
 
       if (search['with_genres'] && typeof search['with_genres'] === 'string') {
@@ -268,7 +279,7 @@ const Filters = (props: FiltersProps): ReactElement => {
           <RatingRange form={form} />
           <CountRange form={form} />
           <RuntimeRange form={form} />
-          <Adult form={form} mediaType={mediaType} />
+          {mediaType === 'movie' ? <Adult form={form} mediaType={mediaType} /> : null}
         </VStack>
       </Modal>
     </>
