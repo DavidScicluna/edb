@@ -1,16 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { StateProps, ListModal, DescriptionModal, QuickViewModal } from './types';
+import { StateProps, ListModal, QuickViewModal } from './types';
 
 export const defaultListsModal: ListModal = {
   open: false,
   title: '',
-  mediaType: 'movie',
-  mediaItem: undefined
-};
-
-export const defaultDescriptionModal: DescriptionModal = {
-  open: false,
   mediaType: 'movie',
   mediaItem: undefined
 };
@@ -24,7 +18,6 @@ export const defaultQuickViewModal: QuickViewModal = {
 const initialState: StateProps = {
   ui: {
     listsModal: { ...defaultListsModal },
-    descriptionModal: { ...defaultDescriptionModal },
     quickViewModal: { ...defaultQuickViewModal },
     isDisplayModalOpen: false,
     isSplashscreenOpen: true
@@ -38,10 +31,6 @@ const modalsSlice = createSlice({
     toggleList: (state: StateProps, action: PayloadAction<ListModal>) => {
       state.ui.listsModal = action.payload;
     },
-    toggleDescription: (state: StateProps, action: PayloadAction<DescriptionModal>) => {
-      state.ui.descriptionModal = action.payload;
-    },
-
     toggleQuickView: (state: StateProps, action: PayloadAction<QuickViewModal>) => {
       state.ui.quickViewModal = action.payload;
     },
@@ -54,7 +43,6 @@ const modalsSlice = createSlice({
   }
 });
 
-export const { toggleList, toggleDescription, toggleQuickView, toggleDisplay, toggleSplashscreen } =
-  modalsSlice.actions;
+export const { toggleList, toggleQuickView, toggleDisplay, toggleSplashscreen } = modalsSlice.actions;
 
 export default modalsSlice.reducer;

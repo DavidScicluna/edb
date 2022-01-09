@@ -177,13 +177,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               <Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
             </VStack>
 
-            <Box width='100%' onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-              {typeof description === 'string' ? (
-                <Description description={description} isLoading={isLoading} inView={inView} />
-              ) : (
-                description
-              )}
-            </Box>
+            <Description description={description} isLoading={isLoading} inView={inView} />
           </VStack>
 
           {/* Like / List Icon buttons */}
