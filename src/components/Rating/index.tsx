@@ -59,7 +59,12 @@ const Rating = (props: RatingProps): ReactElement => {
       />
       <SkeletonText offsetY={8} isLoaded={!isLoading} ml={0.5}>
         <VStack spacing={0.25}>
-          <Text color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize={size} fontWeight='medium'>
+          <Text
+            color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+            fontSize={size}
+            fontWeight='medium'
+            lineHeight='normal'
+          >
             {children || 'N/A'}
           </Text>
           {/* TODO: Find a way to better display count */}
