@@ -1,10 +1,8 @@
 import { ReactElement, useCallback, useState } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
 
 import { handleReturnDummyWidths, handleIsOverflowing } from '../../../../../common/utils';
-import { toggleDescription } from '../../../../../store/slices/Modals';
 import SkeletonText from '../../../../Skeleton/Text';
 import { DescriptionProps } from './types';
 
@@ -13,9 +11,7 @@ const dummyTextWidths = handleReturnDummyWidths(100, 10);
 const Description = (props: DescriptionProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { mediaType, mediaItem, isLoading = false } = props;
-
-  const dispatch = useDispatch();
+  const { description, isLoading = false, inView = true } = props;
 
   const [isTruncated, setIsTruncated] = useState<boolean>(false);
 
@@ -30,9 +26,11 @@ const Description = (props: DescriptionProps): ReactElement => {
 
   return (
     <SkeletonText
-      width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
+      width={inView && isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : 'auto'}
+      maxWidth='100%'
+      height={['19.25px', '22px', '24.75', '27.5px']}
       offsetY={8.5}
-      isLoaded={!isLoading}
+      isLoaded={inView && !isLoading}
     >
       <Text
         ref={handleIsTruncated}
@@ -43,18 +41,9 @@ const Description = (props: DescriptionProps): ReactElement => {
         isTruncated
         overflow='hidden'
         whiteSpace='nowrap'
-        onClick={() =>
-          dispatch(
-            toggleDescription({
-              open: true,
-              mediaType,
-              mediaItem
-            })
-          )
-        }
       >
         {!isLoading
-          ? mediaItem.description
+          ? description
           : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
       </Text>
     </SkeletonText>

@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import {
+  useTheme,
   useMediaQuery,
   useBreakpointValue,
   useBoolean,
@@ -8,11 +9,18 @@ import {
   VStack,
   Box,
   AspectRatio,
-  Fade
+  Fade,
+  ScaleFade
 } from '@chakra-ui/react';
 import useInView from 'react-cool-inview';
+import { useDispatch } from 'react-redux';
 
+import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
+import { handleIsTouchDevice } from '../../../common/utils';
+import Button from '../../../components/Clickable/Button';
+import { toggleQuickView } from '../../../store/slices/Modals';
+import { Theme } from '../../../theme/types';
 import Card from '../..//Clickable/Card';
 import Link from '../../Clickable/Link';
 import Image from '../../Image';
@@ -28,15 +36,19 @@ import { HorizontalPosterProps } from './types';
 const width = ['100px', '116px', '152px', '188px', '188px', '224px'];
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
+  const theme = useTheme<Theme>();
   const [isSm] = useMediaQuery('(max-width: 600px)');
   const ratingSize = useBreakpointValue({
     'base': 'sm',
-    'sm': 'sm',
-    'md': 'md',
-    'lg': 'lg',
-    'xl': 'lg',
+    'sm': 'md',
+    'md': 'lg',
+    'lg': 'xl',
+    'xl': 'xl',
     '2xl': 'xl'
   });
+
+  const dispatch = useDispatch();
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const { observe: ref, inView } = useInView<HTMLDivElement>({
     threshold: [0.2, 0.4, 0.6, 0.8, 1],
@@ -54,11 +66,18 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
     isLoading = false
   } = props;
 
+  const [isHovering, setIsHovering] = useBoolean();
   const [isDisabled, setIsDisabled] = useBoolean();
 
   return (
-    <Link isDisabled={isLoading || isDisabled} to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}>
-      <Card isFullWidth isDisabled={isLoading} isClickable={!isDisabled} isLight>
+    <Link
+      isFullWidth
+      isDisabled={isLoading || isDisabled}
+      to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}
+      onMouseEnter={() => setIsHovering.on()}
+      onMouseLeave={() => setIsHovering.off()}
+    >
+      <Card isFullWidth isDisabled={isLoading} isClickable isFixed={isDisabled} isLight>
         <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
           <Box
@@ -72,19 +91,46 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
           >
             <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
               <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
-                <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
-                  <Image
-                    alt={image?.alt || ''}
-                    mediaType={mediaType}
-                    maxWidth='none'
-                    height='100%'
-                    borderRadius='base'
-                    thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.thumbnail || ''}${
-                      image?.src || ''
-                    }`}
-                    fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.full || ''}${image?.src || ''}`}
-                  />
-                </Skeleton>
+                <>
+                  <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
+                    <Image
+                      alt={image?.alt || ''}
+                      mediaType={mediaType}
+                      maxWidth='none'
+                      height='100%'
+                      borderRadius='base'
+                      thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.thumbnail || ''}${
+                        image?.src || ''
+                      }`}
+                      fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.full || ''}${image?.src || ''}`}
+                    />
+                  </Skeleton>
+
+                  {/* Quick View component */}
+                  {mediaItem && !handleIsTouchDevice() ? (
+                    <ScaleFade in={isHovering && !isLoading} unmountOnExit>
+                      <Box
+                        position='absolute'
+                        bottom={theme.space[1]}
+                        width='100%'
+                        onMouseEnter={() => setIsDisabled.on()}
+                        onMouseLeave={() => setIsDisabled.off()}
+                        px={1}
+                      >
+                        <Button
+                          color={color}
+                          isFullWidth
+                          onClick={() =>
+                            dispatch(toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } }))
+                          }
+                          size='sm'
+                        >
+                          Quick view
+                        </Button>
+                      </Box>
+                    </ScaleFade>
+                  ) : null}
+                </>
               </AspectRatio>
             </Fade>
           </Box>
@@ -99,7 +145,14 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               'calc(100% - 240px)'
             ]}
             alignItems='flex-start'
-            spacing={[1, 1, 2, 2, 2, 2]}
+            spacing={[
+              isLoading ? 2 : 1,
+              isLoading ? 2 : 1,
+              isLoading ? 4 : 2,
+              isLoading ? 4 : 2,
+              isLoading ? 4 : 2,
+              isLoading ? 4 : 2
+            ]}
           >
             {/* Rating */}
             {mediaType !== 'person' ? (
@@ -108,18 +161,25 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               </Rating>
             ) : null}
 
-            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-              <Title title={title} isLoading={isLoading} />
-              <Subtitle subtitle={subtitle} isLoading={isLoading} />
+            <VStack
+              width='100%'
+              alignItems='flex-start'
+              spacing={[
+                isLoading ? 0.5 : 0,
+                isLoading ? 0.5 : 0,
+                isLoading ? 1 : 0,
+                isLoading ? 1 : 0,
+                isLoading ? 1 : 0,
+                isLoading ? 1 : 0
+              ]}
+            >
+              <Title title={title} isLoading={isLoading} inView={inView} />
+              <Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
             </VStack>
 
             <Box width='100%' onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
               {typeof description === 'string' ? (
-                <Description
-                  mediaType={mediaType}
-                  mediaItem={{ id: mediaItem?.id || -1, title, description }}
-                  isLoading={isLoading}
-                />
+                <Description description={description} isLoading={isLoading} inView={inView} />
               ) : (
                 description
               )}
