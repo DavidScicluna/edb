@@ -1,115 +1,38 @@
-import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
+import { ReactElement } from 'react';
 
-import { HStack } from '@chakra-ui/react';
-import _ from 'lodash';
-import { useLocation } from 'react-router-dom';
-import { useWindowSize } from 'usehooks-ts';
+import { useTheme } from '@chakra-ui/react';
+import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 
-import Arrow from './components/Arrow';
-import { HorizontalScrollProps, ScrollButtonsState, Direction } from './types';
+import './common/styles/styles.css';
+import { handleConvertStringToNumber } from '../../common/utils';
+import { Theme } from '../../theme/types';
+import Child from './components/Child';
+import LeftArrow from './components/LeftArrow';
+import RightArrow from './components/RightArrow';
+import { HorizontalScrollProps } from './types';
 
-const defaultScrollButtonsState = {
-  left: true,
-  right: false
-};
-
-const HorizontalScroll = (props: HorizontalScrollProps): ReactElement => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const { width: windowWidth } = useWindowSize();
-
-  const location = useLocation();
-
-  const { children, width, spacing, isLoading = false } = props;
-
-  const [scrollButtons, setScrollButtons] = useState<ScrollButtonsState>(defaultScrollButtonsState);
-  const [resetScrollButtons, setResetScrollButtons] = useState<boolean>(false);
-
-  const handleContainerRef = useCallback(
-    _.debounce((ref: HTMLDivElement | null) => {
-      if (ref) {
-        const maxScroll = ref.scrollLeft + ref.offsetWidth;
-
-        const isLeftDisabled = ref.scrollLeft === 0;
-        const isRightDisabled =
-          ref.scrollLeft === 0 ? ref.scrollWidth <= ref.offsetWidth : maxScroll >= ref.scrollWidth;
-
-        setScrollButtons({
-          left: isLeftDisabled,
-          right: isRightDisabled
-        });
-        setResetScrollButtons(isLeftDisabled || isRightDisabled ? true : false);
-      } else {
-        handleContainerRef(containerRef.current);
-      }
-    }, 50),
-    [containerRef, setScrollButtons, setResetScrollButtons]
-  );
-
-  /**
-   * This method will either scroll left or right depending on the direction passed as a param
-   *
-   * @param direction - The direction to scroll to
-   */
-  const handleScrollClick = useCallback(
-    (direction: Direction) => {
-      if (containerRef && containerRef.current) {
-        if (direction === 'left') {
-          containerRef.current.scrollLeft = containerRef.current.scrollLeft - 10;
-        } else {
-          containerRef.current.scrollLeft = containerRef.current.scrollLeft + 10;
-        }
-      }
-    },
-    [containerRef]
-  );
-
-  useEffect(() => {
-    setResetScrollButtons(true);
-  }, [location]);
-
-  useEffect(() => {
-    handleContainerRef(containerRef.current);
-  }, [windowWidth, isLoading]);
+const HorizontalScroll = ({ children, divider, isDisabled = false }: HorizontalScrollProps): ReactElement => {
+  const theme = useTheme<Theme>();
 
   return (
-    <HStack width={width || '100%'} maxWidth={width || '100%'} height='100%' position='relative' spacing={0}>
-      {/* Left Arrow Button */}
-      <Arrow
-        direction='left'
-        isDisabled={scrollButtons.left}
-        reset={resetScrollButtons}
-        onScrollClick={handleScrollClick}
-      />
-
-      {/* Scrollable content */}
-      <HStack
-        ref={containerRef}
-        width='100%'
-        maxWidth='100%'
-        overflowX='auto'
-        spacing={spacing ? spacing : 1}
-        onLoad={() => handleContainerRef(containerRef.current)}
-        onScroll={() => handleContainerRef(containerRef.current)}
-        sx={{
-          // CSS to hide scrollbar
-          'scrollbarWidth': 'none',
-          '&::-webkit-scrollbar': {
-            display: 'none'
-          }
-        }}
-      >
-        {children}
-      </HStack>
-
-      {/* Right Arrow Button */}
-      <Arrow
-        direction='right'
-        isDisabled={scrollButtons.right}
-        reset={resetScrollButtons}
-        onScrollClick={handleScrollClick}
-      />
-    </HStack>
+    <ScrollMenu
+      LeftArrow={<LeftArrow isDisabled={isDisabled} />}
+      RightArrow={<RightArrow isDisabled={isDisabled} />}
+      transitionDuration={handleConvertStringToNumber(theme.transition.duration['ultra-slow'], 'ms')}
+      wrapperClassName='wrapperContainer'
+      scrollContainerClassName='scrollContainer'
+    >
+      {children.map((child, index) => (
+        <Child
+          key={`child-${index}`}
+          itemId={`child-${index}`}
+          divider={divider}
+          isLast={index === children.length - 1}
+        >
+          {child}
+        </Child>
+      ))}
+    </ScrollMenu>
   );
 };
 
