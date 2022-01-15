@@ -1,18 +1,25 @@
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 
-import { TabPanels as CUITabPanels, TabPanel, Fade } from '@chakra-ui/react';
+import { TabPanels as CUITabPanels, TabPanel, ScaleFade } from '@chakra-ui/react';
+import { AnimatePresence } from 'framer-motion';
 
+import { TabsContext } from '../../.';
+import { TabsContext as TabsContextType } from '../../types';
 import { TabPanelsProps } from './types';
 
-const TabPanels = ({ children, activeTab }: TabPanelsProps): ReactElement => {
+const TabPanels = ({ children }: TabPanelsProps): ReactElement => {
+  const { activeTab } = useContext<TabsContextType>(TabsContext);
+
   return (
-    <CUITabPanels>
-      {children.map((panel, index) => (
-        <TabPanel key={index} as={Fade} in={activeTab === index} p={0} unmountOnExit>
-          {panel}
-        </TabPanel>
-      ))}
-    </CUITabPanels>
+    <AnimatePresence exitBeforeEnter initial={false}>
+      <CUITabPanels>
+        {children.map((panel, index) => (
+          <TabPanel key={index} as={ScaleFade} in={activeTab === index} p={0}>
+            {panel}
+          </TabPanel>
+        ))}
+      </CUITabPanels>
+    </AnimatePresence>
   );
 };
 
