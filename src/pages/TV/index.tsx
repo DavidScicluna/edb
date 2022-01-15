@@ -58,13 +58,13 @@ const TV = (): ReactElement => {
     },
     {
       enabled: false,
-      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
-      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
+      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
+      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
         let shows: PartialTV[] = [];
 
         data.pages.forEach((page) => {
-          shows = [...shows, ...page.results];
+          shows = [...shows, ...(page?.results || [])];
         });
 
         setShows({
@@ -190,7 +190,7 @@ const TV = (): ReactElement => {
 
             <ScaleFade in={!tvShowsQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
               <LoadMore
-                amount={shows?.results.length || 0}
+                amount={shows?.results?.length || 0}
                 total={shows?.total_results || 0}
                 label='TV Shows'
                 isLoading={tvShowsQuery.isFetching || tvShowsQuery.isLoading}
