@@ -31,13 +31,13 @@ const People = (): ReactElement => {
       return data;
     },
     {
-      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
-      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
+      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
+      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
         let people: PartialPerson[] = [];
 
         data.pages.forEach((page) => {
-          people = [...people, ...page.results];
+          people = [...people, ...(page?.results || [])];
         });
 
         setPeople({
@@ -71,7 +71,7 @@ const People = (): ReactElement => {
 
             <ScaleFade in={!peopleQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
               <LoadMore
-                amount={people?.results.length || 0}
+                amount={people?.results?.length || 0}
                 total={people?.total_results || 0}
                 label='People'
                 isLoading={peopleQuery.isFetching || peopleQuery.isLoading}
