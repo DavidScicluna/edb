@@ -1,29 +1,24 @@
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 
 import { TabList as CUITabList } from '@chakra-ui/react';
 
+import { TabsContext } from '../../.';
 import HorizontalScroll from '../../../HorizontalScroll';
+import { TabsContext as TabsContextType } from '../../types';
 import Tab from './components/Tab';
 import { TabListProps } from './types';
 
 const TabList = (props: TabListProps): ReactElement => {
-  const { renderTabs, activeTab, size } = props;
+  const { activeTab } = useContext<TabsContextType>(TabsContext);
+
+  const { renderTabs, size = 'md' } = props;
 
   return (
     <CUITabList width='100%'>
       <HorizontalScroll>
-        <>
-          {renderTabs.map((tab, index) => (
-            <Tab
-              key={index}
-              label={tab.label}
-              badge={tab.badge}
-              isSelected={activeTab === index}
-              isDisabled={tab.isDisabled || false}
-              size={size}
-            />
-          ))}
-        </>
+        {renderTabs.map((tab, index) => (
+          <Tab {...tab} key={index} isSelected={activeTab === index} size={size} />
+        ))}
       </HorizontalScroll>
     </CUITabList>
   );
