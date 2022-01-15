@@ -58,13 +58,13 @@ const Movies = (): ReactElement => {
     },
     {
       enabled: false,
-      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
-      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
+      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
+      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
         let movies: PartialMovie[] = [];
 
         data.pages.forEach((page) => {
-          movies = [...movies, ...page.results];
+          movies = [...movies, ...(page?.results || [])];
         });
 
         setMovies({
@@ -191,7 +191,7 @@ const Movies = (): ReactElement => {
 
             <ScaleFade in={!moviesQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
               <LoadMore
-                amount={movies?.results.length || 0}
+                amount={movies?.results?.length || 0}
                 total={movies?.total_results || 0}
                 label='Movies'
                 isLoading={moviesQuery.isFetching || moviesQuery.isLoading}
