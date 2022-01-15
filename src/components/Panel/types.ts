@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 import { ColorMode, BoxProps as CUIBoxProps } from '@chakra-ui/react';
 
@@ -11,7 +11,7 @@ export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type Variant = 'transparent' | 'outlined';
 
 export type Header = {
-  title?: ReactElement | string;
+  title?: ReactNode;
   actions?: ReactElement;
 };
 
@@ -24,7 +24,7 @@ export type PanelProps = {
   color?: keyof Color;
   colorMode?: ColorMode;
   isFullWidth?: boolean;
-  hasDivider?: boolean;
+  isDivisible?: boolean;
   size?: Size;
   variant?: Variant;
 } & CUIBoxProps;

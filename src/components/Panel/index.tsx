@@ -21,7 +21,7 @@ const Panel = (props: PanelProps): ReactElement => {
     color = 'gray',
     colorMode: colorModeProp,
     isFullWidth = false,
-    hasDivider = true,
+    isDivisible = true,
     size = 'md',
     variant = 'outlined',
     ...rest
@@ -74,9 +74,9 @@ const Panel = (props: PanelProps): ReactElement => {
   return (
     <VStack
       {...rest}
-      divider={hasDivider ? <Divider colorMode={colorMode} /> : undefined}
+      divider={isDivisible ? <Divider colorMode={colorMode} /> : undefined}
       p={handleReturnPadding()}
-      spacing={handleReturnSpacing()}
+      spacing={isDivisible ? handleReturnSpacing() : 0}
       sx={{ ..._.merge(style.panel[variant], style[colorMode][variant][size], style[colorMode][variant]) }}
     >
       {children.header ? (
