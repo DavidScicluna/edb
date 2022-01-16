@@ -1,22 +1,18 @@
-import React from 'react';
-
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './containers/App';
-import store from './store';
-
+// Importing Main Font (Work-Sans)
+import '@fontsource/work-sans/100.css';
+import '@fontsource/work-sans/200.css';
+import '@fontsource/work-sans/300.css';
+import '@fontsource/work-sans/400.css';
+import '@fontsource/work-sans/500.css';
+import '@fontsource/work-sans/600.css';
+import '@fontsource/work-sans/700.css';
+import '@fontsource/work-sans/800.css';
+import '@fontsource/work-sans/900.css';
+// Importing Logo Font (Pacifico)
+import '@fontsource/pacifico/400.css';
 import './index.css';
 
-const persistor = persistStore(store);
-
-ReactDOM.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
-  </Provider>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));

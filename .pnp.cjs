@@ -40,6 +40,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@chakra-ui/theme-tools", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.3.1"],
             ["@emotion/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.7.1"],
             ["@emotion/styled", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.6.0"],
+            ["@fontsource/pacifico", "npm:4.5.0"],
+            ["@fontsource/work-sans", "npm:4.5.2"],
             ["@hookform/resolvers", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.8.5"],
             ["@material-ui/core", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:4.12.3"],
             ["@material-ui/icons", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:4.11.2"],
@@ -4896,6 +4898,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["js-yaml", "npm:4.1.0"],
             ["minimatch", "npm:3.0.4"],
             ["strip-json-comments", "npm:3.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@fontsource/pacifico", [
+        ["npm:4.5.0", {
+          "packageLocation": "./.yarn/cache/@fontsource-pacifico-npm-4.5.0-fdfc5dada6-e12be5f829.zip/node_modules/@fontsource/pacifico/",
+          "packageDependencies": [
+            ["@fontsource/pacifico", "npm:4.5.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@fontsource/work-sans", [
+        ["npm:4.5.2", {
+          "packageLocation": "./.yarn/cache/@fontsource-work-sans-npm-4.5.2-927a9ea266-792d53be35.zip/node_modules/@fontsource/work-sans/",
+          "packageDependencies": [
+            ["@fontsource/work-sans", "npm:4.5.2"]
           ],
           "linkType": "HARD",
         }]
@@ -9988,6 +10008,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@chakra-ui/theme-tools", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.3.1"],
             ["@emotion/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.7.1"],
             ["@emotion/styled", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.6.0"],
+            ["@fontsource/pacifico", "npm:4.5.0"],
+            ["@fontsource/work-sans", "npm:4.5.2"],
             ["@hookform/resolvers", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.8.5"],
             ["@material-ui/core", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:4.12.3"],
             ["@material-ui/icons", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:4.11.2"],

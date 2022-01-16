@@ -23,7 +23,7 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
 
     fontFamily: '"Pacifico", cursive',
     fontSize: size === 'sm' ? 'lg' : size === 'md' ? '4xl' : '6xl',
-    fontWeight: 'bold',
+    fontWeight: 400,
     lineHeight: size === 'sm' ? '20px' : size === 'md' ? '40px' : '75px',
     textTransform: 'lowercase',
 
