@@ -99,8 +99,8 @@ const Layout = (): ReactElement => {
             handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) + sidebarWidth.expanded
           }px`}
           centerContent
-          m={0}
           p={0}
+          sx={{ ...transition }}
         >
           <HStack width='100%' position='relative' spacing={0}>
             {isLgUp ? <Sidebar /> : null}
@@ -113,7 +113,7 @@ const Layout = (): ReactElement => {
             >
               <Header />
 
-              <VStack width='100%'  spacing={4} sx={{ ...transition }}>
+              <VStack width='100%' spacing={4} sx={{ ...transition }}>
                 <Box
                   width='100%'
                   minHeight={`calc(100vh - ${
