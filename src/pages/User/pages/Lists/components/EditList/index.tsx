@@ -1,6 +1,6 @@
 import { ReactElement, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import { useForm, useFormState, Controller } from 'react-hook-form';
@@ -13,6 +13,7 @@ import Input from '../../../../../../components/Forms/Input';
 import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
 import { setLists } from '../../../../../../store/slices/User';
+import { Theme } from '../../../../../../theme/types';
 import { EditListProps, Form } from './types';
 import { defaultValues, schema } from './validation';
 
@@ -30,6 +31,7 @@ const placeholders = [
 const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
 
 const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
@@ -140,6 +142,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
                 onChange={onChange}
                 isFullWidth
                 value={value}
+                sx={{ textarea: { height: theme.space[12.5] } }}
               />
             )}
           />
