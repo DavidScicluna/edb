@@ -59,7 +59,7 @@ export default (
     main: {
       'backgroundColor': isChildActive ? 'transparent' : isActive ? `${color}.400` : 'transparent',
 
-      '& .chaqkra-text': {
+      '& .chakra-text': {
         color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.400'
       },
 

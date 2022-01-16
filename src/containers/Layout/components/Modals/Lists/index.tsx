@@ -1,13 +1,13 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
-import CreateList from '../../../../../pages/Lists/components/CreateList';
+import CreateList from '../../../../../pages/User/pages/Lists/components/CreateList';
 import { defaultListsModal, toggleList } from '../../../../../store/slices/Modals';
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
 import { setLists } from '../../../../../store/slices/User';
@@ -15,6 +15,8 @@ import { List as ListType } from '../../../../../store/slices/User/types';
 import List from './components/List';
 
 const ListsModal = (): ReactElement => {
+  const [isSm] = useMediaQuery('(max-width: 600px)');
+
   const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
 
   const dispatch = useDispatch();
@@ -41,13 +43,13 @@ const ListsModal = (): ReactElement => {
 
           switch (listsModal.mediaType) {
             case 'movie': {
-              const movieMediaItem: any = { ...listsModal.mediaItem, dateAdded: moment(new Date()).toISOString() };
+              const movieMediaItem = { ...listsModal.mediaItem, dateAdded: moment(new Date()).toISOString() };
 
               results.movies = [...results.movies, movieMediaItem];
               break;
             }
             case 'tv': {
-              const showMediaItem: any = { ...listsModal.mediaItem, dateAdded: moment(new Date()).toISOString() };
+              const showMediaItem = { ...listsModal.mediaItem, dateAdded: moment(new Date()).toISOString() };
 
               results.tv = [...results.tv, showMediaItem];
               break;
@@ -94,7 +96,7 @@ const ListsModal = (): ReactElement => {
   return (
     <>
       <Modal
-        title={`Add "${listsModal.title}" to a list`}
+        title={isSm ? 'Add to a list/s' : `Add "${listsModal.title}" to a list`}
         renderActions={({ color, colorMode, size }) => (
           <Button
             color={color}
@@ -112,7 +114,9 @@ const ListsModal = (): ReactElement => {
       >
         <VStack spacing={2} p={2}>
           {lists.map((list) => (
-            <List key={list.id} {...list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />
+            <span key={list.id} style={{ width: '100%' }}>
+              <List list={list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />
+            </span>
           ))}
         </VStack>
       </Modal>

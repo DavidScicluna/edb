@@ -96,7 +96,7 @@ const Lists = (): ReactElement => {
 
   return (
     <>
-      <Page title='Liked'>
+      <Page title='Lists'>
         {{
           actions: (
             <Button onClick={() => onCreateListOpen()} isFullWidth={isSm} variant='outlined'>
