@@ -4,8 +4,8 @@ import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
+import Divider from '../../../../../../components/Divider';
 import TabList from '../../../../../../components/Tabs/components/TabList';
-import Divider from '../../../../components/Divider';
 import ListsTabButton from './components/ListsTabButton';
 import { ListHeaderProps } from './types';
 

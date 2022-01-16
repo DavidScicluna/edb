@@ -5,12 +5,12 @@ import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
+import Divider from '../../../../components/Divider';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
-import Divider from '../../components/Divider';
-import Inactive from '../../components/Inactive';
 import MediaTypesHeader from '../../components/MediaTypesHeader';
+import MediaTypesPicker from '../../components/MediaTypesPicker';
 import Movies from '../../components/Movies';
 import People from '../../components/People';
 import TV from '../../components/TV';
@@ -100,7 +100,7 @@ const Liked = (): ReactElement => {
               />
 
               {_.isNil(activeTab) ? (
-                <Inactive
+                <MediaTypesPicker
                   mediaTypes={handleReturnMediaTypes()}
                   label='Oh no! Liked list is currently empty.'
                   description='Unfortunately, you have not liked any items. Please like an item to view it in the liked list.'

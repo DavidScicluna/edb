@@ -4,11 +4,11 @@ import { VStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { MediaType } from '../../../../../../common/types';
+import Divider from '../../../../../../components/Divider';
 import Tabs from '../../../../../../components/Tabs';
 import TabPanels from '../../../../../../components/Tabs/components/TabPanels';
-import Divider from '../../../../components/Divider';
-import Inactive from '../../../../components/Inactive';
 import MediaTypesHeader from '../../../../components/MediaTypesHeader';
+import MediaTypesPicker from '../../../../components/MediaTypesPicker';
 import Movies from '../../../../components/Movies';
 import TV from '../../../../components/TV';
 import { MediaTypesSectionProps } from './types';
@@ -82,7 +82,7 @@ const MediaTypesSection = ({ movies, tv, renderActions }: MediaTypesSectionProps
         />
 
         {_.isNil(activeTab) ? (
-          <Inactive
+          <MediaTypesPicker
             mediaTypes={handleReturnMediaTypes()}
             label='Oh no! The list is empty.'
             description='Unfortunately, you have not added any items to the list. Please add an item to view it in the list.'

@@ -13,9 +13,9 @@ import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
+import Divider from '../../../../components/Divider';
 import TabList from '../../../../components/Tabs/components/TabList';
 import { Theme } from '../../../../theme/types';
-import Divider from '../Divider';
 import { MediaTypesHeaderProps } from './types';
 
 const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person'];

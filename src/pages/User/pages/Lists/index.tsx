@@ -8,12 +8,12 @@ import _ from 'lodash';
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';
+import Divider from '../../../../components/Divider';
 import Empty from '../../../../components/Empty';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
 import { List as ListType } from '../../../../store/slices/User/types';
-import Divider from '../../components/Divider';
 import CreateList from './components/CreateList';
 import DeleteList from './components/DeleteList';
 import EditList from './components/EditList';
@@ -87,7 +87,10 @@ const Lists = (): ReactElement => {
 
   useEffect(() => {
     return () => {
+      toast.closeAll();
+
       setActiveTab(undefined);
+      setSelectedList(undefined);
     };
   }, []);
 
