@@ -1,4 +1,5 @@
-import { ColorMode } from '../../../../common/types';
+import { ColorMode } from '@chakra-ui/react';
+
 import { Header, Size } from '../../types';
 
 export type HeaderProps = {

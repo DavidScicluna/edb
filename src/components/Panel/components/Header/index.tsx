@@ -1,11 +1,13 @@
 import { ReactElement } from 'react';
 
-import { HStack, Text } from '@chakra-ui/react';
+import { useColorMode, HStack, Text } from '@chakra-ui/react';
 
 import { Space } from '../../../../theme/types';
 import { HeaderProps } from './types';
 
-const Header = ({ actions, colorMode, title, size = 'md' }: HeaderProps): ReactElement => {
+const Header = ({ actions, title, size = 'md' }: HeaderProps): ReactElement => {
+  const { colorMode } = useColorMode();
+
   /**
    * This method will return the appropriate padding depending on the size passed
    *

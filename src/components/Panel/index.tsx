@@ -1,12 +1,11 @@
 import { ReactElement, isValidElement } from 'react';
 
-import { useTheme, useColorMode, VStack, Box } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, VStack, Box } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { ColorMode } from '../../common/types';
 import { Theme, Space } from '../../theme/types';
+import Divider from '../Divider';
 import Body from './components/Body';
-import Divider from './components/Divider';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import useStyles from './styles';
@@ -76,7 +75,7 @@ const Panel = (props: PanelProps): ReactElement => {
       {...rest}
       divider={isDivisible ? <Divider colorMode={colorMode} /> : undefined}
       p={handleReturnPadding()}
-      spacing={isDivisible ? handleReturnSpacing() : 0}
+      spacing={0}
       sx={{ ..._.merge(style.panel[variant], style[colorMode][variant][size], style[colorMode][variant]) }}
     >
       {children.header ? (
