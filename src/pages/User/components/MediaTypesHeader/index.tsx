@@ -15,25 +15,26 @@ import { useElementSize } from 'usehooks-ts';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import TabList from '../../../../components/Tabs/components/TabList';
 import { Theme } from '../../../../theme/types';
-import Divider from '../../components/Divider';
-import { HeaderProps } from './types';
+import Divider from '../Divider';
+import { MediaTypesHeaderProps } from './types';
 
-const defaultMediaTypes: HeaderProps['mediaTypes'] = ['movie', 'tv', 'person'];
+const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person'];
 
-const defaultIsDisabled: HeaderProps['isDisabled'] = { movie: false, tv: false, person: false };
+const defaultIsDisabled: MediaTypesHeaderProps['isDisabled'] = { movie: false, tv: false, person: false };
 
-const Header = (props: HeaderProps): ReactElement => {
+const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
   const theme = useTheme<Theme>();
 
   const [ref, { height }] = useElementSize();
 
-  const { activeTab, mediaTypes = defaultMediaTypes, isDisabled = defaultIsDisabled } = props;
+  const { activeTab, mediaTypes = defaultMediaTypes, isDisabled = defaultIsDisabled, renderActions } = props;
 
   return (
     <HStack
       ref={ref}
       width='100%'
-      minHeight='43px' // Size of DisplayMode since they might be un-rendered
+      minHeight='43px' // Size of Actions since they might be un-rendered
+      maxHeight='43px' // Size of Actions since they might be un-rendered
       spacing={2}
       divider={
         <Fade
@@ -86,10 +87,13 @@ const Header = (props: HeaderProps): ReactElement => {
       />
 
       <Fade in={!_.isNil(activeTab)} unmountOnExit>
-        <DisplayMode />
+        <HStack spacing={2}>
+          <DisplayMode />
+          {renderActions ? renderActions() : null}
+        </HStack>
       </Fade>
     </HStack>
   );
 };
 
-export default Header;
+export default MediaTypesHeader;
