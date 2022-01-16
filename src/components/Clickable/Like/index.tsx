@@ -31,6 +31,10 @@ const Like = (props: LikeProps): ReactElement => {
         : liked.people.some((person) => person.id === mediaItem.id)
       : false;
 
+  /**
+   * This method will remove the media-item from its respective media type array
+   * Meaning the user has un-liked the media-item
+   */
   const handleRemoveLike = (): void => {
     const updatedLiked = { ...liked };
 
@@ -51,24 +55,28 @@ const Like = (props: LikeProps): ReactElement => {
     dispatch(setLiked({ ...updatedLiked }));
   };
 
+  /**
+   * This method will save the media-item into its respective media type array
+   * Meaning the user has liked the media-item
+   */
   const handleLike = (): void => {
     const updatedLiked = { ...liked };
 
     switch (mediaType) {
       case 'movie': {
-        const movieMediaItem: any = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+        const movieMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
 
         updatedLiked.movies = [...updatedLiked.movies, movieMediaItem];
         break;
       }
       case 'tv': {
-        const showMediaItem: any = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+        const showMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
 
         updatedLiked.tv = [...updatedLiked.tv, showMediaItem];
         break;
       }
       case 'person': {
-        const personMediaItem: any = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+        const personMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
 
         updatedLiked.people = [...updatedLiked.people, personMediaItem];
         break;
