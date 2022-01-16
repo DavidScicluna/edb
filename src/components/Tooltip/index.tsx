@@ -42,8 +42,8 @@ const Tooltip = forwardRef<TooltipRef, TooltipProps>(function Tooltip(props, ref
         'background': `gray.${colorMode === 'light' ? 700 : 200}`,
         'backgroundColor': `gray.${colorMode === 'light' ? 700 : 200}`,
 
-        'px': 1.5,
-        'py': 0.75,
+        'px': 1,
+        'py': 0.5,
 
         '& .chakra-tooltip__arrow': {
           boxShadow: `${theme.shadows.base} !important`,
