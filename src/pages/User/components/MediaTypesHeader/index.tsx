@@ -86,12 +86,12 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
         ])}
       />
 
-      <Fade in={!_.isNil(activeTab)} unmountOnExit>
-        <HStack spacing={2}>
+      <HStack spacing={2}>
+        <Fade in={!_.isNil(activeTab)} unmountOnExit>
           <DisplayMode />
-          {renderActions ? renderActions() : null}
-        </HStack>
-      </Fade>
+        </Fade>
+        {renderActions ? renderActions() : null}
+      </HStack>
     </HStack>
   );
 };
