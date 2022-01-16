@@ -14,4 +14,9 @@ export type CardProps = {
   isLight?: boolean;
   isClickable?: boolean;
   isDisabled?: boolean;
-} & BoxProps;
+  isFixed?: boolean;
+  sx?: {
+    back?: BoxProps['sx'];
+    front?: BoxProps['sx'];
+  };
+} & Omit<BoxProps, 'sx'>;

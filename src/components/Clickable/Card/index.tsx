@@ -18,27 +18,28 @@ const Card = forwardRef<CardRef, CardProps>(function Card(props, ref): ReactElem
     isFullWidth = false,
     isLight = false,
     isDisabled = false,
+    isFixed = false,
     isClickable = false,
+    sx,
     ...rest
   } = props;
 
   const colorMode: ColorMode = colorModeProp || colorModeHook;
 
-  const style = useStyles(theme, { color, isFullWidth, isLight, isClickable });
+  const style = useStyles(theme, { color, isFullWidth, isLight, isClickable, isFixed });
 
   return (
     <Box
       ref={ref}
-      sx={{
-        ..._.merge(
-          style.card.back,
-          style[colorMode].back,
-          isDisabled ? style.card.disabled : {},
-          isDisabled ? style[colorMode].disabled : {}
-        )
-      }}
+      aria-disabled={isDisabled}
+      sx={{ ..._.merge(style.card.back, style[colorMode].back, sx?.back || {}) }}
+      _disabled={{ ..._.merge(style.card.disabled, style[colorMode].disabled) }}
     >
-      <Box {...rest} className='card_front' sx={{ ..._.merge(style.card.front, style[colorMode].front) }}>
+      <Box
+        {...rest}
+        className='card_front'
+        sx={{ ..._.merge(style.card.front, style[colorMode].front, sx?.front || {}) }}
+      >
         {children}
       </Box>
     </Box>

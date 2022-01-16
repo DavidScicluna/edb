@@ -18,16 +18,17 @@ type StyleCardProps = {
   color: CardProps['color'];
   isFullWidth: CardProps['isFullWidth'];
   isLight: CardProps['isLight'];
+  isFixed: CardProps['isFixed'];
   isClickable: CardProps['isClickable'];
 };
 
 export default (
   theme: Theme,
-  { color = 'gray', isFullWidth = false, isLight = false, isClickable = true }: StyleCardProps
+  { color = 'gray', isFullWidth = false, isLight = false, isFixed = false, isClickable = false }: StyleCardProps
 ): CardStyle => ({
   card: {
     back: {
-      'cursor': isClickable ? 'pointer' : 'default',
+      'cursor': isFixed || isClickable ? 'pointer' : 'default',
 
       'width': isFullWidth ? '100%' : 'auto',
       'height': 'auto',
@@ -57,7 +58,7 @@ export default (
       },
 
       '&:active .card_front': {
-        transform: 'translateY(-2px)'
+        transform: isFixed ? `translateY(${isClickable ? '-5px' : '-2px'})` : isClickable ? 'translateY(-2px)' : 'none'
       },
 
       '&:focus': {
@@ -92,6 +93,7 @@ export default (
     },
     disabled: {
       'cursor': 'not-allowed',
+      'pointerEvents': 'none',
 
       'opacity': 0.5,
 
@@ -117,12 +119,13 @@ export default (
       },
 
       '&:active': {
-        'backgroundColor': isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`,
+        'backgroundColor':
+          !isFixed && isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`,
 
         '& .card_front': {
-          borderColor: isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`,
+          borderColor: !isFixed && isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`,
           backgroundColor: 'gray.50',
-          color: isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`
+          color: !isFixed && isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`
         }
       },
 
@@ -139,7 +142,7 @@ export default (
       'background': `${theme.colors.gray[isLight ? 200 : 400]} !important`,
       'backgroundColor': `${theme.colors.gray[isLight ? 200 : 400]} !important`,
 
-      '& .button_front': {
+      '& .card_front': {
         borderColor: `${theme.colors.gray[isLight ? 200 : 400]} !important`,
         backgroundColor: `${theme.colors.gray[50]} !important`,
         color: `${theme.colors.gray[isLight ? 200 : 400]} !important`
@@ -161,12 +164,13 @@ export default (
       },
 
       '&:active': {
-        'backgroundColor': isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`,
+        'backgroundColor':
+          !isFixed && isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`,
 
         '& .card_front': {
-          borderColor: isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`,
+          borderColor: !isFixed && isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`,
           backgroundColor: 'gray.900',
-          color: isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`
+          color: !isFixed && isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`
         }
       }
     },
@@ -179,7 +183,7 @@ export default (
       'background': `${theme.colors.gray[isLight ? 700 : 500]} !important`,
       'backgroundColor': `${theme.colors.gray[isLight ? 700 : 500]} !important`,
 
-      '& .button_front': {
+      '& .card_front': {
         borderColor: `${theme.colors.gray[isLight ? 700 : 500]} !important`,
         backgroundColor: `${theme.colors.gray[900]} !important`,
         color: `${theme.colors.gray[isLight ? 700 : 500]} !important`
