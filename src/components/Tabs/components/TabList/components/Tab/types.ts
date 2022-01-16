@@ -1,6 +1,6 @@
 import { Icon } from '../../../../../../common/types';
 
-type IconProps = {
+type RenderProps = {
   width?: string;
   height?: string;
   fontSize?: string;
@@ -9,15 +9,15 @@ type IconProps = {
 
 export type Tab = {
   label: string;
-  renderLeftIcon?: (props: IconProps) => Icon;
-  renderRightIcon?: (props: IconProps) => Icon;
+  renderLeftIcon?: (props: RenderProps) => Icon;
+  renderRightIcon?: (props: RenderProps) => Icon;
   isDisabled?: boolean;
 };
 
 export type Size = 'sm' | 'md' | 'lg';
 
-export type TabsProps = {
+export type TabsProps = Tab & {
   isSelected: boolean;
   isFullWidth?: boolean;
   size?: Size;
-} & Tab;
+};

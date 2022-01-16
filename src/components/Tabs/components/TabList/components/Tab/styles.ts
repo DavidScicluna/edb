@@ -103,6 +103,7 @@ export default (
   },
   disabled: {
     cursor: 'not-allowed',
+    pointerEvents: 'none',
 
     opacity: 0.5
   },
