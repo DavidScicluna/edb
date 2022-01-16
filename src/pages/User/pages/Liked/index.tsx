@@ -9,11 +9,11 @@ import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
 import Divider from '../../components/Divider';
-import Header from '../../components/Header';
+import Inactive from '../../components/Inactive';
+import MediaTypesHeader from '../../components/MediaTypesHeader';
 import Movies from '../../components/Movies';
 import People from '../../components/People';
 import TV from '../../components/TV';
-import Inactive from './components/Inactive';
 
 const Liked = (): ReactElement => {
   const movies = useSelector((state) => state.user.data.liked.movies);
@@ -94,13 +94,18 @@ const Liked = (): ReactElement => {
         body: (
           <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
             <VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2} p={2}>
-              <Header
+              <MediaTypesHeader
                 activeTab={activeTab}
                 isDisabled={{ movie: movies.length === 0, tv: tv.length === 0, person: people.length === 0 }}
               />
 
               {_.isNil(activeTab) ? (
-                <Inactive mediaTypes={handleReturnMediaTypes()} onSetMediaType={handleSetMediaType} />
+                <Inactive
+                  mediaTypes={handleReturnMediaTypes()}
+                  label='Oh no! Liked list is currently empty.'
+                  description='Unfortunately, you have not liked any items. Please like an item to view it in the liked list.'
+                  onSetMediaType={handleSetMediaType}
+                />
               ) : (
                 <TabPanels>
                   <Movies movies={movies} />
