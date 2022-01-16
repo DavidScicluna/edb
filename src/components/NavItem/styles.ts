@@ -1,6 +1,5 @@
 import { Style } from '../../common/types';
-import { Theme as UserTheme } from '../../store/slices/User/types';
-import { Theme } from '../../theme/types';
+import { Theme, Color } from '../../theme/types';
 
 type NavItemStyle = {
   common: {
@@ -18,14 +17,25 @@ type NavItemStyle = {
   };
 };
 
+type StyleNavItemProps = {
+  color: keyof Color;
+  isActive: boolean;
+  isChildActive: boolean;
+  renderChildren: boolean;
+  isExpanded: boolean;
+  isOpen: boolean;
+};
+
 export default (
   theme: Theme,
-  color: UserTheme['color'],
-  isActive = false,
-  isChildActive = false,
-  renderChildren = false,
-  isExpanded = false,
-  isOpen = false
+  {
+    color,
+    isActive = false,
+    isChildActive = false,
+    renderChildren = false,
+    isExpanded = false,
+    isOpen = false
+  }: StyleNavItemProps
 ): NavItemStyle => ({
   common: {
     container: {

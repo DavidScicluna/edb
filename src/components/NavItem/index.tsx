@@ -45,15 +45,14 @@ const NavItem = (props: NavItemType): ReactElement => {
 
   const renderChildren: boolean = children ? children.every((child) => child.renderChild) : false;
 
-  const style = useStyles(
-    theme,
+  const style = useStyles(theme, {
     color,
     isActive,
     isChildActive,
     renderChildren,
-    sidebarMode === 'expanded',
-    children ? isChildrenOpen : false
-  );
+    isExpanded: sidebarMode === 'expanded',
+    isOpen: children ? isChildrenOpen : false
+  });
 
   const handleToggleChildren = useCallback(
     _.debounce(() => {
