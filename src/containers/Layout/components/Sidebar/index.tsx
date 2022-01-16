@@ -5,16 +5,16 @@ import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import { useDispatch } from 'react-redux';
 
+import { navItems } from '../../.';
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
 import { toggleSidebarMode } from '../../../../store/slices/App';
 import { Theme } from '../../../../theme/types';
+import { sidebarWidth } from '../../common/data/dimensions';
 import useTransitionsStyle from '../../common/styles/transitions';
-import { navItems } from '../../index';
 import NavItems from '../NavItems';
-import { SidebarProps } from './types';
 
-const Sidebar = ({ width }: SidebarProps): ReactElement => {
+const Sidebar = (): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
@@ -25,11 +25,10 @@ const Sidebar = ({ width }: SidebarProps): ReactElement => {
 
   return (
     <VStack
-      width={width}
+      width={sidebarWidth[sidebarMode]}
       height='100vh'
       position='fixed'
-      top='0px'
-      left='0px'
+      top={0}
       zIndex={900}
       alignItems={sidebarMode === 'expanded' ? 'flex-start' : 'stretch'}
       justifyContent='space-between'

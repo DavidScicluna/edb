@@ -16,7 +16,7 @@ const Footer = (): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   return (
-    <VStack width='100%' backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'} spacing={4} p={4} mt={4}>
+    <VStack width='100%' backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'} spacing={4} p={4}>
       {isSm ? (
         <VStack width='100%' alignItems='flex-start' justifyContent='space-between' spacing={4}>
           {navItems.map((navItem, index) => (

@@ -1,6 +1,6 @@
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
-import { useTheme, useMediaQuery, Box } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, Container, Box, HStack, VStack } from '@chakra-ui/react';
 import {
   HomeTwoTone as HomeTwoToneIcon,
   HomeOutlined as HomeOutlinedIcon,
@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import { NavItem } from '../../components/NavItem/types';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { Theme } from '../../theme/types';
@@ -81,14 +82,6 @@ const Layout = (): ReactElement => {
   const dispatch = useDispatch();
   const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
-  const [width, setWidth] = useState<string>('100%');
-  const [left, setLeft] = useState<string>(`${sidebarWidth[sidebarMode]}px`);
-
-  useEffect(() => {
-    setWidth(isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%');
-    setLeft(isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px');
-  }, [isLgUp, sidebarMode]);
-
   useEffect(() => {
     if (!isLgUp) {
       dispatch(toggleSidebarMode('expanded'));
@@ -100,27 +93,44 @@ const Layout = (): ReactElement => {
       <SplashscreenModal />
 
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
-        <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
-          <Header width={width} left={left} />
+        <Container
+          width='100%'
+          maxWidth={`${
+            handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) + sidebarWidth.expanded
+          }px`}
+          centerContent
+          m={0}
+          p={0}
+        >
+          <HStack width='100%' position='relative' spacing={0}>
+            {isLgUp ? <Sidebar /> : null}
+            <Box
+              width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
+              position='absolute'
+              top={0}
+              left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
+              sx={{ ...transition }}
+            >
+              <Header />
 
-          <Box
-            width='100%'
-            maxWidth='100%'
-            position='relative'
-            top={`${headerHeight}px`}
-            left='0px'
-            sx={{ ...transition }}
-          >
-            <Box width='100%' minHeight={`calc(100vh - ${headerHeight + 32}px)`} sx={{ ...transition }}>
-              <Routes />
+              <VStack width='100%'  spacing={4} sx={{ ...transition }}>
+                <Box
+                  width='100%'
+                  minHeight={`calc(100vh - ${
+                    headerHeight + handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
+                  }px)`}
+                  sx={{ ...transition }}
+                >
+                  <Routes />
+                </Box>
+
+                <Footer />
+              </VStack>
+
+              <ScrollToTop />
             </Box>
-
-            <Footer />
-          </Box>
-
-          <ScrollToTop />
-        </Box>
+          </HStack>
+        </Container>
 
         <QuickView />
 

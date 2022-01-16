@@ -6,24 +6,19 @@ import { Theme } from '../../../../theme/types';
 import useTransitionsStyle from '../../common/styles/transitions';
 import Menu from './components/Menu';
 import User from './components/User';
-import { HeaderProps } from './types';
 
-const Header = (props: HeaderProps): ReactElement => {
+const Header = (): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
   const [isLgUp] = useMediaQuery('(min-width: 1280px)');
   const transition = useTransitionsStyle(theme);
 
-  const { width, left } = props;
-
   return (
     // TODO: Hide user profile on large screen (Move user container within nav with a border) only show on devices with Menu
     <HStack
-      width={width}
-      maxWidth={width}
-      position='fixed'
-      top='0px'
-      left={left}
+      width='100%'
+      position='sticky'
+      top={0}
       zIndex={800}
       justifyContent={isLgUp ? 'flex-end' : 'space-between'}
       backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
