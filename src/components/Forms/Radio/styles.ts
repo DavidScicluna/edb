@@ -8,7 +8,16 @@ type RadioStyle = {
   dark: Style;
 };
 
-export default (theme: Theme, { color = 'gray', isChecked = false, isDisabled = false }: RadioProps): RadioStyle => ({
+type StyleRadioProps = {
+  color: RadioProps['color'];
+  isChecked: RadioProps['isChecked'];
+  isDisabled: RadioProps['isDisabled'];
+};
+
+export default (
+  theme: Theme,
+  { color = 'gray', isChecked = false, isDisabled = false }: StyleRadioProps
+): RadioStyle => ({
   radio: {
     'opacity': isDisabled ? 0.5 : 1,
 

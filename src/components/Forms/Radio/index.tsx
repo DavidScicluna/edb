@@ -1,23 +1,31 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Radio as CUIRadio } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Radio as CUIRadio } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { ColorMode } from '../../../common/types';
 import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { RadioProps } from './types';
 
 const Radio = (props: RadioProps): ReactElement => {
   const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
-  const style = useStyles(theme, props);
+  const { colorMode: colorModeHook } = useColorMode();
 
-  const { colorMode: colorModeProp, ...rest } = props;
+  const { color, colorMode: colorModeProp, isChecked = false, isDisabled = false, ...rest } = props;
 
-  const mode: ColorMode = colorModeProp || colorMode;
+  const style = useStyles(theme, { color, isChecked, isDisabled });
 
-  return <CUIRadio {...rest} sx={{ ..._.merge(style.radio, style[mode]) }} />;
+  const colorMode: ColorMode = colorModeProp || colorModeHook;
+
+  return (
+    <CUIRadio
+      {...rest}
+      color={color}
+      isChecked={isChecked}
+      isDisabled={isDisabled}
+      sx={{ ..._.merge(style.radio, style[colorMode]) }}
+    />
+  );
 };
 
 export default Radio;

@@ -1,6 +1,5 @@
-import { RadioProps as CUIRadioProps } from '@chakra-ui/react';
+import { ColorMode, RadioProps as CUIRadioProps } from '@chakra-ui/react';
 
-import { ColorMode } from '../../../common/types';
 import { Color } from '../../../theme/types';
 
 export type RadioProps = { color?: keyof Color; colorMode?: ColorMode } & Omit<
