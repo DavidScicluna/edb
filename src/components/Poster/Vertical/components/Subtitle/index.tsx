@@ -13,6 +13,8 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 
   const { subtitle, isLoading = false, inView = true } = props;
 
+  const [dummyTextWidth] = useState<number>(dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]);
+
   const [isTruncated, setIsTruncated] = useState<boolean>(false);
 
   const handleIsTruncated = useCallback(
@@ -26,7 +28,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 
   return (
     <SkeletonText
-      width={inView && isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : 'auto'}
+      width={inView && isLoading ? `${dummyTextWidth}%` : 'auto'}
       maxWidth='100%'
       height='16.5px'
       offsetY={6}

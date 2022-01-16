@@ -13,6 +13,8 @@ const Title = (props: TitleProps): ReactElement => {
 
   const { title, isLoading = false, inView = true } = props;
 
+  const [dummyTextWidth] = useState<number>(dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]);
+
   const [isTruncated, setIsTruncated] = useState<boolean>(false);
 
   const handleIsTruncated = useCallback(
@@ -26,7 +28,7 @@ const Title = (props: TitleProps): ReactElement => {
 
   return (
     <SkeletonText
-      width={inView && isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : 'auto'}
+      width={inView && isLoading ? `${dummyTextWidth}%` : 'auto'}
       maxWidth='100%'
       height={['24.75', '27.5px', '33px', '41.25px']}
       offsetY={11.5}
