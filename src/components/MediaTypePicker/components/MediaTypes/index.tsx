@@ -5,6 +5,7 @@ import {
   PeopleAltOutlined as PeopleAltOutlinedIcon,
   PeopleAltTwoTone as PeopleAltTwoToneIcon,
   TheatersOutlined as TheatersOutlinedIcon,
+  TheatersTwoTone as TheatersTwoToneIcon,
   TvOutlined as TvOutlinedIcon,
   TvTwoTone as TvTwoToneIcon
 } from '@material-ui/icons';
@@ -17,7 +18,7 @@ import { MediaTypesProps } from './types';
 const mediaTypesList: MediaTypeItemType[] = [
   {
     renderIcon: ({ isActive, fontSize }) =>
-      isActive ? <TheatersOutlinedIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
+      isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
     label: 'Movies',
     value: 'movie'
   },
