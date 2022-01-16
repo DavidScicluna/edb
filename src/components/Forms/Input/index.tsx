@@ -44,7 +44,14 @@ const Input = (props: InputProps): ReactElement => {
       {label ? (
         <FormLabel
           isInvalid={!_.isNil(error)}
-          sx={{ ..._.merge(style.formLabel.default, style.formLabel[size], style[colorMode].formLabel.default, sx) }}
+          sx={{
+            ..._.merge(
+              style.formLabel.default,
+              style.formLabel[size],
+              style[colorMode].formLabel.default,
+              sx?.formLabel || {}
+            )
+          }}
           _invalid={{ ..._.merge(style[colorMode].formLabel.invalid) }}
         >
           {label}
@@ -58,13 +65,18 @@ const Input = (props: InputProps): ReactElement => {
         isDisabled={isDisabled}
         id={name}
         name={name}
-        sx={{ ..._.merge(style.input.default, style.input[size], style[colorMode].input.default, sx) }}
+        sx={{ ..._.merge(style.input.default, style.input[size], style[colorMode].input.default, sx?.input || {}) }}
         _invalid={{ ..._.merge(style[colorMode].input.invalid) }}
       />
       <Collapse in={!_.isNil(error)} unmountOnExit>
         <FormHelperText
           sx={{
-            ..._.merge(style.formHelperText.default, style.formHelperText[size], style[colorMode].formHelperText, sx)
+            ..._.merge(
+              style.formHelperText.default,
+              style.formHelperText[size],
+              style[colorMode].formHelperText,
+              sx?.formHelperText || {}
+            )
           }}
         >
           {error?.message || ''}

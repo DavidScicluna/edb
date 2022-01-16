@@ -164,35 +164,35 @@ export default (
     input: {
       default: {
         'borderColor': 'gray.200',
-        'backgroundColor': 'gray.100',
+        'backgroundColor': 'transparent',
         'color': 'gray.400',
 
         '&:hover': {
           borderColor: isDisabled ? 'gray.200' : `${color}.400`,
-          backgroundColor: isDisabled ? 'gray.100' : `${color}.100`,
+          backgroundColor: 'transparent',
           color: isDisabled ? 'gray.400' : `${color}.400`
         },
 
         '&:focus': {
           borderColor: isDisabled ? 'gray.200' : `${color}.400`,
-          backgroundColor: isDisabled ? 'gray.100' : `${color}.100`,
+          backgroundColor: 'transparent',
           color: isDisabled ? 'gray.400' : `${color}.400`
         }
       },
       invalid: {
         'borderColor': isDisabled ? 'gray.200' : 'red.400',
-        'backgroundColor': isDisabled ? 'gray.100' : 'red.100',
+        'backgroundColor': 'transparent',
         'color': isDisabled ? 'gray.400' : 'red.400',
 
         '&:hover': {
           borderColor: isDisabled ? 'gray.200' : 'red.400',
-          backgroundColor: isDisabled ? 'gray.100' : 'red.100',
+          backgroundColor: 'transparent',
           color: isDisabled ? 'gray.400' : 'red.400'
         },
 
         '&:focus': {
           borderColor: isDisabled ? 'gray.200' : 'red.400',
-          backgroundColor: isDisabled ? 'gray.100' : 'red.100',
+          backgroundColor: 'transparent',
           color: isDisabled ? 'gray.400' : 'red.400'
         }
       }
@@ -213,36 +213,36 @@ export default (
     input: {
       default: {
         'borderColor': 'gray.700',
-        'backgroundColor': 'gray.800',
-        'color': 'gray.400',
+        'backgroundColor': 'transparent',
+        'color': 'gray.500',
 
         '&:hover': {
-          borderColor: isDisabled ? 'gray.700' : `${color}.400`,
-          backgroundColor: isDisabled ? 'gray.800' : `${color}.100`,
-          color: isDisabled ? 'gray.400' : `${color}.400`
+          borderColor: isDisabled ? 'gray.700' : `${color}.500`,
+          backgroundColor: 'transparent',
+          color: isDisabled ? 'gray.500' : `${color}.500`
         },
 
         '&:focus': {
-          borderColor: isDisabled ? 'gray.700' : `${color}.400`,
-          backgroundColor: isDisabled ? 'gray.800' : `${color}.100`,
-          color: isDisabled ? 'gray.400' : `${color}.400`
+          borderColor: isDisabled ? 'gray.700' : `${color}.500`,
+          backgroundColor: 'transparent',
+          color: isDisabled ? 'gray.500' : `${color}.500`
         }
       },
       invalid: {
-        'borderColor': isDisabled ? 'gray.700' : 'red.400',
-        'backgroundColor': isDisabled ? 'gray.800' : 'red.100',
-        'color': isDisabled ? 'gray.400' : 'red.400',
+        'borderColor': isDisabled ? 'gray.700' : 'red.500',
+        'backgroundColor': 'transparent',
+        'color': isDisabled ? 'gray.500' : 'red.500',
 
         '&:hover': {
-          borderColor: isDisabled ? 'gray.700' : 'red.400',
-          backgroundColor: isDisabled ? 'gray.800' : 'red.100',
-          color: isDisabled ? 'gray.400' : 'red.400'
+          borderColor: isDisabled ? 'gray.700' : 'red.500',
+          backgroundColor: 'transparent',
+          color: isDisabled ? 'gray.500' : 'red.500'
         },
 
         '&:focus': {
-          borderColor: isDisabled ? 'gray.700' : 'red.400',
-          backgroundColor: isDisabled ? 'gray.800' : 'red.100',
-          color: isDisabled ? 'gray.400' : 'red.400'
+          borderColor: isDisabled ? 'gray.700' : 'red.500',
+          backgroundColor: 'transparent',
+          color: isDisabled ? 'gray.500' : 'red.500'
         }
       }
     },
