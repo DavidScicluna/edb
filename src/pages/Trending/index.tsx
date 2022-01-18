@@ -165,7 +165,7 @@ const Trending = (): ReactElement => {
         body: (
           <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
             <VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2} p={2}>
-              <Header />
+              <Header activeTab={activeTab} />
 
               <AnimatePresence exitBeforeEnter initial={false}>
                 <ScaleFade in={_.isNil(activeTab)} unmountOnExit style={{ width: '100%' }}>

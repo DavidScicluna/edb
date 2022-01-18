@@ -14,17 +14,14 @@ import { useElementSize } from 'usehooks-ts';
 
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
-import { TabsContext } from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
-import { TabsContext as TabsContextType } from '../../../../components/Tabs/types';
 import { Theme } from '../../../../theme/types';
+import { HeaderProps } from './types';
 
-const Header = (): ReactElement => {
+const Header = ({ activeTab }: HeaderProps): ReactElement => {
   const theme = useTheme<Theme>();
 
   const [ref, { height }] = useElementSize();
-
-  const { activeTab } = useContext<TabsContextType>(TabsContext);
 
   return (
     <HStack

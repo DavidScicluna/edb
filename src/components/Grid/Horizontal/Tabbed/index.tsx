@@ -73,7 +73,7 @@ const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement =>
             title: (
               <HStack spacing={2}>
                 {typeof title === 'string' ? <Title>{title}</Title> : title}
-                <TabList {...renderTabListProps} activeTab={activeTab} />
+                <TabList {...renderTabListProps} />
               </HStack>
             ),
             actions: (
@@ -86,7 +86,7 @@ const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement =>
             )
           },
           body: (
-            <TabPanels activeTab={activeTab}>
+            <TabPanels>
               {children.map((panel, index) => (
                 <Fragment key={index}>
                   {panel.props.children && panel.props.children.length > 0 ? (
