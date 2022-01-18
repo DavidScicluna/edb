@@ -21,7 +21,7 @@ const Home = (): ReactElement => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/popular', {
       cancelToken: source.token
     });
-    return data.results.filter((_movie, index) => index <= 20);
+    return data;
   });
 
   // Fetching Popular TV Shows
@@ -29,7 +29,7 @@ const Home = (): ReactElement => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
       cancelToken: source.token
     });
-    return data.results.filter((_show, index) => index <= 20);
+    return data;
   });
 
   // Fetching Top Rated Movies
@@ -37,7 +37,7 @@ const Home = (): ReactElement => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/top_rated', {
       cancelToken: source.token
     });
-    return data.results.filter((_movie, index) => index <= 20);
+    return data;
   });
 
   // Fetching Top Rated TV Shows
@@ -45,7 +45,7 @@ const Home = (): ReactElement => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/top_rated', {
       cancelToken: source.token
     });
-    return data.results.filter((_show, index) => index <= 20);
+    return data;
   });
 
   // Fetching Trending Movies
@@ -53,7 +53,7 @@ const Home = (): ReactElement => {
     const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
       cancelToken: source.token
     });
-    return data.results.filter((_movie, index) => index <= 20);
+    return data;
   });
 
   // Fetching Trending TV Shows
@@ -61,7 +61,7 @@ const Home = (): ReactElement => {
     const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
       cancelToken: source.token
     });
-    return data.results.filter((_show, index) => index <= 20);
+    return data;
   });
 
   // Fetching Trending People
@@ -69,7 +69,7 @@ const Home = (): ReactElement => {
     const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/day', {
       cancelToken: source.token
     });
-    return data.results.filter((_person, index) => index <= 20);
+    return data;
   });
 
   useEffect(() => {
@@ -92,8 +92,8 @@ const Home = (): ReactElement => {
               }}
               mediaTypes={['movie', 'tv']}
               data={{
-                movie: popularMoviesQuery.data,
-                tv: popularTVQuery.data
+                movie: popularMoviesQuery.data?.results || [],
+                tv: popularTVQuery.data?.results || []
               }}
               isLoading={{
                 movie: popularMoviesQuery.isFetching || popularMoviesQuery.isLoading,
@@ -126,8 +126,8 @@ const Home = (): ReactElement => {
               }}
               mediaTypes={['movie', 'tv']}
               data={{
-                movie: topRatedMoviesQuery.data,
-                tv: topRatedTVQuery.data
+                movie: topRatedMoviesQuery.data?.results || [],
+                tv: topRatedTVQuery.data?.results || []
               }}
               isLoading={{
                 movie: topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading,
@@ -146,13 +146,16 @@ const Home = (): ReactElement => {
             <HomeHorizontalGrid
               title='Trending'
               to={({ mediaType }) => {
-                return { pathname: `/trending/${mediaType}` };
+                return {
+                  pathname: '/trending',
+                  search: qs.stringify({ mediaType })
+                };
               }}
               mediaTypes={['movie', 'tv', 'person']}
               data={{
-                movie: trendingMoviesQuery.data,
-                tv: trendingTVQuery.data,
-                person: trendingPeopleQuery.data
+                movie: trendingMoviesQuery.data?.results || [],
+                tv: trendingTVQuery.data?.results || [],
+                person: trendingPeopleQuery.data?.results || []
               }}
               isLoading={{
                 movie: trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading,
