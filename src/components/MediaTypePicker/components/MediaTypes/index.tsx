@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, Stack } from '@chakra-ui/react';
+import { SimpleGrid, Center } from '@chakra-ui/react';
 import {
   PeopleAltOutlined as PeopleAltOutlinedIcon,
   PeopleAltTwoTone as PeopleAltTwoToneIcon,
@@ -15,7 +15,7 @@ import MediaTypeItem from './components/MediaTypeItem';
 import { MediaTypeItem as MediaTypeItemType } from './components/MediaTypeItem/types';
 import { MediaTypesProps } from './types';
 
-const mediaTypesList: MediaTypeItemType[] = [
+export const mediaTypesList: MediaTypeItemType[] = [
   {
     renderIcon: ({ isActive, fontSize }) =>
       isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
@@ -37,8 +37,6 @@ const mediaTypesList: MediaTypeItemType[] = [
 ];
 
 const MediaTypes = <MT extends MediaType>(props: MediaTypesProps<MT>): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 600px)');
-
   const { mediaTypes, mediaType, onSetType, onClose } = props;
 
   const handleClick = (mediaType: MediaType): void => {
@@ -50,18 +48,20 @@ const MediaTypes = <MT extends MediaType>(props: MediaTypesProps<MT>): ReactElem
   };
 
   return (
-    <Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
+    <SimpleGrid width='100%' columns={[1, 1, 3]} spacing={2}>
       {mediaTypesList.map((mediaTypeItem) =>
         (mediaTypes && mediaTypes.includes(mediaTypeItem.value)) || !mediaTypes ? (
-          <MediaTypeItem
-            {...mediaTypeItem}
-            key={mediaTypeItem.value}
-            isActive={mediaTypeItem.value === mediaType}
-            onClick={handleClick}
-          />
+          <Center width='100%'>
+            <MediaTypeItem
+              {...mediaTypeItem}
+              key={mediaTypeItem.value}
+              isActive={mediaTypeItem.value === mediaType}
+              onClick={handleClick}
+            />
+          </Center>
         ) : null
       )}
-    </Stack>
+    </SimpleGrid>
   );
 };
 

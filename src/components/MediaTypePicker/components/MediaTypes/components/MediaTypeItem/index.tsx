@@ -15,7 +15,7 @@ const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
   const { renderIcon, label, value, isActive = false, onClick } = props;
 
   return (
-    <Card color={isActive ? color : 'gray'} isFullWidth isClickable onClick={() => onClick(value)} px={2} py={6}>
+    <Card color={isActive ? color : 'gray'} isFullWidth isClickable onClick={() => onClick(value)} p={4} py={8}>
       <VStack width='100%' spacing={0}>
         {renderIcon({ isActive, fontSize: theme.fontSizes['4xl'] })}
 
