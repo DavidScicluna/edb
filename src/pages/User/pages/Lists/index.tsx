@@ -4,6 +4,7 @@ import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center 
 import { InfoTwoTone as InfoTwoToneIcon } from '@material-ui/icons';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
+import moment from 'moment';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
@@ -46,8 +47,8 @@ const Lists = (): ReactElement => {
     }
   };
 
-  const handleOpenList = (id: ListType['id']): void => {
-    setActiveTab(lists.findIndex((list) => list.id === id));
+  const handleOpenList = (index: number): void => {
+    setActiveTab(index);
   };
 
   const handleCloseToast = (): void => {
@@ -140,7 +141,7 @@ const Lists = (): ReactElement => {
                     {!_.isNil(activeTab) ? (
                       <Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
                         <TabPanels>
-                          {lists.map((list) => (
+                          {_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => (
                             <MediaTypesSection
                               key={list.id}
                               movies={list.results.movies}

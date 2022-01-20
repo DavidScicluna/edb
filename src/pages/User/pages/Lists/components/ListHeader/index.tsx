@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 import _ from 'lodash';
+import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
 import Divider from '../../../../../../components/Divider';
@@ -16,7 +17,7 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
     <HStack ref={ref} width='100%' spacing={2} divider={<Divider orientation='vertical' height={height} mx={2} />}>
       <ListsTabButton isSelected={_.isNil(activeTab)} onClick={onListsClick} />
       <TabList
-        renderTabs={lists.map((list) => {
+        renderTabs={_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {
           return {
             // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
             label: list.label
