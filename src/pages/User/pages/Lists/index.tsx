@@ -187,7 +187,13 @@ const Lists = (): ReactElement => {
       ) : null}
 
       {lists && lists.length > 0 && selectedList ? (
-        <ListInfo list={selectedList} isOpen={isListInfoOpen} onClose={onListInfoClose} />
+        <ListInfo
+          list={selectedList}
+          isOpen={isListInfoOpen}
+          onEdit={() => onEditListOpen()}
+          onDelete={() => onDeleteListOpen()}
+          onClose={onListInfoClose}
+        />
       ) : null}
     </>
   );
