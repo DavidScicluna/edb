@@ -1,7 +1,7 @@
 import { List } from '../../../../../../store/slices/User/types';
 
 export type DeleteListProps = {
-  list: List;
+  id?: List['id'];
   isOpen: boolean;
   onClose: () => void;
   onCloseToast: () => void;

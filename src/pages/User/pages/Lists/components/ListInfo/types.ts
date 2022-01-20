@@ -1,7 +1,7 @@
 import { List } from '../../../../../../store/slices/User/types';
 
 export type ListInfoProps = {
-  list?: List | null;
+  id?: List['id'];
   isOpen: boolean;
   onEdit: () => void;
   onDelete: () => void;

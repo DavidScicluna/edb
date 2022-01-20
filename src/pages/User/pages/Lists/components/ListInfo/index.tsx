@@ -7,15 +7,17 @@ import {
 } from '@material-ui/icons';
 import moment from 'moment';
 
+import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
-import Divider from '../../../../../../components/Divider';
 import Modal from '../../../../../../components/Modal';
 import Panel from '../../../../../../components/Panel';
 import Stats from './components/Stats';
 import { ListInfoProps } from './types';
 
-const ListInfo = ({ list, isOpen, onEdit, onDelete, onClose }: ListInfoProps): ReactElement => {
+const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): ReactElement => {
   const { colorMode } = useColorMode();
+
+  const list = useSelector((state) => state.user.data.lists.find((list) => list.id === id));
 
   return (
     <Modal
@@ -33,10 +35,31 @@ const ListInfo = ({ list, isOpen, onEdit, onDelete, onClose }: ListInfoProps): R
           </Text>
         </VStack>
       }
+      renderActions={({ colorMode, size }) => (
+        <HStack spacing={2}>
+          <Button
+            colorMode={colorMode}
+            renderLeftIcon={({ fontSize }) => <EditOutlinedIcon style={{ fontSize }} />}
+            onClick={() => onEdit()}
+            size={size}
+          >
+            Edit
+          </Button>
+          <Button
+            color='red'
+            colorMode={colorMode}
+            renderLeftIcon={({ fontSize }) => <DeleteOutlineOutlinedIcon style={{ fontSize }} />}
+            onClick={() => onDelete()}
+            size={size}
+          >
+            Delete
+          </Button>
+        </HStack>
+      )}
       isOpen={isOpen}
       onClose={onClose}
       isCentered
-      size='md'
+      size='lg'
     >
       <VStack width='100%' spacing={2} p={2}>
         {list?.description ? (
@@ -60,26 +83,6 @@ const ListInfo = ({ list, isOpen, onEdit, onDelete, onClose }: ListInfoProps): R
         ) : null}
 
         <Stats totalMovies={list?.results.movies.length || 0} totalTvs={list?.results.tv.length || 0} />
-
-        <Divider />
-
-        <HStack width='100%' spacing={2}>
-          <Button
-            renderLeftIcon={({ fontSize }) => <EditOutlinedIcon style={{ fontSize }} />}
-            isFullWidth
-            onClick={() => onEdit()}
-          >
-            Edit
-          </Button>
-          <Button
-            color='red'
-            renderLeftIcon={({ fontSize }) => <DeleteOutlineOutlinedIcon style={{ fontSize }} />}
-            isFullWidth
-            onClick={() => onDelete()}
-          >
-            Delete
-          </Button>
-        </HStack>
       </VStack>
     </Modal>
   );

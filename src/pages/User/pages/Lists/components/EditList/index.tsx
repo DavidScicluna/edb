@@ -30,7 +30,7 @@ const placeholders = [
 ];
 const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
 
-const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
+const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
   const theme = useTheme<Theme>();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
@@ -38,6 +38,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
 
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
+  const list = useSelector((state) => state.user.data.lists.find((list) => list.id === id));
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const form = useForm<Form>({
@@ -49,23 +50,25 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
   const { isDirty } = useFormState({ control: form.control });
 
   const handleSubmit = (values: Form): void => {
-    dispatch(
-      setLists(
-        lists.map((paramList) =>
-          paramList.id === list.id
-            ? {
-                ...list,
-                label: values.label,
-                description: values?.description || '',
-                date: moment(new Date()).toISOString(),
-                results: {
-                  ...list.results
+    if (list) {
+      dispatch(
+        setLists(
+          lists.map((paramList) =>
+            paramList.id === list.id
+              ? {
+                  ...list,
+                  label: values.label,
+                  description: values?.description || '',
+                  date: moment(new Date()).toISOString(),
+                  results: {
+                    ...list.results
+                  }
                 }
-              }
-            : { ...paramList }
+              : { ...paramList }
+          )
         )
-      )
-    );
+      );
+    }
 
     onClose();
   };
@@ -84,7 +87,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
   };
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && list) {
       form.reset({
         label: list.label,
         description: list.description
@@ -95,7 +98,7 @@ const EditList = ({ list, isOpen, onClose }: EditListProps): ReactElement => {
   return (
     <>
       <Modal
-        title={isSm ? 'Edit List' : `Edit "${list.label}" List`}
+        title={isSm ? 'Edit List' : `Edit ${list ? `"${list.label}"` : ''} List`}
         renderActions={({ color, colorMode, size }) => (
           <Button
             color={color}

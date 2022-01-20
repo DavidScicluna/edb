@@ -15,7 +15,7 @@ const Toast = (props: ToastProps): ReactElement => {
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { selected, onEdit, onDelete, onClose } = props;
+  const { list, onEdit, onDelete, onClose } = props;
 
   return (
     <HStack
@@ -35,7 +35,7 @@ const Toast = (props: ToastProps): ReactElement => {
           fontWeight='normal'
           whiteSpace='nowrap'
         >
-          {`"${selected.label}" list`}
+          {`${list ? `"${list.label}"` : ''} list`}
         </Text>
       </HStack>
 

@@ -36,14 +36,14 @@ const Lists = (): ReactElement => {
 
   const lists = useSelector((state) => state.user.data.lists);
 
-  const [selectedList, setSelectedList] = useState<ListType>();
+  const [selectedListID, setSelectedListID] = useState<ListType['id']>();
   const [activeTab, setActiveTab] = useState<number>();
 
   const handleSelectList = (id: ListType['id']): void => {
-    if (selectedList && selectedList.id === id) {
-      setSelectedList(undefined);
+    if (selectedListID && selectedListID === id) {
+      setSelectedListID(undefined);
     } else {
-      setSelectedList(lists.find((list) => list.id === id));
+      setSelectedListID(id);
     }
   };
 
@@ -51,50 +51,61 @@ const Lists = (): ReactElement => {
     setActiveTab(index);
   };
 
-  const handleCloseToast = (): void => {
+  const handleReset = (): void => {
     toast.closeAll();
-    setSelectedList(undefined);
+
+    onCreateListClose();
+    onDeleteListClose();
+    onEditListClose();
+    onListInfoClose();
+
+    setActiveTab(undefined);
+    setSelectedListID(undefined);
+  };
+
+  const handleResetSelected = (): void => {
+    toast.closeAll();
+
+    setSelectedListID(undefined);
   };
 
   useEffect(() => {
-    if (_.isNil(activeTab)) {
-      toast.closeAll();
-
-      if (selectedList) {
-        toast({
-          duration: null,
-          isClosable: true,
-          position: 'bottom',
-          variant: 'solid',
-          render: () => {
-            return (
-              <Toast
-                selected={selectedList}
-                onEdit={() => onEditListOpen()}
-                onDelete={() => onDeleteListOpen()}
-                onClose={() => handleCloseToast()}
-              />
-            );
-          }
-        });
-      }
+    if (!_.isNil(activeTab)) {
+      handleResetSelected();
     }
-  }, [selectedList]);
+  }, [activeTab]);
+
+  useEffect(() => {
+    toast.closeAll();
+
+    if (_.isNil(activeTab) && selectedListID) {
+      toast({
+        duration: null,
+        isClosable: true,
+        position: 'bottom',
+        variant: 'solid',
+        render: () => {
+          return (
+            <Toast
+              list={lists.find((list) => list.id === selectedListID)}
+              onEdit={onEditListOpen}
+              onDelete={onDeleteListOpen}
+              onClose={handleResetSelected}
+            />
+          );
+        }
+      });
+    }
+  }, [selectedListID]);
 
   useEffect(() => {
     if (lists.length === 0) {
-      setActiveTab(undefined);
-      setSelectedList(undefined);
+      handleReset();
     }
   }, [lists]);
 
   useEffect(() => {
-    return () => {
-      toast.closeAll();
-
-      setActiveTab(undefined);
-      setSelectedList(undefined);
-    };
+    return () => handleReset();
   }, []);
 
   return (
@@ -115,7 +126,7 @@ const Lists = (): ReactElement => {
                 p={2}
               >
                 <Collapse in={lists && lists.length > 0} unmountOnExit style={{ width: '100%' }}>
-                  <ListHeader activeTab={activeTab} lists={lists} onListsClick={() => setActiveTab(undefined)} />
+                  <ListHeader activeTab={activeTab} lists={lists} onListsClick={handleReset} />
                 </Collapse>
 
                 {lists.length === 0 ? (
@@ -132,7 +143,7 @@ const Lists = (): ReactElement => {
                       <Center as={Fade} key='list-picker' width='100%' in unmountOnExit>
                         <ListPicker
                           lists={lists}
-                          selected={selectedList}
+                          selectedListID={selectedListID}
                           onSelected={handleSelectList}
                           onOpenList={handleOpenList}
                         />
@@ -173,22 +184,22 @@ const Lists = (): ReactElement => {
 
       <CreateList isOpen={isCreateListOpen} onSubmit={() => setActiveTab(0)} onClose={onCreateListClose} />
 
-      {lists && lists.length > 0 && selectedList ? (
+      {lists && lists.length > 0 && selectedListID ? (
         <DeleteList
-          list={selectedList}
+          id={selectedListID}
           isOpen={isDeleteListOpen}
           onClose={onDeleteListClose}
-          onCloseToast={handleCloseToast}
+          onCloseToast={handleReset}
         />
       ) : null}
 
-      {lists && lists.length > 0 && selectedList ? (
-        <EditList list={selectedList} isOpen={isEditListOpen} onClose={onEditListClose} />
+      {lists && lists.length > 0 && selectedListID ? (
+        <EditList id={selectedListID} isOpen={isEditListOpen} onClose={onEditListClose} />
       ) : null}
 
-      {lists && lists.length > 0 && selectedList ? (
+      {lists && lists.length > 0 && selectedListID ? (
         <ListInfo
-          list={selectedList}
+          id={selectedListID}
           isOpen={isListInfoOpen}
           onEdit={() => onEditListOpen()}
           onDelete={() => onDeleteListOpen()}

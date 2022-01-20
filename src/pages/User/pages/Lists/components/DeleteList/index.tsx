@@ -9,16 +9,17 @@ import ConfirmModal from '../../../../../../components/ConfirmModal';
 import { setLists } from '../../../../../../store/slices/User/';
 import { DeleteListProps } from './types';
 
-const DeleteList = (props: DeleteListProps): ReactElement => {
+const DeleteList = ({ id, isOpen, onClose, onCloseToast }: DeleteListProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.user.data.lists);
-
-  const { list, isOpen, onClose, onCloseToast } = props;
+  const list = useSelector((state) => state.user.data.lists.find((list) => list.id === id));
 
   const handleDelete = (): void => {
-    dispatch(setLists(lists.filter((paramList) => paramList.id !== list.id)));
+    if (list) {
+      dispatch(setLists(lists.filter((paramList) => paramList.id !== list.id)));
+    }
 
     onClose();
     onCloseToast();
@@ -31,8 +32,10 @@ const DeleteList = (props: DeleteListProps): ReactElement => {
           Delete
         </Button>
       )}
-      title={isSm ? 'Delete' : `Delete "${list.label}" list`}
-      description={`Are you sure you want to delete the "${list.label}" list? You will not be able to retrieve this list back!`}
+      title={isSm ? 'Delete' : `Delete ${list ? `"${list.label}"` : ''} list`}
+      description={`Are you sure you want to delete the ${
+        list ? `"${list.label}"` : ''
+      } list? You will not be able to retrieve this list back!`}
       isOpen={isOpen}
       onClose={onClose}
     />
