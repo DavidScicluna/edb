@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, useToast, VStack, ScaleFade, Collapse } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 import { InfoTwoTone as InfoTwoToneIcon } from '@material-ui/icons';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
@@ -56,25 +56,27 @@ const Lists = (): ReactElement => {
   };
 
   useEffect(() => {
-    toast.closeAll();
+    if (_.isNil(activeTab)) {
+      toast.closeAll();
 
-    if (selectedList) {
-      toast({
-        duration: null,
-        isClosable: true,
-        position: 'bottom',
-        variant: 'solid',
-        render: () => {
-          return (
-            <Toast
-              selected={selectedList}
-              onEdit={() => onEditListOpen()}
-              onDelete={() => onDeleteListOpen()}
-              onClose={() => handleCloseToast()}
-            />
-          );
-        }
-      });
+      if (selectedList) {
+        toast({
+          duration: null,
+          isClosable: true,
+          position: 'bottom',
+          variant: 'solid',
+          render: () => {
+            return (
+              <Toast
+                selected={selectedList}
+                onEdit={() => onEditListOpen()}
+                onDelete={() => onDeleteListOpen()}
+                onClose={() => handleCloseToast()}
+              />
+            );
+          }
+        });
+      }
     }
   }, [selectedList]);
 
@@ -125,37 +127,41 @@ const Lists = (): ReactElement => {
                   />
                 ) : (
                   <AnimatePresence exitBeforeEnter initial={false}>
-                    <ScaleFade in={_.isNil(activeTab)} unmountOnExit style={{ width: '100%' }}>
-                      <ListPicker
-                        lists={lists}
-                        selected={selectedList}
-                        onSelected={handleSelectList}
-                        onOpenList={handleOpenList}
-                      />
-                    </ScaleFade>
-                    <ScaleFade in={!_.isNil(activeTab)} unmountOnExit style={{ width: '100%' }}>
-                      <TabPanels>
-                        {lists.map((list) => (
-                          <MediaTypesSection
-                            key={list.id}
-                            movies={list.results.movies}
-                            tv={list.results.tv}
-                            renderActions={() => (
-                              <IconButton
-                                aria-label='Open Information modal'
-                                onClick={() => {
-                                  handleSelectList(list.id);
-                                  onListInfoOpen();
-                                }}
-                                variant='outlined'
-                              >
-                                <InfoTwoToneIcon />
-                              </IconButton>
-                            )}
-                          />
-                        ))}
-                      </TabPanels>
-                    </ScaleFade>
+                    {_.isNil(activeTab) ? (
+                      <Center as={Fade} key='list-picker' width='100%' in unmountOnExit>
+                        <ListPicker
+                          lists={lists}
+                          selected={selectedList}
+                          onSelected={handleSelectList}
+                          onOpenList={handleOpenList}
+                        />
+                      </Center>
+                    ) : null}
+                    {!_.isNil(activeTab) ? (
+                      <Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
+                        <TabPanels>
+                          {lists.map((list) => (
+                            <MediaTypesSection
+                              key={list.id}
+                              movies={list.results.movies}
+                              tv={list.results.tv}
+                              renderActions={() => (
+                                <IconButton
+                                  aria-label='Open Information modal'
+                                  onClick={() => {
+                                    handleSelectList(list.id);
+                                    onListInfoOpen();
+                                  }}
+                                  variant='outlined'
+                                >
+                                  <InfoTwoToneIcon />
+                                </IconButton>
+                              )}
+                            />
+                          ))}
+                        </TabPanels>
+                      </Center>
+                    ) : null}
                   </AnimatePresence>
                 )}
               </VStack>
