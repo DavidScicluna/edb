@@ -170,7 +170,7 @@ const Lists = (): ReactElement => {
         }}
       </Page>
 
-      <CreateList isOpen={isCreateListOpen} onClose={onCreateListClose} />
+      <CreateList isOpen={isCreateListOpen} onSubmit={() => setActiveTab(0)} onClose={onCreateListClose} />
 
       {lists && lists.length > 0 && selectedList ? (
         <DeleteList

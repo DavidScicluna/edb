@@ -31,7 +31,7 @@ const placeholders = [
 ];
 const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
 
-const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
+const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElement => {
   const theme = useTheme<Theme>();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
@@ -68,7 +68,8 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
       ])
     );
 
-    handleClose(id);
+    handleClose();
+    onSubmit();
   };
 
   const handleCloseConfirm = (): void => {
@@ -76,9 +77,10 @@ const CreateList = ({ isOpen, onClose }: CreateListProps): ReactElement => {
     handleClose();
   };
 
-  const handleClose = (id?: string): void => {
+  const handleClose = (): void => {
     form.reset({ ...defaultValues });
-    onClose(id);
+
+    onClose();
   };
 
   const handleCheckClose = (): void => {
