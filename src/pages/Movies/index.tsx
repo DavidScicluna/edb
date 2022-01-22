@@ -26,12 +26,7 @@ const defaultFilters = {
   'language': 'en-US', // TODO: Make this dynamic
   'ott_region': 'US', // TODO: Make this dynamic
   'certification_country': 'US', // TODO: Make this dynamic
-  'primary_release_date.lte': moment().subtract(1, 'months').format('YYYY-MM-DD'),
-  'vote_average.gte': '0',
-  'vote_average.lte': '10',
-  'vote_count.gte': '250',
-  'with_runtime.gte': '0',
-  'with_runtime.lte': '450'
+  'primary_release_date.lte': moment().format('YYYY-MM-DD')
 };
 
 const Movies = (): ReactElement => {
@@ -102,7 +97,7 @@ const Movies = (): ReactElement => {
 
     history.push({
       location: '/movies',
-      search: qs.stringify({ ..._.mergeWith(currentSearch, filters) })
+      search: qs.stringify(_.mergeWith({ ...currentSearch, ...filters }))
     });
 
     setTimeout(() => moviesQuery.refetch(), 250);
@@ -117,7 +112,7 @@ const Movies = (): ReactElement => {
 
     history.push({
       location: '/movies',
-      search: qs.stringify({ ..._.mergeWith(currentSearch, sortBy) })
+      search: qs.stringify(_.mergeWith({ ...currentSearch, ...sortBy }))
     });
 
     setTimeout(() => moviesQuery.refetch(), 250);

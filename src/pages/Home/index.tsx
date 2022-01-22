@@ -85,9 +85,9 @@ const Home = (): ReactElement => {
               title='Popular'
               to={({ mediaType }) => {
                 if (mediaType === 'movie') {
-                  return { pathname: '/movies' };
+                  return { pathname: '/movies', search: qs.stringify({ sort_by: 'popularity.desc' }) };
                 } else {
-                  return { pathname: '/tv' };
+                  return { pathname: '/tv', search: qs.stringify({ sort_by: 'popularity.desc' }) };
                 }
               }}
               mediaTypes={['movie', 'tv']}
@@ -146,10 +146,7 @@ const Home = (): ReactElement => {
             <HomeHorizontalGrid
               title='Trending'
               to={({ mediaType }) => {
-                return {
-                  pathname: '/trending',
-                  search: qs.stringify({ mediaType })
-                };
+                return { pathname: '/trending', hash: mediaType };
               }}
               mediaTypes={['movie', 'tv', 'person']}
               data={{

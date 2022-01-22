@@ -27,9 +27,9 @@ export const defaultValues: Form = {
   date: [undefined, undefined],
   genres: [],
   certifications: [],
-  rating: [0, 10],
-  count: [250],
-  runtime: [0, 450],
+  rating: [],
+  count: [],
+  runtime: [],
   adult: false
 };
 
