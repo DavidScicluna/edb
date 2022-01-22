@@ -125,23 +125,21 @@ const Trending = (): ReactElement => {
   );
 
   const handleCheckLocation = (): void => {
-    const search = qs.parse(location.search);
+    const hash = String(location.hash).replace('#', '');
 
-    if (search && search.mediaType && typeof search.mediaType === 'string') {
-      switch (search.mediaType) {
-        case 'movie':
-          setActiveTab(0);
-          return;
-        case 'tv':
-          setActiveTab(1);
-          return;
-        case 'person':
-          setActiveTab(2);
-          return;
-        default:
-          setActiveTab(undefined);
-          return;
-      }
+    switch (hash) {
+      case 'movie':
+        setActiveTab(0);
+        return;
+      case 'tv':
+        setActiveTab(1);
+        return;
+      case 'person':
+        setActiveTab(2);
+        return;
+      default:
+        setActiveTab(undefined);
+        return;
     }
   };
 
