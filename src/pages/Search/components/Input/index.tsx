@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, HStack, Input, Fade } from '@chakra-ui/react';
+import { useColorMode, HStack, Input as CUIInput, Center, Fade } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
 import { InputKeyboardEvent, InputChangeEvent } from '../../types';
 import Actions from './components/Actions';
 import SearchTypes from './components/SearchTypes';
-import { FormProps } from './types';
+import { InputProps } from './types';
 
 const placeholders = [
   'The Godfather',
@@ -33,7 +33,7 @@ const placeholders = [
 ];
 const placeholder = _.sample(placeholders);
 
-const Form = (props: FormProps): ReactElement => {
+const Input = (props: InputProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   const {
@@ -50,18 +50,24 @@ const Form = (props: FormProps): ReactElement => {
   return (
     <HStack width='100%' justifyContent='space-between'>
       <HStack flex={1}>
-        <SearchOutlinedIcon style={{ color: colorMode === 'light' ? 'gray.400' : 'gray.500', transition: 'none' }} />
+        <Center
+          sx={{ '& svg': { color: colorMode === 'light' ? 'gray.400' : 'gray.500', transition: 'none !important' } }}
+        >
+          <SearchOutlinedIcon />
+        </Center>
         <Fade in={searchTypes.length > 0} unmountOnExit>
           <SearchTypes searchTypes={searchTypes} onClear={onClearSearchTypes} />
         </Fade>
-        <Input
+        <CUIInput
           borderRadius='none'
+          color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           placeholder={`Try "${placeholder}"`}
           isDisabled={isDisabled}
           onKeyPress={(event: InputKeyboardEvent) => onInputKeyPress(event)}
           onChange={(event: InputChangeEvent) => onInputChange(event)}
           variant='unstyled'
           value={query}
+          sx={{ transition: 'none !important' }}
         />
       </HStack>
       <Actions hasQuery={query.length > 0} isDisabled={isDisabled} onClear={onClearQuery} onSubmit={onSubmitQuery} />
@@ -69,4 +75,4 @@ const Form = (props: FormProps): ReactElement => {
   );
 };
 
-export default Form;
+export default Input;

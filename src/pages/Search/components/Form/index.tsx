@@ -19,12 +19,6 @@ const Form = ({ children }: FormProps): ReactElement => {
 
   const style = usePanelStyles(theme, { color: 'gray', isFullWidth: true });
 
-  const handleFocusOnInput = (): void => {
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
-
   useOutsideClick({
     ref: inputRef,
     handler: !isHovering ? () => setIsFocused.off() : undefined
@@ -39,7 +33,7 @@ const Form = ({ children }: FormProps): ReactElement => {
             <Divider my={2} />
           </Fade>
         }
-        onClick={() => handleFocusOnInput()}
+        onClick={() => setIsFocused.on()}
         onMouseEnter={() => setIsHovering.on()}
         onMouseLeave={() => setIsHovering.off()}
         spacing={0}

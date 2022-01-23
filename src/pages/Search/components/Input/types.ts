@@ -1,7 +1,7 @@
 import { SearchType } from '../../../../store/slices/User/types';
 import { InputKeyboardEvent, InputChangeEvent } from '../../types';
 
-export type FormProps = {
+export type InputProps = {
   query: string;
   isDisabled: boolean;
   searchTypes: SearchType[];
