@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { ScaleFade } from '@chakra-ui/react';
+import sort from 'array-sort';
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 
@@ -40,7 +41,7 @@ const RecentSearches = (props: RecentSearchesProps): ReactElement => {
         <Empty hasIllustration={false} label='No recent searches found!' size='sm' />
       ) : recentSearches.length > 0 ? (
         <>
-          {recentSearches.map((search) => (
+          {sort([...recentSearches], 'date', { reverse: true }).map((search) => (
             <Search key={search.id} {...search} onDelete={handleDelete} onClick={onSearchClick} />
           ))}
         </>
