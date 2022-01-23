@@ -1,18 +1,16 @@
-import { UseQueryResult } from 'react-query';
+import { ReactElement } from 'react';
 
-import { MediaType } from '../../../../common/types';
-import { InputKeyboardEvent, InputChangeEvent, Keyword, TotalResults } from '../../types';
+import { SearchType } from '../../../../store/slices/User/types';
+import { InputKeyboardEvent, InputChangeEvent } from '../../types';
 
 export type FormProps = {
+  children: ReactElement;
   query: string;
-  mediaType?: MediaType;
-  submittedQuery: string;
-  keywords: UseQueryResult<Keyword[], unknown>;
-  hasUnsubmitted: boolean;
-  totalResults?: TotalResults;
-  isInputDisabled: boolean;
+  isDisabled: boolean;
+  searchTypes: SearchType[];
   onInputKeyPress: (event: InputKeyboardEvent) => void;
   onInputChange: (event: InputChangeEvent) => void;
-  onSubmitQuery: (query: string, mediaType?: MediaType) => void;
   onClearQuery: () => void;
+  onSubmitQuery: () => void;
+  onClearSearchTypes: () => void;
 };

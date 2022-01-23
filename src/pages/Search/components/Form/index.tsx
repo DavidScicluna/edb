@@ -1,33 +1,25 @@
 import { ReactElement, useRef } from 'react';
 
 import {
-  useBoolean,
+  useTheme,
   useColorMode,
+  useBoolean,
   useOutsideClick,
   VStack,
-  Box,
   HStack,
-  Icon,
   Input,
-  Collapse,
-  ScaleFade
+  Fade,
+  Collapse
 } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import sort from 'array-sort';
 import _ from 'lodash';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
 
-import { useSelector } from '../../../../common/hooks';
-import Button from '../../../../components/Clickable/Button';
-import Empty from '../../../../components/Empty';
-import Error from '../../../../components/Error';
-import { setRecentSearches } from '../../../../store/slices/User';
+import Divider from '../../../../components/Divider';
+import usePanelStyles from '../../../../components/Panel/styles';
+import { Theme } from '../../../../theme/types';
 import { InputKeyboardEvent, InputChangeEvent } from '../../types';
 import Actions from './components/Actions';
-import Display from './components/Display';
-import List from './components/List';
-import Row from './components/Row';
+import SearchTypes from './components/SearchTypes';
 import { FormProps } from './types';
 
 const placeholders = [
@@ -52,35 +44,30 @@ const placeholders = [
   'Gladiator',
   'Star Trek'
 ];
-const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
+const placeholder = _.sample(placeholders);
 
 const Form = (props: FormProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const dispatch = useDispatch();
-  const recentSearches = useSelector((state) => state.user.data.recentSearches);
-
   const {
-    keywords,
+    children,
     query,
-    mediaType,
-    submittedQuery,
-    hasUnsubmitted = false,
-    totalResults,
-    isInputDisabled = false,
+    isDisabled = false,
+    searchTypes,
     onInputKeyPress,
     onInputChange,
+    onClearQuery,
     onSubmitQuery,
-    onClearQuery
+    onClearSearchTypes
   } = props;
 
-  const [isFormLocked, setIsFormLocked] = useBoolean();
-  const [isHoveringLock, setIsHoveringLock] = useBoolean();
+  const [isHovering, setIsHovering] = useBoolean();
+  const [isFocused, setIsFocused] = useBoolean();
 
-  const [isHoveringForm, setIsHoveringForm] = useBoolean();
-  const [isFormFocused, setIsFormFocused] = useBoolean();
+  const style = usePanelStyles(theme, { color: 'gray', isFullWidth: true });
 
   const handleFocusOnInput = (): void => {
     if (inputRef && inputRef.current) {
@@ -88,127 +75,49 @@ const Form = (props: FormProps): ReactElement => {
     }
   };
 
-  const handleOnHoverLock = (bool: boolean) => {
-    if (bool) {
-      setIsHoveringLock.on();
-    } else {
-      setIsHoveringLock.off();
-    }
-  };
-
   useOutsideClick({
     ref: inputRef,
-    handler: !isHoveringLock && !isFormLocked && !isHoveringForm ? () => setIsFormFocused.off() : undefined
+    handler: !isHovering ? () => setIsFocused.off() : undefined
   });
 
   return (
-    <VStack width='100%' spacing={1} p={2}>
-      <Box
-        width='100%'
-        cursor='text'
-        border='solid2'
-        borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-        borderRadius='lg'
-        px={2}
-        py={1.5}
-        onClick={() => handleFocusOnInput()}
-        onMouseEnter={!keywords.isFetching || !keywords.isLoading ? () => setIsHoveringForm.on() : undefined}
-        onMouseLeave={!keywords.isFetching || !keywords.isLoading ? () => setIsHoveringForm.off() : undefined}
-      >
-        <HStack
-          borderBottom={isFormFocused || isFormLocked ? 'solid2' : 'none'}
-          borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-          pb={isFormFocused || isFormLocked ? 1.5 : 0}
-          mb={isFormFocused || isFormLocked ? 2 : 0}
-        >
-          <Icon as={SearchOutlinedIcon} color={colorMode === 'light' ? 'gray.400' : 'gray.500'} />
+    <VStack
+      width='100%'
+      divider={
+        <Fade in={isFocused} unmountOnExit style={{ width: '100%' }}>
+          <Divider my={2} />
+        </Fade>
+      }
+      onClick={() => handleFocusOnInput()}
+      onMouseEnter={() => setIsHovering.on()}
+      onMouseLeave={() => setIsHovering.off()}
+      spacing={0}
+      p={2}
+      sx={{ ..._.merge(style.panel.outlined, style[colorMode].outlined) }}
+    >
+      <HStack width='100%' justifyContent='space-between'>
+        <HStack flex={1}>
+          <SearchOutlinedIcon style={{ color: colorMode === 'light' ? 'gray.400' : 'gray.500', transition: 'none' }} />
+          <Fade in={searchTypes.length > 0} unmountOnExit>
+            <SearchTypes searchTypes={searchTypes} onClear={onClearSearchTypes} />
+          </Fade>
           <Input
             ref={inputRef}
             borderRadius='none'
             placeholder={`Try "${placeholder}"`}
-            isDisabled={isInputDisabled}
-            onFocus={!isHoveringLock && !isFormLocked ? () => setIsFormFocused.on() : undefined}
+            isDisabled={isDisabled}
+            onFocus={() => setIsFocused.on()}
             onKeyPress={(event: InputKeyboardEvent) => onInputKeyPress(event)}
             onChange={(event: InputChangeEvent) => onInputChange(event)}
             variant='unstyled'
             value={query}
           />
-          <Actions
-            hasQuery={query.length > 0}
-            isFormLocked={isFormLocked}
-            isHoveringLock={isHoveringLock}
-            onToggleLock={() => setIsFormLocked.toggle()}
-            onHoverLock={handleOnHoverLock}
-            onClearQuery={onClearQuery}
-          />
         </HStack>
-
-        <Collapse in={isFormFocused || isFormLocked} unmountOnExit>
-          <List
-            title={!hasUnsubmitted ? 'Recent searches' : ''}
-            actions={
-              !hasUnsubmitted ? (
-                <ScaleFade in={recentSearches.length > 0}>
-                  <Button onClick={() => dispatch(setRecentSearches([]))} size='sm' variant='text'>
-                    Clear
-                  </Button>
-                </ScaleFade>
-              ) : undefined
-            }
-          >
-            <>
-              {!hasUnsubmitted ? (
-                recentSearches.length > 0 ? (
-                  sort([...recentSearches], 'date', { reverse: true }).map((search) => (
-                    <Row
-                      key={search.id}
-                      id={search.id}
-                      title={search.label}
-                      subtitle={moment(search.date).fromNow()}
-                      mediaType={search.mediaType}
-                      state='isLoaded'
-                      onSearch={(query: string) => onSubmitQuery(query, search.mediaType)}
-                    />
-                  ))
-                ) : (
-                  <Empty hasIllustration={false} label='No recent searches!' size='xs' />
-                )
-              ) : keywords.isError ? (
-                <Error
-                  hasIllustration={false}
-                  label='Oh no! Something went wrong'
-                  description='Failed to fetch keywords!'
-                  size='xs'
-                />
-              ) : keywords.isSuccess && keywords.data?.length === 0 ? (
-                <Empty hasIllustration={false} label='No keywords found!' size='xs' />
-              ) : keywords.isSuccess && keywords.data?.length > 0 ? (
-                keywords.data.map((keyword) => (
-                  <Row
-                    key={keyword.id}
-                    id={String(keyword.id)}
-                    title={keyword.name}
-                    state='isLoaded'
-                    type='isKeyword'
-                    onSearch={(query: string) => onSubmitQuery(query)}
-                  />
-                ))
-              ) : (
-                [..._.range(0, 7)].map((_dummy, index) => (
-                  <Row key={index} id={String(index)} title='Lorem Ipsum' state='isLoading' type='isKeyword' />
-                ))
-              )}
-            </>
-          </List>
-        </Collapse>
-      </Box>
-
-      <Display
-        query={submittedQuery}
-        mediaType={mediaType}
-        hasUnsubmitted={hasUnsubmitted}
-        totalResults={totalResults}
-      />
+        <Actions hasQuery={query.length > 0} isDisabled={isDisabled} onClear={onClearQuery} onSubmit={onSubmitQuery} />
+      </HStack>
+      <Collapse in={isFocused} unmountOnExit style={{ width: '100%' }}>
+        {children}
+      </Collapse>
     </VStack>
   );
 };
