@@ -22,7 +22,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
   const style = useStyles(theme, { variant, isLoading });
 
   return (
-    <CUIListItem {...rest} p={2} sx={{ ..._.merge(style.common, style[colorMode]) }}>
+    <CUIListItem {...rest} px={2} py={1} sx={{ ..._.merge(style.common, style[colorMode]) }}>
       <VStack alignItems='flex-start' justifyContent='center' spacing={0}>
         <HStack>
           <SkeletonText width={isLoading ? dummyTextWidth : 'auto'} offsetY='7px' isLoaded={!isLoading}>

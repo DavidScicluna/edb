@@ -21,7 +21,7 @@ const Form = ({ children }: FormProps): ReactElement => {
 
   useOutsideClick({
     ref: inputRef,
-    handler: !isHovering ? () => setIsFocused.off() : undefined
+    handler: isFocused && !isHovering ? () => setIsFocused.off() : undefined
   });
 
   return (

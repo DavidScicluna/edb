@@ -48,7 +48,11 @@ const Input = (props: InputProps): ReactElement => {
   } = props;
 
   return (
-    <HStack width='100%' justifyContent='space-between'>
+    <HStack
+      width='100%'
+      minHeight='30px' // Size of SearchTypes
+      justifyContent='space-between'
+    >
       <HStack flex={1}>
         <Center
           sx={{ '& svg': { color: colorMode === 'light' ? 'gray.400' : 'gray.500', transition: 'none !important' } }}

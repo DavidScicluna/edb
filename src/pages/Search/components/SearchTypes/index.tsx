@@ -26,13 +26,6 @@ import { SearchTypesProps } from './types';
 
 export const searchTypes: SearchTypeType[] = [
   {
-    value: 'collection',
-    label: 'Collections',
-    color: 'blue',
-    renderLeftIcon: ({ isActive, fontSize }) =>
-      isActive ? <LibraryBooksTwoToneIcon style={{ fontSize }} /> : <LibraryBooksOutlinedIcon style={{ fontSize }} />
-  },
-  {
     value: 'movie',
     label: 'Movies',
     color: 'cyan',
@@ -52,6 +45,13 @@ export const searchTypes: SearchTypeType[] = [
     color: 'yellow',
     renderLeftIcon: ({ isActive, fontSize }) =>
       isActive ? <PeopleAltTwoToneIcon style={{ fontSize }} /> : <PeopleAltOutlinedIcon style={{ fontSize }} />
+  },
+  {
+    value: 'collection',
+    label: 'Collections',
+    color: 'blue',
+    renderLeftIcon: ({ isActive, fontSize }) =>
+      isActive ? <LibraryBooksTwoToneIcon style={{ fontSize }} /> : <LibraryBooksOutlinedIcon style={{ fontSize }} />
   },
   {
     value: 'company',
