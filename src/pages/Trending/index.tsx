@@ -1,10 +1,9 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { VStack, ScaleFade } from '@chakra-ui/react';
+import { VStack, Center, Fade } from '@chakra-ui/react';
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
-import qs from 'query-string';
 import { useInfiniteQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 
@@ -166,16 +165,19 @@ const Trending = (): ReactElement => {
               <Header activeTab={activeTab} />
 
               <AnimatePresence exitBeforeEnter initial={false}>
-                <ScaleFade in={_.isNil(activeTab)} unmountOnExit style={{ width: '100%' }}>
-                  <MediaTypesPicker onSelected={(index: number) => setActiveTab(index)} />
-                </ScaleFade>
-                <ScaleFade in={!_.isNil(activeTab)} unmountOnExit style={{ width: '100%' }}>
-                  <TabPanels>
-                    <Movies movies={movies} query={trendingMoviesQuery} />
-                    <TV shows={shows} query={trendingTVQuery} />
-                    <People people={people} query={trendingPeopleQuery} />
-                  </TabPanels>
-                </ScaleFade>
+                {_.isNil(activeTab) ? (
+                  <Center as={Fade} key='media-types-picker' width='100%' in unmountOnExit>
+                    <MediaTypesPicker onSelected={(index: number) => setActiveTab(index)} />
+                  </Center>
+                ) : (
+                  <Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
+                    <TabPanels>
+                      <Movies movies={movies} query={trendingMoviesQuery} />
+                      <TV shows={shows} query={trendingTVQuery} />
+                      <People people={people} query={trendingPeopleQuery} />
+                    </TabPanels>
+                  </Center>
+                )}
               </AnimatePresence>
             </VStack>
           </Tabs>
