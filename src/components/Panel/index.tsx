@@ -1,15 +1,18 @@
-import { ReactElement, isValidElement } from 'react';
+import { ReactElement, createContext, isValidElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, VStack, Box } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { Theme, Space } from '../../theme/types';
+import { Theme } from '../../theme/types';
 import Divider from '../Divider';
+import { handleReturnPadding } from './common/utils';
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import useStyles from './styles';
-import { PanelProps } from './types';
+import { Context, PanelProps } from './types';
+
+export const PanelContext = createContext<Context>({ size: 'md', variant: 'outlined' });
 
 const Panel = (props: PanelProps): ReactElement => {
   const theme = useTheme<Theme>();
@@ -30,70 +33,33 @@ const Panel = (props: PanelProps): ReactElement => {
 
   const style = useStyles(theme, { color, isFullWidth });
 
-  /**
-   * This method will return the appropriate spacing depending on the size passed
-   *
-   * @returns - number: Spacing value
-   */
-  const handleReturnSpacing = (): keyof Space => {
-    switch (size) {
-      case 'xs':
-        return 1;
-      case 'sm':
-        return 1.5;
-      case 'lg':
-        return 2.5;
-      case 'xl':
-        return 3;
-      default:
-        return 2;
-    }
-  };
-
-  /**
-   * This method will return the appropriate padding depending on the size passed
-   *
-   * @returns - number: Padding value
-   */
-  const handleReturnPadding = (): keyof Space => {
-    switch (size) {
-      case 'xs':
-        return 1;
-      case 'sm':
-        return 1.5;
-      case 'lg':
-        return 2.5;
-      case 'xl':
-        return 3;
-      default:
-        return 2;
-    }
-  };
-
   return (
-    <VStack
-      {...rest}
-      divider={isDivisible ? <Divider colorMode={colorMode} /> : undefined}
-      p={handleReturnPadding()}
-      spacing={0}
-      sx={{ ..._.merge(style.panel[variant], style[colorMode][variant][size], style[colorMode][variant]) }}
-    >
-      {children.header ? (
-        !isValidElement(children.header) && (!_.isNil(children.header?.title) || !_.isNil(children.header?.actions)) ? (
-          <Header actions={children.header?.actions} colorMode={colorMode} title={children.header?.title} size={size} />
-        ) : (
-          <Box width='100%' pb={handleReturnPadding()}>
-            {children.header}
-          </Box>
-        )
-      ) : null}
+    <PanelContext.Provider value={{ size, variant }}>
+      <VStack
+        {...rest}
+        divider={isDivisible ? <Divider colorMode={colorMode} /> : undefined}
+        p={variant === 'outlined' ? handleReturnPadding(size, variant) : 0}
+        spacing={0}
+        sx={{ ..._.merge(style.panel[variant], style[colorMode][variant]) }}
+      >
+        {children.header ? (
+          !isValidElement(children.header) &&
+          (!_.isNil(children.header?.title) || !_.isNil(children.header?.actions)) ? (
+            <Header actions={children.header?.actions} colorMode={colorMode} title={children.header?.title} />
+          ) : (
+            <Box width='100%' pb={handleReturnPadding(size, variant)}>
+              {children.header}
+            </Box>
+          )
+        ) : null}
 
-      <Body hasHeader={!_.isNil(children.header)} hasFooter={!_.isNil(children.footer)} size={size}>
-        {children.body}
-      </Body>
+        <Body hasHeader={!_.isNil(children.header)} hasFooter={!_.isNil(children.footer)}>
+          {children.body}
+        </Body>
 
-      {children.footer ? <Footer size={size}>{children.footer}</Footer> : null}
-    </VStack>
+        {children.footer ? <Footer>{children.footer}</Footer> : null}
+      </VStack>
+    </PanelContext.Provider>
   );
 };
 

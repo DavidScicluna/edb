@@ -28,3 +28,8 @@ export type PanelProps = {
   size?: Size;
   variant?: Variant;
 } & CUIBoxProps;
+
+export type Context = {
+  size?: Size;
+  variant?: Variant;
+};
