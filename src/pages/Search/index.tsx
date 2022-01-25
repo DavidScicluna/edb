@@ -22,13 +22,13 @@ import Page from '../../containers/Page';
 import { setRecentSearches } from '../../store/slices/User';
 import { Search as SearchType, SearchType as SearchTypeValue } from '../../store/slices/User/types';
 import All from './components/All';
-import Display from './components/Display';
 import Form from './components/Form';
-import Input from './components/Input';
-import Keywords from './components/Keywords';
-import { Keyword } from './components/Keywords/types';
-import RecentSearches from './components/RecentSearches';
-import SearchTypes from './components/SearchTypes';
+import Display from './components/Form/components/Display';
+import Input from './components/Form/components/Input';
+import Keywords from './components/Form/components/Keywords';
+import { Keyword } from './components/Form/components/Keywords/types';
+import RecentSearches from './components/Form/components/RecentSearches';
+import SearchTypes from './components/Form/components/SearchTypes';
 import { InputKeyboardEvent, InputChangeEvent, Collection } from './types';
 
 const Search = (): ReactElement => {
@@ -54,6 +54,7 @@ const Search = (): ReactElement => {
   const [companies, setCompanies] = useState<Response<Company[]>>();
   const [collections, setCollections] = useState<Response<Collection[]>>();
 
+  const [isQueryEnabled, setIsQueryEnabled] = useBoolean();
   const [isQuerySubmitted, setIsQuerySubmitted] = useBoolean();
 
   // Fetching Keywords
@@ -102,10 +103,12 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'movie')) && submittedQuery.length > 0,
+      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'movie')) && isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
+        setIsQueryEnabled.off();
+
         let movies: PartialMovie[] = [];
 
         data.pages.forEach((page) => {
@@ -156,10 +159,12 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'tv')) && submittedQuery.length > 0,
+      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'tv')) && isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
+        setIsQueryEnabled.off();
+
         let shows: PartialTV[] = [];
 
         data.pages.forEach((page) => {
@@ -210,10 +215,12 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'person')) && submittedQuery.length > 0,
+      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'person')) && isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
+        setIsQueryEnabled.off();
+
         let people: PartialPerson[] = [];
 
         data.pages.forEach((page) => {
@@ -263,11 +270,12 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled:
-        (searchTypes.length === 0 || searchTypes.some((type) => type === 'company')) && submittedQuery.length > 0,
+      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'company')) && isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
+        setIsQueryEnabled.off();
+
         let companies: Company[] = [];
 
         data.pages.forEach((page) => {
@@ -317,11 +325,12 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled:
-        (searchTypes.length === 0 || searchTypes.some((type) => type === 'collection')) && submittedQuery.length > 0,
+      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'collection')) && isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
+        setIsQueryEnabled.off();
+
         let collections: Collection[] = [];
 
         data.pages.forEach((page) => {
@@ -368,10 +377,20 @@ const Search = (): ReactElement => {
   );
 
   const handleSubmitQuery = (query: string, paramSearchTypes?: SearchTypeValue[]): void => {
-    history.push({
-      pathname: '/search',
-      search: qs.stringify({ query, types: paramSearchTypes || searchTypes })
-    });
+    setMovies(undefined);
+    setShows(undefined);
+    setPeople(undefined);
+    setCollections(undefined);
+    setCompanies(undefined);
+
+    setTimeout(
+      () =>
+        history.push({
+          pathname: '/search',
+          search: qs.stringify({ query, types: paramSearchTypes || searchTypes })
+        }),
+      250
+    );
   };
 
   const handleOnKeyPress = (event: InputKeyboardEvent): void => {
@@ -380,12 +399,14 @@ const Search = (): ReactElement => {
     }
   };
 
+  const handleOnKeywordClick = (name: Keyword['name']): void => {
+    handleSubmitQuery(name);
+  };
+
   const handleOnChange = (event: InputChangeEvent): void => {
     setUnSubmittedQuery(event.target.value);
 
     handleFetchKeywords();
-
-    setIsQuerySubmitted.off();
   };
 
   const handleClearQuery = (): void => {
@@ -394,23 +415,24 @@ const Search = (): ReactElement => {
 
     setSearchTypes([]);
 
-    setIsQuerySubmitted.on();
+    setMovies(undefined);
+    setShows(undefined);
+    setPeople(undefined);
+    setCollections(undefined);
+    setCompanies(undefined);
+
+    setIsQueryEnabled.off();
+    setIsQuerySubmitted.off();
   };
 
   const handleOnSearchClick = (label: SearchType['label'], searchTypes?: SearchTypeValue[]): void => {
-    if (searchTypes && searchTypes.length > 0) {
-      setSearchTypes([...searchTypes]);
-    }
+    setSearchTypes([...(searchTypes || [])]);
 
     handleSubmitQuery(label, searchTypes);
   };
 
   const handleSetSearchTypes = (searchTypes: SearchTypeValue[]): void => {
-    setSubmittedQuery('');
-
     setSearchTypes(searchTypes);
-
-    setIsQuerySubmitted.on();
   };
 
   const handleCheckIfEmpty = (): boolean => {
@@ -440,8 +462,6 @@ const Search = (): ReactElement => {
   };
 
   useEffect(() => {
-    handleClearQuery();
-
     const search = qs.parse(history.location.search);
 
     if (search && search.types && Array.isArray(search.types)) {
@@ -454,6 +474,7 @@ const Search = (): ReactElement => {
       setUnSubmittedQuery(search.query);
       setSubmittedQuery(search.query);
 
+      setIsQueryEnabled.on();
       setIsQuerySubmitted.on();
     }
   }, [params]);
@@ -510,7 +531,7 @@ const Search = (): ReactElement => {
                       isError={keywordsQuery.isError}
                       isSuccess={keywordsQuery.isSuccess}
                       hasNextPage={keywordsQuery.hasNextPage}
-                      onKeywordClick={(name: Keyword['name']) => handleSubmitQuery(name)}
+                      onKeywordClick={handleOnKeywordClick}
                       onFetchNextPage={keywordsQuery.fetchNextPage}
                     />
                   ) : (
@@ -553,7 +574,7 @@ const Search = (): ReactElement => {
                 <Center as={Fade} key='search-empty' width='100%' in unmountOnExit>
                   <Empty
                     label='Oh no!'
-                    description={`Unfortantly couldnt find anthing that match "${submittedQuery}"`}
+                    description={`Unfortunately couldn't find anything that match "${submittedQuery}"`}
                   />
                 </Center>
               ) : (

@@ -6,14 +6,13 @@ import { PartialPerson } from '../../../common/types/person';
 import { FullTV, PartialTV } from '../../../common/types/tv';
 import { Color } from '../../../theme/types';
 
-type SearchType = 'isTrending' | 'isKeyword';
+export type SearchType = MediaType | 'company' | 'collection' | string;
 
 export type Search = {
   id: string;
   label: string;
   date: string;
-  type?: SearchType;
-  mediaType?: MediaType;
+  searchTypes?: SearchType[];
 };
 
 export type GetMediaType<MT extends MediaType> = MT extends 'movie'
