@@ -16,6 +16,7 @@ import { Response, Company } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
+import DisplayMode from '../../components/Clickable/DisplayMode';
 import Divider from '../../components/Divider';
 import Empty from '../../components/Empty';
 import Page from '../../containers/Page';
@@ -464,32 +465,47 @@ const Search = (): ReactElement => {
   useEffect(() => {
     const search = qs.parse(history.location.search);
 
-    if (search && search.types && Array.isArray(search.types)) {
-      setSearchTypes([...search.types]);
-    } else if (search && search.types && typeof search.types === 'string') {
-      setSearchTypes([search.types]);
-    }
+    if (!_.isNil(search) && !_.isEmpty(search)) {
+      handleClearQuery();
 
-    if (search && search.query && typeof search.query === 'string') {
-      setUnSubmittedQuery(search.query);
-      setSubmittedQuery(search.query);
+      if (history.location.hash && history.location.hash.length > 0) {
+        setSearchTypes([history.location.hash.replace('#', '')]);
+      } else if (search && search.types && Array.isArray(search.types)) {
+        setSearchTypes([...search.types]);
+      } else if (search && search.types && typeof search.types === 'string') {
+        setSearchTypes([search.types]);
+      }
 
-      setIsQueryEnabled.on();
-      setIsQuerySubmitted.on();
+      if (search && search.query && typeof search.query === 'string') {
+        setUnSubmittedQuery(search.query);
+        setSubmittedQuery(search.query);
+
+        setIsQueryEnabled.on();
+        setIsQuerySubmitted.on();
+      }
     }
   }, [params]);
 
   useEffect(() => {
-    return () => {
-      source.cancel();
-
-      handleClearQuery();
-    };
+    return () => source.cancel();
   }, []);
 
   return (
     <Page title='Search'>
       {{
+        actions: (
+          <Fade
+            in={_.isBoolean(
+              isQuerySubmitted &&
+                submittedQuery.length > 0 &&
+                !handleCheckIfEmpty() &&
+                (searchTypes.length === 1 || (location.hash && location.hash.length > 0))
+            )}
+            unmountOnExit
+          >
+            <DisplayMode />
+          </Fade>
+        ),
         body: (
           <VStack width='100%' spacing={4} px={2} pt={2}>
             {/* Search Form Container */}
@@ -518,28 +534,41 @@ const Search = (): ReactElement => {
                     onClearSearchTypes={() => handleSetSearchTypes([])}
                   />
                 ),
-                collapsibleContent:
-                  keywordsQuery.isFetching ||
-                  keywordsQuery.isLoading ||
-                  (!isQuerySubmitted &&
-                    unSubmittedQuery.length > 0 &&
-                    !keywordsQuery.isError &&
-                    (keywords?.total_results || 0) > 0) ? (
-                    <Keywords
-                      keywords={keywords}
-                      isLoading={keywordsQuery.isFetching || keywordsQuery.isLoading}
-                      isError={keywordsQuery.isError}
-                      isSuccess={keywordsQuery.isSuccess}
-                      hasNextPage={keywordsQuery.hasNextPage}
-                      onKeywordClick={handleOnKeywordClick}
-                      onFetchNextPage={keywordsQuery.fetchNextPage}
-                    />
-                  ) : (
-                    <VStack width='100%' divider={<Divider />} spacing={2}>
-                      <SearchTypes searchTypes={searchTypes} onSetSearchTypes={handleSetSearchTypes} />
-                      <RecentSearches onSearchClick={handleOnSearchClick} />
-                    </VStack>
-                  ),
+                collapsibleContent: (
+                  <AnimatePresence exitBeforeEnter initial={false}>
+                    {keywordsQuery.isFetching ||
+                    keywordsQuery.isLoading ||
+                    (!isQuerySubmitted &&
+                      unSubmittedQuery.length > 0 &&
+                      !keywordsQuery.isError &&
+                      (keywords?.total_results || 0) > 0) ? (
+                      <Center as={Fade} key='search-form-keywords' width='100%' in unmountOnExit>
+                        <Keywords
+                          keywords={keywords}
+                          isLoading={keywordsQuery.isFetching || keywordsQuery.isLoading}
+                          isError={keywordsQuery.isError}
+                          isSuccess={keywordsQuery.isSuccess}
+                          hasNextPage={keywordsQuery.hasNextPage}
+                          onKeywordClick={handleOnKeywordClick}
+                          onFetchNextPage={keywordsQuery.fetchNextPage}
+                        />
+                      </Center>
+                    ) : (
+                      <VStack
+                        as={Fade}
+                        key='search-form-recent-searches'
+                        width='100%'
+                        divider={<Divider />}
+                        spacing={2}
+                        in
+                        unmountOnExit
+                      >
+                        <SearchTypes searchTypes={searchTypes} onSetSearchTypes={handleSetSearchTypes} />
+                        <RecentSearches onSearchClick={handleOnSearchClick} />
+                      </VStack>
+                    )}
+                  </AnimatePresence>
+                ),
                 display: (
                   <Collapse in={isQuerySubmitted && submittedQuery.length > 0} unmountOnExit style={{ width: '100%' }}>
                     <Display
@@ -563,10 +592,16 @@ const Search = (): ReactElement => {
                 <Center as={Fade} key='search-submitted' width='100%' in unmountOnExit>
                   <All
                     query={submittedQuery}
+                    searchTypes={searchTypes}
+                    movies={movies}
                     moviesQuery={searchMoviesQuery}
-                    tvQuery={searchTVQuery}
+                    shows={shows}
+                    showsQuery={searchTVQuery}
+                    people={people}
                     peopleQuery={searchPeopleQuery}
+                    companies={companies}
                     companiesQuery={searchCompaniesQuery}
+                    collections={collections}
                     collectionsQuery={searchCollectionsQuery}
                   />
                 </Center>

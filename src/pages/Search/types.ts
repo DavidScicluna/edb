@@ -6,4 +6,4 @@ export type InputKeyboardEvent = KeyboardEvent<HTMLInputElement>;
 
 export type InputChangeEvent = ChangeEvent<HTMLInputElement>;
 
-export type Collection = Omit<MovieCollection, 'overview' | 'parts'>;
+export type Collection = Omit<MovieCollection, 'parts'>;
