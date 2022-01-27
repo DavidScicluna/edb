@@ -5,6 +5,7 @@ import { useLocation, Switch, Route } from 'react-router-dom';
 
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
+import Collection from '../../../../pages/Collection';
 import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';
 import Movies from '../../../../pages/Movies';
@@ -83,6 +84,11 @@ export const routes: RouteType[] = [
     path: '/person/:id',
     name: 'Person',
     children: <Person />
+  },
+  {
+    path: '/collections/:id',
+    name: 'Collection',
+    children: <Collection />
   },
   {
     name: 'Error',
