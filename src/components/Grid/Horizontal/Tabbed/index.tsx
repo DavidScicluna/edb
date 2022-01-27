@@ -72,7 +72,7 @@ const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement =>
           header: {
             title: (
               <HStack spacing={2}>
-                {typeof title === 'string' ? <Title>{title}</Title> : title}
+                {title ? typeof title === 'string' ? <Title>{title}</Title> : title : null}
                 <TabList {...renderTabListProps} />
               </HStack>
             ),

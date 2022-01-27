@@ -9,7 +9,7 @@ type ScrollMenuContext = ContextType<typeof VisibilityContext>;
 export type ScrollMenu = Omit<ScrollMenuContext, 'children' | 'LeftArrow' | 'RightArrow'>;
 
 export type HorizontalGridProps = {
-  title: Header['title'];
+  title?: Header['title'];
   footer?: PanelProps['children']['footer'];
   isDisabled?: boolean;
 } & Omit<PanelProps, 'children' | 'isFullWidth' | 'onChange'>;

@@ -57,7 +57,7 @@ const HorizontalGridDefault = (props: HorizontalGridDefaultProps): ReactElement 
     <Panel {...rest} isFullWidth>
       {{
         header: {
-          title: typeof title === 'string' ? <Title>{title}</Title> : title,
+          title: title ? typeof title === 'string' ? <Title>{title}</Title> : title : undefined,
           actions: (
             <Actions
               isLeftDisabled={isDisabled || isLeftDisabled}
