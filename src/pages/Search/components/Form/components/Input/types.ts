@@ -9,5 +9,5 @@ export type InputProps = {
   onInputChange: (event: InputChangeEvent) => void;
   onClearQuery: () => void;
   onSubmitQuery: () => void;
-  onClearSearchTypes: () => void;
+  onClearSearchTypes?: () => void;
 };

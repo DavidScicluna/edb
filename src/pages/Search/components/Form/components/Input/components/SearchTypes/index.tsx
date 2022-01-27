@@ -15,6 +15,7 @@ const SearchTypes = ({ searchTypes, onClear }: SearchTypesProps): ReactElement =
 
   return (
     <HStack
+      minHeight='30px' // Size of Close Button
       backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       borderRadius='sm'
       px={1}
@@ -36,18 +37,20 @@ const SearchTypes = ({ searchTypes, onClear }: SearchTypesProps): ReactElement =
               .map((searchType) => searchType.label)
               .join(' • ')}
       </Text>
-      <Tooltip aria-label='Clear Search Types' label='Clear Search Types' isOpen={isHoveringClear} placement='top'>
-        <IconButton
-          aria-label='Clear Search Types'
-          onClick={() => onClear()}
-          onMouseEnter={() => setIsHoveringClear.on()}
-          onMouseLeave={() => setIsHoveringClear.off()}
-          size='sm'
-          variant='icon'
-        >
-          <ClearOutlinedIcon />
-        </IconButton>
-      </Tooltip>
+      {onClear ? (
+        <Tooltip aria-label='Clear Search Types' label='Clear Search Types' isOpen={isHoveringClear} placement='top'>
+          <IconButton
+            aria-label='Clear Search Types'
+            onClick={() => onClear()}
+            onMouseEnter={() => setIsHoveringClear.on()}
+            onMouseLeave={() => setIsHoveringClear.off()}
+            size='sm'
+            variant='icon'
+          >
+            <ClearOutlinedIcon />
+          </IconButton>
+        </Tooltip>
+      ) : undefined}
     </HStack>
   );
 };

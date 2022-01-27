@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -9,8 +9,6 @@ import Error from '../../../../../../components/Error';
 import List from '../List';
 import ListItem from '../List/components/ListItem';
 import { KeywordsProps } from './types';
-
-const dummies = _.range(4, 8);
 
 const Keywords = (props: KeywordsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -24,6 +22,8 @@ const Keywords = (props: KeywordsProps): ReactElement => {
     onKeywordClick,
     onFetchNextPage
   } = props;
+
+  const [dummies] = useState(_.range(0, _.sample(_.range(4, 8))));
 
   return (
     <VStack width='100%' spacing={4}>
@@ -51,23 +51,25 @@ const Keywords = (props: KeywordsProps): ReactElement => {
           </>
         ) : (
           <>
-            {_.range(0, _.sample(dummies)).map((_dummy, index) => (
+            {dummies.map((_dummy, index) => (
               <ListItem key={index} id={String(index)} title='Lorem Ipsum' isLoading variant='transparent' />
             ))}
           </>
         )}
       </List>
 
-      <ScaleFade in={hasNextPage && !isError && !isLoading} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
-        <LoadMore
-          amount={keywords?.results?.length || 0}
-          total={keywords?.total_results || 0}
-          label='Keywords'
-          isLoading={isLoading}
-          isButtonVisible={hasNextPage && !isError}
-          onClick={onFetchNextPage}
-        />
-      </ScaleFade>
+      {!isLoading ? (
+        <ScaleFade in={hasNextPage && !isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
+          <LoadMore
+            amount={keywords?.results?.length || 0}
+            total={keywords?.total_results || 0}
+            label='Keywords'
+            isLoading={isLoading}
+            isButtonVisible={hasNextPage && !isError}
+            onClick={onFetchNextPage}
+          />
+        </ScaleFade>
+      ) : null}
     </VStack>
   );
 };

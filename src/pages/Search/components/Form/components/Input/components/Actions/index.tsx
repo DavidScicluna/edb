@@ -30,7 +30,7 @@ const Actions = (props: ActionsProps): ReactElement => {
         <Tooltip
           aria-label='Clear search'
           label='Clear search'
-          isOpen={isHoveringClear}
+          isOpen={!isDisabled && isHoveringClear}
           isDisabled={isDisabled}
           placement='top'
         >
@@ -50,7 +50,7 @@ const Actions = (props: ActionsProps): ReactElement => {
       <Tooltip
         aria-label='Submit Search'
         label='Submit Search'
-        isOpen={isHoveringSubmit}
+        isOpen={!(isDisabled || !hasQuery) && isHoveringSubmit}
         isDisabled={isDisabled}
         placement='top'
       >
