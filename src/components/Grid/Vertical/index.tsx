@@ -3,15 +3,18 @@ import { ReactElement } from 'react';
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
 import { useSelector } from '../../../common/hooks';
+import { DisplayMode } from '../../../store/slices/App/types';
 import { VerticalGridProps } from './types';
 
 const VerticalGrid = (props: VerticalGridProps): ReactElement => {
   const [isXs] = useMediaQuery('(max-width: 320px)');
   const [isXl] = useMediaQuery('(min-width: 1920px)');
 
-  const displayMode = useSelector((state) => state.app.ui.displayMode);
+  const displayModeState = useSelector((state) => state.app.ui.displayMode);
 
-  const { children } = props;
+  const { children, displayMode: displayModeProp } = props;
+
+  const displayMode: DisplayMode = displayModeProp || displayModeState;
 
   return (
     <SimpleGrid

@@ -8,4 +8,5 @@ type ChildrenProps = {
 
 export type VerticalGridProps = {
   children: (props: ChildrenProps) => ReactElement[];
+  displayMode?: DisplayMode;
 };
