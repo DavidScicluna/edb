@@ -17,6 +17,7 @@ const Divider = (props: DividerProps): ReactElement => {
       height={orientation === 'horizontal' ? '2px' : '100%'}
       backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       {...rest}
+      border='none'
     />
   );
 };
