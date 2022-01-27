@@ -3,8 +3,7 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 import { useTheme, useColorMode, Image as CUIImage } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import darkFallback from '../../common/assets/fallback/dark.png';
-import lightFallback from '../../common/assets/fallback/light.png';
+import * as fallback from '../../common/assets/fallback';
 import { useImageOnLoad } from '../../common/hooks';
 import { handleReturnBoringSrc } from '../../common/utils';
 import { Theme } from '../../theme/types';
@@ -17,7 +16,7 @@ const Image = (props: ImageProps): ReactElement => {
   const { colorMode } = useColorMode();
   const { css, handleIsLoaded } = useImageOnLoad(theme);
 
-  const { mediaType, alt, thumbnailSrc, fullSrc, onError, onLoad, ...rest } = props;
+  const { alt, thumbnailSrc, fullSrc, boringType, onError, onLoad, ...rest } = props;
 
   const [fallbackSrc, setFallbackSrc] = useState<string>('');
 
@@ -26,11 +25,7 @@ const Image = (props: ImageProps): ReactElement => {
    */
   const handleFallbackSrc = useCallback(
     _.debounce(() => {
-      const fallbackSrc: string = handleReturnBoringSrc(
-        mediaType === 'person' ? 'beam' : 'marble',
-        colorMode === 'light' ? 400 : 500,
-        alt
-      );
+      const fallbackSrc: string = handleReturnBoringSrc(boringType, colorMode === 'light' ? 400 : 500, alt);
 
       setFallbackSrc(fallbackSrc);
     }, 500),
@@ -64,7 +59,7 @@ const Image = (props: ImageProps): ReactElement => {
         onError={onError ? (error) => onError(error) : undefined}
         onLoad={onLoad ? (event) => onLoad(event) : undefined}
         src={thumbnailSrc}
-        fallbackSrc={colorMode === 'light' ? lightFallback : darkFallback}
+        fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
         sx={{ ...css.thumbnail }}
       />
 

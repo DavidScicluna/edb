@@ -1,10 +1,18 @@
 import { ImageProps as CUIImageProps } from '@chakra-ui/react';
 
-import { MediaType, Image as ImageType } from '../../common/types';
+import { BoringAvatarType } from '../../common/types';
 
-export type ImageProps = {
+export type Image = {
+  alt: string;
+  src: string;
+  size: {
+    thumbnail: string;
+    full: string;
+  };
+};
+
+export type ImageProps = Omit<Image, 'size' | 'src'> & {
   thumbnailSrc: string;
   fullSrc: string;
-  mediaType: MediaType;
-} & Omit<CUIImageProps, 'alt' | 'src' | 'fallback' | 'fallbackSrc'> &
-  Omit<ImageType, 'size' | 'src'>;
+  boringType: BoringAvatarType;
+} & Omit<CUIImageProps, 'alt' | 'src' | 'fallback' | 'fallbackSrc'>;
