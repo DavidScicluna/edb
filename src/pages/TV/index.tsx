@@ -68,7 +68,6 @@ const TV = (): ReactElement => {
           total_pages: data.pages[data.pages.length - 1].total_pages,
           total_results: data.pages[data.pages.length - 1].total_results
         });
-        return;
       }
     }
   );

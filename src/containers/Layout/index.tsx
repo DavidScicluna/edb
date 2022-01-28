@@ -19,7 +19,7 @@ import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import { useSelector } from '../../common/hooks';
+import { useSelector, usePopulateOptions } from '../../common/hooks';
 import { handleCheckSystemColorMode, handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import { NavItem } from '../../components/NavItem/types';
 import { toggleSidebarMode } from '../../store/slices/App';
@@ -87,6 +87,8 @@ const Layout = (): ReactElement => {
   const background = useSelector((state) => state.user.ui.theme.background);
 
   const transition = useTransitionsStyle(theme);
+
+  usePopulateOptions();
 
   useEffect(() => {
     if (!isLgUp) {

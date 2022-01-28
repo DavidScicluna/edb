@@ -148,8 +148,7 @@ const Lists = (): ReactElement => {
                           onOpenList={handleOpenList}
                         />
                       </Center>
-                    ) : null}
-                    {!_.isNil(activeTab) ? (
+                    ) : (
                       <Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
                         <TabPanels>
                           {_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => (
@@ -173,7 +172,7 @@ const Lists = (): ReactElement => {
                           ))}
                         </TabPanels>
                       </Center>
-                    ) : null}
+                    )}
                   </AnimatePresence>
                 )}
               </VStack>

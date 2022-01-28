@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Center, VStack, Text } from '@chakra-ui/react';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
+import _ from 'lodash';
 
 import { Theme } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
@@ -65,7 +66,7 @@ const Rating = (props: RatingProps): ReactElement => {
             fontWeight='medium'
             lineHeight='normal'
           >
-            {children || 'N/A'}
+            {_.round(children) || 'N/A'}
           </Text>
           {/* TODO: Find a way to better display count */}
           {/* {count ? (

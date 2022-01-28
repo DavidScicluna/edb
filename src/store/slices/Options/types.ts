@@ -14,18 +14,29 @@ export type Job = {
   jobs?: string[];
 };
 
-export type Genres = {
-  genres?: Genre[];
-};
-
 export type Genre = {
   id?: number;
   name?: string;
 };
 
+export type Certification = {
+  certification?: string;
+  meaning?: string;
+  order?: number;
+};
+
+type CertificationKey = 'US' | 'CA' | 'DE' | 'GB' | 'AU' | 'BR' | 'FR' | 'NZ' | 'IN';
+
+export type Certifications = { [key in CertificationKey]: Certification[] };
+
 type OptionsGenre = {
   movie: Genre[];
   tv: Genre[];
+};
+
+type OptionsCertifications = {
+  movie?: Certifications;
+  tv?: Certifications;
 };
 
 export type StateProps = {
@@ -34,5 +45,6 @@ export type StateProps = {
     languages: Language[];
     jobs: Job[];
     genres: OptionsGenre;
+    certifications: OptionsCertifications;
   };
 };

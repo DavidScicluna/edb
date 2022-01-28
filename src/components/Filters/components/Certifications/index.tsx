@@ -7,23 +7,25 @@ import { Controller } from 'react-hook-form';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
-import { Certification as CertificationType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
 import Empty from '../../../../components/Empty';
-import Error from '../../../../components/Error';
+import { Certification as CertificationType } from '../../../../store/slices/Options/types';
 import Panel from '../../../Panel';
 import Certification from './components/Certification';
 import { CertificationsProps } from './types';
 
-const Certifications = (props: CertificationsProps): ReactElement => {
+const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement => {
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
+  const certifications = useSelector((state) =>
+    mediaType === 'movie'
+      ? state.options.data.certifications.movie?.US || []
+      : state.options.data.certifications.tv?.US || []
+  );
 
   const [ref, { height }] = useElementSize();
-
-  const { certifications, form, isLoading = true, isError = false } = props;
 
   const handleCertificationClick = (certification: CertificationType): void => {
     const certifications = form.getValues().certifications;
@@ -76,7 +78,10 @@ const Certifications = (props: CertificationsProps): ReactElement => {
                   <Button
                     color={color}
                     isDisabled={
-                      isLoading || isError || value.length === 0 || value.length === (certifications?.length || 0)
+                      _.isNil(certifications) ||
+                      _.isEmpty(certifications) ||
+                      value.length === 0 ||
+                      value.length === ((certifications || [])?.length || 0)
                     }
                     onClick={() => form.setValue('certifications', [], { shouldDirty: true })}
                     size='sm'
@@ -86,7 +91,7 @@ const Certifications = (props: CertificationsProps): ReactElement => {
                   </Button>
                   <Button
                     color={color}
-                    isDisabled={isLoading || isError}
+                    isDisabled={_.isNil(certifications) || _.isEmpty(certifications)}
                     onClick={() => handleAllClick()}
                     size='sm'
                     variant='text'
@@ -98,17 +103,7 @@ const Certifications = (props: CertificationsProps): ReactElement => {
             },
             body: (
               <Wrap width='100%' spacing={isSm ? 1 : 1.5}>
-                {!isLoading && isError ? (
-                  <WrapItem width='100%'>
-                    <Error
-                      hasIllustration={false}
-                      label='Oh no! Something went wrong 😭'
-                      description='Failed to fetch certifications!'
-                      size='sm'
-                      variant='transparent'
-                    />
-                  </WrapItem>
-                ) : !isLoading && _.isNil(certifications) ? (
+                {_.isNil(certifications) || _.isEmpty(certifications) ? (
                   <WrapItem width='100%'>
                     <Empty
                       hasIllustration={false}
@@ -118,8 +113,8 @@ const Certifications = (props: CertificationsProps): ReactElement => {
                       variant='transparent'
                     />
                   </WrapItem>
-                ) : !isLoading && !_.isNil(certifications) ? (
-                  sort(certifications, 'order').map((certification) => (
+                ) : !_.isNil(certifications) || !_.isEmpty(certifications) ? (
+                  sort([...(certifications || [])], 'order').map((certification) => (
                     <WrapItem key={certification.certification}>
                       <Certification
                         {...certification}

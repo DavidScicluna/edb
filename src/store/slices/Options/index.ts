@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { StateProps, Country, Language, Job, Genre } from './types';
+import { StateProps, Country, Language, Job, Genre, Certifications } from './types';
 
 const initialState: StateProps = {
   data: {
@@ -10,6 +10,10 @@ const initialState: StateProps = {
     genres: {
       movie: [],
       tv: []
+    },
+    certifications: {
+      movie: undefined,
+      tv: undefined
     }
   }
 };
@@ -32,10 +36,24 @@ const optionsSlice = createSlice({
     },
     setTVGenres: (state: StateProps, action: PayloadAction<Genre[]>) => {
       state.data.genres.tv = action.payload;
+    },
+    setMovieCertifications: (state: StateProps, action: PayloadAction<Certifications>) => {
+      state.data.certifications.movie = action.payload;
+    },
+    setTVCertifications: (state: StateProps, action: PayloadAction<Certifications>) => {
+      state.data.certifications.tv = action.payload;
     }
   }
 });
 
-export const { setCountries, setLanguages, setJobs, setMovieGenres, setTVGenres } = optionsSlice.actions;
+export const {
+  setCountries,
+  setLanguages,
+  setJobs,
+  setMovieGenres,
+  setTVGenres,
+  setMovieCertifications,
+  setTVCertifications
+} = optionsSlice.actions;
 
 export default optionsSlice.reducer;

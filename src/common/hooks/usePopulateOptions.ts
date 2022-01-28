@@ -1,12 +1,35 @@
 import { useEffect } from 'react';
 
 import axios from 'axios';
+import _ from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import { setCountries, setLanguages, setJobs, setMovieGenres, setTVGenres } from '../../store/slices/Options';
-import { Country, Language, Job, Genres } from '../../store/slices/Options/types';
+import {
+  setCountries,
+  setLanguages,
+  setJobs,
+  setMovieGenres,
+  setTVGenres,
+  setMovieCertifications,
+  setTVCertifications
+} from '../../store/slices/Options';
+import {
+  Country,
+  Language,
+  Job,
+  Genre,
+  Certifications as OptionsCertifications
+} from '../../store/slices/Options/types';
 import axiosInstance from '../scripts/axios';
+
+export type Genres = {
+  genres?: Genre[];
+};
+
+export type Certifications = {
+  certifications?: OptionsCertifications;
+};
 
 const usePopulateOptions = (): void => {
   const source = axios.CancelToken.source();
@@ -94,6 +117,44 @@ const usePopulateOptions = (): void => {
       retry: true,
       onSuccess: (genres) => {
         dispatch(setTVGenres([...(genres || [])]));
+      }
+    }
+  );
+
+  // Fetching movie certifications
+  useQuery(
+    'movie-certifications',
+    async () => {
+      const { data } = await axiosInstance.get<Certifications>('/certification/movie/list', {
+        cancelToken: source.token
+      });
+      return data.certifications;
+    },
+    {
+      retry: true,
+      onSuccess: (certifications) => {
+        if (!_.isNil(certifications) && !_.isEmpty(certifications)) {
+          dispatch(setMovieCertifications({ ...(certifications || {}) }));
+        }
+      }
+    }
+  );
+
+  // Fetching tv show certifications
+  useQuery(
+    'tv-show-certifications',
+    async () => {
+      const { data } = await axiosInstance.get<Certifications>('/certification/tv/list', {
+        cancelToken: source.token
+      });
+      return data.certifications;
+    },
+    {
+      retry: true,
+      onSuccess: (certifications) => {
+        if (!_.isNil(certifications) && !_.isEmpty(certifications)) {
+          dispatch(setTVCertifications({ ...(certifications || {}) }));
+        }
       }
     }
   );

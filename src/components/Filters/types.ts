@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-import { Genre, MediaType, Icon, Certification } from '../../common/types';
+import { MediaType, Icon, Certification } from '../../common/types';
+import { Genre } from '../../store/slices/Options/types';
 import { Color } from '../../theme/types';
 
 type FormDate = string | undefined;
@@ -23,6 +24,6 @@ export type RenderButtonProps = {
 
 export type FiltersProps = {
   renderButton: (props: RenderButtonProps) => ReactElement;
-  mediaType: Omit<MediaType, 'person'>;
+  mediaType: Omit<MediaType, 'person' | 'collection' | 'company'>;
   onFilter: (filters: Form) => void;
 };

@@ -6,23 +6,23 @@ import { Controller } from 'react-hook-form';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
-import { Genre as GenreType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
 import Empty from '../../../../components/Empty';
-import Error from '../../../../components/Error';
+import { Genre as GenreType } from '../../../../store/slices/Options/types';
 import Panel from '../../../Panel';
 import Genre from './components/Genre';
 import { GenresProps } from './types';
 
-const Genres = (props: GenresProps): ReactElement => {
+const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
+  const genres = useSelector((state) =>
+    mediaType === 'movie' ? state.options.data.genres.movie : state.options.data.genres.tv
+  );
 
   const [ref, { height }] = useElementSize();
-
-  const { genres, form, isLoading = true, isError = false } = props;
 
   const handleGenreClick = (genre: GenreType): void => {
     const genres = form.getValues().genres;
@@ -72,7 +72,12 @@ const Genres = (props: GenresProps): ReactElement => {
                 >
                   <Button
                     color={color}
-                    isDisabled={isLoading || isError || value.length === 0 || value.length === (genres?.length || 0)}
+                    isDisabled={
+                      _.isNil(genres) ||
+                      _.isEmpty(genres) ||
+                      value.length === 0 ||
+                      value.length === (genres?.length || 0)
+                    }
                     onClick={() => form.setValue('genres', [], { shouldDirty: true })}
                     size='sm'
                     variant='text'
@@ -81,7 +86,7 @@ const Genres = (props: GenresProps): ReactElement => {
                   </Button>
                   <Button
                     color={color}
-                    isDisabled={isLoading || isError}
+                    isDisabled={_.isNil(genres) || _.isEmpty(genres)}
                     onClick={() => handleAllClick()}
                     size='sm'
                     variant='text'
@@ -93,17 +98,7 @@ const Genres = (props: GenresProps): ReactElement => {
             },
             body: (
               <Wrap width='100%' spacing={isSm ? 1 : 1.5}>
-                {!isLoading && isError ? (
-                  <WrapItem width='100%'>
-                    <Error
-                      hasIllustration={false}
-                      label='Oh no! Something went wrong 😭'
-                      description='Failed to fetch genres!'
-                      size='sm'
-                      variant='transparent'
-                    />
-                  </WrapItem>
-                ) : !isLoading && _.isNil(genres) ? (
+                {_.isNil(genres) || _.isEmpty(genres) ? (
                   <WrapItem width='100%'>
                     <Empty
                       hasIllustration={false}
@@ -113,7 +108,7 @@ const Genres = (props: GenresProps): ReactElement => {
                       variant='transparent'
                     />
                   </WrapItem>
-                ) : !isLoading && !_.isNil(genres) ? (
+                ) : !_.isNil(genres) || !_.isEmpty(genres) ? (
                   genres.map((genre) => (
                     <WrapItem key={genre.id}>
                       <Genre

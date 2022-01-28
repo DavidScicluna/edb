@@ -6,12 +6,9 @@ import axios from 'axios';
 import _ from 'lodash';
 import qs from 'query-string';
 import { useForm, useFormState } from 'react-hook-form';
-import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
-import axiosInstance from '../../common/scripts/axios';
-import { Genres as GenresType, Certifications as CertificationsType } from '../../common/types';
 import Modal from '../../components/Modal';
 import Button from '../Clickable/Button';
 import Adult from './components/Adult';
@@ -49,54 +46,6 @@ const Filters = (props: FiltersProps): ReactElement => {
   const form = useForm<Form>({ defaultValues });
 
   const { isDirty } = useFormState({ control: form.control });
-
-  // Fetching Movie Genres
-  const movieGenresQuery = useQuery(
-    'movie-genres',
-    async () => {
-      const { data } = await axiosInstance.get<GenresType>('/genre/movie/list', {
-        cancelToken: source.token
-      });
-      return data && data.genres ? data.genres : [];
-    },
-    { enabled: isOpen && mediaType === 'movie' }
-  );
-
-  // Fetching Movie Certifications
-  const movieCertificationsQuery = useQuery(
-    'movie-certifications',
-    async () => {
-      const { data } = await axiosInstance.get<CertificationsType>('/certification/movie/list', {
-        cancelToken: source.token
-      });
-      return data.certifications && data.certifications.US ? data.certifications.US : undefined;
-    },
-    { enabled: isOpen && mediaType === 'movie' }
-  );
-
-  // Fetching TV Show Certifications
-  const tvCertificationsQuery = useQuery(
-    'tv-show-certifications',
-    async () => {
-      const { data } = await axiosInstance.get<CertificationsType>('/certification/tv/list', {
-        cancelToken: source.token
-      });
-      return data.certifications && data.certifications.US ? data.certifications.US : undefined;
-    },
-    { enabled: isOpen && mediaType === 'tv' }
-  );
-
-  // Fetching TV Show Genres
-  const tvGenresQuery = useQuery(
-    'tv-genres',
-    async () => {
-      const { data } = await axiosInstance.get<GenresType>('/genre/tv/list', {
-        cancelToken: source.token
-      });
-      return data && data.genres ? data.genres : [];
-    },
-    { enabled: isOpen && mediaType === 'tv' }
-  );
 
   const handleReset = (): void => {
     form.setValue('date', defaultValues.date, { shouldDirty: true });
@@ -232,50 +181,8 @@ const Filters = (props: FiltersProps): ReactElement => {
       >
         <VStack width='100%' spacing={2} p={2}>
           <Dates form={form} mediaType={mediaType} />
-          <Genres
-            genres={
-              mediaType === 'movie' && movieGenresQuery.data
-                ? movieGenresQuery.data
-                : mediaType === 'tv' && tvGenresQuery.data
-                ? tvGenresQuery.data
-                : []
-            }
-            form={form}
-            isLoading={
-              mediaType === 'movie'
-                ? movieGenresQuery.isFetching || movieGenresQuery.isLoading
-                : mediaType === 'tv'
-                ? tvGenresQuery.isFetching || tvGenresQuery.isLoading
-                : false
-            }
-            isError={
-              mediaType === 'movie' ? movieGenresQuery.isError : mediaType === 'tv' ? tvGenresQuery.isError : false
-            }
-          />
-          <Certifications
-            certifications={
-              mediaType === 'movie' && movieCertificationsQuery.data
-                ? movieCertificationsQuery.data
-                : mediaType === 'tv' && tvCertificationsQuery.data
-                ? tvCertificationsQuery.data
-                : []
-            }
-            form={form}
-            isLoading={
-              mediaType === 'movie'
-                ? movieCertificationsQuery.isFetching || movieCertificationsQuery.isLoading
-                : mediaType === 'tv'
-                ? tvCertificationsQuery.isFetching || tvCertificationsQuery.isLoading
-                : false
-            }
-            isError={
-              mediaType === 'movie'
-                ? movieCertificationsQuery.isError
-                : mediaType === 'tv'
-                ? tvCertificationsQuery.isError
-                : false
-            }
-          />
+          <Genres form={form} mediaType={mediaType} />
+          <Certifications form={form} mediaType={mediaType} />
           <RatingRange form={form} />
           <CountRange form={form} />
           <RuntimeRange form={form} />
