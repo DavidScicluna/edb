@@ -5,7 +5,8 @@ import { useLocation } from 'react-router-dom';
 
 import HorizontalSearchCollections from './components/Collections/Horizontal';
 import VerticalSearchCollections from './components/Collections/Vertical';
-import Companies from './components/Companies';
+import HorizontalSearchCompanies from './components/Companies/Horizontal';
+import VerticalSearchCompanies from './components/Companies/Vertical';
 import HorizontalSearchMovies from './components/Movies/Horizontal';
 import VerticalSearchMovies from './components/Movies/Vertical';
 import HorizontalSearchPeople from './components/People/Horizontal';
@@ -27,9 +28,9 @@ const All = (props: AllProps): ReactElement => {
     people,
     peopleQuery,
     collections,
-    collectionsQuery
-    // companies,
-    // companiesQuery
+    collectionsQuery,
+    companies,
+    companiesQuery
   } = props;
 
   return (
@@ -99,9 +100,24 @@ const All = (props: AllProps): ReactElement => {
       </Fade>
 
       {/* Companies */}
-      {/* <Fade in={(companies?.total_results || 0) > 0 &&   (searchTypes.length === 0 || searchTypes.every((type) => type === 'collection'))} unmountOnExit style={{ width: '100%' }}>
-        <Companies query={query} companies={companies?.results || []} total={companies?.total_results || 0} />
-      </Fade> */}
+      <Fade
+        in={
+          (companies?.total_results || 0) > 0 &&
+          (searchTypes.length === 0 || searchTypes.some((type) => type === 'company'))
+        }
+        unmountOnExit
+        style={{ width: '100%' }}
+      >
+        {searchTypes.length === 1 || (location.hash && location.hash === '#company') ? (
+          <VerticalSearchCompanies query={query} companies={companies} companiesQuery={companiesQuery} />
+        ) : (
+          <HorizontalSearchCompanies
+            query={query}
+            companies={companies?.results || []}
+            total={companies?.total_results || 0}
+          />
+        )}
+      </Fade>
     </VStack>
   );
 };

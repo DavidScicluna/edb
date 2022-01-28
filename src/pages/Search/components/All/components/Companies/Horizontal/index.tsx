@@ -8,42 +8,43 @@ import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPoster from '../../../../../../../components/Poster/Vertical';
-import { CollectionsProps } from './types';
+import { CompaniesProps } from './types';
 
-const Collections = ({ query, collections = [], total = 0 }: CollectionsProps): ReactElement => {
+const Companies = ({ query, companies = [], total = 0 }: CompaniesProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
+  const countries = useSelector((state) => state.options.data.countries);
 
   return (
     <HorizontalGrid
-      title={`Found ${total} collection${total === 0 || total > 1 ? 's' : ''} with "${query}"`}
+      title={`Found ${total} ${total === 0 || total > 1 ? 'companies' : 'company'} with "${query}"`}
       footer={
         total > 20 ? (
-          <Link to={{ pathname: '/search', search: qs.stringify({ query }), hash: 'collection' }} isFullWidth>
+          <Link to={{ pathname: '/search/movies', search: qs.stringify({ query }) }} isFullWidth>
             <Button color={color} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
-              {`View all ${total} collection${total === 0 || total > 1 ? 's' : ''} with "${query}"`}
+              {`View all ${total} ${total === 0 || total > 1 ? 'companies' : 'company'} with "${query}"`}
             </Button>
           </Link>
         ) : undefined
       }
     >
-      {collections.map((collection) => (
+      {companies.map((company) => (
         <VerticalPoster
-          key={collection.id}
+          key={company.id}
           width={['185px', '205px', '230px']}
-          mediaItem={collection ? { ...collection } : undefined}
+          mediaItem={company ? { ...company } : undefined}
           mediaType='collection'
           image={{
-            alt: `${collection.name || ''} collection poster`,
-            src: collection.poster_path || '',
+            alt: `${company.name || ''} company poster`,
+            src: company.logo_path || '',
             size: {
-              thumbnail: 'w92',
+              thumbnail: 'w45',
               full: 'original'
             }
           }}
-          title={collection.name || ''}
-          subtitle={collection.overview || ''}
+          title={company.name || ''}
+          subtitle={countries.find((country) => country.iso_3166_1 === company.origin_country)?.english_name || ''}
           isLoading={false}
         />
       ))}
@@ -51,4 +52,4 @@ const Collections = ({ query, collections = [], total = 0 }: CollectionsProps): 
   );
 };
 
-export default Collections;
+export default Companies;

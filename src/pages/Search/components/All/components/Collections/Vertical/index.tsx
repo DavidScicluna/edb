@@ -86,7 +86,7 @@ const VerticalSearchCollections = (props: VerticalSearchCollectionsProps): React
                     }
                   }}
                   title='Lorem Ipsum'
-                  isLoading={false}
+                  isLoading
                 />
               ) : (
                 <HorizontalPoster

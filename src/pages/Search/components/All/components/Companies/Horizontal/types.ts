@@ -1,4 +1,4 @@
-import { Company } from '../../../../../../common/types';
+import { Company } from '../../../../../../../common/types';
 
 export type CompaniesProps = {
   query: string;
