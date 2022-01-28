@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
+import { ColorMode, useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
+import { handleCheckSystemColorMode } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
@@ -14,7 +15,8 @@ import Background from './components/Background';
 import Color from './components/Color';
 
 const Display = (): ReactElement => {
-  const { toggleColorMode } = useColorMode();
+  const { setColorMode, toggleColorMode } = useColorMode();
+
   const [isSm] = useMediaQuery('(max-width: 672px)');
 
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ const Display = (): ReactElement => {
   const form = useForm<Theme>({ defaultValues: { ...theme } });
   const color = form.watch('color');
   const background = form.watch('background');
+  const colorMode: ColorMode = background === 'system' ? handleCheckSystemColorMode() : background;
 
   const { isDirty, dirtyFields } = useFormState({ control: form.control });
 
@@ -36,7 +39,11 @@ const Display = (): ReactElement => {
     form.reset({ ...newTheme });
 
     if (dirtyFields.background) {
-      toggleColorMode();
+      if (newTheme.background !== 'system') {
+        toggleColorMode();
+      } else {
+        setColorMode(handleCheckSystemColorMode());
+      }
     }
 
     setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
@@ -54,7 +61,7 @@ const Display = (): ReactElement => {
       renderActions={({ size }) => (
         <Button
           color={color}
-          colorMode={background}
+          colorMode={colorMode}
           isDisabled={!isDirty}
           onClick={form.handleSubmit((values) => handleSubmit(values))}
           size={size}
@@ -62,11 +69,11 @@ const Display = (): ReactElement => {
           Save
         </Button>
       )}
-      colorMode={background}
+      colorMode={colorMode}
       isOpen={isDisplayModalOpen}
       onClose={handleClose}
       isCentered
-      size={isSm ? 'full' : '2xl'}
+      size={isSm ? 'full' : '3xl'}
     >
       <VStack spacing={2} p={2}>
         <Color form={form} />

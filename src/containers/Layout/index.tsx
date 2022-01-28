@@ -1,6 +1,6 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useCallback, useEffect } from 'react';
 
-import { useTheme, useMediaQuery, Container, Box, HStack, VStack } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, Container, Box, HStack, VStack } from '@chakra-ui/react';
 import {
   HomeTwoTone as HomeTwoToneIcon,
   HomeOutlined as HomeOutlinedIcon,
@@ -15,13 +15,15 @@ import {
   WhatshotOutlined as WhatshotOutlinedIcon,
   WhatshotTwoTone as WhatshotTwoToneIcon
 } from '@material-ui/icons';
+import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
-import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
+import { handleCheckSystemColorMode, handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import { NavItem } from '../../components/NavItem/types';
 import { toggleSidebarMode } from '../../store/slices/App';
+import { toggleSplashscreen } from '../../store/slices/Modals';
 import { Theme } from '../../theme/types';
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
@@ -76,17 +78,40 @@ export const navItems: NavItem[] = [
 
 const Layout = (): ReactElement => {
   const theme = useTheme<Theme>();
+  const { setColorMode } = useColorMode();
+
   const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
-  const transition = useTransitionsStyle(theme);
 
   const dispatch = useDispatch();
   const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+  const background = useSelector((state) => state.user.ui.theme.background);
+
+  const transition = useTransitionsStyle(theme);
 
   useEffect(() => {
     if (!isLgUp) {
       dispatch(toggleSidebarMode('expanded'));
     }
   }, [isLgUp]);
+
+  const handleUpdateColorMode = useCallback(
+    _.debounce(() => {
+      if (background === 'system') {
+        dispatch(toggleSplashscreen(true));
+
+        setColorMode(handleCheckSystemColorMode());
+
+        setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
+      }
+    }, 500),
+    [background, setColorMode, dispatch, toggleSplashscreen, handleCheckSystemColorMode]
+  );
+
+  useEffect(() => {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleUpdateColorMode);
+
+    return () => window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleUpdateColorMode);
+  }, []);
 
   return (
     <>

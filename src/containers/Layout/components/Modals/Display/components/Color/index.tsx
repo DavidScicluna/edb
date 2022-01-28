@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
+import { ColorMode, useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
+import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
 import Panel from '../../../../../../../components/Panel';
 import { Form } from '../../types';
 import ColorItem from './components/ColorItem';
@@ -47,13 +48,14 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const background = form.watch('background');
+  const colorMode: ColorMode = background === 'system' ? handleCheckSystemColorMode() : background;
 
   return (
     <Controller
       control={form.control}
       name='color'
       render={({ field: { value } }) => (
-        <Panel colorMode={background} isFullWidth>
+        <Panel colorMode={colorMode} isFullWidth>
           {{
             header: {
               title: 'Color'
@@ -64,7 +66,7 @@ const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
                   <ColorItem
                     key={index}
                     {...color}
-                    background={background}
+                    background={colorMode}
                     isActive={color.value === value}
                     onClick={() => form.setValue('color', color.value, { shouldDirty: true })}
                   />

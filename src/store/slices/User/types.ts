@@ -56,7 +56,7 @@ export type UserReviews = {
 
 export type Theme = {
   color: keyof Omit<Color, 'gray' | 'red'>;
-  background: ColorMode;
+  background: ColorMode | 'system';
 };
 
 export type StateProps = {

@@ -1,8 +1,9 @@
-import { Form } from '../../../../types';
+import { ColorMode } from '@chakra-ui/react';
+
 import { Color } from '../../types';
 
 export type ColorItemProps = {
-  background: Form['background'];
+  background: ColorMode;
   isActive?: boolean;
   onClick?: (color: Color['value']) => void;
 } & Color;
