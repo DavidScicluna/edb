@@ -46,7 +46,8 @@ const Search = (): ReactElement => {
 
   const [keywords, setKeywords] = useState<Response<Keyword[]>>();
 
-  const [searchTypes, setSearchTypes] = useState<SearchTypeValue[]>([]);
+  const [submittedSearchTypes, setSubmittedSearchTypes] = useState<SearchTypeValue[]>([]);
+  const [unSubmittedSearchTypes, setUnSubmittedSearchTypes] = useState<SearchTypeValue[]>([]);
 
   const [movies, setMovies] = useState<Response<PartialMovie[]>>();
   const [shows, setShows] = useState<Response<PartialTV[]>>();
@@ -104,7 +105,8 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'movie')) && isQueryEnabled,
+      enabled:
+        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'movie')) && isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
@@ -123,17 +125,24 @@ const Search = (): ReactElement => {
           total_results: data.pages[data.pages.length - 1].total_results
         });
 
-        if (data.pages.length === 1 && (searchTypes.length === 0 || searchTypes.some((type) => type === 'movie'))) {
+        if (
+          data.pages.length === 1 &&
+          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'movie'))
+        ) {
           dispatch(
             setRecentSearches([
               ..._.uniqBy(
                 [
                   ...recentSearches,
                   {
-                    id: qs.stringify({ query: submittedQuery, date: moment(new Date()).format('LLLL'), searchTypes }),
+                    id: qs.stringify({
+                      query: submittedQuery,
+                      date: moment(new Date()).format('LLLL'),
+                      searchTypes: submittedSearchTypes
+                    }),
                     label: submittedQuery,
                     date: moment(new Date()).toISOString(),
-                    searchTypes
+                    searchTypes: submittedSearchTypes
                   }
                 ],
                 'id'
@@ -160,7 +169,8 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'tv')) && isQueryEnabled,
+      enabled:
+        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'tv')) && isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
@@ -179,17 +189,24 @@ const Search = (): ReactElement => {
           total_results: data.pages[data.pages.length - 1].total_results
         });
 
-        if (data.pages.length === 1 && (searchTypes.length === 0 || searchTypes.some((type) => type === 'tv'))) {
+        if (
+          data.pages.length === 1 &&
+          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'tv'))
+        ) {
           dispatch(
             setRecentSearches([
               ..._.uniqBy(
                 [
                   ...recentSearches,
                   {
-                    id: qs.stringify({ query: submittedQuery, date: moment(new Date()).format('LLLL'), searchTypes }),
+                    id: qs.stringify({
+                      query: submittedQuery,
+                      date: moment(new Date()).format('LLLL'),
+                      searchTypes: submittedSearchTypes
+                    }),
                     label: submittedQuery,
                     date: moment(new Date()).toISOString(),
-                    searchTypes
+                    searchTypes: submittedSearchTypes
                   }
                 ],
                 'id'
@@ -216,7 +233,8 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'person')) && isQueryEnabled,
+      enabled:
+        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'person')) && isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
@@ -235,17 +253,24 @@ const Search = (): ReactElement => {
           total_results: data.pages[data.pages.length - 1].total_results
         });
 
-        if (data.pages.length === 1 && (searchTypes.length === 0 || searchTypes.some((type) => type === 'person'))) {
+        if (
+          data.pages.length === 1 &&
+          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'person'))
+        ) {
           dispatch(
             setRecentSearches([
               ..._.uniqBy(
                 [
                   ...recentSearches,
                   {
-                    id: qs.stringify({ query: submittedQuery, date: moment(new Date()).format('LLLL'), searchTypes }),
+                    id: qs.stringify({
+                      query: submittedQuery,
+                      date: moment(new Date()).format('LLLL'),
+                      searchTypes: submittedSearchTypes
+                    }),
                     label: submittedQuery,
                     date: moment(new Date()).toISOString(),
-                    searchTypes
+                    searchTypes: submittedSearchTypes
                   }
                 ],
                 'id'
@@ -271,7 +296,9 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'company')) && isQueryEnabled,
+      enabled:
+        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'company')) &&
+        isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
@@ -290,17 +317,24 @@ const Search = (): ReactElement => {
           total_results: data.pages[data.pages.length - 1].total_results
         });
 
-        if (data.pages.length === 1 && (searchTypes.length === 0 || searchTypes.some((type) => type === 'company'))) {
+        if (
+          data.pages.length === 1 &&
+          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'company'))
+        ) {
           dispatch(
             setRecentSearches([
               ..._.uniqBy(
                 [
                   ...recentSearches,
                   {
-                    id: qs.stringify({ query: submittedQuery, date: moment(new Date()).format('LLLL'), searchTypes }),
+                    id: qs.stringify({
+                      query: submittedQuery,
+                      date: moment(new Date()).format('LLLL'),
+                      searchTypes: submittedSearchTypes
+                    }),
                     label: submittedQuery,
                     date: moment(new Date()).toISOString(),
-                    searchTypes
+                    searchTypes: submittedSearchTypes
                   }
                 ],
                 'id'
@@ -326,7 +360,9 @@ const Search = (): ReactElement => {
       return data;
     },
     {
-      enabled: (searchTypes.length === 0 || searchTypes.some((type) => type === 'collection')) && isQueryEnabled,
+      enabled:
+        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'collection')) &&
+        isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
@@ -347,7 +383,7 @@ const Search = (): ReactElement => {
 
         if (
           data.pages.length === 1 &&
-          (searchTypes.length === 0 || searchTypes.some((type) => type === 'collection'))
+          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'collection'))
         ) {
           dispatch(
             setRecentSearches([
@@ -355,10 +391,14 @@ const Search = (): ReactElement => {
                 [
                   ...recentSearches,
                   {
-                    id: qs.stringify({ query: submittedQuery, date: moment(new Date()).format('LLLL'), searchTypes }),
+                    id: qs.stringify({
+                      query: submittedQuery,
+                      date: moment(new Date()).format('LLLL'),
+                      searchTypes: submittedSearchTypes
+                    }),
                     label: submittedQuery,
                     date: moment(new Date()).toISOString(),
-                    searchTypes
+                    searchTypes: submittedSearchTypes
                   }
                 ],
                 'id'
@@ -388,7 +428,7 @@ const Search = (): ReactElement => {
       () =>
         history.push({
           pathname: '/search',
-          search: qs.stringify({ query, types: paramSearchTypes || searchTypes })
+          search: qs.stringify({ query, types: paramSearchTypes || unSubmittedSearchTypes })
         }),
       250
     );
@@ -414,7 +454,8 @@ const Search = (): ReactElement => {
     setSubmittedQuery('');
     setUnSubmittedQuery('');
 
-    setSearchTypes([]);
+    setSubmittedSearchTypes([]);
+    setUnSubmittedSearchTypes([]);
 
     setMovies(undefined);
     setShows(undefined);
@@ -427,13 +468,14 @@ const Search = (): ReactElement => {
   };
 
   const handleOnSearchClick = (label: SearchType['label'], searchTypes?: SearchTypeValue[]): void => {
-    setSearchTypes([...(searchTypes || [])]);
+    setSubmittedSearchTypes([...(searchTypes || [])]);
+    setUnSubmittedSearchTypes([...(searchTypes || [])]);
 
     handleSubmitQuery(label, searchTypes);
   };
 
   const handleSetSearchTypes = (searchTypes: SearchTypeValue[]): void => {
-    setSearchTypes(searchTypes);
+    setUnSubmittedSearchTypes(searchTypes);
   };
 
   const handleCheckIfEmpty = (): boolean => {
@@ -469,11 +511,14 @@ const Search = (): ReactElement => {
       handleClearQuery();
 
       if (history.location.hash && history.location.hash.length > 0) {
-        setSearchTypes([history.location.hash.replace('#', '')]);
+        setSubmittedSearchTypes([history.location.hash.replace('#', '')]);
+        setUnSubmittedSearchTypes([history.location.hash.replace('#', '')]);
       } else if (search && search.types && Array.isArray(search.types)) {
-        setSearchTypes([...search.types]);
+        setSubmittedSearchTypes([...search.types]);
+        setUnSubmittedSearchTypes([...search.types]);
       } else if (search && search.types && typeof search.types === 'string') {
-        setSearchTypes([search.types]);
+        setSubmittedSearchTypes([search.types]);
+        setUnSubmittedSearchTypes([search.types]);
       }
 
       if (search && search.query && typeof search.query === 'string') {
@@ -496,10 +541,10 @@ const Search = (): ReactElement => {
         actions: (
           <Fade
             in={_.isBoolean(
-              isQuerySubmitted &&
-                submittedQuery.length > 0 &&
-                !handleCheckIfEmpty() &&
-                (searchTypes.length === 1 || (location.hash && location.hash.length > 0))
+              // isQuerySubmitted &&
+              //   submittedQuery.length > 0 &&
+              (!handleCheckIfEmpty() && submittedSearchTypes.length === 1) ||
+                (location.hash && location.hash.length > 0)
             )}
             unmountOnExit
           >
@@ -526,7 +571,7 @@ const Search = (): ReactElement => {
                       searchCollectionsQuery.isFetching ||
                       searchCollectionsQuery.isLoading
                     }
-                    searchTypes={searchTypes}
+                    searchTypes={unSubmittedSearchTypes}
                     onInputKeyPress={handleOnKeyPress}
                     onInputChange={handleOnChange}
                     onSubmitQuery={() => handleSubmitQuery(unSubmittedQuery)}
@@ -563,7 +608,7 @@ const Search = (): ReactElement => {
                         in
                         unmountOnExit
                       >
-                        <SearchTypes searchTypes={searchTypes} onSetSearchTypes={handleSetSearchTypes} />
+                        <SearchTypes searchTypes={unSubmittedSearchTypes} onSetSearchTypes={handleSetSearchTypes} />
                         <RecentSearches onSearchClick={handleOnSearchClick} />
                       </VStack>
                     )}
@@ -573,7 +618,7 @@ const Search = (): ReactElement => {
                   <Collapse in={isQuerySubmitted && submittedQuery.length > 0} unmountOnExit style={{ width: '100%' }}>
                     <Display
                       query={submittedQuery}
-                      searchTypes={searchTypes}
+                      searchTypes={submittedSearchTypes}
                       totalResults={{
                         movie: movies?.total_results || 0,
                         tv: shows?.total_results || 0,
@@ -592,7 +637,7 @@ const Search = (): ReactElement => {
                 <Center as={Fade} key='search-submitted' width='100%' in unmountOnExit>
                   <All
                     query={submittedQuery}
-                    searchTypes={searchTypes}
+                    searchTypes={submittedSearchTypes}
                     movies={movies}
                     moviesQuery={searchMoviesQuery}
                     shows={shows}
