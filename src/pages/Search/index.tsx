@@ -286,7 +286,7 @@ const Search = (): ReactElement => {
   const searchCompaniesQuery = useInfiniteQuery(
     [`${submittedQuery}-companies`, submittedQuery],
     async ({ pageParam = 1 }) => {
-      const { data } = await axiosInstance.get<Response<PartialCompany[]>>('/search/partialcompany', {
+      const { data } = await axiosInstance.get<Response<PartialCompany[]>>('/search/company', {
         params: {
           query: submittedQuery || '',
           page: pageParam || 1
@@ -297,7 +297,7 @@ const Search = (): ReactElement => {
     },
     {
       enabled:
-        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'partialcompany')) &&
+        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'company')) &&
         isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
@@ -319,7 +319,7 @@ const Search = (): ReactElement => {
 
         if (
           data.pages.length === 1 &&
-          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'partialcompany'))
+          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'company'))
         ) {
           dispatch(
             setRecentSearches([
@@ -624,7 +624,7 @@ const Search = (): ReactElement => {
                         tv: shows?.total_results || 0,
                         person: people?.total_results || 0,
                         collection: collections?.total_results || 0,
-                        partialcompany: companies?.total_results || 0
+                        company: companies?.total_results || 0
                       }}
                     />
                   </Collapse>
