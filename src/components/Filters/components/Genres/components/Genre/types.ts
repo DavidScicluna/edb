@@ -1,4 +1,4 @@
-import { Genre } from '../../../../../../common/types';
+import { Genre } from '../../../../../../store/slices/Options/types';
 
 export type GenreProps = {
   isActive?: boolean;
