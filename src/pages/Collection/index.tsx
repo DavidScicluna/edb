@@ -1,13 +1,15 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useBreakpointValue, VStack, Text } from '@chakra-ui/react';
+import { useColorMode, useBreakpointValue, VStack, Text, HStack, Fade } from '@chakra-ui/react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { useElementSize } from 'usehooks-ts';
 
 import axiosInstance from '../../common/scripts/axios';
 import { Images } from '../../common/types';
 import { Collection as CollectionType } from '../../common/types/movie';
+import DisplayMode from '../../components/Clickable/DisplayMode';
 import Divider from '../../components/Divider';
 import SkeletonText from '../../components/Skeleton/Text';
 import Tabs from '../../components/Tabs';
@@ -31,6 +33,8 @@ const Collection = (): ReactElement => {
   });
 
   const { id } = useParams<{ id: string }>();
+
+  const [ref, { height }] = useElementSize();
 
   const [activeTab, setActiveTab] = useState<number>(0);
 
@@ -73,16 +77,29 @@ const Collection = (): ReactElement => {
         {{
           body: (
             <VStack width='100%' spacing={2} px={2} pt={2}>
-              <TabList
-                renderTabs={[
-                  {
-                    label: 'Overview'
-                  },
-                  {
-                    label: 'Parts' // TODO: Add Parts length Badge
-                  }
-                ]}
-              />
+              <HStack
+                width='100%'
+                divider={
+                  <Fade in={activeTab === 1} unmountOnExit>
+                    <Divider orientation='vertical' height={height || '100%'} mx={2} />
+                  </Fade>
+                }
+              >
+                <TabList
+                  renderTabs={[
+                    {
+                      label: 'Overview'
+                    },
+                    {
+                      label: 'Parts' // TODO: Add Parts length Badge
+                    }
+                  ]}
+                />
+
+                <Fade in={activeTab === 1} unmountOnExit>
+                  <DisplayMode ref={ref} />
+                </Fade>
+              </HStack>
 
               <Divider />
 
