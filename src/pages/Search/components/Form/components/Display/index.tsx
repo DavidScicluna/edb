@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
-import { MechanicalCounter } from 'mechanical-counter';
+import CountUp from 'react-countup';
 
 import { DisplayProps } from './types';
 
@@ -60,12 +60,7 @@ const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): React
         fontSize='sm'
       >{`Your search results for "${query}"`}</Text>
       <Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-        <MechanicalCounter
-          text={`${
-            // mediaType ? handleReturnMediaTypeTotal() :
-            handleAllTotal()
-          } ${handleReturnMediaTypeLabel()} found!`}
-        />
+        <CountUp duration={5} end={handleAllTotal()} suffix={` ${handleReturnMediaTypeLabel()} found!`} />
       </Text>
     </HStack>
   );

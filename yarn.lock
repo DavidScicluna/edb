@@ -5598,6 +5598,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"countup.js@npm:^2.0.8":
+  version: 2.0.8
+  resolution: "countup.js@npm:2.0.8"
+  checksum: 90edbb4f62c09d25bb464ce78d96044d8c7850187029ca6cd0ff06fb21d965dd61f48745630b659f50b9892ac237e48d0677822b4c0bdea917a3af998fddb13e
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
@@ -6451,13 +6458,13 @@ __metadata:
     gh-pages: ^3.2.3
     history: ^5.2.0
     lodash: ^4.17.21
-    mechanical-counter: ^1.0.12
     moment: ^2.29.1
     prettier: ^2.5.1
     prop-types: ^15.8.1
     query-string: ^7.1.0
     react: ^17.0.2
     react-cool-inview: ^2.0.8
+    react-countup: ^6.1.1
     react-dom: ^17.0.2
     react-hook-form: ^7.22.2
     react-horizontal-scrolling-menu: ^2.7.0
@@ -9862,16 +9869,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mechanical-counter@npm:^1.0.12":
-  version: 1.0.12
-  resolution: "mechanical-counter@npm:1.0.12"
-  peerDependencies:
-    framer-motion: ^4.1.17
-    react: ^17.0.2
-  checksum: 412940767cd8d08fa6f21efe16d7230f6444ff6a7a07e5140da03a95a49ee5e96512cb496dd8d7251cb5bcbe0b49a8540571a59579d8fada052fd7fcf11d33dc
-  languageName: node
-  linkType: hard
-
 "media-typer@npm:0.3.0":
   version: 0.3.0
   resolution: "media-typer@npm:0.3.0"
@@ -11892,6 +11889,17 @@ __metadata:
   peerDependencies:
     react: ">= 16.8.0"
   checksum: 953b6b8c1ba8de23281f5da2f5486f863cd1ee5614bf6fe25477f68d5c54f2016dab0e35d26ec6c7c0b33052f7094113fc61126aa7698ff0f8d092f6abc0f3b8
+  languageName: node
+  linkType: hard
+
+"react-countup@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "react-countup@npm:6.1.1"
+  dependencies:
+    countup.js: ^2.0.8
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: 5c48c30d51ff03a5c31afe67fa4db4c240910608b78b3929ffe342e6ea09163283cc0eea5a4fd1699f10fcb76de858cc562121d27ff12033a59ef0bbe3a2445f
   languageName: node
   linkType: hard
 

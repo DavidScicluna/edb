@@ -81,13 +81,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gh-pages", "npm:3.2.3"],
             ["history", "npm:5.2.0"],
             ["lodash", "npm:4.17.21"],
-            ["mechanical-counter", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.12"],
             ["moment", "npm:2.29.1"],
             ["prettier", "npm:2.5.1"],
             ["prop-types", "npm:15.8.1"],
             ["query-string", "npm:7.1.0"],
             ["react", "npm:17.0.2"],
             ["react-cool-inview", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.0.8"],
+            ["react-countup", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:6.1.1"],
             ["react-dom", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:17.0.2"],
             ["react-hook-form", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:7.22.5"],
             ["react-horizontal-scrolling-menu", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.7.0"],
@@ -8934,6 +8934,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["countup.js", [
+        ["npm:2.0.8", {
+          "packageLocation": "./.yarn/cache/countup.js-npm-2.0.8-76bb7e6862-90edbb4f62.zip/node_modules/countup.js/",
+          "packageDependencies": [
+            ["countup.js", "npm:2.0.8"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["cross-spawn", [
         ["npm:7.0.3", {
           "packageLocation": "./.yarn/cache/cross-spawn-npm-7.0.3-e4ff3e65b3-671cc7c728.zip/node_modules/cross-spawn/",
@@ -10050,13 +10059,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gh-pages", "npm:3.2.3"],
             ["history", "npm:5.2.0"],
             ["lodash", "npm:4.17.21"],
-            ["mechanical-counter", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.12"],
             ["moment", "npm:2.29.1"],
             ["prettier", "npm:2.5.1"],
             ["prop-types", "npm:15.8.1"],
             ["query-string", "npm:7.1.0"],
             ["react", "npm:17.0.2"],
             ["react-cool-inview", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.0.8"],
+            ["react-countup", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:6.1.1"],
             ["react-dom", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:17.0.2"],
             ["react-hook-form", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:7.22.5"],
             ["react-horizontal-scrolling-menu", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.7.0"],
@@ -14078,32 +14087,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["mechanical-counter", [
-        ["npm:1.0.12", {
-          "packageLocation": "./.yarn/cache/mechanical-counter-npm-1.0.12-d3bdc2ad38-412940767c.zip/node_modules/mechanical-counter/",
-          "packageDependencies": [
-            ["mechanical-counter", "npm:1.0.12"]
-          ],
-          "linkType": "SOFT",
-        }],
-        ["virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.12", {
-          "packageLocation": "./.yarn/__virtual__/mechanical-counter-virtual-b7acfc5633/0/cache/mechanical-counter-npm-1.0.12-d3bdc2ad38-412940767c.zip/node_modules/mechanical-counter/",
-          "packageDependencies": [
-            ["mechanical-counter", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.12"],
-            ["@types/framer-motion", null],
-            ["@types/react", "npm:17.0.38"],
-            ["framer-motion", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:5.5.6"],
-            ["react", "npm:17.0.2"]
-          ],
-          "packagePeers": [
-            "@types/framer-motion",
-            "@types/react",
-            "framer-motion",
-            "react"
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["media-typer", [
         ["npm:0.3.0", {
           "packageLocation": "./.yarn/cache/media-typer-npm-0.3.0-8674f8f0f5-af1b38516c.zip/node_modules/media-typer/",
@@ -17158,6 +17141,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["react-cool-inview", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.0.8"],
             ["@types/react", "npm:17.0.38"],
+            ["react", "npm:17.0.2"]
+          ],
+          "packagePeers": [
+            "@types/react",
+            "react"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["react-countup", [
+        ["npm:6.1.1", {
+          "packageLocation": "./.yarn/cache/react-countup-npm-6.1.1-cb021b4990-5c48c30d51.zip/node_modules/react-countup/",
+          "packageDependencies": [
+            ["react-countup", "npm:6.1.1"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:6.1.1", {
+          "packageLocation": "./.yarn/__virtual__/react-countup-virtual-99d8960a8d/0/cache/react-countup-npm-6.1.1-cb021b4990-5c48c30d51.zip/node_modules/react-countup/",
+          "packageDependencies": [
+            ["react-countup", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:6.1.1"],
+            ["@types/react", "npm:17.0.38"],
+            ["countup.js", "npm:2.0.8"],
             ["react", "npm:17.0.2"]
           ],
           "packagePeers": [
