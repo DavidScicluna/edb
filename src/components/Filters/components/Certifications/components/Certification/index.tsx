@@ -35,7 +35,7 @@ const Certification = (props: CertificationProps): ReactElement => {
     >
       <SkeletonText
         width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
-        offsetY={7}
+        fontSize={isSm ? 'xs' : 'sm'}
         isLoaded={!isLoading}
       >
         {certification || 'Certification'}

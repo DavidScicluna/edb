@@ -25,7 +25,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
     <CUIListItem {...rest} px={2} py={1} sx={{ ..._.merge(style.common, style[colorMode]) }}>
       <VStack alignItems='flex-start' justifyContent='center' spacing={0}>
         <HStack>
-          <SkeletonText width={isLoading ? dummyTextWidth : 'auto'} offsetY='7px' isLoaded={!isLoading}>
+          <SkeletonText width={isLoading ? dummyTextWidth : 'auto'} fontSize='md' isLoaded={!isLoading}>
             <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>
               {title}
             </Text>
@@ -35,7 +35,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
         {subtitle ? (
           <SkeletonText
             width={isLoading ? `${_.sample(dummyTextWidths)}%` : 'auto'}
-            offsetY='6px'
+            fontSize='xs'
             isLoaded={!isLoading}
           >
             <Text

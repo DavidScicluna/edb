@@ -27,7 +27,7 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
   ) : (
     <VStack width='100%' spacing={1}>
       {_.range(0, 2).map((_dummy, index) => (
-        <SkeletonText key={index} width='100%' offsetY={6} isLoaded={!isLoading}>
+        <SkeletonText key={index} width='100%' fontSize='xs' isLoaded={!isLoading}>
           <Text align='left' fontSize='xs'>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Text>

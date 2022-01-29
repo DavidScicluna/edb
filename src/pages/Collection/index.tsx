@@ -16,6 +16,7 @@ import Tabs from '../../components/Tabs';
 import TabList from '../../components/Tabs/components/TabList';
 import TabPanels from '../../components/Tabs/components/TabPanels';
 import Page from '../../containers/Page';
+import { FontSizes } from '../../theme/types';
 import Overview from './components/Overview';
 import Parts from './components/Parts';
 
@@ -23,13 +24,13 @@ const Collection = (): ReactElement => {
   const source = axios.CancelToken.source();
 
   const { colorMode } = useColorMode();
-  const offsetY = useBreakpointValue({
-    'base': '12px',
-    'sm': '12px',
-    'md': '15px',
-    'lg': '15px',
-    'xl': '15px',
-    '2xl': '15px'
+  const fontSize = useBreakpointValue<keyof FontSizes>({
+    'base': '2xl',
+    'sm': '2xl',
+    'md': '3xl',
+    'lg': '3xl',
+    'xl': '3xl',
+    '2xl': '3xl'
   });
 
   const { id } = useParams<{ id: string }>();
@@ -62,11 +63,11 @@ const Collection = (): ReactElement => {
     <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
       <Page
         title={
-          <SkeletonText offsetY={offsetY} isLoaded={!(collectionQuery.isFetching || collectionQuery.isLoading)}>
+          <SkeletonText fontSize={fontSize} isLoaded={!(collectionQuery.isFetching || collectionQuery.isLoading)}>
             <Text
               align='left'
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-              fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
+              fontSize={fontSize}
               fontWeight='bold'
             >
               {collectionQuery.data?.name || 'Collection Name'}

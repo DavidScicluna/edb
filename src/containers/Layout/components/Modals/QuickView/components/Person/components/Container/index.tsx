@@ -28,7 +28,7 @@ const Container = (props: ContainerProps): ReactElement => {
     <VStack width='100%' alignItems='flex-start' spacing={4}>
       <VStack width='100%' alignItems='flex-start' spacing={2}>
         <VStack width='100%' maxWidth='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-          <SkeletonText offsetY={isSm ? 12 : 18} isLoaded={!isLoading}>
+          <SkeletonText fontSize={isSm ? '2xl' : '4xl'} isLoaded={!isLoading}>
             <Text
               align='left'
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}

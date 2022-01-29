@@ -19,7 +19,7 @@ const Info = (props: InfoProps): ReactElement => {
     {
       label: 'Budget',
       children: (
-        <SkeletonText offsetY={8} isLoaded={!isLoading}>
+        <SkeletonText fontSize='md' isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>
             {budget ? `$${handleFormatMoney(budget)}` : isLoading ? '1,000,000' : 'N/A'}
           </Text>
@@ -29,7 +29,7 @@ const Info = (props: InfoProps): ReactElement => {
     {
       label: 'Revenue',
       children: (
-        <SkeletonText offsetY={8} isLoaded={!isLoading}>
+        <SkeletonText fontSize='md' isLoaded={!isLoading}>
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>
             {revenue ? `$${handleFormatMoney(revenue)}` : isLoading ? '1,000,000' : 'N/A'}
           </Text>
@@ -41,7 +41,7 @@ const Info = (props: InfoProps): ReactElement => {
       children: (
         <SkeletonText
           width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
-          offsetY={8}
+          fontSize='md'
           isLoaded={!isLoading}
         >
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' whiteSpace='nowrap'>

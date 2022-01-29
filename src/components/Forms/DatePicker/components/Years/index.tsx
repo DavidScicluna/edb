@@ -92,7 +92,7 @@ const Years = (props: YearsProps): ReactElement => {
             ))
           : _.range(0, 12).map((_dummy, index) => (
               <Button key={index} isDisabled isFullWidth size='lg' variant='text'>
-                <SkeletonText offsetY={7} isLoaded={false}>
+                <SkeletonText fontSize='md' isLoaded={false}>
                   9999
                 </SkeletonText>
               </Button>

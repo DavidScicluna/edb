@@ -47,7 +47,7 @@ const Stats = (props: StatsProps): ReactElement => {
         {stats.map((stat: StatType, index: number) => (
           <Stat key={index} justifyContent='center'>
             <VStack spacing={0}>
-              <SkeletonText offsetY='14px' isLoaded={!isLoading}>
+              <SkeletonText fontSize='3xl' isLoaded={!isLoading}>
                 <StatNumber color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='3xl' lineHeight='normal'>
                   {!isLoading ? stat.number || 0 : '12'}
                 </StatNumber>

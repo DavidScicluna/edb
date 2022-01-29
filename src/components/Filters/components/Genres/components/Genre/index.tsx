@@ -27,7 +27,7 @@ const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreP
     >
       <SkeletonText
         width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
-        offsetY={7}
+        fontSize={isSm ? 'xs' : 'sm'}
         isLoaded={!isLoading}
       >
         {name || 'Genre'}

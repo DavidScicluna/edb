@@ -58,7 +58,7 @@ const Rating = (props: RatingProps): ReactElement => {
           fontSize: handleReturnIconSize()
         }}
       />
-      <SkeletonText offsetY={8} isLoaded={!isLoading} ml={0.5}>
+      <SkeletonText isLoaded={!isLoading} ml={0.5}>
         <VStack spacing={0.25}>
           <Text
             color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
@@ -66,7 +66,7 @@ const Rating = (props: RatingProps): ReactElement => {
             fontWeight='medium'
             lineHeight='normal'
           >
-            {_.round(children) || 'N/A'}
+            {children ? _.round(Number(children)) : 'N/A'}
           </Text>
           {/* TODO: Find a way to better display count */}
           {/* {count ? (
