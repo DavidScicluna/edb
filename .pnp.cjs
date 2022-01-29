@@ -81,6 +81,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gh-pages", "npm:3.2.3"],
             ["history", "npm:5.2.0"],
             ["lodash", "npm:4.17.21"],
+            ["mechanical-counter", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.12"],
             ["moment", "npm:2.29.1"],
             ["prettier", "npm:2.5.1"],
             ["prop-types", "npm:15.8.1"],
@@ -10049,6 +10050,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gh-pages", "npm:3.2.3"],
             ["history", "npm:5.2.0"],
             ["lodash", "npm:4.17.21"],
+            ["mechanical-counter", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.12"],
             ["moment", "npm:2.29.1"],
             ["prettier", "npm:2.5.1"],
             ["prop-types", "npm:15.8.1"],
@@ -14072,6 +14074,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/mdn-data-npm-2.0.4-59a77d1e29-add3c95e6d.zip/node_modules/mdn-data/",
           "packageDependencies": [
             ["mdn-data", "npm:2.0.4"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["mechanical-counter", [
+        ["npm:1.0.12", {
+          "packageLocation": "./.yarn/cache/mechanical-counter-npm-1.0.12-d3bdc2ad38-412940767c.zip/node_modules/mechanical-counter/",
+          "packageDependencies": [
+            ["mechanical-counter", "npm:1.0.12"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.12", {
+          "packageLocation": "./.yarn/__virtual__/mechanical-counter-virtual-b7acfc5633/0/cache/mechanical-counter-npm-1.0.12-d3bdc2ad38-412940767c.zip/node_modules/mechanical-counter/",
+          "packageDependencies": [
+            ["mechanical-counter", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.12"],
+            ["@types/framer-motion", null],
+            ["@types/react", "npm:17.0.38"],
+            ["framer-motion", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:5.5.6"],
+            ["react", "npm:17.0.2"]
+          ],
+          "packagePeers": [
+            "@types/framer-motion",
+            "@types/react",
+            "framer-motion",
+            "react"
           ],
           "linkType": "HARD",
         }]

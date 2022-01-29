@@ -12,7 +12,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../common/hooks';
 import axiosInstance from '../../common/scripts/axios';
-import { Response, Company } from '../../common/types';
+import { Response, PartialCompany } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
@@ -53,7 +53,7 @@ const Search = (): ReactElement => {
   const [shows, setShows] = useState<Response<PartialTV[]>>();
   const [people, setPeople] = useState<Response<PartialPerson[]>>();
 
-  const [companies, setCompanies] = useState<Response<Company[]>>();
+  const [companies, setCompanies] = useState<Response<PartialCompany[]>>();
   const [collections, setCollections] = useState<Response<Collection[]>>();
 
   const [isQueryEnabled, setIsQueryEnabled] = useBoolean();
@@ -286,7 +286,7 @@ const Search = (): ReactElement => {
   const searchCompaniesQuery = useInfiniteQuery(
     [`${submittedQuery}-companies`, submittedQuery],
     async ({ pageParam = 1 }) => {
-      const { data } = await axiosInstance.get<Response<Company[]>>('/search/company', {
+      const { data } = await axiosInstance.get<Response<PartialCompany[]>>('/search/partialcompany', {
         params: {
           query: submittedQuery || '',
           page: pageParam || 1
@@ -297,14 +297,14 @@ const Search = (): ReactElement => {
     },
     {
       enabled:
-        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'company')) &&
+        (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'partialcompany')) &&
         isQueryEnabled,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
         setIsQueryEnabled.off();
 
-        let companies: Company[] = [];
+        let companies: PartialCompany[] = [];
 
         data.pages.forEach((page) => {
           companies = [...companies, ...(page?.results || [])];
@@ -319,7 +319,7 @@ const Search = (): ReactElement => {
 
         if (
           data.pages.length === 1 &&
-          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'company'))
+          (submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'partialcompany'))
         ) {
           dispatch(
             setRecentSearches([
@@ -624,7 +624,7 @@ const Search = (): ReactElement => {
                         tv: shows?.total_results || 0,
                         person: people?.total_results || 0,
                         collection: collections?.total_results || 0,
-                        company: companies?.total_results || 0
+                        partialcompany: companies?.total_results || 0
                       }}
                     />
                   </Collapse>

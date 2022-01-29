@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
+import { MechanicalCounter } from 'mechanical-counter';
 
 import { DisplayProps } from './types';
 
@@ -26,24 +27,29 @@ const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): React
   };
 
   const handleReturnMediaTypeLabel = (): string => {
-    // if (searchTypes.length === 1) {
-    //   const total = handleReturnMediaTypeTotal();
+    if (searchTypes.length === 1) {
+      const searchType = searchTypes[0];
+      const total = handleReturnMediaTypeTotal();
 
-    //   switch (searchTypes) {
-    //     case 'person':
-    //       return `${total > 1 ? 'People' : 'Person'}`;
-    //     case 'tv':
-    //       return `TV Show${total > 1 ? 's' : ''}`;
-    //     case 'movie':
-    //       return `Movie${total > 1 ? 's' : ''}`;
-    //     default:
-    //       return '';
-    //   }
-    // } else {
-    const total = handleAllTotal();
+      switch (searchType) {
+        case 'collection':
+          return `Collection${total === 0 || total > 1 ? 's' : ''}`;
+        case 'company':
+          return `${total === 0 || total > 1 ? 'Companies' : 'company'}`;
+        case 'person':
+          return `${total === 0 || total > 1 ? 'People' : 'Person'}`;
+        case 'tv':
+          return `TV Show${total === 0 || total > 1 ? 's' : ''}`;
+        case 'movie':
+          return `Movie${total === 0 || total > 1 ? 's' : ''}`;
+        default:
+          return '';
+      }
+    } else {
+      const total = handleAllTotal();
 
-    return `result${total > 1 ? 's' : ''}`;
-    // }
+      return `result${total > 1 ? 's' : ''}`;
+    }
   };
 
   return (
@@ -53,10 +59,14 @@ const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): React
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
         fontSize='sm'
       >{`Your search results for "${query}"`}</Text>
-      <Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>{`${
-        // mediaType ? handleReturnMediaTypeTotal() :
-        handleAllTotal()
-      } ${handleReturnMediaTypeLabel()} found`}</Text>
+      <Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+        <MechanicalCounter
+          text={`${
+            // mediaType ? handleReturnMediaTypeTotal() :
+            handleAllTotal()
+          } ${handleReturnMediaTypeLabel()} found!`}
+        />
+      </Text>
     </HStack>
   );
 };
