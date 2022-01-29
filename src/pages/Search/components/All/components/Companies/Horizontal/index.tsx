@@ -21,7 +21,7 @@ const Companies = ({ query, companies = [], total = 0 }: CompaniesProps): ReactE
       title={`Found ${total} ${total === 0 || total > 1 ? 'companies' : 'company'} with "${query}"`}
       footer={
         total > 20 ? (
-          <Link to={{ pathname: '/search/movies', search: qs.stringify({ query }) }} isFullWidth>
+          <Link to={{ pathname: '/search', search: qs.stringify({ query }), hash: 'company' }} isFullWidth>
             <Button color={color} isFullWidth size={isSm ? 'sm' : 'md'} variant='text'>
               {`View all ${total} ${total === 0 || total > 1 ? 'companies' : 'company'} with "${query}"`}
             </Button>
@@ -34,7 +34,7 @@ const Companies = ({ query, companies = [], total = 0 }: CompaniesProps): ReactE
           key={company.id}
           width={['185px', '205px', '230px']}
           mediaItem={company ? { ...company } : undefined}
-          mediaType='collection'
+          mediaType='company'
           image={{
             alt: `${company.name || ''} company poster`,
             src: company.logo_path || '',
