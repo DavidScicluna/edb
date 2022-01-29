@@ -25,7 +25,7 @@ const Image = (props: ImageProps): ReactElement => {
    */
   const handleFallbackSrc = useCallback(
     _.debounce(() => {
-      const fallbackSrc: string = handleReturnBoringSrc(boringType, colorMode === 'light' ? 400 : 500, alt);
+      const fallbackSrc: string = handleReturnBoringSrc(boringType, colorMode === 'light' ? 400 : 500);
 
       setFallbackSrc(fallbackSrc);
     }, 500),
@@ -42,6 +42,8 @@ const Image = (props: ImageProps): ReactElement => {
         ref={imageRef}
         alt={`${alt} thumbnail`}
         position='absolute'
+        maxWidth='none'
+        height='100%'
         // onError={(error) => {
         //   handleIsLoaded(true);
 

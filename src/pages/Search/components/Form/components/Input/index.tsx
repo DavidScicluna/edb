@@ -1,37 +1,19 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { useColorMode, HStack, Input as CUIInput, Center, Fade } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
 import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';
+import collectionsPlaceholders from './common/data/placeholders/collections';
+import combinedPlaceholders from './common/data/placeholders/combined';
+import companiesPlaceholders from './common/data/placeholders/companies';
+import moviesPlaceholders from './common/data/placeholders/movie';
+import peoplePlaceholders from './common/data/placeholders/people';
+import tvPlaceholders from './common/data/placeholders/tv';
 import Actions from './components/Actions';
 import SearchTypes from './components/SearchTypes';
 import { InputProps } from './types';
-
-const placeholders = [
-  'The Godfather',
-  'Seinfeld',
-  'The Dark Knight',
-  'I Love Lucy',
-  'Pulp Fiction',
-  'The Sopranos',
-  'Fight Club',
-  'The Simpsons',
-  'The Matrix',
-  'Friends',
-  'GoodFellas',
-  'South Park',
-  'Hamilton',
-  'Family Guy',
-  'Star Wars',
-  'Breaking Bad',
-  'Parasite',
-  'Game of Thrones',
-  'Gladiator',
-  'Star Trek'
-];
-const placeholder = _.sample(placeholders);
 
 const Input = (props: InputProps): ReactElement => {
   const { colorMode } = useColorMode();
@@ -46,6 +28,31 @@ const Input = (props: InputProps): ReactElement => {
     onSubmitQuery,
     onClearSearchTypes
   } = props;
+
+  const handleReturnPlaceholders = (): string[] => {
+    if (searchTypes.length === 1) {
+      const searchType = searchTypes[0];
+
+      switch (searchType) {
+        case 'movie':
+          return moviesPlaceholders;
+        case 'tv':
+          return tvPlaceholders;
+        case 'people':
+          return peoplePlaceholders;
+        case 'collection':
+          return collectionsPlaceholders;
+        case 'company':
+          return companiesPlaceholders;
+        default:
+          return combinedPlaceholders;
+      }
+    } else {
+      return combinedPlaceholders;
+    }
+  };
+
+  const [placeholder] = useState(_.sample(handleReturnPlaceholders()));
 
   return (
     <HStack

@@ -110,6 +110,8 @@ const Layout = (): ReactElement => {
   );
 
   useEffect(() => {
+    handleUpdateColorMode();
+
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleUpdateColorMode);
 
     return () => window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleUpdateColorMode);
