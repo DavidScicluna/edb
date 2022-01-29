@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useBoolean, ButtonGroup } from '@chakra-ui/react';
 import {
@@ -14,8 +14,9 @@ import { toggleDisplayMode } from '../../../store/slices/App';
 import { Theme } from '../../../theme/types';
 import Tooltip from '../../Tooltip';
 import IconButton from '../IconButton';
+import { DisplayModeRef, DisplayModeProps } from './types';
 
-const DisplayMode = (): ReactElement => {
+const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function DisplayMode(props, ref): ReactElement {
   const theme = useTheme<Theme>();
 
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const DisplayMode = (): ReactElement => {
   const [isClickingList, setIsClickingList] = useBoolean();
 
   return (
-    <ButtonGroup isAttached>
+    <ButtonGroup ref={ref} {...props} isAttached>
       <Tooltip
         aria-label={
           displayMode === 'grid' ? 'Display is in Grid Mode (Tooltip)' : 'Set display mode to Grid Mode (Tooltip)'
@@ -84,6 +85,6 @@ const DisplayMode = (): ReactElement => {
       </Tooltip>
     </ButtonGroup>
   );
-};
+});
 
 export default DisplayMode;
