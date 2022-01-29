@@ -17,14 +17,16 @@ const Image = (props: ImageProps): ReactElement => {
   const [isFullLoaded, setIsFullLoaded] = useBoolean();
   const [isFullError, setIsFullError] = useBoolean();
 
+  const centerProps = {
+    width: '100%',
+    height: '100%',
+    borderRadius
+  };
+
   return (
-    <Center position='relative' width='100%' maxWidth='none' height='100%' borderRadius={borderRadius}>
+    <Center position='relative' {...centerProps}>
       {/* Fallback image */}
-      <Fade
-        in={isThumbnailError && isFullError}
-        unmountOnExit
-        style={{ position: 'absolute', width: 'inherit', maxWidth: 'inherit', height: 'inherit' }}
-      >
+      <Center as={Fade} position='absolute' {...centerProps} in={isThumbnailError && isFullError} unmountOnExit>
         <CUIImage
           {...rest}
           maxWidth='none'
@@ -35,14 +37,10 @@ const Image = (props: ImageProps): ReactElement => {
           src={fallbackSrc}
           fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
         />
-      </Fade>
+      </Center>
 
       {/* Thumbnail image */}
-      <Fade
-        in={!isFullLoaded && !isThumbnailError}
-        unmountOnExit
-        style={{ position: 'absolute', width: 'inherit', maxWidth: 'inherit', height: 'inherit' }}
-      >
+      <Center as={Fade} position='absolute' {...centerProps} in={!isFullLoaded && !isThumbnailError} unmountOnExit>
         <CUIImage
           {...rest}
           maxWidth='none'
@@ -67,14 +65,10 @@ const Image = (props: ImageProps): ReactElement => {
           src={thumbnailSrc}
           fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
         />
-      </Fade>
+      </Center>
 
       {/* Full size image */}
-      <Fade
-        in={!isFullError}
-        unmountOnExit
-        style={{ position: 'absolute', width: 'inherit', maxWidth: 'inherit', height: 'inherit' }}
-      >
+      <Center as={Fade} position='absolute' {...centerProps} in={!isFullError} unmountOnExit>
         <CUIImage
           {...rest}
           alt={alt}
@@ -98,7 +92,7 @@ const Image = (props: ImageProps): ReactElement => {
           }}
           src={fullSrc}
         />
-      </Fade>
+      </Center>
     </Center>
   );
 };
