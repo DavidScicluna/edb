@@ -45,8 +45,8 @@ const Image = (props: ImageProps): ReactElement => {
           {...rest}
           maxWidth='none'
           height='inherit'
-          alt={`${alt} thumbnail`}
           position='absolute'
+          alt={`${alt} thumbnail`}
           borderRadius={borderRadius}
           onError={(error) => {
             setIsThumbnaiError.on();
@@ -71,8 +71,10 @@ const Image = (props: ImageProps): ReactElement => {
       <Center as={Fade} position='absolute' {...centerProps} in={!isFullError} unmountOnExit>
         <CUIImage
           {...rest}
-          alt={alt}
+          maxWidth='none'
+          height='inherit'
           position='absolute'
+          alt={alt}
           borderRadius={borderRadius}
           onError={(error) => {
             setIsFullLoaded.off();
