@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { BoxProps, AspectRatioProps } from '@chakra-ui/react';
+import { AspectRatioProps } from '@chakra-ui/react';
 
 import { Icon } from '../../../common/types';
 import { FontSizes, Color } from '../../../theme/types';
@@ -19,4 +19,4 @@ export type ImageProps = {
   isDisabled?: boolean;
   isActive?: boolean;
   onClick?: () => void;
-} & BoxProps;
+};

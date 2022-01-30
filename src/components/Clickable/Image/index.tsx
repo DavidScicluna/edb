@@ -45,14 +45,13 @@ const Image = (props: ImageProps): ReactElement => {
     renderIcon,
     isDisabled = false,
     isActive = false,
-    onClick,
-    ...rest
+    onClick
   } = props;
 
   const [isHovering, setIsHovering] = useBoolean();
 
   const iconProps: IconProps = {
-    color: colorMode === 'light' ? 'gray.50' : 'gray.900',
+    color: colorMode === 'light' ? theme.colors.gray[50] : theme.colors.gray[900],
     fontSize: height > 375 ? theme.fontSizes['7xl'] : theme.fontSizes['6xl']
   };
 
@@ -70,7 +69,6 @@ const Image = (props: ImageProps): ReactElement => {
         {inView ? (
           <Center as={Fade} key='clickable-image-content' width='100%' in unmountOnExit style={{ ...commonStyleProps }}>
             <Box
-              {...rest}
               {...commonStyleProps}
               ref={imageRef}
               onClick={children && !isDisabled && onClick ? () => onClick() : undefined}
@@ -79,7 +77,7 @@ const Image = (props: ImageProps): ReactElement => {
             >
               <AspectRatio {...commonStyleProps} ratio={ratio}>
                 <>
-                  <Fade in={!isDisabled} unmountOnExit style={{ position: 'relative', ...commonStyleProps }}>
+                  {!isDisabled ? (
                     <Center
                       {...commonStyleProps}
                       position='absolute'
@@ -99,7 +97,7 @@ const Image = (props: ImageProps): ReactElement => {
                         {isActive ? <CheckOutlinedIcon style={{ ...iconProps }} /> : renderIcon({ ...iconProps })}
                       </Fade>
                     </Center>
-                  </Fade>
+                  ) : null}
 
                   {children}
                 </>
