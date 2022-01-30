@@ -28,7 +28,11 @@ const Like = (props: LikeProps): ReactElement => {
         ? liked.movies.some((movie) => movie.id === mediaItem.id)
         : mediaType === 'tv'
         ? liked.tv.some((show) => show.id === mediaItem.id)
-        : liked.people.some((person) => person.id === mediaItem.id)
+        : mediaType === 'person'
+        ? liked.people.some((person) => person.id === mediaItem.id)
+        : mediaType === 'company'
+        ? liked.companies.some((company) => company.id === mediaItem.id)
+        : liked.collections.some((collection) => collection.id === mediaItem.id)
       : false;
 
   /**
