@@ -1,73 +1,50 @@
 import { ReactElement } from 'react';
 
-import {
-  useTheme,
-  useMediaQuery,
-  useBreakpointValue,
-  useBoolean,
-  HStack,
-  VStack,
-  Box,
-  AspectRatio,
-  Fade,
-  ScaleFade
-} from '@chakra-ui/react';
+import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack, Box } from '@chakra-ui/react';
+import _ from 'lodash';
 import useInView from 'react-cool-inview';
-import { useDispatch } from 'react-redux';
 
-import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
-import { handleIsTouchDevice } from '../../../common/utils';
-import Button from '../../../components/Clickable/Button';
-import { toggleQuickView } from '../../../store/slices/Modals';
-import { Theme } from '../../../theme/types';
+import { FontSizes } from '../../../theme/types';
 import Card from '../..//Clickable/Card';
 import Link from '../../Clickable/Link';
-import Image from '../../Image';
 import Rating from '../../Rating';
-import Skeleton from '../../Skeleton';
 import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
 import Description from './components/Description';
+import Image from './components/Image';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { HorizontalPosterProps } from './types';
 
-const width = ['100px', '116px', '152px', '188px', '188px', '224px'];
-
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
-  const theme = useTheme<Theme>();
   const [isSm] = useMediaQuery('(max-width: 600px)');
-  const ratingSize = useBreakpointValue({
+  const ratingFontSize = useBreakpointValue<keyof FontSizes>({
     'base': 'sm',
     'sm': 'md',
     'md': 'lg',
     'lg': 'xl',
-    'xl': 'xl',
-    '2xl': 'xl'
+    'xl': '2xl',
+    '2xl': '3xl'
   });
-
-  const dispatch = useDispatch();
-  const color = useSelector((state) => state.user.ui.theme.color);
 
   const { observe: ref, inView } = useInView<HTMLDivElement>({
     threshold: [0.2, 0.4, 0.6, 0.8, 1],
     unobserveOnEnter: true
   });
 
-  const {
-    mediaItem,
-    mediaType,
-    image,
-    rating,
-    title = 'Lorem ipsum',
-    subtitle = 'Lorem ipsum',
-    description = 'Lorem ipsum',
-    isLoading = false
-  } = props;
+  const { mediaItem, mediaType, image, rating, title, subtitle, description, isLoading = true } = props;
 
   const [isHovering, setIsHovering] = useBoolean();
   const [isDisabled, setIsDisabled] = useBoolean();
+
+  const handleOnImageChange = (bool: boolean): void => {
+    if (bool) {
+      setIsDisabled.on();
+    } else {
+      setIsDisabled.off();
+    }
+  };
 
   return (
     <Link
@@ -78,62 +55,18 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
       onMouseLeave={() => setIsHovering.off()}
     >
       <Card isFullWidth isDisabled={isLoading} isClickable isFixed={isDisabled} isLight>
-        <HStack width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
+        <HStack ref={ref} width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
-          <Box
-            ref={ref}
-            as={AspectRatio}
-            width={width}
-            minWidth={width}
-            maxWidth={width}
-            borderRadius='base'
-            ratio={2 / 3}
-          >
-            <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
-              <AspectRatio width={width} minWidth={width} maxWidth={width} borderRadius='base' ratio={2 / 3}>
-                <>
-                  <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
-                    <Image
-                      alt={image?.alt || ''}
-                      mediaType={mediaType}
-                      maxWidth='none'
-                      height='100%'
-                      borderRadius='base'
-                      thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.thumbnail || ''}${
-                        image?.src || ''
-                      }`}
-                      fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.full || ''}${image?.src || ''}`}
-                    />
-                  </Skeleton>
-
-                  {/* Quick View component */}
-                  {mediaItem && !handleIsTouchDevice() ? (
-                    <ScaleFade in={isHovering && !isLoading} unmountOnExit>
-                      <Box
-                        position='absolute'
-                        bottom={theme.space[1]}
-                        width='100%'
-                        onMouseEnter={() => setIsDisabled.on()}
-                        onMouseLeave={() => setIsDisabled.off()}
-                        px={1}
-                      >
-                        <Button
-                          color={color}
-                          isFullWidth
-                          onClick={() =>
-                            dispatch(toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } }))
-                          }
-                          size='sm'
-                        >
-                          Quick view
-                        </Button>
-                      </Box>
-                    </ScaleFade>
-                  ) : null}
-                </>
-              </AspectRatio>
-            </Fade>
-          </Box>
+          <Image
+            mediaItem={mediaItem}
+            mediaType={mediaType}
+            image={image}
+            title={title}
+            isHovering={isHovering}
+            isLoading={isLoading}
+            inView={inView}
+            onMouseChange={handleOnImageChange}
+          />
 
           <VStack
             width={[
@@ -155,8 +88,8 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
             ]}
           >
             {/* Rating */}
-            {mediaType !== 'person' ? (
-              <Rating count={rating?.count} isLoading={isLoading} size={ratingSize}>
+            {(mediaType === 'movie' || mediaType === 'tv') && rating ? (
+              <Rating count={rating?.count} size={ratingFontSize} isLoading={isLoading}>
                 {rating?.rating}
               </Rating>
             ) : null}
@@ -174,10 +107,14 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               ]}
             >
               <Title title={title} isLoading={isLoading} inView={inView} />
-              <Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
+              {!_.isNil(subtitle) && !_.isEmpty(subtitle) ? (
+                <Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
+              ) : null}
             </VStack>
 
-            <Description description={description} isLoading={isLoading} inView={inView} />
+            {!_.isNil(description) && !_.isEmpty(description) ? (
+              <Description description={description} isLoading={isLoading} inView={inView} />
+            ) : null}
           </VStack>
 
           {/* Like / List Icon buttons */}

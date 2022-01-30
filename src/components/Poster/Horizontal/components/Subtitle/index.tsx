@@ -1,19 +1,30 @@
 import { ReactElement, useCallback, useState } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { useColorMode, useBreakpointValue, Box, Text } from '@chakra-ui/react';
+import _ from 'lodash';
 
-import { handleReturnDummyWidths, handleIsOverflowing } from '../../../../../common/utils';
+import { handleIsOverflowing } from '../../../../../common/utils';
+import { FontSizes } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
 import { SubtitleProps } from './types';
 
-const dummyTextWidths = handleReturnDummyWidths(100, 10);
+const dummies = _.range(25, 100, 10);
+const height = ['16.5px', '19.25px', '22px', '24.75px', '27.5px', '33px'];
 
 const Subtitle = (props: SubtitleProps): ReactElement => {
   const { colorMode } = useColorMode();
+  const fontSize = useBreakpointValue<keyof FontSizes>({
+    'base': 'xs',
+    'sm': 'sm',
+    'md': 'md',
+    'lg': 'lg',
+    'xl': 'xl',
+    '2xl': '2xl'
+  });
 
   const { subtitle, isLoading = false, inView = true } = props;
 
-  const [dummyTextWidth] = useState<number>(dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]);
+  const [dummy] = useState<number>(_.sample(dummies) || 100);
 
   const [isTruncated, setIsTruncated] = useState<boolean>(false);
 
@@ -23,29 +34,31 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
         setIsTruncated(handleIsOverflowing(ref));
       }
     },
-    [isTruncated, setIsTruncated]
+    [isTruncated, setIsTruncated, handleIsOverflowing]
   );
 
   return (
-    <SkeletonText
-      width={inView && isLoading ? `${dummyTextWidth}%` : 'auto'}
+    <Box
+      width='100%'
       maxWidth='100%'
-      height={['19.25px', '22px', '24.75', '27.5px']}
-      offsetY={8.5}
-      isLoaded={inView && !isLoading}
+      height={isLoading || _.isNil(subtitle) || _.isEmpty(subtitle) ? height : 'auto'} // Size of typography height
     >
-      <Text
-        ref={handleIsTruncated}
-        align='left'
-        fontSize={['sm', 'md', 'lg', 'xl']}
-        color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-        isTruncated
-        overflow='hidden'
-        whiteSpace='nowrap'
-      >
-        {!isLoading ? subtitle : 'Lorem ipsum dolor sit amet'}
-      </Text>
-    </SkeletonText>
+      {inView || isLoading ? (
+        <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+          <Text
+            ref={handleIsTruncated}
+            align='left'
+            fontSize={fontSize}
+            color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+            isTruncated
+            overflow='hidden'
+            whiteSpace='nowrap'
+          >
+            {!isLoading ? subtitle : 'Lorem ipsum dolor sit amet'}
+          </Text>
+        </SkeletonText>
+      ) : null}
+    </Box>
   );
 };
 
