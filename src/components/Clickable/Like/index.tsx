@@ -48,6 +48,9 @@ const Like = (props: LikeProps): ReactElement => {
       case 'person':
         updatedLiked.people = updatedLiked.people.filter((person) => person.id !== mediaItem?.id);
         break;
+      case 'company':
+        updatedLiked.companies = updatedLiked.companies.filter((company) => company.id !== mediaItem?.id);
+        break;
       default:
         break;
     }
@@ -79,6 +82,12 @@ const Like = (props: LikeProps): ReactElement => {
         const personMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
 
         updatedLiked.people = [...updatedLiked.people, personMediaItem];
+        break;
+      }
+      case 'company': {
+        const companyMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+
+        updatedLiked.companies = [...updatedLiked.companies, companyMediaItem];
         break;
       }
       default:

@@ -1,12 +1,12 @@
 import { ColorMode } from '@chakra-ui/react';
 
-import { MediaType, Review, PartialCompany } from '../../../common/types';
-import { FullMovie, PartialMovie, Collection } from '../../../common/types/movie';
-import { PartialPerson } from '../../../common/types/person';
-import { FullTV, PartialTV } from '../../../common/types/tv';
+import { MediaType, Review, FullCompany } from '../../../common/types';
+import { FullMovie, Collection } from '../../../common/types/movie';
+import { FullPerson } from '../../../common/types/person';
+import { FullTV } from '../../../common/types/tv';
 import { Color } from '../../../theme/types';
 
-export type SearchType = MediaType | 'company' | 'collection' | string;
+export type SearchType = MediaType | 'collection' | string;
 
 export type Search = {
   id: string;
@@ -16,14 +16,12 @@ export type Search = {
 };
 
 export type GetMediaType<MT extends MediaType> = MT extends 'movie'
-  ? PartialMovie
+  ? FullMovie
   : MT extends 'tv'
-  ? PartialTV
+  ? FullTV
   : MT extends 'person'
-  ? PartialPerson
-  : MT extends 'collection'
-  ? Collection
-  : PartialCompany;
+  ? FullPerson
+  : FullCompany;
 
 export type MediaItem<MT extends MediaType> = {
   dateAdded?: string;
@@ -33,7 +31,6 @@ export type MediaItems = {
   movies: MediaItem<'movie'>[];
   tv: MediaItem<'tv'>[];
   people: MediaItem<'person'>[];
-  collections: MediaItem<'collection'>[];
   companies: MediaItem<'company'>[];
 };
 
@@ -42,8 +39,12 @@ export type List = {
   label: string;
   description?: string;
   date: string;
-  results: Omit<MediaItems, 'people' | 'collections' | 'companies'>;
+  results: Omit<MediaItems, 'people' | 'companies'>;
 };
+
+export type RecentlyViewed = {
+  collections: Collection[];
+} & MediaItems;
 
 export type ReviewState = 'isLiked' | 'isDisliked';
 
@@ -68,8 +69,8 @@ export type Theme = {
 export type StateProps = {
   data: {
     recentSearches: Search[];
-    recentlyViewed: MediaItems;
-    liked: Omit<MediaItems, 'collections'>;
+    recentlyViewed: RecentlyViewed;
+    liked: MediaItems;
     lists: List[];
     reviews: UserReviews;
   };

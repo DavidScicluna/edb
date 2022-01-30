@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-import { StateProps, Search, MediaItems, List, UserReview, OtherReview, Theme } from './types';
+import { StateProps, Search, RecentlyViewed, MediaItems, List, UserReview, OtherReview, Theme } from './types';
 
 const initialState: StateProps = {
   data: {
@@ -56,7 +56,7 @@ const userSlice = createSlice({
     setRecentSearches: (state: StateProps, action: PayloadAction<Search[]>) => {
       state.data.recentSearches = action.payload;
     },
-    setRecentlyViewed: (state: StateProps, action: PayloadAction<MediaItems>) => {
+    setRecentlyViewed: (state: StateProps, action: PayloadAction<RecentlyViewed>) => {
       state.data.recentlyViewed = action.payload;
     },
     setLiked: (state: StateProps, action: PayloadAction<MediaItems>) => {
