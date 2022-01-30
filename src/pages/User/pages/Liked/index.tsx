@@ -110,8 +110,41 @@ const Liked = (): ReactElement => {
     }
   };
 
+  const handleCheckLocation = (): void => {
+    const hash = String(location.hash).replace('#', '');
+
+    if (!_.isEmpty(hash)) {
+      switch (hash) {
+        case 'movie':
+          setActiveTab(0);
+          return;
+        case 'tv':
+          setActiveTab(1);
+          return;
+        case 'person':
+          setActiveTab(2);
+          return;
+        case 'company':
+          setActiveTab(3);
+          return;
+        case 'collection':
+          setActiveTab(4);
+          return;
+        default:
+          setActiveTab(undefined);
+          return;
+      }
+    } else {
+      handleCheckHasMediaTypes();
+    }
+  };
+
   useEffect(() => {
-    handleCheckHasMediaTypes();
+    handleCheckLocation();
+  }, [location]);
+
+  useEffect(() => {
+    handleCheckLocation();
 
     return () => {
       setActiveTab(undefined);

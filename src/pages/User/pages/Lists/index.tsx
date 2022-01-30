@@ -104,8 +104,30 @@ const Lists = (): ReactElement => {
     }
   }, [lists]);
 
+  const handleCheckLocation = (): void => {
+    const hash = String(location.hash).replace('#', '');
+
+    if (hash) {
+      if (lists.some((list) => list.id === hash)) {
+        setActiveTab(lists.findIndex((list) => list.id === hash));
+      } else {
+        setActiveTab(undefined);
+      }
+    }
+  };
+
   useEffect(() => {
-    return () => handleReset();
+    handleCheckLocation();
+  }, [location]);
+
+  useEffect(() => {
+    handleCheckLocation();
+
+    return () => {
+      handleReset();
+
+      setActiveTab(undefined);
+    };
   }, []);
 
   return (
