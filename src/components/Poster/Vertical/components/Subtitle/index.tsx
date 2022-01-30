@@ -19,7 +19,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
     <Box
       width='100%'
       maxWidth='100%'
-      height={isLoading || _.isNil(subtitle) || _.isEmpty(subtitle) ? '16.5px' : 'auto'} // Size of typography height
+      height='16.5px' // Size of typography height
     >
       {inView || isLoading ? (
         <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>

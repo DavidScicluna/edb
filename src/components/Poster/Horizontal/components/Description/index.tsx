@@ -29,7 +29,7 @@ const Description = (props: DescriptionProps): ReactElement => {
     <Box
       width='100%'
       maxWidth='100%'
-      height={isLoading || _.isNil(description) || _.isEmpty(description) ? height : 'auto'} // Size of typography height
+      height={height} // Size of typography height
     >
       {inView || isLoading ? (
         <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>

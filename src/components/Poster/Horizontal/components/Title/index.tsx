@@ -29,7 +29,7 @@ const Title = (props: TitleProps): ReactElement => {
     <Box
       width='100%'
       maxWidth='100%'
-      height={isLoading || _.isNil(title) || _.isEmpty(title) ? height : 'auto'} // Size of typography height
+      height={height} // Size of typography height
     >
       {inView || isLoading ? (
         <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
