@@ -2,12 +2,16 @@ import { ReactElement } from 'react';
 
 import { useDisclosure, Box } from '@chakra-ui/react';
 import {
+  LibraryBooksOutlined as LibraryBooksOutlinedIcon,
+  LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
+  PeopleAltOutlined as PeopleAltOutlinedIcon,
+  PeopleAltTwoTone as PeopleAltTwoToneIcon,
   TheatersOutlined as TheatersOutlinedIcon,
   TheatersTwoTone as TheatersTwoToneIcon,
   TvOutlined as TvOutlinedIcon,
   TvTwoTone as TvTwoToneIcon,
-  PeopleAltOutlined as PeopleAltOutlinedIcon,
-  PeopleAltTwoTone as PeopleAltTwoToneIcon
+  BusinessOutlined as BusinessOutlinedIcon,
+  BusinessTwoTone as BusinessTwoToneIcon
 } from '@material-ui/icons';
 
 import { useSelector } from '../../common/hooks';
@@ -31,6 +35,10 @@ const MediaTypePicker = <MT extends MediaType>(props: MediaTypePickerProps<MT>):
         return isOpen ? <TvTwoToneIcon /> : <TvOutlinedIcon />;
       case 'person':
         return isOpen ? <PeopleAltTwoToneIcon /> : <PeopleAltOutlinedIcon />;
+      case 'company':
+        return isOpen ? <BusinessTwoToneIcon /> : <BusinessOutlinedIcon />;
+      case 'collection':
+        return isOpen ? <LibraryBooksTwoToneIcon /> : <LibraryBooksOutlinedIcon />;
       default:
         return undefined;
     }
