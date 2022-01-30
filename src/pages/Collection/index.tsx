@@ -80,6 +80,7 @@ const Collection = (): ReactElement => {
             <VStack width='100%' spacing={2} px={2} pt={2}>
               <HStack
                 width='100%'
+                height='43px' // Size of DisplayMode Height
                 divider={
                   <Fade in={activeTab === 1} unmountOnExit>
                     <Divider orientation='vertical' height={height || '100%'} mx={2} />
