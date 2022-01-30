@@ -10,6 +10,7 @@ const MediaTypesPicker = ({ onSelected }: MediaTypesPickerProps): ReactElement =
     <Empty
       button={
         <MediaTypes
+          mediaTypes={['movie', 'tv', 'person']}
           onSetType={(mediaType: MediaType) =>
             onSelected(mediaTypesList.findIndex((paramMediaType) => mediaType === paramMediaType.value))
           }

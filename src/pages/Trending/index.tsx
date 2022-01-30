@@ -44,6 +44,7 @@ const Trending = (): ReactElement => {
       return data;
     },
     {
+      enabled: activeTab === 0,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
@@ -74,6 +75,7 @@ const Trending = (): ReactElement => {
       return data;
     },
     {
+      enabled: activeTab === 1,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
@@ -104,6 +106,7 @@ const Trending = (): ReactElement => {
       return data;
     },
     {
+      enabled: activeTab === 2,
       getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
       getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false),
       onSuccess: (data) => {
