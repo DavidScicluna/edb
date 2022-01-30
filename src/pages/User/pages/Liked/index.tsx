@@ -12,13 +12,14 @@ import Page from '../../../../containers/Page';
 import MediaTypesHeader from '../../components/MediaTypesHeader';
 import MediaTypesPicker from '../../components/MediaTypesPicker';
 import Movies from '../../components/Movies';
-import People from '../../components/People';
 import TV from '../../components/TV';
+import People from './components/People';
 
 const Liked = (): ReactElement => {
   const movies = useSelector((state) => state.user.data.liked.movies);
   const tv = useSelector((state) => state.user.data.liked.tv);
   const people = useSelector((state) => state.user.data.liked.people);
+  const companies = useSelector((state) => state.user.data.liked.companies);
 
   const [activeTab, setActiveTab] = useState<number>();
 
@@ -37,6 +38,10 @@ const Liked = (): ReactElement => {
       mediaTypes.push('person');
     }
 
+    if (companies.length > 0) {
+      mediaTypes.push('company');
+    }
+
     return mediaTypes;
   };
 
@@ -50,6 +55,9 @@ const Liked = (): ReactElement => {
         return;
       case 'person':
         setActiveTab(2);
+        return;
+      case 'company':
+        setActiveTab(3);
         return;
     }
   };
@@ -69,6 +77,10 @@ const Liked = (): ReactElement => {
       mediaTypes = mediaTypes + 1;
     }
 
+    if (companies && companies.length > 0) {
+      mediaTypes = mediaTypes + 1;
+    }
+
     if (mediaTypes > 0 && mediaTypes === 1) {
       if (movies && movies.length > 0) {
         handleSetMediaType('movie');
@@ -76,6 +88,8 @@ const Liked = (): ReactElement => {
         handleSetMediaType('tv');
       } else if (people && people.length > 0) {
         handleSetMediaType('person');
+      } else if (companies && companies.length > 0) {
+        handleSetMediaType('company');
       }
     }
   };
@@ -95,8 +109,14 @@ const Liked = (): ReactElement => {
           <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
             <VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2} p={2}>
               <MediaTypesHeader
+                mediaTypes={['movie', 'tv', 'person', 'company']}
                 activeTab={activeTab}
-                isDisabled={{ movie: movies.length === 0, tv: tv.length === 0, person: people.length === 0 }}
+                isDisabled={{
+                  movie: movies.length === 0,
+                  tv: tv.length === 0,
+                  person: people.length === 0,
+                  company: companies.length === 0
+                }}
               />
 
               {_.isNil(activeTab) ? (

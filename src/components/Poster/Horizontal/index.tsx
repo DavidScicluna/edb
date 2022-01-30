@@ -118,7 +118,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
           </VStack>
 
           {/* Like / List Icon buttons */}
-          {mediaItem ? (
+          {mediaItem && mediaType !== 'collection' ? (
             <HStack
               spacing={0}
               sx={{
@@ -138,7 +138,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                 />
               </Box>
               {/* List component */}
-              {mediaType !== 'person' ? (
+              {mediaType === 'movie' || mediaType === 'tv' ? (
                 <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                   <Bookmark
                     title={title}

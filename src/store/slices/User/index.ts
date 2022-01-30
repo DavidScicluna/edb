@@ -10,12 +10,15 @@ const initialState: StateProps = {
     recentlyViewed: {
       movies: [],
       tv: [],
-      people: []
+      people: [],
+      companies: [],
+      collections: []
     },
     liked: {
       movies: [],
       tv: [],
-      people: []
+      people: [],
+      companies: []
     },
     lists: [
       {

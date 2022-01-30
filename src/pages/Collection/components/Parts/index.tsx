@@ -12,7 +12,7 @@ import HorizontalMoviePoster from '../../../Movies/components/Poster/Horizontal'
 import VerticalMoviePoster from '../../../Movies/components/Poster/Vertical';
 import { PartsTabProps } from './types';
 
-const incrementBy = 15;
+const incrementBy = 20;
 
 const PartsTab = (props: PartsTabProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

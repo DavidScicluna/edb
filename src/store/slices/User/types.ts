@@ -1,7 +1,7 @@
 import { ColorMode } from '@chakra-ui/react';
 
-import { MediaType, Review } from '../../../common/types';
-import { FullMovie, PartialMovie } from '../../../common/types/movie';
+import { MediaType, Review, PartialCompany } from '../../../common/types';
+import { FullMovie, PartialMovie, Collection } from '../../../common/types/movie';
 import { PartialPerson } from '../../../common/types/person';
 import { FullTV, PartialTV } from '../../../common/types/tv';
 import { Color } from '../../../theme/types';
@@ -19,7 +19,11 @@ export type GetMediaType<MT extends MediaType> = MT extends 'movie'
   ? PartialMovie
   : MT extends 'tv'
   ? PartialTV
-  : PartialPerson;
+  : MT extends 'person'
+  ? PartialPerson
+  : MT extends 'collection'
+  ? Collection
+  : PartialCompany;
 
 export type MediaItem<MT extends MediaType> = {
   dateAdded?: string;
@@ -29,6 +33,8 @@ export type MediaItems = {
   movies: MediaItem<'movie'>[];
   tv: MediaItem<'tv'>[];
   people: MediaItem<'person'>[];
+  collections: MediaItem<'collection'>[];
+  companies: MediaItem<'company'>[];
 };
 
 export type List = {
@@ -36,7 +42,7 @@ export type List = {
   label: string;
   description?: string;
   date: string;
-  results: Omit<MediaItems, 'people'>;
+  results: Omit<MediaItems, 'people' | 'collections' | 'companies'>;
 };
 
 export type ReviewState = 'isLiked' | 'isDisliked';
@@ -63,7 +69,7 @@ export type StateProps = {
   data: {
     recentSearches: Search[];
     recentlyViewed: MediaItems;
-    liked: MediaItems;
+    liked: Omit<MediaItems, 'collections'>;
     lists: List[];
     reviews: UserReviews;
   };

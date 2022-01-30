@@ -2,8 +2,8 @@ import React, { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import LoadMore from '../../../../components/Clickable/LoadMore';
-import VerticalPeople from '../../../People/components/Orientation/Vertical';
+import LoadMore from '../../../../../../components/Clickable/LoadMore';
+import VerticalPeople from '../../../../../People/components/Orientation/Vertical';
 import { PeopleProps } from './types';
 
 const incrementBy = 20;

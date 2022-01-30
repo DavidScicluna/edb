@@ -7,7 +7,9 @@ import {
   TheatersOutlined as TheatersOutlinedIcon,
   TheatersTwoTone as TheatersTwoToneIcon,
   TvOutlined as TvOutlinedIcon,
-  TvTwoTone as TvTwoToneIcon
+  TvTwoTone as TvTwoToneIcon,
+  BusinessOutlined as BusinessOutlinedIcon,
+  BusinessTwoTone as BusinessTwoToneIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
@@ -81,6 +83,19 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
                 // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
                 label: 'People',
                 isDisabled: isDisabled.person
+              }
+            : undefined,
+          mediaTypes.includes('company')
+            ? {
+                renderLeftIcon: ({ isSelected, fontSize }) =>
+                  isSelected ? (
+                    <BusinessTwoToneIcon style={{ fontSize }} />
+                  ) : (
+                    <BusinessOutlinedIcon style={{ fontSize }} />
+                  ),
+                // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
+                label: 'Companies',
+                isDisabled: isDisabled.company
               }
             : undefined
         ])}
