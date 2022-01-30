@@ -2,6 +2,8 @@ import { ReactElement } from 'react';
 
 import { useTheme, HStack, Fade } from '@chakra-ui/react';
 import {
+  LibraryBooksOutlined as LibraryBooksOutlinedIcon,
+  LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
   PeopleAltOutlined as PeopleAltOutlinedIcon,
   PeopleAltTwoTone as PeopleAltTwoToneIcon,
   TheatersOutlined as TheatersOutlinedIcon,
@@ -20,7 +22,7 @@ import TabList from '../../../../components/Tabs/components/TabList';
 import { Theme } from '../../../../theme/types';
 import { MediaTypesHeaderProps } from './types';
 
-const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person'];
+const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person', 'company', 'collection'];
 
 const defaultIsDisabled: MediaTypesHeaderProps['isDisabled'] = { movie: false, tv: false, person: false };
 
@@ -96,6 +98,19 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
                 // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
                 label: 'Companies',
                 isDisabled: isDisabled.company
+              }
+            : undefined,
+          mediaTypes.includes('collection')
+            ? {
+                renderLeftIcon: ({ isSelected, fontSize }) =>
+                  isSelected ? (
+                    <LibraryBooksTwoToneIcon style={{ fontSize }} />
+                  ) : (
+                    <LibraryBooksOutlinedIcon style={{ fontSize }} />
+                  ),
+                // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
+                label: 'Collections',
+                isDisabled: isDisabled.collection
               }
             : undefined
         ])}

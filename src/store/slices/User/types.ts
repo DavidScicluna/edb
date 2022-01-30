@@ -21,7 +21,9 @@ export type GetMediaType<MT extends MediaType> = MT extends 'movie'
   ? FullTV
   : MT extends 'person'
   ? FullPerson
-  : FullCompany;
+  : MT extends 'person'
+  ? FullCompany
+  : Collection;
 
 export type MediaItem<MT extends MediaType> = {
   dateAdded?: string;
@@ -32,6 +34,7 @@ export type MediaItems = {
   tv: MediaItem<'tv'>[];
   people: MediaItem<'person'>[];
   companies: MediaItem<'company'>[];
+  collections: MediaItem<'collection'>[];
 };
 
 export type List = {
@@ -39,12 +42,8 @@ export type List = {
   label: string;
   description?: string;
   date: string;
-  results: Omit<MediaItems, 'people' | 'companies'>;
+  results: Omit<MediaItems, 'people' | 'companies' | 'collections'>;
 };
-
-export type RecentlyViewed = {
-  collections: Collection[];
-} & MediaItems;
 
 export type ReviewState = 'isLiked' | 'isDisliked';
 
@@ -69,7 +68,7 @@ export type Theme = {
 export type StateProps = {
   data: {
     recentSearches: Search[];
-    recentlyViewed: RecentlyViewed;
+    recentlyViewed: MediaItems;
     liked: MediaItems;
     lists: List[];
     reviews: UserReviews;
