@@ -118,7 +118,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
           </VStack>
 
           {/* Like / List Icon buttons */}
-          {mediaItem && mediaType !== 'collection' ? (
+          {mediaItem ? (
             <HStack
               spacing={0}
               sx={{

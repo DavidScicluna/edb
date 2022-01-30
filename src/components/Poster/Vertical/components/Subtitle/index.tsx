@@ -1,9 +1,8 @@
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { useColorMode, Box, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { handleIsOverflowing } from '../../../../../common/utils';
 import SkeletonText from '../../../../Skeleton/Text';
 import { SubtitleProps } from './types';
 
@@ -16,17 +15,6 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 
   const [dummy] = useState<number>(_.sample(dummies) || 100);
 
-  const [isTruncated, setIsTruncated] = useState<boolean>(false);
-
-  const handleIsTruncated = useCallback(
-    (ref: HTMLParagraphElement | null) => {
-      if (ref) {
-        setIsTruncated(handleIsOverflowing(ref));
-      }
-    },
-    [isTruncated, setIsTruncated, handleIsOverflowing]
-  );
-
   return (
     <Box
       width='100%'
@@ -36,7 +24,6 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
       {inView || isLoading ? (
         <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
           <Text
-            ref={handleIsTruncated}
             align='left'
             fontSize='xs'
             color={colorMode === 'light' ? 'gray.400' : 'gray.500'}

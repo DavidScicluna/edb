@@ -92,7 +92,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
           </VStack>
 
           {/* Like component */}
-          {mediaType === 'person' || mediaType === 'company' ? (
+          {mediaType === 'person' || mediaType === 'company' || mediaType === 'collection' ? (
             <HStack
               sx={{
                 position: 'absolute',

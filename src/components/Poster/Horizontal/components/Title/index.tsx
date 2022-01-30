@@ -1,9 +1,8 @@
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { useColorMode, useBreakpointValue, Box, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { handleIsOverflowing } from '../../../../../common/utils';
 import { FontSizes } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
 import { TitleProps } from './types';
@@ -26,17 +25,6 @@ const Title = (props: TitleProps): ReactElement => {
 
   const [dummy] = useState<number>(_.sample(dummies) || 100);
 
-  const [isTruncated, setIsTruncated] = useState<boolean>(false);
-
-  const handleIsTruncated = useCallback(
-    (ref: HTMLParagraphElement | null) => {
-      if (ref) {
-        setIsTruncated(handleIsOverflowing(ref));
-      }
-    },
-    [isTruncated, setIsTruncated, handleIsOverflowing]
-  );
-
   return (
     <Box
       width='100%'
@@ -46,7 +34,6 @@ const Title = (props: TitleProps): ReactElement => {
       {inView || isLoading ? (
         <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
           <Text
-            ref={handleIsTruncated}
             align='left'
             fontSize={fontSize}
             fontWeight='semibold'

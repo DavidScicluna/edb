@@ -1,9 +1,8 @@
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { useColorMode, useBreakpointValue, Box, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { handleIsOverflowing } from '../../../../../common/utils';
 import { FontSizes } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
 import { DescriptionProps } from './types';
@@ -26,17 +25,6 @@ const Description = (props: DescriptionProps): ReactElement => {
 
   const [dummy] = useState<number>(_.sample(dummies) || 100);
 
-  const [isTruncated, setIsTruncated] = useState<boolean>(false);
-
-  const handleIsTruncated = useCallback(
-    (ref: HTMLParagraphElement | null) => {
-      if (ref) {
-        setIsTruncated(handleIsOverflowing(ref));
-      }
-    },
-    [isTruncated, setIsTruncated, handleIsOverflowing]
-  );
-
   return (
     <Box
       width='100%'
@@ -46,12 +34,9 @@ const Description = (props: DescriptionProps): ReactElement => {
       {inView || isLoading ? (
         <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
           <Text
-            ref={handleIsTruncated}
-            cursor={isTruncated ? 'pointer' : 'text'}
             align='left'
             fontSize={fontSize}
             color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-            isTruncated
             overflow='hidden'
             whiteSpace='nowrap'
           >
