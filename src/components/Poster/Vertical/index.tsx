@@ -1,123 +1,69 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useBoolean, VStack, HStack, Box, AspectRatio, ScaleFade, Fade } from '@chakra-ui/react';
+import { useBoolean, VStack, HStack, Box } from '@chakra-ui/react';
 import useInView from 'react-cool-inview';
-import { useDispatch } from 'react-redux';
 
-import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
-import { handleIsTouchDevice } from '../../../common/utils';
-import Button from '../../../components/Clickable/Button';
+import { handleReturnMediaTypeLabel } from '../../../common/utils';
 import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
-import Skeleton from '../../../components/Skeleton';
-import { toggleQuickView } from '../../../store/slices/Modals';
-import { Theme } from '../../../theme/types';
-import Image from '../../Image';
 import Rating from '../../Rating';
 import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
+import Image from './components/Image';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { VerticalPosterProps } from './types';
 
 const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): ReactElement => {
-  const theme = useTheme<Theme>();
-
-  const dispatch = useDispatch();
-  const color = useSelector((state) => state.user.ui.theme.color);
-
   const { observe: ref, inView } = useInView<HTMLDivElement>({
     threshold: [0.2, 0.4, 0.6, 0.8, 1],
     unobserveOnEnter: true
   });
 
-  const {
-    width,
-    mediaItem,
-    mediaType,
-    image,
-    rating,
-    title = 'Lorem ipsum',
-    subtitle = 'Lorem ipsum',
-    isLoading = true
-  } = props;
+  const { width = '100%', mediaItem, mediaType, image, rating, title, subtitle, isLoading = true } = props;
 
   const [isHovering, setIsHovering] = useBoolean();
   const [isDisabled, setIsDisabled] = useBoolean();
+
+  const handleOnImageChange = (bool: boolean): void => {
+    if (bool) {
+      setIsDisabled.on();
+    } else {
+      setIsDisabled.off();
+    }
+  };
 
   return (
     <Link
       isFullWidth
       isDisabled={isLoading || isDisabled}
-      to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}
+      to={{ pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` }}
       onMouseEnter={() => setIsHovering.on()}
       onMouseLeave={() => setIsHovering.off()}
     >
       <Card isFullWidth isDisabled={isLoading} isClickable isFixed={isDisabled} isLight>
-        <VStack width={width} position='relative' spacing={1} p={1}>
+        <VStack ref={ref} width={width} position='relative' spacing={1} p={1}>
           {/* Image */}
-          <Box
-            ref={ref}
-            as={AspectRatio}
-            width='100%'
-            minWidth='100%'
-            maxWidth='100%'
-            borderRadius='base'
-            ratio={2 / 3}
-          >
-            <Fade in={isLoading || inView} unmountOnExit style={{ width: 'inherit', borderRadius: 'inherit' }}>
-              <AspectRatio width='100%' minWidth='100%' maxWidth='100%' borderRadius='base' ratio={2 / 3}>
-                <>
-                  <Skeleton isLoaded={!isLoading && Boolean(image)} borderRadius='base'>
-                    <Image
-                      alt={image?.alt || ''}
-                      mediaType={mediaType}
-                      maxWidth='none'
-                      height='100%'
-                      borderRadius='base'
-                      thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.thumbnail || ''}${
-                        image?.src || ''
-                      }`}
-                      fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${image?.size.full || ''}${image?.src || ''}`}
-                    />
-                  </Skeleton>
-
-                  {/* Quick View component */}
-                  {mediaItem && !handleIsTouchDevice() ? (
-                    <ScaleFade in={isHovering && !isLoading} unmountOnExit>
-                      <Box
-                        position='absolute'
-                        bottom={theme.space[1]}
-                        width='100%'
-                        onMouseEnter={() => setIsDisabled.on()}
-                        onMouseLeave={() => setIsDisabled.off()}
-                        px={1}
-                      >
-                        <Button
-                          color={color}
-                          isFullWidth
-                          onClick={() =>
-                            dispatch(toggleQuickView({ open: true, mediaType, mediaItem: { id: mediaItem.id, title } }))
-                          }
-                          size='sm'
-                        >
-                          Quick view
-                        </Button>
-                      </Box>
-                    </ScaleFade>
-                  ) : null}
-                </>
-              </AspectRatio>
-            </Fade>
-          </Box>
+          <Image
+            mediaItem={mediaItem}
+            mediaType={mediaType}
+            image={image}
+            title={title}
+            isHovering={isHovering}
+            isLoading={isLoading}
+            inView={inView}
+            onMouseChange={handleOnImageChange}
+          />
 
           <VStack width='100%' spacing={isLoading ? 1 : 0.5}>
             {/* Header */}
-            {mediaType !== 'person' ? (
+            {mediaType === 'movie' || mediaType === 'tv' ? (
               <HStack width='100%' justify='space-between' spacing={0}>
                 {/* Rating component */}
-                <Rating isLoading={isLoading}>{rating}</Rating>
+                <Rating size='sm' isLoading={isLoading}>
+                  {rating}
+                </Rating>
 
                 <HStack spacing={0}>
                   {/* Like component */}
@@ -146,7 +92,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
           </VStack>
 
           {/* Like component */}
-          {mediaType === 'person' ? (
+          {mediaType === 'person' || mediaType === 'company' ? (
             <HStack
               sx={{
                 position: 'absolute',
