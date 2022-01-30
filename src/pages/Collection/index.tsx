@@ -17,6 +17,7 @@ import TabList from '../../components/Tabs/components/TabList';
 import TabPanels from '../../components/Tabs/components/TabPanels';
 import Page from '../../containers/Page';
 import { FontSizes } from '../../theme/types';
+import Actions from './components/Actions';
 import Overview from './components/Overview';
 import Parts from './components/Parts';
 
@@ -76,6 +77,12 @@ const Collection = (): ReactElement => {
         }
       >
         {{
+          actions: (
+            <Actions
+              collection={collectionQuery.data}
+              isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
+            />
+          ),
           body: (
             <VStack width='100%' spacing={2} px={2} pt={2}>
               <HStack
