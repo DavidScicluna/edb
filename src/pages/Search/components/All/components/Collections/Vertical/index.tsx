@@ -7,9 +7,9 @@ import LoadMore from '../../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../../components/Empty';
 import Error from '../../../../../../../components/Error';
 import VerticalGrid from '../../../../../../../components/Grid/Vertical';
-import HorizontalPoster from '../../../../../../../components/Poster/Horizontal';
-import VerticalPoster from '../../../../../../../components/Poster/Vertical';
 import { Collection as CollectionType } from '../../../../../types';
+import HorizontalCollectionPoster from '../components/Poster/Horizontal';
+import VerticalCollectionPoster from '../components/Poster/Vertical';
 import { VerticalSearchCollectionsProps } from './types';
 
 const VerticalSearchCollections = (props: VerticalSearchCollectionsProps): ReactElement => {
@@ -29,39 +29,9 @@ const VerticalSearchCollections = (props: VerticalSearchCollectionsProps): React
           {({ displayMode }) =>
             (collections.results || []).map((collection: CollectionType) =>
               displayMode === 'grid' ? (
-                <VerticalPoster
-                  key={collection.id}
-                  mediaItem={collection ? { ...collection } : undefined}
-                  mediaType='collection'
-                  image={{
-                    alt: `${collection.name || ''} collection poster`,
-                    src: collection.poster_path || '',
-                    size: {
-                      thumbnail: 'w92',
-                      full: 'original'
-                    }
-                  }}
-                  title={collection.name || ''}
-                  subtitle={collection.overview || ''}
-                  isLoading={false}
-                />
+                <VerticalCollectionPoster key={collection.id} collection={collection} isLoading={false} />
               ) : (
-                <HorizontalPoster
-                  key={collection.id}
-                  mediaItem={collection ? { ...collection } : undefined}
-                  mediaType='collection'
-                  image={{
-                    alt: `${collection.name || ''} collection poster`,
-                    src: collection.poster_path || '',
-                    size: {
-                      thumbnail: 'w92',
-                      full: 'original'
-                    }
-                  }}
-                  title={collection.name || ''}
-                  description={collection.overview || ''}
-                  isLoading={false}
-                />
+                <HorizontalCollectionPoster key={collection.id} collection={collection} isLoading={false} />
               )
             )
           }
@@ -74,35 +44,9 @@ const VerticalSearchCollections = (props: VerticalSearchCollectionsProps): React
               isSuccess && collections?.results && collections.results.length > 0 ? collections.results.length : 20
             ).map((_dummy, index: number) =>
               displayMode === 'grid' ? (
-                <VerticalPoster
-                  key={index}
-                  mediaType='collection'
-                  image={{
-                    alt: 'Collection poster',
-                    src: '',
-                    size: {
-                      thumbnail: 'w92',
-                      full: 'original'
-                    }
-                  }}
-                  title='Lorem Ipsum'
-                  isLoading
-                />
+                <VerticalCollectionPoster key={index} isLoading />
               ) : (
-                <HorizontalPoster
-                  key={index}
-                  mediaType='collection'
-                  image={{
-                    alt: 'Collection poster',
-                    src: '',
-                    size: {
-                      thumbnail: 'w92',
-                      full: 'original'
-                    }
-                  }}
-                  title='Lorem Ipsum'
-                  isLoading
-                />
+                <HorizontalCollectionPoster key={index} isLoading />
               )
             )
           }

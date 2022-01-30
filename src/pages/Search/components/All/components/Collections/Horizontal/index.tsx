@@ -7,7 +7,7 @@ import { useSelector } from '../../../../../../../common/hooks';
 import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
-import VerticalPoster from '../../../../../../../components/Poster/Vertical';
+import VerticalCollectionPoster from '../components/Poster/Vertical';
 import { CollectionsProps } from './types';
 
 const Collections = ({ query, collections = [], total = 0 }: CollectionsProps): ReactElement => {
@@ -29,21 +29,10 @@ const Collections = ({ query, collections = [], total = 0 }: CollectionsProps): 
       }
     >
       {collections.map((collection) => (
-        <VerticalPoster
+        <VerticalCollectionPoster
           key={collection.id}
           width={['185px', '205px', '230px']}
-          mediaItem={collection ? { ...collection } : undefined}
-          mediaType='collection'
-          image={{
-            alt: `${collection.name || ''} collection poster`,
-            src: collection.poster_path || '',
-            size: {
-              thumbnail: 'w92',
-              full: 'original'
-            }
-          }}
-          title={collection.name || ''}
-          subtitle={collection.overview || ''}
+          collection={collection}
           isLoading={false}
         />
       ))}
