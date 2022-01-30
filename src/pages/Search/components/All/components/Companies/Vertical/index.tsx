@@ -3,20 +3,17 @@ import React, { ReactElement } from 'react';
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { useSelector } from '../../../../../../../common/hooks';
-import { Company } from '../../../../../../../common/types';
+import { PartialCompany } from '../../../../../../../common/types';
 import LoadMore from '../../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../../components/Empty';
 import Error from '../../../../../../../components/Error';
 import VerticalGrid from '../../../../../../../components/Grid/Vertical';
-import HorizontalPoster from '../../../../../../../components/Poster/Horizontal';
-import VerticalPoster from '../../../../../../../components/Poster/Vertical';
+import HorizontalCompanyPoster from '../components/Poster/Horizontal';
+import VerticalCompanyPoster from '../components/Poster/Vertical';
 import { VerticalSearchCompaniesProps } from './types';
 
 const VerticalSearchCompanies = (props: VerticalSearchCompaniesProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
-
-  const countries = useSelector((state) => state.options.data.countries);
 
   const { query, companies, companiesQuery } = props;
   const { isFetching, isLoading, isSuccess, isError } = companiesQuery;
@@ -30,45 +27,11 @@ const VerticalSearchCompanies = (props: VerticalSearchCompaniesProps): ReactElem
       ) : !(isFetching || isLoading) && isSuccess && companies?.results && companies.results.length > 0 ? (
         <VerticalGrid>
           {({ displayMode }) =>
-            (companies.results || []).map((company: Company) =>
+            (companies.results || []).map((company: PartialCompany) =>
               displayMode === 'grid' ? (
-                <VerticalPoster
-                  key={company.id}
-                  mediaItem={company ? { ...company } : undefined}
-                  mediaType='company'
-                  image={{
-                    alt: `${company.name || ''} company poster`,
-                    src: company.logo_path || '',
-                    size: {
-                      thumbnail: 'w45',
-                      full: 'original'
-                    }
-                  }}
-                  title={company.name || ''}
-                  subtitle={
-                    countries.find((country) => country.iso_3166_1 === company.origin_country)?.english_name || ''
-                  }
-                  isLoading={false}
-                />
+                <VerticalCompanyPoster key={company.id} company={company} isLoading={false} />
               ) : (
-                <HorizontalPoster
-                  key={company.id}
-                  mediaItem={company ? { ...company } : undefined}
-                  mediaType='company'
-                  image={{
-                    alt: `${company.name || ''} company poster`,
-                    src: company.logo_path || '',
-                    size: {
-                      thumbnail: 'w45',
-                      full: 'original'
-                    }
-                  }}
-                  title={company.name || ''}
-                  subtitle={
-                    countries.find((country) => country.iso_3166_1 === company.origin_country)?.english_name || ''
-                  }
-                  isLoading={false}
-                />
+                <HorizontalCompanyPoster key={company.id} company={company} isLoading={false} />
               )
             )
           }
@@ -81,37 +44,9 @@ const VerticalSearchCompanies = (props: VerticalSearchCompaniesProps): ReactElem
               isSuccess && companies?.results && companies.results.length > 0 ? companies.results.length : 20
             ).map((_dummy, index: number) =>
               displayMode === 'grid' ? (
-                <VerticalPoster
-                  key={index}
-                  mediaType='company'
-                  image={{
-                    alt: 'Company poster',
-                    src: '',
-                    size: {
-                      thumbnail: 'w45',
-                      full: 'original'
-                    }
-                  }}
-                  title='Lorem Ipsum'
-                  subtitle='Lorem'
-                  isLoading
-                />
+                <VerticalCompanyPoster key={index} isLoading />
               ) : (
-                <HorizontalPoster
-                  key={index}
-                  mediaType='company'
-                  image={{
-                    alt: 'Company poster',
-                    src: '',
-                    size: {
-                      thumbnail: 'w45',
-                      full: 'original'
-                    }
-                  }}
-                  title='Lorem Ipsum'
-                  subtitle='Lorem'
-                  isLoading
-                />
+                <HorizontalCompanyPoster key={index} isLoading />
               )
             )
           }

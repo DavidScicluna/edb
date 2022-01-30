@@ -1,7 +1,7 @@
-import { Company } from '../../../../../../../common/types';
+import { PartialCompany } from '../../../../../../../common/types';
 
 export type CompaniesProps = {
   query: string;
-  companies?: Company[];
+  companies?: PartialCompany[];
   total?: number;
 };
