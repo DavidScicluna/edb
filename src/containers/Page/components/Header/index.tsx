@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
+import { useMediaQuery, VStack, HStack, Center } from '@chakra-ui/react';
 
 import Breadcrumbs from './components/Breadcrumbs';
 import Title from './components/Title';
@@ -16,7 +16,7 @@ const Header = ({ title, actions }: HeaderProps): ReactElement => {
         {title ? <Title title={title} /> : null}
       </VStack>
 
-      {actions || null}
+      <Center width='100%'>{actions || null}</Center>
     </VStack>
   ) : (
     <HStack width='100%' justifyContent='space-between' p={2}>
@@ -25,7 +25,7 @@ const Header = ({ title, actions }: HeaderProps): ReactElement => {
         {title ? <Title title={title} /> : null}
       </VStack>
 
-      {actions || null}
+      <Center>{actions || null}</Center>
     </HStack>
   );
 };
