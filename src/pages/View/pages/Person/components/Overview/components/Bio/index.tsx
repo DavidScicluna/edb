@@ -19,8 +19,6 @@ const Bio = ({ biography = '', isLoading = true }: BioProps): ReactElement => {
 
   const [ref, { height }] = useElementSize();
 
-  console.log(biography);
-
   return (
     <Panel isFullWidth size='sm'>
       {{
