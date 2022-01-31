@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useTheme, useColorMode, Box, HStack } from '@chakra-ui/react';
+import { useTheme, useColorMode, Box, HStack, Center } from '@chakra-ui/react';
 import { GridOnTwoTone as GridOnTwoToneIcon, GridOnOutlined as GridOnOutlinedIcon } from '@material-ui/icons';
 import _ from 'lodash';
 
@@ -38,7 +38,7 @@ const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: Lis
         ) : (
           <GridOnOutlinedIcon style={{ fontSize: iconSize }} />
         )}
-        <span>Lists</span>
+        <Center>Lists</Center>
       </HStack>
     </Box>
   );

@@ -86,7 +86,6 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
             : undefined
         ])
       }}
-      // variant='transparent'
     >
       {/* Movies */}
       <>

@@ -90,7 +90,7 @@ const Collection = (): ReactElement => {
                 height='43px' // Size of DisplayMode Height
                 divider={
                   <Fade in={activeTab === 1} unmountOnExit>
-                    <Divider orientation='vertical' height={height || '100%'} mx={2} />
+                    <Divider orientation='vertical' height={`${height}px`} mx={2} />
                   </Fade>
                 }
               >

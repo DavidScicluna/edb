@@ -20,7 +20,7 @@ const HorizontalCollectionPoster = (props: HorizontalCollectionPosterProps): Rea
         }
       }}
       title={name || ''}
-      description={overview || ''}
+      subtitle={overview || ''}
       isLoading={isLoading}
     />
   );
