@@ -7,7 +7,7 @@ import HorizontalScroll from '../../../../../../../../components/HorizontalScrol
 import Department from './components/Department';
 import { DepartmentsProps } from './types';
 
-const Departments = ({ departments, isLoading }: DepartmentsProps): ReactElement => {
+const Departments = ({ departments, isLoading = true, isQuickView = false }: DepartmentsProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   return (
@@ -20,8 +20,10 @@ const Departments = ({ departments, isLoading }: DepartmentsProps): ReactElement
       isDisabled={isLoading}
     >
       {!isLoading
-        ? departments.map((department) => <Department key={department} department={department} isLoading={false} />)
-        : _.range(0, 5).map((_dummy, index) => <Department key={index} isLoading />)}
+        ? departments.map((department) => (
+            <Department key={department} department={department} isQuickView={isQuickView} isLoading={false} />
+          ))
+        : _.range(0, 5).map((_dummy, index) => <Department key={index} isQuickView={isQuickView} isLoading />)}
     </HorizontalScroll>
   );
 };

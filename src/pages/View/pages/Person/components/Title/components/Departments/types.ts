@@ -1,4 +1,5 @@
 export type DepartmentsProps = {
   departments: string[];
-  isLoading: boolean;
+  isLoading?: boolean;
+  isQuickView?: boolean;
 };

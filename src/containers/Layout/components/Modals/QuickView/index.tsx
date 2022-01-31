@@ -4,6 +4,7 @@ import { useMediaQuery } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
+import { handleReturnMediaTypeLabel } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import Empty from '../../../../../components/Empty';
@@ -28,7 +29,9 @@ const QuickView = (): ReactElement => {
         !isSm ? `Quick View ${quickViewModal.mediaItem ? `"${quickViewModal.mediaItem.title}"` : ''}` : 'Quick View'
       }
       renderActions={({ color, colorMode, size }) => (
-        <Link to={{ pathname: `/${quickViewModal.mediaType}/${quickViewModal.mediaItem?.id}` }}>
+        <Link
+          to={{ pathname: `/${handleReturnMediaTypeLabel(quickViewModal.mediaType)}/${quickViewModal.mediaItem?.id}` }}
+        >
           <Button color={color} colorMode={colorMode} onClick={() => handleClose()} size={size}>
             View full details
           </Button>
@@ -47,6 +50,7 @@ const QuickView = (): ReactElement => {
         <Person id={quickViewModal.mediaItem?.id} />
       ) : (
         <Empty
+          hasIllustration={false}
           label='Oh no! Media-Item not found!'
           description='Sorry, unfortunatly couldnt find the media-item to quick view'
         />

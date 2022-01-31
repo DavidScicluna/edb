@@ -1,16 +1,20 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useMediaQuery, VStack, HStack, Box } from '@chakra-ui/react';
+import { useDisclosure, useMediaQuery, Stack, Center, VStack } from '@chakra-ui/react';
 import axios from 'axios';
+import _ from 'lodash';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
-import { Response } from '../../../../../../../common/types';
-import { FullPerson, ImageResponse, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
+import { Images } from '../../../../../../../common/types';
+import { FullPerson, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
+import Button from '../../../../../../../components/Clickable/Button';
+import Like, { handleReturnIcon } from '../../../../../../../components/Clickable/Like';
 import MediaViewer from '../../../../../../../components/MediaViewer';
-import { handleGetDepartments } from '../../../../../../../pages/Person';
+import { handleGetDepartments } from '../../../../../../../pages/View/pages/Person/common/utils';
+import Title from '../../../../../../../pages/View/pages/Person/components/Title';
 import Poster from '../Poster';
-import Container from './components/Container';
+import Stats from './components/Stats';
 import { PersonProps } from './types';
 
 const Person = (props: PersonProps): ReactElement => {
@@ -32,7 +36,7 @@ const Person = (props: PersonProps): ReactElement => {
   });
 
   // Fetching person movie credits
-  const movieCreditsQuery = useQuery([`person-movie_credits-${id}`, id], async () => {
+  const movieCreditsQuery = useQuery([`person-${id}-movie_credits`, id], async () => {
     const { data } = await axiosInstance.get<MovieCredits>(`/person/${id}/movie_credits`, {
       cancelToken: source.token
     });
@@ -40,7 +44,7 @@ const Person = (props: PersonProps): ReactElement => {
   });
 
   // Fetching person tv credits
-  const tvCreditsQuery = useQuery([`person-tv_credits-${id}`, id], async () => {
+  const tvCreditsQuery = useQuery([`person-${id}-tv_credits`, id], async () => {
     const { data } = await axiosInstance.get<TVCredits>(`/person/${id}/tv_credits`, {
       cancelToken: source.token
     });
@@ -48,16 +52,8 @@ const Person = (props: PersonProps): ReactElement => {
   });
 
   // Fetching person images
-  const imagesQuery = useQuery([`person-images-${id}`, id], async () => {
-    const { data } = await axiosInstance.get<ImageResponse>(`/person/${id}/images`, {
-      cancelToken: source.token
-    });
-    return data;
-  });
-
-  // Fetching person tagged images
-  const taggedImagesQuery = useQuery([`person-tagged_images-${id}`, id], async () => {
-    const { data } = await axiosInstance.get<Response<ImageResponse>>(`/person/${id}/tagged_images`, {
+  const imagesQuery = useQuery([`person-${id}-images`, id], async () => {
+    const { data } = await axiosInstance.get<Images>(`/person/${id}/images`, {
       cancelToken: source.token
     });
     return data;
@@ -84,8 +80,8 @@ const Person = (props: PersonProps): ReactElement => {
 
   return (
     <>
-      {isSm ? (
-        <VStack width='100%' maxWidth='100%' spacing={2} p={2}>
+      <Stack width='100%' maxWidth='100%' direction={isSm ? 'column' : 'row'} spacing={isSm ? 4 : 2} p={2}>
+        <Center width={isSm ? '100%' : '40%'} maxWidth={isSm ? '100%' : '40%'}>
           <Poster
             name={personQuery.data?.name || ''}
             path={personQuery.data?.profile_path || ''}
@@ -93,42 +89,57 @@ const Person = (props: PersonProps): ReactElement => {
             isLoading={personQuery.isFetching || personQuery.isLoading}
             onClickPoster={handleOnPosterClick}
           />
-          <Container
-            person={personQuery.data}
-            departments={departments.map((department) => department.label)}
-            totalMovieCredits={movieCreditsQuery.data?.cast.length || 0}
-            totalTvCredits={tvCreditsQuery.data?.cast.length || 0}
-            totalCrewCredits={(movieCreditsQuery.data?.crew.length || 0) + (tvCreditsQuery.data?.crew.length || 0)}
-            isLoading={personQuery.isFetching || personQuery.isLoading}
-            isError={personQuery.isError}
-          />
-        </VStack>
-      ) : (
-        <HStack width='100%' maxWidth='100%' spacing={2} p={2}>
-          <Box width='40%' maxWidth='40%'>
-            <Poster
-              name={personQuery.data?.name || ''}
-              path={personQuery.data?.profile_path || ''}
-              mediaType='person'
-              isLoading={personQuery.isFetching || personQuery.isLoading}
-              onClickPoster={handleOnPosterClick}
-            />
-          </Box>
-          <Box width='60%' maxWidth='60%'>
-            <Container
+        </Center>
+        <Center width={isSm ? '100%' : '60%'} maxWidth={isSm ? '100%' : '60%'}>
+          <VStack width='100%' spacing={4}>
+            <Title
               person={personQuery.data}
               departments={departments.map((department) => department.label)}
-              totalMovieCredits={movieCreditsQuery.data?.cast.length || 0}
-              totalTvCredits={tvCreditsQuery.data?.cast.length || 0}
-              totalCrewCredits={(movieCreditsQuery.data?.crew.length || 0) + (tvCreditsQuery.data?.crew.length || 0)}
               isLoading={personQuery.isFetching || personQuery.isLoading}
-              isError={personQuery.isError}
+              isQuickView
             />
-          </Box>
-        </HStack>
-      )}
 
-      {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
+            <Stats
+              totalCrewCredits={(movieCreditsQuery.data?.crew?.length || 0) + (tvCreditsQuery.data?.crew?.length || 0)}
+              totalMovieCredits={movieCreditsQuery.data?.cast?.length || 0}
+              totalTvCredits={tvCreditsQuery.data?.cast?.length || 0}
+              isLoading={
+                movieCreditsQuery.isFetching ||
+                movieCreditsQuery.isLoading ||
+                tvCreditsQuery.isFetching ||
+                tvCreditsQuery.isLoading
+              }
+            />
+
+            <Center width='100%'>
+              <Like
+                renderButton={({ isLiked, onClick }) => (
+                  <Button
+                    color={isLiked ? 'red' : 'gray'}
+                    renderLeftIcon={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
+                    isFullWidth
+                    isDisabled={
+                      personQuery.isFetching ||
+                      personQuery.isLoading ||
+                      _.isNil(personQuery.data) ||
+                      _.isEmpty(personQuery.data)
+                    }
+                    onClick={() => onClick()}
+                    size='lg'
+                    variant='outlined'
+                  >
+                    {isLiked ? 'Liked' : 'Like'}
+                  </Button>
+                )}
+                mediaType='person'
+                mediaItem={personQuery.data}
+              />
+            </Center>
+          </VStack>
+        </Center>
+      </Stack>
+
+      {/* {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
         <MediaViewer
           isOpen={isMediaViewerOpen}
           selected={{ type: 'photo', asset: selectedPhoto }}
@@ -136,7 +147,7 @@ const Person = (props: PersonProps): ReactElement => {
           mediaType='person'
           onClose={onMediaViewerClose}
         />
-      ) : null}
+      ) : null} */}
     </>
   );
 };

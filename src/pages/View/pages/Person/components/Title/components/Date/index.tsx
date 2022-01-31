@@ -13,7 +13,7 @@ const PersonDate = (props: DateProps): ReactElement => {
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { birthday, place_of_birth, deathday, isLoading = false } = props;
+  const { birthday, place_of_birth, deathday, isLoading = true, isQuickView = false } = props;
 
   const [dummy] = useState<number>(_.sample(dummies) || 100);
 
@@ -34,7 +34,7 @@ const PersonDate = (props: DateProps): ReactElement => {
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-          fontSize={isSm ? 'xs' : 'sm'}
+          fontSize={isSm && !isQuickView ? 'xs' : 'sm'}
           isTruncated
           overflow='hidden'
           whiteSpace='nowrap'

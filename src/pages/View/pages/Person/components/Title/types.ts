@@ -4,4 +4,5 @@ export type TitleProps = {
   person?: FullPerson;
   departments?: string[];
   isLoading?: boolean;
+  isQuickView?: boolean;
 };

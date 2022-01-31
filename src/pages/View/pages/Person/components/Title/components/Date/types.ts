@@ -5,4 +5,5 @@ export type DateProps = {
   place_of_birth?: FullPerson['place_of_birth'];
   deathday?: FullPerson['deathday'];
   isLoading?: boolean;
+  isQuickView?: boolean;
 };

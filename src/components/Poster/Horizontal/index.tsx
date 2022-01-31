@@ -5,6 +5,7 @@ import _ from 'lodash';
 import useInView from 'react-cool-inview';
 
 import { MediaType } from '../../../common/types';
+import { handleReturnMediaTypeLabel } from '../../../common/utils';
 import { FontSizes } from '../../../theme/types';
 import Card from '../..//Clickable/Card';
 import Link from '../../Clickable/Link';
@@ -50,7 +51,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
     <Link
       isFullWidth
       isDisabled={isLoading || isDisabled}
-      to={{ pathname: `/${mediaType}/${mediaItem?.id || ''}` }}
+      to={{ pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` }}
       onMouseEnter={() => setIsHovering.on()}
       onMouseLeave={() => setIsHovering.off()}
     >

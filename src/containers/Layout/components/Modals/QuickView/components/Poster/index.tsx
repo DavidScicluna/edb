@@ -1,7 +1,9 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery, useBoolean } from '@chakra-ui/react';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
+import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../components/Clickable/Image';
 import Image from '../../../../../../../components/Image';
 import Skeleton from '../../../../../../../components/Skeleton';
@@ -19,6 +21,7 @@ const Poster = (props: PosterProps): ReactElement => {
       borderRadius='lg'
       ratio={isSm ? 1 / 1 : 2 / 3}
       isDisabled={isLoading || isImageError}
+      renderIcon={({ fontSize }) => <SearchOutlinedIcon style={{ fontSize }} />}
       onClick={path ? () => onClickPoster(path, 'photo') : undefined}
     >
       <Skeleton isLoaded={!isLoading} borderRadius='lg'>
@@ -26,11 +29,11 @@ const Poster = (props: PosterProps): ReactElement => {
           alt={`${name ? `"${name}"` : ''} ${
             mediaType === 'movie' ? 'movie' : mediaType === 'tv' ? 'tv show' : 'profile'
           } poster`}
-          mediaType={mediaType}
           maxWidth='none'
           height={isSm ? 'auto' : '100%'}
           width={isSm ? '100%' : 'auto'}
           borderRadius='lg'
+          boringType={handleReturnBoringTypeByMediaType(mediaType)}
           onError={() => setIsImageError.on()}
           onLoad={() => setIsImageError.off()}
           thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${mediaType === 'person' ? 'w45' : 'w92'}${path}`}

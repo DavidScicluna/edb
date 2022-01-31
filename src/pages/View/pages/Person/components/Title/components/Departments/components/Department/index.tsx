@@ -8,7 +8,7 @@ import { DepartmentProps } from './types';
 
 const dummies = _.range(25, 200, 6);
 
-const Department = ({ department, isLoading = true }: DepartmentProps): ReactElement => {
+const Department = ({ department, isLoading = true, isQuickView = false }: DepartmentProps): ReactElement => {
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
@@ -19,7 +19,7 @@ const Department = ({ department, isLoading = true }: DepartmentProps): ReactEle
       <Text
         align='left'
         color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-        fontSize={isSm ? 'xs' : 'sm'}
+        fontSize={isSm && !isQuickView ? 'xs' : 'sm'}
         whiteSpace='nowrap'
       >
         {!isLoading ? department : 'Lorem Ipsum'}

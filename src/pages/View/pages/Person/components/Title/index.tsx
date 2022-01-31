@@ -8,7 +8,7 @@ import Date from './components/Date';
 import Departments from './components/Departments';
 import { TitleProps } from './types';
 
-const Title = ({ person, departments = [], isLoading = true }: TitleProps): ReactElement => {
+const Title = ({ person, departments = [], isLoading = true, isQuickView = false }: TitleProps): ReactElement => {
   const { colorMode } = useColorMode();
   const fontSize = useBreakpointValue<keyof FontSizes>({
     'base': '2xl',
@@ -26,12 +26,13 @@ const Title = ({ person, departments = [], isLoading = true }: TitleProps): Reac
           {person?.name || 'Person Name'}
         </Text>
       </SkeletonText>
-      <Departments departments={departments} isLoading={isLoading} />
+      <Departments departments={departments} isLoading={isLoading} isQuickView={isQuickView} />
       <Date
         birthday={person?.birthday}
         place_of_birth={person?.place_of_birth}
         deathday={person?.deathday}
         isLoading={isLoading}
+        isQuickView={isQuickView}
       />
     </VStack>
   );
