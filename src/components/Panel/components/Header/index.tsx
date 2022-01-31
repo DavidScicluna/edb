@@ -16,7 +16,13 @@ const Header = ({ actions, title }: HeaderProps): ReactElement => {
     <HStack width='100%' alignItems='center' justifyContent='space-between' pb={handleReturnPadding(size, variant)}>
       {title ? (
         typeof title === 'string' ? (
-          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' fontWeight='bold'>
+          <Text
+            align='left'
+            color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+            fontSize='lg'
+            fontWeight='bold'
+            whiteSpace='nowrap'
+          >
             {title}
           </Text>
         ) : (

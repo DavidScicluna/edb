@@ -9,7 +9,7 @@ import { ImageProps } from './types';
 const Image = (props: ImageProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { alt, thumbnailSrc, fullSrc, boringType, borderRadius, onError, onLoad, ...rest } = props;
+  const { width, maxWidth, alt, thumbnailSrc, fullSrc, boringType, borderRadius, onError, onLoad, ...rest } = props;
 
   const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, colorMode === 'light' ? 400 : 500));
 
@@ -29,8 +29,9 @@ const Image = (props: ImageProps): ReactElement => {
       <Center as={Fade} position='absolute' {...centerProps} in={isThumbnailError && isFullError} unmountOnExit>
         <CUIImage
           {...rest}
-          maxWidth='none'
-          height='inherit'
+          width={width || 'auto'}
+          height={width ? 'auto' : '100%'}
+          maxWidth={maxWidth || 'none'}
           alt={`${alt} fallback image`}
           position='absolute'
           borderRadius={borderRadius}
@@ -43,8 +44,9 @@ const Image = (props: ImageProps): ReactElement => {
       <Center as={Fade} position='absolute' {...centerProps} in={!isFullLoaded && !isThumbnailError} unmountOnExit>
         <CUIImage
           {...rest}
-          maxWidth='none'
-          height='inherit'
+          width={width || 'auto'}
+          height={width ? 'auto' : '100%'}
+          maxWidth={maxWidth || 'none'}
           position='absolute'
           alt={`${alt} thumbnail`}
           borderRadius={borderRadius}
@@ -71,8 +73,9 @@ const Image = (props: ImageProps): ReactElement => {
       <Center as={Fade} position='absolute' {...centerProps} in={!isFullError} unmountOnExit>
         <CUIImage
           {...rest}
-          maxWidth='none'
-          height='inherit'
+          width={width || 'auto'}
+          height={width ? 'auto' : '100%'}
+          maxWidth={maxWidth || 'none'}
           position='absolute'
           alt={alt}
           borderRadius={borderRadius}

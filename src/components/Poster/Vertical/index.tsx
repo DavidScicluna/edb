@@ -61,7 +61,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
             {mediaType === 'movie' || mediaType === 'tv' ? (
               <HStack width='100%' justify='space-between' spacing={0}>
                 {/* Rating component */}
-                <Rating size='sm' isLoading={isLoading}>
+                <Rating size='sm' inView={inView} isLoading={isLoading}>
                   {rating}
                 </Rating>
 

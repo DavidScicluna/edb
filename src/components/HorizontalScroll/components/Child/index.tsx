@@ -1,22 +1,16 @@
 import React, { ReactElement } from 'react';
 
-import { HStack } from '@chakra-ui/react';
+import { Center } from '@chakra-ui/react';
 
 import { ChildProps } from './types';
 
 const Child = ({ divider, children, isLast = false }: ChildProps): ReactElement => {
   return (
-    <HStack
-      alignItems='center'
-      justifyContent='center'
-      wrap='nowrap'
-      spacing={0}
-      // mr={!isLast ? 2 : 0}
-    >
+    <Center wrap='nowrap'>
       {children}
 
-      {divider && !isLast ? divider : null}
-    </HStack>
+      {divider && !isLast ? <Center px={1}>{divider}</Center> : null}
+    </Center>
   );
 };
 

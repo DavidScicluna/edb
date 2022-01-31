@@ -11,7 +11,7 @@ const Title = ({ children }: TitleProps): ReactElement => {
     <Text
       align='left'
       color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-      fontSize='xl'
+      fontSize='lg'
       fontWeight='bold'
       whiteSpace='nowrap'
     >

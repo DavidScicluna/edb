@@ -19,7 +19,7 @@ import { HorizontalPosterProps } from './types';
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
-  const ratingFontSize = useBreakpointValue<keyof FontSizes>({
+  const ratingFontSize = useBreakpointValue<keyof Omit<FontSizes, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'>>({
     'base': 'sm',
     'sm': 'md',
     'md': 'lg',
@@ -89,7 +89,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
           >
             {/* Rating */}
             {(mediaType === 'movie' || mediaType === 'tv') && rating ? (
-              <Rating count={rating?.count} size={ratingFontSize} isLoading={isLoading}>
+              <Rating count={rating?.count} inView={inView} size={ratingFontSize} isLoading={isLoading}>
                 {rating?.rating}
               </Rating>
             ) : null}
