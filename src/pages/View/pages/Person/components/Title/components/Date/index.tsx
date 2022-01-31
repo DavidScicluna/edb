@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { useColorMode, useMediaQuery, Text, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
@@ -7,11 +7,15 @@ import moment from 'moment';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { DateProps } from './types';
 
+const dummies = _.range(25, 100, 10);
+
 const PersonDate = (props: DateProps): ReactElement => {
   const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { birthday, place_of_birth, deathday, isLoading = false } = props;
+
+  const [dummy] = useState<number>(_.sample(dummies) || 100);
 
   const handleReturnDates = (): string => {
     const birthDate = moment(birthday || '', 'YYYY-MM-DD').format('LL');
@@ -26,7 +30,7 @@ const PersonDate = (props: DateProps): ReactElement => {
 
   return (
     <ScaleFade in={isLoading || !_.isEmpty(birthday) || !_.isNil(birthday)} unmountOnExit style={{ width: '100%' }}>
-      <SkeletonText width='100%' fontSize='sm' isLoaded={!isLoading}>
+      <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
         <Text
           align='left'
           color={colorMode === 'light' ? 'gray.400' : 'gray.500'}

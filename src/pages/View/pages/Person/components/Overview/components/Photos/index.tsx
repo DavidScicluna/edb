@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Image as ImageType } from '../../../../../../../../common/types';
-// import Badge from '../../../../components/Badge';
 import Button from '../../../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
@@ -14,7 +13,6 @@ import Photo from './components/Photo';
 import { PhotosProps } from './types';
 
 const Photos = (props: PhotosProps): ReactElement => {
-  const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { images, name, isLoading = true, isError = false, isSuccess = false, onClickImage, onChangeTab } = props;
@@ -23,35 +21,18 @@ const Photos = (props: PhotosProps): ReactElement => {
 
   return (
     <HorizontalGrid
-      title={
-        'Photos'
-        // <Center>
-        //   <Text
-        //     align='left'
-        //     color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-        //     fontSize='lg'
-        //     fontWeight='semibold'
-        //   >
-        //     Photos
-        //   </Text>
-        //   <Badge size='md' ml={2}>
-        //     {String(images.length)}
-        //   </Badge>
-        // </Center>
-      }
+      title='Photos'
       footer={
-        (images || []).length > 7 ? (
-          <Button
-            color={color}
-            isFullWidth
-            isDisabled={isLoading || isError}
-            onClick={() => onChangeTab(2)}
-            size={isSm ? 'sm' : 'md'}
-            variant='text'
-          >
-            {`View all ${images?.length || 0} photos`}
-          </Button>
-        ) : undefined
+        <Button
+          color={color}
+          isFullWidth
+          isDisabled={isLoading || isError}
+          onClick={() => onChangeTab(2)}
+          size={isSm ? 'sm' : 'md'}
+          variant='text'
+        >
+          {`View all ${images?.length || 0} photos ${name && !isSm ? `of "${name}"` : ''}`}
+        </Button>
       }
       isDisabled={isLoading}
       variant='outlined'

@@ -24,7 +24,7 @@ const handleGetKnownFor = (credits?: Credits): KnownForType => {
     sort([...(credits?.cast || []), ...(credits?.crew || [])], 'popularity', {
       reverse: true
     }).filter((_item, index) => index < 20),
-    'id'
+    'vote_count'
   );
 };
 
@@ -55,7 +55,9 @@ const KnownFor = (props: KnownForProps): ReactElement => {
           size={isSm ? 'sm' : 'md'}
           variant='text'
         >
-          {`View all ${(credits?.cast?.length || 0) + (credits?.crew?.length || 0)} credits`}
+          {`View all ${(credits?.cast?.length || 0) + (credits?.crew?.length || 0)} credits ${
+            name && !isSm ? `of "${name}"` : ''
+          } `}
         </Button>
       }
       isDisabled={isLoading}

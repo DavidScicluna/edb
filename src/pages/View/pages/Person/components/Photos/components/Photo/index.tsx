@@ -24,8 +24,7 @@ const Photo = (props: PhotoProps): ReactElement => {
     >
       <Skeleton isLoaded={!isLoading} borderRadius='lg'>
         <Image
-          maxWidth='100%'
-          height='auto'
+          width='100%'
           alt={`${name ? `"${name}"` : ''} image`}
           borderRadius='lg'
           boringType='beam'
