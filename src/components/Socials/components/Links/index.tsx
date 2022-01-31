@@ -1,10 +1,16 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useTheme } from '@chakra-ui/react';
-import { Facebook as FacebookIcon, Twitter as TwitterIcon, Instagram as InstagramIcon } from '@material-ui/icons';
+import {
+  Facebook as FacebookIcon,
+  Twitter as TwitterIcon,
+  Instagram as InstagramIcon,
+  LanguageOutlined as LanguageOutlinedIcon
+} from '@material-ui/icons';
 import _ from 'lodash';
 
-import { Theme } from '../../../../../../theme/types';
+import { useSelector } from '../../../../common/hooks';
+import { Theme } from '../../../../theme/types';
 import Link from './components/Link';
 import { LinksProps } from './types';
 
@@ -31,55 +37,69 @@ const Links = (props: LinksProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { socials, name, color, isLoading = true } = props;
+  const color = useSelector((state) => state.user.ui.theme.color);
+
+  const { socials, name, isLoading = true, isDisabled = false } = props;
 
   return !isLoading ? (
     <>
       {/* Facebook */}
       {socials?.facebook_id ? (
         <Link
-          defaultColor={color}
-          color='#4267B2'
+          color='#4267B2' // Facebook Logo Color
           name={name}
           href={`https://www.facebook.com/${socials.facebook_id}`}
           type='Facebook'
           icon={<FacebookIcon />}
+          isDisabled={isDisabled}
         />
       ) : null}
 
       {/* Twitter */}
       {socials?.twitter_id ? (
         <Link
-          defaultColor={color}
-          color='#1DA1F2'
+          color='#1DA1F2' // Twitter Logo Color
           name={name}
           href={`https://www.twitter.com/${socials.twitter_id}`}
           type='Twitter'
           icon={<TwitterIcon />}
+          isDisabled={isDisabled}
         />
       ) : null}
 
       {/* Instagram */}
       {socials?.instagram_id ? (
         <Link
-          defaultColor={color}
-          color={colorMode === 'light' ? theme.colors.gray[900] : theme.colors.gray[50]}
+          color={theme.colors[color][colorMode === 'light' ? 400 : 500]}
           name={name}
           href={`https://www.instagram.com/${socials.instagram_id}`}
           type='Instagram'
           icon={<InstagramIcon />}
+          isDisabled={isDisabled}
         />
       ) : null}
 
       {/* IMDB */}
       {socials?.imdb_id ? (
         <Link
-          defaultColor={color}
-          color='#F5C518'
+          color='#F5C518' // IMDB Logo Color
           name={name}
           href={`https://www.imdb.com/name/${socials.imdb_id}`}
           type='IMDB'
           icon={<ImdbIcon />}
+          isDisabled={isDisabled}
+        />
+      ) : null}
+
+      {/* Homepage */}
+      {socials?.homepage_id ? (
+        <Link
+          color={theme.colors[color][colorMode === 'light' ? 400 : 500]}
+          name={name}
+          href={socials?.homepage_id}
+          type='Homepage'
+          icon={<LanguageOutlinedIcon />}
+          isDisabled={isDisabled}
         />
       ) : null}
     </>

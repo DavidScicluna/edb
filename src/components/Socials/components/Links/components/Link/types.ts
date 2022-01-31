@@ -1,8 +1,7 @@
-import { Icon } from '../../../../../../../../common/types';
+import { Icon } from '../../../../../../common/types';
 import { LinksProps } from '../../types';
 
 export type LinkProps = {
-  defaultColor?: string;
   color?: string;
   icon?: Icon;
   type?: string;

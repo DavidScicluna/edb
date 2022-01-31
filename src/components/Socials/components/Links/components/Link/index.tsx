@@ -1,20 +1,21 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Center, Link as CUILink } from '@chakra-ui/react';
+import { useTheme, useColorMode, Center, Link as CUILink } from '@chakra-ui/react';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import _ from 'lodash';
 
-import Skeleton from '../../../../../../../../components/Skeleton';
-import { Theme } from '../../../../../../../../theme/types';
+import { Theme } from '../../../../../../theme/types';
+import Skeleton from '../../../../../Skeleton';
 import useStyles from './styles';
 import { LinkProps } from './types';
 
 const Link = (props: LinkProps): ReactElement => {
   const theme = useTheme<Theme>();
+  const { colorMode } = useColorMode();
 
-  const { defaultColor, color, name, type, href, icon, isDisabled = false } = props;
+  const { color, name, type, href, icon, isDisabled = false } = props;
 
-  const style = useStyles(theme, { defaultColor, color });
+  const style = useStyles(theme, { colorMode, color });
 
   return (
     <CUILink

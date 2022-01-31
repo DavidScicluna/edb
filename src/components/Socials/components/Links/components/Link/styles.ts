@@ -1,5 +1,7 @@
-import { Style } from '../../../../../../../../common/types';
-import { Theme } from '../../../../../../../../theme/types';
+import { ColorMode } from '@chakra-ui/react';
+
+import { Style } from '../../../../../../common/types';
+import { Theme } from '../../../../../../theme/types';
 import { LinkProps } from './types';
 
 type LinkStyle = {
@@ -10,11 +12,11 @@ type LinkStyle = {
 };
 
 type StyleLinkProps = {
-  defaultColor: LinkProps['defaultColor'];
+  colorMode: ColorMode;
   color: LinkProps['color'];
 };
 
-export default (theme: Theme, { defaultColor, color }: StyleLinkProps): LinkStyle => ({
+export default (theme: Theme, { colorMode, color }: StyleLinkProps): LinkStyle => ({
   common: {
     link: {
       'cursor': 'pointer',
@@ -35,7 +37,7 @@ export default (theme: Theme, { defaultColor, color }: StyleLinkProps): LinkStyl
 
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
-      'color': defaultColor,
+      'color': colorMode === 'light' ? 'gray.400' : 'gray.400',
 
       '&:hover': {
         color
