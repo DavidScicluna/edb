@@ -1,11 +1,13 @@
 import { ReactElement, useState } from 'react';
 
-import { useMediaQuery } from '@chakra-ui/react';
+import { useMediaQuery, Fade } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
+import CountUp from 'react-countup';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { Icon, Image as ImageType } from '../../../../../../common/types';
+import Badge from '../../../../../../components/Badge';
 import Button from '../../../../../../components/Clickable/Button';
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import { IconProps } from '../../../../../../components/Clickable/Image/types';
@@ -48,12 +50,32 @@ const Photos = (props: PhotosProps): ReactElement => {
       renderTabListProps={{
         renderTabs: [
           {
-            label: 'Photos', // TODO: Add badge
-            isDisabled: isLoading || isError || false
+            label: 'Photos',
+            isDisabled: isLoading || isError || false,
+            renderRightIcon:
+              data.photos.length > 0
+                ? ({ isSelected, fontSize }) => (
+                    <Fade in unmountOnExit>
+                      <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                        <CountUp duration={1} end={data.photos.length || 0} />
+                      </Badge>
+                    </Fade>
+                  )
+                : undefined
           },
           {
-            label: 'Backdrops', // TODO: Add badge
-            isDisabled: isLoading || isError || false
+            label: 'Backdrops',
+            isDisabled: isLoading || isError || false,
+            renderRightIcon:
+              data.backdrops.length > 0
+                ? ({ isSelected, fontSize }) => (
+                    <Fade in unmountOnExit>
+                      <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                        <CountUp duration={1} end={data.backdrops.length || 0} />
+                      </Badge>
+                    </Fade>
+                  )
+                : undefined
           }
         ]
       }}

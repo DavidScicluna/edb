@@ -159,12 +159,12 @@ const Liked = (): ReactElement => {
             <VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2} p={2}>
               <MediaTypesHeader
                 activeTab={activeTab}
-                isDisabled={{
-                  movie: movies.length === 0,
-                  tv: tv.length === 0,
-                  person: people.length === 0,
-                  company: companies.length === 0,
-                  collection: collections.length === 0
+                total={{
+                  movie: movies.length,
+                  tv: tv.length,
+                  person: people.length,
+                  company: companies.length,
+                  collection: collections.length
                 }}
               />
 

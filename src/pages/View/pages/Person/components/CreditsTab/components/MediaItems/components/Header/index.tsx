@@ -24,11 +24,7 @@ const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
             label: 'Movies',
             isDisabled: movies === 0,
             renderRightIcon: ({ isSelected, fontSize }) => (
-              <Badge
-                color={isSelected ? color : 'gray'}
-                isLight={!isSelected}
-                size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
-              >
+              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
                 <CountUp duration={1} end={movies} />
               </Badge>
             )
@@ -37,11 +33,7 @@ const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
             label: 'TV Shows',
             isDisabled: shows === 0,
             renderRightIcon: ({ isSelected, fontSize }) => (
-              <Badge
-                color={isSelected ? color : 'gray'}
-                isLight={!isSelected}
-                size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
-              >
+              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
                 <CountUp duration={1} end={shows} />
               </Badge>
             )

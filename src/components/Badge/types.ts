@@ -7,7 +7,7 @@ import { Color, FontSizes } from '../../theme/types';
 
 export type Variant = 'contained' | 'outlined' | 'text';
 
-export type Size = keyof Omit<FontSizes, '5xl' | '6xl' | '7xl' | '8xl' | '9xl'>;
+export type Size = keyof Omit<FontSizes, '5xl' | '6xl' | '7xl' | '8xl' | '9xl'> | string;
 
 export type IconProps = {
   color?: keyof Color;

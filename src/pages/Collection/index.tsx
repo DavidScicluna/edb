@@ -2,13 +2,16 @@ import React, { ReactElement, useState, useEffect } from 'react';
 
 import { useColorMode, useBreakpointValue, VStack, Text, HStack, Fade } from '@chakra-ui/react';
 import axios from 'axios';
+import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { useElementSize } from 'usehooks-ts';
 
+import { useSelector } from '../../common/hooks';
 import axiosInstance from '../../common/scripts/axios';
 import { Images } from '../../common/types';
 import { Collection as CollectionType } from '../../common/types/movie';
+import Badge from '../../components/Badge';
 import DisplayMode from '../../components/Clickable/DisplayMode';
 import Divider from '../../components/Divider';
 import SkeletonText from '../../components/Skeleton/Text';
@@ -33,6 +36,8 @@ const Collection = (): ReactElement => {
     'xl': '3xl',
     '2xl': '3xl'
   });
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const { id } = useParams<{ id: string }>();
 
@@ -100,7 +105,17 @@ const Collection = (): ReactElement => {
                       label: 'Overview'
                     },
                     {
-                      label: 'Parts' // TODO: Add Parts length Badge
+                      label: 'Parts',
+                      renderRightIcon:
+                        (collectionQuery.data?.parts || []).length > 0
+                          ? ({ isSelected, fontSize }) => (
+                              <Fade in unmountOnExit>
+                                <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                                  <CountUp duration={1} end={collectionQuery.data?.parts?.length || 0} />
+                                </Badge>
+                              </Fade>
+                            )
+                          : undefined
                     }
                   ]}
                 />

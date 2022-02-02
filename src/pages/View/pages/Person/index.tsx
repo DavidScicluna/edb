@@ -161,11 +161,7 @@ const Person = (): ReactElement => {
                       (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) > 0
                         ? ({ isSelected, fontSize }) => (
                             <Fade in unmountOnExit>
-                              <Badge
-                                color={isSelected ? color : 'gray'}
-                                isLight={!isSelected}
-                                size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
-                              >
+                              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
                                 <CountUp
                                   duration={1}
                                   end={(creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0)}
@@ -182,11 +178,7 @@ const Person = (): ReactElement => {
                       (imagesQuery.data?.profiles?.length || 0) > 0
                         ? ({ isSelected, fontSize }) => (
                             <Fade in unmountOnExit>
-                              <Badge
-                                color={isSelected ? color : 'gray'}
-                                isLight={!isSelected}
-                                size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
-                              >
+                              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
                                 <CountUp duration={1} end={imagesQuery.data?.profiles?.length || 0} />
                               </Badge>
                             </Fade>

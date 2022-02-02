@@ -2,11 +2,11 @@ import { ReactElement } from 'react';
 
 import { MediaType } from '../../../../common/types';
 
-type DisabledMediaTypes = { [key in MediaType]?: boolean };
+type MediaTypesTotal = { [key in MediaType]?: number };
 
 export type MediaTypesHeaderProps = {
   activeTab?: number;
   mediaTypes?: MediaType[];
-  isDisabled: DisabledMediaTypes;
+  total: MediaTypesTotal;
   renderActions?: () => ReactElement;
 };

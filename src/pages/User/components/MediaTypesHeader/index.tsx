@@ -14,8 +14,11 @@ import {
   BusinessTwoTone as BusinessTwoToneIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
+import CountUp from 'react-countup';
 import { useElementSize } from 'usehooks-ts';
 
+import { useSelector } from '../../../../common/hooks';
+import Badge from '../../../../components/Badge';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
 import TabList from '../../../../components/Tabs/components/TabList';
@@ -24,14 +27,16 @@ import { MediaTypesHeaderProps } from './types';
 
 const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person', 'company', 'collection'];
 
-const defaultIsDisabled: MediaTypesHeaderProps['isDisabled'] = { movie: false, tv: false, person: false };
+const defaultTotal: MediaTypesHeaderProps['total'] = { movie: 0, tv: 0, person: 0, company: 0, collection: 0 };
 
 const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
   const theme = useTheme<Theme>();
 
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   const [ref, { height }] = useElementSize();
 
-  const { activeTab, mediaTypes = defaultMediaTypes, isDisabled = defaultIsDisabled, renderActions } = props;
+  const { activeTab, mediaTypes = defaultMediaTypes, total = defaultTotal, renderActions } = props;
 
   return (
     <HStack
@@ -46,7 +51,7 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
           unmountOnExit
           style={{ marginLeft: theme.space[2], marginRight: theme.space[2] }}
         >
-          <Divider orientation='vertical' height={height} />
+          <Divider orientation='vertical' height={`${height}px`} />
         </Fade>
       }
     >
@@ -60,18 +65,36 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
                   ) : (
                     <TheatersOutlinedIcon style={{ fontSize }} />
                   ),
-                // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
+                renderRightIcon:
+                  (total.movie || 0) > 0
+                    ? ({ isSelected, fontSize }) => (
+                        <Fade in unmountOnExit>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                            <CountUp duration={1} end={total.movie || 0} />
+                          </Badge>
+                        </Fade>
+                      )
+                    : undefined,
                 label: 'Movies',
-                isDisabled: isDisabled.movie
+                isDisabled: total.movie === 0
               }
             : undefined,
           mediaTypes.includes('tv')
             ? {
                 renderLeftIcon: ({ isSelected, fontSize }) =>
                   isSelected ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
-                // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
+                renderRightIcon:
+                  (total.tv || 0) > 0
+                    ? ({ isSelected, fontSize }) => (
+                        <Fade in unmountOnExit>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                            <CountUp duration={1} end={total.tv || 0} />
+                          </Badge>
+                        </Fade>
+                      )
+                    : undefined,
                 label: 'TV Shows',
-                isDisabled: isDisabled.tv
+                isDisabled: total.tv === 0
               }
             : undefined,
           mediaTypes.includes('person')
@@ -82,9 +105,18 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
                   ) : (
                     <PeopleAltOutlinedIcon style={{ fontSize }} />
                   ),
-                // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
+                renderRightIcon:
+                  (total.person || 0) > 0
+                    ? ({ isSelected, fontSize }) => (
+                        <Fade in unmountOnExit>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                            <CountUp duration={1} end={total.person || 0} />
+                          </Badge>
+                        </Fade>
+                      )
+                    : undefined,
                 label: 'People',
-                isDisabled: isDisabled.person
+                isDisabled: total.person === 0
               }
             : undefined,
           mediaTypes.includes('company')
@@ -95,9 +127,18 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
                   ) : (
                     <BusinessOutlinedIcon style={{ fontSize }} />
                   ),
-                // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
+                renderRightIcon:
+                  (total.company || 0) > 0
+                    ? ({ isSelected, fontSize }) => (
+                        <Fade in unmountOnExit>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                            <CountUp duration={1} end={total.company || 0} />
+                          </Badge>
+                        </Fade>
+                      )
+                    : undefined,
                 label: 'Companies',
-                isDisabled: isDisabled.company
+                isDisabled: total.company === 0
               }
             : undefined,
           mediaTypes.includes('collection')
@@ -108,9 +149,18 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
                   ) : (
                     <LibraryBooksOutlinedIcon style={{ fontSize }} />
                   ),
-                // renderRightIcon: ({}) => , // TODO: Add Badge to Tabs
+                renderRightIcon:
+                  (total.collection || 0) > 0
+                    ? ({ isSelected, fontSize }) => (
+                        <Fade in unmountOnExit>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                            <CountUp duration={1} end={total.collection || 0} />
+                          </Badge>
+                        </Fade>
+                      )
+                    : undefined,
                 label: 'Collections',
-                isDisabled: isDisabled.collection
+                isDisabled: total.collection === 0
               }
             : undefined
         ])}
