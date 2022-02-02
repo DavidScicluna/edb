@@ -4,7 +4,7 @@ import { useDisclosure, VStack } from '@chakra-ui/react';
 
 import MediaViewer from '../../../../components/MediaViewer';
 import { MediaViewerProps, MediaViewerType } from '../../../../components/MediaViewer/types';
-import Overview from './components/Overview';
+import Paragraphs from '../../../../components/Paragraphs';
 import Photos from './components/Photos';
 import { OverviewTabProps } from './types';
 
@@ -22,8 +22,8 @@ const OverviewTab = ({ collectionQuery, imagesQuery }: OverviewTabProps): ReactE
     <>
       <VStack width='100%' spacing={2}>
         {collectionQuery.data?.overview || collectionQuery.isFetching || collectionQuery.isLoading ? (
-          <Overview
-            overview={collectionQuery.data?.overview || ''}
+          <Paragraphs
+            paragraphs={collectionQuery.data?.overview || ''}
             isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
           />
         ) : null}

@@ -1,23 +1,32 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
+import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import { handleFormatIntoParagraphs } from '../../../../../../../../common/utils';
-import Button from '../../../../../../../../components/Clickable/Button';
-import Panel from '../../../../../../../../components/Panel';
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import { BioProps } from './types';
+import Button from '../Clickable/Button';
+import Panel from '../Panel';
+import SkeletonText from '../Skeleton/Text';
+import { ParagraphsProps } from './types';
 
 const limit = 44;
 
-const Bio = ({ biography = '', isLoading = true }: BioProps): ReactElement => {
+const Paragraphs = ({ paragraphs = '', isLoading = true }: ParagraphsProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   const [isExpanded, setIsExpanded] = useBoolean();
 
   const [ref, { height }] = useElementSize();
+
+  /**
+   * This method will take a block of string and will format it into paragraphs
+   *
+   * @param content String - The content block to format into paragraphs
+   * @returns Array of paragraphs
+   */
+  const handleFormatIntoParagraphs = (paragraph: string): string[] => {
+    return paragraph.split('\n'[0]).filter((paragraph) => paragraph !== '\r');
+  };
 
   return (
     <Panel isFullWidth size='sm'>
@@ -35,7 +44,7 @@ const Bio = ({ biography = '', isLoading = true }: BioProps): ReactElement => {
         body: !isLoading ? (
           <Collapse in={isExpanded} startingHeight={(height || limit) >= limit ? limit : height || limit}>
             <VStack ref={ref} width='100%' alignItems='flex-start' spacing={2}>
-              {handleFormatIntoParagraphs(biography)
+              {handleFormatIntoParagraphs(paragraphs)
                 .filter((paragraph) => paragraph)
                 .map((paragraph, index) => (
                   <Text key={index} align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md'>
@@ -60,4 +69,4 @@ const Bio = ({ biography = '', isLoading = true }: BioProps): ReactElement => {
   );
 };
 
-export default Bio;
+export default Paragraphs;

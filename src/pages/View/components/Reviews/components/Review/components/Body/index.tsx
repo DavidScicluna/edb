@@ -4,7 +4,6 @@ import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@ch
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import { handleFormatIntoParagraphs } from '../../../../../../../../common/utils';
 import Button from '../../../../../../../../components/Clickable/Button';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { BodyProps } from './types';
@@ -54,25 +53,23 @@ const Body = (props: BodyProps): ReactElement => {
           style={{ width: 'inherit', maxWidth: 'inherit' }}
         >
           <VStack ref={contentRef} width='100%' maxWidth='100%' alignItems='flex-start' spacing={2}>
-            {handleFormatIntoParagraphs(content)
-              .filter((paragraph) => paragraph)
-              .map((paragraph, index) => (
-                <Text
-                  key={index}
-                  align='left'
-                  color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-                  fontSize='md'
-                  fontWeight='medium'
-                >
-                  {paragraph}
-                </Text>
-              ))}
+            {[content].map((paragraph, index) => (
+              <Text
+                key={index}
+                align='left'
+                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                fontSize='md'
+                fontWeight='medium'
+              >
+                {paragraph}
+              </Text>
+            ))}
           </VStack>
         </Collapse>
       ) : (
         <VStack width='100%' spacing={1}>
           {_.range(0, 3).map((_dummy, index) => (
-            <SkeletonText key={index} width='100%' offsetY={6} isLoaded={!isLoading}>
+            <SkeletonText key={index} width='100%' fontSize='xs' isLoaded={!isLoading}>
               <Text align='left' fontSize='xs'>
                 Lorem ipsum dolor sit amet
               </Text>

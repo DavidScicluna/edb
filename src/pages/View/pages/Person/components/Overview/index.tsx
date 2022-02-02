@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import Bio from './components/Bio';
+import Paragraphs from '../../../../../../components/Paragraphs';
 import KnownFor from './components/KnownFor';
 import Photos from './components/Photos';
 import { OverviewProps } from './types';
@@ -13,7 +13,7 @@ const Overview = (props: OverviewProps): ReactElement => {
   return (
     <VStack width='100%' spacing={4}>
       {person?.biography || isLoading ? (
-        <Bio biography={person?.biography || ''} isLoading={isLoading?.person} />
+        <Paragraphs paragraphs={person?.biography || ''} isLoading={isLoading?.person} />
       ) : null}
 
       <KnownFor
