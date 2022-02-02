@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure } from '@chakra-ui/react';
+import { useDisclosure, Fade } from '@chakra-ui/react';
 import axios from 'axios';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
@@ -157,31 +157,41 @@ const Person = (): ReactElement => {
                   {
                     label: 'Credits',
                     isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
-                    renderRightIcon: ({ fontSize, isSelected }) => (
-                      <Badge
-                        color={isSelected ? color : 'gray'}
-                        isLight={false}
-                        size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
-                      >
-                        <CountUp
-                          duration={1}
-                          end={(creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0)}
-                        />
-                      </Badge>
-                    )
+                    renderRightIcon:
+                      (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) > 0
+                        ? ({ isSelected, fontSize }) => (
+                            <Fade in unmountOnExit>
+                              <Badge
+                                color={isSelected ? color : 'gray'}
+                                isLight={!isSelected}
+                                size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
+                              >
+                                <CountUp
+                                  duration={1}
+                                  end={(creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0)}
+                                />
+                              </Badge>
+                            </Fade>
+                          )
+                        : undefined
                   },
                   {
                     label: 'Photos',
                     isDisabled: imagesQuery.isError || imagesQuery.isFetching || imagesQuery.isLoading,
-                    renderRightIcon: ({ fontSize, isSelected }) => (
-                      <Badge
-                        color={isSelected ? color : 'gray'}
-                        isLight={false}
-                        size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
-                      >
-                        <CountUp duration={1} end={imagesQuery.data?.profiles?.length || 0} />
-                      </Badge>
-                    )
+                    renderRightIcon:
+                      (imagesQuery.data?.profiles?.length || 0) > 0
+                        ? ({ isSelected, fontSize }) => (
+                            <Fade in unmountOnExit>
+                              <Badge
+                                color={isSelected ? color : 'gray'}
+                                isLight={!isSelected}
+                                size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
+                              >
+                                <CountUp duration={1} end={imagesQuery.data?.profiles?.length || 0} />
+                              </Badge>
+                            </Fade>
+                          )
+                        : undefined
                   }
                 ]}
               />
