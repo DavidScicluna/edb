@@ -18,17 +18,11 @@ const Certification = (props: CertificationProps): ReactElement => {
 
   const { certification, meaning, order, isActive = false, isLoading = true, onClick } = props;
 
-  // const [isHovering, setIsHovering] = useBoolean();
-
   return (
-    // <Tooltip aria-label={meaning || ''} label={meaning || ''} placement='top' isOpen={isHovering} gutter={8}>
-    //     </Tooltip>
     <Button
       color={isActive ? color : 'gray'}
       renderRightIcon={isActive ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined}
       onClick={onClick ? () => onClick({ certification, meaning, order }) : undefined}
-      // onMouseEnter={() => setIsHovering.on()}
-      // onMouseLeave={() => setIsHovering.off()}
       isDisabled={isLoading}
       size={isSm ? 'sm' : 'md'}
       variant='outlined'

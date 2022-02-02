@@ -2,12 +2,12 @@ import { ReactElement } from 'react';
 
 import { TextProps } from '@chakra-ui/react';
 
-import { Color } from '../../../../theme/types';
+import { Color, FontSizes } from '../../../../theme/types';
 import { Size, Variant } from '../../../Clickable/Button/types';
 
 export type RenderMessageProps = {
   color: string;
-  fontSize: TextProps['fontSize'];
+  fontSize: keyof FontSizes;
   fontWeight: TextProps['fontWeight'];
 };
 

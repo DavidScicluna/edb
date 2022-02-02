@@ -49,7 +49,7 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
             header: (
               <Header
                 label='Rating Range'
-                renderMessage={({ fontSize }) => (
+                renderMessage={() => (
                   <ScaleFade in={value.length > 0} unmountOnExit>
                     <Rating>{value.join(' -> ')}</Rating>
                   </ScaleFade>

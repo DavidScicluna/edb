@@ -61,7 +61,6 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
                 direction={isSm ? 'column' : 'row'}
                 alignItems='center'
                 justifyContent='center'
-                // spacing={isSm ? 1 : 2}
                 spacing={2}
               >
                 <span style={{ width: '100%' }}>
@@ -92,14 +91,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
                     }
                   />
                 </span>
-                {/* <Text
-                  align='center'
-                  color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-                  fontSize='md'
-                  fontWeight='semibold'
-                >
-                  TO
-                </Text> */}
+
                 <span style={{ width: '100%' }}>
                   <DatePicker
                     renderToggleModal={({ color, onClick }) => (

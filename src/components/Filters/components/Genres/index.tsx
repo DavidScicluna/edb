@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, Wrap, WrapItem, HStack, Box } from '@chakra-ui/react';
+import { useMediaQuery, Wrap, WrapItem, HStack } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Controller } from 'react-hook-form';
 import { useElementSize } from 'usehooks-ts';
@@ -15,7 +15,6 @@ import Genre from './components/Genre';
 import { GenresProps } from './types';
 
 const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
-  const { colorMode } = useColorMode();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
