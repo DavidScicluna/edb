@@ -9,11 +9,11 @@ import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import Photo from './components/Photo';
-import { PhotosProps } from './types';
+import { PhotosTabProps } from './types';
 
 const incrementBy = 20;
 
-const Photos = (props: PhotosProps): ReactElement => {
+const PhotosTab = (props: PhotosTabProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { images = [], name, isLoading = true, isError = false, isSuccess = false, onClickImage } = props;
@@ -72,4 +72,4 @@ const Photos = (props: PhotosProps): ReactElement => {
   );
 };
 
-export default Photos;
+export default PhotosTab;

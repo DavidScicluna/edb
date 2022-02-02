@@ -1,7 +1,7 @@
 import { FullPerson } from '../../../../../../common/types/person';
 import { Department } from '../../types';
 
-export type CreditsProps = {
+export type CreditsTabProps = {
   departments?: Department[];
   name?: FullPerson['name'];
   isError?: boolean;

@@ -5,9 +5,9 @@ import { VStack } from '@chakra-ui/react';
 import Paragraphs from '../../../../../../components/Paragraphs';
 import KnownFor from './components/KnownFor';
 import Photos from './components/Photos';
-import { OverviewProps } from './types';
+import { OverviewTabProps } from './types';
 
-const Overview = (props: OverviewProps): ReactElement => {
+const OverviewTab = (props: OverviewTabProps): ReactElement => {
   const { images, credits, person, isLoading, isError, isSuccess, onClickImage, onChangeTab } = props;
 
   return (
@@ -38,4 +38,4 @@ const Overview = (props: OverviewProps): ReactElement => {
   );
 };
 
-export default Overview;
+export default OverviewTab;

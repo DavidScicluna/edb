@@ -7,7 +7,7 @@ type Booleans = {
   images?: boolean;
 };
 
-export type OverviewProps = {
+export type OverviewTabProps = {
   person?: FullPerson;
   credits?: CreditsType;
   images?: Image[];

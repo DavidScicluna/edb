@@ -18,9 +18,9 @@ import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Structure from '../../components/Structure';
 import { handleGetDepartments } from './common/utils';
 import Actions from './components/Actions';
-import Credits from './components/Credits';
-import Overview from './components/Overview';
-import Photos from './components/Photos';
+import CreditsTab from './components/CreditsTab';
+import OverviewTab from './components/OverviewTab';
+import PhotosTab from './components/PhotosTab';
 import Title from './components/Title';
 
 const Person = (): ReactElement => {
@@ -206,7 +206,7 @@ const Person = (): ReactElement => {
             ),
             tabPanels: (
               <TabPanels>
-                <Overview
+                <OverviewTab
                   person={personQuery.data}
                   credits={creditsQuery.data}
                   images={imagesQuery.data?.profiles}
@@ -228,7 +228,7 @@ const Person = (): ReactElement => {
                   onClickImage={handleOnImageClick}
                   onChangeTab={handleChangeTab}
                 />
-                <Credits
+                <CreditsTab
                   departments={departments}
                   isError={movieCreditsQuery.isError || tvCreditsQuery.isError}
                   isSuccess={movieCreditsQuery.isSuccess && tvCreditsQuery.isSuccess}
@@ -239,7 +239,7 @@ const Person = (): ReactElement => {
                     tvCreditsQuery.isLoading
                   }
                 />
-                <Photos
+                <PhotosTab
                   name={personQuery.data?.name}
                   images={imagesQuery.data?.profiles}
                   isError={imagesQuery.isError}

@@ -8,9 +8,9 @@ import Error from '../../../../../../components/Error';
 import Department from './components/Department';
 import MediaItems from './components/MediaItems';
 import QuickToggles from './components/QuickToggles';
-import { CreditsProps } from './types';
+import { CreditsTabProps } from './types';
 
-const Credits = (props: CreditsProps): ReactElement => {
+const CreditsTab = (props: CreditsTabProps): ReactElement => {
   const [openedPanels, setOpenedPanels] = useState<number[]>([]);
 
   const { departments = [], name, isLoading = true, isError = false, isSuccess = false } = props;
@@ -85,4 +85,4 @@ const Credits = (props: CreditsProps): ReactElement => {
   );
 };
 
-export default Credits;
+export default CreditsTab;
