@@ -21,14 +21,20 @@ const Rating = (props: RatingProps): ReactElement => {
    */
   const handleReturnIconSize = (): string => {
     switch (size) {
+      case 'xs':
+        return theme.fontSizes.sm;
       case 'sm':
-        return theme.fontSizes.lg;
+        return theme.fontSizes.md;
       case 'lg':
-        return theme.fontSizes['2xl'];
-      case 'xl':
-        return theme.fontSizes['3xl'];
-      default:
         return theme.fontSizes.xl;
+      case 'xl':
+        return theme.fontSizes['2xl'];
+      case '2xl':
+        return theme.fontSizes['3xl'];
+      case '3xl':
+        return theme.fontSizes['4xl'];
+      default:
+        return theme.fontSizes.lg;
     }
   };
 
