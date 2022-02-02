@@ -4,6 +4,7 @@ import { useColorMode, useMediaQuery, Center, HStack, Box, VStack } from '@chakr
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../common/hooks';
+import Divider from '../../components/Divider';
 import { headerHeight } from '../../containers/Layout/common/data/dimensions';
 import Code from './components/Code';
 import Description from './components/Description';
@@ -25,13 +26,13 @@ const Error = (props: ErrorProps): ReactElement => {
         {isSm ? (
           <VStack alignItems='flex-start' spacing={1}>
             <Code code={code} />
-            <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+            <Divider />
             <Description title={title} subtitle={subtitle} />
           </VStack>
         ) : (
           <HStack spacing={2}>
             <Code code={code} />
-            <Box width='2px' height={height} backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+            <Divider orientation='vertical' height={`${height}px`} />
             <Description ref={descriptionRef} title={title} subtitle={subtitle} />
           </HStack>
         )}

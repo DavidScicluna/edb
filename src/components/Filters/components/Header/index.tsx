@@ -6,6 +6,7 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
+import Divider from '../../../Divider';
 import { HeaderProps, RenderMessageProps, RenderButtonProps } from './types';
 
 const Header = ({ label, renderMessage, renderButton }: HeaderProps): ReactElement => {
@@ -52,7 +53,7 @@ const Header = ({ label, renderMessage, renderButton }: HeaderProps): ReactEleme
             unmountOnExit
             style={{ marginLeft: theme.space[2], marginRight: theme.space[1] }}
           >
-            <Box width='2px' height={height} backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+            <Divider orientation='vertical' height={`${height}px`} />
           </Fade>
         }
         spacing={0}

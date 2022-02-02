@@ -14,7 +14,12 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
   const [ref, { height }] = useElementSize();
 
   return (
-    <HStack ref={ref} width='100%' spacing={2} divider={<Divider orientation='vertical' height={height} mx={2} />}>
+    <HStack
+      ref={ref}
+      width='100%'
+      spacing={2}
+      divider={<Divider orientation='vertical' height={`${height}px`} mx={2} />}
+    >
       <ListsTabButton isSelected={_.isNil(activeTab)} onClick={onListsClick} />
       <TabList
         renderTabs={_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {

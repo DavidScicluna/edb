@@ -8,6 +8,7 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
+import Divider from '../../../../components/Divider';
 import Empty from '../../../../components/Empty';
 import { Certification as CertificationType } from '../../../../store/slices/Options/types';
 import Panel from '../../../Panel';
@@ -65,16 +66,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
             header: {
               title: 'Certifications',
               actions: (
-                <HStack
-                  ref={ref}
-                  divider={
-                    <Box
-                      width='2px'
-                      height={height}
-                      backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-                    />
-                  }
-                >
+                <HStack ref={ref} divider={<Divider orientation='vertical' height={`${height}px`} />}>
                   <Button
                     color={color}
                     isDisabled={

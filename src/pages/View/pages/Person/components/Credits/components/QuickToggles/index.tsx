@@ -21,7 +21,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
     <HStack
       width='100%'
       justifyContent='stretch'
-      divider={<Divider orientation='vertical' height={height} />}
+      divider={<Divider orientation='vertical' height={`${height}px`} />}
       spacing={2}
     >
       <HStack width='100%' justifyContent='stretch' spacing={2}>

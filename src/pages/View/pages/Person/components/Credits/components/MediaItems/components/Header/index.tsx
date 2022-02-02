@@ -17,16 +17,16 @@ const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
   const [ref, { height }] = useElementSize();
 
   return (
-    <HStack width='100%' divider={<Divider orientation='vertical' height={height || '100%'} mx={2} />} spacing={2}>
+    <HStack width='100%' divider={<Divider orientation='vertical' height={`${height}px`} mx={2} />} spacing={2}>
       <TabList
         renderTabs={[
           {
             label: 'Movies',
             isDisabled: movies === 0,
-            renderRightIcon: ({ fontSize, isSelected }) => (
+            renderRightIcon: ({ isSelected, fontSize }) => (
               <Badge
                 color={isSelected ? color : 'gray'}
-                isLight={false}
+                isLight={!isSelected}
                 size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
               >
                 <CountUp duration={1} end={movies} />
@@ -36,10 +36,10 @@ const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
           {
             label: 'TV Shows',
             isDisabled: shows === 0,
-            renderRightIcon: ({ fontSize, isSelected }) => (
+            renderRightIcon: ({ isSelected, fontSize }) => (
               <Badge
                 color={isSelected ? color : 'gray'}
-                isLight={false}
+                isLight={!isSelected}
                 size={fontSize === 'md' ? 'md' : fontSize === 'sm' ? 'sm' : 'xs'}
               >
                 <CountUp duration={1} end={shows} />

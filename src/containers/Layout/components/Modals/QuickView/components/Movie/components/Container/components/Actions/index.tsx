@@ -7,6 +7,7 @@ import { useSelector } from '../../../../../../../../../../../common/hooks';
 import Bookmark from '../../../../../../../../../../../components/Clickable/Bookmark';
 import Button from '../../../../../../../../../../../components/Clickable/Button';
 import Like, { handleReturnIcon } from '../../../../../../../../../../../components/Clickable/Like';
+import Divider from '../../../../../../../../../../../components/Divider';
 import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
@@ -21,12 +22,7 @@ const Actions = (props: ActionsProps): ReactElement => {
   const isDisabled: boolean = isLoading || !mediaItem;
 
   return (
-    <HStack
-      ref={ref}
-      width='100%'
-      divider={<Box width='2px' height={height} backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />}
-      spacing={2}
-    >
+    <HStack ref={ref} width='100%' divider={<Divider orientation='vertical' height={`${height}px`} />} spacing={2}>
       <Bookmark
         renderButton={({ lists, isBookmarked, onClick }) => (
           <Button

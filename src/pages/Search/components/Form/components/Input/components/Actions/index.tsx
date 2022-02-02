@@ -22,7 +22,7 @@ const Actions = (props: ActionsProps): ReactElement => {
       ref={ref}
       divider={
         <Fade in={hasQuery} unmountOnExit>
-          <Divider height={height} orientation='vertical' mx={1} />
+          <Divider orientation='vertical' height={`${height}px`} mx={1} />
         </Fade>
       }
     >

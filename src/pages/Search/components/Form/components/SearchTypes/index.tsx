@@ -105,7 +105,7 @@ const SearchTypes = ({ searchTypes: activeSearchTypes, onSetSearchTypes }: Searc
             </Text>
           ),
           actions: (
-            <HStack ref={ref} divider={<Divider height={height} orientation='vertical' />}>
+            <HStack ref={ref} divider={<Divider orientation='vertical' height={`${height}px`} />}>
               <Button
                 color={color}
                 isDisabled={activeSearchTypes.length === 0 || activeSearchTypes.length === searchTypes.length}

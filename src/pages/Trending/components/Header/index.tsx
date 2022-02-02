@@ -36,7 +36,7 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
           unmountOnExit
           style={{ marginLeft: theme.space[2], marginRight: theme.space[2] }}
         >
-          <Divider orientation='vertical' height={height} />
+          <Divider orientation='vertical' height={`${height}px`} />
         </Fade>
       }
     >
