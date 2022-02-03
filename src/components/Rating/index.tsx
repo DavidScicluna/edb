@@ -74,7 +74,7 @@ const Rating = (props: RatingProps): ReactElement => {
               color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
               whiteSpace='nowrap'
             >
-              {children && !isLoading ? _.round(Number(children)) : 'N/A'}
+              {children && !isLoading ? (typeof children === 'number' ? _.round(Number(children)) : children) : 'N/A'}
             </Text>
             {/* TODO: Find a way to better display count */}
             {/* {count ? (
