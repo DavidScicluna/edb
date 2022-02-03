@@ -1,11 +1,11 @@
-import { MediaViewerType } from '../../types';
+
 
 export type HTMLFullscreenElement = any & HTMLElement;
 
 export type FullscreenDocument = any & HTMLDocument;
 
 export type ActionsProps = {
-  activeType?: MediaViewerType;
+  hasFullscreen?: boolean;
   onClose: () => void;
   onGalleryClick: () => void;
 };

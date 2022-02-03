@@ -1,12 +1,13 @@
 import { ReactElement, MouseEvent } from 'react';
 
-import { useMediaQuery, useBoolean, VStack, HStack } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, Stack } from '@chakra-ui/react';
 import {
   CloseOutlined as CloseOutlinedIcon,
   DashboardOutlined as DashboardOutlinedIcon,
   FullscreenOutlined as FullscreenOutlinedIcon,
   FullscreenExitOutlined as FullscreenExitOutlinedIcon
 } from '@material-ui/icons';
+import _ from 'lodash';
 
 import IconButton from '../../../Clickable/IconButton';
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
@@ -14,7 +15,7 @@ import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types
 const Actions = (props: ActionsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { activeType, onClose, onGalleryClick } = props;
+  const { hasFullscreen = true, onClose, onGalleryClick } = props;
 
   const [isFullscreen, setIsFullscreen] = useBoolean();
   const [isfullscreenNotSupported, setIsfullscreenNotSupported] = useBoolean();
@@ -78,7 +79,7 @@ const Actions = (props: ActionsProps): ReactElement => {
     onClose();
   };
 
-  const actions = [
+  const actions = _.compact([
     // Close button
     <IconButton
       key='close_button'
@@ -95,7 +96,7 @@ const Actions = (props: ActionsProps): ReactElement => {
     </IconButton>,
 
     //  Fullscreen button
-    !isfullscreenNotSupported && activeType !== 'video' ? (
+    !isfullscreenNotSupported && isSm ? ? (
       <IconButton
         key='fullscreen_button'
         aria-label={isFullscreen ? 'Exit fullscreen ' : 'Enter fullscreen'}
@@ -104,17 +105,21 @@ const Actions = (props: ActionsProps): ReactElement => {
       >
         {isFullscreen ? <FullscreenExitOutlinedIcon /> : <FullscreenOutlinedIcon />}
       </IconButton>
-    ) : null
-  ].filter((action) => action);
+    ) : undefined
+  ]);
 
-  return isSm ? (
-    <HStack position='absolute' top={1} right={1} zIndex={2} backgroundColor='transparent' spacing={0}>
-      {actions.reverse()}
-    </HStack>
-  ) : (
-    <VStack position='absolute' top={1} right={1} zIndex={2} backgroundColor='transparent' spacing={0}>
-      {actions}
-    </VStack>
+  return (
+    <Stack
+      position='absolute'
+      top={1}
+      right={1}
+      zIndex={2}
+      direction={isSm ? 'row' : 'column'}
+      backgroundColor='transparent'
+      spacing={0}
+    >
+      {isSm ? actions.reverse() : actions}
+    </Stack>
   );
 };
 
