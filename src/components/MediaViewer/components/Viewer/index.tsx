@@ -12,50 +12,57 @@ import {
   handleConvertStringToNumber
 } from '../../../../common/utils';
 import { Theme } from '../../../../theme/types';
-import Navigation from '../Navigation';
+import Navigation from './components/Navigation';
 import { ViewerProps, SwiperDirection, ViewerEvent } from './types';
 
 const Viewer = (props: ViewerProps): ReactElement => {
   const theme = useTheme<Theme>();
 
-  const { renderSlide, isGalleryOpen, activePath, data, onSwiper, onSlideChange, onNavigation, onClose } = props;
+  const {
+    mediaItems = [],
+    activeMediaItem,
+    isDisabled = false,
+    renderSlide,
+    onSwiper,
+    onSlideChange,
+    onNavigation,
+    onSwipeVertical
+  } = props;
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   /**
    * This method will either navigate to the left/right depending on the key pressed
-   * And depending if its allowed to navigate left/right
    */
   const handleKeyPress = useCallback(
     (event: ViewerEvent): void => {
-      if (!isGalleryOpen) {
-        switch (event?.key) {
-          case 'ArrowLeft': {
-            if (activeIndex >= 1) {
-              onNavigation('prev');
-            }
+      if (!isDisabled && event && event?.key) {
+        switch (event.key) {
+          case 'ArrowLeft':
+            onNavigation('prev');
             break;
-          }
-          case 'ArrowRight': {
-            if (activeIndex <= (data?.length || 0)) {
-              onNavigation('next');
-            }
+          case 'ArrowRight':
+            onNavigation('next');
             break;
-          }
           default:
             break;
         }
       }
     },
-    [isGalleryOpen, data, activePath, onNavigation]
+    [isDisabled, onNavigation]
   );
 
   /**
-   * This method will set the active index depending on the activePath
+   * This method will set the active index depending on the activeMediaItem
    */
   const handleSetActiveIndex = useCallback(() => {
-    setActiveIndex((data.findIndex((item) => item.file_path === activePath || item.key === activePath) || 0) + 1);
-  }, [data, activePath, setActiveIndex]);
+    setActiveIndex(
+      (mediaItems.findIndex(
+        (mediaItem) =>
+          mediaItem.data.file_path === activeMediaItem.data.file_path || mediaItem.data.key === activeMediaItem.data.key
+      ) || 0) + 1
+    );
+  }, [mediaItems, activeMediaItem, setActiveIndex]);
 
   /**
    * This method will close the modal if user is on touch device
@@ -65,18 +72,18 @@ const Viewer = (props: ViewerProps): ReactElement => {
    */
   const handleSwipe = (swiper: SwiperDirection): void => {
     if (handleIsTouchDevice() && swiper.swipeDirection === undefined) {
-      onClose();
+      onSwipeVertical();
     }
   };
 
   useEventListener('keydown', handleKeyPress);
 
-  useEffect(() => handleSetActiveIndex(), [activePath]);
+  useEffect(() => handleSetActiveIndex(), [activeMediaItem]);
 
   return (
     <>
       <Swiper
-        allowSlideNext={activeIndex <= (data?.length || 0)}
+        allowSlideNext={activeIndex <= mediaItems.length}
         allowSlidePrev={activeIndex >= 1}
         spaceBetween={96}
         slidesPerView={1}
@@ -85,11 +92,11 @@ const Viewer = (props: ViewerProps): ReactElement => {
         onSlideChange={(swiper) => onSlideChange(swiper)}
         onTouchEnd={(swiper: SwiperType) => handleSwipe(swiper)}
       >
-        {data?.map((slide, index) => (
+        {mediaItems.map((slide, index) => (
           <SwiperSlide key={index}>
             <SlideFade
               in={activeIndex - 1 === index}
-              offsetY='10vh'
+              offsetY='15vh'
               delay={handleParseDurationForFramer(handleConvertStringToNumber(theme.transition.duration.slow, 'ms'))}
               unmountOnExit
             >
@@ -101,7 +108,7 @@ const Viewer = (props: ViewerProps): ReactElement => {
         ))}
       </Swiper>
 
-      <Navigation current={activeIndex} total={data?.length || 0} onNavigation={onNavigation} />
+      <Navigation current={activeIndex} total={mediaItems.length} onNavigation={onNavigation} />
     </>
   );
 };

@@ -2,18 +2,19 @@ import { ReactElement } from 'react';
 
 import { Swiper } from 'swiper';
 
-import { NavigationDirection, MediaViewerProps, MediaViewerData } from '../../types';
+import { MediaItem, NavigationDirection } from '../../types';
 
 export type ViewerEvent = any;
 
 export type SwiperDirection = { swipeDirection?: NavigationDirection } & Swiper;
 
 export type ViewerProps = {
-  renderSlide: (slide: MediaViewerData) => ReactElement;
-  isGalleryOpen: boolean;
-  activePath: string;
-  data: MediaViewerData[];
+  mediaItems: MediaItem[];
+  activeMediaItem: MediaItem;
+  isDisabled: boolean;
+  renderSlide: (slide: MediaItem) => ReactElement;
   onSwiper: (swiper: Swiper) => void;
   onSlideChange: (swiper: Swiper) => void;
+  onSwipeVertical: () => void;
   onNavigation: (direction: NavigationDirection) => void;
-} & Omit<MediaViewerProps, 'name' | 'isOpen' | 'selected' | 'photos' | 'backdrops' | 'videos' | 'mediaType'>;
+};

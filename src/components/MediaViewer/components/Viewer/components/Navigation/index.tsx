@@ -5,8 +5,9 @@ import {
   ArrowBackOutlined as ArrowBackOutlinedIcon,
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
+import _ from 'lodash';
 
-import IconButton from '../../../Clickable/IconButton';
+import IconButton from '../../../../../Clickable/IconButton';
 import { NavigationProps } from './types';
 
 const Navigation = (props: NavigationProps): ReactElement => {
@@ -27,11 +28,9 @@ const Navigation = (props: NavigationProps): ReactElement => {
       </IconButton>
 
       {/* Current Slide */}
-      <Text
-        align='center'
-        color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-        fontSize='md'
-      >{`${current} / ${total}`}</Text>
+      <Text align='center' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
+        {_.compact([current, total]).join(' / ')}
+      </Text>
 
       {/* Right button */}
       <IconButton
