@@ -1,8 +1,6 @@
-import { MediaViewerProps, MediaViewerType } from '../../types';
+import { MediaViewerProps, MediaItem } from '../../types';
 
 export type GalleryProps = {
-  isOpen: boolean;
-  activePath: string;
-  onClick: (path: string, type: MediaViewerType) => void;
-  onClose: () => void;
-} & Omit<MediaViewerProps, 'isOpen' | 'selected' | 'onClose'>;
+  activeMediaItem?: MediaItem;
+  onClick: (mediaItem: MediaItem) => void;
+} & Omit<MediaViewerProps, 'selectedPath'>;

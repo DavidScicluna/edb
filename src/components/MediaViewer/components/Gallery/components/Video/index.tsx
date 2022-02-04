@@ -1,48 +1,42 @@
 import { ReactElement } from 'react';
 
-import { useBoolean, Box } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import YouTube, { Options } from 'react-youtube';
 import './styles.css';
 
 import ClickableImage from '../../../../../Clickable/Image';
-import { VideoProps } from './types';
+import { GalleryVideoProps } from './types';
 
-const Video = (props: VideoProps): ReactElement => {
-  const { video, isActive = false, onClickVideo } = props;
+const opts: Options = {
+  playerVars: {
+    autoplay: 0,
+    controls: 0,
+    color: 'white',
+    enablejsapi: 1,
+    disablekb: 1,
+    mute: 1,
+    fs: 0,
+    loop: 1,
+    modestbranding: 1,
+    showinfo: 0
+  }
+};
 
-  const [isHovering, setIsHovering] = useBoolean();
-
-  const opts: Options = {
-    playerVars: {
-      autoplay: isHovering ? 1 : 0,
-      controls: 0,
-      color: 'white',
-      enablejsapi: 1,
-      disablekb: 1,
-      mute: 1,
-      fs: 0,
-      loop: 1,
-      modestbranding: 1,
-      showinfo: 0
-    }
-  };
+const GalleryVideo = (props: GalleryVideoProps): ReactElement => {
+  const { alt = '', videoId, isActive = false, onClick } = props;
 
   return (
-    <Box
-      borderRadius='lg'
-      onMouseEnter={!isActive ? () => setIsHovering.on() : undefined}
-      onMouseLeave={!isActive ? () => setIsHovering.off() : undefined}
-    >
+    <Box alt={alt} borderRadius='lg'>
       <ClickableImage
         borderRadius='lg'
         ratio={1 / 1}
-        renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
         isActive={isActive}
-        onClick={() => onClickVideo(video.key, 'video')}
+        renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
+        onClick={onClick}
       >
         <YouTube
-          videoId={video.key}
+          videoId={videoId}
           className='VideoGalleryFrame'
           containerClassName='VideoGalleryContainer'
           opts={opts}
@@ -52,4 +46,4 @@ const Video = (props: VideoProps): ReactElement => {
   );
 };
 
-export default Video;
+export default GalleryVideo;

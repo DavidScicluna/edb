@@ -1,96 +1,66 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, VStack, SimpleGrid, SlideFade } from '@chakra-ui/react';
+import { VStack, Fade } from '@chakra-ui/react';
+import CountUp from 'react-countup';
 
 import Badge from '../../../Badge';
+import VerticalGrid from '../../../Grid/Vertical';
 import Modal from '../../../Modal';
 import Panel from '../../../Panel';
-import Photo from './components/Photo';
+import Image from './components/Image';
 import Video from './components/Video';
 import { GalleryProps } from './types';
 
 const Gallery = (props: GalleryProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 600px)');
-  const [isSmallMob] = useMediaQuery('(max-width: 340px)');
-
-  const { isOpen, name, activePath, photos, backdrops, videos, mediaType, onClick, onClose } = props;
+  const { alt, assets, activeMediaItem, isOpen = false, onClick, onClose } = props;
 
   return (
     <Modal title='Gallery' isOpen={isOpen} onClose={onClose} isCentered size='full'>
       <VStack width='100%' p={2} spacing={10}>
-        {/* Photos Section */}
-        <SlideFade in={photos && photos.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Panel isFullWidth variant='transparent' size='sm'>
+        {assets.map((asset, index: number) => (
+          <Panel key={index} isFullWidth variant='transparent' size='sm'>
             {{
               header: {
-                title: 'Photos',
-                actions: photos?.length || 0 > 0 ? <Badge size={isSm ? 'sm' : 'md'}>{String(photos)}</Badge> : undefined
-              },
-              body: (
-                <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 5, 6]} spacing={2}>
-                  {photos?.map((photo, index) => (
-                    <Photo
-                      key={index}
-                      photo={photo}
-                      name={name}
-                      type='photo'
-                      mediaType={mediaType}
-                      isActive={photo.file_path === activePath}
-                      onClickImage={onClick}
-                    />
-                  ))}
-                </SimpleGrid>
-              )
-            }}
-          </Panel>
-        </SlideFade>
-
-        {/* Backdrops Section */}
-        <SlideFade in={backdrops && backdrops.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Panel isFullWidth variant='transparent' size='sm'>
-            {{
-              header: {
-                title: 'Backdrops',
+                title: asset.label,
                 actions:
-                  backdrops?.length || 0 > 0 ? <Badge size={isSm ? 'sm' : 'md'}>{String(backdrops)}</Badge> : undefined
+                  asset.mediaItems.length || 0 > 0 ? (
+                    <Fade in unmountOnExit>
+                      <Badge size='lg'>
+                        <CountUp duration={1} end={asset.mediaItems.length || 0} />
+                      </Badge>
+                    </Fade>
+                  ) : undefined
               },
               body: (
-                <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 5, 6]} spacing={2}>
-                  {backdrops?.map((backdrop, index) => (
-                    <Photo
-                      key={index}
-                      photo={backdrop}
-                      name={name}
-                      type='backdrop'
-                      mediaType={mediaType}
-                      isActive={backdrop.file_path === activePath}
-                      onClickImage={onClick}
-                    />
-                  ))}
-                </SimpleGrid>
+                <VerticalGrid displayMode='grid'>
+                  {() =>
+                    asset.mediaItems.map((mediaItem) =>
+                      mediaItem.type === 'image' ? (
+                        <Image
+                          key={mediaItem.data.id}
+                          alt={alt}
+                          boringType={mediaItem.boringType}
+                          path={mediaItem.data.file_path}
+                          srcSize={mediaItem.srcSize}
+                          isActive={mediaItem.data.file_path === activeMediaItem?.data.file_path}
+                          onClick={() => onClick(mediaItem)}
+                        />
+                      ) : (
+                        <Video
+                          key={mediaItem.data.id}
+                          alt={alt}
+                          videoId={mediaItem.data.key}
+                          isActive={mediaItem.data.key === activeMediaItem?.data.key}
+                          onClick={() => onClick(mediaItem)}
+                        />
+                      )
+                    )
+                  }
+                </VerticalGrid>
               )
             }}
           </Panel>
-        </SlideFade>
-
-        {/* Videos Section */}
-        <SlideFade in={videos && videos.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Panel isFullWidth variant='transparent' size='sm'>
-            {{
-              header: {
-                title: 'Videos',
-                actions: videos?.length || 0 > 0 ? <Badge size={isSm ? 'sm' : 'md'}>{String(videos)}</Badge> : undefined
-              },
-              body: (
-                <SimpleGrid width='100%' columns={[isSmallMob ? 1 : 2, 2, 3, 4, 5, 6]} spacing={2}>
-                  {videos?.map((video, index) => (
-                    <Video key={index} video={video} isActive={video.key === activePath} onClickVideo={onClick} />
-                  ))}
-                </SimpleGrid>
-              )
-            }}
-          </Panel>
-        </SlideFade>
+        ))}
       </VStack>
     </Modal>
   );
