@@ -11,7 +11,7 @@ const Bio = (props: BioProps): ReactElement => {
   const handleReturnDates = (): string => {
     const birthDate = moment(birthday || '', 'YYYY-MM-DD').format('LL');
     const birthPlace = place_of_birth ? `in ${place_of_birth}` : undefined;
-    const deathDate = deathday ? `- ${moment(deathday || '', 'YYYY-MM-DD').format('LL')}` : undefined;
+    const deathDate = deathday ? `and died on ${moment(deathday || '', 'YYYY-MM-DD').format('LL')}` : undefined;
     const yearsOld = deathday
       ? `(${moment(deathday || new Date()).diff(moment(birthday || '', 'YYYY-MM-DD'), 'years')} years old)`
       : undefined;
