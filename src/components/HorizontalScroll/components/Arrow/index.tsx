@@ -26,7 +26,8 @@ const Arrow = (props: ArrowProps): ReactElement => {
   return (
     <Center
       width={`${width * 2}px`}
-      height={`${height}px`}
+      minHeight={`${height}px`}
+      height='100%'
       position='absolute'
       left={direction === 'left' ? 0 : undefined}
       right={direction === 'right' ? 0 : undefined}
@@ -35,12 +36,22 @@ const Arrow = (props: ArrowProps): ReactElement => {
       sx={{ ..._.merge({ top: '50%', transform: 'translateY(-50%)' }, style[colorMode][direction]) }}
       _after={
         direction === 'left'
-          ? { ..._.merge({ ...style.arrow, width, height }, style[colorMode][direction]) }
+          ? {
+              ..._.merge(
+                { ...style.arrow, width, minHeight: `${height}px`, height: '100%' },
+                style[colorMode][direction]
+              )
+            }
           : undefined
       }
       _before={
         direction === 'right'
-          ? { ..._.merge({ ...style.arrow, width, height }, style[colorMode][direction]) }
+          ? {
+              ..._.merge(
+                { ...style.arrow, width, minHeight: `${height}px`, height: '100%' },
+                style[colorMode][direction]
+              )
+            }
           : undefined
       }
     >
