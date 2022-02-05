@@ -25,7 +25,7 @@ const Person = (props: PersonProps): ReactElement => {
 
   const { id } = props;
 
-  const [selectedPhoto, setSelectedPhoto] = useState<string>();
+  const [selectedImagePath, setSelectedImagePath] = useState<string>();
 
   // Fetching person details
   const personQuery = useQuery([`person-${id}`, id], async () => {
@@ -70,7 +70,7 @@ const Person = (props: PersonProps): ReactElement => {
    * @param path - Image path
    */
   const handleOnPosterClick = (path: string): void => {
-    setSelectedPhoto(path);
+    setSelectedImagePath(path);
     onMediaViewerOpen();
   };
 
@@ -139,15 +139,27 @@ const Person = (props: PersonProps): ReactElement => {
         </Center>
       </Stack>
 
-      {/* {imagesQuery.isSuccess || taggedImagesQuery.isSuccess ? (
+      {imagesQuery.isSuccess ? (
         <MediaViewer
+          alt={personQuery.data?.name ? `"${personQuery.data.name}" photo` : 'Person Photo'}
+          assets={[
+            {
+              label: 'Photos',
+              mediaItems: (imagesQuery.data?.profiles || []).map((image) => {
+                return {
+                  type: 'image',
+                  boringType: 'beam',
+                  srcSize: ['w45', 'original'],
+                  data: { ...image }
+                };
+              })
+            }
+          ]}
+          selectedPath={selectedImagePath}
           isOpen={isMediaViewerOpen}
-          selected={{ type: 'photo', asset: selectedPhoto }}
-          photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
-          mediaType='person'
           onClose={onMediaViewerClose}
         />
-      ) : null} */}
+      ) : null}
     </>
   );
 };

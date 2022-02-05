@@ -29,9 +29,8 @@ const Poster = (props: PosterProps): ReactElement => {
           alt={`${name ? `"${name}"` : ''} ${
             mediaType === 'movie' ? 'movie' : mediaType === 'tv' ? 'tv show' : 'profile'
           } poster`}
-          maxWidth='none'
-          height={isSm ? 'auto' : '100%'}
-          width={isSm ? '100%' : 'auto'}
+          height='auto'
+          width='100%'
           borderRadius='lg'
           boringType={handleReturnBoringTypeByMediaType(mediaType)}
           onError={() => setIsImageError.on()}
