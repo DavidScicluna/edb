@@ -6,17 +6,17 @@ import { Size, Variant } from '../../types';
  *
  * @returns - number: Padding value
  */
-export const handleReturnPadding = (size: Size, variant: Variant): keyof Space => {
+export const handleReturnPadding = (size: Size, _variant: Variant): keyof Space => {
   switch (size) {
     case 'xs':
-      return variant === 'outlined' ? 1 : 0.5;
+      return 1;
     case 'sm':
-      return variant === 'outlined' ? 1.5 : 0.75;
+      return 1.5;
     case 'lg':
-      return variant === 'outlined' ? 2.5 : 1.25;
+      return 2.5;
     case 'xl':
-      return variant === 'outlined' ? 3 : 1.5;
+      return 3;
     default:
-      return variant === 'outlined' ? 2 : 1;
+      return 2;
   }
 };
