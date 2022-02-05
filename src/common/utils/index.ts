@@ -79,16 +79,20 @@ export const handleIsTouchDevice = (): boolean => {
  *
  * @param date - Full Date
  * @param section - Which section of date to return
- * @returns - The section of the dat
+ * @returns - The section of the date
  */
 export const handleReturnDate = (date: string, section: 'year' | 'month' | 'day' | 'full'): string => {
-  if (section === 'full') {
-    const split = date.split('-');
-    const month = months.find((month) => month.value === split[1]);
+  const newDate = moment(moment(date).format('YYYY-MM-DD'));
 
-    return `${split[2]} ${month?.label} ${split[0]}`;
-  } else {
-    return date.split('-')[section === 'year' ? 0 : section === 'month' ? 1 : 2];
+  switch (section) {
+    case 'year':
+      return newDate.format('YYYY');
+    case 'month':
+      return newDate.format('MMMM');
+    case 'day':
+      return newDate.format('DD');
+    default:
+      return newDate.format('DD MMMM YYYY');
   }
 };
 
