@@ -1,39 +1,69 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
-import { useColorMode, useDisclosure, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
+import { useTheme, useColorMode, useDisclosure, useBoolean, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
+import _ from 'lodash';
 import { Swiper } from 'swiper';
 
-import Actions from './components/Actions';
-import BackdropViewer from './components/BackdropViewer';
+import { handleConvertStringToNumber } from '../../common/utils';
+import { Theme } from '../../theme/types';
+import Backdrop from './components/Backdrop';
 import Gallery from './components/Gallery';
-import PhotoViewer from './components/PhotoViewer';
+import PhotoViewer from './components/ImageViewer';
+import Toolkit from './components/Toolkit';
+import Actions from './components/Toolkit/components/Actions';
+import Navigation from './components/Toolkit/components/Navigation';
 import VideoViewer from './components/VideoViewer';
 import Viewer from './components/Viewer';
-import { MediaViewerProps, NavigationDirection, MediaViewerType, MediaViewerData } from './types';
+import { MediaViewerProps, Asset, MediaItem, NavigationDirection } from './types';
+
+const handleFlattenAssets = (assets: Asset[]): MediaItem[] => {
+  let mediaItems: MediaItem[] = [];
+
+  assets.forEach((asset) => {
+    if (asset.mediaItems.length > 0) {
+      mediaItems = _.uniq([...mediaItems, ...asset.mediaItems]);
+    }
+  });
+
+  return mediaItems;
+};
 
 const MediaViewer = (props: MediaViewerProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+
   const { isOpen: isGalleryOpen, onOpen: onGalleryOpen, onClose: onGalleryClose } = useDisclosure();
 
-  const { isOpen, name, selected, photos, backdrops, videos, mediaType, onClose } = props;
+  const { alt, assets, selectedPath, isOpen = false, onClose } = props;
 
   const [swiper, setSwiper] = useState<Swiper>();
 
-  const [activePath, setActivePath] = useState<string>('');
-  const [activeType, setActiveType] = useState<MediaViewerType>();
+  const [mediaItems] = useState<MediaItem[]>(handleFlattenAssets(assets));
 
-  const data: MediaViewerData[] = [...(photos || []), ...(backdrops || []), ...(videos || [])];
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeMediaItem, setActiveMediaItem] = useState<MediaItem>();
+
+  const [isHoveringBackdrop, setIsHoveringBackdrop] = useBoolean();
+
+  const handleOnToolkitHover = useCallback(
+    _.debounce((bool: boolean): void => {
+      if (bool) {
+        setIsHoveringBackdrop.on();
+      } else {
+        setIsHoveringBackdrop.off();
+      }
+    }, 250),
+    [setIsHoveringBackdrop]
+  );
 
   /**
-   * This method will slide to the image
+   * This method will slide to the image with the index passed
    *
    * @param index Number - The index of the image in the list
    */
   const handleSlideTo = useCallback(
     (index: number) => {
-      if (swiper) {
-        swiper.slideTo(index, 0);
-      }
+      swiper?.slideTo(index, 0);
     },
     [swiper]
   );
@@ -45,16 +75,18 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
    */
   const handleNavigation = useCallback(
     (direction: NavigationDirection): void => {
+      const speed: number = handleConvertStringToNumber(theme.transition.duration.slow, 'ms');
+
       switch (direction) {
         case 'prev': {
           if (swiper?.allowSlidePrev || false) {
-            swiper.slidePrev(500);
+            swiper.slidePrev(speed);
           }
           break;
         }
         case 'next': {
           if (swiper?.allowSlideNext || false) {
-            swiper.slideNext(500);
+            swiper.slideNext(speed);
           }
           break;
         }
@@ -66,42 +98,30 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
   );
 
   /**
-   * This method will set the active path and active type on every change
+   * This method will set the active mediaItem on every change
    */
   const handleSlideChange = useCallback(
     (swiper: Swiper) => {
-      const item = data.find((_item, index) => index === swiper.activeIndex);
-      const path = item?.file_path || item?.key || '';
-      const type = photos?.some((image) => image.file_path === path)
-        ? 'photo'
-        : backdrops?.some((image) => image.file_path === path)
-        ? 'backdrop'
-        : videos?.some((video) => video.key === path)
-        ? 'video'
-        : '';
+      const mediaItem = mediaItems.find((_mediaItem, index) => index === swiper.activeIndex);
+      const index = mediaItems.findIndex((_mediaItem, index) => index === swiper.activeIndex) || 0;
 
-      if (path) {
-        setActivePath(path);
-      }
-
-      if (type) {
-        setActiveType(type);
-      }
+      setActiveIndex(index);
+      setActiveMediaItem(mediaItem);
     },
-    [data, photos, backdrops, videos, setActivePath, setActiveType]
+    [mediaItems, swiper, setActiveMediaItem]
   );
 
   /**
-   * This method will close the gallery and display the file
+   * This method will close the gallery and display the mediaItem image
    *
-   * @param path - The URL path
-   * @param type - The type of path
+   * @param path - The mediaItem selected
    */
-  const handleGalleryClick = (path: string, type: MediaViewerType): void => {
-    const index = data.findIndex((item) => item.file_path === path || item.key === path);
+  const handleGalleryClick = (mediaItem: MediaItem): void => {
+    const path = mediaItem.data.file_path || mediaItem.data.key;
+    const index = mediaItems.findIndex(({ data: { file_path, key } }) => file_path === path || key === path) || 0;
 
-    setActivePath(path);
-    setActiveType(type);
+    setActiveIndex(index);
+    setActiveMediaItem(mediaItem);
 
     handleSlideTo(index);
 
@@ -109,56 +129,86 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
   };
 
   useEffect(() => {
-    if (swiper && selected && selected.asset && selected.type && data && data.length > 0) {
-      setActivePath(selected.asset);
-      setActiveType(selected.type);
+    if (swiper && !_.isEmpty(mediaItems) && !_.isEmpty(selectedPath)) {
+      const mediaItem = mediaItems.find(
+        ({ data: { file_path, key } }) => file_path === selectedPath || key === selectedPath
+      );
+      const index =
+        mediaItems.findIndex(({ data: { file_path, key } }) => file_path === selectedPath || key === selectedPath) || 0;
 
-      handleSlideTo(data?.findIndex((item) => item.file_path === selected.asset || item.key === selected.asset) || 0);
+      setActiveIndex(index);
+      setActiveMediaItem(mediaItem);
+
+      handleSlideTo(index);
     }
-  }, [swiper, selected]);
+  }, [swiper, mediaItems, selectedPath]);
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} motionPreset='scale' scrollBehavior='inside' size='full'>
+      <Modal isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom' scrollBehavior='inside' size='full'>
         <ModalContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} borderRadius='none' m={0}>
           <ModalBody position='relative' p={0}>
-            {/* Actions */}
-            <Actions activeType={activeType} onClose={onClose} onGalleryClick={() => onGalleryOpen()} />
+            {isOpen ? (
+              <>
+                {/* Toolkit */}
+                <Toolkit
+                  renderActions={() => (
+                    <Actions
+                      hasFullscreen={activeMediaItem?.type !== 'video'}
+                      onClose={onClose}
+                      onGalleryClick={() => onGalleryOpen()}
+                    />
+                  )}
+                  renderNavigation={() => (
+                    <Navigation current={activeIndex} total={mediaItems.length} onNavigation={handleNavigation} />
+                  )}
+                  onHover={handleOnToolkitHover}
+                />
 
-            {/* Photo, Backdrop & Video Viewer */}
-            <Viewer
-              renderSlide={(slide: MediaViewerData) =>
-                activeType === 'photo' ? (
-                  <PhotoViewer name={name} path={slide.file_path} mediaType={mediaType} />
-                ) : activeType === 'backdrop' ? (
-                  <BackdropViewer name={name} path={slide.file_path} mediaType={mediaType} />
-                ) : (
-                  <VideoViewer path={slide.key} />
-                )
-              }
-              isGalleryOpen={isGalleryOpen}
-              activePath={activePath}
-              data={data}
-              onSwiper={(swiper) => setSwiper(swiper)}
-              onSlideChange={handleSlideChange}
-              onNavigation={handleNavigation}
-              onClose={onClose}
-            />
+                {/* Backdrop */}
+                <Backdrop isHovering={isHoveringBackdrop} />
+
+                {/* Image & Video Viewer */}
+                <Viewer
+                  renderSlide={(slide) =>
+                    slide.type === 'image' ? (
+                      <PhotoViewer
+                        alt={alt}
+                        boringType={slide.boringType}
+                        path={slide.data.file_path}
+                        ratio={slide.data.aspect_ratio}
+                        srcSize={slide.srcSize}
+                      />
+                    ) : (
+                      // <VideoViewer path={slide.key} />
+                      <h1>Video</h1>
+                    )
+                  }
+                  activeIndex={activeIndex}
+                  mediaItems={mediaItems}
+                  isDisabled={isGalleryOpen}
+                  onSwiper={(swiper) => setSwiper(swiper)}
+                  onSlideChange={handleSlideChange}
+                  onSwipeVertical={onClose}
+                  onNavigation={handleNavigation}
+                />
+              </>
+            ) : null}
           </ModalBody>
         </ModalContent>
       </Modal>
 
-      <Gallery
-        isOpen={isGalleryOpen}
-        activePath={activePath}
-        name={name}
-        photos={photos}
-        backdrops={backdrops}
-        videos={videos}
-        mediaType={mediaType}
-        onClick={handleGalleryClick}
-        onClose={onGalleryClose}
-      />
+      {/* Gallery */}
+      {isOpen ? (
+        <Gallery
+          alt={alt}
+          assets={assets}
+          activeMediaItem={activeMediaItem}
+          isOpen={isGalleryOpen}
+          onClick={handleGalleryClick}
+          onClose={onGalleryClose}
+        />
+      ) : null}
     </>
   );
 };
