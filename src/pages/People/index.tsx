@@ -25,7 +25,7 @@ const People = (): ReactElement => {
     'people',
     async ({ pageParam = 1 }) => {
       const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/person/popular', {
-        params: { page: pageParam },
+        params: { page: pageParam, append_to_response: 'known_for_department' },
         cancelToken: source.token
       });
       return data;

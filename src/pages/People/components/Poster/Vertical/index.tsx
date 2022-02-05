@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 
-import departments from '../../../../../common/data/departments';
 import VerticalPoster from '../../../../../components/Poster/Vertical';
 import { VerticalPersonPosterProps } from './types';
 
@@ -22,11 +21,7 @@ const VerticalPersonPoster = (props: VerticalPersonPosterProps): ReactElement =>
         }
       }}
       title={name || ''}
-      subtitle={
-        departments.find((department) => department.value === known_for_department)?.name ||
-        known_for_department ||
-        'N/A'
-      }
+      subtitle={known_for_department || ''}
       isLoading={isLoading}
     />
   );
