@@ -44,7 +44,35 @@ const Badge = (props: BadgeProps): ReactElement => {
     }
   };
 
-  const iconHeightSize = `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes[size], 'rem')) + 8}px`;
+  /**
+   * This method will return the appropriate font size depending on the size passed
+   *
+   * @returns - string: FontSizes value
+   */
+  const handleReturnFontSize = (): string => {
+    switch (size) {
+      case 'xs':
+        return theme.fontSizes.xs;
+      case 'sm':
+        return theme.fontSizes.sm;
+      case 'lg':
+        return theme.fontSizes.lg;
+      case 'xl':
+        return theme.fontSizes.xl;
+      case '2xl':
+        return theme.fontSizes['2xl'];
+      case '3xl':
+        return theme.fontSizes['3xl'];
+      case '4xl':
+        return theme.fontSizes['4xl'];
+      default:
+        return theme.fontSizes.md;
+    }
+  };
+
+  const iconHeightSize = `${
+    handleConvertREMToPixels(handleConvertStringToNumber(handleReturnFontSize(), 'rem')) + 8
+  }px`;
 
   return (
     <CUIBadge variant='unstyled' sx={{ ..._.merge(style.badge.default, style.badge[size], style[colorMode][variant]) }}>
