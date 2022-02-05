@@ -4,7 +4,6 @@ import { useColorMode, useBreakpointValue, VStack, Text } from '@chakra-ui/react
 
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { FontSizes } from '../../../../../../theme/types';
-import Date from './components/Date';
 import Departments from './components/Departments';
 import { TitleProps } from './types';
 
@@ -27,13 +26,6 @@ const Title = ({ person, departments = [], isLoading = true, isQuickView = false
         </Text>
       </SkeletonText>
       <Departments departments={departments} isLoading={isLoading} isQuickView={isQuickView} />
-      <Date
-        birthday={person?.birthday}
-        place_of_birth={person?.place_of_birth}
-        deathday={person?.deathday}
-        isLoading={isLoading}
-        isQuickView={isQuickView}
-      />
     </VStack>
   );
 };
