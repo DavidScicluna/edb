@@ -18,7 +18,7 @@ const Gallery = (props: GalleryProps): ReactElement => {
     <Modal title='Gallery' isOpen={isOpen} onClose={onClose} isCentered size='full'>
       <VStack width='100%' p={2} spacing={10}>
         {assets.map((asset, index: number) => (
-          <Panel key={index} isFullWidth variant='transparent' size='sm'>
+          <Panel key={index} isFullWidth variant='transparent'>
             {{
               header: {
                 title: asset.label,
@@ -34,10 +34,10 @@ const Gallery = (props: GalleryProps): ReactElement => {
               body: (
                 <VerticalGrid displayMode='grid'>
                   {() =>
-                    asset.mediaItems.map((mediaItem) =>
+                    asset.mediaItems.map((mediaItem, index) =>
                       mediaItem.type === 'image' ? (
                         <Image
-                          key={mediaItem.data.id}
+                          key={index}
                           alt={alt}
                           boringType={mediaItem.boringType}
                           path={mediaItem.data.file_path}
@@ -47,7 +47,7 @@ const Gallery = (props: GalleryProps): ReactElement => {
                         />
                       ) : (
                         <Video
-                          key={mediaItem.data.id}
+                          key={index}
                           alt={alt}
                           videoId={mediaItem.data.key}
                           isActive={mediaItem.data.key === activeMediaItem?.data.key}
