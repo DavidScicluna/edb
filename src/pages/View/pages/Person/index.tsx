@@ -11,6 +11,7 @@ import axiosInstance from '../../../../common/scripts/axios';
 import { ExternalIDs, Images } from '../../../../common/types';
 import { FullPerson, Credits as CreditsType, MovieCredits, TVCredits } from '../../../../common/types/person';
 import Badge from '../../../../components/Badge';
+import MediaViewer from '../../../../components/MediaViewer';
 import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
@@ -34,7 +35,7 @@ const Person = (): ReactElement => {
 
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  const [selectedImage, setSelectedImage] = useState<string>();
+  const [selectedImagePath, setSelectedImagePath] = useState<string>();
 
   // Fetching person details
   const personQuery = useQuery([`person-${id}`, id], async () => {
@@ -95,7 +96,7 @@ const Person = (): ReactElement => {
    * @param image - Image object
    */
   const handleOnImageClick = (path: string): void => {
-    setSelectedImage(path || undefined);
+    setSelectedImagePath(path || undefined);
     onMediaViewerOpen();
   };
 
@@ -245,18 +246,27 @@ const Person = (): ReactElement => {
         </Structure>
       </Tabs>
 
-      {/* {imagesQuery.isSuccess ? (
+      {imagesQuery.isSuccess ? (
         <MediaViewer
+          alt={personQuery.data?.name ? `"${personQuery.data.name}" photo` : 'Person Photo'}
+          assets={[
+            {
+              label: 'Photos',
+              mediaItems: (imagesQuery.data?.profiles || []).map((image) => {
+                return {
+                  type: 'image',
+                  boringType: 'beam',
+                  srcSize: ['w45', 'original'],
+                  data: { ...image }
+                };
+              })
+            }
+          ]}
+          selectedPath={selectedImagePath}
           isOpen={isMediaViewerOpen}
-          selected={{
-            type: 'photo',
-            asset: selectedPhoto
-          }}
-          photos={[...(imagesQuery.data?.profiles || []), ...(taggedImagesQuery.data?.results.profiles || [])]}
-          mediaType='person'
           onClose={onMediaViewerClose}
         />
-      ) : null} */}
+      ) : null}
     </>
   );
 };
