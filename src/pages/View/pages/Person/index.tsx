@@ -120,7 +120,6 @@ const Person = (): ReactElement => {
     movieCreditsQuery.isSuccess && tvCreditsQuery.isSuccess
       ? handleGetDepartments(movieCreditsQuery.data, tvCreditsQuery.data)
       : [];
-  console.log(departments);
 
   useEffect(() => {
     handleCheckLocation();

@@ -69,7 +69,9 @@ const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElemen
     );
 
     handleClose();
-    onSubmit();
+    if (onSubmit) {
+      onSubmit();
+    }
   };
 
   const handleCloseConfirm = (): void => {

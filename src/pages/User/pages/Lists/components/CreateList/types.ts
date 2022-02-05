@@ -5,6 +5,6 @@ export type Form = {
 
 export type CreateListProps = {
   isOpen: boolean;
-  onSubmit: () => void;
+  onSubmit?: () => void;
   onClose: () => void;
 };
