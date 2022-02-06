@@ -11,20 +11,7 @@ const Footer = (props: FooterProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { activeIndex, title, isDisabled, onClick } = props;
-
-  const handleReturnLabel = (): string => {
-    switch (activeIndex) {
-      case 0:
-        return 'photos';
-      case 1:
-        return 'backdrops';
-      case 2:
-        return 'videos';
-      default:
-        return '';
-    }
-  };
+  const { total, label, isDisabled, onClick } = props;
 
   return (
     <Button
@@ -35,7 +22,7 @@ const Footer = (props: FooterProps): ReactElement => {
       size={isSm ? 'sm' : 'md'}
       variant='text'
     >
-      {`View all ${title ? `"${title}"` : ''} ${handleReturnLabel()}`}
+      {`View all ${total || ''} ${label || 'Assets'}`}
     </Button>
   );
 };
