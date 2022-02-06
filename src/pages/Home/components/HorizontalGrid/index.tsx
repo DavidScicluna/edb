@@ -59,7 +59,7 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
       footer={
         <Link to={{ ...to({ mediaType: mediaTypes[activeTab] }) }} isFullWidth isDisabled={handleIsDisabled()}>
           <Button color={color} isFullWidth isDisabled={handleIsDisabled()} size={isSm ? 'sm' : 'md'} variant='text'>
-            {`View all ${title} ${mediaTypes[activeTab]}`}
+            {`View all ${title ? `"${title}"` : ''} ${mediaTypes[activeTab]}`}
           </Button>
         </Link>
       }
@@ -92,13 +92,13 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
         {!isLoading.movie && isError.movie ? (
           <Error
             label='Oh no! Something went wrong'
-            description={`Failed to fetch ${title} movies list!`}
+            description={`Failed to fetch ${title ? `"${title}"` : ''} movies list!`}
             variant='transparent'
           />
         ) : !isLoading.movie && isSuccess.movie && data.movie && data.movie.length === 0 ? (
           <Empty
             label='Oh no! Something went wrong'
-            description={`${title} Movies list is currently empty!`}
+            description={`${title ? `"${title}"` : ''} Movies list is currently empty!`}
             variant='transparent'
           />
         ) : !isLoading.movie && isSuccess.movie && data.movie && data.movie.length > 0 ? (
@@ -115,11 +115,11 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
         {!isLoading.tv && isError.tv ? (
           <Error
             label='Oh no! Something went wrong'
-            description={`Failed to fetch ${title} TV Shows list!`}
+            description={`Failed to fetch ${title ? `"${title}"` : ''} TV Shows list!`}
             variant='transparent'
           />
         ) : !isLoading.tv && isSuccess.tv && data.tv && data.tv.length === 0 ? (
-          <Empty label={`${title} TV Shows list is currently empty!`} variant='transparent' />
+          <Empty label={`${title ? `"${title}"` : ''} TV Shows list is currently empty!`} variant='transparent' />
         ) : !isLoading.tv && isSuccess.tv && data.tv && data.tv.length > 0 ? (
           data.tv.map((show: PartialTV) => (
             <VerticalTVShowPoster key={show.id} width={widths} show={show} isLoading={false} />
@@ -131,15 +131,15 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 
       {/* People */}
       <>
-        {!isLoading.tv && isError.tv ? (
+        {!isLoading.person && isError.person ? (
           <Error
             label='Oh no! Something went wrong'
-            description={`Failed to fetch ${title} people list!`}
+            description={`Failed to fetch ${title ? `"${title}"` : ''} people list!`}
             variant='transparent'
           />
-        ) : !isLoading.tv && isSuccess.tv && data.person && data.person.length === 0 ? (
-          <Empty label={`${title} People list is currently empty!`} variant='transparent' />
-        ) : !isLoading.tv && isSuccess.tv && data.person && data.person.length > 0 ? (
+        ) : !isLoading.person && isSuccess.person && data.person && data.person.length === 0 ? (
+          <Empty label={`${title ? `"${title}"` : ''} People list is currently empty!`} variant='transparent' />
+        ) : !isLoading.person && isSuccess.person && data.person && data.person.length > 0 ? (
           data.person.map((person: PartialPerson) => (
             <VerticalPersonPoster key={person.id} width={widths} person={person} isLoading={false} />
           ))
