@@ -1,12 +1,15 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Badge as CUIBadge, HStack, Center } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import { Theme, Space } from '../../theme/types';
+import SkeletonText from '../Skeleton/Text';
 import useStyles from './styles';
 import { BadgeProps } from './types';
+
+const dummies = _.range(25, 150, 20);
 
 const Badge = (props: BadgeProps): ReactElement => {
   const theme = useTheme<Theme>();
@@ -19,9 +22,13 @@ const Badge = (props: BadgeProps): ReactElement => {
     renderLeftIcon,
     renderRightIcon,
     isLight = true,
+    isLoading = false,
     size = 'md',
-    variant = 'contained'
+    variant = 'contained',
+    sx
   } = props;
+
+  const [dummy] = useState<number>(_.sample(dummies) || 100);
 
   const colorMode: ColorMode = colorModeProp || colorModeHook;
 
@@ -44,41 +51,24 @@ const Badge = (props: BadgeProps): ReactElement => {
     }
   };
 
-  /**
-   * This method will return the appropriate font size depending on the size passed
-   *
-   * @returns - string: FontSizes value
-   */
-  const handleReturnFontSize = (): string => {
-    switch (size) {
-      case 'xs':
-        return theme.fontSizes.xs;
-      case 'sm':
-        return theme.fontSizes.sm;
-      case 'lg':
-        return theme.fontSizes.lg;
-      case 'xl':
-        return theme.fontSizes.xl;
-      case '2xl':
-        return theme.fontSizes['2xl'];
-      case '3xl':
-        return theme.fontSizes['3xl'];
-      case '4xl':
-        return theme.fontSizes['4xl'];
-      default:
-        return theme.fontSizes.md;
-    }
-  };
-
-  const iconHeightSize = `${
-    handleConvertREMToPixels(handleConvertStringToNumber(handleReturnFontSize(), 'rem')) + 8
-  }px`;
+  const iconHeightSize = `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes[size], 'rem')) + 8}px`;
 
   return (
-    <CUIBadge variant='unstyled' sx={{ ..._.merge(style.badge.default, style.badge[size], style[colorMode][variant]) }}>
-      <HStack width='100%' spacing={handleReturnSpacing()}>
+    <CUIBadge
+      variant='unstyled'
+      sx={{ ..._.merge(style.badge.default, style.badge[size], style[colorMode][variant], sx) }}
+    >
+      <HStack width='100%' wrap='nowrap' spacing={handleReturnSpacing()}>
         {renderLeftIcon ? renderLeftIcon({ color, colorMode, height: iconHeightSize, fontSize: size }) : null}
-        <Center>{children}</Center>
+        <SkeletonText
+          as={Center}
+          width={isLoading ? `${dummy}px` : 'auto'}
+          color={color}
+          fontSize={size}
+          isLoaded={!isLoading}
+        >
+          {children}
+        </SkeletonText>
         {renderRightIcon ? renderRightIcon({ color, colorMode, height: iconHeightSize, fontSize: size }) : null}
       </HStack>
     </CUIBadge>

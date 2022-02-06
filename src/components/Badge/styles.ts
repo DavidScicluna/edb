@@ -37,9 +37,7 @@ export default (
 
       fontWeight: 'semibold',
       textTransform: 'uppercase',
-      whiteSpace: 'nowrap',
-      lineHeight: 'normal',
-      letterSpacing: '0.5px'
+      whiteSpace: 'nowrap'
     },
     'xs': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.xs, 'rem')) + 8}px`,
@@ -66,8 +64,7 @@ export default (
       borderRadius: 'sm',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      // padding: `${theme.space[0.25]} ${theme.space[0.5]}`
-      padding: theme.space[0.25]
+      padding: `${theme.space[0.25]} ${theme.space[0.5]}`
     },
     'lg': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.lg, 'rem')) + 8}px`,
@@ -76,8 +73,7 @@ export default (
       borderRadius: 'sm',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      // padding: `${theme.space[0.25]} ${theme.space[0.5]}`
-      padding: theme.space[0.25]
+      padding: `${theme.space[0.25]} ${theme.space[0.5]}`
     },
     'xl': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.xl, 'rem')) + 8}px`,
@@ -86,8 +82,7 @@ export default (
       borderRadius: 'base',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      // padding: `${theme.space[0.5]} ${theme.space[1]}`
-      padding: theme.space[0.5]
+      padding: `${theme.space[0.5]} ${theme.space[1]}`
     },
     '2xl': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['2xl'], 'rem')) + 8}px`,
@@ -96,8 +91,7 @@ export default (
       borderRadius: 'base',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      // padding: `${theme.space[0.5]} ${theme.space[1]}`
-      padding: theme.space[0.5]
+      padding: `${theme.space[0.5]} ${theme.space[1]}`
     },
     '3xl': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['3xl'], 'rem')) + 8}px`,
@@ -106,8 +100,7 @@ export default (
       borderRadius: 'lg',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      // padding: `${theme.space[0.5]} ${theme.space[1]}`
-      padding: theme.space[0.5]
+      padding: `${theme.space[0.5]} ${theme.space[1]}`
     },
     '4xl': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['4xl'], 'rem')) + 8}px`,
@@ -116,49 +109,8 @@ export default (
       borderRadius: 'lg',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      // padding: `${theme.space[0.5]} ${theme.space[1]}`
-      padding: theme.space[0.5]
+      padding: `${theme.space[0.5]} ${theme.space[1]}`
     }
-    // '5xl': {
-    //   fontSize: '5xl',
-
-    //   borderRadius: 'base',
-    //   borderWidth: variant !== 'text' ? '2px' : '0',
-
-    //   padding: `${theme.space[0.5]} ${theme.space[1]}`
-    // },
-    // '6xl': {
-    //   fontSize: '6xl',
-
-    //   borderRadius: 'md',
-    //   borderWidth: variant !== 'text' ? '4px' : '0',
-
-    //   padding: `${theme.space[0.75]} ${theme.space[1.5]}`
-    // },
-    // '7xl': {
-    //   fontSize: '7xl',
-
-    //   borderRadius: 'md',
-    //   borderWidth: variant !== 'text' ? '4px' : '0',
-
-    //   padding: `${theme.space[0.75]} ${theme.space[1.5]}`
-    // },
-    // '8xl': {
-    //   fontSize: '8xl',
-
-    //   borderRadius: 'lg',
-    //   borderWidth: variant !== 'text' ? '6px' : '0',
-
-    //   padding: `${theme.space[1]} ${theme.space[2]}`
-    // },
-    // '9xl': {
-    //   fontSize: '9xl',
-
-    //   borderRadius: 'lg',
-    //   borderWidth: variant !== 'text' ? '6px' : '0',
-
-    //   padding: `${theme.space[1]} ${theme.space[2]}`
-    // }
   },
   light: {
     contained: {

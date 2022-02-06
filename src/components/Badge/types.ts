@@ -7,7 +7,7 @@ import { Color, FontSizes } from '../../theme/types';
 
 export type Variant = 'contained' | 'outlined' | 'text';
 
-export type Size = keyof Omit<FontSizes, '5xl' | '6xl' | '7xl' | '8xl' | '9xl'> | string;
+export type Size = keyof Omit<FontSizes, '5xl' | '6xl' | '7xl' | '8xl' | '9xl'> & string;
 
 export type IconProps = {
   color?: keyof Color;
@@ -23,6 +23,7 @@ export type BadgeProps = {
   renderLeftIcon?: (props: IconProps) => Icon;
   renderRightIcon?: (props: IconProps) => Icon;
   isLight?: boolean;
+  isLoading?: boolean;
   size?: Size;
   variant?: Variant;
-} & Omit<CUIBadgeProps, 'colorScheme' | 'size' | 'variant'>;
+} & Omit<CUIBadgeProps, 'colorScheme' | 'fontSize' | 'size' | 'variant'>;
