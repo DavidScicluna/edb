@@ -1,5 +1,5 @@
-import { ImageResponse as Image, Video } from '../../../../common/types';
-import { MediaViewerType } from '../../../../components/MediaViewer/types';
+import { MediaType, Image, Video } from '../../../../common/types';
+import { AssetType } from '../../../../components/MediaViewer/types';
 
 export type Status = {
   images?: boolean;
@@ -7,12 +7,14 @@ export type Status = {
 };
 
 export type MediaProps = {
-  title?: string;
-  photos?: Image[];
+  alt?: string;
+  posters?: Image[];
   backdrops?: Image[];
   videos?: Video[];
+  mediaType: Omit<MediaType, 'company' | 'collection'>;
   isError: Status;
   isSuccess: Status;
   isLoading: Status;
-  onClick: (asset: string, type: MediaViewerType) => void;
+  onAssetClick: (path: string, type: AssetType) => void;
+  onFooterClick: () => void;
 };
