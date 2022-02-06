@@ -4,7 +4,7 @@ import { PartialTV } from '../../../../common/types/tv';
 
 export type ActionsProps = {
   mediaItem?: PartialMovie | PartialTV;
-  mediaType: MediaType;
+  mediaType: Omit<MediaType, 'company' | 'collection'>;
   title?: string;
   isLoading?: boolean;
   isError?: boolean;
