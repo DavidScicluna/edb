@@ -16,9 +16,9 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import Actions from '../../components/Actions';
 import Structure from '../../components/Structure';
 import { handleGetDepartments } from './common/utils';
-import Actions from './components/Actions';
 import CreditsTab from './components/CreditsTab';
 import OverviewTab from './components/OverviewTab';
 import PhotosTab from './components/PhotosTab';
@@ -147,7 +147,15 @@ const Person = (): ReactElement => {
                 isLoading={personQuery.isFetching || personQuery.isLoading}
               />
             ),
-            actions: <Actions person={personQuery.data} isLoading={personQuery.isFetching || personQuery.isLoading} />,
+            actions: (
+              <Actions
+                mediaItem={personQuery.data}
+                mediaType='person'
+                title={personQuery.data?.name}
+                isLoading={personQuery.isFetching || personQuery.isLoading}
+                isError={personQuery.isError}
+              />
+            ),
             tabList: (
               <TabList
                 renderTabs={[

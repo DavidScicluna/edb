@@ -1,8 +1,7 @@
 import { FullPerson } from '../../../../../../common/types/person';
 
-export type TitleProps = {
+export type PersonTitleProps = {
   person?: FullPerson;
   departments?: string[];
   isLoading?: boolean;
-  isQuickView?: boolean;
 };
