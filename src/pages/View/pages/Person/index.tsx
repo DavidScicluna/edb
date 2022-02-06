@@ -198,10 +198,15 @@ const Person = (): ReactElement => {
             ),
             socials: (
               <Socials
-                socials={externalIdsQuery.data}
-                name={personQuery.data?.name}
+                alt={personQuery.data?.name}
+                socials={{ ...externalIdsQuery.data, homepage_id: personQuery.data?.homepage }}
                 orientation='horizontal'
-                isLoading={externalIdsQuery.isFetching || externalIdsQuery.isLoading}
+                isLoading={
+                  personQuery.isFetching ||
+                  personQuery.isLoading ||
+                  externalIdsQuery.isFetching ||
+                  externalIdsQuery.isLoading
+                }
               />
             ),
             tabPanels: (
