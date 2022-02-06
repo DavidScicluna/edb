@@ -1,11 +1,13 @@
-import { Genre, Rating } from '../../../../common/types';
+import { ReactElement } from 'react';
+
+export type RenderProps = {
+  color: string;
+  fontSize: 'xs' | 'sm' | '2xl' | '3xl';
+  fontWeight: string;
+};
 
 export type TitleProps = {
-  title?: string;
-  rating?: Rating;
-  date?: string;
-  genres?: Genre[];
-  certification?: string;
-  runtime?: number | null;
-  isLoading?: boolean;
+  renderTitle: (props: RenderProps) => ReactElement;
+  renderSubtitles: (props: Omit<RenderProps, 'fontWeight'>) => ReactElement[];
+  isLoading: boolean;
 };
