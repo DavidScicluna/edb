@@ -11,7 +11,7 @@ import LeftArrow from './components/LeftArrow';
 import RightArrow from './components/RightArrow';
 import { HorizontalScrollProps } from './types';
 
-const HorizontalScroll = ({ children, divider, isDisabled = false }: HorizontalScrollProps): ReactElement => {
+const HorizontalScroll = ({ children, renderDivider, isDisabled = false }: HorizontalScrollProps): ReactElement => {
   const theme = useTheme<Theme>();
 
   return (
@@ -26,7 +26,7 @@ const HorizontalScroll = ({ children, divider, isDisabled = false }: HorizontalS
         <Child
           key={`child-${index}`}
           itemId={`child-${index}`}
-          divider={divider}
+          renderDivider={renderDivider}
           isLast={index === children.length - 1}
         >
           {child}

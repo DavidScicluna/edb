@@ -29,11 +29,11 @@ const Title = (props: TitleProps): ReactElement => {
         fontWeight: 'bold'
       })}
       <HorizontalScroll
-        divider={
-          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
+        renderDivider={({ padding }) => (
+          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' px={padding}>
             •
           </Text>
-        }
+        )}
         isDisabled={isLoading}
       >
         {renderSubtitles({

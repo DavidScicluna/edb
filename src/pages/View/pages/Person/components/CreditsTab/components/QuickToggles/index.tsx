@@ -31,11 +31,11 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 
         <Center width={`calc(100% - ${width}px)`} height='100%'>
           <HorizontalScroll
-            divider={
-              <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
+            renderDivider={({ padding }) => (
+              <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' px={padding}>
                 •
               </Text>
-            }
+            )}
             isDisabled={isLoading}
           >
             {[...(!isLoading ? departments : _.range(0, 5))].map((department, index) => (

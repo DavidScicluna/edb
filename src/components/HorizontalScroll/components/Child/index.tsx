@@ -1,15 +1,22 @@
 import React, { ReactElement } from 'react';
 
-import { Center } from '@chakra-ui/react';
+import { useTheme, Center } from '@chakra-ui/react';
 
+import { Theme } from '../../../../theme/types';
 import { ChildProps } from './types';
 
-const Child = ({ divider, children, isLast = false }: ChildProps): ReactElement => {
+const Child = ({ children, renderDivider, isLast = false }: ChildProps): ReactElement => {
+  const theme = useTheme<Theme>();
+
   return (
     <Center wrap='nowrap'>
       {children}
 
-      {divider && !isLast ? <Center px={1}>{divider}</Center> : null}
+      {renderDivider && !isLast ? (
+        <Center p={0} m={0}>
+          {renderDivider({ padding: theme.space['0.75'] })}
+        </Center>
+      ) : null}
     </Center>
   );
 };
