@@ -4,7 +4,6 @@ import { LinksProps } from '../../types';
 export type LinkProps = {
   color?: string;
   icon?: Icon;
-  type?: string;
   href?: string;
   isDisabled?: boolean;
-} & Omit<LinksProps, 'color' | 'socials' | 'isLoading'>;
+} & Omit<LinksProps, 'alt' | 'color' | 'socials' | 'isLoading'>;

@@ -13,13 +13,12 @@ const Link = (props: LinkProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { color, name, type, href, icon, isDisabled = false } = props;
+  const { color, href, icon, isDisabled = false } = props;
 
   const style = useStyles(theme, { colorMode, color });
 
   return (
     <CUILink
-      aria-label={`${name ? `"${name}"` : ''} ${type} link`}
       isExternal
       href={href}
       target='_blank'

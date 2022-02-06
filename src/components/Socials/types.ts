@@ -1,8 +1,8 @@
 import { ExternalIDs } from '../../common/types';
 
 export type SocialsProps = {
+  alt?: string;
   socials?: ExternalIDs;
-  name?: string;
   orientation?: 'vertical' | 'horizontal';
   isLoading?: boolean;
   isDisabled?: boolean;

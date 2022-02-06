@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useTheme } from '@chakra-ui/react';
+import { Fade, useColorMode, useTheme } from '@chakra-ui/react';
 import {
   Facebook as FacebookIcon,
   Twitter as TwitterIcon,
@@ -39,69 +39,64 @@ const Links = (props: LinksProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { socials, name, isLoading = true, isDisabled = false } = props;
+  const { alt, socials, isLoading = true, isDisabled = false } = props;
 
   return !isLoading ? (
     <>
       {/* Facebook */}
-      {socials?.facebook_id ? (
+      <Fade in={!_.isNil(socials?.facebook_id) && !_.isEmpty(socials?.facebook_id)} unmountOnExit>
         <Link
+          aria-label={`${alt ? `"${alt}"` : ''} Facebook link`}
           color='#4267B2' // Facebook Logo Color
-          name={name}
-          href={`https://www.facebook.com/${socials.facebook_id}`}
-          type='Facebook'
+          href={`https://www.facebook.com/${socials?.facebook_id}`}
           icon={<FacebookIcon />}
           isDisabled={isDisabled}
         />
-      ) : null}
+      </Fade>
 
       {/* Twitter */}
-      {socials?.twitter_id ? (
+      <Fade in={!_.isNil(socials?.twitter_id) && !_.isEmpty(socials?.twitter_id)} unmountOnExit>
         <Link
+          aria-label={`${alt ? `"${alt}"` : ''} Twitter link`}
           color='#1DA1F2' // Twitter Logo Color
-          name={name}
-          href={`https://www.twitter.com/${socials.twitter_id}`}
-          type='Twitter'
+          href={`https://www.twitter.com/${socials?.twitter_id}`}
           icon={<TwitterIcon />}
           isDisabled={isDisabled}
         />
-      ) : null}
+      </Fade>
 
       {/* Instagram */}
-      {socials?.instagram_id ? (
+      <Fade in={!_.isNil(socials?.instagram_id) && !_.isEmpty(socials?.instagram_id)} unmountOnExit>
         <Link
+          aria-label={`${alt ? `"${alt}"` : ''} Instagram link`}
           color={theme.colors[color][colorMode === 'light' ? 400 : 500]}
-          name={name}
-          href={`https://www.instagram.com/${socials.instagram_id}`}
-          type='Instagram'
+          href={`https://www.instagram.com/${socials?.instagram_id}`}
           icon={<InstagramIcon />}
           isDisabled={isDisabled}
         />
-      ) : null}
+      </Fade>
 
       {/* IMDB */}
-      {socials?.imdb_id ? (
+      <Fade in={!_.isNil(socials?.imdb_id) && !_.isEmpty(socials?.imdb_id)} unmountOnExit>
         <Link
+          aria-label={`${alt ? `"${alt}"` : ''} IMDB link`}
           color='#F5C518' // IMDB Logo Color
-          name={name}
-          href={`https://www.imdb.com/name/${socials.imdb_id}`}
-          type='IMDB'
+          href={`https://www.imdb.com/alt/${socials?.imdb_id}`}
           icon={<ImdbIcon />}
           isDisabled={isDisabled}
         />
-      ) : null}
+      </Fade>
 
       {/* Homepage */}
-      {socials?.homepage_id ? (
+      <Fade in={!_.isNil(socials?.homepage_id) && !_.isEmpty(socials?.homepage_id)} unmountOnExit>
         <Link
+          aria-label={`${alt ? `"${alt}"` : ''} Homepage link`}
           color={theme.colors[color][colorMode === 'light' ? 400 : 500]}
-          name={name}
-          href={socials?.homepage_id}
-          type='Homepage'
+          href={socials?.homepage_id || ''}
           icon={<LanguageOutlinedIcon />}
           isDisabled={isDisabled}
         />
-      ) : null}
+      </Fade>
     </>
   ) : (
     <>
