@@ -13,7 +13,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from '../../common/hooks';
 import axiosInstance from '../../common/scripts/axios';
 import { Response, PartialCompany } from '../../common/types';
-import { PartialMovie } from '../../common/types/movie';
+import { PartialMovie, Collection } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
 import DisplayMode from '../../components/Clickable/DisplayMode';
@@ -30,7 +30,7 @@ import Keywords from './components/Form/components/Keywords';
 import { Keyword } from './components/Form/components/Keywords/types';
 import RecentSearches from './components/Form/components/RecentSearches';
 import SearchTypes from './components/Form/components/SearchTypes';
-import { InputKeyboardEvent, InputChangeEvent, Collection } from './types';
+import { InputKeyboardEvent, InputChangeEvent } from './types';
 
 const Search = (): ReactElement => {
   const source = axios.CancelToken.source();

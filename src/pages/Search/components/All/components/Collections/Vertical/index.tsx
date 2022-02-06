@@ -3,11 +3,11 @@ import React, { ReactElement } from 'react';
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { Collection as CollectionType } from '../../../../../../../common/types/movie';
 import LoadMore from '../../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../../components/Empty';
 import Error from '../../../../../../../components/Error';
 import VerticalGrid from '../../../../../../../components/Grid/Vertical';
-import { Collection as CollectionType } from '../../../../../types';
 import HorizontalCollectionPoster from '../components/Poster/Horizontal';
 import VerticalCollectionPoster from '../components/Poster/Vertical';
 import { VerticalSearchCollectionsProps } from './types';

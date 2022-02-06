@@ -1,7 +1,7 @@
 import { UseInfiniteQueryResult } from 'react-query';
 
 import { Response } from '../../../../../../../common/types';
-import { Collection } from '../../../../../types';
+import { Collection } from '../../../../../../../common/types/movie';
 
 export type VerticalSearchCollectionsProps = {
   query: string;

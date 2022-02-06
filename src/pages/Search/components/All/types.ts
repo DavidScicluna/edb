@@ -1,11 +1,10 @@
 import { UseInfiniteQueryResult } from 'react-query';
 
-import { Company, Response } from '../../../../common/types';
-import { PartialMovie } from '../../../../common/types/movie';
+import { PartialCompany, Response } from '../../../../common/types';
+import { Collection, PartialMovie } from '../../../../common/types/movie';
 import { PartialPerson } from '../../../../common/types/person';
 import { PartialTV } from '../../../../common/types/tv';
 import { SearchType } from '../../../../store/slices/User/types';
-import { Collection } from '../../types';
 
 export type AllProps = {
   query: string;
@@ -16,8 +15,8 @@ export type AllProps = {
   showsQuery: UseInfiniteQueryResult<Response<PartialTV[]>>;
   people?: Response<PartialPerson[]>;
   peopleQuery: UseInfiniteQueryResult<Response<PartialPerson[]>>;
-  companies?: Response<Company[]>;
-  companiesQuery: UseInfiniteQueryResult<Response<Company[]>>;
+  companies?: Response<PartialCompany[]>;
+  companiesQuery: UseInfiniteQueryResult<Response<PartialCompany[]>>;
   collections?: Response<Collection[]>;
   collectionsQuery: UseInfiniteQueryResult<Response<Collection[]>>;
 };

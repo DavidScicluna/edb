@@ -1,6 +1,4 @@
-import { Collection as MovieCollection } from '../../../../../../common/types/movie';
-
-export type Collection = Omit<MovieCollection, 'parts'>;
+import { Collection } from '../../../../../../common/types/movie';
 
 export type CollectionsProps = {
   collections: Collection[];

@@ -1,7 +1,7 @@
-import { Collection as MovieCollection } from '../../../../../../../../../common/types/movie';
+import { Collection } from '../../../../../../../../../common/types/movie';
 
 export type VerticalCollectionPosterProps = {
-  collection?: Omit<MovieCollection, 'parts'>;
+  collection?: Collection;
   width?: string | string[];
   isLoading?: boolean;
 };

@@ -3,13 +3,14 @@ import React, { ReactElement, useState } from 'react';
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { Collection } from '../../../../../../common/types/movie';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import HorizontalCompanyPoster from '../../../../../Search/components/All/components/Collections/components/Poster/Horizontal';
 import VerticalCompanyPoster from '../../../../../Search/components/All/components/Collections/components/Poster/Vertical';
-import { CollectionsProps, Collection } from './types';
+import { CollectionsProps } from './types';
 
 const incrementBy = 20;
 

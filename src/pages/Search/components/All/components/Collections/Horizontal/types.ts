@@ -1,4 +1,4 @@
-import { Collection } from '../../../../../types';
+import { Collection } from '../../../../../../../common/types/movie';
 
 export type CollectionsProps = {
   query: string;
