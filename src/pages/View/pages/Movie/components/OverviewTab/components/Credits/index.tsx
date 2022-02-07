@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { Crew } from '../../../../../../../../common/types/movie';
 import Label from '../../../../../../components/Hero/components/Label';
 import Credit from './components/Credit';
 import { CreditsProps, ListItem } from './types';
@@ -10,7 +11,12 @@ import { CreditsProps, ListItem } from './types';
 const Credits = (props: CreditsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { directors, executiveProducers, producers, writers, isLoading = true } = props;
+  const { crew = [], isLoading = true } = props;
+
+  const [directors, setDirectors] = useState<Crew[]>([]);
+  const [executiveProducers, setExecutiveProducers] = useState<Crew[]>([]);
+  const [producers, setProducers] = useState<Crew[]>([]);
+  const [writers, setWriters] = useState<Crew[]>([]);
 
   const renderCredits: ListItem[] = _.compact([
     (!_.isNil(directors) && !_.isEmpty(directors)) || isLoading
@@ -38,6 +44,33 @@ const Credits = (props: CreditsProps): ReactElement => {
         }
       : undefined
   ]);
+
+  useEffect(() => {
+    if (!_.isNil(writers) && !_.isEmpty(writers) && !isLoading) {
+      crew.filter((person) => {
+        switch (person.job) {
+          case 'Director': {
+            setDirectors([...directors, person]);
+            break;
+          }
+          case 'Executive Producer': {
+            setExecutiveProducers([...executiveProducers, person]);
+            break;
+          }
+          case 'Producer': {
+            setProducers([...producers, person]);
+            break;
+          }
+          case 'Writer': {
+            setWriters([...writers, person]);
+            break;
+          }
+          default:
+            break;
+        }
+      });
+    }
+  }, [crew]);
 
   return (
     <Stack

@@ -8,9 +8,6 @@ export type ListItem = {
 };
 
 export type CreditsProps = {
-  directors?: Crew[];
-  executiveProducers?: Crew[];
-  producers?: Crew[];
-  writers?: Crew[];
+  crew?: Crew[];
   isLoading?: boolean;
 };

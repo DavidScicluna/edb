@@ -11,6 +11,8 @@ import { RecommendationsProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 
+// Add Actions button with tooltip explaining how Recommendations works
+
 const Recommendations = (props: RecommendationsProps): ReactElement => {
   const { recommendations = [], title, isError = false, isSuccess = false, isLoading = true } = props;
 
