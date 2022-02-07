@@ -27,7 +27,7 @@ export type PanelProps = {
   isDivisible?: boolean;
   size?: Size;
   variant?: Variant;
-} & CUIBoxProps;
+} & Omit<CUIBoxProps, 'title'>;
 
 export type Context = {
   size?: Size;
