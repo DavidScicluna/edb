@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
+import _ from 'lodash';
 
+import Media from '../../../../components/Media';
 import Bio from './components/Bio';
 import KnownFor from './components/KnownFor';
-import Photos from './components/Photos';
 import { OverviewTabProps } from './types';
 
 const OverviewTab = (props: OverviewTabProps): ReactElement => {
@@ -31,14 +32,27 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
         onChangeTab={onChangeTab}
       />
 
-      <Photos
-        images={images}
-        name={person?.name}
-        isError={isError?.images}
-        isSuccess={isSuccess?.images}
-        isLoading={isLoading?.images}
-        onClickImage={onClickImage}
-        onChangeTab={onChangeTab}
+      <Media
+        alt={person?.name}
+        assets={_.compact([
+          {
+            label: 'Photos',
+            type: 'poster',
+            data: images || []
+          }
+        ])}
+        mediaType='person'
+        isError={{
+          images: isError?.images
+        }}
+        isSuccess={{
+          images: isSuccess?.images
+        }}
+        isLoading={{
+          images: isLoading?.images
+        }}
+        onAssetClick={(path: string) => onClickImage(path)}
+        onFooterClick={() => onChangeTab(3)}
       />
     </VStack>
   );
