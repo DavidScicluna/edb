@@ -11,7 +11,7 @@ const Footer = (props: FooterProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { total, label, isDisabled, onClick } = props;
+  const { total, label, isDisabled = false, onClick } = props;
 
   return (
     <Button
