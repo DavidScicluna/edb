@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { StateProps, Country, Language, Job, Genre, Certifications } from './types';
+import { Country, Language, Job, Genre, Certifications } from '../../../common/types';
+import { StateProps } from './types';
 
 const initialState: StateProps = {
   data: {

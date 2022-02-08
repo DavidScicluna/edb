@@ -14,16 +14,15 @@ import {
   setMovieCertifications,
   setTVCertifications
 } from '../../store/slices/Options';
-import { OptionsCertifications } from '../../store/slices/Options/types';
 import axiosInstance from '../scripts/axios';
-import { Genre, Country, Language, Job } from '../types';
+import { Genre, Certifications as CertificationsType, Country, Language, Job } from '../types';
 
 export type Genres = {
   genres?: Genre[];
 };
 
 export type Certifications = {
-  certifications?: OptionsCertifications;
+  certifications?: CertificationsType;
 };
 
 const usePopulateOptions = (): void => {

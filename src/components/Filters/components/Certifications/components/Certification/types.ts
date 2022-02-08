@@ -1,4 +1,4 @@
-import { Certification } from '../../../../../../store/slices/Options/types';
+import { Certification } from '../../../../../../common/types';
 
 export type CertificationProps = {
   isActive?: boolean;

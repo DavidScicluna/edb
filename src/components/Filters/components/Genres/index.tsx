@@ -6,10 +6,10 @@ import { Controller } from 'react-hook-form';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
+import { Genre as GenreType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
 import Divider from '../../../../components/Divider';
 import Empty from '../../../../components/Empty';
-import { Genre as GenreType } from '../../../../store/slices/Options/types';
 import Panel from '../../../Panel';
 import Genre from './components/Genre';
 import { GenresProps } from './types';

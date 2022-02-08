@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
-import { MediaType, Icon } from '../../common/types';
-import { Genre, Certification } from '../../store/slices/Options/types';
+import { MediaType, Icon, Genre, Certification } from '../../common/types';
 import { Color } from '../../theme/types';
 
 type FormDate = string | undefined;

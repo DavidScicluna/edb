@@ -7,10 +7,10 @@ import { Controller } from 'react-hook-form';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
+import { Certification as CertificationType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
 import Divider from '../../../../components/Divider';
 import Empty from '../../../../components/Empty';
-import { Certification as CertificationType } from '../../../../store/slices/Options/types';
 import Panel from '../../../Panel';
 import Certification from './components/Certification';
 import { CertificationsProps } from './types';

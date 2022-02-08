@@ -1,8 +1,5 @@
 import { ReactElement } from 'react';
 
-import { PartialMovie } from './movie';
-import { PartialTV } from './tv';
-
 // Utility Types
 export type NonNullable<T> = Exclude<T, null | undefined>; // Remove null and undefined from Type
 
@@ -11,30 +8,20 @@ export type Style = { [key: string]: number | string | unknown | Style };
 
 export type Icon = ReactElement;
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
-
-export type ButtonType = 'button' | 'iconButton';
-
-export type ColorMode = 'light' | 'dark';
-
-export type Image = {
-  alt: string;
-  src: string;
-  size: {
-    thumbnail: string;
-    full: string;
-  };
-};
+export type Orientation = 'vertical' | 'horizontal';
 
 // Data Types
+export type BoringAvatarType = 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
+
 export type Response<Data> = {
-  page: number;
-  results: Data;
-  total_pages: number;
-  total_results: number;
+  page?: number;
+  results?: Data;
+  total_pages?: number;
+  total_results?: number;
 };
 
 export type ExternalIDs = {
+  homepage_id?: string | null;
   imdb_id?: string | null;
   facebook_id?: string | null;
   freebase_mid?: string | null;
@@ -45,48 +32,47 @@ export type ExternalIDs = {
   instagram_id?: string | null;
 };
 
-export type MediaType = 'movie' | 'tv' | 'person';
+export type MediaType = 'movie' | 'tv' | 'person' | 'company' | 'collection';
 
 export type Keyword = {
-  id: number;
-  name: string;
+  id?: number;
+  name?: string;
 };
 
-export type Status = 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
-
 export type Video = {
-  iso_639_1: string;
-  iso_3166_1: string;
-  name: string;
-  key: string;
-  site: string;
-  size: number;
-  type: string;
-  official: boolean;
-  published_at: string;
-  id: string;
+  iso_639_1?: string;
+  iso_3166_1?: string;
+  name?: string;
+  key?: string;
+  site?: string;
+  size?: number;
+  type?: string;
+  official?: boolean;
+  published_at?: string;
+  id?: string;
 };
 
 export type Videos = {
-  id: number;
-  results: Video[];
+  id?: number;
+  results?: Video[];
 };
 
-export type ImageResponse = {
-  aspect_ratio: number;
-  file_path: string;
-  width: number;
-  height: number;
-  iso_639_1: string | null;
-  vote_average: number;
-  vote_count: number;
+export type Image = {
+  aspect_ratio?: number;
+  file_path?: string;
+  height?: number | null;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
 };
 
 export type Images = {
-  id: number;
-  stills?: ImageResponse[];
-  backdrops?: ImageResponse[];
-  posters?: ImageResponse[];
+  id?: number;
+  logos?: Image[];
+  profiles?: Image[];
+  backdrops?: Image[];
+  posters?: Image[];
 };
 
 type Author = { name: string; username: string; avatar_path: string | null; rating: number | null };
@@ -101,46 +87,30 @@ export type Review = {
   url?: string;
 };
 
+export type PartialCompany = {
+  id?: number;
+  logo_path?: string | null;
+  name?: string;
+  origin_country?: string;
+};
+
+export type FullCompany = {
+  description?: string;
+  headquarters?: string;
+  homepage?: string;
+  parent_company?: FullCompany | null;
+} & PartialCompany;
+
 export type ProductionCompany = {
-  id: number;
-  name: string;
-  logo_path: string | null;
-  origin_country: string;
+  name?: string;
+  id?: number;
+  logo_path?: string | null;
+  origin_country?: string;
 };
 
 export type ProductionCountry = {
-  iso_3166_1: string;
-  name: string;
-};
-
-export type Collection = {
-  id: number;
-  name: string;
-  overview: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
-  parts: (PartialMovie & PartialTV)[];
-};
-
-export type Genre = {
-  id?: number;
+  iso_3166_1?: string;
   name?: string;
-};
-
-export type Genres = {
-  genres?: Genre[];
-};
-
-export type Certification = {
-  certification?: string;
-  meaning?: string;
-  order?: number;
-};
-
-type CertificationKey = 'US' | 'CA' | 'DE' | 'GB' | 'AU' | 'BR' | 'FR' | 'NZ' | 'IN';
-
-export type Certifications = {
-  certifications?: { [key in CertificationKey]: Certification[] };
 };
 
 // export type WatchProvider = {
@@ -154,8 +124,33 @@ export type Certifications = {
 //   results?: WatchProvider[];
 // };
 
+export type Country = {
+  iso_3166_1?: string;
+  english_name?: string;
+};
+
 export type Language = {
   iso_639_1?: string;
   english_name?: string;
   name?: string;
 };
+
+export type Job = {
+  department?: string;
+  jobs?: string[];
+};
+
+export type Genre = {
+  id?: number;
+  name?: string;
+};
+
+export type Certification = {
+  certification?: string;
+  meaning?: string;
+  order?: number;
+};
+
+// export type CertificationKey = 'US' | 'CA' | 'DE' | 'GB' | 'AU' | 'BR' | 'FR' | 'NZ' | 'IN';
+
+export type Certifications = { [key: string]: Certification[] };
