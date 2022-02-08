@@ -1,4 +1,4 @@
-import { Genre, ProductionCompany, ProductionCountry, Language } from '.';
+import { ProductionCompany, ProductionCountry, Genre, Language } from '.';
 import { FullPerson } from './person';
 
 export type Cast = {
@@ -42,15 +42,32 @@ export type PartialMovie = {
   genre_ids?: number[];
 } & Movie;
 
+type ReleaseDate = {
+  certification?: string;
+  iso_639_1?: string;
+  note?: string;
+  release_date?: string;
+  type?: number;
+};
+
+type ReleaseDatesResults = {
+  iso_3166_1?: string;
+  release_dates?: ReleaseDate[];
+};
+
+type ReleaseDates = {
+  results?: ReleaseDatesResults[];
+};
+
 type Status = 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
 
-type Collection = {
-  backdrop_path?: string;
+export type Collection = {
+  backdrop_path?: string | null;
   id?: number;
   name?: string;
   overview?: string;
   parts?: PartialMovie[];
-  poster_path?: null;
+  poster_path?: string | null;
 };
 
 export type FullMovie = {
@@ -61,6 +78,7 @@ export type FullMovie = {
   imdb_id?: string | null;
   production_companies?: ProductionCompany[];
   production_countries?: ProductionCountry[];
+  release_dates?: ReleaseDates;
   revenue?: number;
   runtime?: number | null;
   spoken_languages?: Language[];
