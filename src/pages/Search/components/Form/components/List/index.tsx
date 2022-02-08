@@ -18,7 +18,7 @@ const List = (props: ListProps): ReactElement => {
   }, []);
 
   return (
-    <Panel isFullWidth isDivisible={false} variant='transparent'>
+    <Panel isFullWidth isDivisible={false} size='xs' variant='transparent'>
       {{
         header: {
           title: (
