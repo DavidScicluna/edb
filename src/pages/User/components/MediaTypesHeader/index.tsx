@@ -55,116 +55,120 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
         </Fade>
       }
     >
-      <TabList
-        renderTabs={_.compact([
+      <TabList color={color}>
+        {_.compact([
           mediaTypes.includes('movie')
             ? {
-                renderLeftIcon: ({ isSelected, fontSize }) =>
+                label: 'Movies',
+                isDisabled: total.movie === 0,
+                renderLeft: ({ isSelected, width, height }) =>
                   isSelected ? (
-                    <TheatersTwoToneIcon style={{ fontSize }} />
+                    <TheatersTwoToneIcon style={{ width, height }} />
                   ) : (
-                    <TheatersOutlinedIcon style={{ fontSize }} />
+                    <TheatersOutlinedIcon style={{ width, height }} />
                   ),
-                renderRightIcon:
+                renderRight:
                   (total.movie || 0) > 0
-                    ? ({ isSelected, fontSize }) => (
+                    ? ({ isSelected, size }) => (
                         <Fade in unmountOnExit>
-                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                             <CountUp duration={1} end={total.movie || 0} />
                           </Badge>
                         </Fade>
                       )
-                    : undefined,
-                label: 'Movies',
-                isDisabled: total.movie === 0
+                    : undefined
               }
             : undefined,
           mediaTypes.includes('tv')
             ? {
-                renderLeftIcon: ({ isSelected, fontSize }) =>
-                  isSelected ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
-                renderRightIcon:
+                label: 'TV Shows',
+                isDisabled: total.tv === 0,
+                renderLeft: ({ isSelected, width, height }) =>
+                  isSelected ? (
+                    <TvTwoToneIcon style={{ width, height }} />
+                  ) : (
+                    <TvOutlinedIcon style={{ width, height }} />
+                  ),
+                renderRight:
                   (total.tv || 0) > 0
-                    ? ({ isSelected, fontSize }) => (
+                    ? ({ isSelected, size }) => (
                         <Fade in unmountOnExit>
-                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                             <CountUp duration={1} end={total.tv || 0} />
                           </Badge>
                         </Fade>
                       )
-                    : undefined,
-                label: 'TV Shows',
-                isDisabled: total.tv === 0
+                    : undefined
               }
             : undefined,
           mediaTypes.includes('person')
             ? {
-                renderLeftIcon: ({ isSelected, fontSize }) =>
+                label: 'People',
+                isDisabled: total.person === 0,
+                renderLeft: ({ isSelected, width, height }) =>
                   isSelected ? (
-                    <PeopleAltTwoToneIcon style={{ fontSize }} />
+                    <PeopleAltTwoToneIcon style={{ width, height }} />
                   ) : (
-                    <PeopleAltOutlinedIcon style={{ fontSize }} />
+                    <PeopleAltOutlinedIcon style={{ width, height }} />
                   ),
-                renderRightIcon:
+                renderRight:
                   (total.person || 0) > 0
-                    ? ({ isSelected, fontSize }) => (
+                    ? ({ isSelected, size }) => (
                         <Fade in unmountOnExit>
-                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                             <CountUp duration={1} end={total.person || 0} />
                           </Badge>
                         </Fade>
                       )
-                    : undefined,
-                label: 'People',
-                isDisabled: total.person === 0
+                    : undefined
               }
             : undefined,
           mediaTypes.includes('company')
             ? {
-                renderLeftIcon: ({ isSelected, fontSize }) =>
+                label: 'Companies',
+                isDisabled: total.company === 0,
+                renderLeft: ({ isSelected, width, height }) =>
                   isSelected ? (
-                    <BusinessTwoToneIcon style={{ fontSize }} />
+                    <BusinessTwoToneIcon style={{ width, height }} />
                   ) : (
-                    <BusinessOutlinedIcon style={{ fontSize }} />
+                    <BusinessOutlinedIcon style={{ width, height }} />
                   ),
-                renderRightIcon:
+                renderRight:
                   (total.company || 0) > 0
-                    ? ({ isSelected, fontSize }) => (
+                    ? ({ isSelected, size }) => (
                         <Fade in unmountOnExit>
-                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                             <CountUp duration={1} end={total.company || 0} />
                           </Badge>
                         </Fade>
                       )
-                    : undefined,
-                label: 'Companies',
-                isDisabled: total.company === 0
+                    : undefined
               }
             : undefined,
           mediaTypes.includes('collection')
             ? {
-                renderLeftIcon: ({ isSelected, fontSize }) =>
+                label: 'Collections',
+                isDisabled: total.collection === 0,
+                renderLeft: ({ isSelected, width, height }) =>
                   isSelected ? (
-                    <LibraryBooksTwoToneIcon style={{ fontSize }} />
+                    <LibraryBooksTwoToneIcon style={{ width, height }} />
                   ) : (
-                    <LibraryBooksOutlinedIcon style={{ fontSize }} />
+                    <LibraryBooksOutlinedIcon style={{ width, height }} />
                   ),
-                renderRightIcon:
+                renderRight:
                   (total.collection || 0) > 0
-                    ? ({ isSelected, fontSize }) => (
+                    ? ({ isSelected, size }) => (
                         <Fade in unmountOnExit>
-                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                          <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                             <CountUp duration={1} end={total.collection || 0} />
                           </Badge>
                         </Fade>
                       )
-                    : undefined,
-                label: 'Collections',
-                isDisabled: total.collection === 0
+                    : undefined
               }
             : undefined
         ])}
-      />
+      </TabList>
 
       {renderActions ? (
         <HStack spacing={2}>

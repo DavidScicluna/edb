@@ -99,18 +99,18 @@ const Collection = (): ReactElement => {
                   </Fade>
                 }
               >
-                <TabList
-                  renderTabs={[
+                <TabList color={color}>
+                  {[
                     {
                       label: 'Overview'
                     },
                     {
                       label: 'Parts',
-                      renderRightIcon:
+                      renderRight:
                         (collectionQuery.data?.parts || []).length > 0
-                          ? ({ isSelected, fontSize }) => (
+                          ? ({ isSelected, size }) => (
                               <Fade in unmountOnExit>
-                                <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                                <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                                   <CountUp duration={1} end={collectionQuery.data?.parts?.length || 0} />
                                 </Badge>
                               </Fade>
@@ -118,7 +118,7 @@ const Collection = (): ReactElement => {
                           : undefined
                     }
                   ]}
-                />
+                </TabList>
 
                 <Fade in={activeTab === 1} unmountOnExit>
                   <DisplayMode ref={ref} />

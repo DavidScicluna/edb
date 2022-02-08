@@ -165,19 +165,19 @@ const Person = (): ReactElement => {
               />
             ),
             tabList: (
-              <TabList
-                renderTabs={[
+              <TabList color={color}>
+                {[
                   {
                     label: 'Overview'
                   },
                   {
                     label: 'Credits',
                     isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
-                    renderRightIcon:
+                    renderRight:
                       (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) > 0
-                        ? ({ isSelected, fontSize }) => (
+                        ? ({ isSelected, size }) => (
                             <Fade in unmountOnExit>
-                              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                                 <CountUp
                                   duration={1}
                                   end={(creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0)}
@@ -190,11 +190,11 @@ const Person = (): ReactElement => {
                   {
                     label: 'Photos',
                     isDisabled: imagesQuery.isError || imagesQuery.isFetching || imagesQuery.isLoading,
-                    renderRightIcon:
+                    renderRight:
                       (imagesQuery.data?.profiles?.length || 0) > 0
-                        ? ({ isSelected, fontSize }) => (
+                        ? ({ isSelected, size }) => (
                             <Fade in unmountOnExit>
-                              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                                 <CountUp duration={1} end={imagesQuery.data?.profiles?.length || 0} />
                               </Badge>
                             </Fade>
@@ -202,7 +202,7 @@ const Person = (): ReactElement => {
                         : undefined
                   }
                 ]}
-              />
+              </TabList>
             ),
             socials: (
               <Socials

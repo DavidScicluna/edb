@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement } from 'react';
 
 import { useTheme, HStack, Fade } from '@chakra-ui/react';
 import {
@@ -12,6 +12,7 @@ import {
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
+import { useSelector } from '../../../../common/hooks';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
 import TabList from '../../../../components/Tabs/components/TabList';
@@ -20,6 +21,8 @@ import { HeaderProps } from './types';
 
 const Header = ({ activeTab }: HeaderProps): ReactElement => {
   const theme = useTheme<Theme>();
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [ref, { height }] = useElementSize();
 
@@ -40,29 +43,33 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
         </Fade>
       }
     >
-      <TabList
-        renderTabs={[
+      <TabList color={color}>
+        {[
           {
-            renderLeftIcon: ({ isSelected, fontSize }) =>
-              isSelected ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
-            label: 'Movies'
-          },
-          {
-            renderLeftIcon: ({ isSelected, fontSize }) =>
-              isSelected ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
-            label: 'TV Shows'
-          },
-          {
-            renderLeftIcon: ({ isSelected, fontSize }) =>
+            label: 'Movies',
+            renderLeft: ({ isSelected, width, height }) =>
               isSelected ? (
-                <PeopleAltTwoToneIcon style={{ fontSize }} />
+                <TheatersTwoToneIcon style={{ width, height }} />
               ) : (
-                <PeopleAltOutlinedIcon style={{ fontSize }} />
-              ),
-            label: 'People'
+                <TheatersOutlinedIcon style={{ width, height }} />
+              )
+          },
+          {
+            label: 'TV Shows',
+            renderLeft: ({ isSelected, width, height }) =>
+              isSelected ? <TvTwoToneIcon style={{ width, height }} /> : <TvOutlinedIcon style={{ width, height }} />
+          },
+          {
+            label: 'People',
+            renderLeft: ({ isSelected, width, height }) =>
+              isSelected ? (
+                <PeopleAltTwoToneIcon style={{ width, height }} />
+              ) : (
+                <PeopleAltOutlinedIcon style={{ width, height }} />
+              )
           }
         ]}
-      />
+      </TabList>
 
       <Fade in={!_.isNil(activeTab)} unmountOnExit>
         <DisplayMode />

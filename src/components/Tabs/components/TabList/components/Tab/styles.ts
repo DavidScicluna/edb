@@ -1,5 +1,5 @@
 import { Style } from '../../../../../../common/types';
-import { Theme, Color } from '../../../../../../theme/types';
+import { Theme } from '../../../../../../theme/types';
 import { TabsProps, Size } from './types';
 
 type SizeStyle = { [key in Size]: Style };
@@ -14,7 +14,7 @@ export type TabStyle = {
 };
 
 type StyleTabsProps = {
-  color: keyof Color;
+  color: TabsProps['color'];
   isFullWidth: TabsProps['isFullWidth'];
   isSelected: TabsProps['isSelected'];
 };
@@ -28,12 +28,7 @@ export default (
       'cursor': 'pointer',
 
       'width': isFullWidth ? '100%' : 'auto',
-      'height': 'auto',
-
-      'minWidth': 'auto',
-      'minHeight': 'auto',
-      'maxWidth': 'none',
-      'maxHeight': 'none',
+      'height': '100%',
 
       'userSelect': 'none',
 

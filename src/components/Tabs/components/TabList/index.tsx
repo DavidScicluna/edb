@@ -11,13 +11,20 @@ import { TabListProps } from './types';
 const TabList = (props: TabListProps): ReactElement => {
   const { activeTab } = useContext<TabsContextType>(TabsContext);
 
-  const { renderTabs, size = 'md' } = props;
+  const { children = [], color = 'gray', size = 'md' } = props;
 
   return (
     <CUITabList width='100%'>
       <HorizontalScroll>
-        {renderTabs.map((tab, index) => (
-          <Tab {...tab} key={index} isSelected={activeTab === index} size={size} />
+        {children.map((tab, index) => (
+          <Tab
+            {...tab}
+            key={index}
+            color={color}
+            total={children.length}
+            isSelected={activeTab === index}
+            size={size}
+          />
         ))}
       </HorizontalScroll>
     </CUITabList>

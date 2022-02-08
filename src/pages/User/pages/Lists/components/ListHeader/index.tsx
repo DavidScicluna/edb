@@ -26,15 +26,15 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
       divider={<Divider orientation='vertical' height={`${height}px`} mx={2} />}
     >
       <ListsTabButton isSelected={_.isNil(activeTab)} onClick={onListsClick} />
-      <TabList
-        renderTabs={_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {
+      <TabList color={color} size='lg'>
+        {_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {
           return {
             label: list.label,
-            renderRightIcon:
+            renderRight:
               list.results.movies.length + list.results.tv.length > 0
-                ? ({ isSelected, fontSize }) => (
+                ? ({ isSelected, size }) => (
                     <Fade in unmountOnExit>
-                      <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                      <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                         <CountUp duration={1} end={list.results.movies.length || 0 + list.results.tv.length || 0} />
                       </Badge>
                     </Fade>
@@ -42,8 +42,7 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
                 : undefined
           };
         })}
-        size='lg'
-      />
+      </TabList>
     </HStack>
   );
 };

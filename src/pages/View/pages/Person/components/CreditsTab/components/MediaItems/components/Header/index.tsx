@@ -18,13 +18,13 @@ const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
 
   return (
     <HStack width='100%' divider={<Divider orientation='vertical' height={`${height}px`} mx={2} />} spacing={2}>
-      <TabList
-        renderTabs={[
+      <TabList color={color}>
+        {[
           {
             label: 'Movies',
             isDisabled: movies === 0,
-            renderRightIcon: ({ isSelected, fontSize }) => (
-              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+            renderRight: ({ isSelected, size }) => (
+              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                 <CountUp duration={1} end={movies} />
               </Badge>
             )
@@ -32,14 +32,14 @@ const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
           {
             label: 'TV Shows',
             isDisabled: shows === 0,
-            renderRightIcon: ({ isSelected, fontSize }) => (
-              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+            renderRight: ({ isSelected, size }) => (
+              <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                 <CountUp duration={1} end={shows} />
               </Badge>
             )
           }
         ]}
-      />
+      </TabList>
 
       <DisplayMode ref={ref} />
     </HStack>
