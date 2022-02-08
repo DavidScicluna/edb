@@ -1,7 +1,7 @@
 import { MediaType, Image, Video } from '../../../../common/types';
 import { AssetType as MediaViewerAssetType } from '../../../../components/MediaViewer/types';
 
-export type AssetType = 'poster' | 'backdrop' | 'logo' | 'video';
+export type AssetType = 'poster' | 'backdrop' | 'video';
 
 export type Asset = {
   label: string;

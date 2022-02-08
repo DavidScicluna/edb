@@ -23,8 +23,6 @@ const MediaImage = (props: MediaImageProps): ReactElement => {
         return srcType === 'thumbnail' ? 'w92' : 'original';
       case 'backdrop':
         return srcType === 'thumbnail' ? 'w300' : 'original';
-      case 'logo':
-        return srcType === 'thumbnail' ? 'w45' : 'original';
       default:
         return '';
     }

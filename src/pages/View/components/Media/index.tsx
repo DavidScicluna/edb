@@ -36,6 +36,7 @@ const Media = (props: MediaProps): ReactElement => {
       }
       isDisabled={isLoading.images || isLoading.videos || isError.images || isError.videos}
       renderTabListProps={{
+        color,
         children: assets.map((asset) => {
           return {
             label: asset.label,
