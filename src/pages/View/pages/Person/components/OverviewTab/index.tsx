@@ -9,7 +9,7 @@ import KnownFor from './components/KnownFor';
 import { OverviewTabProps } from './types';
 
 const OverviewTab = (props: OverviewTabProps): ReactElement => {
-  const { person, credits, images, taggedImages, isLoading, isError, isSuccess, onClickImage, onChangeTab } = props;
+  const { person, credits, images, isLoading, isError, isSuccess, onClickImage, onChangeTab } = props;
 
   return (
     <VStack width='100%' spacing={4}>
@@ -38,23 +38,19 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
           {
             label: 'Photos',
             type: 'poster',
+            isDisabled: images?.length === 0,
             data: images || []
-          },
-          {
-            label: 'Tagged Photos',
-            type: 'poster',
-            data: taggedImages || []
           }
         ])}
         mediaType='person'
         isError={{
-          images: isError?.images || isError?.taggedImages
+          images: isError?.images
         }}
         isSuccess={{
-          images: isSuccess?.images || isSuccess?.taggedImages
+          images: isSuccess?.images
         }}
         isLoading={{
-          images: isLoading?.images || isLoading?.taggedImages
+          images: isLoading?.images
         }}
         onAssetClick={(path: string) => onClickImage(path)}
         onFooterClick={() => onChangeTab(2)}

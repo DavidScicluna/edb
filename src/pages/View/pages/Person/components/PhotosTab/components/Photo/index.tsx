@@ -4,6 +4,7 @@ import { useBoolean } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
+import { handleReturnBoringTypeByMediaType } from '../../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../../components/Clickable/Image';
 import Image from '../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../components/Skeleton';
@@ -27,7 +28,7 @@ const Photo = (props: PhotoProps): ReactElement => {
           width='100%'
           alt={`${name ? `"${name}"` : ''} image`}
           borderRadius='lg'
-          boringType='beam'
+          boringType={handleReturnBoringTypeByMediaType('person')}
           onLoad={() => setIsError.off()}
           onError={() => setIsError.on()}
           thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/w45${file_path || ''}`}

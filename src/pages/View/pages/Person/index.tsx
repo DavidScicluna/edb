@@ -8,8 +8,9 @@ import { useParams } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
-import { ExternalIDs, Image, Images, Response } from '../../../../common/types';
+import { ExternalIDs, Images } from '../../../../common/types';
 import { FullPerson, Credits as CreditsType, MovieCredits, TVCredits } from '../../../../common/types/person';
+import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
 import Badge from '../../../../components/Badge';
 import MediaViewer from '../../../../components/MediaViewer';
 import Socials from '../../../../components/Socials';
@@ -80,14 +81,6 @@ const Person = (): ReactElement => {
   // Fetching person images
   const imagesQuery = useQuery([`person-${id}-images`, id], async () => {
     const { data } = await axiosInstance.get<Images>(`/person/${id}/images`, {
-      cancelToken: source.token
-    });
-    return data;
-  });
-
-  // Fetching person tagged images
-  const taggedImagesQuery = useQuery([`person-${id}-tagged_images`, id], async () => {
-    const { data } = await axiosInstance.get<Response<Image[]>>(`/person/${id}/tagged_images`, {
       cancelToken: source.token
     });
     return data;
@@ -223,24 +216,20 @@ const Person = (): ReactElement => {
                   person={personQuery.data}
                   credits={creditsQuery.data}
                   images={imagesQuery.data?.profiles}
-                  taggedImages={taggedImagesQuery.data?.results}
                   isError={{
                     person: personQuery.isError,
                     credits: creditsQuery.isError,
-                    images: imagesQuery.isError,
-                    taggedImages: taggedImagesQuery.isError
+                    images: imagesQuery.isError
                   }}
                   isSuccess={{
                     person: personQuery.isSuccess,
                     credits: creditsQuery.isSuccess,
-                    images: imagesQuery.isSuccess,
-                    taggedImages: taggedImagesQuery.isSuccess
+                    images: imagesQuery.isSuccess
                   }}
                   isLoading={{
                     person: personQuery.isFetching || personQuery.isLoading,
                     credits: creditsQuery.isFetching || creditsQuery.isLoading,
-                    images: imagesQuery.isFetching || imagesQuery.isLoading,
-                    taggedImages: taggedImagesQuery.isFetching || taggedImagesQuery.isLoading
+                    images: imagesQuery.isFetching || imagesQuery.isLoading
                   }}
                   onClickImage={handleOnImageClick}
                   onChangeTab={handleChangeTab}
@@ -259,19 +248,9 @@ const Person = (): ReactElement => {
                 <PhotosTab
                   name={personQuery.data?.name}
                   images={imagesQuery.data?.profiles}
-                  taggedImages={taggedImagesQuery.data?.results}
-                  isError={{
-                    images: imagesQuery.isError,
-                    taggedImages: taggedImagesQuery.isError
-                  }}
-                  isSuccess={{
-                    images: imagesQuery.isSuccess,
-                    taggedImages: taggedImagesQuery.isSuccess
-                  }}
-                  isLoading={{
-                    images: imagesQuery.isFetching || imagesQuery.isLoading,
-                    taggedImages: taggedImagesQuery.isFetching || taggedImagesQuery.isLoading
-                  }}
+                  isError={imagesQuery.isError}
+                  isSuccess={imagesQuery.isSuccess}
+                  isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
                   onClickImage={handleOnImageClick}
                 />
               </TabPanels>
@@ -289,19 +268,8 @@ const Person = (): ReactElement => {
               mediaItems: (imagesQuery.data?.profiles || []).map((image) => {
                 return {
                   type: 'image',
-                  boringType: 'beam',
+                  boringType: handleReturnBoringTypeByMediaType('person'),
                   srcSize: ['w45', 'original'],
-                  data: { ...image }
-                };
-              })
-            },
-            {
-              label: 'Tagged Photos',
-              mediaItems: (taggedImagesQuery.data?.results || []).map((image) => {
-                return {
-                  type: 'image',
-                  boringType: 'marble',
-                  srcSize: ['w92', 'original'],
                   data: { ...image }
                 };
               })
