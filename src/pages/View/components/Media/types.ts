@@ -6,6 +6,7 @@ export type AssetType = 'poster' | 'backdrop' | 'logo' | 'video';
 export type Asset = {
   label: string;
   type: AssetType;
+  isDisabled?: boolean;
   data: (Image & Video)[];
 };
 
@@ -17,7 +18,7 @@ export type Status = {
 export type MediaProps = {
   alt?: string;
   assets: Asset[];
-  mediaType: Omit<MediaType, 'company' | 'collection'>;
+  mediaType: Omit<MediaType, 'company'>;
   isError: Status;
   isSuccess: Status;
   isLoading: Status;

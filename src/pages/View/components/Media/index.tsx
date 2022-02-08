@@ -36,14 +36,15 @@ const Media = (props: MediaProps): ReactElement => {
       }
       isDisabled={isLoading.images || isLoading.videos || isError.images || isError.videos}
       renderTabListProps={{
-        renderTabs: assets.map((asset) => {
+        children: assets.map((asset) => {
           return {
             label: asset.label,
-            renderRightIcon:
+            isDisabled: asset.isDisabled || false,
+            renderRight:
               (asset.data?.length || 0) > 0
-                ? ({ isSelected, fontSize }) => (
+                ? ({ isSelected, size }) => (
                     <Fade in unmountOnExit>
-                      <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={fontSize}>
+                      <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
                         <CountUp duration={1} end={asset.data?.length || 0} />
                       </Badge>
                     </Fade>
