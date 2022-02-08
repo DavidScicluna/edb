@@ -3,13 +3,13 @@ import React, { ReactElement, useState } from 'react';
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import { PartialMovie } from '../../../../common/types/movie';
-import LoadMore from '../../../../components/Clickable/LoadMore';
-import Empty from '../../../../components/Empty';
-import Error from '../../../../components/Error';
-import VerticalGrid from '../../../../components/Grid/Vertical';
-import HorizontalMoviePoster from '../../../Movies/components/Poster/Horizontal';
-import VerticalMoviePoster from '../../../Movies/components/Poster/Vertical';
+import { PartialMovie } from '../../../../../../common/types/movie';
+import LoadMore from '../../../../../../components/Clickable/LoadMore';
+import Empty from '../../../../../../components/Empty';
+import Error from '../../../../../../components/Error';
+import VerticalGrid from '../../../../../../components/Grid/Vertical';
+import HorizontalMoviePoster from '../../../../../Movies/components/Poster/Horizontal';
+import VerticalMoviePoster from '../../../../../Movies/components/Poster/Vertical';
 import { PartsTabProps } from './types';
 
 const incrementBy = 20;
