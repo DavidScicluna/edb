@@ -1,4 +1,4 @@
-import { Genre, ProductionCompany, ProductionCountry, Language } from '.';
+import { ProductionCompany, ProductionCountry, Language, Genre } from '.';
 import { FullPerson } from './person';
 
 export type Cast = {
