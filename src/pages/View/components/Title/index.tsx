@@ -28,19 +28,21 @@ const Title = (props: TitleProps): ReactElement => {
         fontSize: fontSize === '2xl' ? '2xl' : '3xl',
         fontWeight: 'bold'
       })}
-      <HorizontalScroll
-        renderDivider={({ padding }) => (
-          <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' px={padding}>
-            •
-          </Text>
-        )}
-        isDisabled={isLoading}
-      >
-        {renderSubtitles({
-          color: colorMode === 'light' ? 'gray.400' : 'gray.500',
-          fontSize: isSm ? 'xs' : 'sm'
-        })}
-      </HorizontalScroll>
+      {renderSubtitles ? (
+        <HorizontalScroll
+          renderDivider={({ padding }) => (
+            <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' px={padding}>
+              •
+            </Text>
+          )}
+          isDisabled={isLoading}
+        >
+          {renderSubtitles({
+            color: colorMode === 'light' ? 'gray.400' : 'gray.500',
+            fontSize: isSm ? 'xs' : 'sm'
+          })}
+        </HorizontalScroll>
+      ) : null}
     </VStack>
   );
 };

@@ -8,6 +8,6 @@ export type RenderProps = {
 
 export type TitleProps = {
   renderTitle: (props: RenderProps) => ReactElement;
-  renderSubtitles: (props: Omit<RenderProps, 'fontWeight'>) => ReactElement[];
+  renderSubtitles?: (props: Omit<RenderProps, 'fontWeight'>) => ReactElement[];
   isLoading: boolean;
 };
