@@ -41,24 +41,13 @@ export type Credits = {
   id?: number;
 };
 
-// export type Profile = {
-//   id?: string;
-//   image_type?: string;
-//   media?: PartialMovie | PartialTV;
-//   media_type?: Omit<MediaType, 'person'>;
-// } & Image;
-
-// export type ImageResponse = {
-//   id: number;
-//   profiles: Profile[];
-// };
-
 type Person = {
   adult?: boolean;
   id?: number;
   name?: string;
   popularity?: number;
   profile_path?: string;
+  known_for_department?: string;
 };
 
 export type PartialPerson = {
@@ -75,6 +64,5 @@ export type FullPerson = {
   gender?: Gender | null;
   homepage?: string | null;
   imdb_id?: string;
-  known_for_department?: string;
   place_of_birth?: string | null;
 } & Person;
