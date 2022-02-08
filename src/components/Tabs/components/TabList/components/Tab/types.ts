@@ -1,22 +1,27 @@
 import { Icon } from '../../../../../../common/types';
+import { Color } from '../../../../../../theme/types';
 
-type RenderProps = {
+export type RenderProps = {
   width?: string;
   height?: string;
-  fontSize?: string;
+  color?: keyof Color;
   isSelected?: boolean;
+  fontSize?: string;
+  size?: Size;
 };
 
 export type Tab = {
   label: string;
-  renderLeftIcon?: (props: RenderProps) => Icon;
-  renderRightIcon?: (props: RenderProps) => Icon;
+  renderLeft?: (props: RenderProps) => Icon;
+  renderRight?: (props: RenderProps) => Icon;
   isDisabled?: boolean;
 };
 
 export type Size = 'sm' | 'md' | 'lg';
 
 export type TabsProps = Tab & {
+  color?: keyof Color;
+  total?: number;
   isSelected: boolean;
   isFullWidth?: boolean;
   size?: Size;
