@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+export type HorizontalScrollRef = HTMLDivElement | null;
+
 type RenderProps = {
   padding?: string;
 };

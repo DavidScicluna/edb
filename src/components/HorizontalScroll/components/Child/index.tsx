@@ -9,7 +9,7 @@ const Child = ({ children, renderDivider, isLast = false }: ChildProps): ReactEl
   const theme = useTheme<Theme>();
 
   return (
-    <Center wrap='nowrap'>
+    <Center height='100%' wrap='nowrap'>
       {children}
 
       {renderDivider && !isLast ? (
