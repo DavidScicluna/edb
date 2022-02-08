@@ -33,7 +33,7 @@ const Structure = ({ children }: StructureProps): ReactElement => {
             >
               {children.tabList}
 
-              <Center ref={ref}>{!isMd ? children.socials : null}</Center>
+              {children.socials ? <Center ref={ref}>{!isMd ? children.socials : null}</Center> : null}
             </HStack>
 
             <VStack alignItems='stretch' justifyContent='stretch' spacing={2}>

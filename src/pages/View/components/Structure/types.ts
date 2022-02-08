@@ -5,7 +5,7 @@ export type StructureProps = {
     title: ReactElement;
     actions: ReactElement;
     tabList: ReactElement;
-    socials: ReactElement;
+    socials?: ReactElement;
     tabPanels: ReactElement;
   };
 };
