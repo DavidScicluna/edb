@@ -1,40 +1,11 @@
-export type Country = {
-  iso_3166_1?: string;
-  english_name?: string;
-};
+import { Genre, Certifications, Country, Language, Job } from '../../../common/types';
 
-export type Language = {
-  iso_639_1?: string;
-  english_name?: string;
-  name?: string;
-};
-
-export type Job = {
-  department?: string;
-  jobs?: string[];
-};
-
-export type Genre = {
-  id?: number;
-  name?: string;
-};
-
-export type Certification = {
-  certification?: string;
-  meaning?: string;
-  order?: number;
-};
-
-type CertificationKey = 'US' | 'CA' | 'DE' | 'GB' | 'AU' | 'BR' | 'FR' | 'NZ' | 'IN';
-
-export type Certifications = { [key in CertificationKey]: Certification[] };
-
-type OptionsGenre = {
+export type OptionsGenre = {
   movie: Genre[];
   tv: Genre[];
 };
 
-type OptionsCertifications = {
+export type OptionsCertifications = {
   movie?: Certifications;
   tv?: Certifications;
 };

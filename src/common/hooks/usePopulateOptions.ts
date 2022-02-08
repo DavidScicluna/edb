@@ -14,14 +14,9 @@ import {
   setMovieCertifications,
   setTVCertifications
 } from '../../store/slices/Options';
-import {
-  Country,
-  Language,
-  Job,
-  Genre,
-  Certifications as OptionsCertifications
-} from '../../store/slices/Options/types';
+import { OptionsCertifications } from '../../store/slices/Options/types';
 import axiosInstance from '../scripts/axios';
+import { Genre, Country, Language, Job } from '../types';
 
 export type Genres = {
   genres?: Genre[];
