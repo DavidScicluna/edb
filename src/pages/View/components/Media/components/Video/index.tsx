@@ -31,9 +31,9 @@ const MediaVideo = (props: MediaVideoProps): ReactElement => {
   const { alt, videoId, isLoading = true, onClick } = props;
 
   return (
-    <Box alt={`${alt ? `"${alt}"` : ''} video`} borderRadius='lg'>
+    <Box width={width} alt={`${alt ? `"${alt}"` : ''} video`} borderRadius='lg'>
       <ClickableImage
-        width={width}
+        width='100%'
         ratio={1 / 1}
         borderRadius='lg'
         isDisabled={isLoading || _.isNil(videoId) || _.isEmpty(videoId)}

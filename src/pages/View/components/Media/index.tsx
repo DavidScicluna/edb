@@ -1,6 +1,6 @@
 import { ReactElement, useState, Fragment } from 'react';
 
-import { Fade } from '@chakra-ui/react';
+import { Collapse, Fade } from '@chakra-ui/react';
 import _ from 'lodash';
 import CountUp from 'react-countup';
 
@@ -27,14 +27,24 @@ const Media = (props: MediaProps): ReactElement => {
       activeTab={activeTab}
       onChange={(index: number) => setActiveTab(index)}
       footer={
-        <Footer
-          label={assets[activeTab] ? assets[activeTab].label : ''}
-          total={assets[activeTab] ? assets[activeTab].data.length : 0}
-          isDisabled={isLoading.images || isLoading.videos || isError.images || isError.videos}
-          onClick={onFooterClick}
-        />
+        assets[activeTab] && !assets[activeTab].isDisabled ? (
+          <Collapse in unmountOnExit style={{ width: '100%' }}>
+            <Footer
+              label={assets[activeTab] ? assets[activeTab].label : ''}
+              total={assets[activeTab] ? assets[activeTab].data.length : 0}
+              isDisabled={isLoading.images || isLoading.videos || isError.images || isError.videos}
+              onClick={onFooterClick}
+            />
+          </Collapse>
+        ) : undefined
       }
-      isDisabled={isLoading.images || isLoading.videos || isError.images || isError.videos}
+      isDisabled={
+        isLoading.images ||
+        isLoading.videos ||
+        isError.images ||
+        isError.videos ||
+        (assets[activeTab] && assets[activeTab].isDisabled)
+      }
       renderTabListProps={{
         color,
         children: assets.map((asset) => {
