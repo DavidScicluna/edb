@@ -1,29 +1,26 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useMediaQuery, Stack, Center, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, Stack, Center, VStack } from '@chakra-ui/react';
 import axios from 'axios';
-import _ from 'lodash';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images } from '../../../../../../../common/types';
 import { FullPerson, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
-import Button from '../../../../../../../components/Clickable/Button';
-import Like, { handleReturnIcon } from '../../../../../../../components/Clickable/Like';
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import { handleGetDepartments } from '../../../../../../../pages/View/pages/Person/common/utils';
 import Title from '../../../../../../../pages/View/pages/Person/components/Title';
+import Actions from '../Actions';
 import Poster from '../Poster';
 import Stats from './components/Stats';
 import { PersonProps } from './types';
 
-const Person = (props: PersonProps): ReactElement => {
+const Person = ({ id }: PersonProps): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { id } = props;
+  const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
   const [selectedImagePath, setSelectedImagePath] = useState<string>();
 
@@ -83,9 +80,10 @@ const Person = (props: PersonProps): ReactElement => {
       <Stack width='100%' maxWidth='100%' direction={isSm ? 'column' : 'row'} spacing={isSm ? 4 : 2} p={2}>
         <Center width={isSm ? '100%' : '40%'} maxWidth={isSm ? '100%' : '40%'}>
           <Poster
-            name={personQuery.data?.name || ''}
+            alt={personQuery.data?.name || ''}
             path={personQuery.data?.profile_path || ''}
             mediaType='person'
+            srcSize={['w45', 'original']}
             isLoading={personQuery.isFetching || personQuery.isLoading}
             onClickPoster={handleOnPosterClick}
           />
@@ -96,7 +94,6 @@ const Person = (props: PersonProps): ReactElement => {
               person={personQuery.data}
               departments={departments.map((department) => department.label)}
               isLoading={personQuery.isFetching || personQuery.isLoading}
-              isQuickView
             />
 
             <Stats
@@ -111,30 +108,13 @@ const Person = (props: PersonProps): ReactElement => {
               }
             />
 
-            <Center width='100%'>
-              <Like
-                renderButton={({ isLiked, onClick }) => (
-                  <Button
-                    color={isLiked ? 'red' : 'gray'}
-                    renderLeftIcon={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
-                    isFullWidth
-                    isDisabled={
-                      personQuery.isFetching ||
-                      personQuery.isLoading ||
-                      _.isNil(personQuery.data) ||
-                      _.isEmpty(personQuery.data)
-                    }
-                    onClick={() => onClick()}
-                    size='lg'
-                    variant='outlined'
-                  >
-                    {isLiked ? 'Liked' : 'Like'}
-                  </Button>
-                )}
-                mediaType='person'
-                mediaItem={personQuery.data}
-              />
-            </Center>
+            <Actions
+              mediaItem={personQuery.data}
+              mediaType='person'
+              title={personQuery.data?.name}
+              isLoading={personQuery.isFetching || personQuery.isLoading}
+              isError={personQuery.isError}
+            />
           </VStack>
         </Center>
       </Stack>
