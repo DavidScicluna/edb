@@ -23,7 +23,7 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
   const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
   return (
-    <Panel isFullWidth variant='transparent'>
+    <Panel isFullWidth>
       {{
         header: {
           title: 'Backdrops',
@@ -47,7 +47,7 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
                 variant='outlined'
               />
             ) : !isLoading && isSuccess && backdrops && backdrops.length > 0 ? (
-              <VerticalGrid displayMode='grid'>
+              <VerticalGrid columns={[1, 2, 2, 3, 3, 4]} displayMode='grid'>
                 {() =>
                   backdrops
                     .filter((_backdrop, index) => index < totalVisible)
@@ -55,6 +55,7 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
                       <Image
                         key={index}
                         name={name}
+                        aspect_ratio={backdrop.aspect_ratio}
                         file_path={backdrop.file_path}
                         srcSize={['w300', 'original']}
                         isLoading={false}
@@ -64,10 +65,12 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
                 }
               </VerticalGrid>
             ) : (
-              <VerticalGrid displayMode='grid'>
+              <VerticalGrid columns={[1, 2, 2, 3, 3, 4]} displayMode='grid'>
                 {() =>
                   _.range(0, isSuccess && backdrops && backdrops.length > 0 ? backdrops.length : 20).map(
-                    (_dummy, index: number) => <Image key={index} srcSize={['w300', 'original']} isLoading />
+                    (_dummy, index: number) => (
+                      <Image key={index} name={name} aspect_ratio={1.778} srcSize={['w300', 'original']} isLoading />
+                    )
                   )
                 }
               </VerticalGrid>

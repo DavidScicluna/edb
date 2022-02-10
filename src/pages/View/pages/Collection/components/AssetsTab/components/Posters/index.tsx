@@ -23,7 +23,7 @@ const Posters = (props: PostersProps): ReactElement => {
   const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
   return (
-    <Panel isFullWidth variant='transparent'>
+    <Panel isFullWidth>
       {{
         header: {
           title: 'Posters',
@@ -52,6 +52,7 @@ const Posters = (props: PostersProps): ReactElement => {
                       <Image
                         key={index}
                         name={name}
+                        aspect_ratio={poster.aspect_ratio}
                         file_path={poster.file_path}
                         srcSize={['w92', 'original']}
                         isLoading={false}
@@ -64,7 +65,9 @@ const Posters = (props: PostersProps): ReactElement => {
               <VerticalGrid displayMode='grid'>
                 {() =>
                   _.range(0, isSuccess && posters && posters.length > 0 ? posters.length : 20).map(
-                    (_dummy, index: number) => <Image key={index} srcSize={['w92', 'original']} isLoading />
+                    (_dummy, index: number) => (
+                      <Image key={index} name={name} aspect_ratio={0.667} srcSize={['w92', 'original']} isLoading />
+                    )
                   )
                 }
               </VerticalGrid>
