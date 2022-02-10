@@ -50,12 +50,14 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
   return (
     <Link
       isFullWidth
-      isDisabled={isLoading || isDisabled}
-      to={{ pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` }}
+      isDisabled={isLoading || isDisabled || mediaType === 'company'}
+      to={
+        mediaType !== 'company' ? { pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` } : {}
+      }
       onMouseEnter={() => setIsHovering.on()}
       onMouseLeave={() => setIsHovering.off()}
     >
-      <Card isFullWidth isDisabled={isLoading} isClickable isFixed={isDisabled} isLight>
+      <Card isFullWidth isDisabled={isLoading} isClickable={mediaType !== 'company'} isFixed={isDisabled} isLight>
         <HStack ref={ref} width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
           {/* Image */}
           <Image

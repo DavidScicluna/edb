@@ -37,12 +37,14 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
   return (
     <Link
       isFullWidth
-      isDisabled={isLoading || isDisabled}
-      to={{ pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` }}
+      isDisabled={isLoading || isDisabled || mediaType === 'company'}
+      to={
+        mediaType !== 'company' ? { pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` } : {}
+      }
       onMouseEnter={() => setIsHovering.on()}
       onMouseLeave={() => setIsHovering.off()}
     >
-      <Card isFullWidth isDisabled={isLoading} isClickable isFixed={isDisabled} isLight>
+      <Card isFullWidth isDisabled={isLoading} isClickable={mediaType !== 'company'} isFixed={isDisabled} isLight>
         <VStack ref={ref} width={width} position='relative' spacing={1} p={1}>
           {/* Image */}
           <Image
@@ -61,7 +63,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
             {mediaType === 'movie' || mediaType === 'tv' ? (
               <HStack width='100%' justify='space-between' spacing={0}>
                 {/* Rating component */}
-                <Rating size='sm' inView={inView} isLoading={isLoading}>
+                <Rating size='md' inView={inView} isLoading={isLoading}>
                   {rating}
                 </Rating>
 
