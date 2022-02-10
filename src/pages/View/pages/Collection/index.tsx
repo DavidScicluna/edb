@@ -11,6 +11,7 @@ import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
 import { Images } from '../../../../common/types';
 import { Collection as CollectionType } from '../../../../common/types/movie';
+import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
 import Badge from '../../../../components/Badge';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import MediaViewer from '../../../../components/MediaViewer';
@@ -69,7 +70,7 @@ const Collection = (): ReactElement => {
    * @param image - Image object
    */
   const handleOnImageClick = (path: string): void => {
-    setSelectedImagePath(path || undefined);
+    setSelectedImagePath(path);
     onMediaViewerOpen();
   };
 
@@ -168,11 +169,12 @@ const Collection = (): ReactElement => {
                 ]}
               </TabList>
             ),
-            socials: (
-              <Fade in={activeTab === 1} unmountOnExit>
-                <DisplayMode />
-              </Fade>
-            ),
+            socials:
+              activeTab === 1 ? (
+                <Fade in unmountOnExit>
+                  <DisplayMode />
+                </Fade>
+              ) : undefined,
             tabPanels: (
               <TabPanels>
                 <OverviewTab
@@ -214,7 +216,7 @@ const Collection = (): ReactElement => {
               mediaItems: (imagesQuery.data?.posters || []).map((image) => {
                 return {
                   type: 'image',
-                  boringType: 'marble',
+                  boringType: handleReturnBoringTypeByMediaType('collection'),
                   srcSize: ['w92', 'original'],
                   data: { ...image }
                 };
@@ -225,7 +227,7 @@ const Collection = (): ReactElement => {
               mediaItems: (imagesQuery.data?.backdrops || []).map((image) => {
                 return {
                   type: 'image',
-                  boringType: 'marble',
+                  boringType: handleReturnBoringTypeByMediaType('collection'),
                   srcSize: ['w300', 'original'],
                   data: { ...image }
                 };
