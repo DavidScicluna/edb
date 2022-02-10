@@ -7,7 +7,7 @@ export type RenderProps = {
   color?: keyof Color;
   isSelected?: boolean;
   fontSize?: string;
-  size?: Size;
+  size?: 'xs' | 'sm' | 'md';
 };
 
 export type Tab = {

@@ -67,7 +67,7 @@ const Tab = (props: TabsProps): ReactElement => {
       color,
       isSelected,
       fontSize: theme.fontSizes[size],
-      size
+      size: size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'md'
     };
   };
 
