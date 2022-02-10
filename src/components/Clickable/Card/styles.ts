@@ -28,7 +28,7 @@ export default (
 ): CardStyle => ({
   card: {
     back: {
-      'cursor': isFixed || isClickable ? 'pointer' : 'default',
+      'cursor': isClickable ? 'pointer' : 'default',
 
       'width': isFullWidth ? '100%' : 'auto',
       'height': 'auto',

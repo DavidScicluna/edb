@@ -18,13 +18,14 @@ const Card = forwardRef<CardRef, CardProps>(function Card(props, ref): ReactElem
     isFullWidth = false,
     isLight = false,
     isDisabled = false,
-    isFixed = false,
+    isFixed: isFixedProp = false,
     isClickable = false,
     sx,
     ...rest
   } = props;
 
   const colorMode: ColorMode = colorModeProp || colorModeHook;
+  const isFixed: boolean = isFixedProp || !isClickable;
 
   const style = useStyles(theme, { color, isFullWidth, isLight, isClickable, isFixed });
 
