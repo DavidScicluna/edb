@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery } from '@chakra-ui/react';
+import { useMediaQuery, Center } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
@@ -12,6 +12,7 @@ import Modal from '../../../../../components/Modal';
 import { defaultQuickViewModal, toggleQuickView } from '../../../../../store/slices/Modals';
 import Movie from './components/Movie';
 import Person from './components/Person';
+import Collection from './View/Collection';
 
 const QuickView = (): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -48,12 +49,15 @@ const QuickView = (): ReactElement => {
         <h1>Hello TV Shows</h1>
       ) : quickViewModal.mediaType === 'person' ? (
         <Person id={quickViewModal.mediaItem?.id} />
+      ) : quickViewModal.mediaType === 'collection' ? (
+        <Collection id={quickViewModal.mediaItem?.id} />
       ) : (
-        <Empty
-          hasIllustration={false}
-          label='Oh no! Media-Item not found!'
-          description='Sorry, unfortunatly couldnt find the media-item to quick view'
-        />
+        <Center width='100%' p={2}>
+          <Empty
+            label='Oh no! Media-Item not found!'
+            description='Sorry, unfortunatly couldnt find the media-item to quick view'
+          />
+        </Center>
       )}
     </Modal>
   );
