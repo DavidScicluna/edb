@@ -18,11 +18,11 @@ import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Actions from '../../components/Actions';
+import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
 import { handleGetDepartments } from './common/utils';
 import CreditsTab from './components/CreditsTab';
 import OverviewTab from './components/OverviewTab';
-import PhotosTab from './components/PhotosTab';
 import Title from './components/Title';
 
 const Person = (): ReactElement => {
@@ -245,12 +245,13 @@ const Person = (): ReactElement => {
                     tvCreditsQuery.isLoading
                   }
                 />
-                <PhotosTab
-                  name={personQuery.data?.name}
-                  images={imagesQuery.data?.profiles}
-                  isError={imagesQuery.isError}
-                  isSuccess={imagesQuery.isSuccess}
-                  isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
+
+                <AssetsTab
+                  alt={personQuery.data?.name}
+                  images={{ profiles: imagesQuery.data?.profiles }}
+                  isError={{ images: imagesQuery.isError }}
+                  isSuccess={{ images: imagesQuery.isSuccess }}
+                  isLoading={{ images: imagesQuery.isFetching || imagesQuery.isLoading }}
                   onClickImage={handleOnImageClick}
                 />
               </TabPanels>

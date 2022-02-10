@@ -38,7 +38,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
           {
             label: 'Photos',
             type: 'poster',
-            isDisabled: images?.length === 0,
+            isDisabled: (images || []).length === 0,
             data: images || []
           }
         ])}
