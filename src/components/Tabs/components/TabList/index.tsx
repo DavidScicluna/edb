@@ -21,7 +21,7 @@ const TabList = (props: TabListProps): ReactElement => {
             {...tab}
             key={index}
             color={color}
-            total={children.length}
+            isOnlyTab={children.length === 1}
             isSelected={activeTab === index}
             size={size}
           />

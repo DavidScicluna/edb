@@ -21,8 +21,8 @@ export type Size = 'sm' | 'md' | 'lg';
 
 export type TabsProps = Tab & {
   color?: keyof Color;
-  total?: number;
   isSelected: boolean;
+  isOnlyTab: boolean;
   isFullWidth?: boolean;
   size?: Size;
 };

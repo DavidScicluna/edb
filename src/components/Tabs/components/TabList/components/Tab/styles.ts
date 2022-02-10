@@ -16,16 +16,17 @@ export type TabStyle = {
 type StyleTabsProps = {
   color: TabsProps['color'];
   isFullWidth: TabsProps['isFullWidth'];
+  isOnlyTab: TabsProps['isOnlyTab'];
   isSelected: TabsProps['isSelected'];
 };
 
 export default (
   theme: Theme,
-  { color = 'gray', isFullWidth = false, isSelected = false }: StyleTabsProps
+  { color = 'gray', isFullWidth = false, isOnlyTab = false, isSelected = false }: StyleTabsProps
 ): TabStyle => ({
   tab: {
     default: {
-      'cursor': 'pointer',
+      'cursor': !isOnlyTab ? 'pointer' : 'default',
 
       'width': isFullWidth ? '100%' : 'auto',
       'height': '100%',
@@ -65,7 +66,7 @@ export default (
       'borderRadius': 'sm',
       'borderWidth': '1px',
 
-      'padding': `${theme.space[0.5]} ${theme.space[1]}`,
+      'padding': !isOnlyTab ? `${theme.space[0.5]} ${theme.space[1]}` : 0,
 
       '&:focus': {
         outlineOffset: '4px'
@@ -77,7 +78,7 @@ export default (
       'borderRadius': 'base',
       'borderWidth': '2px',
 
-      'padding': `${theme.space[1]} ${theme.space[2]}`,
+      'padding': !isOnlyTab ? `${theme.space[1]} ${theme.space[2]}` : 0,
 
       '&:focus': {
         outlineOffset: '5px'
@@ -89,7 +90,7 @@ export default (
       'borderRadius': 'lg',
       'borderWidth': '2px',
 
-      'padding': `${theme.space[1.5]} ${theme.space[3]}`,
+      'padding': !isOnlyTab ? `${theme.space[1.5]} ${theme.space[3]}` : 0,
 
       '&:focus': {
         outlineOffset: '6px'
@@ -112,7 +113,7 @@ export default (
     },
 
     '&:hover': {
-      'color': isSelected ? 'gray.50' : 'gray.500',
+      'color': isSelected ? 'gray.50' : `gray.${isOnlyTab ? 400 : 500}`,
       'borderColor': isSelected ? `${color}.500` : 'transparent',
       'backgroundColor': isSelected ? `${color}.500` : 'transparent',
 
@@ -131,7 +132,7 @@ export default (
     },
 
     '&:hover': {
-      'color': isSelected ? 'gray.900' : 'gray.400',
+      'color': isSelected ? 'gray.900' : `gray.${isOnlyTab ? 500 : 400}`,
       'borderColor': isSelected ? `${color}.400` : 'transparent',
       'backgroundColor': isSelected ? `${color}.400` : 'transparent',
 
