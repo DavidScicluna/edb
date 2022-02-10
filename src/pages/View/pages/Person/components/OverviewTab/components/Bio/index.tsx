@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 
+import _ from 'lodash';
 import moment from 'moment';
 
 import Paragraphs from '../../../../../../../../components/Paragraphs';
@@ -19,7 +20,12 @@ const Bio = (props: BioProps): ReactElement => {
     return `${['Born', 'on', birthDate, birthPlace, deathDate, yearsOld].filter((string) => string).join(' ')}. `;
   };
 
-  return <Paragraphs paragraphs={`${handleReturnDates()} ${biography}` || ''} isLoading={isLoading} />;
+  return (
+    <Paragraphs
+      paragraphs={_.compact([birthday ? handleReturnDates() : undefined, biography]).join('')}
+      isLoading={isLoading}
+    />
+  );
 };
 
 export default Bio;
