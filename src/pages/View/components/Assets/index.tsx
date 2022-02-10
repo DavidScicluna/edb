@@ -6,18 +6,15 @@ import _ from 'lodash';
 import Backdrops from './components/Backdrops';
 import Posters from './components/Posters';
 import Profiles from './components/Profiles';
+import Videos from './components/Videos';
 import { AssetsTabProps } from './types';
 
 const Assets = (props: AssetsTabProps): ReactElement => {
-  const { alt, images, isError, isSuccess, isLoading, onClickImage } = props;
-
-  console.log(
-    (_.isNil(images.posters) || _.isEmpty(images.posters)) && (_.isNil(images.backdrops) || _.isEmpty(images.backdrops))
-  );
+  const { alt, images, videos, isError, isSuccess, isLoading, onClickImage } = props;
 
   return (
     <VStack width='100%' spacing={4}>
-      {images.profiles ? (
+      {images?.profiles ? (
         <Profiles
           alt={alt}
           profiles={images.profiles}
@@ -26,13 +23,14 @@ const Assets = (props: AssetsTabProps): ReactElement => {
           isLoading={isLoading.images}
           isOnlyAsset={
             (_.isNil(images.posters) || _.isEmpty(images.posters)) &&
-            (_.isNil(images.backdrops) || _.isEmpty(images.backdrops))
+            (_.isNil(images.backdrops) || _.isEmpty(images.backdrops)) &&
+            (_.isNil(videos) || _.isEmpty(videos))
           }
-          onClickImage={(path: string) => onClickImage(path, 'image')}
+          onClickImage={(path) => onClickImage(path, 'image')}
         />
       ) : null}
 
-      {images.posters ? (
+      {images?.posters ? (
         <Posters
           alt={alt}
           posters={images.posters}
@@ -41,13 +39,14 @@ const Assets = (props: AssetsTabProps): ReactElement => {
           isLoading={isLoading.images}
           isOnlyAsset={
             (_.isNil(images.profiles) || _.isEmpty(images.profiles)) &&
-            (_.isNil(images.backdrops) || _.isEmpty(images.backdrops))
+            (_.isNil(images.backdrops) || _.isEmpty(images.backdrops)) &&
+            (_.isNil(videos) || _.isEmpty(videos))
           }
-          onClickImage={(path: string) => onClickImage(path, 'image')}
+          onClickImage={(path) => onClickImage(path, 'image')}
         />
       ) : null}
 
-      {images.backdrops ? (
+      {images?.backdrops ? (
         <Backdrops
           alt={alt}
           backdrops={images.backdrops}
@@ -56,9 +55,26 @@ const Assets = (props: AssetsTabProps): ReactElement => {
           isLoading={isLoading.images}
           isOnlyAsset={
             (_.isNil(images.profiles) || _.isEmpty(images.profiles)) &&
-            (_.isNil(images.posters) || _.isEmpty(images.posters))
+            (_.isNil(images.posters) || _.isEmpty(images.posters)) &&
+            (_.isNil(videos) || _.isEmpty(videos))
           }
-          onClickImage={(path: string) => onClickImage(path, 'image')}
+          onClickImage={(path) => onClickImage(path, 'image')}
+        />
+      ) : null}
+
+      {videos ? (
+        <Videos
+          alt={alt}
+          videos={videos}
+          isError={isError.videos}
+          isSuccess={isSuccess.videos}
+          isLoading={isLoading.videos}
+          isOnlyAsset={
+            (_.isNil(images?.profiles) || _.isEmpty(images?.profiles)) &&
+            (_.isNil(images?.posters) || _.isEmpty(images?.posters)) &&
+            (_.isNil(images?.backdrops) || _.isEmpty(images?.backdrops))
+          }
+          onClickVideo={(videoId) => onClickImage(videoId, 'video')}
         />
       ) : null}
     </VStack>

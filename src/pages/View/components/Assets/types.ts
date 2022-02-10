@@ -1,4 +1,4 @@
-import { Image } from '../../../../common/types';
+import { Image, Video } from '../../../../common/types';
 import { AssetType } from '../../../../components/MediaViewer/types';
 
 type Booleans = {
@@ -8,11 +8,12 @@ type Booleans = {
 
 export type AssetsTabProps = {
   alt?: string;
-  images: {
+  images?: {
     profiles?: Image[];
     posters?: Image[];
     backdrops?: Image[];
   };
+  videos?: Video[];
   isError: Booleans;
   isSuccess: Booleans;
   isLoading: Booleans;
