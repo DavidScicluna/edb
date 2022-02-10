@@ -23,11 +23,13 @@ const OverviewTab = ({ collectionQuery, imagesQuery, onClickImage, onChangeTab }
           {
             label: 'Posters',
             type: 'poster',
+            isDisabled: (imagesQuery.data?.posters || []).length === 0,
             data: imagesQuery.data?.posters || []
           },
           {
             label: 'Backdrops',
             type: 'backdrop',
+            isDisabled: (imagesQuery.data?.backdrops || []).length === 0,
             data: imagesQuery.data?.backdrops || []
           }
         ])}
