@@ -117,7 +117,13 @@ const Collection = (): ReactElement => {
                     fontSize={fontSize}
                     isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
                   >
-                    <Text align='left' color={color} fontSize={fontSize} fontWeight={fontWeight}>
+                    <Text
+                      align='left'
+                      color={color}
+                      fontSize={fontSize}
+                      fontWeight={fontWeight}
+                      whiteSpace={collectionQuery.isFetching || collectionQuery.isLoading ? 'nowrap' : 'normal'}
+                    >
                       {collectionQuery.data?.name || 'Collection Name'}
                     </Text>
                   </SkeletonText>
