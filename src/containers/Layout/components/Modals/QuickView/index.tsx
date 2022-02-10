@@ -11,8 +11,8 @@ import Empty from '../../../../../components/Empty';
 import Modal from '../../../../../components/Modal';
 import { defaultQuickViewModal, toggleQuickView } from '../../../../../store/slices/Modals';
 import Movie from './components/Movie';
-import Person from './components/Person';
 import Collection from './View/Collection';
+import Person from './View/Person';
 
 const QuickView = (): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

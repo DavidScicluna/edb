@@ -1,14 +1,18 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, StatGroup, Stat, StatLabel, StatNumber, HStack, VStack, Box } from '@chakra-ui/react';
+import { useColorMode, StatGroup, HStack } from '@chakra-ui/react';
+import { useElementSize } from 'usehooks-ts';
 
-import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
+import Divider from '../../../../../../../../../components/Divider';
+import Stat from './components/Stat';
 import { StatsProps, Stat as StatType } from './types';
 
 const Stats = (props: StatsProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   const { totalMovieCredits, totalTvCredits, totalCrewCredits, isLoading = false } = props;
+
+  const [ref, { height }] = useElementSize();
 
   const stats: StatType[] = [
     {
@@ -41,27 +45,11 @@ const Stats = (props: StatsProps): ReactElement => {
         width='100%'
         justifyContent='space-between'
         wrap='wrap'
-        divider={<Box width='2px' height='44px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />}
+        divider={<Divider orientation='vertical' height={`${height}px`} />}
         spacing={1}
       >
         {stats.map((stat: StatType, index: number) => (
-          <Stat key={index} justifyContent='center'>
-            <VStack spacing={0}>
-              <SkeletonText fontSize='3xl' isLoaded={!isLoading}>
-                <StatNumber color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='3xl' lineHeight='normal'>
-                  {!isLoading ? stat.number || 0 : '12'}
-                </StatNumber>
-              </SkeletonText>
-              <StatLabel
-                color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-                fontSize='xs'
-                whiteSpace='nowrap'
-                textTransform='uppercase'
-              >
-                {stat.label}
-              </StatLabel>
-            </VStack>
-          </Stat>
+          <Stat key={index} ref={ref} {...stat} isLoading={isLoading} />
         ))}
       </HStack>
     </StatGroup>

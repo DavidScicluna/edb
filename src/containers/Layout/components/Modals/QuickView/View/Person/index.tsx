@@ -10,8 +10,8 @@ import { FullPerson, MovieCredits, TVCredits } from '../../../../../../../common
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import { handleGetDepartments } from '../../../../../../../pages/View/pages/Person/common/utils';
 import Title from '../../../../../../../pages/View/pages/Person/components/Title';
-import Actions from '../Actions';
-import Poster from '../Poster';
+import Actions from '../../components/Actions';
+import Poster from '../../components/Poster';
 import Stats from './components/Stats';
 import { PersonProps } from './types';
 
