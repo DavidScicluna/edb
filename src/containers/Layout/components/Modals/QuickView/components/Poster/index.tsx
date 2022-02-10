@@ -12,7 +12,7 @@ import { PosterProps } from './types';
 const Poster = (props: PosterProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { name, path, mediaType, isLoading = false, onClickPoster } = props;
+  const { alt, path, mediaType, srcSize, isLoading = false, onClickPoster } = props;
 
   const [isImageError, setIsImageError] = useBoolean();
 
@@ -22,21 +22,19 @@ const Poster = (props: PosterProps): ReactElement => {
       ratio={isSm ? 1 / 1 : 2 / 3}
       isDisabled={isLoading || isImageError}
       renderIcon={({ fontSize }) => <SearchOutlinedIcon style={{ fontSize }} />}
-      onClick={path ? () => onClickPoster(path, 'photo') : undefined}
+      onClick={path ? () => onClickPoster(path) : undefined}
     >
       <Skeleton isLoaded={!isLoading} borderRadius='lg'>
         <Image
-          alt={`${name ? `"${name}"` : ''} ${
-            mediaType === 'movie' ? 'movie' : mediaType === 'tv' ? 'tv show' : 'profile'
-          } poster`}
-          height='auto'
-          width='100%'
+          alt={`${alt ? `"${alt}"` : ''} ${mediaType === 'tv' ? 'tv show' : mediaType} poster`}
+          // height='auto'
+          // width='100%'
           borderRadius='lg'
           boringType={handleReturnBoringTypeByMediaType(mediaType)}
           onError={() => setIsImageError.on()}
           onLoad={() => setIsImageError.off()}
-          thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${mediaType === 'person' ? 'w45' : 'w92'}${path}`}
-          fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
+          thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${srcSize[0]}${path}`}
+          fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${srcSize[1]}${path}`}
         />
       </Skeleton>
     </ClickableImage>
