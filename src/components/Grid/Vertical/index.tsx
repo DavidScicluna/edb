@@ -12,7 +12,7 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
 
   const displayModeState = useSelector((state) => state.app.ui.displayMode);
 
-  const { children, displayMode: displayModeProp } = props;
+  const { children, columns, displayMode: displayModeProp } = props;
 
   const displayMode: DisplayMode = displayModeProp || displayModeState;
 
@@ -20,7 +20,7 @@ const VerticalGrid = (props: VerticalGridProps): ReactElement => {
     <SimpleGrid
       width='100%'
       // columns={displayMode === 'list' ? 1 : [isXs ? 1 : 2, 3, 4, 5, 5, isXl ? 7 : 6]} // Old columns sizes
-      columns={displayMode === 'list' ? 1 : [isXs ? 1 : 2, 3, 4, 4, 5, isXl ? 6 : 5]} // New with Container width in Layout
+      columns={displayMode === 'list' ? 1 : columns || [isXs ? 1 : 2, 3, 4, 4, 5, isXl ? 6 : 5]} // New with Container width in Layout
       spacing={2}
     >
       {children({ displayMode })}
