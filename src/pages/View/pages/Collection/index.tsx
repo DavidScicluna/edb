@@ -20,9 +20,9 @@ import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Actions from '../../components/Actions';
+import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
 import Title from '../../components/Title';
-import AssetsTab from './components/AssetsTab';
 import OverviewTab from './components/OverviewTab';
 import PartsTab from './components/PartsTab';
 
@@ -191,14 +191,14 @@ const Collection = (): ReactElement => {
                   parts={collectionQuery.data?.parts || []}
                 />
                 <AssetsTab
-                  name={collectionQuery.data?.name}
+                  alt={collectionQuery.data?.name}
                   images={{
                     posters: imagesQuery.data?.posters,
                     backdrops: imagesQuery.data?.backdrops
                   }}
-                  isError={imagesQuery.isError}
-                  isSuccess={imagesQuery.isSuccess}
-                  isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
+                  isError={{ images: imagesQuery.isError }}
+                  isSuccess={{ images: imagesQuery.isSuccess }}
+                  isLoading={{ images: imagesQuery.isFetching || imagesQuery.isLoading }}
                   onClickImage={handleOnImageClick}
                 />
               </TabPanels>
