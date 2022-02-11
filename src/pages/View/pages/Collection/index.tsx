@@ -111,6 +111,7 @@ const Collection = (): ReactElement => {
           {{
             title: (
               <Title
+                mediaType='collection'
                 renderTitle={({ color, fontSize, fontWeight }) => (
                   <SkeletonText
                     width={collectionQuery.isFetching || collectionQuery.isLoading ? `${dummy}%` : 'auto'}

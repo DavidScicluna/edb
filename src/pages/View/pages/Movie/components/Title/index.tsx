@@ -1,9 +1,11 @@
 import React, { ReactElement, useState } from 'react';
 
-import { Text, Center, Box } from '@chakra-ui/react';
+import { Text, HStack } from '@chakra-ui/react';
 import _ from 'lodash';
+import { useElementSize } from 'usehooks-ts';
 
 import { FullMovie } from '../../../../../../common/types/movie';
+import Divider from '../../../../../../components/Divider';
 import Rating from '../../../../../../components/Rating';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
@@ -29,6 +31,8 @@ const handleReturnCertification = (release_dates: FullMovie['release_dates']): s
 };
 
 const MovieTitle = (props: MovieTitleProps): ReactElement => {
+  const [ratingRef, { height }] = useElementSize();
+
   const { movie, isLoading = true } = props;
   const {
     id,
@@ -49,19 +53,25 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 
   return (
     <Title
+      mediaType='movie'
       renderTitle={({ color, fontSize, fontWeight }) => (
-        <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
-          <Text align='left' color={color} fontSize={fontSize} fontWeight={fontWeight} whiteSpace='nowrap'>
-            <Center>
+        <HStack divider={<Divider orientation='vertical' height={`${height}px`} />} spacing={2}>
+          <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+            <Text
+              ref={ratingRef}
+              align='left'
+              color={color}
+              fontSize={fontSize}
+              fontWeight={fontWeight}
+              whiteSpace={isLoading ? 'nowrap' : 'normal'}
+            >
               {title || 'Movie Title'}
-              <Box display='inline-block' ml={1}>
-                <Rating count={vote_count} size={fontSize} isLoading={isLoading}>
-                  {vote_average}
-                </Rating>
-              </Box>
-            </Center>
-          </Text>
-        </SkeletonText>
+            </Text>
+          </SkeletonText>
+          <Rating count={vote_count} size={fontSize} isLoading={isLoading}>
+            {vote_average}
+          </Rating>
+        </HStack>
       )}
       renderSubtitles={({ color, fontSize }) =>
         _.compact([

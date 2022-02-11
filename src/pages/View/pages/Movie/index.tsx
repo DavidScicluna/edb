@@ -375,7 +375,7 @@ const Movie = (): ReactElement => {
                 return {
                   type: 'image',
                   boringType: handleReturnBoringTypeByMediaType('movie'),
-                  srcSize: ['w45', 'original'],
+                  srcSize: ['w92', 'original'],
                   data: { ...image }
                 };
               })
