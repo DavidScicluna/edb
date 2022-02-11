@@ -1,18 +1,21 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useDisclosure, Fade } from '@chakra-ui/react';
+import { useDisclosure, Fade } from '@chakra-ui/react';
 import sort from 'array-sort';
 import axios from 'axios';
 import _ from 'lodash';
 import CountUp from 'react-countup';
 import { useQuery, useInfiniteQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
 import { ExternalIDs, Images, Response, Review, Videos } from '../../../../common/types';
 import { FullMovie, Credits, Collection, PartialMovie } from '../../../../common/types/movie';
+import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
 import Badge from '../../../../components/Badge';
+import MediaViewer from '../../../../components/MediaViewer';
+import { AssetType } from '../../../../components/MediaViewer/types';
 import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
@@ -28,17 +31,17 @@ import Title from './components/Title';
 const Movie = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const { colorMode } = useColorMode();
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const userReviews = useSelector((state) => state.user.data.reviews.user);
   const movieUserReviews = userReviews.filter((review) => review.mediaItem.id === Number(id));
 
-  // const [selectedAsset, setSelectedAsset] = useState<MediaViewerProps['selected']>();
+  const [selectedPath, setSelectedPath] = useState<string>();
 
   const [activeTab, setActiveTab] = useState<number>(0);
 
@@ -155,28 +158,57 @@ const Movie = (): ReactElement => {
   };
 
   /**
-   * This method will find the image object from images and then it will open the media modal
+   * This method will open the image passed in the media modal
    *
-   * @param path - Image path
+   * @param image - Image object
    */
-  // const handleOnCoverClick = (path: string, type: MediaViewerType): void => {
-  //   switch (type) {
-  //     case 'video': {
-  //       const trailer = videosQuery.data?.results.find((image) => image.official || image.type === 'Trailer');
+  const handleMediaClick = (path: string): void => {
+    setSelectedPath(path);
+    onMediaViewerOpen();
+  };
 
-  //       if (trailer) {
-  //         handleMediaClick(trailer.key, 'video');
-  //       }
-  //       break;
-  //     }
-  //     default:
-  //       handleMediaClick(path, type);
-  //       break;
-  //   }
-  // };
+  const handleOnCoverClick = (path: string, type: AssetType): void => {
+    switch (type) {
+      case 'video': {
+        const trailer = (videosQuery.data?.results || []).find((image) => image.official || image.type === 'Trailer');
+
+        handleMediaClick(trailer?.key || path);
+        break;
+      }
+      default:
+        handleMediaClick(path);
+        break;
+    }
+  };
+
+  const handleCheckLocation = (): void => {
+    const hash = String(location.hash).replace('#', '');
+
+    switch (hash) {
+      case 'credits':
+        setActiveTab(1);
+        return;
+      case 'photos':
+        setActiveTab(2);
+        return;
+      default:
+        setActiveTab(0);
+        return;
+    }
+  };
 
   useEffect(() => {
-    return () => source.cancel();
+    handleCheckLocation();
+  }, [location]);
+
+  useEffect(() => {
+    handleCheckLocation();
+
+    return () => {
+      source.cancel();
+
+      setActiveTab(0);
+    };
   }, []);
 
   return (
@@ -293,7 +325,7 @@ const Movie = (): ReactElement => {
                   similarQuery={similarQuery}
                   imagesQuery={imagesQuery}
                   videosQuery={videosQuery}
-                  onAssetClick={() => console.log('asd')}
+                  onAssetClick={handleOnCoverClick}
                   onChangeTab={handleChangeTab}
                 />
                 <CastCrewTab
@@ -333,17 +365,49 @@ const Movie = (): ReactElement => {
         </Structure>
       </Tabs>
 
-      {/* {imagesQuery.isSuccess || videosQuery.isSuccess ? (
+      {imagesQuery.isSuccess || videosQuery.isSuccess ? (
         <MediaViewer
+          alt={movieQuery.data?.title ? `"${movieQuery.data.title}"` : 'Movie Title'}
+          assets={[
+            {
+              label: 'Posters',
+              mediaItems: (imagesQuery.data?.posters || []).map((image) => {
+                return {
+                  type: 'image',
+                  boringType: handleReturnBoringTypeByMediaType('movie'),
+                  srcSize: ['w45', 'original'],
+                  data: { ...image }
+                };
+              })
+            },
+            {
+              label: 'Backdrops',
+              mediaItems: (imagesQuery.data?.backdrops || []).map((image) => {
+                return {
+                  type: 'image',
+                  boringType: handleReturnBoringTypeByMediaType('movie'),
+                  srcSize: ['w300', 'original'],
+                  data: { ...image }
+                };
+              })
+            },
+            {
+              label: 'Videos',
+              mediaItems: (videosQuery.data?.results || []).map((video) => {
+                return {
+                  type: 'video',
+                  boringType: handleReturnBoringTypeByMediaType('movie'),
+                  srcSize: ['', ''],
+                  data: { ...video }
+                };
+              })
+            }
+          ]}
+          selectedPath={selectedPath}
           isOpen={isMediaViewerOpen}
-          selected={selectedAsset}
-          photos={[...(imagesQuery.data?.posters || [])]}
-          backdrops={[...(imagesQuery.data?.backdrops || [])]}
-          videos={[...(videosQuery.data?.results.filter((video) => video.site === 'YouTube') || [])]}
-          mediaType='movie'
           onClose={onMediaViewerClose}
         />
-      ) : null} */}
+      ) : null}
     </>
   );
 };

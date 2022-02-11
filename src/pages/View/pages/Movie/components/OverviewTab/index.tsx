@@ -49,7 +49,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
             mediaType='movie'
             isLoading={movieQuery.isFetching || movieQuery.isLoading}
             isError={movieQuery.isError}
-            onClick={(path: string) => onAssetClick(path, 'video')}
+            onClick={(path: string, video: boolean) => onAssetClick(path, video ? 'video' : 'image')}
           />
         )}
         renderDetails={() => (

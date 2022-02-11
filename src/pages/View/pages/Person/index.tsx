@@ -4,7 +4,7 @@ import { useDisclosure, Fade } from '@chakra-ui/react';
 import axios from 'axios';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
@@ -33,6 +33,7 @@ const Person = (): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
 
   const [activeTab, setActiveTab] = useState<number>(0);
 
@@ -91,13 +92,8 @@ const Person = (): ReactElement => {
     document.scrollingElement?.scrollTo(0, 0);
   };
 
-  /**
-   * This method will open the image passed in the media modal
-   *
-   * @param image - Image object
-   */
   const handleOnImageClick = (path: string): void => {
-    setSelectedImagePath(path || undefined);
+    setSelectedImagePath(path);
     onMediaViewerOpen();
   };
 
