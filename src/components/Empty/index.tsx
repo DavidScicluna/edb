@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, VStack, Image, Text, Fade, useTheme } from '@chakra-ui/react';
+import { useColorMode, VStack, Center, Image, Text, Fade, useTheme } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import * as empty from '../../common/assets/illustrations/empty';
@@ -204,7 +204,8 @@ const Empty = (props: EmptyProps): ReactElement => {
             </Text>
           ) : null}
         </VStack>
-        {button || null}
+
+        <Center>{button || null}</Center>
       </VStack>
     </Fade>
   );
