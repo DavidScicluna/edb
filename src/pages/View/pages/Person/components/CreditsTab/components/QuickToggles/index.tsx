@@ -18,13 +18,8 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
   const { departments, openedPanels, isLoading = true, onTogglePanel, onToggleAllPanels } = props;
 
   return (
-    <HStack
-      width='100%'
-      justifyContent='stretch'
-      divider={<Divider orientation='vertical' height={`${height}px`} />}
-      spacing={2}
-    >
-      <HStack width='100%' justifyContent='stretch' spacing={2}>
+    <HStack width='100%' justifyContent='stretch' divider={<Divider orientation='vertical' height={`${height}px`} />}>
+      <HStack width='100%' justifyContent='stretch'>
         <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm' whiteSpace='nowrap'>
           Jump to:
         </Text>

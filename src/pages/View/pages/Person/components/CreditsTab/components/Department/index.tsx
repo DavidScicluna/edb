@@ -9,13 +9,13 @@ import Header from './components/Header';
 import useStyles from './styles';
 import { DepartmentProps } from './types';
 
-const Panel = (props: DepartmentProps): ReactElement => {
+const Department = (props: DepartmentProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
-  const { children, id, title, total, isOpen: isOpenProps = false, isLoading = true, onToggle } = props;
+  const { children, id, title, total, isOpen: isOpenProp = false, isLoading = true, onToggle } = props;
 
-  const isOpen = isLoading ? false : isOpenProps;
+  const isOpen = isLoading ? false : isOpenProp;
 
   const style = useStyles(theme, isOpen);
 
@@ -38,4 +38,4 @@ const Panel = (props: DepartmentProps): ReactElement => {
   );
 };
 
-export default Panel;
+export default Department;
