@@ -75,15 +75,24 @@ export type Images = {
   posters?: Image[];
 };
 
-type Author = { name: string; username: string; avatar_path: string | null; rating: number | null };
+type Author = {
+  name?: string;
+  username?: string;
+  avatar_path?: string;
+  rating?: number;
+};
 
 export type Review = {
-  id: string;
-  author: string;
-  author_details: Author;
-  content: string;
-  created_at: string;
-  updated_at: string;
+  id?: string;
+  author?: string;
+  author_details?: Author;
+  content?: string;
+  created_at?: string;
+  iso_639_1?: string;
+  media_id?: number;
+  media_title?: string;
+  media_type?: string;
+  updated_at?: string;
   url?: string;
 };
 

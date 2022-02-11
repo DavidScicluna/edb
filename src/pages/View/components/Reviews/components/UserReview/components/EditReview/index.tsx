@@ -1,17 +1,6 @@
 import { ReactElement, useEffect } from 'react';
 
-import {
-  useColorMode,
-  useDisclosure,
-  useBoolean,
-  VStack,
-  FormControl,
-  FormLabel,
-  Textarea,
-  FormHelperText,
-  Text,
-  Collapse
-} from '@chakra-ui/react';
+import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, Text, Collapse } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EditOutlined as EditOutlinedIcon } from '@material-ui/icons';
 import moment from 'moment';
@@ -22,17 +11,26 @@ import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
+import Rating from '../../../../../../../../components/Forms/Rating';
+import Textarea from '../../../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../../../components/Modal';
 import Panel from '../../../../../../../../components/Panel';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
-import Rating from '../Rating';
+import { Theme } from '../../../../../../../../theme/types';
 import { EditReviewProps, Form } from './types';
-import { defaultValues, schema } from './validation';
+import { schema } from './validation';
+
+const defaultValues: Form = {
+  review: '',
+  rating: 0
+};
 
 const EditReview = ({ review }: EditReviewProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { isOpen: isEditReviewOpen, onOpen: onOpenEditReview, onClose: onCloseEditReview } = useDisclosure();
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
   const dispatch = useDispatch();
@@ -58,7 +56,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
           review.id === id
             ? {
                 ...review,
-                author_details: { ...review.author_details, rating: values.rating }, // TODO use user details
+                author_details: { ...review.author_details, rating: values.rating || undefined }, // TODO use user details
                 content: values.review,
                 updated_at: moment(new Date()).toISOString()
               }
@@ -67,7 +65,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
       )
     );
 
-    onClose();
+    onCloseEditReview();
   };
 
   const handleCloseConfirm = (): void => {
@@ -77,7 +75,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 
   const handleClose = (): void => {
     form.reset({ ...defaultValues });
-    onClose();
+    onCloseEditReview();
   };
 
   const handleCheckClose = (): void => {
@@ -89,24 +87,23 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
   };
 
   useEffect(() => {
-    if (isOpen && review) {
+    if (isEditReviewOpen && review) {
       form.reset({
-        rating: review.author_details.rating,
+        rating: review?.author_details?.rating,
         review: review.content
       });
     }
-  }, [isOpen]);
+  }, [isEditReviewOpen]);
 
   return (
     <>
       <Tooltip aria-label='Edit review' label='Edit review' isOpen={isHovering} placement='top' gutter={6}>
         <IconButton
           aria-label='Edit review'
-          onClick={() => onOpen()}
+          onClick={() => onOpenEditReview()}
           onMouseEnter={() => setIsHovering.on()}
           onMouseLeave={() => setIsHovering.off()}
           variant='icon'
-          size='sm'
         >
           <EditOutlinedIcon />
         </IconButton>
@@ -125,7 +122,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
             Save Review
           </Button>
         )}
-        isOpen={isOpen}
+        isOpen={isEditReviewOpen}
         onClose={handleCheckClose}
         isCentered
         size='lg'
@@ -135,7 +132,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
             control={form.control}
             name='rating'
             render={({ field: { value, name }, fieldState: { error } }) => (
-              <Panel color={error ? 'red' : 'gray'} isFullWidth size='xs'>
+              <Panel color={error ? 'red' : 'gray'} isFullWidth>
                 {{
                   header: {
                     title: (
@@ -171,28 +168,17 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
             control={form.control}
             name='review'
             render={({ field: { onChange, value, name }, fieldState: { error } }) => (
-              <FormControl id={name} isRequired>
-                <FormLabel fontSize='sm' mb={1}>
-                  Review
-                </FormLabel>
-                <Textarea
-                  autoComplete='off'
-                  border='solid2'
-                  boxShadow='none'
-                  errorBorderColor='red.400'
-                  focusBorderColor={`${color}.400`}
-                  isInvalid={Boolean(error)}
-                  fontSize='md'
-                  name={name}
-                  onChange={onChange}
-                  size='lg'
-                  value={value}
-                  px={2}
-                />
-                <Collapse in={Boolean(error)} unmountOnExit>
-                  <FormHelperText mt={1}>{error?.message}</FormHelperText>
-                </Collapse>
-              </FormControl>
+              <Textarea
+                color={color}
+                label='Review'
+                error={error}
+                name={name}
+                onChange={onChange}
+                isFullWidth
+                isRequired
+                value={value}
+                sx={{ textarea: { height: theme.space[12.5] } }}
+              />
             )}
           />
         </VStack>

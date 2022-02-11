@@ -10,8 +10,9 @@ import IconButton from '../../../../../../../../components/Clickable/IconButton'
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
+import { DeleteReviewProps } from './types';
 
-const DeleteReview = ({ id }: { id: string }): ReactElement => {
+const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
   const dispatch = useDispatch();
@@ -34,7 +35,6 @@ const DeleteReview = ({ id }: { id: string }): ReactElement => {
           onMouseEnter={() => setIsHovering.on()}
           onMouseLeave={() => setIsHovering.off()}
           variant='icon'
-          size='sm'
         >
           <DeleteOutlineOutlinedIcon />
         </IconButton>

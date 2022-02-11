@@ -10,8 +10,8 @@ const Footer = (props: FooterProps): ReactElement => {
   const { date, renderActions } = props;
 
   return (
-    <HStack width='100%' justifyContent='space-between'>
-      <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='xs'>
+    <HStack width='100%' alignItems='center' justifyContent='space-between'>
+      <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
         {date}
       </Text>
 

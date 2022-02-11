@@ -1,16 +1,6 @@
 import { ReactElement } from 'react';
 
-import {
-  useColorMode,
-  useDisclosure,
-  VStack,
-  FormControl,
-  FormLabel,
-  Textarea,
-  FormHelperText,
-  Text,
-  Collapse
-} from '@chakra-ui/react';
+import { useTheme, useColorMode, useDisclosure, VStack, Text, Collapse } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import { Controller, useForm, useFormState } from 'react-hook-form';
@@ -20,16 +10,25 @@ import { v4 as uuid } from 'uuid';
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
+import Rating from '../../../../../../../../components/Forms/Rating';
+import Textarea from '../../../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../../../components/Modal';
 import Panel from '../../../../../../../../components/Panel';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
-import Rating from '../Rating';
+import { Theme } from '../../../../../../../../theme/types';
 import { CreateReviewProps, Form } from './types';
-import { defaultValues, schema } from './validation';
+import { schema } from './validation';
 
-const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement => {
+const defaultValues: Form = {
+  review: '',
+  rating: 0
+};
+
+const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { isOpen: isCreateReview, onOpen: onOpenCreateReview, onClose: onCloseCreateReview } = useDisclosure();
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
   const dispatch = useDispatch();
@@ -53,11 +52,11 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
         {
           id,
           author: 'Name', // TODO use user name
-          author_details: { name: 'Name', username: 'Username', avatar_path: '', rating: values.rating }, // TODO use user details
+          author_details: { name: 'Name', username: 'Username', avatar_path: '', rating: values.rating || undefined }, // TODO use user details
           content: values.review,
           created_at: moment(new Date()).toISOString(),
           updated_at: moment(new Date()).toISOString(),
-          mediaItem: { ...mediaItem, mediaType }
+          mediaItem: { ...(mediaItem || {}), mediaType: mediaType === 'movie' ? 'movie' : 'tv' }
         }
       ])
     );
@@ -72,7 +71,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
 
   const handleClose = (): void => {
     form.reset({ ...defaultValues });
-    onClose();
+    onCloseCreateReview();
   };
 
   const handleCheckClose = (): void => {
@@ -85,9 +84,11 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
 
   return (
     <>
-      <Button color={color} onClick={() => onOpen()} size='sm'>
-        Create a new review
-      </Button>
+      {renderAction({
+        color,
+        label: 'Create a new review',
+        onClick: onOpenCreateReview
+      })}
 
       <Modal
         title='Create a new review'
@@ -102,7 +103,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
             Submit Review
           </Button>
         )}
-        isOpen={isOpen}
+        isOpen={isCreateReview}
         onClose={handleCheckClose}
         isCentered
         size='lg'
@@ -112,7 +113,7 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
             control={form.control}
             name='rating'
             render={({ field: { value, name }, fieldState: { error } }) => (
-              <Panel color={error ? 'red' : 'gray'} isFullWidth size='xs'>
+              <Panel color={error ? 'red' : 'gray'} isFullWidth size='sm'>
                 {{
                   header: {
                     title: (
@@ -148,28 +149,17 @@ const CreateReview = ({ mediaItem, mediaType }: CreateReviewProps): ReactElement
             control={form.control}
             name='review'
             render={({ field: { onChange, value, name }, fieldState: { error } }) => (
-              <FormControl id={name} isRequired>
-                <FormLabel fontSize='sm' mb={1}>
-                  Review
-                </FormLabel>
-                <Textarea
-                  autoComplete='off'
-                  border='solid2'
-                  boxShadow='none'
-                  errorBorderColor='red.400'
-                  focusBorderColor={`${color}.400`}
-                  isInvalid={Boolean(error)}
-                  fontSize='md'
-                  name={name}
-                  onChange={onChange}
-                  size='lg'
-                  value={value}
-                  px={2}
-                />
-                <Collapse in={Boolean(error)} unmountOnExit>
-                  <FormHelperText mt={1}>{error?.message}</FormHelperText>
-                </Collapse>
-              </FormControl>
+              <Textarea
+                color={color}
+                label='Review'
+                error={error}
+                name={name}
+                onChange={onChange}
+                isFullWidth
+                isRequired
+                value={value}
+                sx={{ textarea: { height: theme.space[12.5] } }}
+              />
             )}
           />
         </VStack>

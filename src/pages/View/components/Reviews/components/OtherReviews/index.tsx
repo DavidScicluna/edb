@@ -2,22 +2,22 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, HStack, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
+import CountUp from 'react-countup';
 
 import Badge from '../../../../../../components/Badge';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import Panel from '../../../../../../components/Panel';
-import { ReviewsTabProps as OtherReviewsProps } from '../../types';
 import Review from '../Review';
 import ThumbButton from './components/ThumbButton';
+import { OtherReviewsProps } from './types';
 
 const OtherReviews = (props: OtherReviewsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const {
-    mediaItem,
-    mediaType,
+    alt,
     reviews,
     isError = false,
     isSuccess = false,
@@ -27,36 +27,30 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
   } = props;
 
   return (
-    <Panel>
+    <Panel isFullWidth>
       {{
         header: {
           title: 'Reviews',
           actions:
-            (reviews?.results.length || 0) > 0 ? (
-              <Badge size={isSm ? 'sm' : 'md'}>{String(reviews?.results.length)}</Badge>
+            (reviews?.results?.length || 0) > 0 ? (
+              <Badge size='lg'>
+                <CountUp duration={1} end={reviews?.results?.length || 0} />
+              </Badge>
             ) : undefined
         },
         body:
           !isLoading && isError ? (
             <Error
               label='Oh no! Something went wrong'
-              description={`Failed to fetch ${
-                mediaItem && (mediaItem.title || mediaItem.name) ? `"${mediaItem.title || mediaItem.name}"` : ''
-              } ${mediaType === 'tv' ? 'tv show' : 'movie'} reviews!`}
+              description={`Failed to fetch ${alt ? `"${alt}"` : ''} reviews!`}
               variant='outlined'
               size='sm'
             />
-          ) : !isLoading && isSuccess && reviews && reviews.results.length === 0 ? (
-            <Empty
-              label={`${
-                mediaItem && (mediaItem.title || mediaItem.name) ? `"${mediaItem.title || mediaItem.name}"` : ''
-              } ${mediaType === 'tv' ? 'tv show' : 'movie'} has no reviews!`}
-              variant='outlined'
-              size='sm'
-            />
-          ) : !isLoading && isSuccess && reviews && reviews.results.length > 0 ? (
-            <>
-              {reviews?.results.map((review) => (
+          ) : !isLoading && isSuccess && reviews && (reviews?.results?.length || 0) === 0 ? (
+            <Empty label={`${alt ? `"${alt}"` : ''} has no reviews!`} variant='outlined' size='sm' />
+          ) : !isLoading && isSuccess && reviews && (reviews?.results?.length || 0) > 0 ? (
+            <VStack width='100%' spacing={2}>
+              {(reviews?.results || []).map((review) => (
                 <Review
                   key={review.id}
                   renderFooterActions={
@@ -69,18 +63,7 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
                   isLoading={isLoading}
                 />
               ))}
-
-              <ScaleFade in={!isError && hasNextPage} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
-                <LoadMore
-                  amount={reviews?.results.length || 0}
-                  total={reviews?.total_results || 0}
-                  label='Reviews'
-                  isLoading={isLoading}
-                  isButtonVisible={hasNextPage && !isError}
-                  onClick={onFetchNextPage}
-                />
-              </ScaleFade>
-            </>
+            </VStack>
           ) : (
             <VStack width='100%' spacing={4}>
               {_.range(0, 5).map((_dummy, index: number) => (
@@ -96,7 +79,20 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
                 />
               ))}
             </VStack>
-          )
+          ),
+        footer:
+          !isError && hasNextPage ? (
+            <ScaleFade in unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
+              <LoadMore
+                amount={reviews?.results?.length || 0}
+                total={reviews?.total_results || 0}
+                label='Reviews'
+                isLoading={isLoading}
+                isButtonVisible={hasNextPage && !isError}
+                onClick={onFetchNextPage}
+              />
+            </ScaleFade>
+          ) : undefined
       }}
     </Panel>
   );

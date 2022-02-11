@@ -1,17 +1,25 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, HStack, VStack, AspectRatio, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, HStack, VStack, AspectRatio, Text } from '@chakra-ui/react';
 import moment from 'moment';
 
+import {
+  handleConvertREMToPixels,
+  handleConvertStringToNumber,
+  handleReturnBoringTypeByMediaType
+} from '../../../../../../../../common/utils';
 import Image from '../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
+import { Theme } from '../../../../../../../../theme/types';
 import { HeaderProps } from './types';
 
 // TODO: Check if author is user and render header text differently
 
 const Header = (props: HeaderProps): ReactElement => {
+  const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
+
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const { avatar, name, username, date, isLoading = true } = props;
@@ -31,12 +39,16 @@ const Header = (props: HeaderProps): ReactElement => {
 
   return (
     <HStack>
-      <AspectRatio width='48px' borderRadius='full' ratio={1 / 1}>
+      <AspectRatio
+        width={`${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['5xl'], 'rem'))}px`}
+        borderRadius='full'
+        ratio={1 / 1}
+      >
         <Skeleton borderRadius='full' isLoaded={!isLoading}>
           <Image
             alt={`${name} (${username}) Avatar`}
             borderRadius='full'
-            mediaType='person'
+            boringType={handleReturnBoringTypeByMediaType('person')}
             thumbnailSrc={handleSrc() || ''}
             fullSrc={handleSrc() || ''}
           />
@@ -44,7 +56,7 @@ const Header = (props: HeaderProps): ReactElement => {
       </AspectRatio>
 
       <VStack alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-        <SkeletonText isLoaded={!isLoading} offsetY={10}>
+        <SkeletonText isLoaded={!isLoading} fontSize='xl'>
           <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='xl' fontWeight='semibold'>
             {!isSm ? `Review by ${name}` : name}
           </Text>
@@ -56,10 +68,10 @@ const Header = (props: HeaderProps): ReactElement => {
             </Text>
           }
         >
-          {[isLoading ? '@Lorem' : `@${username}`, date ? moment(date).format('LLL') : undefined]
+          {[isLoading ? '@username' : `@${username}`, moment(date || new Date()).format('LLL')]
             .filter((item) => item)
             .map((item, index) => (
-              <SkeletonText key={index} isLoaded={!isLoading} offsetY={6}>
+              <SkeletonText key={index} isLoaded={!isLoading} fontSize='sm'>
                 <Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
                   {item}
                 </Text>

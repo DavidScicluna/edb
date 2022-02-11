@@ -48,12 +48,12 @@ export type List = {
 export type ReviewState = 'isLiked' | 'isDisliked';
 
 export type UserReview = {
-  mediaItem: { mediaType: Omit<MediaType, 'person'> } & Partial<FullMovie & FullTV>;
-} & Review;
+  mediaItem: { mediaType: Omit<MediaType, 'person' | 'company' | 'collection'> } & (FullMovie | FullTV);
+} & Omit<Review, 'media_id' | 'media_title' | 'media_type'>;
 
 export type OtherReview = {
   state?: ReviewState;
-} & Review;
+} & Omit<Review, 'media_id' | 'media_title' | 'media_type'>;
 
 export type UserReviews = {
   user: UserReview[];

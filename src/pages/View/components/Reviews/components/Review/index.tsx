@@ -1,27 +1,17 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useMediaQuery, useBreakpointValue, SlideFade } from '@chakra-ui/react';
+import { useMediaQuery, SlideFade } from '@chakra-ui/react';
 import moment from 'moment';
 
 import Panel from '../../../../../../components/Panel';
 import Rating from '../../../../../../components/Rating';
-import { Theme } from '../../../../../../theme/types';
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { ReviewProps } from './types';
 
 const Review = (props: ReviewProps): ReactElement => {
-  const theme = useTheme<Theme>();
   const [isSm] = useMediaQuery('(max-width: 600px)');
-  const iconFontsize = useBreakpointValue({
-    'base': theme.fontSizes['2xl'],
-    'sm': theme.fontSizes['2xl'],
-    'md': theme.fontSizes['3xl'],
-    'lg': theme.fontSizes['3xl'],
-    'xl': theme.fontSizes['3xl'],
-    '2xl': theme.fontSizes['3xl']
-  });
 
   const { renderFooterActions, review, isLoading = true } = props;
   const { author, author_details, created_at, updated_at, content } = review || {};
@@ -31,7 +21,7 @@ const Review = (props: ReviewProps): ReactElement => {
   const hasFooter = hasDate || renderFooterActions;
 
   return (
-    <Panel isFullWidth size='sm'>
+    <Panel isFullWidth>
       {{
         header: {
           title: (
@@ -45,15 +35,9 @@ const Review = (props: ReviewProps): ReactElement => {
           ),
           actions: (
             <SlideFade in={isLoading || Boolean(author_details?.rating)} unmountOnExit>
-              <Rating
-                rating={{
-                  rating: author_details?.rating || null,
-                  count: null
-                }}
-                isLoading={isLoading}
-                iconFontsize={iconFontsize}
-                textFontsize={['lg', 'lg', 'xl', 'xl', 'xl', 'xl']}
-              />
+              <Rating size='2xl' isLoading={isLoading}>
+                {author_details?.rating}
+              </Rating>
             </SlideFade>
           )
         },
