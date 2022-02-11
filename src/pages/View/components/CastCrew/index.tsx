@@ -1,17 +1,19 @@
 import { ReactElement, useState } from 'react';
 
 import { VStack } from '@chakra-ui/react';
-import sort from 'array-sort';
 
+import { handleReturnCrew } from './common/utils';
 import Cast from './components/Cast';
 import Crew from './components/Crew';
 import QuickToggles from './components/QuickToggles';
-import { CastCrewTabProps, Department } from './types';
+import { Department, CastCrewProps } from './types';
 
-const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
+const CastCrew = (props: CastCrewProps): ReactElement => {
   const [openedPanels, setOpenedPanels] = useState<number[]>([0]);
 
-  const { mediaType, mediaItemTitle, cast, crew, isError = false, isSuccess = false, isLoading = true } = props;
+  const { credits, isError = false, isSuccess = false, isLoading = true } = props;
+
+  const [departments] = useState<Department[]>(handleReturnCrew(credits));
 
   const handleTogglePanel = (index: number): void => {
     if (openedPanels.includes(index)) {
@@ -22,52 +24,17 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
   };
 
   const handleToggleAllPanels = (): void => {
-    if (departments.length === openedPanels.length - 1) {
+    if (departments.length === openedPanels.length) {
       setOpenedPanels([]);
     } else {
-      setOpenedPanels([0, ...departments.map((_department, index) => index + 1)]);
+      setOpenedPanels(departments.map((_department, index) => index));
     }
   };
-
-  const handleReturnCrew = (): Department[] => {
-    let departments: Department[] = [];
-
-    crew?.forEach((person) => {
-      if (departments.some((department) => department.title === person.department)) {
-        departments = departments.map((department) =>
-          department.title === person.department
-            ? {
-                ...department,
-                crew: department.crew.some((crewPerson) => crewPerson.id === person.id)
-                  ? department.crew.map((crewPerson) =>
-                      crewPerson.id === person.id
-                        ? {
-                            ...crewPerson,
-                            job: [crewPerson.job, person.job].filter((job) => job).join(', ')
-                          }
-                        : crewPerson
-                    )
-                  : [...department.crew, person]
-              }
-            : department
-        );
-      } else {
-        departments.push({
-          title: person.department || '',
-          crew: [person]
-        });
-      }
-    });
-
-    return sort([...departments], 'title');
-  };
-
-  const departments = handleReturnCrew();
 
   return (
     <VStack width='100%' spacing={2}>
       <QuickToggles
-        departments={['cast', ...departments.map((department) => department.title)]}
+        departments={departments}
         openedPanels={openedPanels.length}
         isLoading={isLoading}
         onTogglePanel={(index: number) => setOpenedPanels([...openedPanels, index])}
@@ -75,34 +42,34 @@ const CastCrewTab = (props: CastCrewTabProps): ReactElement => {
       />
 
       <VStack width='100%' spacing={2}>
-        <Cast
-          mediaType={mediaType}
-          mediaItemTitle={mediaItemTitle}
-          cast={cast}
-          isLoading={isLoading}
-          isError={isError}
-          isSuccess={isSuccess}
-          isOpen={openedPanels.includes(0)}
-          onToggle={() => handleTogglePanel(0)}
-        />
-
-        {departments.map((department, index) => (
-          <Crew
-            key={index}
-            mediaType={mediaType}
-            mediaItemTitle={mediaItemTitle}
-            title={department.title}
-            crew={department.crew}
-            isLoading={isLoading}
-            isError={isError}
-            isSuccess={isSuccess}
-            isOpen={openedPanels.includes(index + 1)}
-            onToggle={() => handleTogglePanel(index + 1)}
-          />
-        ))}
+        {departments.map((department, index) =>
+          department.id === 'cast' ? (
+            <Cast
+              {...department}
+              key={index}
+              cast={department.people}
+              isLoading={isLoading}
+              isError={isError}
+              isSuccess={isSuccess}
+              isOpen={openedPanels.includes(index)}
+              onToggle={() => handleTogglePanel(index)}
+            />
+          ) : (
+            <Crew
+              {...department}
+              key={index}
+              crew={department.people}
+              isLoading={isLoading}
+              isError={isError}
+              isSuccess={isSuccess}
+              isOpen={openedPanels.includes(index)}
+              onToggle={() => handleTogglePanel(index)}
+            />
+          )
+        )}
       </VStack>
     </VStack>
   );
 };
 
-export default CastCrewTab;
+export default CastCrew;

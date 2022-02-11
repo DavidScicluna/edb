@@ -1,12 +1,9 @@
-import { MediaType } from '../../../../../../common/types';
-import { Cast } from '../../types';
-import { PanelProps } from '../Panel/types';
+import { Department, CastCrewProps, Cast } from '../../types';
+import { DepartmentProps } from '../Department/types';
 
-export type CastProps = {
-  mediaType: Omit<MediaType, 'person'>;
-  mediaItemTitle?: string;
-  cast?: Cast;
-  isLoading?: boolean;
-  isError?: boolean;
-  isSuccess?: boolean;
-} & Omit<PanelProps, 'children' | 'id' | 'title' | 'total'>;
+export type CastProps = Omit<Department, 'people'> &
+  Omit<CastCrewProps, 'credits'> & {
+    cast?: Cast[];
+    id: string;
+    title: string;
+  } & Omit<DepartmentProps, 'children' | 'id' | 'title' | 'total'>;
