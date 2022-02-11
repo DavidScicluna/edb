@@ -46,7 +46,7 @@ const Credits = (props: CreditsProps): ReactElement => {
   ]);
 
   useEffect(() => {
-    if (!_.isNil(writers) && !_.isEmpty(writers) && !isLoading) {
+    if (!_.isNil(crew) && !_.isEmpty(crew) && !isLoading) {
       crew.filter((person) => {
         switch (person.job) {
           case 'Director': {

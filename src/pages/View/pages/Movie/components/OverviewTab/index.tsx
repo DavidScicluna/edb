@@ -114,13 +114,6 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
                 data: imagesQuery.data?.backdrops || []
               }
             : undefined,
-          !_.isNil(imagesQuery.data?.logos) || !_.isEmpty(imagesQuery.data?.logos)
-            ? {
-                label: 'Logos',
-                type: 'logo',
-                data: imagesQuery.data?.logos || []
-              }
-            : undefined,
           !_.isNil(videosQuery.data?.results) || !_.isEmpty(videosQuery.data?.results)
             ? {
                 label: 'Videos',
