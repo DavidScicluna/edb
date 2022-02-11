@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images } from '../../../../../../../common/types';
 import { FullPerson, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
+import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/utils';
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import { handleGetDepartments } from '../../../../../../../pages/View/pages/Person/common/utils';
 import Title from '../../../../../../../pages/View/pages/Person/components/Title';
@@ -128,7 +129,7 @@ const Person = ({ id }: PersonProps): ReactElement => {
               mediaItems: (imagesQuery.data?.profiles || []).map((image) => {
                 return {
                   type: 'image',
-                  boringType: 'beam',
+                  boringType: handleReturnBoringTypeByMediaType('person'),
                   srcSize: ['w45', 'original'],
                   data: { ...image }
                 };
