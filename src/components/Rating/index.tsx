@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, VStack, Text } from '@chakra-ui/react';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
@@ -6,9 +6,9 @@ import _ from 'lodash';
 
 import { Theme } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
-import { RatingProps } from './types';
+import { RatingRef, RatingProps } from './types';
 
-const Rating = (props: RatingProps): ReactElement => {
+const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): ReactElement {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
@@ -57,7 +57,7 @@ const Rating = (props: RatingProps): ReactElement => {
   // };
 
   return (
-    <Center>
+    <Center ref={ref}>
       <StarOutlinedIcon
         style={{
           color: theme.colors.yellow[colorMode === 'light' ? 400 : 500],
@@ -87,6 +87,6 @@ const Rating = (props: RatingProps): ReactElement => {
       ) : null}
     </Center>
   );
-};
+});
 
 export default Rating;

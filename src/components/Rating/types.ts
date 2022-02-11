@@ -1,6 +1,8 @@
 import { FontSizes } from '../../theme/types';
 
-type Size = keyof Omit<FontSizes, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'>;
+export type RatingRef = HTMLDivElement | null;
+
+type Size = keyof Omit<FontSizes, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'> & string;
 
 export type Rating = number | string | undefined | null;
 
