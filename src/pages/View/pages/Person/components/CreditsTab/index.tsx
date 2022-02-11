@@ -24,10 +24,10 @@ const CreditsTab = (props: CreditsTabProps): ReactElement => {
   };
 
   const handleToggleAllPanels = (): void => {
-    if (departments.length === openedPanels.length - 1) {
+    if (departments.length === openedPanels.length) {
       setOpenedPanels([]);
     } else {
-      setOpenedPanels([...departments.map((_department, index) => index)]);
+      setOpenedPanels(departments.map((_department, index) => index));
     }
   };
 
