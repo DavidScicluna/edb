@@ -21,7 +21,7 @@ const Poster = (props: PosterProps): ReactElement => {
       borderRadius='lg'
       ratio={isSm ? 1 / 1 : 2 / 3}
       isDisabled={isLoading || isImageError}
-      renderIcon={({ fontSize }) => <SearchOutlinedIcon style={{ fontSize }} />}
+      renderIcon={({ color, fontSize }) => <SearchOutlinedIcon style={{ color, fontSize }} />}
       onClick={path ? () => onClickPoster(path) : undefined}
     >
       <Skeleton isLoaded={!isLoading} borderRadius='lg'>

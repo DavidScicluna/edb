@@ -1,114 +1,169 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useMediaQuery, VStack, HStack, Box } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, Stack, Center, VStack } from '@chakra-ui/react';
 import axios from 'axios';
+import _ from 'lodash';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
-import { Images } from '../../../../../../../common/types';
+import { Images, Videos } from '../../../../../../../common/types';
 import { FullMovie } from '../../../../../../../common/types/movie';
+import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/utils';
 import MediaViewer from '../../../../../../../components/MediaViewer';
+import Overview from '../../../../../../../pages/View/components/Hero/components/Overview';
+import Tagline from '../../../../../../../pages/View/components/Hero/components/Tagline';
+import Title from '../../../../../../../pages/View/pages/Movie/components/Title';
+import Actions from '../Actions';
 import Poster from '../Poster';
-import Container from './components/Container';
 import { MovieProps } from './types';
 
-const Movie = (props: MovieProps): ReactElement => {
+const Movie = ({ id }: MovieProps): ReactElement => {
   const source = axios.CancelToken.source();
 
-  const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { id } = props;
+  const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
-  const [selectedPhoto, setSelectedPhoto] = useState<string>();
+  const [selectedPath, setSelectedPath] = useState<string>();
 
   // Fetching movie details
   const movieQuery = useQuery([`movie-${id}`, id], async () => {
     const { data } = await axiosInstance.get<FullMovie>(`/movie/${id}`, {
-      params: {
-        append_to_response: 'release_dates'
-      },
+      params: { append_to_response: 'release_dates' },
       cancelToken: source.token
     });
     return data;
   });
 
-  // Fetching movie external ids
-  // const externalIdsQuery = useQuery([`movie-external_ids-${id}`, id], async () => {
-  //   const { data } = await axiosInstance.get<ExternalIDs>(`/movie/${id}/external_ids`, {
-  //     cancelToken: source.token
-  //   });
-  //   return data;
-  // });
-
   // Fetching movie images
-  const imagesQuery = useQuery([`movie-images-${id}`, id], async () => {
+  const imagesQuery = useQuery([`movie-${id}-images`, id], async () => {
     const { data } = await axiosInstance.get<Images>(`/movie/${id}/images`, {
       cancelToken: source.token
     });
     return data;
   });
 
+  // Fetching movie videos
+  const videosQuery = useQuery([`movie-${id}-videos`, id], async () => {
+    const { data } = await axiosInstance.get<Videos>(`/movie/${id}/videos`, {
+      cancelToken: source.token
+    });
+    return data;
+  });
+
   /**
-   * This method will find the image object from images and then it will open the media modal
+   * This method will open the image passed in the media modal
    *
-   * @param path - Image path
+   * @param image - Image object
    */
-  const handleOnPosterClick = (path: string): void => {
-    setSelectedPhoto(path);
+  const handleMediaClick = (path: string): void => {
+    setSelectedPath(path);
     onMediaViewerOpen();
   };
 
   useEffect(() => {
-    return () => source.cancel();
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   return (
     <>
-      {isSm ? (
-        <VStack width='100%' maxWidth='100%' spacing={2} p={2}>
+      <Stack width='100%' maxWidth='100%' direction={isSm ? 'column' : 'row'} spacing={isSm ? 4 : 2} p={2}>
+        <Center width={isSm ? '100%' : '40%'} maxWidth={isSm ? '100%' : '40%'}>
           <Poster
-            name={movieQuery.data?.title || ''}
+            alt={movieQuery.data?.title || ''}
             path={movieQuery.data?.poster_path || ''}
             mediaType='movie'
+            srcSize={['w92', 'original']}
             isLoading={movieQuery.isFetching || movieQuery.isLoading}
-            onClickPoster={handleOnPosterClick}
+            onClickPoster={handleMediaClick}
           />
+        </Center>
+        <Center width={isSm ? '100%' : '60%'} maxWidth={isSm ? '100%' : '60%'}>
+          <VStack width='100%' spacing={4}>
+            <Title movie={movieQuery.data} isLoading={movieQuery.isFetching || movieQuery.isLoading} />
 
-          <Container
-            movie={movieQuery.data}
-            isLoading={movieQuery.isFetching || movieQuery.isLoading}
-            isError={movieQuery.isError}
-          />
-        </VStack>
-      ) : (
-        <HStack width='100%' maxWidth='100%' spacing={2} p={2}>
-          <Box width='40%' maxWidth='40%'>
-            <Poster
-              name={movieQuery.data?.title || ''}
-              path={movieQuery.data?.poster_path || ''}
+            {!_.isNil(movieQuery.data?.overview) ||
+            !_.isEmpty(movieQuery.data?.overview) ||
+            !_.isNil(movieQuery.data?.tagline) ||
+            !_.isEmpty(movieQuery.data?.tagline) ||
+            movieQuery.isFetching ||
+            movieQuery.isLoading ? (
+              <VStack width='100%' spacing={2}>
+                {!_.isNil(movieQuery.data?.tagline) ||
+                !_.isEmpty(movieQuery.data?.tagline) ||
+                movieQuery.isFetching ||
+                movieQuery.isLoading ? (
+                  <Tagline
+                    tagline={movieQuery.data?.tagline}
+                    isLoading={movieQuery.isFetching || movieQuery.isLoading}
+                  />
+                ) : null}
+
+                {!_.isNil(movieQuery.data?.overview) ||
+                !_.isEmpty(movieQuery.data?.overview) ||
+                movieQuery.isFetching ||
+                movieQuery.isLoading ? (
+                  <Overview
+                    overview={movieQuery.data?.overview}
+                    isLoading={movieQuery.isFetching || movieQuery.isLoading}
+                  />
+                ) : null}
+              </VStack>
+            ) : null}
+
+            <Actions
+              mediaItem={movieQuery.data}
               mediaType='movie'
-              isLoading={movieQuery.isFetching || movieQuery.isLoading}
-              onClickPoster={handleOnPosterClick}
-            />
-          </Box>
-          <Box width='60%' maxWidth='60%'>
-            <Container
-              movie={movieQuery.data}
+              title={movieQuery.data?.title}
               isLoading={movieQuery.isFetching || movieQuery.isLoading}
               isError={movieQuery.isError}
             />
-          </Box>
-        </HStack>
-      )}
+          </VStack>
+        </Center>
+      </Stack>
 
-      {imagesQuery.isSuccess ? (
+      {imagesQuery.isSuccess || videosQuery.isSuccess ? (
         <MediaViewer
+          alt={movieQuery.data?.title ? `"${movieQuery.data.title}"` : 'Movie Title'}
+          assets={[
+            {
+              label: 'Posters',
+              mediaItems: (imagesQuery.data?.posters || []).map((image) => {
+                return {
+                  type: 'image',
+                  boringType: handleReturnBoringTypeByMediaType('movie'),
+                  srcSize: ['w92', 'original'],
+                  data: { ...image }
+                };
+              })
+            },
+            {
+              label: 'Backdrops',
+              mediaItems: (imagesQuery.data?.backdrops || []).map((image) => {
+                return {
+                  type: 'image',
+                  boringType: handleReturnBoringTypeByMediaType('movie'),
+                  srcSize: ['w300', 'original'],
+                  data: { ...image }
+                };
+              })
+            },
+            {
+              label: 'Videos',
+              mediaItems: (videosQuery.data?.results || []).map((video) => {
+                return {
+                  type: 'video',
+                  boringType: handleReturnBoringTypeByMediaType('movie'),
+                  srcSize: ['', ''],
+                  data: { ...video }
+                };
+              })
+            }
+          ]}
+          selectedPath={selectedPath}
           isOpen={isMediaViewerOpen}
-          selected={{ type: 'photo', asset: selectedPhoto }}
-          photos={[...(imagesQuery.data.posters || [])]}
-          backdrops={[...(imagesQuery.data.posters || [])]}
-          mediaType='person'
           onClose={onMediaViewerClose}
         />
       ) : null}
