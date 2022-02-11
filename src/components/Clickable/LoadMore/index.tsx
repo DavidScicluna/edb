@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
+import CountUp from 'react-countup';
 
 import { useSelector } from '../../../common/hooks';
 import Button from '../Button';
@@ -18,7 +19,14 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
     <VStack width={isSm ? '100%' : 'auto'} spacing={3}>
       <VStack width='100%'>
         <Text align='center' fontSize='sm' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
-          {amount >= total ? `You've viewed all ${total} ${label}` : `You've viewed ${amount} of ${total} ${label}`}
+          {amount >= total ? (
+            <CountUp duration={1} end={total} prefix={`You've viewed all `} suffix={` ${label}`} />
+          ) : (
+            <>
+              <CountUp duration={1} end={amount} prefix={`You've viewed `} suffix=' of ' />
+              <CountUp duration={1} end={total} suffix={` ${label}`} />
+            </>
+          )}
         </Text>
         <Progress
           width='100%'
