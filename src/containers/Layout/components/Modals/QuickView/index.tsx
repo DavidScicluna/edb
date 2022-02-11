@@ -10,8 +10,8 @@ import Link from '../../../../../components/Clickable/Link';
 import Empty from '../../../../../components/Empty';
 import Modal from '../../../../../components/Modal';
 import { defaultQuickViewModal, toggleQuickView } from '../../../../../store/slices/Modals';
-import Movie from './components/Movie';
 import Collection from './View/Collection';
+import Movie from './View/Movie';
 import Person from './View/Person';
 
 const QuickView = (): ReactElement => {
