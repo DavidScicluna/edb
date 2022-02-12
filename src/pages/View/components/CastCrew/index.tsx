@@ -9,7 +9,7 @@ import QuickToggles from './components/QuickToggles';
 import { Department, CastCrewProps } from './types';
 
 const CastCrew = (props: CastCrewProps): ReactElement => {
-  const [openedPanels, setOpenedPanels] = useState<number[]>([0]);
+  const [openedPanels, setOpenedPanels] = useState<number[]>([]);
 
   const { credits, isError = false, isSuccess = false, isLoading = true } = props;
 

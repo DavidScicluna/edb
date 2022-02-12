@@ -43,11 +43,11 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
             <Error
               label='Oh no! Something went wrong'
               description={`Failed to fetch ${alt ? `"${alt}"` : ''} reviews!`}
-              variant='outlined'
-              size='sm'
+              variant='transparent'
+              size='lg'
             />
           ) : !isLoading && isSuccess && reviews && (reviews?.results?.length || 0) === 0 ? (
-            <Empty label={`${alt ? `"${alt}"` : ''} has no reviews!`} variant='outlined' size='sm' />
+            <Empty label={`${alt ? `"${alt}"` : ''} has no reviews!`} variant='transparent' size='lg' />
           ) : !isLoading && isSuccess && reviews && (reviews?.results?.length || 0) > 0 ? (
             <VStack width='100%' spacing={4}>
               <VStack width='100%' spacing={2}>

@@ -96,7 +96,7 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
                       alt ? `"${alt}"` : ''
                     } to help others make up their mind.`
               }
-              variant='outlined'
+              variant='transparent'
               size='lg'
             />
           ),
