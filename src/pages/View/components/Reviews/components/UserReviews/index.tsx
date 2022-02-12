@@ -14,11 +14,11 @@ import Review from '../Review';
 import CreateReview from './components/CreateReview';
 import DeleteReview from './components/DeleteReview';
 import EditReview from './components/EditReview';
-import { UserReviewProps } from './types';
+import { UserReviewsProps } from './types';
 
 const incrementBy = 5;
 
-const UserReview = ({ alt, mediaItem, mediaType, isLoading = true }: UserReviewProps): ReactElement => {
+const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReviewsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const userReviews: UserReviewType[] = useSelector((state) => state.user.data.reviews.user);
@@ -117,4 +117,4 @@ const UserReview = ({ alt, mediaItem, mediaType, isLoading = true }: UserReviewP
   );
 };
 
-export default UserReview;
+export default UserReviews;

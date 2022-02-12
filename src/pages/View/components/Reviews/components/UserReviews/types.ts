@@ -1,6 +1,6 @@
 import { ReviewsTabProps } from '../../types';
 
-export type UserReviewProps = Omit<
+export type UserReviewsProps = Omit<
   ReviewsTabProps,
   'reviews' | 'isError' | 'isSuccess' | 'hasNextPage' | 'onFetchNextPage'
 >;

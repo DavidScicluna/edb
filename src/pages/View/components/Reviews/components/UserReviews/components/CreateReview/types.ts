@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { Color } from '../../../../../../../../theme/types';
-import { UserReviewProps } from '../../types';
+import { UserReviewsProps } from '../../types';
 
 export type Form = {
   review: string;
@@ -16,4 +16,4 @@ type RenderProps = {
 
 export type CreateReviewProps = {
   renderAction: (props: RenderProps) => ReactElement;
-} & Omit<UserReviewProps, 'alt' | 'isLoading'>;
+} & Omit<UserReviewsProps, 'alt' | 'isLoading'>;
