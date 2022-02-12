@@ -10,11 +10,11 @@ import { Images, Videos } from '../../../../../../../common/types';
 import { FullMovie } from '../../../../../../../common/types/movie';
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/utils';
 import MediaViewer from '../../../../../../../components/MediaViewer';
-import Overview from '../../../../../../../pages/View/components/Hero/components/Overview';
-import Tagline from '../../../../../../../pages/View/components/Hero/components/Tagline';
 import Title from '../../../../../../../pages/View/pages/Movie/components/Title';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
+import Overview from './components/Overview';
+import Tagline from './components/Tagline';
 import { MovieProps } from './types';
 
 const Movie = ({ id }: MovieProps): ReactElement => {

@@ -179,7 +179,9 @@ const Movie = (): ReactElement => {
     const hash = String(location.hash).replace('#', '');
 
     switch (hash) {
-      case 'CastCrew':
+      case 'cast':
+      case 'crew':
+      case 'castcrew':
         setActiveTab(1);
         return;
       case 'reviews':
@@ -332,6 +334,7 @@ const Movie = (): ReactElement => {
                   isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
                 />
                 <ReviewsTab
+                  alt={movieQuery.data?.title}
                   mediaItem={movieQuery.data ? { ...movieQuery.data } : undefined}
                   mediaType='movie'
                   reviews={reviews}

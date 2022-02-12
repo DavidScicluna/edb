@@ -81,6 +81,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
             <VStack width='100%' spacing={2}>
               <VStack width='100%' spacing={collectionQuery.isFetching || collectionQuery.isLoading ? 1 : 0}>
                 <Title
+                  mediaType='collection'
                   renderTitle={({ color, fontSize, fontWeight }) => (
                     <SkeletonText
                       width={collectionQuery.isFetching || collectionQuery.isLoading ? `${dummy}%` : '100%'}
