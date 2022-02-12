@@ -8,6 +8,7 @@ import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
+import { handleReturnPersonJobLabel } from '../../common/utils';
 import Department from '../Department';
 import { CrewProps } from './types';
 
@@ -67,7 +68,13 @@ const Crew = (props: CrewProps): ReactElement => {
                       }
                     }}
                     title={person?.name || ''}
-                    subtitle={person.job || person.jobs ? (person.jobs || []).map((job) => job.job).join(', ') : ''}
+                    subtitle={
+                      person.job
+                        ? person.job
+                        : person.jobs && person.jobs.length > 0
+                        ? handleReturnPersonJobLabel(person.jobs || [])
+                        : ''
+                    }
                     isLoading={false}
                   />
                 ))

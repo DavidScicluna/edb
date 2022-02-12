@@ -8,6 +8,7 @@ import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
+import { handleReturnPersonRoleLabel } from '../../common/utils';
 import Department from '../Department';
 import { CastProps } from './types';
 
@@ -57,8 +58,8 @@ const Cast = (props: CastProps): ReactElement => {
                     subtitle={
                       person?.character
                         ? `As ${person.character}`
-                        : person.roles
-                        ? `As ${person.roles.map((role) => role.character).join(', ')}`
+                        : person.roles && person.roles.length > 0
+                        ? handleReturnPersonRoleLabel(person.roles)
                         : ''
                     }
                     isLoading={isLoading}

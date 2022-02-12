@@ -1,14 +1,14 @@
 import { Style } from '../../../../../../common/types';
 import { Theme } from '../../../../../../theme/types';
 
-type DepartmentStyle = {
-  department: Style;
+type AssetStyle = {
+  asset: Style;
   light: Style;
   dark: Style;
 };
 
-export default (theme: Theme, isOpen = true): DepartmentStyle => ({
-  department: {
+export default (theme: Theme, isOpen = true): AssetStyle => ({
+  asset: {
     width: '100%',
     maxWidth: '100%',
     height: 'auto',

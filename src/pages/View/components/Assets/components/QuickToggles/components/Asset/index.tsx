@@ -6,27 +6,20 @@ import { Link } from 'react-scroll';
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import { DepartmentProps } from './types';
+import { AssetProps } from './types';
 
 const dummies = _.range(25, 200, 5);
 
-const Department = (props: DepartmentProps): ReactElement => {
+const Asset = (props: AssetProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const { department, isLoading = true, isDisabled = false, onTogglePanel } = props;
+  const { asset, isLoading = true, isDisabled = false, onTogglePanel } = props;
 
   const [dummy] = useState<number>(_.sample(dummies) || 100);
 
   return (
     <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
-      <Link
-        to={!isDisabled && department?.id ? department.id : ''}
-        spy
-        smooth
-        isDynamic={false}
-        offset={-82}
-        delay={1000}
-      >
+      <Link to={!isDisabled && asset ? asset : ''} spy smooth isDynamic={false} offset={-82} delay={1000}>
         <Button
           color={color}
           onClick={!isLoading && !isDisabled ? () => onTogglePanel() : undefined}
@@ -35,11 +28,11 @@ const Department = (props: DepartmentProps): ReactElement => {
           variant='text'
           sx={{ front: { px: 0 } }}
         >
-          {department?.title || 'Department Title'}
+          {asset || 'Asset Name'}
         </Button>
       </Link>
     </SkeletonText>
   );
 };
 
-export default Department;
+export default Asset;

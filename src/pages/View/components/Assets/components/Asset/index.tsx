@@ -7,9 +7,9 @@ import { Theme } from '../../../../../../theme/types';
 import Grid from './components/Grid';
 import Header from './components/Header';
 import useStyles from './styles';
-import { DepartmentProps } from './types';
+import { AssetProps } from './types';
 
-const Department = (props: DepartmentProps): ReactElement => {
+const Asset = (props: AssetProps): ReactElement => {
   const theme = useTheme<Theme>();
   const { colorMode } = useColorMode();
 
@@ -20,7 +20,7 @@ const Department = (props: DepartmentProps): ReactElement => {
   const style = useStyles(theme, isOpen);
 
   return (
-    <VStack spacing={0} sx={{ ..._.merge(style.department, style[colorMode]) }}>
+    <VStack spacing={0} sx={{ ..._.merge(style.asset, style[colorMode]) }}>
       {id ? (
         <VisuallyHidden>
           <span id={id.toLowerCase()} />
@@ -38,4 +38,4 @@ const Department = (props: DepartmentProps): ReactElement => {
   );
 };
 
-export default Department;
+export default Asset;

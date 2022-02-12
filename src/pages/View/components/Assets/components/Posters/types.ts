@@ -1,11 +1,12 @@
 import { Image } from '../../../../../../common/types';
 import { AssetsTabProps } from '../../types';
+import { AssetProps } from '../Asset/types';
 
-export type PostersProps = {
+export type PostersProps = Omit<AssetProps, 'children' | 'id' | 'title' | 'total' | 'isLoading'> & {
   posters: Image[];
   isError?: boolean;
-  isSuccess?: boolean;
   isLoading?: boolean;
+  isSuccess?: boolean;
   isOnlyAsset?: boolean;
   onClickImage?: (path: string) => void;
 } & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickAsset'>;
