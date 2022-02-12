@@ -67,7 +67,7 @@ const Crew = (props: CrewProps): ReactElement => {
                       }
                     }}
                     title={person?.name || ''}
-                    subtitle={person.job || ''}
+                    subtitle={person.job || person.jobs ? (person.jobs || []).map((job) => job.job).join(', ') : ''}
                     isLoading={false}
                   />
                 ))

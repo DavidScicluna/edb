@@ -54,7 +54,13 @@ const Cast = (props: CastProps): ReactElement => {
                       }
                     }}
                     title={person?.name || ''}
-                    subtitle={person?.character ? `As ${person.character}` : ''}
+                    subtitle={
+                      person?.character
+                        ? `As ${person.character}`
+                        : person.roles
+                        ? `As ${person.roles.map((role) => role.character).join(', ')}`
+                        : ''
+                    }
                     isLoading={isLoading}
                   />
                 ))
