@@ -37,7 +37,7 @@ const Person = (): ReactElement => {
 
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  const [selectedImagePath, setSelectedImagePath] = useState<string>();
+  const [selectedPath, setSelectedPath] = useState<string>();
 
   // Fetching person details
   const personQuery = useQuery([`person-${id}`, id], async () => {
@@ -93,7 +93,7 @@ const Person = (): ReactElement => {
   };
 
   const handleOnImageClick = (path: string): void => {
-    setSelectedImagePath(path);
+    setSelectedPath(path);
     onMediaViewerOpen();
   };
 
@@ -272,7 +272,7 @@ const Person = (): ReactElement => {
               })
             }
           ]}
-          selectedPath={selectedImagePath}
+          selectedPath={selectedPath}
           isOpen={isMediaViewerOpen}
           onClose={onMediaViewerClose}
         />

@@ -5,7 +5,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
@@ -36,10 +36,11 @@ const Collection = (): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
 
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  const [selectedImagePath, setSelectedImagePath] = useState<string>();
+  const [selectedPath, setSelectedPath] = useState<string>();
 
   const [dummy] = useState<number>(_.sample(dummies) || 75);
 
@@ -70,7 +71,7 @@ const Collection = (): ReactElement => {
    * @param image - Image object
    */
   const handleOnImageClick = (path: string): void => {
-    setSelectedImagePath(path);
+    setSelectedPath(path);
     onMediaViewerOpen();
   };
 
@@ -241,7 +242,7 @@ const Collection = (): ReactElement => {
               })
             }
           ]}
-          selectedPath={selectedImagePath}
+          selectedPath={selectedPath}
           isOpen={isMediaViewerOpen}
           onClose={onMediaViewerClose}
         />

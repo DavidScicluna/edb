@@ -5,27 +5,19 @@ import { useLocation, Switch, Route } from 'react-router-dom';
 
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
-import Collection from '../../../../pages/Collection';
 import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';
 import Movies from '../../../../pages/Movies';
-// import MoviesNowPlaying from '../../../../pages/Movies/pages/NowPlaying';
-// import PopularMovies from '../../../../pages/Movies/pages/Popular';
-// import TopRatedMovies from '../../../../pages/Movies/pages/TopRated';
-// import UpcomingMovies from '../../../../pages/Movies/pages/Upcoming';
 import People from '../../../../pages/People';
-import Person from '../../../../pages/Person';
 import Search from '../../../../pages/Search';
 import Trending from '../../../../pages/Trending';
 import TV from '../../../../pages/TV';
 import Liked from '../../../../pages/User/pages/Liked';
 import Lists from '../../../../pages/User/pages/Lists';
-// import TVAiringToday from '../../../../pages/TV/pages/AiringToday';
-// import OnTV from '../../../../pages/TV/pages/OnTV';
-// import PopularTV from '../../../../pages/TV/pages/Popular';
-// import TopRatedTV from '../../../../pages/TV/pages/TopRated';
-import Movie from '../../../../pages/View/Movie';
-import Show from '../../../../pages/View/Show';
+import Collection from '../../../../pages/View/pages/Collection';
+import Movie from '../../../../pages/View/pages/Movie';
+import Person from '../../../../pages/View/pages/Person';
+import Show from '../../../../pages/View/pages/Show';
 import Page from './components/Page';
 import { Route as RouteType } from './types';
 
@@ -61,17 +53,17 @@ export const routes: RouteType[] = [
     children: <Movies />
   },
   {
-    path: '/movie/:id',
+    path: '/movies/:id',
     name: 'Movie',
     children: <Movie />
   },
   {
-    path: '/tv',
+    path: '/tvshows',
     name: 'TV Shows',
     children: <TV />
   },
   {
-    path: '/tv/:id',
+    path: '/tvshows/:id',
     name: 'TV Show',
     children: <Show />
   },
@@ -81,7 +73,7 @@ export const routes: RouteType[] = [
     children: <People />
   },
   {
-    path: '/person/:id',
+    path: '/people/:id',
     name: 'Person',
     children: <Person />
   },

@@ -65,7 +65,8 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
       }
       isDisabled={handleIsDisabled()}
       renderTabListProps={{
-        renderTabs: _.compact([
+        color,
+        children: _.compact([
           mediaTypes.includes('movie')
             ? {
                 label: 'Movies',

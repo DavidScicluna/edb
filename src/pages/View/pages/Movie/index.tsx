@@ -131,7 +131,6 @@ const Movie = (): ReactElement => {
           total_pages: data.pages[data.pages.length - 1].total_pages,
           total_results: data.pages[data.pages.length - 1].total_results
         });
-        return;
       }
     }
   );
@@ -157,11 +156,6 @@ const Movie = (): ReactElement => {
     document.scrollingElement?.scrollTo(0, 0);
   };
 
-  /**
-   * This method will open the image passed in the media modal
-   *
-   * @param image - Image object
-   */
   const handleMediaClick = (path: string): void => {
     setSelectedPath(path);
     onMediaViewerOpen();
@@ -170,7 +164,7 @@ const Movie = (): ReactElement => {
   const handleOnCoverClick = (path: string, type: AssetType): void => {
     switch (type) {
       case 'video': {
-        const trailer = (videosQuery.data?.results || []).find((image) => image.official || image.type === 'Trailer');
+        const trailer = (videosQuery.data?.results || []).find((video) => video.official || video.type === 'Trailer');
 
         handleMediaClick(trailer?.key || path);
         break;
@@ -185,11 +179,14 @@ const Movie = (): ReactElement => {
     const hash = String(location.hash).replace('#', '');
 
     switch (hash) {
-      case 'credits':
+      case 'CastCrew':
         setActiveTab(1);
         return;
-      case 'photos':
+      case 'reviews':
         setActiveTab(2);
+        return;
+      case 'assets':
+        setActiveTab(3);
         return;
       default:
         setActiveTab(0);

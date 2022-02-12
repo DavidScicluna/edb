@@ -205,7 +205,7 @@ const Error = (props: ErrorProps): ReactElement => {
           ) : null}
         </VStack>
 
-        <Center>{button || null}</Center>
+        {button ? <Center>{button}</Center> : null}
       </VStack>
     </Fade>
   );

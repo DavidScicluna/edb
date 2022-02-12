@@ -66,7 +66,7 @@ export const navItems: NavItem[] = [
     renderIcon: ({ isActive, fontSize }) =>
       isActive ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
     label: 'TV Shows',
-    path: '/tv'
+    path: '/tvshows'
   },
   {
     renderIcon: ({ isActive, fontSize }) =>
