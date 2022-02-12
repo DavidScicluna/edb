@@ -49,20 +49,33 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
           ) : !isLoading && isSuccess && reviews && (reviews?.results?.length || 0) === 0 ? (
             <Empty label={`${alt ? `"${alt}"` : ''} has no reviews!`} variant='outlined' size='sm' />
           ) : !isLoading && isSuccess && reviews && (reviews?.results?.length || 0) > 0 ? (
-            <VStack width='100%' spacing={2}>
-              {(reviews?.results || []).map((review) => (
-                <Review
-                  key={review.id}
-                  renderFooterActions={
-                    <HStack spacing={0}>
-                      <ThumbButton review={review} state='isLiked' label='Like' isDisabled={isLoading} />
-                      <ThumbButton review={review} state='isDisliked' label='Dislike' isDisabled={isLoading} />
-                    </HStack>
-                  }
-                  review={review}
+            <VStack width='100%' spacing={4}>
+              <VStack width='100%' spacing={2}>
+                {(reviews?.results || []).map((review) => (
+                  <Review
+                    key={review.id}
+                    renderFooterActions={
+                      <HStack spacing={0}>
+                        <ThumbButton review={review} state='isLiked' label='Like' isDisabled={isLoading} />
+                        <ThumbButton review={review} state='isDisliked' label='Dislike' isDisabled={isLoading} />
+                      </HStack>
+                    }
+                    review={review}
+                    isLoading={isLoading}
+                  />
+                ))}
+              </VStack>
+
+              <ScaleFade in={!isError && hasNextPage} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
+                <LoadMore
+                  amount={reviews?.results?.length || 0}
+                  total={reviews?.total_results || 0}
+                  label='Reviews'
                   isLoading={isLoading}
+                  isButtonVisible={hasNextPage && !isError}
+                  onClick={onFetchNextPage}
                 />
-              ))}
+              </ScaleFade>
             </VStack>
           ) : (
             <VStack width='100%' spacing={4}>
@@ -79,20 +92,7 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
                 />
               ))}
             </VStack>
-          ),
-        footer:
-          !isError && hasNextPage ? (
-            <ScaleFade in unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
-              <LoadMore
-                amount={reviews?.results?.length || 0}
-                total={reviews?.total_results || 0}
-                label='Reviews'
-                isLoading={isLoading}
-                isButtonVisible={hasNextPage && !isError}
-                onClick={onFetchNextPage}
-              />
-            </ScaleFade>
-          ) : undefined
+          )
       }}
     </Panel>
   );

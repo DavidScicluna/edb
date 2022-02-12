@@ -1,11 +1,12 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
-import { useMediaQuery, HStack, VStack } from '@chakra-ui/react';
+import { useMediaQuery, HStack, VStack, ScaleFade } from '@chakra-ui/react';
 import CountUp from 'react-countup';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Badge from '../../../../../../components/Badge';
 import Button from '../../../../../../components/Clickable/Button';
+import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Panel from '../../../../../../components/Panel';
 import { UserReview as UserReviewType } from '../../../../../../store/slices/User/types';
@@ -15,11 +16,15 @@ import DeleteReview from './components/DeleteReview';
 import EditReview from './components/EditReview';
 import { UserReviewProps } from './types';
 
+const incrementBy = 5;
+
 const UserReview = ({ alt, mediaItem, mediaType, isLoading = true }: UserReviewProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const userReviews: UserReviewType[] = useSelector((state) => state.user.data.reviews.user);
   const mediaItemUserReviews: UserReviewType[] = userReviews.filter((review) => review.mediaItem.id === mediaItem?.id);
+
+  const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
   return (
     <Panel isFullWidth>
@@ -35,20 +40,37 @@ const UserReview = ({ alt, mediaItem, mediaType, isLoading = true }: UserReviewP
         },
         body:
           mediaItemUserReviews.length > 0 ? (
-            <VStack width='100%' spacing={2}>
-              {mediaItemUserReviews.map((review) => (
-                <Review
-                  key={review.id}
-                  renderFooterActions={
-                    <HStack>
-                      <EditReview review={review} />
-                      <DeleteReview id={review.id} />
-                    </HStack>
-                  }
-                  review={review}
-                  isLoading={isLoading}
+            <VStack width='100%' spacing={4}>
+              <VStack width='100%' spacing={2}>
+                {mediaItemUserReviews
+                  .filter((_review, index) => index < totalVisible)
+                  .map((review) => (
+                    <Review
+                      key={review.id}
+                      renderFooterActions={
+                        <HStack>
+                          <EditReview review={review} />
+                          <DeleteReview id={review.id} />
+                        </HStack>
+                      }
+                      review={review}
+                      isLoading={isLoading}
+                    />
+                  ))}
+              </VStack>
+
+              <ScaleFade
+                in={mediaItemUserReviews.length > 0 && mediaItemUserReviews.length > incrementBy}
+                unmountOnExit
+                style={{ width: isSm ? '100%' : 'auto' }}
+              >
+                <LoadMore
+                  amount={totalVisible}
+                  total={mediaItemUserReviews.length}
+                  label={alt ? `"${alt}" reviews` : 'Reviews'}
+                  onClick={() => setTotalVisible(totalVisible + incrementBy)}
                 />
-              ))}
+              </ScaleFade>
             </VStack>
           ) : (
             <Empty
