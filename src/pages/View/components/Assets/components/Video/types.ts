@@ -1,8 +1,8 @@
 import { Video } from '../../../../../../common/types';
+import { AssetsTabProps } from '../../types';
 
-export type MediaVideoProps = {
-  alt?: string;
+export type AssetVideoProps = Omit<Video, 'key'> & {
   videoId?: Video['key'];
   isLoading?: boolean;
-  onClick?: (videoId: string) => void;
-};
+  onClickVideo?: (videoId: string) => void;
+} & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickAsset'>;

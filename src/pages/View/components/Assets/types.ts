@@ -17,5 +17,5 @@ export type AssetsTabProps = {
   isError: Booleans;
   isSuccess: Booleans;
   isLoading: Booleans;
-  onClickImage: (path: string, type: AssetType) => void;
+  onClickAsset: (path: string, type: AssetType) => void;
 };

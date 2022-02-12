@@ -10,7 +10,7 @@ import Videos from './components/Videos';
 import { AssetsTabProps } from './types';
 
 const Assets = (props: AssetsTabProps): ReactElement => {
-  const { alt, images, videos, isError, isSuccess, isLoading, onClickImage } = props;
+  const { alt, images, videos, isError, isSuccess, isLoading, onClickAsset } = props;
 
   return (
     <VStack width='100%' spacing={4}>
@@ -26,7 +26,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
             (_.isNil(images.backdrops) || _.isEmpty(images.backdrops)) &&
             (_.isNil(videos) || _.isEmpty(videos))
           }
-          onClickImage={(path) => onClickImage(path, 'image')}
+          onClickImage={(path) => onClickAsset(path, 'image')}
         />
       ) : null}
 
@@ -42,7 +42,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
             (_.isNil(images.backdrops) || _.isEmpty(images.backdrops)) &&
             (_.isNil(videos) || _.isEmpty(videos))
           }
-          onClickImage={(path) => onClickImage(path, 'image')}
+          onClickImage={(path) => onClickAsset(path, 'image')}
         />
       ) : null}
 
@@ -58,7 +58,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
             (_.isNil(images.posters) || _.isEmpty(images.posters)) &&
             (_.isNil(videos) || _.isEmpty(videos))
           }
-          onClickImage={(path) => onClickImage(path, 'image')}
+          onClickImage={(path) => onClickAsset(path, 'image')}
         />
       ) : null}
 
@@ -74,7 +74,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
             (_.isNil(images?.posters) || _.isEmpty(images?.posters)) &&
             (_.isNil(images?.backdrops) || _.isEmpty(images?.backdrops))
           }
-          onClickVideo={(videoId) => onClickImage(videoId, 'video')}
+          onClickVideo={(videoId) => onClickAsset(videoId, 'video')}
         />
       ) : null}
     </VStack>

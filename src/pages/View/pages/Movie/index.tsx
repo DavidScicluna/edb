@@ -161,7 +161,7 @@ const Movie = (): ReactElement => {
     onMediaViewerOpen();
   };
 
-  const handleOnCoverClick = (path: string, type: AssetType): void => {
+  const handleOnAssetClick = (path: string, type: AssetType): void => {
     switch (type) {
       case 'video': {
         const trailer = (videosQuery.data?.results || []).find((video) => video.official || video.type === 'Trailer');
@@ -322,7 +322,7 @@ const Movie = (): ReactElement => {
                   similarQuery={similarQuery}
                   imagesQuery={imagesQuery}
                   videosQuery={videosQuery}
-                  onAssetClick={handleOnCoverClick}
+                  onAssetClick={handleOnAssetClick}
                   onChangeTab={handleChangeTab}
                 />
                 <CastCrewTab
@@ -354,7 +354,7 @@ const Movie = (): ReactElement => {
                     images: imagesQuery.isFetching || imagesQuery.isLoading,
                     videos: videosQuery.isFetching || videosQuery.isLoading
                   }}
-                  onClickImage={() => console.log('asd')}
+                  onClickAsset={handleOnAssetClick}
                 />
               </TabPanels>
             )

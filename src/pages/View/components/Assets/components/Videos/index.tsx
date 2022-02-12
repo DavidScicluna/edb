@@ -59,7 +59,7 @@ const Videos = (props: VideosProps): ReactElement => {
                   videos
                     .filter((_video, index) => index < totalVisible)
                     .map((video, index: number) => (
-                      <Video key={index} alt={alt} videoId={video.key} isLoading={false} onClick={onClickVideo} />
+                      <Video key={index} alt={alt} videoId={video.key} isLoading={false} onClickVideo={onClickVideo} />
                     ))
                 }
               </VerticalGrid>

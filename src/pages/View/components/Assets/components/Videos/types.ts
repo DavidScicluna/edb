@@ -8,4 +8,4 @@ export type VideosProps = {
   isLoading?: boolean;
   isOnlyAsset?: boolean;
   onClickVideo?: (videoId: string) => void;
-} & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickImage'>;
+} & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickAsset'>;

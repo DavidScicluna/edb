@@ -5,4 +5,4 @@ export type AssetImageProps = Image & {
   srcSize: [string, string];
   isLoading?: boolean;
   onClickImage?: (path: string) => void;
-} & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickImage'>;
+} & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickAsset'>;

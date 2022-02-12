@@ -7,7 +7,7 @@ import YouTube, { Options } from 'react-youtube';
 
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Skeleton from '../../../../../../components/Skeleton';
-import { MediaVideoProps } from './types';
+import { AssetVideoProps } from './types';
 import './styles.css';
 
 const opts: Options = {
@@ -25,8 +25,8 @@ const opts: Options = {
   }
 };
 
-const MediaVideo = (props: MediaVideoProps): ReactElement => {
-  const { alt, videoId, isLoading = true, onClick } = props;
+const AssetVideo = (props: AssetVideoProps): ReactElement => {
+  const { alt, videoId, isLoading = true, onClickVideo } = props;
 
   return (
     <Box width='100%' alt={`${alt ? `"${alt}"` : ''} video`} borderRadius='lg'>
@@ -36,7 +36,7 @@ const MediaVideo = (props: MediaVideoProps): ReactElement => {
         borderRadius='lg'
         isDisabled={isLoading || _.isNil(videoId) || _.isEmpty(videoId)}
         renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
-        onClick={onClick && videoId ? () => onClick(videoId) : undefined}
+        onClick={onClickVideo && videoId ? () => onClickVideo(videoId) : undefined}
       >
         <Skeleton borderRadius='lg' isLoaded={!isLoading}>
           <YouTube
@@ -51,4 +51,4 @@ const MediaVideo = (props: MediaVideoProps): ReactElement => {
   );
 };
 
-export default MediaVideo;
+export default AssetVideo;

@@ -8,4 +8,4 @@ export type ProfilesProps = {
   isLoading?: boolean;
   isOnlyAsset?: boolean;
   onClickImage?: (path: string) => void;
-} & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickImage'>;
+} & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickAsset'>;
