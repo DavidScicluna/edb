@@ -178,7 +178,11 @@ const Person = (): ReactElement => {
                   },
                   {
                     label: 'Photos',
-                    isDisabled: imagesQuery.isError || imagesQuery.isFetching || imagesQuery.isLoading,
+                    isDisabled:
+                      imagesQuery.isError ||
+                      imagesQuery.isFetching ||
+                      imagesQuery.isLoading ||
+                      (imagesQuery.data?.profiles?.length || 0) === 0,
                     renderRight:
                       (imagesQuery.data?.profiles?.length || 0) > 0
                         ? ({ isSelected, size }) => (

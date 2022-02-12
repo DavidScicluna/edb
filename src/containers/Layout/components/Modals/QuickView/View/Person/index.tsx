@@ -2,6 +2,7 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, useDisclosure, Stack, Center, VStack } from '@chakra-ui/react';
 import axios from 'axios';
+import _ from 'lodash';
 import { useQuery } from 'react-query';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
@@ -13,6 +14,7 @@ import { handleGetDepartments } from '../../../../../../../pages/View/pages/Pers
 import Title from '../../../../../../../pages/View/pages/Person/components/Title';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
+import Bio from './components/Bio';
 import Stats from './components/Stats';
 import { PersonProps } from './types';
 
@@ -91,11 +93,28 @@ const Person = ({ id }: PersonProps): ReactElement => {
         </Center>
         <Center width={isSm ? '100%' : '60%'} maxWidth={isSm ? '100%' : '60%'}>
           <VStack width='100%' spacing={4}>
-            <Title
-              person={personQuery.data}
-              departments={departments.map((department) => department.label)}
-              isLoading={personQuery.isFetching || personQuery.isLoading}
-            />
+            <VStack width='100%' spacing={2}>
+              <Title
+                person={personQuery.data}
+                departments={departments.map((department) => department.label)}
+                isLoading={personQuery.isFetching || personQuery.isLoading}
+              />
+
+              {!_.isNil(personQuery.data?.biography) ||
+              !_.isEmpty(personQuery.data?.biography) ||
+              !_.isNil(personQuery.data?.birthday) ||
+              !_.isEmpty(personQuery.data?.birthday) ||
+              personQuery.isFetching ||
+              personQuery.isLoading ? (
+                <Bio
+                  birthday={personQuery.data?.birthday}
+                  place_of_birth={personQuery.data?.place_of_birth}
+                  deathday={personQuery.data?.deathday}
+                  bio={personQuery.data?.biography}
+                  isLoading={personQuery.isFetching || personQuery.isLoading}
+                />
+              ) : null}
+            </VStack>
 
             <Stats
               totalCrewCredits={(movieCreditsQuery.data?.crew?.length || 0) + (tvCreditsQuery.data?.crew?.length || 0)}
