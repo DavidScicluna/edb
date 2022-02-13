@@ -7,6 +7,5 @@ export type BackdropsProps = Omit<AssetProps, 'children' | 'id' | 'title' | 'tot
   isError?: boolean;
   isLoading?: boolean;
   isSuccess?: boolean;
-  isOnlyAsset?: boolean;
   onClickImage?: (path: string) => void;
 } & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickAsset'>;

@@ -11,7 +11,7 @@ import Asset from '../Asset';
 import Video from '../Video';
 import { VideosProps } from './types';
 
-const incrementBy = 10;
+const incrementBy = 5;
 
 const Videos = (props: VideosProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -23,7 +23,6 @@ const Videos = (props: VideosProps): ReactElement => {
     isLoading = true,
     isError = false,
     isSuccess = false,
-    isOnlyAsset = false,
     onClickVideo,
     onToggle
   } = props;
@@ -44,10 +43,10 @@ const Videos = (props: VideosProps): ReactElement => {
           <Error
             label='Oh no! Something went wrong'
             description={`Failed to fetch ${alt ? `"${alt}"` : ''} videos list!`}
-            variant='outlined'
+            variant='transparent'
           />
         ) : !isLoading && isSuccess && videos && videos.length === 0 ? (
-          <Empty label={`${alt ? `"${alt}" videos` : 'Videos'} list is currently empty!`} variant='outlined' />
+          <Empty label={`${alt ? `"${alt}" videos` : 'Videos'} list is currently empty!`} variant='transparent' />
         ) : !isLoading && isSuccess && videos && videos.length > 0 ? (
           <VerticalGrid displayMode='grid'>
             {() =>

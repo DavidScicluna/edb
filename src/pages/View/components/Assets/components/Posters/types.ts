@@ -7,6 +7,5 @@ export type PostersProps = Omit<AssetProps, 'children' | 'id' | 'title' | 'total
   isError?: boolean;
   isLoading?: boolean;
   isSuccess?: boolean;
-  isOnlyAsset?: boolean;
   onClickImage?: (path: string) => void;
 } & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickAsset'>;

@@ -51,77 +51,56 @@ const Assets = (props: AssetsTabProps): ReactElement => {
       />
 
       <VStack width='100%' spacing={2}>
-        {images?.profiles ? (
-          <Profiles
-            alt={alt}
-            profiles={images.profiles}
-            isOpen={openedPanels.includes(assets.findIndex((asset) => asset === 'photos'))}
-            isError={isError.images}
-            isSuccess={isSuccess.images}
-            isLoading={isLoading.images}
-            isOnlyAsset={
-              (_.isNil(images.posters) || _.isEmpty(images.posters)) &&
-              (_.isNil(images.backdrops) || _.isEmpty(images.backdrops)) &&
-              (_.isNil(videos) || _.isEmpty(videos))
-            }
-            onClickImage={(path) => onClickAsset(path, 'image')}
-            onToggle={() => handleTogglePanel(assets.findIndex((asset) => asset === 'photos'))}
-          />
-        ) : null}
-
-        {images?.posters ? (
-          <Posters
-            alt={alt}
-            posters={images.posters}
-            isOpen={openedPanels.includes(assets.findIndex((asset) => asset === 'posters'))}
-            isError={isError.images}
-            isSuccess={isSuccess.images}
-            isLoading={isLoading.images}
-            isOnlyAsset={
-              (_.isNil(images.profiles) || _.isEmpty(images.profiles)) &&
-              (_.isNil(images.backdrops) || _.isEmpty(images.backdrops)) &&
-              (_.isNil(videos) || _.isEmpty(videos))
-            }
-            onClickImage={(path) => onClickAsset(path, 'image')}
-            onToggle={() => handleTogglePanel(assets.findIndex((asset) => asset === 'posters'))}
-          />
-        ) : null}
-
-        {images?.backdrops ? (
-          <Backdrops
-            alt={alt}
-            backdrops={images.backdrops}
-            isOpen={openedPanels.includes(assets.findIndex((asset) => asset === 'backdrops'))}
-            isError={isError.images}
-            isSuccess={isSuccess.images}
-            isLoading={isLoading.images}
-            isOnlyAsset={
-              (_.isNil(images.profiles) || _.isEmpty(images.profiles)) &&
-              (_.isNil(images.posters) || _.isEmpty(images.posters)) &&
-              (_.isNil(videos) || _.isEmpty(videos))
-            }
-            onClickImage={(path) => onClickAsset(path, 'image')}
-            onToggle={() => handleTogglePanel(assets.findIndex((asset) => asset === 'backdrops'))}
-          />
-        ) : null}
-
-        {videos ? (
-          <Videos
-            alt={alt}
-            videos={videos}
-            isOpen={openedPanels.includes(assets.findIndex((asset) => asset === 'videos'))}
-            isError={isError.videos}
-            isSuccess={isSuccess.videos}
-            isLoading={isLoading.videos}
-            isOnlyAsset={
-              (_.isNil(images?.profiles) || _.isEmpty(images?.profiles)) &&
-              (_.isNil(images?.posters) || _.isEmpty(images?.posters)) &&
-              (_.isNil(images?.backdrops) || _.isEmpty(images?.backdrops))
-            }
-            onClickVideo={(videoId) => onClickAsset(videoId, 'video')}
-            onToggle={() => handleTogglePanel(assets.findIndex((asset) => asset === 'videos'))}
-          />
-        ) : null}
+        {_.compact([
+          (!_.isNil(images?.profiles) && !_.isEmpty(images?.profiles)) || isLoading.images ? (
+            <Profiles
+              alt={alt}
+              profiles={images?.profiles || []}
+              isOpen={openedPanels.includes(assets.findIndex((asset) => asset === 'photos'))}
+              isError={isError.images}
+              isSuccess={isSuccess.images}
+              isLoading={isLoading.images}
+              onClickImage={(path) => onClickAsset(path, 'image')}
+              onToggle={() => handleTogglePanel(assets.findIndex((asset) => asset === 'photos'))}
+            />
+          ) : undefined,
+          (!_.isNil(images?.posters) && !_.isEmpty(images?.posters)) || isLoading.images ? (
+            <Posters
+              alt={alt}
+              posters={images?.posters || []}
+              isOpen={openedPanels.includes(assets.findIndex((asset) => asset === 'posters'))}
+              isError={isError.images}
+              isSuccess={isSuccess.images}
+              isLoading={isLoading.images}
+              onClickImage={(path) => onClickAsset(path, 'image')}
+              onToggle={() => handleTogglePanel(assets.findIndex((asset) => asset === 'posters'))}
+            />
+          ) : undefined,
+          (!_.isNil(images?.backdrops) && !_.isEmpty(images?.backdrops)) || isLoading.images ? (
+            <Backdrops
+              alt={alt}
+              backdrops={images?.backdrops || []}
+              isOpen={openedPanels.includes(assets.findIndex((asset) => asset === 'backdrops'))}
+              isError={isError.images}
+              isSuccess={isSuccess.images}
+              isLoading={isLoading.images}
+              onClickImage={(path) => onClickAsset(path, 'image')}
+              onToggle={() => handleTogglePanel(assets.findIndex((asset) => asset === 'backdrops'))}
+            />
+          ) : undefined,
+          (!_.isNil(videos) && !_.isEmpty(videos)) || isLoading.videos ? (
+            <Videos
+              alt={alt}
+              videos={videos || []}
+              isOpen={openedPanels.includes(assets.findIndex((asset) => asset === 'videos'))}
+              isError={isError.videos}
+              isSuccess={isSuccess.videos}
+              isLoading={isLoading.videos}
+              onClickVideo={(videoId) => onClickAsset(videoId, 'video')}
+              onToggle={() => handleTogglePanel(assets.findIndex((asset) => asset === 'videos'))}
+            />
+          ) : undefined
+        ])}
       </VStack>
     </VStack>
   );

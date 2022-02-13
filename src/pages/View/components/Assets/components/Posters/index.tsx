@@ -11,7 +11,7 @@ import Asset from '../Asset';
 import Image from '../Image';
 import { PostersProps } from './types';
 
-const incrementBy = 20;
+const incrementBy = 10;
 
 const Posters = (props: PostersProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -23,7 +23,6 @@ const Posters = (props: PostersProps): ReactElement => {
     isLoading = true,
     isError = false,
     isSuccess = false,
-    isOnlyAsset = false,
     onClickImage,
     onToggle
   } = props;
@@ -44,10 +43,10 @@ const Posters = (props: PostersProps): ReactElement => {
           <Error
             label='Oh no! Something went wrong'
             description={`Failed to fetch ${alt ? `"${alt}"` : ''} posters list!`}
-            variant='outlined'
+            variant='transparent'
           />
         ) : !isLoading && isSuccess && posters && posters.length === 0 ? (
-          <Empty label={`${alt ? `"${alt}" posters` : 'Posters'} list is currently empty!`} variant='outlined' />
+          <Empty label={`${alt ? `"${alt}" posters` : 'Posters'} list is currently empty!`} variant='transparent' />
         ) : !isLoading && isSuccess && posters && posters.length > 0 ? (
           <VerticalGrid displayMode='grid'>
             {() =>

@@ -7,6 +7,5 @@ export type ProfilesProps = Omit<AssetProps, 'children' | 'id' | 'title' | 'tota
   isError?: boolean;
   isLoading?: boolean;
   isSuccess?: boolean;
-  isOnlyAsset?: boolean;
   onClickImage?: (path: string) => void;
 } & Omit<AssetsTabProps, 'images' | 'videos' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickAsset'>;

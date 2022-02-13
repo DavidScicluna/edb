@@ -11,7 +11,7 @@ import Asset from '../Asset';
 import Image from '../Image';
 import { BackdropsProps } from './types';
 
-const incrementBy = 20;
+const incrementBy = 10;
 
 const Backdrops = (props: BackdropsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -23,7 +23,6 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
     isLoading = true,
     isError = false,
     isSuccess = false,
-    isOnlyAsset = false,
     onClickImage,
     onToggle
   } = props;
@@ -44,10 +43,10 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
           <Error
             label='Oh no! Something went wrong'
             description={`Failed to fetch ${alt ? `"${alt}"` : ''} backdrops list!`}
-            variant='outlined'
+            variant='transparent'
           />
         ) : !isLoading && isSuccess && backdrops && backdrops.length === 0 ? (
-          <Empty label={`${alt ? `"${alt}" backdrops` : 'Backdrops'} list is currently empty!`} variant='outlined' />
+          <Empty label={`${alt ? `"${alt}" backdrops` : 'Backdrops'} list is currently empty!`} variant='transparent' />
         ) : !isLoading && isSuccess && backdrops && backdrops.length > 0 ? (
           <VerticalGrid columns={[1, 2, 2, 3, 3, 4]} displayMode='grid'>
             {() =>

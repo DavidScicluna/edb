@@ -11,7 +11,7 @@ import Asset from '../Asset';
 import Image from '../Image';
 import { ProfilesProps } from './types';
 
-const incrementBy = 20;
+const incrementBy = 10;
 
 const Profiles = (props: ProfilesProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -23,7 +23,6 @@ const Profiles = (props: ProfilesProps): ReactElement => {
     isLoading = true,
     isError = false,
     isSuccess = false,
-    isOnlyAsset = false,
     onClickImage,
     onToggle
   } = props;
@@ -44,10 +43,10 @@ const Profiles = (props: ProfilesProps): ReactElement => {
           <Error
             label='Oh no! Something went wrong'
             description={`Failed to fetch ${alt ? `"${alt}"` : ''} profiles list!`}
-            variant='outlined'
+            variant='transparent'
           />
         ) : !isLoading && isSuccess && profiles && profiles.length === 0 ? (
-          <Empty label={`${alt ? `"${alt}" profiles` : 'Profiles'} list is currently empty!`} variant='outlined' />
+          <Empty label={`${alt ? `"${alt}" profiles` : 'Profiles'} list is currently empty!`} variant='transparent' />
         ) : !isLoading && isSuccess && profiles && profiles.length > 0 ? (
           <VerticalGrid displayMode='grid'>
             {() =>
