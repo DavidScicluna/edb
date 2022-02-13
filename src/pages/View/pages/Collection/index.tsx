@@ -151,7 +151,7 @@ const Collection = (): ReactElement => {
                       collectionQuery.isLoading ||
                       (collectionQuery.data?.parts?.length || 0) === 0,
                     renderRight:
-                      (collectionQuery.data?.parts || []).length > 0
+                      (collectionQuery.data?.parts?.length || 0) > 0
                         ? ({ isSelected, size }) => (
                             <Fade in unmountOnExit>
                               <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>

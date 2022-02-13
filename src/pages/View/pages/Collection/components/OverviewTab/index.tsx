@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, Collapse } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import Paragraph from '../../../../../../components/Paragraph';
@@ -10,15 +10,21 @@ import { OverviewTabProps } from './types';
 const OverviewTab = ({ collectionQuery, imagesQuery, onClickImage, onChangeTab }: OverviewTabProps): ReactElement => {
   return (
     <VStack width='100%' spacing={4}>
-      {(!_.isNil(collectionQuery.data?.overview) && !_.isEmpty(collectionQuery.data?.overview)) ||
-      collectionQuery.isFetching ||
-      collectionQuery.isLoading ? (
+      <Collapse
+        in={
+          (!_.isNil(collectionQuery.data?.overview) && !_.isEmpty(collectionQuery.data?.overview)) ||
+          collectionQuery.isFetching ||
+          collectionQuery.isLoading
+        }
+        unmountOnExit
+        style={{ width: '100%' }}
+      >
         <Paragraph
           title='Overview'
           paragraphs={collectionQuery.data?.overview || ''}
           isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
         />
-      ) : null}
+      </Collapse>
 
       <Media
         alt={collectionQuery.data?.name}

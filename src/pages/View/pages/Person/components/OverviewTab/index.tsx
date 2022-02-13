@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, Collapse } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import Media from '../../../../components/Media';
@@ -13,11 +13,17 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 
   return (
     <VStack width='100%' spacing={4}>
-      {!_.isNil(person?.biography) ||
-      !_.isEmpty(person?.biography) ||
-      !_.isNil(person?.birthday) ||
-      !_.isEmpty(person?.birthday) ||
-      isLoading?.person ? (
+      <Collapse
+        in={
+          !_.isNil(person?.biography) ||
+          !_.isEmpty(person?.biography) ||
+          !_.isNil(person?.birthday) ||
+          !_.isEmpty(person?.birthday) ||
+          isLoading?.person
+        }
+        unmountOnExit
+        style={{ width: '100%' }}
+      >
         <Bio
           birthday={person?.birthday}
           place_of_birth={person?.place_of_birth}
@@ -25,7 +31,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
           biography={person?.biography}
           isLoading={isLoading?.person}
         />
-      ) : null}
+      </Collapse>
 
       <KnownFor
         credits={credits}
