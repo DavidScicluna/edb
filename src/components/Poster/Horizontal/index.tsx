@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack, Box } from '@chakra-ui/react';
+import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack, Center } from '@chakra-ui/react';
 import _ from 'lodash';
 import useInView from 'react-cool-inview';
 
@@ -122,8 +122,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 
           {/* Like / List Icon buttons */}
           {mediaItem ? (
-            <HStack
-              spacing={0}
+            <Center
               sx={{
                 position: 'absolute',
                 top: 1,
@@ -131,7 +130,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
               }}
             >
               {/* Like component */}
-              <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+              <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                 <Like
                   title={title}
                   mediaType={mediaType}
@@ -139,10 +138,10 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                   isLoading={isLoading}
                   size={isSm ? 'md' : 'lg'}
                 />
-              </Box>
+              </Center>
               {/* List component */}
               {mediaType === 'movie' || mediaType === 'tv' ? (
-                <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                   <Bookmark
                     title={title}
                     mediaType={mediaType}
@@ -150,9 +149,9 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
                     isLoading={isLoading}
                     size={isSm ? 'md' : 'lg'}
                   />
-                </Box>
+                </Center>
               ) : null}
-            </HStack>
+            </Center>
           ) : null}
         </HStack>
       </Card>

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useBoolean, VStack, HStack, Box } from '@chakra-ui/react';
+import { useBoolean, VStack, Center } from '@chakra-ui/react';
 import useInView from 'react-cool-inview';
 
 import { MediaType } from '../../../common/types';
@@ -61,19 +61,19 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
           <VStack width='100%' spacing={isLoading ? 1 : 0.5}>
             {/* Header */}
             {mediaType === 'movie' || mediaType === 'tv' ? (
-              <HStack width='100%' justify='space-between' spacing={0}>
+              <Center width='100%' justify='space-between'>
                 {/* Rating component */}
                 <Rating size='md' inView={inView} isLoading={isLoading}>
                   {rating}
                 </Rating>
 
-                <HStack spacing={0}>
+                <Center spacing={0}>
                   {/* Like component */}
-                  <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                  <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                     <Like title={title} mediaType={mediaType} mediaItem={mediaItem} size='sm' isLoading={isLoading} />
-                  </Box>
+                  </Center>
                   {/* List component */}
-                  <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+                  <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                     <Bookmark
                       title={title}
                       mediaType={mediaType}
@@ -81,9 +81,9 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                       isLoading={isLoading}
                       size='sm'
                     />
-                  </Box>
-                </HStack>
-              </HStack>
+                  </Center>
+                </Center>
+              </Center>
             ) : null}
 
             {/* Text */}
@@ -95,17 +95,17 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
           {/* Like component */}
           {mediaType === 'person' || mediaType === 'company' || mediaType === 'collection' ? (
-            <HStack
+            <Center
               sx={{
                 position: 'absolute',
                 top: 1,
                 right: 2
               }}
             >
-              <Box onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+              <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                 <Like title={title} mediaType={mediaType} mediaItem={mediaItem} isLoading={isLoading} size='sm' />
-              </Box>
-            </HStack>
+              </Center>
+            </Center>
           ) : null}
         </VStack>
       </Card>
