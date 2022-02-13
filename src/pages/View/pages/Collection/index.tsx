@@ -211,13 +211,13 @@ const Collection = (): ReactElement => {
                 />
                 <AssetsTab
                   alt={collectionQuery.data?.name}
-                  images={{
+                  assets={{
                     posters: imagesQuery.data?.posters,
                     backdrops: imagesQuery.data?.backdrops
                   }}
-                  isError={{ images: imagesQuery.isError }}
-                  isSuccess={{ images: imagesQuery.isSuccess }}
-                  isLoading={{ images: imagesQuery.isFetching || imagesQuery.isLoading }}
+                  isError={imagesQuery.isError}
+                  isSuccess={imagesQuery.isSuccess}
+                  isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
                   onClickAsset={handleOnAssetClick}
                 />
               </TabPanels>

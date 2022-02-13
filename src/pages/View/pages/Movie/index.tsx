@@ -339,6 +339,7 @@ const Movie = (): ReactElement => {
                   onChangeTab={handleChangeTab}
                 />
                 <CastCrewTab
+                  alt={movieQuery.data?.title}
                   credits={creditsQuery.data}
                   isError={creditsQuery.isError}
                   isSuccess={creditsQuery.isSuccess}
@@ -357,17 +358,16 @@ const Movie = (): ReactElement => {
                 />
                 <AssetsTab
                   alt={movieQuery.data?.title}
-                  images={{
+                  assets={{
                     posters: imagesQuery.data?.posters,
-                    backdrops: imagesQuery.data?.backdrops
+                    backdrops: imagesQuery.data?.backdrops,
+                    videos: videosQuery.data?.results
                   }}
-                  videos={videosQuery.data?.results}
-                  isError={{ images: imagesQuery.isError, videos: videosQuery.isError }}
-                  isSuccess={{ images: imagesQuery.isSuccess, videos: videosQuery.isSuccess }}
-                  isLoading={{
-                    images: imagesQuery.isFetching || imagesQuery.isLoading,
-                    videos: videosQuery.isFetching || videosQuery.isLoading
-                  }}
+                  isError={imagesQuery.isError || videosQuery.isError}
+                  isSuccess={imagesQuery.isSuccess || videosQuery.isSuccess}
+                  isLoading={
+                    imagesQuery.isFetching || imagesQuery.isLoading || videosQuery.isFetching || videosQuery.isLoading
+                  }
                   onClickAsset={handleOnAssetClick}
                 />
               </TabPanels>

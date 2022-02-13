@@ -1,8 +1,7 @@
 import { Image } from '../../../../../../common/types';
 import { AssetsTabProps } from '../../types';
-import { AssetProps } from '../Asset/types';
 
-export type ProfilesProps = Omit<AssetProps, 'children' | 'id' | 'title' | 'total' | 'isLoading'> & {
+export type ProfilesProps = {
   profiles: Image[];
   isError?: boolean;
   isLoading?: boolean;

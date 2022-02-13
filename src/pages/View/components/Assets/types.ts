@@ -1,21 +1,16 @@
 import { Image, Video } from '../../../../common/types';
 import { AssetType } from '../../../../components/MediaViewer/types';
 
-type Booleans = {
-  images?: boolean;
-  videos?: boolean;
-};
-
 export type AssetsTabProps = {
   alt?: string;
-  images?: {
+  assets?: {
     profiles?: Image[];
     posters?: Image[];
     backdrops?: Image[];
+    videos?: Video[];
   };
-  videos?: Video[];
-  isError: Booleans;
-  isSuccess: Booleans;
-  isLoading: Booleans;
+  isError?: boolean;
+  isSuccess?: boolean;
+  isLoading?: boolean;
   onClickAsset: (path: string, type: AssetType) => void;
 };

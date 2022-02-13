@@ -26,7 +26,7 @@ const CastCrew = (props: CastCrewProps): ReactElement => {
     </Fade>
   ) : !isLoading && isSuccess && departments && departments.length === 0 ? (
     <Fade in unmountOnExit style={{ width: '100%' }}>
-      <Empty label={`${alt ? `"${alt}"` : ''} cast & crew list is currently empty!`} variant='outlined' />
+      <Empty label={`${alt ? `"${alt}" cast & crew` : 'Cast & Crew'} list is currently empty!`} variant='outlined' />
     </Fade>
   ) : (
     <Accordions

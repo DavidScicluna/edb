@@ -1,8 +1,7 @@
 import { Video } from '../../../../../../common/types';
 import { AssetsTabProps } from '../../types';
-import { AssetProps } from '../Asset/types';
 
-export type VideosProps = Omit<AssetProps, 'children' | 'id' | 'title' | 'total' | 'isLoading'> & {
+export type VideosProps = {
   videos: Video[];
   isError?: boolean;
   isLoading?: boolean;

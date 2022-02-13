@@ -251,10 +251,10 @@ const Person = (): ReactElement => {
                 />
                 <AssetsTab
                   alt={personQuery.data?.name}
-                  images={{ profiles: imagesQuery.data?.profiles }}
-                  isError={{ images: imagesQuery.isError }}
-                  isSuccess={{ images: imagesQuery.isSuccess }}
-                  isLoading={{ images: imagesQuery.isFetching || imagesQuery.isLoading }}
+                  assets={{ profiles: imagesQuery.data?.profiles }}
+                  isError={imagesQuery.isError}
+                  isSuccess={imagesQuery.isSuccess}
+                  isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
                   onClickAsset={handleOnAssetClick}
                 />
               </TabPanels>
