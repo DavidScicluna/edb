@@ -52,7 +52,7 @@ const CastCrew = (props: CastCrewProps): ReactElement => {
             })
       }
       renderAccordion={({ id, title, data }) =>
-        id === 'cast' ? (
+        id === 'cast' || id === 'guest_stars' ? (
           <Cast key={id} cast={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
         ) : (
           <Crew key={id} title={title} crew={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />

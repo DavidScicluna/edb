@@ -35,14 +35,21 @@ export const handleReturnCrew = (credits?: Credits): Department[] => {
     }
   });
 
-  return [
+  return _.compact([
     {
       id: 'cast',
       title: 'Cast',
       people: credits?.cast || []
     },
+    credits?.guest_stars
+      ? {
+          id: 'guest_stars',
+          title: 'Guest Stars',
+          people: credits?.guest_stars || []
+        }
+      : undefined,
     ...sort([...departments], 'title')
-  ];
+  ]);
 };
 
 /**

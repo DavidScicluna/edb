@@ -1,11 +1,11 @@
 import { Credits as MovieCredits, Cast as MovieCast, Crew as MovieCrew } from '../../../../common/types/movie';
-import { Credits as TVCredits, Cast as TVCast, Crew as TVCrew } from '../../../../common/types/tv';
+import { Credits as TVCredits, Cast as TVCast, Crew as TVCrew, EpisodeCredits } from '../../../../common/types/tv';
 
 export type Cast = MovieCast & TVCast;
 
 export type Crew = MovieCrew & TVCrew;
 
-export type Credits = MovieCredits & TVCredits;
+export type Credits = MovieCredits & TVCredits & EpisodeCredits;
 
 export type Department = {
   id: string;
