@@ -13,7 +13,7 @@ const Show = (props: ShowProps): ReactElement => {
 
   return (
     <Badge color={color} size={fontSize} isLoading={isLoading} variant='outlined'>
-      {_.compact([name, season ? `S${season}` : undefined, episode ? `e${episode}` : undefined]).join(' • ')}
+      {_.compact([name, season ? `S${season}` : undefined, episode ? `E${episode}` : undefined]).join(' • ')}
     </Badge>
   );
 };

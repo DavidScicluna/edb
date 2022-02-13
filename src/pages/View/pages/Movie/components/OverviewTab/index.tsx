@@ -104,30 +104,24 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
       <Media
         alt={movieQuery.data?.title}
         assets={_.compact([
-          !_.isNil(imagesQuery.data?.posters) || !_.isEmpty(imagesQuery.data?.posters)
-            ? {
-                label: 'Posters',
-                type: 'poster',
-                isDisabled: imagesQuery.data?.posters?.length === 0,
-                data: imagesQuery.data?.posters || []
-              }
-            : undefined,
-          !_.isNil(imagesQuery.data?.backdrops) || !_.isEmpty(imagesQuery.data?.backdrops)
-            ? {
-                label: 'Backdrops',
-                type: 'backdrop',
-                isDisabled: imagesQuery.data?.backdrops?.length === 0,
-                data: imagesQuery.data?.backdrops || []
-              }
-            : undefined,
-          !_.isNil(videosQuery.data?.results) || !_.isEmpty(videosQuery.data?.results)
-            ? {
-                label: 'Videos',
-                type: 'video',
-                isDisabled: videosQuery.data?.results?.length === 0,
-                data: videosQuery.data?.results || []
-              }
-            : undefined
+          {
+            label: 'Posters',
+            type: 'poster',
+            isDisabled: imagesQuery.data?.posters?.length === 0,
+            data: imagesQuery.data?.posters || []
+          },
+          {
+            label: 'Backdrops',
+            type: 'backdrop',
+            isDisabled: (imagesQuery.data?.backdrops || []).length === 0,
+            data: imagesQuery.data?.backdrops || []
+          },
+          {
+            label: 'Videos',
+            type: 'video',
+            isDisabled: videosQuery.data?.results?.length === 0,
+            data: videosQuery.data?.results || []
+          }
         ])}
         mediaType='movie'
         isError={{
