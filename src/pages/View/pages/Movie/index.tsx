@@ -233,7 +233,11 @@ const Movie = (): ReactElement => {
                   },
                   {
                     label: 'Cast & Crew',
-                    isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
+                    isDisabled:
+                      creditsQuery.isError ||
+                      creditsQuery.isFetching ||
+                      creditsQuery.isLoading ||
+                      (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) === 0,
                     renderRight:
                       (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) > 0
                         ? ({ isSelected, size }) => (
@@ -256,9 +260,10 @@ const Movie = (): ReactElement => {
                       movieQuery.isLoading ||
                       reviewsQuery.isError ||
                       reviewsQuery.isFetching ||
-                      reviewsQuery.isLoading,
+                      reviewsQuery.isLoading ||
+                      (reviews?.total_results || 0) + (movieUserReviews.length || 0) === 0,
                     renderRight:
-                      (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) > 0
+                      (reviews?.total_results || 0) + (movieUserReviews.length || 0) > 0
                         ? ({ isSelected, size }) => (
                             <Fade in unmountOnExit>
                               <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
@@ -279,9 +284,16 @@ const Movie = (): ReactElement => {
                       imagesQuery.isLoading ||
                       videosQuery.isError ||
                       videosQuery.isFetching ||
-                      videosQuery.isLoading,
+                      videosQuery.isLoading ||
+                      (imagesQuery.data?.posters?.length || 0) +
+                        (imagesQuery.data?.backdrops?.length || 0) +
+                        (videosQuery.data?.results?.length || 0) ===
+                        0,
                     renderRight:
-                      (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) > 0
+                      (imagesQuery.data?.posters?.length || 0) +
+                        (imagesQuery.data?.backdrops?.length || 0) +
+                        (videosQuery.data?.results?.length || 0) >
+                      0
                         ? ({ isSelected, size }) => (
                             <Fade in unmountOnExit>
                               <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
@@ -367,7 +379,7 @@ const Movie = (): ReactElement => {
 
       {imagesQuery.isSuccess || videosQuery.isSuccess ? (
         <MediaViewer
-          alt={movieQuery.data?.title ? `"${movieQuery.data.title}"` : 'Movie Title'}
+          alt={movieQuery.data?.title ? movieQuery.data.title : 'Movie Title'}
           assets={[
             {
               label: 'Posters',

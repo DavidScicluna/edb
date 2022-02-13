@@ -161,7 +161,11 @@ const Person = (): ReactElement => {
                   },
                   {
                     label: 'Credits',
-                    isDisabled: creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
+                    isDisabled:
+                      creditsQuery.isError ||
+                      creditsQuery.isFetching ||
+                      creditsQuery.isLoading ||
+                      (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) === 0,
                     renderRight:
                       (creditsQuery.data?.cast?.length || 0) + (creditsQuery.data?.crew?.length || 0) > 0
                         ? ({ isSelected, size }) => (
@@ -245,7 +249,6 @@ const Person = (): ReactElement => {
                     tvCreditsQuery.isLoading
                   }
                 />
-
                 <AssetsTab
                   alt={personQuery.data?.name}
                   images={{ profiles: imagesQuery.data?.profiles }}
@@ -262,7 +265,7 @@ const Person = (): ReactElement => {
 
       {imagesQuery.isSuccess ? (
         <MediaViewer
-          alt={personQuery.data?.name ? `"${personQuery.data.name}" photo` : 'Person Photo'}
+          alt={personQuery.data?.name ? personQuery.data.name : 'Person Name'}
           assets={[
             {
               label: 'Photos',

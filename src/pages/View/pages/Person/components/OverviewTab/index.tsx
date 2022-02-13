@@ -13,7 +13,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 
   return (
     <VStack width='100%' spacing={4}>
-      {person?.biography || isLoading ? (
+      {(!_.isNil(person?.biography) && !_.isEmpty(person?.biography)) || isLoading?.person ? (
         <Bio
           birthday={person?.birthday}
           place_of_birth={person?.place_of_birth}

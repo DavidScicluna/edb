@@ -56,7 +56,11 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
           <>
             <Details movie={movieQuery.data} isLoading={movieQuery.isFetching || movieQuery.isLoading} />
 
-            <Credits crew={creditsQuery.data?.crew} isLoading={creditsQuery.isFetching || creditsQuery.isLoading} />
+            {(!_.isNil(creditsQuery.data?.crew) && !_.isEmpty(creditsQuery.data?.crew)) ||
+            movieQuery.isFetching ||
+            movieQuery.isLoading ? (
+              <Credits crew={creditsQuery.data?.crew} isLoading={creditsQuery.isFetching || creditsQuery.isLoading} />
+            ) : null}
           </>
         )}
         tagline={movieQuery.data?.tagline}

@@ -60,7 +60,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
           } `}
         </Button>
       }
-      isDisabled={isLoading}
+      isDisabled={isLoading || (credits?.cast?.length || 0) + (credits?.crew?.length || 0) === 0}
     >
       {isError ? (
         <Error

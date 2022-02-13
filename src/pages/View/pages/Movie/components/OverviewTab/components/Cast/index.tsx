@@ -36,7 +36,7 @@ const Cast = (props: CastProps): ReactElement => {
           {`View all ${cast?.length || 0} cast member${cast && (cast.length === 0 || cast.length > 1 ? 's' : '')}`}
         </Button>
       }
-      isDisabled={isLoading}
+      isDisabled={isLoading || cast?.length === 0}
       variant='outlined'
     >
       {!isLoading && isError ? (
