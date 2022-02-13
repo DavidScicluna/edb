@@ -51,7 +51,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
     <Link
       isFullWidth
       isDisabled={isLoading || isFuture}
-      to={{ pathname: `/tv/${showId}/season/${season}/episode/${episode_number}` }}
+      to={{ pathname: `/tvshows/${showId}/season/${season}/episode/${episode_number}` }}
     >
       <Card isFullWidth isDisabled={isLoading} isClickable={!isFuture} isLight>
         <HStack ref={ref} width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
@@ -118,7 +118,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
           {/* Episode Number */}
           <Center
             as={Fade}
-            in={inView}
+            in={!_.isNil(episode_number) && !_.isEmpty(episode_number) && inView}
             unmountOnExit
             sx={{
               position: 'absolute',

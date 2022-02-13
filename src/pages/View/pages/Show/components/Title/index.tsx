@@ -20,7 +20,7 @@ import { TVShowTitleProps } from './types';
 const dummies = _.range(25, 75, 10);
 
 // TODO: Make this dynamic
-const handleReturnCertification = (content_ratings: FullTV['content_ratings']): string | undefined => {
+export const handleReturnCertification = (content_ratings: FullTV['content_ratings']): string | undefined => {
   const certification = (content_ratings?.results || []).find((item) => item.iso_3166_1 === 'US');
 
   if (certification && certification.rating) {
