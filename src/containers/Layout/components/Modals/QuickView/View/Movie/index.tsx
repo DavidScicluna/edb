@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, Stack, Center, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 import axios from 'axios';
 import _ from 'lodash';
 import { useQuery } from 'react-query';
@@ -84,34 +84,51 @@ const Movie = ({ id }: MovieProps): ReactElement => {
           <VStack width='100%' spacing={4}>
             <Title movie={movieQuery.data} isLoading={movieQuery.isFetching || movieQuery.isLoading} />
 
-            {!_.isNil(movieQuery.data?.overview) ||
-            !_.isEmpty(movieQuery.data?.overview) ||
-            !_.isNil(movieQuery.data?.tagline) ||
-            !_.isEmpty(movieQuery.data?.tagline) ||
-            movieQuery.isFetching ||
-            movieQuery.isLoading ? (
-              <VStack width='100%' spacing={2}>
-                {!_.isNil(movieQuery.data?.tagline) ||
+            <Collapse
+              in={
+                !_.isNil(movieQuery.data?.overview) ||
+                !_.isEmpty(movieQuery.data?.overview) ||
+                !_.isNil(movieQuery.data?.tagline) ||
                 !_.isEmpty(movieQuery.data?.tagline) ||
                 movieQuery.isFetching ||
-                movieQuery.isLoading ? (
+                movieQuery.isLoading
+              }
+              unmountOnExit
+              style={{ width: '100%' }}
+            >
+              <VStack width='100%' spacing={2}>
+                <Collapse
+                  in={
+                    !_.isNil(movieQuery.data?.tagline) ||
+                    !_.isEmpty(movieQuery.data?.tagline) ||
+                    movieQuery.isFetching ||
+                    movieQuery.isLoading
+                  }
+                  unmountOnExit
+                  style={{ width: '100%' }}
+                >
                   <Tagline
                     tagline={movieQuery.data?.tagline}
                     isLoading={movieQuery.isFetching || movieQuery.isLoading}
                   />
-                ) : null}
-
-                {!_.isNil(movieQuery.data?.overview) ||
-                !_.isEmpty(movieQuery.data?.overview) ||
-                movieQuery.isFetching ||
-                movieQuery.isLoading ? (
+                </Collapse>
+                <Collapse
+                  in={
+                    !_.isNil(movieQuery.data?.overview) ||
+                    !_.isEmpty(movieQuery.data?.overview) ||
+                    movieQuery.isFetching ||
+                    movieQuery.isLoading
+                  }
+                  unmountOnExit
+                  style={{ width: '100%' }}
+                >
                   <Overview
                     overview={movieQuery.data?.overview}
                     isLoading={movieQuery.isFetching || movieQuery.isLoading}
                   />
-                ) : null}
+                </Collapse>
               </VStack>
-            ) : null}
+            </Collapse>
 
             <Actions
               mediaItem={movieQuery.data}

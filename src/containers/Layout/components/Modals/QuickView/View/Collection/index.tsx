@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useMediaQuery, useDisclosure, Stack, Center, VStack, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, useDisclosure, Stack, Center, VStack, Text, Collapse } from '@chakra-ui/react';
 import axios from 'axios';
 import _ from 'lodash';
 import CountUp from 'react-countup';
@@ -118,14 +118,20 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
                 </SkeletonText>
               </VStack>
 
-              {(!_.isNil(collectionQuery.data?.overview) && !_.isEmpty(collectionQuery.data?.overview)) ||
-              collectionQuery.isFetching ||
-              collectionQuery.isLoading ? (
+              <Collapse
+                in={
+                  (!_.isNil(collectionQuery.data?.overview) && !_.isEmpty(collectionQuery.data?.overview)) ||
+                  collectionQuery.isFetching ||
+                  collectionQuery.isLoading
+                }
+                unmountOnExit
+                style={{ width: '100%' }}
+              >
                 <Overview
                   overview={collectionQuery.data?.overview}
                   isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
                 />
-              ) : null}
+              </Collapse>
             </VStack>
 
             <Actions

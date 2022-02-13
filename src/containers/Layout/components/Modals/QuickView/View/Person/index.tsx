@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useMediaQuery, useDisclosure, Stack, Center, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 import axios from 'axios';
 import _ from 'lodash';
 import { useQuery } from 'react-query';
@@ -100,12 +100,18 @@ const Person = ({ id }: PersonProps): ReactElement => {
                 isLoading={personQuery.isFetching || personQuery.isLoading}
               />
 
-              {!_.isNil(personQuery.data?.biography) ||
-              !_.isEmpty(personQuery.data?.biography) ||
-              !_.isNil(personQuery.data?.birthday) ||
-              !_.isEmpty(personQuery.data?.birthday) ||
-              personQuery.isFetching ||
-              personQuery.isLoading ? (
+              <Collapse
+                in={
+                  !_.isNil(personQuery.data?.biography) ||
+                  !_.isEmpty(personQuery.data?.biography) ||
+                  !_.isNil(personQuery.data?.birthday) ||
+                  !_.isEmpty(personQuery.data?.birthday) ||
+                  personQuery.isFetching ||
+                  personQuery.isLoading
+                }
+                unmountOnExit
+                style={{ width: '100%' }}
+              >
                 <Bio
                   birthday={personQuery.data?.birthday}
                   place_of_birth={personQuery.data?.place_of_birth}
@@ -113,7 +119,7 @@ const Person = ({ id }: PersonProps): ReactElement => {
                   bio={personQuery.data?.biography}
                   isLoading={personQuery.isFetching || personQuery.isLoading}
                 />
-              ) : null}
+              </Collapse>
             </VStack>
 
             <Stats
