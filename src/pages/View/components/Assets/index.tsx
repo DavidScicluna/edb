@@ -24,7 +24,6 @@ const Assets = (props: AssetsTabProps): ReactElement => {
               number: assetsProp?.profiles?.length
             },
             isDisabled: (assetsProp?.profiles?.length || 0) === 0
-            // data: images?.profiles
           }
         : undefined,
       (!_.isNil(assetsProp?.posters) && !_.isEmpty(assetsProp?.posters)) || isLoading
@@ -35,7 +34,6 @@ const Assets = (props: AssetsTabProps): ReactElement => {
               number: assetsProp?.posters?.length
             },
             isDisabled: (assetsProp?.posters?.length || 0) === 0
-            // data: images?.posters
           }
         : undefined,
       (!_.isNil(assetsProp?.backdrops) && !_.isEmpty(assetsProp?.backdrops)) || isLoading
@@ -46,7 +44,6 @@ const Assets = (props: AssetsTabProps): ReactElement => {
               number: assetsProp?.backdrops?.length
             },
             isDisabled: (assetsProp?.backdrops?.length || 0) === 0
-            // data: images?.backdrops
           }
         : undefined,
       (!_.isNil(assetsProp?.videos) && !_.isEmpty(assetsProp?.videos)) || isLoading
@@ -57,7 +54,6 @@ const Assets = (props: AssetsTabProps): ReactElement => {
               number: assetsProp?.videos?.length
             },
             isDisabled: (assetsProp?.videos?.length || 0) === 0
-            // data: videos
           }
         : undefined
     ])

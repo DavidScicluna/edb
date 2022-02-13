@@ -13,6 +13,7 @@ export const handleGetDepartments = (movies: MovieCredits, tv: TVCredits): Depar
 
   if ((movies.cast?.length || 0) > 0 || (tv.cast?.length || 0) > 0) {
     departments.push({
+      id: 'actor',
       label: 'Actor',
       credits: {
         cast: {
@@ -41,6 +42,7 @@ export const handleGetDepartments = (movies: MovieCredits, tv: TVCredits): Depar
       );
     } else {
       departments.push({
+        id: (mediaItem.job || '').toLowerCase() || '',
         label: mediaItem.job || '',
         credits: {
           crew: {
@@ -70,6 +72,7 @@ export const handleGetDepartments = (movies: MovieCredits, tv: TVCredits): Depar
       );
     } else {
       departments.push({
+        id: (mediaItem.job || '').toLowerCase() || '',
         label: mediaItem.job || '',
         credits: {
           crew: {
