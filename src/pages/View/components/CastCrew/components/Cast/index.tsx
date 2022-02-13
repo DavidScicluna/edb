@@ -9,7 +9,6 @@ import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
 import { handleReturnPersonRoleLabel } from '../../common/utils';
-import Department from '../Department';
 import { CastProps } from './types';
 
 const incrementBy = 15;
@@ -19,17 +18,10 @@ const Cast = (props: CastProps): ReactElement => {
 
   const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
-  const { id, title, cast = [], isLoading = true, isError = false, isSuccess = false, isOpen = true, onToggle } = props;
+  const { cast = [], isLoading = true, isError = false, isSuccess = false } = props;
 
   return (
-    <Department
-      id={id}
-      title={title}
-      total={cast?.length || 0}
-      isOpen={isOpen}
-      isLoading={isLoading}
-      onToggle={onToggle}
-    >
+    <VStack width='100%' spacing={2}>
       {!isLoading && isError ? (
         <Error label='Oh no! Something went wrong' description={`Failed to fetch cast list!`} variant='outlined' />
       ) : !isLoading && isSuccess && cast && cast.length === 0 ? (
@@ -97,7 +89,7 @@ const Cast = (props: CastProps): ReactElement => {
           }
         </VerticalGrid>
       )}
-    </Department>
+    </VStack>
   );
 };
 

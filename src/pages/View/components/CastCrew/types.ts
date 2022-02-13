@@ -14,6 +14,7 @@ export type Department = {
 };
 
 export type CastCrewProps = {
+  alt?: string;
   credits?: Credits;
   isError?: boolean;
   isSuccess?: boolean;

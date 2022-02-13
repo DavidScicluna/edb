@@ -9,7 +9,6 @@ import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
 import { handleReturnPersonJobLabel } from '../../common/utils';
-import Department from '../Department';
 import { CrewProps } from './types';
 
 const incrementBy = 15;
@@ -19,26 +18,10 @@ const Crew = (props: CrewProps): ReactElement => {
 
   const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
-  const {
-    id,
-    title,
-    crew = [],
-    isLoading = true,
-    isError = false,
-    isSuccess = false,
-    isOpen = false,
-    onToggle
-  } = props;
+  const { title, crew = [], isLoading = true, isError = false, isSuccess = false } = props;
 
   return (
-    <Department
-      id={id}
-      title={title}
-      total={crew?.length || 0}
-      isOpen={isOpen}
-      isLoading={isLoading}
-      onToggle={onToggle}
-    >
+    <VStack width='100%' spacing={2}>
       {!isLoading && isError ? (
         <Error
           label='Oh no! Something went wrong'
@@ -110,7 +93,7 @@ const Crew = (props: CrewProps): ReactElement => {
           }
         </VerticalGrid>
       )}
-    </Department>
+    </VStack>
   );
 };
 

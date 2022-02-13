@@ -1,9 +1,6 @@
-import { Department, CastCrewProps, Crew } from '../../types';
-import { DepartmentProps } from '../Department/types';
+import { Accordion } from '../../../Accordions/types';
+import { CastCrewProps, Crew } from '../../types';
 
-export type CrewProps = Omit<Department, 'people'> &
-  Omit<CastCrewProps, 'credits'> & {
-    crew?: Crew[];
-    id: string;
-    title: string;
-  } & Omit<DepartmentProps, 'children' | 'id' | 'title' | 'total'>;
+export type CrewProps = Omit<CastCrewProps, 'credits'> & {
+  crew?: Crew[];
+} & Omit<Accordion<Crew[]>, 'id' | 'subtitle' | 'total' | 'isDisabled' | 'data'>;

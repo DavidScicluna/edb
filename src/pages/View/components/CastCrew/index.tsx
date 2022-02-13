@@ -1,74 +1,66 @@
 import { ReactElement, useState } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { Fade } from '@chakra-ui/react';
+import _ from 'lodash';
 
+import Empty from '../../../../components/Empty';
+import Error from '../../../../components/Error';
+import Accordions from '../Accordions';
 import { handleReturnCrew } from './common/utils';
 import Cast from './components/Cast';
 import Crew from './components/Crew';
-import QuickToggles from './components/QuickToggles';
 import { Department, CastCrewProps } from './types';
 
 const CastCrew = (props: CastCrewProps): ReactElement => {
-  const [openedPanels, setOpenedPanels] = useState<number[]>([]);
-
-  const { credits, isError = false, isSuccess = false, isLoading = true } = props;
+  const { alt, credits, isError = false, isSuccess = false, isLoading = true } = props;
 
   const [departments] = useState<Department[]>(handleReturnCrew(credits));
 
-  const handleTogglePanel = (index: number): void => {
-    if (openedPanels.includes(index)) {
-      setOpenedPanels(openedPanels.filter((number) => number !== index));
-    } else {
-      setOpenedPanels([...openedPanels, index]);
-    }
-  };
-
-  const handleToggleAllPanels = (): void => {
-    if (departments.length === openedPanels.length) {
-      setOpenedPanels([]);
-    } else {
-      setOpenedPanels(departments.map((_department, index) => index));
-    }
-  };
-
-  return (
-    <VStack width='100%' spacing={2}>
-      <QuickToggles
-        departments={departments}
-        openedPanels={openedPanels.length}
-        isLoading={isLoading}
-        onTogglePanel={(index: number) => setOpenedPanels([...openedPanels, index])}
-        onToggleAllPanels={handleToggleAllPanels}
+  return !isLoading && isError ? (
+    <Fade in unmountOnExit style={{ width: '100%' }}>
+      <Error
+        label='Oh no! Something went wrong'
+        description={`Failed to fetch ${alt ? `"${alt}"` : ''} cast & crew list!`}
+        variant='outlined'
       />
-
-      <VStack width='100%' spacing={2}>
-        {departments.map((department, index) =>
-          department.id === 'cast' ? (
-            <Cast
-              {...department}
-              key={index}
-              cast={department.people}
-              isLoading={isLoading}
-              isError={isError}
-              isSuccess={isSuccess}
-              isOpen={openedPanels.includes(index)}
-              onToggle={() => handleTogglePanel(index)}
-            />
-          ) : (
-            <Crew
-              {...department}
-              key={index}
-              crew={department.people}
-              isLoading={isLoading}
-              isError={isError}
-              isSuccess={isSuccess}
-              isOpen={openedPanels.includes(index)}
-              onToggle={() => handleTogglePanel(index)}
-            />
-          )
-        )}
-      </VStack>
-    </VStack>
+    </Fade>
+  ) : !isLoading && isSuccess && departments && departments.length === 0 ? (
+    <Fade in unmountOnExit style={{ width: '100%' }}>
+      <Empty label={`${alt ? `"${alt}"` : ''} cast & crew list is currently empty!`} variant='outlined' />
+    </Fade>
+  ) : (
+    <Accordions
+      accordions={
+        !isLoading && isSuccess && departments && departments.length > 0
+          ? departments.map((department) => {
+              return {
+                id: department.id,
+                title: department.title,
+                total: {
+                  number: department.people.length
+                },
+                isDisabled: department.people.length === 0,
+                data: department.people
+              };
+            })
+          : _.range(0, 5).map((_dummy, index: number) => {
+              return {
+                id: `${index}`,
+                title: `Department ${index + 1}`,
+                isDisabled: true
+              };
+            })
+      }
+      renderAccordion={({ id, title, data }) =>
+        id === 'cast' ? (
+          <Cast key={id} cast={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
+        ) : (
+          <Crew key={id} title={title} crew={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
+        )
+      }
+      isLoading={isLoading}
+      isError={isError}
+    />
   );
 };
 

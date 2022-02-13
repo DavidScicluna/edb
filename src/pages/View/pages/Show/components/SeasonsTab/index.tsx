@@ -64,5 +64,3 @@ const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
 };
 
 export default SeasonsTab;
-
-// : .map((_dummy, index: number) => <DummySeason key={index} />)}
