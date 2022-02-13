@@ -7,11 +7,11 @@ import { useElementSize } from 'usehooks-ts';
 import Button from '../Clickable/Button';
 import Panel from '../Panel';
 import SkeletonText from '../Skeleton/Text';
-import { ParagraphsProps } from './types';
+import { ParagraphProps } from './types';
 
 const limit = 44;
 
-const Paragraphs = ({ paragraphs = '', isLoading = true }: ParagraphsProps): ReactElement => {
+const Paragraph = ({ title, paragraphs = '', isLoading = true }: ParagraphProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   const [isExpanded, setIsExpanded] = useBoolean();
@@ -32,7 +32,7 @@ const Paragraphs = ({ paragraphs = '', isLoading = true }: ParagraphsProps): Rea
     <Panel isFullWidth size='sm'>
       {{
         header: {
-          title: 'Biography',
+          title,
           actions: (
             <ScaleFade in={isLoading || (height || 0) > limit} unmountOnExit>
               <Button isDisabled={isLoading} onClick={() => setIsExpanded.toggle()} size='sm' variant='text'>
@@ -69,4 +69,4 @@ const Paragraphs = ({ paragraphs = '', isLoading = true }: ParagraphsProps): Rea
   );
 };
 
-export default Paragraphs;
+export default Paragraph;

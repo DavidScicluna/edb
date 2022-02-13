@@ -4,7 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import { FullPerson } from '../../../../../../../../common/types/person';
-import Paragraphs from '../../../../../../../../components/Paragraphs';
+import Paragraph from '../../../../../../../../components/Paragraph';
 import { BioProps } from './types';
 
 export const handleReturnDates = (
@@ -24,7 +24,8 @@ const Bio = (props: BioProps): ReactElement => {
   const { birthday, place_of_birth, deathday, biography = '', isLoading = true } = props;
 
   return (
-    <Paragraphs
+    <Paragraph
+      title='Biography'
       paragraphs={_.compact([
         birthday ? handleReturnDates(birthday, deathday, place_of_birth) : undefined,
         biography

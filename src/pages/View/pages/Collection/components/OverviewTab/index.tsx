@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { VStack } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import Paragraphs from '../../../../../../components/Paragraphs';
+import Paragraph from '../../../../../../components/Paragraph';
 import Media from '../../../../components/Media';
 import { OverviewTabProps } from './types';
 
@@ -11,7 +11,8 @@ const OverviewTab = ({ collectionQuery, imagesQuery, onClickImage, onChangeTab }
   return (
     <VStack width='100%' spacing={4}>
       {collectionQuery.data?.overview || collectionQuery.isFetching || collectionQuery.isLoading ? (
-        <Paragraphs
+        <Paragraph
+          title='Overview'
           paragraphs={collectionQuery.data?.overview || ''}
           isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
         />
