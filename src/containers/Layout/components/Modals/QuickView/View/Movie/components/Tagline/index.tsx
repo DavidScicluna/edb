@@ -4,7 +4,7 @@ import { useColorMode, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
-import Label from '../Label';
+import Label from '../../../../components/Label';
 import { TaglineProps } from './types';
 
 const dummies = _.range(25, 100, 15);

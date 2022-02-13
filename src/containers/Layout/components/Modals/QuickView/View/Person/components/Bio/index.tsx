@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import { handleReturnDates } from '../../../../../../../../../pages/View/pages/Person/components/OverviewTab/components/Bio';
-import Label from '../Label';
+import Label from '../../../../components/Label';
 import { BioProps } from './types';
 
 const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioProps): ReactElement => {

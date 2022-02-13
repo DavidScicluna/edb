@@ -15,6 +15,7 @@ import SkeletonText from '../../../../../../../components/Skeleton/Text';
 import Title from '../../../../../../../pages/View/components/Title';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
+import Overview from './components/Overview';
 import { CollectionProps } from './types';
 
 const dummies = _.range(25, 75, 10);
@@ -117,34 +118,13 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
                 </SkeletonText>
               </VStack>
 
-              {collectionQuery.data?.overview || collectionQuery.isFetching || collectionQuery.isLoading ? (
-                !collectionQuery.isFetching || !collectionQuery.isLoading ? (
-                  <SkeletonText width='100%' fontSize='md' isLoaded>
-                    <Text
-                      align='left'
-                      color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-                      fontSize='md'
-                      isTruncated
-                      overflow='hidden'
-                      whiteSpace='normal'
-                      sx={{
-                        'display': '-webkit-box !important',
-                        '-webkit-line-clamp': '10',
-                        '-webkit-box-orient': 'vertical'
-                      }}
-                    >
-                      {collectionQuery.data?.overview || 'Collection Paragraph'}
-                    </Text>
-                  </SkeletonText>
-                ) : (
-                  <VStack width='100%' spacing={0.5}>
-                    {_.range(0, 2).map((_dummy, index: number) => (
-                      <SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
-                        {`Paragraph ${index + 1}`}
-                      </SkeletonText>
-                    ))}
-                  </VStack>
-                )
+              {(!_.isNil(collectionQuery.data?.overview) && !_.isEmpty(collectionQuery.data?.overview)) ||
+              collectionQuery.isFetching ||
+              collectionQuery.isLoading ? (
+                <Overview
+                  overview={collectionQuery.data?.overview}
+                  isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
+                />
               ) : null}
             </VStack>
 
