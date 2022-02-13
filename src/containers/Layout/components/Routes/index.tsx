@@ -15,6 +15,7 @@ import TV from '../../../../pages/TV';
 import Liked from '../../../../pages/User/pages/Liked';
 import Lists from '../../../../pages/User/pages/Lists';
 import Collection from '../../../../pages/View/pages/Collection';
+import Episode from '../../../../pages/View/pages/Episode';
 import Movie from '../../../../pages/View/pages/Movie';
 import Person from '../../../../pages/View/pages/Person';
 import Show from '../../../../pages/View/pages/Show';
@@ -66,6 +67,11 @@ export const routes: RouteType[] = [
     path: '/tvshows/:id',
     name: 'TV Show',
     children: <Show />
+  },
+  {
+    path: '/tvshows/:id/season/:season/episode/:episode',
+    name: 'TV Show Episode',
+    children: <Episode />
   },
   {
     path: '/people',
