@@ -104,6 +104,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
             ? {
                 label: 'Posters',
                 type: 'poster',
+                isDisabled: imagesQuery.data?.posters?.length === 0,
                 data: imagesQuery.data?.posters || []
               }
             : undefined,
@@ -111,6 +112,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
             ? {
                 label: 'Backdrops',
                 type: 'backdrop',
+                isDisabled: imagesQuery.data?.backdrops?.length === 0,
                 data: imagesQuery.data?.backdrops || []
               }
             : undefined,
@@ -118,6 +120,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
             ? {
                 label: 'Videos',
                 type: 'video',
+                isDisabled: videosQuery.data?.results?.length === 0,
                 data: videosQuery.data?.results || []
               }
             : undefined

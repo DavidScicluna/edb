@@ -17,7 +17,7 @@ const Similar = (props: SimilarProps): ReactElement => {
   const { similar = [], title, isError = false, isSuccess = false, isLoading = true } = props;
 
   return (
-    <HorizontalGrid title='Similar Movies' isDisabled={isLoading} variant='outlined'>
+    <HorizontalGrid title='Similar Movies' isDisabled={isLoading || similar.length === 0} variant='outlined'>
       {!isLoading && isError ? (
         <Error
           label='Oh no! Something went wrong'

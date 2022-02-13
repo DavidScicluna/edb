@@ -17,7 +17,11 @@ const Recommendations = (props: RecommendationsProps): ReactElement => {
   const { recommendations = [], title, isError = false, isSuccess = false, isLoading = true } = props;
 
   return (
-    <HorizontalGrid title='Recommended Movies' isDisabled={isLoading} variant='outlined'>
+    <HorizontalGrid
+      title='Recommended Movies'
+      isDisabled={isLoading || recommendations.length === 0}
+      variant='outlined'
+    >
       {!isLoading && isError ? (
         <Error
           label='Oh no! Something went wrong'
