@@ -92,7 +92,7 @@ const Person = (): ReactElement => {
     document.scrollingElement?.scrollTo(0, 0);
   };
 
-  const handleOnImageClick = (path: string): void => {
+  const handleOnAssetClick = (path: string): void => {
     setSelectedPath(path);
     onMediaViewerOpen();
   };
@@ -231,7 +231,7 @@ const Person = (): ReactElement => {
                     credits: creditsQuery.isFetching || creditsQuery.isLoading,
                     images: imagesQuery.isFetching || imagesQuery.isLoading
                   }}
-                  onClickImage={handleOnImageClick}
+                  onClickImage={handleOnAssetClick}
                   onChangeTab={handleChangeTab}
                 />
                 <CreditsTab
@@ -252,7 +252,7 @@ const Person = (): ReactElement => {
                   isError={{ images: imagesQuery.isError }}
                   isSuccess={{ images: imagesQuery.isSuccess }}
                   isLoading={{ images: imagesQuery.isFetching || imagesQuery.isLoading }}
-                  onClickImage={handleOnImageClick}
+                  onClickAsset={handleOnAssetClick}
                 />
               </TabPanels>
             )

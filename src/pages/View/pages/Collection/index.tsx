@@ -70,7 +70,7 @@ const Collection = (): ReactElement => {
    *
    * @param image - Image object
    */
-  const handleOnImageClick = (path: string): void => {
+  const handleOnAssetClick = (path: string): void => {
     setSelectedPath(path);
     onMediaViewerOpen();
   };
@@ -188,7 +188,7 @@ const Collection = (): ReactElement => {
                 <OverviewTab
                   collectionQuery={collectionQuery}
                   imagesQuery={imagesQuery}
-                  onClickImage={handleOnImageClick}
+                  onClickImage={handleOnAssetClick}
                   onChangeTab={handleChangeTab}
                 />
                 <PartsTab
@@ -207,7 +207,7 @@ const Collection = (): ReactElement => {
                   isError={{ images: imagesQuery.isError }}
                   isSuccess={{ images: imagesQuery.isSuccess }}
                   isLoading={{ images: imagesQuery.isFetching || imagesQuery.isLoading }}
-                  onClickImage={handleOnImageClick}
+                  onClickAsset={handleOnAssetClick}
                 />
               </TabPanels>
             )
