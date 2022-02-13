@@ -70,6 +70,7 @@ export type Image = {
 export type Images = {
   id?: number;
   logos?: Image[];
+  stills?: Image[];
   profiles?: Image[];
   backdrops?: Image[];
   posters?: Image[];
