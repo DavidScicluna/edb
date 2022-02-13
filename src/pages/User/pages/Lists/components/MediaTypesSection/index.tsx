@@ -75,10 +75,12 @@ const MediaTypesSection = ({ movies, tv, renderActions }: MediaTypesSectionProps
     <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
       <VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2}>
         <MediaTypesHeader
-          activeTab={activeTab}
-          mediaTypes={['movie', 'tv']}
-          isDisabled={{ movie: movies.length === 0, tv: tv.length === 0 }}
           renderActions={renderActions}
+          activeTab={activeTab}
+          total={{
+            movie: movies.length,
+            tv: tv.length
+          }}
         />
 
         {_.isNil(activeTab) ? (
