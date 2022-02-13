@@ -5,7 +5,7 @@ import {
   CastTVCredit,
   CrewTVCredit
 } from '../../../../../../../../common/types/person';
-import { OverviewProps } from '../../types';
+import { OverviewTabProps } from '../../types';
 
 export type KnownFor = (CastMovieCredit & CastTVCredit & CrewMovieCredit & CrewTVCredit)[];
 
@@ -14,4 +14,4 @@ export type KnownForProps = {
   isError?: boolean;
   isSuccess?: boolean;
   isLoading?: boolean;
-} & Omit<OverviewProps, 'person' | 'images' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickImage'>;
+} & Omit<OverviewTabProps, 'person' | 'images' | 'isError' | 'isSuccess' | 'isLoading' | 'onClickImage'>;

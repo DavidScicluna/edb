@@ -25,7 +25,7 @@ const Department = (props: DepartmentProps): ReactElement => {
         smooth
         isDynamic={false}
         offset={-82}
-        delay={1000}
+        delay={500}
       >
         <Button
           color={color}

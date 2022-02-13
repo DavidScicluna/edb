@@ -16,7 +16,7 @@ import { useLocation } from 'react-router-dom';
 
 import Link from '../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
-import { Theme } from '../../../../../../theme/types';
+import { FontSizes, Theme } from '../../../../../../theme/types';
 import { routes } from '../../../../../Layout/components/Routes';
 import { Route } from '../../../../../Layout/components/Routes/types';
 import useStyles from './styles';
@@ -32,6 +32,15 @@ const Breadcrumbs = (): ReactElement => {
     'lg': theme.fontSizes.lg,
     'xl': theme.fontSizes.lg,
     '2xl': theme.fontSizes.lg
+  });
+
+  const breadcrumbFontSize = useBreakpointValue<keyof FontSizes>({
+    'base': 'sm',
+    'sm': 'sm',
+    'md': 'md',
+    'lg': 'md',
+    'xl': 'md',
+    '2xl': 'md'
   });
 
   const location = useLocation();
@@ -71,10 +80,10 @@ const Breadcrumbs = (): ReactElement => {
         <BreadcrumbItem
           key={index}
           isCurrentPage={index === breadcrumbs.length - 1}
-          fontSize={['sm', 'sm', 'md', 'md', 'md', 'md']}
+          fontSize={breadcrumbFontSize}
           sx={{ ...style.common.breadcrumbItem }}
         >
-          <SkeletonText offsetY={8} isLoaded={!_.isNil(breadcrumb)}>
+          <SkeletonText fontSize={breadcrumbFontSize} isLoaded={!_.isNil(breadcrumb)}>
             {index === breadcrumbs.length - 1 ? (
               <Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
                 {breadcrumb.name || ''}

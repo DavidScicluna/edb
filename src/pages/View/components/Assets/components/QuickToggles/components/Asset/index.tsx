@@ -19,7 +19,7 @@ const Asset = (props: AssetProps): ReactElement => {
 
   return (
     <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
-      <Link to={!isDisabled && asset ? asset : ''} spy smooth isDynamic={false} offset={-82} delay={1000}>
+      <Link to={!isDisabled && asset ? asset : ''} spy smooth isDynamic={false} offset={-82} delay={500}>
         <Button
           color={color}
           onClick={!isLoading && !isDisabled ? () => onTogglePanel() : undefined}

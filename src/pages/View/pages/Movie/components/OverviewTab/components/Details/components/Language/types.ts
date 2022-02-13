@@ -1,4 +1,4 @@
-import { Language } from '../../../../../../../../../../store/slices/Options/types';
+import { Language } from '../../../../../../../../../../common/types';
 
 export type LanguageProps = {
   language?: Language['iso_639_1'];

@@ -20,7 +20,7 @@ const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: Lis
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const style = useStyles(theme, { color, isFullWidth: false, isSelected });
+  const style = useStyles(theme, { color, isFullWidth: false, isOnlyTab: false, isSelected });
   const size: Size = 'lg';
 
   const iconSize = `${handleReturnIconSize(size, theme)}px`;

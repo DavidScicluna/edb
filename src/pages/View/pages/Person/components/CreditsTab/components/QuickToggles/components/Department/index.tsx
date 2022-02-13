@@ -19,7 +19,7 @@ const Department = (props: DepartmentProps): ReactElement => {
 
   return (
     <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
-      <Link to={!isDisabled ? department.toLowerCase() : ''} spy smooth isDynamic={false} offset={-82} delay={1000}>
+      <Link to={!isDisabled ? department.toLowerCase() : ''} spy smooth isDynamic={false} offset={-82} delay={500}>
         <Button
           color={color}
           onClick={!isLoading && !isDisabled ? () => onTogglePanel() : undefined}

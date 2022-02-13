@@ -260,8 +260,7 @@ const Movie = (): ReactElement => {
                       movieQuery.isLoading ||
                       reviewsQuery.isError ||
                       reviewsQuery.isFetching ||
-                      reviewsQuery.isLoading ||
-                      (reviews?.total_results || 0) + (movieUserReviews.length || 0) === 0,
+                      reviewsQuery.isLoading,
                     renderRight:
                       (reviews?.total_results || 0) + (movieUserReviews.length || 0) > 0
                         ? ({ isSelected, size }) => (

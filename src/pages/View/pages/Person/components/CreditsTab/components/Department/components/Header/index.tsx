@@ -53,7 +53,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
       <HStack>
         {total ? (
-          <Badge color={isOpen ? color : 'gray'} fontSize='lg'>
+          <Badge color={isOpen ? color : 'gray'} size='lg'>
             <CountUp duration={1} end={total} />
           </Badge>
         ) : null}
