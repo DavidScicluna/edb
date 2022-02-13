@@ -1,18 +1,35 @@
 import { ProductionCompany, ProductionCountry, Language, Genre } from '.';
 import { FullPerson } from './person';
 
-export type Cast = {
-  character?: string;
+export type Role = {
   credit_id?: string;
+  character?: string;
+  episode_count?: number;
+};
+
+export type Cast = {
+  credit_id?: string;
+  character?: string;
+  episode_count?: number;
+  roles?: Role[];
+  total_episode_count?: number;
   order?: number;
   original_name?: string;
 } & FullPerson;
 
+export type Job = {
+  credit_id?: string;
+  job?: string;
+  episode_count?: number;
+};
+
 export type Crew = {
-  original_name?: string;
   credit_id?: string;
   department?: string;
   job?: string;
+  jobs?: Job[];
+  total_episode_count?: number;
+  original_name?: string;
 } & FullPerson;
 
 export type Credits = {
@@ -20,6 +37,13 @@ export type Credits = {
   crew?: Crew[];
   id?: number;
 };
+
+type EpisodeCast = {
+  original_name?: string;
+  character?: string;
+  credit_id?: string;
+  order?: number;
+} & FullPerson;
 
 type EpisodeCrew = {
   credit_id?: string;
@@ -34,6 +58,13 @@ type EpisodeGuest = {
   character?: string;
   original_name?: string;
 } & FullPerson;
+
+export type EpisodeCredits = {
+  cast?: EpisodeCast[];
+  crew?: EpisodeCrew[];
+  guest_stars?: EpisodeGuest[];
+  id?: number;
+};
 
 export type Episode = {
   air_date?: string;
@@ -102,8 +133,18 @@ type Network = {
   origin_country?: string;
 };
 
+type ContentRating = {
+  iso_3166_1?: string;
+  rating?: string;
+};
+
+type ContentRatings = {
+  results?: ContentRating[];
+};
+
 export type FullTV = {
   created_by?: CreatedBy[];
+  content_ratings?: ContentRatings;
   episode_run_time?: number[];
   genres?: Genre[];
   homepage?: string;
