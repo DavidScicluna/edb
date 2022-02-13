@@ -1,29 +1,41 @@
+import { ColorMode } from '@chakra-ui/react';
 import _ from 'lodash';
+import moment from 'moment';
 import qs from 'query-string';
 import { v4 as uuid } from 'uuid';
 
 import store from '../../store';
 import theme from '../../theme';
-import { months } from '../data/date';
-import { Department } from '../data/departments';
-import { Genre, SortBy } from '../types';
+import { ColorShades } from '../../theme/types';
+import { Genre, BoringAvatarType, MediaType } from '../types';
 
-type BoringType = 'marble' | 'beam' | 'pixel' | 'sunset' | 'bauhaus' | 'ring';
-
-type ColorSize = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+export const handleReturnMediaTypeLabel = (mediaType: MediaType): string => {
+  switch (mediaType) {
+    case 'company':
+      return 'companies';
+    case 'collection':
+      return 'collections';
+    case 'movie':
+      return 'movies';
+    case 'tv':
+      return 'tvshows';
+    case 'person':
+      return 'people';
+  }
+};
 
 export const handleFormatMoney = (money: number): string => {
   return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-/**
- * This method will take a block of string and will format it into paragraphs
- *
- * @param content String - The content block to format into paragraphs
- * @returns Array of paragraphs
- */
-export const handleFormatIntoParagraphs = (paragraph: string): string[] => {
-  return paragraph.split('\n'[0]).filter((paragraph) => paragraph !== '\r');
+export const handleConvertEasingsIntoNumbers = (easing: string): number[] => {
+  return easing
+    .replace('cubic-bezier', '')
+    .replace('(', '')
+    .replace(')', '')
+    .replace(' ', '')
+    .split(',')
+    .map((number) => Number(number));
 };
 
 /**
@@ -36,7 +48,7 @@ export const handleFormatIntoParagraphs = (paragraph: string): string[] => {
 export const handleReturnGenresByID = (genres: number[], mediaType: 'movie' | 'tv'): string => {
   const getGenres: Genre[] = store
     .getState()
-    .options.data.data.genres[mediaType].filter((genre: Genre) => genres.includes(genre.id));
+    .options.data.genres[mediaType].filter((genre: Genre) => genres.some((paramGenre) => paramGenre === genre.id));
   return getGenres
     .map((genre) => genre.name)
     .filter((genre) => genre)
@@ -117,24 +129,6 @@ export const handleParseDurationForFramer = (time: number): number => {
   return time / 1000;
 };
 
-export const handleCheckHasFilters = (sortBy?: SortBy, genres?: Genre[], departments?: Department[]): boolean => {
-  let hasFilters = false;
-
-  if (!hasFilters && sortBy && sortBy.isActive) {
-    hasFilters = true;
-  }
-
-  if (!hasFilters && !_.isEmpty(genres)) {
-    hasFilters = true;
-  }
-
-  if (!hasFilters && !_.isEmpty(departments)) {
-    hasFilters = true;
-  }
-
-  return hasFilters;
-};
-
 /**
  * This method will return a url that will fetch an img from boringavatars
  * boringavatars - https://boringavatars.com/
@@ -144,9 +138,9 @@ export const handleCheckHasFilters = (sortBy?: SortBy, genres?: Genre[], departm
  * @param alt - Image alt
  * @returns - boringavatars URL
  */
-export const handleReturnBoringSrc = (type: BoringType, size: ColorSize, alt: string): string => {
+export const handleReturnBoringSrc = (type: BoringAvatarType, size: ColorShades): string => {
   return qs.stringifyUrl({
-    url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${type}/${size}/${`${alt}-${uuid()}`.split(' ').join('')}`,
+    url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${type}/${size}/${uuid()}`,
     query: {
       colors: [
         theme.colors.red[size],
@@ -162,6 +156,25 @@ export const handleReturnBoringSrc = (type: BoringType, size: ColorSize, alt: st
       square: true
     }
   });
+};
+
+/**
+ * This method will return the appropriate Boring Avatar Type depending on the mediaType passed
+ *
+ * @param mediaType MediaType - The type of mediaType - 'movie' | 'tv' | 'person' | 'company' | 'collection'
+ * @returns BoringAvatarType - Boring Avatar Type
+ */
+export const handleReturnBoringTypeByMediaType = (mediaType: MediaType): BoringAvatarType => {
+  switch (mediaType) {
+    case 'collection':
+      return 'pixel';
+    case 'company':
+      return 'bauhaus';
+    case 'person':
+      return 'beam';
+    default:
+      return 'marble';
+  }
 };
 
 /**
@@ -191,4 +204,24 @@ export const handleIsOverflowing = (element: HTMLElement): boolean => {
  */
 export const handleReturnDummyWidths = (range: number, amount: number): number[] => {
   return _.range(25, range, amount);
+};
+
+export const handleCheckSystemColorMode = (): ColorMode => {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  } else {
+    return 'light';
+  }
+};
+
+type Orientation = 'landscape' | 'portrait' | 'square';
+
+export const handleReturnImageOrientation = (width: number, height: number): Orientation => {
+  if (width > height) {
+    return 'landscape';
+  } else if (width < height) {
+    return 'portrait';
+  } else {
+    return 'square';
+  }
 };
