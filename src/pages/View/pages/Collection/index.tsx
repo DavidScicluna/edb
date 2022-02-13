@@ -65,11 +65,6 @@ const Collection = (): ReactElement => {
     document.scrollingElement?.scrollTo(0, 0);
   };
 
-  /**
-   * This method will open the image passed in the media modal
-   *
-   * @param image - Image object
-   */
   const handleOnAssetClick = (path: string): void => {
     setSelectedPath(path);
     onMediaViewerOpen();
@@ -150,6 +145,11 @@ const Collection = (): ReactElement => {
                   },
                   {
                     label: 'Parts',
+                    isDisabled:
+                      collectionQuery.isError ||
+                      collectionQuery.isFetching ||
+                      collectionQuery.isLoading ||
+                      (collectionQuery.data?.parts?.length || 0) === 0,
                     renderRight:
                       (collectionQuery.data?.parts || []).length > 0
                         ? ({ isSelected, size }) => (
@@ -163,12 +163,23 @@ const Collection = (): ReactElement => {
                   },
                   {
                     label: 'Assets',
+                    isDisabled:
+                      imagesQuery.isError ||
+                      imagesQuery.isFetching ||
+                      imagesQuery.isLoading ||
+                      (imagesQuery.data?.posters?.length || 0) + (imagesQuery.data?.backdrops?.length || 0) === 0,
                     renderRight:
-                      (collectionQuery.data?.parts || []).length > 0
+                      (imagesQuery.data?.posters?.length || 0) + (imagesQuery.data?.backdrops?.length || 0) > 0
                         ? ({ isSelected, size }) => (
                             <Fade in unmountOnExit>
                               <Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
-                                <CountUp duration={1} end={collectionQuery.data?.parts?.length || 0} />
+                                <CountUp
+                                  duration={1}
+                                  end={
+                                    (imagesQuery.data?.posters?.length || 0) +
+                                    (imagesQuery.data?.backdrops?.length || 0)
+                                  }
+                                />
                               </Badge>
                             </Fade>
                           )

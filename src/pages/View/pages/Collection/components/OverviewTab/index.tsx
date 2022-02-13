@@ -10,7 +10,9 @@ import { OverviewTabProps } from './types';
 const OverviewTab = ({ collectionQuery, imagesQuery, onClickImage, onChangeTab }: OverviewTabProps): ReactElement => {
   return (
     <VStack width='100%' spacing={4}>
-      {collectionQuery.data?.overview || collectionQuery.isFetching || collectionQuery.isLoading ? (
+      {(!_.isNil(collectionQuery.data?.overview) && !_.isEmpty(collectionQuery.data?.overview)) ||
+      collectionQuery.isFetching ||
+      collectionQuery.isLoading ? (
         <Paragraph
           title='Overview'
           paragraphs={collectionQuery.data?.overview || ''}
