@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import _ from 'lodash';
 
 const handleDelay = async (response: AxiosResponse): Promise<AxiosResponse> => {
-  await new Promise((resolve) => _.delay(resolve, 1250));
+  await new Promise((resolve) => _.delay(resolve, 2000));
 
   return response;
 };
