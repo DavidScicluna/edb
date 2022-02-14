@@ -49,7 +49,7 @@ export default (
       'outlineStyle': 'dashed',
 
       'padding': 0,
-      'marginTop': isClickable ? '4px !important' : 0,
+      'marginTop': isFixed || isClickable ? '5px !important' : '2px !important',
 
       'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
@@ -97,7 +97,7 @@ export default (
 
       'opacity': 0.5,
 
-      'marginTop': 0,
+      'marginTop': '2px !important',
 
       '& .card_front': {
         transform: 'translateY(-2px) !important'
