@@ -118,7 +118,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
           {/* Episode Number */}
           <Center
             as={Fade}
-            in={!_.isNil(episode_number) && !_.isEmpty(episode_number) && inView}
+            in={!_.isNil(episode_number) && inView}
             unmountOnExit
             sx={{
               position: 'absolute',

@@ -3,14 +3,17 @@ import React, { ReactElement } from 'react';
 import { Fade } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { useSelector } from '../../../../../../common/hooks';
 import { handleReturnDate } from '../../../../../../common/utils';
+import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
-import Accordions from '../../../../components/Accordions';
 import Season from './components/Season';
 import { SeasonsTabProps } from './types';
 
 const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   const { show, isError = false, isSuccess = false, isLoading = true } = props;
 
   return !isLoading && isError ? (
@@ -57,6 +60,7 @@ const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
       renderAccordion={({ id, title, isOpen, data }) => (
         <Season key={id} id={id} title={title} showId={show?.id} season={data} isOpen={isOpen} />
       )}
+      color={color}
       isLoading={isLoading}
       isError={isError}
     />

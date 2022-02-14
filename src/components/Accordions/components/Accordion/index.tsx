@@ -4,8 +4,8 @@ import { useTheme, useColorMode, VStack, VisuallyHidden, Collapse } from '@chakr
 import _ from 'lodash';
 import useInView from 'react-cool-inview';
 
-import Divider from '../../../../../../components/Divider';
-import { Theme } from '../../../../../../theme/types';
+import { Theme } from '../../../../theme/types';
+import Divider from '../../../Divider';
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -28,6 +28,7 @@ const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
     title,
     subtitle,
     total,
+    color,
     isOpen: isOpenProp = false,
     isDisabled = false,
     isLoading = true,
@@ -57,6 +58,7 @@ const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
         title={title}
         subtitle={subtitle}
         total={total}
+        color={color}
         inView={inView}
         isOpen={isOpen}
         isDisabled={isDisabled}

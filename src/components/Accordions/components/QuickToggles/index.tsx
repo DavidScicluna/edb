@@ -4,9 +4,9 @@ import { useColorMode, HStack, Center, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import Button from '../../../../../../components/Clickable/Button';
-import Divider from '../../../../../../components/Divider';
-import HorizontalScroll from '../../../../../../components/HorizontalScroll';
+import Button from '../../../Clickable/Button';
+import Divider from '../../../Divider';
+import HorizontalScroll from '../../../HorizontalScroll';
 import Accordion from './components/Accordion';
 import { QuickTogglesProps } from './types';
 
@@ -19,6 +19,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
   const {
     accordions,
     openedPanels,
+    color,
     isLoading = true,
     isDisabled = false,
     onToggleAccordion,
@@ -60,6 +61,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
                   <Accordion
                     key={accordion.id}
                     {...accordion}
+                    color={color}
                     isDisabled={isDisabled}
                     isLoading={false}
                     onToggle={() => onToggleAccordion(accordion.id)}

@@ -1,4 +1,4 @@
-import { Accordion } from '../../../Accordions/types';
+import { Accordion } from '../../../../../../components/Accordions/types';
 import { CastCrewProps, Cast } from '../../types';
 
 export type CastProps = Omit<CastCrewProps, 'credits'> & {

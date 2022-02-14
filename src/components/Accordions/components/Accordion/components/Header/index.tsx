@@ -6,9 +6,8 @@ import _ from 'lodash';
 import CountUp from 'react-countup';
 import { useElementSize } from 'usehooks-ts';
 
-import { useSelector } from '../../../../../../../../common/hooks';
-import Badge from '../../../../../../../../components/Badge';
-import { Theme } from '../../../../../../../../theme/types';
+import { Theme } from '../../../../../../theme/types';
+import Badge from '../../../../../Badge';
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import useStyles from './styles';
@@ -20,12 +19,11 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 
   const [ref, { width }] = useElementSize();
 
-  const color = useSelector((state) => state.user.ui.theme.color);
-
   const {
     title,
     subtitle,
     total,
+    color,
     inView = false,
     isOpen = false,
     isDisabled = false,

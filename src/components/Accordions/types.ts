@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Color } from '../../theme/types';
+
 export type Total = {
   prefix?: string;
   number?: number;
@@ -22,6 +24,7 @@ export type RenderProps<D> = {
 export type AccordionsProps<D> = {
   renderAccordion: (props: RenderProps<D>) => ReactElement;
   accordions?: Accordion<D>[];
+  color?: keyof Color;
   isError?: boolean;
   isLoading?: boolean;
 };

@@ -9,7 +9,7 @@ import { AccordionsProps, Accordion as AccordionType } from './types';
 const Accordions = <D,>(props: AccordionsProps<D>): ReactElement => {
   const [openedAccordions, setOpenedAccordions] = useState<AccordionType<D>['id'][]>([]);
 
-  const { renderAccordion, accordions = [], isError = false, isLoading = true } = props;
+  const { renderAccordion, accordions = [], color, isError = false, isLoading = true } = props;
 
   /**
    * This method will check whether the passed id is already opened, if so it will close it
@@ -43,6 +43,7 @@ const Accordions = <D,>(props: AccordionsProps<D>): ReactElement => {
           return { id: accordion.id, title: accordion.title };
         })}
         openedPanels={openedAccordions.length}
+        color={color}
         isLoading={isLoading}
         isDisabled={isError}
         onToggleAccordion={(id: AccordionType<D>['id']) => setOpenedAccordions([...openedAccordions, id])}

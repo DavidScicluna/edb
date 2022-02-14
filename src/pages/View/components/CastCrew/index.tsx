@@ -3,15 +3,18 @@ import { ReactElement, useState } from 'react';
 import { Fade } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import { useSelector } from '../../../../common/hooks';
+import Accordions from '../../../../components/Accordions';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
-import Accordions from '../Accordions';
 import { handleReturnCrew } from './common/utils';
 import Cast from './components/Cast';
 import Crew from './components/Crew';
 import { Department, CastCrewProps } from './types';
 
 const CastCrew = (props: CastCrewProps): ReactElement => {
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   const { alt, credits, isError = false, isSuccess = false, isLoading = true } = props;
 
   const [departments] = useState<Department[]>(handleReturnCrew(credits));
@@ -58,6 +61,7 @@ const CastCrew = (props: CastCrewProps): ReactElement => {
           <Crew key={id} title={title} crew={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
         )
       }
+      color={color}
       isLoading={isLoading}
       isError={isError}
     />

@@ -2,13 +2,16 @@ import React, { ReactElement } from 'react';
 
 import _ from 'lodash';
 
+import { useSelector } from '../../../../../../common/hooks';
+import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
-import Accordions from '../../../../components/Accordions';
 import MediaItems from './components/MediaItems';
 import { CreditsTabProps } from './types';
 
 const CreditsTab = (props: CreditsTabProps): ReactElement => {
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   const { departments = [], name, isLoading = true, isError = false, isSuccess = false } = props;
 
   return !isLoading && isError ? (
@@ -64,6 +67,7 @@ const CreditsTab = (props: CreditsTabProps): ReactElement => {
           }
         />
       )}
+      color={color}
       isLoading={isLoading}
       isError={isError}
     />

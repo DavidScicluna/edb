@@ -3,15 +3,15 @@ import { ReactElement, useState } from 'react';
 import { useColorMode, Box, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
-import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
-import { SubtitleProps } from './types';
+import SkeletonText from '../../../../../../../Skeleton/Text';
+import { TitleProps } from './types';
 
 const dummies = _.range(25, 100, 10);
 
-const Subtitle = (props: SubtitleProps): ReactElement => {
+const Title = (props: TitleProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { subtitle, isLoading = false, inView = true } = props;
+  const { title, isLoading = false, inView = true } = props;
 
   const [dummy] = useState<number>(_.sample(dummies) || 100);
 
@@ -19,19 +19,20 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
     <Box
       width='100%'
       maxWidth='100%'
-      height='16.5px' // Size of typography height
+      height='24.75px' // Size of typography height
     >
       {inView || isLoading ? (
-        <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
+        <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
           <Text
             align='left'
-            fontSize='xs'
-            color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+            fontSize='lg'
+            fontWeight='semibold'
+            color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
             isTruncated
             overflow='hidden'
             whiteSpace='nowrap'
           >
-            {subtitle || 'Subtitle'}
+            {title || 'Title'}
           </Text>
         </SkeletonText>
       ) : null}
@@ -39,4 +40,4 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
   );
 };
 
-export default Subtitle;
+export default Title;

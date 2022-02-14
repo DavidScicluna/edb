@@ -2,9 +2,10 @@ import React, { ReactElement, useState } from 'react';
 
 import _ from 'lodash';
 
+import { useSelector } from '../../../../common/hooks';
 import { Image, Video } from '../../../../common/types';
-import Accordions from '../Accordions';
-import { Accordion } from '../Accordions/types';
+import Accordions from '../../../../components/Accordions';
+import { Accordion } from '../../../../components/Accordions/types';
 import Backdrops from './components/Backdrops';
 import Posters from './components/Posters';
 import Profiles from './components/Profiles';
@@ -12,6 +13,8 @@ import Videos from './components/Videos';
 import { AssetsTabProps } from './types';
 
 const Assets = (props: AssetsTabProps): ReactElement => {
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   const { alt, assets: assetsProp, isError = false, isSuccess = false, isLoading = true, onClickAsset } = props;
 
   const [assets] = useState<Accordion<(Image | Video)[]>[]>(
@@ -111,6 +114,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
           />
         )
       }
+      color={color}
       isLoading={isLoading}
       isError={isError}
     />

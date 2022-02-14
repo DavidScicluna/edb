@@ -3,17 +3,14 @@ import React, { ReactElement, useState } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-scroll';
 
-import { useSelector } from '../../../../../../../../common/hooks';
-import Button from '../../../../../../../../components/Clickable/Button';
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
+import Button from '../../../../../Clickable/Button';
+import SkeletonText from '../../../../../Skeleton/Text';
 import { AccordionProps } from './types';
 
 const dummies = _.range(25, 200, 5);
 
 const Accordion = (props: AccordionProps): ReactElement => {
-  const color = useSelector((state) => state.user.ui.theme.color);
-
-  const { id, title, isLoading = true, isDisabled = false, onToggle } = props;
+  const { id, title, color, isLoading = true, isDisabled = false, onToggle } = props;
 
   const [dummy] = useState<number>(_.sample(dummies) || 100);
 
