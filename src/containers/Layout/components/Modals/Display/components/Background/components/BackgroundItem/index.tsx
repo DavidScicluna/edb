@@ -21,7 +21,7 @@ const BackgroundItem = (props: BackgroundItemProps): ReactElement => {
       p={2}
     >
       <HStack width='100%' justifyContent='center' spacing={1}>
-        {renderIcon({ fontSize: theme.fontSizes['2xl'] })}
+        {renderIcon({ isActive, fontSize: theme.fontSizes.xl })}
         <Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase'>
           {label}
         </Text>

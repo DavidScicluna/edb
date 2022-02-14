@@ -19,13 +19,13 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
     <Box
       width='100%'
       maxWidth='100%'
-      height='16.5px' // Size of typography height
+      height='19.25px' // Size of typography height
     >
       {inView || isLoading ? (
         <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
           <Text
             align='left'
-            fontSize='xs'
+            fontSize='sm'
             color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
             isTruncated
             overflow='hidden'

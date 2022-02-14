@@ -147,7 +147,7 @@ const Person = ({ id }: PersonProps): ReactElement => {
 
       {imagesQuery.isSuccess ? (
         <MediaViewer
-          alt={personQuery.data?.name ? `"${personQuery.data.name}" photo` : 'Person Photo'}
+          alt={personQuery.data?.name || 'Person Name'}
           assets={[
             {
               label: 'Photos',

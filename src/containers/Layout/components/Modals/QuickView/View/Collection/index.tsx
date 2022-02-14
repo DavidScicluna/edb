@@ -147,7 +147,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 
       {imagesQuery.isSuccess ? (
         <MediaViewer
-          alt={collectionQuery.data?.name ? `"${collectionQuery.data.name}" photo` : 'Collection Photo'}
+          alt={collectionQuery.data?.name || 'Collection Name'}
           assets={[
             {
               label: 'Posters',

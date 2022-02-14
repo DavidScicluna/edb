@@ -143,7 +143,7 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 
       {imagesQuery.isSuccess || videosQuery.isSuccess ? (
         <MediaViewer
-          alt={movieQuery.data?.title ? `"${movieQuery.data.title}"` : 'Movie Title'}
+          alt={movieQuery.data?.title || 'Movie Title'}
           assets={[
             {
               label: 'Posters',

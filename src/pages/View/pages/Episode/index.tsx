@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { Fade } from '@chakra-ui/react';
+import { useDisclosure, Fade } from '@chakra-ui/react';
 import axios from 'axios';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
@@ -10,7 +10,9 @@ import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
 import { ExternalIDs, Images, Videos } from '../../../../common/types';
 import { FullTV, Episode as EpisodeType, EpisodeCredits } from '../../../../common/types/tv';
+import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
 import Badge from '../../../../components/Badge';
+import MediaViewer from '../../../../components/MediaViewer';
 import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
@@ -25,7 +27,7 @@ import Title from './components/Title';
 const Episode = (): ReactElement => {
   const source = axios.CancelToken.source();
 
-  // const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
+  const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
@@ -98,7 +100,7 @@ const Episode = (): ReactElement => {
 
   const handleOnAssetClick = (path: string): void => {
     setSelectedPath(path);
-    // onMediaViewerOpen();
+    onMediaViewerOpen();
   };
 
   const handleCheckLocation = (): void => {
@@ -265,29 +267,29 @@ const Episode = (): ReactElement => {
         </Structure>
       </Tabs>
 
-      {/* {imagesQuery.isSuccess ? (
+      {imagesQuery.isSuccess ? (
         <MediaViewer
-          alt={collectionQuery.data?.name ? `"${collectionQuery.data.name}" photo` : 'Collection Photo'}
+          alt={episodeQuery.data?.name || 'Episode Name'}
           assets={[
             {
-              label: 'Posters',
-              mediaItems: (imagesQuery.data?.posters || []).map((image) => {
+              label: 'Backdrops',
+              mediaItems: (imagesQuery.data?.stills || []).map((image) => {
                 return {
                   type: 'image',
-                  boringType: handleReturnBoringTypeByMediaType('collection'),
+                  boringType: handleReturnBoringTypeByMediaType('tv'),
                   srcSize: ['w92', 'original'],
                   data: { ...image }
                 };
               })
             },
             {
-              label: 'Backdrops',
-              mediaItems: (imagesQuery.data?.backdrops || []).map((image) => {
+              label: 'Videos',
+              mediaItems: (videosQuery.data?.results || []).map((video) => {
                 return {
-                  type: 'image',
-                  boringType: handleReturnBoringTypeByMediaType('collection'),
-                  srcSize: ['w300', 'original'],
-                  data: { ...image }
+                  type: 'video',
+                  boringType: handleReturnBoringTypeByMediaType('tv'),
+                  srcSize: ['', ''],
+                  data: { ...video }
                 };
               })
             }
@@ -296,7 +298,7 @@ const Episode = (): ReactElement => {
           isOpen={isMediaViewerOpen}
           onClose={onMediaViewerClose}
         />
-      ) : null} */}
+      ) : null}
     </>
   );
 };
