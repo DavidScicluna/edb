@@ -4,8 +4,6 @@ export type NavigationDirection = 'prev' | 'next';
 
 export type AssetType = 'image' | 'video';
 
-// export type GetAssetType<A extends AssetType> = A extends 'image' ? ;
-
 export type MediaItem = {
   type: AssetType;
   boringType: BoringAvatarType;

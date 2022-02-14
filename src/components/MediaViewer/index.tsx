@@ -8,7 +8,7 @@ import { handleConvertStringToNumber } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import Backdrop from './components/Backdrop';
 import Gallery from './components/Gallery';
-import PhotoViewer from './components/ImageViewer';
+import ImageViewer from './components/ImageViewer';
 import Toolkit from './components/Toolkit';
 import Actions from './components/Toolkit/components/Actions';
 import Navigation from './components/Toolkit/components/Navigation';
@@ -38,7 +38,7 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
 
   const [swiper, setSwiper] = useState<Swiper>();
 
-  const [mediaItems] = useState<MediaItem[]>(handleFlattenAssets(assets));
+  const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [activeMediaItem, setActiveMediaItem] = useState<MediaItem>();
@@ -128,6 +128,19 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
     onGalleryClose();
   };
 
+  const handleClose = (): void => {
+    setIsHoveringBackdrop.off();
+
+    onGalleryClose();
+    onClose();
+  };
+
+  const handleGalleryClose = (): void => {
+    setIsHoveringBackdrop.off();
+
+    onGalleryClose();
+  };
+
   useEffect(() => {
     if (swiper && !_.isEmpty(mediaItems) && !_.isEmpty(selectedPath)) {
       const mediaItem = mediaItems.find(
@@ -143,9 +156,17 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
     }
   }, [swiper, mediaItems, selectedPath]);
 
+  useEffect(() => {
+    if (isOpen && !_.isEmpty(assets) && !_.isEmpty(assets)) {
+      setIsHoveringBackdrop.off();
+
+      setMediaItems(handleFlattenAssets(assets));
+    }
+  }, [isOpen]);
+
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom' scrollBehavior='inside' size='full'>
+      <Modal isOpen={isOpen} onClose={handleClose} motionPreset='slideInBottom' scrollBehavior='inside' size='full'>
         <ModalContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} borderRadius='none' m={0}>
           <ModalBody position='relative' p={0}>
             {isOpen ? (
@@ -172,16 +193,9 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
                 <Viewer
                   renderSlide={(slide) =>
                     slide.type === 'image' ? (
-                      <PhotoViewer
-                        alt={alt}
-                        boringType={slide.boringType}
-                        path={slide.data.file_path}
-                        ratio={slide.data.aspect_ratio}
-                        srcSize={slide.srcSize}
-                      />
+                      <ImageViewer {...slide.data} alt={alt} boringType={slide.boringType} srcSize={slide.srcSize} />
                     ) : (
-                      // <VideoViewer path={slide.key} />
-                      <h1>Video</h1>
+                      <VideoViewer videoId={slide.data.key} />
                     )
                   }
                   activeIndex={activeIndex}
@@ -206,7 +220,7 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
           activeMediaItem={activeMediaItem}
           isOpen={isGalleryOpen}
           onClick={handleGalleryClick}
-          onClose={onGalleryClose}
+          onClose={handleGalleryClose}
         />
       ) : null}
     </>
