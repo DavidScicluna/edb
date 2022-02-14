@@ -4,10 +4,8 @@ import { Center } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
 import Accordions from '../../../Accordions';
-import VerticalGrid from '../../../Grid/Vertical';
 import Modal from '../../../Modal';
-import Image from './components/Image';
-import Video from './components/Video';
+import Asset from './components/Asset';
 import { GalleryProps } from './types';
 
 const Gallery = (props: GalleryProps): ReactElement => {
@@ -29,33 +27,8 @@ const Gallery = (props: GalleryProps): ReactElement => {
               data: asset.mediaItems
             };
           })}
-          renderAccordion={({ id, data }) => (
-            <VerticalGrid key={id} columns={[1, 2, 3, 3, 4, 5]} displayMode='grid'>
-              {() =>
-                (data || []).map((mediaItem, id) =>
-                  mediaItem.type === 'image' ? (
-                    <Image
-                      key={id}
-                      alt={alt}
-                      ratio={mediaItem.data.aspect_ratio}
-                      path={mediaItem.data.file_path}
-                      boringType={mediaItem.boringType}
-                      srcSize={mediaItem.srcSize}
-                      isActive={mediaItem.data.file_path === activeMediaItem?.data.file_path}
-                      onClick={() => onClick(mediaItem)}
-                    />
-                  ) : (
-                    <Video
-                      key={id}
-                      alt={alt}
-                      videoId={mediaItem.data.key}
-                      isActive={mediaItem.data.key === activeMediaItem?.data.key}
-                      onClick={() => onClick(mediaItem)}
-                    />
-                  )
-                )
-              }
-            </VerticalGrid>
+          renderAccordion={({ id, title, data }) => (
+            <Asset key={id} alt={alt} activeMediaItem={activeMediaItem} title={title} data={data} onClick={onClick} />
           )}
           color={color}
           isLoading={false}

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useBoolean, VStack, Center } from '@chakra-ui/react';
+import { useBoolean, VStack, Center, HStack } from '@chakra-ui/react';
 import useInView from 'react-cool-inview';
 
 import { MediaType } from '../../../common/types';
@@ -61,7 +61,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
           <VStack width='100%' spacing={isLoading ? 1 : 0.5}>
             {/* Header */}
             {mediaType === 'movie' || mediaType === 'tv' ? (
-              <Center width='100%' justify='space-between'>
+              <HStack width='100%' justify='space-between'>
                 {/* Rating component */}
                 <Rating size='md' inView={inView} isLoading={isLoading}>
                   {rating}
@@ -83,7 +83,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                     />
                   </Center>
                 </Center>
-              </Center>
+              </HStack>
             ) : null}
 
             {/* Text */}
