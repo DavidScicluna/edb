@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
 import { MediaType } from '../../../../../common/types';
-import { handleIsTouchDevice, handleReturnBoringTypeByMediaType } from '../../../../../common/utils';
+import { handleIsTouchDevice, handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Skeleton from '../../../../../components/Skeleton';
 import { toggleQuickView } from '../../../../../store/slices/Modals';
@@ -32,7 +32,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
   } = props;
 
   return (
-    <AspectRatio as={Fade} in={inView} width='100%' borderRadius='base' ratio={2 / 3}>
+    <AspectRatio as={Fade} in={inView} width='100%' borderRadius='base' ratio={handleReturnRatio('portrait')}>
       <>
         <Skeleton borderRadius='base' isLoaded={!isLoading && inView}>
           <Image

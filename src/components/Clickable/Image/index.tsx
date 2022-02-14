@@ -16,6 +16,7 @@ import useInView from 'react-cool-inview';
 import { useElementSize } from 'usehooks-ts';
 
 import * as fallback from '../../../common/assets/fallback';
+import { handleReturnRatio } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
 import { ImageProps, IconProps } from './types';
 
@@ -41,7 +42,7 @@ const Image = (props: ImageProps): ReactElement => {
     children,
     width = '100%',
     borderRadius = 'base',
-    ratio = 2 / 3,
+    ratio = handleReturnRatio('portrait'),
     renderIcon,
     isDisabled = false,
     isActive = false,

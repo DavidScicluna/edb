@@ -2,7 +2,10 @@ import { ReactElement } from 'react';
 
 import { AspectRatio, Fade } from '@chakra-ui/react';
 
-import { handleReturnBoringTypeByMediaType } from '../../../../../../../../../../../../../../common/utils';
+import {
+  handleReturnBoringTypeByMediaType,
+  handleReturnRatio
+} from '../../../../../../../../../../../../../../common/utils';
 import Image from '../../../../../../../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../../../../../../../components/Skeleton';
 import { EpisodeImageProps } from './types';
@@ -13,7 +16,7 @@ const EpisodeImage = (props: EpisodeImageProps): ReactElement => {
   const { image, isLoading = true, inView = false } = props;
 
   return (
-    <AspectRatio as={Fade} in={inView} width={width} borderRadius='base' ratio={2 / 3}>
+    <AspectRatio as={Fade} in={inView} width={width} borderRadius='base' ratio={handleReturnRatio('portrait')}>
       <Skeleton borderRadius='base' isLoaded={!isLoading && inView}>
         <Image
           alt={image?.alt || ''}

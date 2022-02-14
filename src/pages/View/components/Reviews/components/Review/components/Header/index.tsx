@@ -6,7 +6,8 @@ import moment from 'moment';
 import {
   handleConvertREMToPixels,
   handleConvertStringToNumber,
-  handleReturnBoringTypeByMediaType
+  handleReturnBoringTypeByMediaType,
+  handleReturnRatio
 } from '../../../../../../../../common/utils';
 import Image from '../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../components/Skeleton';
@@ -42,7 +43,7 @@ const Header = (props: HeaderProps): ReactElement => {
       <AspectRatio
         width={`${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['5xl'], 'rem'))}px`}
         borderRadius='full'
-        ratio={1 / 1}
+        ratio={handleReturnRatio('square')}
       >
         <Skeleton borderRadius='full' isLoaded={!isLoading}>
           <Image

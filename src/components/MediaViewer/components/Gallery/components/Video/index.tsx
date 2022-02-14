@@ -5,6 +5,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import YouTube, { Options } from 'react-youtube';
 import './styles.css';
 
+import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../Clickable/Image';
 import { GalleryVideoProps } from './types';
 
@@ -30,7 +31,7 @@ const GalleryVideo = (props: GalleryVideoProps): ReactElement => {
     <Box alt={alt} borderRadius='lg'>
       <ClickableImage
         borderRadius='lg'
-        ratio={1 / 1}
+        ratio={handleReturnRatio('square')}
         isActive={isActive}
         renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
         onClick={onClick}

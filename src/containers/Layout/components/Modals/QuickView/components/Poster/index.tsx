@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useMediaQuery, useBoolean } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
-import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/utils';
+import { handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../components/Clickable/Image';
 import Image from '../../../../../../../components/Image';
 import Skeleton from '../../../../../../../components/Skeleton';
@@ -19,7 +19,7 @@ const Poster = (props: PosterProps): ReactElement => {
   return (
     <ClickableImage
       borderRadius='lg'
-      ratio={isSm ? 1 / 1 : 2 / 3}
+      ratio={handleReturnRatio(isSm ? 'square' : 'portrait')}
       isDisabled={isLoading || isImageError}
       renderIcon={({ color, fontSize }) => <SearchOutlinedIcon style={{ color, fontSize }} />}
       onClick={path ? () => onClickPoster(path) : undefined}

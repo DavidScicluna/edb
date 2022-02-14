@@ -214,14 +214,23 @@ export const handleCheckSystemColorMode = (): ColorMode => {
   }
 };
 
-type Orientation = 'landscape' | 'portrait' | 'square';
-
-export const handleReturnImageOrientation = (width: number, height: number): Orientation => {
+export const handleReturnImageOrientation = (width = 0, height = 0): 'landscape' | 'portrait' | 'square' => {
   if (width > height) {
     return 'landscape';
   } else if (width < height) {
     return 'portrait';
   } else {
     return 'square';
+  }
+};
+
+export const handleReturnRatio = (orientation: 'landscape' | 'portrait' | 'square'): number => {
+  switch (orientation) {
+    case 'landscape':
+      return 1.77777777777778;
+    case 'portrait':
+      return 0.666666666666667;
+    case 'square':
+      return 1 / 1;
   }
 };

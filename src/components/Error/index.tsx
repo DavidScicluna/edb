@@ -1,10 +1,12 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, VStack, Center, Image, Text, Fade, useTheme } from '@chakra-ui/react';
+import { useTheme, useColorMode, VStack, Center, AspectRatio, Image, Text, Fade } from '@chakra-ui/react';
 import _ from 'lodash';
 
+import * as fallback from '../../common/assets/fallback';
 import * as error from '../../common/assets/illustrations/error';
 import { useSelector } from '../../common/hooks';
+import { handleReturnRatio } from '../../common/utils';
 import { Theme, Space, FontSizes } from '../../theme/types';
 import useStyles from './styles';
 import { ErrorProps } from './types';
@@ -163,11 +165,14 @@ const Error = (props: ErrorProps): ReactElement => {
         sx={{ ..._.merge(style.error[variant], style[colorMode][variant]) }}
       >
         {hasIllustration ? (
-          <Image
-            maxWidth={`${handleReturnIllustrationWidth()}%`}
-            alt='Error illustration'
-            src={handleReturnIllustration()}
-          />
+          <AspectRatio maxWidth={`${handleReturnIllustrationWidth()}%`} ratio={handleReturnRatio('landscape')}>
+            <Image
+              maxWidth={`${handleReturnIllustrationWidth()}%`}
+              alt='Error illustration'
+              src={handleReturnIllustration()}
+              fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
+            />
+          </AspectRatio>
         ) : null}
         <VStack spacing={0}>
           <Text

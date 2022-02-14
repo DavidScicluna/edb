@@ -5,9 +5,11 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import _ from 'lodash';
 import YouTube, { Options } from 'react-youtube';
 
+import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Skeleton from '../../../../../../components/Skeleton';
 import { MediaVideoProps } from './types';
+
 import './styles.css';
 
 const width = ['185px', '205px', '230px'];
@@ -34,7 +36,7 @@ const MediaVideo = (props: MediaVideoProps): ReactElement => {
     <Box width={width} alt={`${alt ? `"${alt}"` : ''} video`} borderRadius='lg'>
       <ClickableImage
         width='100%'
-        ratio={1 / 1}
+        ratio={handleReturnRatio('square')}
         borderRadius='lg'
         isDisabled={isLoading || _.isNil(videoId) || _.isEmpty(videoId)}
         renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
