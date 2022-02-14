@@ -9,7 +9,8 @@ import { ImageProps } from './types';
 const Image = (props: ImageProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { width, maxWidth, alt, thumbnailSrc, fullSrc, boringType, borderRadius, onError, onLoad, ...rest } = props;
+  const { width, height, maxWidth, alt, thumbnailSrc, fullSrc, boringType, borderRadius, onError, onLoad, ...rest } =
+    props;
 
   const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, colorMode === 'light' ? 400 : 500));
 
@@ -30,7 +31,7 @@ const Image = (props: ImageProps): ReactElement => {
         <CUIImage
           {...rest}
           width={width || 'auto'}
-          height={width ? 'auto' : '100%'}
+          height={height || width ? 'auto' : '100%'}
           maxWidth={maxWidth || 'none'}
           alt={`${alt} fallback image`}
           position='absolute'
@@ -45,7 +46,7 @@ const Image = (props: ImageProps): ReactElement => {
         <CUIImage
           {...rest}
           width={width || 'auto'}
-          height={width ? 'auto' : '100%'}
+          height={height || width ? 'auto' : '100%'}
           maxWidth={maxWidth || 'none'}
           position='absolute'
           alt={`${alt} thumbnail`}
@@ -74,7 +75,7 @@ const Image = (props: ImageProps): ReactElement => {
         <CUIImage
           {...rest}
           width={width || 'auto'}
-          height={width ? 'auto' : '100%'}
+          height={height || width ? 'auto' : '100%'}
           maxWidth={maxWidth || 'none'}
           position='absolute'
           alt={alt}
