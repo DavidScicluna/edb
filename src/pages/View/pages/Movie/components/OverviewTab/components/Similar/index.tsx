@@ -11,10 +11,10 @@ import { SimilarProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 
-// Add Actions button with tooltip explaining how similar works
+// TODO: Add Actions button with tooltip explaining how similar works
 
 const Similar = (props: SimilarProps): ReactElement => {
-  const { similar = [], title, isError = false, isSuccess = false, isLoading = true } = props;
+  const { title, similar = [], isError = false, isSuccess = false, isLoading = true } = props;
 
   return (
     <HorizontalGrid title='Similar Movies' isDisabled={isLoading || similar.length === 0} variant='outlined'>

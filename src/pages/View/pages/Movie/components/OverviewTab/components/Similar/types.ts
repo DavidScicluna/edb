@@ -1,8 +1,8 @@
-import { PartialMovie } from '../../../../../../../../common/types/movie';
+import { FullMovie, PartialMovie } from '../../../../../../../../common/types/movie';
 
 export type SimilarProps = {
+  title?: FullMovie['title'];
   similar?: PartialMovie[];
-  title?: string;
   isError?: boolean;
   isSuccess?: boolean;
   isLoading?: boolean;

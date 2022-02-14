@@ -11,10 +11,10 @@ import { RecommendationsProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 
-// Add Actions button with tooltip explaining how Recommendations works
+// TODO: Add Actions button with tooltip explaining how Recommendations works
 
 const Recommendations = (props: RecommendationsProps): ReactElement => {
-  const { recommendations = [], title, isError = false, isSuccess = false, isLoading = true } = props;
+  const { title, recommendations = [], isError = false, isSuccess = false, isLoading = true } = props;
 
   return (
     <HorizontalGrid

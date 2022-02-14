@@ -57,8 +57,8 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
             <Details movie={movieQuery.data} isLoading={movieQuery.isFetching || movieQuery.isLoading} />
 
             {(!_.isNil(creditsQuery.data?.crew) && !_.isEmpty(creditsQuery.data?.crew)) ||
-            movieQuery.isFetching ||
-            movieQuery.isLoading ? (
+            creditsQuery.isFetching ||
+            creditsQuery.isLoading ? (
               <Credits crew={creditsQuery.data?.crew} isLoading={creditsQuery.isFetching || creditsQuery.isLoading} />
             ) : null}
           </>
@@ -86,16 +86,16 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
       </Collapse>
 
       <Recommendations
-        recommendations={recommendationsQuery.data}
         title={movieQuery.data?.title}
+        recommendations={recommendationsQuery.data}
         isError={recommendationsQuery.isError}
         isSuccess={recommendationsQuery.isSuccess}
         isLoading={recommendationsQuery.isFetching || recommendationsQuery.isLoading}
       />
 
       <Similar
-        similar={similarQuery.data}
         title={movieQuery.data?.title}
+        similar={similarQuery.data}
         isError={similarQuery.isError}
         isSuccess={similarQuery.isSuccess}
         isLoading={similarQuery.isFetching || similarQuery.isLoading}

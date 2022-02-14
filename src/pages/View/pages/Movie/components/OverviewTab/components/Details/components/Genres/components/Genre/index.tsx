@@ -32,8 +32,8 @@ const Genre = (props: GenreProps): ReactElement => {
           whiteSpace='nowrap'
           textDecorationStyle='wavy'
           textDecorationLine='underline'
-          textDecorationThickness='auto'
-          textDecorationColor={color}
+          textDecorationThickness='from-font'
+          textDecorationColor={`${color}.${colorMode === 'light' ? 400 : 500}`}
           sx={{
             transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
           }}
