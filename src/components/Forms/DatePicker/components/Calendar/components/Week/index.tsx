@@ -2,11 +2,8 @@ import React, { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 import { RenderProps, DateObj } from 'dayzed';
-import _ from 'lodash';
-import moment from 'moment';
 
 import { Color } from '../../../../../../../theme/types';
-import Button from '../../../../../../Clickable/Button';
 import Day from './components/Day';
 
 export type WeekProps = {

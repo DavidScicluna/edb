@@ -4,7 +4,6 @@ import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from 
 import _ from 'lodash';
 import moment from 'moment';
 import useInView from 'react-cool-inview';
-import CountUp from 'react-countup';
 
 import Badge from '../../../../../../../../../../../../components/Badge';
 import Card from '../../../../../../../../../../../../components/Clickable/Card';

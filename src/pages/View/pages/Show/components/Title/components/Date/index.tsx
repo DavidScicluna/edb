@@ -10,7 +10,7 @@ import { DateProps } from './types';
 const dummies = _.range(25, 100, 20);
 
 const Date = (props: DateProps): ReactElement => {
-  const { in_production, first_air_date, last_air_date, color, fontSize, isLoading = true } = props;
+  const { in_production = false, first_air_date, last_air_date, color, fontSize, isLoading = true } = props;
 
   const [dummy] = useState<number>(_.sample(dummies) || 50);
 

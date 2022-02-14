@@ -6,6 +6,7 @@ import { Size, Variant } from '../../types';
  *
  * @returns - number: Padding value
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const handleReturnPadding = (size: Size, _variant: Variant): keyof Space => {
   switch (size) {
     case 'xs':

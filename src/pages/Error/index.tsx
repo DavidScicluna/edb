@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, Center, HStack, Box, VStack } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, Center, HStack, VStack } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../common/hooks';
