@@ -30,6 +30,10 @@ const Genre = (props: GenreProps): ReactElement => {
           color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
           fontSize='md'
           whiteSpace='nowrap'
+          textDecorationStyle='wavy'
+          textDecorationLine='underline'
+          textDecorationThickness='auto'
+          textDecorationColor={color}
           sx={{
             transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
           }}
