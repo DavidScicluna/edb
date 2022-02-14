@@ -31,7 +31,7 @@ const AssetVideo = (props: AssetVideoProps): ReactElement => {
   const { alt, videoId, isLoading = true, onClickVideo } = props;
 
   return (
-    <Box width='100%' alt={`${alt ? `"${alt}"` : ''} video`} borderRadius='lg'>
+    <Box width='100%' borderRadius='lg'>
       <ClickableImage
         width='100%'
         ratio={handleReturnRatio('square')}

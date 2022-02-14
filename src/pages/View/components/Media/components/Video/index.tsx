@@ -33,7 +33,7 @@ const MediaVideo = (props: MediaVideoProps): ReactElement => {
   const { alt, videoId, isLoading = true, onClick } = props;
 
   return (
-    <Box width={width} alt={`${alt ? `"${alt}"` : ''} video`} borderRadius='lg'>
+    <Box width={width} borderRadius='lg'>
       <ClickableImage
         width='100%'
         ratio={handleReturnRatio('square')}

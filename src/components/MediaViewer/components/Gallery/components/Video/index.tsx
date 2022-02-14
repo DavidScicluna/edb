@@ -28,7 +28,7 @@ const GalleryVideo = (props: GalleryVideoProps): ReactElement => {
   const { alt = '', videoId, isActive = false, onClick } = props;
 
   return (
-    <Box alt={alt} borderRadius='lg'>
+    <Box borderRadius='lg'>
       <ClickableImage
         borderRadius='lg'
         ratio={handleReturnRatio('square')}

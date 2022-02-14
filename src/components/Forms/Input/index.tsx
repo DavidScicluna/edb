@@ -43,7 +43,7 @@ const Input = (props: InputProps): ReactElement => {
     <FormControl id={name} isRequired={isRequired}>
       {label ? (
         <FormLabel
-          isInvalid={!_.isNil(error)}
+          // isInvalid={!_.isNil(error)}
           sx={{
             ..._.merge(
               style.formLabel.default,

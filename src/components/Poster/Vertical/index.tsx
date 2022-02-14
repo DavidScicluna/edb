@@ -67,7 +67,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
                   {rating}
                 </Rating>
 
-                <Center spacing={0}>
+                <Center>
                   {/* Like component */}
                   <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
                     <Like title={title} mediaType={mediaType} mediaItem={mediaItem} size='sm' isLoading={isLoading} />

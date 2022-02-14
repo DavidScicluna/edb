@@ -514,8 +514,8 @@ const Search = (): ReactElement => {
         setSubmittedSearchTypes([history.location.hash.replace('#', '')]);
         setUnSubmittedSearchTypes([history.location.hash.replace('#', '')]);
       } else if (search && search.types && Array.isArray(search.types)) {
-        setSubmittedSearchTypes([...search.types]);
-        setUnSubmittedSearchTypes([...search.types]);
+        setSubmittedSearchTypes(_.compact([...search.types]));
+        setUnSubmittedSearchTypes(_.compact([...search.types]));
       } else if (search && search.types && typeof search.types === 'string') {
         setSubmittedSearchTypes([search.types]);
         setUnSubmittedSearchTypes([search.types]);
