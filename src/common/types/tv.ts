@@ -118,7 +118,7 @@ export type PartialTV = {
   genre_ids?: number[];
 } & TV;
 
-type CreatedBy = {
+export type CreatedBy = {
   id?: number;
   credit_id?: string;
   name?: string;
@@ -151,9 +151,9 @@ export type FullTV = {
   in_production?: boolean;
   languages?: string[];
   last_air_date?: string;
-  last_episode_to_air?: object;
+  last_episode_to_air?: Episode;
   networks?: Network[];
-  next_episode_to_air?: null;
+  next_episode_to_air?: Episode;
   number_of_episodes?: number;
   number_of_seasons?: number;
   production_companies?: ProductionCompany[];
