@@ -25,7 +25,7 @@ const PartsTab = (props: PartsTabProps): ReactElement => {
   const handleSortParts = (parts: PartialMovie[]): PartialMovie[] => {
     return parts.sort(
       (a, b) =>
-        Number(handleReturnDate(a.release_date || '', 'year')) - Number(handleReturnDate(b.release_date || '', 'year'))
+        Number(handleReturnDate(b.release_date || '', 'year')) - Number(handleReturnDate(a.release_date || '', 'year'))
     );
   };
 

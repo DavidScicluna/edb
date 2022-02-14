@@ -6,6 +6,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import CountUp from 'react-countup';
 import { useQuery, useInfiniteQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
@@ -20,6 +21,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import { setRecentlyViewed } from '../../../../store/slices/User';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
@@ -36,10 +38,12 @@ const Movie = (): ReactElement => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
 
-  const color = useSelector((state) => state.user.ui.theme.color);
-
+  const dispatch = useDispatch();
+  const recentlyViewed = useSelector((state) => state.user.data.recentlyViewed);
   const userReviews = useSelector((state) => state.user.data.reviews.user);
   const movieUserReviews = userReviews.filter((review) => review.mediaItem.id === Number(id));
+
+  const color = useSelector((state) => state.user.ui.theme.color);
 
   const [selectedPath, setSelectedPath] = useState<string>();
 
@@ -48,13 +52,26 @@ const Movie = (): ReactElement => {
   const [reviews, setReviews] = useState<Response<Review[]>>();
 
   // Fetching movie details
-  const movieQuery = useQuery([`movie-${id}`, id], async () => {
-    const { data } = await axiosInstance.get<FullMovie>(`/movie/${id}`, {
-      params: { append_to_response: 'release_dates' },
-      cancelToken: source.token
-    });
-    return data;
-  });
+  const movieQuery = useQuery(
+    [`movie-${id}`, id],
+    async () => {
+      const { data } = await axiosInstance.get<FullMovie>(`/movie/${id}`, {
+        params: { append_to_response: 'release_dates' },
+        cancelToken: source.token
+      });
+      return data;
+    },
+    {
+      onSuccess: (movie) => {
+        dispatch(
+          setRecentlyViewed({
+            ...recentlyViewed,
+            movies: _.uniq([...recentlyViewed.movies, { ...movie }])
+          })
+        );
+      }
+    }
+  );
 
   // Fetching movie credits
   const creditsQuery = useQuery([`movie-${id}-credits`, id], async () => {

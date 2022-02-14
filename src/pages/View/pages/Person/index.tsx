@@ -2,8 +2,10 @@ import React, { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, Fade } from '@chakra-ui/react';
 import axios from 'axios';
+import _ from 'lodash';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
@@ -17,6 +19,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import { setRecentlyViewed } from '../../../../store/slices/User';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
@@ -30,6 +33,9 @@ const Person = (): ReactElement => {
 
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
+  const dispatch = useDispatch();
+  const recentlyViewed = useSelector((state) => state.user.data.recentlyViewed);
+
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const { id } = useParams<{ id: string }>();
@@ -40,12 +46,25 @@ const Person = (): ReactElement => {
   const [selectedPath, setSelectedPath] = useState<string>();
 
   // Fetching person details
-  const personQuery = useQuery([`person-${id}`, id], async () => {
-    const { data } = await axiosInstance.get<FullPerson>(`/person/${id}`, {
-      cancelToken: source.token
-    });
-    return data;
-  });
+  const personQuery = useQuery(
+    [`person-${id}`, id],
+    async () => {
+      const { data } = await axiosInstance.get<FullPerson>(`/person/${id}`, {
+        cancelToken: source.token
+      });
+      return data;
+    },
+    {
+      onSuccess: (person) => {
+        dispatch(
+          setRecentlyViewed({
+            ...recentlyViewed,
+            people: _.uniq([...recentlyViewed.people, { ...person }])
+          })
+        );
+      }
+    }
+  );
 
   // Fetching person known for list
   const creditsQuery = useQuery([`person-${id}-combined_credits`, id], async () => {

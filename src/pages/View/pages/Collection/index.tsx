@@ -5,6 +5,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { useSelector } from '../../../../common/hooks';
@@ -19,6 +20,7 @@ import SkeletonText from '../../../../components/Skeleton/Text';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import { setRecentlyViewed } from '../../../../store/slices/User';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
@@ -33,6 +35,9 @@ const Collection = (): ReactElement => {
 
   const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
+  const dispatch = useDispatch();
+  const recentlyViewed = useSelector((state) => state.user.data.recentlyViewed);
+
   const color = useSelector((state) => state.user.ui.theme.color);
 
   const { id } = useParams<{ id: string }>();
@@ -45,12 +50,25 @@ const Collection = (): ReactElement => {
   const [dummy] = useState<number>(_.sample(dummies) || 75);
 
   // Fetching collection
-  const collectionQuery = useQuery([`collection-${id}`, id], async () => {
-    const { data } = await axiosInstance.get<CollectionType>(`/collection/${id}`, {
-      cancelToken: source.token
-    });
-    return data;
-  });
+  const collectionQuery = useQuery(
+    [`collection-${id}`, id],
+    async () => {
+      const { data } = await axiosInstance.get<CollectionType>(`/collection/${id}`, {
+        cancelToken: source.token
+      });
+      return data;
+    },
+    {
+      onSuccess: (collection) => {
+        dispatch(
+          setRecentlyViewed({
+            ...recentlyViewed,
+            collections: _.uniq([...recentlyViewed.collections, { ...collection }])
+          })
+        );
+      }
+    }
+  );
 
   // Fetching collection images
   const imagesQuery = useQuery([`collection-${id}-images`, id], async () => {
