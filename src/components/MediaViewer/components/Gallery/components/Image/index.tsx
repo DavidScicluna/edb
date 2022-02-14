@@ -9,13 +9,14 @@ import Image from '../../../../../Image';
 import { GalleryImageProps } from './types';
 
 const GalleryImage = (props: GalleryImageProps): ReactElement => {
-  const { alt = '', boringType, path, srcSize, isActive = false, onClick } = props;
+  const { alt = '', ratio, path, boringType, srcSize, isActive = false, onClick } = props;
 
   const [isError, setIsError] = useBoolean();
 
   return (
     <ClickableImage
-      ratio={1 / 1}
+      width='100%'
+      ratio={ratio}
       borderRadius='lg'
       isActive={isActive}
       isDisabled={isError || _.isNil(path) || _.isEmpty(path)}
@@ -23,7 +24,6 @@ const GalleryImage = (props: GalleryImageProps): ReactElement => {
       onClick={onClick}
     >
       <Image
-        width='100%'
         alt={alt}
         borderRadius='lg'
         boringType={boringType}

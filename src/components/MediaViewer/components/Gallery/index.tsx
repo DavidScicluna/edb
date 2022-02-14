@@ -1,67 +1,67 @@
 import { ReactElement } from 'react';
 
-import { VStack, Fade } from '@chakra-ui/react';
-import CountUp from 'react-countup';
+import { Center } from '@chakra-ui/react';
 
-import Badge from '../../../Badge';
+import { useSelector } from '../../../../common/hooks';
+import Accordions from '../../../Accordions';
 import VerticalGrid from '../../../Grid/Vertical';
 import Modal from '../../../Modal';
-import Panel from '../../../Panel';
 import Image from './components/Image';
 import Video from './components/Video';
 import { GalleryProps } from './types';
 
 const Gallery = (props: GalleryProps): ReactElement => {
+  const color = useSelector((state) => state.user.ui.theme.color);
+
   const { alt, assets, activeMediaItem, isOpen = false, onClick, onClose } = props;
 
   return (
     <Modal title='Gallery' isOpen={isOpen} onClose={onClose} isCentered size='full'>
-      <VStack width='100%' p={2} spacing={10}>
-        {assets.map((asset, index: number) => (
-          <Panel key={index} isFullWidth variant='transparent'>
-            {{
-              header: {
-                title: asset.label,
-                actions:
-                  asset.mediaItems.length || 0 > 0 ? (
-                    <Fade in unmountOnExit>
-                      <Badge size='lg'>
-                        <CountUp duration={1} end={asset.mediaItems.length || 0} />
-                      </Badge>
-                    </Fade>
-                  ) : undefined
+      <Center p={2}>
+        <Accordions
+          accordions={assets.map((asset) => {
+            return {
+              id: asset.label.toLowerCase(),
+              title: asset.label,
+              total: {
+                number: asset.mediaItems.length
               },
-              body: (
-                <VerticalGrid displayMode='grid'>
-                  {() =>
-                    asset.mediaItems.map((mediaItem, index) =>
-                      mediaItem.type === 'image' ? (
-                        <Image
-                          key={index}
-                          alt={alt}
-                          boringType={mediaItem.boringType}
-                          path={mediaItem.data.file_path}
-                          srcSize={mediaItem.srcSize}
-                          isActive={mediaItem.data.file_path === activeMediaItem?.data.file_path}
-                          onClick={() => onClick(mediaItem)}
-                        />
-                      ) : (
-                        <Video
-                          key={index}
-                          alt={alt}
-                          videoId={mediaItem.data.key}
-                          isActive={mediaItem.data.key === activeMediaItem?.data.key}
-                          onClick={() => onClick(mediaItem)}
-                        />
-                      )
-                    )
-                  }
-                </VerticalGrid>
-              )
-            }}
-          </Panel>
-        ))}
-      </VStack>
+              data: asset.mediaItems
+            };
+          })}
+          renderAccordion={({ id, data }) => (
+            <VerticalGrid key={id} columns={[1, 2, 3, 3, 4, 5]} displayMode='grid'>
+              {() =>
+                (data || []).map((mediaItem, id) =>
+                  mediaItem.type === 'image' ? (
+                    <Image
+                      key={id}
+                      alt={alt}
+                      ratio={mediaItem.data.aspect_ratio}
+                      path={mediaItem.data.file_path}
+                      boringType={mediaItem.boringType}
+                      srcSize={mediaItem.srcSize}
+                      isActive={mediaItem.data.file_path === activeMediaItem?.data.file_path}
+                      onClick={() => onClick(mediaItem)}
+                    />
+                  ) : (
+                    <Video
+                      key={id}
+                      alt={alt}
+                      videoId={mediaItem.data.key}
+                      isActive={mediaItem.data.key === activeMediaItem?.data.key}
+                      onClick={() => onClick(mediaItem)}
+                    />
+                  )
+                )
+              }
+            </VerticalGrid>
+          )}
+          color={color}
+          isLoading={false}
+          isError={false}
+        />
+      </Center>
     </Modal>
   );
 };
