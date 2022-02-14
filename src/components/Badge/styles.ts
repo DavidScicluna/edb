@@ -46,7 +46,7 @@ export default (
       borderRadius: 'sm',
       borderWidth: variant !== 'text' ? '1px' : '0',
 
-      padding: `${theme.space[0.25]} ${theme.space[0.5]}`
+      padding: `0 ${theme.space[0.5]}`
     },
     'sm': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.sm, 'rem')) + 8}px`,
@@ -55,7 +55,7 @@ export default (
       borderRadius: 'sm',
       borderWidth: variant !== 'text' ? '1px' : '0',
 
-      padding: `${theme.space[0.25]} ${theme.space[0.5]}`
+      padding: `0 ${theme.space[0.5]}`
     },
     'md': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.md, 'rem')) + 8}px`,
@@ -64,7 +64,7 @@ export default (
       borderRadius: 'sm',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      padding: `${theme.space[0.25]} ${theme.space[0.5]}`
+      padding: `0 ${theme.space[0.5]}`
     },
     'lg': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.lg, 'rem')) + 8}px`,
@@ -73,7 +73,7 @@ export default (
       borderRadius: 'sm',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      padding: `${theme.space[0.25]} ${theme.space[0.5]}`
+      padding: `0 ${theme.space[0.5]}`
     },
     'xl': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.xl, 'rem')) + 8}px`,
@@ -82,7 +82,7 @@ export default (
       borderRadius: 'base',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      padding: `${theme.space[0.5]} ${theme.space[1]}`
+      padding: `0 ${theme.space[1]}`
     },
     '2xl': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['2xl'], 'rem')) + 8}px`,
@@ -91,7 +91,7 @@ export default (
       borderRadius: 'base',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      padding: `${theme.space[0.5]} ${theme.space[1]}`
+      padding: `0 ${theme.space[1]}`
     },
     '3xl': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['3xl'], 'rem')) + 8}px`,
@@ -100,7 +100,7 @@ export default (
       borderRadius: 'lg',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      padding: `${theme.space[0.5]} ${theme.space[1]}`
+      padding: `0 ${theme.space[1]}`
     },
     '4xl': {
       height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['4xl'], 'rem')) + 8}px`,
@@ -109,7 +109,7 @@ export default (
       borderRadius: 'lg',
       borderWidth: variant !== 'text' ? '2px' : '0',
 
-      padding: `${theme.space[0.5]} ${theme.space[1]}`
+      padding: `0 ${theme.space[1]}`
     }
   },
   light: {

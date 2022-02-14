@@ -9,7 +9,7 @@ import SkeletonText from '../Skeleton/Text';
 import useStyles from './styles';
 import { BadgeProps } from './types';
 
-const dummies = _.range(25, 150, 20);
+const dummies = _.range(25, 100, 20);
 
 const Badge = (props: BadgeProps): ReactElement => {
   const theme = useTheme<Theme>();
@@ -19,16 +19,17 @@ const Badge = (props: BadgeProps): ReactElement => {
     children,
     color = 'gray',
     colorMode: colorModeProp,
-    renderLeftIcon,
-    renderRightIcon,
+    renderLeft,
+    renderRight,
     isLight = true,
     isLoading = false,
     size = 'md',
     variant = 'contained',
-    sx
+    sx,
+    ...rest
   } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 100);
+  const [dummy] = useState<number>(_.sample(dummies) || 75);
 
   const colorMode: ColorMode = colorModeProp || colorModeHook;
 
@@ -51,25 +52,35 @@ const Badge = (props: BadgeProps): ReactElement => {
     }
   };
 
-  const iconHeightSize = `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes[size], 'rem')) + 8}px`;
+  const iconHeightSize = `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes[size], 'rem')) + 4}px`;
 
   return (
     <CUIBadge
+      {...rest}
       variant='unstyled'
       sx={{ ..._.merge(style.badge.default, style.badge[size], style[colorMode][variant], sx) }}
     >
-      <HStack width='100%' wrap='nowrap' spacing={handleReturnSpacing()}>
-        {renderLeftIcon ? renderLeftIcon({ color, colorMode, height: iconHeightSize, fontSize: size }) : null}
+      <HStack width='100%' spacing={handleReturnSpacing()}>
+        {renderLeft
+          ? renderLeft({ color, colorMode, height: iconHeightSize, size, fontSize: theme.fontSizes[size] })
+          : null}
         <SkeletonText
           as={Center}
           width={isLoading ? `${dummy}px` : 'auto'}
+          height={
+            isLoading
+              ? `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes[size], 'rem')) - 4}px`
+              : 'auto'
+          }
           color={color}
           fontSize={size}
           isLoaded={!isLoading}
         >
           {children}
         </SkeletonText>
-        {renderRightIcon ? renderRightIcon({ color, colorMode, height: iconHeightSize, fontSize: size }) : null}
+        {renderRight
+          ? renderRight({ color, colorMode, height: iconHeightSize, size, fontSize: theme.fontSizes[size] })
+          : null}
       </HStack>
     </CUIBadge>
   );
