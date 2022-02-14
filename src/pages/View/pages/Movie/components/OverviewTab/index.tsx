@@ -12,6 +12,7 @@ import Collection from './components/Collection';
 import Credits from './components/Credits';
 import Details from './components/Details';
 import Recommendations from './components/Recommendations';
+import Reviews from './components/Reviews';
 import Similar from './components/Similar';
 import { OverviewTabProps } from './types';
 
@@ -22,6 +23,8 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
     collectionQuery,
     recommendationsQuery,
     similarQuery,
+    reviews,
+    reviewsQuery,
     imagesQuery,
     videosQuery,
     onAssetClick,
@@ -99,6 +102,13 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
         isError={similarQuery.isError}
         isSuccess={similarQuery.isSuccess}
         isLoading={similarQuery.isFetching || similarQuery.isLoading}
+      />
+
+      <Reviews
+        movie={movieQuery.data}
+        reviews={reviews?.results}
+        isLoading={movieQuery.isFetching || movieQuery.isLoading || reviewsQuery.isFetching || reviewsQuery.isLoading}
+        onChangeTab={() => onChangeTab(2)}
       />
 
       <Media

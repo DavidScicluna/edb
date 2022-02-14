@@ -350,6 +350,8 @@ const Movie = (): ReactElement => {
                   collectionQuery={collectionQuery}
                   recommendationsQuery={recommendationsQuery}
                   similarQuery={similarQuery}
+                  reviews={reviews}
+                  reviewsQuery={reviewsQuery}
                   imagesQuery={imagesQuery}
                   videosQuery={videosQuery}
                   onAssetClick={handleOnAssetClick}
