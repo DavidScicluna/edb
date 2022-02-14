@@ -346,6 +346,8 @@ const Show = (): ReactElement => {
                   creditsQuery={creditsQuery}
                   recommendationsQuery={recommendationsQuery}
                   similarQuery={similarQuery}
+                  reviews={reviews}
+                  reviewsQuery={reviewsQuery}
                   imagesQuery={imagesQuery}
                   videosQuery={videosQuery}
                   onAssetClick={handleOnAssetClick}

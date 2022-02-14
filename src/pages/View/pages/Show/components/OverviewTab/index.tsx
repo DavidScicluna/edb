@@ -12,6 +12,7 @@ import Credits from './components/Credits';
 import Details from './components/Details';
 import LastEpisode from './components/LastEpisode';
 import Recommendations from './components/Recommendations';
+import Reviews from './components/Reviews';
 import Similar from './components/Similar';
 import { OverviewTabProps } from './types';
 
@@ -21,6 +22,8 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
     creditsQuery,
     recommendationsQuery,
     similarQuery,
+    reviews,
+    reviewsQuery,
     imagesQuery,
     videosQuery,
     onAssetClick,
@@ -109,6 +112,13 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
         isLoading={similarQuery.isFetching || similarQuery.isLoading}
       />
 
+      <Reviews
+        show={tvShowQuery.data}
+        reviews={reviews?.results}
+        isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading || reviewsQuery.isFetching || reviewsQuery.isLoading}
+        onChangeTab={() => onChangeTab(3)}
+      />
+
       <Media
         alt={tvShowQuery.data?.name}
         assets={_.compact([
@@ -145,7 +155,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
           videos: videosQuery.isFetching || videosQuery.isLoading
         }}
         onAssetClick={onAssetClick}
-        onFooterClick={() => onChangeTab(3)}
+        onFooterClick={() => onChangeTab(4)}
       />
     </VStack>
   );
