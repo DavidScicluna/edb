@@ -24,8 +24,8 @@ const Skeleton = (props: SkeletonProps): ReactElement => {
           ? handleConvertStringToNumber(theme.transition.duration['normal'], 'ms') / 250
           : 0
       }
-      startColor={handleReturnColors('start', color, colorMode)}
-      endColor={handleReturnColors('end', color, colorMode)}
+      startColor={handleReturnColors(theme, 'start', color, colorMode)}
+      endColor={handleReturnColors(theme, 'end', color, colorMode)}
     >
       {children}
     </CUISkeleton>

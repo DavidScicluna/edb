@@ -228,7 +228,6 @@ export type BadgeProps = {
   | 'outline'
   // CUI Badge Props
   | 'colorScheme'
-  | 'fontSize'
   | 'size'
   | 'variant'
 >;
