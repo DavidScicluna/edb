@@ -25,10 +25,10 @@ const opts: Options = {
 };
 
 const GalleryVideo = (props: GalleryVideoProps): ReactElement => {
-  const { alt = '', videoId, isActive = false, onClick } = props;
+  const { alt, videoId, isActive = false, onClick } = props;
 
   return (
-    <Box borderRadius='lg'>
+    <Box aria-label={alt} borderRadius='lg'>
       <ClickableImage
         borderRadius='lg'
         ratio={handleReturnRatio('square')}
