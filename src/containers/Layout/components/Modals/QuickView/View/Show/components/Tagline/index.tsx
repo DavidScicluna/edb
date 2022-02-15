@@ -24,7 +24,7 @@ const Tagline = ({ tagline, isLoading = true }: TaglineProps): ReactElement => {
           fontStyle='italic'
           whiteSpace='nowrap'
         >
-          {tagline || 'Movie Tagline'}
+          {tagline || 'TV Show Tagline'}
         </Text>
       </SkeletonText>
     </Label>

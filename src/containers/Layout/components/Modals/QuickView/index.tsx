@@ -13,6 +13,7 @@ import { defaultQuickViewModal, toggleQuickView } from '../../../../../store/sli
 import Collection from './View/Collection';
 import Movie from './View/Movie';
 import Person from './View/Person';
+import Show from './View/Show';
 
 const QuickView = (): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -46,7 +47,7 @@ const QuickView = (): ReactElement => {
       {quickViewModal.mediaType === 'movie' ? (
         <Movie id={quickViewModal.mediaItem?.id} />
       ) : quickViewModal.mediaType === 'tv' ? (
-        <h1>Hello TV Shows</h1>
+        <Show id={quickViewModal.mediaItem?.id} />
       ) : quickViewModal.mediaType === 'person' ? (
         <Person id={quickViewModal.mediaItem?.id} />
       ) : quickViewModal.mediaType === 'collection' ? (
