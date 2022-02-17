@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { useColorMode, useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { handleFormatMoney } from '../../../../../../../../../../common/utils';
@@ -12,7 +12,7 @@ const dummies = _.range(25, 100, 20);
 const Revenue = ({ revenue, isLoading = true }: RevenueProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const [dummy] = useState<number>(_.sample(dummies) || 50);
+  const dummy = useConst<number>(_.sample(dummies) || 50);
 
   return (
     <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>

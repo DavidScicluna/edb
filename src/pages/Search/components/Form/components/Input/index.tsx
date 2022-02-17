@@ -1,6 +1,6 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
-import { useColorMode, HStack, Input as CUIInput, Center, Fade } from '@chakra-ui/react';
+import { useColorMode, useConst, HStack, Input as CUIInput, Center, Fade } from '@chakra-ui/react';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
@@ -52,7 +52,7 @@ const Input = (props: InputProps): ReactElement => {
     }
   };
 
-  const [placeholder] = useState(_.sample(handleReturnPlaceholders()));
+  const placeholder = useConst<string | undefined>(_.sample(handleReturnPlaceholders()));
 
   return (
     <HStack

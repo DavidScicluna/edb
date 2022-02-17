@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { Text, HStack } from '@chakra-ui/react';
+import { useConst, HStack, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
@@ -47,7 +47,7 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
     runtime
   } = movie || {};
 
-  const [dummy] = useState<number>(_.sample(dummies) || 75);
+  const dummy = useConst<number>(_.sample(dummies) || 75);
 
   const certification: string | undefined = handleReturnCertification(release_dates);
 

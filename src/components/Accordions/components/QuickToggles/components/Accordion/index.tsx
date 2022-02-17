@@ -1,5 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
+import { useConst } from '@chakra-ui/react';
 import _ from 'lodash';
 import { Link } from 'react-scroll';
 
@@ -12,7 +13,7 @@ const dummies = _.range(25, 200, 5);
 const Accordion = (props: AccordionProps): ReactElement => {
   const { id, title, color, isLoading = true, isDisabled = false, onToggle } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 100);
+  const dummy = useConst<number>(_.sample(dummies) || 100);
 
   return (
     <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='xs' isLoaded={!isLoading}>

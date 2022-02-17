@@ -1,6 +1,6 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
-import { Fade } from '@chakra-ui/react';
+import { useConst, Fade } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
@@ -17,7 +17,7 @@ const CastCrew = (props: CastCrewProps): ReactElement => {
 
   const { alt, credits, isError = false, isSuccess = false, isLoading = true } = props;
 
-  const [departments] = useState<Department[]>(handleReturnCrew(credits));
+  const departments = useConst<Department[]>(handleReturnCrew(credits));
 
   return !isLoading && isError ? (
     <Fade in unmountOnExit style={{ width: '100%' }}>

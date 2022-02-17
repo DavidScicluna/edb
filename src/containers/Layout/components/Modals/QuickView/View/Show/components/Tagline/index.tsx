@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { useColorMode, useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
@@ -12,7 +12,7 @@ const dummies = _.range(25, 100, 15);
 const Tagline = ({ tagline, isLoading = true }: TaglineProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const [dummy] = useState<number>(_.sample(dummies) || 75);
+  const dummy = useConst<number>(_.sample(dummies) || 75);
 
   return (
     <Label width='100%' label='Tagline'>

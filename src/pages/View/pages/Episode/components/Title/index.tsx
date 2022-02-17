@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { Text } from '@chakra-ui/react';
+import { useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import SkeletonText from '../../../../../../components/Skeleton/Text';
@@ -14,10 +14,10 @@ import { EpisodeTitleProps } from './types';
 const dummies = _.range(25, 75, 10);
 
 const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
-  const [dummy] = useState<number>(_.sample(dummies) || 75);
-
   const { show, episode, isLoading = true } = props;
   const { name, air_date, season_number: season, episode_number } = episode || {};
+
+  const dummy = useConst<number>(_.sample(dummies) || 75);
 
   const certification: string | undefined = handleReturnCertification(show?.content_ratings);
 

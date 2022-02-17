@@ -1,6 +1,6 @@
-import { ReactElement, forwardRef, useState } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
-import { useColorMode, Stat as CUIStat, VStack, StatLabel, StatNumber } from '@chakra-ui/react';
+import { useColorMode, useConst, Stat as CUIStat, VStack, StatLabel, StatNumber } from '@chakra-ui/react';
 import _ from 'lodash';
 import CountUp from 'react-countup';
 
@@ -14,7 +14,7 @@ const Stat = forwardRef<StatRef, StatProps>(function Stat(props, ref): ReactElem
 
   const { label = '', number = 0, isLoading = true } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 100);
+  const dummy = useConst<number>(_.sample(dummies) || 100);
 
   return (
     <CUIStat ref={ref} justifyContent='center'>

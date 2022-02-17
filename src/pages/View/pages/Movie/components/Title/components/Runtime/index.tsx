@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { Text } from '@chakra-ui/react';
+import { useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { handleReturnRuntime } from '../../../../../../../../common/utils';
@@ -12,7 +12,7 @@ const dummies = _.range(25, 75, 20);
 const Runtime = (props: RuntimeProps): ReactElement => {
   const { runtime, color, fontSize, isLoading = true } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 50);
+  const dummy = useConst<number>(_.sample(dummies) || 50);
 
   return (
     <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>

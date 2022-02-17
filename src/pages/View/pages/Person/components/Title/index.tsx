@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { Text } from '@chakra-ui/react';
+import { useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import SkeletonText from '../../../../../../components/Skeleton/Text';
@@ -13,7 +13,7 @@ const dummies = _.range(25, 75, 10);
 const PersonTitle = (props: PersonTitleProps): ReactElement => {
   const { person, departments = [], isLoading = true } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 75);
+  const dummy = useConst<number>(_.sample(dummies) || 75);
 
   return (
     <Title

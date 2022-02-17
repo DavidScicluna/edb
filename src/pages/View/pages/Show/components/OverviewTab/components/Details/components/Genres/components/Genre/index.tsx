@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 import qs from 'query-string';
 
@@ -20,7 +20,7 @@ const Genre = (props: GenreProps): ReactElement => {
 
   const { id, name, isLoading = true } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 100);
+  const dummy = useConst<number>(_.sample(dummies) || 100);
 
   return (
     <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>

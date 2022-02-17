@@ -1,6 +1,6 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
-import { useColorMode, useBreakpointValue, Box, Text } from '@chakra-ui/react';
+import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { handleReturnDate } from '../../../../../../../../../../../../../../common/utils';
@@ -24,7 +24,7 @@ const Date = (props: DateProps): ReactElement => {
 
   const { date, isLoading = false, inView = true } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 100);
+  const dummy = useConst<number>(_.sample(dummies) || 100);
 
   return (
     <Box

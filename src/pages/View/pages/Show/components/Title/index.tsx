@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { Text, HStack } from '@chakra-ui/react';
+import { useConst, HStack, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
@@ -49,7 +49,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
     episode_run_time: runtime
   } = show || {};
 
-  const [dummy] = useState<number>(_.sample(dummies) || 75);
+  const dummy = useConst<number>(_.sample(dummies) || 75);
 
   const certification: string | undefined = handleReturnCertification(content_ratings);
 

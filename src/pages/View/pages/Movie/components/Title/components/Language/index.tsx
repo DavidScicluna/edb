@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { Text } from '@chakra-ui/react';
+import { useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
@@ -14,7 +14,7 @@ const Language = (props: LanguageProps): ReactElement => {
 
   const { language, color, fontSize, isLoading = true } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 50);
+  const dummy = useConst<number>(_.sample(dummies) || 50);
 
   return (
     <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>

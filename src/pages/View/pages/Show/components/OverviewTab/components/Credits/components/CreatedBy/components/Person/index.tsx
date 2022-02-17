@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Text } from '@chakra-ui/react';
+import { useTheme, useColorMode, useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
@@ -17,7 +17,7 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 
   const color = useSelector((state) => state.user.ui.theme.color);
 
-  const [dummy] = useState<number>(_.sample(dummies) || 50);
+  const dummy = useConst<number>(_.sample(dummies) || 50);
 
   return (
     <Link to={{ pathname: `/person/${person?.id}` }} isDisabled={isLoading}>

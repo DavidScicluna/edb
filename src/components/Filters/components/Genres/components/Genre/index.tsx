@@ -1,20 +1,22 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery } from '@chakra-ui/react';
+import { useMediaQuery, useConst } from '@chakra-ui/react';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
+import _ from 'lodash';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnDummyWidths } from '../../../../../../common/utils';
 import Button from '../../../../../Clickable/Button';
 import SkeletonText from '../../../../../Skeleton/Text';
 import { GenreProps } from './types';
 
-const dummyTextWidths = handleReturnDummyWidths(100, 4);
+const dummies = _.range(25, 100, 10);
 
 const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');
 
   const color = useSelector((state) => state.user.ui.theme.color);
+
+  const dummy = useConst<number>(_.sample(dummies) || 100);
 
   return (
     <Button
@@ -25,11 +27,7 @@ const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreP
       size={isSm ? 'sm' : 'md'}
       variant='outlined'
     >
-      <SkeletonText
-        width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}px` : 'auto'}
-        fontSize={isSm ? 'xs' : 'sm'}
-        isLoaded={!isLoading}
-      >
+      <SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={isSm ? 'xs' : 'sm'} isLoaded={!isLoading}>
         {name || 'Genre'}
       </SkeletonText>
     </Button>

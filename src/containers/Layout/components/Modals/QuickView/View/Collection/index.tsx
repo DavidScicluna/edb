@@ -1,6 +1,16 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useMediaQuery, useDisclosure, Stack, Center, VStack, Text, Collapse } from '@chakra-ui/react';
+import {
+  useColorMode,
+  useMediaQuery,
+  useDisclosure,
+  useConst,
+  Stack,
+  Center,
+  VStack,
+  Text,
+  Collapse
+} from '@chakra-ui/react';
 import axios from 'axios';
 import _ from 'lodash';
 import CountUp from 'react-countup';
@@ -30,7 +40,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 
   const [selectedImagePath, setSelectedImagePath] = useState<string>();
 
-  const [dummy] = useState<number>(_.sample(dummies) || 75);
+  const dummy = useConst<number>(_.sample(dummies) || 75);
 
   // Fetching collection
   const collectionQuery = useQuery([`collection-${id}`, id], async () => {

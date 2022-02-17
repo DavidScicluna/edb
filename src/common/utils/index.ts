@@ -1,5 +1,4 @@
 import { ColorMode } from '@chakra-ui/react';
-import _ from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
 import { v4 as uuid } from 'uuid';
@@ -193,17 +192,6 @@ export const handleIsOverflowing = (element: HTMLElement): boolean => {
   element.style.overflow = overflow;
 
   return isOverflowing;
-};
-
-/**
- * This method will return an array of numbers from 25 to the range passed
- *
- * @param range - Total range of numbers to use
- * @param amount - Amount of numbers to return
- * @returns - Array of numbers from 25 to range
- */
-export const handleReturnDummyWidths = (range: number, amount: number): number[] => {
-  return _.range(25, range, amount);
 };
 
 export const handleCheckSystemColorMode = (): ColorMode => {

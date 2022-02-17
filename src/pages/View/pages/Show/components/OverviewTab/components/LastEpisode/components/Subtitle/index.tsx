@@ -1,6 +1,6 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { useColorMode, useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
@@ -13,7 +13,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 
   const { subtitle, isLoading = false } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 100);
+  const dummy = useConst<number>(_.sample(dummies) || 100);
 
   return (
     <SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>

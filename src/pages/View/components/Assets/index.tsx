@@ -1,5 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
+import { useConst } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { useSelector } from '../../../../common/hooks';
@@ -17,7 +18,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 
   const { alt, assets: assetsProp, isError = false, isSuccess = false, isLoading = true, onClickAsset } = props;
 
-  const [assets] = useState<Accordion<(Image | Video)[]>[]>(
+  const assets = useConst<Accordion<(Image | Video)[]>[]>(
     _.compact([
       (!_.isNil(assetsProp?.profiles) && !_.isEmpty(assetsProp?.profiles)) || isLoading
         ? {

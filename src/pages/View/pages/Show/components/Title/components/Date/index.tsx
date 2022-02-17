@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { Text } from '@chakra-ui/react';
+import { useConst, Text } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { handleReturnDate } from '../../../../../../../../common/utils';
@@ -12,7 +12,7 @@ const dummies = _.range(25, 100, 20);
 const Date = (props: DateProps): ReactElement => {
   const { in_production = false, first_air_date, last_air_date, color, fontSize, isLoading = true } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 50);
+  const dummy = useConst<number>(_.sample(dummies) || 50);
 
   const handleDate = (): string => {
     if (!in_production && last_air_date) {

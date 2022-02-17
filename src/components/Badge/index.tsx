@@ -1,6 +1,6 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
-import { ColorMode, useTheme, useColorMode, Badge as CUIBadge, HStack, Center } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, useConst, Badge as CUIBadge, HStack, Center } from '@chakra-ui/react';
 import _ from 'lodash';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
@@ -29,7 +29,7 @@ const Badge = (props: BadgeProps): ReactElement => {
     ...rest
   } = props;
 
-  const [dummy] = useState<number>(_.sample(dummies) || 75);
+  const dummy = useConst<number>(_.sample(dummies) || 75);
 
   const colorMode: ColorMode = colorModeProp || colorModeHook;
 
