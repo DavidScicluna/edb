@@ -37,6 +37,7 @@
 		"react/react-in-jsx-scope": "off",
 		"react/prop-types": "off",
 		"react-hooks/exhaustive-deps": "off",
+		"no-mixed-spaces-and-tabs": 0,
 		"jsx-a11y/anchor-is-valid": [
 			"error",
 			{
