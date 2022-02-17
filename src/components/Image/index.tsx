@@ -9,12 +9,25 @@ import { ImageProps } from './types';
 const Image = (props: ImageProps): ReactElement => {
   const { colorMode } = useColorMode();
 
-  const { width, height, maxWidth, alt, thumbnailSrc, fullSrc, boringType, borderRadius, onError, onLoad, ...rest } =
-    props;
+  const {
+    width,
+    height,
+    maxWidth,
+    alt,
+    thumbnailSrc,
+    fullSrc,
+    boringType,
+    borderRadius = 'base',
+    onError,
+    onLoad,
+    ...rest
+  } = props;
 
   const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, colorMode === 'light' ? 400 : 500));
 
+  const [isThumbnailLoaded, setIsThumbnaiLoaded] = useBoolean();
   const [isThumbnailError, setIsThumbnaiError] = useBoolean();
+
   const [isFullLoaded, setIsFullLoaded] = useBoolean();
   const [isFullError, setIsFullError] = useBoolean();
 
@@ -52,6 +65,7 @@ const Image = (props: ImageProps): ReactElement => {
           alt={`${alt} thumbnail`}
           borderRadius={borderRadius}
           onError={(error) => {
+            setIsThumbnaiLoaded.off();
             setIsThumbnaiError.on();
 
             if (onError) {
@@ -59,6 +73,7 @@ const Image = (props: ImageProps): ReactElement => {
             }
           }}
           onLoad={(event) => {
+            setIsThumbnaiLoaded.on();
             setIsThumbnaiError.off();
 
             if (onLoad) {
@@ -71,7 +86,7 @@ const Image = (props: ImageProps): ReactElement => {
       </Center>
 
       {/* Full size image */}
-      <Center as={Fade} position='absolute' {...centerProps} in={!isFullError} unmountOnExit>
+      <Center as={Fade} position='absolute' {...centerProps} in={!isFullError && isThumbnailLoaded} unmountOnExit>
         <CUIImage
           {...rest}
           width={width || 'auto'}
