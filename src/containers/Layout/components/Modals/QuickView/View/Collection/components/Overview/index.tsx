@@ -31,10 +31,17 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
           </Text>
         </SkeletonText>
       ) : (
-        <VStack width='100%' spacing={0.5}>
-          {_.range(0, 2).map((_dummy, index: number) => (
+        <VStack width='100%'>
+          {_.range(0, 2).map((_dummy, index) => (
             <SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
-              {`Paragraph ${index + 1}`}
+              <Text
+                align='left'
+                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                fontSize='md'
+                whiteSpace='nowrap'
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </Text>
             </SkeletonText>
           ))}
         </VStack>

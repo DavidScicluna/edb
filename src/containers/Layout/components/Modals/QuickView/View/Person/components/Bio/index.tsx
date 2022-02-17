@@ -35,7 +35,12 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
         <VStack width='100%'>
           {_.range(0, 2).map((_dummy, index) => (
             <SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
-              <Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md'>
+              <Text
+                align='left'
+                color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+                fontSize='md'
+                whiteSpace='nowrap'
+              >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </Text>
             </SkeletonText>
