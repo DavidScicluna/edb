@@ -258,7 +258,8 @@ const Show = (): ReactElement => {
 															<Badge
 																color={isSelected ? color : 'gray'}
 																isLight={!isSelected}
-																size={size}>
+																size={size}
+															>
 																<CountUp
 																	duration={1}
 																	end={
@@ -282,7 +283,8 @@ const Show = (): ReactElement => {
 															<Badge
 																color={isSelected ? color : 'gray'}
 																isLight={!isSelected}
-																size={size}>
+																size={size}
+															>
 																<CountUp
 																	duration={1}
 																	end={tvShowQuery.data?.number_of_seasons || 0}
@@ -308,7 +310,8 @@ const Show = (): ReactElement => {
 															<Badge
 																color={isSelected ? color : 'gray'}
 																isLight={!isSelected}
-																size={size}>
+																size={size}
+															>
 																<CountUp
 																	duration={1}
 																	end={
@@ -344,7 +347,8 @@ const Show = (): ReactElement => {
 															<Badge
 																color={isSelected ? color : 'gray'}
 																isLight={!isSelected}
-																size={size}>
+																size={size}
+															>
 																<CountUp
 																	duration={1}
 																	end={
@@ -438,41 +442,47 @@ const Show = (): ReactElement => {
 			{imagesQuery.isSuccess || videosQuery.isSuccess ? (
 				<MediaViewer
 					alt={tvShowQuery.data?.name || 'TV Show Name'}
-					assets={[
-						{
-							label: 'Posters',
-							mediaItems: (imagesQuery.data?.posters || []).map((image) => {
-								return {
-									type: 'image',
-									boringType: handleReturnBoringTypeByMediaType('tv'),
-									srcSize: ['w92', 'original'],
-									data: { ...image }
-								};
-							})
-						},
-						{
-							label: 'Backdrops',
-							mediaItems: (imagesQuery.data?.backdrops || []).map((image) => {
-								return {
-									type: 'image',
-									boringType: handleReturnBoringTypeByMediaType('tv'),
-									srcSize: ['w300', 'original'],
-									data: { ...image }
-								};
-							})
-						},
-						{
-							label: 'Videos',
-							mediaItems: (videosQuery.data?.results || []).map((video) => {
-								return {
-									type: 'video',
-									boringType: handleReturnBoringTypeByMediaType('tv'),
-									srcSize: ['', ''],
-									data: { ...video }
-								};
-							})
-						}
-					]}
+					assets={_.compact([
+						(imagesQuery.data?.posters || []).length > 0
+							? {
+									label: 'Posters',
+									mediaItems: (imagesQuery.data?.posters || []).map((image) => {
+										return {
+											type: 'image',
+											boringType: handleReturnBoringTypeByMediaType('tv'),
+											srcSize: ['w92', 'original'],
+											data: { ...image }
+										};
+									})
+							  }
+							: undefined,
+						(imagesQuery.data?.backdrops || []).length > 0
+							? {
+									label: 'Backdrops',
+									mediaItems: (imagesQuery.data?.backdrops || []).map((image) => {
+										return {
+											type: 'image',
+											boringType: handleReturnBoringTypeByMediaType('tv'),
+											srcSize: ['w300', 'original'],
+											data: { ...image }
+										};
+									})
+							  }
+							: undefined,
+						(videosQuery.data?.results || []).length > 0
+							? {
+									label: 'Videos',
+									mediaItems: (videosQuery.data?.results || []).map((video) => {
+										return {
+											type: 'video',
+											boringType: handleReturnBoringTypeByMediaType('tv'),
+											srcSize: ['', ''],
+											data: { ...video }
+										};
+									})
+							  }
+							: undefined
+					])}
 					selectedPath={selectedPath}
 					isOpen={isMediaViewerOpen}
 					onClose={onMediaViewerClose}
