@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import Badge from '../../../../../../../../components/Badge';
 import { CertificationProps } from './types';

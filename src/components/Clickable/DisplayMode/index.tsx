@@ -1,4 +1,4 @@
-import React, { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useBoolean, ButtonGroup } from '@chakra-ui/react';
 import {

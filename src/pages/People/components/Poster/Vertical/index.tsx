@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import VerticalPoster from '../../../../../components/Poster/Vertical';
 import { VerticalPersonPosterProps } from './types';

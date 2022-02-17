@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme, useMediaQuery, ButtonGroup, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';

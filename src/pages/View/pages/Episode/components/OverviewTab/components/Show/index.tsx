@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import Panel from '../../../../../../../../components/Panel';
 import HorizontalTVShowPoster from '../../../../../../../TV/components/Poster/Horizontal';

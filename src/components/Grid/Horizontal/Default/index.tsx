@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import '../common/styles/styles.css';
 import { useBoolean } from '@chakra-ui/react';

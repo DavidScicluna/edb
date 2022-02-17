@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';

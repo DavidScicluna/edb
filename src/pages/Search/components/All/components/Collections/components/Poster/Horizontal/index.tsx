@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import HorizontalPoster from '../../../../../../../../../components/Poster/Horizontal';
 import { HorizontalCollectionPosterProps } from './types';

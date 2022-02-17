@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';

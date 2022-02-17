@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery, Wrap, WrapItem, HStack } from '@chakra-ui/react';
 import sort from 'array-sort';

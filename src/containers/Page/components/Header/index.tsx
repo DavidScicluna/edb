@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, Center, Stack } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';

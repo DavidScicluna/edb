@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useTheme } from '@chakra-ui/react';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
