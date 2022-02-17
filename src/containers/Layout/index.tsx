@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useEffect } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, Container, Box, HStack, VStack } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, useBoolean, Container, HStack, VStack, Box } from '@chakra-ui/react';
 import {
   HomeTwoTone as HomeTwoToneIcon,
   HomeOutlined as HomeOutlinedIcon,
@@ -18,6 +18,7 @@ import {
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { useTimeout } from 'usehooks-ts';
 
 import { useSelector, usePopulateOptions } from '../../common/hooks';
 import { handleCheckSystemColorMode, handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
@@ -86,15 +87,9 @@ const Layout = (): ReactElement => {
   const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
   const background = useSelector((state) => state.user.ui.theme.background);
 
+  const [isSplashscreenOpen, setIsSplashscreenOpen] = useBoolean(true);
+
   const transition = useTransitionsStyle(theme);
-
-  usePopulateOptions();
-
-  useEffect(() => {
-    if (!isLgUp) {
-      dispatch(toggleSidebarMode('expanded'));
-    }
-  }, [isLgUp]);
 
   const handleUpdateColorMode = useCallback(
     _.debounce(() => {
@@ -109,6 +104,16 @@ const Layout = (): ReactElement => {
     [background, setColorMode, dispatch, toggleSplashscreen, handleCheckSystemColorMode]
   );
 
+  useTimeout(() => setIsSplashscreenOpen.off(), 2500);
+
+  usePopulateOptions();
+
+  useEffect(() => {
+    if (!isLgUp) {
+      dispatch(toggleSidebarMode('expanded'));
+    }
+  }, [isLgUp]);
+
   useEffect(() => {
     handleUpdateColorMode();
 
@@ -117,10 +122,10 @@ const Layout = (): ReactElement => {
     return () => window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleUpdateColorMode);
   }, []);
 
-  return (
+  return isSplashscreenOpen ? (
+    <SplashscreenModal isOpen={isSplashscreenOpen} />
+  ) : (
     <>
-      <SplashscreenModal />
-
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Container
           width='100%'
@@ -166,6 +171,8 @@ const Layout = (): ReactElement => {
         <DisplayModal />
 
         <ListsModal />
+
+        <SplashscreenModal />
       </BrowserRouter>
     </>
   );

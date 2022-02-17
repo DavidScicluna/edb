@@ -9,14 +9,17 @@ import { useInterval } from 'usehooks-ts';
 import { useSelector } from '../../../../../common/hooks';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
 import useStyles from './styles';
+import { SplashscreenProps } from './types';
 
 const MotionBox = motion(Box);
 
-const Splashscreen = (): ReactElement => {
+const Splashscreen = ({ isOpen: isOpenProp }: SplashscreenProps): ReactElement => {
   const { colorMode } = useColorMode();
 
   const dispatch = useDispatch();
   const isSplashscreenOpen = useSelector((state) => state.modals.ui.isSplashscreenOpen);
+
+  const isOpen: boolean = isOpenProp || isSplashscreenOpen;
 
   const style = useStyles();
 
@@ -30,21 +33,21 @@ const Splashscreen = (): ReactElement => {
     }
   };
 
-  useInterval(() => handleLoadingDots(), isSplashscreenOpen ? 250 : null);
+  useInterval(() => handleLoadingDots(), isOpen ? 250 : null);
 
   useEffect(() => {
-    if (isSplashscreenOpen) {
+    if (isOpen) {
       setTimeout(() => dispatch(toggleSplashscreen(false)), 2500);
     }
-  }, [isSplashscreenOpen]);
+  }, [isOpen]);
 
   return (
     <Modal
       closeOnEsc={false}
       closeOnOverlayClick={false}
-      isOpen={isSplashscreenOpen}
+      isOpen={isOpen}
       onClose={() => dispatch(toggleSplashscreen(false))}
-      motionPreset='scale'
+      motionPreset='slideInBottom'
       scrollBehavior='inside'
       size='full'
     >

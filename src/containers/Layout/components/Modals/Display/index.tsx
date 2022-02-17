@@ -15,7 +15,7 @@ import Background from './components/Background';
 import Color from './components/Color';
 
 const Display = (): ReactElement => {
-  const { setColorMode, toggleColorMode } = useColorMode();
+  const { setColorMode } = useColorMode();
 
   const [isSm] = useMediaQuery('(max-width: 672px)');
 
@@ -40,7 +40,7 @@ const Display = (): ReactElement => {
 
     if (dirtyFields.background) {
       if (newTheme.background !== 'system') {
-        toggleColorMode();
+        setColorMode(newTheme.background);
       } else {
         setColorMode(handleCheckSystemColorMode());
       }
