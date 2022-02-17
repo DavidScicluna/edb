@@ -1,3 +1,3 @@
 export type ShowProps = {
-  id?: number;
+	id?: number;
 };

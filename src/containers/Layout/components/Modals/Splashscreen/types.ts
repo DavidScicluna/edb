@@ -1,3 +1,3 @@
 export type SplashscreenProps = {
-  isOpen?: boolean;
+	isOpen?: boolean;
 };

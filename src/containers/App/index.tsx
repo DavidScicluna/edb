@@ -12,29 +12,29 @@ import store from '../../store';
 import theme from '../../theme';
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      retry: false
-    }
-  }
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			refetchOnReconnect: false,
+			retry: false
+		}
+	}
 });
 
 const persistor = persistStore(store);
 
 const App = (): ReactElement => {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ChakraProvider theme={theme}>
-          <QueryClientProvider client={queryClient}>
-            <Layout />
-          </QueryClientProvider>
-        </ChakraProvider>
-      </PersistGate>
-    </Provider>
-  );
+	return (
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<ChakraProvider theme={theme}>
+					<QueryClientProvider client={queryClient}>
+						<Layout />
+					</QueryClientProvider>
+				</ChakraProvider>
+			</PersistGate>
+		</Provider>
+	);
 };
 
 export default App;

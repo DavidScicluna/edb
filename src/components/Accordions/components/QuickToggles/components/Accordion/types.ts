@@ -1,5 +1,5 @@
 import { QuickToggle, QuickTogglesProps } from '../../types';
 
 export type AccordionProps = Partial<QuickToggle> & {
-  onToggle?: () => void;
+	onToggle?: () => void;
 } & Omit<QuickTogglesProps, 'accordions' | 'openedPanels' | 'onToggleAccordion' | 'onToggleAllAccordions'>;

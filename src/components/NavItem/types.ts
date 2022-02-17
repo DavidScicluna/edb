@@ -5,15 +5,15 @@ import { SidebarMode } from '../../store/slices/App/types';
 import { FontSizes } from '../../theme/types';
 
 type RenderIconProps = {
-  isActive: boolean;
-  fontSize: FontSizes['2xl'];
+	isActive: boolean;
+	fontSize: FontSizes['2xl'];
 };
 
 export type NavItem = {
-  renderIcon: (props: RenderIconProps) => Icon;
-  children?: NavItemChild[];
-  label: string;
-  path?: string;
-  sidebarMode?: SidebarMode;
-  onClick?: () => void;
+	renderIcon: (props: RenderIconProps) => Icon;
+	children?: NavItemChild[];
+	label: string;
+	path?: string;
+	sidebarMode?: SidebarMode;
+	onClick?: () => void;
 };

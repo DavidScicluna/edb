@@ -1,6 +1,6 @@
 import { Genre } from '../../../../../../../../../../common/types';
 
 export type GenresProps = {
-  genres?: Genre[];
-  isLoading?: boolean;
+	genres?: Genre[];
+	isLoading?: boolean;
 };

@@ -3,5 +3,5 @@ import { ButtonProps } from '../../../../../../../../Clickable/Button/types';
 export type Variant = 'contained' | 'text';
 
 export type DayProps = {
-  variant?: Variant;
+	variant?: Variant;
 } & Omit<ButtonProps, 'renderLeftIcon' | 'renderRightIcon' | 'isFullWidth' | 'isLoading' | 'size' | 'variant' | 'sx'>;

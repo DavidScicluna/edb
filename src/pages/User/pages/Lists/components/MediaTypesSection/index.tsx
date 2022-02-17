@@ -4,7 +4,6 @@ import { VStack } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
-
 import { MediaTypesSectionProps } from './types';
 
 import { MediaType } from '../../../../../../common/types';
@@ -17,91 +16,91 @@ import Movies from '../../../../components/Movies';
 import TV from '../../../../components/TV';
 
 const MediaTypesSection = ({ movies, tv, renderActions }: MediaTypesSectionProps): ReactElement => {
-  const [activeTab, setActiveTab] = useState<number>();
+	const [activeTab, setActiveTab] = useState<number>();
 
-  const handleReturnMediaTypes = (): MediaType[] => {
-    const mediaTypes: MediaType[] = [];
+	const handleReturnMediaTypes = (): MediaType[] => {
+		const mediaTypes: MediaType[] = [];
 
-    if (movies.length > 0) {
-      mediaTypes.push('movie');
-    }
+		if (movies.length > 0) {
+			mediaTypes.push('movie');
+		}
 
-    if (tv.length > 0) {
-      mediaTypes.push('tv');
-    }
+		if (tv.length > 0) {
+			mediaTypes.push('tv');
+		}
 
-    return mediaTypes;
-  };
+		return mediaTypes;
+	};
 
-  const handleSetMediaType = (mediaType: MediaType): void => {
-    switch (mediaType) {
-      case 'movie':
-        setActiveTab(0);
-        return;
-      case 'tv':
-        setActiveTab(1);
-        return;
-    }
-  };
+	const handleSetMediaType = (mediaType: MediaType): void => {
+		switch (mediaType) {
+			case 'movie':
+				setActiveTab(0);
+				return;
+			case 'tv':
+				setActiveTab(1);
+				return;
+		}
+	};
 
-  const handleCheckHasMediaTypes = (): void => {
-    let mediaTypes = 0;
+	const handleCheckHasMediaTypes = (): void => {
+		let mediaTypes = 0;
 
-    if (movies && movies.length > 0) {
-      mediaTypes = mediaTypes + 1;
-    }
+		if (movies && movies.length > 0) {
+			mediaTypes = mediaTypes + 1;
+		}
 
-    if (tv && tv.length > 0) {
-      mediaTypes = mediaTypes + 1;
-    }
+		if (tv && tv.length > 0) {
+			mediaTypes = mediaTypes + 1;
+		}
 
-    if (mediaTypes === 1) {
-      if (movies && movies.length > 0) {
-        handleSetMediaType('movie');
-      } else if (tv && tv.length > 0) {
-        handleSetMediaType('tv');
-      }
-    } else {
-      setActiveTab(undefined);
-    }
-  };
+		if (mediaTypes === 1) {
+			if (movies && movies.length > 0) {
+				handleSetMediaType('movie');
+			} else if (tv && tv.length > 0) {
+				handleSetMediaType('tv');
+			}
+		} else {
+			setActiveTab(undefined);
+		}
+	};
 
-  useEffect(() => {
-    handleCheckHasMediaTypes();
+	useEffect(() => {
+		handleCheckHasMediaTypes();
 
-    return () => {
-      setActiveTab(undefined);
-    };
-  }, []);
+		return () => {
+			setActiveTab(undefined);
+		};
+	}, []);
 
-  return (
-    <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
-      <VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2}>
-        <MediaTypesHeader
-          renderActions={renderActions}
-          activeTab={activeTab}
-          total={{
-            movie: movies.length,
-            tv: tv.length
-          }}
-        />
+	return (
+		<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+			<VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2}>
+				<MediaTypesHeader
+					renderActions={renderActions}
+					activeTab={activeTab}
+					total={{
+						movie: movies.length,
+						tv: tv.length
+					}}
+				/>
 
-        {_.isNil(activeTab) ? (
-          <MediaTypesPicker
-            mediaTypes={handleReturnMediaTypes()}
-            label='Oh no! The list is empty.'
-            description='Unfortunately, you have not added any items to the list. Please add an item to view it in the list.'
-            onSetMediaType={handleSetMediaType}
-          />
-        ) : (
-          <TabPanels>
-            <Movies movies={movies} />
-            <TV shows={tv} />
-          </TabPanels>
-        )}
-      </VStack>
-    </Tabs>
-  );
+				{_.isNil(activeTab) ? (
+					<MediaTypesPicker
+						mediaTypes={handleReturnMediaTypes()}
+						label='Oh no! The list is empty.'
+						description='Unfortunately, you have not added any items to the list. Please add an item to view it in the list.'
+						onSetMediaType={handleSetMediaType}
+					/>
+				) : (
+					<TabPanels>
+						<Movies movies={movies} />
+						<TV shows={tv} />
+					</TabPanels>
+				)}
+			</VStack>
+		</Tabs>
+	);
 };
 
 export default MediaTypesSection;

@@ -1,3 +1,3 @@
 export type MovieProps = {
-  id?: number;
+	id?: number;
 };

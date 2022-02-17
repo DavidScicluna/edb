@@ -6,13 +6,13 @@ import { Color } from '../../../../../../../../theme/types';
 type IconProps = { isActive: boolean } & ButtonIconProps;
 
 export type SearchType = {
-  value: SearchTypeValue;
-  label: string;
-  color: keyof Color;
-  renderLeftIcon: (props: IconProps) => Icon;
+	value: SearchTypeValue;
+	label: string;
+	color: keyof Color;
+	renderLeftIcon: (props: IconProps) => Icon;
 };
 
 export type SearchTypeProps = {
-  isActive: boolean;
-  onClick: (value: SearchTypeValue) => void;
+	isActive: boolean;
+	onClick: (value: SearchTypeValue) => void;
 } & SearchType;

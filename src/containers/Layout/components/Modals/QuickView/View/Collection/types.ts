@@ -1,3 +1,3 @@
 export type CollectionProps = {
-  id?: number;
+	id?: number;
 };

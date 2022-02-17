@@ -1,11 +1,10 @@
-
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
 
 import {
-  DateRangeOutlined as DateRangeOutlinedIcon,
-  DateRangeTwoTone as DateRangeTwoToneIcon
+	DateRangeOutlined as DateRangeOutlinedIcon,
+	DateRangeTwoTone as DateRangeTwoToneIcon
 } from '@material-ui/icons';
 import { DateObj, useDayzed } from 'dayzed';
 import _ from 'lodash';
@@ -20,130 +19,133 @@ import Button from '../../Clickable/Button';
 import Modal from '../../Modal';
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { renderToggleModal, color, onSetDate, value, minDate, maxDate, ...rest } = props;
+	const { renderToggleModal, color, onSetDate, value, minDate, maxDate, ...rest } = props;
 
-  const [date, setDate] = useState<DateObj['date']>();
+	const [date, setDate] = useState<DateObj['date']>();
 
-  const [isShowingYears, setIsShowingYears] = useBoolean();
-  const [isShowingMonths, setIsShowingMonths] = useBoolean();
+	const [isShowingYears, setIsShowingYears] = useBoolean();
+	const [isShowingMonths, setIsShowingMonths] = useBoolean();
 
-  const handleSetDate = (): void => {
-    if (date && !Array.isArray(date)) {
-      onSetDate(date);
-    }
+	const handleSetDate = (): void => {
+		if (date && !Array.isArray(date)) {
+			onSetDate(date);
+		}
 
-    onClose();
-  };
+		onClose();
+	};
 
-  const handleSetYear = (year: number): void => {
-    setDate(new Date(year, (date || new Date()).getMonth()));
+	const handleSetYear = (year: number): void => {
+		setDate(new Date(year, (date || new Date()).getMonth()));
 
-    setIsShowingYears.off();
-  };
+		setIsShowingYears.off();
+	};
 
-  const handleSetMonth = (month: number): void => {
-    setDate(new Date((date || new Date()).getFullYear(), month));
+	const handleSetMonth = (month: number): void => {
+		setDate(new Date((date || new Date()).getFullYear(), month));
 
-    setIsShowingMonths.off();
-  };
+		setIsShowingMonths.off();
+	};
 
-  const handleClose = (): void => {
-    setDate(undefined);
+	const handleClose = (): void => {
+		setDate(undefined);
 
-    onClose();
-  };
+		onClose();
+	};
 
-  const dayzed = useDayzed({
-    ...rest,
-    date,
-    minDate,
-    maxDate,
-    monthsToDisplay: 1,
-    selected: date,
-    onDateSelected: (dateObj) => setDate(dateObj.date)
-  });
+	const dayzed = useDayzed({
+		...rest,
+		date,
+		minDate,
+		maxDate,
+		monthsToDisplay: 1,
+		selected: date,
+		onDateSelected: (dateObj) => setDate(dateObj.date)
+	});
 
-  useEffect(() => {
-    if (value) {
-      setDate(value);
-    }
-  }, [isOpen]);
+	useEffect(() => {
+		if (value) {
+			setDate(value);
+		}
+	}, [isOpen]);
 
-  return (
-    <>
-      {renderToggleModal({
-        color: isOpen ? color : 'gray',
-        icon: isOpen ? <DateRangeTwoToneIcon /> : <DateRangeOutlinedIcon />,
-        onClick: () => onOpen()
-      })}
+	return (
+		<>
+			{renderToggleModal({
+				color: isOpen ? color : 'gray',
+				icon: isOpen ? <DateRangeTwoToneIcon /> : <DateRangeOutlinedIcon />,
+				onClick: () => onOpen()
+			})}
 
-      <Modal
-        title='Date Picker'
-        renderActions={({ color, colorMode, size }) => (
-          <HStack>
-            <Fade in={date && !Array.isArray(date) ? !moment(date).isSame(new Date(), 'day') : false} unmountOnExit>
-              <Button
-                color={color}
-                colorMode={colorMode}
-                isDisabled={isShowingYears || isShowingMonths}
-                onClick={() => setDate(new Date())}
-                size={size}
-                variant='text'
-              >
-                Today
-              </Button>
-            </Fade>
-            <Button
-              color={color}
-              colorMode={colorMode}
-              isDisabled={_.isNil(date) || isShowingYears || isShowingMonths}
-              onClick={() => handleSetDate()}
-              size={size}
-            >
-              Set Date
-            </Button>
-          </HStack>
-        )}
-        isOpen={isOpen}
-        onClose={() => handleClose()}
-        isCentered
-        isConfirm
-        size='md'
-      >
-        {isShowingMonths ? (
-          <Months
-            color={color}
-            month={(date || new Date()).getMonth()}
-            year={(date || new Date()).getFullYear()}
-            minDate={minDate}
-            maxDate={maxDate}
-            onMonthClick={handleSetMonth}
-          />
-        ) : isShowingYears ? (
-          <Years
-            color={color}
-            year={(date || new Date()).getFullYear()}
-            minDate={minDate}
-            maxDate={maxDate}
-            onYearsClick={handleSetYear}
-          />
-        ) : (
-          dayzed.calendars.map((calendar, index) => (
-            <Calendar
-              {...calendar}
-              key={index}
-              color={color}
-              dayzed={dayzed}
-              onToggleYears={() => setIsShowingYears.on()}
-              onToggleMonths={() => setIsShowingMonths.on()}
-            />
-          ))
-        )}
-      </Modal>
-    </>
-  );
+			<Modal
+				title='Date Picker'
+				renderActions={({ color, colorMode, size }) => (
+					<HStack>
+						<Fade
+							in={date && !Array.isArray(date) ? !moment(date).isSame(new Date(), 'day') : false}
+							unmountOnExit
+						>
+							<Button
+								color={color}
+								colorMode={colorMode}
+								isDisabled={isShowingYears || isShowingMonths}
+								onClick={() => setDate(new Date())}
+								size={size}
+								variant='text'
+							>
+								Today
+							</Button>
+						</Fade>
+						<Button
+							color={color}
+							colorMode={colorMode}
+							isDisabled={_.isNil(date) || isShowingYears || isShowingMonths}
+							onClick={() => handleSetDate()}
+							size={size}
+						>
+							Set Date
+						</Button>
+					</HStack>
+				)}
+				isOpen={isOpen}
+				onClose={() => handleClose()}
+				isCentered
+				isConfirm
+				size='md'
+			>
+				{isShowingMonths ? (
+					<Months
+						color={color}
+						month={(date || new Date()).getMonth()}
+						year={(date || new Date()).getFullYear()}
+						minDate={minDate}
+						maxDate={maxDate}
+						onMonthClick={handleSetMonth}
+					/>
+				) : isShowingYears ? (
+					<Years
+						color={color}
+						year={(date || new Date()).getFullYear()}
+						minDate={minDate}
+						maxDate={maxDate}
+						onYearsClick={handleSetYear}
+					/>
+				) : (
+					dayzed.calendars.map((calendar, index) => (
+						<Calendar
+							{...calendar}
+							key={index}
+							color={color}
+							dayzed={dayzed}
+							onToggleYears={() => setIsShowingYears.on()}
+							onToggleMonths={() => setIsShowingMonths.on()}
+						/>
+					))
+				)}
+			</Modal>
+		</>
+	);
 };
 
 export default DatePicker;

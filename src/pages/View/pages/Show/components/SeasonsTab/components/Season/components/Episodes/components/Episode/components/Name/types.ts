@@ -1,5 +1,5 @@
 export type NameProps = {
-  name?: string;
-  isLoading: boolean;
-  inView: boolean;
+	name?: string;
+	isLoading: boolean;
+	inView: boolean;
 };

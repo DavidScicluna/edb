@@ -8,12 +8,12 @@ import teal from './teal.svg';
 import yellow from './yellow.svg';
 
 export default {
-  blue,
-  cyan,
-  green,
-  orange,
-  pink,
-  purple,
-  teal,
-  yellow
+	blue,
+	cyan,
+	green,
+	orange,
+	pink,
+	purple,
+	teal,
+	yellow
 };

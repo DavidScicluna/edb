@@ -1,4 +1,4 @@
 export type TitleProps = {
-  title: string;
-  isLoading: boolean;
+	title: string;
+	isLoading: boolean;
 };

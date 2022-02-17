@@ -1,5 +1,5 @@
 export type SubtitleProps = {
-  subtitle: string;
-  isLoading: boolean;
-  inView: boolean;
+	subtitle: string;
+	isLoading: boolean;
+	inView: boolean;
 };

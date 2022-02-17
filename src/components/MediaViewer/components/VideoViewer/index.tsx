@@ -10,13 +10,13 @@ import { handleReturnRatio } from '../../../../common/utils';
 import './styles.css';
 
 const VideoViewer = (props: VideoViewerProps): ReactElement => {
-  const { videoId } = props;
+	const { videoId } = props;
 
-  return (
-    <AspectRatio width='100%' ratio={handleReturnRatio('landscape')}>
-      <YouTube videoId={videoId} className='VideoViewerFrame' containerClassName='VideoViewerContainer' />
-    </AspectRatio>
-  );
+	return (
+		<AspectRatio width='100%' ratio={handleReturnRatio('landscape')}>
+			<YouTube videoId={videoId} className='VideoViewerFrame' containerClassName='VideoViewerContainer' />
+		</AspectRatio>
+	);
 };
 
 export default VideoViewer;

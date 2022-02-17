@@ -9,9 +9,9 @@ export type Rating = number | string | undefined | null;
 export type Count = number | undefined | null;
 
 export type RatingProps = {
-  children?: Rating;
-  count?: Count;
-  inView?: boolean;
-  isLoading?: boolean;
-  size?: Size;
+	children?: Rating;
+	count?: Count;
+	inView?: boolean;
+	isLoading?: boolean;
+	size?: Size;
 } & Omit<Rating, 'rating'>;

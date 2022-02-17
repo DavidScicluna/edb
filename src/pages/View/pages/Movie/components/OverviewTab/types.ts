@@ -5,15 +5,15 @@ import { Collection, Credits, FullMovie, PartialMovie } from '../../../../../../
 import { AssetType } from '../../../../../../components/MediaViewer/types';
 
 export type OverviewTabProps = {
-  movieQuery: UseQueryResult<FullMovie>;
-  creditsQuery: UseQueryResult<Credits>;
-  collectionQuery: UseQueryResult<Collection>;
-  recommendationsQuery: UseQueryResult<PartialMovie[]>;
-  similarQuery: UseQueryResult<PartialMovie[]>;
-  reviews?: Response<Review[]>;
-  reviewsQuery: UseInfiniteQueryResult<Response<Review[]>>;
-  imagesQuery: UseQueryResult<Images>;
-  videosQuery: UseQueryResult<Videos>;
-  onAssetClick: (path: string, type: AssetType) => void;
-  onChangeTab: (index: number) => void;
+	movieQuery: UseQueryResult<FullMovie>;
+	creditsQuery: UseQueryResult<Credits>;
+	collectionQuery: UseQueryResult<Collection>;
+	recommendationsQuery: UseQueryResult<PartialMovie[]>;
+	similarQuery: UseQueryResult<PartialMovie[]>;
+	reviews?: Response<Review[]>;
+	reviewsQuery: UseInfiniteQueryResult<Response<Review[]>>;
+	imagesQuery: UseQueryResult<Images>;
+	videosQuery: UseQueryResult<Videos>;
+	onAssetClick: (path: string, type: AssetType) => void;
+	onChangeTab: (index: number) => void;
 };

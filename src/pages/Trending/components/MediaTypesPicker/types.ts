@@ -1,3 +1,3 @@
 export type MediaTypesPickerProps = {
-  onSelected: (index: number) => void;
+	onSelected: (index: number) => void;
 };

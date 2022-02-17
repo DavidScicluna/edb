@@ -1,6 +1,6 @@
 export type ActionsProps = {
-  isLeftDisabled: boolean;
-  isRightDisabled: boolean;
-  onLeftClick: () => void;
-  onRightClick: () => void;
+	isLeftDisabled: boolean;
+	isRightDisabled: boolean;
+	onLeftClick: () => void;
+	onRightClick: () => void;
 };

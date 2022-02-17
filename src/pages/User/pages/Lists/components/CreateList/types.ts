@@ -1,10 +1,10 @@
 export type Form = {
-  label: string;
-  description: string;
+	label: string;
+	description: string;
 };
 
 export type CreateListProps = {
-  isOpen: boolean;
-  onSubmit?: () => void;
-  onClose: () => void;
+	isOpen: boolean;
+	onSubmit?: () => void;
+	onClose: () => void;
 };

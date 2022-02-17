@@ -1,4 +1,4 @@
 export type BudgetProps = {
-  budget?: number;
-  isLoading?: boolean;
+	budget?: number;
+	isLoading?: boolean;
 };

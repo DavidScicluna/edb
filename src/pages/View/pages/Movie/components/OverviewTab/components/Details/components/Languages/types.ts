@@ -1,6 +1,6 @@
 import { Language } from '../../../../../../../../../../common/types';
 
 export type LanguagesProps = {
-  languages?: Language[];
-  isLoading?: boolean;
+	languages?: Language[];
+	isLoading?: boolean;
 };

@@ -1,4 +1,3 @@
-
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
@@ -28,210 +27,212 @@ import Page from '../../../../containers/Page';
 import { List as ListType } from '../../../../store/slices/User/types';
 
 const Lists = (): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 600px)');
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
-  const { isOpen: isDeleteListOpen, onOpen: onDeleteListOpen, onClose: onDeleteListClose } = useDisclosure();
-  const { isOpen: isEditListOpen, onOpen: onEditListOpen, onClose: onEditListClose } = useDisclosure();
-  const { isOpen: isListInfoOpen, onOpen: onListInfoOpen, onClose: onListInfoClose } = useDisclosure();
+	const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
+	const { isOpen: isDeleteListOpen, onOpen: onDeleteListOpen, onClose: onDeleteListClose } = useDisclosure();
+	const { isOpen: isEditListOpen, onOpen: onEditListOpen, onClose: onEditListClose } = useDisclosure();
+	const { isOpen: isListInfoOpen, onOpen: onListInfoOpen, onClose: onListInfoClose } = useDisclosure();
 
-  const toast = useToast();
+	const toast = useToast();
 
-  const lists = useSelector((state) => state.user.data.lists);
+	const lists = useSelector((state) => state.user.data.lists);
 
-  const [selectedListID, setSelectedListID] = useState<ListType['id']>();
-  const [activeTab, setActiveTab] = useState<number>();
+	const [selectedListID, setSelectedListID] = useState<ListType['id']>();
+	const [activeTab, setActiveTab] = useState<number>();
 
-  const handleSelectList = (id: ListType['id']): void => {
-    if (selectedListID && selectedListID === id) {
-      setSelectedListID(undefined);
-    } else {
-      setSelectedListID(id);
-    }
-  };
+	const handleSelectList = (id: ListType['id']): void => {
+		if (selectedListID && selectedListID === id) {
+			setSelectedListID(undefined);
+		} else {
+			setSelectedListID(id);
+		}
+	};
 
-  const handleOpenList = (index: number): void => {
-    setActiveTab(index);
-  };
+	const handleOpenList = (index: number): void => {
+		setActiveTab(index);
+	};
 
-  const handleReset = (): void => {
-    toast.closeAll();
+	const handleReset = (): void => {
+		toast.closeAll();
 
-    onCreateListClose();
-    onDeleteListClose();
-    onEditListClose();
-    onListInfoClose();
+		onCreateListClose();
+		onDeleteListClose();
+		onEditListClose();
+		onListInfoClose();
 
-    setActiveTab(undefined);
-    setSelectedListID(undefined);
-  };
+		setActiveTab(undefined);
+		setSelectedListID(undefined);
+	};
 
-  const handleResetSelected = (): void => {
-    toast.closeAll();
+	const handleResetSelected = (): void => {
+		toast.closeAll();
 
-    setSelectedListID(undefined);
-  };
+		setSelectedListID(undefined);
+	};
 
-  useEffect(() => {
-    if (!_.isNil(activeTab)) {
-      handleResetSelected();
-    }
-  }, [activeTab]);
+	useEffect(() => {
+		if (!_.isNil(activeTab)) {
+			handleResetSelected();
+		}
+	}, [activeTab]);
 
-  useEffect(() => {
-    toast.closeAll();
+	useEffect(() => {
+		toast.closeAll();
 
-    if (_.isNil(activeTab) && selectedListID) {
-      toast({
-        duration: null,
-        isClosable: true,
-        position: 'bottom',
-        variant: 'solid',
-        render: () => {
-          return (
-            <Toast
-              list={lists.find((list) => list.id === selectedListID)}
-              onEdit={onEditListOpen}
-              onDelete={onDeleteListOpen}
-              onClose={handleResetSelected}
-            />
-          );
-        }
-      });
-    }
-  }, [selectedListID]);
+		if (_.isNil(activeTab) && selectedListID) {
+			toast({
+				duration: null,
+				isClosable: true,
+				position: 'bottom',
+				variant: 'solid',
+				render: () => {
+					return (
+						<Toast
+							list={lists.find((list) => list.id === selectedListID)}
+							onEdit={onEditListOpen}
+							onDelete={onDeleteListOpen}
+							onClose={handleResetSelected}
+						/>
+					);
+				}
+			});
+		}
+	}, [selectedListID]);
 
-  useEffect(() => {
-    if (lists.length === 0) {
-      handleReset();
-    }
-  }, [lists]);
+	useEffect(() => {
+		if (lists.length === 0) {
+			handleReset();
+		}
+	}, [lists]);
 
-  const handleCheckLocation = (): void => {
-    const hash = String(location.hash).replace('#', '');
+	const handleCheckLocation = (): void => {
+		const hash = String(location.hash).replace('#', '');
 
-    if (hash) {
-      if (lists.some((list) => list.id === hash)) {
-        setActiveTab(lists.findIndex((list) => list.id === hash));
-      } else {
-        setActiveTab(undefined);
-      }
-    }
-  };
+		if (hash) {
+			if (lists.some((list) => list.id === hash)) {
+				setActiveTab(lists.findIndex((list) => list.id === hash));
+			} else {
+				setActiveTab(undefined);
+			}
+		}
+	};
 
-  useEffect(() => {
-    handleCheckLocation();
-  }, [location]);
+	useEffect(() => {
+		handleCheckLocation();
+	}, [location]);
 
-  useEffect(() => {
-    handleCheckLocation();
+	useEffect(() => {
+		handleCheckLocation();
 
-    return () => {
-      handleReset();
+		return () => {
+			handleReset();
 
-      setActiveTab(undefined);
-    };
-  }, []);
+			setActiveTab(undefined);
+		};
+	}, []);
 
-  return (
-    <>
-      <Page title='Lists'>
-        {{
-          actions: (
-            <Button onClick={() => onCreateListOpen()} isFullWidth={isSm} variant='outlined'>
-              Create new list
-            </Button>
-          ),
-          body: (
-            <Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
-              <VStack
-                width='100%'
-                divider={lists && lists.length > 0 ? <Divider orientation='horizontal' /> : undefined}
-                spacing={2}
-                p={2}
-              >
-                <Collapse in={lists && lists.length > 0} unmountOnExit style={{ width: '100%' }}>
-                  <ListHeader activeTab={activeTab} lists={lists} onListsClick={handleReset} />
-                </Collapse>
+	return (
+		<>
+			<Page title='Lists'>
+				{{
+					actions: (
+						<Button onClick={() => onCreateListOpen()} isFullWidth={isSm} variant='outlined'>
+							Create new list
+						</Button>
+					),
+					body: (
+						<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+							<VStack
+								width='100%'
+								divider={lists && lists.length > 0 ? <Divider orientation='horizontal' /> : undefined}
+								spacing={2}
+								p={2}
+							>
+								<Collapse in={lists && lists.length > 0} unmountOnExit style={{ width: '100%' }}>
+									<ListHeader activeTab={activeTab} lists={lists} onListsClick={handleReset} />
+								</Collapse>
 
-                {lists.length === 0 ? (
-                  <Empty
-                    hasIllustration
-                    label='Oh no! No Lists were found.'
-                    description='Unfortunately, you have no lists. Please add a list to be able to add items.'
-                    size='xl'
-                    variant='outlined'
-                  />
-                ) : (
-                  <AnimatePresence exitBeforeEnter initial={false}>
-                    {_.isNil(activeTab) ? (
-                      <Center as={Fade} key='list-picker' width='100%' in unmountOnExit>
-                        <ListPicker
-                          lists={lists}
-                          selectedListID={selectedListID}
-                          onSelected={handleSelectList}
-                          onOpenList={handleOpenList}
-                        />
-                      </Center>
-                    ) : (
-                      <Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
-                        <TabPanels>
-                          {_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => (
-                            <MediaTypesSection
-                              key={list.id}
-                              movies={list.results.movies}
-                              tv={list.results.tv}
-                              renderActions={() => (
-                                <IconButton
-                                  aria-label='Open Information modal'
-                                  onClick={() => {
-                                    handleSelectList(list.id);
-                                    onListInfoOpen();
-                                  }}
-                                  variant='outlined'
-                                >
-                                  <InfoTwoToneIcon />
-                                </IconButton>
-                              )}
-                            />
-                          ))}
-                        </TabPanels>
-                      </Center>
-                    )}
-                  </AnimatePresence>
-                )}
-              </VStack>
-            </Tabs>
-          )
-        }}
-      </Page>
+								{lists.length === 0 ? (
+									<Empty
+										hasIllustration
+										label='Oh no! No Lists were found.'
+										description='Unfortunately, you have no lists. Please add a list to be able to add items.'
+										size='xl'
+										variant='outlined'
+									/>
+								) : (
+									<AnimatePresence exitBeforeEnter initial={false}>
+										{_.isNil(activeTab) ? (
+											<Center as={Fade} key='list-picker' width='100%' in unmountOnExit>
+												<ListPicker
+													lists={lists}
+													selectedListID={selectedListID}
+													onSelected={handleSelectList}
+													onOpenList={handleOpenList}
+												/>
+											</Center>
+										) : (
+											<Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
+												<TabPanels>
+													{_.orderBy(lists, (list) => moment(list.date), ['desc']).map(
+														(list) => (
+															<MediaTypesSection
+																key={list.id}
+																movies={list.results.movies}
+																tv={list.results.tv}
+																renderActions={() => (
+																	<IconButton
+																		aria-label='Open Information modal'
+																		onClick={() => {
+																			handleSelectList(list.id);
+																			onListInfoOpen();
+																		}}
+																		variant='outlined'
+																	>
+																		<InfoTwoToneIcon />
+																	</IconButton>
+																)}
+															/>
+														)
+													)}
+												</TabPanels>
+											</Center>
+										)}
+									</AnimatePresence>
+								)}
+							</VStack>
+						</Tabs>
+					)
+				}}
+			</Page>
 
-      <CreateList isOpen={isCreateListOpen} onSubmit={() => setActiveTab(0)} onClose={onCreateListClose} />
+			<CreateList isOpen={isCreateListOpen} onSubmit={() => setActiveTab(0)} onClose={onCreateListClose} />
 
-      {lists && lists.length > 0 && selectedListID ? (
-        <DeleteList
-          id={selectedListID}
-          isOpen={isDeleteListOpen}
-          onClose={onDeleteListClose}
-          onCloseToast={handleReset}
-        />
-      ) : null}
+			{lists && lists.length > 0 && selectedListID ? (
+				<DeleteList
+					id={selectedListID}
+					isOpen={isDeleteListOpen}
+					onClose={onDeleteListClose}
+					onCloseToast={handleReset}
+				/>
+			) : null}
 
-      {lists && lists.length > 0 && selectedListID ? (
-        <EditList id={selectedListID} isOpen={isEditListOpen} onClose={onEditListClose} />
-      ) : null}
+			{lists && lists.length > 0 && selectedListID ? (
+				<EditList id={selectedListID} isOpen={isEditListOpen} onClose={onEditListClose} />
+			) : null}
 
-      {lists && lists.length > 0 && selectedListID ? (
-        <ListInfo
-          id={selectedListID}
-          isOpen={isListInfoOpen}
-          onEdit={() => onEditListOpen()}
-          onDelete={() => onDeleteListOpen()}
-          onClose={onListInfoClose}
-        />
-      ) : null}
-    </>
-  );
+			{lists && lists.length > 0 && selectedListID ? (
+				<ListInfo
+					id={selectedListID}
+					isOpen={isListInfoOpen}
+					onEdit={() => onEditListOpen()}
+					onDelete={() => onDeleteListOpen()}
+					onClose={onListInfoClose}
+				/>
+			) : null}
+		</>
+	);
 };
 
 export default Lists;

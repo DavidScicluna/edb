@@ -1,4 +1,4 @@
 export type TaglineProps = {
-  tagline?: string | null;
-  isLoading?: boolean;
+	tagline?: string | null;
+	isLoading?: boolean;
 };

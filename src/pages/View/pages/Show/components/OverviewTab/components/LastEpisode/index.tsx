@@ -4,7 +4,6 @@ import { useMediaQuery, VStack } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
-
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { LastEpisodeProps } from './types';
@@ -16,45 +15,52 @@ import Panel from '../../../../../../../../components/Panel';
 import Episode from '../../../SeasonsTab/components/Season/components/Episodes/components/Episode';
 
 const LastEpisode = ({ show, isLoading = true, onChangeTab }: LastEpisodeProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 600px)');
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector((state) => state.user.ui.theme.color);
 
-  return (
-    <Panel isFullWidth>
-      {{
-        header: {
-          title: (
-            <VStack alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-              <Title title={`Latest ${show?.name ? `"${show.name}"` : 'TV Show'} episode`} isLoading={isLoading} />
-              {(!_.isNil(show?.last_episode_to_air?.air_date) && !_.isEmpty(show?.last_episode_to_air?.air_date)) ||
-              isLoading ? (
-                <Subtitle
-                  subtitle={`Episode Aired on ${handleReturnDate(show?.last_episode_to_air?.air_date || '', 'full')}`}
-                  isLoading={isLoading}
-                />
-              ) : null}
-            </VStack>
-          )
-        },
-        body: <Episode showId={show?.id} episode={show?.last_episode_to_air} isLoading={isLoading} />,
-        footer: (
-          <Button
-            color={color}
-            isFullWidth
-            isDisabled={isLoading}
-            onClick={() => onChangeTab()}
-            size={isSm ? 'sm' : 'md'}
-            variant='text'
-          >
-            {`View all ${show?.name ? `"${show.name}"` : 'TV Show'} episode${
-              (show?.number_of_episodes || 0) === 0 || (show?.number_of_episodes || 0) > 1 ? 's' : ''
-            }`}
-          </Button>
-        )
-      }}
-    </Panel>
-  );
+	return (
+		<Panel isFullWidth>
+			{{
+				header: {
+					title: (
+						<VStack alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+							<Title
+								title={`Latest ${show?.name ? `"${show.name}"` : 'TV Show'} episode`}
+								isLoading={isLoading}
+							/>
+							{(!_.isNil(show?.last_episode_to_air?.air_date) &&
+								!_.isEmpty(show?.last_episode_to_air?.air_date)) ||
+							isLoading ? (
+								<Subtitle
+									subtitle={`Episode Aired on ${handleReturnDate(
+										show?.last_episode_to_air?.air_date || '',
+										'full'
+									)}`}
+									isLoading={isLoading}
+								/>
+							) : null}
+						</VStack>
+					)
+				},
+				body: <Episode showId={show?.id} episode={show?.last_episode_to_air} isLoading={isLoading} />,
+				footer: (
+					<Button
+						color={color}
+						isFullWidth
+						isDisabled={isLoading}
+						onClick={() => onChangeTab()}
+						size={isSm ? 'sm' : 'md'}
+						variant='text'
+					>
+						{`View all ${show?.name ? `"${show.name}"` : 'TV Show'} episode${
+							(show?.number_of_episodes || 0) === 0 || (show?.number_of_episodes || 0) > 1 ? 's' : ''
+						}`}
+					</Button>
+				)
+			}}
+		</Panel>
+	);
 };
 
 export default LastEpisode;

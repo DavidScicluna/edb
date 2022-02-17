@@ -4,6 +4,6 @@ import { MediaType } from '../../../../common/types';
 import { Form } from '../../types';
 
 export type CertificationsProps = {
-  form: UseFormReturn<Form>;
-  mediaType: Omit<MediaType, 'person' | 'collection' | 'company'>;
+	form: UseFormReturn<Form>;
+	mediaType: Omit<MediaType, 'person' | 'collection' | 'company'>;
 };

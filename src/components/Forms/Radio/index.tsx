@@ -1,4 +1,3 @@
-
 import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Radio as CUIRadio } from '@chakra-ui/react';
@@ -11,24 +10,24 @@ import { RadioProps } from './types';
 import { Theme } from '../../../theme/types';
 
 const Radio = (props: RadioProps): ReactElement => {
-  const theme = useTheme<Theme>();
-  const { colorMode: colorModeHook } = useColorMode();
+	const theme = useTheme<Theme>();
+	const { colorMode: colorModeHook } = useColorMode();
 
-  const { color, colorMode: colorModeProp, isChecked = false, isDisabled = false, ...rest } = props;
+	const { color, colorMode: colorModeProp, isChecked = false, isDisabled = false, ...rest } = props;
 
-  const style = useStyles(theme, { color, isChecked, isDisabled });
+	const style = useStyles(theme, { color, isChecked, isDisabled });
 
-  const colorMode: ColorMode = colorModeProp || colorModeHook;
+	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
-  return (
-    <CUIRadio
-      {...rest}
-      color={color}
-      isChecked={isChecked}
-      isDisabled={isDisabled}
-      sx={{ ..._.merge(style.radio, style[colorMode]) }}
-    />
-  );
+	return (
+		<CUIRadio
+			{...rest}
+			color={color}
+			isChecked={isChecked}
+			isDisabled={isDisabled}
+			sx={{ ..._.merge(style.radio, style[colorMode]) }}
+		/>
+	);
 };
 
 export default Radio;

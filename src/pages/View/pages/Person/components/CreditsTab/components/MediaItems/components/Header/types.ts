@@ -1,4 +1,4 @@
 export type HeaderProps = {
-  movies: number;
-  shows: number;
+	movies: number;
+	shows: number;
 };

@@ -1,3 +1,3 @@
 export type BackdropProps = {
-  isHovering: boolean;
+	isHovering: boolean;
 };

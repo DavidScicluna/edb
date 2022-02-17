@@ -8,15 +8,15 @@ export type Crew = MovieCrew & TVCrew;
 export type Credits = MovieCredits & TVCredits & EpisodeCredits;
 
 export type Department = {
-  id: string;
-  title: string;
-  people: (Cast & Crew)[];
+	id: string;
+	title: string;
+	people: (Cast & Crew)[];
 };
 
 export type CastCrewProps = {
-  alt?: string;
-  credits?: Credits;
-  isError?: boolean;
-  isSuccess?: boolean;
-  isLoading?: boolean;
+	alt?: string;
+	credits?: Credits;
+	isError?: boolean;
+	isSuccess?: boolean;
+	isLoading?: boolean;
 };

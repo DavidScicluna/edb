@@ -1,3 +1,3 @@
 export type RightArrowProps = {
-  isDisabled?: boolean;
+	isDisabled?: boolean;
 };

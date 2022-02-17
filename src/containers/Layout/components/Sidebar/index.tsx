@@ -1,4 +1,3 @@
-
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -17,48 +16,48 @@ import useTransitionsStyle from '../../common/styles/transitions';
 import NavItems from '../NavItems';
 
 const Sidebar = (): ReactElement => {
-  const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
+	const theme = useTheme<Theme>();
+	const { colorMode } = useColorMode();
 
-  const transition = useTransitionsStyle(theme);
+	const transition = useTransitionsStyle(theme);
 
-  const dispatch = useDispatch();
-  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+	const dispatch = useDispatch();
+	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
-  return (
-    <VStack
-      width={sidebarWidth[sidebarMode]}
-      height='100vh'
-      position='fixed'
-      top={0}
-      zIndex={900}
-      alignItems={sidebarMode === 'expanded' ? 'flex-start' : 'stretch'}
-      justifyContent='space-between'
-      backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
-      borderRight='solid2'
-      borderRightColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-      p={1}
-      spacing={2}
-      sx={{ ...transition }}
-    >
-      <NavItems navItems={navItems} />
+	return (
+		<VStack
+			width={sidebarWidth[sidebarMode]}
+			height='100vh'
+			position='fixed'
+			top={0}
+			zIndex={900}
+			alignItems={sidebarMode === 'expanded' ? 'flex-start' : 'stretch'}
+			justifyContent='space-between'
+			backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+			borderRight='solid2'
+			borderRightColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+			p={1}
+			spacing={2}
+			sx={{ ...transition }}
+		>
+			<NavItems navItems={navItems} />
 
-      <Button
-        isFullWidth
-        onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
-        renderLeftIcon={({ fontSize }) =>
-          sidebarMode === 'expanded' ? (
-            <RemoveOutlinedIcon style={{ fontSize }} />
-          ) : (
-            <AddOutlinedIcon style={{ fontSize }} />
-          )
-        }
-        variant='outlined'
-      >
-        {sidebarMode === 'expanded' ? 'Collapse' : ''}
-      </Button>
-    </VStack>
-  );
+			<Button
+				isFullWidth
+				onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
+				renderLeftIcon={({ fontSize }) =>
+					sidebarMode === 'expanded' ? (
+						<RemoveOutlinedIcon style={{ fontSize }} />
+					) : (
+						<AddOutlinedIcon style={{ fontSize }} />
+					)
+				}
+				variant='outlined'
+			>
+				{sidebarMode === 'expanded' ? 'Collapse' : ''}
+			</Button>
+		</VStack>
+	);
 };
 
 export default Sidebar;

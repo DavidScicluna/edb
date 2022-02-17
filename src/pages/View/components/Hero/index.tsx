@@ -1,4 +1,3 @@
-
 import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
@@ -13,34 +12,34 @@ import { HeroProps } from './types';
 import Panel from '../../../../components/Panel';
 
 const Hero = (props: HeroProps): ReactElement => {
-  const { renderPoster, renderBackdrop, renderDetails, tagline, overview, isLoading = true } = props;
+	const { renderPoster, renderBackdrop, renderDetails, tagline, overview, isLoading = true } = props;
 
-  return (
-    <Panel isFullWidth>
-      {{
-        body: (
-          <VStack position='relative' alignItems='stretch' spacing={2}>
-            <Cover>
-              {{
-                poster: renderPoster(),
-                backdrop: renderBackdrop()
-              }}
-            </Cover>
+	return (
+		<Panel isFullWidth>
+			{{
+				body: (
+					<VStack position='relative' alignItems='stretch' spacing={2}>
+						<Cover>
+							{{
+								poster: renderPoster(),
+								backdrop: renderBackdrop()
+							}}
+						</Cover>
 
-            {(!_.isNil(tagline) && !_.isEmpty(tagline)) || isLoading ? (
-              <Tagline tagline={tagline} isLoading={isLoading} />
-            ) : null}
+						{(!_.isNil(tagline) && !_.isEmpty(tagline)) || isLoading ? (
+							<Tagline tagline={tagline} isLoading={isLoading} />
+						) : null}
 
-            {(!_.isNil(overview) && !_.isEmpty(overview)) || isLoading ? (
-              <Overview overview={overview} isLoading={isLoading} />
-            ) : null}
+						{(!_.isNil(overview) && !_.isEmpty(overview)) || isLoading ? (
+							<Overview overview={overview} isLoading={isLoading} />
+						) : null}
 
-            {renderDetails()}
-          </VStack>
-        )
-      }}
-    </Panel>
-  );
+						{renderDetails()}
+					</VStack>
+				)
+			}}
+		</Panel>
+	);
 };
 
 export default Hero;

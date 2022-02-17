@@ -10,16 +10,25 @@ export type Size = 'sm' | 'md' | 'lg';
 export type Variant = 'contained' | 'outlined' | 'icon';
 
 export type IconButtonProps = {
-  children: Icon;
-  color?: keyof Color;
-  colorMode?: ColorMode;
-  size?: Size;
-  variant?: Variant;
-  sx?: {
-    back?: CUIIconButtonProps['sx'];
-    front?: CUIIconButtonProps['sx'];
-  };
+	children: Icon;
+	color?: keyof Color;
+	colorMode?: ColorMode;
+	size?: Size;
+	variant?: Variant;
+	sx?: {
+		back?: CUIIconButtonProps['sx'];
+		front?: CUIIconButtonProps['sx'];
+	};
 } & Omit<
-  CUIIconButtonProps,
-  'color' | 'colorScheme' | 'icon' | 'isActive' | 'isRound' | 'spinner' | 'spinnerPlacement' | 'size' | 'variant' | 'sx'
+	CUIIconButtonProps,
+	| 'color'
+	| 'colorScheme'
+	| 'icon'
+	| 'isActive'
+	| 'isRound'
+	| 'spinner'
+	| 'spinnerPlacement'
+	| 'size'
+	| 'variant'
+	| 'sx'
 >;

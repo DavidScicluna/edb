@@ -1,5 +1,5 @@
 export type OverviewProps = {
-  overview?: string;
-  isLoading: boolean;
-  inView: boolean;
+	overview?: string;
+	isLoading: boolean;
+	inView: boolean;
 };

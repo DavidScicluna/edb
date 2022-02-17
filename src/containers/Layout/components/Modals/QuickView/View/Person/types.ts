@@ -1,3 +1,3 @@
 export type PersonProps = {
-  id?: number;
+	id?: number;
 };

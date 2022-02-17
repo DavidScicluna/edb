@@ -41,8 +41,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "lint": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
-    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc",
+    "lint": "eslint \".src/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --write \".src/**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc",
     "start": "BROWSER=none react-scripts start",
     "test": "react-scripts test",
     "build": "react-scripts build",

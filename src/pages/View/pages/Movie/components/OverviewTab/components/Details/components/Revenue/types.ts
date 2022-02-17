@@ -1,4 +1,4 @@
 export type RevenueProps = {
-  revenue?: number;
-  isLoading?: boolean;
+	revenue?: number;
+	isLoading?: boolean;
 };

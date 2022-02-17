@@ -17,101 +17,121 @@ import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
 
 const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): ReactElement => {
-  const { observe: ref, inView } = useInView<HTMLDivElement>({
-    threshold: [0.2, 0.4, 0.6, 0.8, 1],
-    unobserveOnEnter: true
-  });
+	const { observe: ref, inView } = useInView<HTMLDivElement>({
+		threshold: [0.2, 0.4, 0.6, 0.8, 1],
+		unobserveOnEnter: true
+	});
 
-  const { width = '100%', mediaItem, mediaType, image, rating, title, subtitle, isLoading = true } = props;
+	const { width = '100%', mediaItem, mediaType, image, rating, title, subtitle, isLoading = true } = props;
 
-  const [isHovering, setIsHovering] = useBoolean();
-  const [isDisabled, setIsDisabled] = useBoolean();
+	const [isHovering, setIsHovering] = useBoolean();
+	const [isDisabled, setIsDisabled] = useBoolean();
 
-  const handleOnImageChange = (bool: boolean): void => {
-    if (bool) {
-      setIsDisabled.on();
-    } else {
-      setIsDisabled.off();
-    }
-  };
+	const handleOnImageChange = (bool: boolean): void => {
+		if (bool) {
+			setIsDisabled.on();
+		} else {
+			setIsDisabled.off();
+		}
+	};
 
-  return (
-    <Link
-      isFullWidth
-      isDisabled={isLoading || isDisabled || mediaType === 'company'}
-      to={
-        mediaType !== 'company' ? { pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` } : {}
-      }
-      onMouseEnter={() => setIsHovering.on()}
-      onMouseLeave={() => setIsHovering.off()}
-    >
-      <Card isFullWidth isDisabled={isLoading} isClickable={mediaType !== 'company'} isFixed={isDisabled} isLight>
-        <VStack ref={ref} width={width} position='relative' spacing={1} p={1}>
-          {/* Image */}
-          <Image
-            mediaItem={mediaItem}
-            mediaType={mediaType}
-            image={image}
-            title={title}
-            isHovering={isHovering}
-            isLoading={isLoading}
-            inView={inView}
-            onMouseChange={handleOnImageChange}
-          />
+	return (
+		<Link
+			isFullWidth
+			isDisabled={isLoading || isDisabled || mediaType === 'company'}
+			to={
+				mediaType !== 'company'
+					? { pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` }
+					: {}
+			}
+			onMouseEnter={() => setIsHovering.on()}
+			onMouseLeave={() => setIsHovering.off()}
+		>
+			<Card isFullWidth isDisabled={isLoading} isClickable={mediaType !== 'company'} isFixed={isDisabled} isLight>
+				<VStack ref={ref} width={width} position='relative' spacing={1} p={1}>
+					{/* Image */}
+					<Image
+						mediaItem={mediaItem}
+						mediaType={mediaType}
+						image={image}
+						title={title}
+						isHovering={isHovering}
+						isLoading={isLoading}
+						inView={inView}
+						onMouseChange={handleOnImageChange}
+					/>
 
-          <VStack width='100%' spacing={isLoading ? 1 : 0.5}>
-            {/* Header */}
-            {mediaType === 'movie' || mediaType === 'tv' ? (
-              <HStack width='100%' justify='space-between'>
-                {/* Rating component */}
-                <Rating size='md' inView={inView} isLoading={isLoading}>
-                  {rating}
-                </Rating>
+					<VStack width='100%' spacing={isLoading ? 1 : 0.5}>
+						{/* Header */}
+						{mediaType === 'movie' || mediaType === 'tv' ? (
+							<HStack width='100%' justify='space-between'>
+								{/* Rating component */}
+								<Rating size='md' inView={inView} isLoading={isLoading}>
+									{rating}
+								</Rating>
 
-                <Center>
-                  {/* Like component */}
-                  <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                    <Like title={title} mediaType={mediaType} mediaItem={mediaItem} size='sm' isLoading={isLoading} />
-                  </Center>
-                  {/* List component */}
-                  <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                    <Bookmark
-                      title={title}
-                      mediaType={mediaType}
-                      mediaItem={mediaItem}
-                      isLoading={isLoading}
-                      size='sm'
-                    />
-                  </Center>
-                </Center>
-              </HStack>
-            ) : null}
+								<Center>
+									{/* Like component */}
+									<Center
+										onMouseEnter={() => setIsDisabled.on()}
+										onMouseLeave={() => setIsDisabled.off()}
+									>
+										<Like
+											title={title}
+											mediaType={mediaType}
+											mediaItem={mediaItem}
+											size='sm'
+											isLoading={isLoading}
+										/>
+									</Center>
+									{/* List component */}
+									<Center
+										onMouseEnter={() => setIsDisabled.on()}
+										onMouseLeave={() => setIsDisabled.off()}
+									>
+										<Bookmark
+											title={title}
+											mediaType={mediaType}
+											mediaItem={mediaItem}
+											isLoading={isLoading}
+											size='sm'
+										/>
+									</Center>
+								</Center>
+							</HStack>
+						) : null}
 
-            {/* Text */}
-            <VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0.25}>
-              <Title title={title} isLoading={isLoading} inView={inView} />
-              <Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
-            </VStack>
-          </VStack>
+						{/* Text */}
+						<VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0.25}>
+							<Title title={title} isLoading={isLoading} inView={inView} />
+							<Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
+						</VStack>
+					</VStack>
 
-          {/* Like component */}
-          {mediaType === 'person' || mediaType === 'company' || mediaType === 'collection' ? (
-            <Center
-              sx={{
-                position: 'absolute',
-                top: 1,
-                right: 2
-              }}
-            >
-              <Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-                <Like title={title} mediaType={mediaType} mediaItem={mediaItem} isLoading={isLoading} size='sm' />
-              </Center>
-            </Center>
-          ) : null}
-        </VStack>
-      </Card>
-    </Link>
-  );
+					{/* Like component */}
+					{mediaType === 'person' || mediaType === 'company' || mediaType === 'collection' ? (
+						<Center
+							sx={{
+								position: 'absolute',
+								top: 1,
+								right: 2
+							}}
+						>
+							<Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+								<Like
+									title={title}
+									mediaType={mediaType}
+									mediaItem={mediaItem}
+									isLoading={isLoading}
+									size='sm'
+								/>
+							</Center>
+						</Center>
+					) : null}
+				</VStack>
+			</Card>
+		</Link>
+	);
 };
 
 export default VerticalPoster;

@@ -1,4 +1,3 @@
-
 import { ReactElement, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -6,18 +5,18 @@ import { BrowserRouter } from 'react-router-dom';
 import { useTheme, useColorMode, useMediaQuery, useBoolean, Container, HStack, VStack, Box } from '@chakra-ui/react';
 
 import {
-  HomeTwoTone as HomeTwoToneIcon,
-  HomeOutlined as HomeOutlinedIcon,
-  PeopleAltOutlined as PeopleAltOutlinedIcon,
-  PeopleAltTwoTone as PeopleAltTwoToneIcon,
-  SearchOutlined as SearchOutlinedIcon,
-  SearchTwoTone as SearchTwoToneIcon,
-  TheatersOutlined as TheatersOutlinedIcon,
-  TheatersTwoTone as TheatersTwoToneIcon,
-  TvOutlined as TvOutlinedIcon,
-  TvTwoTone as TvTwoToneIcon,
-  WhatshotOutlined as WhatshotOutlinedIcon,
-  WhatshotTwoTone as WhatshotTwoToneIcon
+	HomeTwoTone as HomeTwoToneIcon,
+	HomeOutlined as HomeOutlinedIcon,
+	PeopleAltOutlined as PeopleAltOutlinedIcon,
+	PeopleAltTwoTone as PeopleAltTwoToneIcon,
+	SearchOutlined as SearchOutlinedIcon,
+	SearchTwoTone as SearchTwoToneIcon,
+	TheatersOutlined as TheatersOutlinedIcon,
+	TheatersTwoTone as TheatersTwoToneIcon,
+	TvOutlined as TvOutlinedIcon,
+	TvTwoTone as TvTwoToneIcon,
+	WhatshotOutlined as WhatshotOutlinedIcon,
+	WhatshotTwoTone as WhatshotTwoToneIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
 import { useTimeout } from 'usehooks-ts';
@@ -42,143 +41,146 @@ import { toggleSplashscreen } from '../../store/slices/Modals';
 import { Theme } from '../../theme/types';
 
 export const navItems: NavItem[] = [
-  {
-    renderIcon: ({ isActive, fontSize }) =>
-      isActive ? <HomeTwoToneIcon style={{ fontSize }} /> : <HomeOutlinedIcon style={{ fontSize }} />,
-    label: 'Home',
-    path: '/'
-  },
-  {
-    renderIcon: ({ isActive, fontSize }) =>
-      isActive ? <SearchTwoToneIcon style={{ fontSize }} /> : <SearchOutlinedIcon style={{ fontSize }} />,
-    label: 'Search',
-    path: '/search'
-  },
-  {
-    renderIcon: ({ isActive, fontSize }) =>
-      isActive ? <WhatshotTwoToneIcon style={{ fontSize }} /> : <WhatshotOutlinedIcon style={{ fontSize }} />,
-    label: 'Trending',
-    path: '/trending'
-  },
-  {
-    renderIcon: ({ isActive, fontSize }) =>
-      isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
-    label: 'Movies',
-    path: '/movies'
-  },
-  {
-    renderIcon: ({ isActive, fontSize }) =>
-      isActive ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
-    label: 'TV Shows',
-    path: '/tvshows'
-  },
-  {
-    renderIcon: ({ isActive, fontSize }) =>
-      isActive ? <PeopleAltTwoToneIcon style={{ fontSize }} /> : <PeopleAltOutlinedIcon style={{ fontSize }} />,
-    label: 'People',
-    path: '/people'
-  }
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <HomeTwoToneIcon style={{ fontSize }} /> : <HomeOutlinedIcon style={{ fontSize }} />,
+		label: 'Home',
+		path: '/'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <SearchTwoToneIcon style={{ fontSize }} /> : <SearchOutlinedIcon style={{ fontSize }} />,
+		label: 'Search',
+		path: '/search'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <WhatshotTwoToneIcon style={{ fontSize }} /> : <WhatshotOutlinedIcon style={{ fontSize }} />,
+		label: 'Trending',
+		path: '/trending'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
+		label: 'Movies',
+		path: '/movies'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
+		label: 'TV Shows',
+		path: '/tvshows'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <PeopleAltTwoToneIcon style={{ fontSize }} /> : <PeopleAltOutlinedIcon style={{ fontSize }} />,
+		label: 'People',
+		path: '/people'
+	}
 ];
 
 const Layout = (): ReactElement => {
-  const theme = useTheme<Theme>();
-  const { setColorMode } = useColorMode();
+	const theme = useTheme<Theme>();
+	const { setColorMode } = useColorMode();
 
-  const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
+	const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
-  const dispatch = useDispatch();
-  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
-  const background = useSelector((state) => state.user.ui.theme.background);
+	const dispatch = useDispatch();
+	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+	const background = useSelector((state) => state.user.ui.theme.background);
 
-  const [isSplashscreenOpen, setIsSplashscreenOpen] = useBoolean(true);
+	const [isSplashscreenOpen, setIsSplashscreenOpen] = useBoolean(true);
 
-  const transition = useTransitionsStyle(theme);
+	const transition = useTransitionsStyle(theme);
 
-  const handleUpdateColorMode = useCallback(
-    _.debounce(() => {
-      if (background === 'system') {
-        dispatch(toggleSplashscreen(true));
+	const handleUpdateColorMode = useCallback(
+		_.debounce(() => {
+			if (background === 'system') {
+				dispatch(toggleSplashscreen(true));
 
-        setColorMode(handleCheckSystemColorMode());
+				setColorMode(handleCheckSystemColorMode());
 
-        setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
-      }
-    }, 500),
-    [background, setColorMode, dispatch, toggleSplashscreen, handleCheckSystemColorMode]
-  );
+				setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
+			}
+		}, 500),
+		[background, setColorMode, dispatch, toggleSplashscreen, handleCheckSystemColorMode]
+	);
 
-  useTimeout(() => setIsSplashscreenOpen.off(), 2500);
+	useTimeout(() => setIsSplashscreenOpen.off(), 2500);
 
-  usePopulateOptions();
+	usePopulateOptions();
 
-  useEffect(() => {
-    if (!isLgUp) {
-      dispatch(toggleSidebarMode('expanded'));
-    }
-  }, [isLgUp]);
+	useEffect(() => {
+		if (!isLgUp) {
+			dispatch(toggleSidebarMode('expanded'));
+		}
+	}, [isLgUp]);
 
-  useEffect(() => {
-    handleUpdateColorMode();
+	useEffect(() => {
+		handleUpdateColorMode();
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleUpdateColorMode);
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleUpdateColorMode);
 
-    return () => window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleUpdateColorMode);
-  }, []);
+		return () =>
+			window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleUpdateColorMode);
+	}, []);
 
-  return isSplashscreenOpen ? (
-    <SplashscreenModal isOpen={isSplashscreenOpen} />
-  ) : (
-    <>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Container
-          width='100%'
-          maxWidth={`${
-            handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) + sidebarWidth.expanded
-          }px`}
-          centerContent
-          p={0}
-          sx={{ ...transition }}
-        >
-          <HStack width='100%' position='relative' spacing={0}>
-            {isLgUp ? <Sidebar /> : null}
-            <Box
-              width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
-              position='absolute'
-              top={0}
-              left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
-              sx={{ ...transition }}
-            >
-              <Header />
+	return isSplashscreenOpen ? (
+		<SplashscreenModal isOpen={isSplashscreenOpen} />
+	) : (
+		<>
+			<BrowserRouter basename={process.env.PUBLIC_URL}>
+				<Container
+					width='100%'
+					maxWidth={`${
+						handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) +
+						sidebarWidth.expanded
+					}px`}
+					centerContent
+					p={0}
+					sx={{ ...transition }}
+				>
+					<HStack width='100%' position='relative' spacing={0}>
+						{isLgUp ? <Sidebar /> : null}
+						<Box
+							width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
+							position='absolute'
+							top={0}
+							left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
+							sx={{ ...transition }}
+						>
+							<Header />
 
-              <VStack width='100%' spacing={4} sx={{ ...transition }}>
-                <Box
-                  width='100%'
-                  minHeight={`calc(100vh - ${
-                    headerHeight + handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
-                  }px)`}
-                  sx={{ ...transition }}
-                >
-                  <Routes />
-                </Box>
+							<VStack width='100%' spacing={4} sx={{ ...transition }}>
+								<Box
+									width='100%'
+									minHeight={`calc(100vh - ${
+										headerHeight +
+										handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
+									}px)`}
+									sx={{ ...transition }}
+								>
+									<Routes />
+								</Box>
 
-                <Footer />
-              </VStack>
+								<Footer />
+							</VStack>
 
-              <ScrollToTop />
-            </Box>
-          </HStack>
-        </Container>
+							<ScrollToTop />
+						</Box>
+					</HStack>
+				</Container>
 
-        <QuickView />
+				<QuickView />
 
-        <DisplayModal />
+				<DisplayModal />
 
-        <ListsModal />
+				<ListsModal />
 
-        <SplashscreenModal />
-      </BrowserRouter>
-    </>
-  );
+				<SplashscreenModal />
+			</BrowserRouter>
+		</>
+	);
 };
 
 export default Layout;

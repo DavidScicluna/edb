@@ -1,43 +1,43 @@
 import { Breadcrumb } from '../../types';
 
 const home: Breadcrumb = {
-  label: 'Home',
-  to: { pathname: '/' }
+	label: 'Home',
+	to: { pathname: '/' }
 };
 
 const search = {
-  label: 'Search',
-  to: { pathname: '/search' }
+	label: 'Search',
+	to: { pathname: '/search' }
 };
 
 const trending = {
-  label: 'Trending',
-  to: { pathname: '/trending' }
+	label: 'Trending',
+	to: { pathname: '/trending' }
 };
 
 const movies: Breadcrumb = {
-  label: 'Movies',
-  to: { pathname: '/movies' }
+	label: 'Movies',
+	to: { pathname: '/movies' }
 };
 
 const tv: Breadcrumb = {
-  label: 'TV Shows',
-  to: { pathname: '/tv' }
+	label: 'TV Shows',
+	to: { pathname: '/tv' }
 };
 
 const people: Breadcrumb = {
-  label: 'People',
-  to: { pathname: '/people' }
+	label: 'People',
+	to: { pathname: '/people' }
 };
 
 const liked = {
-  label: 'Liked',
-  to: { pathname: '/liked' }
+	label: 'Liked',
+	to: { pathname: '/liked' }
 };
 
 const lists = {
-  label: 'Lists',
-  to: { pathname: '/lists' }
+	label: 'Lists',
+	to: { pathname: '/lists' }
 };
 
 // '/person/:id': {

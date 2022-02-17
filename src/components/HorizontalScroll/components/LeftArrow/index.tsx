@@ -8,21 +8,22 @@ import { LeftArrowProps } from './types';
 import Arrow from '../Arrow';
 
 const LeftArrow = ({ isDisabled: isDisabledProp = false }: LeftArrowProps): ReactElement => {
-  const { isFirstItemVisible, scrollPrev, visibleItemsWithoutSeparators, initComplete } = useContext(VisibilityContext);
+	const { isFirstItemVisible, scrollPrev, visibleItemsWithoutSeparators, initComplete } =
+		useContext(VisibilityContext);
 
-  const [isDisabled, setIsDisabled] = useBoolean(!initComplete || (initComplete && isFirstItemVisible));
+	const [isDisabled, setIsDisabled] = useBoolean(!initComplete || (initComplete && isFirstItemVisible));
 
-  useEffect(() => {
-    if (visibleItemsWithoutSeparators.length) {
-      if (isFirstItemVisible) {
-        setIsDisabled.on();
-      } else {
-        setIsDisabled.off();
-      }
-    }
-  }, [isFirstItemVisible, visibleItemsWithoutSeparators]);
+	useEffect(() => {
+		if (visibleItemsWithoutSeparators.length) {
+			if (isFirstItemVisible) {
+				setIsDisabled.on();
+			} else {
+				setIsDisabled.off();
+			}
+		}
+	}, [isFirstItemVisible, visibleItemsWithoutSeparators]);
 
-  return <Arrow direction='left' isDisabled={isDisabledProp || isDisabled} onClick={() => scrollPrev()} />;
+	return <Arrow direction='left' isDisabled={isDisabledProp || isDisabled} onClick={() => scrollPrev()} />;
 };
 
 export default LeftArrow;
