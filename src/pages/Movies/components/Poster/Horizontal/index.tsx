@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import { HorizontalMoviePosterProps } from './types';
+
 import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';
-import { HorizontalMoviePosterProps } from './types';
 
 const HorizontalMoviePoster = (props: HorizontalMoviePosterProps): ReactElement => {
   const { movie, isLoading = true } = props;

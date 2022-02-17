@@ -1,11 +1,15 @@
 import { ReactElement, useEffect } from 'react';
+import { Controller, useForm, useFormState } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, Text, Collapse } from '@chakra-ui/react';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EditOutlined as EditOutlinedIcon } from '@material-ui/icons';
 import moment from 'moment';
-import { Controller, useForm, useFormState } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+
+import { EditReviewProps, Form } from './types';
+import { schema } from './validation';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
@@ -18,8 +22,6 @@ import Panel from '../../../../../../../../components/Panel';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
 import { Theme } from '../../../../../../../../theme/types';
-import { EditReviewProps, Form } from './types';
-import { schema } from './validation';
 
 const defaultValues: Form = {
   review: '',

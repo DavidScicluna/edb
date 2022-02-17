@@ -1,20 +1,23 @@
+
 import { ReactElement } from 'react';
+import useInView from 'react-cool-inview';
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import moment from 'moment';
-import useInView from 'react-cool-inview';
+
+import Date from './components/Date';
+import Image from './components/Image';
+import Name from './components/Name';
+import Overview from './components/Overview';
+import { EpisodeProps } from './types';
 
 import Badge from '../../../../../../../../../../../../components/Badge';
 import Card from '../../../../../../../../../../../../components/Clickable/Card';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import Rating from '../../../../../../../../../../../../components/Rating';
 import { FontSizes } from '../../../../../../../../../../../../theme/types';
-import Date from './components/Date';
-import Image from './components/Image';
-import Name from './components/Name';
-import Overview from './components/Overview';
-import { EpisodeProps } from './types';
 
 const Episode = (props: EpisodeProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

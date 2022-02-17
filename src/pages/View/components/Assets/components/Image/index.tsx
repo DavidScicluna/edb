@@ -1,14 +1,16 @@
 import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
+
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
+
+import { AssetImageProps } from './types';
 
 import { handleReturnBoringTypeByMediaType } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import ImageC from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
-import { AssetImageProps } from './types';
 
 const AssetImage = (props: AssetImageProps): ReactElement => {
   const { alt, aspect_ratio, file_path, srcSize, isLoading = true, onClickImage } = props;

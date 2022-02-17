@@ -2,9 +2,11 @@ import { ReactElement, useState } from 'react';
 
 import { useColorMode, useBoolean, Center, Image as CUIImage, Fade } from '@chakra-ui/react';
 
+
+import { ImageProps } from './types';
+
 import * as fallback from '../../common/assets/fallback';
 import { handleReturnBoringSrc } from '../../common/utils';
-import { ImageProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
   const { colorMode } = useColorMode();

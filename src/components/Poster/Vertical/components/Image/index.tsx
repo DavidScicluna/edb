@@ -1,8 +1,12 @@
 import { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useTheme, Box, AspectRatio, ScaleFade, Fade } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import { useDispatch } from 'react-redux';
+
+
+import { PosterImageProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { MediaType } from '../../../../../common/types';
@@ -12,7 +16,6 @@ import Skeleton from '../../../../../components/Skeleton';
 import { toggleQuickView } from '../../../../../store/slices/Modals';
 import { Theme } from '../../../../../theme/types';
 import Image from '../../../../Image';
-import { PosterImageProps } from './types';
 
 const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactElement => {
   const theme = useTheme<Theme>();

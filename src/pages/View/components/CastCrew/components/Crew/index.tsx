@@ -1,7 +1,11 @@
 import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { CrewProps } from './types';
 
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
@@ -9,7 +13,6 @@ import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
 import { handleReturnPersonJobLabel } from '../../common/utils';
-import { CrewProps } from './types';
 
 const incrementBy = 15;
 

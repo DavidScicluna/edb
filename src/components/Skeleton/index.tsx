@@ -1,12 +1,14 @@
+
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Skeleton as CUISkeleton } from '@chakra-ui/react';
 
-import { handleConvertStringToNumber } from '../../common/utils';
-import { Theme } from '../../theme/types';
 import commonProps from './common/props';
 import { handleReturnColors } from './common/utils';
 import { SkeletonProps } from './types';
+
+import { handleConvertStringToNumber } from '../../common/utils';
+import { Theme } from '../../theme/types';
 
 const Skeleton = (props: SkeletonProps): ReactElement => {
   const theme = useTheme<Theme>();

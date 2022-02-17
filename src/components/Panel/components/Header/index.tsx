@@ -2,10 +2,12 @@ import { ReactElement, useContext } from 'react';
 
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
 
+
+import { HeaderProps } from './types';
+
 import { PanelContext } from '../../.';
 import { handleReturnPadding } from '../../common/utils';
 import { Context } from '../../types';
-import { HeaderProps } from './types';
 
 const Header = ({ actions, title }: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();

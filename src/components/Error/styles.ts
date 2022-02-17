@@ -1,6 +1,7 @@
+import { ErrorProps, Variant } from './types';
+
 import { Style } from '../../common/types';
 import { Theme } from '../../theme/types';
-import { ErrorProps, Variant } from './types';
 
 type VariantStyle = { [key in Variant]: Style };
 

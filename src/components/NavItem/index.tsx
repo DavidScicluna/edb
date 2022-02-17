@@ -1,4 +1,5 @@
 import { ReactElement, useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import {
   useTheme,
@@ -12,18 +13,20 @@ import {
   ScaleFade,
   Collapse
 } from '@chakra-ui/react';
+
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
-import { useLocation } from 'react-router-dom';
+
+
+import NavItemChild from './components/NavItemChild';
+import useStyles from './styles';
+import { NavItem as NavItemType } from './types';
 
 import { useSelector } from '../../common/hooks';
 import { handleParseDurationForFramer, handleConvertStringToNumber } from '../../common/utils';
 import Link from '../../components/Clickable/Link';
 import { Theme } from '../../theme/types';
 import Tooltip from '../Tooltip';
-import NavItemChild from './components/NavItemChild';
-import useStyles from './styles';
-import { NavItem as NavItemType } from './types';
 
 const NavItem = (props: NavItemType): ReactElement => {
   const theme = useTheme<Theme>();

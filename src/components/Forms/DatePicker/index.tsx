@@ -1,6 +1,8 @@
+
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
+
 import {
   DateRangeOutlined as DateRangeOutlinedIcon,
   DateRangeTwoTone as DateRangeTwoToneIcon
@@ -9,12 +11,13 @@ import { DateObj, useDayzed } from 'dayzed';
 import _ from 'lodash';
 import moment from 'moment';
 
-import Button from '../../Clickable/Button';
-import Modal from '../../Modal';
 import Calendar from './components/Calendar';
 import Months from './components/Months';
 import Years from './components/Years';
 import { DatePickerProps } from './types';
+
+import Button from '../../Clickable/Button';
+import Modal from '../../Modal';
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();

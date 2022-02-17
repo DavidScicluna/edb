@@ -1,14 +1,17 @@
 import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { PostersProps } from './types';
 
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import Image from '../Image';
-import { PostersProps } from './types';
 
 const incrementBy = 10;
 

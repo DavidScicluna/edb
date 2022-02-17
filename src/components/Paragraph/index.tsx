@@ -1,13 +1,15 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
+
+import { ParagraphProps } from './types';
 
 import Button from '../Clickable/Button';
 import Panel from '../Panel';
 import SkeletonText from '../Skeleton/Text';
-import { ParagraphProps } from './types';
 
 const limit = 44;
 

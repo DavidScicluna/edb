@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import { VerticalMoviePosterProps } from './types';
+
 import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
 import VerticalPoster from '../../../../../components/Poster/Vertical';
-import { VerticalMoviePosterProps } from './types';
 
 const VerticalMoviePoster = (props: VerticalMoviePosterProps): ReactElement => {
   const { movie, width, isLoading = true } = props;

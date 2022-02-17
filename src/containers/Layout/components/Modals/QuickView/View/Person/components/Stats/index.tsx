@@ -1,11 +1,14 @@
+
 import { ReactElement } from 'react';
 
 import { useColorMode, StatGroup, HStack } from '@chakra-ui/react';
+
 import { useElementSize } from 'usehooks-ts';
 
-import Divider from '../../../../../../../../../components/Divider';
 import Stat from './components/Stat';
 import { StatsProps, Stat as StatType } from './types';
+
+import Divider from '../../../../../../../../../components/Divider';
 
 const Stats = (props: StatsProps): ReactElement => {
   const { colorMode } = useColorMode();

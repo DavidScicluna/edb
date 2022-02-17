@@ -1,6 +1,7 @@
+import { InputProps, Size } from './types';
+
 import { Style } from '../../../common/types';
 import { Theme } from '../../../theme/types';
-import { InputProps, Size } from './types';
 
 type SizeStyle = { [key in Size]: Style };
 

@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, HStack, VStack, AspectRatio, Text } from '@chakra-ui/react';
+
 import moment from 'moment';
+
+
+import { HeaderProps } from './types';
 
 import {
   handleConvertREMToPixels,
@@ -13,7 +17,6 @@ import Image from '../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../theme/types';
-import { HeaderProps } from './types';
 
 // TODO: Check if author is user and render header text differently
 

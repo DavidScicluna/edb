@@ -1,8 +1,12 @@
 import { ReactElement } from 'react';
+import { Controller } from 'react-hook-form';
 
 import { useTheme, useMediaQuery, ButtonGroup, Text, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import { Controller } from 'react-hook-form';
+
+
+import { CountRangeProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
@@ -10,7 +14,6 @@ import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
 import { Form } from '../../types';
 import Header from '../Header';
-import { CountRangeProps } from './types';
 
 const CountRange = ({ form }: CountRangeProps): ReactElement => {
   const theme = useTheme<Theme>();

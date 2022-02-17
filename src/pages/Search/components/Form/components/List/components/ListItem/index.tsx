@@ -1,12 +1,15 @@
+
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useConst, ListItem as CUIListItem, VStack, Text, HStack } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+import useStyles from './styles';
+import { ListItemProps } from './types';
 
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../theme/types';
-import useStyles from './styles';
-import { ListItemProps } from './types';
 
 const dummies = _.range(25, 100, 10);
 

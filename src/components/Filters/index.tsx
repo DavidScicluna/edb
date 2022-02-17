@@ -1,16 +1,15 @@
+
 import { ReactElement, useEffect } from 'react';
+import { useForm, useFormState } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
+
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import axios from 'axios';
 import _ from 'lodash';
 import qs from 'query-string';
-import { useForm, useFormState } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
 
-import { useSelector } from '../../common/hooks';
-import Modal from '../../components/Modal';
-import Button from '../Clickable/Button';
 import Adult from './components/Adult';
 import Certifications from './components/Certifications';
 import CountRange from './components/CountRange';
@@ -19,6 +18,10 @@ import Genres from './components/Genres';
 import RatingRange from './components/RatingRange';
 import RuntimeRange from './components/RuntimeRange';
 import { FiltersProps, Form } from './types';
+
+import { useSelector } from '../../common/hooks';
+import Modal from '../../components/Modal';
+import Button from '../Clickable/Button';
 
 export const defaultValues: Form = {
   date: [undefined, undefined],

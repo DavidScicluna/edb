@@ -1,8 +1,11 @@
 import React from 'react';
 
 import { useTheme, useColorMode, Box, HStack, Center } from '@chakra-ui/react';
+
 import { GridOnTwoTone as GridOnTwoToneIcon, GridOnOutlined as GridOnOutlinedIcon } from '@material-ui/icons';
 import _ from 'lodash';
+
+import { ListsTabButtonProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import {
@@ -12,7 +15,6 @@ import {
 import useStyles from '../../../../../../../../components/Tabs/components/TabList/components/Tab/styles';
 import { Size } from '../../../../../../../../components/Tabs/components/TabList/components/Tab/types';
 import { Theme } from '../../../../../../../../theme/types';
-import { ListsTabButtonProps } from './types';
 
 const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: ListsTabButtonProps) => {
   const theme = useTheme<Theme>();

@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
+import CountUp from 'react-countup';
 
 import { useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
-import CountUp from 'react-countup';
+
+import { LoadMoreProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import Button from '../Button';
-import { LoadMoreProps } from './types';
 
 const LoadMore = (props: LoadMoreProps): ReactElement => {
   const { colorMode } = useColorMode();

@@ -1,8 +1,10 @@
+
 import { ReactElement, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { useColorMode, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerBody } from '@chakra-ui/react';
+
 import { MenuOutlined as MenuOutlinedIcon, CloseOutlined as CloseOutlinedIcon } from '@material-ui/icons';
-import { useLocation } from 'react-router-dom';
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import { navItems } from '../../../../index';

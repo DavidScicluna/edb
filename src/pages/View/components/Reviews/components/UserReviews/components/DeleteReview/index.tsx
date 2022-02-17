@@ -1,8 +1,12 @@
 import { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
+
 import { DeleteOutlineOutlined as DeleteOutlineOutlinedIcon } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
+
+
+import { DeleteReviewProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
@@ -10,7 +14,6 @@ import IconButton from '../../../../../../../../components/Clickable/IconButton'
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
-import { DeleteReviewProps } from './types';
 
 const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();

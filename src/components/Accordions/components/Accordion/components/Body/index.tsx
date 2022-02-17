@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
+
 import { BodyProps } from './types';
 
 const Body = ({ children }: BodyProps): ReactElement => {

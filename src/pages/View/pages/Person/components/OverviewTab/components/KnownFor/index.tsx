@@ -1,8 +1,11 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
+
 import sort from 'array-sort';
 import _ from 'lodash';
+
+import { KnownForProps, KnownFor as KnownForType } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Credits } from '../../../../../../../../common/types/person';
@@ -12,7 +15,6 @@ import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
-import { KnownForProps, KnownFor as KnownForType } from './types';
 
 /**
  * This method will filter from known for list and will return the 8 most voted movies/tv shows

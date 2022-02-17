@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import VerticalPoster from '../../../../../components/Poster/Vertical';
 import { VerticalPersonPosterProps } from './types';
+
+import VerticalPoster from '../../../../../components/Poster/Vertical';
 
 const VerticalPersonPoster = (props: VerticalPersonPosterProps): ReactElement => {
   const { person, width, isLoading = true } = props;

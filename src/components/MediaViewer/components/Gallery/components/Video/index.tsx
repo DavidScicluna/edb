@@ -1,13 +1,16 @@
 import { ReactElement } from 'react';
+import YouTube, { Options } from 'react-youtube';
 
 import { Box } from '@chakra-ui/react';
+
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import YouTube, { Options } from 'react-youtube';
+
 import './styles.css';
+
+import { GalleryVideoProps } from './types';
 
 import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../Clickable/Image';
-import { GalleryVideoProps } from './types';
 
 const opts: Options = {
   playerVars: {

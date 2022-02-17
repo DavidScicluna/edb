@@ -2,10 +2,12 @@ import { ReactElement } from 'react';
 
 import { useTheme, VStack, Text } from '@chakra-ui/react';
 
+
+import { MediaTypeItemProps } from './types';
+
 import { useSelector } from '../../../../../../common/hooks';
 import { Theme } from '../../../../../../theme/types';
 import Card from '../../../../../Clickable/Card';
-import { MediaTypeItemProps } from './types';
 
 const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
   const theme = useTheme<Theme>();

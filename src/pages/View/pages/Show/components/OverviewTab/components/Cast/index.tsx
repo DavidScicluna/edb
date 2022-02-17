@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { CastProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Cast as CastType } from '../../../../../../../../common/types/tv';
@@ -11,7 +15,6 @@ import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
 import { handleReturnPersonRoleLabel } from '../../../../../../components/CastCrew/common/utils';
-import { CastProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

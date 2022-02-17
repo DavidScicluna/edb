@@ -1,6 +1,7 @@
+import { IconButtonProps, Variant, Size } from './types';
+
 import { Style } from '../../../common/types';
 import { Theme } from '../../../theme/types';
-import { IconButtonProps, Variant, Size } from './types';
 
 type VariantStyle = { [key in Variant]: Style };
 

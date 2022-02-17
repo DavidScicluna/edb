@@ -1,5 +1,6 @@
-import { ProductionCompany, ProductionCountry, Language, Genre } from '.';
 import { FullPerson } from './person';
+
+import { ProductionCompany, ProductionCountry, Language, Genre } from '.';
 
 export type Role = {
   credit_id?: string;

@@ -1,14 +1,11 @@
+
 import { ReactElement } from 'react';
 
 import { useConst, HStack, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import { FullTV } from '../../../../../../common/types/tv';
-import Divider from '../../../../../../components/Divider';
-import Rating from '../../../../../../components/Rating';
-import SkeletonText from '../../../../../../components/Skeleton/Text';
-import Title from '../../../../components/Title';
 import Certification from './components/Certification';
 import Date from './components/Date';
 import Genres from './components/Genres';
@@ -16,6 +13,12 @@ import Language from './components/Language';
 import Runtime from './components/Runtime';
 import Status from './components/Status';
 import { TVShowTitleProps } from './types';
+
+import { FullTV } from '../../../../../../common/types/tv';
+import Divider from '../../../../../../components/Divider';
+import Rating from '../../../../../../components/Rating';
+import SkeletonText from '../../../../../../components/Skeleton/Text';
+import Title from '../../../../components/Title';
 
 const dummies = _.range(25, 75, 10);
 

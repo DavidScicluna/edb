@@ -1,12 +1,15 @@
 import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, useOutsideClick, VStack, Fade, Collapse } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { FormProps } from './types';
 
 import Divider from '../../../../components/Divider';
 import usePanelStyles from '../../../../components/Panel/styles';
 import { Theme } from '../../../../theme/types';
-import { FormProps } from './types';
 
 const Form = ({ children }: FormProps): ReactElement => {
   const theme = useTheme<Theme>();

@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, HStack, Box } from '@chakra-ui/react';
 
+
 import { CoverProps } from './types';
 
 const Cover = ({ children }: CoverProps): ReactElement => {

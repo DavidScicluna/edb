@@ -2,6 +2,7 @@ import { ReactElement, createContext } from 'react';
 
 import { Tabs as CUITabs } from '@chakra-ui/react';
 
+
 import { TabsContext as TabsContextType, TabsProps } from './types';
 
 export const TabsContext = createContext<TabsContextType>({ activeTab: -1 });

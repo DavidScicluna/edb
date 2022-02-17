@@ -1,8 +1,10 @@
+
 import { ReactElement } from 'react';
+import { RouteProps } from 'react-router-dom';
 
 import { Box } from '@chakra-ui/react';
+
 import { motion } from 'framer-motion';
-import { RouteProps } from 'react-router-dom';
 
 const ComponentBox = motion(Box);
 

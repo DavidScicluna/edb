@@ -1,12 +1,15 @@
+
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+import Credit from './components/Credit';
+import { CreditsProps, ListItem } from './types';
 
 import { Crew } from '../../../../../../../../common/types/movie';
 import Label from '../../../../../../components/Hero/components/Label';
-import Credit from './components/Credit';
-import { CreditsProps, ListItem } from './types';
 
 const Credits = (props: CreditsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

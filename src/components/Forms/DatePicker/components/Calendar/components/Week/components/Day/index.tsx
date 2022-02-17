@@ -1,11 +1,14 @@
+
 import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Button as CUIButton } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import { Theme } from '../../../../../../../../../theme/types';
 import useStyles from './styles';
 import { DayProps } from './types';
+
+import { Theme } from '../../../../../../../../../theme/types';
 
 const Day = (props: DayProps): ReactElement => {
   const theme = useTheme<Theme>();

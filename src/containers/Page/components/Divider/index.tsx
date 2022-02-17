@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Box } from '@chakra-ui/react';
 
+
 import { Theme } from '../../../../theme/types';
 
 const Divider = (): ReactElement => {

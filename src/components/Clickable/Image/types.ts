@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { AspectRatioProps } from '@chakra-ui/react';
 
+
 import { Icon } from '../../../common/types';
 import { FontSizes, Color } from '../../../theme/types';
 

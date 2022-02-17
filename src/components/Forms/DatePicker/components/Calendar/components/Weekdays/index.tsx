@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
 
+
 import weekdays from '../../../../common/data/weekdays';
 
 const Weekdays = (): ReactElement => {

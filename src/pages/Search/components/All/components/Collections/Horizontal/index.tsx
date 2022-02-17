@@ -1,14 +1,17 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
+
 import qs from 'query-string';
+
+
+import { CollectionsProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
 import VerticalCollectionPoster from '../components/Poster/Vertical';
-import { CollectionsProps } from './types';
 
 const Collections = ({ query, collections = [], total = 0 }: CollectionsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

@@ -1,4 +1,5 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import {
   useTheme,
@@ -10,16 +11,17 @@ import {
   Text,
   Icon
 } from '@chakra-ui/react';
+
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
-import { useLocation } from 'react-router-dom';
+
+import useStyles from './styles';
 
 import Link from '../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { FontSizes, Theme } from '../../../../../../theme/types';
 import { routes } from '../../../../../Layout/components/Routes';
 import { Route } from '../../../../../Layout/components/Routes/types';
-import useStyles from './styles';
 
 const Breadcrumbs = (): ReactElement => {
   const theme = useTheme<Theme>();

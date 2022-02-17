@@ -1,12 +1,15 @@
+
 import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
+
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
+import { GalleryImageProps } from './types';
+
 import ClickableImage from '../../../../../Clickable/Image';
 import Image from '../../../../../Image';
-import { GalleryImageProps } from './types';
 
 const GalleryImage = (props: GalleryImageProps): ReactElement => {
   const { alt = '', ratio, path, boringType, srcSize, isActive = false, onClick } = props;

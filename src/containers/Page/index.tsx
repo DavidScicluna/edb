@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { VStack, Box } from '@chakra-ui/react';
-import { useLocation } from 'react-router-dom';
 
 import Divider from './components/Divider';
 import Header from './components/Header';

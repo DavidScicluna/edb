@@ -1,11 +1,14 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { SubtitleProps } from './types';
 
 import { FontSizes } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
-import { SubtitleProps } from './types';
 
 const dummies = _.range(25, 100, 10);
 const height = ['16.5px', '19.25px', '22px', '24.75px', '27.5px', '33px'];

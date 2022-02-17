@@ -2,9 +2,11 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
+
+import { VerticalGridProps } from './types';
+
 import { useSelector } from '../../../common/hooks';
 import { DisplayMode } from '../../../store/slices/App/types';
-import { VerticalGridProps } from './types';
 
 const VerticalGrid = (props: VerticalGridProps): ReactElement => {
   const [isXs] = useMediaQuery('(max-width: 320px)');

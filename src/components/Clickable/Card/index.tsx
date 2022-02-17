@@ -1,11 +1,14 @@
+
 import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Box } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { CardRef, CardProps } from './types';
+
+import { Theme } from '../../../theme/types';
 
 const Card = forwardRef<CardRef, CardProps>(function Card(props, ref): ReactElement {
   const theme = useTheme<Theme>();

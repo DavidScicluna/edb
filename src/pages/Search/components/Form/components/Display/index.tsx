@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
+import CountUp from 'react-countup';
 
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
-import CountUp from 'react-countup';
 
 import { DisplayProps } from './types';
 

@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import { HorizontalCompanyPosterProps } from './types';
+
 import { useSelector } from '../../../../../../../../../common/hooks';
 import HorizontalPoster from '../../../../../../../../../components/Poster/Horizontal';
-import { HorizontalCompanyPosterProps } from './types';
 
 const HorizontalCompanyPoster = (props: HorizontalCompanyPosterProps): ReactElement => {
   const { company, isLoading = true } = props;

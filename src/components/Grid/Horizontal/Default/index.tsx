@@ -2,14 +2,16 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import '../common/styles/styles.css';
 import { useBoolean } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+import { HorizontalGridDefaultProps } from './types';
 
 import Panel from '../../../Panel';
 import Actions from '../components/Actions';
 import Scroll from '../components/Scroll';
 import Title from '../components/Title';
 import { ScrollMenu } from '../types';
-import { HorizontalGridDefaultProps } from './types';
 
 const HorizontalGridDefault = (props: HorizontalGridDefaultProps): ReactElement => {
   const ref = useRef<ScrollMenu>({} as ScrollMenu);

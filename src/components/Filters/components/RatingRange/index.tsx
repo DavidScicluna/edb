@@ -1,8 +1,12 @@
 import { ReactElement } from 'react';
+import { Controller } from 'react-hook-form';
 
 import { useTheme, useMediaQuery, ButtonGroup, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import { Controller } from 'react-hook-form';
+
+
+import { RatingRangeProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
@@ -11,7 +15,6 @@ import Panel from '../../../Panel';
 import Rating from '../../../Rating';
 import { Form } from '../../types';
 import Header from '../Header';
-import { RatingRangeProps } from './types';
 
 const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
   const theme = useTheme<Theme>();

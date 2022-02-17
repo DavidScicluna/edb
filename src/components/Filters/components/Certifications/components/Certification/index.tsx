@@ -1,13 +1,15 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery, useConst } from '@chakra-ui/react';
+
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import _ from 'lodash';
+
+import { CertificationProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../Clickable/Button';
 import SkeletonText from '../../../../../Skeleton/Text';
-import { CertificationProps } from './types';
 
 const dummies = _.range(25, 100, 10);
 

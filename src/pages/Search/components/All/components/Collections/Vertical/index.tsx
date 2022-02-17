@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { VerticalSearchCollectionsProps } from './types';
 
 import { Collection as CollectionType } from '../../../../../../../common/types/movie';
 import LoadMore from '../../../../../../../components/Clickable/LoadMore';
@@ -10,7 +14,6 @@ import Error from '../../../../../../../components/Error';
 import VerticalGrid from '../../../../../../../components/Grid/Vertical';
 import HorizontalCollectionPoster from '../components/Poster/Horizontal';
 import VerticalCollectionPoster from '../components/Poster/Vertical';
-import { VerticalSearchCollectionsProps } from './types';
 
 const VerticalSearchCollections = (props: VerticalSearchCollectionsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

@@ -1,15 +1,18 @@
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, VStack, Center, AspectRatio, Image, Text, Fade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import useStyles from './styles';
+import { ErrorProps } from './types';
 
 import * as fallback from '../../common/assets/fallback';
 import * as error from '../../common/assets/illustrations/error';
 import { useSelector } from '../../common/hooks';
 import { handleReturnRatio } from '../../common/utils';
 import { Theme, Space, FontSizes } from '../../theme/types';
-import useStyles from './styles';
-import { ErrorProps } from './types';
 
 const Error = (props: ErrorProps): ReactElement => {
   const theme = useTheme<Theme>();

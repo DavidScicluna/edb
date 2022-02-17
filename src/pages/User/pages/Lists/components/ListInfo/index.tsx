@@ -1,18 +1,21 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
+
 import {
   EditOutlined as EditOutlinedIcon,
   DeleteOutlineOutlined as DeleteOutlineOutlinedIcon
 } from '@material-ui/icons';
 import moment from 'moment';
 
+
+import Stats from './components/Stats';
+import { ListInfoProps } from './types';
+
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import Modal from '../../../../../../components/Modal';
 import Panel from '../../../../../../components/Panel';
-import Stats from './components/Stats';
-import { ListInfoProps } from './types';
 
 const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): ReactElement => {
   const { colorMode } = useColorMode();

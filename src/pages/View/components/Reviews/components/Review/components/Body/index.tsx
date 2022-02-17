@@ -1,12 +1,14 @@
 import { ReactElement, useEffect } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
+import { BodyProps } from './types';
+
 import Button from '../../../../../../../../components/Clickable/Button';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import { BodyProps } from './types';
 
 const Body = (props: BodyProps): ReactElement => {
   const { colorMode } = useColorMode();

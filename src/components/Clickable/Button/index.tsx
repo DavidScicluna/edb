@@ -1,13 +1,16 @@
+
 import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
-import { Theme, Space } from '../../../theme/types';
 import Spinner from './components/Spinner';
 import useStyles from './styles';
 import { ButtonRef, ButtonProps } from './types';
+
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
+import { Theme, Space } from '../../../theme/types';
 
 const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): ReactElement {
   const theme = useTheme<Theme>();

@@ -1,4 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
+import CountUp from 'react-countup';
+import { useQuery } from 'react-query';
 
 import {
   useColorMode,
@@ -11,10 +13,13 @@ import {
   Text,
   Collapse
 } from '@chakra-ui/react';
+
 import axios from 'axios';
 import _ from 'lodash';
-import CountUp from 'react-countup';
-import { useQuery } from 'react-query';
+
+
+import Overview from './components/Overview';
+import { CollectionProps } from './types';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images } from '../../../../../../../common/types';
@@ -25,8 +30,6 @@ import SkeletonText from '../../../../../../../components/Skeleton/Text';
 import Title from '../../../../../../../pages/View/components/Title';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
-import Overview from './components/Overview';
-import { CollectionProps } from './types';
 
 const dummies = _.range(25, 75, 10);
 

@@ -2,11 +2,13 @@ import { ReactElement } from 'react';
 
 import { Center } from '@chakra-ui/react';
 
+
+import Asset from './components/Asset';
+import { GalleryProps } from './types';
+
 import { useSelector } from '../../../../common/hooks';
 import Accordions from '../../../Accordions';
 import Modal from '../../../Modal';
-import Asset from './components/Asset';
-import { GalleryProps } from './types';
 
 const Gallery = (props: GalleryProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);

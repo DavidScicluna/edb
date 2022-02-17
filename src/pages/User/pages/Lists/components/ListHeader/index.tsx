@@ -1,17 +1,19 @@
 import { ReactElement } from 'react';
+import CountUp from 'react-countup';
 
 import { HStack, Fade } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import moment from 'moment';
-import CountUp from 'react-countup';
 import { useElementSize } from 'usehooks-ts';
+
+import ListsTabButton from './components/ListsTabButton';
+import { ListHeaderProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Badge from '../../../../../../components/Badge';
 import Divider from '../../../../../../components/Divider';
 import TabList from '../../../../../../components/Tabs/components/TabList';
-import ListsTabButton from './components/ListsTabButton';
-import { ListHeaderProps } from './types';
 
 const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactElement => {
   const [ref, { height }] = useElementSize();

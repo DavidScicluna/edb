@@ -1,9 +1,13 @@
 import { ReactElement } from 'react';
+import { Controller } from 'react-hook-form';
 
 import { useMediaQuery, Wrap, WrapItem, HStack } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import { Controller } from 'react-hook-form';
 import { useElementSize } from 'usehooks-ts';
+
+import Genre from './components/Genre';
+import { GenresProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { Genre as GenreType } from '../../../../common/types';
@@ -11,8 +15,6 @@ import Button from '../../../../components/Clickable/Button';
 import Divider from '../../../../components/Divider';
 import Empty from '../../../../components/Empty';
 import Panel from '../../../Panel';
-import Genre from './components/Genre';
-import { GenresProps } from './types';
 
 const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

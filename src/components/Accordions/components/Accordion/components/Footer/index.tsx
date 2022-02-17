@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 
+
 import { FooterProps } from './types';
 
 const Footer = ({ footer }: FooterProps): ReactElement => {

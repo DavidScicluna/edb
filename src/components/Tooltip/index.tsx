@@ -2,9 +2,11 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Tooltip as CUITooltip } from '@chakra-ui/react';
 
+
+import { TooltipRef, TooltipProps } from './types';
+
 import { handleIsTouchDevice, handleConvertStringToNumber } from '../../common/utils';
 import { Theme } from '../../theme/types';
-import { TooltipRef, TooltipProps } from './types';
 
 const Tooltip = forwardRef<TooltipRef, TooltipProps>(function Tooltip(props, ref): ReactElement {
   const theme = useTheme<Theme>();

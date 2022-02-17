@@ -1,12 +1,15 @@
+
 import { ReactElement } from 'react';
 
 import { VStack, Collapse } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import Media from '../../../../components/Media';
 import Bio from './components/Bio';
 import KnownFor from './components/KnownFor';
 import { OverviewTabProps } from './types';
+
+import Media from '../../../../components/Media';
 
 const OverviewTab = (props: OverviewTabProps): ReactElement => {
   const { person, credits, images, isLoading, isError, isSuccess, onClickImage, onChangeTab } = props;

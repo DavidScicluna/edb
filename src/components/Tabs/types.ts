@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { TabsProps as CUITabsProps } from '@chakra-ui/react';
 
+
 export type TabsContext = {
   activeTab?: number;
 };

@@ -1,9 +1,12 @@
 import { ReactElement, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 import { VStack } from '@chakra-ui/react';
+
 import axios from 'axios';
 import qs from 'query-string';
-import { useQuery } from 'react-query';
+
+import HomeHorizontalGrid from './components/HorizontalGrid';
 
 import axiosInstance from '../../common/scripts/axios';
 import { Response } from '../../common/types';
@@ -11,7 +14,6 @@ import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
 import Page from '../../containers/Page';
-import HomeHorizontalGrid from './components/HorizontalGrid';
 
 const Home = (): ReactElement => {
   const source = axios.CancelToken.source();

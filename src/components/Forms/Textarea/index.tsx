@@ -1,3 +1,4 @@
+
 import { ReactElement } from 'react';
 
 import {
@@ -10,11 +11,13 @@ import {
   FormHelperText,
   Collapse
 } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { TextareaProps } from './types';
+
+import { Theme } from '../../../theme/types';
 
 const Textarea = (props: TextareaProps): ReactElement => {
   const theme = useTheme<Theme>();

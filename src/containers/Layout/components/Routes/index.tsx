@@ -1,7 +1,10 @@
 import { ReactElement, useEffect } from 'react';
+import { useLocation, Switch, Route } from 'react-router-dom';
 
 import { AnimatePresence } from 'framer-motion';
-import { useLocation, Switch, Route } from 'react-router-dom';
+
+import Page from './components/Page';
+import { Route as RouteType } from './types';
 
 import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
@@ -19,8 +22,6 @@ import Episode from '../../../../pages/View/pages/Episode';
 import Movie from '../../../../pages/View/pages/Movie';
 import Person from '../../../../pages/View/pages/Person';
 import Show from '../../../../pages/View/pages/Show';
-import Page from './components/Page';
-import { Route as RouteType } from './types';
 
 export const routes: RouteType[] = [
   {

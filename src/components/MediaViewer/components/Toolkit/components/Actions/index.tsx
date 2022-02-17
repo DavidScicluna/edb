@@ -1,6 +1,8 @@
+
 import { ReactElement, MouseEvent } from 'react';
 
 import { useMediaQuery, useBoolean, Stack } from '@chakra-ui/react';
+
 import {
   CloseOutlined as CloseOutlinedIcon,
   DashboardOutlined as DashboardOutlinedIcon,
@@ -9,8 +11,9 @@ import {
 } from '@material-ui/icons';
 import _ from 'lodash';
 
-import IconButton from '../../../../../Clickable/IconButton';
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
+
+import IconButton from '../../../../../Clickable/IconButton';
 
 const Actions = (props: ActionsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

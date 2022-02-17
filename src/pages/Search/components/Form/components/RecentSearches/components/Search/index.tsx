@@ -1,15 +1,17 @@
 import { ReactElement } from 'react';
 
 import { useBoolean, ScaleFade } from '@chakra-ui/react';
+
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import moment from 'moment';
+
+import { SearchProps } from './types';
 
 import Badge from '../../../../../../../../components/Badge';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import ListItem from '../../../List/components/ListItem';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
-import { SearchProps } from './types';
 
 const Search = (props: SearchProps): ReactElement => {
   const [isHoveringList, setIsHoveringList] = useBoolean();

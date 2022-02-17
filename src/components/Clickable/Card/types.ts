@@ -2,6 +2,7 @@ import { ReactElement, ReactNode } from 'react';
 
 import { ColorMode, BoxProps } from '@chakra-ui/react';
 
+
 import { Color } from '../../../theme/types';
 
 export type CardRef = HTMLDivElement | null;

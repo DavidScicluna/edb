@@ -1,6 +1,10 @@
+
 import { ReactElement, useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import { useTheme, useColorMode, useMediaQuery, useBoolean, Container, HStack, VStack, Box } from '@chakra-ui/react';
+
 import {
   HomeTwoTone as HomeTwoToneIcon,
   HomeOutlined as HomeOutlinedIcon,
@@ -16,16 +20,8 @@ import {
   WhatshotTwoTone as WhatshotTwoToneIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
-import { useDispatch } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import { useTimeout } from 'usehooks-ts';
 
-import { useSelector, usePopulateOptions } from '../../common/hooks';
-import { handleCheckSystemColorMode, handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
-import { NavItem } from '../../components/NavItem/types';
-import { toggleSidebarMode } from '../../store/slices/App';
-import { toggleSplashscreen } from '../../store/slices/Modals';
-import { Theme } from '../../theme/types';
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
 import Footer from './components/Footer';
@@ -37,6 +33,13 @@ import SplashscreenModal from './components/Modals/Splashscreen';
 import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
+
+import { useSelector, usePopulateOptions } from '../../common/hooks';
+import { handleCheckSystemColorMode, handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
+import { NavItem } from '../../components/NavItem/types';
+import { toggleSidebarMode } from '../../store/slices/App';
+import { toggleSplashscreen } from '../../store/slices/Modals';
+import { Theme } from '../../theme/types';
 
 export const navItems: NavItem[] = [
   {

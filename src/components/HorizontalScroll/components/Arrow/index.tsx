@@ -1,6 +1,8 @@
+
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Center, ScaleFade } from '@chakra-ui/react';
+
 import {
   ChevronLeftOutlined as ChevronLeftOutlinedIcon,
   ChevronRightOutlined as ChevronRightOutlinedIcon
@@ -8,10 +10,11 @@ import {
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import { Theme } from '../../../../theme/types';
-import IconButton from '../../../Clickable/IconButton';
 import useStyles from './styles';
 import { ArrowProps } from './types';
+
+import { Theme } from '../../../../theme/types';
+import IconButton from '../../../Clickable/IconButton';
 
 const Arrow = (props: ArrowProps): ReactElement => {
   const theme = useTheme<Theme>();

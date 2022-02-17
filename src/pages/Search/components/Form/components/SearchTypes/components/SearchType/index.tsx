@@ -2,8 +2,10 @@ import { ReactElement } from 'react';
 
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 
-import Button from '../../../../../../../../components/Clickable/Button';
+
 import { SearchTypeProps } from './types';
+
+import Button from '../../../../../../../../components/Clickable/Button';
 
 const SearchType = (props: SearchTypeProps): ReactElement => {
   const { value, label, color, isActive = false, renderLeftIcon, onClick } = props;

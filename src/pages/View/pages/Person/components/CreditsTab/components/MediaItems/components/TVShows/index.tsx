@@ -2,13 +2,15 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
+
+import { TVShowsProps } from './types';
+
 import { handleReturnDate } from '../../../../../../../../../../common/utils';
 import LoadMore from '../../../../../../../../../../components/Clickable/LoadMore';
 import VerticalGrid from '../../../../../../../../../../components/Grid/Vertical';
 import HorizontalPoster from '../../../../../../../../../../components/Poster/Horizontal';
 import VerticalPoster from '../../../../../../../../../../components/Poster/Vertical';
 import { Show } from '../../types';
-import { TVShowsProps } from './types';
 
 const incrementBy = 20;
 

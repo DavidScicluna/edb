@@ -1,10 +1,15 @@
 import { ReactElement, useState, useEffect } from 'react';
-
-import { useDisclosure, Fade } from '@chakra-ui/react';
-import axios from 'axios';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
 import { useLocation, useParams } from 'react-router-dom';
+
+import { useDisclosure, Fade } from '@chakra-ui/react';
+
+import axios from 'axios';
+
+import Actions from './components/Actions';
+import OverviewTab from './components/OverviewTab';
+import Title from './components/Title';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
@@ -20,9 +25,6 @@ import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
 import Structure from '../../components/Structure';
-import Actions from './components/Actions';
-import OverviewTab from './components/OverviewTab';
-import Title from './components/Title';
 
 const Episode = (): ReactElement => {
   const source = axios.CancelToken.source();

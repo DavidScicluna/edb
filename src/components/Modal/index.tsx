@@ -15,15 +15,17 @@ import {
   HStack,
   Text
 } from '@chakra-ui/react';
+
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import { useTimeout } from 'usehooks-ts';
+
+import { ModalProps } from './types';
 
 import { useSelector } from '../../common/hooks';
 import { handleConvertStringToNumber } from '../../common/utils';
 import { Theme } from '../../theme/types';
 import Button from '../Clickable/Button';
 import IconButton from '../Clickable/IconButton';
-import { ModalProps } from './types';
 
 const Modal = (props: ModalProps): ReactElement | null => {
   const theme = useTheme<Theme>();

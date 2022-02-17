@@ -1,9 +1,12 @@
 import { ReactElement, useEffect, useState } from 'react';
+import { useInfiniteQuery } from 'react-query';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import axios from 'axios';
 import _ from 'lodash';
-import { useInfiniteQuery } from 'react-query';
+
+import VerticalPeople from './components/Orientation/Vertical';
 
 import axiosInstance from '../../common/scripts/axios';
 import { Response } from '../../common/types';
@@ -11,7 +14,6 @@ import { PartialPerson } from '../../common/types/person';
 import DisplayMode from '../../components/Clickable/DisplayMode';
 import LoadMore from '../../components/Clickable/LoadMore';
 import Page from '../../containers/Page';
-import VerticalPeople from './components/Orientation/Vertical';
 
 const People = (): ReactElement => {
   const source = axios.CancelToken.source();

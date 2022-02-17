@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, StatGroup, Stat, StatLabel, StatNumber, HStack, VStack, Box } from '@chakra-ui/react';
 
+
 import { StatsProps, Stat as StatType } from './types';
 
 const Stats = (props: StatsProps): ReactElement => {

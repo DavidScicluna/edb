@@ -1,14 +1,16 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Center, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
+
+import Accordion from './components/Accordion';
+import { QuickTogglesProps } from './types';
 
 import Button from '../../../Clickable/Button';
 import Divider from '../../../Divider';
 import HorizontalScroll from '../../../HorizontalScroll';
-import Accordion from './components/Accordion';
-import { QuickTogglesProps } from './types';
 
 const QuickToggles = (props: QuickTogglesProps): ReactElement => {
   const { colorMode } = useColorMode();

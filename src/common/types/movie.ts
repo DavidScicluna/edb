@@ -1,5 +1,6 @@
-import { ProductionCompany, ProductionCountry, Genre, Language } from '.';
 import { FullPerson } from './person';
+
+import { ProductionCompany, ProductionCountry, Genre, Language } from '.';
 
 export type Cast = {
   cast_id?: number;

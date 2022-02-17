@@ -1,14 +1,16 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, Center, HStack, VStack } from '@chakra-ui/react';
+
 import { useElementSize } from 'usehooks-ts';
+
+import Code from './components/Code';
+import Description from './components/Description';
+import { ErrorProps } from './types';
 
 import { useSelector } from '../../common/hooks';
 import Divider from '../../components/Divider';
 import { headerHeight } from '../../containers/Layout/common/data/dimensions';
-import Code from './components/Code';
-import Description from './components/Description';
-import { ErrorProps } from './types';
 
 const Error = (props: ErrorProps): ReactElement => {
   const { colorMode } = useColorMode();

@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import Badge from '../../../../../../../../components/Badge';
 import { CertificationProps } from './types';
+
+import Badge from '../../../../../../../../components/Badge';
 
 const Certification = (props: CertificationProps): ReactElement => {
   const { certification, fontSize, isLoading = true } = props;

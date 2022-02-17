@@ -3,9 +3,11 @@ import { ReactElement } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
 
+
+import { BioProps } from './types';
+
 import { FullPerson } from '../../../../../../../../common/types/person';
 import Paragraph from '../../../../../../../../components/Paragraph';
-import { BioProps } from './types';
 
 export const handleReturnDates = (
   birthday: FullPerson['birthday'],

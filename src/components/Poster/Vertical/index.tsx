@@ -1,7 +1,12 @@
 import { ReactElement } from 'react';
+import useInView from 'react-cool-inview';
 
 import { useBoolean, VStack, Center, HStack } from '@chakra-ui/react';
-import useInView from 'react-cool-inview';
+
+import Image from './components/Image';
+import Subtitle from './components/Subtitle';
+import Title from './components/Title';
+import { VerticalPosterProps } from './types';
 
 import { MediaType } from '../../../common/types';
 import { handleReturnMediaTypeLabel } from '../../../common/utils';
@@ -10,10 +15,6 @@ import Link from '../../../components/Clickable/Link';
 import Rating from '../../Rating';
 import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
-import Image from './components/Image';
-import Subtitle from './components/Subtitle';
-import Title from './components/Title';
-import { VerticalPosterProps } from './types';
 
 const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): ReactElement => {
   const { observe: ref, inView } = useInView<HTMLDivElement>({

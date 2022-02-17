@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useTheme, HStack, Fade } from '@chakra-ui/react';
+
 import {
   PeopleAltOutlined as PeopleAltOutlinedIcon,
   PeopleAltTwoTone as PeopleAltTwoToneIcon,
@@ -12,12 +13,13 @@ import {
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
+import { HeaderProps } from './types';
+
 import { useSelector } from '../../../../common/hooks';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
 import TabList from '../../../../components/Tabs/components/TabList';
 import { Theme } from '../../../../theme/types';
-import { HeaderProps } from './types';
 
 const Header = ({ activeTab }: HeaderProps): ReactElement => {
   const theme = useTheme<Theme>();

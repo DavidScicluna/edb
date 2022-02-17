@@ -1,10 +1,12 @@
+
 import { ReactElement } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
 
-import HorizontalScroll from '../../../../../../../../../../components/HorizontalScroll';
 import Genre from './components/Genre';
 import { GenresProps } from './types';
+
+import HorizontalScroll from '../../../../../../../../../../components/HorizontalScroll';
 
 const Genres = ({ genres = [], isLoading = true }: GenresProps): ReactElement => {
   const { colorMode } = useColorMode();

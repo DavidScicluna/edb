@@ -1,10 +1,13 @@
+
 import { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
+
 import { RenderProps, DateObj } from 'dayzed';
 
-import { Color } from '../../../../../../../theme/types';
 import Day from './components/Day';
+
+import { Color } from '../../../../../../../theme/types';
 
 export type WeekProps = {
   color: keyof Color;

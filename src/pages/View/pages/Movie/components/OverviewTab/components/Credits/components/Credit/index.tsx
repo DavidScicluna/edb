@@ -1,11 +1,14 @@
+
 import { ReactElement } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import HorizontalScroll from '../../../../../../../../../../components/HorizontalScroll';
 import Person from './components/Person';
 import { PeopleProps } from './types';
+
+import HorizontalScroll from '../../../../../../../../../../components/HorizontalScroll';
 
 const Credit = ({ people = [], isLoading = true }: PeopleProps): ReactElement => {
   const { colorMode } = useColorMode();

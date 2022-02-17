@@ -2,11 +2,13 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, Box } from '@chakra-ui/react';
 
+
+import { NavItemsProps } from './types';
+
 import { useSelector } from '../../../../common/hooks';
 import Link from '../../../../components/Clickable/Link';
 import NavItem from '../../../../components/NavItem';
 import Logo from '../Logo';
-import { NavItemsProps } from './types';
 
 const NavItems = ({ navItems, sidebarMode: sidebarModeProp }: NavItemsProps): ReactElement => {
   const { colorMode } = useColorMode();

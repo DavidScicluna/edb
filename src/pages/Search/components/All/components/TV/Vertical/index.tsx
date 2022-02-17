@@ -2,9 +2,11 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
+
+import { VerticalSearchTVProps } from './types';
+
 import LoadMore from '../../../../../../../components/Clickable/LoadMore';
 import VerticalTV from '../../../../../../TV/components/Orientation/Vertical';
-import { VerticalSearchTVProps } from './types';
 
 const VerticalSearchTV = ({ query, shows, showsQuery }: VerticalSearchTVProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

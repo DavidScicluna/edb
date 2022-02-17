@@ -1,16 +1,19 @@
-import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
-import _ from 'lodash';
+import { ReactElement } from 'react';
 import useInView from 'react-cool-inview';
 
-import { Theme } from '../../../../theme/types';
-import Divider from '../../../Divider';
+import { useTheme, useColorMode, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
+
+import _ from 'lodash';
+
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import useStyles from './styles';
 import { AccordionProps } from './types';
+
+import { Theme } from '../../../../theme/types';
+import Divider from '../../../Divider';
 
 const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
   const theme = useTheme<Theme>();

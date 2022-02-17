@@ -1,15 +1,18 @@
+
 import { ReactElement, useState, useEffect } from 'react';
 
 import { VStack } from '@chakra-ui/react';
+
 import sort from 'array-sort';
 
-import Divider from '../../../../../../../../components/Divider';
-import Tabs from '../../../../../../../../components/Tabs';
-import TabPanels from '../../../../../../../../components/Tabs/components/TabPanels';
 import Header from './components/Header';
 import Movies from './components/Movies';
 import TVShows from './components/TVShows';
 import { MediaItemsProps } from './types';
+
+import Divider from '../../../../../../../../components/Divider';
+import Tabs from '../../../../../../../../components/Tabs';
+import TabPanels from '../../../../../../../../components/Tabs/components/TabPanels';
 
 const MediaItems = (props: MediaItemsProps): ReactElement => {
   const { movies = [], shows = [], label, job } = props;

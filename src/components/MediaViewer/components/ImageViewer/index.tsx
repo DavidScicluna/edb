@@ -2,9 +2,11 @@ import { ReactElement } from 'react';
 
 import { AspectRatio } from '@chakra-ui/react';
 
+
+import { ImageViewerProps } from './types';
+
 import { handleReturnImageOrientation } from '../../../../common/utils';
 import Image from '../../../Image';
-import { ImageViewerProps } from './types';
 
 const ImageViewer = (props: ImageViewerProps): ReactElement => {
   const { alt = '', width, height, aspect_ratio, file_path, boringType, srcSize } = props;

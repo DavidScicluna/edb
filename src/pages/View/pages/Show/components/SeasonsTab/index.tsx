@@ -1,15 +1,18 @@
 import { ReactElement } from 'react';
 
 import { Fade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import Season from './components/Season';
+import { SeasonsTabProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { handleReturnDate } from '../../../../../../common/utils';
 import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
-import Season from './components/Season';
-import { SeasonsTabProps } from './types';
 
 const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);

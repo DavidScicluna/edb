@@ -2,10 +2,12 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, HStack } from '@chakra-ui/react';
 
-import { Theme } from '../../../../theme/types';
-import useTransitionsStyle from '../../common/styles/transitions';
+
 import Menu from './components/Menu';
 import User from './components/User';
+
+import { Theme } from '../../../../theme/types';
+import useTransitionsStyle from '../../common/styles/transitions';
 
 const Header = (): ReactElement => {
   const theme = useTheme<Theme>();

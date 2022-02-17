@@ -1,13 +1,15 @@
 import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
+
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
+
+import { MediaImageProps } from './types';
 
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
-import { MediaImageProps } from './types';
 
 const posterWidth = ['185px', '205px', '230px'];
 const backdropLogoWidth = ['330px', '355px', '380'];

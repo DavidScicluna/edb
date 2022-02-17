@@ -1,15 +1,18 @@
+
 import { ReactElement, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 import { VStack, Collapse } from '@chakra-ui/react';
+
 import axios from 'axios';
 import _ from 'lodash';
-import { useQuery } from 'react-query';
+
+import Episodes from './components/Episodes';
+import { SeasonProps } from './types';
 
 import axiosInstance from '../../../../../../../../common/scripts/axios';
 import { FullSeason } from '../../../../../../../../common/types/tv';
 import Paragraph from '../../../../../../../../components/Paragraph';
-import Episodes from './components/Episodes';
-import { SeasonProps } from './types';
 
 const Season = (props: SeasonProps): ReactElement => {
   const source = axios.CancelToken.source();

@@ -1,13 +1,16 @@
+
 import { ReactElement } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import Label from '../../../../../../components/Hero/components/Label';
 import Genres from './components/Genres';
 import Language from './components/Language';
 import Languages from './components/Languages';
 import { DetailsProps, ListItem } from './types';
+
+import Label from '../../../../../../components/Hero/components/Label';
 
 const Details = ({ show, isLoading = true }: DetailsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

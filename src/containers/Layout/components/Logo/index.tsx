@@ -1,12 +1,15 @@
+
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Center } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+import useStyles from './styles';
+import { Size } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
-import useStyles from './styles';
-import { Size } from './types';
 
 const Logo = ({ size = 'md' }: { size?: Size }): ReactElement => {
   const theme = useTheme<Theme>();

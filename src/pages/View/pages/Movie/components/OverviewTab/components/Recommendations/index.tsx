@@ -2,12 +2,14 @@ import { ReactElement } from 'react';
 
 import _ from 'lodash';
 
+
+import { RecommendationsProps } from './types';
+
 import { PartialMovie } from '../../../../../../../../common/types/movie';
 import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalMoviePoster from '../../../../../../../Movies/components/Poster/Vertical';
-import { RecommendationsProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

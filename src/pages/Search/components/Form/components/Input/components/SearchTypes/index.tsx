@@ -1,12 +1,15 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
+
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
+
+
+import { SearchTypesProps } from './types';
 
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
-import { SearchTypesProps } from './types';
 
 const SearchTypes = ({ searchTypes, onClear }: SearchTypesProps): ReactElement => {
   const { colorMode } = useColorMode();

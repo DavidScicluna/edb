@@ -1,11 +1,11 @@
+
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, useColorMode, useDisclosure, useBoolean, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import { Swiper } from 'swiper';
 
-import { handleConvertStringToNumber } from '../../common/utils';
-import { Theme } from '../../theme/types';
 import Backdrop from './components/Backdrop';
 import Gallery from './components/Gallery';
 import ImageViewer from './components/ImageViewer';
@@ -15,6 +15,9 @@ import Navigation from './components/Toolkit/components/Navigation';
 import VideoViewer from './components/VideoViewer';
 import Viewer from './components/Viewer';
 import { MediaViewerProps, Asset, MediaItem, NavigationDirection } from './types';
+
+import { handleConvertStringToNumber } from '../../common/utils';
+import { Theme } from '../../theme/types';
 
 const handleFlattenAssets = (assets: Asset[]): MediaItem[] => {
   let mediaItems: MediaItem[] = [];

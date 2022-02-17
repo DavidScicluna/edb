@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
+import CountUp from 'react-countup';
 
 import { useTheme, HStack, Fade } from '@chakra-ui/react';
+
 import {
   LibraryBooksOutlined as LibraryBooksOutlinedIcon,
   LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
@@ -14,8 +16,9 @@ import {
   BusinessTwoTone as BusinessTwoToneIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
-import CountUp from 'react-countup';
 import { useElementSize } from 'usehooks-ts';
+
+import { MediaTypesHeaderProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Badge from '../../../../components/Badge';
@@ -23,7 +26,6 @@ import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
 import TabList from '../../../../components/Tabs/components/TabList';
 import { Theme } from '../../../../theme/types';
-import { MediaTypesHeaderProps } from './types';
 
 const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person', 'company', 'collection'];
 

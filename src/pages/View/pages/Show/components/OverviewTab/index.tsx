@@ -1,12 +1,10 @@
+
 import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import Hero from '../../../../components/Hero';
-import Backdrop from '../../../../components/Hero/components/Cover/components/Backdrop';
-import Poster from '../../../../components/Hero/components/Cover/components/Poster';
-import Media from '../../../../components/Media';
 import Cast from './components/Cast';
 import Credits from './components/Credits';
 import Details from './components/Details';
@@ -15,6 +13,11 @@ import Recommendations from './components/Recommendations';
 import Reviews from './components/Reviews';
 import Similar from './components/Similar';
 import { OverviewTabProps } from './types';
+
+import Hero from '../../../../components/Hero';
+import Backdrop from '../../../../components/Hero/components/Cover/components/Backdrop';
+import Poster from '../../../../components/Hero/components/Cover/components/Poster';
+import Media from '../../../../components/Media';
 
 const OverviewTab = (props: OverviewTabProps): ReactElement => {
   const {

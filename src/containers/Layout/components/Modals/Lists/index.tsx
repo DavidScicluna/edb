@@ -1,8 +1,12 @@
 import { ReactElement, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
+
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+
+
+import List from './components/List';
 
 import { useSelector } from '../../../../../common/hooks';
 import Button from '../../../../../components/Clickable/Button';
@@ -12,7 +16,6 @@ import { defaultListsModal, toggleList } from '../../../../../store/slices/Modal
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
 import { setLists } from '../../../../../store/slices/User';
 import { List as ListType } from '../../../../../store/slices/User/types';
-import List from './components/List';
 
 const ListsModal = (): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

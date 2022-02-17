@@ -1,15 +1,18 @@
 import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import Date from './components/Date';
+import Show from './components/Show';
+import { EpisodeTitleProps } from './types';
 
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 import { handleReturnCertification } from '../../../Show/components/Title';
 import Certification from '../../../Show/components/Title/components/Certification';
-import Date from './components/Date';
-import Show from './components/Show';
-import { EpisodeTitleProps } from './types';
 
 const dummies = _.range(25, 75, 10);
 

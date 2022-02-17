@@ -1,9 +1,15 @@
 import { ReactElement, useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
+
 import axios from 'axios';
 import _ from 'lodash';
-import { useQuery } from 'react-query';
+
+
+import Bio from './components/Bio';
+import Stats from './components/Stats';
+import { PersonProps } from './types';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images } from '../../../../../../../common/types';
@@ -14,9 +20,6 @@ import { handleGetDepartments } from '../../../../../../../pages/View/pages/Pers
 import Title from '../../../../../../../pages/View/pages/Person/components/Title';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
-import Bio from './components/Bio';
-import Stats from './components/Stats';
-import { PersonProps } from './types';
 
 const Person = ({ id }: PersonProps): ReactElement => {
   const source = axios.CancelToken.source();

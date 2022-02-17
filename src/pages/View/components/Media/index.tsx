@@ -1,8 +1,15 @@
 import { ReactElement, useState, Fragment } from 'react';
+import CountUp from 'react-countup';
 
 import { Collapse, Fade } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import CountUp from 'react-countup';
+
+
+import Footer from './components/Footer';
+import Image from './components/Image';
+import Video from './components/Video';
+import { MediaProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
@@ -10,10 +17,6 @@ import Badge from '../../../../components/Badge';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalTabbedGrid from '../../../../components/Grid/Horizontal/Tabbed';
-import Footer from './components/Footer';
-import Image from './components/Image';
-import Video from './components/Video';
-import { MediaProps } from './types';
 
 const Media = (props: MediaProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);

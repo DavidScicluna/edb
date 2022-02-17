@@ -1,16 +1,19 @@
+
 import { ReactElement } from 'react';
 
 import { useConst, Fade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+import { handleReturnCrew } from './common/utils';
+import Cast from './components/Cast';
+import Crew from './components/Crew';
+import { Department, CastCrewProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Accordions from '../../../../components/Accordions';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
-import { handleReturnCrew } from './common/utils';
-import Cast from './components/Cast';
-import Crew from './components/Crew';
-import { Department, CastCrewProps } from './types';
 
 const CastCrew = (props: CastCrewProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);

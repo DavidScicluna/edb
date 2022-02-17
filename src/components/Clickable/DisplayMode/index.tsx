@@ -1,20 +1,23 @@
 import { ReactElement, forwardRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useTheme, useBoolean, ButtonGroup } from '@chakra-ui/react';
+
 import {
   ViewAgendaTwoTone as ViewAgendaTwoToneIcon,
   ViewAgendaOutlined as ViewAgendaOutlinedIcon,
   GridOnTwoTone as GridOnTwoToneIcon,
   GridOnOutlined as GridOnOutlinedIcon
 } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
+
+
+import { DisplayModeRef, DisplayModeProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import { toggleDisplayMode } from '../../../store/slices/App';
 import { Theme } from '../../../theme/types';
 import Tooltip from '../../Tooltip';
 import IconButton from '../IconButton';
-import { DisplayModeRef, DisplayModeProps } from './types';
 
 const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function DisplayMode(props, ref): ReactElement {
   const theme = useTheme<Theme>();

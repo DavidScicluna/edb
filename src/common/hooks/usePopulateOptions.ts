@@ -1,9 +1,10 @@
+
 import { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
 
 import axios from 'axios';
 import _ from 'lodash';
-import { useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
 
 import {
   setCountries,

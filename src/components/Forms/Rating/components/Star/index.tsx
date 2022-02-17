@@ -1,10 +1,13 @@
+
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, Center, Icon } from '@chakra-ui/react';
+
 import { StarOutlineOutlined as StarOutlineOutlinedIcon, StarOutlined as StarOutlinedIcon } from '@material-ui/icons';
 
-import { Theme } from '../../../../../theme/types';
 import { StarProps } from './types';
+
+import { Theme } from '../../../../../theme/types';
 
 const Star = ({ value, hoveringNumber, isChecked, onChange, onHover }: StarProps): ReactElement => {
   const theme = useTheme<Theme>();

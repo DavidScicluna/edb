@@ -1,16 +1,18 @@
 import { ReactElement } from 'react';
+import { Controller } from 'react-hook-form';
 
 import { useMediaQuery, Stack, Text, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import moment from 'moment';
-import { Controller } from 'react-hook-form';
+
+import { DatesProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../Clickable/Button';
 import DatePicker from '../../../Forms/DatePicker';
 import Panel from '../../../Panel';
 import Header from '../Header';
-import { DatesProps } from './types';
 
 const minDate = new Date(1900, 1);
 const maxDate = new Date(2100, 1);

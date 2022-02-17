@@ -1,12 +1,15 @@
+
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Tab as CUITab, HStack, Center } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+import useStyles from './styles';
+import { Size, TabsProps, RenderProps } from './types';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../common/utils';
 import { Space, Theme } from '../../../../../../theme/types';
-import useStyles from './styles';
-import { Size, TabsProps, RenderProps } from './types';
 
 /**
  * This method will return the appropriate spacing depending on the size passed

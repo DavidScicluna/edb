@@ -1,6 +1,8 @@
+
 import { ReactElement, useState } from 'react';
 
 import { HStack } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
 import Star from './components/Star';

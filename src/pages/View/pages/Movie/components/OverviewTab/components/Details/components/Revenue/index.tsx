@@ -1,11 +1,14 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useConst, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { RevenueProps } from './types';
 
 import { handleFormatMoney } from '../../../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
-import { RevenueProps } from './types';
 
 const dummies = _.range(25, 100, 20);
 

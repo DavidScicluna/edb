@@ -2,8 +2,10 @@ import { ReactElement } from 'react';
 
 import sort from 'array-sort';
 
-import HorizontalPoster from '../../../../../components/Poster/Horizontal';
+
 import { HorizontalPersonPosterProps } from './types';
+
+import HorizontalPoster from '../../../../../components/Poster/Horizontal';
 
 const HorizontalPersonPoster = (props: HorizontalPersonPosterProps): ReactElement => {
   const { person, isLoading = true } = props;

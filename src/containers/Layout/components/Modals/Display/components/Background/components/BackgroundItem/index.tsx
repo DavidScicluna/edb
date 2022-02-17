@@ -2,9 +2,11 @@ import { ReactElement } from 'react';
 
 import { useTheme, Text, HStack } from '@chakra-ui/react';
 
+
+import { BackgroundItemProps } from './types';
+
 import Card from '../../../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../../../theme/types';
-import { BackgroundItemProps } from './types';
 
 const BackgroundItem = (props: BackgroundItemProps): ReactElement => {
   const theme = useTheme<Theme>();

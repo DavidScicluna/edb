@@ -1,15 +1,17 @@
 import { ReactElement } from 'react';
+import CountUp from 'react-countup';
 
 import { HStack } from '@chakra-ui/react';
-import CountUp from 'react-countup';
+
 import { useElementSize } from 'usehooks-ts';
+
+import { HeaderProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';
 import Badge from '../../../../../../../../../../components/Badge';
 import DisplayMode from '../../../../../../../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../../../../../../../components/Divider';
 import TabList from '../../../../../../../../../../components/Tabs/components/TabList';
-import { HeaderProps } from './types';
 
 const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);

@@ -1,11 +1,14 @@
 import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { RuntimeProps } from './types';
 
 import { handleReturnRuntime } from '../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import { RuntimeProps } from './types';
 
 const dummies = _.range(25, 75, 20);
 

@@ -1,13 +1,18 @@
-import { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, Fade } from '@chakra-ui/react';
-import sort from 'array-sort';
-import axios from 'axios';
-import _ from 'lodash';
+import { ReactElement, useState, useEffect } from 'react';
 import CountUp from 'react-countup';
 import { useQuery, useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
+
+import { useDisclosure, Fade } from '@chakra-ui/react';
+
+import sort from 'array-sort';
+import axios from 'axios';
+import _ from 'lodash';
+
+import OverviewTab from './components/OverviewTab';
+import Title from './components/Title';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance from '../../../../common/scripts/axios';
@@ -27,8 +32,6 @@ import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
 import ReviewsTab from '../../components/Reviews';
 import Structure from '../../components/Structure';
-import OverviewTab from './components/OverviewTab';
-import Title from './components/Title';
 
 const Movie = (): ReactElement => {
   const source = axios.CancelToken.source();

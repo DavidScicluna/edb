@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useDisclosure, Box } from '@chakra-ui/react';
+
 import {
   LibraryBooksOutlined as LibraryBooksOutlinedIcon,
   LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
@@ -14,11 +15,13 @@ import {
   BusinessTwoTone as BusinessTwoToneIcon
 } from '@material-ui/icons';
 
+
+import MediaTypes from './components/MediaTypes';
+import { MediaTypePickerProps } from './types';
+
 import { useSelector } from '../../common/hooks';
 import { MediaType } from '../../common/types';
 import Modal from '../Modal';
-import MediaTypes from './components/MediaTypes';
-import { MediaTypePickerProps } from './types';
 
 const MediaTypePicker = <MT extends MediaType>(props: MediaTypePickerProps<MT>): ReactElement => {
   const { isOpen, onOpen, onClose } = useDisclosure();

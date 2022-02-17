@@ -1,12 +1,15 @@
+
 import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, VStack, Text } from '@chakra-ui/react';
+
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import _ from 'lodash';
 
+import { RatingRef, RatingProps } from './types';
+
 import { Theme } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
-import { RatingRef, RatingProps } from './types';
 
 const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): ReactElement {
   const theme = useTheme<Theme>();

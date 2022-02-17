@@ -2,13 +2,15 @@ import { ReactElement } from 'react';
 
 import _ from 'lodash';
 
+
+import { VerticalMoviesProps } from './types';
+
 import { PartialMovie } from '../../../../../common/types/movie';
 import Empty from '../../../../../components/Empty';
 import Error from '../../../../../components/Error';
 import VerticalGrid from '../../../../../components/Grid/Vertical';
 import HorizontalMoviePoster from '../../Poster/Horizontal';
 import VerticalMoviePoster from '../../Poster/Vertical';
-import { VerticalMoviesProps } from './types';
 
 const VerticalMovies = (props: VerticalMoviesProps): ReactElement => {
   const { isError = false, isSuccess = false, isLoading = true, movies } = props;

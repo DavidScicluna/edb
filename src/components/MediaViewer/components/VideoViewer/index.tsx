@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
-
-import { AspectRatio } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 
-import { handleReturnRatio } from '../../../../common/utils';
+import { AspectRatio } from '@chakra-ui/react';
+
 import { VideoViewerProps } from './types';
+
+import { handleReturnRatio } from '../../../../common/utils';
 
 import './styles.css';
 

@@ -1,15 +1,18 @@
+
 import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text, Fade } from '@chakra-ui/react';
+
 import {
   ChevronLeftOutlined as ChevronLeftOutlinedIcon,
   ChevronRightOutlined as ChevronRightOutlinedIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
 
+import { HeaderProps } from './types';
+
 import IconButton from '../../../../../../Clickable/IconButton';
 import years from '../../../../common/data/years';
-import { HeaderProps } from './types';
 
 const Header = (props: HeaderProps): ReactElement => {
   const { colorMode } = useColorMode();

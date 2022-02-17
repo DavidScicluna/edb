@@ -1,11 +1,13 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, HStack, Center } from '@chakra-ui/react';
+
 import { useElementSize } from 'usehooks-ts';
+
+import { StructureProps } from './types';
 
 import Divider from '../../../../components/Divider';
 import Page from '../../../../containers/Page';
-import { StructureProps } from './types';
 
 const Structure = ({ children }: StructureProps): ReactElement => {
   const [isMd] = useMediaQuery('(max-width: 960px)');

@@ -1,15 +1,18 @@
 import { ReactElement } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { useTheme, useColorMode, useBoolean, HStack, Text, Box } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import { useLocation } from 'react-router-dom';
+
+
+import useStyles from './styles';
+import { NavItemChildProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Link from '../../../../components/Clickable/Link';
 import { Theme } from '../../../../theme/types';
 import Tooltip from '../../../Tooltip';
-import useStyles from './styles';
-import { NavItemChildProps } from './types';
 
 const NavItemChild = (props: NavItemChildProps): ReactElement => {
   const theme = useTheme<Theme>();

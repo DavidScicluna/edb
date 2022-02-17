@@ -1,10 +1,13 @@
+
 import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { GenresProps } from './types';
+
+import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 const dummies = _.range(25, 250, 20);
 

@@ -1,11 +1,14 @@
+
 import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Radio as CUIRadio } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import { Theme } from '../../../theme/types';
 import useStyles from './styles';
 import { RadioProps } from './types';
+
+import { Theme } from '../../../theme/types';
 
 const Radio = (props: RadioProps): ReactElement => {
   const theme = useTheme<Theme>();

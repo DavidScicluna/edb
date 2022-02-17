@@ -1,18 +1,21 @@
+
 import { ReactElement } from 'react';
+import { useForm, useFormState } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
+
 import ImportExportOutlinedIcon from '@material-ui/icons/ImportExportOutlined';
 import _ from 'lodash';
 import qs from 'query-string';
-import { useForm, useFormState } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
+
+import Direction from './components/Direction';
+import Sort from './components/Sort';
+import { SortByProps, Form } from './types';
 
 import { useSelector } from '../../common/hooks';
 import Modal from '../../components/Modal';
 import Button from '../Clickable/Button';
-import Direction from './components/Direction';
-import Sort from './components/Sort';
-import { SortByProps, Form } from './types';
 
 const defaultValues: Form = {
   sortBy: {

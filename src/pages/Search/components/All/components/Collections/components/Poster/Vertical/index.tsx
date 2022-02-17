@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import VerticalPoster from '../../../../../../../../../components/Poster/Vertical';
 import { VerticalCollectionPosterProps } from './types';
+
+import VerticalPoster from '../../../../../../../../../components/Poster/Vertical';
 
 const VerticalCollectionPoster = (props: VerticalCollectionPosterProps): ReactElement => {
   const { collection, width, isLoading = true } = props;

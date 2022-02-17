@@ -1,14 +1,16 @@
 import { ReactElement } from 'react';
+import YouTube, { Options } from 'react-youtube';
 
 import { Box } from '@chakra-ui/react';
+
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import _ from 'lodash';
-import YouTube, { Options } from 'react-youtube';
+
+import { AssetVideoProps } from './types';
 
 import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Skeleton from '../../../../../../components/Skeleton';
-import { AssetVideoProps } from './types';
 
 import './styles.css';
 

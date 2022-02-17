@@ -1,13 +1,16 @@
 import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, useConst, Badge as CUIBadge, HStack, Center } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import useStyles from './styles';
+import { BadgeProps } from './types';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import { Theme, Space } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
-import useStyles from './styles';
-import { BadgeProps } from './types';
 
 const dummies = _.range(25, 100, 20);
 

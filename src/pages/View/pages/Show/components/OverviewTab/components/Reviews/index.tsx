@@ -1,8 +1,12 @@
 import { ReactElement } from 'react';
+import CountUp from 'react-countup';
 
 import { useMediaQuery, HStack, Fade } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import CountUp from 'react-countup';
+
+
+import { ReviewsProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Review as ReviewType } from '../../../../../../../../common/types';
@@ -16,7 +20,6 @@ import Review from '../../../../../../components/Reviews/components/Review';
 import CreateReview from '../../../../../../components/Reviews/components/UserReviews/components/CreateReview';
 import DeleteReview from '../../../../../../components/Reviews/components/UserReviews/components/DeleteReview';
 import EditReview from '../../../../../../components/Reviews/components/UserReviews/components/EditReview';
-import { ReviewsProps } from './types';
 
 const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

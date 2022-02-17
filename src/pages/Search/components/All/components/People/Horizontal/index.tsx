@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
+
 import qs from 'query-string';
+
+
+import { HorizontalSearchPeopleProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { PartialPerson } from '../../../../../../../common/types/person';
@@ -9,7 +13,6 @@ import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPersonPoster from '../../../../../../People/components/Poster/Vertical';
-import { HorizontalSearchPeopleProps } from './types';
 
 const HorizontalSearchPeople = ({ query, people = [], total = 0 }: HorizontalSearchPeopleProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

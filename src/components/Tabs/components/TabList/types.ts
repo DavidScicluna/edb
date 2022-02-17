@@ -1,5 +1,6 @@
-import { Color } from '../../../../theme/types';
 import { Tab, Size } from './components/Tab/types';
+
+import { Color } from '../../../../theme/types';
 
 export type TabListProps = {
   children: Tab[];

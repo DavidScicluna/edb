@@ -1,10 +1,21 @@
+
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
+
 import { InfoTwoTone as InfoTwoToneIcon } from '@material-ui/icons';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
 import moment from 'moment';
+
+import CreateList from './components/CreateList';
+import DeleteList from './components/DeleteList';
+import EditList from './components/EditList';
+import ListHeader from './components/ListHeader';
+import ListInfo from './components/ListInfo';
+import ListPicker from './components/ListPicker';
+import MediaTypesSection from './components/MediaTypesSection';
+import Toast from './components/Toast';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
@@ -15,14 +26,6 @@ import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
 import { List as ListType } from '../../../../store/slices/User/types';
-import CreateList from './components/CreateList';
-import DeleteList from './components/DeleteList';
-import EditList from './components/EditList';
-import ListHeader from './components/ListHeader';
-import ListInfo from './components/ListInfo';
-import ListPicker from './components/ListPicker';
-import MediaTypesSection from './components/MediaTypesSection';
-import Toast from './components/Toast';
 
 const Lists = (): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

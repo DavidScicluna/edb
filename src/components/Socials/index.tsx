@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
 
+
 import Links from './components/Links';
 import { SocialsProps } from './types';
 

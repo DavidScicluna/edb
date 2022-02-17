@@ -1,6 +1,8 @@
+
 import { ReactElement } from 'react';
 
 import { SimpleGrid } from '@chakra-ui/react';
+
 import _ from 'lodash';
 import moment from 'moment';
 

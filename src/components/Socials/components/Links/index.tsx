@@ -1,6 +1,8 @@
+
 import { ReactElement } from 'react';
 
 import { Fade, useColorMode, useTheme } from '@chakra-ui/react';
+
 import {
   Facebook as FacebookIcon,
   Twitter as TwitterIcon,
@@ -9,10 +11,11 @@ import {
 } from '@material-ui/icons';
 import _ from 'lodash';
 
-import { useSelector } from '../../../../common/hooks';
-import { Theme } from '../../../../theme/types';
 import Link from './components/Link';
 import { LinksProps } from './types';
+
+import { useSelector } from '../../../../common/hooks';
+import { Theme } from '../../../../theme/types';
 
 const ImdbIcon = (): ReactElement => {
   return (

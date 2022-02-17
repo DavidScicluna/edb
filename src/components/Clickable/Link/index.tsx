@@ -1,12 +1,15 @@
-import { ReactElement } from 'react';
 
-import { Link as CUILink, useTheme } from '@chakra-ui/react';
-import _ from 'lodash';
+import { ReactElement } from 'react';
 import { Link as RRDLink } from 'react-router-dom';
 
-import { Theme } from '../../../theme/types';
+import { Link as CUILink, useTheme } from '@chakra-ui/react';
+
+import _ from 'lodash';
+
 import useStyles from './styles';
 import { LinkProps } from './types';
+
+import { Theme } from '../../../theme/types';
 
 const Link = (props: LinkProps): ReactElement => {
   const theme = useTheme<Theme>();

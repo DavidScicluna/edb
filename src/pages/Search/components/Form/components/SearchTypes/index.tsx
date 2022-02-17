@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text } from '@chakra-ui/react';
+
 import {
   LibraryBooksOutlined as LibraryBooksOutlinedIcon,
   LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
@@ -15,14 +16,15 @@ import {
 } from '@material-ui/icons';
 import { useElementSize } from 'usehooks-ts';
 
+import SearchType from './components/SearchType';
+import { SearchType as SearchTypeType } from './components/SearchType/types';
+import { SearchTypesProps } from './types';
+
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import Divider from '../../../../../../components/Divider';
 import Panel from '../../../../../../components/Panel';
 import { SearchType as SearchTypeValue } from '../../../../../../store/slices/User/types';
-import SearchType from './components/SearchType';
-import { SearchType as SearchTypeType } from './components/SearchType/types';
-import { SearchTypesProps } from './types';
 
 export const searchTypes: SearchTypeType[] = [
   {

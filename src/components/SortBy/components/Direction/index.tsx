@@ -1,18 +1,21 @@
 import { ReactElement } from 'react';
+import { Controller } from 'react-hook-form';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
+
 import {
   ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
   ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
   CheckOutlined as CheckOutlinedIcon
 } from '@material-ui/icons';
-import { Controller } from 'react-hook-form';
+
+
+import { DirectionProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
 import { SortDirection } from '../../types';
-import { DirectionProps } from './types';
 
 const Direction = ({ form }: DirectionProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

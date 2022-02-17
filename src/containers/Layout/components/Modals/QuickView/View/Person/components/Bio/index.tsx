@@ -1,12 +1,15 @@
 import { ReactElement } from 'react';
 
 import { VStack, Text, useColorMode } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { BioProps } from './types';
 
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import { handleReturnDates } from '../../../../../../../../../pages/View/pages/Person/components/OverviewTab/components/Bio';
 import Label from '../../../../components/Label';
-import { BioProps } from './types';
 
 const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioProps): ReactElement => {
   const { colorMode } = useColorMode();

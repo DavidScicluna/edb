@@ -1,7 +1,13 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import { VStack } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import Collections from './components/Collections';
+import Companies from './components/Companies';
+import People from './components/People';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
@@ -13,9 +19,6 @@ import MediaTypesHeader from '../../components/MediaTypesHeader';
 import MediaTypesPicker from '../../components/MediaTypesPicker';
 import Movies from '../../components/Movies';
 import TV from '../../components/TV';
-import Collections from './components/Collections';
-import Companies from './components/Companies';
-import People from './components/People';
 
 const Liked = (): ReactElement => {
   const movies = useSelector((state) => state.user.data.liked.movies);

@@ -1,11 +1,14 @@
 import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { DateProps } from './types';
 
 import { handleReturnDate } from '../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import { DateProps } from './types';
 
 const dummies = _.range(25, 100, 20);
 

@@ -1,14 +1,17 @@
+
 import { ReactElement } from 'react';
 
 import { useMediaQuery, SlideFade } from '@chakra-ui/react';
+
 import moment from 'moment';
 
-import Panel from '../../../../../../components/Panel';
-import Rating from '../../../../../../components/Rating';
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { ReviewProps } from './types';
+
+import Panel from '../../../../../../components/Panel';
+import Rating from '../../../../../../components/Rating';
 
 const Review = (props: ReviewProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

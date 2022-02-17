@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { TextProps } from '@chakra-ui/react';
 
+
 import { Color, FontSizes } from '../../../../theme/types';
 import { Size, Variant } from '../../../Clickable/Button/types';
 

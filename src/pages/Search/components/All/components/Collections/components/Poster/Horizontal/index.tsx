@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import HorizontalPoster from '../../../../../../../../../components/Poster/Horizontal';
 import { HorizontalCollectionPosterProps } from './types';
+
+import HorizontalPoster from '../../../../../../../../../components/Poster/Horizontal';
 
 const HorizontalCollectionPoster = (props: HorizontalCollectionPosterProps): ReactElement => {
   const { collection, isLoading = true } = props;

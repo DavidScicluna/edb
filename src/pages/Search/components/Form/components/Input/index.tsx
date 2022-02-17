@@ -1,10 +1,11 @@
+
 import { ReactElement } from 'react';
 
 import { useColorMode, useConst, HStack, Input as CUIInput, Center, Fade } from '@chakra-ui/react';
+
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
-import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';
 import collectionsPlaceholders from './common/data/placeholders/collections';
 import combinedPlaceholders from './common/data/placeholders/combined';
 import companiesPlaceholders from './common/data/placeholders/companies';
@@ -14,6 +15,8 @@ import tvPlaceholders from './common/data/placeholders/tv';
 import Actions from './components/Actions';
 import SearchTypes from './components/SearchTypes';
 import { InputProps } from './types';
+
+import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';
 
 const Input = (props: InputProps): ReactElement => {
   const { colorMode } = useColorMode();

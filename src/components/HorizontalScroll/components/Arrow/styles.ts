@@ -1,6 +1,7 @@
+import { ArrowProps } from './types';
+
 import { Style } from '../../../../common/types';
 import { Theme } from '../../../../theme/types';
-import { ArrowProps } from './types';
 
 type DirectionStyle = {
   left: Style;

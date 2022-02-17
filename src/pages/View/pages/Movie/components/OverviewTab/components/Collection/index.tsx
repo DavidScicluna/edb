@@ -2,9 +2,11 @@ import { ReactElement } from 'react';
 
 import _ from 'lodash';
 
+
+import { CollectionProps } from './types';
+
 import Panel from '../../../../../../../../components/Panel';
 import HorizontalCollectionPoster from '../../../../../../../Search/components/All/components/Collections/components/Poster/Horizontal';
-import { CollectionProps } from './types';
 
 const Collection = ({ collection }: CollectionProps): ReactElement => {
   const handleReturnFormattedTitle = (name: string): string => {

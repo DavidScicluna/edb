@@ -1,12 +1,15 @@
+
 import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, IconButton as CUIIconButton, Center } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import { Theme } from '../../../theme/types';
 import Spinner from './components/Spinner';
 import useStyles from './styles';
 import { IconButtonRef, IconButtonProps } from './types';
+
+import { Theme } from '../../../theme/types';
 
 const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButton(props, ref): ReactElement {
   const theme = useTheme<Theme>();

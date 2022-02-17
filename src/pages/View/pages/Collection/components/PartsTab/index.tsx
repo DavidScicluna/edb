@@ -1,7 +1,11 @@
 import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { PartsTabProps } from './types';
 
 import { PartialMovie } from '../../../../../../common/types/movie';
 import { handleReturnDate } from '../../../../../../common/utils';
@@ -11,7 +15,6 @@ import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import HorizontalMoviePoster from '../../../../../Movies/components/Poster/Horizontal';
 import VerticalMoviePoster from '../../../../../Movies/components/Poster/Vertical';
-import { PartsTabProps } from './types';
 
 const incrementBy = 20;
 

@@ -1,16 +1,19 @@
 import { ReactElement } from 'react';
+import { Controller } from 'react-hook-form';
 
 import { HStack } from '@chakra-ui/react';
+
 import {
   RadioButtonUncheckedOutlined as RadioButtonUncheckedOutlinedIcon,
   RadioButtonCheckedOutlined as RadioButtonCheckedOutlinedIcon
 } from '@material-ui/icons';
-import { Controller } from 'react-hook-form';
+
+
+import { AdultProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
-import { AdultProps } from './types';
 
 const Adult = ({ form, mediaType }: AdultProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);

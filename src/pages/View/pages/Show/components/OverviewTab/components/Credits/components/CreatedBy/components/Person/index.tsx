@@ -1,13 +1,16 @@
 import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useConst, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { PersonProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../../../../../theme/types';
-import { PersonProps } from './types';
 
 const dummies = _.range(25, 100, 20);
 

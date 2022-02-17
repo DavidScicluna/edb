@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
+
 import OtherReviews from './components/OtherReviews';
 import UserReview from './components/UserReviews';
 import { ReviewsTabProps } from './types';

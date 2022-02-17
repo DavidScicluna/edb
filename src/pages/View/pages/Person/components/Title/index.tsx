@@ -1,12 +1,15 @@
+
 import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+import Department from './components/Department';
+import { PersonTitleProps } from './types';
 
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
-import Department from './components/Department';
-import { PersonTitleProps } from './types';
 
 const dummies = _.range(25, 75, 10);
 

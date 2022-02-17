@@ -1,13 +1,14 @@
 import { ReactElement } from 'react';
+import { UseFormReturn, Controller } from 'react-hook-form';
 
 import { ColorMode, useMediaQuery, SimpleGrid } from '@chakra-ui/react';
-import { UseFormReturn, Controller } from 'react-hook-form';
+
+import ColorItem from './components/ColorItem';
+import { Color as ColorType } from './types';
 
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
 import Panel from '../../../../../../../components/Panel';
 import { Form } from '../../types';
-import ColorItem from './components/ColorItem';
-import { Color as ColorType } from './types';
 
 const colors: ColorType[] = [
   {

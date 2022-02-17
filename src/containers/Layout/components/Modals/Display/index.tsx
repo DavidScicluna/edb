@@ -1,8 +1,11 @@
 import { ReactElement } from 'react';
-
-import { ColorMode, useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+
+import { ColorMode, useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
+
+import Background from './components/Background';
+import Color from './components/Color';
 
 import { useSelector } from '../../../../../common/hooks';
 import { handleCheckSystemColorMode } from '../../../../../common/utils';
@@ -11,8 +14,6 @@ import Modal from '../../../../../components/Modal';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
 import { setTheme } from '../../../../../store/slices/User';
 import { Theme } from '../../../../../store/slices/User/types';
-import Background from './components/Background';
-import Color from './components/Color';
 
 const Display = (): ReactElement => {
   const { setColorMode } = useColorMode();

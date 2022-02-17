@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode } from '@chakra-ui/react';
 
+
 export type DescriptionRef = HTMLDivElement | null;
 
 import { Size } from '../../components/Clickable/Button/types';

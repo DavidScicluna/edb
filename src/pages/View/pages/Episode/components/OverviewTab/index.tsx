@@ -1,14 +1,17 @@
+
 import { ReactElement } from 'react';
 
 import { VStack, Collapse } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import Paragraph from '../../../../../../components/Paragraph';
-import Media from '../../../../components/Media';
 import Cast from './components/Cast';
 import Guests from './components/Guests';
 import Show from './components/Show';
 import { OverviewTabProps } from './types';
+
+import Paragraph from '../../../../../../components/Paragraph';
+import Media from '../../../../components/Media';
 
 const OverviewTab = (props: OverviewTabProps): ReactElement => {
   const { tvShowQuery, episodeQuery, creditsQuery, imagesQuery, videosQuery, onAssetClick, onChangeTab } = props;

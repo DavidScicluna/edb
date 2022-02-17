@@ -1,13 +1,16 @@
+
 import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import Panel from '../../../../components/Panel';
 import Cover from './components/Cover';
 import Overview from './components/Overview';
 import Tagline from './components/Tagline';
 import { HeroProps } from './types';
+
+import Panel from '../../../../components/Panel';
 
 const Hero = (props: HeroProps): ReactElement => {
   const { renderPoster, renderBackdrop, renderDetails, tagline, overview, isLoading = true } = props;

@@ -1,11 +1,14 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useConst, Text } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { LanguageProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';
 import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
-import { LanguageProps } from './types';
 
 const dummies = _.range(25, 75, 15);
 

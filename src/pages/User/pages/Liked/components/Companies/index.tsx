@@ -1,7 +1,11 @@
 import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { CompaniesProps } from './types';
 
 import { PartialCompany } from '../../../../../../common/types';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
@@ -10,7 +14,6 @@ import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import HorizontalCompanyPoster from '../../../../../Search/components/All/components/Companies/components/Poster/Horizontal';
 import VerticalCompanyPoster from '../../../../../Search/components/All/components/Companies/components/Poster/Vertical';
-import { CompaniesProps } from './types';
 
 const incrementBy = 20;
 

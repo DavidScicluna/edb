@@ -2,8 +2,10 @@ import { ReactElement } from 'react';
 
 import { Text } from '@chakra-ui/react';
 
-import Modal from '../Modal';
+
 import { ConfirmModalProps } from './types';
+
+import Modal from '../Modal';
 
 const ConfirmModal = (props: ConfirmModalProps): ReactElement => {
   const { description, ...rest } = props;

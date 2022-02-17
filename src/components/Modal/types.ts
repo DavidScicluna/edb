@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode, ModalProps as CUIModalProps } from '@chakra-ui/react';
 
+
 import { Size } from '../../components/Clickable/Button/types';
 import { Color } from '../../theme/types';
 

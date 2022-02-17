@@ -1,4 +1,7 @@
+
 import { ReactElement, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import {
   useColorMode,
@@ -13,6 +16,7 @@ import {
   Text,
   Box
 } from '@chakra-ui/react';
+
 import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
   FavoriteOutlined as FavoriteOutlinedIcon,
@@ -21,8 +25,6 @@ import {
   PaletteTwoTone as PaletteTwoToneIcon,
   PaletteOutlined as PaletteOutlinedIcon
 } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 
 import NavItem from '../../../../../../components/NavItem';
 import { NavItem as NavItemType } from '../../../../../../components/NavItem/types';

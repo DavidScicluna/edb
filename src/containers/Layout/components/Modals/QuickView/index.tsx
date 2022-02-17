@@ -1,7 +1,12 @@
 import { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useMediaQuery, Center } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+
+import Collection from './View/Collection';
+import Movie from './View/Movie';
+import Person from './View/Person';
+import Show from './View/Show';
 
 import { useSelector } from '../../../../../common/hooks';
 import { handleReturnMediaTypeLabel } from '../../../../../common/utils';
@@ -10,10 +15,6 @@ import Link from '../../../../../components/Clickable/Link';
 import Empty from '../../../../../components/Empty';
 import Modal from '../../../../../components/Modal';
 import { defaultQuickViewModal, toggleQuickView } from '../../../../../store/slices/Modals';
-import Collection from './View/Collection';
-import Movie from './View/Movie';
-import Person from './View/Person';
-import Show from './View/Show';
 
 const QuickView = (): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

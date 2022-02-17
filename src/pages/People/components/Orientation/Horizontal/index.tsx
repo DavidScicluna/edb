@@ -2,11 +2,13 @@ import { ReactElement } from 'react';
 
 import _ from 'lodash';
 
+
+import { HorizontalPeopleProps } from './types';
+
 import { PartialPerson } from '../../../../../common/types/person';
 import Empty from '../../../../../components/Empty';
 import Error from '../../../../../components/Error';
 import VerticalPersonPoster from '../../Poster/Vertical';
-import { HorizontalPeopleProps } from './types';
 
 const HorizontalPeople = (props: HorizontalPeopleProps): ReactElement => {
   const { isError = false, isSuccess = false, isLoading = true, people } = props;

@@ -1,15 +1,18 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
+
 import {
   EditOutlined as EditOutlinedIcon,
   DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
   CloseOutlined as CloseOutlinedIcon
 } from '@material-ui/icons';
 
+
+import { ToastProps } from './types';
+
 import Button from '../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../components/Clickable/IconButton';
-import { ToastProps } from './types';
 
 const Toast = (props: ToastProps): ReactElement => {
   const { colorMode } = useColorMode();

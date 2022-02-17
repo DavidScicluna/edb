@@ -1,13 +1,16 @@
 import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import Episode from './components/Episode';
+import { EpisodesProps } from './types';
 
 import LoadMore from '../../../../../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../../../../../components/Empty';
 import Error from '../../../../../../../../../../components/Error';
-import Episode from './components/Episode';
-import { EpisodesProps } from './types';
 
 const incrementBy = 10;
 

@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
 
+
 import { TitleProps } from './types';
 
 const Title = ({ children }: TitleProps): ReactElement => {

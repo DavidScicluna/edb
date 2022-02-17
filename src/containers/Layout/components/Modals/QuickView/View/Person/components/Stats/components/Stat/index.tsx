@@ -1,11 +1,14 @@
-import { ReactElement, forwardRef } from 'react';
 
-import { useColorMode, useConst, Stat as CUIStat, VStack, StatLabel, StatNumber } from '@chakra-ui/react';
-import _ from 'lodash';
+import { ReactElement, forwardRef } from 'react';
 import CountUp from 'react-countup';
 
-import SkeletonText from '../../../../../../../../../../../components/Skeleton/Text';
+import { useColorMode, useConst, Stat as CUIStat, VStack, StatLabel, StatNumber } from '@chakra-ui/react';
+
+import _ from 'lodash';
+
 import { StatRef, StatProps } from './types';
+
+import SkeletonText from '../../../../../../../../../../../components/Skeleton/Text';
 
 const dummies = _.range(50, 150, 20);
 

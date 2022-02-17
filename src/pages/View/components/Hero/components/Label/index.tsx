@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, Text } from '@chakra-ui/react';
 
+
 import { LabelProps } from './types';
 
 const Label = ({ children, label, ...rest }: LabelProps): ReactElement => {

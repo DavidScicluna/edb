@@ -1,7 +1,11 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { HomeHorizontalGridProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { PartialMovie } from '../../../../common/types/movie';
@@ -15,7 +19,6 @@ import HorizontalTabbedGrid from '../../../../components/Grid/Horizontal/Tabbed'
 import VerticalMoviePoster from '../../../Movies/components/Poster/Vertical';
 import VerticalPersonPoster from '../../../People/components/Poster/Vertical';
 import VerticalTVShowPoster from '../../../TV/components/Poster/Vertical';
-import { HomeHorizontalGridProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

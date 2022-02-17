@@ -1,14 +1,17 @@
 import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
+
 import {
   ArrowBackOutlined as ArrowBackOutlinedIcon,
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
 
+
+import { ArrowProps } from './types';
+
 import IconButton from '../../../../../../Clickable/IconButton';
 import Tooltip from '../../../../../../Tooltip';
-import { ArrowProps } from './types';
 
 const Arrow = (props: ArrowProps): ReactElement => {
   const { direction, isDisabled = false, onClick } = props;

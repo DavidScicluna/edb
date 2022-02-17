@@ -1,6 +1,7 @@
+import { CardProps } from './types';
+
 import { Style } from '../../../common/types';
 import { Theme } from '../../../theme/types';
-import { CardProps } from './types';
 
 type CommonStyle = {
   back: Style;

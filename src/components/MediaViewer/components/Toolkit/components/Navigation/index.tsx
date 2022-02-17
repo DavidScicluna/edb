@@ -1,14 +1,17 @@
+
 import { ReactElement } from 'react';
 
 import { useColorMode, Center, Text } from '@chakra-ui/react';
+
 import {
   ArrowBackOutlined as ArrowBackOutlinedIcon,
   ArrowForwardOutlined as ArrowForwardOutlinedIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
 
-import IconButton from '../../../../../Clickable/IconButton';
 import { NavigationProps } from './types';
+
+import IconButton from '../../../../../Clickable/IconButton';
 
 const Navigation = (props: NavigationProps): ReactElement => {
   const { colorMode } = useColorMode();

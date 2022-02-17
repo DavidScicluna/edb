@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { Box } from '@chakra-ui/react';
 
+
 import { ChildProps } from './types';
 
 const Child = ({ children, isLast = false }: ChildProps): ReactElement => {

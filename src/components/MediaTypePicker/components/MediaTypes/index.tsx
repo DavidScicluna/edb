@@ -1,6 +1,8 @@
+
 import { ReactElement } from 'react';
 
 import { SimpleGrid, Center } from '@chakra-ui/react';
+
 import {
   LibraryBooksOutlined as LibraryBooksOutlinedIcon,
   LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
@@ -14,10 +16,11 @@ import {
   BusinessTwoTone as BusinessTwoToneIcon
 } from '@material-ui/icons';
 
-import { MediaType as MediaType } from '../../../../common/types';
 import MediaTypeItem from './components/MediaTypeItem';
 import { MediaTypeItem as MediaTypeItemType } from './components/MediaTypeItem/types';
 import { MediaTypesProps } from './types';
+
+import { MediaType as MediaType } from '../../../../common/types';
 
 export const mediaTypesList: MediaTypeItemType[] = [
   {

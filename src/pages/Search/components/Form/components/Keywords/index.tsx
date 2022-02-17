@@ -1,14 +1,17 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery, useConst, VStack, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { KeywordsProps } from './types';
 
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import List from '../List';
 import ListItem from '../List/components/ListItem';
-import { KeywordsProps } from './types';
 
 const dummy = _.sample(_.range(4, 8));
 

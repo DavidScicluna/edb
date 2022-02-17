@@ -1,11 +1,19 @@
 import { ReactElement, useState, useEffect } from 'react';
+import { useInfiniteQuery } from 'react-query';
+import { useLocation } from 'react-router-dom';
 
 import { VStack, Center, Fade } from '@chakra-ui/react';
+
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
-import { useInfiniteQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
+
+
+import Header from './components/Header';
+import MediaTypesPicker from './components/MediaTypesPicker';
+import Movies from './components/Movies';
+import People from './components/People';
+import TV from './components/TV';
 
 import axiosInstance from '../../common/scripts/axios';
 import { Response } from '../../common/types';
@@ -16,11 +24,6 @@ import Divider from '../../components/Divider';
 import Tabs from '../../components/Tabs';
 import TabPanels from '../../components/Tabs/components/TabPanels';
 import Page from '../../containers/Page';
-import Header from './components/Header';
-import MediaTypesPicker from './components/MediaTypesPicker';
-import Movies from './components/Movies';
-import People from './components/People';
-import TV from './components/TV';
 
 const Trending = (): ReactElement => {
   const source = axios.CancelToken.source();

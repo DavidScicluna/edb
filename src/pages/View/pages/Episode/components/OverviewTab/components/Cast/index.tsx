@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+
+import { CastProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
@@ -9,7 +13,6 @@ import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
-import { CastProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

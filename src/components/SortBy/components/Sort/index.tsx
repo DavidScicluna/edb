@@ -1,14 +1,17 @@
 import { ReactElement } from 'react';
+import { Controller } from 'react-hook-form';
 
 import { VStack } from '@chakra-ui/react';
+
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-import { Controller } from 'react-hook-form';
+
+
+import { SortProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
 import { SortBy } from '../../types';
-import { SortProps } from './types';
 
 const Sort = ({ form, sortBy }: SortProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);

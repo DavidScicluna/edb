@@ -2,11 +2,13 @@ import { ReactElement } from 'react';
 
 import _ from 'lodash';
 
+
+import { HorizontalTVProps } from './types';
+
 import { PartialTV } from '../../../../../common/types/tv';
 import Empty from '../../../../../components/Empty';
 import Error from '../../../../../components/Error';
 import VerticalTVShowPoster from '../../Poster/Vertical';
-import { HorizontalTVProps } from './types';
 
 const HorizontalTV = (props: HorizontalTVProps): ReactElement => {
   const { isError = false, isSuccess = false, isLoading = true, shows } = props;

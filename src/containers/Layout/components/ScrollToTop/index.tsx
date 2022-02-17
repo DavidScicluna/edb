@@ -1,6 +1,8 @@
+
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
+
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import _ from 'lodash';
 import { useWindowSize } from 'usehooks-ts';

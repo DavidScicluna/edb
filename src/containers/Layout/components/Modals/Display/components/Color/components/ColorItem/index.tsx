@@ -1,12 +1,15 @@
 import { ReactElement } from 'react';
 
 import { useTheme, useBoolean, VStack, Box, Center, Text, ScaleFade } from '@chakra-ui/react';
+
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
+
+
+import { ColorItemProps } from './types';
 
 import Card from '../../../../../../../../../components/Clickable/Card';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 import { Theme } from '../../../../../../../../../theme/types';
-import { ColorItemProps } from './types';
 
 const ColorItem = (props: ColorItemProps): ReactElement => {
   const theme = useTheme<Theme>();

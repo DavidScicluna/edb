@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useTheme, HStack, VStack, Center, Text } from '@chakra-ui/react';
+
 import {
   CheckBoxTwoTone as CheckBoxTwoToneIcon,
   CheckBoxOutlineBlankOutlined as CheckBoxOutlineBlankOutlinedIcon
@@ -8,11 +9,12 @@ import {
 import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
+import { ListProps } from './types';
+
 import { useSelector } from '../../../../../../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../../common/utils';
 import Card from '../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../theme/types';
-import { ListProps } from './types';
 
 const List = (props: ListProps): ReactElement => {
   const theme = useTheme<Theme>();

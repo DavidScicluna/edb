@@ -1,8 +1,16 @@
 import { ReactElement } from 'react';
+import useInView from 'react-cool-inview';
 
 import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack, Center } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import useInView from 'react-cool-inview';
+
+
+import Description from './components/Description';
+import Image from './components/Image';
+import Subtitle from './components/Subtitle';
+import Title from './components/Title';
+import { HorizontalPosterProps } from './types';
 
 import { MediaType } from '../../../common/types';
 import { handleReturnMediaTypeLabel } from '../../../common/utils';
@@ -12,11 +20,6 @@ import Link from '../../Clickable/Link';
 import Rating from '../../Rating';
 import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
-import Description from './components/Description';
-import Image from './components/Image';
-import Subtitle from './components/Subtitle';
-import Title from './components/Title';
-import { HorizontalPosterProps } from './types';
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

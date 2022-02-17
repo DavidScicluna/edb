@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode, TooltipProps as CUITooltipProps } from '@chakra-ui/react';
 
+
 export type TooltipRef = HTMLDivElement | null;
 
 export type TooltipProps = {

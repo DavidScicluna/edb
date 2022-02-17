@@ -2,8 +2,10 @@ import { ReactElement, forwardRef } from 'react';
 
 import { useColorMode, VStack, Text } from '@chakra-ui/react';
 
-import { DescriptionRef } from '../../types';
+
 import { DescriptionProps } from './types';
+
+import { DescriptionRef } from '../../types';
 
 const Description = forwardRef<DescriptionRef, DescriptionProps>(function Description(props, ref): ReactElement {
   const { colorMode } = useColorMode();

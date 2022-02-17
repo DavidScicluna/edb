@@ -2,9 +2,11 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
 
+
+import { LanguagesProps } from './types';
+
 import HorizontalScroll from '../../../../../../../../../../components/HorizontalScroll';
 import Language from '../Language';
-import { LanguagesProps } from './types';
 
 const Languages = ({ languages = [], isLoading = true }: LanguagesProps): ReactElement => {
   const { colorMode } = useColorMode();

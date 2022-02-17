@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import { HorizontalTVShowPosterProps } from './types';
+
 import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';
-import { HorizontalTVShowPosterProps } from './types';
 
 const HorizontalTVShowPoster = (props: HorizontalTVShowPosterProps): ReactElement => {
   const { show, isLoading = true } = props;

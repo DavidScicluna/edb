@@ -1,8 +1,12 @@
 import { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 
 import sort from 'array-sort';
 import _ from 'lodash';
-import { useDispatch } from 'react-redux';
+
+
+import Search from './components/Search';
+import { RecentSearchesProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
@@ -11,8 +15,6 @@ import { setRecentSearches } from '../../../../../../store/slices/User';
 import { Search as SearchType } from '../../../../../../store/slices/User/types';
 import List from '../List';
 import ListItem from '../List/components/ListItem';
-import Search from './components/Search';
-import { RecentSearchesProps } from './types';
 
 const RecentSearches = (props: RecentSearchesProps): ReactElement => {
   const dispatch = useDispatch();

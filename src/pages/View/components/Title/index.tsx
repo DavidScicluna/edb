@@ -2,9 +2,11 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, useBreakpointValue, VStack, Text } from '@chakra-ui/react';
 
+
+import { TitleProps } from './types';
+
 import HorizontalScroll from '../../../../components/HorizontalScroll';
 import { FontSizes } from '../../../../theme/types';
-import { TitleProps } from './types';
 
 const Title = (props: TitleProps): ReactElement => {
   const { colorMode } = useColorMode();

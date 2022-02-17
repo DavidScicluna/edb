@@ -1,12 +1,15 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, VStack, HStack, Stack, Box, Link, Text, useTheme } from '@chakra-ui/react';
+
 import moment from 'moment';
+
+
+import NavItem from './components/NavItem';
 
 import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
 import { navItems } from '../../index';
-import NavItem from './components/NavItem';
 
 const Footer = (): ReactElement => {
   const theme = useTheme<Theme>();

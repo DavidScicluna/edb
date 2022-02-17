@@ -1,6 +1,7 @@
+import { EmptyProps, Variant } from './types';
+
 import { Style } from '../../common/types';
 import { Theme } from '../../theme/types';
-import { EmptyProps, Variant } from './types';
 
 type VariantStyle = { [key in Variant]: Style };
 

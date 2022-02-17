@@ -1,11 +1,15 @@
 import { ReactElement } from 'react';
-
-import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import moment from 'moment';
 import { useForm, useFormState, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+
+import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import moment from 'moment';
 import { v4 as uuid } from 'uuid';
+
+import { CreateListProps, Form } from './types';
+import { defaultValues, schema } from './validation';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
@@ -15,8 +19,6 @@ import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
 import { setLists } from '../../../../../../store/slices/User';
 import { Theme } from '../../../../../../theme/types';
-import { CreateListProps, Form } from './types';
-import { defaultValues, schema } from './validation';
 
 const placeholders = [
   'Action Movies',

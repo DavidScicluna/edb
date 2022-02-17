@@ -1,9 +1,15 @@
 import { ReactElement, useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
+
 import axios from 'axios';
 import _ from 'lodash';
-import { useQuery } from 'react-query';
+
+
+import Overview from './components/Overview';
+import Tagline from './components/Tagline';
+import { ShowProps } from './types';
 
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images, Videos } from '../../../../../../../common/types';
@@ -13,9 +19,6 @@ import MediaViewer from '../../../../../../../components/MediaViewer';
 import Title from '../../../../../../../pages/View/pages/Show/components/Title';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
-import Overview from './components/Overview';
-import Tagline from './components/Tagline';
-import { ShowProps } from './types';
 
 const Show = ({ id }: ShowProps): ReactElement => {
   const source = axios.CancelToken.source();

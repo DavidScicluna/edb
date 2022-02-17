@@ -2,7 +2,10 @@ import { ReactElement, Fragment, useRef, useState, useCallback, useEffect } from
 
 import '../common/styles/styles.css';
 import { useBoolean, HStack } from '@chakra-ui/react';
+
 import _ from 'lodash';
+
+import { HorizontalGridTabbedProps } from './types';
 
 import Panel from '../../../Panel';
 import Tabs from '../../../Tabs';
@@ -12,7 +15,6 @@ import Actions from '../components/Actions';
 import Scroll from '../components/Scroll';
 import Title from '../components/Title';
 import { ScrollMenu } from '../types';
-import { HorizontalGridTabbedProps } from './types';
 
 const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement => {
   const ref = useRef<ScrollMenu>({} as ScrollMenu);

@@ -1,10 +1,11 @@
 import { ReactElement, useContext, useEffect } from 'react';
-
-import { useBoolean } from '@chakra-ui/react';
 import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
-import Arrow from '../Arrow';
+import { useBoolean } from '@chakra-ui/react';
+
 import { RightArrowProps } from './types';
+
+import Arrow from '../Arrow';
 
 const RightArrow = ({ isDisabled: isDisabledProp = false }: RightArrowProps): ReactElement => {
   const { isLastItemVisible, scrollNext, visibleItemsWithoutSeparators } = useContext(VisibilityContext);

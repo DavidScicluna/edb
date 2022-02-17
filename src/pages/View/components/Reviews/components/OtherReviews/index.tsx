@@ -1,8 +1,13 @@
 import { ReactElement } from 'react';
+import CountUp from 'react-countup';
 
 import { useMediaQuery, VStack, HStack, ScaleFade } from '@chakra-ui/react';
+
 import _ from 'lodash';
-import CountUp from 'react-countup';
+
+
+import ThumbButton from './components/ThumbButton';
+import { OtherReviewsProps } from './types';
 
 import Badge from '../../../../../../components/Badge';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
@@ -10,8 +15,6 @@ import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import Panel from '../../../../../../components/Panel';
 import Review from '../Review';
-import ThumbButton from './components/ThumbButton';
-import { OtherReviewsProps } from './types';
 
 const OtherReviews = (props: OtherReviewsProps): ReactElement => {
   const [isSm] = useMediaQuery('(max-width: 600px)');

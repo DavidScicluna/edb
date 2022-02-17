@@ -1,7 +1,8 @@
+import { BadgeProps, Variant, Size } from './types';
+
 import { Style } from '../../common/types';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import { Theme } from '../../theme/types';
-import { BadgeProps, Variant, Size } from './types';
 
 type VariantStyle = { [key in Variant]: Style };
 

@@ -1,15 +1,17 @@
-import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, Box } from '@chakra-ui/react';
+import { ReactElement, forwardRef } from 'react';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 
+import { useTheme, Box } from '@chakra-ui/react';
+
 import './common/styles/styles.css';
-import { handleConvertStringToNumber } from '../../common/utils';
-import { Theme } from '../../theme/types';
 import Child from './components/Child';
 import LeftArrow from './components/LeftArrow';
 import RightArrow from './components/RightArrow';
 import { HorizontalScrollRef, HorizontalScrollProps } from './types';
+
+import { handleConvertStringToNumber } from '../../common/utils';
+import { Theme } from '../../theme/types';
 
 const HorizontalScroll = forwardRef<HorizontalScrollRef, HorizontalScrollProps>(function HorizontalScroll(
   props,

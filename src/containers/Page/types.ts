@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { Location } from 'history';
 
+
 export type Breadcrumb = {
   label: string;
   to: Partial<Location>;

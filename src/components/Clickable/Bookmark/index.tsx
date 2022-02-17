@@ -1,7 +1,9 @@
 import { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useDisclosure } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+
+import { BookmarkProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import { toggleList } from '../../../store/slices/Modals';
@@ -9,7 +11,6 @@ import { setLists } from '../../../store/slices/User';
 import { List } from '../../../store/slices/User/types';
 import ConfirmModal from '../../ConfirmModal';
 import Button from '../Button';
-import { BookmarkProps } from './types';
 
 const Bookmark = (props: BookmarkProps): ReactElement => {
   const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();

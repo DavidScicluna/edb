@@ -1,17 +1,20 @@
 import { ReactElement } from 'react';
+import { UseFormReturn, Controller } from 'react-hook-form';
 
 import { useMediaQuery, Stack, HStack, Center, Text } from '@chakra-ui/react';
+
 import {
   WbSunnyOutlined as WbSunnyOutlinedIcon,
   Brightness2Outlined as Brightness2OutlinedIcon
 } from '@material-ui/icons';
-import { UseFormReturn, Controller } from 'react-hook-form';
+
+
+import BackgroundItem from './components/BackgroundItem';
+import { Background as BackgroundType } from './types';
 
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
 import Panel from '../../../../../../../components/Panel';
 import { Form } from '../../types';
-import BackgroundItem from './components/BackgroundItem';
-import { Background as BackgroundType } from './types';
 
 const backgrounds: BackgroundType[] = [
   {

@@ -1,5 +1,6 @@
-import { ColorMode, InputProps as CUIInputProps } from '@chakra-ui/react';
 import { ErrorOption } from 'react-hook-form';
+
+import { ColorMode, InputProps as CUIInputProps } from '@chakra-ui/react';
 
 import { Color } from '../../../theme/types';
 

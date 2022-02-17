@@ -2,9 +2,11 @@ import { ReactElement } from 'react';
 
 import _ from 'lodash';
 
+
+import { ShowProps } from './types';
+
 import { useSelector } from '../../../../../../../../common/hooks';
 import Badge from '../../../../../../../../components/Badge';
-import { ShowProps } from './types';
 
 const Show = (props: ShowProps): ReactElement => {
   const color = useSelector((state) => state.user.ui.theme.color);

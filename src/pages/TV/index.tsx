@@ -1,12 +1,15 @@
 import { ReactElement, useState, useEffect } from 'react';
+import { useInfiniteQuery } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 import { HStack, ScaleFade, useMediaQuery, VStack } from '@chakra-ui/react';
+
 import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
-import { useInfiniteQuery } from 'react-query';
-import { useHistory } from 'react-router-dom';
+
+import VerticalTV from './components/Orientation/Vertical';
 
 import axiosInstance from '../../common/scripts/axios';
 import { Response } from '../../common/types';
@@ -20,7 +23,6 @@ import SortBy from '../../components/SortBy';
 import { tvSortBy as sortBy } from '../../components/SortBy/common/data/sort';
 import { Form as SortForm } from '../../components/SortBy/types';
 import Page from '../../containers/Page';
-import VerticalTV from './components/Orientation/Vertical';
 
 const defaultFilters = {
   'language': 'en-US', // TODO: Make this dynamic

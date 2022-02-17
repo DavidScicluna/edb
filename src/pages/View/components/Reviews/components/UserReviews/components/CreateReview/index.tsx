@@ -1,11 +1,15 @@
 import { ReactElement } from 'react';
-
-import { useTheme, useColorMode, useDisclosure, VStack, Text, Collapse } from '@chakra-ui/react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import moment from 'moment';
 import { Controller, useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+
+import { useTheme, useColorMode, useDisclosure, VStack, Text, Collapse } from '@chakra-ui/react';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import moment from 'moment';
 import { v4 as uuid } from 'uuid';
+
+import { CreateReviewProps, Form } from './types';
+import { schema } from './validation';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
@@ -16,8 +20,6 @@ import Modal from '../../../../../../../../components/Modal';
 import Panel from '../../../../../../../../components/Panel';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
 import { Theme } from '../../../../../../../../theme/types';
-import { CreateReviewProps, Form } from './types';
-import { schema } from './validation';
 
 const defaultValues: Form = {
   review: '',
