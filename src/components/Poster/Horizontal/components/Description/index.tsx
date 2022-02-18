@@ -39,6 +39,7 @@ const Description = (props: DescriptionProps): ReactElement => {
 						align='left'
 						fontSize={fontSize}
 						color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+						isTruncated
 						overflow='hidden'
 						whiteSpace='nowrap'
 					>
