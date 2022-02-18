@@ -2,7 +2,7 @@ import { ReactElement, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import { useTheme, useColorMode, useMediaQuery, useBoolean, Container, HStack, VStack, Box } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box } from '@chakra-ui/react';
 
 import {
 	HomeTwoTone as HomeTwoToneIcon,
@@ -19,7 +19,6 @@ import {
 	WhatshotTwoTone as WhatshotTwoToneIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
-import { useTimeout } from 'usehooks-ts';
 
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
@@ -89,8 +88,6 @@ const Layout = (): ReactElement => {
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 	const background = useSelector((state) => state.user.ui.theme.background);
 
-	const [isSplashscreenOpen, setIsSplashscreenOpen] = useBoolean(true);
-
 	const transition = useTransitionsStyle(theme);
 
 	const handleUpdateColorMode = useCallback(
@@ -105,8 +102,6 @@ const Layout = (): ReactElement => {
 		}, 500),
 		[background, setColorMode, dispatch, toggleSplashscreen, handleCheckSystemColorMode]
 	);
-
-	useTimeout(() => setIsSplashscreenOpen.off(), 2500);
 
 	usePopulateOptions();
 
@@ -125,9 +120,7 @@ const Layout = (): ReactElement => {
 			window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleUpdateColorMode);
 	}, []);
 
-	return isSplashscreenOpen ? (
-		<SplashscreenModal isOpen={isSplashscreenOpen} />
-	) : (
+	return (
 		<>
 			<BrowserRouter basename={process.env.PUBLIC_URL}>
 				<Container

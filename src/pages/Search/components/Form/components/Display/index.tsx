@@ -60,7 +60,7 @@ const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): React
 				fontSize='sm'
 			>{`Your search results for "${query}"`}</Text>
 			<Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
-				<CountUp duration={5} end={handleAllTotal()} suffix={` ${handleReturnMediaTypeLabel()} found!`} />
+				<CountUp duration={1} end={handleAllTotal()} suffix={` ${handleReturnMediaTypeLabel()} found!`} />
 			</Text>
 		</HStack>
 	);

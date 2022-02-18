@@ -2,14 +2,16 @@ import { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 
-import { ChakraProvider } from '@chakra-ui/react';
+import { useBoolean, ChakraProvider } from '@chakra-ui/react';
 
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { useTimeout } from 'usehooks-ts';
 
 import Layout from '../../containers/Layout';
 import store from '../../store';
 import theme from '../../theme';
+import SplashscreenModal from '../Layout/components/Modals/Splashscreen';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -24,12 +26,16 @@ const queryClient = new QueryClient({
 const persistor = persistStore(store);
 
 const App = (): ReactElement => {
+	const [isSplashscreenOpen, setIsSplashscreenOpen] = useBoolean(true);
+
+	useTimeout(() => setIsSplashscreenOpen.off(), 2500);
+
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<ChakraProvider theme={theme}>
 					<QueryClientProvider client={queryClient}>
-						<Layout />
+						{isSplashscreenOpen ? <SplashscreenModal isOpen={isSplashscreenOpen} /> : <Layout />}
 					</QueryClientProvider>
 				</ChakraProvider>
 			</PersistGate>
