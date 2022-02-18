@@ -59,7 +59,9 @@ export default (
 				'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
 				'&:focus': {
-					boxShadow: 'none'
+					boxShadow: 'none',
+					background: 'transparent',
+					backgroundColor: 'transparent'
 				},
 
 				'& svg': {
