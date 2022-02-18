@@ -26,8 +26,8 @@ const Image = (props: ImageProps): ReactElement => {
 
 	const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, colorMode === 'light' ? 400 : 500));
 
-	const [isThumbnailLoaded, setIsThumbnaiLoaded] = useBoolean();
-	const [isThumbnailError, setIsThumbnaiError] = useBoolean();
+	const [isThumbnailLoaded, setIsThumbnailLoaded] = useBoolean();
+	const [isThumbnailError, setIsThumbnailError] = useBoolean();
 
 	const [isFullLoaded, setIsFullLoaded] = useBoolean();
 	const [isFullError, setIsFullError] = useBoolean();
@@ -41,7 +41,7 @@ const Image = (props: ImageProps): ReactElement => {
 	return (
 		<Center position='relative' {...centerProps}>
 			{/* Fallback image */}
-			<Center as={Fade} position='absolute' {...centerProps} in={isThumbnailError && isFullError} unmountOnExit>
+			<Center as={Fade} position='absolute' {...centerProps} in={isThumbnailError || isFullError} unmountOnExit>
 				<CUIImage
 					{...rest}
 					width={width || 'auto'}
@@ -60,7 +60,7 @@ const Image = (props: ImageProps): ReactElement => {
 				as={Fade}
 				position='absolute'
 				{...centerProps}
-				in={!isFullLoaded && !isThumbnailError}
+				in={!isThumbnailError && !isFullLoaded}
 				unmountOnExit
 			>
 				<CUIImage
@@ -72,16 +72,16 @@ const Image = (props: ImageProps): ReactElement => {
 					alt={`${alt} thumbnail`}
 					borderRadius={borderRadius}
 					onError={(error) => {
-						setIsThumbnaiLoaded.off();
-						setIsThumbnaiError.on();
+						setIsThumbnailLoaded.off();
+						setIsThumbnailError.on();
 
 						if (onError) {
 							onError(error);
 						}
 					}}
 					onLoad={(event) => {
-						setIsThumbnaiLoaded.on();
-						setIsThumbnaiError.off();
+						setIsThumbnailLoaded.on();
+						setIsThumbnailError.off();
 
 						if (onLoad) {
 							onLoad(event);
