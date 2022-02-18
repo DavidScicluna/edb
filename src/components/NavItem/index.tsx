@@ -35,7 +35,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const { renderIcon, children, label, path, sidebarMode, onClick } = props;
+	const { renderIcon, children, label, path, isExpanded = true, isDisabled = false, onClick } = props;
 
 	const [isChildrenOpen, setIsChildrenOpen] = useBoolean();
 
@@ -45,14 +45,15 @@ const NavItem = (props: NavItemType): ReactElement => {
 	const isActive: boolean = location.pathname === path;
 	const isChildActive: boolean = children ? children.some((child) => location.pathname === child.path) : false;
 
-	const renderChildren: boolean = children ? children.every((child) => child.renderChild) : false;
+	const canRenderChildren: boolean = children ? children.every((child) => child.renderChild) : false;
 
 	const style = useStyles(theme, {
 		color,
 		isActive,
 		isChildActive,
-		renderChildren,
-		isExpanded: sidebarMode === 'expanded',
+		renderChildren: canRenderChildren,
+		isExpanded,
+		isDisabled,
 		isOpen: children ? isChildrenOpen : false
 	});
 
@@ -73,35 +74,36 @@ const NavItem = (props: NavItemType): ReactElement => {
 		if (isChildrenOpen) {
 			handleToggleChildren();
 		}
-	}, [sidebarMode]);
+	}, [isExpanded]);
 
 	return (
 		<VStack
+			aria-disabled={isDisabled}
 			width='100%'
-			spacing={sidebarMode === 'expanded' ? 2 : 0}
+			spacing={isExpanded ? 2 : 0}
 			sx={{ ..._.merge(style.common.container, style[colorMode].container) }}
-			onClick={onClick ? () => onClick() : undefined}
+			onClick={!isDisabled && onClick ? () => onClick() : undefined}
 		>
 			<Tooltip
-				aria-label={sidebarMode === 'collapsed' ? label : ''}
 				width='100%'
-				label={sidebarMode === 'collapsed' ? label : ''}
-				isOpen={isHoveringNav}
-				isDisabled={sidebarMode === 'expanded'}
+				aria-label={!isExpanded ? label : ''}
+				label={!isExpanded ? label : ''}
+				isOpen={!isDisabled && !isExpanded && isHoveringNav}
+				isDisabled={isDisabled || isExpanded}
 				placement='right'
-				shouldWrapChildren
 				gutter={16}
+				shouldWrapChildren
 			>
 				<Link
 					to={{ pathname: path || '' }}
 					isFullWidth
-					isDisabled={!path || isHoveringIcon}
+					isDisabled={isDisabled || !path || isHoveringIcon}
 					sx={{ ...style.common.link }}
 				>
 					<HStack
 						width='100%'
 						justifyContent='space-between'
-						px={sidebarMode === 'expanded' ? 2 : 1}
+						px={isExpanded ? 2 : 1}
 						py={1}
 						spacing={2}
 						onMouseEnter={() => setIsHoveringNav.on()}
@@ -111,7 +113,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 						<HStack width='100%' spacing={2}>
 							{renderIcon({ isActive, fontSize: theme.fontSizes['2xl'] })}
 							<ScaleFade
-								in={sidebarMode === 'expanded'}
+								in={isExpanded}
 								unmountOnExit
 								delay={{
 									enter: handleParseDurationForFramer(
@@ -126,9 +128,9 @@ const NavItem = (props: NavItemType): ReactElement => {
 							</ScaleFade>
 						</HStack>
 
-						{children && renderChildren ? (
+						{children && canRenderChildren ? (
 							<ScaleFade
-								in={sidebarMode === 'expanded'}
+								in={isExpanded}
 								unmountOnExit
 								delay={{
 									enter: handleParseDurationForFramer(
@@ -153,16 +155,16 @@ const NavItem = (props: NavItemType): ReactElement => {
 				</Link>
 			</Tooltip>
 
-			{children && renderChildren ? (
+			{children && canRenderChildren ? (
 				<Collapse in={isChildrenOpen} unmountOnExit style={{ width: '100%' }}>
 					<VStack
 						width='100%'
 						spacing={0}
-						pl={sidebarMode === 'expanded' ? 3.5 : 0}
-						pr={sidebarMode === 'expanded' ? 2 : 0}
-						mb={sidebarMode === 'expanded' ? 1 : 0}
+						pl={isExpanded ? 3.5 : 0}
+						pr={isExpanded ? 2 : 0}
+						mb={isExpanded ? 1 : 0}
 					>
-						{sidebarMode === 'collapsed' ? (
+						{!isExpanded ? (
 							<Box
 								width='100%'
 								height='2px'

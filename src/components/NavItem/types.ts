@@ -1,19 +1,19 @@
 import { NavItemChild } from './components/NavItemChild/types';
 
 import { Icon } from '../../common/types';
-import { SidebarMode } from '../../store/slices/App/types';
 import { FontSizes } from '../../theme/types';
 
-type RenderIconProps = {
+type RenderProps = {
 	isActive: boolean;
 	fontSize: FontSizes['2xl'];
 };
 
 export type NavItem = {
-	renderIcon: (props: RenderIconProps) => Icon;
+	renderIcon: (props: RenderProps) => Icon;
 	children?: NavItemChild[];
 	label: string;
 	path?: string;
-	sidebarMode?: SidebarMode;
+	isExpanded?: boolean;
+	isDisabled?: boolean;
 	onClick?: () => void;
 };

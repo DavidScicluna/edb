@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { useIsFetching, useIsMutating } from 'react-query';
 
 import { useColorMode, useMediaQuery, VStack, HStack, Stack, Box, Link, Text, useTheme } from '@chakra-ui/react';
 
@@ -17,18 +18,21 @@ const Footer = (): ReactElement => {
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
+	const isFetching = useIsFetching();
+	const isMutating = useIsMutating();
+
 	return (
 		<VStack width='100%' backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'} spacing={4} p={4}>
 			{isSm ? (
 				<VStack width='100%' alignItems='flex-start' justifyContent='space-between' spacing={4}>
 					{navItems.map((navItem, index) => (
-						<NavItem key={index} {...navItem} />
+						<NavItem key={index} {...navItem} isDisabled={isFetching > 0 || isMutating > 0} />
 					))}
 				</VStack>
 			) : (
 				<HStack width='100%' alignItems='flex-start' justifyContent='space-between' spacing={2}>
 					{navItems.map((navItem, index) => (
-						<NavItem key={index} {...navItem} />
+						<NavItem key={index} {...navItem} isDisabled={isFetching > 0 || isMutating > 0} />
 					))}
 				</HStack>
 			)}

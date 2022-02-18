@@ -1,4 +1,5 @@
 import { ReactElement, useEffect } from 'react';
+import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -37,6 +38,9 @@ const User = (): ReactElement => {
 
 	const location = useLocation();
 
+	const isFetching = useIsFetching();
+	const isMutating = useIsMutating();
+
 	const userLinks: NavItemType[] = [
 		{
 			renderIcon: ({ isActive, fontSize }) =>
@@ -62,7 +66,6 @@ const User = (): ReactElement => {
 			renderIcon: ({ isActive, fontSize }) =>
 				isActive ? <PaletteTwoToneIcon style={{ fontSize }} /> : <PaletteOutlinedIcon style={{ fontSize }} />,
 			label: 'Display',
-
 			onClick: () => dispatch(toggleDisplay(true))
 		}
 	];
@@ -110,7 +113,12 @@ const User = (): ReactElement => {
 						/>
 						<VStack width='100%' spacing={1}>
 							{userLinks.map((userLink) => (
-								<NavItem key={userLink.label} {...userLink} sidebarMode='expanded' />
+								<NavItem
+									key={userLink.label}
+									{...userLink}
+									isExpanded
+									isDisabled={isFetching > 0 || isMutating > 0}
+								/>
 							))}
 						</VStack>
 					</VStack>

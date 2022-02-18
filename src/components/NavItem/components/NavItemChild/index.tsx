@@ -19,17 +19,14 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
 
 	const location = useLocation();
 
-	const sidebarModeState = useSelector((state) => state.app.ui.sidebarMode);
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const { label, path, isLastChild = false, sidebarMode: sidebarModeProp } = props;
+	const { label, path, isLastChild = false, isExpanded = false } = props;
 
 	const [isHoveringChild, setIsHoveringChild] = useBoolean();
 
-	const sidebarMode = sidebarModeProp || sidebarModeState;
-
 	const isActive: boolean = location.pathname === path;
-	const style = useStyles(theme, color, isActive, sidebarMode === 'expanded', isLastChild);
+	const style = useStyles(theme, color, isActive, isExpanded, isLastChild);
 
 	/**
 	 * This method will get the label and return the initials of that label
@@ -52,16 +49,16 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
 	return (
 		<Link to={{ pathname: path || '' }} isFullWidth isDisabled={!path} sx={{ ...style.common.link }}>
 			<Tooltip
-				aria-label={sidebarMode === 'collapsed' ? label : ''}
+				aria-label={!isExpanded ? label : ''}
 				width='100%'
-				label={sidebarMode === 'collapsed' ? label : ''}
+				label={!isExpanded ? label : ''}
 				isOpen={isHoveringChild}
-				isDisabled={sidebarMode === 'expanded'}
+				isDisabled={isExpanded}
 				placement='right'
 				gutter={16}
 			>
 				<HStack width='100%' spacing='12px'>
-					{sidebarMode === 'expanded' ? (
+					{isExpanded ? (
 						<Box
 							width='2px'
 							height='42px'
@@ -71,8 +68,8 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
 
 					<HStack
 						width='100%'
-						justifyContent={sidebarMode === 'expanded' ? 'flex-start' : 'center'}
-						px={sidebarMode === 'expanded' ? 2 : 1}
+						justifyContent={isExpanded ? 'flex-start' : 'center'}
+						px={isExpanded ? 2 : 1}
 						py={1}
 						onMouseEnter={() => setIsHoveringChild.on()}
 						onMouseLeave={() => setIsHoveringChild.off()}
@@ -81,12 +78,12 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
 					>
 						<Text
 							align='left'
-							fontSize={sidebarMode === 'expanded' ? 'md' : 'sm'}
+							fontSize={isExpanded ? 'md' : 'sm'}
 							fontWeight='semibold'
 							whiteSpace='nowrap'
-							textTransform={sidebarMode === 'expanded' ? 'capitalize' : 'uppercase'}
+							textTransform={isExpanded ? 'capitalize' : 'uppercase'}
 						>
-							{sidebarMode === 'expanded' ? label : handleGetInitials()}
+							{isExpanded ? label : handleGetInitials()}
 						</Text>
 					</HStack>
 				</HStack>

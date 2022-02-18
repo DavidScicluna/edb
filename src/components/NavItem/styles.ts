@@ -23,6 +23,7 @@ type StyleNavItemProps = {
 	isChildActive: boolean;
 	renderChildren: boolean;
 	isExpanded: boolean;
+	isDisabled: boolean;
 	isOpen: boolean;
 };
 
@@ -34,6 +35,7 @@ export default (
 		isChildActive = false,
 		renderChildren = false,
 		isExpanded = false,
+		isDisabled = false,
 		isOpen = false
 	}: StyleNavItemProps
 ): NavItemStyle => ({
@@ -44,7 +46,7 @@ export default (
 			transition: `${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`
 		},
 		main: {
-			'cursor': 'pointer',
+			'cursor': isDisabled ? 'default' : 'pointer',
 
 			'borderRadius':
 				!isExpanded && isOpen && renderChildren ? `${theme.radii.base} ${theme.radii.base} 0 0` : 'base',

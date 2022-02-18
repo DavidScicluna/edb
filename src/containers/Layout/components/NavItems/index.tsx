@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { useIsFetching, useIsMutating } from 'react-query';
 
 import { useColorMode, VStack, Box } from '@chakra-ui/react';
 
@@ -12,9 +13,12 @@ import Logo from '../Logo';
 const NavItems = ({ navItems, sidebarMode: sidebarModeProp }: NavItemsProps): ReactElement => {
 	const { colorMode } = useColorMode();
 
-	const sidebarModeState = useSelector((state) => state.app.ui.sidebarMode);
+	const isFetching = useIsFetching();
+	const isMutating = useIsMutating();
 
-	const sidebarMode = sidebarModeProp || sidebarModeState;
+	const sidebarModeHook = useSelector((state) => state.app.ui.sidebarMode);
+
+	const sidebarMode = sidebarModeProp || sidebarModeHook;
 
 	return (
 		<VStack width='100%' spacing={2}>
@@ -26,7 +30,12 @@ const NavItems = ({ navItems, sidebarMode: sidebarModeProp }: NavItemsProps): Re
 
 			<VStack width='100%'>
 				{navItems.map((navItem) => (
-					<NavItem key={navItem.label} {...navItem} sidebarMode={sidebarMode} />
+					<NavItem
+						key={navItem.label}
+						{...navItem}
+						isExpanded={sidebarMode === 'expanded'}
+						isDisabled={isFetching > 0 || isMutating > 0}
+					/>
 				))}
 			</VStack>
 		</VStack>

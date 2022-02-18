@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 
 import { useTheme, useColorMode, VStack } from '@chakra-ui/react';
@@ -24,6 +25,9 @@ const Sidebar = (): ReactElement => {
 	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
+	const isFetching = useIsFetching();
+	const isMutating = useIsMutating();
+
 	return (
 		<VStack
 			width={sidebarWidth[sidebarMode]}
@@ -44,6 +48,7 @@ const Sidebar = (): ReactElement => {
 
 			<Button
 				isFullWidth
+				isDisabled={isFetching > 0 || isMutating > 0}
 				onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
 				renderLeftIcon={({ fontSize }) =>
 					sidebarMode === 'expanded' ? (
