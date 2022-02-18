@@ -10,7 +10,7 @@ const Show = ({ show, isLoading = true }: ShowProps): ReactElement => {
 		<Panel isFullWidth>
 			{{
 				header: {
-					title: `${show?.name ? show.name : 'TV Show Name'} Episode`
+					title: `Part of ${show?.name ? `"${show.name}" show` : 'TV Show Name'}`
 				},
 				body: <HorizontalTVShowPoster key={show?.id} show={show} isLoading={isLoading} />
 			}}
