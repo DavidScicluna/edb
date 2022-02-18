@@ -55,7 +55,6 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 
 	return (
 		<HorizontalTabbedGrid
-			title={title}
 			activeTab={activeTab}
 			onChange={(index: number) => setActiveTab(index)}
 			footer={
@@ -77,19 +76,19 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 				children: _.compact([
 					mediaTypes.includes('movie')
 						? {
-								label: 'Movies',
+								label: `${title} Movies`,
 								isDisabled: isLoading.movie
 						  }
 						: undefined,
 					mediaTypes.includes('tv')
 						? {
-								label: 'TV Shows',
+								label: `${title} TV Shows`,
 								isDisabled: isLoading.tv
 						  }
 						: undefined,
 					mediaTypes.includes('person')
 						? {
-								label: 'People',
+								label: `${title} People`,
 								isDisabled: isLoading.person
 						  }
 						: undefined
