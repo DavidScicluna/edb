@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { StackProps } from '@chakra-ui/react';
+
 import { Location } from 'history';
 
 export type Breadcrumb = {
@@ -14,4 +16,5 @@ export type PageProps = {
 		body: ReactElement;
 	};
 	title?: string | ReactElement;
+	direction?: StackProps['direction'];
 };

@@ -58,7 +58,7 @@ const People = (): ReactElement => {
 	}, []);
 
 	return (
-		<Page title='People'>
+		<Page title='People' direction='row'>
 			{{
 				actions: <DisplayMode />,
 				body: (
