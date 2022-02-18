@@ -1,24 +1,21 @@
 import { ReactElement, Fragment, useRef, useState, useCallback, useEffect } from 'react';
 
 import '../common/styles/styles.css';
-import { useBoolean, HStack } from '@chakra-ui/react';
+import { useBoolean } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
+import Header from './components/Header';
 import { HorizontalGridTabbedProps } from './types';
 
 import Panel from '../../../Panel';
 import Tabs from '../../../Tabs';
-import TabList from '../../../Tabs/components/TabList';
 import TabPanels from '../../../Tabs/components/TabPanels';
-import Actions from '../components/Actions';
 import Scroll from '../components/Scroll';
-import Title from '../components/Title';
 import { ScrollMenu } from '../types';
 
 const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement => {
 	const ref = useRef<ScrollMenu>({} as ScrollMenu);
-	const { scrollPrev, scrollNext } = ref.current || {};
 
 	const { children, title, footer, isDisabled = false, activeTab, onChange, renderTabListProps, ...rest } = props;
 
@@ -73,22 +70,16 @@ const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement =>
 		<Tabs activeTab={activeTab} onChange={handleOnChange}>
 			<Panel {...rest} isFullWidth>
 				{{
-					header: {
-						title: (
-							<HStack spacing={2}>
-								{title ? typeof title === 'string' ? <Title>{title}</Title> : title : null}
-								<TabList {...renderTabListProps} />
-							</HStack>
-						),
-						actions: (
-							<Actions
-								isLeftDisabled={isDisabled || isLeftDisabled}
-								isRightDisabled={isDisabled || isRightDisabled}
-								onLeftClick={scrollPrev}
-								onRightClick={scrollNext}
-							/>
-						)
-					},
+					header: (
+						<Header
+							scrollMenu={ref.current}
+							title={title}
+							isDisabled={isDisabled}
+							isLeftDisabled={isLeftDisabled}
+							isRightDisabled={isRightDisabled}
+							renderTabListProps={renderTabListProps}
+						/>
+					),
 					body: (
 						<TabPanels>
 							{children.map((panel, index) => (
