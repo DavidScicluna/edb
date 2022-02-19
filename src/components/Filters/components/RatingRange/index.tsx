@@ -12,6 +12,7 @@ import { Theme } from '../../../../theme/types';
 import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
 import Rating from '../../../Rating';
+import { handleCheckIfInRange } from '../../common/utils';
 import { Form } from '../../types';
 import Header from '../Header';
 
@@ -74,7 +75,12 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 								{_.range(0, 11).map((number) => (
 									<Button
 										key={number}
-										color={value.some((rating) => rating === number) ? color : 'gray'}
+										color={
+											value.some((rating) => rating === number) ||
+											handleCheckIfInRange(number, value)
+												? color
+												: 'gray'
+										}
 										isFullWidth
 										onClick={() => handleOnChange(value, number)}
 										size={isMd ? 'sm' : 'md'}

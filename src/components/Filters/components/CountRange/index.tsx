@@ -11,6 +11,7 @@ import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
 import Button from '../../../Clickable/Button';
 import Panel from '../../../Panel';
+import { handleCheckIfInRange } from '../../common/utils';
 import { Form } from '../../types';
 import Header from '../Header';
 
@@ -75,7 +76,12 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 								{_.range(0, 550, 50).map((number) => (
 									<Button
 										key={number}
-										color={value.some((count) => count === number) ? color : 'gray'}
+										color={
+											value.some((count) => count === number) ||
+											handleCheckIfInRange(number, value)
+												? color
+												: 'gray'
+										}
 										isFullWidth
 										onClick={() => handleOnChange(value, number)}
 										size={isMd ? 'sm' : 'md'}
