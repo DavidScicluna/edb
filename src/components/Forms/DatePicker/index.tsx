@@ -37,13 +37,13 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 	};
 
 	const handleSetYear = (year: number): void => {
-		setDate(new Date(year, (date || new Date()).getMonth()));
+		setDate(new Date(year, (date || new Date()).getMonth(), 1));
 
 		setIsShowingYears.off();
 	};
 
 	const handleSetMonth = (month: number): void => {
-		setDate(new Date((date || new Date()).getFullYear(), month));
+		setDate(new Date((date || new Date()).getFullYear(), month, 1));
 
 		setIsShowingMonths.off();
 	};
