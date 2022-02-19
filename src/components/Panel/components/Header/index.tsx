@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from 'react';
 
-import { useColorMode, HStack, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
 import { HeaderProps } from './types';
 
@@ -10,6 +10,7 @@ import { Context } from '../../types';
 
 const Header = ({ actions, title }: HeaderProps): ReactElement => {
 	const { colorMode } = useColorMode();
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const { size = 'md', variant = 'outlined' } = useContext<Context>(PanelContext);
 
@@ -20,7 +21,7 @@ const Header = ({ actions, title }: HeaderProps): ReactElement => {
 					<Text
 						align='left'
 						color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-						fontSize='lg'
+						fontSize={isSm ? 'md' : 'lg'}
 						fontWeight='bold'
 						whiteSpace='nowrap'
 					>

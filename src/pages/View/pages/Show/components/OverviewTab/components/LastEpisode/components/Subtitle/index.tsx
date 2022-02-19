@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useConst, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, useConst, Text } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
@@ -12,6 +12,7 @@ const dummies = _.range(25, 100, 10);
 
 const Subtitle = (props: SubtitleProps): ReactElement => {
 	const { colorMode } = useColorMode();
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const { subtitle, isLoading = false } = props;
 
@@ -21,7 +22,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 		<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
 			<Text
 				align='left'
-				fontSize='sm'
+				fontSize={isSm ? 'xs' : 'sm'}
 				color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
 				isTruncated
 				overflow='hidden'
