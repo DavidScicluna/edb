@@ -196,7 +196,7 @@ export const handleIsOverflowing = (element: HTMLElement): boolean => {
 };
 
 export const handleCheckSystemColorMode = (): ColorMode => {
-	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+	if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 		return 'dark';
 	} else {
 		return 'light';
