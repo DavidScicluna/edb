@@ -70,7 +70,7 @@ const Paragraph = ({ title, paragraphs = '', isLoading = true }: ParagraphProps)
 						{_.range(0, 3).map((_dummy, index) => (
 							<SkeletonText key={index} width='100%' fontSize='xs' isLoaded={false}>
 								<Text align='left' fontSize='xs'>
-									Lorem ipsum dolor sit amet
+									{`Paragraph ${index + 1}`}
 								</Text>
 							</SkeletonText>
 						))}

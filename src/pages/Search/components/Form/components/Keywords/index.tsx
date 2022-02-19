@@ -59,7 +59,7 @@ const Keywords = (props: KeywordsProps): ReactElement => {
 							<ListItem
 								key={index}
 								id={String(index)}
-								title='Lorem Ipsum'
+								title={`Keyword ${index + 1}`}
 								isLoading
 								variant='transparent'
 							/>

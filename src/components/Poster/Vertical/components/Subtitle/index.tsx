@@ -33,7 +33,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 						overflow='hidden'
 						whiteSpace='nowrap'
 					>
-						{!isLoading ? subtitle : 'Lorem ipsum dolor sit amet'}
+						{subtitle || 'Poster Subtitle'}
 					</Text>
 				</SkeletonText>
 			) : null}

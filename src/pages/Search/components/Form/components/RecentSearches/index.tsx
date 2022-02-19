@@ -52,7 +52,13 @@ const RecentSearches = (props: RecentSearchesProps): ReactElement => {
 			) : (
 				<>
 					{_.range(0, 5).map((_dummy, index) => (
-						<ListItem key={index} id={String(index)} title='Lorem Ipsum' isLoading variant='transparent' />
+						<ListItem
+							key={index}
+							id={String(index)}
+							title={`Search ${index + 1}`}
+							isLoading
+							variant='transparent'
+						/>
 					))}
 				</>
 			)}

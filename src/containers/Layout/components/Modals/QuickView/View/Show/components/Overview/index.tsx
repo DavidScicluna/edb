@@ -40,7 +40,7 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
 								fontSize='md'
 								whiteSpace='nowrap'
 							>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								{`TV Show Overview ${index + 1}`}
 							</Text>
 						</SkeletonText>
 					))}

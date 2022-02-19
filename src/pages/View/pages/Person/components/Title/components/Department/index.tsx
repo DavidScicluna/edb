@@ -18,7 +18,7 @@ const Department = (props: DepartmentProps): ReactElement => {
 	return (
 		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
 			<Text align='left' color={color} fontSize={fontSize} whiteSpace='nowrap'>
-				{!isLoading ? department : 'Lorem Ipsum'}
+				{department || 'Department Name'}
 			</Text>
 		</SkeletonText>
 	);

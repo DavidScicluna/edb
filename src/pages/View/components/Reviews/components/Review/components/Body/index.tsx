@@ -73,7 +73,7 @@ const Body = (props: BodyProps): ReactElement => {
 					{_.range(0, 3).map((_dummy, index) => (
 						<SkeletonText key={index} width='100%' fontSize='xs' isLoaded={!isLoading}>
 							<Text align='left' fontSize='xs'>
-								Lorem ipsum dolor sit amet
+								{`Paragraph ${index + 1}`}
 							</Text>
 						</SkeletonText>
 					))}

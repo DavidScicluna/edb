@@ -87,8 +87,7 @@ const Cast = (props: CastProps): ReactElement => {
 								key={index}
 								width='100%'
 								mediaType='person'
-								title='Lorem ipsum'
-								subtitle='Lorem ipsum dolor sit amet'
+								title='Cast Member Name'
 								isLoading
 							/>
 						))

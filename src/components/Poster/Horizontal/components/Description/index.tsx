@@ -43,7 +43,7 @@ const Description = (props: DescriptionProps): ReactElement => {
 						overflow='hidden'
 						whiteSpace='nowrap'
 					>
-						{!isLoading ? description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'}
+						{description || 'Poster Description'}
 					</Text>
 				</SkeletonText>
 			) : null}

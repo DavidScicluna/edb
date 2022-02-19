@@ -87,8 +87,7 @@ const Crew = (props: CrewProps): ReactElement => {
 								key={index}
 								width='100%'
 								mediaType='person'
-								title='Lorem ipsum'
-								subtitle='Lorem ipsum dolor sit amet'
+								title='Crew Member Name'
 								isLoading
 							/>
 						))

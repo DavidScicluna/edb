@@ -44,7 +44,7 @@ const Title = (props: TitleProps): ReactElement => {
 						overflow='hidden'
 						whiteSpace='nowrap'
 					>
-						{!isLoading ? title : 'Lorem ipsum'}
+						{title || 'Poster Title'}
 					</Text>
 				</SkeletonText>
 			) : null}

@@ -104,8 +104,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
 						key={index}
 						width={['185px', '205px', '230px']}
 						mediaType='movie'
-						title='Lorem ipsum'
-						subtitle='Lorem ipsum'
+						title='Media-Item Title'
 						isLoading
 					/>
 				))

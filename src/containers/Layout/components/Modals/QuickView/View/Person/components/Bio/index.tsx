@@ -46,7 +46,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 								fontSize='md'
 								whiteSpace='nowrap'
 							>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								{`Person Bio ${index + 1}`}
 							</Text>
 						</SkeletonText>
 					))}

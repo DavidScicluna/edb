@@ -77,14 +77,7 @@ const Guests = (props: GuestsProps): ReactElement => {
 					))
 			) : (
 				_.range(0, 5).map((_dummy, index: number) => (
-					<VerticalPoster
-						key={index}
-						width={width}
-						mediaType='person'
-						title='Lorem ipsum'
-						subtitle='Lorem ipsum dolor sit amet'
-						isLoading
-					/>
+					<VerticalPoster key={index} width={width} mediaType='person' title='Guest Star Name' isLoading />
 				))
 			)}
 		</HorizontalGrid>
