@@ -8,10 +8,11 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { useTimeout } from 'usehooks-ts';
 
+import Splashscreen from './components/Splashscreen';
+
 import Layout from '../../containers/Layout';
 import store from '../../store';
 import theme from '../../theme';
-import SplashscreenModal from '../Layout/components/Modals/Splashscreen';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -35,7 +36,7 @@ const App = (): ReactElement => {
 			<PersistGate loading={null} persistor={persistor}>
 				<ChakraProvider theme={theme}>
 					<QueryClientProvider client={queryClient}>
-						{isSplashscreenOpen ? <SplashscreenModal isOpen={isSplashscreenOpen} /> : <Layout />}
+						{isSplashscreenOpen ? <Splashscreen isOpen={isSplashscreenOpen} /> : <Layout />}
 					</QueryClientProvider>
 				</ChakraProvider>
 			</PersistGate>

@@ -60,9 +60,11 @@ export type UserReviews = {
 	other: OtherReview[];
 };
 
+export type Background = ColorMode | 'system';
+
 export type Theme = {
 	color: keyof Omit<Color, 'gray' | 'red'>;
-	background: ColorMode | 'system';
+	background: Background;
 };
 
 export type StateProps = {

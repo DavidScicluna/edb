@@ -2,7 +2,7 @@ import { ReactElement, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import { useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box } from '@chakra-ui/react';
 
 import {
 	HomeTwoTone as HomeTwoToneIcon,
@@ -19,6 +19,7 @@ import {
 	WhatshotTwoTone as WhatshotTwoToneIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
+import { useIsFirstRender, useUpdateEffect } from 'usehooks-ts';
 
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
@@ -32,8 +33,8 @@ import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 
-import { useSelector, usePopulateOptions } from '../../common/hooks';
-import { handleCheckSystemColorMode, handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
+import { useSelector, usePopulateOptions, useCheckColorMode } from '../../common/hooks';
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import { NavItem } from '../../components/NavItem/types';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { toggleSplashscreen } from '../../store/slices/Modals';
@@ -90,17 +91,19 @@ const Layout = (): ReactElement => {
 
 	const transition = useTransitionsStyle(theme);
 
+	const isFirstRender = useIsFirstRender();
+
+	const mode = useCheckColorMode(!isFirstRender && background === 'system');
+
 	const handleUpdateColorMode = useCallback(
-		_.debounce(() => {
-			if (background === 'system') {
-				dispatch(toggleSplashscreen(true));
+		_.debounce((mode: ColorMode) => {
+			dispatch(toggleSplashscreen(true));
 
-				setColorMode(handleCheckSystemColorMode());
+			setColorMode(mode);
 
-				setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
-			}
+			setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
 		}, 500),
-		[background, setColorMode, dispatch, toggleSplashscreen, handleCheckSystemColorMode]
+		[dispatch, toggleSplashscreen, setColorMode]
 	);
 
 	usePopulateOptions();
@@ -111,14 +114,11 @@ const Layout = (): ReactElement => {
 		}
 	}, [isLgUp]);
 
-	useEffect(() => {
-		handleUpdateColorMode();
-
-		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleUpdateColorMode);
-
-		return () =>
-			window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleUpdateColorMode);
-	}, []);
+	useUpdateEffect(() => {
+		if (!isFirstRender) {
+			handleUpdateColorMode(mode);
+		}
+	}, [mode]);
 
 	return (
 		<>
