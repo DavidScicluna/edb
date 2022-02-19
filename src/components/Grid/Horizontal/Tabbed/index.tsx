@@ -17,7 +17,7 @@ import { ScrollMenu } from '../types';
 const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement => {
 	const ref = useRef<ScrollMenu>({} as ScrollMenu);
 
-	const { children, title, footer, isDisabled = false, activeTab, onChange, renderTabListProps, ...rest } = props;
+	const { children, footer, isDisabled = false, activeTab, onChange, renderTabListProps, ...rest } = props;
 
 	const [api, setApi] = useState<ScrollMenu>({} as ScrollMenu);
 	const {
@@ -73,7 +73,6 @@ const HorizontalGridTabbed = (props: HorizontalGridTabbedProps): ReactElement =>
 					header: (
 						<Header
 							scrollMenu={ref.current}
-							title={title}
 							isDisabled={isDisabled}
 							isLeftDisabled={isLeftDisabled}
 							isRightDisabled={isRightDisabled}

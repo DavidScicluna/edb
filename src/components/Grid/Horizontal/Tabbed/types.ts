@@ -13,4 +13,4 @@ export type HorizontalGridTabbedProps = {
 	activeTab: TabsProps['activeTab'];
 	onChange: TabsProps['onChange'];
 	renderTabListProps: Omit<TabListProps, 'activeTab'>;
-} & HorizontalGridProps;
+} & Omit<HorizontalGridProps, 'title'>;
