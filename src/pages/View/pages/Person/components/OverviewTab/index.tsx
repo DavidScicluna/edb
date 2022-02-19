@@ -17,10 +17,8 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 		<VStack width='100%' spacing={4}>
 			<Collapse
 				in={
-					!_.isNil(person?.biography) ||
-					!_.isEmpty(person?.biography) ||
-					!_.isNil(person?.birthday) ||
-					!_.isEmpty(person?.birthday) ||
+					(!_.isNil(person?.biography) && !_.isEmpty(person?.biography)) ||
+					(!_.isNil(person?.birthday) && !_.isEmpty(person?.birthday)) ||
 					isLoading?.person
 				}
 				unmountOnExit
