@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { useTheme, useMediaQuery, ButtonGroup, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, useConst, ButtonGroup, Text, ScaleFade } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
@@ -20,6 +20,8 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 	const [isMd] = useMediaQuery('(max-width: 760px)');
 
 	const color = useSelector((state) => state.user.ui.theme.color);
+
+	const counts = useConst(_.range(0, 550, 50));
 
 	const handleOnChange = (count: Form['count'], number: number): void => {
 		if (count.some((num) => num === number)) {
@@ -72,8 +74,8 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 							/>
 						),
 						body: (
-							<ButtonGroup width='100%' isAttached>
-								{_.range(0, 550, 50).map((number) => (
+							<ButtonGroup width='100%' isAttached flexWrap={isMd ? 'wrap' : 'nowrap'}>
+								{counts.map((number) => (
 									<Button
 										key={number}
 										color={
@@ -84,22 +86,23 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 										}
 										isFullWidth
 										onClick={() => handleOnChange(value, number)}
-										size={isMd ? 'sm' : 'md'}
-										variant='outlined'
+										variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
 										sx={{
 											back: {
+												flex: isMd ? 1 : '',
+												minWidth: isMd ? `${100 / 6}%` : 'auto',
 												borderRadius:
-													number === 0
+													number === counts[0]
 														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === 500
+														: number === counts[counts.length - 1]
 														? `0 ${theme.radii.base} ${theme.radii.base} 0`
 														: 0
 											},
 											front: {
 												borderRadius:
-													number === 0
+													number === counts[0]
 														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === 500
+														: number === counts[counts.length - 1]
 														? `0 ${theme.radii.base} ${theme.radii.base} 0`
 														: 0
 											}

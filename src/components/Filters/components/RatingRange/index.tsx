@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { useTheme, useMediaQuery, ButtonGroup, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, useConst, ButtonGroup, ScaleFade } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
@@ -21,6 +21,8 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 	const [isMd] = useMediaQuery('(max-width: 760px)');
 
 	const color = useSelector((state) => state.user.ui.theme.color);
+
+	const ratings = useConst(_.range(0, 11));
 
 	const handleOnChange = (rating: Form['rating'], number: number): void => {
 		if (rating.some((num) => num === number)) {
@@ -71,8 +73,8 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 							/>
 						),
 						body: (
-							<ButtonGroup width='100%' isAttached>
-								{_.range(0, 11).map((number) => (
+							<ButtonGroup width='100%' isAttached flexWrap={isMd ? 'wrap' : 'nowrap'}>
+								{ratings.map((number) => (
 									<Button
 										key={number}
 										color={
@@ -83,22 +85,23 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 										}
 										isFullWidth
 										onClick={() => handleOnChange(value, number)}
-										size={isMd ? 'sm' : 'md'}
-										variant='outlined'
+										variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
 										sx={{
 											back: {
+												flex: isMd ? 1 : '',
+												minWidth: isMd ? `${100 / 6}%` : 'auto',
 												borderRadius:
-													number === 0
+													number === ratings[0]
 														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === 10
+														: number === ratings[ratings.length - 1]
 														? `0 ${theme.radii.base} ${theme.radii.base} 0`
 														: 0
 											},
 											front: {
 												borderRadius:
-													number === 0
+													number === ratings[0]
 														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === 10
+														: number === ratings[ratings.length - 1]
 														? `0 ${theme.radii.base} ${theme.radii.base} 0`
 														: 0
 											}
