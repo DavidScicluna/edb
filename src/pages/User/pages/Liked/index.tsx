@@ -74,70 +74,28 @@ const Liked = (): ReactElement => {
 		}
 	};
 
-	const handleCheckHasMediaTypes = (): void => {
-		let mediaTypes = 0;
-
-		if (movies && movies.length > 0) {
-			mediaTypes = mediaTypes + 1;
-		}
-
-		if (tv && tv.length > 0) {
-			mediaTypes = mediaTypes + 1;
-		}
-
-		if (people && people.length > 0) {
-			mediaTypes = mediaTypes + 1;
-		}
-
-		if (companies && companies.length > 0) {
-			mediaTypes = mediaTypes + 1;
-		}
-
-		if (collections && collections.length > 0) {
-			mediaTypes = mediaTypes + 1;
-		}
-
-		if (mediaTypes > 0 && mediaTypes === 1) {
-			if (movies && movies.length > 0) {
-				handleSetMediaType('movie');
-			} else if (tv && tv.length > 0) {
-				handleSetMediaType('tv');
-			} else if (people && people.length > 0) {
-				handleSetMediaType('person');
-			} else if (companies && companies.length > 0) {
-				handleSetMediaType('company');
-			} else if (collections && collections.length > 0) {
-				handleSetMediaType('collection');
-			}
-		}
-	};
-
 	const handleCheckLocation = (): void => {
 		const hash = String(location.hash).replace('#', '');
 
-		if (!_.isEmpty(hash)) {
-			switch (hash) {
-				case 'movie':
-					setActiveTab(0);
-					return;
-				case 'tv':
-					setActiveTab(1);
-					return;
-				case 'person':
-					setActiveTab(2);
-					return;
-				case 'company':
-					setActiveTab(3);
-					return;
-				case 'collection':
-					setActiveTab(4);
-					return;
-				default:
-					setActiveTab(undefined);
-					return;
-			}
-		} else {
-			handleCheckHasMediaTypes();
+		switch (hash) {
+			case 'movie':
+				setActiveTab(0);
+				return;
+			case 'tv':
+				setActiveTab(1);
+				return;
+			case 'person':
+				setActiveTab(2);
+				return;
+			case 'company':
+				setActiveTab(3);
+				return;
+			case 'collection':
+				setActiveTab(4);
+				return;
+			default:
+				setActiveTab(undefined);
+				return;
 		}
 	};
 
@@ -151,10 +109,6 @@ const Liked = (): ReactElement => {
 
 	useEffect(() => {
 		handleCheckLocation();
-
-		return () => {
-			setActiveTab(undefined);
-		};
 	}, []);
 
 	return (
