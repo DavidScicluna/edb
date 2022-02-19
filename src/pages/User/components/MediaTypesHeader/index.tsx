@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import CountUp from 'react-countup';
 
-import { useTheme, Center, HStack, Fade } from '@chakra-ui/react';
+import { Center, HStack, Fade } from '@chakra-ui/react';
 
 import {
 	LibraryBooksOutlined as LibraryBooksOutlinedIcon,
@@ -25,15 +25,12 @@ import Badge from '../../../../components/Badge';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
 import TabList from '../../../../components/Tabs/components/TabList';
-import { Theme } from '../../../../theme/types';
 
 const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person', 'company', 'collection'];
 
 const defaultTotal: MediaTypesHeaderProps['total'] = { movie: 0, tv: 0, person: 0, company: 0, collection: 0 };
 
 const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
-	const theme = useTheme<Theme>();
-
 	const color = useSelector((state) => state.user.ui.theme.color);
 
 	const [headerRef, { height: heightHeight }] = useElementSize();
@@ -49,9 +46,9 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 			maxHeight='43px' // Size of Actions since they might be un-rendered
 			spacing={2}
 			divider={
-				<Fade in={!_.isNil(activeTab)} unmountOnExit>
+				!_.isNil(activeTab) || renderActions ? (
 					<Divider orientation='vertical' height={`${heightHeight}px`} mx={2} />
-				</Fade>
+				) : undefined
 			}
 		>
 			<Center width={`calc(100% - ${actionsWidth + 34}px)`}>
