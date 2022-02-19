@@ -12,7 +12,7 @@ import { TabsContext as TabsContextType } from '../../types';
 const TabList = (props: TabListProps): ReactElement => {
 	const { activeTab } = useContext<TabsContextType>(TabsContext);
 
-	const { children = [], color = 'gray', size = 'md' } = props;
+	const { children = [], color = 'gray', isActiveForced = false, size = 'md' } = props;
 
 	return (
 		<CUITabList width='100%'>
@@ -22,7 +22,7 @@ const TabList = (props: TabListProps): ReactElement => {
 						{...tab}
 						key={index}
 						color={color}
-						isOnlyTab={children.length === 1}
+						isOnlyTab={!isActiveForced && children.length === 1}
 						isSelected={activeTab === index}
 						size={size}
 					/>

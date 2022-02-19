@@ -5,6 +5,6 @@ import { Color } from '../../../../theme/types';
 export type TabListProps = {
 	children: Tab[];
 	color?: keyof Color;
-	isFullWidth?: boolean;
+	isActiveForced?: boolean;
 	size?: Size;
 };
