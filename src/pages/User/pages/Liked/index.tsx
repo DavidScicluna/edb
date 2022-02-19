@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, Collapse } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
@@ -142,6 +142,10 @@ const Liked = (): ReactElement => {
 	};
 
 	useEffect(() => {
+		setActiveTab(undefined);
+	}, [movies, tv, people, companies, collections]);
+
+	useEffect(() => {
 		handleCheckLocation();
 	}, [location]);
 
@@ -158,23 +162,32 @@ const Liked = (): ReactElement => {
 			{{
 				body: (
 					<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
-						<VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2} p={2}>
-							<MediaTypesHeader
-								activeTab={activeTab}
-								total={{
-									movie: movies.length,
-									tv: tv.length,
-									person: people.length,
-									company: companies.length,
-									collection: collections.length
-								}}
-							/>
+						<VStack
+							width='100%'
+							divider={
+								handleReturnMediaTypes().length > 0 ? <Divider orientation='horizontal' /> : undefined
+							}
+							spacing={2}
+							p={2}
+						>
+							<Collapse in={handleReturnMediaTypes().length > 0} unmountOnExit style={{ width: '100%' }}>
+								<MediaTypesHeader
+									activeTab={activeTab}
+									total={{
+										movie: movies.length,
+										tv: tv.length,
+										person: people.length,
+										company: companies.length,
+										collection: collections.length
+									}}
+								/>
+							</Collapse>
 
 							{_.isNil(activeTab) ? (
 								<MediaTypesPicker
 									mediaTypes={handleReturnMediaTypes()}
-									label='Oh no! Liked list is currently empty.'
-									description='Unfortunately, you have not liked any items. Please like an item to view it in the liked list.'
+									label='Oh no! 😢'
+									description='Please like an item to view it in the liked list.'
 									onSetMediaType={handleSetMediaType}
 								/>
 							) : (
