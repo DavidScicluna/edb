@@ -3,9 +3,10 @@ import { useLocation } from 'react-router-dom';
 
 import { VStack, Box } from '@chakra-ui/react';
 
-import Divider from './components/Divider';
 import Header from './components/Header';
 import { PageProps } from './types';
+
+import Divider from '../../components/Divider';
 
 const Page = ({ children, title, direction }: PageProps): ReactElement => {
 	const location = useLocation();
