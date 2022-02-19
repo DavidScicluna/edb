@@ -10,6 +10,6 @@ export type VerticalPosterProps<MT extends MediaType> = {
 	image?: ImageProps;
 	rating?: Rating;
 	title: string;
-	subtitle: string;
+	subtitle?: string;
 	isLoading: boolean;
 };

@@ -114,12 +114,12 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 							]}
 						>
 							<Title title={title} isLoading={isLoading} inView={inView} />
-							{!_.isNil(subtitle) && !_.isEmpty(subtitle) ? (
+							{(!_.isNil(subtitle) && !_.isEmpty(subtitle)) || isLoading ? (
 								<Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
 							) : null}
 						</VStack>
 
-						{!_.isNil(description) && !_.isEmpty(description) ? (
+						{(!_.isNil(description) && !_.isEmpty(description)) || isLoading ? (
 							<Description description={description} isLoading={isLoading} inView={inView} />
 						) : null}
 					</VStack>

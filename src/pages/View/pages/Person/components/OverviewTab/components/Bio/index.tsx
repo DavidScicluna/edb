@@ -27,8 +27,6 @@ export const handleReturnDates = (
 const Bio = (props: BioProps): ReactElement => {
 	const { birthday, place_of_birth, deathday, biography, isLoading = true } = props;
 
-	console.log(props);
-
 	return (
 		<Paragraph
 			title='Biography'

@@ -1,5 +1,5 @@
 export type DescriptionProps = {
-	description: string;
+	description?: string;
 	isLoading: boolean;
 	inView: boolean;
 };
