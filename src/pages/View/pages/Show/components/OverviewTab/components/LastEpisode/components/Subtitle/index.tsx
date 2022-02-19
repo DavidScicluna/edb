@@ -19,7 +19,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 	const dummy = useConst<number>(_.sample(dummies) || 100);
 
 	return (
-		<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
+		<SkeletonText width={isLoading ? `${dummy}%` : '100%'} fontSize='xs' isLoaded={!isLoading}>
 			<Text
 				align='left'
 				fontSize={isSm ? 'xs' : 'sm'}

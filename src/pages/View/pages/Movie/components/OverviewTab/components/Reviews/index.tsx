@@ -140,7 +140,9 @@ const Reviews = ({ movie, reviews = [], isLoading = true, onChangeTab }: Reviews
 							size={isSm ? 'sm' : 'md'}
 							variant='text'
 						>
-							{`View all ${movie?.title ? `"${movie.title}"` : 'Movie'} reviews`}
+							{isSm
+								? 'View all reviews'
+								: `View all ${movie?.title ? `"${movie.title}"` : 'Movie'} reviews`}
 						</Button>
 					) : undefined
 			}}

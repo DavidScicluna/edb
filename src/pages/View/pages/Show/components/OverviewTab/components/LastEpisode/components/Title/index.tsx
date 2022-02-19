@@ -19,7 +19,7 @@ const Title = (props: TitleProps): ReactElement => {
 	const dummy = useConst<number>(_.sample(dummies) || 100);
 
 	return (
-		<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
+		<SkeletonText width={isLoading ? `${dummy}%` : '100%'} fontSize='sm' isLoaded={!isLoading}>
 			<Text
 				align='left'
 				fontSize={isSm ? 'md' : 'lg'}

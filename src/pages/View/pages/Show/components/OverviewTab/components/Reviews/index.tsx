@@ -140,7 +140,9 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 							size={isSm ? 'sm' : 'md'}
 							variant='text'
 						>
-							{`View all ${show?.name ? `"${show.name}"` : 'TV Show'} reviews`}
+							{isSm
+								? 'View all reviews'
+								: `View all ${show?.name ? `"${show.name}"` : 'TV Show'} reviews`}
 						</Button>
 					) : undefined
 			}}

@@ -1,8 +1,21 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, HStack, VStack, AspectRatio, Text } from '@chakra-ui/react';
+import {
+	useTheme,
+	useColorMode,
+	useMediaQuery,
+	useConst,
+	HStack,
+	VStack,
+	AspectRatio,
+	Center,
+	Text,
+	SlideFade
+} from '@chakra-ui/react';
 
+import _ from 'lodash';
 import moment from 'moment';
+import { useElementSize } from 'usehooks-ts';
 
 import { HeaderProps } from './types';
 
@@ -12,7 +25,10 @@ import {
 	handleReturnBoringTypeByMediaType,
 	handleReturnRatio
 } from '../../../../../../../../common/utils';
+import Divider from '../../../../../../../../components/Divider';
+import HorizontalScroll from '../../../../../../../../components/HorizontalScroll';
 import Image from '../../../../../../../../components/Image';
+import Rating from '../../../../../../../../components/Rating';
 import Skeleton from '../../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../theme/types';
@@ -25,77 +41,123 @@ const Header = (props: HeaderProps): ReactElement => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const { avatar, name, username, date, isLoading = true } = props;
+	const [contentRef, { height: contentHeight }] = useElementSize();
+	const [ratingRef, { width: ratingWidth }] = useElementSize();
+
+	const { avatar_path, author, name, username, created_at, rating, isLoading = true } = props;
+
+	const avatar = useConst<number>(
+		handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['6xl'], 'rem'))
+	);
 
 	/**
 	 * This method will check if avatar url has a / in the beginning of the string
 	 * If so it will remove it
 	 *
-	 * @returns String - Avatar URL
+	 * @returns string - Avatar URL
 	 */
 	const handleSrc = (): string => {
-		if (avatar && avatar.charAt(0) === '/') {
-			return avatar.substring(1);
+		if (avatar_path && avatar_path.charAt(0) === '/') {
+			return avatar_path.substring(1);
 		}
-		return avatar || '';
+		return avatar_path || '';
 	};
 
-	return (
-		<HStack>
-			<AspectRatio
-				width={`${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes['5xl'], 'rem'))}px`}
-				borderRadius='full'
-				ratio={handleReturnRatio('square')}
-			>
-				<Skeleton borderRadius='full' isLoaded={!isLoading}>
-					<Image
-						alt={`${name} (${username}) Avatar`}
-						borderRadius='full'
-						boringType={handleReturnBoringTypeByMediaType('person')}
-						thumbnailSrc={handleSrc() || ''}
-						fullSrc={handleSrc() || ''}
-					/>
-				</Skeleton>
-			</AspectRatio>
+	const hasRating = (!_.isNil(rating) || !_.isEmpty(rating) || isLoading) && !isSm;
 
-			<VStack alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-				<SkeletonText isLoaded={!isLoading} fontSize='xl'>
-					<Text
-						align='left'
-						color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-						fontSize='xl'
-						fontWeight='semibold'
-					>
-						{!isSm ? `Review by ${name}` : name}
-					</Text>
-				</SkeletonText>
-				<HStack
-					divider={
+	return (
+		<HStack
+			width='100%'
+			divider={hasRating ? <Divider orientation='vertical' height={`${contentHeight}px`} /> : undefined}
+			spacing={2}
+		>
+			<HStack
+				ref={contentRef}
+				width={`calc(100% - ${hasRating ? ratingWidth + 34 : 0}px)`}
+				justifyContent='flex-start'
+				spacing={2}
+			>
+				<AspectRatio minWidth={`${avatar}px`} borderRadius='full' ratio={handleReturnRatio('square')}>
+					<Center as={Skeleton} borderRadius='full' isLoaded={!isLoading}>
+						<Image
+							alt={`${author || name} (${username}) Avatar`}
+							borderRadius='full'
+							boringType={handleReturnBoringTypeByMediaType('person')}
+							thumbnailSrc={handleSrc() || ''}
+							fullSrc={handleSrc() || ''}
+						/>
+					</Center>
+				</AspectRatio>
+
+				<VStack width={`calc(100% - ${avatar + 16}px)`} alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+					<SkeletonText isLoaded={!isLoading} fontSize='xl'>
 						<Text
 							align='left'
-							color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-							fontSize='sm'
-							mx={0.75}
+							color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+							fontSize={isSm ? 'xl' : '2xl'}
+							fontWeight='semibold'
+							lineHeight='normal'
+							isTruncated
+							overflow='hidden'
+							whiteSpace='nowrap'
 						>
-							•
+							{_.startCase(!isSm ? `Review by ${author || name}` : author || name)}
 						</Text>
-					}
-				>
-					{[isLoading ? '@username' : `@${username}`, moment(date || new Date()).format('LLL')]
-						.filter((item) => item)
-						.map((item, index) => (
-							<SkeletonText key={index} isLoaded={!isLoading} fontSize='sm'>
+					</SkeletonText>
+					<HorizontalScroll
+						renderDivider={({ padding }) => (
+							<Text
+								align='left'
+								color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+								fontSize='sm'
+								mx={padding}
+							>
+								•
+							</Text>
+						)}
+					>
+						{_.compact([
+							<SkeletonText key='review_username' isLoaded={!isLoading} fontSize='sm'>
 								<Text
 									align='left'
 									color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
 									fontSize='sm'
+									isTruncated
+									overflow='hidden'
+									whiteSpace='nowrap'
 								>
-									{item}
+									{`@${username || 'username'}`}
 								</Text>
-							</SkeletonText>
-						))}
-				</HStack>
-			</VStack>
+							</SkeletonText>,
+							created_at ? (
+								<SkeletonText key='review_created_at' isLoaded={!isLoading} fontSize='sm'>
+									<Text
+										align='left'
+										color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+										fontSize='sm'
+										isTruncated
+										overflow='hidden'
+										whiteSpace='nowrap'
+									>
+										{moment(created_at || new Date()).format('LLL')}
+									</Text>
+								</SkeletonText>
+							) : undefined,
+							isSm ? (
+								<Rating key='review_rating' size='sm' isLoading={isLoading}>
+									{rating}
+								</Rating>
+							) : undefined
+						])}
+					</HorizontalScroll>
+				</VStack>
+			</HStack>
+
+			<SlideFade in={hasRating} unmountOnExit>
+				<Rating ref={ratingRef} size='2xl' isLoading={isLoading}>
+					{rating}
+				</Rating>
+			</SlideFade>
 		</HStack>
 	);
 };

@@ -24,7 +24,7 @@ const LastEpisode = ({ show, isLoading = true, onChangeTab }: LastEpisodeProps):
 			{{
 				header: {
 					title: (
-						<VStack alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
+						<VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
 							<Title
 								title={`Latest ${show?.name ? `"${show.name}"` : 'TV Show'} episode`}
 								isLoading={isLoading}

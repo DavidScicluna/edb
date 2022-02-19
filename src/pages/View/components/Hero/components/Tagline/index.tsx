@@ -18,12 +18,14 @@ const Tagline = ({ tagline, isLoading = true }: TaglineProps): ReactElement => {
 
 	return (
 		<Label width='100%' label='Tagline'>
-			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>
+			<SkeletonText width={isLoading ? `${dummy}px` : '100%'} fontSize='md' isLoaded={!isLoading}>
 				<Text
 					align='left'
 					color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
 					fontSize='md'
 					fontStyle='italic'
+					isTruncated
+					overflow='hidden'
 					whiteSpace='nowrap'
 				>
 					{tagline || 'Tagline'}

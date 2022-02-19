@@ -83,7 +83,7 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 							button={
 								<CreateReview
 									renderAction={({ color, label, onClick }) => (
-										<Button color={color} onClick={() => onClick()}>
+										<Button color={color} onClick={() => onClick()} size='sm'>
 											{label}
 										</Button>
 									)}
@@ -98,8 +98,8 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 							}
 							description={
 								isSm
-									? 'You currently have not written any reviews!'
-									: `Write a review and leave your taughts about ${
+									? `Leave your taughts about the ${mediaType === 'tv' ? 'TV Show' : 'Movie'}!`
+									: `Leave your taughts about ${
 											alt ? `"${alt}"` : ''
 									  } to help others make up their mind.`
 							}
