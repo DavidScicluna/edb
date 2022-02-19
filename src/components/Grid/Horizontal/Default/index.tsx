@@ -5,17 +5,15 @@ import { useBoolean } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
-import Title from './components/Title';
+import Header from './components/Header';
 import { HorizontalGridDefaultProps } from './types';
 
 import Panel from '../../../Panel';
-import Actions from '../components/Actions';
 import Scroll from '../components/Scroll';
 import { ScrollMenu } from '../types';
 
 const HorizontalGridDefault = (props: HorizontalGridDefaultProps): ReactElement => {
 	const ref = useRef<ScrollMenu>({} as ScrollMenu);
-	const { scrollPrev, scrollNext } = ref.current || {};
 
 	const { children, title, footer, isDisabled = false, ...rest } = props;
 
@@ -60,17 +58,15 @@ const HorizontalGridDefault = (props: HorizontalGridDefaultProps): ReactElement 
 	return (
 		<Panel {...rest} isFullWidth>
 			{{
-				header: {
-					title: title ? typeof title === 'string' ? <Title>{title}</Title> : title : undefined,
-					actions: (
-						<Actions
-							isLeftDisabled={isDisabled || isLeftDisabled}
-							isRightDisabled={isDisabled || isRightDisabled}
-							onLeftClick={scrollPrev}
-							onRightClick={scrollNext}
-						/>
-					)
-				},
+				header: (
+					<Header
+						title={title}
+						scrollMenu={ref.current}
+						isDisabled={isDisabled}
+						isLeftDisabled={isLeftDisabled}
+						isRightDisabled={isRightDisabled}
+					/>
+				),
 				body: Array.isArray(children) ? (
 					<Scroll apiRef={ref} onInit={handleUpdateApi} onUpdate={handleUpdateApi}>
 						{children}
