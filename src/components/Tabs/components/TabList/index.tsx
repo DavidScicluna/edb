@@ -15,7 +15,7 @@ const TabList = (props: TabListProps): ReactElement => {
 	const { children = [], color = 'gray', isActiveForced = false, size = 'md' } = props;
 
 	return (
-		<CUITabList width='100%'>
+		<CUITabList width='100%' height='100%'>
 			<HorizontalScroll>
 				{children.map((tab, index) => (
 					<Tab

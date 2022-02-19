@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Center, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
 
 import {
 	ChevronLeftOutlined as ChevronLeftOutlinedIcon,
@@ -19,6 +19,8 @@ const Arrow = (props: ArrowProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
+	const [isSm] = useMediaQuery('(max-width: 600px)');
+
 	const { direction, isDisabled = false, onClick } = props;
 
 	const style = useStyles(theme, { isDisabled });
@@ -33,9 +35,8 @@ const Arrow = (props: ArrowProps): ReactElement => {
 			position='absolute'
 			left={direction === 'left' ? 0 : undefined}
 			right={direction === 'right' ? 0 : undefined}
-			zIndex={1}
-			// backgroundColor={!isDisabled ? (colorMode === 'light' ? 'gray.50' : 'gray.900') : 'transparent'}
-			sx={{ ..._.merge({ top: '50%', transform: 'translateY(-50%)' }, style[colorMode][direction]) }}
+			zIndex={5}
+			sx={{ ..._.merge({ top: '50%', transform: 'translateY(-50%)' }) }}
 			_after={
 				direction === 'left'
 					? {
@@ -57,16 +58,19 @@ const Arrow = (props: ArrowProps): ReactElement => {
 					: undefined
 			}
 		>
-			<ScaleFade in={!isDisabled} unmountOnExit>
-				<IconButton
-					ref={ref}
-					aria-label={`Scroll ${direction}`}
-					onClick={() => onClick()}
-					size='sm'
-					variant='icon'
-				>
-					{direction === 'left' ? <ChevronLeftOutlinedIcon /> : <ChevronRightOutlinedIcon />}
-				</IconButton>
+			<ScaleFade in={!isDisabled} unmountOnExit style={{ height: '100%' }}>
+				<Center height='100%' backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}>
+					<IconButton
+						ref={ref}
+						aria-label={`Scroll ${direction}`}
+						onClick={() => onClick()}
+						size={isSm ? 'sm' : 'md'}
+						variant='icon'
+						sx={{ back: { height: '100%' } }}
+					>
+						{direction === 'left' ? <ChevronLeftOutlinedIcon /> : <ChevronRightOutlinedIcon />}
+					</IconButton>
+				</Center>
 			</ScaleFade>
 		</Center>
 	);
