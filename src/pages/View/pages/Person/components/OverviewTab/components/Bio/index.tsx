@@ -16,7 +16,10 @@ export const handleReturnDates = (
 	const birthDate = moment(birthday || '', 'YYYY-MM-DD').format('LL');
 	const birthPlace = place_of_birth ? `in ${place_of_birth}` : undefined;
 	const deathDate = deathday ? `and died on ${moment(deathday || '', 'YYYY-MM-DD').format('LL')}` : undefined;
-	const yearsOld = `(${moment(new Date()).diff(moment(birthday || '', 'YYYY-MM-DD'), 'years')} years old)`;
+	const yearsOld = `(${_.toString(moment(birthday || new Date()).diff(deathday || new Date(), 'years')).replaceAll(
+		'-',
+		''
+	)} years old)`;
 
 	return `${['Born', 'on', birthDate, birthPlace, deathDate, yearsOld].filter((string) => string).join(' ')}. `;
 };
