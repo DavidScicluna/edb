@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import CountUp from 'react-countup';
 
-import { useTheme, HStack, Fade } from '@chakra-ui/react';
+import { useTheme, Center, HStack, Fade } from '@chakra-ui/react';
 
 import {
 	LibraryBooksOutlined as LibraryBooksOutlinedIcon,
@@ -36,164 +36,163 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const [ref, { height }] = useElementSize();
+	const [headerRef, { height: heightHeight }] = useElementSize();
+	const [actionsRef, { width: actionsWidth }] = useElementSize();
 
 	const { activeTab, mediaTypes = defaultMediaTypes, total = defaultTotal, renderActions } = props;
 
 	return (
 		<HStack
-			ref={ref}
+			ref={headerRef}
 			width='100%'
 			minHeight='43px' // Size of Actions since they might be un-rendered
 			maxHeight='43px' // Size of Actions since they might be un-rendered
 			spacing={2}
 			divider={
-				<Fade
-					in={!_.isNil(activeTab)}
-					unmountOnExit
-					style={{ marginLeft: theme.space[2], marginRight: theme.space[2] }}
-				>
-					<Divider orientation='vertical' height={`${height}px`} />
+				<Fade in={!_.isNil(activeTab)} unmountOnExit>
+					<Divider orientation='vertical' height={`${heightHeight}px`} mx={2} />
 				</Fade>
 			}
 		>
-			<TabList color={color}>
-				{_.compact([
-					mediaTypes.includes('movie')
-						? {
-								label: 'Movies',
-								isDisabled: total.movie === 0,
-								renderLeft: ({ isSelected, width, height }) =>
-									isSelected ? (
-										<TheatersTwoToneIcon style={{ width, height }} />
-									) : (
-										<TheatersOutlinedIcon style={{ width, height }} />
-									),
-								renderRight:
-									(total.movie || 0) > 0
-										? ({ isSelected, size }) => (
-												<Fade in unmountOnExit>
-													<Badge
-														color={isSelected ? color : 'gray'}
-														isLight={!isSelected}
-														size={size}
-													>
-														<CountUp duration={1} end={total.movie || 0} />
-													</Badge>
-												</Fade>
-										  )
-										: undefined
-						  }
-						: undefined,
-					mediaTypes.includes('tv')
-						? {
-								label: 'TV Shows',
-								isDisabled: total.tv === 0,
-								renderLeft: ({ isSelected, width, height }) =>
-									isSelected ? (
-										<TvTwoToneIcon style={{ width, height }} />
-									) : (
-										<TvOutlinedIcon style={{ width, height }} />
-									),
-								renderRight:
-									(total.tv || 0) > 0
-										? ({ isSelected, size }) => (
-												<Fade in unmountOnExit>
-													<Badge
-														color={isSelected ? color : 'gray'}
-														isLight={!isSelected}
-														size={size}
-													>
-														<CountUp duration={1} end={total.tv || 0} />
-													</Badge>
-												</Fade>
-										  )
-										: undefined
-						  }
-						: undefined,
-					mediaTypes.includes('person')
-						? {
-								label: 'People',
-								isDisabled: total.person === 0,
-								renderLeft: ({ isSelected, width, height }) =>
-									isSelected ? (
-										<PeopleAltTwoToneIcon style={{ width, height }} />
-									) : (
-										<PeopleAltOutlinedIcon style={{ width, height }} />
-									),
-								renderRight:
-									(total.person || 0) > 0
-										? ({ isSelected, size }) => (
-												<Fade in unmountOnExit>
-													<Badge
-														color={isSelected ? color : 'gray'}
-														isLight={!isSelected}
-														size={size}
-													>
-														<CountUp duration={1} end={total.person || 0} />
-													</Badge>
-												</Fade>
-										  )
-										: undefined
-						  }
-						: undefined,
-					mediaTypes.includes('company')
-						? {
-								label: 'Companies',
-								isDisabled: total.company === 0,
-								renderLeft: ({ isSelected, width, height }) =>
-									isSelected ? (
-										<BusinessTwoToneIcon style={{ width, height }} />
-									) : (
-										<BusinessOutlinedIcon style={{ width, height }} />
-									),
-								renderRight:
-									(total.company || 0) > 0
-										? ({ isSelected, size }) => (
-												<Fade in unmountOnExit>
-													<Badge
-														color={isSelected ? color : 'gray'}
-														isLight={!isSelected}
-														size={size}
-													>
-														<CountUp duration={1} end={total.company || 0} />
-													</Badge>
-												</Fade>
-										  )
-										: undefined
-						  }
-						: undefined,
-					mediaTypes.includes('collection')
-						? {
-								label: 'Collections',
-								isDisabled: total.collection === 0,
-								renderLeft: ({ isSelected, width, height }) =>
-									isSelected ? (
-										<LibraryBooksTwoToneIcon style={{ width, height }} />
-									) : (
-										<LibraryBooksOutlinedIcon style={{ width, height }} />
-									),
-								renderRight:
-									(total.collection || 0) > 0
-										? ({ isSelected, size }) => (
-												<Fade in unmountOnExit>
-													<Badge
-														color={isSelected ? color : 'gray'}
-														isLight={!isSelected}
-														size={size}
-													>
-														<CountUp duration={1} end={total.collection || 0} />
-													</Badge>
-												</Fade>
-										  )
-										: undefined
-						  }
-						: undefined
-				])}
-			</TabList>
+			<Center width={`calc(100% - ${actionsWidth + 34}px)`}>
+				<TabList color={color}>
+					{_.compact([
+						mediaTypes.includes('movie')
+							? {
+									label: 'Movies',
+									isDisabled: total.movie === 0,
+									renderLeft: ({ isSelected, width, height }) =>
+										isSelected ? (
+											<TheatersTwoToneIcon style={{ width, height }} />
+										) : (
+											<TheatersOutlinedIcon style={{ width, height }} />
+										),
+									renderRight:
+										(total.movie || 0) > 0
+											? ({ isSelected, size }) => (
+													<Fade in unmountOnExit>
+														<Badge
+															color={isSelected ? color : 'gray'}
+															isLight={!isSelected}
+															size={size}
+														>
+															<CountUp duration={1} end={total.movie || 0} />
+														</Badge>
+													</Fade>
+											  )
+											: undefined
+							  }
+							: undefined,
+						mediaTypes.includes('tv')
+							? {
+									label: 'TV Shows',
+									isDisabled: total.tv === 0,
+									renderLeft: ({ isSelected, width, height }) =>
+										isSelected ? (
+											<TvTwoToneIcon style={{ width, height }} />
+										) : (
+											<TvOutlinedIcon style={{ width, height }} />
+										),
+									renderRight:
+										(total.tv || 0) > 0
+											? ({ isSelected, size }) => (
+													<Fade in unmountOnExit>
+														<Badge
+															color={isSelected ? color : 'gray'}
+															isLight={!isSelected}
+															size={size}
+														>
+															<CountUp duration={1} end={total.tv || 0} />
+														</Badge>
+													</Fade>
+											  )
+											: undefined
+							  }
+							: undefined,
+						mediaTypes.includes('person')
+							? {
+									label: 'People',
+									isDisabled: total.person === 0,
+									renderLeft: ({ isSelected, width, height }) =>
+										isSelected ? (
+											<PeopleAltTwoToneIcon style={{ width, height }} />
+										) : (
+											<PeopleAltOutlinedIcon style={{ width, height }} />
+										),
+									renderRight:
+										(total.person || 0) > 0
+											? ({ isSelected, size }) => (
+													<Fade in unmountOnExit>
+														<Badge
+															color={isSelected ? color : 'gray'}
+															isLight={!isSelected}
+															size={size}
+														>
+															<CountUp duration={1} end={total.person || 0} />
+														</Badge>
+													</Fade>
+											  )
+											: undefined
+							  }
+							: undefined,
+						mediaTypes.includes('company')
+							? {
+									label: 'Companies',
+									isDisabled: total.company === 0,
+									renderLeft: ({ isSelected, width, height }) =>
+										isSelected ? (
+											<BusinessTwoToneIcon style={{ width, height }} />
+										) : (
+											<BusinessOutlinedIcon style={{ width, height }} />
+										),
+									renderRight:
+										(total.company || 0) > 0
+											? ({ isSelected, size }) => (
+													<Fade in unmountOnExit>
+														<Badge
+															color={isSelected ? color : 'gray'}
+															isLight={!isSelected}
+															size={size}
+														>
+															<CountUp duration={1} end={total.company || 0} />
+														</Badge>
+													</Fade>
+											  )
+											: undefined
+							  }
+							: undefined,
+						mediaTypes.includes('collection')
+							? {
+									label: 'Collections',
+									isDisabled: total.collection === 0,
+									renderLeft: ({ isSelected, width, height }) =>
+										isSelected ? (
+											<LibraryBooksTwoToneIcon style={{ width, height }} />
+										) : (
+											<LibraryBooksOutlinedIcon style={{ width, height }} />
+										),
+									renderRight:
+										(total.collection || 0) > 0
+											? ({ isSelected, size }) => (
+													<Fade in unmountOnExit>
+														<Badge
+															color={isSelected ? color : 'gray'}
+															isLight={!isSelected}
+															size={size}
+														>
+															<CountUp duration={1} end={total.collection || 0} />
+														</Badge>
+													</Fade>
+											  )
+											: undefined
+							  }
+							: undefined
+					])}
+				</TabList>
+			</Center>
 
 			{renderActions ? (
-				<HStack spacing={2}>
+				<HStack ref={actionsRef} spacing={2}>
 					<Fade in={!_.isNil(activeTab)} unmountOnExit>
 						<DisplayMode />
 					</Fade>
@@ -201,7 +200,7 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 				</HStack>
 			) : (
 				<Fade in={!_.isNil(activeTab)} unmountOnExit>
-					<DisplayMode />
+					<DisplayMode ref={actionsRef} />
 				</Fade>
 			)}
 		</HStack>
