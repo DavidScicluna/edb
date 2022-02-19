@@ -43,40 +43,15 @@ const MediaTypesSection = ({ movies, tv, renderActions }: MediaTypesSectionProps
 		}
 	};
 
-	const handleCheckHasMediaTypes = (): void => {
-		let mediaTypes = 0;
-
-		if (movies && movies.length > 0) {
-			mediaTypes = mediaTypes + 1;
-		}
-
-		if (tv && tv.length > 0) {
-			mediaTypes = mediaTypes + 1;
-		}
-
-		if (mediaTypes === 1) {
-			if (movies && movies.length > 0) {
-				handleSetMediaType('movie');
-			} else if (tv && tv.length > 0) {
-				handleSetMediaType('tv');
-			}
-		} else {
-			setActiveTab(undefined);
-		}
-	};
-
 	useEffect(() => {
-		handleCheckHasMediaTypes();
-
-		return () => {
-			setActiveTab(undefined);
-		};
-	}, []);
+		setActiveTab(undefined);
+	}, [movies, tv]);
 
 	return (
 		<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
 			<VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2}>
 				<MediaTypesHeader
+					mediaTypes={['movie', 'tv']}
 					renderActions={renderActions}
 					activeTab={activeTab}
 					total={{
@@ -88,8 +63,8 @@ const MediaTypesSection = ({ movies, tv, renderActions }: MediaTypesSectionProps
 				{_.isNil(activeTab) ? (
 					<MediaTypesPicker
 						mediaTypes={handleReturnMediaTypes()}
-						label='Oh no! The list is empty.'
-						description='Unfortunately, you have not added any items to the list. Please add an item to view it in the list.'
+						label='Oh no! 😢'
+						description='Please add an item to the list to be able to view it here.'
 						onSetMediaType={handleSetMediaType}
 					/>
 				) : (

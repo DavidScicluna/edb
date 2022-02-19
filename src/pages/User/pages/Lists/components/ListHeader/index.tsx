@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import CountUp from 'react-countup';
 
-import { HStack, Fade } from '@chakra-ui/react';
+import { Fade } from '@chakra-ui/react';
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -13,6 +13,7 @@ import { ListHeaderProps } from './types';
 import { useSelector } from '../../../../../../common/hooks';
 import Badge from '../../../../../../components/Badge';
 import Divider from '../../../../../../components/Divider';
+import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import TabList from '../../../../../../components/Tabs/components/TabList';
 
 const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactElement => {
@@ -21,14 +22,10 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
 	const color = useSelector((state) => state.user.ui.theme.color);
 
 	return (
-		<HStack
-			ref={ref}
-			width='100%'
-			spacing={2}
-			divider={<Divider orientation='vertical' height={`${height}px`} mx={2} />}
-		>
+		<HorizontalScroll ref={ref}>
 			<ListsTabButton isSelected={_.isNil(activeTab)} onClick={onListsClick} />
-			<TabList color={color} size='lg'>
+			<Divider orientation='vertical' height={`${height}px`} mx={2} />
+			<TabList color={color} isActiveForced size='lg'>
 				{_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {
 					return {
 						label: list.label,
@@ -52,7 +49,7 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
 					};
 				})}
 			</TabList>
-		</HStack>
+		</HorizontalScroll>
 	);
 };
 

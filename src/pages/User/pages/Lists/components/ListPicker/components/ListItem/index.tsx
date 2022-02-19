@@ -58,8 +58,11 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				<Text
 					align='center'
 					color={isSelected ? `${color}.400` : colorMode === 'light' ? 'gray.900' : 'gray.50'}
-					fontSize='sm'
+					fontSize='xl'
 					fontWeight='semibold'
+					isTruncated
+					overflow='hidden'
+					whiteSpace='nowrap'
 					sx={{ transition }}
 				>
 					{label}
@@ -67,9 +70,12 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				<Text
 					align='center'
 					color={isSelected ? `${color}.400` : colorMode === 'light' ? 'gray.400' : 'gray.500'}
-					fontSize='xs'
+					fontSize='sm'
 					fontWeight='400'
 					textTransform='capitalize'
+					isTruncated
+					overflow='hidden'
+					whiteSpace='nowrap'
 					sx={{ transition }}
 				>
 					{`${[

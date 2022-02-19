@@ -156,8 +156,8 @@ const Lists = (): ReactElement => {
 								{lists.length === 0 ? (
 									<Empty
 										hasIllustration
-										label='Oh no! No Lists were found.'
-										description='Unfortunately, you have no lists. Please add a list to be able to add items.'
+										label='Oh no! 😢'
+										description='Please add a list to be able to add items to lists.'
 										size='xl'
 										variant='outlined'
 									/>
