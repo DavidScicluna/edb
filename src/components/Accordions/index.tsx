@@ -2,6 +2,8 @@ import { ReactElement, useState } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
+import _ from 'lodash';
+
 import Accordion from './components/Accordion';
 import QuickToggles from './components/QuickToggles';
 import { AccordionsProps, Accordion as AccordionType } from './types';
@@ -46,7 +48,9 @@ const Accordions = <D,>(props: AccordionsProps<D>): ReactElement => {
 				color={color}
 				isLoading={isLoading}
 				isDisabled={isError}
-				onToggleAccordion={(id: AccordionType<D>['id']) => setOpenedAccordions([...openedAccordions, id])}
+				onToggleAccordion={(id: AccordionType<D>['id']) =>
+					setOpenedAccordions(_.uniq([...openedAccordions, id]))
+				}
 				onToggleAllAccordions={handleToggleAllAccordions}
 			/>
 

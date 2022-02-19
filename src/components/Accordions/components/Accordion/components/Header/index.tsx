@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import CountUp from 'react-countup';
 
-import { useTheme, useColorMode, HStack, VStack, Fade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Fade } from '@chakra-ui/react';
 
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
@@ -18,6 +18,9 @@ import Badge from '../../../../../Badge';
 const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
+
+	const [isSm] = useMediaQuery('(max-width: 600px)');
+	const [isMd] = useMediaQuery('(max-width: 992px)');
 
 	const [ref, { width }] = useElementSize();
 
@@ -55,9 +58,8 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 			</VStack>
 
 			<HStack ref={ref}>
-				{/* TODO: Replace color with prop color */}
 				<Fade in={!_.isNil(total) && !_.isEmpty(total) && inView} unmountOnExit>
-					<Badge color={isOpen ? color : 'gray'} size='md'>
+					<Badge color={isOpen ? color : 'gray'} size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>
 						{total?.number ? (
 							<CountUp
 								duration={1}

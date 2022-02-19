@@ -21,13 +21,13 @@ const Title = (props: TitleProps): ReactElement => {
 		<Box
 			width='100%'
 			maxWidth='100%'
-			height='24.75px' // Size of typography height
+			height={['19.25px', '22px', '24.75px']} // Size of typography height
 		>
 			{inView || isLoading ? (
 				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
 					<Text
 						align='left'
-						fontSize='lg'
+						fontSize={['sm', 'md', 'lg']}
 						fontWeight='semibold'
 						color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
 						isTruncated

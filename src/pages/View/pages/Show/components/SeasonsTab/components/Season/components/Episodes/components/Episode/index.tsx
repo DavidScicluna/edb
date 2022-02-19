@@ -20,6 +20,8 @@ import { FontSizes } from '../../../../../../../../../../../../theme/types';
 
 const Episode = (props: EpisodeProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
+	const [isMd] = useMediaQuery('(max-width: 992px)');
+
 	const ratingFontSize = useBreakpointValue<keyof Omit<FontSizes, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'>>({
 		'base': 'sm',
 		'sm': 'md',
@@ -127,7 +129,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
 							right: 2
 						}}
 					>
-						<Badge size={isSm ? 'sm' : 'md'}>{`Episode ${episode_number}`}</Badge>
+						<Badge size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>{`Episode ${episode_number}`}</Badge>
 					</Center>
 				</HStack>
 			</Card>
