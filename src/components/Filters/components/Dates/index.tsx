@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { useMediaQuery, Stack, Text, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, Stack, Center, Text, ScaleFade } from '@chakra-ui/react';
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -67,62 +67,56 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 								justifyContent='center'
 								spacing={2}
 							>
-								<span style={{ width: '100%' }}>
-									<DatePicker
-										renderToggleModal={({ color, onClick }) => (
+								<DatePicker
+									renderToggleModal={({ color, onClick }) => (
+										<Center width='100%'>
 											<Button color={color} isFullWidth onClick={onClick} variant='outlined'>
 												{value[0]
 													? moment(value[0]).format(visibleFormat)
 													: 'Select Start Date'}
 											</Button>
-										)}
-										color={color}
-										minDate={minDate}
-										maxDate={maxDate}
-										firstDayOfWeek={1}
-										value={value[0] ? moment(value[0], dataFormat).toDate() : undefined}
-										onSetDate={(date) =>
-											form.setValue(
-												'date',
-												[
-													moment(date).format(dataFormat),
-													moment(
-														value[1]
-															? moment(value[1]).format(dataFormat)
-															: moment(date).add(1, 'days')
-													).format(dataFormat)
-												],
-												{
-													shouldDirty: true
-												}
-											)
-										}
-									/>
-								</span>
+										</Center>
+									)}
+									color={color}
+									minDate={minDate}
+									maxDate={maxDate}
+									firstDayOfWeek={1}
+									value={value[0] ? moment(value[0], dataFormat).toDate() : undefined}
+									onSetDate={(date) =>
+										form.setValue('date.0', moment(date).format(dataFormat), {
+											shouldDirty: true
+										})
+									}
+								/>
 
-								<span style={{ width: '100%' }}>
-									<DatePicker
-										renderToggleModal={({ color, onClick }) => (
+								<DatePicker
+									renderToggleModal={({ color, onClick }) => (
+										<Center width='100%'>
 											<Button color={color} isFullWidth onClick={onClick} variant='outlined'>
 												{value[1] ? moment(value[1]).format(visibleFormat) : 'Select To Date'}
 											</Button>
-										)}
-										color={color}
-										minDate={moment(value[0], dataFormat).toDate() || minDate}
-										maxDate={maxDate}
-										firstDayOfWeek={1}
-										value={value[1] ? moment(value[1], dataFormat).toDate() : undefined}
-										onSetDate={(date) =>
-											form.setValue(
-												'date',
-												[moment(value[0]).format(dataFormat), moment(date).format(dataFormat)],
-												{
-													shouldDirty: true
-												}
-											)
-										}
-									/>
-								</span>
+										</Center>
+									)}
+									color={color}
+									minDate={moment(value[0], dataFormat).toDate() || minDate}
+									maxDate={maxDate}
+									firstDayOfWeek={1}
+									value={value[1] ? moment(value[1], dataFormat).toDate() : undefined}
+									onSetDate={(date) =>
+										form.setValue(
+											!_.isNil(value[0]) && !_.isEmpty(value[0]) ? 'date.1' : 'date',
+											!_.isNil(value[0]) && !_.isEmpty(value[0])
+												? moment(date).format(dataFormat)
+												: [
+														moment(moment(value[1]).subtract(1, 'days')).format(dataFormat),
+														moment(date).format(dataFormat)
+												  ],
+											{
+												shouldDirty: true
+											}
+										)
+									}
+								/>
 							</Stack>
 						)
 					}}
