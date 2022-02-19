@@ -11,8 +11,6 @@ export default (theme: Theme, isFullWidth = false): Style => ({
 	},
 
 	'&:focus': {
-		boxShadow: 'none',
-		background: 'transparent',
-		backgroundColor: 'transparent'
+		boxShadow: 'none'
 	}
 });

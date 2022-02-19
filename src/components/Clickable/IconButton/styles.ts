@@ -58,9 +58,7 @@ export default (
 				'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
 				'&:focus': {
-					boxShadow: 'none',
-					background: 'transparent',
-					backgroundColor: 'transparent'
+					boxShadow: 'none'
 				},
 
 				'& svg': {
@@ -278,7 +276,15 @@ export default (
 				},
 
 				'&:focus': {
-					outlineColor: `${color}.600`
+					'outlineColor': `${color}.600`,
+
+					'backgroundColor': 'transparent',
+
+					'& .icon_button_front': {
+						borderColor: 'transparent',
+						backgroundColor: 'transparent',
+						color: `${color}.600`
+					}
 				}
 			}
 		},
@@ -412,7 +418,15 @@ export default (
 				},
 
 				'&:focus': {
-					outlineColor: `${color}.300`
+					'outlineColor': `${color}.300`,
+
+					'backgroundColor': 'transparent',
+
+					'& .icon_button_front': {
+						borderColor: 'transparent',
+						backgroundColor: 'transparent',
+						color: `${color}.300`
+					}
 				}
 			}
 		},

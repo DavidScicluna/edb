@@ -68,8 +68,6 @@ export default (
 
 			'&:focus': {
 				boxShadow: 'none',
-				background: 'transparent',
-				backgroundColor: 'transparent',
 				outlineOffset: '5px'
 			},
 
