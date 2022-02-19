@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, useConst } from '@chakra-ui/react';
+import { useConst } from '@chakra-ui/react';
 
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import _ from 'lodash';
@@ -14,8 +14,6 @@ import SkeletonText from '../../../../../Skeleton/Text';
 const dummies = _.range(25, 100, 10);
 
 const Certification = (props: CertificationProps): ReactElement => {
-	const [isSm] = useMediaQuery('(max-width: 600px)');
-
 	const color = useSelector((state) => state.user.ui.theme.color);
 
 	const { certification, meaning, order, isActive = false, isLoading = true, onClick } = props;
@@ -28,10 +26,9 @@ const Certification = (props: CertificationProps): ReactElement => {
 			renderRightIcon={isActive ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined}
 			onClick={onClick ? () => onClick({ certification, meaning, order }) : undefined}
 			isDisabled={isLoading}
-			size={isSm ? 'sm' : 'md'}
 			variant='outlined'
 		>
-			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={isSm ? 'xs' : 'sm'} isLoaded={!isLoading}>
+			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
 				{certification || 'Certification'}
 			</SkeletonText>
 		</Button>
