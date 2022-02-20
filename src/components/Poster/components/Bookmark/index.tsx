@@ -63,7 +63,12 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 						}
 						color={isBookmarked ? color : 'gray'}
 						isDisabled={isDisabled}
-						onClick={() => onClick()}
+						onClick={(event) => {
+							event.preventDefault();
+							event.stopPropagation();
+
+							onClick();
+						}}
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 						size={size}

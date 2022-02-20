@@ -33,7 +33,12 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 						aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
 						color={isLiked ? 'red' : 'gray'}
 						isDisabled={isDisabled}
-						onClick={() => onClick()}
+						onClick={(event) => {
+							event.preventDefault();
+							event.stopPropagation();
+
+							onClick();
+						}}
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 						size={size}

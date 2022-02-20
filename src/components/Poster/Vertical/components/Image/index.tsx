@@ -62,15 +62,18 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 							<Button
 								color={color}
 								isFullWidth
-								onClick={() =>
+								onClick={(event) => {
+									event.preventDefault();
+									event.stopPropagation();
+
 									dispatch(
 										toggleQuickView({
 											open: true,
 											mediaType,
 											mediaItem: { id: mediaItem?.id || -1, title }
 										})
-									)
-								}
+									);
+								}}
 								size='sm'
 							>
 								Quick view
