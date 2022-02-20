@@ -1,4 +1,5 @@
 import borders from './borders';
+import colors from './colors';
 import radius from './radius';
 import sizes from './sizes';
 import spacing from './spacing';
@@ -8,7 +9,7 @@ import zIndices from './z-index';
 
 export default {
 	borders,
-	// colors,
+	colors,
 	zIndices,
 	radii: radius,
 	space: spacing,
