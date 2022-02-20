@@ -12,8 +12,28 @@ import { SplashscreenProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
+import theme from '../../../../../theme';
+import { Color } from '../../../../../theme/types';
 
 const MotionBox = motion(Box);
+
+const colors: (keyof Color)[] = [
+	'red',
+	'pink',
+	'purple',
+	'deep_purple',
+	'indigo',
+	'blue',
+	'light_blue',
+	'cyan',
+	'teal',
+	'green',
+	'light_green',
+	'lime',
+	'yellow',
+	'orange',
+	'deep_orange'
+];
 
 const Splashscreen = ({ isOpen: isOpenProp }: SplashscreenProps): ReactElement => {
 	const { colorMode } = useColorMode();
@@ -72,12 +92,12 @@ const Splashscreen = ({ isOpen: isOpenProp }: SplashscreenProps): ReactElement =
 								]
 							}}
 							transition={{
-								duration: 10,
+								duration: 5,
 								ease: [0.76, 0, 0.24, 1],
 								repeat: Infinity
 							}}
 							bgSize='500%'
-							bgGradient='linear(to-r, red.400, orange.400, yellow.400, green.400, teal.400, blue.400, cyan.400, purple.400, pink.400)'
+							bgGradient={`linear(to-r, ${colors.map((color) => `${color}.400`).join(', ')})`}
 							bgClip='text'
 							sx={{ ...style }}
 						>
