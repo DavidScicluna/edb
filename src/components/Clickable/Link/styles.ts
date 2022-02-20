@@ -4,6 +4,8 @@ import { Theme } from '../../../theme/types';
 export default (theme: Theme, isFullWidth = false): Style => ({
 	'width': isFullWidth ? '100%' : 'auto',
 
+	'WebkitTapHighlightColor': 'transparent',
+
 	'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
 	'&:hover': {

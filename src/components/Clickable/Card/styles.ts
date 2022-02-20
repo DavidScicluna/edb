@@ -52,7 +52,7 @@ export default (
 
 			'marginTop': isFixed || isClickable ? '5px' : 0,
 
-			'-webkit-tap-highlight-color': 'transparent',
+			'WebkitTapHighlightColor': 'transparent',
 
 			'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
