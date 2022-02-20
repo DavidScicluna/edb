@@ -276,15 +276,7 @@ export default (
 				},
 
 				'&:focus': {
-					'outlineColor': `${color}.600`,
-
-					'backgroundColor': 'transparent',
-
-					'& .button_front': {
-						borderColor: 'transparent',
-						backgroundColor: 'transparent',
-						color: `${color}.600`
-					}
+					outlineColor: `${color}.600`
 				}
 			}
 		},
@@ -418,15 +410,7 @@ export default (
 				},
 
 				'&:focus': {
-					'outlineColor': `${color}.300`,
-
-					'backgroundColor': 'transparent',
-
-					'& .button_front': {
-						borderColor: 'transparent',
-						backgroundColor: 'transparent',
-						color: `${color}.300`
-					}
+					outlineColor: `${color}.300`
 				}
 			}
 		},

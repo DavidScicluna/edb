@@ -134,10 +134,6 @@ export default (
 					color:
 						!isFixed && isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`
 				}
-			},
-
-			'&:focus': {
-				outlineColor: `${color}.600`
 			}
 		},
 		front: {
