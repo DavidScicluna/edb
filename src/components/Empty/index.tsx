@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, VStack, Center, AspectRatio, Image, Text, Fade } from '@chakra-ui/react';
+import { useTheme, useColorMode, VStack, Center, Image, Text, Fade } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
@@ -10,7 +10,6 @@ import { EmptyProps } from './types';
 import * as fallback from '../../common/assets/fallback';
 import * as empty from '../../common/assets/illustrations/empty';
 import { useSelector } from '../../common/hooks';
-import { handleReturnRatio } from '../../common/utils';
 import { Theme, Space, FontSizes } from '../../theme/types';
 
 const Empty = (props: EmptyProps): ReactElement => {
@@ -167,16 +166,13 @@ const Empty = (props: EmptyProps): ReactElement => {
 				sx={{ ..._.merge(style.empty[variant], style[colorMode][variant]) }}
 			>
 				{hasIllustration ? (
-					<AspectRatio
-						maxWidth={`${handleReturnIllustrationWidth()}%`}
-						ratio={handleReturnRatio('landscape')}
-					>
+					<Center maxWidth={`${handleReturnIllustrationWidth()}%`}>
 						<Image
 							alt='Empty illustration'
 							src={handleReturnIllustration()}
 							fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
 						/>
-					</AspectRatio>
+					</Center>
 				) : null}
 				<VStack spacing={0}>
 					<Text

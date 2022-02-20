@@ -14,21 +14,21 @@ const Form = ({ children }: FormProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
-	const inputRef = useRef<HTMLInputElement | null>(null);
+	const ref = useRef<HTMLInputElement | null>(null);
 
-	const [isHovering, setIsHovering] = useBoolean();
 	const [isFocused, setIsFocused] = useBoolean();
 
 	const style = usePanelStyles(theme, { color: 'gray', isFullWidth: true });
 
 	useOutsideClick({
-		ref: inputRef,
-		handler: isFocused && !isHovering ? () => setIsFocused.off() : undefined
+		ref,
+		handler: () => setIsFocused.off()
 	});
 
 	return (
 		<VStack width='100%' spacing={0.5}>
 			<VStack
+				ref={ref}
 				width='100%'
 				divider={
 					<Fade in={isFocused} unmountOnExit style={{ width: '100%' }}>
@@ -36,8 +36,6 @@ const Form = ({ children }: FormProps): ReactElement => {
 					</Fade>
 				}
 				onClick={() => setIsFocused.on()}
-				onMouseEnter={() => setIsHovering.on()}
-				onMouseLeave={() => setIsHovering.off()}
 				spacing={0}
 				p={2}
 				sx={{ ..._.merge(style.panel.outlined, style[colorMode].outlined) }}

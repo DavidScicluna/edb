@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useConst, HStack, Input as CUIInput, Center, Fade } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, useConst, HStack, Input as CUIInput, Center, Fade } from '@chakra-ui/react';
 
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
@@ -19,6 +19,7 @@ import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';
 
 const Input = (props: InputProps): ReactElement => {
 	const { colorMode } = useColorMode();
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const {
 		query,
@@ -73,9 +74,11 @@ const Input = (props: InputProps): ReactElement => {
 				>
 					<SearchOutlinedIcon />
 				</Center>
-				<Fade in={searchTypes.length > 0} unmountOnExit>
-					<SearchTypes searchTypes={searchTypes} onClear={onClearSearchTypes} />
-				</Fade>
+				{!isSm ? (
+					<Fade in={searchTypes.length > 0} unmountOnExit>
+						<SearchTypes searchTypes={searchTypes} onClear={onClearSearchTypes} />
+					</Fade>
+				) : null}
 				<CUIInput
 					borderRadius='none'
 					color={colorMode === 'light' ? 'gray.900' : 'gray.50'}

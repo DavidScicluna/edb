@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useBoolean, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, ScaleFade } from '@chakra-ui/react';
 
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import moment from 'moment';
@@ -14,6 +14,8 @@ import ListItem from '../../../List/components/ListItem';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
 
 const Search = (props: SearchProps): ReactElement => {
+	const [isSm] = useMediaQuery('(max-width: 600px)');
+
 	const [isHoveringList, setIsHoveringList] = useBoolean();
 	const [isHoveringDelete, setIsHoveringDelete] = useBoolean();
 
@@ -45,24 +47,26 @@ const Search = (props: SearchProps): ReactElement => {
 				) : undefined
 			}
 			actions={
-				<ScaleFade in={isHoveringList} unmountOnExit>
-					<Tooltip
-						aria-label={`Remove "${label}"`}
-						label={`Remove "${label}"`}
-						isOpen={isHoveringDelete}
-						placement='top'
-					>
-						<IconButton
+				!isSm ? (
+					<ScaleFade in={isHoveringList} unmountOnExit>
+						<Tooltip
 							aria-label={`Remove "${label}"`}
-							onClick={() => onDelete(id)}
-							onMouseEnter={() => setIsHoveringDelete.on()}
-							onMouseLeave={() => setIsHoveringDelete.off()}
-							variant='icon'
+							label={`Remove "${label}"`}
+							isOpen={isHoveringDelete}
+							placement='top'
 						>
-							<ClearOutlinedIcon />
-						</IconButton>
-					</Tooltip>
-				</ScaleFade>
+							<IconButton
+								aria-label={`Remove "${label}"`}
+								onClick={() => onDelete(id)}
+								onMouseEnter={() => setIsHoveringDelete.on()}
+								onMouseLeave={() => setIsHoveringDelete.off()}
+								variant='icon'
+							>
+								<ClearOutlinedIcon />
+							</IconButton>
+						</Tooltip>
+					</ScaleFade>
+				) : undefined
 			}
 			isLoading={false}
 			onClick={() => onClick(label, searchTypes)}

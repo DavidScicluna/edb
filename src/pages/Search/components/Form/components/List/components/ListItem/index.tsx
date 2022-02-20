@@ -1,8 +1,19 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useConst, ListItem as CUIListItem, VStack, Text, HStack } from '@chakra-ui/react';
+import {
+	useTheme,
+	useColorMode,
+	useMediaQuery,
+	useConst,
+	ListItem as CUIListItem,
+	VStack,
+	HStack,
+	Center,
+	Text
+} from '@chakra-ui/react';
 
 import _ from 'lodash';
+import { useElementSize } from 'usehooks-ts';
 
 import useStyles from './styles';
 import { ListItemProps } from './types';
@@ -16,43 +27,85 @@ const ListItem = (props: ListItemProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
+	const [isSm] = useMediaQuery('(max-width: 600px)');
+
+	const [ref, { width }] = useElementSize();
+
 	const { title, subtitle, badge, actions, isLoading = true, variant = 'contained', ...rest } = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 100);
+	const titleDummy = useConst<number>(_.sample(dummies) || 100);
+	const subtitleDummy = useConst<number>(_.sample(dummies) || 100);
 
 	const style = useStyles(theme, { variant, isLoading });
 
 	return (
 		<CUIListItem {...rest} px={2} py={1} sx={{ ..._.merge(style.common, style[colorMode]) }}>
-			<VStack alignItems='flex-start' justifyContent='center' spacing={0}>
-				<HStack>
-					<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='md' isLoaded={!isLoading}>
+			<VStack
+				width={`calc(100% - ${actions ? width + 16 : 0}px)`}
+				alignItems='flex-start'
+				justifyContent='center'
+				spacing={0}
+			>
+				<HStack
+					width='100%'
+					divider={
+						<Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='xs' mx={1}>
+							•
+						</Text>
+					}
+				>
+					<SkeletonText width={isLoading ? `${titleDummy}%` : '100%'} fontSize='md' isLoaded={!isLoading}>
 						<Text
 							align='left'
 							color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
 							fontSize='md'
+							isTruncated
+							overflow='hidden'
 							whiteSpace='nowrap'
 						>
 							{title}
 						</Text>
 					</SkeletonText>
-					{badge ? badge : null}
+					{!isSm && badge ? badge : null}
 				</HStack>
-				{subtitle ? (
-					<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
-						<Text
-							align='left'
-							color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-							fontSize='xs'
-							whiteSpace='nowrap'
-						>
-							{subtitle}
-						</Text>
-					</SkeletonText>
+				{(isSm ? subtitle || actions || isLoading : subtitle || isLoading) ? (
+					<HStack
+						width='100%'
+						divider={
+							<Text
+								align='left'
+								color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+								fontSize='xs'
+								mx={1}
+							>
+								•
+							</Text>
+						}
+					>
+						{isSm && badge ? badge : null}
+						{subtitle ? (
+							<SkeletonText
+								width={isLoading ? `${subtitleDummy}%` : '100%'}
+								fontSize='xs'
+								isLoaded={!isLoading}
+							>
+								<Text
+									align='left'
+									color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+									fontSize='xs'
+									isTruncated
+									overflow='hidden'
+									whiteSpace='nowrap'
+								>
+									{subtitle}
+								</Text>
+							</SkeletonText>
+						) : undefined}
+					</HStack>
 				) : null}
 			</VStack>
 
-			{actions ? actions : null}
+			{actions ? <Center ref={ref}>{actions}</Center> : null}
 		</CUIListItem>
 	);
 };

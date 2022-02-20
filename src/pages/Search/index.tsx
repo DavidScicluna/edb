@@ -533,8 +533,8 @@ const Search = (): ReactElement => {
 			}
 
 			if (search && search.query && typeof search.query === 'string') {
-				setUnSubmittedQuery(search.query);
-				setSubmittedQuery(search.query);
+				setUnSubmittedQuery(search.query.trim());
+				setSubmittedQuery(search.query.trim());
 
 				setIsQueryEnabled.on();
 				setIsQuerySubmitted.on();
@@ -547,13 +547,11 @@ const Search = (): ReactElement => {
 	}, []);
 
 	return (
-		<Page title='Search'>
+		<Page title='Search' direction='row'>
 			{{
 				actions: (
 					<Fade
 						in={_.isBoolean(
-							// isQuerySubmitted &&
-							//   submittedQuery.length > 0 &&
 							(!handleCheckIfEmpty() && submittedSearchTypes.length === 1) ||
 								(location.hash && location.hash.length > 0)
 						)}
@@ -671,15 +669,11 @@ const Search = (): ReactElement => {
 							) : isQuerySubmitted && submittedQuery.length > 0 && handleCheckIfEmpty() ? (
 								<Center as={Fade} key='search-empty' width='100%' in unmountOnExit>
 									<Empty
-										label='Oh no!'
+										label='Oh no! 😭'
 										description={`Unfortunately couldn't find anything that match "${submittedQuery}"`}
 									/>
 								</Center>
-							) : (
-								<Center as={Fade} key='search-unsubmitted' width='100%' in unmountOnExit>
-									<Empty label='' />
-								</Center>
-							)}
+							) : null}
 						</AnimatePresence>
 					</VStack>
 				)

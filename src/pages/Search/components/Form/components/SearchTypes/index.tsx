@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, HStack, Text } from '@chakra-ui/react';
+import { useColorMode, HStack, Box, Text } from '@chakra-ui/react';
 
 import {
 	LibraryBooksOutlined as LibraryBooksOutlinedIcon,
@@ -23,6 +23,7 @@ import { SearchTypesProps } from './types';
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import Divider from '../../../../../../components/Divider';
+import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import Panel from '../../../../../../components/Panel';
 import { SearchType as SearchTypeValue } from '../../../../../../store/slices/User/types';
 
@@ -130,7 +131,7 @@ const SearchTypes = ({ searchTypes: activeSearchTypes, onSetSearchTypes }: Searc
 					)
 				},
 				body: (
-					<HStack width='100%' spacing={2}>
+					<HorizontalScroll renderDivider={() => <Box p={1} />}>
 						{searchTypes.map((type) => (
 							<SearchType
 								{...type}
@@ -139,7 +140,7 @@ const SearchTypes = ({ searchTypes: activeSearchTypes, onSetSearchTypes }: Searc
 								onClick={handleSearchTypeClick}
 							/>
 						))}
-					</HStack>
+					</HorizontalScroll>
 				)
 			}}
 		</Panel>

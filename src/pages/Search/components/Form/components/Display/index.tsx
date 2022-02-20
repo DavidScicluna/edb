@@ -1,12 +1,18 @@
 import { ReactElement } from 'react';
 import CountUp from 'react-countup';
 
-import { useColorMode, HStack, Text } from '@chakra-ui/react';
+import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
+
+import _ from 'lodash';
 
 import { DisplayProps } from './types';
 
+import Tooltip from '../../../../../../components/Tooltip';
+
 const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): ReactElement => {
 	const { colorMode } = useColorMode();
+
+	const [isHovering, setIsHovering] = useBoolean();
 
 	const handleAllTotal = (): number => {
 		return (
@@ -54,11 +60,24 @@ const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): React
 
 	return (
 		<HStack width='100%' justifyContent='space-between'>
-			<Text
-				align='left'
-				color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-				fontSize='sm'
-			>{`Your search results for "${query}"`}</Text>
+			<Tooltip
+				aria-label={`Full query: "${query}"`}
+				label={query}
+				placement='bottom'
+				isOpen={query.length > 20 && isHovering}
+				isDisabled={query.length < 20}
+				gutter={2}
+			>
+				<Text
+					align='left'
+					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					fontSize='sm'
+					onMouseEnter={query.length > 20 ? () => setIsHovering.on() : undefined}
+					onMouseLeave={query.length > 20 ? () => setIsHovering.off() : undefined}
+				>
+					{`Your search results for "${_.truncate(query, { length: 20 })}"`}
+				</Text>
+			</Tooltip>
 			<Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
 				<CountUp duration={1} end={handleAllTotal()} suffix={` ${handleReturnMediaTypeLabel()} found!`} />
 			</Text>
