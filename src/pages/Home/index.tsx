@@ -1,136 +1,185 @@
 import { ReactElement, useEffect } from 'react';
-
-import { VStack } from '@chakra-ui/react';
-import axios from 'axios';
 import { useQuery } from 'react-query';
 
+import { VStack } from '@chakra-ui/react';
+
+import axios from 'axios';
+import qs from 'query-string';
+
+import HomeHorizontalGrid from './components/HorizontalGrid';
+
 import axiosInstance from '../../common/scripts/axios';
+import { Response } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
-import { Response } from '../../common/types/types';
 import Page from '../../containers/Page';
-import HorizontalMovies from '../Movies/components/HorizontalMovies';
-import HorizontalPeople from '../People/components/HorizontalPeople';
-import HorizontalTV from '../TV/components/HorizontalTV';
-import HorizontalGrid from './components/HorizontalGrid';
 
 const Home = (): ReactElement => {
-  const source = axios.CancelToken.source();
+	const source = axios.CancelToken.source();
 
-  // Fetching popular movies
-  const popularMoviesQuery = useQuery('popularMovies', async () => {
-    const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/popular', {
-      cancelToken: source.token
-    });
-    return data.results;
-  });
+	// Fetching Popular Movies
+	const popularMoviesQuery = useQuery('popular-movies', async () => {
+		const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/popular', {
+			cancelToken: source.token
+		});
+		return data;
+	});
 
-  // Fetching trending movies
-  const trendingMoviesQuery = useQuery('trendingMovies', async () => {
-    const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
-      cancelToken: source.token
-    });
-    return data.results;
-  });
+	// Fetching Popular TV Shows
+	const popularTVQuery = useQuery('popular-tv-shows', async () => {
+		const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
+			cancelToken: source.token
+		});
+		return data;
+	});
 
-  // Fetching popular TV
-  const popularTVQuery = useQuery('popularTV', async () => {
-    const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
-      cancelToken: source.token
-    });
-    return data.results;
-  });
+	// Fetching Top Rated Movies
+	const topRatedMoviesQuery = useQuery('top-rated-movies', async () => {
+		const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/top_rated', {
+			cancelToken: source.token
+		});
+		return data;
+	});
 
-  // Fetching trending TV
-  const trendingTVQuery = useQuery('trendingTV', async () => {
-    const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
-      cancelToken: source.token
-    });
-    return data.results;
-  });
+	// Fetching Top Rated TV Shows
+	const topRatedTVQuery = useQuery('top-rated-tv-shows', async () => {
+		const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/top_rated', {
+			cancelToken: source.token
+		});
+		return data;
+	});
 
-  // Fetching trending People
-  const trendingPeopleQuery = useQuery('trendingPeople', async () => {
-    const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/day', {
-      cancelToken: source.token
-    });
-    return data.results;
-  });
+	// Fetching Trending Movies
+	const trendingMoviesQuery = useQuery('trending-movies', async () => {
+		const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
+			cancelToken: source.token
+		});
+		return data;
+	});
 
-  useEffect(() => {
-    return () => source.cancel();
-  }, []);
+	// Fetching Trending TV Shows
+	const trendingTVQuery = useQuery('trending-tv-shows', async () => {
+		const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
+			cancelToken: source.token
+		});
+		return data;
+	});
 
-  return (
-    <Page title='Home' breadcrumbs={[]}>
-      {{
-        body: (
-          <VStack spacing={6}>
-            <HorizontalGrid
-              title='Popular movies'
-              pathname='/movies/popular'
-              isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}>
-              <HorizontalMovies
-                isError={popularMoviesQuery.isError}
-                isSuccess={popularMoviesQuery.isSuccess}
-                isLoading={popularMoviesQuery.isFetching || popularMoviesQuery.isLoading}
-                movies={popularMoviesQuery.data}
-              />
-            </HorizontalGrid>
+	// Fetching Trending People
+	const trendingPeopleQuery = useQuery('trending-people', async () => {
+		const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/day', {
+			cancelToken: source.token
+		});
+		return data;
+	});
 
-            <HorizontalGrid
-              title='Trending movies'
-              pathname='/trending/movie'
-              isLoading={trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading}>
-              <HorizontalMovies
-                isError={trendingMoviesQuery.isError}
-                isSuccess={trendingMoviesQuery.isSuccess}
-                isLoading={trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading}
-                movies={trendingMoviesQuery.data}
-              />
-            </HorizontalGrid>
+	useEffect(() => {
+		return () => source.cancel();
+	}, []);
 
-            <HorizontalGrid
-              title='Popular TV shows'
-              pathname='/tv/popular'
-              isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}>
-              <HorizontalTV
-                isError={popularTVQuery.isError}
-                isSuccess={popularTVQuery.isSuccess}
-                isLoading={popularTVQuery.isFetching || popularTVQuery.isLoading}
-                tv={popularTVQuery.data}
-              />
-            </HorizontalGrid>
+	return (
+		<Page>
+			{{
+				body: (
+					<VStack px={2} pt={4} spacing={4}>
+						<HomeHorizontalGrid
+							title='Popular'
+							to={({ mediaType }) => {
+								if (mediaType === 'movie') {
+									return {
+										pathname: '/movies',
+										search: qs.stringify({ sort_by: 'popularity.desc' })
+									};
+								} else {
+									return { pathname: '/tv', search: qs.stringify({ sort_by: 'popularity.desc' }) };
+								}
+							}}
+							mediaTypes={['movie', 'tv']}
+							data={{
+								movie: popularMoviesQuery.data?.results || [],
+								tv: popularTVQuery.data?.results || []
+							}}
+							isLoading={{
+								movie: popularMoviesQuery.isFetching || popularMoviesQuery.isLoading,
+								tv: popularTVQuery.isFetching || popularTVQuery.isLoading
+							}}
+							isError={{
+								movie: popularMoviesQuery.isError,
+								tv: popularTVQuery.isError
+							}}
+							isSuccess={{
+								movie: popularMoviesQuery.isSuccess,
+								tv: popularTVQuery.isSuccess
+							}}
+						/>
 
-            <HorizontalGrid
-              title='Trending TV shows'
-              pathname='/trending/tv'
-              isLoading={trendingTVQuery.isFetching || trendingTVQuery.isLoading}>
-              <HorizontalTV
-                isError={trendingTVQuery.isError}
-                isSuccess={trendingTVQuery.isSuccess}
-                isLoading={trendingTVQuery.isFetching || trendingTVQuery.isLoading}
-                tv={trendingTVQuery.data}
-              />
-            </HorizontalGrid>
+						<HomeHorizontalGrid
+							title='Top Rated'
+							to={({ mediaType }) => {
+								if (mediaType === 'movie') {
+									return {
+										pathname: '/movies',
+										search: qs.stringify({ sort_by: 'vote_average.desc' })
+									};
+								} else {
+									return {
+										pathname: '/tv',
+										search: qs.stringify({ sort_by: 'vote_average.desc' })
+									};
+								}
+							}}
+							mediaTypes={['movie', 'tv']}
+							data={{
+								movie: topRatedMoviesQuery.data?.results || [],
+								tv: topRatedTVQuery.data?.results || []
+							}}
+							isLoading={{
+								movie: topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading,
+								tv: topRatedTVQuery.isFetching || topRatedTVQuery.isLoading
+							}}
+							isError={{
+								movie: topRatedMoviesQuery.isError,
+								tv: topRatedTVQuery.isError
+							}}
+							isSuccess={{
+								movie: topRatedMoviesQuery.isSuccess,
+								tv: topRatedTVQuery.isSuccess
+							}}
+						/>
 
-            <HorizontalGrid
-              title='Trending People'
-              pathname='/trending/person'
-              isLoading={trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading}>
-              <HorizontalPeople
-                isError={trendingPeopleQuery.isError}
-                isSuccess={trendingPeopleQuery.isSuccess}
-                isLoading={trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading}
-                people={trendingPeopleQuery.data}
-              />
-            </HorizontalGrid>
-          </VStack>
-        )
-      }}
-    </Page>
-  );
+						<HomeHorizontalGrid
+							title='Trending'
+							to={({ mediaType }) => {
+								return { pathname: '/trending', hash: mediaType };
+							}}
+							mediaTypes={['movie', 'tv', 'person']}
+							data={{
+								movie: trendingMoviesQuery.data?.results || [],
+								tv: trendingTVQuery.data?.results || [],
+								person: trendingPeopleQuery.data?.results || []
+							}}
+							isLoading={{
+								movie: trendingMoviesQuery.isFetching || trendingMoviesQuery.isLoading,
+								tv: trendingTVQuery.isFetching || trendingTVQuery.isLoading,
+								person: trendingPeopleQuery.isFetching || trendingPeopleQuery.isLoading
+							}}
+							isError={{
+								movie: trendingMoviesQuery.isError,
+								tv: trendingTVQuery.isError,
+								person: trendingPeopleQuery.isError
+							}}
+							isSuccess={{
+								movie: trendingMoviesQuery.isSuccess,
+								tv: trendingTVQuery.isSuccess,
+								person: trendingPeopleQuery.isSuccess
+							}}
+						/>
+					</VStack>
+				)
+			}}
+		</Page>
+	);
 };
 
 export default Home;

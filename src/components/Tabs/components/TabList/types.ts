@@ -1,13 +1,10 @@
-export type Size = 'sm' | 'md';
+import { Tab, Size } from './components/Tab/types';
 
-export type Tab = {
-  label: string;
-  badge?: string;
-  isDisabled?: boolean;
-};
+import { Color } from '../../../../theme/types';
 
 export type TabListProps = {
-  renderTabs: Tab[];
-  activeTab: number;
-  size?: Size;
+	children: Tab[];
+	color?: keyof Color;
+	isActiveForced?: boolean;
+	size?: Size;
 };

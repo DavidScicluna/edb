@@ -1,7 +1,7 @@
+import { Review } from '../../../../../../../../common/types';
+
 export type HeaderProps = {
-  avatar: string | null;
-  name: string;
-  username: string;
-  date?: string;
-  isLoading: boolean;
-};
+	author: Review['author'];
+	created_at: Review['created_at'];
+	isLoading: boolean;
+} & Review['author_details'];

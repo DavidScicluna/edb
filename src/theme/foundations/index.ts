@@ -7,13 +7,13 @@ import typography from './typography';
 import zIndices from './z-index';
 
 export default {
-  borders,
-  // colors,
-  zIndices,
-  radii: radius,
-  space: spacing,
-  sizes,
-  transition,
-  fonts: typography.fonts,
-  fontSizes: typography.fontSizes
+	borders,
+	// colors,
+	zIndices,
+	radii: radius,
+	space: spacing,
+	sizes,
+	transition,
+	fonts: typography.fonts,
+	fontSizes: typography.fontSizes
 };

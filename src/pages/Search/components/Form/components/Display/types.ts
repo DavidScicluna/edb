@@ -1,9 +1,9 @@
-import { MediaType } from '../../../../../../common/types/types';
-import { TotalResults } from '../../../../types';
+import { SearchType } from '../../../../../../store/slices/User/types';
+
+type TotalResults = { [key in SearchType]: number };
 
 export type DisplayProps = {
-  query: string;
-  mediaType?: MediaType;
-  hasUnsubmitted: boolean;
-  totalResults?: TotalResults;
+	query: string;
+	searchTypes: SearchType[];
+	totalResults?: TotalResults;
 };

@@ -1,418 +1,198 @@
-import { ReactElement, useEffect, useState } from 'react';
-
-import { useDisclosure, useMediaQuery, VStack, HStack, Box, Fade } from '@chakra-ui/react';
-import sort from 'array-sort';
-import axios from 'axios';
-import _ from 'lodash';
+import { ReactElement, useState, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { useHistory, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import { Department } from '../../common/data/departments';
-import { useSelector } from '../../common/hooks';
+import { VStack, Center, Fade } from '@chakra-ui/react';
+
+import axios from 'axios';
+import { AnimatePresence } from 'framer-motion';
+import _ from 'lodash';
+
+import Header from './components/Header';
+import MediaTypesPicker from './components/MediaTypesPicker';
+import Movies from './components/Movies';
+import People from './components/People';
+import TV from './components/TV';
+
 import axiosInstance from '../../common/scripts/axios';
+import { Response } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
-import { MediaType, Response, SortBy, Genre } from '../../common/types/types';
-import Button from '../../components/Clickable/Button';
-import LoadMore from '../../components/Clickable/LoadMore';
-import Empty from '../../components/Empty';
-import Filters from '../../components/Filters';
-import VerticalGrid from '../../components/Grid/Vertical';
-import MediaTypePicker from '../../components/MediaTypePicker';
-import MediaTypes from '../../components/MediaTypePicker/components/MediaTypes';
+import Divider from '../../components/Divider';
+import Tabs from '../../components/Tabs';
+import TabPanels from '../../components/Tabs/components/TabPanels';
 import Page from '../../containers/Page';
-import { home, trending } from '../../containers/Page/common/data/breadcrumbs';
-import { Breadcrumb } from '../../containers/Page/types';
-import VerticalMovies from '../Movies/components/VerticalMovies';
-import VerticalPeople from '../People/components/VerticalPeople';
-import VerticalTV from '../TV/components/VerticalTV';
 
 const Trending = (): ReactElement => {
-  const source = axios.CancelToken.source();
+	const source = axios.CancelToken.source();
 
-  const {
-    isOpen: isMediaTypePickerOpen,
-    onOpen: onMediaTypePickerOpen,
-    onClose: onMediaTypePickerClose
-  } = useDisclosure();
-  const [isSm] = useMediaQuery('(max-width: 600px)');
+	const location = useLocation();
 
-  const history = useHistory();
-  const { mediaType: paramMediaType } = useParams<{ mediaType: MediaType }>();
+	const [activeTab, setActiveTab] = useState<number>();
 
-  const sortDirection = useSelector((state) => state.app.data.sortDirection);
+	const [movies, setMovies] = useState<Response<PartialMovie[]>>();
+	const [shows, setShows] = useState<Response<PartialTV[]>>();
+	const [people, setPeople] = useState<Response<PartialPerson[]>>();
 
-  const [mediaType, setMediaType] = useState<MediaType>();
+	// Fetching trending movies
+	const trendingMoviesQuery = useInfiniteQuery(
+		'trending-movies',
+		async ({ pageParam = 1 }) => {
+			const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
+				params: { page: pageParam },
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{
+			enabled: activeTab === 0,
+			getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
+			getNextPageParam: (lastPage) =>
+				lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false,
+			onSuccess: (data) => {
+				let movies: PartialMovie[] = [];
 
-  const [sortBy, setSortBy] = useState<SortBy | undefined>();
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [departments, setDepartments] = useState<Department[]>([]);
+				data.pages.forEach((page) => {
+					movies = [...movies, ...(page?.results || [])];
+				});
 
-  const [movies, setMovies] = useState<Response<PartialMovie[]>>();
-  const [tv, setTV] = useState<Response<PartialTV[]>>();
-  const [people, setPeople] = useState<Response<PartialPerson[]>>();
+				setMovies({
+					page: data.pages[data.pages.length - 1].page,
+					results: [..._.uniqBy(movies, 'id')],
+					total_pages: data.pages[data.pages.length - 1].total_pages,
+					total_results: data.pages[data.pages.length - 1].total_results
+				});
+			}
+		}
+	);
 
-  // Fetching trending movies
-  const trendingMovies = useInfiniteQuery(
-    'trendingMovies',
-    async ({ pageParam = 1 }) => {
-      const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
-        params: { page: pageParam },
-        cancelToken: source.token
-      });
-      return data;
-    },
-    {
-      enabled: (mediaType && mediaType.length > 0 && mediaType === 'movie') || false,
-      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
-      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
-      onSuccess: (data) => {
-        let movies: PartialMovie[] = [];
+	// Fetchingtrending tv shows
+	const trendingTVQuery = useInfiniteQuery(
+		'trending-tv-shows',
+		async ({ pageParam = 1 }) => {
+			const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
+				params: { page: pageParam },
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{
+			enabled: activeTab === 1,
+			getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
+			getNextPageParam: (lastPage) =>
+				lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false,
+			onSuccess: (data) => {
+				let tvShows: PartialTV[] = [];
 
-        data.pages.forEach((page) => {
-          movies = [...movies, ...page.results];
-        });
+				data.pages.forEach((page) => {
+					tvShows = [...tvShows, ...(page.results || [])];
+				});
 
-        setMovies({
-          page: data.pages[data.pages.length - 1].page,
-          results: sort(
-            genres && genres.length > 0
-              ? movies.filter((movie) => genres.some((genre) => _.includes(movie.genre_ids, genre.id)))
-              : [...movies],
-            sortBy?.value || '',
-            { reverse: sortDirection === 'desc' }
-          ),
-          total_pages: data.pages[data.pages.length - 1].total_pages,
-          total_results: data.pages[data.pages.length - 1].total_results
-        });
-      }
-    }
-  );
+				setShows({
+					page: data.pages[data.pages.length - 1].page,
+					results: [..._.uniqBy(tvShows, 'id')],
+					total_pages: data.pages[data.pages.length - 1].total_pages,
+					total_results: data.pages[data.pages.length - 1].total_results
+				});
+			}
+		}
+	);
 
-  // Fetching trending tv shows
-  const trendingTV = useInfiniteQuery(
-    'trendingTV',
-    async ({ pageParam = 1 }) => {
-      const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
-        params: { page: pageParam },
-        cancelToken: source.token
-      });
-      return data;
-    },
-    {
-      enabled: (mediaType && mediaType.length > 0 && mediaType === 'tv') || false,
-      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
-      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
-      onSuccess: (data) => {
-        let tv: PartialTV[] = [];
+	// Fetching trending people
+	const trendingPeopleQuery = useInfiniteQuery(
+		'trending-people',
+		async ({ pageParam = 1 }) => {
+			const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/week', {
+				params: { page: pageParam },
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{
+			enabled: activeTab === 2,
+			getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
+			getNextPageParam: (lastPage) =>
+				lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false,
+			onSuccess: (data) => {
+				let people: PartialPerson[] = [];
 
-        data.pages.forEach((page) => {
-          tv = [...tv, ...page.results];
-        });
+				data.pages.forEach((page) => {
+					people = [...people, ...(page?.results || [])];
+				});
 
-        setTV({
-          page: data.pages[data.pages.length - 1].page,
-          results: sort(
-            genres && genres.length > 0
-              ? tv.filter((show) => genres.some((genre) => _.includes(show.genre_ids, genre.id)))
-              : [...tv],
-            sortBy?.value || '',
-            { reverse: sortDirection === 'desc' }
-          ),
-          total_pages: data.pages[data.pages.length - 1].total_pages,
-          total_results: data.pages[data.pages.length - 1].total_results
-        });
-      }
-    }
-  );
+				setPeople({
+					page: data.pages[data.pages.length - 1].page,
+					results: [..._.uniqBy(people, 'id')],
+					total_pages: data.pages[data.pages.length - 1].total_pages,
+					total_results: data.pages[data.pages.length - 1].total_results
+				});
+			}
+		}
+	);
 
-  // Fetching trending people
-  const trendingPeople = useInfiniteQuery(
-    'trendingPeople',
-    async ({ pageParam = 1 }) => {
-      const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/day', {
-        params: { page: pageParam },
-        cancelToken: source.token
-      });
-      return data;
-    },
-    {
-      enabled: (mediaType && mediaType.length > 0 && mediaType === 'person') || false,
-      getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? firstPage.page - 1 : false),
-      getNextPageParam: (lastPage) => (lastPage.page !== lastPage.total_pages ? lastPage.page + 1 : false),
-      onSuccess: (data) => {
-        let people: PartialPerson[] = [];
+	const handleCheckLocation = (): void => {
+		const hash = String(location.hash).replace('#', '');
 
-        data.pages.forEach((page) => {
-          people = [...people, ...page.results];
-        });
+		switch (hash) {
+			case 'movie':
+				setActiveTab(0);
+				return;
+			case 'tv':
+				setActiveTab(1);
+				return;
+			case 'person':
+				setActiveTab(2);
+				return;
+			default:
+				setActiveTab(undefined);
+				return;
+		}
+	};
 
-        setPeople({
-          page: data.pages[data.pages.length - 1].page,
-          results: sort(
-            departments && departments.length > 0
-              ? people.filter((person) =>
-                  departments.some((department) => person.known_for_department === department.value)
-                )
-              : [...people],
-            sortBy?.value || '',
-            { reverse: sortDirection === 'desc' }
-          ),
-          total_pages: data.pages[data.pages.length - 1].total_pages,
-          total_results: data.pages[data.pages.length - 1].total_results
-        });
-      }
-    }
-  );
+	useEffect(() => {
+		handleCheckLocation();
+	}, [location]);
 
-  const handleRefetch = (): void => {
-    switch (mediaType) {
-      case 'movie':
-        trendingMovies.refetch();
-        break;
-      case 'tv':
-        trendingTV.refetch();
-        break;
-      case 'person':
-        trendingPeople.refetch();
-        break;
-      default:
-        break;
-    }
-  };
+	useEffect(() => {
+		handleCheckLocation();
 
-  const handleSetFilters = (sortBy: SortBy[], genres: Genre[], departments: Department[]): void => {
-    const active = sortBy.find((sort) => sort.isActive);
+		return () => {
+			source.cancel();
 
-    if (active) {
-      setSortBy(active);
-    }
+			setActiveTab(undefined);
+		};
+	}, []);
 
-    setGenres(genres);
-    setDepartments(departments);
+	return (
+		<Page title='Trending'>
+			{{
+				body: (
+					<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+						<VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2} p={2}>
+							<Header activeTab={activeTab} />
 
-    setTimeout(() => handleRefetch(), 0);
-  };
-
-  const handleDisabledFilters = (): boolean => {
-    switch (mediaType) {
-      case 'movie':
-        return !trendingMovies.isSuccess;
-      case 'tv':
-        return !trendingTV.isSuccess;
-      case 'person':
-        return !trendingPeople.isSuccess;
-      default:
-        return true;
-    }
-  };
-
-  const handleResetState = (): void => {
-    setMediaType(undefined);
-  };
-
-  const handleReturnBreadcrumbs = (): Breadcrumb[] => {
-    const breadcrumbs: Breadcrumb[] = [home, trending];
-
-    if (mediaType) {
-      switch (mediaType) {
-        case 'person':
-          breadcrumbs.push({
-            label: 'People',
-            to: { pathname: '/search/person' }
-          });
-          break;
-        case 'tv':
-          breadcrumbs.push({
-            label: 'TV Shows',
-            to: { pathname: '/search/tv' }
-          });
-          break;
-        case 'movie':
-          breadcrumbs.push({
-            label: 'Movies',
-            to: { pathname: '/search/movie' }
-          });
-          break;
-        default:
-          break;
-      }
-    }
-
-    return breadcrumbs;
-  };
-
-  useEffect(() => {
-    handleResetState();
-
-    if (paramMediaType) {
-      handleRefetch();
-
-      switch (paramMediaType) {
-        case 'person':
-          setMediaType('person');
-          break;
-        case 'tv':
-          setMediaType('tv');
-          break;
-        case 'movie':
-          setMediaType('movie');
-          break;
-        default:
-          break;
-      }
-    }
-  }, [history.location.pathname]);
-
-  useEffect(() => {
-    return () => source.cancel();
-  }, []);
-
-  return (
-    <>
-      <Page
-        title={
-          mediaType
-            ? `Trending ${mediaType === 'movie' ? 'Movies' : mediaType === 'person' ? 'People' : 'TV Shows' || ''}`
-            : 'Trending'
-        }
-        breadcrumbs={handleReturnBreadcrumbs()}>
-        {{
-          actions: (
-            <Fade in={!!mediaType} unmountOnExit>
-              <HStack spacing={2}>
-                <Button onClick={() => onMediaTypePickerOpen()} isFullWidth={isSm} variant='outlined'>
-                  Change media-type
-                </Button>
-                {mediaType ? (
-                  <Filters mediaType={mediaType} isDisabled={handleDisabledFilters()} onFilter={handleSetFilters} />
-                ) : null}
-              </HStack>
-            </Fade>
-          ),
-          body: (
-            <VerticalGrid>
-              {mediaType ? (
-                <VStack width='100%' spacing={4} px={2} pt={2}>
-                  {mediaType === 'movie' ? (
-                    <VerticalMovies
-                      isError={trendingMovies.isError}
-                      isSuccess={trendingMovies.isSuccess}
-                      isLoading={trendingMovies.isFetching || trendingMovies.isLoading}
-                      movies={movies?.results || []}
-                    />
-                  ) : mediaType === 'tv' ? (
-                    <VerticalTV
-                      isError={trendingTV.isError}
-                      isSuccess={trendingTV.isSuccess}
-                      isLoading={trendingTV.isFetching || trendingTV.isLoading}
-                      tv={tv?.results || []}
-                    />
-                  ) : mediaType === 'person' ? (
-                    <VerticalPeople
-                      isError={trendingPeople.isError}
-                      isSuccess={trendingPeople.isSuccess}
-                      isLoading={trendingPeople.isFetching || trendingPeople.isLoading}
-                      people={people?.results || []}
-                    />
-                  ) : null}
-
-                  <Box style={{ width: isSm ? '100%' : 'auto' }}>
-                    <LoadMore
-                      amount={
-                        mediaType === 'movie'
-                          ? movies?.results.length || 0
-                          : mediaType === 'tv'
-                          ? tv?.results.length || 0
-                          : mediaType === 'person'
-                          ? people?.results.length || 0
-                          : 0
-                      }
-                      total={
-                        mediaType === 'movie'
-                          ? movies?.total_results || 0
-                          : mediaType === 'tv'
-                          ? tv?.total_results || 0
-                          : mediaType === 'person'
-                          ? people?.total_results || 0
-                          : 0
-                      }
-                      label={
-                        mediaType === 'movie'
-                          ? 'Movies'
-                          : mediaType === 'tv'
-                          ? 'TV Shows'
-                          : mediaType === 'person'
-                          ? 'People'
-                          : ''
-                      }
-                      isLoading={
-                        mediaType === 'movie'
-                          ? trendingMovies.isFetching || trendingMovies.isLoading
-                          : mediaType === 'tv'
-                          ? trendingTV.isFetching || trendingTV.isLoading
-                          : mediaType === 'person'
-                          ? trendingPeople.isFetching || trendingPeople.isLoading
-                          : false
-                      }
-                      isButtonVisible={
-                        (mediaType === 'movie'
-                          ? trendingMovies.hasNextPage
-                          : mediaType === 'tv'
-                          ? trendingTV.hasNextPage
-                          : mediaType === 'person'
-                          ? trendingPeople.hasNextPage
-                          : true) &&
-                        (mediaType === 'movie'
-                          ? !trendingMovies.isError
-                          : mediaType === 'tv'
-                          ? !trendingTV.isError
-                          : mediaType === 'person'
-                          ? !trendingPeople.isError
-                          : false)
-                      }
-                      onClick={() =>
-                        mediaType === 'movie'
-                          ? trendingMovies.fetchNextPage()
-                          : mediaType === 'tv'
-                          ? trendingTV.fetchNextPage()
-                          : mediaType === 'person'
-                          ? trendingPeople.fetchNextPage()
-                          : undefined
-                      }
-                    />
-                  </Box>
-                </VStack>
-              ) : (
-                <Box width='100%' px={2} pt={2}>
-                  <Empty
-                    button={
-                      <MediaTypes
-                        mediaType={mediaType}
-                        onSetType={(mediaType: MediaType) => history.push({ pathname: `/trending/${mediaType}` })}
-                      />
-                    }
-                    hasIllustration={false}
-                    label=''
-                    size='xl'
-                    variant='outlined'
-                  />
-                </Box>
-              )}
-            </VerticalGrid>
-          )
-        }}
-      </Page>
-
-      <MediaTypePicker
-        mediaType={mediaType}
-        isOpen={isMediaTypePickerOpen}
-        onClose={onMediaTypePickerClose}
-        onSetType={(mediaType: MediaType) => history.push({ pathname: `/trending/${mediaType}` })}
-      />
-    </>
-  );
+							<AnimatePresence exitBeforeEnter initial={false}>
+								{_.isNil(activeTab) ? (
+									<Center as={Fade} key='media-types-picker' width='100%' in unmountOnExit>
+										<MediaTypesPicker onSelected={(index: number) => setActiveTab(index)} />
+									</Center>
+								) : (
+									<Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
+										<TabPanels>
+											<Movies movies={movies} query={trendingMoviesQuery} />
+											<TV shows={shows} query={trendingTVQuery} />
+											<People people={people} query={trendingPeopleQuery} />
+										</TabPanels>
+									</Center>
+								)}
+							</AnimatePresence>
+						</VStack>
+					</Tabs>
+				)
+			}}
+		</Page>
+	);
 };
 
 export default Trending;

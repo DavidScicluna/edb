@@ -1,35 +1,45 @@
 import { ReactElement } from 'react';
+import { useIsFetching, useIsMutating } from 'react-query';
 
 import { useColorMode, VStack, Box } from '@chakra-ui/react';
+
+import { NavItemsProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Link from '../../../../components/Clickable/Link';
 import NavItem from '../../../../components/NavItem';
 import Logo from '../Logo';
-import { NavItemsProps } from './types';
 
 const NavItems = ({ navItems, sidebarMode: sidebarModeProp }: NavItemsProps): ReactElement => {
-  const { colorMode } = useColorMode();
+	const { colorMode } = useColorMode();
 
-  const sidebarModeState = useSelector((state) => state.app.ui.sidebarMode);
+	const isFetching = useIsFetching();
+	const isMutating = useIsMutating();
 
-  const sidebarMode = sidebarModeProp || sidebarModeState;
+	const sidebarModeHook = useSelector((state) => state.app.ui.sidebarMode);
 
-  return (
-    <VStack width='100%' spacing={2}>
-      <Link to={{ pathname: '/' }} style={{ alignSelf: 'flex-start' }}>
-        <Logo size={sidebarMode === 'expanded' ? 'md' : 'sm'} />
-      </Link>
+	const sidebarMode = sidebarModeProp || sidebarModeHook;
 
-      <Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+	return (
+		<VStack width='100%' spacing={2}>
+			<Link to={{ pathname: '/' }} style={{ alignSelf: 'flex-start' }}>
+				<Logo size={sidebarMode === 'expanded' ? 'md' : 'sm'} />
+			</Link>
 
-      <VStack width='100%'>
-        {navItems.map((navItem) => (
-          <NavItem key={navItem.label} {...navItem} sidebarMode={sidebarMode} />
-        ))}
-      </VStack>
-    </VStack>
-  );
+			<Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+
+			<VStack width='100%'>
+				{navItems.map((navItem) => (
+					<NavItem
+						key={navItem.label}
+						{...navItem}
+						isExpanded={sidebarMode === 'expanded'}
+						isDisabled={isFetching > 0 || isMutating > 0}
+					/>
+				))}
+			</VStack>
+		</VStack>
+	);
 };
 
 export default NavItems;

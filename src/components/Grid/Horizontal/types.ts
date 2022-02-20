@@ -1,20 +1,13 @@
-import { ReactElement } from 'react';
+import { ContextType } from 'react';
+import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
-import { CardVariant } from '../../../common/types/types';
+import { PanelProps } from '../../Panel/types';
 
-export type Direction = 'left' | 'right';
+type ScrollMenuContext = ContextType<typeof VisibilityContext>;
 
-export type ScrollButtonsState = {
-  left: boolean;
-  right: boolean;
-};
+export type ScrollMenu = Omit<ScrollMenuContext, 'children' | 'LeftArrow' | 'RightArrow'>;
 
 export type HorizontalGridProps = {
-  children: ReactElement;
-  title: string | ReactElement;
-  footer?: ReactElement;
-  isLoading: boolean;
-  hasDivider?: boolean;
-  resetScroll?: boolean;
-  variant?: CardVariant;
-};
+	footer?: PanelProps['children']['footer'];
+	isDisabled?: boolean;
+} & Omit<PanelProps, 'children' | 'isFullWidth' | 'onChange'>;

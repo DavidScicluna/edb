@@ -6,10 +6,10 @@ import optionsReducer from './slices/Options';
 import userReducer from './slices/User';
 
 const rootReducer = combineReducers({
-  app: appReducer,
-  options: optionsReducer,
-  modals: modalsReducer,
-  user: userReducer
+	app: appReducer,
+	modals: modalsReducer,
+	options: optionsReducer,
+	user: userReducer
 });
 
 export default rootReducer;

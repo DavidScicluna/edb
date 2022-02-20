@@ -1,127 +1,137 @@
 import { ReactElement, useState, useEffect } from 'react';
-
-import { useDisclosure, VStack } from '@chakra-ui/react';
-import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
+import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
+
+import moment from 'moment';
+
+import List from './components/List';
+
 import { useSelector } from '../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
-import CreateList from '../../../../../pages/Lists/components/CreateList';
+import CreateList from '../../../../../pages/User/pages/Lists/components/CreateList';
 import { defaultListsModal, toggleList } from '../../../../../store/slices/Modals';
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
 import { setLists } from '../../../../../store/slices/User';
 import { List as ListType } from '../../../../../store/slices/User/types';
-import List from './components/List';
 
 const ListsModal = (): ReactElement => {
-  const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const dispatch = useDispatch();
-  const listsModal: ListModalType = useSelector((state) => state.modals.ui.listsModal);
-  const lists: ListType[] = useSelector((state) => state.user.data.lists);
-  const color = useSelector((state) => state.user.ui.theme.color);
+	const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
 
-  const [selected, setSelected] = useState<ListType['id'][]>([]);
+	const dispatch = useDispatch();
+	const listsModal: ListModalType = useSelector((state) => state.modals.ui.listsModal);
+	const lists: ListType[] = useSelector((state) => state.user.data.lists);
 
-  const handleIsSelected = (id: string, isSelected: boolean): void => {
-    if (isSelected) {
-      setSelected(selected.filter((list) => list !== id));
-    } else {
-      setSelected([...selected, id]);
-    }
-  };
+	const [selected, setSelected] = useState<ListType['id'][]>([]);
 
-  const handleSaveItem = (): void => {
-    if (listsModal.mediaItem && listsModal.mediaItem.id && listsModal.mediaType) {
-      let updatedLists: ListType[] = [...lists];
+	const handleIsSelected = (id: string, isSelected: boolean): void => {
+		if (isSelected) {
+			setSelected(selected.filter((list) => list !== id));
+		} else {
+			setSelected([...selected, id]);
+		}
+	};
 
-      selected.forEach((list) => {
-        updatedLists = updatedLists.map((updatedList) => {
-          const results = { ...updatedList.results };
+	const handleSaveItem = (): void => {
+		if (listsModal.mediaItem && listsModal.mediaItem.id && listsModal.mediaType) {
+			let updatedLists: ListType[] = [...lists];
 
-          switch (listsModal.mediaType) {
-            case 'movie': {
-              const movieMediaItem: any = { ...listsModal.mediaItem, dateAdded: moment(new Date()).toISOString() };
+			selected.forEach((list) => {
+				updatedLists = updatedLists.map((updatedList) => {
+					const results = { ...updatedList.results };
 
-              results.movies = [...results.movies, movieMediaItem];
-              break;
-            }
-            case 'tv': {
-              const showMediaItem: any = { ...listsModal.mediaItem, dateAdded: moment(new Date()).toISOString() };
+					switch (listsModal.mediaType) {
+						case 'movie': {
+							const movieMediaItem = {
+								...listsModal.mediaItem,
+								dateAdded: moment(new Date()).toISOString()
+							};
 
-              results.tv = [...results.tv, showMediaItem];
-              break;
-            }
-            default:
-              break;
-          }
+							results.movies = [...results.movies, movieMediaItem];
+							break;
+						}
+						case 'tv': {
+							const showMediaItem = {
+								...listsModal.mediaItem,
+								dateAdded: moment(new Date()).toISOString()
+							};
 
-          return updatedList.id === list
-            ? {
-                ...updatedList,
-                date: moment(new Date()).toISOString(),
-                results: { ...results }
-              }
-            : updatedList;
-        });
-      });
+							results.tv = [...results.tv, showMediaItem];
+							break;
+						}
+						default:
+							break;
+					}
 
-      dispatch(setLists([...updatedLists]));
+					return updatedList.id === list
+						? {
+								...updatedList,
+								date: moment(new Date()).toISOString(),
+								results: { ...results }
+						  }
+						: updatedList;
+				});
+			});
 
-      handleCloseLists();
-    }
-  };
+			dispatch(setLists([...updatedLists]));
 
-  const handleCloseLists = (): void => {
-    setSelected([]);
-    dispatch(toggleList({ ...defaultListsModal }));
-  };
+			handleCloseLists();
+		}
+	};
 
-  const handleCloseCreateList = (id?: string): void => {
-    onCreateListClose();
+	const handleCloseLists = (): void => {
+		setSelected([]);
+		dispatch(toggleList({ ...defaultListsModal }));
+	};
 
-    if (id) {
-      handleIsSelected(id, false);
-    }
-  };
+	const handleCloseCreateList = (id?: string): void => {
+		onCreateListClose();
 
-  useEffect(() => {
-    if (!listsModal.open) {
-      handleCloseLists();
-    }
-  }, [listsModal.open]);
+		if (id) {
+			handleIsSelected(id, false);
+		}
+	};
 
-  return (
-    <>
-      <Modal
-        title={`Add "${listsModal.title}" to a list`}
-        actions={
-          selected.length > 0 ? (
-            <Button color={handleReturnColor(color)} onClick={() => handleSaveItem()} size='sm'>
-              {`Save to List${selected.length > 1 ? 's' : ''}`}
-            </Button>
-          ) : (
-            <Button color={handleReturnColor(color)} onClick={() => onCreateListOpen()} size='sm'>
-              Create a new List
-            </Button>
-          )
-        }
-        isOpen={listsModal.open}
-        onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
-        isCentered
-        size='2xl'>
-        <VStack spacing={2} p={2}>
-          {lists.map((list) => (
-            <List key={list.id} {...list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />
-          ))}
-        </VStack>
-      </Modal>
+	useEffect(() => {
+		if (!listsModal.open) {
+			handleCloseLists();
+		}
+	}, [listsModal.open]);
 
-      <CreateList isOpen={isCreateListOpen} onClose={handleCloseCreateList} />
-    </>
-  );
+	return (
+		<>
+			<Modal
+				title={isSm ? 'Add to a list/s' : `Add "${listsModal.title}" to a list`}
+				renderActions={({ color, colorMode, size }) => (
+					<Button
+						color={color}
+						colorMode={colorMode}
+						onClick={() => (selected.length > 0 ? handleSaveItem() : onCreateListOpen())}
+						size={size}
+					>
+						{selected.length > 0 ? `Save to List${selected.length > 1 ? 's' : ''}` : 'Create a new List'}
+					</Button>
+				)}
+				isOpen={listsModal.open}
+				onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
+				isCentered
+				size='2xl'
+			>
+				<VStack spacing={2} p={2}>
+					{lists.map((list) => (
+						<span key={list.id} style={{ width: '100%' }}>
+							<List list={list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />
+						</span>
+					))}
+				</VStack>
+			</Modal>
+
+			<CreateList isOpen={isCreateListOpen} onClose={handleCloseCreateList} />
+		</>
+	);
 };
 
 export default ListsModal;

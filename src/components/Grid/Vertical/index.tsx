@@ -1,21 +1,32 @@
 import { ReactElement } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
-import Header from './components/Header';
 import { VerticalGridProps } from './types';
 
+import { useSelector } from '../../../common/hooks';
+import { DisplayMode } from '../../../store/slices/App/types';
+
 const VerticalGrid = (props: VerticalGridProps): ReactElement => {
-  const { children, title, header } = props;
+	const [isXs] = useMediaQuery('(max-width: 320px)');
+	const [isXl] = useMediaQuery('(min-width: 1920px)');
 
-  return (
-    <VStack width='100%' spacing={0}>
-      {/* Header */}
-      {title || header ? <Header title={title} header={header} /> : null}
+	const displayModeState = useSelector((state) => state.app.ui.displayMode);
 
-      {children}
-    </VStack>
-  );
+	const { children, columns, displayMode: displayModeProp } = props;
+
+	const displayMode: DisplayMode = displayModeProp || displayModeState;
+
+	return (
+		<SimpleGrid
+			width='100%'
+			// columns={displayMode === 'list' ? 1 : [isXs ? 1 : 2, 3, 4, 5, 5, isXl ? 7 : 6]} // Old columns sizes
+			columns={displayMode === 'list' ? 1 : columns || [isXs ? 1 : 2, 2, 4, 4, 5, isXl ? 6 : 5]} // New with Container width in Layout
+			spacing={2}
+		>
+			{children({ displayMode })}
+		</SimpleGrid>
+	);
 };
 
 export default VerticalGrid;

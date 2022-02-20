@@ -1,13 +1,6 @@
-import { MediaType } from '../../../../../../common/types/types';
-import { Crew } from '../../types';
-import { PanelProps } from '../Panel/types';
+import { Accordion } from '../../../../../../components/Accordions/types';
+import { CastCrewProps, Crew } from '../../types';
 
-export type CrewProps = {
-  mediaType: Omit<MediaType, 'person'>;
-  mediaItemTitle?: string;
-  crew?: Crew;
-  title: string;
-  isLoading?: boolean;
-  isError?: boolean;
-  isSuccess?: boolean;
-} & Omit<PanelProps, 'children' | 'id' | 'title' | 'total'>;
+export type CrewProps = Omit<CastCrewProps, 'credits'> & {
+	crew?: Crew[];
+} & Omit<Accordion<Crew[]>, 'id' | 'subtitle' | 'total' | 'isDisabled' | 'data'>;

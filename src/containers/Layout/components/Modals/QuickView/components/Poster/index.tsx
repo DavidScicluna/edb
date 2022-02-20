@@ -2,42 +2,45 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, useBoolean } from '@chakra-ui/react';
 
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+
+import { PosterProps } from './types';
+
+import { handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../components/Clickable/Image';
 import Image from '../../../../../../../components/Image';
 import Skeleton from '../../../../../../../components/Skeleton';
-import { PosterProps } from './types';
 
 const Poster = (props: PosterProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 600px)');
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { name, path, mediaType, isLoading = false, onClickPoster } = props;
+	const { alt, path, mediaType, srcSize, isLoading = false, onClickPoster } = props;
 
-  const [isImageError, setIsImageError] = useBoolean();
+	const [isImageError, setIsImageError] = useBoolean();
 
-  return (
-    <ClickableImage
-      borderRadius='lg'
-      ratio={isSm ? 1 / 1 : 2 / 3}
-      isDisabled={isLoading || isImageError}
-      onClick={path ? () => onClickPoster(path, 'photo') : undefined}>
-      <Skeleton isLoaded={!isLoading} borderRadius='lg'>
-        <Image
-          alt={`${name ? `"${name}"` : ''} ${
-            mediaType === 'movie' ? 'movie' : mediaType === 'tv' ? 'tv show' : 'profile'
-          } poster`}
-          mediaType={mediaType}
-          maxWidth='none'
-          height={isSm ? 'auto' : '100%'}
-          width={isSm ? '100%' : 'auto'}
-          borderRadius='lg'
-          onError={() => setIsImageError.on()}
-          onLoad={() => setIsImageError.off()}
-          thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${mediaType === 'person' ? 'w45' : 'w92'}${path}`}
-          fullSrc={`${process.env.REACT_APP_IMAGE_URL}/original${path}`}
-        />
-      </Skeleton>
-    </ClickableImage>
-  );
+	return (
+		<ClickableImage
+			borderRadius='lg'
+			ratio={handleReturnRatio(isSm ? 'square' : 'portrait')}
+			isDisabled={isLoading || isImageError}
+			renderIcon={({ color, fontSize }) => <SearchOutlinedIcon style={{ color, fontSize }} />}
+			onClick={path ? () => onClickPoster(path) : undefined}
+		>
+			<Skeleton isLoaded={!isLoading} borderRadius='lg'>
+				<Image
+					alt={`${alt ? `"${alt}"` : ''} ${mediaType === 'tv' ? 'tv show' : mediaType} poster`}
+					// height='auto'
+					// width='100%'
+					borderRadius='lg'
+					boringType={handleReturnBoringTypeByMediaType(mediaType)}
+					onError={() => setIsImageError.on()}
+					onLoad={() => setIsImageError.off()}
+					thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${srcSize[0]}${path}`}
+					fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${srcSize[1]}${path}`}
+				/>
+			</Skeleton>
+		</ClickableImage>
+	);
 };
 
 export default Poster;

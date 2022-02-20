@@ -1,51 +1,129 @@
-import { Style } from '../../../../common/types/types';
-import { Theme } from '../../../../theme/types';
 import { ArrowProps } from './types';
 
+import { Style } from '../../../../common/types';
+import { Theme } from '../../../../theme/types';
+import { handleConvertHexToRGB } from '../../common/utils';
+
 type DirectionStyle = {
-  left: Style;
-  right: Style;
+	left: Style;
+	right: Style;
 };
 
 type ArrowStyle = {
-  arrow: Style;
-  light: DirectionStyle;
-  dark: DirectionStyle;
+	arrow: Style;
+	light: DirectionStyle;
+	dark: DirectionStyle;
 };
 
-export default (theme: Theme, { isDisabled = false }: ArrowProps): ArrowStyle => ({
-  arrow: {
-    content: '""',
+type StyleArrowProps = {
+	isDisabled: ArrowProps['isDisabled'];
+};
 
-    width: '30px',
-    height: '100%',
+export default (theme: Theme, { isDisabled = false }: StyleArrowProps): ArrowStyle => ({
+	arrow: {
+		content: '""',
 
-    display: 'block',
+		display: 'block',
 
-    pointerEvents: 'none'
-  },
-  light: {
-    left: {
-      background: !isDisabled
-        ? `linear-gradient(to right, ${theme.colors.gray[50]} 25%, rgba(0, 0, 0, 0) 75%)`
-        : 'transparent'
-    },
-    right: {
-      background: !isDisabled
-        ? `linear-gradient(to left, ${theme.colors.gray[50]} 25%, rgba(0, 0, 0, 0) 75%)`
-        : 'transparent'
-    }
-  },
-  dark: {
-    left: {
-      background: !isDisabled
-        ? `linear-gradient(to right, ${theme.colors.gray[900]} 25%, rgba(0, 0, 0, 0) 75%)`
-        : 'transparent'
-    },
-    right: {
-      background: !isDisabled
-        ? `linear-gradient(to left, ${theme.colors.gray[900]} 25%, rgba(0, 0, 0, 0) 75%)`
-        : 'transparent'
-    }
-  }
+		pointerEvents: 'none',
+
+		transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+	},
+	light: {
+		left: {
+			'backgroundColor': 'gray.50',
+			'-moz-background': !isDisabled
+				? `-moz-linear-gradient(90deg, ${handleConvertHexToRGB(
+						theme.colors.gray[50],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'-webkit-linear-background': !isDisabled
+				? `-webkit-linear-gradient(90deg, ${handleConvertHexToRGB(
+						theme.colors.gray[50],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'background': !isDisabled
+				? `linear-gradient(90deg, ${handleConvertHexToRGB(theme.colors.gray[50], 1)} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'filter': !isDisabled
+				? `progid:DXImageTransform.Microsoft.gradient(startColorstr="${theme.colors.gray[50]}",endColorstr="transparent",GradientType=1)`
+				: 'transparent'
+		},
+		right: {
+			'backgroundColor': 'gray.50',
+			'-moz-background': !isDisabled
+				? `-moz-linear-gradient(270deg, ${handleConvertHexToRGB(
+						theme.colors.gray[50],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'-webkit-linear-background': !isDisabled
+				? `-webkit-linear-gradient(270deg, ${handleConvertHexToRGB(
+						theme.colors.gray[50],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'background': !isDisabled
+				? `linear-gradient(270deg, ${handleConvertHexToRGB(
+						theme.colors.gray[50],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'filter': !isDisabled
+				? `progid:DXImageTransform.Microsoft.gradient(startColorstr="${theme.colors.gray[50]}",endColorstr="transparent",GradientType=1)`
+				: 'transparent'
+		}
+	},
+	dark: {
+		left: {
+			'backgroundColor': 'gray.900',
+			'-moz-background': !isDisabled
+				? `-moz-linear-gradient(90deg, ${handleConvertHexToRGB(
+						theme.colors.gray[900],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'-webkit-linear-background': !isDisabled
+				? `-webkit-linear-gradient(90deg, ${handleConvertHexToRGB(
+						theme.colors.gray[900],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'background': !isDisabled
+				? `linear-gradient(90deg, ${handleConvertHexToRGB(
+						theme.colors.gray[900],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'filter': !isDisabled
+				? `progid:DXImageTransform.Microsoft.gradient(startColorstr="${theme.colors.gray[900]}",endColorstr="transparent",GradientType=1)`
+				: 'transparent'
+		},
+		right: {
+			'backgroundColor': 'gray.900',
+			'-moz-background': !isDisabled
+				? `-moz-linear-gradient(270deg, ${handleConvertHexToRGB(
+						theme.colors.gray[900],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'-webkit-linear-background': !isDisabled
+				? `-webkit-linear-gradient(270deg, ${handleConvertHexToRGB(
+						theme.colors.gray[900],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'background': !isDisabled
+				? `linear-gradient(270deg, ${handleConvertHexToRGB(
+						theme.colors.gray[900],
+						1
+				  )} 0%, rgba(0, 0, 0, 0) 100%)`
+				: 'transparent',
+			'filter': !isDisabled
+				? `progid:DXImageTransform.Microsoft.gradient(startColorstr="${theme.colors.gray[900]}",endColorstr="transparent",GradientType=1)`
+				: 'transparent'
+		}
+	}
 });

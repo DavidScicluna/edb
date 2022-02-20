@@ -1,77 +1,87 @@
 import { ReactElement } from 'react';
-
-import { useColorMode, VStack } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
+import { ColorMode, useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
+
+import Background from './components/Background';
+import Color from './components/Color';
+
 import { useSelector } from '../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../common/utils';
+import { handleCheckSystemColorMode } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
 import { setTheme } from '../../../../../store/slices/User';
 import { Theme } from '../../../../../store/slices/User/types';
-import Background from './components/Background';
-import Color from './components/Color';
 
 const Display = (): ReactElement => {
-  const { toggleColorMode } = useColorMode();
+	const { setColorMode } = useColorMode();
 
-  const dispatch = useDispatch();
-  const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
-  const theme = useSelector((state) => state.user.ui.theme);
+	const [isSm] = useMediaQuery('(max-width: 672px)');
 
-  const form = useForm<Theme>({ defaultValues: { ...theme } });
-  const color = form.watch('color');
-  const background = form.watch('background');
+	const dispatch = useDispatch();
+	const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
+	const theme = useSelector((state) => state.user.ui.theme);
 
-  const { isDirty, dirtyFields } = useFormState({ control: form.control });
+	const form = useForm<Theme>({ defaultValues: { ...theme } });
+	const color = form.watch('color');
+	const background = form.watch('background');
+	const colorMode: ColorMode = background === 'system' ? handleCheckSystemColorMode() : background;
 
-  const handleSubmit = (newTheme: Theme): void => {
-    handleClose();
+	const { isDirty, dirtyFields } = useFormState({ control: form.control });
 
-    dispatch(toggleSplashscreen(true));
-    dispatch(setTheme(newTheme));
+	const handleSubmit = (newTheme: Theme): void => {
+		handleClose();
 
-    form.reset({ ...newTheme });
+		dispatch(toggleSplashscreen(true));
+		dispatch(setTheme(newTheme));
 
-    if (dirtyFields.background) {
-      toggleColorMode();
-    }
+		form.reset({ ...newTheme });
 
-    setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
-  };
+		if (dirtyFields.background) {
+			if (newTheme.background !== 'system') {
+				setColorMode(newTheme.background);
+			} else {
+				setColorMode(handleCheckSystemColorMode());
+			}
+		}
 
-  const handleClose = (): void => {
-    form.reset({ ...theme });
+		setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
+	};
 
-    dispatch(toggleDisplay(false));
-  };
+	const handleClose = (): void => {
+		form.reset({ ...theme });
 
-  return (
-    <Modal
-      title='Edit Application Theme'
-      actions={
-        <Button
-          colorMode={background}
-          color={handleReturnColor(color)}
-          isDisabled={!isDirty}
-          onClick={form.handleSubmit((values) => handleSubmit(values))}
-          size='sm'>
-          Save
-        </Button>
-      }
-      colorMode={background}
-      isOpen={isDisplayModalOpen}
-      onClose={handleClose}
-      isCentered
-      size='2xl'>
-      <VStack spacing={2} p={2}>
-        <Color form={form} />
-        <Background form={form} />
-      </VStack>
-    </Modal>
-  );
+		dispatch(toggleDisplay(false));
+	};
+
+	return (
+		<Modal
+			title='Edit Application Theme'
+			renderActions={({ size }) => (
+				<Button
+					color={color}
+					colorMode={colorMode}
+					isDisabled={!isDirty}
+					onClick={form.handleSubmit((values) => handleSubmit(values))}
+					size={size}
+				>
+					Save
+				</Button>
+			)}
+			colorMode={colorMode}
+			isOpen={isDisplayModalOpen}
+			onClose={handleClose}
+			isCentered
+			size={isSm ? 'full' : '3xl'}
+		>
+			<VStack spacing={2} p={2}>
+				<Color form={form} />
+				<Background form={form} />
+			</VStack>
+		</Modal>
+	);
 };
 
 export default Display;

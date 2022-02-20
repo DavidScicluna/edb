@@ -1,8 +1,8 @@
-import { Video } from '../../../../../../common/types/types';
-import { MediaViewerType } from '../../../../types';
+import { Video } from '../../../../../../common/types';
+import { GalleryProps } from '../../types';
 
-export type VideoProps = {
-  video: Video;
-  isActive?: boolean;
-  onClickVideo: (path: string, type: MediaViewerType) => void;
-};
+export type GalleryVideoProps = {
+	videoId: Video['key'];
+	isActive?: boolean;
+	onClick: () => void;
+} & Omit<GalleryProps, 'activeMediaItem' | 'assets' | 'isOpen' | 'onClose' | 'onClick'>;

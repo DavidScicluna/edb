@@ -1,3 +1,3 @@
 export type VideoViewerProps = {
-  path: string;
+	videoId?: string;
 };

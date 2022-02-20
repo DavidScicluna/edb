@@ -1,32 +1,35 @@
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 
 import { TabList as CUITabList } from '@chakra-ui/react';
 
-import HorizontalScroll from '../../../HorizontalScroll';
 import Tab from './components/Tab';
 import { TabListProps } from './types';
 
-const TabList = (props: TabListProps): ReactElement => {
-  const { renderTabs, activeTab, size } = props;
+import { TabsContext } from '../../.';
+import HorizontalScroll from '../../../HorizontalScroll';
+import { TabsContext as TabsContextType } from '../../types';
 
-  return (
-    <CUITabList width='100%'>
-      <HorizontalScroll>
-        <>
-          {renderTabs.map((tab, index) => (
-            <Tab
-              key={index}
-              label={tab.label}
-              badge={tab.badge}
-              isSelected={activeTab === index}
-              isDisabled={tab.isDisabled || false}
-              size={size}
-            />
-          ))}
-        </>
-      </HorizontalScroll>
-    </CUITabList>
-  );
+const TabList = (props: TabListProps): ReactElement => {
+	const { activeTab } = useContext<TabsContextType>(TabsContext);
+
+	const { children = [], color = 'gray', isActiveForced = false, size = 'md' } = props;
+
+	return (
+		<CUITabList width='100%' height='100%'>
+			<HorizontalScroll>
+				{children.map((tab, index) => (
+					<Tab
+						{...tab}
+						key={index}
+						color={color}
+						isOnlyTab={!isActiveForced && children.length === 1}
+						isSelected={activeTab === index}
+						size={size}
+					/>
+				))}
+			</HorizontalScroll>
+		</CUITabList>
+	);
 };
 
 export default TabList;

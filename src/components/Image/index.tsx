@@ -1,99 +1,128 @@
-import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
+import { ReactElement, useState } from 'react';
 
-import { useTheme, useColorMode, Image as CUIImage } from '@chakra-ui/react';
-import _ from 'lodash';
+import { useColorMode, useBoolean, Center, Image as CUIImage, Fade } from '@chakra-ui/react';
 
-import darkFallback from '../../common/assets/fallback/dark.png';
-import lightFallback from '../../common/assets/fallback/light.png';
-import { useImageOnLoad } from '../../common/hooks';
-import { handleReturnBoringSrc } from '../../common/utils';
-import { Theme } from '../../theme/types';
 import { ImageProps } from './types';
 
+import * as fallback from '../../common/assets/fallback';
+import { handleReturnBoringSrc } from '../../common/utils';
+
 const Image = (props: ImageProps): ReactElement => {
-  const imageRef = useRef<HTMLImageElement | null>(null);
+	const { colorMode } = useColorMode();
 
-  const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
-  const { css, handleIsLoaded } = useImageOnLoad(theme);
+	const {
+		width,
+		height,
+		maxWidth,
+		alt,
+		thumbnailSrc,
+		fullSrc,
+		boringType,
+		borderRadius = 'base',
+		onError,
+		onLoad,
+		...rest
+	} = props;
 
-  const { mediaType, alt, thumbnailSrc, fullSrc, onError, onLoad, ...rest } = props;
+	const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, colorMode === 'light' ? 400 : 500));
 
-  const [fallbackSrc, setFallbackSrc] = useState<string>('');
+	const [isThumbnailLoaded, setIsThumbnailLoaded] = useBoolean();
+	const [isThumbnailError, setIsThumbnailError] = useBoolean();
 
-  /**
-   * This method will return the url for the fallback src
-   */
-  const handleFallbackSrc = useCallback(
-    _.debounce(() => {
-      const fallbackSrc: string = handleReturnBoringSrc(
-        mediaType === 'person' ? 'beam' : 'marble',
-        colorMode === 'light' ? 400 : 500,
-        alt
-      );
+	const [isFullLoaded, setIsFullLoaded] = useBoolean();
+	const [isFullError, setIsFullError] = useBoolean();
 
-      setFallbackSrc(fallbackSrc);
-    }, 500),
-    []
-  );
+	const centerProps = {
+		width: '100%',
+		height: '100%',
+		borderRadius
+	};
 
-  useEffect(() => handleFallbackSrc(), []);
+	return (
+		<Center position='relative' {...centerProps}>
+			{/* Fallback image */}
+			<Center as={Fade} position='absolute' {...centerProps} in={isThumbnailError || isFullError} unmountOnExit>
+				<CUIImage
+					{...rest}
+					width={width || 'auto'}
+					height={height || width ? 'auto' : '100%'}
+					maxWidth={maxWidth || 'none'}
+					alt={`${alt} fallback image`}
+					position='absolute'
+					borderRadius={borderRadius}
+					src={fallbackSrc}
+					fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
+				/>
+			</Center>
 
-  return (
-    <>
-      {/* Thumbnail to load faster */}
-      <CUIImage
-        {...rest}
-        ref={imageRef}
-        alt={`${alt} thumbnail`}
-        position='absolute'
-        // onError={(error) => {
-        //   handleIsLoaded(true);
+			{/* Thumbnail image */}
+			<Center
+				as={Fade}
+				position='absolute'
+				{...centerProps}
+				in={!isThumbnailError && !isFullLoaded}
+				unmountOnExit
+			>
+				<CUIImage
+					{...rest}
+					width={width || 'auto'}
+					height={height || width ? 'auto' : '100%'}
+					maxWidth={maxWidth || 'none'}
+					position='absolute'
+					alt={`${alt} thumbnail`}
+					borderRadius={borderRadius}
+					onError={(error) => {
+						setIsThumbnailLoaded.off();
+						setIsThumbnailError.on();
 
-        //   if (onError) {
-        //     onError(error);
-        //   }
-        // }}
-        // onLoad={(event) => {
-        //   handleIsLoaded(true);
+						if (onError) {
+							onError(error);
+						}
+					}}
+					onLoad={(event) => {
+						setIsThumbnailLoaded.on();
+						setIsThumbnailError.off();
 
-        //   if (onLoad) {
-        //     onLoad(event);
-        //   }
-        // }}
-        onError={onError ? (error) => onError(error) : undefined}
-        onLoad={onLoad ? (event) => onLoad(event) : undefined}
-        src={thumbnailSrc}
-        fallbackSrc={colorMode === 'light' ? lightFallback : darkFallback}
-        sx={{ ...css.thumbnail }}
-      />
+						if (onLoad) {
+							onLoad(event);
+						}
+					}}
+					src={thumbnailSrc}
+					fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
+				/>
+			</Center>
 
-      {/* Full size image */}
-      <CUIImage
-        {...rest}
-        ref={imageRef}
-        alt={alt}
-        position='absolute'
-        onError={(error) => {
-          handleIsLoaded(true);
+			{/* Full size image */}
+			<Center as={Fade} position='absolute' {...centerProps} in={!isFullError && isThumbnailLoaded} unmountOnExit>
+				<CUIImage
+					{...rest}
+					width={width || 'auto'}
+					height={height || width ? 'auto' : '100%'}
+					maxWidth={maxWidth || 'none'}
+					position='absolute'
+					alt={alt}
+					borderRadius={borderRadius}
+					onError={(error) => {
+						setIsFullLoaded.off();
+						setIsFullError.on();
 
-          if (onError) {
-            onError(error);
-          }
-        }}
-        onLoad={(event) => {
-          handleIsLoaded(true);
+						if (onError) {
+							onError(error);
+						}
+					}}
+					onLoad={(event) => {
+						setIsFullLoaded.on();
+						setIsFullError.off();
 
-          if (onLoad) {
-            onLoad(event);
-          }
-        }}
-        src={fullSrc}
-        fallbackSrc={fallbackSrc}
-        sx={{ ...css.fullSize }}
-      />
-    </>
-  );
+						if (onLoad) {
+							onLoad(event);
+						}
+					}}
+					src={fullSrc}
+				/>
+			</Center>
+		</Center>
+	);
 };
 
 export default Image;

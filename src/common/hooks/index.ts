@@ -1,5 +1,6 @@
-import useImageOnLoad from './useImageOnLoad';
+import useCheckColorMode from './useCheckColorMode';
+import usePopulateOptions from './usePopulateOptions';
 import useQueriesTyped from './useQueriesTyped';
 import useSelector from './useSelectorTyped';
 
-export { useImageOnLoad, useQueriesTyped, useSelector };
+export { useCheckColorMode, usePopulateOptions, useQueriesTyped, useSelector };

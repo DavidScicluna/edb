@@ -1,8 +1,7 @@
-import { SkeletonTextProps as CUISkeletonTextProps } from '@chakra-ui/react';
-
-import { Color } from '../../../theme/types';
+import { Color, FontSizes } from '../../../theme/types';
+import { SkeletonProps } from '../types';
 
 export type SkeletonTextProps = {
-  color?: Color;
-  offsetY?: string | number;
-} & Omit<CUISkeletonTextProps, 'colorScheme' | 'color' | 'fadeDuration' | 'size' | 'speed' | 'variant'>;
+	color?: keyof Color;
+	fontSize?: keyof FontSizes & string;
+} & SkeletonProps;

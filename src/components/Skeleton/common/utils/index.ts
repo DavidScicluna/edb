@@ -1,15 +1,12 @@
-import { ColorMode } from '../../../../common/types/types';
-import { Color } from '../../../../theme/types';
+import { ColorMode } from '@chakra-ui/react';
 
-export const handleReturnColors = (type: 'start' | 'end', color: Color, colorMode: ColorMode): string => {
-  switch (color) {
-    default:
-      return colorMode === 'light'
-        ? type === 'start'
-          ? 'gray.200'
-          : 'gray.400'
-        : type === 'start'
-        ? 'gray.700'
-        : 'gray.500';
-  }
+import { Color, Theme } from '../../../../theme/types';
+
+export const handleReturnColors = (
+	theme: Theme,
+	type: 'start' | 'end',
+	color: keyof Color,
+	colorMode: ColorMode
+): string => {
+	return theme.colors[color][colorMode === 'light' ? (type === 'start' ? 200 : 400) : type === 'start' ? 700 : 500];
 };

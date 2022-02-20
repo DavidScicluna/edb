@@ -1,94 +1,131 @@
 import { ReactElement } from 'react';
-
-import { Wrap, WrapItem } from '@chakra-ui/react';
 import { Controller } from 'react-hook-form';
 
-import { useSelector } from '../../../../common/hooks';
-import { Genre as GenreType } from '../../../../common/types/types';
-import Button from '../../../../components/Clickable/Button';
-import Card from '../../../Card';
+import { useMediaQuery, Wrap, WrapItem, HStack } from '@chakra-ui/react';
+
+import _ from 'lodash';
+import { useElementSize } from 'usehooks-ts';
+
 import Genre from './components/Genre';
 import { GenresProps } from './types';
 
-const Genres = ({ mediaType, form }: GenresProps): ReactElement => {
-  const movieGenres = useSelector((state) => state.options.data.data.genres.movie);
-  const tvGenres = useSelector((state) => state.options.data.data.genres.tv);
+import { useSelector } from '../../../../common/hooks';
+import { Genre as GenreType } from '../../../../common/types';
+import Button from '../../../../components/Clickable/Button';
+import Divider from '../../../../components/Divider';
+import Empty from '../../../../components/Empty';
+import Panel from '../../../Panel';
 
-  const handleGenreClick = (genre: GenreType): void => {
-    const genres = form.getValues().genres;
+const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-    if (form.getValues().genres.some((activeGenre) => activeGenre.id === genre.id)) {
-      form.setValue(
-        'genres',
-        genres.filter((activeGenre) => activeGenre.id !== genre.id),
-        { shouldDirty: true }
-      );
-    } else {
-      form.setValue('genres', [...genres, genre], { shouldDirty: true });
-    }
-  };
+	const color = useSelector((state) => state.user.ui.theme.color);
+	const genres = useSelector((state) =>
+		mediaType === 'movie' ? state.options.data.genres.movie : state.options.data.genres.tv
+	);
 
-  const handleAllClick = (): void => {
-    const genres = mediaType === 'movie' ? [...movieGenres] : [...tvGenres];
+	const [ref, { height }] = useElementSize();
 
-    if (form.getValues().genres.length === genres.length) {
-      form.setValue('genres', [], { shouldDirty: true });
-    } else {
-      form.setValue('genres', [...genres], { shouldDirty: true });
-    }
-  };
+	const handleGenreClick = (genre: GenreType): void => {
+		const genres = form.getValues().genres;
 
-  const handleAllLabel = (): string => {
-    const genres = mediaType === 'movie' ? [...movieGenres] : [...tvGenres];
+		if (genres.some((activeGenre) => activeGenre === genre.id)) {
+			form.setValue(
+				'genres',
+				genres.filter((activeGenre) => activeGenre !== genre.id),
+				{ shouldDirty: true }
+			);
+		} else {
+			form.setValue('genres', [...genres, genre.id], { shouldDirty: true });
+		}
+	};
 
-    return `${form.getValues().genres.length === genres.length ? 'Remove' : 'Select'} All`;
-  };
+	const handleAllClick = (): void => {
+		if (form.getValues().genres.length === (genres || []).length) {
+			form.setValue('genres', [], { shouldDirty: true });
+		} else {
+			form.setValue('genres', [...(genres || []).map((genre) => genre.id)], { shouldDirty: true });
+		}
+	};
 
-  return (
-    <Controller
-      control={form.control}
-      name='genres'
-      render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} isFullWidth px={2} pt={1.5} pb={2}>
-          {{
-            header: {
-              actions: (
-                <Button onClick={() => handleAllClick()} size='sm' variant='text'>
-                  {handleAllLabel()}
-                </Button>
-              ),
-              title: 'Genres'
-            },
-            body: (
-              <Wrap width='100%' spacing={1}>
-                {mediaType === 'movie'
-                  ? movieGenres.map((genre) => (
-                      <WrapItem key={genre.id}>
-                        <Genre
-                          {...genre}
-                          isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
-                          onClick={handleGenreClick}
-                        />
-                      </WrapItem>
-                    ))
-                  : mediaType === 'tv'
-                  ? tvGenres.map((genre) => (
-                      <WrapItem key={genre.id}>
-                        <Genre
-                          {...genre}
-                          isActive={value.some((activeGenre) => activeGenre.id === genre.id)}
-                          onClick={handleGenreClick}
-                        />
-                      </WrapItem>
-                    ))
-                  : null}
-              </Wrap>
-            )
-          }}
-        </Card>
-      )}
-    />
-  );
+	const handleAllLabel = (): string => {
+		return `${form.getValues().genres.length === (genres || []).length ? 'Remove' : 'Select'} All`;
+	};
+
+	return (
+		<Controller
+			control={form.control}
+			name='genres'
+			render={({ field: { value } }) => (
+				<Panel isFullWidth>
+					{{
+						header: {
+							title: 'Genres',
+							actions: (
+								<HStack ref={ref} divider={<Divider orientation='vertical' height={`${height}px`} />}>
+									<Button
+										color={color}
+										isDisabled={
+											_.isNil(genres) ||
+											_.isEmpty(genres) ||
+											value.length === 0 ||
+											value.length === (genres?.length || 0)
+										}
+										onClick={() => form.setValue('genres', [], { shouldDirty: true })}
+										size='sm'
+										variant='text'
+									>
+										Clear
+									</Button>
+									<Button
+										color={color}
+										isDisabled={_.isNil(genres) || _.isEmpty(genres)}
+										onClick={() => handleAllClick()}
+										size='sm'
+										variant='text'
+									>
+										{handleAllLabel()}
+									</Button>
+								</HStack>
+							)
+						},
+						body: (
+							<Wrap width='100%' spacing={isSm ? 1 : 1.5}>
+								{_.isNil(genres) || _.isEmpty(genres) ? (
+									<WrapItem width='100%'>
+										<Empty
+											hasIllustration={false}
+											label='Oh no!'
+											description='Failed to find any genres!'
+											size='sm'
+											variant='transparent'
+										/>
+									</WrapItem>
+								) : !_.isNil(genres) || !_.isEmpty(genres) ? (
+									genres.map((genre) => (
+										<WrapItem key={genre.id}>
+											<Genre
+												{...genre}
+												isActive={value.some((activeGenre) => activeGenre === genre.id)}
+												isLoading={false}
+												onClick={handleGenreClick}
+											/>
+										</WrapItem>
+									))
+								) : (
+									_.range(0, 15).map((_dummy, index) => (
+										<WrapItem key={index}>
+											<Genre isLoading />
+										</WrapItem>
+									))
+								)}
+							</Wrap>
+						)
+					}}
+				</Panel>
+			)}
+		/>
+	);
 };
 
 export default Genres;

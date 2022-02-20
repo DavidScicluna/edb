@@ -1,51 +1,56 @@
 import { ReactElement, useState, useCallback } from 'react';
 
-import { VStack, List as CUIList } from '@chakra-ui/react';
+import { useColorMode, VStack, List as CUIList, Text } from '@chakra-ui/react';
 
-import Card from '../../../../../../components/Card';
-import { ListProps } from './types';
+import { ListProps, Ref } from './types';
+
+import Panel from '../../../../../../components/Panel';
 
 const List = (props: ListProps): ReactElement => {
-  const { children, title, actions } = props;
+	const { colorMode } = useColorMode();
+	const { children, title, actions } = props;
 
-  const [isOverflown, setIsOverflown] = useState<boolean>(false);
+	const [isOverflown, setIsOverflown] = useState<boolean>(false);
 
-  const handleIsOverflown = useCallback((ref: HTMLDivElement | null) => {
-    if (ref) {
-      setIsOverflown(ref.scrollHeight > ref.offsetHeight);
-    }
-  }, []);
+	const handleIsOverflown = useCallback((ref: Ref) => {
+		if (ref) {
+			setIsOverflown(ref.scrollHeight > ref.offsetHeight);
+		}
+	}, []);
 
-  return (
-    <CUIList spacing={0}>
-      <Card
-        box={{
-          header: { pb: 1 }
-        }}
-        isFullWidth
-        hasDivider={false}
-        variant='transparent'>
-        {{
-          header: {
-            title,
-            actions
-          },
-          body: (
-            <VStack
-              ref={(ref: HTMLDivElement | null) => handleIsOverflown(ref)}
-              width='100%'
-              alignItems='flex-start'
-              spacing={0}
-              maxHeight='35vh'
-              overflowY='auto'
-              pr={isOverflown ? 2 : 0}>
-              {children}
-            </VStack>
-          )
-        }}
-      </Card>
-    </CUIList>
-  );
+	return (
+		<Panel isFullWidth isDivisible={false} size='xs' variant='transparent'>
+			{{
+				header: {
+					title: (
+						<Text
+							align='left'
+							color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+							fontSize='sm'
+							fontWeight='bold'
+							textTransform='uppercase'
+						>
+							{title}
+						</Text>
+					),
+					actions
+				},
+				body: (
+					<VStack
+						as={CUIList}
+						ref={(ref: Ref) => handleIsOverflown(ref)}
+						width='100%'
+						maxHeight='35vh'
+						overflowY='auto'
+						pr={isOverflown ? 2 : 0}
+						spacing={0}
+					>
+						{children}
+					</VStack>
+				)
+			}}
+		</Panel>
+	);
 };
 
 export default List;

@@ -1,11 +1,5 @@
-import { MediaType } from '../../../../../common/types/types';
-
 export type DescriptionProps = {
-  mediaType: MediaType;
-  mediaItem: {
-    id: number;
-    title: string;
-    description: string;
-  };
-  isLoading: boolean;
+	description?: string;
+	isLoading: boolean;
+	inView: boolean;
 };

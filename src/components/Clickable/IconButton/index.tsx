@@ -1,53 +1,73 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, useColorMode, Center, Spinner, Icon, IconButton as CUIIconButton } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, IconButton as CUIIconButton, Center } from '@chakra-ui/react';
+
 import _ from 'lodash';
 
-import { ColorMode } from '../../../common/types/types';
-import { Theme } from '../../../theme/types';
+import Spinner from './components/Spinner';
 import useStyles from './styles';
 import { IconButtonRef, IconButtonProps } from './types';
 
+import { Theme } from '../../../theme/types';
+
 const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButton(props, ref): ReactElement {
-  const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
+	const theme = useTheme<Theme>();
+	const { colorMode: colorModeHook } = useColorMode();
 
-  const style = useStyles(theme, props);
+	const {
+		children,
+		color = 'gray',
+		colorMode: colorModeProp,
+		isDisabled = false,
+		isLoading = false,
+		size = 'md',
+		variant = 'contained',
+		sx,
+		...rest
+	} = props;
 
-  const {
-    colorMode: colorModeProp,
-    icon,
-    isDisabled = false,
-    isLoading = false,
-    size = 'md',
-    variant = 'contained',
-    ...rest
-  } = _.omit(props, 'isLight');
+	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
-  const mode: ColorMode = colorModeProp || colorMode;
+	const style = useStyles(theme, { color, isLoading, size, variant });
 
-  return (
-    <CUIIconButton
-      {...rest}
-      ref={ref}
-      isDisabled={isLoading || isDisabled}
-      variant='unstyled'
-      sx={{ ..._.merge(style.button.back, style[mode].back[variant]) }}
-      _disabled={{ ..._.merge(style.button.disabled, style[mode].disabled[variant]) }}>
-      <Center className='icon_button_front' sx={{ ..._.merge(style.button.front, style[mode].front[variant]) }}>
-        {isLoading ? (
-          <Spinner
-            thickness={size === 'sm' ? '2px' : size === 'md' ? '3px' : '4px'}
-            size={size}
-            speed={theme.transition.duration.slow}
-            sx={{ ..._.merge(style.button.icon) }}
-          />
-        ) : (
-          <Icon as={icon} sx={{ ..._.merge(style.button.icon) }} />
-        )}
-      </Center>
-    </CUIIconButton>
-  );
+	return (
+		<CUIIconButton
+			{...rest}
+			ref={ref}
+			tabIndex={0}
+			isDisabled={isLoading || isDisabled}
+			variant='unstyled'
+			sx={{
+				..._.merge(
+					style.iconButton.back.default,
+					style.iconButton.back[size],
+					style[colorMode].back[variant],
+					sx?.back || {}
+				)
+			}}
+			_disabled={{
+				..._.merge(
+					style.iconButton.disabled.default,
+					style.iconButton.disabled[size],
+					style[colorMode].disabled[variant]
+				)
+			}}
+		>
+			<Center
+				className='icon_button_front'
+				sx={{
+					..._.merge(
+						style.iconButton.front.default,
+						style.iconButton.front[size],
+						style[colorMode].front[variant],
+						sx?.front || {}
+					)
+				}}
+			>
+				{isLoading ? <Spinner color={color} colorMode={colorMode} size={size} variant={variant} /> : children}
+			</Center>
+		</CUIIconButton>
+	);
 });
 
 export default IconButton;

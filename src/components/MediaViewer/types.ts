@@ -1,23 +1,22 @@
-import { MediaType, ImageResponse as Image, Video } from '../../common/types/types';
+import { BoringAvatarType, Image, Video } from '../../common/types';
 
 export type NavigationDirection = 'prev' | 'next';
 
-export type MediaViewerType = 'photo' | 'backdrop' | 'video';
+export type AssetType = 'image' | 'video';
 
-export type MediaViewerData = (Image & Video) | any;
+export type MediaItem = {
+	type: AssetType;
+	boringType: BoringAvatarType;
+	srcSize: [string, string];
+	data: Image & Video;
+};
 
-export interface Selected {
-  type?: MediaViewerType;
-  asset?: string; // Path
-}
+export type Asset = { label: string; mediaItems: MediaItem[] };
 
 export type MediaViewerProps = {
-  isOpen: boolean;
-  name?: string;
-  selected?: Selected;
-  photos?: Image[];
-  backdrops?: Image[];
-  videos?: Video[];
-  mediaType: MediaType;
-  onClose: () => void;
+	alt?: string;
+	assets: Asset[];
+	selectedPath?: string;
+	isOpen: boolean;
+	onClose: () => void;
 };

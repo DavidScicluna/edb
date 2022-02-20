@@ -1,84 +1,79 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useBoolean, Center, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
+
 import {
-  ChevronLeftOutlined as ChevronLeftOutlinedIcon,
-  ChevronRightOutlined as ChevronRightOutlinedIcon
+	ChevronLeftOutlined as ChevronLeftOutlinedIcon,
+	ChevronRightOutlined as ChevronRightOutlinedIcon
 } from '@material-ui/icons';
 import _ from 'lodash';
-import { useInterval } from 'usehooks-ts';
+import { useElementSize } from 'usehooks-ts';
+
+import useStyles from './styles';
+import { ArrowProps } from './types';
 
 import { Theme } from '../../../../theme/types';
 import IconButton from '../../../Clickable/IconButton';
-import useStyles from './styles';
-import { ArrowProps, Event } from './types';
 
 const Arrow = (props: ArrowProps): ReactElement => {
-  const theme = useTheme<Theme>();
-  const { colorMode } = useColorMode();
+	const theme = useTheme<Theme>();
+	const { colorMode } = useColorMode();
 
-  const style = useStyles(theme, props);
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  const { direction, isDisabled = false, reset = false, onScrollClick } = props;
+	const { direction, isDisabled = false, onClick } = props;
 
-  const [isMouseDown, setIsMouseDown] = useBoolean();
+	const style = useStyles(theme, { isDisabled });
 
-  const handleOnClick = (event: Event): void => {
-    event.preventDefault();
+	const [ref, { width, height }] = useElementSize<HTMLButtonElement>();
 
-    onScrollClick(direction);
-  };
-
-  const handleIsMouseDown = (event: Event): void => {
-    event.preventDefault();
-
-    if (event.button === 0) {
-      setIsMouseDown.on();
-    } else {
-      setIsMouseDown.off();
-    }
-  };
-
-  const handleIsMouseUp = (event: Event): void => {
-    event.preventDefault();
-
-    setIsMouseDown.off();
-  };
-
-  useInterval(() => onScrollClick(direction), isMouseDown ? 25 : null);
-
-  useEffect(() => {
-    if (reset || isDisabled) {
-      setIsMouseDown.off();
-    }
-  }, [reset, isDisabled]);
-
-  return (
-    <Center
-      width='auto'
-      height='100%'
-      position='absolute'
-      left={direction === 'left' ? 0 : undefined}
-      right={direction === 'right' ? 0 : undefined}
-      zIndex={1}
-      backgroundColor='transparent'
-      _after={direction === 'left' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}
-      _before={direction === 'right' ? { ..._.merge(style.arrow, style[colorMode][direction]) } : undefined}>
-      <ScaleFade in={!isDisabled} unmountOnExit style={{ height: '100%' }}>
-        <Center height='100%' backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
-          <IconButton
-            aria-label={`Scroll ${direction}`}
-            icon={direction === 'left' ? ChevronLeftOutlinedIcon : ChevronRightOutlinedIcon}
-            onClick={(event: Event) => handleOnClick(event)}
-            onMouseDown={(event: Event) => handleIsMouseDown(event)}
-            onMouseUp={(event: Event) => handleIsMouseUp(event)}
-            size='sm'
-            variant='icon'
-          />
-        </Center>
-      </ScaleFade>
-    </Center>
-  );
+	return (
+		<Center
+			width={`${width * 2}px`}
+			minHeight={`${height}px`}
+			height={'calc(100% + 2px)'}
+			position='absolute'
+			left={direction === 'left' ? 0 : undefined}
+			right={direction === 'right' ? 0 : undefined}
+			zIndex={5}
+			sx={{ ..._.merge({ top: '50%', transform: 'translateY(-50%)' }) }}
+			_after={
+				direction === 'left'
+					? {
+							..._.merge(
+								{ ...style.arrow, width, minHeight: `${height}px`, height: '100%' },
+								style[colorMode][direction]
+							)
+					  }
+					: undefined
+			}
+			_before={
+				direction === 'right'
+					? {
+							..._.merge(
+								{ ...style.arrow, width, minHeight: `${height}px`, height: '100%' },
+								style[colorMode][direction]
+							)
+					  }
+					: undefined
+			}
+		>
+			<ScaleFade in={!isDisabled} unmountOnExit style={{ height: '100%' }}>
+				<Center height='100%' backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}>
+					<IconButton
+						ref={ref}
+						aria-label={`Scroll ${direction}`}
+						onClick={() => onClick()}
+						size={isSm ? 'sm' : 'md'}
+						variant='icon'
+						sx={{ back: { height: '100%' } }}
+					>
+						{direction === 'left' ? <ChevronLeftOutlinedIcon /> : <ChevronRightOutlinedIcon />}
+					</IconButton>
+				</Center>
+			</ScaleFade>
+		</Center>
+	);
 };
 
 export default Arrow;

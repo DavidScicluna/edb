@@ -1,25 +1,36 @@
 import { ReactElement } from 'react';
 
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
+import { useConst } from '@chakra-ui/react';
 
-import { useSelector } from '../../../../../../common/hooks';
-import { handleReturnColor } from '../../../../../../common/utils';
-import Button from '../../../../../Clickable/Button';
+import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
+import _ from 'lodash';
+
 import { GenreProps } from './types';
 
-const Genre = ({ id, name, isActive = false, onClick }: GenreProps): ReactElement => {
-  const color = useSelector((state) => state.user.ui.theme.color);
+import { useSelector } from '../../../../../../common/hooks';
+import Button from '../../../../../Clickable/Button';
+import SkeletonText from '../../../../../Skeleton/Text';
 
-  return (
-    <Button
-      color={isActive ? handleReturnColor(color) : 'gray'}
-      leftIcon={isActive ? CheckOutlinedIcon : undefined}
-      onClick={() => onClick({ id, name })}
-      size='sm'
-      variant='outlined'>
-      {name}
-    </Button>
-  );
+const dummies = _.range(25, 100, 10);
+
+const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreProps): ReactElement => {
+	const color = useSelector((state) => state.user.ui.theme.color);
+
+	const dummy = useConst<number>(_.sample(dummies) || 100);
+
+	return (
+		<Button
+			color={isActive ? color : 'gray'}
+			renderRightIcon={isActive ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined}
+			onClick={onClick ? () => onClick({ id, name }) : undefined}
+			isDisabled={isLoading}
+			variant='outlined'
+		>
+			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
+				{name || 'Genre'}
+			</SkeletonText>
+		</Button>
+	);
 };
 
 export default Genre;

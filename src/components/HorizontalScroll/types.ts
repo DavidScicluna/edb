@@ -1,15 +1,13 @@
 import { ReactElement } from 'react';
 
-export type Direction = 'left' | 'right';
+export type HorizontalScrollRef = HTMLDivElement | null;
 
-export type ScrollButtonsState = {
-  left: boolean;
-  right: boolean;
+type RenderProps = {
+	padding?: string;
 };
 
 export type HorizontalScrollProps = {
-  children: ReactElement;
-  width?: string;
-  spacing?: string | number;
-  isLoading?: boolean;
+	children: ReactElement[];
+	renderDivider?: (props: RenderProps) => ReactElement;
+	isDisabled?: boolean;
 };

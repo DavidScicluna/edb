@@ -1,70 +1,50 @@
 import { ReactElement } from 'react';
 
-import { VStack, SlideFade } from '@chakra-ui/react';
+import { Center } from '@chakra-ui/react';
 
-import Modal from '../../../Modal';
-import Panel from './components/Panel';
-import Photo from './components/Photo';
-import Video from './components/Video';
+import Asset from './components/Asset';
 import { GalleryProps } from './types';
 
+import { useSelector } from '../../../../common/hooks';
+import Accordions from '../../../Accordions';
+import Modal from '../../../Modal';
+
 const Gallery = (props: GalleryProps): ReactElement => {
-  const { isOpen, name, activePath, photos, backdrops, videos, mediaType, onClick, onClose } = props;
+	const color = useSelector((state) => state.user.ui.theme.color);
 
-  return (
-    <Modal title='Gallery' isOpen={isOpen} onClose={onClose} isCentered size='full'>
-      <VStack width='100%' p={2} spacing={10}>
-        {/* Photos Section */}
-        <SlideFade in={photos && photos.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Panel title='Photos' total={photos?.length || 0}>
-            <>
-              {photos?.map((photo, index) => (
-                <Photo
-                  key={index}
-                  photo={photo}
-                  name={name}
-                  type='photo'
-                  mediaType={mediaType}
-                  isActive={photo.file_path === activePath}
-                  onClickImage={onClick}
-                />
-              ))}
-            </>
-          </Panel>
-        </SlideFade>
+	const { alt, assets, activeMediaItem, isOpen = false, onClick, onClose } = props;
 
-        {/* Backdrops Section */}
-        <SlideFade in={backdrops && backdrops.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Panel title='Backdrops' total={backdrops?.length || 0}>
-            <>
-              {backdrops?.map((backdrop, index) => (
-                <Photo
-                  key={index}
-                  photo={backdrop}
-                  name={name}
-                  type='backdrop'
-                  mediaType={mediaType}
-                  isActive={backdrop.file_path === activePath}
-                  onClickImage={onClick}
-                />
-              ))}
-            </>
-          </Panel>
-        </SlideFade>
-
-        {/* Videos Section */}
-        <SlideFade in={videos && videos.length > 0} unmountOnExit style={{ width: '100%' }}>
-          <Panel title='Videos' total={videos?.length || 0}>
-            <>
-              {videos?.map((video, index) => (
-                <Video key={index} video={video} isActive={video.key === activePath} onClickVideo={onClick} />
-              ))}
-            </>
-          </Panel>
-        </SlideFade>
-      </VStack>
-    </Modal>
-  );
+	return (
+		<Modal title='Gallery' isOpen={isOpen} onClose={onClose} isCentered size='full'>
+			<Center p={2}>
+				<Accordions
+					accordions={assets.map((asset) => {
+						return {
+							id: asset.label.toLowerCase(),
+							title: asset.label,
+							total: {
+								number: asset.mediaItems.length
+							},
+							data: asset.mediaItems
+						};
+					})}
+					renderAccordion={({ id, title, data }) => (
+						<Asset
+							key={id}
+							alt={alt}
+							activeMediaItem={activeMediaItem}
+							title={title}
+							data={data}
+							onClick={onClick}
+						/>
+					)}
+					color={color}
+					isLoading={false}
+					isError={false}
+				/>
+			</Center>
+		</Modal>
+	);
 };
 
 export default Gallery;

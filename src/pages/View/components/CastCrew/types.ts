@@ -1,22 +1,22 @@
-import { Cast as MovieCast, Crew as MovieCrew } from '../../../../common/types/movie';
-import { Cast as TVCast, Crew as TVCrew } from '../../../../common/types/tv';
-import { MediaType } from '../../../../common/types/types';
+import { Credits as MovieCredits, Cast as MovieCast, Crew as MovieCrew } from '../../../../common/types/movie';
+import { Credits as TVCredits, Cast as TVCast, Crew as TVCrew, EpisodeCredits } from '../../../../common/types/tv';
 
-export type Cast = Partial<MovieCast & TVCast>[];
+export type Cast = MovieCast & TVCast;
 
-export type Crew = Partial<MovieCrew & TVCrew>[];
+export type Crew = MovieCrew & TVCrew;
+
+export type Credits = MovieCredits & TVCredits & EpisodeCredits;
 
 export type Department = {
-  title: string;
-  crew: Crew;
+	id: string;
+	title: string;
+	people: (Cast & Crew)[];
 };
 
-export type CastCrewTabProps = {
-  mediaType: Omit<MediaType, 'person'>;
-  mediaItemTitle?: string;
-  cast?: Cast;
-  crew?: Crew;
-  isError?: boolean;
-  isSuccess?: boolean;
-  isLoading?: boolean;
+export type CastCrewProps = {
+	alt?: string;
+	credits?: Credits;
+	isError?: boolean;
+	isSuccess?: boolean;
+	isLoading?: boolean;
 };

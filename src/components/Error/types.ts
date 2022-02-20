@@ -1,12 +1,17 @@
 import { ReactElement } from 'react';
 
-import { CardVariant } from '../../common/types/types';
+import { Color } from '../../theme/types';
+
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export type Variant = 'transparent' | 'outlined';
 
 export type ErrorProps = {
-  button?: ReactElement;
-  hasIllustration?: boolean;
-  label?: string;
-  description?: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  variant?: CardVariant;
+	button?: ReactElement;
+	color?: keyof Color;
+	label: string;
+	description?: string;
+	hasIllustration?: boolean;
+	size?: Size;
+	variant?: Variant;
 };

@@ -1,36 +1,27 @@
 import { ReactElement } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import { useMediaQuery, VStack, HStack, Box } from '@chakra-ui/react';
+import { VStack, Box } from '@chakra-ui/react';
 
-import Divider from './components/Divider';
-import Title from './components/Title';
+import Header from './components/Header';
 import { PageProps } from './types';
 
-const Page = (props: PageProps): ReactElement => {
-  const [isSm] = useMediaQuery('(max-width: 600px)');
+import Divider from '../../components/Divider';
 
-  const { children, title, breadcrumbs } = props;
+const Page = ({ children, title, direction }: PageProps): ReactElement => {
+	const location = useLocation();
 
-  return (
-    <VStack width='100%' divider={<Divider />} spacing={0}>
-      {/* Header */}
-      {isSm ? (
-        <VStack width='100%' p={2} spacing={2}>
-          <Title title={title} breadcrumbs={breadcrumbs} />
+	return (
+		<VStack width='100%' divider={<Divider />} spacing={0}>
+			{/* Header */}
+			{location.pathname !== '/' ? (
+				<Header title={title} actions={children.actions} direction={direction} />
+			) : null}
 
-          {children?.actions || null}
-        </VStack>
-      ) : (
-        <HStack width='100%' justifyContent='space-between' p={2}>
-          <Title title={title} breadcrumbs={breadcrumbs} />
-
-          {children?.actions || null}
-        </HStack>
-      )}
-
-      <Box width='100%'>{children.body}</Box>
-    </VStack>
-  );
+			{/* Body */}
+			<Box width='100%'>{children.body}</Box>
+		</VStack>
+	);
 };
 
 export default Page;

@@ -1,9 +1,7 @@
-import { ReactElement } from 'react';
+import { NonNullable } from '../../common/types';
+import { ModalProps } from '../Modal/types';
 
 export type ConfirmModalProps = {
-  renderButton: ReactElement;
-  title: string;
-  description: string;
-  isOpen: boolean;
-  onClose: () => void;
-};
+	renderActions: NonNullable<ModalProps['renderActions']>;
+	description: string;
+} & Omit<ModalProps, 'children' | 'renderActions' | 'isConfirm'>;

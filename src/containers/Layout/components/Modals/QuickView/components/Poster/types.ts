@@ -1,10 +1,10 @@
-import { MediaType } from '../../../../../../../common/types/types';
-import { MediaViewerType } from '../../../../../../../components/MediaViewer/types';
+import { MediaType } from '../../../../../../../common/types';
 
 export type PosterProps = {
-  name: string;
-  path: string;
-  mediaType: MediaType;
-  isLoading: boolean;
-  onClickPoster: (path: string, type: MediaViewerType) => void;
+	alt?: string;
+	path?: string;
+	mediaType: MediaType;
+	srcSize: [string, string];
+	isLoading: boolean;
+	onClickPoster: (path: string) => void;
 };

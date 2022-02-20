@@ -1,27 +1,27 @@
 /// <reference types="react-scripts" />
 
 declare module '*.svg' {
-  import React = require('react');
-  export const ReactComponent: React.SFC<React.SVGProps<SVGSVGElement>>;
-  const src: string;
-  export default src;
+	import React = require('react');
+	export const ReactComponent: React.SFC<React.SVGProps<SVGSVGElement>>;
+	const src: string;
+	export default src;
 }
 
 declare global {
-  interface Document {
-    mozCancelFullScreen?: () => Promise<void>;
-    msExitFullscreen?: () => Promise<void>;
-    webkitExitFullscreen?: () => Promise<void>;
-    mozFullScreenElement?: Element;
-    msFullscreenElement?: Element;
-    webkitFullscreenElement?: Element;
-  }
+	interface Document {
+		mozCancelFullScreen?: () => Promise<void>;
+		msExitFullscreen?: () => Promise<void>;
+		webkitExitFullscreen?: () => Promise<void>;
+		mozFullScreenElement?: Element;
+		msFullscreenElement?: Element;
+		webkitFullscreenElement?: Element;
+	}
 
-  interface HTMLElement {
-    msRequestFullscreen?: () => Promise<void>;
-    mozRequestFullscreen?: () => Promise<void>;
-    webkitRequestFullscreen?: () => Promise<void>;
-  }
+	interface HTMLElement {
+		msRequestFullscreen?: () => Promise<void>;
+		mozRequestFullscreen?: () => Promise<void>;
+		webkitRequestFullscreen?: () => Promise<void>;
+	}
 }
 
 // export interface HTMLFullscreenElement extends HTMLElement {

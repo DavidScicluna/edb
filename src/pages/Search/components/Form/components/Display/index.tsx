@@ -1,63 +1,88 @@
 import { ReactElement } from 'react';
+import CountUp from 'react-countup';
 
-import { useColorMode, HStack, Text, SlideFade } from '@chakra-ui/react';
+import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
+
+import _ from 'lodash';
 
 import { DisplayProps } from './types';
 
-const Display = ({ query = '', mediaType, hasUnsubmitted, totalResults }: DisplayProps): ReactElement => {
-  const { colorMode } = useColorMode();
+import Tooltip from '../../../../../../components/Tooltip';
 
-  const handleMultiply = (): number => {
-    return (totalResults?.movies || 0) + (totalResults?.tv || 0) + (totalResults?.people || 0);
-  };
+const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): ReactElement => {
+	const { colorMode } = useColorMode();
 
-  const handleReturnMediaTypeResults = (): number => {
-    switch (mediaType) {
-      case 'person':
-        return totalResults?.people || 0;
-      case 'tv':
-        return totalResults?.tv || 0;
-      case 'movie':
-        return totalResults?.movies || 0;
-      default:
-        return 0;
-    }
-  };
+	const [isHovering, setIsHovering] = useBoolean();
 
-  const handleReturnMediaTypeLabel = (): string => {
-    if (mediaType) {
-      const total = handleReturnMediaTypeResults();
+	const handleAllTotal = (): number => {
+		return (
+			(totalResults?.movie || 0) +
+			(totalResults?.tv || 0) +
+			(totalResults?.person || 0) +
+			(totalResults?.collection || 0) +
+			(totalResults?.company || 0)
+		);
+	};
 
-      switch (mediaType) {
-        case 'person':
-          return `${total > 1 ? 'People' : 'Person'}`;
-        case 'tv':
-          return `TV Show${total > 1 ? 's' : ''}`;
-        case 'movie':
-          return `Movie${total > 1 ? 's' : ''}`;
-        default:
-          return '';
-      }
-    } else {
-      const total = handleMultiply();
+	const handleReturnMediaTypeTotal = (): number => {
+		const total = 0;
 
-      return `result${total > 1 ? 's' : ''}`;
-    }
-  };
+		searchTypes.forEach((type) => total + (totalResults && totalResults[type] ? totalResults[type] : 0));
 
-  return (
-    <SlideFade in={Boolean(totalResults) && !hasUnsubmitted} offsetY={-7} unmountOnExit style={{ width: '100%' }}>
-      <HStack width='100%' justifyContent='space-between'>
-        <Text
-          align='left'
-          color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-          fontSize='sm'>{`Your search results for "${query}"`}</Text>
-        <Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>{`${
-          mediaType ? handleReturnMediaTypeResults() : handleMultiply()
-        } ${handleReturnMediaTypeLabel()} found`}</Text>
-      </HStack>
-    </SlideFade>
-  );
+		return total;
+	};
+
+	const handleReturnMediaTypeLabel = (): string => {
+		if (searchTypes.length === 1) {
+			const searchType = searchTypes[0];
+			const total = handleReturnMediaTypeTotal();
+
+			switch (searchType) {
+				case 'collection':
+					return `Collection${total === 0 || total > 1 ? 's' : ''}`;
+				case 'company':
+					return `${total === 0 || total > 1 ? 'Companies' : 'company'}`;
+				case 'person':
+					return `${total === 0 || total > 1 ? 'People' : 'Person'}`;
+				case 'tv':
+					return `TV Show${total === 0 || total > 1 ? 's' : ''}`;
+				case 'movie':
+					return `Movie${total === 0 || total > 1 ? 's' : ''}`;
+				default:
+					return '';
+			}
+		} else {
+			const total = handleAllTotal();
+
+			return `result${total > 1 ? 's' : ''}`;
+		}
+	};
+
+	return (
+		<HStack width='100%' justifyContent='space-between'>
+			<Tooltip
+				aria-label={`Full query: "${query}"`}
+				label={query}
+				placement='bottom'
+				isOpen={query.length > 20 && isHovering}
+				isDisabled={query.length < 20}
+				gutter={2}
+			>
+				<Text
+					align='left'
+					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					fontSize='sm'
+					onMouseEnter={query.length > 20 ? () => setIsHovering.on() : undefined}
+					onMouseLeave={query.length > 20 ? () => setIsHovering.off() : undefined}
+				>
+					{`Your search results for "${_.truncate(query, { length: 20 })}"`}
+				</Text>
+			</Tooltip>
+			<Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+				<CountUp duration={1} end={handleAllTotal()} suffix={` ${handleReturnMediaTypeLabel()} found!`} />
+			</Text>
+		</HStack>
+	);
 };
 
 export default Display;

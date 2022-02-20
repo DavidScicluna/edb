@@ -1,20 +1,30 @@
-import { ReactElement, useState, useEffect } from 'react';
-
-import { useTheme, useMediaQuery, Box } from '@chakra-ui/react';
+import { ReactElement, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import { useSelector } from '../../common/hooks';
-import useQueriesTyped from '../../common/hooks/useQueriesTyped';
-import axiosInstance from '../../common/scripts/axios';
-import { toggleSidebarMode } from '../../store/slices/App';
-import { setMovieGenres, setTVGenres, toggleHasDownloaded } from '../../store/slices/Options';
-import { Theme } from '../../theme/types';
+import { ColorMode, useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box } from '@chakra-ui/react';
+
+import {
+	HomeTwoTone as HomeTwoToneIcon,
+	HomeOutlined as HomeOutlinedIcon,
+	PeopleAltOutlined as PeopleAltOutlinedIcon,
+	PeopleAltTwoTone as PeopleAltTwoToneIcon,
+	SearchOutlined as SearchOutlinedIcon,
+	SearchTwoTone as SearchTwoToneIcon,
+	TheatersOutlined as TheatersOutlinedIcon,
+	TheatersTwoTone as TheatersTwoToneIcon,
+	TvOutlined as TvOutlinedIcon,
+	TvTwoTone as TvTwoToneIcon,
+	WhatshotOutlined as WhatshotOutlinedIcon,
+	WhatshotTwoTone as WhatshotTwoToneIcon
+} from '@material-ui/icons';
+import _ from 'lodash';
+import { useIsFirstRender, useUpdateEffect } from 'usehooks-ts';
+
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import DescriptionModal from './components/Modals/Description';
 import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
 import QuickView from './components/Modals/QuickView';
@@ -22,105 +32,148 @@ import SplashscreenModal from './components/Modals/Splashscreen';
 import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
-import { GenreResponse } from './types';
+
+import { useSelector, usePopulateOptions, useCheckColorMode } from '../../common/hooks';
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
+import { NavItem } from '../../components/NavItem/types';
+import { toggleSidebarMode } from '../../store/slices/App';
+import { toggleSplashscreen } from '../../store/slices/Modals';
+import { Theme } from '../../theme/types';
+
+export const navItems: NavItem[] = [
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <HomeTwoToneIcon style={{ fontSize }} /> : <HomeOutlinedIcon style={{ fontSize }} />,
+		label: 'Home',
+		path: '/'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <SearchTwoToneIcon style={{ fontSize }} /> : <SearchOutlinedIcon style={{ fontSize }} />,
+		label: 'Search',
+		path: '/search'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <WhatshotTwoToneIcon style={{ fontSize }} /> : <WhatshotOutlinedIcon style={{ fontSize }} />,
+		label: 'Trending',
+		path: '/trending'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
+		label: 'Movies',
+		path: '/movies'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
+		label: 'TV Shows',
+		path: '/tvshows'
+	},
+	{
+		renderIcon: ({ isActive, fontSize }) =>
+			isActive ? <PeopleAltTwoToneIcon style={{ fontSize }} /> : <PeopleAltOutlinedIcon style={{ fontSize }} />,
+		label: 'People',
+		path: '/people'
+	}
+];
 
 const Layout = (): ReactElement => {
-  const theme = useTheme<Theme>();
-  const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
-  const transition = useTransitionsStyle(theme);
+	const theme = useTheme<Theme>();
+	const { setColorMode } = useColorMode();
 
-  const dispatch = useDispatch();
-  const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+	const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
-  const isSplashscreenOpen = useSelector((state) => state.modals.ui.isSplashscreenOpen);
+	const dispatch = useDispatch();
+	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+	const background = useSelector((state) => state.user.ui.theme.background);
 
-  const [width, setWidth] = useState<string>('100%');
-  const [left, setLeft] = useState<string>(`${sidebarWidth[sidebarMode]}px`);
+	const transition = useTransitionsStyle(theme);
 
-  const queries = useQueriesTyped([
-    {
-      queryKey: ['movieGenres'],
-      queryFn: async () => {
-        const { data } = await axiosInstance.get<GenreResponse>('/genre/movie/list');
-        return data;
-      }
-    },
-    {
-      queryKey: 'tvGenres',
-      queryFn: async () => {
-        const { data } = await axiosInstance.get<GenreResponse>('/genre/tv/list');
-        return data;
-      }
-    }
-  ]);
+	const isFirstRender = useIsFirstRender();
 
-  // Saving Movie genres data to redux store
-  useEffect(() => {
-    if (queries[0].isSuccess) {
-      dispatch(setMovieGenres(queries[0].data.genres));
-    }
-  }, [queries[0]]);
+	const mode = useCheckColorMode(!isFirstRender && background === 'system');
 
-  // Saving TV genres data to redux store
-  useEffect(() => {
-    if (queries[1].isSuccess) {
-      dispatch(setTVGenres(queries[1].data.genres));
-    }
-  }, [queries[1]]);
+	const handleUpdateColorMode = useCallback(
+		_.debounce((mode: ColorMode) => {
+			dispatch(toggleSplashscreen(true));
 
-  useEffect(() => {
-    if (queries.some((query) => query.isError || query.isLoading)) {
-      dispatch(toggleHasDownloaded(false));
-    } else {
-      dispatch(toggleHasDownloaded(true));
-    }
-  }, [queries]);
+			setColorMode(mode);
 
-  useEffect(() => {
-    setWidth(isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%');
-    setLeft(isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px');
-  }, [isLgUp, sidebarMode]);
+			setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
+		}, 500),
+		[dispatch, toggleSplashscreen, setColorMode]
+	);
 
-  useEffect(() => {
-    if (!isLgUp) {
-      dispatch(toggleSidebarMode('expanded'));
-    }
-  }, [isLgUp]);
+	usePopulateOptions();
 
-  return isSplashscreenOpen ? (
-    <SplashscreenModal />
-  ) : (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      {isLgUp ? <Sidebar width={`${sidebarWidth[sidebarMode]}px`} /> : null}
-      <Box width={width} maxWidth={width} position='absolute' top='0px' left={left} sx={{ ...transition }}>
-        <Header width={width} left={left} />
+	useEffect(() => {
+		if (!isLgUp) {
+			dispatch(toggleSidebarMode('expanded'));
+		}
+	}, [isLgUp]);
 
-        <Box
-          width='100%'
-          maxWidth='100%'
-          position='relative'
-          top={`${headerHeight}px`}
-          left='0px'
-          sx={{ ...transition }}>
-          <Box width='100%' minHeight={`calc(100vh - ${headerHeight + 32}px)`} sx={{ ...transition }}>
-            <Routes />
-          </Box>
+	useUpdateEffect(() => {
+		if (!isFirstRender) {
+			handleUpdateColorMode(mode);
+		}
+	}, [mode]);
 
-          <Footer />
-        </Box>
+	return (
+		<>
+			<BrowserRouter basename={process.env.PUBLIC_URL}>
+				<Container
+					width='100%'
+					maxWidth={`${
+						handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) +
+						sidebarWidth.expanded
+					}px`}
+					centerContent
+					p={0}
+					sx={{ ...transition }}
+				>
+					<HStack width='100%' position='relative' spacing={0}>
+						{isLgUp ? <Sidebar /> : null}
+						<Box
+							width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
+							position='absolute'
+							top={0}
+							left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
+							sx={{ ...transition }}
+						>
+							<Header />
 
-        <ScrollToTop />
-      </Box>
+							<VStack width='100%' spacing={4} sx={{ ...transition }}>
+								<Box
+									width='100%'
+									minHeight={`calc(100vh - ${
+										headerHeight +
+										handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
+									}px)`}
+									sx={{ ...transition }}
+								>
+									<Routes />
+								</Box>
 
-      <QuickView />
+								<Footer />
+							</VStack>
 
-      <DisplayModal />
+							<ScrollToTop />
+						</Box>
+					</HStack>
+				</Container>
 
-      <ListsModal />
+				<QuickView />
 
-      <DescriptionModal />
-    </BrowserRouter>
-  );
+				<DisplayModal />
+
+				<ListsModal />
+
+				<SplashscreenModal />
+			</BrowserRouter>
+		</>
+	);
 };
 
 export default Layout;

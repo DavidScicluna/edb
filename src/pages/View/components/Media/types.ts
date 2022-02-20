@@ -1,18 +1,27 @@
-import { ImageResponse as Image, Video } from '../../../../common/types/types';
-import { MediaViewerType } from '../../../../components/MediaViewer/types';
+import { MediaType, Image, Video } from '../../../../common/types';
+import { AssetType as MediaViewerAssetType } from '../../../../components/MediaViewer/types';
+
+export type AssetType = 'poster' | 'backdrop' | 'video';
+
+export type Asset = {
+	label: string;
+	type: AssetType;
+	isDisabled?: boolean;
+	data: (Image & Video)[];
+};
 
 export type Status = {
-  images?: boolean;
-  videos?: boolean;
+	images?: boolean;
+	videos?: boolean;
 };
 
 export type MediaProps = {
-  title?: string;
-  photos?: Image[];
-  backdrops?: Image[];
-  videos?: Video[];
-  isError: Status;
-  isSuccess: Status;
-  isLoading: Status;
-  onClick: (asset: string, type: MediaViewerType) => void;
+	alt?: string;
+	assets: Asset[];
+	mediaType: Omit<MediaType, 'company'>;
+	isError: Status;
+	isSuccess: Status;
+	isLoading: Status;
+	onAssetClick: (path: string, type: MediaViewerAssetType) => void;
+	onFooterClick: () => void;
 };

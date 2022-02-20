@@ -1,46 +1,44 @@
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { useColorMode, useConst, Box, Text } from '@chakra-ui/react';
 
-import { handleReturnDummyWidths, handleIsOverflowing } from '../../../../../common/utils';
-import SkeletonText from '../../../../Skeleton/Text';
+import _ from 'lodash';
+
 import { SubtitleProps } from './types';
 
-const dummyTextWidths = handleReturnDummyWidths(100, 10);
+import SkeletonText from '../../../../Skeleton/Text';
+
+const dummies = _.range(25, 100, 10);
 
 const Subtitle = (props: SubtitleProps): ReactElement => {
-  const { colorMode } = useColorMode();
+	const { colorMode } = useColorMode();
 
-  const { subtitle, isLoading = false } = props;
+	const { subtitle, isLoading = false, inView = true } = props;
 
-  const [isTruncated, setIsTruncated] = useState<boolean>(false);
+	const dummy = useConst<number>(_.sample(dummies) || 100);
 
-  const handleIsTruncated = useCallback(
-    (ref: HTMLParagraphElement | null) => {
-      if (ref) {
-        setIsTruncated(handleIsOverflowing(ref));
-      }
-    },
-    [isTruncated, setIsTruncated]
-  );
-
-  return (
-    <SkeletonText
-      width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
-      offsetY={6}
-      isLoaded={!isLoading}>
-      <Text
-        ref={handleIsTruncated}
-        align='left'
-        fontSize='xs'
-        color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-        isTruncated
-        overflow='hidden'
-        whiteSpace='nowrap'>
-        {!isLoading ? subtitle : 'Lorem ipsum dolor sit amet'}
-      </Text>
-    </SkeletonText>
-  );
+	return (
+		<Box
+			width='100%'
+			maxWidth='100%'
+			height='16.5px' // Size of typography height
+		>
+			{inView || isLoading ? (
+				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
+					<Text
+						align='left'
+						fontSize='xs'
+						color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+						isTruncated
+						overflow='hidden'
+						whiteSpace='nowrap'
+					>
+						{subtitle || 'Poster Subtitle'}
+					</Text>
+				</SkeletonText>
+			) : null}
+		</Box>
+	);
 };
 
 export default Subtitle;

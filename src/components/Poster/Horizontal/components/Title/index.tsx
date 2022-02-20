@@ -1,47 +1,55 @@
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement } from 'react';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 
-import { handleReturnDummyWidths, handleIsOverflowing } from '../../../../../common/utils';
-import SkeletonText from '../../../../Skeleton/Text';
+import _ from 'lodash';
+
 import { TitleProps } from './types';
 
-const dummyTextWidths = handleReturnDummyWidths(100, 10);
+import { FontSizes } from '../../../../../theme/types';
+import SkeletonText from '../../../../Skeleton/Text';
+
+const dummies = _.range(25, 100, 10);
+const height = ['19.25px', '22px', '24.75px', '27.5px', '33px', '41.25px'];
 
 const Title = (props: TitleProps): ReactElement => {
-  const { colorMode } = useColorMode();
+	const { colorMode } = useColorMode();
+	const fontSize = useBreakpointValue<keyof FontSizes>({
+		'base': 'sm',
+		'sm': 'md',
+		'md': 'lg',
+		'lg': 'xl',
+		'xl': '2xl',
+		'2xl': '3xl'
+	});
 
-  const { title, isLoading = false } = props;
+	const { title, isLoading = false, inView = true } = props;
 
-  const [isTruncated, setIsTruncated] = useState<boolean>(false);
+	const dummy = useConst<number>(_.sample(dummies) || 100);
 
-  const handleIsTruncated = useCallback(
-    (ref: HTMLParagraphElement | null) => {
-      if (ref) {
-        setIsTruncated(handleIsOverflowing(ref));
-      }
-    },
-    [isTruncated, setIsTruncated]
-  );
-
-  return (
-    <SkeletonText
-      width={isLoading ? `${dummyTextWidths[Math.floor(Math.random() * dummyTextWidths.length)]}%` : '100%'}
-      offsetY={11.5}
-      isLoaded={!isLoading}>
-      <Text
-        ref={handleIsTruncated}
-        align='left'
-        fontSize={['lg', 'xl', '2xl', '3xl']}
-        fontWeight='semibold'
-        color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-        isTruncated
-        overflow='hidden'
-        whiteSpace='nowrap'>
-        {!isLoading ? title : 'Lorem ipsum'}
-      </Text>
-    </SkeletonText>
-  );
+	return (
+		<Box
+			width='100%'
+			maxWidth='100%'
+			height={height} // Size of typography height
+		>
+			{inView || isLoading ? (
+				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+					<Text
+						align='left'
+						fontSize={fontSize}
+						fontWeight='semibold'
+						color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+						isTruncated
+						overflow='hidden'
+						whiteSpace='nowrap'
+					>
+						{title || 'Poster Title'}
+					</Text>
+				</SkeletonText>
+			) : null}
+		</Box>
+	);
 };
 
 export default Title;

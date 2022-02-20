@@ -1,143 +1,142 @@
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, Fragment } from 'react';
+import CountUp from 'react-countup';
 
-import { useBoolean } from '@chakra-ui/react';
+import { Collapse, Fade } from '@chakra-ui/react';
 
-import HorizontalGrid from '../../../../components/Grid/Horizontal';
-import Tabs from '../../../../components/Tabs';
-import TabsList from '../../../../components/Tabs/components/TabList';
-import TabPanels from '../../../../components/Tabs/components/TabPanels';
-import Backdrops from './components/Backdrops';
+import _ from 'lodash';
+
 import Footer from './components/Footer';
-import Photos from './components/Photos';
-import Videos from './components/Videos';
+import Image from './components/Image';
+import Video from './components/Video';
 import { MediaProps } from './types';
 
+import { useSelector } from '../../../../common/hooks';
+import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
+import Badge from '../../../../components/Badge';
+import Empty from '../../../../components/Empty';
+import Error from '../../../../components/Error';
+import HorizontalTabbedGrid from '../../../../components/Grid/Horizontal/Tabbed';
+
 const Media = (props: MediaProps): ReactElement => {
-  const { title, photos, backdrops, videos, isError, isSuccess, isLoading, onClick } = props;
+	const color = useSelector((state) => state.user.ui.theme.color);
 
-  const [activeTab, setActiveTab] = useState<number>(0);
-  const [resetScroll, setResetScroll] = useBoolean();
+	const { alt = '', assets, mediaType, isError, isSuccess, isLoading, onAssetClick, onFooterClick } = props;
 
-  const handleTabChange = (index: number): void => {
-    setResetScroll.on();
+	const [activeTab, setActiveTab] = useState<number>(0);
 
-    setActiveTab(index);
-
-    setTimeout(() => setResetScroll.off(), 250);
-  };
-
-  const handleFooterOnClick = (): void => {
-    switch (activeTab) {
-      case 0: {
-        if (photos && photos.length > 0) {
-          onClick(photos[0].file_path, 'photo');
-        }
-        break;
-      }
-      case 1: {
-        if (backdrops && backdrops.length > 0) {
-          onClick(backdrops[0].file_path, 'backdrop');
-        }
-        break;
-      }
-      case 2: {
-        if (videos && videos.length > 0) {
-          onClick(videos[0].key, 'video');
-        }
-        break;
-      }
-      default:
-        break;
-    }
-  };
-
-  useEffect(() => {
-    if (isSuccess) {
-      if ((photos?.length || 0) > 0) {
-        setActiveTab(0);
-      } else if ((backdrops?.length || 0) > 0) {
-        setActiveTab(1);
-      } else if ((videos?.length || 0) > 0) {
-        setActiveTab(2);
-      }
-    }
-  }, [isSuccess]);
-
-  return (
-    <Tabs activeTab={activeTab} onChange={handleTabChange}>
-      <HorizontalGrid
-        title={
-          <TabsList
-            renderTabs={[
-              {
-                label: 'photos',
-                badge: String(photos?.length || 0),
-                isDisabled: isLoading.images || (photos?.length || 0) === 0
-              },
-              {
-                label: 'backdrops',
-                badge: String(backdrops?.length || 0),
-                isDisabled: isLoading.images || (backdrops?.length || 0) === 0
-              },
-              {
-                label: 'videos',
-                badge: String(videos?.length || 0),
-                isDisabled: isLoading.videos || (videos?.length || 0) === 0
-              }
-            ]}
-            activeTab={activeTab}
-            size='sm'
-          />
-        }
-        footer={
-          (activeTab === 0 && (photos?.length || 0) > 7) ||
-          (activeTab === 1 && (backdrops?.length || 0) > 7) ||
-          (activeTab === 2 && (videos?.length || 0) > 7) ? (
-            <Footer
-              activeIndex={activeTab}
-              title={title}
-              isDisabled={
-                activeTab === 2
-                  ? isLoading.videos || isError.videos || false
-                  : isLoading.images || isError.images || false
-              }
-              onClick={handleFooterOnClick}
-            />
-          ) : undefined
-        }
-        isLoading={activeTab === 2 ? isLoading.videos || false : isLoading.images || false}
-        hasDivider
-        resetScroll={resetScroll}
-        variant='outlined'>
-        <TabPanels activeTab={activeTab}>
-          <Photos
-            title={title}
-            photos={photos}
-            isError={isError.images}
-            isSuccess={isSuccess.images}
-            isLoading={isLoading.images}
-            onClick={onClick}
-          />
-          <Backdrops
-            title={title}
-            backdrops={backdrops}
-            isError={isError.images}
-            isSuccess={isSuccess.images}
-            isLoading={isLoading.images}
-            onClick={onClick}
-          />
-          <Videos
-            title={title}
-            videos={videos}
-            isError={isError.images}
-            isSuccess={isSuccess.images}
-            isLoading={isLoading.images}
-            onClick={onClick}
-          />
-        </TabPanels>
-      </HorizontalGrid>
-    </Tabs>
-  );
+	return (
+		<HorizontalTabbedGrid
+			activeTab={activeTab}
+			onChange={(index: number) => setActiveTab(index)}
+			footer={
+				assets[activeTab] && !assets[activeTab].isDisabled ? (
+					<Collapse in unmountOnExit style={{ width: '100%' }}>
+						<Footer
+							label={assets[activeTab] ? assets[activeTab].label : ''}
+							total={assets[activeTab] ? assets[activeTab].data.length : 0}
+							isDisabled={isLoading.images || isLoading.videos || isError.images || isError.videos}
+							onClick={onFooterClick}
+						/>
+					</Collapse>
+				) : undefined
+			}
+			isDisabled={
+				isLoading.images ||
+				isLoading.videos ||
+				isError.images ||
+				isError.videos ||
+				(assets[activeTab] && assets[activeTab].isDisabled)
+			}
+			renderTabListProps={{
+				color,
+				children: assets.map((asset) => {
+					return {
+						label: asset.label,
+						isDisabled: asset.isDisabled || false,
+						renderRight:
+							(asset.data?.length || 0) > 0
+								? ({ isSelected, size }) => (
+										<Fade in unmountOnExit>
+											<Badge
+												color={isSelected ? color : 'gray'}
+												isLight={!isSelected}
+												size={size}
+											>
+												<CountUp duration={1} end={asset.data?.length || 0} />
+											</Badge>
+										</Fade>
+								  )
+								: undefined
+					};
+				})
+			}}
+		>
+			{assets.map((asset, index: number) => (
+				<Fragment key={index}>
+					{!isLoading[asset.type === 'video' ? 'videos' : 'images'] &&
+					isError[asset.type === 'video' ? 'videos' : 'images'] ? (
+						<Error
+							label='Oh no! Something went wrong'
+							description={`Failed to fetch ${alt ? `"${alt}"` : ''} ${asset.type}!`}
+							variant='transparent'
+						/>
+					) : !isLoading[asset.type === 'video' ? 'videos' : 'images'] &&
+					  isSuccess[asset.type === 'video' ? 'videos' : 'images'] &&
+					  asset.data.length === 0 ? (
+						<Empty
+							label={alt ? `"${alt}" has no ${asset.type}` : `Couldn't find any ${asset.type}s`}
+							variant='transparent'
+						/>
+					) : !isLoading[asset.type === 'video' ? 'videos' : 'images'] &&
+					  isSuccess[asset.type === 'video' ? 'videos' : 'images'] &&
+					  asset.data.length > 0 ? (
+						asset.data
+							.filter((_item, index) => index < 10)
+							.map((item, index: number) =>
+								asset.type === 'video' ? (
+									<Video
+										key={index}
+										alt={alt}
+										videoId={item.key}
+										isLoading={false}
+										onClick={() => onAssetClick(item.key || '', 'video')}
+									/>
+								) : (
+									<Image
+										key={index}
+										alt={alt}
+										path={item.file_path}
+										ratio={item.aspect_ratio}
+										type={asset.type}
+										boringType={handleReturnBoringTypeByMediaType(
+											mediaType === 'movie' ? 'movie' : mediaType === 'tv' ? 'tv' : 'person'
+										)}
+										isLoading={false}
+										onClick={() => onAssetClick(item.file_path || '', 'image')}
+									/>
+								)
+							)
+					) : (
+						_.range(0, 10).map((_dummy, index: number) =>
+							asset.type === 'video' ? (
+								<Video key={index} alt={alt} isLoading />
+							) : (
+								<Image
+									key={index}
+									alt={alt}
+									type={asset.type}
+									boringType={handleReturnBoringTypeByMediaType(
+										mediaType === 'movie' ? 'movie' : mediaType === 'tv' ? 'tv' : 'person'
+									)}
+									isLoading
+								/>
+							)
+						)
+					)}
+				</Fragment>
+			))}
+		</HorizontalTabbedGrid>
+	);
 };
 
 export default Media;

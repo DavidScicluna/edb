@@ -1,63 +1,87 @@
 import { ReactElement } from 'react';
-
-import { HStack } from '@chakra-ui/react';
-import {
-  WbSunnyOutlined as WbSunnyOutlinedIcon,
-  Brightness2Outlined as Brightness2OutlinedIcon
-} from '@material-ui/icons';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
-import Card from '../../../../../../../components/Card';
-import { Form } from '../../types';
+import { useMediaQuery, Stack, HStack, Center, Text } from '@chakra-ui/react';
+
+import {
+	WbSunnyOutlined as WbSunnyOutlinedIcon,
+	Brightness2Outlined as Brightness2OutlinedIcon
+} from '@material-ui/icons';
+
 import BackgroundItem from './components/BackgroundItem';
 import { Background as BackgroundType } from './types';
 
+import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
+import Panel from '../../../../../../../components/Panel';
+import { Form } from '../../types';
+
 const backgrounds: BackgroundType[] = [
-  {
-    label: 'Light',
-    value: 'light',
-    icon: WbSunnyOutlinedIcon
-  },
-  {
-    label: 'Dark',
-    value: 'dark',
-    icon: Brightness2OutlinedIcon
-  }
+	{
+		label: 'Light',
+		value: 'light',
+		renderIcon: ({ fontSize }) => <WbSunnyOutlinedIcon style={{ fontSize }} />
+	},
+	{
+		label: 'System',
+		value: 'system',
+		renderIcon: ({ fontSize }) => (
+			<HStack
+				divider={
+					<Text align='center' fontSize='xl' mx={0.5}>
+						/
+					</Text>
+				}
+			>
+				<WbSunnyOutlinedIcon style={{ fontSize }} />
+				<Brightness2OutlinedIcon style={{ fontSize }} />
+			</HStack>
+		)
+	},
+	{
+		label: 'Dark',
+		value: 'dark',
+		renderIcon: ({ fontSize }) => <Brightness2OutlinedIcon style={{ fontSize }} />
+	}
 ];
 
 const Background = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
-  const color = form.watch('color');
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-  return (
-    <Controller
-      control={form.control}
-      name='background'
-      render={({ field: { value } }) => (
-        <Card box={{ header: { pb: 1.5 }, body: { pt: 1.5 } }} colorMode={value} isFullWidth px={2} pt={1.5} pb={2}>
-          {{
-            header: {
-              title: 'Background'
-            },
+	const color = form.watch('color');
 
-            body: (
-              <HStack width='100%' spacing={2}>
-                {backgrounds.map((background) => (
-                  <BackgroundItem
-                    key={background.value}
-                    {...background}
-                    color={color}
-                    background={value}
-                    isActive={value === background.value}
-                    onClick={() => form.setValue('background', background.value, { shouldDirty: true })}
-                  />
-                ))}
-              </HStack>
-            )
-          }}
-        </Card>
-      )}
-    />
-  );
+	return (
+		<Controller
+			control={form.control}
+			name='background'
+			render={({ field: { value } }) => (
+				<Panel colorMode={value === 'system' ? handleCheckSystemColorMode() : value} isFullWidth>
+					{{
+						header: {
+							title: 'Background'
+						},
+
+						body: (
+							<Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
+								{backgrounds.map((background) => (
+									<Center width='100%' key={background.value}>
+										<BackgroundItem
+											{...background}
+											color={color}
+											background={value === 'system' ? handleCheckSystemColorMode() : value}
+											isActive={value === background.value}
+											onClick={() =>
+												form.setValue('background', background.value, { shouldDirty: true })
+											}
+										/>
+									</Center>
+								))}
+							</Stack>
+						)
+					}}
+				</Panel>
+			)}
+		/>
+	);
 };
 
 export default Background;
