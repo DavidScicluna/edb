@@ -32,7 +32,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
 
 	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
-	const style = useStyles(theme, { color, isFullWidth, isLoading, variant });
+	const style = useStyles(theme, { color, isFullWidth, isLoading, size, variant });
 
 	/**
 	 * This method will return the appropriate spacing depending on the size passed
