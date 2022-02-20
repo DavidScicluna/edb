@@ -15,7 +15,11 @@ const Header = ({ title, actions, direction }: HeaderProps): ReactElement => {
 
 	return (
 		<Stack width='100%' direction={direction ? direction : isSm ? 'column' : 'row'} p={2} spacing={isSm ? 2 : 4}>
-			<VStack width={isSm ? '100%' : `calc(100% - ${width + 32}px)`} alignItems='flex-start' spacing={0}>
+			<VStack
+				width={isSm ? '100%' : `calc(100% - ${actions ? width + 32 : 0}px)`}
+				alignItems='flex-start'
+				spacing={0}
+			>
 				<Breadcrumbs />
 				{title ? <Title title={title} /> : null}
 			</VStack>
