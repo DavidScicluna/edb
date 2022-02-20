@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { SimpleGrid, Center } from '@chakra-ui/react';
+import { HStack, Center } from '@chakra-ui/react';
 
 import {
 	LibraryBooksOutlined as LibraryBooksOutlinedIcon,
@@ -19,7 +19,7 @@ import MediaTypeItem from './components/MediaTypeItem';
 import { MediaTypeItem as MediaTypeItemType } from './components/MediaTypeItem/types';
 import { MediaTypesProps } from './types';
 
-import { MediaType as MediaType } from '../../../../common/types';
+import { MediaType as MediaType } from '../../common/types';
 
 export const mediaTypesList: MediaTypeItemType[] = [
 	{
@@ -59,21 +59,17 @@ export const mediaTypesList: MediaTypeItemType[] = [
 ];
 
 const MediaTypes = <MT extends MediaType>(props: MediaTypesProps<MT>): ReactElement => {
-	const { mediaTypes, mediaType, onSetType, onClose } = props;
+	const { mediaTypes, mediaType, onSetType } = props;
 
 	const handleClick = (mediaType: MediaType): void => {
 		onSetType(mediaType);
-
-		if (onClose) {
-			onClose();
-		}
 	};
 
 	return (
-		<SimpleGrid width='100%' columns={[1, 1, 3]} spacing={2}>
+		<HStack width='100%' wrap='wrap' spacing={0} gap={2}>
 			{mediaTypesList.map((mediaTypeItem) =>
 				(mediaTypes && mediaTypes.includes(mediaTypeItem.value)) || !mediaTypes ? (
-					<Center width='100%'>
+					<Center flex={1}>
 						<MediaTypeItem
 							{...mediaTypeItem}
 							key={mediaTypeItem.value}
@@ -83,7 +79,7 @@ const MediaTypes = <MT extends MediaType>(props: MediaTypesProps<MT>): ReactElem
 					</Center>
 				) : null
 			)}
-		</SimpleGrid>
+		</HStack>
 	);
 };
 

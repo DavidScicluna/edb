@@ -4,7 +4,7 @@ import { MediaTypesPickerProps } from './types';
 
 import { MediaType } from '../../../../common/types';
 import Empty from '../../../../components/Empty';
-import MediaTypes from '../../../../components/MediaTypePicker/components/MediaTypes';
+import MediaTypes from '../../../../components/MediaTypes';
 
 const MediaTypesPicker = ({ mediaTypes, label, description, onSetMediaType }: MediaTypesPickerProps): ReactElement => {
 	return (

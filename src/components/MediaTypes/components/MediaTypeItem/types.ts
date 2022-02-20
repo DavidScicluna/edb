@@ -1,4 +1,4 @@
-import { Icon, MediaType } from '../../../../../../common/types';
+import { Icon, MediaType } from '../../../../common/types';
 
 type RenderIconProps = {
 	isActive: boolean;

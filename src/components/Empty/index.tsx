@@ -210,7 +210,7 @@ const Empty = (props: EmptyProps): ReactElement => {
 					) : null}
 				</VStack>
 
-				{button ? <Center>{button}</Center> : null}
+				{button ? <Center width='100%'>{button}</Center> : null}
 			</VStack>
 		</Fade>
 	);
