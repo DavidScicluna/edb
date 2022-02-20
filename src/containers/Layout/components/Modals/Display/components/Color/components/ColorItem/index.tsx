@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useBoolean, VStack, Box, Center, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useBoolean, useConst, VStack, Box, Center, Text, ScaleFade } from '@chakra-ui/react';
 
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
+import _ from 'lodash';
 
 import { ColorItemProps } from './types';
 
@@ -13,15 +14,17 @@ import { Theme } from '../../../../../../../../../theme/types';
 const ColorItem = (props: ColorItemProps): ReactElement => {
 	const theme = useTheme<Theme>();
 
-	const { label, value, background, isActive, onClick } = props;
+	const { color, colorMode, isActive, onClick } = props;
 
 	const [isMouseDown, setIsMouseDown] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
+	const label = useConst<string>(_.startCase(color));
+
 	return (
 		<Tooltip
 			aria-label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
-			colorMode={background}
+			colorMode={colorMode}
 			isOpen={isHovering}
 			isDisabled={isActive}
 			label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
@@ -30,10 +33,10 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 			gutter={isMouseDown ? 8 : 11}
 		>
 			<Card
-				color={isActive ? value : 'gray'}
-				colorMode={background}
+				color={isActive ? color : 'gray'}
+				colorMode={colorMode}
 				isClickable
-				onClick={!isActive && onClick ? () => onClick(value) : undefined}
+				onClick={!isActive && onClick ? () => onClick(color) : undefined}
 				onMouseDown={() => setIsMouseDown.on()}
 				onMouseUp={() => setIsMouseDown.off()}
 				onMouseEnter={() => setIsHovering.on()}
@@ -50,7 +53,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 							alignItems: 'center',
 							justifyContent: 'center',
 
-							backgroundColor: `${value}.400`,
+							backgroundColor: `${color}.400`,
 							borderRadius: 'full'
 						}}
 					>
@@ -59,7 +62,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 								<CheckOutlinedIcon
 									style={{
 										fontSize: theme.fontSizes['4xl'],
-										color: theme.colors.gray[background === 'light' ? 50 : 900]
+										color: theme.colors.gray[colorMode === 'light' ? 50 : 900]
 									}}
 								/>
 							</Center>
