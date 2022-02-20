@@ -23,7 +23,11 @@ const Title = (props: TitleProps): ReactElement => {
 	const { renderTitle, renderSubtitles, mediaType, isLoading } = props;
 
 	return (
-		<VStack width='100%' alignItems='flex-start' spacing={mediaType === 'person' ? (isLoading ? 0.5 : 0) : 1}>
+		<VStack
+			width='100%'
+			alignItems='flex-start'
+			spacing={mediaType === 'person' ? (isLoading ? 0.5 : 0) : isSm ? 0 : 0.5}
+		>
 			{renderTitle({
 				color: colorMode === 'light' ? 'gray.900' : 'gray.50',
 				fontSize: fontSize === '2xl' ? '2xl' : '3xl',
