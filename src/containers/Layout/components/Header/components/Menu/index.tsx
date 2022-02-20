@@ -1,7 +1,15 @@
 import { ReactElement, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useColorMode, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerBody } from '@chakra-ui/react';
+import {
+	useColorMode,
+	useDisclosure,
+	Drawer,
+	DrawerOverlay,
+	DrawerContent,
+	DrawerBody,
+	Center
+} from '@chakra-ui/react';
 
 import { MenuOutlined as MenuOutlinedIcon, CloseOutlined as CloseOutlinedIcon } from '@material-ui/icons';
 
@@ -27,16 +35,11 @@ const Menu = (): ReactElement => {
 				<DrawerOverlay />
 				<DrawerContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
 					<DrawerBody position='relative' py={1} px={1}>
-						<IconButton
-							aria-label='Close modal?'
-							position='absolute'
-							top={1}
-							right={1}
-							onClick={() => onClose()}
-							variant='icon'
-						>
-							<CloseOutlinedIcon />
-						</IconButton>
+						<Center position='absolute' top={1} right={1}>
+							<IconButton aria-label='Close modal?' onClick={() => onClose()} variant='icon'>
+								<CloseOutlinedIcon />
+							</IconButton>
+						</Center>
 
 						<NavItems navItems={navItems} sidebarMode='expanded' />
 					</DrawerBody>
