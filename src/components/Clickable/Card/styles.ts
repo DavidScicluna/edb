@@ -45,12 +45,14 @@ export default (
 
 			'border': 'none',
 			'borderRadius': 'lg',
-			'outline': 'none',
-			'outlineWidth': '0px',
-			'outlineStyle': 'dashed',
+
+			'outline': '0px auto',
 
 			'padding': 0,
-			'marginTop': isFixed || isClickable ? '5px !important' : '2px !important',
+
+			'marginTop': isFixed || isClickable ? '5px' : 0,
+
+			'-webkit-tap-highlight-color': 'transparent',
 
 			'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
@@ -66,9 +68,17 @@ export default (
 					: 'none'
 			},
 
+			'&:focus:not(:focus-visible)': {
+				outline: '0px auto'
+			},
+
 			'&:focus': {
 				boxShadow: 'none',
-				outlineOffset: '5px'
+				outline: '0px auto'
+			},
+
+			'&:active': {
+				outline: '0px auto'
 			},
 
 			'& svg': {
@@ -77,6 +87,8 @@ export default (
 		},
 		front: {
 			cursor: 'inherit',
+
+			position: 'relative',
 
 			width: '100%',
 			height: '100%',
@@ -87,12 +99,13 @@ export default (
 			justifyContent: 'center',
 
 			userSelect: 'none',
+			willChange: 'auto',
 
 			borderStyle: 'solid',
 			borderWidth: '2px 2px 0',
 			borderRadius: 'lg',
 
-			transform: `translateY(${isClickable ? '-4px' : '-2px'})`,
+			transform: `translateY(${isClickable ? '-5px' : '-2px'})`,
 
 			transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
 		},
@@ -102,7 +115,7 @@ export default (
 
 			'opacity': 0.5,
 
-			'marginTop': '2px !important',
+			'marginTop': 0,
 
 			'& .card_front': {
 				transform: 'translateY(-2px) !important'
@@ -134,6 +147,11 @@ export default (
 					color:
 						!isFixed && isClickable ? `${color}.${isLight ? 300 : 500}` : `${color}.${isLight ? 200 : 400}`
 				}
+			},
+
+			'&:focus-visible': {
+				outline: `2px auto ${theme.colors[color][400]}`,
+				outlineOffset: '6px'
 			}
 		},
 		front: {
@@ -154,35 +172,46 @@ export default (
 	},
 	dark: {
 		back: {
-			'backgroundColor': `${color}.${isLight ? 700 : 500}`,
+			'backgroundColor': `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 
 			'&:hover': {
-				'backgroundColor': `${color}.${isLight ? 700 : 500}`,
+				'backgroundColor': `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 
 				'& .card_front': {
-					borderColor: `${color}.${isLight ? 700 : 500}`,
+					borderColor: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 					backgroundColor: 'gray.900',
-					color: `${color}.${isLight ? 700 : 500}`
+					color: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`
 				}
 			},
 
 			'&:active': {
 				'backgroundColor':
-					!isFixed && isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`,
+					!isFixed && isClickable
+						? `${color}.${isLight ? 600 : color === 'gray' ? 400 : 500}`
+						: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 
 				'& .card_front': {
 					borderColor:
-						!isFixed && isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`,
+						!isFixed && isClickable
+							? `${color}.${isLight ? 600 : color === 'gray' ? 400 : 500}`
+							: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 					backgroundColor: 'gray.900',
 					color:
-						!isFixed && isClickable ? `${color}.${isLight ? 600 : 400}` : `${color}.${isLight ? 700 : 500}`
+						!isFixed && isClickable
+							? `${color}.${isLight ? 600 : color === 'gray' ? 400 : 500}`
+							: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`
 				}
+			},
+
+			'&:focus-visible': {
+				outline: `2px auto ${theme.colors[color][400]}`,
+				outlineOffset: '6px'
 			}
 		},
 		front: {
-			borderColor: `${color}.${isLight ? 700 : 500}`,
+			borderColor: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 			backgroundColor: 'gray.900',
-			color: `${color}.${isLight ? 700 : 500}`
+			color: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`
 		},
 		disabled: {
 			'background': `${theme.colors.gray[isLight ? 700 : 500]} !important`,
