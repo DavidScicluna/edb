@@ -31,7 +31,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
 		<Center
 			width={`${width * 2}px`}
 			minHeight={`${height}px`}
-			height='100%'
+			height={'calc(100% + 2px)'}
 			position='absolute'
 			left={direction === 'left' ? 0 : undefined}
 			right={direction === 'right' ? 0 : undefined}
