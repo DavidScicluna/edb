@@ -34,7 +34,6 @@ export default (
 			justifyContent: 'center',
 
 			borderStyle: 'solid',
-			outline: 'none',
 
 			fontWeight: 'semibold',
 			textTransform: 'uppercase',
@@ -115,36 +114,36 @@ export default (
 	},
 	light: {
 		contained: {
-			borderColor: `${color}.${isLight ? 400 : 600}`,
-			backgroundColor: `${color}.${isLight ? 400 : 600}`,
+			borderColor: `${color}.${isLight ? 400 : 800}`,
+			backgroundColor: `${color}.${isLight ? 400 : 800}`,
 			color: 'gray.50'
 		},
 		outlined: {
-			borderColor: `${color}.${isLight ? 400 : 600}`,
+			borderColor: `${color}.${isLight ? 400 : 800}`,
 			backgroundColor: 'gray.50',
-			color: `${color}.${isLight ? 400 : 600}`
+			color: `${color}.${isLight ? 400 : 800}`
 		},
 		text: {
 			borderColor: 'transparent',
 			backgroundColor: 'transparent',
-			color: `${color}.${isLight ? 400 : 600}`
+			color: `${color}.${isLight ? 400 : 800}`
 		}
 	},
 	dark: {
 		contained: {
-			borderColor: `${color}.${isLight ? 500 : 300}`,
-			backgroundColor: `${color}.${isLight ? 500 : 300}`,
+			borderColor: `${color}.${isLight ? 400 : 800}`,
+			backgroundColor: `${color}.${isLight ? 400 : 800}`,
 			color: 'gray.900'
 		},
 		outlined: {
-			borderColor: `${color}.${isLight ? 500 : 300}`,
+			borderColor: `${color}.${isLight ? 400 : 800}`,
 			backgroundColor: 'gray.900',
-			color: `${color}.${isLight ? 500 : 300}`
+			color: `${color}.${isLight ? 400 : 800}`
 		},
 		text: {
 			borderColor: 'transparent',
 			backgroundColor: 'transparent',
-			color: `${color}.${isLight ? 500 : 300}`
+			color: `${color}.${isLight ? 400 : 800}`
 		}
 	}
 });
