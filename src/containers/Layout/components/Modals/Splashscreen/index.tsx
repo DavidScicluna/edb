@@ -12,7 +12,6 @@ import { SplashscreenProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
-import theme from '../../../../../theme';
 import { Color } from '../../../../../theme/types';
 
 const MotionBox = motion(Box);
