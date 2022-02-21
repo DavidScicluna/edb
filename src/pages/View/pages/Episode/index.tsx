@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { useDisclosure, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
 import _ from 'lodash';
@@ -29,6 +29,8 @@ import Structure from '../../components/Structure';
 
 const Episode = (): ReactElement => {
 	const source = axios.CancelToken.source();
+
+	const [isMd] = useMediaQuery('(max-width: 960px)');
 
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
@@ -243,7 +245,7 @@ const Episode = (): ReactElement => {
 								]}
 							</TabList>
 						),
-						socials: (
+						socials: !isMd ? (
 							<Socials
 								alt={tvShowQuery.data?.name}
 								socials={{ ...externalIdsQuery.data, homepage_id: tvShowQuery.data?.homepage }}
@@ -255,7 +257,7 @@ const Episode = (): ReactElement => {
 									externalIdsQuery.isLoading
 								}
 							/>
-						),
+						) : undefined,
 						tabPanels: (
 							<TabPanels>
 								<OverviewTab

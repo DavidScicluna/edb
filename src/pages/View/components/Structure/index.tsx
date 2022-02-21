@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, VStack, HStack, Center } from '@chakra-ui/react';
+import { VStack, HStack, Center } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
@@ -10,9 +10,7 @@ import Divider from '../../../../components/Divider';
 import Page from '../../../../containers/Page';
 
 const Structure = ({ children }: StructureProps): ReactElement => {
-	const [isMd] = useMediaQuery('(max-width: 960px)');
-
-	const [ref, { height }] = useElementSize();
+	const [ref, { width, height }] = useElementSize();
 
 	return (
 		<Page title={children.title}>
@@ -29,13 +27,19 @@ const Structure = ({ children }: StructureProps): ReactElement => {
 					>
 						<HStack
 							width='100%'
-							justifyContent={!isMd ? 'space-between' : 'flex-start'}
-							divider={<Divider orientation='vertical' height={`${height}px`} />}
+							justifyContent={children.socials ? 'space-between' : 'flex-start'}
+							divider={
+								children.socials ? (
+									<Divider orientation='vertical' height={`${height}px`} mx={2} />
+								) : undefined
+							}
 							spacing={2}
 						>
-							{children.tabList}
+							<Center width={`calc(100% - ${children.socials ? width + 34 : 0}px)`}>
+								{children.tabList}
+							</Center>
 
-							{children.socials ? <Center ref={ref}>{!isMd ? children.socials : null}</Center> : null}
+							{children.socials ? <Center ref={ref}>{children.socials}</Center> : null}
 						</HStack>
 
 						<VStack alignItems='stretch' justifyContent='stretch' spacing={2}>

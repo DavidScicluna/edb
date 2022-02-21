@@ -4,7 +4,7 @@ import { useQuery, useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { useDisclosure, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import sort from 'array-sort';
 import axios from 'axios';
@@ -34,6 +34,8 @@ import Structure from '../../components/Structure';
 
 const Movie = (): ReactElement => {
 	const source = axios.CancelToken.source();
+
+	const [isMd] = useMediaQuery('(max-width: 960px)');
 
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
@@ -358,7 +360,7 @@ const Movie = (): ReactElement => {
 								]}
 							</TabList>
 						),
-						socials: (
+						socials: !isMd ? (
 							<Socials
 								alt={movieQuery.data?.title}
 								socials={{ ...externalIdsQuery.data, homepage_id: movieQuery.data?.homepage }}
@@ -370,7 +372,7 @@ const Movie = (): ReactElement => {
 									externalIdsQuery.isLoading
 								}
 							/>
-						),
+						) : undefined,
 						tabPanels: (
 							<TabPanels>
 								<OverviewTab
