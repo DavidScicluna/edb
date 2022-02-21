@@ -1,6 +1,7 @@
 import { CardProps } from './types';
 
 import { Style } from '../../../common/types';
+import { handleIsTouchDevice } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
 
 type CommonStyle = {
@@ -150,8 +151,8 @@ export default (
 			},
 
 			'&:focus-visible': {
-				outline: `2px auto ${theme.colors[color][400]}`,
-				outlineOffset: '6px'
+				outline: !handleIsTouchDevice() ? `2px auto ${theme.colors[color][400]}` : '0px auto',
+				outlineOffset: '4px'
 			}
 		},
 		front: {
@@ -204,8 +205,8 @@ export default (
 			},
 
 			'&:focus-visible': {
-				outline: `2px auto ${theme.colors[color][400]}`,
-				outlineOffset: '6px'
+				outline: !handleIsTouchDevice() ? `2px auto ${theme.colors[color][400]}` : '0px auto',
+				outlineOffset: '4px'
 			}
 		},
 		front: {
