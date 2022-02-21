@@ -41,8 +41,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const [contentRef, { height: contentHeight }] = useElementSize();
-	const [ratingRef, { width: ratingWidth }] = useElementSize();
+	const [ref, { width, height }] = useElementSize();
 
 	const { avatar_path, author, name, username, created_at, rating, isLoading = true } = props;
 
@@ -63,17 +62,16 @@ const Header = (props: HeaderProps): ReactElement => {
 		return avatar_path || '';
 	};
 
-	const hasRating = (!_.isNil(rating) || !_.isEmpty(rating) || isLoading) && !isSm;
+	const hasRating = !_.isNil(rating) || !_.isEmpty(rating) || isLoading;
 
 	return (
 		<HStack
 			width='100%'
-			divider={hasRating ? <Divider orientation='vertical' height={`${contentHeight}px`} /> : undefined}
+			divider={hasRating && !isSm ? <Divider orientation='vertical' height={`${height}px`} /> : undefined}
 			spacing={2}
 		>
 			<HStack
-				ref={contentRef}
-				width={`calc(100% - ${hasRating ? ratingWidth + 34 : 0}px)`}
+				width={`calc(100% - ${hasRating && !isSm ? width + 34 : 0}px)`}
 				justifyContent='flex-start'
 				spacing={2}
 			>
@@ -143,7 +141,7 @@ const Header = (props: HeaderProps): ReactElement => {
 									</Text>
 								</SkeletonText>
 							) : undefined,
-							isSm ? (
+							hasRating && isSm ? (
 								<Rating key='review_rating' size='sm' isLoading={isLoading}>
 									{rating}
 								</Rating>
@@ -153,8 +151,8 @@ const Header = (props: HeaderProps): ReactElement => {
 				</VStack>
 			</HStack>
 
-			<SlideFade in={hasRating} unmountOnExit>
-				<Rating ref={ratingRef} size='2xl' isLoading={isLoading}>
+			<SlideFade in={hasRating && !isSm} unmountOnExit>
+				<Rating ref={ref} size='2xl' isLoading={isLoading}>
 					{rating}
 				</Rating>
 			</SlideFade>

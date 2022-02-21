@@ -104,7 +104,7 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 							button={
 								<CreateReview
 									renderAction={({ color, label, onClick }) => (
-										<Button color={color} onClick={() => onClick()}>
+										<Button color={color} onClick={() => onClick()} size='sm'>
 											{label}
 										</Button>
 									)}

@@ -83,7 +83,7 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 							button={
 								<CreateReview
 									renderAction={({ color, label, onClick }) => (
-										<Button color={color} onClick={() => onClick()} size='sm'>
+										<Button color={color} onClick={() => onClick()}>
 											{label}
 										</Button>
 									)}
