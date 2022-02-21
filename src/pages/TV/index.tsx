@@ -97,7 +97,7 @@ const TV = (): ReactElement => {
 		);
 
 		history.push({
-			location: '/tv',
+			location: '/tvshows',
 			search: qs.stringify(_.mergeWith({ ...currentSearch, ...filters }))
 		});
 
@@ -112,7 +112,7 @@ const TV = (): ReactElement => {
 		};
 
 		history.push({
-			location: '/tv',
+			location: '/tvshows',
 			search: qs.stringify(_.mergeWith({ ...currentSearch, ...sortBy }))
 		});
 
@@ -123,7 +123,7 @@ const TV = (): ReactElement => {
 		const currentSearch = qs.parse(history.location.search);
 
 		history.push({
-			location: '/tv',
+			location: '/tvshows',
 			search: qs.stringify(
 				Object.keys(currentSearch).length > 0
 					? _.merge({ ...defaultFilters, ...currentSearch })

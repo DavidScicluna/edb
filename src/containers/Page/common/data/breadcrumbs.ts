@@ -22,7 +22,7 @@ const movies: Breadcrumb = {
 
 const tv: Breadcrumb = {
 	label: 'TV Shows',
-	to: { pathname: '/tv' }
+	to: { pathname: '/tvshows' }
 };
 
 const people: Breadcrumb = {

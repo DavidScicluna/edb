@@ -92,7 +92,10 @@ const Home = (): ReactElement => {
 										search: qs.stringify({ sort_by: 'popularity.desc' })
 									};
 								} else {
-									return { pathname: '/tv', search: qs.stringify({ sort_by: 'popularity.desc' }) };
+									return {
+										pathname: '/tvshows',
+										search: qs.stringify({ sort_by: 'popularity.desc' })
+									};
 								}
 							}}
 							mediaTypes={['movie', 'tv']}
@@ -124,7 +127,7 @@ const Home = (): ReactElement => {
 									};
 								} else {
 									return {
-										pathname: '/tv',
+										pathname: '/tvshows',
 										search: qs.stringify({ sort_by: 'vote_average.desc' })
 									};
 								}
