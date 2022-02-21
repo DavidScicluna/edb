@@ -144,14 +144,21 @@ export const handleReturnBoringSrc = (type: BoringAvatarType, size: ColorShades)
 		query: {
 			colors: [
 				theme.colors.red[size],
-				theme.colors.orange[size],
-				theme.colors.yellow[size],
-				theme.colors.green[size],
-				theme.colors.teal[size],
-				theme.colors.blue[size],
-				theme.colors.cyan[size],
+				theme.colors.pink[size],
 				theme.colors.purple[size],
-				theme.colors.pink[size]
+				theme.colors.deep_purple[size],
+				theme.colors.indigo[size],
+				theme.colors.blue[size],
+				theme.colors.light_blue[size],
+				theme.colors.cyan[size],
+				theme.colors.teal[size],
+				theme.colors.green[size],
+				theme.colors.light_green[size],
+				theme.colors.lime[size],
+				theme.colors.yellow[size],
+				theme.colors.orange[size],
+				theme.colors.deep_orange[size],
+				theme.colors.brown[size]
 			].join(','),
 			square: true
 		}
