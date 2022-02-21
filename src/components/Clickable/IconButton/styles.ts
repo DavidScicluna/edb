@@ -1,6 +1,7 @@
 import { IconButtonProps, Variant, Size } from './types';
 
 import { Style } from '../../../common/types';
+import { handleIsTouchDevice } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
 
 type VariantStyle = { [key in Variant]: Style };
@@ -231,8 +232,10 @@ export default (
 				},
 
 				'&:focus-visible': {
-					outline: `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`,
-					outlineOffset: `${size === 'sm' ? 4 : size === 'md' ? 5 : 6}px`
+					outline: !handleIsTouchDevice()
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
+						: '0px auto',
+					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
 				}
 			},
 			outlined: {
@@ -263,8 +266,10 @@ export default (
 				},
 
 				'&:focus-visible': {
-					outline: `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`,
-					outlineOffset: `${size === 'sm' ? 4 : size === 'md' ? 5 : 6}px`
+					outline: !handleIsTouchDevice()
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
+						: '0px auto',
+					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
 				}
 			},
 			icon: {
@@ -295,8 +300,10 @@ export default (
 				},
 
 				'&:focus-visible': {
-					outline: `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`,
-					outlineOffset: `${size === 'sm' ? 4 : size === 'md' ? 5 : 6}px`
+					outline: !handleIsTouchDevice()
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
+						: '0px auto',
+					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
 				}
 			}
 		},
@@ -380,8 +387,10 @@ export default (
 				},
 
 				'&:focus-visible': {
-					outline: `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`,
-					outlineOffset: `${size === 'sm' ? 4 : size === 'md' ? 5 : 6}px`
+					outline: !handleIsTouchDevice()
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
+						: '0px auto',
+					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
 				}
 			},
 			outlined: {
@@ -412,8 +421,10 @@ export default (
 				},
 
 				'&:focus-visible': {
-					outline: `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`,
-					outlineOffset: `${size === 'sm' ? 4 : size === 'md' ? 5 : 6}px`
+					outline: !handleIsTouchDevice()
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
+						: '0px auto',
+					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
 				}
 			},
 			icon: {
@@ -444,8 +455,10 @@ export default (
 				},
 
 				'&:focus-visible': {
-					outline: `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`,
-					outlineOffset: `${size === 'sm' ? 4 : size === 'md' ? 5 : 6}px`
+					outline: !handleIsTouchDevice()
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
+						: '0px auto',
+					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
 				}
 			}
 		},
