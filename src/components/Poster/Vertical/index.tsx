@@ -26,7 +26,9 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
 	const { width = '100%', mediaItem, mediaType, image, rating, title, subtitle, isLoading = true } = props;
 
+	const [isFocused, setIsFocused] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
+
 	const [isDisabled, setIsDisabled] = useBoolean();
 
 	const handleOnImageChange = (bool: boolean): void => {
@@ -46,6 +48,8 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 					? { pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` }
 					: {}
 			}
+			onFocus={() => setIsFocused.on()}
+			onBlur={() => setIsFocused.off()}
 			onMouseEnter={() => setIsHovering.on()}
 			onMouseLeave={() => setIsHovering.off()}
 		>
@@ -57,6 +61,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 						mediaType={mediaType}
 						image={image}
 						title={title}
+						isFocused={isFocused}
 						isHovering={isHovering}
 						isLoading={isLoading}
 						inView={inView}

@@ -29,6 +29,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 		mediaType,
 		title,
 		image,
+		isFocused = false,
 		isLoading = true,
 		isHovering = false,
 		inView = false,
@@ -52,7 +53,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 
 				{/* Quick View component */}
 				{!(_.isNil(mediaItem) || _.isEmpty(mediaItem)) && !handleIsTouchDevice() && mediaType !== 'company' ? (
-					<ScaleFade in={isHovering && !isLoading} unmountOnExit>
+					<ScaleFade in={(isHovering || isFocused) && !isLoading} unmountOnExit>
 						<Box
 							position='absolute'
 							bottom={theme.space[1]}
