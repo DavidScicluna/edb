@@ -94,7 +94,7 @@ export const handleIsTouchDevice = (): boolean => {
  * @returns - The section of the date
  */
 export const handleReturnDate = (date: string, section: 'year' | 'month' | 'day' | 'full'): string => {
-	const newDate = moment(moment(date).format('YYYY-MM-DD'));
+	const newDate = moment(date);
 
 	switch (section) {
 		case 'year':

@@ -28,7 +28,7 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const handleSortReview = <R extends ReviewType>(reviews: R[]): R[] => {
+	const handleSortReview = <R extends ReviewType>(reviews: R[] = []): R[] => {
 		return reviews.sort(
 			(a, b) =>
 				Number(handleReturnDate(b.updated_at || b.created_at || '', 'year')) -

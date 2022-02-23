@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import _ from 'lodash';
+
 import { HorizontalMoviePosterProps } from './types';
 
 import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
@@ -26,12 +28,14 @@ const HorizontalMoviePoster = (props: HorizontalMoviePosterProps): ReactElement 
 				count: vote_count || null
 			}}
 			title={title || ''}
-			subtitle={`${[
-				`${handleReturnDate(release_date || '', 'full')}` || 'N/A',
-				`${handleReturnGenresByID(genre_ids || [], 'movie')}`
-			]
-				.filter((subtitle) => subtitle)
-				.join(' • ')}`}
+			subtitle={`${_.compact([
+				!_.isNil(release_date) && !_.isEmpty(release_date)
+					? `${handleReturnDate(release_date || '', 'full')}`
+					: undefined,
+				!_.isNil(genre_ids) && !_.isEmpty(genre_ids)
+					? `${handleReturnGenresByID(genre_ids || [], 'movie')}`
+					: undefined
+			]).join(' • ')}`}
 			description={overview || ''}
 			isLoading={isLoading}
 		/>

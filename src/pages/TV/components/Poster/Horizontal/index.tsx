@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import _ from 'lodash';
+
 import { HorizontalTVShowPosterProps } from './types';
 
 import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
@@ -26,12 +28,14 @@ const HorizontalTVShowPoster = (props: HorizontalTVShowPosterProps): ReactElemen
 				count: vote_count || null
 			}}
 			title={name || ''}
-			subtitle={`${[
-				`${handleReturnDate(first_air_date || '', 'full')}` || 'N/A',
-				`${handleReturnGenresByID(genre_ids || [], 'tv')}`
-			]
-				.filter((subtitle) => subtitle)
-				.join(' • ')}`}
+			subtitle={`${_.compact([
+				!_.isNil(first_air_date) && !_.isEmpty(first_air_date)
+					? `${handleReturnDate(first_air_date || '', 'full')}`
+					: undefined,
+				!_.isNil(genre_ids) && !_.isEmpty(genre_ids)
+					? `${handleReturnGenresByID(genre_ids || [], 'tv')}`
+					: undefined
+			]).join(' • ')}`}
 			description={overview || ''}
 			isLoading={isLoading}
 		/>

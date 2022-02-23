@@ -24,7 +24,7 @@ const PartsTab = (props: PartsTabProps): ReactElement => {
 
 	const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
-	const handleSortParts = (parts: PartialMovie[]): PartialMovie[] => {
+	const handleSortParts = (parts: PartialMovie[] = []): PartialMovie[] => {
 		return parts.sort(
 			(a, b) =>
 				Number(handleReturnDate(b.release_date || '', 'year')) -

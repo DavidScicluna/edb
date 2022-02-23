@@ -2,6 +2,8 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
+import _ from 'lodash';
+
 import { TVShowsProps } from './types';
 
 import { handleReturnDate } from '../../../../../../../../../../common/utils';
@@ -40,14 +42,16 @@ const TVShows = ({ shows, label, job }: TVShowsProps): ReactElement => {
 									}}
 									rating={show?.vote_average || null}
 									title={show?.name || ''}
-									subtitle={`${[
-										show?.first_air_date
+									subtitle={`${_.compact([
+										!_.isNil(show?.first_air_date) && !_.isEmpty(show?.first_air_date)
 											? `${handleReturnDate(show.first_air_date || '', 'year')}`
 											: undefined,
-										show?.character ? `As ${show.character}` : show?.job || undefined
-									]
-										.filter((subtitle) => subtitle)
-										.join(' • ')}`}
+										!_.isNil(show?.character) && !_.isEmpty(show?.character)
+											? `As ${show.character}`
+											: !_.isNil(show?.job) && !_.isEmpty(show?.job)
+											? show?.job
+											: undefined
+									]).join(' • ')}`}
 									isLoading={false}
 								/>
 							) : (
@@ -68,14 +72,16 @@ const TVShows = ({ shows, label, job }: TVShowsProps): ReactElement => {
 										count: show?.vote_count || null
 									}}
 									title={show?.name || ''}
-									subtitle={`${[
-										show?.first_air_date
+									subtitle={`${_.compact([
+										!_.isNil(show?.first_air_date) && !_.isEmpty(show?.first_air_date)
 											? `${handleReturnDate(show.first_air_date || '', 'full')}`
 											: undefined,
-										show?.character ? `As ${show.character}` : show?.job || undefined
-									]
-										.filter((subtitle) => subtitle)
-										.join(' • ')}`}
+										!_.isNil(show?.character) && !_.isEmpty(show?.character)
+											? `As ${show.character}`
+											: !_.isNil(show?.job) && !_.isEmpty(show?.job)
+											? show?.job
+											: undefined
+									]).join(' • ')}`}
 									description={show?.overview || ''}
 									isLoading={false}
 								/>

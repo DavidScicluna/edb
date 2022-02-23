@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import _ from 'lodash';
+
 import { VerticalMoviePosterProps } from './types';
 
 import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
@@ -24,12 +26,14 @@ const VerticalMoviePoster = (props: VerticalMoviePosterProps): ReactElement => {
 			}}
 			rating={vote_average || null}
 			title={title || ''}
-			subtitle={`${[
-				`${handleReturnDate(release_date || '', 'year')} ` || 'N/A',
-				`${handleReturnGenresByID(genre_ids || [], 'movie')}`
-			]
-				.filter((subtitle) => subtitle)
-				.join(' • ')}`}
+			subtitle={`${_.compact([
+				!_.isNil(release_date) && !_.isEmpty(release_date)
+					? `${handleReturnDate(release_date || '', 'year')} `
+					: undefined,
+				!_.isNil(genre_ids) && !_.isEmpty(genre_ids)
+					? `${handleReturnGenresByID(genre_ids || [], 'movie')}`
+					: undefined
+			]).join(' • ')}`}
 			isLoading={isLoading}
 		/>
 	);
