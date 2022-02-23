@@ -29,7 +29,7 @@ const Title = (props: TitleProps): ReactElement => {
 			spacing={mediaType === 'person' ? (isLoading ? 0.5 : 0) : isSm ? 0 : 0.5}
 		>
 			{renderTitle({
-				color: colorMode === 'light' ? 'gray.900' : 'gray.50',
+				color: `gray.${colorMode === 'light' ? 900 : 50}`,
 				fontSize: fontSize === '2xl' ? '2xl' : '3xl',
 				fontWeight: 'bold'
 			})}
@@ -38,7 +38,7 @@ const Title = (props: TitleProps): ReactElement => {
 					renderDivider={({ padding }) => (
 						<Text
 							align='left'
-							color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+							color={`gray.${colorMode === 'light' ? 400 : 500}`}
 							fontSize='md'
 							px={padding}
 						>
@@ -48,7 +48,7 @@ const Title = (props: TitleProps): ReactElement => {
 					isDisabled={isLoading}
 				>
 					{renderSubtitles({
-						color: colorMode === 'light' ? 'gray.400' : 'gray.500',
+						color: `gray.${colorMode === 'light' ? 400 : 500}`,
 						fontSize: isSm ? 'xs' : 'sm'
 					})}
 				</HorizontalScroll>

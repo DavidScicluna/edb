@@ -22,9 +22,9 @@ const Header = (): ReactElement => {
 			top={0}
 			zIndex={800}
 			justifyContent={isLgUp ? 'flex-end' : 'space-between'}
-			backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+			backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}
 			borderBottom='solid2'
-			borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+			borderBottomColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 			px={2}
 			py={1}
 			sx={{ ...transition }}

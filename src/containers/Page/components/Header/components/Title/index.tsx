@@ -12,7 +12,7 @@ const Title = (props: TitleProps): ReactElement => {
 	return typeof title === 'string' ? (
 		<Text
 			align='left'
-			color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+			color={`gray.${colorMode === 'light' ? 900 : 50}`}
 			fontSize={['2xl', '2xl', '3xl', '3xl', '3xl', '3xl']}
 			fontWeight='bold'
 		>

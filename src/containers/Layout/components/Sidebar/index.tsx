@@ -37,9 +37,9 @@ const Sidebar = (): ReactElement => {
 			zIndex={900}
 			alignItems={sidebarMode === 'expanded' ? 'flex-start' : 'stretch'}
 			justifyContent='space-between'
-			backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+			backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}
 			borderRight='solid2'
-			borderRightColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+			borderRightColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 			p={1}
 			spacing={2}
 			sx={{ ...transition }}

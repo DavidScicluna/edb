@@ -33,7 +33,7 @@ const Menu = (): ReactElement => {
 
 			<Drawer isOpen={isOpen} blockScrollOnMount={false} placement='left' onClose={onClose}>
 				<DrawerOverlay />
-				<DrawerContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}>
+				<DrawerContent backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}>
 					<DrawerBody position='relative' py={1} px={1}>
 						<Center position='absolute' top={1} right={1}>
 							<IconButton aria-label='Close modal?' onClick={() => onClose()} variant='icon'>

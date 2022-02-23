@@ -72,7 +72,7 @@ const Breadcrumbs = (): ReactElement => {
 			separator={
 				<Icon
 					as={ChevronRightOutlinedIcon}
-					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					sx={{ fontSize: `${iconFontSize} !important` }}
 				/>
 			}

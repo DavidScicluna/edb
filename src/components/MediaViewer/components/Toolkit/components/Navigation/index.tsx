@@ -30,7 +30,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
 			</IconButton>
 
 			{/* Current Slide */}
-			<Text align='center' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
+			<Text align='center' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='md'>
 				{_.compact([current + 1, total]).join(' / ')}
 			</Text>
 

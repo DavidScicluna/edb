@@ -18,7 +18,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 			{!isLoading ? (
 				<Text
 					align='left'
-					color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+					color={`gray.${colorMode === 'light' ? 900 : 50}`}
 					fontSize='md'
 					isTruncated
 					overflow='hidden'
@@ -42,7 +42,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 						<SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
 							<Text
 								align='left'
-								color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+								color={`gray.${colorMode === 'light' ? 900 : 50}`}
 								fontSize='md'
 								whiteSpace='nowrap'
 							>

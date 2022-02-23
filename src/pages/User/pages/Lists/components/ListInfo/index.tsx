@@ -25,12 +25,12 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 		<Modal
 			title={
 				<VStack alignItems='flex-start' spacing={0}>
-					<Text fontSize='md' fontWeight='semibold' color={colorMode === 'light' ? 'gray.900' : 'gray.50'}>
+					<Text fontSize='md' fontWeight='semibold' color={`gray.${colorMode === 'light' ? 900 : 50}`}>
 						{`${list?.label ? `"${list.label}"` : ''} List`}
 					</Text>
 					<Text
 						align='left'
-						color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+						color={`gray.${colorMode === 'light' ? 400 : 500}`}
 						fontSize='xs'
 						fontWeight='normal'
 					>
@@ -82,7 +82,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 							body: (
 								<Text
 									align='left'
-									color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+									color={`gray.${colorMode === 'light' ? 900 : 50}`}
 									fontSize='lg'
 									fontWeight='normal'
 								>

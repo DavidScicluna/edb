@@ -70,7 +70,7 @@ const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): React
 			>
 				<Text
 					align='left'
-					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='sm'
 					onMouseEnter={query.length > 20 ? () => setIsHovering.on() : undefined}
 					onMouseLeave={query.length > 20 ? () => setIsHovering.off() : undefined}
@@ -78,7 +78,7 @@ const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): React
 					{`Your search results for "${_.truncate(query, { length: 20 })}"`}
 				</Text>
 			</Tooltip>
-			<Text align='right' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+			<Text align='right' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm'>
 				<CountUp duration={1} end={handleAllTotal()} suffix={` ${handleReturnMediaTypeLabel()} found!`} />
 			</Text>
 		</HStack>

@@ -125,7 +125,7 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 									header: {
 										title: (
 											<Text
-												color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+												color={`gray.${colorMode === 'light' ? 900 : 50}`}
 												fontSize='sm'
 												fontWeight='medium'
 											>
@@ -133,7 +133,7 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 											</Text>
 										),
 										actions: (
-											<Text color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='sm'>
+											<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm'>
 												{`${value} stars`}
 											</Text>
 										)
@@ -147,7 +147,7 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 									),
 									footer: error ? (
 										<Collapse in={Boolean(error)} unmountOnExit>
-											<Text color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='xs'>
+											<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs'>
 												{error}
 											</Text>
 										</Collapse>

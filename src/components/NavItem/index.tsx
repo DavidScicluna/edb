@@ -168,7 +168,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 							<Box
 								width='100%'
 								height='2px'
-								backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+								backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 							/>
 						) : null}
 						{children.map((child, index) => (

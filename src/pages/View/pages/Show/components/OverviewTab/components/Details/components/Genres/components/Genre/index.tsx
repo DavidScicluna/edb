@@ -29,7 +29,7 @@ const Genre = (props: GenreProps): ReactElement => {
 			<Link to={{ pathname: '/movies/', search: qs.stringify({ with_genres: id }) }} isDisabled={isLoading}>
 				<Text
 					align='left'
-					color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+					color={`gray.${colorMode === 'light' ? 900 : 50}`}
 					fontSize='md'
 					whiteSpace='nowrap'
 					textDecorationStyle='wavy'

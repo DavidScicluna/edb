@@ -179,15 +179,9 @@ const Empty = (props: EmptyProps): ReactElement => {
 						align='center'
 						fontSize={handleReturnLabelFontSize()}
 						fontWeight='semibold'
-						color={
-							colorMode === 'light'
-								? color === 'gray'
-									? 'gray.900'
-									: `${color}.500`
-								: color === 'gray'
-								? 'gray.50'
-								: `${color}.400`
-						}
+						color={`${color}.${
+							color === 'gray' ? (colorMode === 'light' ? 900 : 50) : colorMode === 'light' ? 500 : 400
+						}`}
 					>
 						{label}
 					</Text>
@@ -195,15 +189,7 @@ const Empty = (props: EmptyProps): ReactElement => {
 						<Text
 							align='center'
 							fontSize={handleReturnDescriptionFontSize()}
-							color={
-								colorMode === 'light'
-									? color === 'gray'
-										? 'gray.500'
-										: `${color}.300`
-									: color === 'gray'
-									? 'gray.50'
-									: `${color}.600`
-							}
+							color={`gray.${colorMode === 'light' ? 400 : 500}`}
 						>
 							{description}
 						</Text>

@@ -9,12 +9,7 @@ const Label = ({ children, label, ...rest }: LabelProps): ReactElement => {
 
 	return (
 		<VStack {...rest} alignItems='flex-start' spacing={0}>
-			<Text
-				align='left'
-				color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-				fontSize='md'
-				fontWeight='semibold'
-			>
+			<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='md' fontWeight='semibold'>
 				{label}
 			</Text>
 			{children}

@@ -32,7 +32,7 @@ const Toast = (props: ToastProps): ReactElement => {
 			<HStack spacing={0.25}>
 				<Text
 					align='left'
-					color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+					color={`gray.${colorMode === 'light' ? 50 : 900}`}
 					fontSize={isSm ? 'sm' : 'md'}
 					fontWeight='normal'
 					whiteSpace='nowrap'

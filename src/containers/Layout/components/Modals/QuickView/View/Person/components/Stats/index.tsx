@@ -39,7 +39,7 @@ const Stats = (props: StatsProps): ReactElement => {
 		<StatGroup
 			width='100%'
 			border='solid2'
-			borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+			borderColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 			borderRadius='base'
 			p={1}
 		>

@@ -26,7 +26,7 @@ const NavItems = ({ navItems, sidebarMode: sidebarModeProp }: NavItemsProps): Re
 				<Logo size={sidebarMode === 'expanded' ? 'md' : 'sm'} />
 			</Link>
 
-			<Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+			<Box width='100%' height='2px' backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`} />
 
 			<VStack width='100%'>
 				{navItems.map((navItem) => (

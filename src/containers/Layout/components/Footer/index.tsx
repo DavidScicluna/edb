@@ -37,12 +37,12 @@ const Footer = (): ReactElement => {
 				</HStack>
 			)}
 
-			<Box width='100%' height='2px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+			<Box width='100%' height='2px' backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`} />
 
 			<Stack width='100%' direction={isSm ? 'column' : 'row'} justifyContent='space-between'>
 				<Text
 					align='center'
-					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='md'
 					fontWeight='medium'
 				>
@@ -51,13 +51,13 @@ const Footer = (): ReactElement => {
 
 				<Text
 					align='center'
-					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='md'
 					fontWeight='medium'
 				>
 					{'Made by'}{' '}
 					<Link
-						color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+						color={`gray.${colorMode === 'light' ? 400 : 500}`}
 						fontWeight='semibold'
 						href='https://davidscicluna.com'
 						isExternal

@@ -22,18 +22,10 @@ const Spinner = ({ color, colorMode, size = 'md', variant = 'contained' }: Spinn
 		switch (variant) {
 			case 'outlined':
 			case 'icon': {
-				if (colorMode === 'light') {
-					return theme.colors[color][500];
-				} else {
-					return theme.colors[color][400];
-				}
+				return theme.colors[color][colorMode === 'light' ? 500 : 400];
 			}
 			default: {
-				if (colorMode === 'light') {
-					return theme.colors.gray[50];
-				} else {
-					return theme.colors.gray[900];
-				}
+				return theme.colors[color][colorMode === 'light' ? 900 : 50];
 			}
 		}
 	};

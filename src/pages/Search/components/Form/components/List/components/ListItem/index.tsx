@@ -49,7 +49,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				<HStack
 					width='100%'
 					divider={
-						<Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='xs' mx={1}>
+						<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs' mx={1}>
 							•
 						</Text>
 					}
@@ -57,7 +57,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 					<SkeletonText width={isLoading ? `${titleDummy}%` : '100%'} fontSize='md' isLoaded={!isLoading}>
 						<Text
 							align='left'
-							color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+							color={`gray.${colorMode === 'light' ? 900 : 50}`}
 							fontSize='md'
 							isTruncated
 							overflow='hidden'
@@ -72,12 +72,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 					<HStack
 						width='100%'
 						divider={
-							<Text
-								align='left'
-								color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-								fontSize='xs'
-								mx={1}
-							>
+							<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs' mx={1}>
 								•
 							</Text>
 						}
@@ -91,7 +86,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 							>
 								<Text
 									align='left'
-									color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+									color={`gray.${colorMode === 'light' ? 400 : 500}`}
 									fontSize='xs'
 									isTruncated
 									overflow='hidden'

@@ -23,15 +23,13 @@ const Star = ({ value, hoveringNumber, isChecked, onChange, onHover }: StarProps
 			_focus={{ boxShadow: 'none' }}
 			_hover={{
 				transform: 'scale(1.25)',
-				color: `yellow.${colorMode === 'light' ? 400 : 500}`
+				color: `yellow.${colorMode === 'light' ? 600 : 300}`
 			}}
 			sx={{
 				color:
 					isChecked || value < hoveringNumber
-						? `yellow.${colorMode === 'light' ? 400 : 500}`
-						: colorMode === 'light'
-						? 'gray.400'
-						: 'gray.500',
+						? `yellow.${colorMode === 'light' ? 500 : 400}`
+						: `gray.${colorMode === 'light' ? 400 : 500}`,
 				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 			}}
 		>

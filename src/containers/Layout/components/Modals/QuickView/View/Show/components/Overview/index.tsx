@@ -17,7 +17,7 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
 			{!isLoading ? (
 				<Text
 					align='left'
-					color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+					color={`gray.${colorMode === 'light' ? 900 : 50}`}
 					fontSize='md'
 					isTruncated
 					overflow='hidden'
@@ -36,7 +36,7 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
 						<SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
 							<Text
 								align='left'
-								color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+								color={`gray.${colorMode === 'light' ? 900 : 50}`}
 								fontSize='md'
 								whiteSpace='nowrap'
 							>

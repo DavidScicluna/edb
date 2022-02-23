@@ -13,10 +13,10 @@ const Description = forwardRef<DescriptionRef, DescriptionProps>(function Descri
 
 	return (
 		<VStack ref={ref} alignItems='flex-start' spacing={0}>
-			<Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='4xl' fontWeight='bold'>
+			<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='4xl' fontWeight='bold'>
 				{title}
 			</Text>
-			<Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md'>
+			<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='md'>
 				{subtitle}
 			</Text>
 		</VStack>

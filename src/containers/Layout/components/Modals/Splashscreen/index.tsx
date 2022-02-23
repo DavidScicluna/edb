@@ -72,12 +72,12 @@ const Splashscreen = ({ isOpen: isOpenProp }: SplashscreenProps): ReactElement =
 			scrollBehavior='inside'
 			size='full'
 		>
-			<ModalContent backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'} borderRadius='none' m={0}>
+			<ModalContent backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`} borderRadius='none' m={0}>
 				<ModalBody zIndex={10000} p={0}>
 					<VStack width='100%' height='100vh' justifyContent='space-between' p={3}>
 						<Text
 							align='center'
-							color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+							color={`gray.${colorMode === 'light' ? 400 : 500}`}
 							fontSize='sm'
 							fontWeight='medium'
 						>
@@ -104,7 +104,7 @@ const Splashscreen = ({ isOpen: isOpenProp }: SplashscreenProps): ReactElement =
 						</MotionBox>
 						<Text
 							align='center'
-							color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+							color={`gray.${colorMode === 'light' ? 400 : 500}`}
 							fontSize='sm'
 							fontWeight='medium'
 						>

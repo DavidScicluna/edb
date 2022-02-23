@@ -59,11 +59,7 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
 			>
 				<HStack width='100%' spacing='12px'>
 					{isExpanded ? (
-						<Box
-							width='2px'
-							height='42px'
-							backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
-						/>
+						<Box width='2px' height='42px' backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`} />
 					) : null}
 
 					<HStack

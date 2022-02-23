@@ -73,7 +73,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 							align='left'
 							fontSize={size}
 							fontWeight='semibold'
-							color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+							color={`gray.${colorMode === 'light' ? 900 : 50}`}
 							whiteSpace='nowrap'
 						>
 							{children && !isLoading
@@ -84,7 +84,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 						</Text>
 						{/* TODO: Find a way to better display count */}
 						{/* {count ? (
-            <Text color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize={handleReturnCountSize()}>
+            <Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize={handleReturnCountSize()}>
               {count}
             </Text>
           ) : null} */}

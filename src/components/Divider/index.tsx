@@ -20,7 +20,7 @@ const Divider = (props: DividerProps): ReactElement => {
 		<Box
 			width={orientation === 'horizontal' ? '100%' : '2px'}
 			height={orientation === 'horizontal' ? '2px' : '100%'}
-			backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+			backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 			{...rest}
 			border='none'
 			sx={{

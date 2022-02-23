@@ -14,7 +14,7 @@ const Weekdays = (): ReactElement => {
 					key={index}
 					width='100%'
 					align='center'
-					color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+					color={`gray.${colorMode === 'light' ? 900 : 50}`}
 					fontWeight='semibold'
 					fontSize='sm'
 					textTransform='uppercase'

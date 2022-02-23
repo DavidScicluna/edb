@@ -27,7 +27,7 @@ const Tooltip = forwardRef<TooltipRef, TooltipProps>(function Tooltip(props, ref
 			{...rest}
 			ref={ref}
 			arrowSize={8}
-			color={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+			color={`gray.${colorMode === 'light' ? 50 : 900}`}
 			backgroundColor={colorMode === 'light' ? 'gray.700' : 'gray.200'}
 			closeDelay={closeDelay}
 			openDelay={openDelay}

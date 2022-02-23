@@ -91,7 +91,7 @@ const Header = (props: HeaderProps): ReactElement => {
 					<SkeletonText isLoaded={!isLoading} fontSize='xl'>
 						<Text
 							align='left'
-							color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+							color={`gray.${colorMode === 'light' ? 900 : 50}`}
 							fontSize={isSm ? 'xl' : '2xl'}
 							fontWeight='semibold'
 							lineHeight='normal'
@@ -106,7 +106,7 @@ const Header = (props: HeaderProps): ReactElement => {
 						renderDivider={({ padding }) => (
 							<Text
 								align='left'
-								color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+								color={`gray.${colorMode === 'light' ? 400 : 500}`}
 								fontSize='sm'
 								mx={padding}
 							>
@@ -118,7 +118,7 @@ const Header = (props: HeaderProps): ReactElement => {
 							<SkeletonText key='review_username' isLoaded={!isLoading} fontSize='sm'>
 								<Text
 									align='left'
-									color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+									color={`gray.${colorMode === 'light' ? 400 : 500}`}
 									fontSize='sm'
 									isTruncated
 									overflow='hidden'
@@ -131,7 +131,7 @@ const Header = (props: HeaderProps): ReactElement => {
 								<SkeletonText key='review_created_at' isLoaded={!isLoading} fontSize='sm'>
 									<Text
 										align='left'
-										color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+										color={`gray.${colorMode === 'light' ? 400 : 500}`}
 										fontSize='sm'
 										isTruncated
 										overflow='hidden'

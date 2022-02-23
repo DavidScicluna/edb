@@ -54,8 +54,8 @@ const Image = (props: ImageProps): ReactElement => {
 	const [isHovering, setIsHovering] = useBoolean();
 
 	const iconProps: IconProps = {
-		color: colorMode === 'light' ? theme.colors.gray[50] : theme.colors.gray[900],
-		fontSize: height > 375 ? theme.fontSizes['7xl'] : theme.fontSizes['6xl']
+		color: theme.colors.gray[colorMode === 'light' ? 50 : 900],
+		fontSize: theme.fontSizes[height > 375 ? '7xl' : '6xl']
 	};
 
 	return (

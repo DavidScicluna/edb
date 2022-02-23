@@ -58,7 +58,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				</Box>
 				<Text
 					align='center'
-					color={isSelected ? `${color}.400` : colorMode === 'light' ? 'gray.900' : 'gray.50'}
+					color={isSelected ? `${color}.400` : `gray.${colorMode === 'light' ? 900 : 50}`}
 					fontSize='xl'
 					fontWeight='semibold'
 					isTruncated
@@ -70,7 +70,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				</Text>
 				<Text
 					align='center'
-					color={isSelected ? `${color}.400` : colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					color={isSelected ? `${color}.400` : `gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='sm'
 					fontWeight='400'
 					textTransform='capitalize'

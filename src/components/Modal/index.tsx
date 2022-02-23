@@ -76,14 +76,14 @@ const Modal = (props: ModalProps): ReactElement | null => {
 		>
 			<ModalOverlay />
 			<ModalContent
-				backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+				backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}
 				borderRadius={size === 'full' || (isSm && !isConfirm) ? 'none' : 'xl'}
 				m={isSm && isConfirm ? 2 : 0}
 				sx={{ transition }}
 			>
 				<ModalHeader
 					borderBottom='solid2'
-					borderBottomColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+					borderBottomColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 					px={2}
 					py={1.5}
 					sx={{ transition }}
@@ -94,7 +94,7 @@ const Modal = (props: ModalProps): ReactElement | null => {
 								align='left'
 								fontSize='xl'
 								fontWeight='semibold'
-								color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+								color={`gray.${colorMode === 'light' ? 900 : 50}`}
 							>
 								{title}
 							</Text>
@@ -117,7 +117,7 @@ const Modal = (props: ModalProps): ReactElement | null => {
 					<ModalFooter
 						justifyContent='space-between'
 						borderTop='solid2'
-						borderTopColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+						borderTopColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 						p={2}
 						sx={{ transition }}
 					>

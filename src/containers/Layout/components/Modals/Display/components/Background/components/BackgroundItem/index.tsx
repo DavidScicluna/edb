@@ -16,6 +16,7 @@ const BackgroundItem = (props: BackgroundItemProps): ReactElement => {
 		<Card
 			color={isActive ? color : 'gray'}
 			colorMode={background}
+			isLight
 			isClickable
 			isFullWidth
 			onClick={onClick ? () => onClick(value) : undefined}

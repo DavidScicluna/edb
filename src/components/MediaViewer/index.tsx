@@ -177,11 +177,7 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
 				scrollBehavior='inside'
 				size='full'
 			>
-				<ModalContent
-					backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
-					borderRadius='none'
-					m={0}
-				>
+				<ModalContent backgroundColor={`gray.${colorMode === 'light' ? 900 : 50}`} borderRadius='none' m={0}>
 					<ModalBody position='relative' p={0}>
 						{isOpen ? (
 							<>

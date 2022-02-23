@@ -103,7 +103,7 @@ const SearchTypes = ({ searchTypes: activeSearchTypes, onSetSearchTypes }: Searc
 					title: (
 						<Text
 							align='left'
-							color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+							color={`gray.${colorMode === 'light' ? 400 : 500}`}
 							fontSize='sm'
 							fontWeight='bold'
 							textTransform='uppercase'

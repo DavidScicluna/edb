@@ -19,7 +19,7 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
 	return (
 		<VStack width={isSm ? '100%' : 'auto'} spacing={3}>
 			<VStack width='100%'>
-				<Text align='center' fontSize='sm' color={colorMode === 'light' ? 'gray.400' : 'gray.500'}>
+				<Text align='center' fontSize='sm' color={`gray.${colorMode === 'light' ? 400 : 500}`}>
 					{amount >= total ? (
 						<CountUp duration={1} end={total} prefix={`You've viewed all `} suffix={` ${label}`} />
 					) : (
@@ -31,7 +31,7 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
 				</Text>
 				<Progress
 					width='100%'
-					background={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+					background={`gray.${colorMode === 'light' ? 200 : 700}`}
 					borderRadius='full'
 					size='sm'
 					value={Math.round((amount / total) * 100)}

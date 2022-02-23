@@ -130,11 +130,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 									fontSize='md'
 									isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
 								>
-									<Text
-										align='left'
-										color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
-										fontSize='md'
-									>
+									<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='md'>
 										<CountUp
 											duration={1}
 											end={collectionQuery.data?.parts?.length || 0}

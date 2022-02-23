@@ -23,7 +23,7 @@ const Stat = forwardRef<StatRef, StatProps>(function Stat(props, ref): ReactElem
 			<VStack spacing={0}>
 				<SkeletonText fontSize='3xl' isLoaded={!isLoading}>
 					<StatNumber
-						color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+						color={`gray.${colorMode === 'light' ? 900 : 50}`}
 						fontSize='3xl'
 						lineHeight='normal'
 						whiteSpace='nowrap'
@@ -32,7 +32,7 @@ const Stat = forwardRef<StatRef, StatProps>(function Stat(props, ref): ReactElem
 					</StatNumber>
 				</SkeletonText>
 				<StatLabel
-					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='xs'
 					whiteSpace='nowrap'
 					textTransform='uppercase'

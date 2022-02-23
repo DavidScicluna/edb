@@ -28,7 +28,7 @@ const Stats = (props: StatsProps): ReactElement => {
 		<StatGroup
 			width='100%'
 			border='solid2'
-			borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+			borderColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 			borderRadius='base'
 			p={1}
 		>
@@ -36,7 +36,7 @@ const Stats = (props: StatsProps): ReactElement => {
 				width='100%'
 				justifyContent='space-between'
 				divider={
-					<Box width='2px' height='44px' backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'} />
+					<Box width='2px' height='44px' backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`} />
 				}
 				spacing={1}
 			>
@@ -44,14 +44,14 @@ const Stats = (props: StatsProps): ReactElement => {
 					<Stat key={index} justifyContent='center'>
 						<VStack spacing={0}>
 							<StatNumber
-								color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+								color={`gray.${colorMode === 'light' ? 900 : 50}`}
 								fontSize='2xl'
 								lineHeight='normal'
 							>
 								{stat.number}
 							</StatNumber>
 							<StatLabel
-								color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+								color={`gray.${colorMode === 'light' ? 400 : 500}`}
 								fontSize='xs'
 								whiteSpace='nowrap'
 								textTransform='uppercase'

@@ -15,7 +15,7 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
 	return (
 		<Label width='100%' label='Overview'>
 			{!isLoading ? (
-				<Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md'>
+				<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='md'>
 					{overview}
 				</Text>
 			) : (
@@ -24,7 +24,7 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
 						<SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
 							<Text
 								align='left'
-								color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+								color={`gray.${colorMode === 'light' ? 900 : 50}`}
 								fontSize='md'
 								whiteSpace='nowrap'
 							>

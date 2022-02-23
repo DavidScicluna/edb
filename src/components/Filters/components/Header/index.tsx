@@ -20,7 +20,7 @@ const Header = ({ label, renderMessage, renderButton }: HeaderProps): ReactEleme
 	const [ref, { height }] = useElementSize();
 
 	const renderMessageProps: RenderMessageProps = {
-		color: colorMode === 'light' ? 'gray.900' : 'gray.50',
+		color: `gray.${colorMode === 'light' ? 900 : 50}`,
 		fontSize: 'md',
 		fontWeight: 'medium'
 	};
@@ -34,12 +34,7 @@ const Header = ({ label, renderMessage, renderButton }: HeaderProps): ReactEleme
 	return isSm ? (
 		<VStack width='100%' alignItems='flex-start' justifyContent='center' spacing={2}>
 			<HStack width='100%' alignItems='center' justifyContent='space-between' spacing={2}>
-				<Text
-					align='left'
-					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
-					fontSize='md'
-					fontWeight='bold'
-				>
+				<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='md' fontWeight='bold'>
 					{label}
 				</Text>
 				{renderButton({ ...renderButtonProps })}
@@ -48,7 +43,7 @@ const Header = ({ label, renderMessage, renderButton }: HeaderProps): ReactEleme
 		</VStack>
 	) : (
 		<HStack width='100%' alignItems='center' justifyContent='space-between' spacing={2}>
-			<Text align='left' color={colorMode === 'light' ? 'gray.400' : 'gray.500'} fontSize='md' fontWeight='bold'>
+			<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='md' fontWeight='bold'>
 				{label}
 			</Text>
 			<HStack

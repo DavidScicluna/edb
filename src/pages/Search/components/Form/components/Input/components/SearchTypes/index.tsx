@@ -18,7 +18,7 @@ const SearchTypes = ({ searchTypes, onClear }: SearchTypesProps): ReactElement =
 	return (
 		<HStack
 			minHeight='30px' // Size of Close Button
-			backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+			backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 			borderRadius='sm'
 			px={1}
 			py={0.25}
@@ -26,7 +26,7 @@ const SearchTypes = ({ searchTypes, onClear }: SearchTypesProps): ReactElement =
 		>
 			<Text
 				align='left'
-				color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+				color={`gray.${colorMode === 'light' ? 400 : 500}`}
 				fontSize='sm'
 				fontWeight='semibold'
 				textTransform='uppercase'

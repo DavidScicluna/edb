@@ -67,7 +67,7 @@ const Input = (props: InputProps): ReactElement => {
 				<Center
 					sx={{
 						'& svg': {
-							color: colorMode === 'light' ? 'gray.400' : 'gray.500',
+							color: `gray.${colorMode === 'light' ? 400 : 500}`,
 							transition: 'none !important'
 						}
 					}}
@@ -81,7 +81,7 @@ const Input = (props: InputProps): ReactElement => {
 				) : null}
 				<CUIInput
 					borderRadius='none'
-					color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+					color={`gray.${colorMode === 'light' ? 900 : 50}`}
 					placeholder={`Try "${placeholder}"`}
 					isDisabled={isDisabled}
 					onKeyPress={(event: InputKeyboardEvent) => onInputKeyPress(event)}

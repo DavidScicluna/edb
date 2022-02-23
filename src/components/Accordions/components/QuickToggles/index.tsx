@@ -41,7 +41,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 				<Text
 					ref={textRef}
 					align='left'
-					color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='sm'
 					whiteSpace='nowrap'
 				>
@@ -54,7 +54,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 						renderDivider={({ padding }) => (
 							<Text
 								align='left'
-								color={colorMode === 'light' ? 'gray.400' : 'gray.500'}
+								color={`gray.${colorMode === 'light' ? 400 : 500}`}
 								fontSize='md'
 								px={padding}
 							>

@@ -82,9 +82,9 @@ const User = (): ReactElement => {
 					width='auto'
 					minWidth='225px'
 					border='solid2'
-					borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+					borderColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 					borderRadius='lg'
-					backgroundColor={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+					backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}
 					boxShadow='none'
 					p={2}
 					sx={{
@@ -98,7 +98,7 @@ const User = (): ReactElement => {
 							<Avatar cursor='pointer' name='Test User' size='md' />
 							<Text
 								align='left'
-								color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+								color={`gray.${colorMode === 'light' ? 900 : 50}`}
 								fontSize='md'
 								fontWeight='semibold'
 							>
@@ -109,7 +109,7 @@ const User = (): ReactElement => {
 							width='100%'
 							height='2px'
 							border='solid1'
-							borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+							borderColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 						/>
 						<VStack width='100%' spacing={1}>
 							{userLinks.map((userLink) => (

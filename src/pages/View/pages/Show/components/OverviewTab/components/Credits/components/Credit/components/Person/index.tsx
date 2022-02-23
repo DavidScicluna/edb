@@ -26,7 +26,7 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>
 				<Text
 					align='left'
-					color={colorMode === 'light' ? 'gray.900' : 'gray.50'}
+					color={`gray.${colorMode === 'light' ? 900 : 50}`}
 					fontSize='md'
 					whiteSpace='nowrap'
 					textDecorationStyle='wavy'

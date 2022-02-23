@@ -15,7 +15,7 @@ const Credit = ({ people = [], isLoading = true }: PeopleProps): ReactElement =>
 	return (
 		<HorizontalScroll
 			renderDivider={({ padding }) => (
-				<Text align='left' color={colorMode === 'light' ? 'gray.900' : 'gray.50'} fontSize='md' pr={padding}>
+				<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='md' pr={padding}>
 					,
 				</Text>
 			)}
