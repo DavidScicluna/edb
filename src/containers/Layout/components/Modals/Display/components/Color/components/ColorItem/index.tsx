@@ -35,6 +35,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 			<Card
 				color={isActive ? color : 'gray'}
 				colorMode={colorMode}
+				isFullWidth
 				isClickable
 				onClick={!isActive && onClick ? () => onClick(color) : undefined}
 				onMouseDown={() => setIsMouseDown.on()}

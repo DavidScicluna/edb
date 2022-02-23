@@ -29,6 +29,8 @@ type StyleIconButtonProps = {
 	variant: IconButtonProps['variant'];
 };
 
+const isTouchDevice = handleIsTouchDevice();
+
 export default (
 	theme: Theme,
 	{ color = 'gray', isLoading = false, size = 'md', variant = 'contained' }: StyleIconButtonProps
@@ -53,7 +55,7 @@ export default (
 				'opacity': 1,
 
 				'border': 'none',
-				'outline': '0px auto',
+				'outline': !isTouchDevice ? '0px auto' : 'none !important',
 
 				'padding': 0,
 
@@ -62,16 +64,16 @@ export default (
 				'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
 				'&:focus:not(:focus-visible)': {
-					outline: '0px auto'
+					outline: !isTouchDevice ? '0px auto' : 'none !important'
 				},
 
 				'&:focus': {
 					boxShadow: 'none',
-					outline: '0px auto'
+					outline: !isTouchDevice ? '0px auto' : 'none !important'
 				},
 
 				'&:active': {
-					outline: '0px auto'
+					outline: !isTouchDevice ? '0px auto' : 'none !important'
 				},
 
 				'& svg': {
@@ -94,7 +96,7 @@ export default (
 			md: {
 				'borderRadius': 'base',
 
-				'marginTop': variant !== 'icon' ? '5px !important' : 0,
+				'marginTop': variant !== 'icon' ? '4px !important' : 0,
 
 				'&:hover .icon_button_front': {
 					transform: variant !== 'icon' ? 'translateY(-4px)' : 'none'
@@ -126,11 +128,6 @@ export default (
 
 				width: '100%',
 				height: '100%',
-
-				display: 'flex',
-				flexWrap: 'nowrap',
-				alignItems: 'center',
-				justifyContent: 'center',
 
 				userSelect: 'none',
 				willChange: 'auto',
@@ -205,20 +202,10 @@ export default (
 	light: {
 		back: {
 			contained: {
-				'backgroundColor': `${color}.600`,
+				'backgroundColor': `${color}.700`,
 
 				'&:hover': {
-					'backgroundColor': `${color}.600`,
-
-					'& .icon_button_front': {
-						borderColor: `${color}.400`,
-						backgroundColor: `${color}.400`,
-						color: 'gray.50'
-					}
-				},
-
-				'&:active': {
-					'backgroundColor': `${theme.colors[color][400]} !important`,
+					'backgroundColor': `${color}.700`,
 
 					'& .icon_button_front': {
 						borderColor: `${color}.500`,
@@ -227,31 +214,25 @@ export default (
 					}
 				},
 
-				'&:focus': {
-					outlineColor: `${color}.600`
-				},
-
-				'&:focus-visible': {
-					outline: !handleIsTouchDevice()
-						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
-						: '0px auto',
-					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
-				}
-			},
-			outlined: {
-				'backgroundColor': `${color}.400`,
-
-				'&:hover': {
-					'backgroundColor': `${color}.400`,
+				'&:active': {
+					'backgroundColor': `${theme.colors[color][600]} !important`,
 
 					'& .icon_button_front': {
-						borderColor: `${color}.400`,
-						backgroundColor: 'gray.50',
-						color: `${color}.400`
+						borderColor: `${theme.colors[color][600]} !important`,
+						backgroundColor: `${theme.colors[color][600]} !important`,
+						color: `${theme.colors.gray[50]} !important`
 					}
 				},
 
-				'&:active': {
+				'&:focus-visible': {
+					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][500]}` : 'none',
+					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
+				}
+			},
+			outlined: {
+				'backgroundColor': `${color}.500`,
+
+				'&:hover': {
 					'backgroundColor': `${color}.500`,
 
 					'& .icon_button_front': {
@@ -261,15 +242,19 @@ export default (
 					}
 				},
 
-				'&:focus': {
-					outlineColor: `${color}.600`
+				'&:active': {
+					'backgroundColor': `${color}.500`,
+
+					'& .icon_button_front': {
+						borderColor: `${theme.colors[color][600]} !important`,
+						backgroundColor: `${theme.colors.gray[50]} !important`,
+						color: `${theme.colors[color][600]} !important`
+					}
 				},
 
 				'&:focus-visible': {
-					outline: !handleIsTouchDevice()
-						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
-						: '0px auto',
-					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
+					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][500]}` : 'none',
+					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			},
 			icon: {
@@ -286,63 +271,57 @@ export default (
 				},
 
 				'&:active': {
-					'backgroundColor': 'transparent',
+					'backgroundColor': 'transparent !important',
 
 					'& .icon_button_front': {
-						borderColor: 'transparent',
-						backgroundColor: 'transparent',
-						color: `${color}.600`
+						borderColor: 'transparent !important',
+						backgroundColor: 'transparent !important',
+						color: `${theme.colors[color][600]} !important`
 					}
 				},
 
-				'&:focus': {
-					outlineColor: `${color}.600`
-				},
-
 				'&:focus-visible': {
-					outline: !handleIsTouchDevice()
-						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
-						: '0px auto',
-					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
+					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][500]}` : 'none',
+					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			}
 		},
 		front: {
 			contained: {
-				borderColor: `${color}.400`,
-				backgroundColor: `${color}.400`,
+				borderColor: `${color}.500`,
+				backgroundColor: `${color}.500`,
 				color: 'gray.50'
 			},
 			outlined: {
-				borderColor: `${color}.400`,
+				borderColor: `${color}.500`,
 				backgroundColor: 'gray.50',
-				color: `${color}.400`
+				color: `${color}.500`
 			},
 			icon: {
 				borderColor: 'transparent',
 				backgroundColor: 'transparent',
-				color: `${color}.400`
+				color: `${color}.500`
 			}
 		},
 		disabled: {
 			contained: {
-				'background': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
-				'backgroundColor': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+				'background': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+				'backgroundColor': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
 
 				'& .icon_button_front': {
-					borderColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
-					backgroundColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+					borderColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+					backgroundColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
 					color: `${theme.colors.gray[50]} !important`
 				}
 			},
 			outlined: {
-				'background': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
-				'backgroundColor': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+				'background': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+				'backgroundColor': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
 
 				'& .icon_button_front': {
-					borderColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+					borderColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
 					backgroundColor: `${theme.colors.gray[50]} !important`,
-					color: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`
+					color: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`
 				}
 			},
 			icon: {
@@ -352,7 +331,7 @@ export default (
 				'& .icon_button_front': {
 					borderColor: 'transparent !important',
 					backgroundColor: 'transparent !important',
-					color: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`
+					color: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`
 				}
 			}
 		}
@@ -373,24 +352,18 @@ export default (
 				},
 
 				'&:active': {
-					'backgroundColor': `${theme.colors[color][400]} !important`,
+					'backgroundColor': `${theme.colors[color][300]} !important`,
 
 					'& .icon_button_front': {
-						borderColor: `${color}.500`,
-						backgroundColor: `${color}.500`,
-						color: 'gray.900'
+						borderColor: `${theme.colors[color][300]} !important`,
+						backgroundColor: `${theme.colors[color][300]} !important`,
+						color: `${theme.colors.gray[900]} !important`
 					}
 				},
 
-				'&:focus': {
-					outlineColor: `${color}.600`
-				},
-
 				'&:focus-visible': {
-					outline: !handleIsTouchDevice()
-						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
-						: '0px auto',
-					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
+					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}` : 'none',
+					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			},
 			outlined: {
@@ -407,24 +380,18 @@ export default (
 				},
 
 				'&:active': {
-					'backgroundColor': `${color}.500`,
+					'backgroundColor': `${color}.300`,
 
 					'& .icon_button_front': {
-						borderColor: `${color}.500`,
-						backgroundColor: 'gray.900',
-						color: `${color}.500`
+						borderColor: `${theme.colors[color][300]} !important`,
+						backgroundColor: `${theme.colors.gray[900]} !important`,
+						color: `${theme.colors[color][300]} !important`
 					}
 				},
 
-				'&:focus': {
-					outlineColor: `${color}.600`
-				},
-
 				'&:focus-visible': {
-					outline: !handleIsTouchDevice()
-						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
-						: '0px auto',
-					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
+					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}` : 'none',
+					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			},
 			icon: {
@@ -436,7 +403,7 @@ export default (
 					'& .icon_button_front': {
 						borderColor: 'transparent',
 						backgroundColor: 'transparent',
-						color: `${color}.500`
+						color: `${color}.400`
 					}
 				},
 
@@ -444,21 +411,15 @@ export default (
 					'backgroundColor': 'transparent',
 
 					'& .icon_button_front': {
-						borderColor: 'transparent',
-						backgroundColor: 'transparent',
-						color: `${color}.600`
+						borderColor: 'transparent !important',
+						backgroundColor: 'transparent !important',
+						color: `${theme.colors[color][300]} !important`
 					}
 				},
 
-				'&:focus': {
-					outlineColor: `${color}.600`
-				},
-
 				'&:focus-visible': {
-					outline: !handleIsTouchDevice()
-						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}`
-						: '0px auto',
-					outlineOffset: `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px`
+					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}` : 'none',
+					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			}
 		},
@@ -481,23 +442,23 @@ export default (
 		},
 		disabled: {
 			contained: {
-				'background': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
-				'backgroundColor': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+				'background': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+				'backgroundColor': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
 
 				'& .icon_button_front': {
-					borderColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
-					backgroundColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+					borderColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+					backgroundColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
 					color: `${theme.colors.gray[900]} !important`
 				}
 			},
 			outlined: {
-				'background': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
-				'backgroundColor': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+				'background': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+				'backgroundColor': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
 
 				'& .icon_button_front': {
-					borderColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+					borderColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
 					backgroundColor: `${theme.colors.gray[900]} !important`,
-					color: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`
+					color: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`
 				}
 			},
 			icon: {
@@ -507,7 +468,7 @@ export default (
 				'& .icon_button_front': {
 					borderColor: 'transparent !important',
 					backgroundColor: 'transparent !important',
-					color: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`
+					color: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`
 				}
 			}
 		}
