@@ -8,6 +8,7 @@ import { ListItemProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Card from '../../../../../../../../components/Clickable/Card';
+import { CardRef } from '../../../../../../../../components/Clickable/Card/types';
 import Radio from '../../../../../../../../components/Forms/Radio';
 import { Theme } from '../../../../../../../../theme/types';
 
@@ -15,7 +16,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
-	const [ref, { width }] = useElementSize();
+	const [ref, { width }] = useElementSize<NonNullable<CardRef>>();
 
 	const { id, label, results, isSelected = false, onSelected, onClick } = props;
 

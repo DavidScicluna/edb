@@ -1,6 +1,6 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { ColorMode, useTheme, useColorMode, Box } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
@@ -32,20 +32,23 @@ const Card = forwardRef<CardRef, CardProps>(function Card(props, ref): ReactElem
 	const style = useStyles(theme, { color, isFullWidth, isLight, isClickable, isFixed });
 
 	return (
-		<Box
+		<CUIButton
 			ref={ref}
-			aria-disabled={isDisabled}
+			tabIndex={0}
+			isDisabled={isDisabled}
+			isFullWidth={isFullWidth}
+			variant='unstyled'
 			sx={{ ..._.merge(style.card.back, style[colorMode].back, sx?.back || {}) }}
 			_disabled={{ ..._.merge(style.card.disabled, style[colorMode].disabled) }}
 		>
-			<Box
+			<Center
 				{...rest}
 				className='card_front'
 				sx={{ ..._.merge(style.card.front, style[colorMode].front, sx?.front || {}) }}
 			>
 				{children}
-			</Box>
-		</Box>
+			</Center>
+		</CUIButton>
 	);
 });
 

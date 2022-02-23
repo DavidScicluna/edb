@@ -7,15 +7,17 @@ import { useElementSize } from 'usehooks-ts';
 import { MediaTypeItemProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
+import { NonNullable } from '../../../../common/types';
 import { Theme } from '../../../../theme/types';
 import Card from '../../../Clickable/Card';
+import { CardRef } from '../../../Clickable/Card/types';
 
 const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
 	const theme = useTheme<Theme>();
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const [ref, { height }] = useElementSize();
+	const [ref, { height }] = useElementSize<NonNullable<CardRef>>();
 
 	const { renderIcon, label, value, isActive = false, onClick } = props;
 
