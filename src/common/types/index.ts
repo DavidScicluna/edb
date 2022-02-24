@@ -1,10 +1,12 @@
 import { ReactElement } from 'react';
 
+import { CSSObject } from '@chakra-ui/react';
+
 // Utility Types
 export type NonNullable<T> = Exclude<T, null | undefined>; // Remove null and undefined from Type
 
 // Component Types
-export type Style = { [key: string]: number | string | unknown | Style };
+export type Style = CSSObject;
 
 export type Icon = ReactElement;
 
