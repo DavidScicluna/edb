@@ -38,7 +38,7 @@ export default (theme: Theme, { colorMode, color }: StyleLinkProps): LinkStyle =
 
 			'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
-			'color': colorMode === 'light' ? 'gray.400' : 'gray.400',
+			'color': `gray.${colorMode === 'light' ? 400 : 500}`,
 
 			'&:hover': {
 				color

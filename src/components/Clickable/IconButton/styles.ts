@@ -202,58 +202,62 @@ export default (
 	light: {
 		back: {
 			contained: {
-				'backgroundColor': `${color}.700`,
+				'backgroundColor': `${color}.${color === 'gray' ? 600 : 700}`,
 
 				'&:hover': {
-					'backgroundColor': `${color}.700`,
+					'backgroundColor': `${color}.${color === 'gray' ? 600 : 700}`,
 
 					'& .icon_button_front': {
-						borderColor: `${color}.500`,
-						backgroundColor: `${color}.500`,
+						borderColor: `${color}.${color === 'gray' ? 400 : 500}`,
+						backgroundColor: `${color}.${color === 'gray' ? 400 : 500}`,
 						color: 'gray.50'
 					}
 				},
 
 				'&:active': {
-					'backgroundColor': `${theme.colors[color][600]} !important`,
+					'backgroundColor': `${theme.colors[color][color === 'gray' ? 500 : 600]} !important`,
 
 					'& .icon_button_front': {
-						borderColor: `${theme.colors[color][600]} !important`,
-						backgroundColor: `${theme.colors[color][600]} !important`,
+						borderColor: `${theme.colors[color][color === 'gray' ? 500 : 600]} !important`,
+						backgroundColor: `${theme.colors[color][color === 'gray' ? 500 : 600]} !important`,
 						color: `${theme.colors.gray[50]} !important`
 					}
 				},
 
 				'&:focus-visible': {
-					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][500]}` : 'none',
+					outline: !isTouchDevice
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][color === 'gray' ? 400 : 500]}`
+						: 'none',
 					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			},
 			outlined: {
-				'backgroundColor': `${color}.500`,
+				'backgroundColor': `${color}.${color === 'gray' ? 400 : 500}`,
 
 				'&:hover': {
-					'backgroundColor': `${color}.500`,
+					'backgroundColor': `${color}.${color === 'gray' ? 400 : 500}`,
 
 					'& .icon_button_front': {
-						borderColor: `${color}.500`,
+						borderColor: `${color}.${color === 'gray' ? 400 : 500}`,
 						backgroundColor: 'gray.50',
-						color: `${color}.500`
+						color: `${color}.${color === 'gray' ? 400 : 500}`
 					}
 				},
 
 				'&:active': {
-					'backgroundColor': `${color}.500`,
+					'backgroundColor': `${theme.colors[color][color === 'gray' ? 500 : 600]} !important`,
 
 					'& .icon_button_front': {
-						borderColor: `${theme.colors[color][600]} !important`,
+						borderColor: `${theme.colors[color][color === 'gray' ? 500 : 600]} !important`,
 						backgroundColor: `${theme.colors.gray[50]} !important`,
-						color: `${theme.colors[color][600]} !important`
+						color: `${theme.colors[color][color === 'gray' ? 500 : 600]} !important`
 					}
 				},
 
 				'&:focus-visible': {
-					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][500]}` : 'none',
+					outline: !isTouchDevice
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][color === 'gray' ? 400 : 500]}`
+						: 'none',
 					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			},
@@ -266,7 +270,7 @@ export default (
 					'& .icon_button_front': {
 						borderColor: 'transparent',
 						backgroundColor: 'transparent',
-						color: `${color}.500`
+						color: `${color}.${color === 'gray' ? 400 : 500}`
 					}
 				},
 
@@ -276,52 +280,60 @@ export default (
 					'& .icon_button_front': {
 						borderColor: 'transparent !important',
 						backgroundColor: 'transparent !important',
-						color: `${theme.colors[color][600]} !important`
+						color: `${theme.colors[color][color === 'gray' ? 500 : 600]} !important`
 					}
 				},
 
 				'&:focus-visible': {
-					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][500]}` : 'none',
+					outline: !isTouchDevice
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][color === 'gray' ? 400 : 500]}`
+						: 'none',
 					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			}
 		},
 		front: {
 			contained: {
-				borderColor: `${color}.500`,
-				backgroundColor: `${color}.500`,
+				borderColor: `${color}.${color === 'gray' ? 400 : 500}`,
+				backgroundColor: `${color}.${color === 'gray' ? 400 : 500}`,
 				color: 'gray.50'
 			},
 			outlined: {
-				borderColor: `${color}.500`,
+				borderColor: `${color}.${color === 'gray' ? 400 : 500}`,
 				backgroundColor: 'gray.50',
-				color: `${color}.500`
+				color: `${color}.${color === 'gray' ? 400 : 500}`
 			},
 			icon: {
 				borderColor: 'transparent',
 				backgroundColor: 'transparent',
-				color: `${color}.500`
+				color: `${color}.${color === 'gray' ? 400 : 500}`
 			}
 		},
 		disabled: {
 			contained: {
-				'background': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
-				'backgroundColor': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+				'background': `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]} !important`,
+				'backgroundColor': `${
+					theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]
+				} !important`,
 
 				'& .icon_button_front': {
-					borderColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
-					backgroundColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+					borderColor: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]} !important`,
+					backgroundColor: `${
+						theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]
+					} !important`,
 					color: `${theme.colors.gray[50]} !important`
 				}
 			},
 			outlined: {
-				'background': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
-				'backgroundColor': `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+				'background': `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]} !important`,
+				'backgroundColor': `${
+					theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]
+				} !important`,
 
 				'& .icon_button_front': {
-					borderColor: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`,
+					borderColor: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]} !important`,
 					backgroundColor: `${theme.colors.gray[50]} !important`,
-					color: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`
+					color: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]} !important`
 				}
 			},
 			icon: {
@@ -331,7 +343,7 @@ export default (
 				'& .icon_button_front': {
 					borderColor: 'transparent !important',
 					backgroundColor: 'transparent !important',
-					color: `${isLoading ? theme.colors[color][500] : theme.colors.gray[500]} !important`
+					color: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 400 : 500]} !important`
 				}
 			}
 		}
@@ -339,58 +351,62 @@ export default (
 	dark: {
 		back: {
 			contained: {
-				'backgroundColor': `${color}.600`,
+				'backgroundColor': `${color}.${color === 'gray' ? 700 : 600}`,
 
 				'&:hover': {
-					'backgroundColor': `${color}.600`,
+					'backgroundColor': `${color}.${color === 'gray' ? 700 : 600}`,
 
 					'& .icon_button_front': {
-						borderColor: `${color}.400`,
-						backgroundColor: `${color}.400`,
-						color: 'gray.900'
+						borderColor: `${color}.${color === 'gray' ? 500 : 400}`,
+						backgroundColor: `${color}.${color === 'gray' ? 500 : 400}`,
+						color: 'gray.50'
 					}
 				},
 
 				'&:active': {
-					'backgroundColor': `${theme.colors[color][300]} !important`,
+					'backgroundColor': `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`,
 
 					'& .icon_button_front': {
-						borderColor: `${theme.colors[color][300]} !important`,
-						backgroundColor: `${theme.colors[color][300]} !important`,
-						color: `${theme.colors.gray[900]} !important`
+						borderColor: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`,
+						backgroundColor: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`,
+						color: `${theme.colors.gray[50]} !important`
 					}
 				},
 
 				'&:focus-visible': {
-					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}` : 'none',
+					outline: !isTouchDevice
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][color === 'gray' ? 500 : 400]}`
+						: 'none',
 					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			},
 			outlined: {
-				'backgroundColor': `${color}.400`,
+				'backgroundColor': `${color}.${color === 'gray' ? 500 : 400}`,
 
 				'&:hover': {
-					'backgroundColor': `${color}.400`,
+					'backgroundColor': `${color}.${color === 'gray' ? 500 : 400}`,
 
 					'& .icon_button_front': {
-						borderColor: `${color}.400`,
-						backgroundColor: 'gray.900',
-						color: `${color}.400`
+						borderColor: `${color}.${color === 'gray' ? 500 : 400}`,
+						backgroundColor: 'gray.50',
+						color: `${color}.${color === 'gray' ? 500 : 400}`
 					}
 				},
 
 				'&:active': {
-					'backgroundColor': `${color}.300`,
+					'backgroundColor': `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`,
 
 					'& .icon_button_front': {
-						borderColor: `${theme.colors[color][300]} !important`,
-						backgroundColor: `${theme.colors.gray[900]} !important`,
-						color: `${theme.colors[color][300]} !important`
+						borderColor: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`,
+						backgroundColor: `${theme.colors.gray[50]} !important`,
+						color: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`
 					}
 				},
 
 				'&:focus-visible': {
-					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}` : 'none',
+					outline: !isTouchDevice
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][color === 'gray' ? 500 : 400]}`
+						: 'none',
 					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			},
@@ -403,62 +419,70 @@ export default (
 					'& .icon_button_front': {
 						borderColor: 'transparent',
 						backgroundColor: 'transparent',
-						color: `${color}.400`
+						color: `${color}.${color === 'gray' ? 500 : 400}`
 					}
 				},
 
 				'&:active': {
-					'backgroundColor': 'transparent',
+					'backgroundColor': 'transparent !important',
 
 					'& .icon_button_front': {
 						borderColor: 'transparent !important',
 						backgroundColor: 'transparent !important',
-						color: `${theme.colors[color][300]} !important`
+						color: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`
 					}
 				},
 
 				'&:focus-visible': {
-					outline: !isTouchDevice ? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][400]}` : 'none',
+					outline: !isTouchDevice
+						? `${size === 'sm' ? 1 : 2}px auto ${theme.colors[color][color === 'gray' ? 500 : 400]}`
+						: 'none',
 					outlineOffset: !isTouchDevice ? `${size === 'sm' ? 2 : size === 'md' ? 3 : 4}px` : 0
 				}
 			}
 		},
 		front: {
 			contained: {
-				borderColor: `${color}.400`,
-				backgroundColor: `${color}.400`,
-				color: 'gray.900'
+				borderColor: `${color}.${color === 'gray' ? 500 : 400}`,
+				backgroundColor: `${color}.${color === 'gray' ? 500 : 400}`,
+				color: 'gray.50'
 			},
 			outlined: {
-				borderColor: `${color}.400`,
-				backgroundColor: 'gray.900',
-				color: `${color}.400`
+				borderColor: `${color}.${color === 'gray' ? 500 : 400}`,
+				backgroundColor: 'gray.50',
+				color: `${color}.${color === 'gray' ? 500 : 400}`
 			},
 			icon: {
 				borderColor: 'transparent',
 				backgroundColor: 'transparent',
-				color: `${color}.400`
+				color: `${color}.${color === 'gray' ? 500 : 400}`
 			}
 		},
 		disabled: {
 			contained: {
-				'background': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
-				'backgroundColor': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+				'background': `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]} !important`,
+				'backgroundColor': `${
+					theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]
+				} !important`,
 
 				'& .icon_button_front': {
-					borderColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
-					backgroundColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
-					color: `${theme.colors.gray[900]} !important`
+					borderColor: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]} !important`,
+					backgroundColor: `${
+						theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]
+					} !important`,
+					color: `${theme.colors.gray[50]} !important`
 				}
 			},
 			outlined: {
-				'background': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
-				'backgroundColor': `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
+				'background': `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]} !important`,
+				'backgroundColor': `${
+					theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]
+				} !important`,
 
 				'& .icon_button_front': {
-					borderColor: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`,
-					backgroundColor: `${theme.colors.gray[900]} !important`,
-					color: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`
+					borderColor: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]} !important`,
+					backgroundColor: `${theme.colors.gray[50]} !important`,
+					color: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]} !important`
 				}
 			},
 			icon: {
@@ -468,7 +492,7 @@ export default (
 				'& .icon_button_front': {
 					borderColor: 'transparent !important',
 					backgroundColor: 'transparent !important',
-					color: `${isLoading ? theme.colors[color][400] : theme.colors.gray[400]} !important`
+					color: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]} !important`
 				}
 			}
 		}

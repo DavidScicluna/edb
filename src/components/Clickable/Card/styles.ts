@@ -122,91 +122,175 @@ export default (
 	},
 	light: {
 		back: {
-			'backgroundColor': `${color}.${isLight ? 200 : 500}`,
+			'backgroundColor': `${color}.${isLight ? 200 : color === 'gray' ? 400 : 500}`,
 
 			'&:hover': {
-				'backgroundColor': `${color}.${isLight ? 200 : 500}`,
+				'backgroundColor': `${color}.${isLight ? 200 : color === 'gray' ? 400 : 500}`,
 
 				'& .card_front': {
-					borderColor: `${color}.${isLight ? 200 : 500}`,
+					borderColor: `${color}.${isLight ? 200 : color === 'gray' ? 400 : 500}`,
 					backgroundColor: 'gray.50',
-					color: `${color}.${isLight ? 200 : 500}`
+					color: `${color}.${isLight ? 200 : color === 'gray' ? 400 : 500}`
 				}
 			},
 
 			'&:active': {
-				'backgroundColor': `${color}.${!isFixed && isClickable ? (isLight ? 300 : 600) : isLight ? 200 : 500}`,
+				'backgroundColor': `${
+					theme.colors[color][
+						!isFixed && isClickable
+							? isLight
+								? 300
+								: color === 'gray'
+								? 500
+								: 600
+							: isLight
+							? 200
+							: color === 'gray'
+							? 400
+							: 500
+					]
+				} !important`,
 
 				'& .card_front': {
-					borderColor: `${color}.${!isFixed && isClickable ? (isLight ? 300 : 600) : isLight ? 200 : 500}`,
+					borderColor: `${
+						theme.colors[color][
+							!isFixed && isClickable
+								? isLight
+									? 300
+									: color === 'gray'
+									? 500
+									: 600
+								: isLight
+								? 200
+								: color === 'gray'
+								? 400
+								: 500
+						]
+					} !important`,
 					backgroundColor: 'gray.50',
-					color: `${color}.${!isFixed && isClickable ? (isLight ? 300 : 600) : isLight ? 200 : 500}`
+					color: `${
+						theme.colors[color][
+							!isFixed && isClickable
+								? isLight
+									? 300
+									: color === 'gray'
+									? 500
+									: 600
+								: isLight
+								? 200
+								: color === 'gray'
+								? 400
+								: 500
+						]
+					} !important`
 				}
 			},
 
 			'&:focus-visible': {
-				outline: !isTouchDevice ? `2px auto ${theme.colors[color][500]}` : 'none',
+				outline: !isTouchDevice ? `2px auto ${theme.colors[color][color === 'gray' ? 400 : 500]}` : 'none',
 				outlineOffset: !isTouchDevice ? '4px' : 0
 			}
 		},
 		front: {
-			borderColor: `${color}.${isLight ? 200 : 500}`,
+			borderColor: `${color}.${isLight ? 200 : color === 'gray' ? 400 : 500}`,
 			backgroundColor: 'gray.50',
-			color: `${color}.${isLight ? 200 : 500}`
+			color: `${color}.${isLight ? 200 : color === 'gray' ? 400 : 500}`
 		},
 		disabled: {
-			'background': `${theme.colors.gray[isLight ? 200 : 500]} !important`,
-			'backgroundColor': `${theme.colors.gray[isLight ? 200 : 500]} !important`,
+			'background': `${theme.colors.gray[isLight ? 200 : color === 'gray' ? 400 : 500]} !important`,
+			'backgroundColor': `${theme.colors.gray[isLight ? 200 : color === 'gray' ? 400 : 500]} !important`,
 
 			'& .card_front': {
-				borderColor: `${theme.colors.gray[isLight ? 200 : 500]} !important`,
+				borderColor: `${theme.colors.gray[isLight ? 200 : color === 'gray' ? 400 : 500]} !important`,
 				backgroundColor: `${theme.colors.gray[50]} !important`,
-				color: `${theme.colors.gray[isLight ? 200 : 500]} !important`
+				color: `${theme.colors.gray[isLight ? 200 : color === 'gray' ? 400 : 500]} !important`
 			}
 		}
 	},
 	dark: {
 		back: {
-			'backgroundColor': `${color}.${isLight ? 700 : 400}`,
+			'backgroundColor': `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 
 			'&:hover': {
-				'backgroundColor': `${color}.${isLight ? 700 : 400}`,
+				'backgroundColor': `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 
 				'& .card_front': {
-					borderColor: `${color}.${isLight ? 700 : 400}`,
+					borderColor: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 					backgroundColor: 'gray.900',
-					color: `${color}.${isLight ? 700 : 400}`
+					color: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`
 				}
 			},
 
 			'&:active': {
-				'backgroundColor': `${color}.${!isFixed && isClickable ? (isLight ? 600 : 300) : isLight ? 700 : 400}`,
+				'backgroundColor': `${
+					theme.colors[color][
+						!isFixed && isClickable
+							? isLight
+								? 600
+								: color === 'gray'
+								? 400
+								: 300
+							: isLight
+							? 700
+							: color === 'gray'
+							? 500
+							: 400
+					]
+				} !important`,
 
 				'& .card_front': {
-					borderColor: `${color}.${!isFixed && isClickable ? (isLight ? 600 : 300) : isLight ? 700 : 400}`,
+					borderColor: `${
+						theme.colors[color][
+							!isFixed && isClickable
+								? isLight
+									? 600
+									: color === 'gray'
+									? 400
+									: 300
+								: isLight
+								? 700
+								: color === 'gray'
+								? 500
+								: 400
+						]
+					} !important`,
 					backgroundColor: 'gray.900',
-					color: `${color}.${!isFixed && isClickable ? (isLight ? 600 : 300) : isLight ? 700 : 400}`
+					color: `${
+						theme.colors[color][
+							!isFixed && isClickable
+								? isLight
+									? 600
+									: color === 'gray'
+									? 400
+									: 300
+								: isLight
+								? 700
+								: color === 'gray'
+								? 500
+								: 400
+						]
+					} !important`
 				}
 			},
 
 			'&:focus-visible': {
-				outline: !isTouchDevice ? `2px auto ${theme.colors[color][400]}` : 'none',
+				outline: !isTouchDevice ? `2px auto ${theme.colors[color][color === 'gray' ? 500 : 400]}` : 'none',
 				outlineOffset: !isTouchDevice ? '4px' : 0
 			}
 		},
 		front: {
-			borderColor: `${color}.${isLight ? 700 : 400}`,
+			borderColor: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`,
 			backgroundColor: 'gray.900',
-			color: `${color}.${isLight ? 700 : 400}`
+			color: `${color}.${isLight ? 700 : color === 'gray' ? 500 : 400}`
 		},
 		disabled: {
-			'background': `${theme.colors.gray[isLight ? 700 : 400]} !important`,
-			'backgroundColor': `${theme.colors.gray[isLight ? 700 : 400]} !important`,
+			'background': `${theme.colors.gray[isLight ? 700 : color === 'gray' ? 500 : 400]} !important`,
+			'backgroundColor': `${theme.colors.gray[isLight ? 700 : color === 'gray' ? 500 : 400]} !important`,
 
 			'& .card_front': {
-				borderColor: `${theme.colors.gray[isLight ? 700 : 400]} !important`,
+				borderColor: `${theme.colors.gray[isLight ? 700 : color === 'gray' ? 500 : 400]} !important`,
 				backgroundColor: `${theme.colors.gray[900]} !important`,
-				color: `${theme.colors.gray[isLight ? 700 : 400]} !important`
+				color: `${theme.colors.gray[isLight ? 700 : color === 'gray' ? 500 : 400]} !important`
 			}
 		}
 	}

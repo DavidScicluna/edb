@@ -38,16 +38,16 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false }: StylePane
 	light: {
 		outlined: {
 			'backgroundColor': 'transparent',
-			'borderColor': color === 'gray' ? 'gray.200' : `${color}.400`,
+			'borderColor': `${color === 'gray' ? 'gray' : color}.${color === 'gray' ? 200 : 500}`,
 
 			'&:hover': {
 				backgroundColor: 'transparent',
-				borderColor: color === 'gray' ? 'gray.200' : `${color}.400`
+				borderColor: `${color === 'gray' ? 'gray' : color}.${color === 'gray' ? 200 : 500}`
 			},
 
 			'&:active': {
 				backgroundColor: 'transparent',
-				borderColor: color === 'gray' ? 'gray.200' : `${color}.400`
+				borderColor: `${color === 'gray' ? 'gray' : color}.${color === 'gray' ? 200 : 500}`
 			}
 		},
 		transparent: {
@@ -65,16 +65,16 @@ export default (theme: Theme, { color = 'gray', isFullWidth = false }: StylePane
 	dark: {
 		outlined: {
 			'backgroundColor': 'transparent',
-			'borderColor': color === 'gray' ? 'gray.700' : `${color}.500`,
+			'borderColor': `${color === 'gray' ? 'gray' : color}.${color === 'gray' ? 700 : 400}`,
 
 			'&:hover': {
 				backgroundColor: 'transparent',
-				borderColor: color === 'gray' ? 'gray.700' : `${color}.500`
+				borderColor: `${color === 'gray' ? 'gray' : color}.${color === 'gray' ? 700 : 400}`
 			},
 
 			'&:active': {
 				backgroundColor: 'transparent',
-				borderColor: color === 'gray' ? 'gray.700' : `${color}.500`
+				borderColor: `${color === 'gray' ? 'gray' : color}.${color === 'gray' ? 700 : 400}`
 			}
 		},
 		transparent: {

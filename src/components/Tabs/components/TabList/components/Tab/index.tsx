@@ -60,7 +60,7 @@ const Tab = (props: TabsProps): ReactElement => {
 
 	const isSelected = isSelectedProp && !isOnlyTab;
 
-	const style = useStyles(theme, { color, isFullWidth, isOnlyTab, isSelected });
+	const style = useStyles(theme, { color, isFullWidth, isOnlyTab, isSelected, size });
 
 	const handleReturnRenderProps = (): RenderProps => {
 		return {

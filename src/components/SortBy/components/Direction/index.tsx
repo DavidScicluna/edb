@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { useMediaQuery, Stack } from '@chakra-ui/react';
+import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
 import {
 	ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
@@ -37,7 +37,7 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 						},
 						body: (
 							<Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
-								<span style={{ width: '100%' }}>
+								<Center width='100%'>
 									<Button
 										color={value === 'asc' ? color : 'gray'}
 										renderLeftIcon={({ fontSize }) => (
@@ -55,8 +55,8 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 									>
 										Ascending order
 									</Button>
-								</span>
-								<span style={{ width: '100%' }}>
+								</Center>
+								<Center width='100%'>
 									<Button
 										color={value === 'desc' ? color : 'gray'}
 										renderLeftIcon={({ fontSize }) => (
@@ -74,7 +74,7 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 									>
 										Descending order
 									</Button>
-								</span>
+								</Center>
 							</Stack>
 						)
 					}}

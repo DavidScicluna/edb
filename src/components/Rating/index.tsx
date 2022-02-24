@@ -62,7 +62,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 		<Center ref={ref}>
 			<StarOutlinedIcon
 				style={{
-					color: theme.colors.yellow[colorMode === 'light' ? 400 : 500],
+					color: theme.colors.yellow[colorMode === 'light' ? 500 : 400],
 					fontSize: handleReturnIconSize()
 				}}
 			/>

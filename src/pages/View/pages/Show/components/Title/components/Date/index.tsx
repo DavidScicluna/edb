@@ -16,6 +16,7 @@ const Date = (props: DateProps): ReactElement => {
 
 	const dummy = useConst<number>(_.sample(dummies) || 50);
 
+	// TODO: Check if date is empty with lodash
 	const handleDate = (): string => {
 		if (!in_production && last_air_date) {
 			const firstYear = handleReturnDate(first_air_date || '', 'year');

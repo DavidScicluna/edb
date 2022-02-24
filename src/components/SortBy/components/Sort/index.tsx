@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, Center } from '@chakra-ui/react';
 
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 
@@ -32,7 +32,7 @@ const Sort = ({ form, sortBy }: SortProps): ReactElement => {
 						body: (
 							<VStack width='100%' spacing={2}>
 								{sortBy.map((sort) => (
-									<span key={sort.value} style={{ width: '100%' }}>
+									<Center key={sort.value} width='100%'>
 										<Button
 											color={sort.value === value.value ? color : 'gray'}
 											renderRightIcon={
@@ -49,7 +49,7 @@ const Sort = ({ form, sortBy }: SortProps): ReactElement => {
 										>
 											{sort.label}
 										</Button>
-									</span>
+									</Center>
 								))}
 							</VStack>
 						)

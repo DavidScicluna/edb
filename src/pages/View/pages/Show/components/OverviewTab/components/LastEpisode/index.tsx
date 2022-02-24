@@ -38,7 +38,7 @@ const LastEpisode = ({ show, isLoading = true, onChangeTab }: LastEpisodeProps):
 										'full'
 									)}`}
 									isLoading={isLoading}
-								/>
+								/> // TODO: Check Date is empty with lodash
 							) : null}
 						</VStack>
 					)

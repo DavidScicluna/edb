@@ -1,6 +1,6 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { ColorMode, useTheme, useColorMode, Tooltip as CUITooltip } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Tooltip as CUITooltip, Center } from '@chakra-ui/react';
 
 import { TooltipRef, TooltipProps } from './types';
 
@@ -48,14 +48,12 @@ const Tooltip = forwardRef<TooltipRef, TooltipProps>(function Tooltip(props, ref
 
 				'& .chakra-tooltip__arrow': {
 					boxShadow: `${theme.shadows.base} !important`,
-					background: `${colorMode === 'light' ? theme.colors.gray[700] : theme.colors.gray[200]} !important`,
-					backgroundColor: `${
-						colorMode === 'light' ? theme.colors.gray[700] : theme.colors.gray[200]
-					} !important`
+					background: `${theme.colors.gray[colorMode === 'light' ? 700 : 200]} !important`,
+					backgroundColor: `${theme.colors.gray[colorMode === 'light' ? 700 : 200]} !important`
 				}
 			}}
 		>
-			{shouldWrapChildren ? <span style={{ width: '100%' }}>{children}</span> : children}
+			{shouldWrapChildren ? <Center width='100%'>{children}</Center> : children}
 		</CUITooltip>
 	) : (
 		children

@@ -114,36 +114,36 @@ export default (
 	},
 	light: {
 		contained: {
-			borderColor: `${color}.${isLight ? 400 : 800}`,
-			backgroundColor: `${color}.${isLight ? 400 : 800}`,
+			borderColor: `${color}.${color === 'gray' ? (isLight ? 400 : 600) : isLight ? 500 : 700}`,
+			backgroundColor: `${color}.${color === 'gray' ? (isLight ? 400 : 600) : isLight ? 500 : 700}`,
 			color: 'gray.50'
 		},
 		outlined: {
-			borderColor: `${color}.${isLight ? 400 : 800}`,
+			borderColor: `${color}.${color === 'gray' ? (isLight ? 400 : 600) : isLight ? 500 : 700}`,
 			backgroundColor: 'gray.50',
-			color: `${color}.${isLight ? 400 : 800}`
+			color: `${color}.${color === 'gray' ? (isLight ? 400 : 600) : isLight ? 500 : 700}`
 		},
 		text: {
 			borderColor: 'transparent',
 			backgroundColor: 'transparent',
-			color: `${color}.${isLight ? 400 : 800}`
+			color: `${color}.${color === 'gray' ? (isLight ? 400 : 600) : isLight ? 500 : 700}`
 		}
 	},
 	dark: {
 		contained: {
-			borderColor: `${color}.${isLight ? 400 : 800}`,
-			backgroundColor: `${color}.${isLight ? 400 : 800}`,
+			borderColor: `${color}.${color === 'gray' ? (isLight ? 500 : 300) : isLight ? 400 : 200}`,
+			backgroundColor: `${color}.${color === 'gray' ? (isLight ? 500 : 300) : isLight ? 400 : 200}`,
 			color: 'gray.900'
 		},
 		outlined: {
-			borderColor: `${color}.${isLight ? 400 : 800}`,
+			borderColor: `${color}.${color === 'gray' ? (isLight ? 500 : 300) : isLight ? 400 : 200}`,
 			backgroundColor: 'gray.900',
-			color: `${color}.${isLight ? 400 : 800}`
+			color: `${color}.${color === 'gray' ? (isLight ? 500 : 300) : isLight ? 400 : 200}`
 		},
 		text: {
 			borderColor: 'transparent',
 			backgroundColor: 'transparent',
-			color: `${color}.${isLight ? 400 : 800}`
+			color: `${color}.${color === 'gray' ? (isLight ? 500 : 300) : isLight ? 400 : 200}`
 		}
 	}
 });

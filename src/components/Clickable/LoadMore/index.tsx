@@ -35,7 +35,7 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
 					borderRadius='full'
 					size='sm'
 					value={Math.round((amount / total) * 100)}
-					sx={{ '& div': { backgroundColor: `${color}.400` } }}
+					sx={{ '& div': { backgroundColor: `${color}.${colorMode === 'light' ? 500 : 400}` } }}
 				/>
 			</VStack>
 
