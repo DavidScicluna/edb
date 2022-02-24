@@ -6,7 +6,7 @@ import { handleCheckSystemColorMode } from '../utils';
 
 type Mode = 'light' | 'dark';
 
-const useCheckColorMode = (isSystemMode = false): Mode => {
+const useCheckColorMode = (): Mode => {
 	const [mode, setMode] = useState<Mode>('light');
 
 	const handleUpdateColorMode = useCallback(
@@ -17,18 +17,14 @@ const useCheckColorMode = (isSystemMode = false): Mode => {
 	);
 
 	useEffect(() => {
-		if (isSystemMode) {
-			handleUpdateColorMode();
-		}
+		handleUpdateColorMode();
 
-		window
-			.matchMedia('(prefers-color-scheme: dark)')
-			.addEventListener('change', () => (isSystemMode ? handleUpdateColorMode() : undefined));
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => handleUpdateColorMode());
 
 		return () =>
 			window
 				.matchMedia('(prefers-color-scheme: dark)')
-				.removeEventListener('change', () => (isSystemMode ? handleUpdateColorMode() : undefined));
+				.removeEventListener('change', () => handleUpdateColorMode());
 	}, []);
 
 	return mode;

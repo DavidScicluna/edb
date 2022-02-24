@@ -93,7 +93,7 @@ const Layout = (): ReactElement => {
 
 	const isFirstRender = useIsFirstRender();
 
-	const mode = useCheckColorMode(!isFirstRender && background === 'system');
+	const mode = useCheckColorMode();
 
 	const handleUpdateColorMode = useCallback(
 		_.debounce((mode: ColorMode) => {
@@ -115,7 +115,7 @@ const Layout = (): ReactElement => {
 	}, [isLgUp]);
 
 	useUpdateEffect(() => {
-		if (!isFirstRender) {
+		if (!isFirstRender && background === 'system') {
 			handleUpdateColorMode(mode);
 		}
 	}, [mode]);

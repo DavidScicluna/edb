@@ -17,11 +17,12 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 	const dispatch = useDispatch();
 	const background = useSelector((state) => state.user.ui.theme.background);
 
-	const mode = useCheckColorMode(background === 'system');
+	const mode = useCheckColorMode();
 
 	const handleUpdateColorMode = useCallback(
 		_.debounce((mode: ColorMode) => {
 			dispatch(toggleSplashscreen(true));
+			console.log(mode);
 
 			setColorMode(mode);
 
@@ -31,7 +32,9 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 	);
 
 	useEffect(() => {
-		handleUpdateColorMode(mode);
+		if (background === 'system') {
+			handleUpdateColorMode(mode);
+		}
 	}, [mode]);
 
 	return <SplashscreenModal isOpen={isOpen} />;

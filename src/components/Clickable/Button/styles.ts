@@ -359,7 +359,7 @@ export default (
 					'& .button_front': {
 						borderColor: `${color}.${color === 'gray' ? 500 : 400}`,
 						backgroundColor: `${color}.${color === 'gray' ? 500 : 400}`,
-						color: 'gray.50'
+						color: 'gray.900'
 					}
 				},
 
@@ -369,7 +369,7 @@ export default (
 					'& .button_front': {
 						borderColor: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`,
 						backgroundColor: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`,
-						color: `${theme.colors.gray[50]} !important`
+						color: `${theme.colors.gray[900]} !important`
 					}
 				},
 
@@ -388,7 +388,7 @@ export default (
 
 					'& .button_front': {
 						borderColor: `${color}.${color === 'gray' ? 500 : 400}`,
-						backgroundColor: 'gray.50',
+						backgroundColor: 'gray.900',
 						color: `${color}.${color === 'gray' ? 500 : 400}`
 					}
 				},
@@ -398,7 +398,7 @@ export default (
 
 					'& .button_front': {
 						borderColor: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`,
-						backgroundColor: `${theme.colors.gray[50]} !important`,
+						backgroundColor: `${theme.colors.gray[900]} !important`,
 						color: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`
 					}
 				},
@@ -445,11 +445,11 @@ export default (
 			contained: {
 				borderColor: `${color}.${color === 'gray' ? 500 : 400}`,
 				backgroundColor: `${color}.${color === 'gray' ? 500 : 400}`,
-				color: 'gray.50'
+				color: 'gray.900'
 			},
 			outlined: {
 				borderColor: `${color}.${color === 'gray' ? 500 : 400}`,
-				backgroundColor: 'gray.50',
+				backgroundColor: 'gray.900',
 				color: `${color}.${color === 'gray' ? 500 : 400}`
 			},
 			text: {
@@ -470,7 +470,7 @@ export default (
 					backgroundColor: `${
 						theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]
 					} !important`,
-					color: `${theme.colors.gray[50]} !important`
+					color: `${theme.colors.gray[900]} !important`
 				}
 			},
 			outlined: {
@@ -481,7 +481,7 @@ export default (
 
 				'& .button_front': {
 					borderColor: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]} !important`,
-					backgroundColor: `${theme.colors.gray[50]} !important`,
+					backgroundColor: `${theme.colors.gray[900]} !important`,
 					color: `${theme.colors[isLoading ? color : 'gray'][color === 'gray' ? 500 : 400]} !important`
 				}
 			},
