@@ -1,4 +1,5 @@
 import { ReactElement, forwardRef } from 'react';
+import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 
 import { useTheme, useBoolean, ButtonGroup } from '@chakra-ui/react';
@@ -25,6 +26,9 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 	const displayMode = useSelector((state) => state.app.ui.displayMode);
 	const color = useSelector((state) => state.user.ui.theme.color);
 
+	const isFetching = useIsFetching();
+	const isMutating = useIsMutating();
+
 	const [isHoveringGrid, setIsHoveringGrid] = useBoolean();
 	const [isClickingGrid, setIsClickingGrid] = useBoolean();
 
@@ -39,6 +43,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 						? 'Display is in Grid Mode (Tooltip)'
 						: 'Set display mode to Grid Mode (Tooltip)'
 				}
+				isDisabled={isFetching > 0 || isMutating > 0}
 				isOpen={isHoveringGrid}
 				placement='top'
 				label={displayMode === 'grid' ? 'Display is in Grid Mode' : 'Set display mode to Grid Mode'}
@@ -47,6 +52,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 				<IconButton
 					aria-label={displayMode === 'grid' ? 'Display is in Grid Mode' : 'Set display mode to Grid Mode'}
 					color={displayMode === 'grid' ? color : 'gray'}
+					isDisabled={isFetching > 0 || isMutating > 0}
 					onClick={displayMode !== 'grid' ? () => dispatch(toggleDisplayMode('grid')) : undefined}
 					onMouseDown={() => setIsClickingGrid.on()}
 					onMouseUp={() => setIsClickingGrid.off()}
@@ -67,6 +73,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 						? 'Display is in List Mode (Tooltip)'
 						: 'Set display mode to List Mode (Tooltip)'
 				}
+				isDisabled={isFetching > 0 || isMutating > 0}
 				isOpen={isHoveringList}
 				placement='top'
 				label={displayMode === 'list' ? 'Display is in List Mode' : 'Set display mode to List Mode'}
@@ -75,6 +82,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 				<IconButton
 					aria-label={displayMode === 'list' ? 'Display is in List Mode' : 'Set display mode to List Mode'}
 					color={displayMode === 'list' ? color : 'gray'}
+					isDisabled={isFetching > 0 || isMutating > 0}
 					onClick={displayMode !== 'list' ? () => dispatch(toggleDisplayMode('list')) : undefined}
 					onMouseDown={() => setIsClickingList.on()}
 					onMouseUp={() => setIsClickingList.off()}
