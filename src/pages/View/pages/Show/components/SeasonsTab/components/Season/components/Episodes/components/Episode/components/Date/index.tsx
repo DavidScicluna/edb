@@ -39,6 +39,7 @@ const Date = (props: DateProps): ReactElement => {
 					<Text
 						align='left'
 						fontSize={fontSize}
+						fontWeight='normal'
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}
 						isTruncated
 						overflow='hidden'

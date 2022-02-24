@@ -73,12 +73,16 @@ const Collection = (): ReactElement => {
 	);
 
 	// Fetching collection images
-	const imagesQuery = useQuery([`collection-${id}-images`, id], async () => {
-		const { data } = await axiosInstance.get<Images>(`/collection/${id}/images`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const imagesQuery = useQuery(
+		[`collection-${id}-images`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Images>(`/collection/${id}/images`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: collectionQuery.isSuccess || collectionQuery.isError }
+	);
 
 	const handleChangeTab = (index: number): void => {
 		setActiveTab(index);

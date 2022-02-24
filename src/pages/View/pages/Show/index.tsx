@@ -79,36 +79,52 @@ const Show = (): ReactElement => {
 	);
 
 	// Fetching tv show credits
-	const creditsQuery = useQuery([`tv-show-${id}-credits`, id], async () => {
-		const { data } = await axiosInstance.get<Credits>(`/tv/${id}/aggregate_credits`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const creditsQuery = useQuery(
+		[`tv-show-${id}-credits`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Credits>(`/tv/${id}/aggregate_credits`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	// Fetching tv show external ids
-	const externalIdsQuery = useQuery([`tv-show-${id}-external_ids`, id], async () => {
-		const { data } = await axiosInstance.get<ExternalIDs>(`/tv/${id}/external_ids`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const externalIdsQuery = useQuery(
+		[`tv-show-${id}-external_ids`, id],
+		async () => {
+			const { data } = await axiosInstance.get<ExternalIDs>(`/tv/${id}/external_ids`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	// Fetching tv show images
-	const imagesQuery = useQuery([`tv-show-${id}-images`, id], async () => {
-		const { data } = await axiosInstance.get<Images>(`/tv/${id}/images`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const imagesQuery = useQuery(
+		[`tv-show-${id}-images`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Images>(`/tv/${id}/images`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	// Fetching tv show videos
-	const videosQuery = useQuery([`tv-show-${id}-videos`, id], async () => {
-		const { data } = await axiosInstance.get<Videos>(`/tv/${id}/videos`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const videosQuery = useQuery(
+		[`tv-show-${id}-videos`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Videos>(`/tv/${id}/videos`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	// Fetching tv reviews
 	const reviewsQuery = useInfiniteQuery(
@@ -121,6 +137,7 @@ const Show = (): ReactElement => {
 			return data;
 		},
 		{
+			enabled: tvShowQuery.isSuccess || tvShowQuery.isError,
 			getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
 			getNextPageParam: (lastPage) =>
 				lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false,
@@ -142,20 +159,32 @@ const Show = (): ReactElement => {
 	);
 
 	// Fetching tv show recommendations
-	const recommendationsQuery = useQuery([`tv-show-${id}-recommendations`, id], async () => {
-		const { data } = await axiosInstance.get<Response<PartialTV[]>>(`/tv/${id}/recommendations`, {
-			cancelToken: source.token
-		});
-		return sort([...(data.results || [])], 'popularity', { reverse: true }).filter((_result, index) => index < 20);
-	});
+	const recommendationsQuery = useQuery(
+		[`tv-show-${id}-recommendations`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialTV[]>>(`/tv/${id}/recommendations`, {
+				cancelToken: source.token
+			});
+			return sort([...(data.results || [])], 'popularity', { reverse: true }).filter(
+				(_result, index) => index < 20
+			);
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	// Fetching similar tv shows
-	const similarQuery = useQuery([`tv-show-${id}-similar`, id], async () => {
-		const { data } = await axiosInstance.get<Response<PartialTV[]>>(`/tv/${id}/similar`, {
-			cancelToken: source.token
-		});
-		return sort([...(data.results || [])], 'popularity', { reverse: true }).filter((_result, index) => index < 20);
-	});
+	const similarQuery = useQuery(
+		[`tv-show-${id}-similar`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialTV[]>>(`/tv/${id}/similar`, {
+				cancelToken: source.token
+			});
+			return sort([...(data.results || [])], 'popularity', { reverse: true }).filter(
+				(_result, index) => index < 20
+			);
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	const handleChangeTab = (index: number): void => {
 		setActiveTab(index);

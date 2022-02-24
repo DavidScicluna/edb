@@ -71,44 +71,64 @@ const Person = (): ReactElement => {
 	);
 
 	// Fetching person known for list
-	const creditsQuery = useQuery([`person-${id}-combined_credits`, id], async () => {
-		const { data } = await axiosInstance.get<CreditsType>(`/person/${id}/combined_credits`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const creditsQuery = useQuery(
+		[`person-${id}-combined_credits`, id],
+		async () => {
+			const { data } = await axiosInstance.get<CreditsType>(`/person/${id}/combined_credits`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: personQuery.isSuccess || personQuery.isError }
+	);
 
 	// Fetching person movie credits
-	const movieCreditsQuery = useQuery([`person-${id}-movie_credits`, id], async () => {
-		const { data } = await axiosInstance.get<MovieCredits>(`/person/${id}/movie_credits`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const movieCreditsQuery = useQuery(
+		[`person-${id}-movie_credits`, id],
+		async () => {
+			const { data } = await axiosInstance.get<MovieCredits>(`/person/${id}/movie_credits`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: personQuery.isSuccess || personQuery.isError }
+	);
 
 	// Fetching person tv credits
-	const tvCreditsQuery = useQuery([`person-${id}-tv_credits`, id], async () => {
-		const { data } = await axiosInstance.get<TVCredits>(`/person/${id}/tv_credits`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const tvCreditsQuery = useQuery(
+		[`person-${id}-tv_credits`, id],
+		async () => {
+			const { data } = await axiosInstance.get<TVCredits>(`/person/${id}/tv_credits`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: personQuery.isSuccess || personQuery.isError }
+	);
 
 	// Fetching person external ids
-	const externalIdsQuery = useQuery([`person-${id}-external_ids`, id], async () => {
-		const { data } = await axiosInstance.get<ExternalIDs>(`/person/${id}/external_ids`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const externalIdsQuery = useQuery(
+		[`person-${id}-external_ids`, id],
+		async () => {
+			const { data } = await axiosInstance.get<ExternalIDs>(`/person/${id}/external_ids`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: personQuery.isSuccess || personQuery.isError }
+	);
 
 	// Fetching person images
-	const imagesQuery = useQuery([`person-${id}-images`, id], async () => {
-		const { data } = await axiosInstance.get<Images>(`/person/${id}/images`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const imagesQuery = useQuery(
+		[`person-${id}-images`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Images>(`/person/${id}/images`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: personQuery.isSuccess || personQuery.isError }
+	);
 
 	const handleChangeTab = (index: number): void => {
 		setActiveTab(index);

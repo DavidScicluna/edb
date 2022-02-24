@@ -78,12 +78,16 @@ const Movie = (): ReactElement => {
 	);
 
 	// Fetching movie credits
-	const creditsQuery = useQuery([`movie-${id}-credits`, id], async () => {
-		const { data } = await axiosInstance.get<Credits>(`/movie/${id}/credits`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const creditsQuery = useQuery(
+		[`movie-${id}-credits`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Credits>(`/movie/${id}/credits`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+	);
 
 	// Fetching movie external ids
 	const externalIdsQuery = useQuery([`movie-${id}-external_ids`, id], async () => {
@@ -94,20 +98,28 @@ const Movie = (): ReactElement => {
 	});
 
 	// Fetching movie images
-	const imagesQuery = useQuery([`movie-${id}-images`, id], async () => {
-		const { data } = await axiosInstance.get<Images>(`/movie/${id}/images`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const imagesQuery = useQuery(
+		[`movie-${id}-images`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Images>(`/movie/${id}/images`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+	);
 
 	// Fetching movie videos
-	const videosQuery = useQuery([`movie-${id}-videos`, id], async () => {
-		const { data } = await axiosInstance.get<Videos>(`/movie/${id}/videos`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const videosQuery = useQuery(
+		[`movie-${id}-videos`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Videos>(`/movie/${id}/videos`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+	);
 
 	// Fetching movie collections
 	const collectionQuery = useQuery(
@@ -137,6 +149,7 @@ const Movie = (): ReactElement => {
 			return data;
 		},
 		{
+			enabled: movieQuery.isSuccess || movieQuery.isError,
 			getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
 			getNextPageParam: (lastPage) =>
 				lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false,
@@ -158,20 +171,32 @@ const Movie = (): ReactElement => {
 	);
 
 	// Fetching movie recommendations
-	const recommendationsQuery = useQuery([`movie-${id}-recommendations`, id], async () => {
-		const { data } = await axiosInstance.get<Response<PartialMovie[]>>(`/movie/${id}/recommendations`, {
-			cancelToken: source.token
-		});
-		return sort([...(data.results || [])], 'popularity', { reverse: true }).filter((_result, index) => index < 20);
-	});
+	const recommendationsQuery = useQuery(
+		[`movie-${id}-recommendations`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialMovie[]>>(`/movie/${id}/recommendations`, {
+				cancelToken: source.token
+			});
+			return sort([...(data.results || [])], 'popularity', { reverse: true }).filter(
+				(_result, index) => index < 20
+			);
+		},
+		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+	);
 
 	// Fetching similar movies
-	const similarQuery = useQuery([`movie-${id}-similar`, id], async () => {
-		const { data } = await axiosInstance.get<Response<PartialMovie[]>>(`/movie/${id}/similar`, {
-			cancelToken: source.token
-		});
-		return sort([...(data.results || [])], 'popularity', { reverse: true }).filter((_result, index) => index < 20);
-	});
+	const similarQuery = useQuery(
+		[`movie-${id}-similar`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialMovie[]>>(`/movie/${id}/similar`, {
+				cancelToken: source.token
+			});
+			return sort([...(data.results || [])], 'popularity', { reverse: true }).filter(
+				(_result, index) => index < 20
+			);
+		},
+		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+	);
 
 	const handleChangeTab = (index: number): void => {
 		setActiveTab(index);

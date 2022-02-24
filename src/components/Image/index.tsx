@@ -24,7 +24,7 @@ const Image = (props: ImageProps): ReactElement => {
 		...rest
 	} = props;
 
-	const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, colorMode === 'light' ? 500 : 400));
+	const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, 300));
 
 	const [isThumbnailLoaded, setIsThumbnailLoaded] = useBoolean();
 	const [isThumbnailError, setIsThumbnailError] = useBoolean();

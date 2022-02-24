@@ -27,52 +27,76 @@ const Home = (): ReactElement => {
 	});
 
 	// Fetching Popular TV Shows
-	const popularTVQuery = useQuery('popular-tv-shows', async () => {
-		const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const popularTVQuery = useQuery(
+		'popular-tv-shows',
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/popular', {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: popularMoviesQuery.isSuccess || popularMoviesQuery.isError }
+	);
 
 	// Fetching Top Rated Movies
-	const topRatedMoviesQuery = useQuery('top-rated-movies', async () => {
-		const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/top_rated', {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const topRatedMoviesQuery = useQuery(
+		'top-rated-movies',
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/movie/top_rated', {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: popularMoviesQuery.isSuccess || popularMoviesQuery.isError }
+	);
 
 	// Fetching Top Rated TV Shows
-	const topRatedTVQuery = useQuery('top-rated-tv-shows', async () => {
-		const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/top_rated', {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const topRatedTVQuery = useQuery(
+		'top-rated-tv-shows',
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialTV[]>>('/tv/top_rated', {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: topRatedMoviesQuery.isSuccess || topRatedMoviesQuery.isError }
+	);
 
 	// Fetching Trending Movies
-	const trendingMoviesQuery = useQuery('trending-movies', async () => {
-		const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const trendingMoviesQuery = useQuery(
+		'trending-movies',
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: popularMoviesQuery.isSuccess || popularMoviesQuery.isError }
+	);
 
 	// Fetching Trending TV Shows
-	const trendingTVQuery = useQuery('trending-tv-shows', async () => {
-		const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const trendingTVQuery = useQuery(
+		'trending-tv-shows',
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: trendingMoviesQuery.isSuccess || trendingMoviesQuery.isError }
+	);
 
 	// Fetching Trending People
-	const trendingPeopleQuery = useQuery('trending-people', async () => {
-		const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/day', {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const trendingPeopleQuery = useQuery(
+		'trending-people',
+		async () => {
+			const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/day', {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: trendingMoviesQuery.isSuccess || trendingMoviesQuery.isError }
+	);
 
 	useEffect(() => {
 		return () => source.cancel();

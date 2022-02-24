@@ -53,23 +53,31 @@ const Episode = (): ReactElement => {
 	});
 
 	// Fetching tv show episode details
-	const episodeQuery = useQuery([`tv-show-${id}-season-${season}-episode-${episode}`, id], async () => {
-		const { data } = await axiosInstance.get<EpisodeType>(`/tv/${id}/season/${season}/episode/${episode}`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const episodeQuery = useQuery(
+		[`tv-show-${id}-season-${season}-episode-${episode}`, id],
+		async () => {
+			const { data } = await axiosInstance.get<EpisodeType>(`/tv/${id}/season/${season}/episode/${episode}`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	// Fetching tv show episode credits
-	const creditsQuery = useQuery([`tv-show-${id}-season-${season}-episode-${episode}-credits`, id], async () => {
-		const { data } = await axiosInstance.get<EpisodeCredits>(
-			`/tv/${id}/season/${season}/episode/${episode}/credits`,
-			{
-				cancelToken: source.token
-			}
-		);
-		return data;
-	});
+	const creditsQuery = useQuery(
+		[`tv-show-${id}-season-${season}-episode-${episode}-credits`, id],
+		async () => {
+			const { data } = await axiosInstance.get<EpisodeCredits>(
+				`/tv/${id}/season/${season}/episode/${episode}/credits`,
+				{
+					cancelToken: source.token
+				}
+			);
+			return data;
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	// Fetching tv show episode external ids
 	const externalIdsQuery = useQuery(
@@ -82,24 +90,33 @@ const Episode = (): ReactElement => {
 				}
 			);
 			return data;
-		}
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
 	);
 
 	// Fetching tv show episode images
-	const imagesQuery = useQuery([`tv-show-${id}-season-${season}-episode-${episode}-images`, id], async () => {
-		const { data } = await axiosInstance.get<Images>(`/tv/${id}/season/${season}/episode/${episode}/images`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const imagesQuery = useQuery(
+		[`tv-show-${id}-season-${season}-episode-${episode}-images`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Images>(`/tv/${id}/season/${season}/episode/${episode}/images`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	// Fetching tv show episode videos
-	const videosQuery = useQuery([`tv-show-${id}-season-${season}-episode-${episode}-videos`, id], async () => {
-		const { data } = await axiosInstance.get<Videos>(`/tv/${id}/season/${season}/episode/${episode}/videos`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const videosQuery = useQuery(
+		[`tv-show-${id}-season-${season}-episode-${episode}-videos`, id],
+		async () => {
+			const { data } = await axiosInstance.get<Videos>(`/tv/${id}/season/${season}/episode/${episode}/videos`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+	);
 
 	const handleChangeTab = (index: number): void => {
 		setActiveTab(index);
