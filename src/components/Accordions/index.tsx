@@ -59,7 +59,7 @@ const Accordions = <D,>(props: AccordionsProps<D>): ReactElement => {
 					<Accordion
 						{...accordion}
 						key={accordion.id}
-						// footer={}
+						color={color}
 						isOpen={openedAccordions.some((openedAccordion) => openedAccordion === accordion.id)}
 						isDisabled={isError || accordion.isDisabled}
 						isLoading={isLoading}

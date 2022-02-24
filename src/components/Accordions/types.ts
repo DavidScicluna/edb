@@ -15,6 +15,7 @@ export type Accordion<D> = {
 	total?: Total;
 	isDisabled?: boolean;
 	data?: D;
+	footer?: ReactElement;
 };
 
 export type RenderProps<D> = {
