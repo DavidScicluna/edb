@@ -24,7 +24,7 @@ const Backdrop = (props: BackdropProps): ReactElement => {
 			isDisabled={isLoading || isError || isImageError}
 			renderIcon={({ color, fontSize }) =>
 				video ? (
-					<YouTubeIcon style={{ color, fontSize }} />
+					<YouTubeIcon style={{ color, width: fontSize, height: fontSize }} />
 				) : (
 					<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
 				)
