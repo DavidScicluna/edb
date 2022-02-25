@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
 
-import ImportExportOutlinedIcon from '@material-ui/icons/ImportExportOutlined';
 import _ from 'lodash';
 import qs from 'query-string';
 
@@ -13,6 +12,7 @@ import Sort from './components/Sort';
 import { SortByProps, Form } from './types';
 
 import { useSelector } from '../../common/hooks';
+import Icon from '../../components/Icon';
 import Modal from '../../components/Modal';
 import Button from '../Clickable/Button';
 
@@ -77,7 +77,7 @@ const SortBy = (props: SortByProps): ReactElement => {
 		<>
 			{renderButton({
 				color: isOpen ? color : 'gray',
-				icon: <ImportExportOutlinedIcon />,
+				icon: <Icon icon='import_export' type='outlined' />,
 				onClick: () => handleOpen()
 			})}
 

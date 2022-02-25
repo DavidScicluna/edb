@@ -3,16 +3,11 @@ import { Controller } from 'react-hook-form';
 
 import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
-import {
-	ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
-	ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
-	CheckOutlined as CheckOutlinedIcon
-} from '@material-ui/icons';
-
 import { DirectionProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../Clickable/Button';
+import Icon from '../../../Icon';
 import Panel from '../../../Panel';
 import { SortDirection } from '../../types';
 
@@ -41,11 +36,13 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 									<Button
 										color={value === 'asc' ? color : 'gray'}
 										renderLeftIcon={({ fontSize }) => (
-											<ArrowUpwardOutlinedIcon style={{ fontSize }} />
+											<Icon icon='arrow_upward' type='outlined' fontSize={fontSize} />
 										)}
 										renderRightIcon={
 											value === 'asc'
-												? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} />
+												? ({ fontSize }) => (
+														<Icon icon='check' type='outlined' fontSize={fontSize} />
+												  )
 												: undefined
 										}
 										isFullWidth
@@ -60,11 +57,13 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 									<Button
 										color={value === 'desc' ? color : 'gray'}
 										renderLeftIcon={({ fontSize }) => (
-											<ArrowDownwardOutlinedIcon style={{ fontSize }} />
+											<Icon icon='arrow_downward' type='outlined' fontSize={fontSize} />
 										)}
 										renderRightIcon={
 											value === 'desc'
-												? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} />
+												? ({ fontSize }) => (
+														<Icon icon='check' type='outlined' fontSize={fontSize} />
+												  )
 												: undefined
 										}
 										isFullWidth

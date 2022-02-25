@@ -13,6 +13,11 @@ import '@fontsource/work-sans/800.css';
 import '@fontsource/work-sans/900.css';
 // Importing Logo Font (Pacifico)
 import '@fontsource/pacifico/400.css';
+
+// Importing Material UI Icons
+import '@fontsource/material-icons';
+import '@fontsource/material-icons-outlined';
+
 import './index.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));

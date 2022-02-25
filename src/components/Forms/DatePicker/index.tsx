@@ -2,10 +2,6 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
 
-import {
-	DateRangeOutlined as DateRangeOutlinedIcon,
-	DateRangeTwoTone as DateRangeTwoToneIcon
-} from '@material-ui/icons';
 import { DateObj, useDayzed } from 'dayzed';
 import _ from 'lodash';
 import moment from 'moment';
@@ -16,6 +12,7 @@ import Years from './components/Years';
 import { DatePickerProps } from './types';
 
 import Button from '../../Clickable/Button';
+import Icon from '../../Icon';
 import Modal from '../../Modal';
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
@@ -74,7 +71,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 		<>
 			{renderToggleModal({
 				color: isOpen ? color : 'gray',
-				icon: isOpen ? <DateRangeTwoToneIcon /> : <DateRangeOutlinedIcon />,
+				icon: isOpen ? <Icon icon='date_range' type='filled' /> : <Icon icon='date_range' type='outlined' />,
 				onClick: () => onOpen()
 			})}
 

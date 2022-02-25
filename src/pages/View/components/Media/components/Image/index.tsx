@@ -2,12 +2,12 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
 import { MediaImageProps } from './types';
 
 import ClickableImage from '../../../../../../components/Clickable/Image';
+import Icon from '../../../../../../components/Icon';
 import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
 
@@ -36,7 +36,9 @@ const MediaImage = (props: MediaImageProps): ReactElement => {
 			ratio={ratio}
 			borderRadius='lg'
 			isDisabled={isLoading || isError || _.isNil(path) || _.isEmpty(path)}
-			renderIcon={({ color, fontSize }) => <SearchOutlinedIcon style={{ color, fontSize }} />}
+			renderIcon={({ color, fontSize }) => (
+				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
+			)}
 			onClick={onClick}
 		>
 			<Skeleton borderRadius='lg' isLoaded={!isLoading}>

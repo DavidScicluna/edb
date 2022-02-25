@@ -84,7 +84,7 @@ export default (
 				outline: !isTouchDevice ? '0px auto' : 'none !important'
 			},
 
-			'& svg': {
+			'& .edb-icon': {
 				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
 			}
 		},

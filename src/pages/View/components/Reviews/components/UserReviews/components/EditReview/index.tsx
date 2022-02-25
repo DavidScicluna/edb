@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, Text, Collapse } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { EditOutlined as EditOutlinedIcon } from '@material-ui/icons';
 import moment from 'moment';
 
 import { EditReviewProps, Form } from './types';
@@ -17,6 +16,7 @@ import IconButton from '../../../../../../../../components/Clickable/IconButton'
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Rating from '../../../../../../../../components/Forms/Rating';
 import Textarea from '../../../../../../../../components/Forms/Textarea';
+import Icon from '../../../../../../../../components/Icon';
 import Modal from '../../../../../../../../components/Modal';
 import Panel from '../../../../../../../../components/Panel';
 import Tooltip from '../../../../../../../../components/Tooltip';
@@ -107,7 +107,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 					onMouseLeave={() => setIsHovering.off()}
 					variant='icon'
 				>
-					<EditOutlinedIcon />
+					<Icon icon='edit' type='outlined' />
 				</IconButton>
 			</Tooltip>
 

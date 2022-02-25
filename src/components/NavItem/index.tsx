@@ -1,20 +1,8 @@
 import { ReactElement, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import {
-	useTheme,
-	useColorMode,
-	useBoolean,
-	VStack,
-	HStack,
-	Icon,
-	Text,
-	Box,
-	ScaleFade,
-	Collapse
-} from '@chakra-ui/react';
+import { useTheme, useColorMode, useBoolean, VStack, HStack, Text, Box, ScaleFade, Collapse } from '@chakra-ui/react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
 
 import NavItemChild from './components/NavItemChild';
@@ -25,6 +13,8 @@ import { useSelector } from '../../common/hooks';
 import { handleParseDurationForFramer, handleConvertStringToNumber } from '../../common/utils';
 import Link from '../../components/Clickable/Link';
 import { Theme } from '../../theme/types';
+import IconButton from '../Clickable/IconButton';
+import Icon from '../Icon';
 import Tooltip from '../Tooltip';
 
 const NavItem = (props: NavItemType): ReactElement => {
@@ -139,16 +129,21 @@ const NavItem = (props: NavItemType): ReactElement => {
 									exit: 0
 								}}
 							>
-								<Icon
-									as={ChevronRightOutlinedIcon}
-									sx={{
-										fontSize: `${theme.fontSizes.xl} !important`,
-										transform: `rotate(${isChildrenOpen ? '90deg' : '0deg'})`
-									}}
+								<IconButton
+									aria-label='Toggle '
+									colorMode={colorMode === 'light' ? 'dark' : 'light'}
 									onClick={() => setIsChildrenOpen.toggle()}
 									onMouseEnter={() => setIsHoveringIcon.on()}
 									onMouseLeave={() => setIsHoveringIcon.off()}
-								/>
+									size='sm'
+									variant='icon'
+								>
+									<Icon
+										icon='chevron_right'
+										type='outlined'
+										sx={{ transform: `rotate(${isChildrenOpen ? '90deg' : '0deg'})` }}
+									/>
+								</IconButton>
 							</ScaleFade>
 						) : null}
 					</HStack>

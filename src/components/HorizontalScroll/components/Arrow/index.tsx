@@ -2,10 +2,6 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
 
-import {
-	ChevronLeftOutlined as ChevronLeftOutlinedIcon,
-	ChevronRightOutlined as ChevronRightOutlinedIcon
-} from '@material-ui/icons';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
@@ -14,6 +10,7 @@ import { ArrowProps } from './types';
 
 import { Theme } from '../../../../theme/types';
 import IconButton from '../../../Clickable/IconButton';
+import Icon from '../../../Icon';
 
 const Arrow = (props: ArrowProps): ReactElement => {
 	const theme = useTheme<Theme>();
@@ -68,7 +65,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
 						variant='icon'
 						sx={{ back: { height: '100%' } }}
 					>
-						{direction === 'left' ? <ChevronLeftOutlinedIcon /> : <ChevronRightOutlinedIcon />}
+						<Icon icon={direction === 'left' ? 'chevron_left' : 'chevron_right'} type='outlined' />
 					</IconButton>
 				</Center>
 			</ScaleFade>

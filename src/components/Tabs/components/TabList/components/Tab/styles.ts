@@ -71,7 +71,7 @@ export default (
 				outline: !isTouchDevice ? '0px auto' : 'none !important'
 			},
 
-			'& svg': {
+			'& .edb-icon': {
 				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
 			}
 		},
@@ -111,7 +111,7 @@ export default (
 		'borderColor': isSelected ? `${color}.${color === 'gray' ? 400 : 500}` : 'transparent',
 		'backgroundColor': isSelected ? `${color}.${color === 'gray' ? 400 : 500}` : 'transparent',
 
-		'& svg': {
+		'& .edb-icon': {
 			color: isSelected ? 'gray.50' : 'gray.400'
 		},
 
@@ -120,7 +120,7 @@ export default (
 			'borderColor': isSelected ? `${color}.${color === 'gray' ? 500 : 600}` : 'transparent',
 			'backgroundColor': isSelected ? `${color}.${color === 'gray' ? 500 : 600}` : 'transparent',
 
-			'& svg': {
+			'& .edb-icon': {
 				color: isSelected ? 'gray.50' : 'gray.500'
 			}
 		},
@@ -137,7 +137,7 @@ export default (
 		'borderColor': isSelected ? `${color}.${color === 'gray' ? 500 : 400}` : 'transparent',
 		'backgroundColor': isSelected ? `${color}.${color === 'gray' ? 500 : 400}` : 'transparent',
 
-		'& svg': {
+		'& .edb-icon': {
 			color: isSelected ? 'gray.900' : 'gray.500'
 		},
 
@@ -146,7 +146,7 @@ export default (
 			'borderColor': isSelected ? `${color}.${color === 'gray' ? 400 : 300}` : 'transparent',
 			'backgroundColor': isSelected ? `${color}.${color === 'gray' ? 400 : 300}` : 'transparent',
 
-			'& svg': {
+			'& .edb-icon': {
 				color: isSelected ? 'gray.900' : 'gray.400'
 			}
 		},

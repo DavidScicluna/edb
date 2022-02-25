@@ -2,13 +2,13 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, useBoolean, ScaleFade } from '@chakra-ui/react';
 
-import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import moment from 'moment';
 
 import { SearchProps } from './types';
 
 import Badge from '../../../../../../../../components/Badge';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
+import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import ListItem from '../../../List/components/ListItem';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
@@ -62,7 +62,7 @@ const Search = (props: SearchProps): ReactElement => {
 								onMouseLeave={() => setIsHoveringDelete.off()}
 								variant='icon'
 							>
-								<ClearOutlinedIcon />
+								<Icon icon='clear' type='outlined' />
 							</IconButton>
 						</Tooltip>
 					</ScaleFade>

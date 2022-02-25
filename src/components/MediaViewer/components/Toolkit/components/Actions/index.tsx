@@ -2,17 +2,12 @@ import { ReactElement, MouseEvent } from 'react';
 
 import { useMediaQuery, useBoolean, Stack } from '@chakra-ui/react';
 
-import {
-	CloseOutlined as CloseOutlinedIcon,
-	DashboardOutlined as DashboardOutlinedIcon,
-	FullscreenOutlined as FullscreenOutlinedIcon,
-	FullscreenExitOutlined as FullscreenExitOutlinedIcon
-} from '@material-ui/icons';
 import _ from 'lodash';
 
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
 import IconButton from '../../../../../Clickable/IconButton';
+import Icon from '../../../../../Icon';
 
 const Actions = (props: ActionsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -89,12 +84,12 @@ const Actions = (props: ActionsProps): ReactElement => {
 			onClick={(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => handleClose(event)}
 			variant='icon'
 		>
-			<CloseOutlinedIcon />
+			<Icon icon='close' type='outlined' />
 		</IconButton>,
 
 		// Gallery button
 		<IconButton key='gallery_button' aria-label='Open Gallery' onClick={() => onGalleryClick()} variant='icon'>
-			<DashboardOutlinedIcon />
+			<Icon icon='dashboard' type='outlined' />
 		</IconButton>,
 
 		//  Fullscreen button
@@ -107,7 +102,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 				}
 				variant='icon'
 			>
-				{isFullscreen ? <FullscreenExitOutlinedIcon /> : <FullscreenOutlinedIcon />}
+				<Icon icon={isFullscreen ? 'fullscreen_exit' : 'fullscreen'} type='outlined' />
 			</IconButton>
 		) : undefined
 	]);

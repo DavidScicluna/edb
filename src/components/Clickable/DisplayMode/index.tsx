@@ -4,18 +4,12 @@ import { useDispatch } from 'react-redux';
 
 import { useTheme, useBoolean, ButtonGroup } from '@chakra-ui/react';
 
-import {
-	ViewAgendaTwoTone as ViewAgendaTwoToneIcon,
-	ViewAgendaOutlined as ViewAgendaOutlinedIcon,
-	GridOnTwoTone as GridOnTwoToneIcon,
-	GridOnOutlined as GridOnOutlinedIcon
-} from '@material-ui/icons';
-
 import { DisplayModeRef, DisplayModeProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import { toggleDisplayMode } from '../../../store/slices/App';
 import { Theme } from '../../../theme/types';
+import Icon from '../../Icon';
 import Tooltip from '../../Tooltip';
 import IconButton from '../IconButton';
 
@@ -64,7 +58,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 						front: { borderRadius: `${theme.radii.base} 0 0 ${theme.radii.base}` }
 					}}
 				>
-					{displayMode === 'grid' ? <GridOnTwoToneIcon /> : <GridOnOutlinedIcon />}
+					<Icon icon='grid_on' type={displayMode === 'grid' ? 'filled' : 'outlined'} />
 				</IconButton>
 			</Tooltip>
 			<Tooltip
@@ -94,7 +88,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 						front: { borderRadius: `0 ${theme.radii.base} ${theme.radii.base} 0` }
 					}}
 				>
-					{displayMode === 'list' ? <ViewAgendaTwoToneIcon /> : <ViewAgendaOutlinedIcon />}
+					<Icon icon='view_agenda' type={displayMode === 'list' ? 'filled' : 'outlined'} />
 				</IconButton>
 			</Tooltip>
 		</ButtonGroup>

@@ -4,12 +4,10 @@ import { useDispatch } from 'react-redux';
 
 import { useTheme, useColorMode, VStack } from '@chakra-ui/react';
 
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
-
 import { navItems } from '../../.';
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
+import Icon from '../../../../components/Icon';
 import { toggleSidebarMode } from '../../../../store/slices/App';
 import { Theme } from '../../../../theme/types';
 import { sidebarWidth } from '../../common/data/dimensions';
@@ -50,13 +48,9 @@ const Sidebar = (): ReactElement => {
 				isFullWidth
 				isDisabled={isFetching > 0 || isMutating > 0}
 				onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
-				renderLeftIcon={({ fontSize }) =>
-					sidebarMode === 'expanded' ? (
-						<RemoveOutlinedIcon style={{ fontSize }} />
-					) : (
-						<AddOutlinedIcon style={{ fontSize }} />
-					)
-				}
+				renderLeftIcon={({ fontSize }) => (
+					<Icon icon={sidebarMode === 'expanded' ? 'remove' : 'add'} type='outlined' fontSize={fontSize} />
+				)}
 				variant='outlined'
 			>
 				{sidebarMode === 'expanded' ? 'Collapse' : ''}

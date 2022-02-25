@@ -12,7 +12,6 @@ import {
 	Fade
 } from '@chakra-ui/react';
 
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import { AnimatePresence } from 'framer-motion';
 import { useElementSize } from 'usehooks-ts';
 
@@ -20,6 +19,7 @@ import { ImageProps, IconProps } from './types';
 
 import * as fallback from '../../../common/assets/fallback';
 import { handleReturnRatio } from '../../../common/utils';
+import Icon from '../../../components/Icon';
 import { Theme } from '../../../theme/types';
 
 const commonStyleProps = {
@@ -105,7 +105,7 @@ const Image = (props: ImageProps): ReactElement => {
 										>
 											<Fade in={isHovering || isActive} unmountOnExit>
 												{isActive ? (
-													<CheckOutlinedIcon style={{ ...iconProps }} />
+													<Icon {...iconProps} icon='check' type='outlined' />
 												) : (
 													renderIcon({ ...iconProps })
 												)}

@@ -2,7 +2,6 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 
-import { InfoTwoTone as InfoTwoToneIcon } from '@material-ui/icons';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
 import moment from 'moment';
@@ -21,6 +20,7 @@ import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';
 import Divider from '../../../../components/Divider';
 import Empty from '../../../../components/Empty';
+import Icon from '../../../../components/Icon';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
@@ -190,7 +190,12 @@ const Lists = (): ReactElement => {
 																		}}
 																		variant='outlined'
 																	>
-																		<InfoTwoToneIcon />
+																		<Icon
+																			icon='info'
+																			type={
+																				isListInfoOpen ? 'filled' : 'outlined'
+																			}
+																		/>
 																	</IconButton>
 																)}
 															/>

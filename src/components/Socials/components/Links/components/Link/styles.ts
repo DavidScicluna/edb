@@ -48,7 +48,7 @@ export default (theme: Theme, { colorMode, color }: StyleLinkProps): LinkStyle =
 				boxShadow: 'none'
 			},
 
-			'& svg': {
+			'& .edb-icon': {
 				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 			}
 		},
@@ -56,7 +56,7 @@ export default (theme: Theme, { colorMode, color }: StyleLinkProps): LinkStyle =
 			'width': theme.fontSizes['2xl'],
 			'height': theme.fontSizes['2xl'],
 
-			'& svg': {
+			'& .edb-icon': {
 				display: 'block',
 
 				fontSize: theme.fontSizes['2xl']

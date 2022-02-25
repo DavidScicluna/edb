@@ -3,17 +3,11 @@ import { useDispatch } from 'react-redux';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import {
-	ThumbDownOutlined as ThumbDownOutlinedIcon,
-	ThumbUpOutlined as ThumbUpOutlinedIcon,
-	ThumbDown as ThumbDownIcon,
-	ThumbUp as ThumbUpIcon
-} from '@material-ui/icons';
-
 import { ThumbButtonProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
+import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { setOtherReviews } from '../../../../../../../../store/slices/User';
 
@@ -62,17 +56,7 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 				onMouseLeave={() => setIsHovering.off()}
 				variant='icon'
 			>
-				{state === 'isLiked' ? (
-					isActive ? (
-						<ThumbUpIcon />
-					) : (
-						<ThumbUpOutlinedIcon />
-					)
-				) : isActive ? (
-					<ThumbDownIcon />
-				) : (
-					<ThumbDownOutlinedIcon />
-				)}
+				<Icon icon={state === 'isLiked' ? 'thumb_up' : 'thumb_down'} type={isActive ? 'filled' : 'outlined'} />
 			</IconButton>
 		</Tooltip>
 	);

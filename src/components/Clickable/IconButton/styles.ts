@@ -76,7 +76,7 @@ export default (
 					outline: !isTouchDevice ? '0px auto' : 'none !important'
 				},
 
-				'& svg': {
+				'& .edb-icon': {
 					transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
 				}
 			},
@@ -144,7 +144,7 @@ export default (
 
 				'transform': variant !== 'icon' ? 'translateY(-3px)' : 'none',
 
-				'& svg': {
+				'& .edb-icon': {
 					fontSize: 'lg'
 				}
 			},
@@ -156,7 +156,7 @@ export default (
 
 				'transform': variant !== 'icon' ? 'translateY(-4px)' : 'none',
 
-				'& svg': {
+				'& .edb-icon': {
 					fontSize: 'xl'
 				}
 			},
@@ -168,7 +168,7 @@ export default (
 
 				'transform': variant !== 'icon' ? 'translateY(-5px)' : 'none',
 
-				'& svg': {
+				'& .edb-icon': {
 					fontSize: '2xl'
 				}
 			}
@@ -270,7 +270,7 @@ export default (
 					'& .icon_button_front': {
 						borderColor: 'transparent',
 						backgroundColor: 'transparent',
-						color: `${color}.${color === 'gray' ? 400 : 500}`
+						color: `${color}.${color === 'gray' ? 500 : 600}`
 					}
 				},
 
@@ -280,7 +280,7 @@ export default (
 					'& .icon_button_front': {
 						borderColor: 'transparent !important',
 						backgroundColor: 'transparent !important',
-						color: `${theme.colors[color][color === 'gray' ? 500 : 600]} !important`
+						color: `${theme.colors[color][color === 'gray' ? 600 : 700]} !important`
 					}
 				},
 
@@ -419,7 +419,7 @@ export default (
 					'& .icon_button_front': {
 						borderColor: 'transparent',
 						backgroundColor: 'transparent',
-						color: `${color}.${color === 'gray' ? 500 : 400}`
+						color: `${color}.${color === 'gray' ? 400 : 300}`
 					}
 				},
 
@@ -429,7 +429,7 @@ export default (
 					'& .icon_button_front': {
 						borderColor: 'transparent !important',
 						backgroundColor: 'transparent !important',
-						color: `${theme.colors[color][color === 'gray' ? 400 : 300]} !important`
+						color: `${theme.colors[color][color === 'gray' ? 300 : 200]} !important`
 					}
 				},
 

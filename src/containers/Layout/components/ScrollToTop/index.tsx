@@ -2,12 +2,12 @@ import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
 
-import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import _ from 'lodash';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
 import IconButton from '../../../../components/Clickable/IconButton';
+import Icon from '../../../../components/Icon';
 import Tooltip from '../../../../components/Tooltip';
 import { Theme } from '../../../../theme/types';
 
@@ -68,7 +68,7 @@ const ScrollToTop = (): ReactElement => {
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 					>
-						<ArrowUpwardOutlinedIcon />
+						<Icon icon='arrow_upward' type='outlined' />
 					</IconButton>
 				</Tooltip>
 			</SlideFade>

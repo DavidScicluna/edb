@@ -11,9 +11,8 @@ import {
 	Center
 } from '@chakra-ui/react';
 
-import { MenuOutlined as MenuOutlinedIcon, CloseOutlined as CloseOutlinedIcon } from '@material-ui/icons';
-
 import IconButton from '../../../../../../components/Clickable/IconButton';
+import Icon from '../../../../../../components/Icon';
 import { navItems } from '../../../../index';
 import NavItems from '../../../NavItems';
 
@@ -28,7 +27,7 @@ const Menu = (): ReactElement => {
 	return (
 		<>
 			<IconButton aria-label='Open Menu' onClick={onOpen} variant='icon'>
-				<MenuOutlinedIcon />
+				<Icon icon='menu' type='outlined' />
 			</IconButton>
 
 			<Drawer isOpen={isOpen} blockScrollOnMount={false} placement='left' onClose={onClose}>
@@ -37,7 +36,7 @@ const Menu = (): ReactElement => {
 					<DrawerBody position='relative' py={1} px={1}>
 						<Center position='absolute' top={1} right={1}>
 							<IconButton aria-label='Close modal?' onClick={() => onClose()} variant='icon'>
-								<CloseOutlinedIcon />
+								<Icon icon='close' type='outlined' />
 							</IconButton>
 						</Center>
 

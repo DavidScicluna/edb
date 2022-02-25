@@ -17,15 +17,7 @@ import {
 	Box
 } from '@chakra-ui/react';
 
-import {
-	FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-	FavoriteOutlined as FavoriteOutlinedIcon,
-	BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
-	BookmarkOutlined as BookmarkOutlinedIcon,
-	PaletteTwoTone as PaletteTwoToneIcon,
-	PaletteOutlined as PaletteOutlinedIcon
-} from '@material-ui/icons';
-
+import Icon from '../../../../../../components/Icon';
 import NavItem from '../../../../../../components/NavItem';
 import { NavItem as NavItemType } from '../../../../../../components/NavItem/types';
 import { toggleDisplay } from '../../../../../../store/slices/Modals';
@@ -43,28 +35,23 @@ const User = (): ReactElement => {
 
 	const userLinks: NavItemType[] = [
 		{
-			renderIcon: ({ isActive, fontSize }) =>
-				isActive ? (
-					<FavoriteOutlinedIcon style={{ fontSize }} />
-				) : (
-					<FavoriteBorderOutlinedIcon style={{ fontSize }} />
-				),
+			renderIcon: ({ isActive, fontSize }) => (
+				<Icon icon={isActive ? 'favorite' : 'favorite_border'} type='outlined' fontSize={fontSize} />
+			),
 			label: 'Liked',
 			path: '/liked'
 		},
 		{
-			renderIcon: ({ isActive, fontSize }) =>
-				isActive ? (
-					<BookmarkOutlinedIcon style={{ fontSize }} />
-				) : (
-					<BookmarkBorderOutlinedIcon style={{ fontSize }} />
-				),
+			renderIcon: ({ isActive, fontSize }) => (
+				<Icon icon={isActive ? 'bookmark' : 'bookmark_border'} type='outlined' fontSize={fontSize} />
+			),
 			label: 'Lists',
 			path: '/lists'
 		},
 		{
-			renderIcon: ({ isActive, fontSize }) =>
-				isActive ? <PaletteTwoToneIcon style={{ fontSize }} /> : <PaletteOutlinedIcon style={{ fontSize }} />,
+			renderIcon: ({ isActive, fontSize }) => (
+				<Icon icon='palette' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			),
 			label: 'Display',
 			onClick: () => dispatch(toggleDisplay(true))
 		}

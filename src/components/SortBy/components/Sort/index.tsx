@@ -3,12 +3,11 @@ import { Controller } from 'react-hook-form';
 
 import { VStack, Center } from '@chakra-ui/react';
 
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-
 import { SortProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../Clickable/Button';
+import Icon from '../../../Icon';
 import Panel from '../../../Panel';
 import { SortBy } from '../../types';
 
@@ -37,7 +36,9 @@ const Sort = ({ form, sortBy }: SortProps): ReactElement => {
 											color={sort.value === value.value ? color : 'gray'}
 											renderRightIcon={
 												sort.value === value.value
-													? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} />
+													? ({ fontSize }) => (
+															<Icon icon='check' type='outlined' fontSize={fontSize} />
+													  )
 													: undefined
 											}
 											isFullWidth

@@ -3,7 +3,6 @@ import CountUp from 'react-countup';
 
 import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Fade } from '@chakra-ui/react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
@@ -14,6 +13,7 @@ import { HeaderProps } from './types';
 
 import { Theme } from '../../../../../../theme/types';
 import Badge from '../../../../../Badge';
+import Icon from '../../../../../Icon';
 
 const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 	const theme = useTheme<Theme>();
@@ -73,7 +73,7 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 					</Badge>
 				</Fade>
 
-				<ChevronRightOutlinedIcon />
+				<Icon icon='chevron_right' type='outlined' width={theme.fontSizes.xl} height={theme.fontSizes.xl} />
 			</HStack>
 		</HStack>
 	);

@@ -2,12 +2,11 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, useBoolean } from '@chakra-ui/react';
 
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-
 import { PosterProps } from './types';
 
 import { handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../components/Clickable/Image';
+import Icon from '../../../../../../../components/Icon';
 import Image from '../../../../../../../components/Image';
 import Skeleton from '../../../../../../../components/Skeleton';
 
@@ -23,7 +22,9 @@ const Poster = (props: PosterProps): ReactElement => {
 			borderRadius='lg'
 			ratio={handleReturnRatio(isSm ? 'square' : 'portrait')}
 			isDisabled={isLoading || isImageError}
-			renderIcon={({ color, fontSize }) => <SearchOutlinedIcon style={{ color, fontSize }} />}
+			renderIcon={({ color, fontSize }) => (
+				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
+			)}
 			onClick={path ? () => onClickPoster(path) : undefined}
 		>
 			<Skeleton isLoaded={!isLoading} borderRadius='lg'>
