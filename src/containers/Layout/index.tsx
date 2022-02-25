@@ -30,42 +30,42 @@ import { Theme } from '../../theme/types';
 export const navItems: NavItem[] = [
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='home' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='home' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Home',
 		path: '/'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='search' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='search' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Search',
 		path: '/search'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='whatshot' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='whatshot' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Trending',
 		path: '/trending'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='theaters' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='theaters' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Movies',
 		path: '/movies'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='tv' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='tv' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'TV Shows',
 		path: '/tvshows'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='people_alt' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='people_alt' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'People',
 		path: '/people'

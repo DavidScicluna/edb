@@ -50,7 +50,7 @@ const User = (): ReactElement => {
 		},
 		{
 			renderIcon: ({ isActive, fontSize }) => (
-				<Icon icon='palette' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+				<Icon icon='palette' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 			),
 			label: 'Display',
 			onClick: () => dispatch(toggleDisplay(true))

@@ -2578,13 +2578,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/material-icons-two-tone@npm:^4.5.2":
-  version: 4.5.2
-  resolution: "@fontsource/material-icons-two-tone@npm:4.5.2"
-  checksum: bd6bb8e8895ee54b2ef7b041b3af954ec7ebadea0391664f9683445329f372128172694baba96196e23b25d92187206aff58abfa7a3e175765fa778083115839
-  languageName: node
-  linkType: hard
-
 "@fontsource/material-icons@npm:^4.5.2":
   version: 4.5.2
   resolution: "@fontsource/material-icons@npm:4.5.2"
@@ -6246,7 +6239,6 @@ __metadata:
     "@emotion/styled": ^11.6.0
     "@fontsource/material-icons": ^4.5.2
     "@fontsource/material-icons-outlined": ^4.5.2
-    "@fontsource/material-icons-two-tone": ^4.5.2
     "@fontsource/pacifico": ^4.5.1
     "@fontsource/work-sans": ^4.5.5
     "@hookform/resolvers": ^2.8.8

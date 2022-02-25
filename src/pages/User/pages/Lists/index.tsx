@@ -193,7 +193,7 @@ const Lists = (): ReactElement => {
 																		<Icon
 																			icon='info'
 																			type={
-																				isListInfoOpen ? 'two-tone' : 'outlined'
+																				isListInfoOpen ? 'filled' : 'outlined'
 																			}
 																		/>
 																	</IconButton>

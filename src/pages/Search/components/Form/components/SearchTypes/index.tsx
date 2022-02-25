@@ -22,7 +22,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'Movies',
 		color: 'blue',
 		renderLeftIcon: ({ isActive, fontSize }) => (
-			<Icon icon='theaters' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='theaters' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -30,7 +30,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'TV Shows',
 		color: 'orange',
 		renderLeftIcon: ({ isActive, fontSize }) => (
-			<Icon icon='tv' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='tv' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -38,7 +38,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'People',
 		color: 'yellow',
 		renderLeftIcon: ({ isActive, fontSize }) => (
-			<Icon icon='people_alt' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='people_alt' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -46,7 +46,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'Collections',
 		color: 'pink',
 		renderLeftIcon: ({ isActive, fontSize }) => (
-			<Icon icon='library_books' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='library_books' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -54,7 +54,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'Companies',
 		color: 'purple',
 		renderLeftIcon: ({ isActive, fontSize }) => (
-			<Icon icon='business' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='business' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	}
 ];

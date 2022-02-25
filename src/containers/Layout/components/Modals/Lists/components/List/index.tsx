@@ -72,7 +72,7 @@ const List = (props: ListProps): ReactElement => {
 				<Icon
 					ref={ref}
 					icon={isSelected ? 'check_box' : 'check_box_outline_blank'}
-					type={isSelected ? 'two-tone' : 'outlined'}
+					type={isSelected ? 'filled' : 'outlined'}
 					fontSize={fontSize}
 				/>
 			</HStack>

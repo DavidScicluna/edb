@@ -71,7 +71,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 		<>
 			{renderToggleModal({
 				color: isOpen ? color : 'gray',
-				icon: isOpen ? <Icon icon='date_range' type='two-tone' /> : <Icon icon='date_range' type='outlined' />,
+				icon: isOpen ? <Icon icon='date_range' type='filled' /> : <Icon icon='date_range' type='outlined' />,
 				onClick: () => onOpen()
 			})}
 

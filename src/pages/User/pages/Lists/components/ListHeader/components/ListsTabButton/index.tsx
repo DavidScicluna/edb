@@ -35,7 +35,7 @@ const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: Lis
 			_disabled={{ ..._.merge(style.disabled) }}
 		>
 			<HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing(size)}>
-				<Icon icon='grid_on' type={isSelected ? 'two-tone' : 'outlined'} fontSize={iconSize} />
+				<Icon icon='grid_on' type={isSelected ? 'filled' : 'outlined'} fontSize={iconSize} />
 				<Center>Lists</Center>
 			</HStack>
 		</Box>

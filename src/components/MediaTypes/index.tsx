@@ -12,35 +12,35 @@ import Icon from '../Icon';
 export const mediaTypesList: MediaTypeItemType[] = [
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='theaters' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='theaters' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Movies',
 		value: 'movie'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='tv' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='tv' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'TV Shows',
 		value: 'tv'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='people_alt' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='people_alt' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'People',
 		value: 'person'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='business' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='business' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Companies',
 		value: 'company'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='library_books' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='library_books' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Collections',
 		value: 'collection'

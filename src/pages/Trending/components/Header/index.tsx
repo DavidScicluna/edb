@@ -34,7 +34,7 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 							renderLeft: ({ isSelected, width, height }) => (
 								<Icon
 									icon='theaters'
-									type={isSelected ? 'two-tone' : 'outlined'}
+									type={isSelected ? 'filled' : 'outlined'}
 									width={width}
 									height={height}
 								/>
@@ -45,7 +45,7 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 							renderLeft: ({ isSelected, width, height }) => (
 								<Icon
 									icon='tv'
-									type={isSelected ? 'two-tone' : 'outlined'}
+									type={isSelected ? 'filled' : 'outlined'}
 									width={width}
 									height={height}
 								/>
@@ -56,7 +56,7 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 							renderLeft: ({ isSelected, width, height }) => (
 								<Icon
 									icon='people_alt'
-									type={isSelected ? 'two-tone' : 'outlined'}
+									type={isSelected ? 'filled' : 'outlined'}
 									width={width}
 									height={height}
 								/>

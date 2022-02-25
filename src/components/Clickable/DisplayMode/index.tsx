@@ -58,7 +58,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 						front: { borderRadius: `${theme.radii.base} 0 0 ${theme.radii.base}` }
 					}}
 				>
-					<Icon icon='grid_on' type={displayMode === 'grid' ? 'two-tone' : 'outlined'} />
+					<Icon icon='grid_on' type={displayMode === 'grid' ? 'filled' : 'outlined'} />
 				</IconButton>
 			</Tooltip>
 			<Tooltip
@@ -88,7 +88,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 						front: { borderRadius: `0 ${theme.radii.base} ${theme.radii.base} 0` }
 					}}
 				>
-					<Icon icon='view_agenda' type={displayMode === 'list' ? 'two-tone' : 'outlined'} />
+					<Icon icon='view_agenda' type={displayMode === 'list' ? 'filled' : 'outlined'} />
 				</IconButton>
 			</Tooltip>
 		</ButtonGroup>

@@ -1867,7 +1867,7 @@ type Icon =
 	| 'zoom_out'
 	| 'zoom_out_map';
 
-type IconType = 'outlined' | 'two-tone';
+type IconType = 'filled' | 'outlined';
 
 export type IconRef = HTMLDivElement | null;
 

@@ -56,10 +56,7 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 				onMouseLeave={() => setIsHovering.off()}
 				variant='icon'
 			>
-				<Icon
-					icon={state === 'isLiked' ? 'thumb_up' : 'thumb_down'}
-					type={isActive ? 'two-tone' : 'outlined'}
-				/>
+				<Icon icon={state === 'isLiked' ? 'thumb_up' : 'thumb_down'} type={isActive ? 'filled' : 'outlined'} />
 			</IconButton>
 		</Tooltip>
 	);

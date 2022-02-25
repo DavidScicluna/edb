@@ -6,7 +6,7 @@ import { IconRef, IconProps } from './types';
 
 const Icon = forwardRef<IconRef, IconProps>(function Icon({ icon, type, ...rest }, ref): ReactElement {
 	return (
-		<Center {...rest} ref={ref} className={`material-icons-${type}`}>
+		<Center {...rest} ref={ref} className={`material-icons${type === 'outlined' ? '-outlined' : ''} edb-icon`}>
 			{icon}
 		</Center>
 	);

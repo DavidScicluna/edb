@@ -17,7 +17,6 @@ import '@fontsource/pacifico/400.css';
 // Importing Material UI Icons
 import '@fontsource/material-icons';
 import '@fontsource/material-icons-outlined';
-import '@fontsource/material-icons-two-tone';
 
 import './index.css';
 
