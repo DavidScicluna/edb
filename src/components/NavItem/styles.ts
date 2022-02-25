@@ -57,7 +57,7 @@ export default (
 				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 			},
 
-			'& svg': {
+			'& .edb-icon': {
 				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 			}
 		},
@@ -76,7 +76,7 @@ export default (
 				color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.400'
 			},
 
-			'& svg': {
+			'& .edb-icon': {
 				color: isChildActive ? `${color}.400` : isActive ? 'gray.50' : 'gray.400'
 			},
 
@@ -87,7 +87,7 @@ export default (
 					color: isChildActive ? `${color}.500` : isActive ? 'gray.50' : 'gray.900'
 				},
 
-				'& svg': {
+				'& .edb-icon': {
 					color: isChildActive ? `${color}.500` : isActive ? 'gray.50' : 'gray.900'
 				}
 			}
@@ -104,7 +104,7 @@ export default (
 				color: isChildActive ? `${color}.500` : isActive ? 'gray.900' : 'gray.400'
 			},
 
-			'& svg': {
+			'& .edb-icon': {
 				color: isChildActive ? `${color}.500` : isActive ? 'gray.900' : 'gray.400'
 			},
 
@@ -115,7 +115,7 @@ export default (
 					color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.50'
 				},
 
-				'& svg': {
+				'& .edb-icon': {
 					color: isChildActive ? `${color}.400` : isActive ? 'gray.900' : 'gray.50'
 				}
 			}

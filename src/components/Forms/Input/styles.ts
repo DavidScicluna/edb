@@ -67,7 +67,7 @@ export default (
 				boxShadow: 'none'
 			},
 
-			'& svg': {
+			'& .edb-icon': {
 				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
 			}
 		},

@@ -21,7 +21,7 @@ export default (theme: Theme, isOpen = false): HeaderStyle => ({
 
 		'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
 
-		'& svg': {
+		'& .edb-icon': {
 			fontSize: theme.fontSizes.xl,
 			transform: `rotate(${isOpen ? '90deg' : '0deg'})`,
 
@@ -31,17 +31,17 @@ export default (theme: Theme, isOpen = false): HeaderStyle => ({
 	disabled: {
 		'cursor': 'default',
 
-		'& svg': {
+		'& .edb-icon': {
 			transform: 'rotate(0deg)'
 		}
 	},
 	light: {
-		'& svg': {
+		'& .edb-icon': {
 			color: 'gray.400'
 		}
 	},
 	dark: {
-		'& svg': {
+		'& .edb-icon': {
 			color: 'gray.500'
 		}
 	}

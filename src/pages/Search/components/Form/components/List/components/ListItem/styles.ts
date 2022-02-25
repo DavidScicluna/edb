@@ -36,7 +36,7 @@ export default (theme: Theme, { isLoading = true, variant }: StyleListItemProps)
 			transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 		},
 
-		'& svg': {
+		'& .edb-icon': {
 			transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 		}
 	},

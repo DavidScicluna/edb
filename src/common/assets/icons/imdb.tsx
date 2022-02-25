@@ -5,13 +5,14 @@ import { IconProps } from './types';
 const imdb = ({ style }: IconProps): ReactElement<SVGElement> => {
 	return (
 		<svg
-			xmlns='http://www.w3.org/2000/svg'
 			aria-hidden='true'
+			className='edb-icon'
 			role='img'
 			width='24px'
 			height='24px'
 			preserveAspectRatio='xMidYMid meet'
 			viewBox='0 0 448 512'
+			xmlns='http://www.w3.org/2000/svg'
 			style={style}
 		>
 			<path

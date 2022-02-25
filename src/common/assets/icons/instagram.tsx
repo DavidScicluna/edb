@@ -6,6 +6,7 @@ const instagram = ({ style }: IconProps): ReactElement<SVGElement> => {
 	return (
 		<svg
 			aria-hidden='true'
+			className='edb-icon'
 			role='img'
 			width='24px'
 			height='24px'
