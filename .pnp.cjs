@@ -39,6 +39,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@chakra-ui/theme-tools", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.3.4"],
             ["@emotion/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.7.1"],
             ["@emotion/styled", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.6.0"],
+            ["@fontsource/material-icons", "npm:4.5.2"],
             ["@fontsource/material-icons-outlined", "npm:4.5.2"],
             ["@fontsource/material-icons-two-tone", "npm:4.5.2"],
             ["@fontsource/pacifico", "npm:4.5.1"],
@@ -4964,6 +4965,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@fontsource/material-icons", [
+        ["npm:4.5.2", {
+          "packageLocation": "./.yarn/cache/@fontsource-material-icons-npm-4.5.2-3852fc283b-450d1102a9.zip/node_modules/@fontsource/material-icons/",
+          "packageDependencies": [
+            ["@fontsource/material-icons", "npm:4.5.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@fontsource/material-icons-outlined", [
         ["npm:4.5.2", {
           "packageLocation": "./.yarn/cache/@fontsource-material-icons-outlined-npm-4.5.2-b7b90fe56c-63edf8a109.zip/node_modules/@fontsource/material-icons-outlined/",
@@ -9733,6 +9743,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@chakra-ui/theme-tools", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.3.4"],
             ["@emotion/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.7.1"],
             ["@emotion/styled", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.6.0"],
+            ["@fontsource/material-icons", "npm:4.5.2"],
             ["@fontsource/material-icons-outlined", "npm:4.5.2"],
             ["@fontsource/material-icons-two-tone", "npm:4.5.2"],
             ["@fontsource/pacifico", "npm:4.5.1"],

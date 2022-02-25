@@ -61,6 +61,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
     "@chakra-ui/theme-tools": "^1.3.4",
+    "@fontsource/material-icons": "^4.5.2",
     "@fontsource/material-icons-outlined": "^4.5.2",
     "@fontsource/material-icons-two-tone": "^4.5.2",
     "@fontsource/pacifico": "^4.5.1",
