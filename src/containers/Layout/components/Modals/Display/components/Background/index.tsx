@@ -1,17 +1,13 @@
 import { ReactElement } from 'react';
 import { UseFormReturn, Controller } from 'react-hook-form';
 
-import { useMediaQuery, Stack, HStack, Center, Text } from '@chakra-ui/react';
-
-import {
-	WbSunnyOutlined as WbSunnyOutlinedIcon,
-	Brightness2Outlined as Brightness2OutlinedIcon
-} from '@material-ui/icons';
+import { useMediaQuery, Stack, Center, Text } from '@chakra-ui/react';
 
 import BackgroundItem from './components/BackgroundItem';
 import { Background as BackgroundType } from './types';
 
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
+import Icon from '../../../../../../../components/Icon';
 import Panel from '../../../../../../../components/Panel';
 import { Form } from '../../types';
 
@@ -19,28 +15,29 @@ const backgrounds: BackgroundType[] = [
 	{
 		label: 'Light',
 		value: 'light',
-		renderIcon: ({ fontSize }) => <WbSunnyOutlinedIcon style={{ fontSize }} />
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='light_mode' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		)
 	},
 	{
 		label: 'System',
 		value: 'system',
-		renderIcon: ({ fontSize }) => (
-			<HStack
-				divider={
-					<Text align='center' fontSize='xl' mx={0.5}>
-						/
-					</Text>
-				}
-			>
-				<WbSunnyOutlinedIcon style={{ fontSize }} />
-				<Brightness2OutlinedIcon style={{ fontSize }} />
-			</HStack>
+		renderIcon: ({ isActive, fontSize }) => (
+			<Center>
+				<Icon icon='light_mode' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+				<Text align='center' fontSize='xl' mx={0.5}>
+					/
+				</Text>
+				<Icon icon='dark_mode' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+			</Center>
 		)
 	},
 	{
 		label: 'Dark',
 		value: 'dark',
-		renderIcon: ({ fontSize }) => <Brightness2OutlinedIcon style={{ fontSize }} />
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='dark_mode' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		)
 	}
 ];
 

@@ -1,11 +1,7 @@
 import { ReactElement } from 'react';
 
-import { useTheme, HStack, VStack, Center, Text } from '@chakra-ui/react';
+import { useTheme, HStack, VStack, Text } from '@chakra-ui/react';
 
-import {
-	CheckBoxTwoTone as CheckBoxTwoToneIcon,
-	CheckBoxOutlineBlankOutlined as CheckBoxOutlineBlankOutlinedIcon
-} from '@material-ui/icons';
 import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
@@ -14,6 +10,7 @@ import { ListProps } from './types';
 import { useSelector } from '../../../../../../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../../common/utils';
 import Card from '../../../../../../../components/Clickable/Card';
+import Icon from '../../../../../../../components/Icon';
 import { Theme } from '../../../../../../../theme/types';
 
 const List = (props: ListProps): ReactElement => {
@@ -72,13 +69,12 @@ const List = (props: ListProps): ReactElement => {
 					</Text>
 				</VStack>
 
-				<Center ref={ref}>
-					{isSelected ? (
-						<CheckBoxTwoToneIcon style={{ fontSize }} />
-					) : (
-						<CheckBoxOutlineBlankOutlinedIcon style={{ fontSize }} />
-					)}
-				</Center>
+				<Icon
+					ref={ref}
+					icon={isSelected ? 'check_box' : 'check_box_outline_blank'}
+					type={isSelected ? 'two-tone' : 'outlined'}
+					fontSize={fontSize}
+				/>
 			</HStack>
 		</Card>
 	);

@@ -2,13 +2,13 @@ import { ReactElement } from 'react';
 
 import { HStack, Fade } from '@chakra-ui/react';
 
-import { ClearOutlined as ClearOutlinedIcon, SendOutlined as SendOutlinedIcon } from '@material-ui/icons';
 import { useElementSize } from 'usehooks-ts';
 
 import { ActionsProps } from './types';
 
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Divider from '../../../../../../../../components/Divider';
+import Icon from '../../../../../../../../components/Icon';
 
 const Actions = (props: ActionsProps): ReactElement => {
 	const [ref, { height }] = useElementSize();
@@ -32,7 +32,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 					size='sm'
 					variant='icon'
 				>
-					<ClearOutlinedIcon />
+					<Icon icon='clear' type='outlined' />
 				</IconButton>
 			</Fade>
 
@@ -43,7 +43,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 				size='sm'
 				variant='icon'
 			>
-				<SendOutlinedIcon />
+				<Icon icon='send' type='outlined' />
 			</IconButton>
 		</HStack>
 	);

@@ -3,13 +3,13 @@ import YouTube, { Options } from 'react-youtube';
 
 import { Box } from '@chakra-ui/react';
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import _ from 'lodash';
 
 import { MediaVideoProps } from './types';
 
 import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
+import Icon from '../../../../../../components/Icon';
 import Skeleton from '../../../../../../components/Skeleton';
 
 import './styles.css';
@@ -41,7 +41,9 @@ const MediaVideo = (props: MediaVideoProps): ReactElement => {
 				ratio={handleReturnRatio('square')}
 				borderRadius='lg'
 				isDisabled={isLoading || _.isNil(videoId) || _.isEmpty(videoId)}
-				renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
+				renderIcon={({ color, fontSize }) => (
+					<Icon icon='play_arrow' type='outlined' color={color} fontSize={fontSize} />
+				)}
 				onClick={onClick}
 			>
 				<Skeleton borderRadius='lg' isLoaded={!isLoading}>

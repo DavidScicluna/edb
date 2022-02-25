@@ -2,12 +2,12 @@ import React from 'react';
 
 import { useTheme, useColorMode, Box, HStack, Center } from '@chakra-ui/react';
 
-import { GridOnTwoTone as GridOnTwoToneIcon, GridOnOutlined as GridOnOutlinedIcon } from '@material-ui/icons';
 import _ from 'lodash';
 
 import { ListsTabButtonProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
+import Icon from '../../../../../../../../components/Icon';
 import {
 	handleReturnSpacing,
 	handleReturnIconSize
@@ -35,11 +35,7 @@ const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: Lis
 			_disabled={{ ..._.merge(style.disabled) }}
 		>
 			<HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing(size)}>
-				{isSelected ? (
-					<GridOnTwoToneIcon style={{ fontSize: iconSize }} />
-				) : (
-					<GridOnOutlinedIcon style={{ fontSize: iconSize }} />
-				)}
+				<Icon icon='grid_on' type={isSelected ? 'two-tone' : 'outlined'} fontSize={iconSize} />
 				<Center>Lists</Center>
 			</HStack>
 		</Box>

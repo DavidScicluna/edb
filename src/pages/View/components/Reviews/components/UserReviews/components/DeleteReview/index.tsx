@@ -3,14 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
 
-import { DeleteOutlineOutlined as DeleteOutlineOutlinedIcon } from '@material-ui/icons';
-
 import { DeleteReviewProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
+import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { setUserReviews } from '../../../../../../../../store/slices/User';
 
@@ -38,7 +37,7 @@ const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 					onMouseLeave={() => setIsHovering.off()}
 					variant='icon'
 				>
-					<DeleteOutlineOutlinedIcon />
+					<Icon icon='delete_outline' type='outlined' />
 				</IconButton>
 			</Tooltip>
 

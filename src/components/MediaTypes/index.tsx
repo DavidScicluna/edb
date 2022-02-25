@@ -2,57 +2,46 @@ import { ReactElement } from 'react';
 
 import { HStack, Center } from '@chakra-ui/react';
 
-import {
-	LibraryBooksOutlined as LibraryBooksOutlinedIcon,
-	LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
-	PeopleAltOutlined as PeopleAltOutlinedIcon,
-	PeopleAltTwoTone as PeopleAltTwoToneIcon,
-	TheatersOutlined as TheatersOutlinedIcon,
-	TheatersTwoTone as TheatersTwoToneIcon,
-	TvOutlined as TvOutlinedIcon,
-	TvTwoTone as TvTwoToneIcon,
-	BusinessOutlined as BusinessOutlinedIcon,
-	BusinessTwoTone as BusinessTwoToneIcon
-} from '@material-ui/icons';
-
 import MediaTypeItem from './components/MediaTypeItem';
 import { MediaTypeItem as MediaTypeItemType } from './components/MediaTypeItem/types';
 import { MediaTypesProps } from './types';
 
 import { MediaType as MediaType } from '../../common/types';
+import Icon from '../Icon';
 
 export const mediaTypesList: MediaTypeItemType[] = [
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='theaters' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'Movies',
 		value: 'movie'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='tv' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'TV Shows',
 		value: 'tv'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <PeopleAltTwoToneIcon style={{ fontSize }} /> : <PeopleAltOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='people_alt' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'People',
 		value: 'person'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <BusinessTwoToneIcon style={{ fontSize }} /> : <BusinessOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='business' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'Companies',
 		value: 'company'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? (
-				<LibraryBooksTwoToneIcon style={{ fontSize }} />
-			) : (
-				<LibraryBooksOutlinedIcon style={{ fontSize }} />
-			),
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='library_books' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'Collections',
 		value: 'collection'
 	}

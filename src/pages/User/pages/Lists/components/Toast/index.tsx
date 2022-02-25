@@ -2,16 +2,11 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
-import {
-	EditOutlined as EditOutlinedIcon,
-	DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
-	CloseOutlined as CloseOutlinedIcon
-} from '@material-ui/icons';
-
 import { ToastProps } from './types';
 
 import Button from '../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../components/Clickable/IconButton';
+import Icon from '../../../../../../components/Icon';
 
 const Toast = (props: ToastProps): ReactElement => {
 	const { colorMode } = useColorMode();
@@ -49,12 +44,12 @@ const Toast = (props: ToastProps): ReactElement => {
 						onClick={() => onEdit()}
 						size='sm'
 					>
-						<EditOutlinedIcon />
+						<Icon icon='edit' type='outlined' />
 					</IconButton>
 				) : (
 					<Button
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
-						renderLeftIcon={({ fontSize }) => <EditOutlinedIcon style={{ fontSize }} />}
+						renderLeftIcon={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
 						onClick={() => onEdit()}
 					>
 						Edit
@@ -69,13 +64,15 @@ const Toast = (props: ToastProps): ReactElement => {
 						onClick={() => onDelete()}
 						size='sm'
 					>
-						<DeleteOutlineOutlinedIcon />
+						<Icon icon='delete_outline' type='outlined' />
 					</IconButton>
 				) : (
 					<Button
 						color='red'
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
-						renderLeftIcon={({ fontSize }) => <DeleteOutlineOutlinedIcon style={{ fontSize }} />}
+						renderLeftIcon={({ fontSize }) => (
+							<Icon icon='delete_outline' type='outlined' fontSize={fontSize} />
+						)}
 						onClick={() => onDelete()}
 					>
 						Delete
@@ -90,7 +87,7 @@ const Toast = (props: ToastProps): ReactElement => {
 				size={isSm ? 'sm' : 'md'}
 				variant='icon'
 			>
-				<CloseOutlinedIcon />
+				<Icon icon='close' type='outlined' />
 			</IconButton>
 		</HStack>
 	);

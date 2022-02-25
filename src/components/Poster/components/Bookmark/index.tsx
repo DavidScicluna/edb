@@ -2,25 +2,21 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import {
-	BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
-	BookmarkOutlined as BookmarkOutlinedIcon
-} from '@material-ui/icons';
-
 import { PosterBookmarkProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
 import Bookmark from '../../../Clickable/Bookmark';
 import IconButton from '../../../Clickable/IconButton';
+import Icon from '../../../Icon';
 import Tooltip from '../../../Tooltip';
 
 const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): ReactElement => {
-	const [isHovering, setIsHovering] = useBoolean();
-
 	const color = useSelector((state) => state.user.ui.theme.color);
 
 	const { title, mediaType, mediaItem, isLoading = true, size } = props;
+
+	const [isHovering, setIsHovering] = useBoolean();
 
 	const isDisabled: boolean = isLoading || !mediaItem;
 
@@ -74,7 +70,18 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 						size={size}
 						variant='icon'
 					>
-						{isBookmarked ? <BookmarkOutlinedIcon /> : <BookmarkBorderOutlinedIcon />}
+						<Icon
+							icon={
+								isBookmarked
+									? isHovering
+										? 'bookmark_remove'
+										: 'bookmark_added'
+									: isHovering
+									? 'bookmark_add'
+									: 'bookmark_border'
+							}
+							type='outlined'
+						/>
 					</IconButton>
 				</Tooltip>
 			)}

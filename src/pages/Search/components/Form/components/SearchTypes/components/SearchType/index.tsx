@@ -1,10 +1,9 @@
 import { ReactElement } from 'react';
 
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-
 import { SearchTypeProps } from './types';
 
 import Button from '../../../../../../../../components/Clickable/Button';
+import Icon from '../../../../../../../../components/Icon';
 
 const SearchType = (props: SearchTypeProps): ReactElement => {
 	const { value, label, color, isActive = false, renderLeftIcon, onClick } = props;
@@ -18,7 +17,9 @@ const SearchType = (props: SearchTypeProps): ReactElement => {
 					fontSize
 				})
 			}
-			renderRightIcon={isActive ? ({ fontSize }) => <CheckOutlinedIcon style={{ fontSize }} /> : undefined}
+			renderRightIcon={
+				isActive ? ({ fontSize }) => <Icon icon='check' type='outlined' fontSize={fontSize} /> : undefined
+			}
 			onClick={() => onClick(value)}
 			variant='outlined'
 		>

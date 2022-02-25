@@ -4,20 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { ColorMode, useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box } from '@chakra-ui/react';
 
-import {
-	HomeTwoTone as HomeTwoToneIcon,
-	HomeOutlined as HomeOutlinedIcon,
-	PeopleAltOutlined as PeopleAltOutlinedIcon,
-	PeopleAltTwoTone as PeopleAltTwoToneIcon,
-	SearchOutlined as SearchOutlinedIcon,
-	SearchTwoTone as SearchTwoToneIcon,
-	TheatersOutlined as TheatersOutlinedIcon,
-	TheatersTwoTone as TheatersTwoToneIcon,
-	TvOutlined as TvOutlinedIcon,
-	TvTwoTone as TvTwoToneIcon,
-	WhatshotOutlined as WhatshotOutlinedIcon,
-	WhatshotTwoTone as WhatshotTwoToneIcon
-} from '@material-ui/icons';
 import _ from 'lodash';
 import { useIsFirstRender, useUpdateEffect } from 'usehooks-ts';
 
@@ -35,6 +21,7 @@ import Sidebar from './components/Sidebar';
 
 import { useSelector, usePopulateOptions, useCheckColorMode } from '../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
+import Icon from '../../components/Icon';
 import { NavItem } from '../../components/NavItem/types';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { toggleSplashscreen } from '../../store/slices/Modals';
@@ -42,38 +29,44 @@ import { Theme } from '../../theme/types';
 
 export const navItems: NavItem[] = [
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <HomeTwoToneIcon style={{ fontSize }} /> : <HomeOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='home' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'Home',
 		path: '/'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <SearchTwoToneIcon style={{ fontSize }} /> : <SearchOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='search' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'Search',
 		path: '/search'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <WhatshotTwoToneIcon style={{ fontSize }} /> : <WhatshotOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='whatshot' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'Trending',
 		path: '/trending'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='theaters' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'Movies',
 		path: '/movies'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='tv' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'TV Shows',
 		path: '/tvshows'
 	},
 	{
-		renderIcon: ({ isActive, fontSize }) =>
-			isActive ? <PeopleAltTwoToneIcon style={{ fontSize }} /> : <PeopleAltOutlinedIcon style={{ fontSize }} />,
+		renderIcon: ({ isActive, fontSize }) => (
+			<Icon icon='people_alt' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		),
 		label: 'People',
 		path: '/people'
 	}

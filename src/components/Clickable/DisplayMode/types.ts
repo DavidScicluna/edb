@@ -1,4 +1,4 @@
-import { ButtonGroupProps } from '@material-ui/core';
+import { ButtonGroupProps } from '@chakra-ui/react';
 
 export type DisplayModeRef = HTMLDivElement | null;
 

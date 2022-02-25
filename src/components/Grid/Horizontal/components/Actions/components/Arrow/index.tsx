@@ -2,14 +2,10 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import {
-	ArrowBackOutlined as ArrowBackOutlinedIcon,
-	ArrowForwardOutlined as ArrowForwardOutlinedIcon
-} from '@material-ui/icons';
-
 import { ArrowProps } from './types';
 
 import IconButton from '../../../../../../Clickable/IconButton';
+import Icon from '../../../../../../Icon';
 import Tooltip from '../../../../../../Tooltip';
 
 const Arrow = (props: ArrowProps): ReactElement => {
@@ -38,7 +34,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
 				size='sm'
 				variant='outlined'
 			>
-				{direction === 'left' ? <ArrowBackOutlinedIcon /> : <ArrowForwardOutlinedIcon />}
+				<Icon icon={direction === 'left' ? 'arrow_back' : 'arrow_forward'} type='outlined' />
 			</IconButton>
 		</Tooltip>
 	);

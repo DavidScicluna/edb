@@ -2,13 +2,13 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Center, Link as CUILink } from '@chakra-ui/react';
 
-import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import _ from 'lodash';
 
 import useStyles from './styles';
 import { LinkProps } from './types';
 
 import { Theme } from '../../../../../../theme/types';
+import Icon from '../../../../../Icon';
 import Skeleton from '../../../../../Skeleton';
 
 const Link = (props: LinkProps): ReactElement => {
@@ -28,7 +28,7 @@ const Link = (props: LinkProps): ReactElement => {
 			sx={{ ...style.common.link }}
 		>
 			<Center sx={{ ..._.merge(style.common.icon) }}>
-				<Skeleton isLoaded={!isDisabled}>{icon || <ErrorOutlineOutlinedIcon />}</Skeleton>
+				<Skeleton isLoaded={!isDisabled}>{icon || <Icon icon='error_outline' type='outlined' />}</Skeleton>
 			</Center>
 		</CUILink>
 	);

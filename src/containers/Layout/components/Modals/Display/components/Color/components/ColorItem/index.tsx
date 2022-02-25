@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useBoolean, useConst, VStack, Box, Center, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@chakra-ui/react';
 
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import _ from 'lodash';
 
 import { ColorItemProps } from './types';
 
 import Card from '../../../../../../../../../components/Clickable/Card';
+import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 import { Theme } from '../../../../../../../../../theme/types';
 
@@ -59,14 +59,12 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 						}}
 					>
 						<ScaleFade in={isActive} unmountOnExit>
-							<Center>
-								<CheckOutlinedIcon
-									style={{
-										fontSize: theme.fontSizes['4xl'],
-										color: theme.colors.gray[colorMode === 'light' ? 50 : 900]
-									}}
-								/>
-							</Center>
+							<Icon
+								icon='check'
+								type='outlined'
+								color={theme.colors.gray[colorMode === 'light' ? 50 : 900]}
+								fontSize={theme.fontSizes['4xl']}
+							/>
 						</ScaleFade>
 					</Box>
 					<Text align='center' fontSize='sm' fontWeight='medium'>

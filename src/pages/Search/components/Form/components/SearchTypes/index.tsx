@@ -2,18 +2,6 @@ import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Box, Text } from '@chakra-ui/react';
 
-import {
-	LibraryBooksOutlined as LibraryBooksOutlinedIcon,
-	LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
-	PeopleAltOutlined as PeopleAltOutlinedIcon,
-	PeopleAltTwoTone as PeopleAltTwoToneIcon,
-	TheatersOutlined as TheatersOutlinedIcon,
-	TheatersTwoTone as TheatersTwoToneIcon,
-	TvOutlined as TvOutlinedIcon,
-	TvTwoTone as TvTwoToneIcon,
-	BusinessOutlined as BusinessOutlinedIcon,
-	BusinessTwoTone as BusinessTwoToneIcon
-} from '@material-ui/icons';
 import { useElementSize } from 'usehooks-ts';
 
 import SearchType from './components/SearchType';
@@ -24,6 +12,7 @@ import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import Divider from '../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
+import Icon from '../../../../../../components/Icon';
 import Panel from '../../../../../../components/Panel';
 import { SearchType as SearchTypeValue } from '../../../../../../store/slices/User/types';
 
@@ -32,40 +21,41 @@ export const searchTypes: SearchTypeType[] = [
 		value: 'movie',
 		label: 'Movies',
 		color: 'blue',
-		renderLeftIcon: ({ isActive, fontSize }) =>
-			isActive ? <TheatersTwoToneIcon style={{ fontSize }} /> : <TheatersOutlinedIcon style={{ fontSize }} />
+		renderLeftIcon: ({ isActive, fontSize }) => (
+			<Icon icon='theaters' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		)
 	},
 	{
 		value: 'tv',
 		label: 'TV Shows',
 		color: 'orange',
-		renderLeftIcon: ({ isActive, fontSize }) =>
-			isActive ? <TvTwoToneIcon style={{ fontSize }} /> : <TvOutlinedIcon style={{ fontSize }} />
+		renderLeftIcon: ({ isActive, fontSize }) => (
+			<Icon icon='tv' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		)
 	},
 	{
 		value: 'person',
 		label: 'People',
 		color: 'yellow',
-		renderLeftIcon: ({ isActive, fontSize }) =>
-			isActive ? <PeopleAltTwoToneIcon style={{ fontSize }} /> : <PeopleAltOutlinedIcon style={{ fontSize }} />
+		renderLeftIcon: ({ isActive, fontSize }) => (
+			<Icon icon='people_alt' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		)
 	},
 	{
 		value: 'collection',
 		label: 'Collections',
 		color: 'pink',
-		renderLeftIcon: ({ isActive, fontSize }) =>
-			isActive ? (
-				<LibraryBooksTwoToneIcon style={{ fontSize }} />
-			) : (
-				<LibraryBooksOutlinedIcon style={{ fontSize }} />
-			)
+		renderLeftIcon: ({ isActive, fontSize }) => (
+			<Icon icon='library_books' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		)
 	},
 	{
 		value: 'company',
 		label: 'Companies',
 		color: 'purple',
-		renderLeftIcon: ({ isActive, fontSize }) =>
-			isActive ? <BusinessTwoToneIcon style={{ fontSize }} /> : <BusinessOutlinedIcon style={{ fontSize }} />
+		renderLeftIcon: ({ isActive, fontSize }) => (
+			<Icon icon='business' type={isActive ? 'two-tone' : 'outlined'} fontSize={fontSize} />
+		)
 	}
 ];
 

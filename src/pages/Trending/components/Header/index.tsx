@@ -2,14 +2,6 @@ import { ReactElement } from 'react';
 
 import { HStack, Center, Fade } from '@chakra-ui/react';
 
-import {
-	PeopleAltOutlined as PeopleAltOutlinedIcon,
-	PeopleAltTwoTone as PeopleAltTwoToneIcon,
-	TheatersOutlined as TheatersOutlinedIcon,
-	TheatersTwoTone as TheatersTwoToneIcon,
-	TvOutlined as TvOutlinedIcon,
-	TvTwoTone as TvTwoToneIcon
-} from '@material-ui/icons';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
@@ -18,6 +10,7 @@ import { HeaderProps } from './types';
 import { useSelector } from '../../../../common/hooks';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
+import Icon from '../../../../components/Icon';
 import TabList from '../../../../components/Tabs/components/TabList';
 
 const Header = ({ activeTab }: HeaderProps): ReactElement => {
@@ -38,30 +31,36 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 					{[
 						{
 							label: 'Movies',
-							renderLeft: ({ isSelected, width, height }) =>
-								isSelected ? (
-									<TheatersTwoToneIcon style={{ width, height }} />
-								) : (
-									<TheatersOutlinedIcon style={{ width, height }} />
-								)
+							renderLeft: ({ isSelected, width, height }) => (
+								<Icon
+									icon='theaters'
+									type={isSelected ? 'two-tone' : 'outlined'}
+									width={width}
+									height={height}
+								/>
+							)
 						},
 						{
 							label: 'TV Shows',
-							renderLeft: ({ isSelected, width, height }) =>
-								isSelected ? (
-									<TvTwoToneIcon style={{ width, height }} />
-								) : (
-									<TvOutlinedIcon style={{ width, height }} />
-								)
+							renderLeft: ({ isSelected, width, height }) => (
+								<Icon
+									icon='tv'
+									type={isSelected ? 'two-tone' : 'outlined'}
+									width={width}
+									height={height}
+								/>
+							)
 						},
 						{
 							label: 'People',
-							renderLeft: ({ isSelected, width, height }) =>
-								isSelected ? (
-									<PeopleAltTwoToneIcon style={{ width, height }} />
-								) : (
-									<PeopleAltOutlinedIcon style={{ width, height }} />
-								)
+							renderLeft: ({ isSelected, width, height }) => (
+								<Icon
+									icon='people_alt'
+									type={isSelected ? 'two-tone' : 'outlined'}
+									width={width}
+									height={height}
+								/>
+							)
 						}
 					]}
 				</TabList>

@@ -2,12 +2,12 @@ import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, VStack, Text } from '@chakra-ui/react';
 
-import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import _ from 'lodash';
 
 import { RatingRef, RatingProps } from './types';
 
 import { Theme } from '../../theme/types';
+import Icon from '../Icon';
 import SkeletonText from '../Skeleton/Text';
 
 const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): ReactElement {
@@ -60,12 +60,13 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 
 	return (
 		<Center ref={ref}>
-			<StarOutlinedIcon
-				style={{
-					color: theme.colors.yellow[colorMode === 'light' ? 500 : 400],
-					fontSize: handleReturnIconSize()
-				}}
+			<Icon
+				icon='star'
+				type='outlined'
+				color={theme.colors.yellow[colorMode === 'light' ? 500 : 400]}
+				fontSize={handleReturnIconSize()}
 			/>
+
 			{inView || isLoading ? (
 				<SkeletonText fontSize={size} isLoaded={!isLoading} ml={0.5}>
 					<VStack spacing={0.25}>

@@ -2,15 +2,12 @@ import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text, Fade } from '@chakra-ui/react';
 
-import {
-	ChevronLeftOutlined as ChevronLeftOutlinedIcon,
-	ChevronRightOutlined as ChevronRightOutlinedIcon
-} from '@material-ui/icons';
 import _ from 'lodash';
 
 import { HeaderProps } from './types';
 
 import IconButton from '../../../../../../Clickable/IconButton';
+import Icon from '../../../../../../Icon';
 import years from '../../../../common/data/years';
 
 const Header = (props: HeaderProps): ReactElement => {
@@ -30,7 +27,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				size='lg'
 				variant='icon'
 			>
-				<ChevronLeftOutlinedIcon />
+				<Icon icon='chevron_left' type='outlined' />
 			</IconButton>
 
 			{/* Current Decade */}
@@ -55,7 +52,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				size='lg'
 				variant='icon'
 			>
-				<ChevronRightOutlinedIcon />
+				<Icon icon='chevron_right' type='outlined' />
 			</IconButton>
 		</HStack>
 	);

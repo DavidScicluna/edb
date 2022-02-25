@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, useConst, HStack, Input as CUIInput, Center, Fade } from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, useConst, HStack, Input as CUIInput, Fade } from '@chakra-ui/react';
 
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
 import collectionsPlaceholders from './common/data/placeholders/collections';
@@ -15,10 +14,14 @@ import Actions from './components/Actions';
 import SearchTypes from './components/SearchTypes';
 import { InputProps } from './types';
 
+import Icon from '../../../../../../components/Icon';
+import { Theme } from '../../../../../../theme/types';
 import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';
 
 const Input = (props: InputProps): ReactElement => {
+	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
+
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const {
@@ -64,16 +67,8 @@ const Input = (props: InputProps): ReactElement => {
 			justifyContent='space-between'
 		>
 			<HStack flex={1}>
-				<Center
-					sx={{
-						'& svg': {
-							color: `gray.${colorMode === 'light' ? 400 : 500}`,
-							transition: 'none !important'
-						}
-					}}
-				>
-					<SearchOutlinedIcon />
-				</Center>
+				<Icon icon='search' type='outlined' color={theme.colors.gray[colorMode === 'light' ? 400 : 500]} />
+
 				{!isSm ? (
 					<Fade in={searchTypes.length > 0} unmountOnExit>
 						<SearchTypes searchTypes={searchTypes} onClear={onClearSearchTypes} />

@@ -3,18 +3,6 @@ import CountUp from 'react-countup';
 
 import { Center, HStack, Fade } from '@chakra-ui/react';
 
-import {
-	LibraryBooksOutlined as LibraryBooksOutlinedIcon,
-	LibraryBooksTwoTone as LibraryBooksTwoToneIcon,
-	PeopleAltOutlined as PeopleAltOutlinedIcon,
-	PeopleAltTwoTone as PeopleAltTwoToneIcon,
-	TheatersOutlined as TheatersOutlinedIcon,
-	TheatersTwoTone as TheatersTwoToneIcon,
-	TvOutlined as TvOutlinedIcon,
-	TvTwoTone as TvTwoToneIcon,
-	BusinessOutlined as BusinessOutlinedIcon,
-	BusinessTwoTone as BusinessTwoToneIcon
-} from '@material-ui/icons';
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
@@ -24,6 +12,7 @@ import { useSelector } from '../../../../common/hooks';
 import Badge from '../../../../components/Badge';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
+import Icon from '../../../../components/Icon';
 import TabList from '../../../../components/Tabs/components/TabList';
 
 const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person', 'company', 'collection'];
@@ -58,12 +47,14 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'Movies',
 									isDisabled: total.movie === 0,
-									renderLeft: ({ isSelected, width, height }) =>
-										isSelected ? (
-											<TheatersTwoToneIcon style={{ width, height }} />
-										) : (
-											<TheatersOutlinedIcon style={{ width, height }} />
-										),
+									renderLeft: ({ isSelected, width, height }) => (
+										<Icon
+											icon='theaters'
+											type={isSelected ? 'two-tone' : 'outlined'}
+											width={width}
+											height={height}
+										/>
+									),
 									renderRight:
 										(total.movie || 0) > 0
 											? ({ isSelected, size }) => (
@@ -84,12 +75,14 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'TV Shows',
 									isDisabled: total.tv === 0,
-									renderLeft: ({ isSelected, width, height }) =>
-										isSelected ? (
-											<TvTwoToneIcon style={{ width, height }} />
-										) : (
-											<TvOutlinedIcon style={{ width, height }} />
-										),
+									renderLeft: ({ isSelected, width, height }) => (
+										<Icon
+											icon='tv'
+											type={isSelected ? 'two-tone' : 'outlined'}
+											width={width}
+											height={height}
+										/>
+									),
 									renderRight:
 										(total.tv || 0) > 0
 											? ({ isSelected, size }) => (
@@ -110,12 +103,14 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'People',
 									isDisabled: total.person === 0,
-									renderLeft: ({ isSelected, width, height }) =>
-										isSelected ? (
-											<PeopleAltTwoToneIcon style={{ width, height }} />
-										) : (
-											<PeopleAltOutlinedIcon style={{ width, height }} />
-										),
+									renderLeft: ({ isSelected, width, height }) => (
+										<Icon
+											icon='people_alt'
+											type={isSelected ? 'two-tone' : 'outlined'}
+											width={width}
+											height={height}
+										/>
+									),
 									renderRight:
 										(total.person || 0) > 0
 											? ({ isSelected, size }) => (
@@ -136,12 +131,14 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'Companies',
 									isDisabled: total.company === 0,
-									renderLeft: ({ isSelected, width, height }) =>
-										isSelected ? (
-											<BusinessTwoToneIcon style={{ width, height }} />
-										) : (
-											<BusinessOutlinedIcon style={{ width, height }} />
-										),
+									renderLeft: ({ isSelected, width, height }) => (
+										<Icon
+											icon='business'
+											type={isSelected ? 'two-tone' : 'outlined'}
+											width={width}
+											height={height}
+										/>
+									),
 									renderRight:
 										(total.company || 0) > 0
 											? ({ isSelected, size }) => (
@@ -162,12 +159,14 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'Collections',
 									isDisabled: total.collection === 0,
-									renderLeft: ({ isSelected, width, height }) =>
-										isSelected ? (
-											<LibraryBooksTwoToneIcon style={{ width, height }} />
-										) : (
-											<LibraryBooksOutlinedIcon style={{ width, height }} />
-										),
+									renderLeft: ({ isSelected, width, height }) => (
+										<Icon
+											icon='library_books'
+											type={isSelected ? 'two-tone' : 'outlined'}
+											width={width}
+											height={height}
+										/>
+									),
 									renderRight:
 										(total.collection || 0) > 0
 											? ({ isSelected, size }) => (

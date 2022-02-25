@@ -3,15 +3,11 @@ import { Controller } from 'react-hook-form';
 
 import { HStack } from '@chakra-ui/react';
 
-import {
-	RadioButtonUncheckedOutlined as RadioButtonUncheckedOutlinedIcon,
-	RadioButtonCheckedOutlined as RadioButtonCheckedOutlinedIcon
-} from '@material-ui/icons';
-
 import { AdultProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../Clickable/Button';
+import Icon from '../../../Icon';
 import Panel from '../../../Panel';
 
 const Adult = ({ form, mediaType }: AdultProps): ReactElement => {
@@ -33,9 +29,9 @@ const Adult = ({ form, mediaType }: AdultProps): ReactElement => {
 									color={!value ? color : 'gray'}
 									renderLeftIcon={({ fontSize }) =>
 										!value ? (
-											<RadioButtonCheckedOutlinedIcon style={{ fontSize }} />
+											<Icon icon='radio_button_checked' type='outlined' fontSize={fontSize} />
 										) : (
-											<RadioButtonUncheckedOutlinedIcon style={{ fontSize }} />
+											<Icon icon='radio_button_unchecked' type='outlined' fontSize={fontSize} />
 										)
 									}
 									isFullWidth
@@ -50,9 +46,9 @@ const Adult = ({ form, mediaType }: AdultProps): ReactElement => {
 									color={value ? color : 'gray'}
 									renderLeftIcon={({ fontSize }) =>
 										value ? (
-											<RadioButtonCheckedOutlinedIcon style={{ fontSize }} />
+											<Icon icon='radio_button_checked' type='outlined' fontSize={fontSize} />
 										) : (
-											<RadioButtonUncheckedOutlinedIcon style={{ fontSize }} />
+											<Icon icon='radio_button_unchecked' type='outlined' fontSize={fontSize} />
 										)
 									}
 									isFullWidth

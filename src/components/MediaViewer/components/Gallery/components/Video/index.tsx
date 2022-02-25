@@ -3,14 +3,13 @@ import YouTube, { Options } from 'react-youtube';
 
 import { Box } from '@chakra-ui/react';
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-
 import './styles.css';
 
 import { GalleryVideoProps } from './types';
 
 import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../Clickable/Image';
+import Icon from '../../../../../Icon';
 
 const opts: Options = {
 	playerVars: {
@@ -36,7 +35,9 @@ const GalleryVideo = (props: GalleryVideoProps): ReactElement => {
 				borderRadius='lg'
 				ratio={handleReturnRatio('square')}
 				isActive={isActive}
-				renderIcon={({ color, fontSize }) => <PlayArrowIcon style={{ color, fontSize }} />}
+				renderIcon={({ color, fontSize }) => (
+					<Icon icon='play_arrow' type='outlined' color={color} fontSize={fontSize} />
+				)}
 				onClick={onClick}
 			>
 				<YouTube

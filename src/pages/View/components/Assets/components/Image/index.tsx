@@ -2,14 +2,14 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
 import { AssetImageProps } from './types';
 
 import { handleReturnBoringTypeByMediaType } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
-import ImageC from '../../../../../../components/Image';
+import Icon from '../../../../../../components/Icon';
+import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
 
 const AssetImage = (props: AssetImageProps): ReactElement => {
@@ -23,11 +23,13 @@ const AssetImage = (props: AssetImageProps): ReactElement => {
 			ratio={aspect_ratio}
 			borderRadius='lg'
 			isDisabled={isLoading || isError || _.isNil(file_path) || _.isEmpty(file_path)}
-			renderIcon={({ color, fontSize }) => <SearchOutlinedIcon style={{ color, fontSize }} />}
+			renderIcon={({ color, fontSize }) => (
+				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
+			)}
 			onClick={onClickImage ? () => onClickImage(file_path || '') : undefined}
 		>
 			<Skeleton borderRadius='lg' isLoaded={!isLoading}>
-				<ImageC
+				<Image
 					alt={`${alt ? `"${alt}"` : ''} image`}
 					borderRadius='lg'
 					boringType={handleReturnBoringTypeByMediaType('collection')}

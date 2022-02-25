@@ -2,15 +2,12 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Center, Text } from '@chakra-ui/react';
 
-import {
-	ArrowBackOutlined as ArrowBackOutlinedIcon,
-	ArrowForwardOutlined as ArrowForwardOutlinedIcon
-} from '@material-ui/icons';
 import _ from 'lodash';
 
 import { NavigationProps } from './types';
 
 import IconButton from '../../../../../Clickable/IconButton';
+import Icon from '../../../../../Icon';
 
 const Navigation = (props: NavigationProps): ReactElement => {
 	const { colorMode } = useColorMode();
@@ -26,7 +23,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
 				onClick={() => onNavigation('prev')}
 				variant='icon'
 			>
-				<ArrowBackOutlinedIcon />
+				<Icon icon='arrow_back' type='outlined' />
 			</IconButton>
 
 			{/* Current Slide */}
@@ -41,7 +38,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
 				onClick={() => onNavigation('next')}
 				variant='icon'
 			>
-				<ArrowForwardOutlinedIcon />
+				<Icon icon='arrow_forward' type='outlined' />
 			</IconButton>
 		</Center>
 	);

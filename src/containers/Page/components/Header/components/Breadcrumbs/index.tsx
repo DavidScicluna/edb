@@ -8,16 +8,15 @@ import {
 	Breadcrumb as CUIBreadcrumb,
 	BreadcrumbItem,
 	BreadcrumbLink,
-	Text,
-	Icon
+	Text
 } from '@chakra-ui/react';
 
-import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import _ from 'lodash';
 
 import useStyles from './styles';
 
 import Link from '../../../../../../components/Clickable/Link';
+import Icon from '../../../../../../components/Icon';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { FontSizes, Theme } from '../../../../../../theme/types';
 import { routes } from '../../../../../Layout/components/Routes';
@@ -71,9 +70,10 @@ const Breadcrumbs = (): ReactElement => {
 		<CUIBreadcrumb
 			separator={
 				<Icon
-					as={ChevronRightOutlinedIcon}
-					color={`gray.${colorMode === 'light' ? 400 : 500}`}
-					sx={{ fontSize: `${iconFontSize} !important` }}
+					icon='chevron_right'
+					type='outlined'
+					color={theme.colors.gray[colorMode === 'light' ? 400 : 500]}
+					fontSize={iconFontSize}
 				/>
 			}
 			spacing={1}

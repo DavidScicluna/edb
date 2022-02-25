@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
 
-import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import axios from 'axios';
 import _ from 'lodash';
 import qs from 'query-string';
@@ -21,6 +20,7 @@ import { FiltersProps, Form } from './types';
 import { useSelector } from '../../common/hooks';
 import Modal from '../../components/Modal';
 import Button from '../Clickable/Button';
+import Icon from '../Icon';
 
 export const defaultValues: Form = {
 	date: [undefined, undefined],
@@ -152,7 +152,7 @@ const Filters = (props: FiltersProps): ReactElement => {
 		<>
 			{renderButton({
 				color: isOpen ? color : 'gray',
-				icon: <VisibilityOutlinedIcon />,
+				icon: <Icon icon='visibility' type='outlined' />,
 				onClick: () => handleOpen()
 			})}
 

@@ -1,23 +1,19 @@
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import {
-	FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-	FavoriteOutlined as FavoriteOutlinedIcon
-} from '@material-ui/icons';
 import moment from 'moment';
 
 import { LikeProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
-import { Icon } from '../../../common/types';
+import Icon from '../../../components/Icon';
 import { setLiked } from '../../../store/slices/User';
 
-export const handleReturnIcon = (isLiked: boolean, fontSize?: string): Icon => {
+export const handleReturnIcon = (isLiked: boolean, fontSize?: string): ReactElement => {
 	return isLiked ? (
-		<FavoriteOutlinedIcon style={{ fontSize }} />
+		<Icon icon='favorite' type='outlined' fontSize={fontSize} />
 	) : (
-		<FavoriteBorderOutlinedIcon style={{ fontSize }} />
+		<Icon icon='favorite_border' type='outlined' fontSize={fontSize} />
 	);
 };
 

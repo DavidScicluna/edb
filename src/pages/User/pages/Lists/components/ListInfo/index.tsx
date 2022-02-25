@@ -2,10 +2,6 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
 
-import {
-	EditOutlined as EditOutlinedIcon,
-	DeleteOutlineOutlined as DeleteOutlineOutlinedIcon
-} from '@material-ui/icons';
 import moment from 'moment';
 
 import Stats from './components/Stats';
@@ -13,6 +9,7 @@ import { ListInfoProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
+import Icon from '../../../../../../components/Icon';
 import Modal from '../../../../../../components/Modal';
 import Panel from '../../../../../../components/Panel';
 
@@ -50,7 +47,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 				<HStack spacing={2}>
 					<Button
 						colorMode={colorMode}
-						renderLeftIcon={({ fontSize }) => <EditOutlinedIcon style={{ fontSize }} />}
+						renderLeftIcon={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
 						onClick={() => onEdit()}
 						size={size}
 					>
@@ -59,7 +56,9 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 					<Button
 						color='red'
 						colorMode={colorMode}
-						renderLeftIcon={({ fontSize }) => <DeleteOutlineOutlinedIcon style={{ fontSize }} />}
+						renderLeftIcon={({ fontSize }) => (
+							<Icon icon='delete_outline' type='outlined' fontSize={fontSize} />
+						)}
 						onClick={() => onDelete()}
 						size={size}
 					>

@@ -2,15 +2,11 @@ import { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 
-import {
-	ChevronLeftOutlined as ChevronLeftOutlinedIcon,
-	ChevronRightOutlined as ChevronRightOutlinedIcon
-} from '@material-ui/icons';
-
 import { HeaderProps } from './types';
 
 import Button from '../../../../../../Clickable/Button';
 import IconButton from '../../../../../../Clickable/IconButton';
+import Icon from '../../../../../../Icon';
 import { full } from '../../../../common/data/months';
 
 const Header = (props: HeaderProps): ReactElement => {
@@ -25,7 +21,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				size='lg'
 				variant='icon'
 			>
-				<ChevronLeftOutlinedIcon />
+				<Icon icon='chevron_left' type='outlined' />
 			</IconButton>
 
 			{/* Month & Year */}
@@ -45,7 +41,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				size='lg'
 				variant='icon'
 			>
-				<ChevronRightOutlinedIcon />
+				<Icon icon='chevron_right' type='outlined' />
 			</IconButton>
 		</HStack>
 	);

@@ -2,12 +2,12 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import _ from 'lodash';
 
 import { GalleryImageProps } from './types';
 
 import ClickableImage from '../../../../../Clickable/Image';
+import Icon from '../../../../../Icon';
 import Image from '../../../../../Image';
 
 const GalleryImage = (props: GalleryImageProps): ReactElement => {
@@ -22,7 +22,9 @@ const GalleryImage = (props: GalleryImageProps): ReactElement => {
 			borderRadius='lg'
 			isActive={isActive}
 			isDisabled={isError || _.isNil(path) || _.isEmpty(path)}
-			renderIcon={({ color, fontSize }) => <SearchOutlinedIcon style={{ color, fontSize }} />}
+			renderIcon={({ color, fontSize }) => (
+				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
+			)}
 			onClick={onClick}
 		>
 			<Image
