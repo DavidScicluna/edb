@@ -13,7 +13,7 @@ import { Theme } from '../../../theme/types';
 const Link = (props: LinkProps): ReactElement => {
 	const theme = useTheme<Theme>();
 
-	const { children, to, isDisabled = false, isFullWidth = false, sx, ...rest } = props;
+	const { children, isDisabled = false, isFullWidth = false, sx, ...rest } = props;
 
 	const style = useStyles(theme, isFullWidth);
 
@@ -21,7 +21,6 @@ const Link = (props: LinkProps): ReactElement => {
 		<CUILink
 			{...rest}
 			as={RRDLink}
-			to={{ ...to }}
 			onClick={isDisabled ? (event) => event.preventDefault() : undefined}
 			sx={{ ..._.merge(style, sx || {}) }}
 		>

@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
+import { LinkProps as RRDLinkProps } from 'react-router-dom';
 
-import { LinkProps as CUILinkProps } from '@chakra-ui/react';
-
-import { Location } from 'history';
+import { Style } from '../../../common/types';
 
 export type LinkProps = {
 	children: ReactElement;
-	to: Partial<Location>;
 	isFullWidth?: boolean;
 	isDisabled?: boolean;
-} & Omit<CUILinkProps, 'colorScheme' | 'href' | 'target' | 'isExternal' | 'size' | 'variant'>;
+	sx?: Style;
+} & RRDLinkProps;
+// & Omit<CUILinkProps, 'colorScheme' | 'href' | 'target' | 'isExternal' | 'size' | 'variant'>;
