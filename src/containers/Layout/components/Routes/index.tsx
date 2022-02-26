@@ -2,8 +2,10 @@ import React, { ReactElement, useEffect } from 'react';
 import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 
 import { AnimatePresence } from 'framer-motion';
+import _ from 'lodash';
 
 import Animation from './components/Animation';
+import Breadcrumb from './components/Breadcrumb';
 import NoMatch from './components/NoMatch';
 import { Route as RouteType } from './types';
 
@@ -40,45 +42,58 @@ export const routes: RouteType[] = [
 	{
 		path: 'movies',
 		breadcrumb: 'Movies',
-		element: <Movies />,
-		children: [
-			{
-				path: ':id',
-				breadcrumb: 'Movie',
-				element: <Movie />
-			}
-		]
+		element: <Movies />
+	},
+	{
+		path: 'movies/:id',
+		breadcrumb: (props) => <Breadcrumb {...props} mediaType='movie' />,
+		element: <Movie />
 	},
 	{
 		path: 'tvshows',
 		breadcrumb: 'TV Shows',
-		element: <TV />,
-		children: [
-			{
-				path: ':id',
-				breadcrumb: 'TV Show',
-				element: <Show />,
-				children: [
-					{
-						path: 'season/:season/episode/:episode',
-						breadcrumb: 'TV Show Episode',
-						element: <Episode />
-					}
-				]
-			}
-		]
+		element: <TV />
+		// children: [
+		// 	{
+		// 		path: ':id',
+		// 		breadcrumb: 'TV Show',
+		// 		element: <Show />,
+		// 		children: [
+		// 			{
+		// 				path: 'season/:season/episode/:episode',
+		// 				breadcrumb: 'TV Show Episode',
+		// 				element: <Episode />
+		// 			}
+		// 		]
+		// 	}
+		// ]
+	},
+	{
+		path: 'tvshows/:id',
+		breadcrumb: (props) => <Breadcrumb {...props} mediaType='tv' />,
+		element: <Show />
+	},
+	{
+		path: 'tvshows/:id/season/:season/episode/:episode',
+		breadcrumb: 'TV Show Episode',
+		element: <Episode />
 	},
 	{
 		path: 'people',
 		breadcrumb: 'People',
-		element: <People />,
-		children: [
-			{
-				path: ':id',
-				breadcrumb: 'Person',
-				element: <Person />
-			}
-		]
+		element: <People />
+		// children: [
+		// 	{
+		// 		path: ':id',
+		// 		breadcrumb: 'Person',
+		// 		element: <Person />
+		// 	}
+		// ]
+	},
+	{
+		path: 'people/:id',
+		breadcrumb: (props) => <Breadcrumb {...props} mediaType='person' />,
+		element: <Person />
 	},
 	{
 		path: 'liked',
@@ -92,7 +107,7 @@ export const routes: RouteType[] = [
 	},
 	{
 		path: 'collections/:id',
-		breadcrumb: 'Collection',
+		breadcrumb: (props) => <Breadcrumb {...props} mediaType='collection' />,
 		element: <Collection />
 	},
 	{
@@ -121,7 +136,7 @@ const Routes = (): ReactElement => {
 	return (
 		<AnimatePresence exitBeforeEnter initial={false}>
 			<RRDRoutes location={location} key={location.pathname}>
-				{routes.map((route) => handleReturnRoutes(route))}
+				{routes.map((route) => _.omit(route, 'breadcrumb')).map((route) => handleReturnRoutes(route))}
 			</RRDRoutes>
 		</AnimatePresence>
 	);
