@@ -22,7 +22,6 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 	const handleUpdateColorMode = useCallback(
 		_.debounce((mode: ColorMode) => {
 			dispatch(toggleSplashscreen(true));
-			console.log(mode);
 
 			setColorMode(mode);
 

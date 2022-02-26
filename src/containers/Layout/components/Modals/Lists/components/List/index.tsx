@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, HStack, VStack, Text } from '@chakra-ui/react';
 
+import _ from 'lodash';
 import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
@@ -59,13 +60,18 @@ const List = (props: ListProps): ReactElement => {
 						</Text>
 					) : null}
 					<Text align='left' fontSize='xs' fontWeight='400' textTransform='capitalize'>
-						{`${
-							results.movies.length + results.tv.length > 0
-								? `${results.movies.length + results.tv.length} items  • `
-								: ''
-						}${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${moment(
-							date
-						).fromNow()}`}
+						{_.compact(
+							[
+								`${
+									results.movies.length + results.tv.length > 0
+										? `${results.movies.length + results.tv.length} items`
+										: undefined
+								}`,
+								`${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${moment(
+									date
+								).fromNow()}`
+							].join(' • ')
+						)}
 					</Text>
 				</VStack>
 

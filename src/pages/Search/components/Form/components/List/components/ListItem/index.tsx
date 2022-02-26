@@ -29,7 +29,8 @@ const ListItem = (props: ListItemProps): ReactElement => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const [ref, { width }] = useElementSize();
+	const [badgeRef, { width: badgeWidth }] = useElementSize();
+	const [actionsRef, { width: actionsWidth }] = useElementSize();
 
 	const { title, subtitle, badge, actions, isLoading = true, variant = 'contained', ...rest } = props;
 
@@ -41,7 +42,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 	return (
 		<CUIListItem {...rest} px={2} py={1} sx={{ ..._.merge(style.common, style[colorMode]) }}>
 			<VStack
-				width={`calc(100% - ${actions ? width + 16 : 0}px)`}
+				width={`calc(100% - ${actions ? actionsWidth + 16 : 0}px)`}
 				alignItems='flex-start'
 				justifyContent='center'
 				spacing={0}
@@ -49,12 +50,19 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				<HStack
 					width='100%'
 					divider={
-						<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs' mx={1}>
+						<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs' mx={0.75}>
 							•
 						</Text>
 					}
 				>
-					<SkeletonText width={isLoading ? `${titleDummy}%` : '100%'} fontSize='md' isLoaded={!isLoading}>
+					{!isSm && badge ? <Center ref={badgeRef}>{badge}</Center> : null}
+					<SkeletonText
+						width={
+							isLoading ? `${titleDummy}%` : !isSm && badge ? `calc(100% - ${badgeWidth + 10}px)` : '100%'
+						}
+						fontSize='md'
+						isLoaded={!isLoading}
+					>
 						<Text
 							align='left'
 							color={`gray.${colorMode === 'light' ? 900 : 50}`}
@@ -66,13 +74,17 @@ const ListItem = (props: ListItemProps): ReactElement => {
 							{title}
 						</Text>
 					</SkeletonText>
-					{!isSm && badge ? badge : null}
 				</HStack>
 				{(isSm ? subtitle || actions || isLoading : subtitle || isLoading) ? (
 					<HStack
 						width='100%'
 						divider={
-							<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs' mx={1}>
+							<Text
+								align='left'
+								color={`gray.${colorMode === 'light' ? 400 : 500}`}
+								fontSize='xs'
+								mx={0.75}
+							>
 								•
 							</Text>
 						}
@@ -100,7 +112,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				) : null}
 			</VStack>
 
-			{actions ? <Center ref={ref}>{actions}</Center> : null}
+			{actions ? <Center ref={actionsRef}>{actions}</Center> : null}
 		</CUIListItem>
 	);
 };

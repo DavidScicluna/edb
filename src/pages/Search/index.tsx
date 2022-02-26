@@ -1,7 +1,7 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 import { useBoolean, VStack, Center, Fade, Collapse } from '@chakra-ui/react';
 
@@ -37,8 +37,10 @@ import { Search as SearchType, SearchType as SearchTypeValue } from '../../store
 const Search = (): ReactElement => {
 	const source = axios.CancelToken.source();
 
-	const history = useHistory();
 	const params = useParams();
+	const location = useLocation();
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [_searchParams, setSearchParams] = useSearchParams();
 
 	const dispatch = useDispatch();
 	const recentSearches = useSelector((state) => state.user.data.recentSearches);
@@ -428,22 +430,18 @@ const Search = (): ReactElement => {
 		[]
 	);
 
-	const handleSubmitQuery = (query: string, paramSearchTypes?: SearchTypeValue[]): void => {
-		setMovies(undefined);
-		setShows(undefined);
-		setPeople(undefined);
-		setCollections(undefined);
-		setCompanies(undefined);
+	const handleSubmitQuery = useCallback(
+		_.debounce((query: string, paramSearchTypes?: SearchTypeValue[]): void => {
+			setMovies(undefined);
+			setShows(undefined);
+			setPeople(undefined);
+			setCollections(undefined);
+			setCompanies(undefined);
 
-		setTimeout(
-			() =>
-				history.push({
-					pathname: '/search',
-					search: qs.stringify({ query, types: paramSearchTypes || unSubmittedSearchTypes })
-				}),
-			250
-		);
-	};
+			setTimeout(() => setSearchParams({ query, types: paramSearchTypes || unSubmittedSearchTypes }), 250);
+		}, 500),
+		[unSubmittedSearchTypes, setMovies, setShows, setPeople, setCollections, setCompanies, setSearchParams]
+	);
 
 	const handleOnKeyPress = (event: InputKeyboardEvent): void => {
 		if (event.key === 'Enter') {
@@ -489,41 +487,42 @@ const Search = (): ReactElement => {
 		setUnSubmittedSearchTypes(searchTypes);
 	};
 
-	const handleCheckIfEmpty = (): boolean => {
-		let total = 0;
+	const handleCheckIfEmpty = useCallback(
+		_.debounce((): boolean => {
+			let total = 0;
 
-		if (movies?.total_results) {
-			total = total + movies.total_results;
-		}
+			if (movies?.total_results) {
+				total = total + movies.total_results;
+			}
 
-		if (shows?.total_results) {
-			total = total + shows.total_results;
-		}
+			if (shows?.total_results) {
+				total = total + shows.total_results;
+			}
 
-		if (people?.total_results) {
-			total = total + people.total_results;
-		}
+			if (people?.total_results) {
+				total = total + people.total_results;
+			}
 
-		if (collections?.total_results) {
-			total = total + collections.total_results;
-		}
+			if (collections?.total_results) {
+				total = total + collections.total_results;
+			}
 
-		if (companies?.total_results) {
-			total = total + companies.total_results;
-		}
+			if (companies?.total_results) {
+				total = total + companies.total_results;
+			}
 
-		return total === 0;
-	};
+			return total === 0;
+		}, 500),
+		[movies, shows, people, collections, companies]
+	);
 
 	useEffect(() => {
-		const search = qs.parse(history.location.search);
+		const search = qs.parse(location.search);
 
 		if (!_.isNil(search) && !_.isEmpty(search)) {
-			handleClearQuery();
-
-			if (history.location.hash && history.location.hash.length > 0) {
-				setSubmittedSearchTypes([history.location.hash.replace('#', '')]);
-				setUnSubmittedSearchTypes([history.location.hash.replace('#', '')]);
+			if (location.hash && location.hash.length > 0) {
+				setSubmittedSearchTypes([location.hash.replace('#', '')]);
+				setUnSubmittedSearchTypes([location.hash.replace('#', '')]);
 			} else if (search && search.types && Array.isArray(search.types)) {
 				setSubmittedSearchTypes(_.compact([...search.types]));
 				setUnSubmittedSearchTypes(_.compact([...search.types]));
