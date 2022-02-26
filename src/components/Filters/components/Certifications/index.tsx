@@ -10,6 +10,7 @@ import { useElementSize } from 'usehooks-ts';
 import Certification from './components/Certification';
 import { CertificationsProps } from './types';
 
+import { defaultValues } from '../..';
 import { useSelector } from '../../../../common/hooks';
 import { Certification as CertificationType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
@@ -80,7 +81,11 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 											value.length === 0 ||
 											value.length === ((certifications || [])?.length || 0)
 										}
-										onClick={() => form.setValue('certifications', [], { shouldDirty: true })}
+										onClick={() =>
+											form.setValue('certifications', defaultValues.certifications, {
+												shouldDirty: true
+											})
+										}
 										size='sm'
 										variant='text'
 									>

@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import { CountRangeProps } from './types';
 
+import { defaultValues } from '../..';
 import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
 import Button from '../../../Clickable/Button';
@@ -23,7 +24,9 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 
 	const counts = useConst(_.range(0, 550, 50));
 
-	const handleOnChange = (count: Form['count'], number: number): void => {
+	const handleOnChange = (value: Form['count'], number: number): void => {
+		const count = _.compact(value);
+
 		if (count.some((num) => num === number)) {
 			form.setValue(
 				'count',
@@ -47,75 +50,81 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 		<Controller
 			control={form.control}
 			name='count'
-			render={({ field: { value } }) => (
-				<Panel isFullWidth>
-					{{
-						header: (
-							<Header
-								label='Number of Ratings Range'
-								renderMessage={({ color, fontSize, fontWeight }) => (
-									<ScaleFade in={value.length > 0} unmountOnExit>
-										<Text color={color} fontSize={fontSize} fontWeight={fontWeight}>
-											{value.map((count) => `${count} ratings`).join(' -> ')}
-										</Text>
-									</ScaleFade>
-								)}
-								renderButton={({ color, size, variant }) => (
-									<Button
-										color={color}
-										isDisabled={value.length === 0}
-										onClick={() => form.setValue('count', [], { shouldDirty: true })}
-										size={size}
-										variant={variant}
-									>
-										Clear
-									</Button>
-								)}
-							/>
-						),
-						body: (
-							<ButtonGroup width='100%' isAttached flexWrap={isMd ? 'wrap' : 'nowrap'}>
-								{counts.map((number) => (
-									<Button
-										key={number}
-										color={
-											value.some((count) => count === number) ||
-											handleCheckIfInRange(number, value)
-												? color
-												: 'gray'
-										}
-										isFullWidth
-										onClick={() => handleOnChange(value, number)}
-										variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
-										sx={{
-											back: {
-												flex: isMd ? 1 : '',
-												minWidth: isMd ? `${100 / 6}%` : 'auto',
-												borderRadius:
-													number === counts[0]
-														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === counts[counts.length - 1]
-														? `0 ${theme.radii.base} ${theme.radii.base} 0`
-														: 0
-											},
-											front: {
-												borderRadius:
-													number === counts[0]
-														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === counts[counts.length - 1]
-														? `0 ${theme.radii.base} ${theme.radii.base} 0`
-														: 0
+			render={({ field }) => {
+				const value = _.compact(field.value);
+
+				return (
+					<Panel isFullWidth>
+						{{
+							header: (
+								<Header
+									label='Number of Ratings Range'
+									renderMessage={({ color, fontSize, fontWeight }) => (
+										<ScaleFade in={value.length > 0} unmountOnExit>
+											<Text color={color} fontSize={fontSize} fontWeight={fontWeight}>
+												{value.map((count) => `${count} ratings`).join(' -> ')}
+											</Text>
+										</ScaleFade>
+									)}
+									renderButton={({ color, size, variant }) => (
+										<Button
+											color={color}
+											isDisabled={value.length === 0}
+											onClick={() =>
+												form.setValue('count', defaultValues.count, { shouldDirty: true })
 											}
-										}}
-									>
-										{String(number)}
-									</Button>
-								))}
-							</ButtonGroup>
-						)
-					}}
-				</Panel>
-			)}
+											size={size}
+											variant={variant}
+										>
+											Clear
+										</Button>
+									)}
+								/>
+							),
+							body: (
+								<ButtonGroup width='100%' isAttached flexWrap={isMd ? 'wrap' : 'nowrap'}>
+									{counts.map((number) => (
+										<Button
+											key={number}
+											color={
+												value.some((count) => count === number) ||
+												handleCheckIfInRange(number, value)
+													? color
+													: 'gray'
+											}
+											isFullWidth
+											onClick={() => handleOnChange(value, number)}
+											variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
+											sx={{
+												back: {
+													flex: isMd ? 1 : '',
+													minWidth: isMd ? `${100 / 6}%` : 'auto',
+													borderRadius:
+														number === counts[0]
+															? `${theme.radii.base} 0 0 ${theme.radii.base}`
+															: number === counts[counts.length - 1]
+															? `0 ${theme.radii.base} ${theme.radii.base} 0`
+															: 0
+												},
+												front: {
+													borderRadius:
+														number === counts[0]
+															? `${theme.radii.base} 0 0 ${theme.radii.base}`
+															: number === counts[counts.length - 1]
+															? `0 ${theme.radii.base} ${theme.radii.base} 0`
+															: 0
+												}
+											}}
+										>
+											{String(number)}
+										</Button>
+									))}
+								</ButtonGroup>
+							)
+						}}
+					</Panel>
+				);
+			}}
 		/>
 	);
 };

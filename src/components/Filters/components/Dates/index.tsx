@@ -8,6 +8,7 @@ import moment from 'moment';
 
 import { DatesProps } from './types';
 
+import { defaultValues } from '../..';
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../Clickable/Button';
 import DatePicker from '../../../Forms/DatePicker';
@@ -36,21 +37,32 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 							<Header
 								label={mediaType === 'movie' ? 'Release Date' : 'First Air Date'}
 								renderMessage={({ color, fontSize, fontWeight }) => (
-									<ScaleFade in={value.every((date) => !_.isNil(date))} unmountOnExit>
+									<ScaleFade
+										in={
+											!_.isNil(value.gte) &&
+											!_.isEmpty(value.gte) &&
+											!_.isNil(value.lte) &&
+											!_.isEmpty(value.lte)
+										}
+										unmountOnExit
+									>
 										<Text color={color} fontSize={fontSize} fontWeight={fontWeight}>
-											{moment(value[0]).isSame(moment(value[1]), 'date')
-												? moment(value[0]).format(visibleFormat)
-												: value.map((date) => moment(date).format(visibleFormat)).join(' - ')}
+											{moment(value.gte).isSame(moment(value.lte), 'date')
+												? moment(value.gte).format(visibleFormat)
+												: [value.gte, value.lte]
+														.map((date) => moment(date).format(visibleFormat))
+														.join(' - ')}
 										</Text>
 									</ScaleFade>
 								)}
 								renderButton={({ color, size, variant }) => (
 									<Button
 										color={color}
-										isDisabled={value.every((date) => _.isNil(date))}
-										onClick={() =>
-											form.setValue('date', [undefined, undefined], { shouldDirty: true })
+										isDisabled={
+											(!_.isNil(value.gte) && !_.isEmpty(value.gte)) ||
+											(!_.isNil(value.lte) && !_.isEmpty(value.lte))
 										}
+										onClick={() => form.setValue('date', defaultValues.date, { shouldDirty: true })}
 										size={size}
 										variant={variant}
 									>
@@ -71,8 +83,8 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 									renderToggleModal={({ color, onClick }) => (
 										<Center width='100%'>
 											<Button color={color} isFullWidth onClick={onClick} variant='outlined'>
-												{value[0]
-													? moment(value[0]).format(visibleFormat)
+												{value.gte
+													? moment(value.gte).format(visibleFormat)
 													: 'Select Start Date'}
 											</Button>
 										</Center>
@@ -81,9 +93,9 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 									minDate={minDate}
 									maxDate={maxDate}
 									firstDayOfWeek={1}
-									value={value[0] ? moment(value[0], dataFormat).toDate() : undefined}
+									value={value.gte ? moment(value.gte, dataFormat).toDate() : undefined}
 									onSetDate={(date) =>
-										form.setValue('date.0', moment(date).format(dataFormat), {
+										form.setValue('date.gte', moment(date).format(dataFormat), {
 											shouldDirty: true
 										})
 									}
@@ -93,24 +105,26 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 									renderToggleModal={({ color, onClick }) => (
 										<Center width='100%'>
 											<Button color={color} isFullWidth onClick={onClick} variant='outlined'>
-												{value[1] ? moment(value[1]).format(visibleFormat) : 'Select To Date'}
+												{value.lte ? moment(value.lte).format(visibleFormat) : 'Select To Date'}
 											</Button>
 										</Center>
 									)}
 									color={color}
-									minDate={moment(value[0], dataFormat).toDate() || minDate}
+									minDate={moment(value.gte, dataFormat).toDate() || minDate}
 									maxDate={maxDate}
 									firstDayOfWeek={1}
-									value={value[1] ? moment(value[1], dataFormat).toDate() : undefined}
+									value={value.lte ? moment(value.lte, dataFormat).toDate() : undefined}
 									onSetDate={(date) =>
 										form.setValue(
-											!_.isNil(value[0]) && !_.isEmpty(value[0]) ? 'date.1' : 'date',
-											!_.isNil(value[0]) && !_.isEmpty(value[0])
+											!_.isNil(value.gte) && !_.isEmpty(value.gte) ? 'date.lte' : 'date',
+											!_.isNil(value.gte) && !_.isEmpty(value.gte)
 												? moment(date).format(dataFormat)
-												: [
-														moment(moment(value[1]).subtract(1, 'days')).format(dataFormat),
-														moment(date).format(dataFormat)
-												  ],
+												: {
+														gte: moment(moment(value.lte).subtract(1, 'days')).format(
+															dataFormat
+														),
+														lte: moment(date).format(dataFormat)
+												  },
 											{
 												shouldDirty: true
 											}

@@ -9,6 +9,7 @@ import { useElementSize } from 'usehooks-ts';
 import Genre from './components/Genre';
 import { GenresProps } from './types';
 
+import { defaultValues } from '../..';
 import { useSelector } from '../../../../common/hooks';
 import { Genre as GenreType } from '../../../../common/types';
 import Button from '../../../../components/Clickable/Button';
@@ -71,7 +72,9 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 											value.length === 0 ||
 											value.length === (genres?.length || 0)
 										}
-										onClick={() => form.setValue('genres', [], { shouldDirty: true })}
+										onClick={() =>
+											form.setValue('genres', defaultValues.genres, { shouldDirty: true })
+										}
 										size='sm'
 										variant='text'
 									>

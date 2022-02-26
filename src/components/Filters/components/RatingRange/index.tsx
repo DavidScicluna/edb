@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import { RatingRangeProps } from './types';
 
+import { defaultValues } from '../..';
 import { useSelector } from '../../../../common/hooks';
 import { Theme } from '../../../../theme/types';
 import Button from '../../../Clickable/Button';
@@ -24,7 +25,9 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 
 	const ratings = useConst(_.range(0, 11));
 
-	const handleOnChange = (rating: Form['rating'], number: number): void => {
+	const handleOnChange = (value: Form['rating'], number: number): void => {
+		const rating = _.compact(value);
+
 		if (rating.some((num) => num === number)) {
 			form.setValue(
 				'rating',
@@ -48,73 +51,79 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 		<Controller
 			control={form.control}
 			name='rating'
-			render={({ field: { value } }) => (
-				<Panel isFullWidth>
-					{{
-						header: (
-							<Header
-								label='Rating Range'
-								renderMessage={() => (
-									<ScaleFade in={value.length > 0} unmountOnExit>
-										<Rating>{value.join(' -> ')}</Rating>
-									</ScaleFade>
-								)}
-								renderButton={({ color, size, variant }) => (
-									<Button
-										color={color}
-										isDisabled={value.length === 0}
-										onClick={() => form.setValue('rating', [], { shouldDirty: true })}
-										size={size}
-										variant={variant}
-									>
-										Clear
-									</Button>
-								)}
-							/>
-						),
-						body: (
-							<ButtonGroup width='100%' isAttached flexWrap={isMd ? 'wrap' : 'nowrap'}>
-								{ratings.map((number) => (
-									<Button
-										key={number}
-										color={
-											value.some((rating) => rating === number) ||
-											handleCheckIfInRange(number, value)
-												? color
-												: 'gray'
-										}
-										isFullWidth
-										onClick={() => handleOnChange(value, number)}
-										variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
-										sx={{
-											back: {
-												flex: isMd ? 1 : '',
-												minWidth: isMd ? `${100 / 6}%` : 'auto',
-												borderRadius:
-													number === ratings[0]
-														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === ratings[ratings.length - 1]
-														? `0 ${theme.radii.base} ${theme.radii.base} 0`
-														: 0
-											},
-											front: {
-												borderRadius:
-													number === ratings[0]
-														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === ratings[ratings.length - 1]
-														? `0 ${theme.radii.base} ${theme.radii.base} 0`
-														: 0
+			render={({ field }) => {
+				const value = _.compact(field.value);
+
+				return (
+					<Panel isFullWidth>
+						{{
+							header: (
+								<Header
+									label='Rating Range'
+									renderMessage={() => (
+										<ScaleFade in={value.length > 0} unmountOnExit>
+											<Rating>{value.join(' -> ')}</Rating>
+										</ScaleFade>
+									)}
+									renderButton={({ color, size, variant }) => (
+										<Button
+											color={color}
+											isDisabled={value.length === 0}
+											onClick={() =>
+												form.setValue('rating', defaultValues.rating, { shouldDirty: true })
 											}
-										}}
-									>
-										{String(number)}
-									</Button>
-								))}
-							</ButtonGroup>
-						)
-					}}
-				</Panel>
-			)}
+											size={size}
+											variant={variant}
+										>
+											Clear
+										</Button>
+									)}
+								/>
+							),
+							body: (
+								<ButtonGroup width='100%' isAttached flexWrap={isMd ? 'wrap' : 'nowrap'}>
+									{ratings.map((number) => (
+										<Button
+											key={number}
+											color={
+												value.some((rating) => rating === number) ||
+												handleCheckIfInRange(number, value)
+													? color
+													: 'gray'
+											}
+											isFullWidth
+											onClick={() => handleOnChange(value, number)}
+											variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
+											sx={{
+												back: {
+													flex: isMd ? 1 : '',
+													minWidth: isMd ? `${100 / 6}%` : 'auto',
+													borderRadius:
+														number === ratings[0]
+															? `${theme.radii.base} 0 0 ${theme.radii.base}`
+															: number === ratings[ratings.length - 1]
+															? `0 ${theme.radii.base} ${theme.radii.base} 0`
+															: 0
+												},
+												front: {
+													borderRadius:
+														number === ratings[0]
+															? `${theme.radii.base} 0 0 ${theme.radii.base}`
+															: number === ratings[ratings.length - 1]
+															? `0 ${theme.radii.base} ${theme.radii.base} 0`
+															: 0
+												}
+											}}
+										>
+											{String(number)}
+										</Button>
+									))}
+								</ButtonGroup>
+							)
+						}}
+					</Panel>
+				);
+			}}
 		/>
 	);
 };

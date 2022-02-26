@@ -3,15 +3,17 @@ import { ReactElement } from 'react';
 import { MediaType, Icon, Genre, Certification } from '../../common/types';
 import { Color } from '../../theme/types';
 
-type FormDate = string | undefined;
+type FormDate = string | null;
+
+type FormNumber = number | null;
 
 export type Form = {
-	date: [FormDate, FormDate];
+	date: { gte: FormDate; lte: FormDate };
 	genres: Genre['id'][];
 	certifications: Certification['certification'][];
-	rating: number[];
-	count: number[];
-	runtime: number[];
+	rating: FormNumber[];
+	count: FormNumber[];
+	runtime: FormNumber[];
 	adult: boolean;
 };
 
