@@ -25,6 +25,7 @@
     "react-horizontal-scrolling-menu": "^2.7.1",
     "react-query": "^3.34.16",
     "react-redux": "^7.2.6",
+    "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.0",
     "react-scroll": "^1.8.5",
@@ -33,6 +34,7 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "swiper": "6.8.1",
+    "use-react-router-breadcrumbs": "^3.1.0",
     "usehooks-ts": "^2.4.1",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
@@ -91,5 +93,6 @@
     "prettier": "^2.5.1",
     "prop-types": "^15.8.1",
     "typescript": "^4.5.5"
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }
