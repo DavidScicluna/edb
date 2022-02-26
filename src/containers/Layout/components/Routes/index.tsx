@@ -1,14 +1,12 @@
-import { ReactElement, useEffect } from 'react';
-import { useLocation, Switch, Route } from 'react-router-dom';
+import React, { ReactElement, useEffect } from 'react';
+import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 
 import { AnimatePresence } from 'framer-motion';
 
-import Page from './components/Page';
+import Animation from './components/Animation';
+import NoMatch from './components/NoMatch';
 import { Route as RouteType } from './types';
 
-import Button from '../../../../components/Clickable/Button';
-import Link from '../../../../components/Clickable/Link';
-import Error from '../../../../pages/Error';
 import Home from '../../../../pages/Home';
 import Movies from '../../../../pages/Movies';
 import People from '../../../../pages/People';
@@ -26,119 +24,105 @@ import Show from '../../../../pages/View/pages/Show';
 export const routes: RouteType[] = [
 	{
 		path: '/',
-		name: 'Home',
-		children: <Home />
+		breadcrumb: 'Home',
+		element: <Home />
 	},
 	{
-		path: '/liked',
-		name: 'Liked',
-		children: <Liked />
+		path: 'search',
+		breadcrumb: 'Search',
+		element: <Search />
 	},
 	{
-		path: '/lists',
-		name: 'Lists',
-		children: <Lists />
+		path: 'trending',
+		breadcrumb: 'Trending',
+		element: <Trending />
 	},
 	{
-		path: '/search',
-		name: 'Search',
-		children: <Search />
+		path: 'movies',
+		breadcrumb: 'Movies',
+		element: <Movies />,
+		children: [
+			{
+				path: ':id',
+				breadcrumb: 'Movie',
+				element: <Movie />
+			}
+		]
 	},
 	{
-		path: '/trending',
-		name: 'Trending',
-		children: <Trending />
+		path: 'tvshows',
+		breadcrumb: 'TV Shows',
+		element: <TV />,
+		children: [
+			{
+				path: ':id',
+				breadcrumb: 'TV Show',
+				element: <Show />,
+				children: [
+					{
+						path: 'season/:season/episode/:episode',
+						breadcrumb: 'TV Show Episode',
+						element: <Episode />
+					}
+				]
+			}
+		]
 	},
 	{
-		path: '/movies',
-		name: 'Movies',
-		children: <Movies />
+		path: 'people',
+		breadcrumb: 'People',
+		element: <People />,
+		children: [
+			{
+				path: ':id',
+				breadcrumb: 'Person',
+				element: <Person />
+			}
+		]
 	},
 	{
-		path: '/movies/:id',
-		name: 'Movie',
-		children: <Movie />
+		path: 'liked',
+		breadcrumb: 'Liked',
+		element: <Liked />
 	},
 	{
-		path: '/tvshows',
-		name: 'TV Shows',
-		children: <TV />
+		path: 'lists',
+		breadcrumb: 'Lists',
+		element: <Lists />
 	},
 	{
-		path: '/tvshows/:id',
-		name: 'TV Show',
-		children: <Show />
+		path: 'collections/:id',
+		breadcrumb: 'Collection',
+		element: <Collection />
 	},
 	{
-		path: '/tvshows/:id/season/:season/episode/:episode',
-		name: 'TV Show Episode',
-		children: <Episode />
-	},
-	{
-		path: '/people',
-		name: 'People',
-		children: <People />
-	},
-	{
-		path: '/people/:id',
-		name: 'Person',
-		children: <Person />
-	},
-	{
-		path: '/collections/:id',
-		name: 'Collection',
-		children: <Collection />
-	},
-	{
-		name: 'Error',
-		children: (
-			<Error
-				code={404}
-				title='Page not found!'
-				subtitle='Please check the URL in the address bar and try again.'
-				renderActions={({ color, colorMode, size }) => (
-					<>
-						<Link to={{ pathname: '/' }}>
-							<Button color={color} colorMode={colorMode} variant='outlined' size={size}>
-								Go back home
-							</Button>
-						</Link>
-						<Button
-							color={color}
-							colorMode={colorMode}
-							onClick={() => {
-								window.location.reload();
-								return false;
-							}}
-							size={size}
-						>
-							Try again
-						</Button>
-					</>
-				)}
-			/>
-		)
+		path: '*',
+		element: <NoMatch />
 	}
 ];
 
 const Routes = (): ReactElement => {
 	const location = useLocation();
 
+	const handleReturnRoutes = (route: RouteType): ReactElement => {
+		const { path, element, children = [] } = route;
+
+		return (
+			<Route {...route} key={path} path={path} element={<Animation>{element}</Animation>}>
+				{children.map((child) => handleReturnRoutes(child))}
+			</Route>
+		);
+	};
+
 	useEffect(() => {
-		if (!location.pathname.includes('search')) {
-			document.scrollingElement?.scrollTo(0, 0);
-		}
-	}, [location]);
+		document.scrollingElement?.scrollTo(0, 0);
+	}, [location.pathname]);
 
 	return (
 		<AnimatePresence exitBeforeEnter initial={false}>
-			<Switch location={location} key={location.pathname}>
-				{routes.map((route, index) => (
-					<Route key={index} exact path={route.path}>
-						<Page>{route.children}</Page>
-					</Route>
-				))}
-			</Switch>
+			<RRDRoutes location={location} key={location.pathname}>
+				{routes.map((route) => handleReturnRoutes(route))}
+			</RRDRoutes>
 		</AnimatePresence>
 	);
 };

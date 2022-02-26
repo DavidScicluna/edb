@@ -1,6 +1,5 @@
 import { ReactElement, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 
 import { ColorMode, useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box } from '@chakra-ui/react';
 
@@ -15,6 +14,7 @@ import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
 import QuickView from './components/Modals/QuickView';
 import SplashscreenModal from './components/Modals/Splashscreen';
+import Router from './components/Router';
 import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
@@ -115,7 +115,7 @@ const Layout = (): ReactElement => {
 
 	return (
 		<>
-			<BrowserRouter basename={process.env.PUBLIC_URL}>
+			<Router>
 				<Container
 					width='100%'
 					maxWidth={`${
@@ -164,7 +164,7 @@ const Layout = (): ReactElement => {
 				<ListsModal />
 
 				<SplashscreenModal />
-			</BrowserRouter>
+			</Router>
 		</>
 	);
 };

@@ -1,15 +1,16 @@
 import { ReactElement } from 'react';
-import { RouteProps } from 'react-router-dom';
 
 import { Box } from '@chakra-ui/react';
 
 import { motion } from 'framer-motion';
 
-const ComponentBox = motion(Box);
+import { AnimationProps } from './types';
 
-const Page = ({ children }: { children: RouteProps['children'] }): ReactElement => {
+const MotionBox = motion(Box);
+
+const Animation = ({ children }: AnimationProps): ReactElement => {
 	return (
-		<ComponentBox
+		<MotionBox
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
@@ -19,8 +20,8 @@ const Page = ({ children }: { children: RouteProps['children'] }): ReactElement 
 			}}
 		>
 			{children}
-		</ComponentBox>
+		</MotionBox>
 	);
 };
 
-export default Page;
+export default Animation;
