@@ -60,6 +60,11 @@
 						"position": "before"
 					},
 					{
+						"pattern": "react-router-dom/**",
+						"group": "external",
+						"position": "before"
+					},
+					{
 						"pattern": "react*/**",
 						"group": "external",
 						"position": "before"
@@ -70,7 +75,7 @@
 						"position": "before"
 					}
 				],
-				"pathGroupsExcludedImportTypes": ["react*/**", "@chakra-ui*/**"],
+				"pathGroupsExcludedImportTypes": ["react*", "react-router-dom/**", "react*/**", "@chakra-ui*/**"],
 				"newlines-between": "always",
 				"alphabetize": {
 					"order": "asc",
