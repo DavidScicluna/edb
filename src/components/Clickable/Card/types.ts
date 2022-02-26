@@ -2,6 +2,7 @@ import { ReactElement, ReactNode } from 'react';
 
 import { ColorMode, BoxProps } from '@chakra-ui/react';
 
+import { Style } from '../../../common/types';
 import { Color } from '../../../theme/types';
 
 export type CardRef = HTMLButtonElement | null;
@@ -15,10 +16,7 @@ export type CardProps = {
 	isClickable?: boolean;
 	isDisabled?: boolean;
 	isFixed?: boolean;
-	sx?: {
-		back?: BoxProps['sx'];
-		front?: BoxProps['sx'];
-	};
+	sx?: { back?: Style; front?: Style };
 } & Omit<
 	BoxProps,
 	// Box Props

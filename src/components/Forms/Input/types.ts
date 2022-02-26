@@ -2,6 +2,7 @@ import { ErrorOption } from 'react-hook-form';
 
 import { ColorMode, InputProps as CUIInputProps } from '@chakra-ui/react';
 
+import { Style } from '../../../common/types';
 import { Color } from '../../../theme/types';
 
 type AutoComplete = 'on' | 'password' | 'off';
@@ -16,11 +17,7 @@ export type InputProps = {
 	error?: ErrorOption;
 	isFullWidth?: boolean;
 	size?: Size;
-	sx?: {
-		input?: CUIInputProps['sx'];
-		formLabel?: CUIInputProps['sx'];
-		formHelperText?: CUIInputProps['sx'];
-	};
+	sx?: { input?: Style; formLabel?: Style; formHelperText?: Style };
 } & Omit<
 	CUIInputProps,
 	'autoComplete' | 'colorScheme' | 'errorBorderColor' | 'focusBorderColor' | 'isInvalid' | 'size' | 'variant' | 'sx'

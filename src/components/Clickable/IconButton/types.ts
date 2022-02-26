@@ -1,6 +1,6 @@
 import { ColorMode, IconButtonProps as CUIIconButtonProps } from '@chakra-ui/react';
 
-import { Icon } from '../../../common/types';
+import { Icon, Style } from '../../../common/types';
 import { Color } from '../../../theme/types';
 
 export type IconButtonRef = HTMLButtonElement | null;
@@ -15,10 +15,7 @@ export type IconButtonProps = {
 	colorMode?: ColorMode;
 	size?: Size;
 	variant?: Variant;
-	sx?: {
-		back?: CUIIconButtonProps['sx'];
-		front?: CUIIconButtonProps['sx'];
-	};
+	sx?: { back?: Style; front?: Style };
 } & Omit<
 	CUIIconButtonProps,
 	// Box Props
