@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { HStack, ScaleFade, useMediaQuery, VStack } from '@chakra-ui/react';
 
@@ -8,6 +8,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
+import { useElementSize } from 'usehooks-ts';
 
 import VerticalMovies from './components/Orientation/Vertical';
 
@@ -36,7 +37,10 @@ const Movies = (): ReactElement => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const history = useHistory();
+	const location = useLocation();
+	const [searchParams, setSearchParams] = useSearchParams(defaultFilters);
+
+	const [ref, { height }] = useElementSize();
 
 	const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 
@@ -45,10 +49,7 @@ const Movies = (): ReactElement => {
 		'movies',
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/discover/movie', {
-				params: {
-					page: pageParam,
-					...(qs.parse(history.location.search || '') || {})
-				},
+				params: { page: pageParam, ...(qs.parse(searchParams.toString() || '') || {}) },
 				cancelToken: source.token
 			});
 			return data;
@@ -76,7 +77,7 @@ const Movies = (): ReactElement => {
 	);
 
 	const handleSetFilters = (form: FiltersForm): void => {
-		const currentSearch = qs.parse(history.location.search);
+		const currentSearch = qs.parse(searchParams.toString() || '');
 		Object.keys(currentSearch).forEach((key) => key === 'sort_by' || delete currentSearch[key]);
 
 		const filters = _.omitBy(
@@ -84,8 +85,8 @@ const Movies = (): ReactElement => {
 				...defaultFilters,
 				'certification': form.certifications.length > 0 ? form.certifications.join('|') : undefined,
 				'include_adult': form.adult ? String(form.adult) : undefined,
-				'primary_release_date.gte': form.date.length > 0 && form.date[0] ? form.date[0] : undefined,
-				'primary_release_date.lte': form.date.length > 0 && form.date[1] ? form.date[1] : undefined,
+				'primary_release_date.gte': form.date.gte || undefined,
+				'primary_release_date.lte': form.date.lte || undefined,
 				'with_genres': form.genres.length > 0 ? form.genres.join(',') : undefined,
 				'vote_average.gte': form.rating.length > 0 && form.rating[0] ? form.rating[0] : undefined,
 				'vote_average.lte': form.rating.length > 0 && form.rating[1] ? form.rating[1] : undefined,
@@ -94,43 +95,34 @@ const Movies = (): ReactElement => {
 				'with_runtime.gte': form.runtime.length > 0 && form.runtime[0] ? form.runtime[0] : undefined,
 				'with_runtime.lte': form.runtime.length > 0 && form.runtime[1] ? form.runtime[1] : undefined
 			}),
-			_.isNil
+			_.isNil || _.isEmpty
 		);
 
-		history.push({
-			location: '/movies',
-			search: qs.stringify(_.mergeWith({ ...currentSearch, ...filters }))
-		});
+		setSearchParams(_.mergeWith({ ...currentSearch, ...filters }));
 
 		setTimeout(() => moviesQuery.refetch(), 250);
 	};
 
 	const handleSetSortBy = (form: SortForm): void => {
-		const currentSearch = _.omit(qs.parse(history.location.search), 'sort_by');
+		const currentSearch = _.omit(qs.parse(searchParams.toString() || ''), 'sort_by');
 
 		const sortBy = {
 			sort_by: `${form.sortBy.value}.${form.direction}`
 		};
 
-		history.push({
-			location: '/movies',
-			search: qs.stringify(_.mergeWith({ ...currentSearch, ...sortBy }))
-		});
+		setSearchParams(_.mergeWith({ ...currentSearch, ...sortBy }));
 
 		setTimeout(() => moviesQuery.refetch(), 250);
 	};
 
 	useEffect(() => {
-		const currentSearch = qs.parse(history.location.search);
+		const currentSearch = qs.parse(location.search);
 
-		history.push({
-			location: '/movies',
-			search: qs.stringify(
-				Object.keys(currentSearch).length > 0
-					? _.merge({ ...defaultFilters, ...currentSearch })
-					: _.merge({ ...defaultFilters, sort_by: 'popularity.desc' })
-			)
-		});
+		setSearchParams(
+			Object.keys(currentSearch).length > 0
+				? _.merge({ ...defaultFilters, ...currentSearch })
+				: _.merge({ ...defaultFilters, sort_by: 'popularity.desc' })
+		);
 
 		setTimeout(() => moviesQuery.refetch(), 250);
 
@@ -150,7 +142,7 @@ const Movies = (): ReactElement => {
 									isDisabled={moviesQuery.isFetching || moviesQuery.isLoading || moviesQuery.isError}
 									onClick={onClick}
 									variant='outlined'
-									sx={{ back: { height: '38px' } }}
+									sx={{ back: { height: `${height}px` } }}
 								>
 									Sort By
 								</Button>
@@ -166,7 +158,7 @@ const Movies = (): ReactElement => {
 									isDisabled={moviesQuery.isFetching || moviesQuery.isLoading || moviesQuery.isError}
 									onClick={onClick}
 									variant='outlined'
-									sx={{ back: { height: '38px' } }}
+									sx={{ back: { height: `${height}px` } }}
 								>
 									Filter
 								</Button>
@@ -174,7 +166,7 @@ const Movies = (): ReactElement => {
 							mediaType='movie'
 							onFilter={handleSetFilters}
 						/>
-						<DisplayMode />
+						<DisplayMode ref={ref} />
 					</HStack>
 				),
 				body: (
