@@ -3,6 +3,7 @@ import { Theme } from '../../../theme/types';
 
 export default (theme: Theme, isFullWidth = false): Style => ({
 	'width': isFullWidth ? '100%' : 'auto',
+	'height': '100%',
 
 	'WebkitTapHighlightColor': 'transparent',
 
