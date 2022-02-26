@@ -58,7 +58,7 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 			activeTab={activeTab}
 			onChange={(index: number) => setActiveTab(index)}
 			footer={
-				<Link to={{ ...to({ mediaType: mediaTypes[activeTab] }) }} isFullWidth isDisabled={handleIsDisabled()}>
+				<Link to={to({ mediaType: mediaTypes[activeTab] })} isFullWidth isDisabled={handleIsDisabled()}>
 					<Button
 						color={color}
 						isFullWidth
