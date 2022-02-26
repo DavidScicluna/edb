@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { HStack, ScaleFade, useMediaQuery, VStack } from '@chakra-ui/react';
 
@@ -8,6 +8,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
+import { useElementSize } from 'usehooks-ts';
 
 import VerticalTV from './components/Orientation/Vertical';
 
@@ -36,7 +37,10 @@ const TV = (): ReactElement => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const history = useHistory();
+	const location = useLocation();
+	const [searchParams, setSearchParams] = useSearchParams(defaultFilters);
+
+	const [ref, { height }] = useElementSize();
 
 	const [shows, setShows] = useState<Response<PartialTV[]>>();
 
@@ -45,10 +49,7 @@ const TV = (): ReactElement => {
 		'tv-shows',
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance.get<Response<PartialTV[]>>('/discover/tv', {
-				params: {
-					page: pageParam,
-					...(qs.parse(history.location.search || '') || {})
-				},
+				params: { page: pageParam, ...(qs.parse(searchParams.toString() || '') || {}) },
 				cancelToken: source.token
 			});
 			return data;
@@ -76,15 +77,15 @@ const TV = (): ReactElement => {
 	);
 
 	const handleSetFilters = (form: FiltersForm): void => {
-		const currentSearch = qs.parse(history.location.search);
+		const currentSearch = qs.parse(searchParams.toString() || '');
 		Object.keys(currentSearch).forEach((key) => key === 'sort_by' || delete currentSearch[key]);
 
 		const filters = _.omitBy(
 			_.merge({
 				...defaultFilters,
 				'certification': form.certifications.length > 0 ? form.certifications.join('|') : undefined,
-				'first_air_date.gte': form.date.length > 0 && form.date[0] ? form.date[0] : undefined,
-				'first_air_date.lte': form.date.length > 0 && form.date[1] ? form.date[1] : undefined,
+				'first_air_date.gte': form.date.gte || undefined,
+				'first_air_date.lte': form.date.lte || undefined,
 				'with_genres': form.genres.length > 0 ? form.genres.join(',') : undefined,
 				'vote_average.gte': form.rating.length > 0 && form.rating[0] ? form.rating[0] : undefined,
 				'vote_average.lte': form.rating.length > 0 && form.rating[1] ? form.rating[1] : undefined,
@@ -93,43 +94,34 @@ const TV = (): ReactElement => {
 				'with_runtime.gte': form.runtime.length > 0 && form.runtime[0] ? form.runtime[0] : undefined,
 				'with_runtime.lte': form.runtime.length > 0 && form.runtime[1] ? form.runtime[1] : undefined
 			}),
-			_.isNil
+			_.isNil || _.isEmpty
 		);
 
-		history.push({
-			location: '/tvshows',
-			search: qs.stringify(_.mergeWith({ ...currentSearch, ...filters }))
-		});
+		setSearchParams(_.mergeWith({ ...currentSearch, ...filters }));
 
 		setTimeout(() => tvShowsQuery.refetch(), 250);
 	};
 
 	const handleSetSortBy = (form: SortForm): void => {
-		const currentSearch = _.omit(qs.parse(history.location.search), 'sort_by');
+		const currentSearch = _.omit(qs.parse(searchParams.toString() || ''), 'sort_by');
 
 		const sortBy = {
 			sort_by: `${form.sortBy.value}.${form.direction}`
 		};
 
-		history.push({
-			location: '/tvshows',
-			search: qs.stringify(_.mergeWith({ ...currentSearch, ...sortBy }))
-		});
+		setSearchParams(_.mergeWith({ ...currentSearch, ...sortBy }));
 
 		setTimeout(() => tvShowsQuery.refetch(), 250);
 	};
 
 	useEffect(() => {
-		const currentSearch = qs.parse(history.location.search);
+		const currentSearch = qs.parse(location.search);
 
-		history.push({
-			location: '/tvshows',
-			search: qs.stringify(
-				Object.keys(currentSearch).length > 0
-					? _.merge({ ...defaultFilters, ...currentSearch })
-					: _.merge({ ...defaultFilters, sort_by: 'popularity.desc' })
-			)
-		});
+		setSearchParams(
+			Object.keys(currentSearch).length > 0
+				? _.merge({ ...defaultFilters, ...currentSearch })
+				: _.merge({ ...defaultFilters, sort_by: 'popularity.desc' })
+		);
 
 		setTimeout(() => tvShowsQuery.refetch(), 250);
 
@@ -151,7 +143,7 @@ const TV = (): ReactElement => {
 									}
 									onClick={onClick}
 									variant='outlined'
-									sx={{ back: { height: '38px' } }}
+									sx={{ back: { height: `${height}px` } }}
 								>
 									Sort By
 								</Button>
@@ -169,7 +161,7 @@ const TV = (): ReactElement => {
 									}
 									onClick={onClick}
 									variant='outlined'
-									sx={{ back: { height: '38px' } }}
+									sx={{ back: { height: `${height}px` } }}
 								>
 									Filter
 								</Button>
@@ -177,7 +169,7 @@ const TV = (): ReactElement => {
 							mediaType='tv'
 							onFilter={handleSetFilters}
 						/>
-						<DisplayMode />
+						<DisplayMode ref={ref} />
 					</HStack>
 				),
 				body: (
