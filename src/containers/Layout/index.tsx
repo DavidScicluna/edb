@@ -159,7 +159,7 @@ const Layout = (): ReactElement => {
 						<Box
 							width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
 							position='absolute'
-							top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '6px' : 0}
+							top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '4px' : 0}
 							left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
 							sx={{ ...transition }}
 						>

@@ -20,7 +20,7 @@ const ProgressBar = (): ReactElement => {
 	return (
 		<Progress
 			width='100%'
-			height='6px'
+			height='4px'
 			background={`gray.${colorMode === 'light' ? 200 : 700}`}
 			borderRadius='none'
 			isIndeterminate
