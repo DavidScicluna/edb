@@ -14,7 +14,13 @@ const Header = ({ title, actions, direction }: HeaderProps): ReactElement => {
 	const [ref, { width }] = useElementSize();
 
 	return (
-		<Stack width='100%' direction={direction ? direction : isSm ? 'column' : 'row'} p={2} spacing={isSm ? 2 : 4}>
+		<Stack
+			width='100%'
+			direction={direction ? direction : isSm ? 'column' : 'row'}
+			justifyContent='space-between'
+			p={2}
+			spacing={isSm ? 2 : 4}
+		>
 			<VStack
 				width={isSm ? '100%' : `calc(100% - ${actions ? width + 32 : 0}px)`}
 				alignItems='flex-start'
