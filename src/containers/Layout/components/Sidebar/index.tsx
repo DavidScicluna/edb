@@ -29,9 +29,9 @@ const Sidebar = (): ReactElement => {
 	return (
 		<VStack
 			width={sidebarWidth[sidebarMode]}
-			height='100vh'
+			height={`calc(100vh - ${isFetching > 0 || isMutating > 0 ? 6 : 0}px)`}
 			position='fixed'
-			top={0}
+			top={isFetching > 0 || isMutating > 0 ? '6px' : 0}
 			zIndex={900}
 			alignItems={sidebarMode === 'expanded' ? 'flex-start' : 'stretch'}
 			justifyContent='space-between'

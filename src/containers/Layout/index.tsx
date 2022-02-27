@@ -1,7 +1,18 @@
 import { ReactElement, useCallback, useEffect } from 'react';
+import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import { ColorMode, useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box } from '@chakra-ui/react';
+import {
+	ColorMode,
+	useTheme,
+	useColorMode,
+	useMediaQuery,
+	Container,
+	HStack,
+	VStack,
+	Box,
+	Collapse
+} from '@chakra-ui/react';
 
 import _ from 'lodash';
 import { useIsFirstRender, useUpdateEffect } from 'usehooks-ts';
@@ -13,7 +24,7 @@ import Header from './components/Header';
 import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
 import QuickView from './components/Modals/QuickView';
-import SplashscreenModal from './components/Modals/Splashscreen';
+import ProgressBar from './components/ProgressBar';
 import Router from './components/Router';
 import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
@@ -23,6 +34,7 @@ import { useSelector, useCheckIcons, usePopulateOptions, useCheckColorMode } fro
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import Icon from '../../components/Icon';
 import { NavItem } from '../../components/NavItem/types';
+import SplashscreenModal from '../../components/Splashscreen';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { toggleSplashscreen } from '../../store/slices/Modals';
 import { Theme } from '../../theme/types';
@@ -82,6 +94,9 @@ const Layout = (): ReactElement => {
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 	const background = useSelector((state) => state.user.ui.theme.background);
 
+	const isFetching = useIsFetching();
+	const isMutating = useIsMutating();
+
 	const transition = useTransitionsStyle(theme);
 
 	const isFirstRender = useIsFirstRender();
@@ -129,11 +144,20 @@ const Layout = (): ReactElement => {
 					sx={{ ...transition }}
 				>
 					<HStack width='100%' position='relative' spacing={0}>
+						<Collapse
+							in={isFetching > 0 || isMutating > 0}
+							unmountOnExit
+							style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
+						>
+							<ProgressBar />
+						</Collapse>
+
 						{isLgUp ? <Sidebar /> : null}
+
 						<Box
 							width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
 							position='absolute'
-							top={0}
+							top={isFetching > 0 || isMutating > 0 ? '6px' : 0}
 							left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
 							sx={{ ...transition }}
 						>
