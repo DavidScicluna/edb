@@ -45,24 +45,24 @@ export default (theme: Theme, color: UserTheme['color'], size: Size = 'md'): Nav
 			.join(', ')
 	},
 	light: {
-		'backgroundColor': `${color}.400`,
-		'borderColor': `${color}.400`,
+		'backgroundColor': `${color}.500`,
+		'borderColor': `${color}.500`,
 		'color': 'gray.50',
 
 		'&:hover': {
-			backgroundColor: `${color}.500`,
-			borderColor: `${color}.500`,
+			backgroundColor: `${color}.600`,
+			borderColor: `${color}.600`,
 			color: 'gray.50'
 		}
 	},
 	dark: {
-		'backgroundColor': `${color}.500`,
-		'borderColor': `${color}.500`,
+		'backgroundColor': `${color}.400`,
+		'borderColor': `${color}.400`,
 		'color': 'gray.900',
 
 		'&:hover': {
-			backgroundColor: `${color}.400`,
-			borderColor: `${color}.400`,
+			backgroundColor: `${color}.300`,
+			borderColor: `${color}.300`,
 			color: 'gray.900'
 		}
 	}
