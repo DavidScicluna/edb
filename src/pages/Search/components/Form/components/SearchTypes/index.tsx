@@ -21,7 +21,7 @@ export const searchTypes: SearchTypeType[] = [
 		value: 'movie',
 		label: 'Movies',
 		color: 'blue',
-		renderLeftIcon: ({ isActive, fontSize }) => (
+		renderLeft: ({ isActive, fontSize }) => (
 			<Icon icon='theaters' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
@@ -29,7 +29,7 @@ export const searchTypes: SearchTypeType[] = [
 		value: 'tv',
 		label: 'TV Shows',
 		color: 'orange',
-		renderLeftIcon: ({ isActive, fontSize }) => (
+		renderLeft: ({ isActive, fontSize }) => (
 			<Icon icon='tv' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
@@ -37,7 +37,7 @@ export const searchTypes: SearchTypeType[] = [
 		value: 'person',
 		label: 'People',
 		color: 'yellow',
-		renderLeftIcon: ({ isActive, fontSize }) => (
+		renderLeft: ({ isActive, fontSize }) => (
 			<Icon icon='people_alt' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
@@ -45,7 +45,7 @@ export const searchTypes: SearchTypeType[] = [
 		value: 'collection',
 		label: 'Collections',
 		color: 'pink',
-		renderLeftIcon: ({ isActive, fontSize }) => (
+		renderLeft: ({ isActive, fontSize }) => (
 			<Icon icon='library_books' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
@@ -53,7 +53,7 @@ export const searchTypes: SearchTypeType[] = [
 		value: 'company',
 		label: 'Companies',
 		color: 'purple',
-		renderLeftIcon: ({ isActive, fontSize }) => (
+		renderLeft: ({ isActive, fontSize }) => (
 			<Icon icon='business' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	}

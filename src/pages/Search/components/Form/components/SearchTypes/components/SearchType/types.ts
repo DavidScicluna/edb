@@ -1,15 +1,16 @@
-import { Icon } from '../../../../../../../../common/types';
-import { IconProps as ButtonIconProps } from '../../../../../../../../components/Clickable/Button/types';
+import { ReactNode } from 'react';
+
+import { RenderProps as RenderButtonProps } from '../../../../../../../../components/Clickable/Button/types';
 import { SearchType as SearchTypeValue } from '../../../../../../../../store/slices/User/types';
 import { Color } from '../../../../../../../../theme/types';
 
-type IconProps = { isActive: boolean } & ButtonIconProps;
+type RenderProps = { isActive: boolean } & RenderButtonProps;
 
 export type SearchType = {
 	value: SearchTypeValue;
 	label: string;
 	color: keyof Color;
-	renderLeftIcon: (props: IconProps) => Icon;
+	renderLeft: (props: RenderProps) => ReactNode;
 };
 
 export type SearchTypeProps = {
