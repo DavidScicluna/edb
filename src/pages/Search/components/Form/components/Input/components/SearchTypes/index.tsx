@@ -15,6 +15,7 @@ const SearchTypes = ({ searchTypes, onClear }: SearchTypesProps): ReactElement =
 	const [isHoveringClear, setIsHoveringClear] = useBoolean();
 
 	return (
+		// TODO: Replace with Tag component
 		<HStack
 			minHeight='30px' // Size of Close Button
 			backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`}
