@@ -10,9 +10,9 @@ import { useInterval } from 'usehooks-ts';
 import useStyles from './styles';
 import { SplashscreenProps } from './types';
 
-import { useSelector } from '../../../../../common/hooks';
-import { toggleSplashscreen } from '../../../../../store/slices/Modals';
-import { Color } from '../../../../../theme/types';
+import { useSelector } from '../../common/hooks';
+import { toggleSplashscreen } from '../../store/slices/Modals';
+import { Color } from '../../theme/types';
 
 const MotionBox = motion(Box);
 

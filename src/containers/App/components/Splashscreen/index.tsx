@@ -8,8 +8,8 @@ import _ from 'lodash';
 import { SplashscreenProps } from './types';
 
 import { useCheckColorMode, useSelector } from '../../../../common/hooks';
+import SplashscreenModal from '../../../../components/Splashscreen';
 import { toggleSplashscreen } from '../../../../store/slices/Modals';
-import SplashscreenModal from '../../../Layout/components/Modals/Splashscreen';
 
 const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 	const { setColorMode } = useColorMode();
