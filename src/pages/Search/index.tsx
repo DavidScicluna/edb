@@ -1,7 +1,7 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { useBoolean, VStack, Center, Fade, Collapse } from '@chakra-ui/react';
 
@@ -37,10 +37,8 @@ import { Search as SearchType, SearchType as SearchTypeValue } from '../../store
 const Search = (): ReactElement => {
 	const source = axios.CancelToken.source();
 
-	const params = useParams();
 	const location = useLocation();
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [_searchParams, setSearchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	const dispatch = useDispatch();
 	const recentSearches = useSelector((state) => state.user.data.recentSearches);
@@ -539,7 +537,7 @@ const Search = (): ReactElement => {
 				setIsQuerySubmitted.on();
 			}
 		}
-	}, [params]);
+	}, [searchParams]);
 
 	useEffect(() => {
 		return () => source.cancel();
