@@ -35,12 +35,12 @@ const Genre = (props: GenreProps): ReactElement => {
 					textDecorationStyle='wavy'
 					textDecorationLine='underline'
 					textDecorationThickness='from-font'
-					textDecorationColor={`${color}.${colorMode === 'light' ? 400 : 500}`}
+					textDecorationColor={`${color}.${colorMode === 'light' ? 500 : 400}`}
 					sx={{
 						transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 					}}
-					_focus={{ boxShadow: 'none' }}
-					_hover={{ color: `${color}.${colorMode === 'light' ? 400 : 500}` }}
+					_focus={{ boxShadow: 'none', color: `${color}.${colorMode === 'light' ? 600 : 300}` }}
+					_hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}
 				>
 					{name || 'Genre'}
 				</Text>

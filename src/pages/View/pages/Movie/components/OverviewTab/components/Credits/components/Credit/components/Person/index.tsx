@@ -22,7 +22,7 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 	const dummy = useConst<number>(_.sample(dummies) || 50);
 
 	return (
-		<Link to={{ pathname: `/person/${person?.id}` }} isDisabled={isLoading}>
+		<Link to={{ pathname: `/people/${person?.id}` }} isDisabled={isLoading}>
 			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>
 				<Text
 					align='left'
@@ -32,12 +32,12 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 					textDecorationStyle='wavy'
 					textDecorationLine='underline'
 					textDecorationThickness='from-font'
-					textDecorationColor={`${color}.${colorMode === 'light' ? 400 : 500}`}
+					textDecorationColor={`${color}.${colorMode === 'light' ? 500 : 400}`}
 					sx={{
 						transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 					}}
-					_focus={{ boxShadow: 'none' }}
-					_hover={{ color: `${color}.${colorMode === 'light' ? 400 : 500}` }}
+					_focus={{ boxShadow: 'none', color: `${color}.${colorMode === 'light' ? 600 : 300}` }}
+					_hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}
 				>
 					{person?.name || 'Person Name'}
 				</Text>
