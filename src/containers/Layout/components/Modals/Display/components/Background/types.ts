@@ -1,8 +1,9 @@
-import { Icon } from '../../../../../../../common/types';
+import { ReactNode } from 'react';
+
 import { FontSizes } from '../../../../../../../theme/types';
 import { Form } from '../../types';
 
-type RenderIconProps = {
+type RenderProps = {
 	isActive: boolean;
 	fontSize: FontSizes['2xl'];
 };
@@ -10,5 +11,5 @@ type RenderIconProps = {
 export type Background = {
 	label: string;
 	value: Form['background'];
-	renderIcon: (props: RenderIconProps) => Icon;
+	renderLeft: (props: RenderProps) => ReactNode;
 };

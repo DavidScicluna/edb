@@ -10,7 +10,7 @@ import { Theme } from '../../../../../../../../../theme/types';
 const BackgroundItem = (props: BackgroundItemProps): ReactElement => {
 	const theme = useTheme<Theme>();
 
-	const { renderIcon, label, value, color, background, isActive = false, onClick } = props;
+	const { renderLeft, label, value, color, background, isActive = false, onClick } = props;
 
 	return (
 		<Card
@@ -22,7 +22,7 @@ const BackgroundItem = (props: BackgroundItemProps): ReactElement => {
 			p={2}
 		>
 			<HStack width='100%' justifyContent='center' spacing={1}>
-				{renderIcon({ isActive, fontSize: theme.fontSizes.xl })}
+				{renderLeft({ isActive, fontSize: theme.fontSizes.xl })}
 				<Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase'>
 					{label}
 				</Text>

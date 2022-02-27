@@ -15,14 +15,14 @@ const backgrounds: BackgroundType[] = [
 	{
 		label: 'Light',
 		value: 'light',
-		renderIcon: ({ isActive, fontSize }) => (
+		renderLeft: ({ isActive, fontSize }) => (
 			<Icon icon='light_mode' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
 		label: 'System',
 		value: 'system',
-		renderIcon: ({ isActive, fontSize }) => (
+		renderLeft: ({ isActive, fontSize }) => (
 			<Center>
 				<Icon icon='light_mode' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 				<Text align='center' fontSize='xl' mx={0.5}>
@@ -35,7 +35,7 @@ const backgrounds: BackgroundType[] = [
 	{
 		label: 'Dark',
 		value: 'dark',
-		renderIcon: ({ isActive, fontSize }) => (
+		renderLeft: ({ isActive, fontSize }) => (
 			<Icon icon='dark_mode' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	}
