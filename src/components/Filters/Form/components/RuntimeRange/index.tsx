@@ -12,8 +12,8 @@ import { useSelector } from '../../../../../common/hooks';
 import { Theme } from '../../../../../theme/types';
 import Button from '../../../../Clickable/Button';
 import Panel from '../../../../Panel';
+import { Filters } from '../../../types';
 import { handleCheckIfInRange } from '../../common/utils';
-import { Form } from '../../types';
 import Header from '../Header';
 
 const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
@@ -24,7 +24,7 @@ const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
 
 	const runtimes = useConst(_.range(0, 475, 45));
 
-	const handleOnChange = (value: Form['runtime'], number: number): void => {
+	const handleOnChange = (value: Filters['runtime'], number: number): void => {
 		const runtimes = _.compact(value);
 
 		if (runtimes.some((num) => num === number)) {

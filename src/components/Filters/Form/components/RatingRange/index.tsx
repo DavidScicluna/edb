@@ -13,8 +13,8 @@ import { Theme } from '../../../../../theme/types';
 import Button from '../../../../Clickable/Button';
 import Panel from '../../../../Panel';
 import Rating from '../../../../Rating';
+import { Filters } from '../../../types';
 import { handleCheckIfInRange } from '../../common/utils';
-import { Form } from '../../types';
 import Header from '../Header';
 
 const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
@@ -25,7 +25,7 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 
 	const ratings = useConst(_.range(0, 11));
 
-	const handleOnChange = (value: Form['rating'], number: number): void => {
+	const handleOnChange = (value: Filters['rating'], number: number): void => {
 		const rating = _.compact(value);
 
 		if (rating.some((num) => num === number)) {

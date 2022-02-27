@@ -12,8 +12,8 @@ import { useSelector } from '../../../../../common/hooks';
 import { Theme } from '../../../../../theme/types';
 import Button from '../../../../Clickable/Button';
 import Panel from '../../../../Panel';
+import { Filters } from '../../../types';
 import { handleCheckIfInRange } from '../../common/utils';
-import { Form } from '../../types';
 import Header from '../Header';
 
 const CountRange = ({ form }: CountRangeProps): ReactElement => {
@@ -24,7 +24,7 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 
 	const counts = useConst(_.range(0, 550, 50));
 
-	const handleOnChange = (value: Form['count'], number: number): void => {
+	const handleOnChange = (value: Filters['count'], number: number): void => {
 		const count = _.compact(value);
 
 		if (count.some((num) => num === number)) {
