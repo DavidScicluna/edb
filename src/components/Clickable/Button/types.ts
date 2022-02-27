@@ -12,6 +12,8 @@ export type Size = 'sm' | 'md' | 'lg';
 export type Variant = 'contained' | 'outlined' | 'text';
 
 export type RenderProps = {
+	color?: keyof Color;
+	colorMode?: ColorMode;
 	width?: string;
 	height?: string;
 	fontSize?: string;

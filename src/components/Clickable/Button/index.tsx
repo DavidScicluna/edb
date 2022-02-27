@@ -109,6 +109,8 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
 					<HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing()}>
 						{renderLeft
 							? renderLeft({
+									color,
+									colorMode,
 									width: iconSize,
 									height: iconSize,
 									fontSize: iconSize
@@ -117,6 +119,8 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
 						{children ? <span>{children}</span> : null}
 						{renderRight
 							? renderRight({
+									color,
+									colorMode,
 									width: iconSize,
 									height: iconSize,
 									fontSize: iconSize
