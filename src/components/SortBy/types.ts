@@ -1,6 +1,5 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
-import { Icon } from '../../common/types';
 import { Color } from '../../theme/types';
 
 export type SortBy = {
@@ -17,7 +16,7 @@ export type Form = {
 
 export type RenderButtonProps = {
 	color: keyof Color;
-	icon: Icon;
+	icon: ReactNode;
 	onClick: () => void;
 };
 

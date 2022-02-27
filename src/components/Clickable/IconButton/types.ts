@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 import { ColorMode, IconButtonProps as CUIIconButtonProps } from '@chakra-ui/react';
 
-import { Icon, Style } from '../../../common/types';
+import { Style } from '../../../common/types';
 import { Color } from '../../../theme/types';
 
 export type IconButtonRef = HTMLButtonElement | null;
@@ -10,7 +12,7 @@ export type Size = 'sm' | 'md' | 'lg';
 export type Variant = 'contained' | 'outlined' | 'icon';
 
 export type IconButtonProps = {
-	children: Icon;
+	children: ReactNode;
 	color?: keyof Color;
 	colorMode?: ColorMode;
 	size?: Size;

@@ -1,4 +1,5 @@
-import { Icon } from '../../../../../../common/types';
+import { ReactNode } from 'react';
+
 import { Color } from '../../../../../../theme/types';
 
 export type RenderProps = {
@@ -12,8 +13,8 @@ export type RenderProps = {
 
 export type Tab = {
 	label: string;
-	renderLeft?: (props: RenderProps) => Icon;
-	renderRight?: (props: RenderProps) => Icon;
+	renderLeft?: (props: RenderProps) => ReactNode;
+	renderRight?: (props: RenderProps) => ReactNode;
 	isDisabled?: boolean;
 };
 

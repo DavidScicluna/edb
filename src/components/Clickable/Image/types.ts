@@ -1,8 +1,7 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 import { AspectRatioProps } from '@chakra-ui/react';
 
-import { Icon } from '../../../common/types';
 import { FontSizes, Color } from '../../../theme/types';
 
 export type IconProps = {
@@ -15,7 +14,7 @@ export type ImageProps = {
 	width?: AspectRatioProps['width'];
 	borderRadius?: AspectRatioProps['borderRadius'];
 	ratio?: AspectRatioProps['ratio'];
-	renderIcon: (props: IconProps) => Icon;
+	renderIcon: (props: IconProps) => ReactNode;
 	isDisabled?: boolean;
 	isActive?: boolean;
 	onClick?: () => void;

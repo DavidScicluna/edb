@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 
 import { ColorMode, BadgeProps as CUIBadgeProps } from '@chakra-ui/react';
 
-import { Icon } from '../../common/types';
 import { Color, FontSizes } from '../../theme/types';
 
 export type Variant = 'contained' | 'outlined' | 'text';
@@ -21,8 +20,8 @@ export type BadgeProps = {
 	children: ReactNode;
 	color?: keyof Color;
 	colorMode?: ColorMode;
-	renderLeft?: (props: RenderProps) => Icon;
-	renderRight?: (props: RenderProps) => Icon;
+	renderLeft?: (props: RenderProps) => ReactNode;
+	renderRight?: (props: RenderProps) => ReactNode;
 	isLight?: boolean;
 	isLoading?: boolean;
 	size?: Size;

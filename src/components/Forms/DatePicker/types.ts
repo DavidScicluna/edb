@@ -1,13 +1,12 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 import { Props } from 'dayzed';
 
-import { Icon } from '../../../common/types';
 import { Color } from '../../../theme/types';
 
 export type RenderToggleModalProps = {
 	color: keyof Color;
-	icon: Icon;
+	icon: ReactNode;
 	onClick: () => void;
 };
 

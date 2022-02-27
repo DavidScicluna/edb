@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 import { CSSObject } from '@chakra-ui/react';
 
 // Utility Types
@@ -7,8 +5,6 @@ export type NonNullable<T> = Exclude<T, null | undefined>; // Remove null and un
 
 // Component Types
 export type Style = CSSObject;
-
-export type Icon = ReactElement;
 
 export type Orientation = 'vertical' | 'horizontal';
 

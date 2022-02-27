@@ -1,6 +1,7 @@
+import { ReactNode } from 'react';
+
 import { NavItemChild } from './components/NavItemChild/types';
 
-import { Icon } from '../../common/types';
 import { FontSizes } from '../../theme/types';
 
 type RenderProps = {
@@ -9,7 +10,7 @@ type RenderProps = {
 };
 
 export type NavItem = {
-	renderIcon: (props: RenderProps) => Icon;
+	renderIcon: (props: RenderProps) => ReactNode;
 	children?: NavItemChild[];
 	label: string;
 	path?: string;
