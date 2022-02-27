@@ -94,6 +94,8 @@ const Layout = (): ReactElement => {
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 	const background = useSelector((state) => state.user.ui.theme.background);
 
+	const isQuickViewOpen = useSelector((state) => state.modals.ui.quickViewModal.open);
+
 	const isFetching = useIsFetching();
 	const isMutating = useIsMutating();
 
@@ -145,7 +147,7 @@ const Layout = (): ReactElement => {
 				>
 					<HStack width='100%' position='relative' spacing={0}>
 						<Collapse
-							in={isFetching > 0 || isMutating > 0}
+							in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
 							unmountOnExit
 							style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
 						>
@@ -157,7 +159,7 @@ const Layout = (): ReactElement => {
 						<Box
 							width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
 							position='absolute'
-							top={isFetching > 0 || isMutating > 0 ? '6px' : 0}
+							top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '6px' : 0}
 							left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
 							sx={{ ...transition }}
 						>

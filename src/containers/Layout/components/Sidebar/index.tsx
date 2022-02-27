@@ -23,15 +23,17 @@ const Sidebar = (): ReactElement => {
 	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
+	const isQuickViewOpen = useSelector((state) => state.modals.ui.quickViewModal.open);
+
 	const isFetching = useIsFetching();
 	const isMutating = useIsMutating();
 
 	return (
 		<VStack
 			width={sidebarWidth[sidebarMode]}
-			height={`calc(100vh - ${isFetching > 0 || isMutating > 0 ? 6 : 0}px)`}
+			height={`calc(100vh - ${!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? 6 : 0}px)`}
 			position='fixed'
-			top={isFetching > 0 || isMutating > 0 ? '6px' : 0}
+			top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '6px' : 0}
 			zIndex={900}
 			alignItems={sidebarMode === 'expanded' ? 'flex-start' : 'stretch'}
 			justifyContent='space-between'
