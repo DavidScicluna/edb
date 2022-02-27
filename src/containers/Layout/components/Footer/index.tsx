@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { useIsFetching, useIsMutating } from 'react-query';
 
-import { useColorMode, useMediaQuery, VStack, HStack, Stack, Box, Link, Text, useTheme } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Stack, Box, Link, Text, useTheme } from '@chakra-ui/react';
 
 import moment from 'moment';
 
@@ -23,19 +23,17 @@ const Footer = (): ReactElement => {
 
 	return (
 		<VStack width='100%' backgroundColor={colorMode === 'light' ? 'gray.100' : 'gray.800'} spacing={4} p={4}>
-			{isSm ? (
-				<VStack width='100%' alignItems='flex-start' justifyContent='space-between' spacing={4}>
-					{navItems.map((navItem, index) => (
-						<NavItem key={index} {...navItem} isDisabled={isFetching > 0 || isMutating > 0} />
-					))}
-				</VStack>
-			) : (
-				<HStack width='100%' alignItems='flex-start' justifyContent='space-between' spacing={2}>
-					{navItems.map((navItem, index) => (
-						<NavItem key={index} {...navItem} isDisabled={isFetching > 0 || isMutating > 0} />
-					))}
-				</HStack>
-			)}
+			<Stack
+				width='100%'
+				direction={isSm ? 'column' : 'row'}
+				alignItems='flex-start'
+				justifyContent='space-between'
+				spacing={isSm ? 4 : 2}
+			>
+				{navItems.map((navItem, index) => (
+					<NavItem key={index} {...navItem} isDisabled={isFetching > 0 || isMutating > 0} />
+				))}
+			</Stack>
 
 			<Box width='100%' height='2px' backgroundColor={`gray.${colorMode === 'light' ? 200 : 700}`} />
 
@@ -64,7 +62,7 @@ const Footer = (): ReactElement => {
 						sx={{
 							transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 						}}
-						_focus={{ boxShadow: 'none' }}
+						_focus={{ boxShadow: 'none', color: `${color}.${colorMode === 'light' ? 600 : 300}` }}
 						_hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}
 					>
 						davidscicluna.com
