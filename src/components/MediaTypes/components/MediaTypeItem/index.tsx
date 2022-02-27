@@ -19,7 +19,7 @@ const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
 
 	const [ref, { height }] = useElementSize<NonNullable<CardRef>>();
 
-	const { renderIcon, label, value, isActive = false, onClick } = props;
+	const { renderLeft, label, value, isActive = false, onClick } = props;
 
 	return (
 		<Card
@@ -32,8 +32,7 @@ const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
 			sx={{ back: { minWidth: `${height * 1.5}px` } }}
 		>
 			<Center flexDirection='column'>
-				{renderIcon({ isActive, fontSize: theme.fontSizes['4xl'] })}
-
+				{renderLeft({ isActive, fontSize: theme.fontSizes['4xl'] })}
 				<Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase' whiteSpace='nowrap'>
 					{label}
 				</Text>

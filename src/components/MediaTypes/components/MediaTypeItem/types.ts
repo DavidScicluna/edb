@@ -1,12 +1,14 @@
-import { Icon, MediaType } from '../../../../common/types';
+import { ReactNode } from 'react';
 
-type RenderIconProps = {
+import { MediaType } from '../../../../common/types';
+
+type RenderProps = {
 	isActive: boolean;
 	fontSize: string;
 };
 
 export type MediaTypeItem = {
-	renderIcon: (props: RenderIconProps) => Icon;
+	renderLeft: (props: RenderProps) => ReactNode;
 	label: string;
 	value: MediaType;
 };
