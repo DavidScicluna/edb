@@ -24,9 +24,9 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 	const handleReturnIconSize = (): string => {
 		switch (size) {
 			case 'xs':
-				return theme.fontSizes.sm;
-			case 'sm':
 				return theme.fontSizes.md;
+			case 'sm':
+				return theme.fontSizes.lg;
 			case 'lg':
 				return theme.fontSizes.xl;
 			case 'xl':
@@ -36,7 +36,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 			case '3xl':
 				return theme.fontSizes['4xl'];
 			default:
-				return theme.fontSizes.lg;
+				return theme.fontSizes.xl;
 		}
 	};
 
