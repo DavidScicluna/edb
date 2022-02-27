@@ -46,7 +46,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 				renderButton={({ isLiked, onClick }) => (
 					<Button
 						color={isLiked ? 'red' : 'gray'}
-						renderLeftIcon={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
+						renderLeft={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
 						isFullWidth
 						isDisabled={isDisabled}
 						onClick={() => onClick()}

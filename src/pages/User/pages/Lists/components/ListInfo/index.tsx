@@ -47,7 +47,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 				<HStack spacing={2}>
 					<Button
 						colorMode={colorMode}
-						renderLeftIcon={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
+						renderLeft={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
 						onClick={() => onEdit()}
 						size={size}
 					>
@@ -56,7 +56,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 					<Button
 						color='red'
 						colorMode={colorMode}
-						renderLeftIcon={({ fontSize }) => (
+						renderLeft={({ fontSize }) => (
 							<Icon icon='delete_outline' type='outlined' fontSize={fontSize} />
 						)}
 						onClick={() => onDelete()}

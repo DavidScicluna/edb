@@ -49,7 +49,7 @@ const Toast = (props: ToastProps): ReactElement => {
 				) : (
 					<Button
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
-						renderLeftIcon={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
+						renderLeft={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
 						onClick={() => onEdit()}
 					>
 						Edit
@@ -70,7 +70,7 @@ const Toast = (props: ToastProps): ReactElement => {
 					<Button
 						color='red'
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
-						renderLeftIcon={({ fontSize }) => (
+						renderLeft={({ fontSize }) => (
 							<Icon icon='delete_outline' type='outlined' fontSize={fontSize} />
 						)}
 						onClick={() => onDelete()}

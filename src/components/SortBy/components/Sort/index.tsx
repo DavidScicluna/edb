@@ -34,7 +34,7 @@ const Sort = ({ form, sortBy }: SortProps): ReactElement => {
 									<Center key={sort.value} width='100%'>
 										<Button
 											color={sort.value === value.value ? color : 'gray'}
-											renderRightIcon={
+											renderRight={
 												sort.value === value.value
 													? ({ fontSize }) => (
 															<Icon icon='check' type='outlined' fontSize={fontSize} />

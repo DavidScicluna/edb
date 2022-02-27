@@ -23,7 +23,7 @@ const Certification = (props: CertificationProps): ReactElement => {
 	return (
 		<Button
 			color={isActive ? color : 'gray'}
-			renderRightIcon={
+			renderRight={
 				isActive ? ({ fontSize }) => <Icon icon='check' type='outlined' fontSize={fontSize} /> : undefined
 			}
 			onClick={onClick ? () => onClick({ certification, meaning, order }) : undefined}

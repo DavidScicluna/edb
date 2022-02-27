@@ -50,7 +50,7 @@ const Sidebar = (): ReactElement => {
 				isFullWidth
 				isDisabled={isFetching > 0 || isMutating > 0}
 				onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
-				renderLeftIcon={({ fontSize }) => (
+				renderLeft={({ fontSize }) => (
 					<Icon icon={sidebarMode === 'expanded' ? 'remove' : 'add'} type='outlined' fontSize={fontSize} />
 				)}
 				variant='outlined'

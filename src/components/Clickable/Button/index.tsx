@@ -19,8 +19,8 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
 		children,
 		color = 'gray',
 		colorMode: colorModeProp,
-		renderLeftIcon,
-		renderRightIcon,
+		renderLeft,
+		renderRight,
 		isDisabled = false,
 		isFullWidth = false,
 		isLoading = false,
@@ -107,16 +107,16 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
 					<Spinner color={color} colorMode={colorMode} size={size} variant={variant} />
 				) : (
 					<HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing()}>
-						{renderLeftIcon
-							? renderLeftIcon({
+						{renderLeft
+							? renderLeft({
 									width: iconSize,
 									height: iconSize,
 									fontSize: iconSize
 							  })
 							: null}
 						{children ? <span>{children}</span> : null}
-						{renderRightIcon
-							? renderRightIcon({
+						{renderRight
+							? renderRight({
 									width: iconSize,
 									height: iconSize,
 									fontSize: iconSize

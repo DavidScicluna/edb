@@ -35,10 +35,10 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 								<Center width='100%'>
 									<Button
 										color={value === 'asc' ? color : 'gray'}
-										renderLeftIcon={({ fontSize }) => (
+										renderLeft={({ fontSize }) => (
 											<Icon icon='arrow_upward' type='outlined' fontSize={fontSize} />
 										)}
-										renderRightIcon={
+										renderRight={
 											value === 'asc'
 												? ({ fontSize }) => (
 														<Icon icon='check' type='outlined' fontSize={fontSize} />
@@ -56,10 +56,10 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 								<Center width='100%'>
 									<Button
 										color={value === 'desc' ? color : 'gray'}
-										renderLeftIcon={({ fontSize }) => (
+										renderLeft={({ fontSize }) => (
 											<Icon icon='arrow_downward' type='outlined' fontSize={fontSize} />
 										)}
-										renderRightIcon={
+										renderRight={
 											value === 'desc'
 												? ({ fontSize }) => (
 														<Icon icon='check' type='outlined' fontSize={fontSize} />
