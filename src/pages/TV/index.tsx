@@ -19,7 +19,7 @@ import Button from '../../components/Clickable/Button';
 import DisplayMode from '../../components/Clickable/DisplayMode';
 import LoadMore from '../../components/Clickable/LoadMore';
 import Filters from '../../components/Filters/Form';
-import { Form as FiltersForm } from '../../components/Filters/Form/types';
+import { Filters as FiltersForm } from '../../components/Filters/types';
 import SortBy from '../../components/SortBy';
 import { tvSortBy as sortBy } from '../../components/SortBy/common/data/sort';
 import { Form as SortForm } from '../../components/SortBy/types';

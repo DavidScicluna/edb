@@ -1,10 +1,9 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
 
-import axios from 'axios';
 import _ from 'lodash';
 import qs from 'query-string';
 
@@ -15,12 +14,13 @@ import Dates from './components/Dates';
 import Genres from './components/Genres';
 import RatingRange from './components/RatingRange';
 import RuntimeRange from './components/RuntimeRange';
-import { FiltersProps, Form } from './types';
+import { FiltersProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import Button from '../../Clickable/Button';
 import Icon from '../../Icon';
 import Modal from '../../Modal';
+import { Filters as Form } from '../types';
 
 export const defaultValues: Form = {
 	date: { gte: null, lte: null },
@@ -33,8 +33,6 @@ export const defaultValues: Form = {
 };
 
 const Filters = (props: FiltersProps): ReactElement => {
-	const source = axios.CancelToken.source();
-
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 	const [isLg] = useMediaQuery('(max-width: 1024px)');
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -156,10 +154,6 @@ const Filters = (props: FiltersProps): ReactElement => {
 
 		onClose();
 	};
-
-	useEffect(() => {
-		return () => source.cancel();
-	}, []);
 
 	return (
 		<>

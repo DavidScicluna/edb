@@ -1,21 +1,8 @@
 import { ReactElement } from 'react';
 
-import { MediaType, Icon, Genre, Certification } from '../../../common/types';
+import { MediaType, Icon } from '../../../common/types';
 import { Color } from '../../../theme/types';
-
-type FormDate = string | null;
-
-type FormNumber = number | null;
-
-export type Form = {
-	date: { gte: FormDate; lte: FormDate };
-	genres: Genre['id'][];
-	certifications: Certification['certification'][];
-	rating: FormNumber[];
-	count: FormNumber[];
-	runtime: FormNumber[];
-	adult: boolean;
-};
+import { Filters } from '../types';
 
 export type RenderButtonProps = {
 	color: keyof Color;
@@ -26,5 +13,5 @@ export type RenderButtonProps = {
 export type FiltersProps = {
 	renderButton: (props: RenderButtonProps) => ReactElement;
 	mediaType: Omit<MediaType, 'person' | 'collection' | 'company'>;
-	onFilter: (filters: Form) => void;
+	onFilter: (filters: Filters) => void;
 };
