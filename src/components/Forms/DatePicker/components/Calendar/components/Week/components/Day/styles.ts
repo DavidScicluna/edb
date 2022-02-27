@@ -72,37 +72,37 @@ export default (theme: Theme, { color = 'gray' }: StyleDayProps): DayStyle => ({
 	},
 	light: {
 		contained: {
-			'borderColor': `${color}.400`,
-			'backgroundColor': `${color}.400`,
+			'borderColor': `${color}.500`,
+			'backgroundColor': `${color}.500`,
 			'color': 'gray.50',
 
 			'&:hover': {
-				borderColor: `${color}.500`,
-				backgroundColor: `${color}.500`,
+				borderColor: `${color}.600`,
+				backgroundColor: `${color}.600`,
 				color: 'gray.50'
 			},
 
 			'&:active': {
-				borderColor: `${color}.600`,
-				backgroundColor: `${color}.600`,
+				borderColor: `${color}.700`,
+				backgroundColor: `${color}.700`,
 				color: 'gray.50'
 			}
 		},
 		text: {
 			'borderColor': 'transparent',
 			'backgroundColor': 'transparent',
-			'color': `${color}.400`,
+			'color': `${color}.500`,
 
 			'&:hover': {
 				borderColor: 'transparent',
 				backgroundColor: 'transparent',
-				color: `${color}.500`
+				color: `${color}.600`
 			},
 
 			'&:active': {
 				borderColor: 'transparent',
 				backgroundColor: 'transparent',
-				color: `${color}.600`
+				color: `${color}.700`
 			}
 		},
 		disabled: {
@@ -120,37 +120,37 @@ export default (theme: Theme, { color = 'gray' }: StyleDayProps): DayStyle => ({
 	},
 	dark: {
 		contained: {
-			'borderColor': `${color}.500`,
-			'backgroundColor': `${color}.500`,
+			'borderColor': `${color}.400`,
+			'backgroundColor': `${color}.400`,
 			'color': 'gray.900',
 
 			'&:hover': {
-				borderColor: `${color}.400`,
-				backgroundColor: `${color}.400`,
+				borderColor: `${color}.300`,
+				backgroundColor: `${color}.300`,
 				color: 'gray.900'
 			},
 
 			'&:active': {
-				borderColor: `${color}.300`,
-				backgroundColor: `${color}.300`,
+				borderColor: `${color}.200`,
+				backgroundColor: `${color}.200`,
 				color: 'gray.900'
 			}
 		},
 		text: {
 			'borderColor': 'transparent',
 			'backgroundColor': 'transparent',
-			'color': `${color}.500`,
+			'color': `${color}.400`,
 
 			'&:hover': {
 				borderColor: 'transparent',
 				backgroundColor: 'transparent',
-				color: `${color}.400`
+				color: `${color}.300`
 			},
 
 			'&:active': {
 				borderColor: 'transparent',
 				backgroundColor: 'transparent',
-				color: `${color}.300`
+				color: `${color}.200`
 			}
 		},
 		disabled: {

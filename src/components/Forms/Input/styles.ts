@@ -169,32 +169,32 @@ export default (
 				'color': 'gray.400',
 
 				'&:hover': {
-					borderColor: isDisabled ? 'gray.200' : `${color}.400`,
+					borderColor: isDisabled ? 'gray.200' : `${color}.500`,
 					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.400' : `${color}.400`
+					color: isDisabled ? 'gray.400' : `${color}.500`
 				},
 
 				'&:focus': {
-					borderColor: isDisabled ? 'gray.200' : `${color}.400`,
+					borderColor: isDisabled ? 'gray.200' : `${color}.500`,
 					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.400' : `${color}.400`
+					color: isDisabled ? 'gray.400' : `${color}.500`
 				}
 			},
 			invalid: {
-				'borderColor': isDisabled ? 'gray.200' : 'red.400',
+				'borderColor': isDisabled ? 'gray.200' : 'red.500',
 				'backgroundColor': 'transparent',
-				'color': isDisabled ? 'gray.400' : 'red.400',
+				'color': isDisabled ? 'gray.400' : 'red.500',
 
 				'&:hover': {
-					borderColor: isDisabled ? 'gray.200' : 'red.400',
+					borderColor: isDisabled ? 'gray.200' : 'red.500',
 					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.400' : 'red.400'
+					color: isDisabled ? 'gray.400' : 'red.600'
 				},
 
 				'&:focus': {
-					borderColor: isDisabled ? 'gray.200' : 'red.400',
+					borderColor: isDisabled ? 'gray.200' : 'red.600',
 					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.400' : 'red.400'
+					color: isDisabled ? 'gray.400' : 'red.600'
 				}
 			}
 		},
@@ -203,11 +203,11 @@ export default (
 				color: `gray.${isDisabled ? 400 : 900}`
 			},
 			invalid: {
-				color: 'red.400'
+				color: 'red.500'
 			}
 		},
 		formHelperText: {
-			color: 'red.400'
+			color: 'red.500'
 		}
 	},
 	dark: {
@@ -218,32 +218,32 @@ export default (
 				'color': 'gray.500',
 
 				'&:hover': {
-					borderColor: isDisabled ? 'gray.700' : `${color}.500`,
+					borderColor: isDisabled ? 'gray.700' : `${color}.400`,
 					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.500' : `${color}.500`
+					color: isDisabled ? 'gray.500' : `${color}.400`
 				},
 
 				'&:focus': {
-					borderColor: isDisabled ? 'gray.700' : `${color}.500`,
+					borderColor: isDisabled ? 'gray.700' : `${color}.400`,
 					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.500' : `${color}.500`
+					color: isDisabled ? 'gray.500' : `${color}.400`
 				}
 			},
 			invalid: {
-				'borderColor': isDisabled ? 'gray.700' : 'red.500',
+				'borderColor': isDisabled ? 'gray.700' : 'red.400',
 				'backgroundColor': 'transparent',
-				'color': isDisabled ? 'gray.500' : 'red.500',
+				'color': isDisabled ? 'gray.500' : 'red.400',
 
 				'&:hover': {
-					borderColor: isDisabled ? 'gray.700' : 'red.500',
+					borderColor: isDisabled ? 'gray.700' : 'red.300',
 					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.500' : 'red.500'
+					color: isDisabled ? 'gray.500' : 'red.300'
 				},
 
 				'&:focus': {
-					borderColor: isDisabled ? 'gray.700' : 'red.500',
+					borderColor: isDisabled ? 'gray.700' : 'red.300',
 					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.500' : 'red.500'
+					color: isDisabled ? 'gray.500' : 'red.300'
 				}
 			}
 		},
@@ -252,11 +252,11 @@ export default (
 				color: `gray.${isDisabled ? 500 : 50}`
 			},
 			invalid: {
-				color: 'red.500'
+				color: 'red.400'
 			}
 		},
 		formHelperText: {
-			color: 'red.500'
+			color: 'red.400'
 		}
 	}
 });

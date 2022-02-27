@@ -19,7 +19,7 @@ const Header = (props: HeaderProps): ReactElement => {
 		<HStack width='100%' justifyContent='space-between' spacing={2}>
 			{/* Back Button */}
 			<IconButton
-				aria-label={`Go to ${''} month`}
+				aria-label='Go to previous decade'
 				isDisabled={
 					minDate ? currentYears.some((year) => year === 1900 || year < minDate.getFullYear()) : false
 				}
@@ -44,7 +44,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
 			{/* Forward Button */}
 			<IconButton
-				aria-label={`Go to ${''} month`}
+				aria-label='Go to next decade'
 				isDisabled={
 					maxDate ? currentYears.some((year) => year === 2099 || year > maxDate.getFullYear()) : false
 				}

@@ -2,17 +2,8 @@ import { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 
-import { RenderProps, DateObj } from 'dayzed';
-
 import Day from './components/Day';
-
-import { Color } from '../../../../../../../theme/types';
-
-export type WeekProps = {
-	color: keyof Color;
-	dayzed: RenderProps;
-	weekdays: Array<DateObj | ''>;
-};
+import { WeekProps } from './types';
 
 const Week = (props: WeekProps): ReactElement => {
 	const { dayzed, color, weekdays } = props;

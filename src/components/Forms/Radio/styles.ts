@@ -33,7 +33,6 @@ export default (
 			height: theme.space[3],
 
 			boxShadow: 'none !important',
-			background: isChecked ? `${color}.400` : 'transparent',
 
 			transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 		},
@@ -44,30 +43,30 @@ export default (
 	},
 	light: {
 		'&.chakra-radio__control': {
-			background: isChecked ? `${color}.400` : 'transparent',
-			borderColor: isChecked ? `${color}.400` : 'gray.400',
+			background: isChecked ? `${color}.500` : 'transparent',
+			borderColor: isChecked ? `${color}.500` : 'gray.400',
 			color: isChecked ? 'gray.50' : 'transparent'
 		},
 
 		'&:hover': {
 			'&.chakra-radio__control': {
-				background: isChecked ? `${color}.500` : 'transparent',
-				borderColor: isChecked ? `${color}.500` : 'gray.500',
+				background: isChecked ? `${color}.600` : 'transparent',
+				borderColor: isChecked ? `${color}.600` : 'gray.500',
 				color: isChecked ? 'gray.50' : 'transparent'
 			}
 		}
 	},
 	dark: {
 		'&.chakra-radio__control': {
-			background: isChecked ? `${color}.500` : 'transparent',
-			borderColor: isChecked ? `${color}.500` : 'gray.500',
+			background: isChecked ? `${color}.400` : 'transparent',
+			borderColor: isChecked ? `${color}.400` : 'gray.500',
 			color: isChecked ? 'gray.900' : 'transparent'
 		},
 
 		'&:hover': {
 			'&.chakra-radio__control': {
-				background: isChecked ? `${color}.400` : 'transparent',
-				borderColor: isChecked ? `${color}.400` : 'gray.400',
+				background: isChecked ? `${color}.300` : 'transparent',
+				borderColor: isChecked ? `${color}.300` : 'gray.400',
 				color: isChecked ? 'gray.900' : 'transparent'
 			}
 		}
