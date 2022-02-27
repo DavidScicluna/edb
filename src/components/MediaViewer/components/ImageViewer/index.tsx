@@ -9,6 +9,7 @@ import Image from '../../../Image';
 
 const ImageViewer = (props: ImageViewerProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
+	const [isLg] = useMediaQuery('(min-width: 1280px)');
 
 	const { alt = '', width, height, aspect_ratio, file_path, boringType, srcSize } = props;
 
@@ -16,13 +17,13 @@ const ImageViewer = (props: ImageViewerProps): ReactElement => {
 
 	return (
 		<AspectRatio
-			width='100%'
+			width={orientation === 'landscape' && isLg ? '85%' : '100%'}
 			height={!isSm ? (orientation === 'landscape' ? 'auto' : '100%') : 'auto'}
 			ratio={aspect_ratio}
 		>
 			<Image
 				alt={alt}
-				borderRadius='none'
+				borderRadius={orientation === 'landscape' && isLg ? 'xl' : 'none'}
 				boringType={boringType}
 				thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${srcSize[0]}${file_path}`}
 				fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${srcSize[1]}${file_path}`}

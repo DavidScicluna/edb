@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import YouTube from 'react-youtube';
 
-import { AspectRatio } from '@chakra-ui/react';
+import { useMediaQuery, AspectRatio } from '@chakra-ui/react';
 
 import { VideoViewerProps } from './types';
 
@@ -9,11 +9,11 @@ import { handleReturnRatio } from '../../../../common/utils';
 
 import './styles.css';
 
-const VideoViewer = (props: VideoViewerProps): ReactElement => {
-	const { videoId } = props;
+const VideoViewer = ({ videoId }: VideoViewerProps): ReactElement => {
+	const [isLg] = useMediaQuery('(min-width: 1280px)');
 
 	return (
-		<AspectRatio width='100%' ratio={handleReturnRatio('landscape')}>
+		<AspectRatio width={isLg ? '85%' : '100%'} height='auto' ratio={handleReturnRatio('landscape')}>
 			<YouTube videoId={videoId} className='VideoViewerFrame' containerClassName='VideoViewerContainer' />
 		</AspectRatio>
 	);
