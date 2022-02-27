@@ -7,4 +7,7 @@ export type StateProps = {
 		displayMode: DisplayMode;
 		sidebarMode: SidebarMode;
 	};
+	data: {
+		hasLoadedIcons: boolean;
+	};
 };

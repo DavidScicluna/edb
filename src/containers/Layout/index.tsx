@@ -19,7 +19,7 @@ import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 
-import { useSelector, usePopulateOptions, useCheckColorMode } from '../../common/hooks';
+import { useSelector, useCheckIcons, usePopulateOptions, useCheckColorMode } from '../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import Icon from '../../components/Icon';
 import { NavItem } from '../../components/NavItem/types';
@@ -98,6 +98,8 @@ const Layout = (): ReactElement => {
 		}, 500),
 		[dispatch, toggleSplashscreen, setColorMode]
 	);
+
+	useCheckIcons();
 
 	usePopulateOptions();
 
