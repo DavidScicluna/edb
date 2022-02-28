@@ -30,7 +30,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 			onSetDate(date);
 		}
 
-		onClose();
+		handleClose();
 	};
 
 	const handleSetYear = (year: number): void => {
@@ -65,13 +65,8 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 	});
 
 	useEffect(() => {
-		setIsShowingYears.off();
-		setIsShowingMonths.off();
-
-		if (value) {
-			setDate(value);
-		}
-	}, [isOpen]);
+		setDate(value || undefined);
+	}, [value, isOpen]);
 
 	return (
 		<>

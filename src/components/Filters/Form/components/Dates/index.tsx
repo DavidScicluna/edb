@@ -54,8 +54,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 														value.lte
 															? `To: ${moment(value.lte).format(visibleFormat)}`
 															: null
-												  ])
-												  .join(' -> ')}
+												  ]).join(' -> ')}
 										</Text>
 									</ScaleFade>
 								)}
@@ -99,12 +98,12 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 									minDate={minDate}
 									maxDate={maxDate}
 									firstDayOfWeek={1}
-									value={value.gte ? moment(value.gte, dataFormat).toDate() : undefined}
 									onSetDate={(date) =>
 										form.setValue('dates.gte', moment(date).format(dataFormat), {
 											shouldDirty: true
 										})
 									}
+									value={value.gte ? moment(value.gte, dataFormat).toDate() : undefined}
 								/>
 
 								<DatePicker
@@ -119,23 +118,24 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 									minDate={moment(value.gte, dataFormat).toDate() || minDate}
 									maxDate={maxDate}
 									firstDayOfWeek={1}
-									value={value.lte ? moment(value.lte, dataFormat).toDate() : undefined}
 									onSetDate={(date) =>
 										form.setValue(
-											!_.isNil(value.gte) && !_.isEmpty(value.gte) ? 'dates.lte' : 'dates',
-											!_.isNil(value.gte) && !_.isEmpty(value.gte)
-												? moment(date).format(dataFormat)
-												: {
-														gte: moment(moment(value.lte).subtract(1, 'days')).format(
-															dataFormat
-														),
-														lte: moment(date).format(dataFormat)
-												  },
+											'dates',
+											{
+												gte:
+													_.isNil(value.gte) && _.isEmpty(value.gte)
+														? moment(moment(date).subtract(1, 'days').toDate()).format(
+																dataFormat
+														  )
+														: moment(value.gte).format(dataFormat),
+												lte: moment(date).format(dataFormat)
+											},
 											{
 												shouldDirty: true
 											}
 										)
 									}
+									value={value.lte ? moment(value.lte, dataFormat).toDate() : undefined}
 								/>
 							</Stack>
 						)

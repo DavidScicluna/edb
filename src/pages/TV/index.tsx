@@ -1,8 +1,9 @@
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useCallback, useEffect } from 'react';
+import CountUp from 'react-countup';
 import { useInfiniteQuery } from 'react-query';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { HStack, ScaleFade, useMediaQuery, VStack } from '@chakra-ui/react';
+import { useMediaQuery, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
 import _ from 'lodash';
@@ -15,11 +16,14 @@ import VerticalTV from './components/Orientation/Vertical';
 import axiosInstance from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialTV } from '../../common/types/tv';
+import Badge from '../../components/Badge';
 import Button from '../../components/Clickable/Button';
 import DisplayMode from '../../components/Clickable/DisplayMode';
 import LoadMore from '../../components/Clickable/LoadMore';
-import Filters from '../../components/Filters/Form';
-import { Filters as FiltersForm } from '../../components/Filters/types';
+import { handlePopulateFilters } from '../../components/Filters/common/utils';
+import DisplayFilters from '../../components/Filters/Display';
+import FiltersForm, { defaultValues as defaultFilterValues } from '../../components/Filters/Form';
+import { Filters as FiltersFormType } from '../../components/Filters/types';
 import SortBy from '../../components/SortBy';
 import { tvSortBy as sortBy } from '../../components/SortBy/common/data/sort';
 import { Form as SortForm } from '../../components/SortBy/types';
@@ -43,6 +47,8 @@ const TV = (): ReactElement => {
 	const [ref, { height }] = useElementSize();
 
 	const [shows, setShows] = useState<Response<PartialTV[]>>();
+
+	const [totalActiveFilters, setTotalActiveFilters] = useState<number>(0);
 
 	// Fetching TV Shows
 	const tvShowsQuery = useInfiniteQuery(
@@ -76,7 +82,29 @@ const TV = (): ReactElement => {
 		}
 	);
 
-	const handleSetFilters = (form: FiltersForm): void => {
+	const handleCheckFilters = useCallback(
+		_.debounce((filters: FiltersFormType) => {
+			let key: keyof FiltersFormType;
+			let total = 0;
+
+			for (key in filters) {
+				if (
+					key === 'dates' &&
+					((!_.isNil(filters.dates.gte) && !_.isEmpty(filters.dates.gte)) ||
+						(!_.isNil(filters.dates.lte) && !_.isEmpty(filters.dates.lte)))
+				) {
+					total = total + 1;
+				} else if (key !== 'dates' && !_.isNil(filters[key]) && !_.isEmpty(filters[key])) {
+					total = total + 1;
+				}
+			}
+
+			setTotalActiveFilters(total);
+		}, 500),
+		[setTotalActiveFilters]
+	);
+
+	const handleSetFilters = (form: FiltersFormType): void => {
 		const currentSearch = qs.parse(searchParams.toString() || '');
 		Object.keys(currentSearch).forEach((key) => key === 'sort_by' || delete currentSearch[key]);
 
@@ -84,8 +112,8 @@ const TV = (): ReactElement => {
 			_.merge({
 				...defaultFilters,
 				'certification': form.certifications.length > 0 ? form.certifications.join('|') : undefined,
-				'first_air_date.gte': form.date.gte || undefined,
-				'first_air_date.lte': form.date.lte || undefined,
+				'first_air_date.gte': form.dates.gte || undefined,
+				'first_air_date.lte': form.dates.lte || undefined,
 				'with_genres': form.genres.length > 0 ? form.genres.join(',') : undefined,
 				'vote_average.gte': form.rating.length > 0 && form.rating[0] ? form.rating[0] : undefined,
 				'vote_average.lte': form.rating.length > 0 && form.rating[1] ? form.rating[1] : undefined,
@@ -113,6 +141,10 @@ const TV = (): ReactElement => {
 
 		setTimeout(() => tvShowsQuery.refetch(), 250);
 	};
+
+	useEffect(() => {
+		handleCheckFilters(handlePopulateFilters(location.search, 'tv'));
+	}, [location.search]);
 
 	useEffect(() => {
 		const currentSearch = qs.parse(location.search);
@@ -151,10 +183,21 @@ const TV = (): ReactElement => {
 							sortBy={[...sortBy]}
 							onSort={handleSetSortBy}
 						/>
-						<Filters
+						<FiltersForm
 							renderButton={({ color, onClick }) => (
 								<Button
 									color={color}
+									renderRight={
+										totalActiveFilters > 0
+											? ({ color }) => (
+													<Fade in unmountOnExit>
+														<Badge color={color} size='xs'>
+															<CountUp duration={1} end={totalActiveFilters} />
+														</Badge>
+													</Fade>
+											  )
+											: undefined
+									}
 									isFullWidth={isSm}
 									isDisabled={
 										tvShowsQuery.isFetching || tvShowsQuery.isLoading || tvShowsQuery.isError
@@ -174,14 +217,30 @@ const TV = (): ReactElement => {
 				),
 				body: (
 					<VStack width='100%' spacing={4} px={2} pt={2}>
-						<VerticalTV
-							isError={tvShowsQuery.isError}
-							isSuccess={tvShowsQuery.isSuccess}
-							isLoading={tvShowsQuery.isFetching || tvShowsQuery.isLoading}
-							shows={shows?.results || []}
-						/>
+						<VStack width='100%' spacing={2}>
+							<Collapse in={totalActiveFilters > 0} unmountOnExit style={{ width: '100%' }}>
+								<DisplayFilters
+									mediaType='tv'
+									onTagDelete={(filter, filters) =>
+										handleSetFilters({ ...filters, [filter]: defaultFilterValues[filter] })
+									}
+									onClear={() => handleSetFilters({ ...defaultFilterValues })}
+								/>
+							</Collapse>
 
-						<ScaleFade in={!tvShowsQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
+							<VerticalTV
+								isError={tvShowsQuery.isError}
+								isSuccess={tvShowsQuery.isSuccess}
+								isLoading={tvShowsQuery.isFetching || tvShowsQuery.isLoading}
+								shows={shows?.results || []}
+							/>
+						</VStack>
+
+						<ScaleFade
+							in={!tvShowsQuery.isError && (shows?.total_results || 0) > 0}
+							unmountOnExit
+							style={{ width: isSm ? '100%' : 'auto' }}
+						>
 							<LoadMore
 								amount={shows?.results?.length || 0}
 								total={shows?.total_results || 0}
