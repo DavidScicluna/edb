@@ -21,24 +21,24 @@ const Details = ({ movie, isLoading = true }: DetailsProps): ReactElement => {
 	);
 
 	const renderDetails: ListItem[] = _.compact([
-		(!_.isNil(movie?.genres) && !_.isEmpty(movie?.genres)) || isLoading
-			? {
-					label: 'Genres',
-					children: <Genres genres={movie?.genres} isLoading={isLoading} />
-			  }
-			: undefined,
-		(!_.isNil(movie?.budget) && !_.isEmpty(movie?.budget)) || isLoading
+		(!_.isNil(movie?.budget) && !_.isEmpty(String(movie?.budget))) || isLoading
 			? {
 					label: 'Budget',
 					children: <Budget key={`movie-${movie?.id}-budget`} budget={movie?.budget} isLoading={isLoading} />
 			  }
 			: undefined,
-		(!_.isNil(movie?.revenue) && !_.isEmpty(movie?.revenue)) || isLoading
+		(!_.isNil(movie?.revenue) && !_.isEmpty(String(movie?.revenue))) || isLoading
 			? {
 					label: 'Revenue',
 					children: (
 						<Revenue key={`movie-${movie?.id}-revenue`} revenue={movie?.revenue} isLoading={isLoading} />
 					)
+			  }
+			: undefined,
+		(!_.isNil(movie?.genres) && !_.isEmpty(movie?.genres)) || isLoading
+			? {
+					label: 'Genres',
+					children: <Genres genres={movie?.genres} isLoading={isLoading} />
 			  }
 			: undefined,
 		(!_.isNil(movie?.original_language) && !_.isEmpty(movie?.original_language)) || isLoading
