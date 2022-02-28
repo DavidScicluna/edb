@@ -29,9 +29,7 @@ const Structure = ({ children }: StructureProps): ReactElement => {
 							width='100%'
 							justifyContent={children.socials ? 'space-between' : 'flex-start'}
 							divider={
-								children.socials ? (
-									<Divider orientation='vertical' height={`${height}px`} mx={2} />
-								) : undefined
+								children.socials ? <Divider orientation='vertical' height={`${height}px`} /> : undefined
 							}
 							spacing={2}
 						>
@@ -42,7 +40,7 @@ const Structure = ({ children }: StructureProps): ReactElement => {
 							{children.socials ? <Center ref={ref}>{children.socials}</Center> : null}
 						</HStack>
 
-						<VStack alignItems='stretch' justifyContent='stretch' spacing={2}>
+						<VStack alignItems='stretch' justifyContent='stretch' spacing={0}>
 							{children.tabPanels}
 						</VStack>
 					</VStack>
