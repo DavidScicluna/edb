@@ -25,6 +25,8 @@ const Header = ({ title, actions, colorMode: colorModeProp }: HeaderProps): Reac
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}
 						fontSize={isSm ? 'md' : 'lg'}
 						fontWeight='bold'
+						isTruncated
+						overflow='hidden'
 						whiteSpace='nowrap'
 					>
 						{title}
