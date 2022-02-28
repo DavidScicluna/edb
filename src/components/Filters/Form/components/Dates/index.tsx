@@ -39,19 +39,23 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 								renderMessage={({ color, fontSize, fontWeight }) => (
 									<ScaleFade
 										in={
-											!_.isNil(value.gte) &&
-											!_.isEmpty(value.gte) &&
-											!_.isNil(value.lte) &&
-											!_.isEmpty(value.lte)
+											(!_.isNil(value.gte) && !_.isEmpty(value.gte)) ||
+											(!_.isNil(value.lte) && !_.isEmpty(value.lte))
 										}
 										unmountOnExit
 									>
 										<Text color={color} fontSize={fontSize} fontWeight={fontWeight}>
 											{moment(value.gte).isSame(moment(value.lte), 'date')
 												? moment(value.gte).format(visibleFormat)
-												: [value.gte, value.lte]
-														.map((date) => moment(date).format(visibleFormat))
-														.join(' -> ')}
+												: _.compact([
+														value.gte
+															? `From: ${moment(value.gte).format(visibleFormat)}`
+															: null,
+														value.lte
+															? `To: ${moment(value.lte).format(visibleFormat)}`
+															: null
+												  ])
+												  .join(' -> ')}
 										</Text>
 									</ScaleFade>
 								)}

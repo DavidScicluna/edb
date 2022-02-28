@@ -30,6 +30,8 @@ export const handlePopulateFilters = (locationSearch: string, mediaType: Filters
 				gte: search['primary_release_date.gte'],
 				lte: search['primary_release_date.lte']
 			};
+		} else if (search['primary_release_date.gte'] && typeof search['primary_release_date.gte'] === 'string') {
+			filters.dates.gte = search['primary_release_date.gte'];
 		}
 	} else if (mediaType === 'tv') {
 		if (
@@ -42,6 +44,8 @@ export const handlePopulateFilters = (locationSearch: string, mediaType: Filters
 				gte: search['first_air_date.gte'],
 				lte: search['first_air_date.lte']
 			};
+		} else if (search['first_air_date.gte'] && typeof search['first_air_date.gte'] === 'string') {
+			filters.dates.gte = search['first_air_date.gte'];
 		}
 	}
 

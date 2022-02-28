@@ -49,13 +49,12 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 			<Center width={`calc(100% - ${width + 34}px)`}>
 				<HorizontalScroll renderDivider={() => <Center mr={2} />}>
 					{_.compact([
-						!_.isNil(filters.dates.gte) &&
-						!_.isEmpty(filters.dates.gte) &&
-						!_.isNil(filters.dates.lte) &&
-						!_.isEmpty(filters.dates.lte) ? (
+						(!_.isNil(filters.dates.gte) && !_.isEmpty(filters.dates.gte)) ||
+						(!_.isNil(filters.dates.lte) && !_.isEmpty(filters.dates.lte)) ? (
 							<Dates
 								key='display_filters_dates'
 								dates={filters.dates}
+								mediaType={mediaType}
 								onClick={onTagClick ? () => onTagClick('dates', filters) : undefined}
 								onDelete={onTagDelete ? () => onTagDelete('dates', filters) : undefined}
 							/>

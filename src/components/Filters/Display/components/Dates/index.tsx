@@ -10,8 +10,10 @@ import Tag from '../../../../Clickable/Tag';
 
 const visibleFormat = 'ddd, MMMM DD YYYY';
 
-const Dates = ({ dates, onClick, onDelete }: DatesProps): ReactElement => {
+const Dates = ({ dates, mediaType, onClick, onDelete }: DatesProps): ReactElement => {
 	const color = useSelector((state) => state.user.ui.theme.color);
+
+	console.log(dates.lte);
 
 	return (
 		<Tag
@@ -21,10 +23,13 @@ const Dates = ({ dates, onClick, onDelete }: DatesProps): ReactElement => {
 			onDelete={onDelete ? () => onDelete() : undefined}
 			variant='outlined'
 		>
-			{`Dates: ${
-				moment(dates.gte).isSame(moment(dates.lte), 'dates')
+			{`${mediaType === 'movie' ? 'Release Date' : 'First Air Date'}: ${
+				moment(dates.gte).isSame(moment(dates.lte), 'date')
 					? moment(dates.gte).format(visibleFormat)
-					: [dates.gte, dates.lte].map((dates) => moment(dates).format(visibleFormat)).join(' -> ')
+					: _.compact([
+							dates.gte ? `From: ${moment(dates.gte).format(visibleFormat)}` : null,
+							dates.lte ? `To: ${moment(dates.lte).format(visibleFormat)}` : null
+					  ]).join(' -> ')
 			}`}
 		</Tag>
 	);

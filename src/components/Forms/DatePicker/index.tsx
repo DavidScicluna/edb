@@ -48,6 +48,9 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 	const handleClose = (): void => {
 		setDate(undefined);
 
+		setIsShowingYears.off();
+		setIsShowingMonths.off();
+
 		onClose();
 	};
 
@@ -62,6 +65,9 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 	});
 
 	useEffect(() => {
+		setIsShowingYears.off();
+		setIsShowingMonths.off();
+
 		if (value) {
 			setDate(value);
 		}
