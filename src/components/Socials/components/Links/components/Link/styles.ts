@@ -41,7 +41,8 @@ export default (theme: Theme, { colorMode, color }: StyleLinkProps): LinkStyle =
 			'color': `gray.${colorMode === 'light' ? 400 : 500}`,
 
 			'&:hover': {
-				color
+				color,
+				textDecoration: 'none !important'
 			},
 
 			'&:focus': {
