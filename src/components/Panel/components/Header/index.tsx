@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from 'react';
 
-import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
+import { ColorMode, useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
 import { HeaderProps } from './types';
 
@@ -8,11 +8,13 @@ import { PanelContext } from '../../.';
 import { handleReturnPadding } from '../../common/utils';
 import { Context } from '../../types';
 
-const Header = ({ actions, title }: HeaderProps): ReactElement => {
-	const { colorMode } = useColorMode();
+const Header = ({ title, actions, colorMode: colorModeProp }: HeaderProps): ReactElement => {
+	const { colorMode: colorModeHook } = useColorMode();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const { size = 'md', variant = 'outlined' } = useContext<Context>(PanelContext);
+
+	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
 	return (
 		<HStack width='100%' alignItems='center' justifyContent='space-between' pb={handleReturnPadding(size, variant)}>
