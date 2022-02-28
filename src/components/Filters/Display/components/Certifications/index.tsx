@@ -19,9 +19,7 @@ const Certifications = ({ certifications, onClick, onDelete }: CertificationsPro
 			variant='outlined'
 			sx={{ maxWidth: '400px' }}
 		>
-			{`Certification${certifications.length > 1 ? 's' : ''}: ${certifications
-				.map((certification) => _.upperCase(certification))
-				.join(', ')}`}
+			{`Certification${certifications.length > 1 ? 's' : ''}: ${certifications.join(', ')}`}
 		</Tag>
 	);
 };

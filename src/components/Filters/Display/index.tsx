@@ -1,7 +1,7 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 
-import { useColorMode, HStack, Center } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
 import _ from 'lodash';
 import { useElementSize } from 'usehooks-ts';
@@ -24,6 +24,7 @@ export const defaultValues: Filters = handleReturnDefaultValues();
 
 const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: DisplayFiltersProps): ReactElement => {
 	const { colorMode } = useColorMode();
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const location = useLocation();
 
@@ -38,15 +39,16 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 	}, [location.search]);
 
 	return (
-		<HStack
+		<Stack
 			width='100%'
+			direction={isSm ? 'column' : 'row'}
 			borderBottomColor={`gray.${colorMode === 'light' ? 200 : 700}`}
 			borderBottomWidth='2px'
-			divider={<Divider orientation='vertical' height={`${height}px`} />}
+			divider={!isSm ? <Divider orientation='vertical' height={`${height}px`} /> : undefined}
 			pb={2}
 			spacing={2}
 		>
-			<Center width={`calc(100% - ${width + 34}px)`}>
+			<Center width={`calc(100% - ${!isSm ? width + 34 : 0}px)`}>
 				<HorizontalScroll renderDivider={() => <Center mr={2} />}>
 					{_.compact([
 						(!_.isNil(filters.dates.gte) && !_.isEmpty(filters.dates.gte)) ||
@@ -110,11 +112,11 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 			</Center>
 
 			<Center ref={ref}>
-				<Button onClick={() => onClear(filters)} variant='outlined'>
+				<Button isFullWidth={isSm} onClick={() => onClear(filters)} variant='outlined'>
 					Clear Filters
 				</Button>
 			</Center>
-		</HStack>
+		</Stack>
 	);
 };
 
