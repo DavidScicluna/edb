@@ -60,18 +60,14 @@ const List = (props: ListProps): ReactElement => {
 						</Text>
 					) : null}
 					<Text align='left' fontSize='xs' fontWeight='400' textTransform='capitalize'>
-						{_.compact(
-							[
-								`${
-									results.movies.length + results.tv.length > 0
-										? `${results.movies.length + results.tv.length} items`
-										: undefined
-								}`,
-								`${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${moment(
-									date
-								).fromNow()}`
-							].join(' • ')
-						)}
+						{_.compact([
+							results.movies.length + results.tv.length > 0
+								? `${results.movies.length + results.tv.length} items`
+								: undefined,
+							`${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${moment(
+								date
+							).fromNow()}`
+						]).join(' • ')}
 					</Text>
 				</VStack>
 
