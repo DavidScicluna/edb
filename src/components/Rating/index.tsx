@@ -67,7 +67,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 				fontSize={handleReturnIconSize()}
 			/>
 
-			{inView || isLoading ? (
+			{inView ? (
 				<SkeletonText fontSize={size} isLoaded={!isLoading} ml={0.5}>
 					<VStack spacing={0.25}>
 						<Text

@@ -23,7 +23,7 @@ const Title = (props: TitleProps): ReactElement => {
 			maxWidth='100%'
 			height={['19.25px', '22px', '24.75px']} // Size of typography height
 		>
-			{inView || isLoading ? (
+			{inView ? (
 				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
 					<Text
 						align='left'

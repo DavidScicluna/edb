@@ -23,7 +23,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 			maxWidth='100%'
 			height={['16.5px', '19.25px']} // Size of typography height
 		>
-			{inView || isLoading ? (
+			{inView ? (
 				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
 					<Text
 						align='left'
