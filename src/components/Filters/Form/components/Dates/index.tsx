@@ -29,7 +29,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 	return (
 		<Controller
 			control={form.control}
-			name='date'
+			name='dates'
 			render={({ field: { value } }) => (
 				<Panel isFullWidth>
 					{{
@@ -51,7 +51,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 												? moment(value.gte).format(visibleFormat)
 												: [value.gte, value.lte]
 														.map((date) => moment(date).format(visibleFormat))
-														.join(' - ')}
+														.join(' -> ')}
 										</Text>
 									</ScaleFade>
 								)}
@@ -62,7 +62,9 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 											(!_.isNil(value.gte) && !_.isEmpty(value.gte)) ||
 											(!_.isNil(value.lte) && !_.isEmpty(value.lte))
 										}
-										onClick={() => form.setValue('date', defaultValues.date, { shouldDirty: true })}
+										onClick={() =>
+											form.setValue('dates', defaultValues.dates, { shouldDirty: true })
+										}
 										size={size}
 										variant={variant}
 									>
@@ -95,7 +97,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 									firstDayOfWeek={1}
 									value={value.gte ? moment(value.gte, dataFormat).toDate() : undefined}
 									onSetDate={(date) =>
-										form.setValue('date.gte', moment(date).format(dataFormat), {
+										form.setValue('dates.gte', moment(date).format(dataFormat), {
 											shouldDirty: true
 										})
 									}
@@ -116,7 +118,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 									value={value.lte ? moment(value.lte, dataFormat).toDate() : undefined}
 									onSetDate={(date) =>
 										form.setValue(
-											!_.isNil(value.gte) && !_.isEmpty(value.gte) ? 'date.lte' : 'date',
+											!_.isNil(value.gte) && !_.isEmpty(value.gte) ? 'dates.lte' : 'dates',
 											!_.isNil(value.gte) && !_.isEmpty(value.gte)
 												? moment(date).format(dataFormat)
 												: {

@@ -1,17 +1,16 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
-import { MediaType, Icon } from '../../../common/types';
 import { Color } from '../../../theme/types';
-import { Filters } from '../types';
+import { Filters, FiltersMediaTypes } from '../types';
 
 export type RenderButtonProps = {
 	color: keyof Color;
-	icon: Icon;
+	icon: ReactNode;
 	onClick: () => void;
 };
 
-export type FiltersProps = {
+export type FiltersFormProps = {
 	renderButton: (props: RenderButtonProps) => ReactElement;
-	mediaType: Omit<MediaType, 'person' | 'collection' | 'company'>;
+	mediaType: FiltersMediaTypes;
 	onFilter: (filters: Filters) => void;
 };
