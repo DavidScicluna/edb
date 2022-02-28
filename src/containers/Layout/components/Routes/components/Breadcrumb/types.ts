@@ -7,5 +7,5 @@ import { FullTV } from '../../../../../../common/types/tv';
 export type Data = FullMovie & FullTV & FullPerson & Collection;
 
 export type BreadcrumbProps = {
-	mediaType: MediaType;
+	mediaType: MediaType | 'episode';
 } & BreadcrumbComponentProps;

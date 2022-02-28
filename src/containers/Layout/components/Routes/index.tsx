@@ -75,7 +75,7 @@ export const routes: RouteType[] = [
 	},
 	{
 		path: 'tvshows/:id/season/:season/episode/:episode',
-		breadcrumb: 'TV Show Episode',
+		breadcrumb: (props) => <Breadcrumb {...props} mediaType='episode' />,
 		element: <Episode />
 	},
 	{

@@ -11,12 +11,16 @@ const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 	const queryClient = useQueryClient();
 
 	const data: Data | undefined = queryClient.getQueryData([
-		`${mediaType === 'tv' ? 'tv-show' : mediaType}-${match.params.id}`,
+		`${mediaType === 'tv' || mediaType === 'episode' ? 'tv-show' : mediaType}-${match.params.id}`,
 		match.params.id
 	]);
 
 	return (
-		<Center>{data?.title || data?.name || _.startCase(mediaType === 'tv' ? 'tv-show' : mediaType) || ''}</Center>
+		<Center>
+			{mediaType === 'episode'
+				? match.params.episode
+				: data?.title || data?.name || _.startCase(mediaType === 'tv' ? 'TV-show' : mediaType) || ''}
+		</Center>
 	);
 };
 
