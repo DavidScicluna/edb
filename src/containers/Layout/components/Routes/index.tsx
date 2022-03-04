@@ -1,6 +1,8 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 
+import { useConst } from '@chakra-ui/react';
+
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
 
@@ -23,7 +25,7 @@ import Movie from '../../../../pages/View/pages/Movie';
 import Person from '../../../../pages/View/pages/Person';
 import Show from '../../../../pages/View/pages/Show';
 
-export const routes: RouteType[] = [
+export const allRoutes: RouteType[] = [
 	{
 		path: '/',
 		breadcrumb: 'Home',
@@ -119,6 +121,8 @@ export const routes: RouteType[] = [
 const Routes = (): ReactElement => {
 	const location = useLocation();
 
+	const routes = useConst(allRoutes.map((route) => _.omit(route, 'breadcrumb')));
+
 	const handleReturnRoutes = (route: RouteType): ReactElement => {
 		const { path, element, children = [] } = route;
 
@@ -136,7 +140,7 @@ const Routes = (): ReactElement => {
 	return (
 		<AnimatePresence exitBeforeEnter initial={false}>
 			<RRDRoutes location={location} key={location.pathname}>
-				{routes.map((route) => _.omit(route, 'breadcrumb')).map((route) => handleReturnRoutes(route))}
+				{routes.map((route) => handleReturnRoutes(route))}
 			</RRDRoutes>
 		</AnimatePresence>
 	);
