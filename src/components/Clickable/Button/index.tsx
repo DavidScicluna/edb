@@ -1,6 +1,6 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack, Text } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
@@ -116,7 +116,11 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
 									fontSize: iconSize
 							  })
 							: null}
-						{children ? <span>{children}</span> : null}
+						{children ? (
+							<Text isTruncated overflow='hidden' whiteSpace='nowrap' variant='unstyled'>
+								{children}
+							</Text>
+						) : null}
 						{renderRight
 							? renderRight({
 									color,
