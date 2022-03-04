@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { VStack, Center, Fade } from '@chakra-ui/react';
 
@@ -15,7 +15,7 @@ import People from './components/People';
 import TV from './components/TV';
 
 import axiosInstance from '../../common/scripts/axios';
-import { Response } from '../../common/types';
+import { MediaType, Response } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
 import { PartialTV } from '../../common/types/tv';
@@ -24,10 +24,13 @@ import Tabs from '../../components/Tabs';
 import TabPanels from '../../components/Tabs/components/TabPanels';
 import Page from '../../containers/Page';
 
+const allMediaTypes: MediaType[] = ['movie', 'tv', 'person', 'company', 'collection'];
+
 const Trending = (): ReactElement => {
 	const source = axios.CancelToken.source();
 
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const [activeTab, setActiveTab] = useState<number>();
 
@@ -132,7 +135,7 @@ const Trending = (): ReactElement => {
 	);
 
 	const handleCheckLocation = (): void => {
-		const hash = String(location.hash).replace('#', '');
+		const hash = location.hash.replace('#', '');
 
 		switch (hash) {
 			case 'movie':
@@ -152,30 +155,31 @@ const Trending = (): ReactElement => {
 
 	useEffect(() => {
 		handleCheckLocation();
-	}, [location]);
+	}, [location.hash]);
 
 	useEffect(() => {
-		handleCheckLocation();
-
-		return () => {
-			source.cancel();
-
-			setActiveTab(undefined);
-		};
+		return () => source.cancel();
 	}, []);
 
 	return (
 		<Page title='Trending'>
 			{{
 				body: (
-					<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+					<Tabs
+						activeTab={activeTab}
+						onChange={(index: number) => navigate({ pathname: '.', hash: allMediaTypes[index] })}
+					>
 						<VStack width='100%' divider={<Divider orientation='horizontal' />} spacing={2} p={2}>
 							<Header activeTab={activeTab} />
 
 							<AnimatePresence exitBeforeEnter initial={false}>
 								{_.isNil(activeTab) ? (
 									<Center as={Fade} key='media-types-picker' width='100%' in unmountOnExit>
-										<MediaTypesPicker onSelected={(index: number) => setActiveTab(index)} />
+										<MediaTypesPicker
+											onSelected={(index: number) =>
+												navigate({ pathname: '.', hash: allMediaTypes[index] })
+											}
+										/>
 									</Center>
 								) : (
 									<Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>

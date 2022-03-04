@@ -27,7 +27,7 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 			divider={!_.isNil(activeTab) ? <Divider orientation='vertical' height={`${height}px`} mx={2} /> : undefined}
 		>
 			<Center width={`calc(100% - ${!_.isNil(activeTab) ? width + 34 : 0}px)`}>
-				<TabList color={color}>
+				<TabList color={color} size='lg'>
 					{[
 						{
 							label: 'Movies',
