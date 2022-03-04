@@ -1,8 +1,10 @@
 import { ReactElement, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { VStack, Collapse } from '@chakra-ui/react';
+import { useConst, VStack, Collapse } from '@chakra-ui/react';
 
 import _ from 'lodash';
+import { useEffectOnce } from 'usehooks-ts';
 
 import Collections from './components/Collections';
 import Companies from './components/Companies';
@@ -14,68 +16,57 @@ import Divider from '../../../../components/Divider';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
+import { MediaItems } from '../../../../store/slices/User/types';
 import MediaTypesHeader from '../../components/MediaTypesHeader';
 import MediaTypesPicker from '../../components/MediaTypesPicker';
 import Movies from '../../components/Movies';
 import TV from '../../components/TV';
 
+const allMediaTypes: MediaType[] = ['movie', 'tv', 'person', 'company', 'collection'];
+
+const handleReturnMediaTypes = ({ movies, tv, people, companies, collections }: MediaItems): MediaType[] => {
+	const mediaTypes: MediaType[] = [];
+
+	if (movies.length > 0) {
+		mediaTypes.push('movie');
+	}
+
+	if (tv.length > 0) {
+		mediaTypes.push('tv');
+	}
+
+	if (people.length > 0) {
+		mediaTypes.push('person');
+	}
+
+	if (companies.length > 0) {
+		mediaTypes.push('company');
+	}
+
+	if (collections.length > 0) {
+		mediaTypes.push('collection');
+	}
+
+	return mediaTypes;
+};
+
 const Liked = (): ReactElement => {
-	const movies = useSelector((state) => state.user.data.liked.movies);
-	const tv = useSelector((state) => state.user.data.liked.tv);
-	const people = useSelector((state) => state.user.data.liked.people);
-	const companies = useSelector((state) => state.user.data.liked.companies);
-	const collections = useSelector((state) => state.user.data.liked.collections);
+	const liked = useSelector((state) => state.user.data.liked);
+
+	const navigate = useNavigate();
+
+	const mediaTypes = useConst<MediaType[]>(handleReturnMediaTypes(liked));
+
+	const movies = useConst<MediaItems['movies']>(liked.movies);
+	const tv = useConst<MediaItems['tv']>(liked.tv);
+	const people = useConst<MediaItems['people']>(liked.people);
+	const companies = useConst<MediaItems['companies']>(liked.companies);
+	const collections = useConst<MediaItems['collections']>(liked.collections);
 
 	const [activeTab, setActiveTab] = useState<number>();
 
-	const handleReturnMediaTypes = (): MediaType[] => {
-		const mediaTypes: MediaType[] = [];
-
-		if (movies.length > 0) {
-			mediaTypes.push('movie');
-		}
-
-		if (tv.length > 0) {
-			mediaTypes.push('tv');
-		}
-
-		if (people.length > 0) {
-			mediaTypes.push('person');
-		}
-
-		if (companies.length > 0) {
-			mediaTypes.push('company');
-		}
-
-		if (collections.length > 0) {
-			mediaTypes.push('collection');
-		}
-
-		return mediaTypes;
-	};
-
-	const handleSetMediaType = (mediaType: MediaType): void => {
-		switch (mediaType) {
-			case 'movie':
-				setActiveTab(0);
-				return;
-			case 'tv':
-				setActiveTab(1);
-				return;
-			case 'person':
-				setActiveTab(2);
-				return;
-			case 'company':
-				setActiveTab(3);
-				return;
-			case 'collection':
-				setActiveTab(4);
-				return;
-		}
-	};
-
 	const handleCheckLocation = (): void => {
-		const hash = String(location.hash).replace('#', '');
+		const hash = location.hash.replace('#', '');
 
 		switch (hash) {
 			case 'movie':
@@ -100,31 +91,32 @@ const Liked = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		setActiveTab(undefined);
-	}, [movies, tv, people, companies, collections]);
-
-	useEffect(() => {
 		handleCheckLocation();
-	}, [location]);
+	}, [location.hash]);
 
-	useEffect(() => {
-		handleCheckLocation();
-	}, []);
+	useEffectOnce(() => {
+		if (mediaTypes.length === 1) {
+			setActiveTab(
+				allMediaTypes.findIndex((allMediaType) => mediaTypes.some((mediaType) => mediaType === allMediaType))
+			);
+		}
+	});
 
 	return (
 		<Page title='Liked'>
 			{{
 				body: (
-					<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+					<Tabs
+						activeTab={activeTab}
+						onChange={(index: number) => navigate({ pathname: '.', hash: allMediaTypes[index] })}
+					>
 						<VStack
 							width='100%'
-							divider={
-								handleReturnMediaTypes().length > 0 ? <Divider orientation='horizontal' /> : undefined
-							}
+							divider={mediaTypes.length > 0 ? <Divider orientation='horizontal' /> : undefined}
 							spacing={2}
 							p={2}
 						>
-							<Collapse in={handleReturnMediaTypes().length > 0} unmountOnExit style={{ width: '100%' }}>
+							<Collapse in={mediaTypes.length > 0} unmountOnExit style={{ width: '100%' }}>
 								<MediaTypesHeader
 									activeTab={activeTab}
 									total={{
@@ -137,12 +129,14 @@ const Liked = (): ReactElement => {
 								/>
 							</Collapse>
 
-							{_.isNil(activeTab) ? (
+							{_.isNil(activeTab) || _.isNil(mediaTypes) || _.isEmpty(mediaTypes) ? (
 								<MediaTypesPicker
-									mediaTypes={handleReturnMediaTypes()}
+									mediaTypes={mediaTypes}
 									label='Oh no! 😢'
 									description='Please like an item to view it in the liked list.'
-									onSetMediaType={handleSetMediaType}
+									onSetMediaType={(mediaType: MediaType) =>
+										navigate({ pathname: '.', hash: mediaType })
+									}
 								/>
 							) : (
 								<TabPanels>
