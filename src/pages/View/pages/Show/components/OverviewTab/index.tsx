@@ -57,7 +57,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 							videosQuery.isFetching ||
 							videosQuery.isLoading
 						}
-						isError={tvShowQuery.isError}
+						isError={tvShowQuery.isError || videosQuery.isError}
 						onClick={(path: string, video: boolean) => onAssetClick(path, video ? 'video' : 'image')}
 					/>
 				)}

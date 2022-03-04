@@ -52,8 +52,13 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 						path={movieQuery.data?.backdrop_path}
 						video={movieQuery.data?.video || (videosQuery.data?.results?.length || 0) > 0}
 						mediaType='movie'
-						isLoading={movieQuery.isFetching || movieQuery.isLoading}
-						isError={movieQuery.isError}
+						isLoading={
+							movieQuery.isFetching ||
+							movieQuery.isLoading ||
+							videosQuery.isFetching ||
+							videosQuery.isLoading
+						}
+						isError={movieQuery.isError || videosQuery.isError}
 						onClick={(path: string, video: boolean) => onAssetClick(path, video ? 'video' : 'image')}
 					/>
 				)}
