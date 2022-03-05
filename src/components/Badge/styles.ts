@@ -37,7 +37,8 @@ export default (
 
 			fontWeight: 'semibold',
 			textTransform: 'uppercase',
-			whiteSpace: 'nowrap'
+			whiteSpace: 'nowrap',
+			lineHeight: 'normal'
 		},
 		'xs': {
 			height: `${handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes.xs, 'rem')) + 8}px`,
