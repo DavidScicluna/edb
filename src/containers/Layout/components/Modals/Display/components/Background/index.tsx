@@ -56,7 +56,6 @@ const Background = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
 						header: {
 							title: 'Background'
 						},
-
 						body: (
 							<Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
 								{backgrounds.map((background) => (
