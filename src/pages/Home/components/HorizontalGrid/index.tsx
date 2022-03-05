@@ -1,10 +1,10 @@
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
-import { HomeHorizontalGridProps } from './types';
+import { HomeHorizontalGridRef, HomeHorizontalGridProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { PartialMovie } from '../../../../common/types/movie';
@@ -21,14 +21,15 @@ import VerticalTVShowPoster from '../../../TV/components/Poster/Vertical';
 
 const width = ['185px', '205px', '230px'];
 
-const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
+const HomeHorizontalGrid = forwardRef<HomeHorizontalGridRef, HomeHorizontalGridProps>(function HomeHorizontalGrid(
+	props,
+	ref
+): ReactElement {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const { title, to, mediaTypes, data, isLoading, isError, isSuccess } = props;
-
-	const [activeTab, setActiveTab] = useState<number>(0);
+	const { activeTab, title, to, mediaTypes, data, isLoading, isError, isSuccess, onTabChange } = props;
 
 	const handleIsDisabled = (): boolean => {
 		switch (activeTab) {
@@ -43,20 +44,11 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 		}
 	};
 
-	useEffect(() => {
-		if (isSuccess.movie) {
-			setActiveTab(0);
-		} else if (isSuccess.tv) {
-			setActiveTab(1);
-		} else if (isSuccess.person) {
-			setActiveTab(2);
-		}
-	}, [isSuccess]);
-
 	return (
 		<HorizontalTabbedGrid
+			ref={ref}
 			activeTab={activeTab}
-			onChange={(index: number) => setActiveTab(index)}
+			onChange={onTabChange}
 			footer={
 				<Link to={to({ mediaType: mediaTypes[activeTab] })} isFullWidth isDisabled={handleIsDisabled()}>
 					<Button
@@ -95,7 +87,6 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 				])
 			}}
 		>
-			{/* Movies */}
 			<>
 				{!isLoading.movie && isError.movie ? (
 					<Error
@@ -120,7 +111,6 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 				)}
 			</>
 
-			{/* TV Shows */}
 			<>
 				{!isLoading.tv && isError.tv ? (
 					<Error
@@ -144,7 +134,6 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 				)}
 			</>
 
-			{/* People */}
 			<>
 				{!isLoading.person && isError.person ? (
 					<Error
@@ -169,6 +158,6 @@ const HomeHorizontalGrid = (props: HomeHorizontalGridProps): ReactElement => {
 			</>
 		</HorizontalTabbedGrid>
 	);
-};
+});
 
 export default HomeHorizontalGrid;
