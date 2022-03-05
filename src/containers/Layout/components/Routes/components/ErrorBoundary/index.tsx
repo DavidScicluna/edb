@@ -3,6 +3,7 @@ import { Component, ErrorInfo } from 'react';
 import { ErrorBoundaryProps, State } from './types';
 
 import Button from '../../../../../../components/Clickable/Button';
+import Link from '../../../../../../components/Clickable/Link';
 import Error from '../../../../../../pages/Error';
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
@@ -28,14 +29,21 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
 					title='Oh no! 😭'
 					subtitle='Unfortunately, something went wrong when trying to render the application. Please refresh to try again!'
 					renderActions={({ color, colorMode, size }) => (
-						<Button
-							color={color}
-							colorMode={colorMode}
-							onClick={() => window.location.reload()}
-							size={size}
-						>
-							Refresh
-						</Button>
+						<>
+							<Link to='/'>
+								<Button color={color} colorMode={colorMode} variant='outlined' size={size}>
+									Go back home
+								</Button>
+							</Link>
+							<Button
+								color={color}
+								colorMode={colorMode}
+								onClick={() => window.location.reload()}
+								size={size}
+							>
+								Refresh
+							</Button>
+						</>
 					)}
 				/>
 			);

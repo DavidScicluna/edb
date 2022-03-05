@@ -1,7 +1,7 @@
 import { ReactElement, lazy, useEffect, Suspense } from 'react';
 import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 
-import { useConst } from '@chakra-ui/react';
+import { useConst, Box } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
@@ -119,7 +119,7 @@ const Routes = (): ReactElement => {
 
 	return (
 		<ErrorBoundary>
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<Box />}>
 				<AnimatePresence exitBeforeEnter initial={false}>
 					<RRDRoutes location={location} key={location.pathname}>
 						{routes.map((route) => handleReturnRoutes(route))}
