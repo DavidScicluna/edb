@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, lazy, useEffect, Suspense } from 'react';
 import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 
 import { useConst } from '@chakra-ui/react';
@@ -8,22 +8,23 @@ import _ from 'lodash';
 
 import Animation from './components/Animation';
 import Breadcrumb from './components/Breadcrumb';
+import ErrorBoundary from './components/ErrorBoundary';
 import NoMatch from './components/NoMatch';
 import { Route as RouteType } from './types';
 
-import Home from '../../../../pages/Home';
-import Movies from '../../../../pages/Movies';
-import People from '../../../../pages/People';
-import Search from '../../../../pages/Search';
-import Trending from '../../../../pages/Trending';
-import TV from '../../../../pages/TV';
-import Liked from '../../../../pages/User/pages/Liked';
-import Lists from '../../../../pages/User/pages/Lists';
-import Collection from '../../../../pages/View/pages/Collection';
-import Episode from '../../../../pages/View/pages/Episode';
-import Movie from '../../../../pages/View/pages/Movie';
-import Person from '../../../../pages/View/pages/Person';
-import Show from '../../../../pages/View/pages/Show';
+const Home = lazy(() => import('../../../../pages/Home'));
+const Movies = lazy(() => import('../../../../pages/Movies'));
+const People = lazy(() => import('../../../../pages/People'));
+const Search = lazy(() => import('../../../../pages/Search'));
+const Trending = lazy(() => import('../../../../pages/Trending'));
+const TV = lazy(() => import('../../../../pages/TV'));
+const Liked = lazy(() => import('../../../../pages/User/pages/Liked'));
+const Lists = lazy(() => import('../../../../pages/User/pages/Lists'));
+const Collection = lazy(() => import('../../../../pages/View/pages/Collection'));
+const Episode = lazy(() => import('../../../../pages/View/pages/Episode'));
+const Movie = lazy(() => import('../../../../pages/View/pages/Movie'));
+const Person = lazy(() => import('../../../../pages/View/pages/Person'));
+const Show = lazy(() => import('../../../../pages/View/pages/Show'));
 
 export const allRoutes: RouteType[] = [
 	{
@@ -117,11 +118,15 @@ const Routes = (): ReactElement => {
 	}, [location.pathname]);
 
 	return (
-		<AnimatePresence exitBeforeEnter initial={false}>
-			<RRDRoutes location={location} key={location.pathname}>
-				{routes.map((route) => handleReturnRoutes(route))}
-			</RRDRoutes>
-		</AnimatePresence>
+		<ErrorBoundary>
+			<Suspense fallback={<div>Loading...</div>}>
+				<AnimatePresence exitBeforeEnter initial={false}>
+					<RRDRoutes location={location} key={location.pathname}>
+						{routes.map((route) => handleReturnRoutes(route))}
+					</RRDRoutes>
+				</AnimatePresence>
+			</Suspense>
+		</ErrorBoundary>
 	);
 };
 
