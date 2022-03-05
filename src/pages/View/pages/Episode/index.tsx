@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
@@ -27,6 +27,8 @@ import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
 import Structure from '../../components/Structure';
 
+const tabs = ['overview', 'cast_guests_crew', 'assets'];
+
 const Episode = (): ReactElement => {
 	const source = axios.CancelToken.source();
 
@@ -38,6 +40,7 @@ const Episode = (): ReactElement => {
 
 	const { id, season, episode } = useParams<{ id: string; season: string; episode: string }>();
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const [activeTab, setActiveTab] = useState<number>(0);
 
@@ -119,7 +122,8 @@ const Episode = (): ReactElement => {
 	);
 
 	const handleChangeTab = (index: number): void => {
-		setActiveTab(index);
+		navigate({ pathname: '.', hash: tabs[index] });
+
 		document.scrollingElement?.scrollTo(0, 0);
 	};
 
@@ -135,7 +139,7 @@ const Episode = (): ReactElement => {
 			case 'cast':
 			case 'guests':
 			case 'crew':
-			case 'castguestscrew':
+			case 'cast_guests_crew':
 				setActiveTab(1);
 				return;
 			case 'assets':
@@ -149,21 +153,15 @@ const Episode = (): ReactElement => {
 
 	useEffect(() => {
 		handleCheckLocation();
-	}, [location]);
+	}, [location.hash]);
 
 	useEffect(() => {
-		handleCheckLocation();
-
-		return () => {
-			source.cancel();
-
-			setActiveTab(0);
-		};
+		return () => source.cancel();
 	}, []);
 
 	return (
 		<>
-			<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+			<Tabs activeTab={activeTab} onChange={handleChangeTab}>
 				<Structure>
 					{{
 						title: (

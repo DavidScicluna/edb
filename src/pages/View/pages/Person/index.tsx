@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
@@ -30,6 +30,8 @@ import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
 
+const tabs = ['overview', 'credits', 'photos'];
+
 const Person = (): ReactElement => {
 	const source = axios.CancelToken.source();
 
@@ -44,6 +46,7 @@ const Person = (): ReactElement => {
 
 	const { id } = useParams<{ id: string }>();
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const [activeTab, setActiveTab] = useState<number>(0);
 
@@ -131,7 +134,8 @@ const Person = (): ReactElement => {
 	);
 
 	const handleChangeTab = (index: number): void => {
-		setActiveTab(index);
+		navigate({ pathname: '.', hash: tabs[index] });
+
 		document.scrollingElement?.scrollTo(0, 0);
 	};
 
@@ -163,21 +167,15 @@ const Person = (): ReactElement => {
 
 	useEffect(() => {
 		handleCheckLocation();
-	}, [location]);
+	}, [location.hash]);
 
 	useEffect(() => {
-		handleCheckLocation();
-
-		return () => {
-			source.cancel();
-
-			setActiveTab(0);
-		};
+		return () => source.cancel();
 	}, []);
 
 	return (
 		<>
-			<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+			<Tabs activeTab={activeTab} onChange={handleChangeTab}>
 				<Structure>
 					{{
 						title: (

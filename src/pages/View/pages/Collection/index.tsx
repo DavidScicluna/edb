@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { useDisclosure, useConst, Text, Fade } from '@chakra-ui/react';
 
@@ -32,6 +32,8 @@ import Title from '../../components/Title';
 
 const dummies = _.range(25, 75, 10);
 
+const tabs = ['overview', 'parts', 'assets'];
+
 const Collection = (): ReactElement => {
 	const source = axios.CancelToken.source();
 
@@ -44,6 +46,7 @@ const Collection = (): ReactElement => {
 
 	const { id } = useParams<{ id: string }>();
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const [activeTab, setActiveTab] = useState<number>(0);
 
@@ -85,7 +88,8 @@ const Collection = (): ReactElement => {
 	);
 
 	const handleChangeTab = (index: number): void => {
-		setActiveTab(index);
+		navigate({ pathname: '.', hash: tabs[index] });
+
 		document.scrollingElement?.scrollTo(0, 0);
 	};
 
@@ -112,21 +116,15 @@ const Collection = (): ReactElement => {
 
 	useEffect(() => {
 		handleCheckLocation();
-	}, [location]);
+	}, [location.hash]);
 
 	useEffect(() => {
-		handleCheckLocation();
-
-		return () => {
-			source.cancel();
-
-			setActiveTab(0);
-		};
+		return () => source.cancel();
 	}, []);
 
 	return (
 		<>
-			<Tabs activeTab={activeTab} onChange={(index: number) => setActiveTab(index)}>
+			<Tabs activeTab={activeTab} onChange={handleChangeTab}>
 				<Structure>
 					{{
 						title: (
