@@ -88,7 +88,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				</AspectRatio>
 
 				<VStack width={`calc(100% - ${avatar + 16}px)`} alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-					<SkeletonText isLoaded={!isLoading} fontSize='xl'>
+					<SkeletonText isLoaded={!isLoading} fontSize={isSm ? 'xl' : '2xl'}>
 						<Text
 							align='left'
 							color={`gray.${colorMode === 'light' ? 900 : 50}`}

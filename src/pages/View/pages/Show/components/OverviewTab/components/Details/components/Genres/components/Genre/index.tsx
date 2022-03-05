@@ -26,7 +26,7 @@ const Genre = (props: GenreProps): ReactElement => {
 
 	return (
 		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>
-			<Link to={{ pathname: '/movies/', search: qs.stringify({ with_genres: id }) }} isDisabled={isLoading}>
+			<Link to={{ pathname: '/tvshows', search: qs.stringify({ with_genres: id }) }} isDisabled={isLoading}>
 				<Text
 					align='left'
 					color={`gray.${colorMode === 'light' ? 900 : 50}`}
