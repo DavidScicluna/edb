@@ -23,7 +23,7 @@ type StyleTagProps = {
 	color: TagProps['color'];
 	isClickable: TagProps['isClickable'];
 	isFullWidth: TagProps['isFullWidth'];
-	hasIcon: boolean;
+	isDeletable: boolean;
 	size: TagProps['size'];
 	variant: TagProps['variant'];
 };
@@ -36,7 +36,7 @@ export default (
 		color = 'gray',
 		isClickable = false,
 		isFullWidth = false,
-		hasIcon = false,
+		isDeletable = false,
 		size = 'md',
 		variant = 'contained'
 	}: StyleTagProps
@@ -100,7 +100,9 @@ export default (
 			borderRadius: 'sm',
 			borderWidth: variant !== 'text' ? '1px' : '0',
 
-			padding: `${theme.space[hasIcon ? 0 : 0.5]} ${theme.space[1]}`
+			py: theme.space[isDeletable ? 0 : 0.5],
+			pl: theme.space[1],
+			pr: theme.space[isDeletable ? 0.5 : 1]
 		},
 		md: {
 			fontSize: 'sm',
@@ -108,7 +110,9 @@ export default (
 			borderRadius: 'base',
 			borderWidth: variant !== 'text' ? '2px' : '0',
 
-			padding: `${theme.space[hasIcon ? 0 : 1]} ${theme.space[2]}`
+			py: theme.space[isDeletable ? 0 : 1],
+			pl: theme.space[2],
+			px: theme.space[isDeletable ? 1 : 2]
 		},
 		lg: {
 			fontSize: 'md',
@@ -116,7 +120,9 @@ export default (
 			borderRadius: 'lg',
 			borderWidth: variant !== 'text' ? '2px' : '0',
 
-			padding: `${theme.space[hasIcon ? 0.5 : 1.5]} ${theme.space[3]}`
+			py: theme.space[isDeletable ? 0.5 : 1.5],
+			pl: theme.space[3],
+			px: theme.space[isDeletable ? 1.5 : 3]
 		},
 		disabled: {
 			cursor: 'not-allowed',

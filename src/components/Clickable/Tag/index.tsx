@@ -38,7 +38,7 @@ const Tag = forwardRef<TagRef, TagProps>(function Tag(props, ref): ReactElement 
 		color,
 		isClickable,
 		isFullWidth,
-		hasIcon: !!onDelete,
+		isDeletable: !!onDelete,
 		size,
 		variant
 	});
