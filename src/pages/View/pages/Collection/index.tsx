@@ -13,7 +13,7 @@ import OverviewTab from './components/OverviewTab';
 import PartsTab from './components/PartsTab';
 
 import { useSelector } from '../../../../common/hooks';
-import axiosInstance from '../../../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { Images } from '../../../../common/types';
 import { Collection as CollectionType } from '../../../../common/types/movie';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
@@ -58,9 +58,11 @@ const Collection = (): ReactElement => {
 	const collectionQuery = useQuery(
 		[`collection-${id}`, id],
 		async () => {
-			const { data } = await axiosInstance.get<CollectionType>(`/collection/${id}`, {
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<CollectionType>(`/collection/${id}`, {
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{
@@ -84,7 +86,7 @@ const Collection = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: collectionQuery.isSuccess || collectionQuery.isError }
+		{ enabled: collectionQuery.isSuccess }
 	);
 
 	const handleChangeTab = (index: number): void => {

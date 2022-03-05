@@ -8,7 +8,7 @@ import _ from 'lodash';
 
 import VerticalPeople from './components/Orientation/Vertical';
 
-import axiosInstance from '../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialPerson } from '../../common/types/person';
 import DisplayMode from '../../components/Clickable/DisplayMode';
@@ -26,10 +26,12 @@ const People = (): ReactElement => {
 	const peopleQuery = useInfiniteQuery(
 		'people',
 		async ({ pageParam = 1 }) => {
-			const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/person/popular', {
-				params: { page: pageParam, append_to_response: 'known_for_department' },
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<Response<PartialPerson[]>>('/person/popular', {
+					params: { page: pageParam, append_to_response: 'known_for_department' },
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{

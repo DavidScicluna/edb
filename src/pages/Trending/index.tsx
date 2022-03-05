@@ -14,7 +14,7 @@ import Movies from './components/Movies';
 import People from './components/People';
 import TV from './components/TV';
 
-import axiosInstance from '../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { MediaType, Response } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
 import { PartialPerson } from '../../common/types/person';
@@ -42,10 +42,12 @@ const Trending = (): ReactElement => {
 	const trendingMoviesQuery = useInfiniteQuery(
 		'trending-movies',
 		async ({ pageParam = 1 }) => {
-			const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/trending/movie/day', {
-				params: { page: pageParam },
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<Response<PartialMovie[]>>('/trending/movie/day', {
+					params: { page: pageParam },
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{
@@ -74,10 +76,12 @@ const Trending = (): ReactElement => {
 	const trendingTVQuery = useInfiniteQuery(
 		'trending-tv-shows',
 		async ({ pageParam = 1 }) => {
-			const { data } = await axiosInstance.get<Response<PartialTV[]>>('/trending/tv/day', {
-				params: { page: pageParam },
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<Response<PartialTV[]>>('/trending/tv/day', {
+					params: { page: pageParam },
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{
@@ -106,10 +110,12 @@ const Trending = (): ReactElement => {
 	const trendingPeopleQuery = useInfiniteQuery(
 		'trending-people',
 		async ({ pageParam = 1 }) => {
-			const { data } = await axiosInstance.get<Response<PartialPerson[]>>('/trending/person/week', {
-				params: { page: pageParam },
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<Response<PartialPerson[]>>('/trending/person/week', {
+					params: { page: pageParam },
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{

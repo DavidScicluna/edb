@@ -29,7 +29,7 @@ const Trending = (): ReactElement => {
 				.get<Response<PartialMovie[]>>('/trending/movie/day', {
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2000, response));
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{ enabled: activeTab === 0 && inView }
@@ -43,7 +43,7 @@ const Trending = (): ReactElement => {
 				.get<Response<PartialTV[]>>('/trending/tv/day', {
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2000, response));
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{ enabled: activeTab === 1 && inView }
@@ -57,7 +57,7 @@ const Trending = (): ReactElement => {
 				.get<Response<PartialPerson[]>>('/trending/person/day', {
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2000, response));
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{ enabled: activeTab === 2 && inView }

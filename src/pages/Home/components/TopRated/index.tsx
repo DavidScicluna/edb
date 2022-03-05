@@ -29,7 +29,7 @@ const TopRated = (): ReactElement => {
 				.get<Response<PartialMovie[]>>('/movie/top_rated', {
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2000, response));
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{ enabled: activeTab === 0 && inView }
@@ -43,7 +43,7 @@ const TopRated = (): ReactElement => {
 				.get<Response<PartialTV[]>>('/tv/top_rated', {
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2000, response));
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{ enabled: activeTab === 1 && inView }

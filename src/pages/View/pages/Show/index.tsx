@@ -15,7 +15,7 @@ import SeasonsTab from './components/SeasonsTab';
 import Title from './components/Title';
 
 import { useSelector } from '../../../../common/hooks';
-import axiosInstance from '../../../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { ExternalIDs, Images, Videos, Response, Review } from '../../../../common/types';
 import { FullTV, Credits, PartialTV } from '../../../../common/types/tv';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
@@ -63,10 +63,12 @@ const Show = (): ReactElement => {
 	const tvShowQuery = useQuery(
 		[`tv-show-${id}`, id],
 		async () => {
-			const { data } = await axiosInstance.get<FullTV>(`/tv/${id}`, {
-				params: { append_to_response: 'content_ratings' },
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<FullTV>(`/tv/${id}`, {
+					params: { append_to_response: 'content_ratings' },
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{
@@ -90,7 +92,7 @@ const Show = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching tv show external ids
@@ -102,7 +104,7 @@ const Show = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching tv show images
@@ -114,7 +116,7 @@ const Show = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching tv show videos
@@ -126,7 +128,7 @@ const Show = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching tv reviews
@@ -140,7 +142,7 @@ const Show = (): ReactElement => {
 			return data;
 		},
 		{
-			enabled: tvShowQuery.isSuccess || tvShowQuery.isError,
+			enabled: tvShowQuery.isSuccess,
 			getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
 			getNextPageParam: (lastPage) =>
 				lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false,
@@ -172,7 +174,7 @@ const Show = (): ReactElement => {
 				(_result, index) => index < 20
 			);
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching similar tv shows
@@ -186,7 +188,7 @@ const Show = (): ReactElement => {
 				(_result, index) => index < 20
 			);
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	const handleChangeTab = (index: number): void => {

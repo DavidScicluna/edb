@@ -13,7 +13,7 @@ import { useElementSize } from 'usehooks-ts';
 
 import VerticalTV from './components/Orientation/Vertical';
 
-import axiosInstance from '../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialTV } from '../../common/types/tv';
 import Badge from '../../components/Badge';
@@ -54,10 +54,12 @@ const TV = (): ReactElement => {
 	const tvShowsQuery = useInfiniteQuery(
 		'tv-shows',
 		async ({ pageParam = 1 }) => {
-			const { data } = await axiosInstance.get<Response<PartialTV[]>>('/discover/tv', {
-				params: { page: pageParam, ...(qs.parse(searchParams.toString() || '') || {}) },
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<Response<PartialTV[]>>('/discover/tv', {
+					params: { page: pageParam, ...(qs.parse(searchParams.toString() || '') || {}) },
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{

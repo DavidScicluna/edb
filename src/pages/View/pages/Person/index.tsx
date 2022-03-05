@@ -15,7 +15,7 @@ import OverviewTab from './components/OverviewTab';
 import Title from './components/Title';
 
 import { useSelector } from '../../../../common/hooks';
-import axiosInstance from '../../../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { ExternalIDs, Images } from '../../../../common/types';
 import { FullPerson, Credits as CreditsType, MovieCredits, TVCredits } from '../../../../common/types/person';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
@@ -56,9 +56,11 @@ const Person = (): ReactElement => {
 	const personQuery = useQuery(
 		[`person-${id}`, id],
 		async () => {
-			const { data } = await axiosInstance.get<FullPerson>(`/person/${id}`, {
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<FullPerson>(`/person/${id}`, {
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{
@@ -82,7 +84,7 @@ const Person = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: personQuery.isSuccess || personQuery.isError }
+		{ enabled: personQuery.isSuccess }
 	);
 
 	// Fetching person movie credits
@@ -94,7 +96,7 @@ const Person = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: personQuery.isSuccess || personQuery.isError }
+		{ enabled: personQuery.isSuccess }
 	);
 
 	// Fetching person tv credits
@@ -106,7 +108,7 @@ const Person = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: personQuery.isSuccess || personQuery.isError }
+		{ enabled: personQuery.isSuccess }
 	);
 
 	// Fetching person external ids
@@ -118,7 +120,7 @@ const Person = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: personQuery.isSuccess || personQuery.isError }
+		{ enabled: personQuery.isSuccess }
 	);
 
 	// Fetching person images
@@ -130,7 +132,7 @@ const Person = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: personQuery.isSuccess || personQuery.isError }
+		{ enabled: personQuery.isSuccess }
 	);
 
 	const handleChangeTab = (index: number): void => {

@@ -14,7 +14,7 @@ import OverviewTab from './components/OverviewTab';
 import Title from './components/Title';
 
 import { useSelector } from '../../../../common/hooks';
-import axiosInstance from '../../../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { ExternalIDs, Images, Response, Review, Videos } from '../../../../common/types';
 import { FullMovie, Credits, Collection, PartialMovie } from '../../../../common/types/movie';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
@@ -62,10 +62,12 @@ const Movie = (): ReactElement => {
 	const movieQuery = useQuery(
 		[`movie-${id}`, id],
 		async () => {
-			const { data } = await axiosInstance.get<FullMovie>(`/movie/${id}`, {
-				params: { append_to_response: 'release_dates' },
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<FullMovie>(`/movie/${id}`, {
+					params: { append_to_response: 'release_dates' },
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{
@@ -89,16 +91,20 @@ const Movie = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+		{ enabled: movieQuery.isSuccess }
 	);
 
 	// Fetching movie external ids
-	const externalIdsQuery = useQuery([`movie-${id}-external_ids`, id], async () => {
-		const { data } = await axiosInstance.get<ExternalIDs>(`/movie/${id}/external_ids`, {
-			cancelToken: source.token
-		});
-		return data;
-	});
+	const externalIdsQuery = useQuery(
+		[`movie-${id}-external_ids`, id],
+		async () => {
+			const { data } = await axiosInstance.get<ExternalIDs>(`/movie/${id}/external_ids`, {
+				cancelToken: source.token
+			});
+			return data;
+		},
+		{ enabled: movieQuery.isSuccess }
+	);
 
 	// Fetching movie images
 	const imagesQuery = useQuery(
@@ -109,7 +115,7 @@ const Movie = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+		{ enabled: movieQuery.isSuccess }
 	);
 
 	// Fetching movie videos
@@ -121,7 +127,7 @@ const Movie = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+		{ enabled: movieQuery.isSuccess }
 	);
 
 	// Fetching movie collections
@@ -152,7 +158,7 @@ const Movie = (): ReactElement => {
 			return data;
 		},
 		{
-			enabled: movieQuery.isSuccess || movieQuery.isError,
+			enabled: movieQuery.isSuccess,
 			getPreviousPageParam: (firstPage) => (firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false),
 			getNextPageParam: (lastPage) =>
 				lastPage.page !== lastPage.total_pages ? (lastPage?.page || 0) + 1 : false,
@@ -184,7 +190,7 @@ const Movie = (): ReactElement => {
 				(_result, index) => index < 20
 			);
 		},
-		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+		{ enabled: movieQuery.isSuccess }
 	);
 
 	// Fetching similar movies
@@ -198,7 +204,7 @@ const Movie = (): ReactElement => {
 				(_result, index) => index < 20
 			);
 		},
-		{ enabled: movieQuery.isSuccess || movieQuery.isError }
+		{ enabled: movieQuery.isSuccess }
 	);
 
 	const handleChangeTab = (index: number): void => {

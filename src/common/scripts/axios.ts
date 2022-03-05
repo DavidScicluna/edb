@@ -1,10 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
-import _ from 'lodash';
+import axios from 'axios';
 
-const handleDelay = async (response: AxiosResponse): Promise<AxiosResponse> => {
-	await new Promise((resolve) => _.delay(resolve, 2000));
-
-	return response;
+export const handleDelay = <T>(ms: number, value: T): Promise<T> => {
+	return new Promise<T>((resolve) => setTimeout(resolve, ms, value));
 };
 
 const instance = axios.create({
@@ -13,7 +10,5 @@ const instance = axios.create({
 		Authorization: `Bearer ${process.env.REACT_APP_KEY}`
 	}
 });
-
-instance.interceptors.response.use(handleDelay);
 
 export default instance;

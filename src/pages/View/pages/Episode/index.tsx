@@ -13,7 +13,7 @@ import OverviewTab from './components/OverviewTab';
 import Title from './components/Title';
 
 import { useSelector } from '../../../../common/hooks';
-import axiosInstance from '../../../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { ExternalIDs, Images, Videos } from '../../../../common/types';
 import { FullTV, Episode as EpisodeType, EpisodeCredits } from '../../../../common/types/tv';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
@@ -48,10 +48,12 @@ const Episode = (): ReactElement => {
 
 	// Fetching tv show details
 	const tvShowQuery = useQuery([`tv-show-${id}`, id], async () => {
-		const { data } = await axiosInstance.get<FullTV>(`/tv/${id}`, {
-			params: { append_to_response: 'content_ratings' },
-			cancelToken: source.token
-		});
+		const { data } = await axiosInstance
+			.get<FullTV>(`/tv/${id}`, {
+				params: { append_to_response: 'content_ratings' },
+				cancelToken: source.token
+			})
+			.then((response) => handleDelay(2500, response));
 		return data;
 	});
 
@@ -64,7 +66,7 @@ const Episode = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching tv show episode credits
@@ -79,7 +81,7 @@ const Episode = (): ReactElement => {
 			);
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching tv show episode external ids
@@ -94,7 +96,7 @@ const Episode = (): ReactElement => {
 			);
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching tv show episode images
@@ -106,7 +108,7 @@ const Episode = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	// Fetching tv show episode videos
@@ -118,7 +120,7 @@ const Episode = (): ReactElement => {
 			});
 			return data;
 		},
-		{ enabled: tvShowQuery.isSuccess || tvShowQuery.isError }
+		{ enabled: tvShowQuery.isSuccess }
 	);
 
 	const handleChangeTab = (index: number): void => {

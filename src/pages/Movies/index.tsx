@@ -13,7 +13,7 @@ import { useElementSize } from 'usehooks-ts';
 
 import VerticalMovies from './components/Orientation/Vertical';
 
-import axiosInstance from '../../common/scripts/axios';
+import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
 import Badge from '../../components/Badge';
@@ -54,10 +54,12 @@ const Movies = (): ReactElement => {
 	const moviesQuery = useInfiniteQuery(
 		'movies',
 		async ({ pageParam = 1 }) => {
-			const { data } = await axiosInstance.get<Response<PartialMovie[]>>('/discover/movie', {
-				params: { page: pageParam, ...(qs.parse(searchParams.toString() || '') || {}) },
-				cancelToken: source.token
-			});
+			const { data } = await axiosInstance
+				.get<Response<PartialMovie[]>>('/discover/movie', {
+					params: { page: pageParam, ...(qs.parse(searchParams.toString() || '') || {}) },
+					cancelToken: source.token
+				})
+				.then((response) => handleDelay(2500, response));
 			return data;
 		},
 		{
