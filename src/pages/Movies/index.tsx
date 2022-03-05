@@ -3,13 +3,13 @@ import CountUp from 'react-countup';
 import { useInfiniteQuery } from 'react-query';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { useMediaQuery, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
-import { useElementSize } from 'usehooks-ts';
+import { useElementSize, useUpdateEffect, useEffectOnce } from 'usehooks-ts';
 
 import VerticalMovies from './components/Orientation/Vertical';
 
@@ -47,6 +47,7 @@ const Movies = (): ReactElement => {
 	const [ref, { height }] = useElementSize();
 
 	const [movies, setMovies] = useState<Response<PartialMovie[]>>();
+	const [isFetchingPage, setIsFetchingPage] = useBoolean();
 
 	const [totalActiveFilters, setTotalActiveFilters] = useState<number>(0);
 
@@ -56,10 +57,10 @@ const Movies = (): ReactElement => {
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance
 				.get<Response<PartialMovie[]>>('/discover/movie', {
-					params: { page: pageParam, ...(qs.parse(searchParams.toString() || '') || {}) },
+					params: { ...(qs.parse(searchParams.toString() || '') || {}), page: pageParam || 1 },
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2500, response));
+				.then((response) => handleDelay(isFetchingPage ? 0 : 2500, response));
 			return data;
 		},
 		{
@@ -145,11 +146,37 @@ const Movies = (): ReactElement => {
 		setTimeout(() => moviesQuery.refetch(), 250);
 	};
 
+	const handleLoadMore = (): void => {
+		const page = movies?.page || 1;
+		const currentSearch = qs.parse(searchParams.toString() || '');
+
+		setSearchParams(_.mergeWith({ ...currentSearch, page: page + 1 }));
+
+		setIsFetchingPage.on();
+
+		setTimeout(() => moviesQuery.fetchNextPage(), 250);
+	};
+
 	useEffect(() => {
 		handleCheckFilters(handlePopulateFilters(location.search, 'movie'));
 	}, [location.search]);
 
-	useEffect(() => {
+	useUpdateEffect(() => {
+		const currentSearch = qs.parse(location.search);
+		const totalPages =
+			currentSearch && currentSearch.page && typeof currentSearch.page === 'string'
+				? Number(currentSearch.page)
+				: 1;
+		const page = movies?.page || 1;
+
+		if (page < totalPages && moviesQuery.hasNextPage) {
+			setIsFetchingPage.on();
+
+			moviesQuery.fetchNextPage();
+		}
+	}, [movies?.page]);
+
+	useEffectOnce(() => {
 		const currentSearch = qs.parse(location.search);
 
 		setSearchParams(
@@ -159,7 +186,9 @@ const Movies = (): ReactElement => {
 		);
 
 		setTimeout(() => moviesQuery.refetch(), 250);
+	});
 
+	useEffect(() => {
 		return () => source.cancel();
 	}, []);
 
@@ -246,7 +275,7 @@ const Movies = (): ReactElement => {
 								label='Movies'
 								isLoading={moviesQuery.isFetching || moviesQuery.isLoading}
 								isButtonVisible={(moviesQuery.hasNextPage || true) && !moviesQuery.isError}
-								onClick={moviesQuery.fetchNextPage}
+								onClick={handleLoadMore}
 							/>
 						</ScaleFade>
 					</VStack>
