@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 import {
 	useTheme,
@@ -12,6 +12,7 @@ import {
 
 import _ from 'lodash';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
+import { useTimeout } from 'usehooks-ts';
 
 import useStyles from './styles';
 
@@ -19,7 +20,7 @@ import Link from '../../../../../../components/Clickable/Link';
 import Icon from '../../../../../../components/Icon';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { FontSizes, Theme } from '../../../../../../theme/types';
-import { routes } from '../../../../../Layout/components/Routes';
+import { allRoutes as routes } from '../../../../../Layout/components/Routes';
 
 const Breadcrumbs = (): ReactElement => {
 	const theme = useTheme<Theme>();
@@ -43,9 +44,13 @@ const Breadcrumbs = (): ReactElement => {
 		'2xl': 'md'
 	});
 
-	const breadcrumbs = useBreadcrumbs(routes.map((route) => _.omit(route, 'element')));
+	const breadcrumbsHook = useBreadcrumbs(routes.map((route) => _.omit(route, 'element')));
+
+	const [breadcrumbs, setBreadcrumbs] = useState(breadcrumbsHook);
 
 	const style = useStyles(theme);
+
+	useTimeout(() => setBreadcrumbs(breadcrumbsHook), 2500);
 
 	return (
 		<CUIBreadcrumb
