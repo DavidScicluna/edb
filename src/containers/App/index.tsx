@@ -36,7 +36,7 @@ const App = (): ReactElement => {
 			<PersistGate loading={null} persistor={persistor}>
 				<ChakraProvider theme={theme}>
 					<QueryClientProvider client={queryClient}>
-						{isSplashscreenOpen ? <Splashscreen isOpen={isSplashscreenOpen} /> : <Layout />}
+						{isSplashscreenOpen ? <Splashscreen isOpen /> : <Layout />}
 					</QueryClientProvider>
 				</ChakraProvider>
 			</PersistGate>

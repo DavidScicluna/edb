@@ -1,13 +1,13 @@
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ColorMode, useColorMode } from '@chakra-ui/react';
+import { useColorMode } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { useTernaryDarkMode, useEffectOnce } from 'usehooks-ts';
 
 import { SplashscreenProps } from './types';
 
-import { useCheckColorMode, useSelector } from '../../../../common/hooks';
+import { useSelector } from '../../../../common/hooks';
 import SplashscreenModal from '../../../../components/Splashscreen';
 import { toggleSplashscreen } from '../../../../store/slices/Modals';
 
@@ -17,24 +17,17 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 	const dispatch = useDispatch();
 	const background = useSelector((state) => state.user.ui.theme.background);
 
-	const mode = useCheckColorMode();
+	const { isDarkMode } = useTernaryDarkMode();
 
-	const handleUpdateColorMode = useCallback(
-		_.debounce((mode: ColorMode) => {
+	useEffectOnce(() => {
+		if (background === 'system') {
 			dispatch(toggleSplashscreen(true));
 
-			setColorMode(mode);
+			setColorMode(isDarkMode ? 'dark' : 'light');
 
 			setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
-		}, 500),
-		[dispatch, toggleSplashscreen, setColorMode]
-	);
-
-	useEffect(() => {
-		if (background === 'system') {
-			handleUpdateColorMode(mode);
 		}
-	}, [mode]);
+	});
 
 	return <SplashscreenModal isOpen={isOpen} />;
 };

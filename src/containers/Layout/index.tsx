@@ -1,21 +1,10 @@
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import {
-	ColorMode,
-	useTheme,
-	useColorMode,
-	useMediaQuery,
-	Container,
-	HStack,
-	VStack,
-	Box,
-	Collapse
-} from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
-import { useIsFirstRender, useUpdateEffect } from 'usehooks-ts';
+import { useTernaryDarkMode, useUpdateEffect } from 'usehooks-ts';
 
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
@@ -30,7 +19,7 @@ import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 
-import { useSelector, useCheckIcons, usePopulateOptions, useCheckColorMode } from '../../common/hooks';
+import { useSelector, useCheckIcons, usePopulateOptions } from '../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import Icon from '../../components/Icon';
 import { NavItem } from '../../components/NavItem/types';
@@ -101,20 +90,7 @@ const Layout = (): ReactElement => {
 
 	const transition = useTransitionsStyle(theme);
 
-	const isFirstRender = useIsFirstRender();
-
-	const mode = useCheckColorMode();
-
-	const handleUpdateColorMode = useCallback(
-		_.debounce((mode: ColorMode) => {
-			dispatch(toggleSplashscreen(true));
-
-			setColorMode(mode);
-
-			setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
-		}, 500),
-		[dispatch, toggleSplashscreen, setColorMode]
-	);
+	const { isDarkMode } = useTernaryDarkMode();
 
 	useCheckIcons();
 
@@ -127,73 +103,75 @@ const Layout = (): ReactElement => {
 	}, [isLgUp]);
 
 	useUpdateEffect(() => {
-		if (!isFirstRender && background === 'system') {
-			handleUpdateColorMode(mode);
+		if (background === 'system') {
+			dispatch(toggleSplashscreen(true));
+
+			setColorMode(isDarkMode ? 'dark' : 'light');
+
+			setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
 		}
-	}, [mode]);
+	}, [isDarkMode]);
 
 	return (
-		<>
-			<Router>
-				<Container
-					width='100%'
-					maxWidth={`${
-						handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) +
-						sidebarWidth.expanded
-					}px`}
-					centerContent
-					p={0}
-					sx={{ ...transition }}
-				>
-					<HStack width='100%' position='relative' spacing={0}>
-						<Collapse
-							in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
-							unmountOnExit
-							style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
-						>
-							<ProgressBar />
-						</Collapse>
+		<Router>
+			<Container
+				width='100%'
+				maxWidth={`${
+					handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) +
+					sidebarWidth.expanded
+				}px`}
+				centerContent
+				p={0}
+				sx={{ ...transition }}
+			>
+				<HStack width='100%' position='relative' spacing={0}>
+					<Collapse
+						in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
+						unmountOnExit
+						style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
+					>
+						<ProgressBar />
+					</Collapse>
 
-						{isLgUp ? <Sidebar /> : null}
+					{isLgUp ? <Sidebar /> : null}
 
-						<Box
-							width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
-							position='absolute'
-							top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '4px' : 0}
-							left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
-							sx={{ ...transition }}
-						>
-							<Header />
+					<Box
+						width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
+						position='absolute'
+						top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '4px' : 0}
+						left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
+						sx={{ ...transition }}
+					>
+						<Header />
 
-							<VStack width='100%' spacing={4} sx={{ ...transition }}>
-								<Box
-									width='100%'
-									minHeight={`calc(100vh - ${
-										headerHeight +
-										handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
-									}px)`}
-									sx={{ ...transition }}
-								>
-									<Routes />
-								</Box>
+						<VStack width='100%' spacing={4} sx={{ ...transition }}>
+							<Box
+								width='100%'
+								minHeight={`calc(100vh - ${
+									headerHeight +
+									handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
+								}px)`}
+								sx={{ ...transition }}
+							>
+								<Routes />
+							</Box>
 
-								<Footer />
-							</VStack>
+							<Footer />
+						</VStack>
 
-							<ScrollToTop />
-						</Box>
-					</HStack>
-				</Container>
+						<ScrollToTop />
+					</Box>
+				</HStack>
+			</Container>
 
-				<QuickView />
+			<QuickView />
 
-				<DisplayModal />
+			<DisplayModal />
 
-				<ListsModal />
+			<ListsModal />
 
-				<SplashscreenModal />
-			</Router>
-		</>
+			<SplashscreenModal />
+		</Router>
 	);
 };
 
