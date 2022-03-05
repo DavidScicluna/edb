@@ -1,4 +1,4 @@
-import React, { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Tag as CUITag, HStack } from '@chakra-ui/react';
 

@@ -1,4 +1,4 @@
-import React, { ReactElement, lazy, useEffect, Suspense } from 'react';
+import { ReactElement, lazy, useEffect, Suspense } from 'react';
 import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 
 import { useConst } from '@chakra-ui/react';

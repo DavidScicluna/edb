@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 
 import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
