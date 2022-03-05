@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import {
 	useTheme,
 	useColorMode,
-	useMediaQuery,
 	useConst,
 	ListItem as CUIListItem,
 	VStack,
@@ -27,8 +26,6 @@ const ListItem = (props: ListItemProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
-	const [isSm] = useMediaQuery('(max-width: 600px)');
-
 	const [badgeRef, { width: badgeWidth }] = useElementSize();
 	const [actionsRef, { width: actionsWidth }] = useElementSize();
 
@@ -45,7 +42,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				width={`calc(100% - ${actions ? actionsWidth + 16 : 0}px)`}
 				alignItems='flex-start'
 				justifyContent='center'
-				spacing={0}
+				spacing={badge ? 0.5 : 0}
 			>
 				<HStack
 					width='100%'
@@ -55,11 +52,9 @@ const ListItem = (props: ListItemProps): ReactElement => {
 						</Text>
 					}
 				>
-					{!isSm && badge ? <Center ref={badgeRef}>{badge}</Center> : null}
+					{badge ? <Center ref={badgeRef}>{badge}</Center> : null}
 					<SkeletonText
-						width={
-							isLoading ? `${titleDummy}%` : !isSm && badge ? `calc(100% - ${badgeWidth + 10}px)` : '100%'
-						}
+						width={isLoading ? `${titleDummy}%` : badge ? `calc(100% - ${badgeWidth + 10}px)` : '100%'}
 						fontSize='md'
 						isLoaded={!isLoading}
 					>
@@ -75,39 +70,24 @@ const ListItem = (props: ListItemProps): ReactElement => {
 						</Text>
 					</SkeletonText>
 				</HStack>
-				{(isSm ? subtitle || actions || isLoading : subtitle || isLoading) ? (
-					<HStack
-						width='100%'
-						divider={
+				{subtitle || isLoading ? (
+					<HStack width='100%'>
+						<SkeletonText
+							width={isLoading ? `${subtitleDummy}%` : '100%'}
+							fontSize='xs'
+							isLoaded={!isLoading}
+						>
 							<Text
 								align='left'
 								color={`gray.${colorMode === 'light' ? 400 : 500}`}
 								fontSize='xs'
-								mx={0.75}
+								isTruncated
+								overflow='hidden'
+								whiteSpace='nowrap'
 							>
-								•
+								{subtitle}
 							</Text>
-						}
-					>
-						{isSm && badge ? badge : null}
-						{subtitle ? (
-							<SkeletonText
-								width={isLoading ? `${subtitleDummy}%` : '100%'}
-								fontSize='xs'
-								isLoaded={!isLoading}
-							>
-								<Text
-									align='left'
-									color={`gray.${colorMode === 'light' ? 400 : 500}`}
-									fontSize='xs'
-									isTruncated
-									overflow='hidden'
-									whiteSpace='nowrap'
-								>
-									{subtitle}
-								</Text>
-							</SkeletonText>
-						) : undefined}
+						</SkeletonText>
 					</HStack>
 				) : null}
 			</VStack>

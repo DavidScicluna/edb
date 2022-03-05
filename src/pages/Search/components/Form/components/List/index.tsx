@@ -29,6 +29,9 @@ const List = (props: ListProps): ReactElement => {
 							fontSize='sm'
 							fontWeight='bold'
 							textTransform='uppercase'
+							isTruncated
+							overflow='hidden'
+							whiteSpace='nowrap'
 						>
 							{title}
 						</Text>
