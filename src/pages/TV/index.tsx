@@ -3,13 +3,13 @@ import CountUp from 'react-countup';
 import { useInfiniteQuery } from 'react-query';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { useMediaQuery, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
-import { useElementSize } from 'usehooks-ts';
+import { useElementSize, useUpdateEffect, useEffectOnce } from 'usehooks-ts';
 
 import VerticalTV from './components/Orientation/Vertical';
 
@@ -47,6 +47,7 @@ const TV = (): ReactElement => {
 	const [ref, { height }] = useElementSize();
 
 	const [shows, setShows] = useState<Response<PartialTV[]>>();
+	const [isFetchingPage, setIsFetchingPage] = useBoolean();
 
 	const [totalActiveFilters, setTotalActiveFilters] = useState<number>(0);
 
@@ -56,10 +57,10 @@ const TV = (): ReactElement => {
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance
 				.get<Response<PartialTV[]>>('/discover/tv', {
-					params: { page: pageParam, ...(qs.parse(searchParams.toString() || '') || {}) },
+					params: { ...(qs.parse(searchParams.toString() || '') || {}), page: pageParam || 1 },
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2500, response));
+				.then((response) => handleDelay(isFetchingPage ? 0 : 2500, response));
 			return data;
 		},
 		{
@@ -144,11 +145,37 @@ const TV = (): ReactElement => {
 		setTimeout(() => tvShowsQuery.refetch(), 250);
 	};
 
+	const handleLoadMore = (): void => {
+		const page = shows?.page || 1;
+		const currentSearch = qs.parse(searchParams.toString() || '');
+
+		setSearchParams(_.mergeWith({ ...currentSearch, page: page + 1 }));
+
+		setIsFetchingPage.on();
+
+		setTimeout(() => tvShowsQuery.fetchNextPage(), 250);
+	};
+
 	useEffect(() => {
 		handleCheckFilters(handlePopulateFilters(location.search, 'tv'));
 	}, [location.search]);
 
-	useEffect(() => {
+	useUpdateEffect(() => {
+		const currentSearch = qs.parse(location.search);
+		const totalPages =
+			currentSearch && currentSearch.page && typeof currentSearch.page === 'string'
+				? Number(currentSearch.page)
+				: 1;
+		const page = shows?.page || 1;
+
+		if (page < totalPages && tvShowsQuery.hasNextPage) {
+			setIsFetchingPage.on();
+
+			tvShowsQuery.fetchNextPage();
+		}
+	}, [shows?.page]);
+
+	useEffectOnce(() => {
 		const currentSearch = qs.parse(location.search);
 
 		setSearchParams(
@@ -158,7 +185,9 @@ const TV = (): ReactElement => {
 		);
 
 		setTimeout(() => tvShowsQuery.refetch(), 250);
+	});
 
+	useEffect(() => {
 		return () => source.cancel();
 	}, []);
 
@@ -249,7 +278,7 @@ const TV = (): ReactElement => {
 								label='TV Shows'
 								isLoading={tvShowsQuery.isFetching || tvShowsQuery.isLoading}
 								isButtonVisible={(tvShowsQuery.hasNextPage || true) && !tvShowsQuery.isError}
-								onClick={tvShowsQuery.fetchNextPage}
+								onClick={handleLoadMore}
 							/>
 						</ScaleFade>
 					</VStack>
