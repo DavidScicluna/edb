@@ -36,11 +36,11 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 			spacing={2}
 			divider={
 				!_.isNil(activeTab) || renderActions ? (
-					<Divider orientation='vertical' height={`${heightHeight}px`} mx={2} />
+					<Divider orientation='vertical' height={`${heightHeight}px`} />
 				) : undefined
 			}
 		>
-			<Center width={`calc(100% - ${actionsWidth + 34}px)`}>
+			<Center width={`calc(100% - ${!_.isNil(activeTab) || renderActions ? actionsWidth + 34 : 0}px)`}>
 				<TabList color={color}>
 					{_.compact([
 						mediaTypes.includes('movie')
