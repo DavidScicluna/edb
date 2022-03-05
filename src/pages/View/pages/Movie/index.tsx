@@ -256,7 +256,9 @@ const Movie = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		handleCheckLocation();
+		if (location.pathname === `movies/${id}`) {
+			handleCheckLocation();
+		}
 	}, [location.hash]);
 
 	useEffect(() => {

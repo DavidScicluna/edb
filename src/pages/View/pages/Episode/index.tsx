@@ -154,7 +154,9 @@ const Episode = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		handleCheckLocation();
+		if (location.pathname === `tvshows/${id}/season/${season}/episode/${episode}`) {
+			handleCheckLocation();
+		}
 	}, [location.hash]);
 
 	useEffect(() => {

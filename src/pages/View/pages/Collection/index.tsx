@@ -117,7 +117,9 @@ const Collection = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		handleCheckLocation();
+		if (location.pathname === `collections/${id}`) {
+			handleCheckLocation();
+		}
 	}, [location.hash]);
 
 	useEffect(() => {

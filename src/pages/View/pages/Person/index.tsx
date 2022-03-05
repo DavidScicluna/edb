@@ -168,7 +168,9 @@ const Person = (): ReactElement => {
 			: [];
 
 	useEffect(() => {
-		handleCheckLocation();
+		if (location.pathname === `people/${id}`) {
+			handleCheckLocation();
+		}
 	}, [location.hash]);
 
 	useEffect(() => {

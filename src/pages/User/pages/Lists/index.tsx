@@ -119,18 +119,10 @@ const Lists = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		handleCheckLocation();
-	}, [location]);
-
-	useEffect(() => {
-		handleCheckLocation();
-
-		return () => {
-			handleReset();
-
-			setActiveTab(undefined);
-		};
-	}, []);
+		if (location.pathname === '/lists') {
+			handleCheckLocation();
+		}
+	}, [location.hash]);
 
 	return (
 		<>

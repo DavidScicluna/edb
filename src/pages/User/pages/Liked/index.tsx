@@ -91,7 +91,9 @@ const Liked = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		handleCheckLocation();
+		if (location.pathname === '/liked') {
+			handleCheckLocation();
+		}
 	}, [location.hash]);
 
 	useEffectOnce(() => {

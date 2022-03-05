@@ -55,20 +55,6 @@ export const allRoutes: RouteType[] = [
 		path: 'tvshows',
 		breadcrumb: 'TV Shows',
 		element: <TV />
-		// children: [
-		// 	{
-		// 		path: ':id',
-		// 		breadcrumb: 'TV Show',
-		// 		element: <Show />,
-		// 		children: [
-		// 			{
-		// 				path: 'season/:season/episode/:episode',
-		// 				breadcrumb: 'TV Show Episode',
-		// 				element: <Episode />
-		// 			}
-		// 		]
-		// 	}
-		// ]
 	},
 	{
 		path: 'tvshows/:id',
@@ -84,13 +70,6 @@ export const allRoutes: RouteType[] = [
 		path: 'people',
 		breadcrumb: 'People',
 		element: <People />
-		// children: [
-		// 	{
-		// 		path: ':id',
-		// 		breadcrumb: 'Person',
-		// 		element: <Person />
-		// 	}
-		// ]
 	},
 	{
 		path: 'people/:id',

@@ -160,7 +160,9 @@ const Trending = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		handleCheckLocation();
+		if (location.pathname === '/trending') {
+			handleCheckLocation();
+		}
 	}, [location.hash]);
 
 	useEffect(() => {
