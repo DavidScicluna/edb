@@ -107,6 +107,7 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 															: 0
 												},
 												front: {
+													px: 0.5,
 													borderRadius:
 														number === counts[0]
 															? `${theme.radii.base} 0 0 ${theme.radii.base}`

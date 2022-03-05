@@ -107,6 +107,7 @@ const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
 															: 0
 												},
 												front: {
+													px: 0.5,
 													borderRadius:
 														number === runtimes[0]
 															? `${theme.radii.base} 0 0 ${theme.radii.base}`
