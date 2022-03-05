@@ -6,6 +6,8 @@ export type TabsContext = {
 	activeTab?: number;
 };
 
+export type TabsRef = HTMLDivElement | null;
+
 export type TabsProps = {
 	children: ReactElement | ReactElement[];
 	activeTab?: number;

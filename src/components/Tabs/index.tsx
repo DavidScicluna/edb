@@ -1,17 +1,18 @@
-import { ReactElement, createContext } from 'react';
+import { ReactElement, createContext, forwardRef } from 'react';
 
 import { Tabs as CUITabs } from '@chakra-ui/react';
 
-import { TabsContext as TabsContextType, TabsProps } from './types';
+import { TabsContext as TabsContextType, TabsRef, TabsProps } from './types';
 
 export const TabsContext = createContext<TabsContextType>({ activeTab: -1 });
 
-const Tabs = (props: TabsProps): ReactElement => {
+const Tabs = forwardRef<TabsRef, TabsProps>(function Tabs(props, ref): ReactElement {
 	const { children, activeTab = -1, ...rest } = props;
 
 	return (
 		<CUITabs
 			{...rest}
+			ref={ref}
 			width='100%'
 			maxWidth='100%'
 			activeTab={activeTab}
@@ -23,6 +24,6 @@ const Tabs = (props: TabsProps): ReactElement => {
 			<TabsContext.Provider value={{ activeTab }}>{children}</TabsContext.Provider>
 		</CUITabs>
 	);
-};
+});
 
 export default Tabs;
