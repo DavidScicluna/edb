@@ -102,6 +102,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 			<Tooltip aria-label='Edit review' label='Edit review' isOpen={isHovering} placement='top' gutter={6}>
 				<IconButton
 					aria-label='Edit review'
+					color={isEditReviewOpen ? color : 'gray'}
 					onClick={() => onOpenEditReview()}
 					onMouseEnter={() => setIsHovering.on()}
 					onMouseLeave={() => setIsHovering.off()}

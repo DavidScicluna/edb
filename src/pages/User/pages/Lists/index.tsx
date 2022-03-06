@@ -36,6 +36,7 @@ const Lists = (): ReactElement => {
 
 	const toast = useToast();
 
+	const color = useSelector((state) => state.user.ui.theme.color);
 	const lists = useSelector((state) => state.user.data.lists);
 
 	const [selectedListID, setSelectedListID] = useState<ListType['id']>();
@@ -129,7 +130,12 @@ const Lists = (): ReactElement => {
 			<Page title='Lists'>
 				{{
 					actions: (
-						<Button onClick={() => onCreateListOpen()} isFullWidth={isSm} variant='outlined'>
+						<Button
+							color={isCreateListOpen ? color : 'gray'}
+							onClick={() => onCreateListOpen()}
+							isFullWidth={isSm}
+							variant='outlined'
+						>
 							Create new list
 						</Button>
 					),
