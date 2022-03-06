@@ -7,6 +7,8 @@ import { TooltipRef, TooltipProps } from './types';
 import { handleIsTouchDevice, handleConvertStringToNumber } from '../../common/utils';
 import { Theme } from '../../theme/types';
 
+const isTouchDevice: boolean = handleIsTouchDevice();
+
 const Tooltip = forwardRef<TooltipRef, TooltipProps>(function Tooltip(props, ref): ReactElement {
 	const theme = useTheme<Theme>();
 	const { colorMode: colorModeHook } = useColorMode();
@@ -22,7 +24,7 @@ const Tooltip = forwardRef<TooltipRef, TooltipProps>(function Tooltip(props, ref
 
 	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
-	return !handleIsTouchDevice() ? (
+	return !isTouchDevice ? (
 		<CUITooltip
 			{...rest}
 			ref={ref}

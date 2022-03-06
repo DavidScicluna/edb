@@ -16,6 +16,8 @@ import {
 } from '../../../../common/utils';
 import { Theme } from '../../../../theme/types';
 
+const isTouchDevice: boolean = handleIsTouchDevice();
+
 const Viewer = (props: ViewerProps): ReactElement => {
 	const theme = useTheme<Theme>();
 
@@ -58,7 +60,7 @@ const Viewer = (props: ViewerProps): ReactElement => {
 	 * @param Swiper - Swiper data object
 	 */
 	const handleSwipe = (swiper: SwiperDirection): void => {
-		if (handleIsTouchDevice() && swiper.swipeDirection === undefined) {
+		if (isTouchDevice && swiper.swipeDirection === undefined) {
 			onSwipeVertical();
 		}
 	};

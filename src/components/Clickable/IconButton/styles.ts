@@ -29,7 +29,7 @@ type StyleIconButtonProps = {
 	variant: IconButtonProps['variant'];
 };
 
-const isTouchDevice = handleIsTouchDevice();
+const isTouchDevice: boolean = handleIsTouchDevice();
 
 export default (
 	theme: Theme,

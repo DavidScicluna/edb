@@ -30,7 +30,7 @@ type StyleButtonProps = {
 	variant: ButtonProps['variant'];
 };
 
-const isTouchDevice = handleIsTouchDevice();
+const isTouchDevice: boolean = handleIsTouchDevice();
 
 export default (
 	theme: Theme,
