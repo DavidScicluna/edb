@@ -5671,7 +5671,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rollup/pluginutils", "virtual:b2997d5ec47aa917024336fa826c98a1ac0f05fc7aed80804a906bc3492a7becfe7b58505fc8c5a22d0e37058b13b673d04fb547f94a1e7f2503c49ad8fa5a97#npm:3.1.0"],\
             ["@types/babel__core", null],\
             ["@types/rollup", null],\
-            ["rollup", "npm:2.69.1"]\
+            ["rollup", "npm:2.69.2"]\
           ],\
           "packagePeers": [\
             "@babel/core",\
@@ -5701,7 +5701,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["deepmerge", "npm:4.2.2"],\
             ["is-module", "npm:1.0.0"],\
             ["resolve", "patch:resolve@npm%3A1.22.0#~builtin<compat/resolve>::version=1.22.0&hash=07638b"],\
-            ["rollup", "npm:2.69.1"]\
+            ["rollup", "npm:2.69.2"]\
           ],\
           "packagePeers": [\
             "@types/rollup",\
@@ -5725,7 +5725,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rollup/pluginutils", "virtual:b2997d5ec47aa917024336fa826c98a1ac0f05fc7aed80804a906bc3492a7becfe7b58505fc8c5a22d0e37058b13b673d04fb547f94a1e7f2503c49ad8fa5a97#npm:3.1.0"],\
             ["@types/rollup", null],\
             ["magic-string", "npm:0.25.9"],\
-            ["rollup", "npm:2.69.1"]\
+            ["rollup", "npm:2.69.2"]\
           ],\
           "packagePeers": [\
             "@types/rollup",\
@@ -5750,7 +5750,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/rollup", null],\
             ["estree-walker", "npm:1.0.1"],\
             ["picomatch", "npm:2.3.1"],\
-            ["rollup", "npm:2.69.1"]\
+            ["rollup", "npm:2.69.2"]\
           ],\
           "packagePeers": [\
             "@types/rollup",\
@@ -7525,7 +7525,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/postcss", null],\
             ["browserslist", "npm:4.19.3"],\
             ["caniuse-lite", "npm:1.0.30001313"],\
-            ["fraction.js", "npm:4.1.3"],\
+            ["fraction.js", "npm:4.2.0"],\
             ["normalize-range", "npm:0.1.2"],\
             ["picocolors", "npm:1.0.0"],\
             ["postcss", "npm:8.4.7"],\
@@ -11148,10 +11148,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["fraction.js", [\
-        ["npm:4.1.3", {\
-          "packageLocation": "./.yarn/cache/fraction.js-npm-4.1.3-c0813e8be7-d00065afce.zip/node_modules/fraction.js/",\
+        ["npm:4.2.0", {\
+          "packageLocation": "./.yarn/cache/fraction.js-npm-4.2.0-28efe4afc7-8c76a6e21d.zip/node_modules/fraction.js/",\
           "packageDependencies": [\
-            ["fraction.js", "npm:4.1.3"]\
+            ["fraction.js", "npm:4.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -17693,10 +17693,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["rollup", [\
-        ["npm:2.69.1", {\
-          "packageLocation": "./.yarn/cache/rollup-npm-2.69.1-06571f9fe3-dc9b21b0ec.zip/node_modules/rollup/",\
+        ["npm:2.69.2", {\
+          "packageLocation": "./.yarn/cache/rollup-npm-2.69.2-b9fb9318c8-9c6cab6cf2.zip/node_modules/rollup/",\
           "packageDependencies": [\
-            ["rollup", "npm:2.69.1"],\
+            ["rollup", "npm:2.69.2"],\
             ["fsevents", "patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"]\
           ],\
           "linkType": "HARD"\
@@ -17717,7 +17717,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/code-frame", "npm:7.16.7"],\
             ["@types/rollup", null],\
             ["jest-worker", "npm:26.6.2"],\
-            ["rollup", "npm:2.69.1"],\
+            ["rollup", "npm:2.69.2"],\
             ["serialize-javascript", "npm:4.0.0"],\
             ["terser", "npm:5.12.0"]\
           ],\
@@ -19947,7 +19947,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["glob", "npm:7.2.0"],\
             ["lodash", "npm:4.17.21"],\
             ["pretty-bytes", "npm:5.6.0"],\
-            ["rollup", "npm:2.69.1"],\
+            ["rollup", "npm:2.69.2"],\
             ["rollup-plugin-terser", "virtual:ee31d3b6689b7aa5583779f8f7fea20607fea22a484541d10116cd290ade935c9140fd3bed9bb4e23a0ea90b058aa548c4a0ee96c9a09288db82035cdc42f93b#npm:7.0.2"],\
             ["source-map", "npm:0.8.0-beta.0"],\
             ["stringify-object", "npm:3.3.0"],\
