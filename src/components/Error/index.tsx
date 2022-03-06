@@ -91,33 +91,6 @@ const Error = (props: ErrorProps): ReactElement => {
 	};
 
 	/**
-	 * This method will return the appropriate Illustration depending on the color selected
-	 * @returns Illustration path
-	 */
-	const handleReturnIllustration = (): string => {
-		switch (color === 'gray' ? userThemeColor : color) {
-			case 'blue':
-				return error.default.blue;
-			case 'cyan':
-				return error.default.cyan;
-			case 'green':
-				return error.default.green;
-			case 'orange':
-				return error.default.orange;
-			case 'pink':
-				return error.default.pink;
-			case 'purple':
-				return error.default.purple;
-			case 'teal':
-				return error.default.teal;
-			case 'yellow':
-				return error.default.yellow;
-			default:
-				return '';
-		}
-	};
-
-	/**
 	 * This method will return the appropriate font size of the label depending on the size passed
 	 *
 	 * @returns - number: Spacing value
@@ -170,7 +143,7 @@ const Error = (props: ErrorProps): ReactElement => {
 						<Image
 							maxWidth={`${handleReturnIllustrationWidth()}%`}
 							alt='Error illustration'
-							src={handleReturnIllustration()}
+							src={error.default[userThemeColor]}
 							fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
 						/>
 					</Center>

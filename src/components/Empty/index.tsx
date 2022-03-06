@@ -91,33 +91,6 @@ const Empty = (props: EmptyProps): ReactElement => {
 	};
 
 	/**
-	 * This method will return the appropriate Illustration depending on the color selected
-	 * @returns Illustration path
-	 */
-	const handleReturnIllustration = (): string => {
-		switch (color === 'gray' ? userThemeColor : color) {
-			case 'blue':
-				return empty.default.blue;
-			case 'cyan':
-				return empty.default.cyan;
-			case 'green':
-				return empty.default.green;
-			case 'orange':
-				return empty.default.orange;
-			case 'pink':
-				return empty.default.pink;
-			case 'purple':
-				return empty.default.purple;
-			case 'teal':
-				return empty.default.teal;
-			case 'yellow':
-				return empty.default.yellow;
-			default:
-				return '';
-		}
-	};
-
-	/**
 	 * This method will return the appropriate font size of the label depending on the size passed
 	 *
 	 * @returns - number: Spacing value
@@ -169,7 +142,7 @@ const Empty = (props: EmptyProps): ReactElement => {
 					<Center maxWidth={`${handleReturnIllustrationWidth()}%`}>
 						<Image
 							alt='Empty illustration'
-							src={handleReturnIllustration()}
+							src={empty.default[userThemeColor]}
 							fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
 						/>
 					</Center>
