@@ -26,7 +26,7 @@ const Menu = (): ReactElement => {
 
 	return (
 		<>
-			<IconButton aria-label='Open Menu' onClick={onOpen} variant='icon'>
+			<IconButton aria-label='Open Menu' onClick={onOpen} size='lg' variant='icon'>
 				<Icon icon='menu' type='outlined' />
 			</IconButton>
 
@@ -40,7 +40,10 @@ const Menu = (): ReactElement => {
 							</IconButton>
 						</Center>
 
-						<NavItems navItems={navItems} sidebarMode='expanded' />
+						<NavItems
+							navItems={navItems.filter((navItem) => navItem.path !== '/search')}
+							sidebarMode='expanded'
+						/>
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>

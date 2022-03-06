@@ -77,7 +77,7 @@ const Layout = (): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { setColorMode } = useColorMode();
 
-	const [isLgUp] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
+	const [isLg] = useMediaQuery('(min-width: 1280px)');
 
 	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
@@ -97,10 +97,10 @@ const Layout = (): ReactElement => {
 	usePopulateOptions();
 
 	useEffect(() => {
-		if (!isLgUp) {
+		if (!isLg) {
 			dispatch(toggleSidebarMode('expanded'));
 		}
-	}, [isLgUp]);
+	}, [isLg]);
 
 	useUpdateEffect(() => {
 		if (background === 'system') {
@@ -133,16 +133,16 @@ const Layout = (): ReactElement => {
 						<ProgressBar />
 					</Collapse>
 
-					{isLgUp ? <Sidebar /> : null}
+					{isLg ? <Sidebar /> : null}
 
 					<Box
-						width={isLgUp ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
+						width={isLg ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
 						position='absolute'
 						top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '4px' : 0}
-						left={isLgUp ? `${sidebarWidth[sidebarMode]}px` : '0px'}
+						left={isLg ? `${sidebarWidth[sidebarMode]}px` : '0px'}
 						sx={{ ...transition }}
 					>
-						<Header />
+						{!isLg ? <Header /> : null}
 
 						<VStack width='100%' spacing={4} sx={{ ...transition }}>
 							<Box

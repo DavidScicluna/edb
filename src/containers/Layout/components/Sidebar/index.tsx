@@ -46,17 +46,23 @@ const Sidebar = (): ReactElement => {
 		>
 			<NavItems navItems={navItems} />
 
-			<Button
-				isFullWidth
-				isDisabled={isFetching > 0 || isMutating > 0}
-				onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
-				renderLeft={({ fontSize }) => (
-					<Icon icon={sidebarMode === 'expanded' ? 'remove' : 'add'} type='outlined' fontSize={fontSize} />
-				)}
-				variant='outlined'
-			>
-				{sidebarMode === 'expanded' ? 'Collapse' : ''}
-			</Button>
+			<VStack width='100%' spacing={2}>
+				<Button
+					isFullWidth
+					isDisabled={isFetching > 0 || isMutating > 0}
+					onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
+					renderLeft={({ fontSize }) => (
+						<Icon
+							icon={sidebarMode === 'expanded' ? 'remove' : 'add'}
+							type='outlined'
+							fontSize={fontSize}
+						/>
+					)}
+					variant='outlined'
+				>
+					{sidebarMode === 'expanded' ? 'Collapse' : ''}
+				</Button>
+			</VStack>
 		</VStack>
 	);
 };
