@@ -13,8 +13,9 @@ import Tooltip from '../../../Tooltip';
 
 const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): ReactElement => {
 	const color = useSelector((state) => state.user.ui.theme.color);
+	const listsModal = useSelector((state) => state.modals.ui.listsModal);
 
-	const { title, mediaType, mediaItem, isLoading = true, size } = props;
+	const { title, mediaType, mediaItem, isLoading = true, size = 'md' } = props;
 
 	const [isHovering, setIsHovering] = useBoolean();
 
@@ -57,7 +58,11 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 								  } (tooltip)`
 								: `Add "${title}" ${mediaType} to a list (tooltip)`
 						}
-						color={isBookmarked ? color : 'gray'}
+						color={
+							(listsModal.open && listsModal.mediaItem?.id === mediaItem?.id) || isBookmarked
+								? color
+								: 'gray'
+						}
 						isDisabled={isDisabled}
 						onClick={(event) => {
 							event.preventDefault();

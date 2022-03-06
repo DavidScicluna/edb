@@ -19,6 +19,7 @@ import Link from '../../Clickable/Link';
 import Rating from '../../Rating';
 import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
+import Quickview from '../components/Quickview';
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -129,18 +130,18 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 						) : null}
 					</VStack>
 
-					{/* Like / List Icon buttons */}
-					{mediaItem ? (
-						<Center
-							sx={{
-								position: 'absolute',
-								top: 1,
-								right: 1
-							}}
-						>
-							{/* Like component */}
+					{/* Like / List Icon / Quick View buttons */}
+					<Center
+						sx={{
+							position: 'absolute',
+							top: 1,
+							right: 1
+						}}
+					>
+						{/* Quick View component */}
+						{mediaType !== 'company' ? (
 							<Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-								<Like
+								<Quickview
 									title={title}
 									mediaType={mediaType}
 									mediaItem={mediaItem}
@@ -148,23 +149,30 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 									size={isSm ? 'md' : 'lg'}
 								/>
 							</Center>
-							{/* List component */}
-							{mediaType === 'movie' || mediaType === 'tv' ? (
-								<Center
-									onMouseEnter={() => setIsDisabled.on()}
-									onMouseLeave={() => setIsDisabled.off()}
-								>
-									<Bookmark
-										title={title}
-										mediaType={mediaType}
-										mediaItem={mediaItem}
-										isLoading={isLoading}
-										size={isSm ? 'md' : 'lg'}
-									/>
-								</Center>
-							) : null}
+						) : null}
+						{/* Like component */}
+						<Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+							<Like
+								title={title}
+								mediaType={mediaType}
+								mediaItem={mediaItem}
+								isLoading={isLoading}
+								size={isSm ? 'md' : 'lg'}
+							/>
 						</Center>
-					) : null}
+						{/* List component */}
+						{mediaType === 'movie' || mediaType === 'tv' ? (
+							<Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+								<Bookmark
+									title={title}
+									mediaType={mediaType}
+									mediaItem={mediaItem}
+									isLoading={isLoading}
+									size={isSm ? 'md' : 'lg'}
+								/>
+							</Center>
+						) : null}
+					</Center>
 				</HStack>
 			</Card>
 		</Link>

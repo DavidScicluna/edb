@@ -16,6 +16,8 @@ import { toggleQuickView } from '../../../../../store/slices/Modals';
 import { Theme } from '../../../../../theme/types';
 import Image from '../../../../Image';
 
+const isTouchDevice: boolean = handleIsTouchDevice();
+
 const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactElement => {
 	const theme = useTheme<Theme>();
 
@@ -50,7 +52,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 				</Skeleton>
 
 				{/* Quick View component */}
-				{!(_.isNil(mediaItem) || _.isEmpty(mediaItem)) && !handleIsTouchDevice() && mediaType !== 'company' ? (
+				{!(_.isNil(mediaItem) || _.isEmpty(mediaItem)) && !isTouchDevice && mediaType !== 'company' ? (
 					<ScaleFade in={(isHovering || isFocused) && !isLoading} unmountOnExit>
 						<Box
 							position='absolute'

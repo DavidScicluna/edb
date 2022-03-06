@@ -11,12 +11,15 @@ import Title from './components/Title';
 import { VerticalPosterProps } from './types';
 
 import { MediaType } from '../../../common/types';
-import { handleReturnMediaTypeLabel } from '../../../common/utils';
+import { handleIsTouchDevice, handleReturnMediaTypeLabel } from '../../../common/utils';
 import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
 import Rating from '../../Rating';
 import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
+import Quickview from '../components/Quickview';
+
+const isTouchDevice: boolean = handleIsTouchDevice();
 
 const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): ReactElement => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
@@ -78,6 +81,21 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 								</Rating>
 
 								<Center>
+									{/* Quick View component */}
+									{isTouchDevice ? (
+										<Center
+											onMouseEnter={() => setIsDisabled.on()}
+											onMouseLeave={() => setIsDisabled.off()}
+										>
+											<Quickview
+												title={title}
+												mediaType={mediaType}
+												mediaItem={mediaItem}
+												isLoading={isLoading}
+												size='sm'
+											/>
+										</Center>
+									) : null}
 									{/* Like component */}
 									<Center
 										onMouseEnter={() => setIsDisabled.on()}
@@ -117,25 +135,53 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 						</VStack>
 					</VStack>
 
-					{/* Like component */}
+					{/* Like / Quick View component */}
 					{mediaType === 'person' || mediaType === 'company' || mediaType === 'collection' ? (
-						<Center
-							sx={{
-								position: 'absolute',
-								top: 1,
-								right: 2
-							}}
-						>
-							<Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-								<Like
-									title={title}
-									mediaType={mediaType}
-									mediaItem={mediaItem}
-									isLoading={isLoading}
-									size='sm'
-								/>
+						<>
+							{/* Quick View component */}
+							{isTouchDevice && mediaType !== 'company' ? (
+								<Center
+									sx={{
+										position: 'absolute',
+										top: 1,
+										left: 2
+									}}
+								>
+									<Center
+										onMouseEnter={() => setIsDisabled.on()}
+										onMouseLeave={() => setIsDisabled.off()}
+									>
+										<Quickview
+											title={title}
+											mediaType={mediaType}
+											mediaItem={mediaItem}
+											isLoading={isLoading}
+											size='sm'
+										/>
+									</Center>
+								</Center>
+							) : null}
+							<Center
+								sx={{
+									position: 'absolute',
+									top: 1,
+									right: 2
+								}}
+							>
+								<Center
+									onMouseEnter={() => setIsDisabled.on()}
+									onMouseLeave={() => setIsDisabled.off()}
+								>
+									<Like
+										title={title}
+										mediaType={mediaType}
+										mediaItem={mediaItem}
+										isLoading={isLoading}
+										size='sm'
+									/>
+								</Center>
 							</Center>
-						</Center>
+						</>
 					) : null}
 				</VStack>
 			</Card>

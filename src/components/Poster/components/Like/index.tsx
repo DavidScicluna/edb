@@ -10,7 +10,7 @@ import Like, { handleReturnIcon } from '../../../Clickable/Like';
 import Tooltip from '../../../Tooltip';
 
 const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElement => {
-	const { title, mediaType, mediaItem, isLoading = true, size } = props;
+	const { title, mediaType, mediaItem, isLoading = true, size = 'md' } = props;
 
 	const [isHovering, setIsHovering] = useBoolean();
 

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useTheme, Box, AspectRatio, ScaleFade, Fade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, Box, AspectRatio, ScaleFade, Fade } from '@chakra-ui/react';
 
 import _ from 'lodash';
 
@@ -18,8 +18,11 @@ import Image from '../../../../Image';
 
 const width = ['100px', '116px', '152px', '188px', '188px', '224px'];
 
+const isTouchDevice: boolean = handleIsTouchDevice();
+
 const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactElement => {
 	const theme = useTheme<Theme>();
+	const [isMd] = useMediaQuery('(max-width: 960px)');
 
 	const dispatch = useDispatch();
 	const color = useSelector((state) => state.user.ui.theme.color);
@@ -52,7 +55,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 				</Skeleton>
 
 				{/* Quick View component */}
-				{!(_.isNil(mediaItem) || _.isEmpty(mediaItem)) && !handleIsTouchDevice() && mediaType !== 'company' ? (
+				{!isMd && !(_.isNil(mediaItem) || _.isEmpty(mediaItem)) && !isTouchDevice && mediaType !== 'company' ? (
 					<ScaleFade in={(isHovering || isFocused) && !isLoading} unmountOnExit>
 						<Box
 							position='absolute'
