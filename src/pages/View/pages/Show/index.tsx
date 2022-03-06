@@ -243,7 +243,7 @@ const Show = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		if (location.pathname === `tvshows/${id}`) {
+		if (location.pathname === `/tvshows/${id}`) {
 			handleCheckLocation();
 		}
 	}, [location.hash]);
