@@ -1,4 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 
@@ -33,6 +34,8 @@ const Lists = (): ReactElement => {
 	const { isOpen: isDeleteListOpen, onOpen: onDeleteListOpen, onClose: onDeleteListClose } = useDisclosure();
 	const { isOpen: isEditListOpen, onOpen: onEditListOpen, onClose: onEditListClose } = useDisclosure();
 	const { isOpen: isListInfoOpen, onOpen: onListInfoOpen, onClose: onListInfoClose } = useDisclosure();
+
+	const location = useLocation();
 
 	const toast = useToast();
 

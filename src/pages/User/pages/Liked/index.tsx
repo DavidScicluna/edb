@@ -1,5 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useConst, VStack, Collapse } from '@chakra-ui/react';
 
@@ -53,6 +53,7 @@ const handleReturnMediaTypes = ({ movies, tv, people, companies, collections }: 
 const Liked = (): ReactElement => {
 	const liked = useSelector((state) => state.user.data.liked);
 
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	const mediaTypes = useConst<MediaType[]>(handleReturnMediaTypes(liked));
