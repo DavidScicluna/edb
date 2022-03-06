@@ -2,11 +2,13 @@ import { ReactElement, useState, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { VStack, Center, Fade } from '@chakra-ui/react';
+import { useBoolean, VStack, Center, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
+import qs from 'query-string';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Header from './components/Header';
 import MediaTypesPicker from './components/MediaTypesPicker';
@@ -37,6 +39,7 @@ const Trending = (): ReactElement => {
 	const [movies, setMovies] = useState<Response<PartialMovie[]>>();
 	const [shows, setShows] = useState<Response<PartialTV[]>>();
 	const [people, setPeople] = useState<Response<PartialPerson[]>>();
+	const [isFetchingPage, setIsFetchingPage] = useBoolean();
 
 	// Fetching trending movies
 	const trendingMoviesQuery = useInfiniteQuery(
@@ -44,10 +47,10 @@ const Trending = (): ReactElement => {
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance
 				.get<Response<PartialMovie[]>>('/trending/movie/day', {
-					params: { page: pageParam },
+					params: { page: pageParam || 1 },
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2500, response));
+				.then((response) => handleDelay(isFetchingPage ? 0 : 2500, response));
 			return data;
 		},
 		{
@@ -78,10 +81,10 @@ const Trending = (): ReactElement => {
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance
 				.get<Response<PartialTV[]>>('/trending/tv/day', {
-					params: { page: pageParam },
+					params: { page: pageParam || 1 },
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2500, response));
+				.then((response) => handleDelay(isFetchingPage ? 0 : 2500, response));
 			return data;
 		},
 		{
@@ -112,10 +115,10 @@ const Trending = (): ReactElement => {
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance
 				.get<Response<PartialPerson[]>>('/trending/person/week', {
-					params: { page: pageParam },
+					params: { page: pageParam || 1 },
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2500, response));
+				.then((response) => handleDelay(isFetchingPage ? 0 : 2500, response));
 			return data;
 		},
 		{
@@ -140,8 +143,62 @@ const Trending = (): ReactElement => {
 		}
 	);
 
+	const handleLoadMore = (): void => {
+		switch (activeTab) {
+			case 0: {
+				const page = movies?.page || 1;
+
+				navigate({
+					pathname: '.',
+					hash: allMediaTypes[0],
+					search: qs.stringify(_.mergeWith({ page: page + 1 }))
+				});
+
+				setIsFetchingPage.on();
+
+				setTimeout(() => trendingMoviesQuery.fetchNextPage(), 250);
+
+				break;
+			}
+			case 1: {
+				const page = shows?.page || 1;
+
+				navigate({
+					pathname: '.',
+					hash: allMediaTypes[1],
+					search: qs.stringify(_.mergeWith({ page: page + 1 }))
+				});
+
+				setIsFetchingPage.on();
+
+				setTimeout(() => trendingTVQuery.fetchNextPage(), 250);
+
+				break;
+			}
+			case 2: {
+				const page = people?.page || 1;
+
+				navigate({
+					pathname: '.',
+					hash: allMediaTypes[2],
+					search: qs.stringify(_.mergeWith({ page: page + 1 }))
+				});
+
+				setIsFetchingPage.on();
+
+				setTimeout(() => trendingPeopleQuery.fetchNextPage(), 250);
+
+				break;
+			}
+			default:
+				break;
+		}
+	};
+
 	const handleCheckLocation = (): void => {
 		const hash = location.hash.replace('#', '');
+
+		setIsFetchingPage.off();
 
 		switch (hash) {
 			case 'movie':
@@ -158,6 +215,57 @@ const Trending = (): ReactElement => {
 				return;
 		}
 	};
+
+	useUpdateEffect(() => {
+		if (activeTab === 0) {
+			const currentSearch = qs.parse(location.search);
+			const totalPages =
+				currentSearch && currentSearch.page && typeof currentSearch.page === 'string'
+					? Number(currentSearch.page)
+					: 1;
+			const page = movies?.page || 1;
+
+			if (page < totalPages && trendingMoviesQuery.hasNextPage) {
+				setIsFetchingPage.on();
+
+				trendingMoviesQuery.fetchNextPage();
+			}
+		}
+	}, [movies?.page]);
+
+	useUpdateEffect(() => {
+		if (activeTab === 1) {
+			const currentSearch = qs.parse(location.search);
+			const totalPages =
+				currentSearch && currentSearch.page && typeof currentSearch.page === 'string'
+					? Number(currentSearch.page)
+					: 1;
+			const page = shows?.page || 1;
+
+			if (page < totalPages && trendingTVQuery.hasNextPage) {
+				setIsFetchingPage.on();
+
+				trendingTVQuery.fetchNextPage();
+			}
+		}
+	}, [shows?.page]);
+
+	useUpdateEffect(() => {
+		if (activeTab === 2) {
+			const currentSearch = qs.parse(location.search);
+			const totalPages =
+				currentSearch && currentSearch.page && typeof currentSearch.page === 'string'
+					? Number(currentSearch.page)
+					: 1;
+			const page = people?.page || 1;
+
+			if (page < totalPages && trendingPeopleQuery.hasNextPage) {
+				setIsFetchingPage.on();
+
+				trendingPeopleQuery.fetchNextPage();
+			}
+		}
+	}, [people?.page]);
 
 	useEffect(() => {
 		if (location.pathname === '/trending') {
@@ -192,9 +300,17 @@ const Trending = (): ReactElement => {
 								) : (
 									<Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
 										<TabPanels>
-											<Movies movies={movies} query={trendingMoviesQuery} />
-											<TV shows={shows} query={trendingTVQuery} />
-											<People people={people} query={trendingPeopleQuery} />
+											<Movies
+												movies={movies}
+												query={trendingMoviesQuery}
+												onLoadMore={handleLoadMore}
+											/>
+											<TV shows={shows} query={trendingTVQuery} onLoadMore={handleLoadMore} />
+											<People
+												people={people}
+												query={trendingPeopleQuery}
+												onLoadMore={handleLoadMore}
+											/>
 										</TabPanels>
 									</Center>
 								)}
