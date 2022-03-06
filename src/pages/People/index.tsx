@@ -1,10 +1,13 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, VStack, ScaleFade } from '@chakra-ui/react';
 
 import axios from 'axios';
 import _ from 'lodash';
+import qs from 'query-string';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import VerticalPeople from './components/Orientation/Vertical';
 
@@ -20,7 +23,11 @@ const People = (): ReactElement => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
+	const location = useLocation();
+	const [searchParams, setSearchParams] = useSearchParams();
+
 	const [people, setPeople] = useState<Response<PartialPerson[]>>();
+	const [isFetchingPage, setIsFetchingPage] = useBoolean();
 
 	// Fetching People
 	const peopleQuery = useInfiniteQuery(
@@ -28,10 +35,14 @@ const People = (): ReactElement => {
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance
 				.get<Response<PartialPerson[]>>('/person/popular', {
-					params: { page: pageParam, append_to_response: 'known_for_department' },
+					params: {
+						...(qs.parse(searchParams.toString() || '') || {}),
+						page: pageParam || 1,
+						append_to_response: 'known_for_department'
+					},
 					cancelToken: source.token
 				})
-				.then((response) => handleDelay(2500, response));
+				.then((response) => handleDelay(isFetchingPage ? 0 : 2500, response));
 			return data;
 		},
 		{
@@ -54,6 +65,31 @@ const People = (): ReactElement => {
 			}
 		}
 	);
+
+	const handleLoadMore = (): void => {
+		const page = people?.page || 1;
+
+		setSearchParams(_.mergeWith({ page: page + 1 }));
+
+		setIsFetchingPage.on();
+
+		setTimeout(() => peopleQuery.fetchNextPage(), 250);
+	};
+
+	useUpdateEffect(() => {
+		const currentSearch = qs.parse(location.search);
+		const totalPages =
+			currentSearch && currentSearch.page && typeof currentSearch.page === 'string'
+				? Number(currentSearch.page)
+				: 1;
+		const page = people?.page || 1;
+
+		if (page < totalPages && peopleQuery.hasNextPage) {
+			setIsFetchingPage.on();
+
+			peopleQuery.fetchNextPage();
+		}
+	}, [people?.page]);
 
 	useEffect(() => {
 		return () => source.cancel();
@@ -79,7 +115,7 @@ const People = (): ReactElement => {
 								label='People'
 								isLoading={peopleQuery.isFetching || peopleQuery.isLoading}
 								isButtonVisible={(peopleQuery.hasNextPage || true) && !peopleQuery.isError}
-								onClick={peopleQuery.fetchNextPage}
+								onClick={handleLoadMore}
 							/>
 						</ScaleFade>
 					</VStack>
