@@ -87,12 +87,8 @@ const ListsModal = (): ReactElement => {
 		dispatch(toggleList({ ...defaultListsModal }));
 	};
 
-	const handleCloseCreateList = (id?: string): void => {
+	const handleCloseCreateList = (): void => {
 		onCreateListClose();
-
-		if (id) {
-			handleIsSelected(id, false);
-		}
 	};
 
 	useEffect(() => {
@@ -129,7 +125,11 @@ const ListsModal = (): ReactElement => {
 				</VStack>
 			</Modal>
 
-			<CreateList isOpen={isCreateListOpen} onClose={handleCloseCreateList} />
+			<CreateList
+				isOpen={isCreateListOpen}
+				onClose={handleCloseCreateList}
+				onSubmit={(id) => handleIsSelected(id, false)}
+			/>
 		</>
 	);
 };

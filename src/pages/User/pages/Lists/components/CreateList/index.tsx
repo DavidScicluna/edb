@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import _ from 'lodash';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
@@ -18,6 +19,7 @@ import Input from '../../../../../../components/Forms/Input';
 import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
 import { setLists } from '../../../../../../store/slices/User';
+import { List } from '../../../../../../store/slices/User/types';
 import { Theme } from '../../../../../../theme/types';
 
 const placeholders = [
@@ -70,14 +72,16 @@ const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElemen
 			])
 		);
 
-		handleClose();
 		if (onSubmit) {
-			onSubmit();
+			onSubmit(id);
 		}
+
+		handleClose();
 	};
 
 	const handleCloseConfirm = (): void => {
 		onCloseConfirm();
+
 		handleClose();
 	};
 
