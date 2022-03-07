@@ -12,20 +12,31 @@ const Icon = forwardRef<IconRef, IconProps>(function Icon(props, ref): ReactElem
 
 	const hasLoaded = useSelector((state) => state.app.data.hasLoadedIcons);
 
-	const { icon, type, color, background, borderRadius, ...rest } = props;
+	const { w, width, h, height, icon, type, color, background, borderRadius, ...rest } = props;
 
 	return (
 		<Center
 			{...rest}
+			as='span'
 			ref={ref}
-			alt={`${icon} icon`}
+			w={w}
+			width={width}
+			h={h}
+			height={height}
 			className={`material-icons${type === 'outlined' ? '-outlined' : ''} edb-icon`}
 			sx={{
+				maxWidth: w || width || '24px',
+				maxHeight: h || height || '24px',
+
 				color: !hasLoaded ? `gray.${colorMode === 'light' ? 200 : 700}` : color,
 				background: !hasLoaded
 					? `url(${colorMode === 'light' ? fallback.default.light : fallback.default.dark})`
 					: background,
-				borderRadius: !hasLoaded ? 'base' : borderRadius
+				borderRadius: !hasLoaded ? 'base' : borderRadius,
+
+				overflow: 'hidden',
+				textTransform: 'ellipsis',
+				whiteSpace: 'nowrap'
 			}}
 		>
 			{hasLoaded ? icon : ''}
