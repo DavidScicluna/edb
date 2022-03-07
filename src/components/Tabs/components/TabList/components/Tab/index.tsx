@@ -68,7 +68,7 @@ const Tab = (props: TabsProps): ReactElement => {
 			height: `${handleReturnIconSize(size, theme)}px`,
 			color,
 			isSelected,
-			fontSize: theme.fontSizes[size],
+			fontSize: `${handleReturnIconSize(size, theme)}px`,
 			size: size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'md'
 		};
 	};

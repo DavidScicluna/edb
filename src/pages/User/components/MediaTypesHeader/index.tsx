@@ -47,12 +47,11 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'Movies',
 									isDisabled: total.movie === 0,
-									renderLeft: ({ isSelected, width, height }) => (
+									renderLeft: ({ isSelected, fontSize }) => (
 										<Icon
 											icon='theaters'
 											type={isSelected ? 'filled' : 'outlined'}
-											width={width}
-											height={height}
+											fontSize={fontSize}
 										/>
 									),
 									renderRight:
@@ -75,13 +74,8 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'TV Shows',
 									isDisabled: total.tv === 0,
-									renderLeft: ({ isSelected, width, height }) => (
-										<Icon
-											icon='tv'
-											type={isSelected ? 'filled' : 'outlined'}
-											width={width}
-											height={height}
-										/>
+									renderLeft: ({ isSelected, fontSize }) => (
+										<Icon icon='tv' type={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
 									),
 									renderRight:
 										(total.tv || 0) > 0
@@ -103,12 +97,11 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'People',
 									isDisabled: total.person === 0,
-									renderLeft: ({ isSelected, width, height }) => (
+									renderLeft: ({ isSelected, fontSize }) => (
 										<Icon
 											icon='people_alt'
 											type={isSelected ? 'filled' : 'outlined'}
-											width={width}
-											height={height}
+											fontSize={fontSize}
 										/>
 									),
 									renderRight:
@@ -131,12 +124,11 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'Companies',
 									isDisabled: total.company === 0,
-									renderLeft: ({ isSelected, width, height }) => (
+									renderLeft: ({ isSelected, fontSize }) => (
 										<Icon
 											icon='business'
 											type={isSelected ? 'filled' : 'outlined'}
-											width={width}
-											height={height}
+											fontSize={fontSize}
 										/>
 									),
 									renderRight:
@@ -159,12 +151,11 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 							? {
 									label: 'Collections',
 									isDisabled: total.collection === 0,
-									renderLeft: ({ isSelected, width, height }) => (
+									renderLeft: ({ isSelected, fontSize }) => (
 										<Icon
 											icon='library_books'
 											type={isSelected ? 'filled' : 'outlined'}
-											width={width}
-											height={height}
+											fontSize={fontSize}
 										/>
 									),
 									renderRight:

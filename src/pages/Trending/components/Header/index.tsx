@@ -31,35 +31,20 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 					{[
 						{
 							label: 'Movies',
-							renderLeft: ({ isSelected, width, height }) => (
-								<Icon
-									icon='theaters'
-									type={isSelected ? 'filled' : 'outlined'}
-									width={width}
-									height={height}
-								/>
+							renderLeft: ({ isSelected, fontSize }) => (
+								<Icon icon='theaters' type={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
 							)
 						},
 						{
 							label: 'TV Shows',
-							renderLeft: ({ isSelected, width, height }) => (
-								<Icon
-									icon='tv'
-									type={isSelected ? 'filled' : 'outlined'}
-									width={width}
-									height={height}
-								/>
+							renderLeft: ({ isSelected, fontSize }) => (
+								<Icon icon='tv' type={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
 							)
 						},
 						{
 							label: 'People',
-							renderLeft: ({ isSelected, width, height }) => (
-								<Icon
-									icon='people_alt'
-									type={isSelected ? 'filled' : 'outlined'}
-									width={width}
-									height={height}
-								/>
+							renderLeft: ({ isSelected, fontSize }) => (
+								<Icon icon='people_alt' type={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
 							)
 						}
 					]}

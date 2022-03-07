@@ -12,21 +12,18 @@ const Icon = forwardRef<IconRef, IconProps>(function Icon(props, ref): ReactElem
 
 	const hasLoaded = useSelector((state) => state.app.data.hasLoadedIcons);
 
-	const { w, width, h, height, icon, type, color, background, borderRadius, ...rest } = props;
+	const { fontSize, icon, type, color, background, borderRadius, ...rest } = props;
 
 	return (
 		<Center
 			{...rest}
 			as='span'
 			ref={ref}
-			w={w}
-			width={width}
-			h={h}
-			height={height}
+			fontSize={fontSize}
 			className={`material-icons${type === 'outlined' ? '-outlined' : ''} edb-icon`}
 			sx={{
-				maxWidth: w || width || '24px',
-				maxHeight: h || height || '24px',
+				maxWidth: fontSize || '24px',
+				maxHeight: fontSize || '24px',
 
 				color: !hasLoaded ? `gray.${colorMode === 'light' ? 200 : 700}` : color,
 				background: !hasLoaded

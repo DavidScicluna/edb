@@ -73,7 +73,7 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 					</Badge>
 				</Fade>
 
-				<Icon icon='chevron_right' type='outlined' width={theme.fontSizes.xl} height={theme.fontSizes.xl} />
+				<Icon icon='chevron_right' type='outlined' fontSize={theme.fontSizes.xl} />
 			</HStack>
 		</HStack>
 	);
