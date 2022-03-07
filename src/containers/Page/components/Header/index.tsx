@@ -17,6 +17,7 @@ const Header = ({ title, actions, direction }: HeaderProps): ReactElement => {
 		<Stack
 			width='100%'
 			direction={direction ? direction : isSm ? 'column' : 'row'}
+			alignItems='center'
 			justifyContent='space-between'
 			p={2}
 			spacing={isSm ? 2 : 4}
@@ -31,7 +32,7 @@ const Header = ({ title, actions, direction }: HeaderProps): ReactElement => {
 			</VStack>
 
 			{actions ? (
-				<Center ref={ref} width={direction ? 'auto' : isSm ? '100%' : 'auto'}>
+				<Center ref={ref} width={direction ? 'auto' : isSm ? '100%' : 'auto'} height='100%'>
 					{actions}
 				</Center>
 			) : null}
