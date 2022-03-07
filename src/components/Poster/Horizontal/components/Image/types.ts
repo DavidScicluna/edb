@@ -2,8 +2,5 @@ import { MediaType } from '../../../../../common/types';
 import { HorizontalPosterProps } from '../../types';
 
 export type PosterImageProps<MT extends MediaType> = {
-	isFocused: boolean;
-	isHovering: boolean;
 	inView: boolean;
-	onMouseChange: (bool: boolean) => void;
-} & Omit<HorizontalPosterProps<MT>, 'rating' | 'subtitle' | 'description'>;
+} & Omit<HorizontalPosterProps<MT>, 'mediaItem' | 'rating' | 'title' | 'subtitle' | 'description'>;

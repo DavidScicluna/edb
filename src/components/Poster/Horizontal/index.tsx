@@ -39,18 +39,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 
 	const { mediaItem, mediaType, image, rating, title, subtitle, description, isLoading = true } = props;
 
-	const [isFocused, setIsFocused] = useBoolean();
-	const [isHovering, setIsHovering] = useBoolean();
-
 	const [isDisabled, setIsDisabled] = useBoolean();
-
-	const handleOnImageChange = (bool: boolean): void => {
-		if (bool) {
-			setIsDisabled.on();
-		} else {
-			setIsDisabled.off();
-		}
-	};
 
 	return (
 		<Link
@@ -61,25 +50,11 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 					? { pathname: `/${handleReturnMediaTypeLabel(mediaType)}/${mediaItem?.id || ''}` }
 					: {}
 			}
-			onFocus={() => setIsFocused.on()}
-			onBlur={() => setIsFocused.off()}
-			onMouseEnter={() => setIsHovering.on()}
-			onMouseLeave={() => setIsHovering.off()}
 		>
 			<Card isFullWidth isDisabled={isLoading} isClickable={mediaType !== 'company'} isFixed={isDisabled} isLight>
 				<HStack ref={ref} width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
 					{/* Image */}
-					<Image
-						mediaItem={mediaItem}
-						mediaType={mediaType}
-						image={image}
-						title={title}
-						isFocused={isFocused}
-						isHovering={isHovering}
-						isLoading={isLoading}
-						inView={inView}
-						onMouseChange={handleOnImageChange}
-					/>
+					<Image mediaType={mediaType} image={image} isLoading={isLoading} inView={inView} />
 
 					<VStack
 						width={[
