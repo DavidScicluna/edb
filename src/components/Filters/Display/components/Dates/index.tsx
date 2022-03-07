@@ -18,7 +18,7 @@ const Dates = ({ dates, mediaType, onClick, onDelete }: DatesProps): ReactElemen
 	return (
 		<Tag
 			color={color}
-			isClickable={!_.isNil(onClick) && !_.isEmpty(onClick)}
+			isClickable={!(_.isNil(onClick) || _.isEmpty(onClick))}
 			onClick={onClick ? () => onClick() : undefined}
 			onDelete={onDelete ? () => onDelete() : undefined}
 			variant='outlined'

@@ -39,8 +39,10 @@ const Season = (props: SeasonProps): ReactElement => {
 		<VStack width='100%' spacing={2}>
 			<Collapse
 				in={
-					(!_.isNil(seasonQuery.data?.overview || overview) &&
-						!_.isEmpty(seasonQuery.data?.overview || overview)) ||
+					!(
+						_.isNil(seasonQuery.data?.overview || overview) ||
+						_.isEmpty(seasonQuery.data?.overview || overview)
+					) ||
 					seasonQuery.isFetching ||
 					seasonQuery.isLoading
 				}

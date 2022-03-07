@@ -93,11 +93,11 @@ const TV = (): ReactElement => {
 			for (key in filters) {
 				if (
 					key === 'dates' &&
-					((!_.isNil(filters.dates.gte) && !_.isEmpty(filters.dates.gte)) ||
-						(!_.isNil(filters.dates.lte) && !_.isEmpty(filters.dates.lte)))
+					(!(_.isNil(filters.dates.gte) || _.isEmpty(filters.dates.gte)) ||
+						!(_.isNil(filters.dates.lte) || _.isEmpty(filters.dates.lte)))
 				) {
 					total = total + 1;
-				} else if (key !== 'dates' && !_.isNil(filters[key]) && !_.isEmpty(filters[key])) {
+				} else if (key !== 'dates' && !(_.isNil(filters[key]) || _.isEmpty(filters[key]))) {
 					total = total + 1;
 				}
 			}

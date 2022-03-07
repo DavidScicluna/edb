@@ -39,8 +39,8 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 								renderMessage={({ color, fontSize, fontWeight }) => (
 									<ScaleFade
 										in={
-											(!_.isNil(value.gte) && !_.isEmpty(value.gte)) ||
-											(!_.isNil(value.lte) && !_.isEmpty(value.lte))
+											!(_.isNil(value.gte) || _.isEmpty(value.gte)) ||
+											!(_.isNil(value.lte) || _.isEmpty(value.lte))
 										}
 										unmountOnExit
 									>
@@ -62,8 +62,8 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 									<Button
 										color={color}
 										isDisabled={
-											(!_.isNil(value.gte) && !_.isEmpty(value.gte)) ||
-											(!_.isNil(value.lte) && !_.isEmpty(value.lte))
+											!(_.isNil(value.gte) || _.isEmpty(value.gte)) ||
+											!(_.isNil(value.lte) || _.isEmpty(value.lte))
 										}
 										onClick={() =>
 											form.setValue('dates', defaultValues.dates, { shouldDirty: true })

@@ -26,11 +26,11 @@ const Hero = (props: HeroProps): ReactElement => {
 							}}
 						</Cover>
 
-						{(!_.isNil(tagline) && !_.isEmpty(tagline)) || isLoading ? (
+						{!(_.isNil(tagline) || _.isEmpty(tagline)) || isLoading ? (
 							<Tagline tagline={tagline} isLoading={isLoading} />
 						) : null}
 
-						{(!_.isNil(overview) && !_.isEmpty(overview)) || isLoading ? (
+						{!(_.isNil(overview) || _.isEmpty(overview)) || isLoading ? (
 							<Overview overview={overview} isLoading={isLoading} />
 						) : null}
 

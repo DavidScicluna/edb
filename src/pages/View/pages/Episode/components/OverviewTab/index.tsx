@@ -19,7 +19,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 		<VStack width='100%' spacing={4}>
 			<Collapse
 				in={
-					(!_.isNil(episodeQuery.data?.overview) && !_.isEmpty(episodeQuery.data?.overview)) ||
+					!(_.isNil(episodeQuery.data?.overview) || _.isEmpty(episodeQuery.data?.overview)) ||
 					episodeQuery.isFetching ||
 					episodeQuery.isLoading
 				}

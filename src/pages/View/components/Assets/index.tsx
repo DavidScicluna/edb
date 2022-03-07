@@ -22,7 +22,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 
 	const assets = useConst<Accordion<(Image | Video)[]>[]>(
 		_.compact([
-			(!_.isNil(assetsProp?.profiles) && !_.isEmpty(assetsProp?.profiles)) || isLoading
+			!(_.isNil(assetsProp?.profiles) || _.isEmpty(assetsProp?.profiles)) || isLoading
 				? {
 						id: 'profiles',
 						title: 'Photos',
@@ -32,7 +32,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 						isDisabled: (assetsProp?.profiles?.length || 0) === 0
 				  }
 				: undefined,
-			(!_.isNil(assetsProp?.posters) && !_.isEmpty(assetsProp?.posters)) || isLoading
+			!(_.isNil(assetsProp?.posters) || _.isEmpty(assetsProp?.posters)) || isLoading
 				? {
 						id: 'posters',
 						title: 'Posters',
@@ -42,7 +42,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 						isDisabled: (assetsProp?.posters?.length || 0) === 0
 				  }
 				: undefined,
-			(!_.isNil(assetsProp?.backdrops) && !_.isEmpty(assetsProp?.backdrops)) || isLoading
+			!(_.isNil(assetsProp?.backdrops) || _.isEmpty(assetsProp?.backdrops)) || isLoading
 				? {
 						id: 'backdrops',
 						title: 'Backdrops',
@@ -52,7 +52,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 						isDisabled: (assetsProp?.backdrops?.length || 0) === 0
 				  }
 				: undefined,
-			(!_.isNil(assetsProp?.videos) && !_.isEmpty(assetsProp?.videos)) || isLoading
+			!(_.isNil(assetsProp?.videos) || _.isEmpty(assetsProp?.videos)) || isLoading
 				? {
 						id: 'videos',
 						title: 'Videos',

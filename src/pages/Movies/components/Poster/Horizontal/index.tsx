@@ -29,10 +29,10 @@ const HorizontalMoviePoster = (props: HorizontalMoviePosterProps): ReactElement 
 			}}
 			title={title || ''}
 			subtitle={`${_.compact([
-				!_.isNil(release_date) && !_.isEmpty(release_date)
+				!(_.isNil(release_date) || _.isEmpty(release_date))
 					? `${handleReturnDate(release_date || '', 'full')}`
 					: undefined,
-				!_.isNil(genre_ids) && !_.isEmpty(genre_ids)
+				!(_.isNil(genre_ids) || _.isEmpty(genre_ids))
 					? `${handleReturnGenresByID(genre_ids || [], 'movie')}`
 					: undefined
 			]).join(' • ')}`}

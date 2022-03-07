@@ -84,7 +84,8 @@ const Lists = (): ReactElement => {
 	useEffect(() => {
 		toast.closeAll();
 
-		if (_.isNil(activeTab) && selectedListID) {
+		// TODO: Check if is working!
+		if (_.isNil(activeTab) && !(_.isNil(selectedListID) || _.isEmpty(selectedListID))) {
 			toast({
 				duration: null,
 				isClosable: true,

@@ -73,7 +73,7 @@ const Breadcrumbs = (): ReactElement => {
 				>
 					<SkeletonText
 						fontSize={breadcrumbFontSize}
-						isLoaded={!_.isNil(breadcrumb) && !_.isEmpty(breadcrumb)}
+						isLoaded={!(_.isNil(breadcrumb) || _.isEmpty(breadcrumb))}
 					>
 						{index === breadcrumbs.length - 1 ? (
 							<Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>

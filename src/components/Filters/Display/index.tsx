@@ -51,8 +51,8 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 			<Center width={`calc(100% - ${!isSm ? width + 34 : 0}px)`}>
 				<HorizontalScroll renderDivider={() => <Center mr={2} />}>
 					{_.compact([
-						(!_.isNil(filters.dates.gte) && !_.isEmpty(filters.dates.gte)) ||
-						(!_.isNil(filters.dates.lte) && !_.isEmpty(filters.dates.lte)) ? (
+						!(_.isNil(filters.dates.gte) || _.isEmpty(filters.dates.gte)) ||
+						!(_.isNil(filters.dates.lte) || _.isEmpty(filters.dates.lte)) ? (
 							<Dates
 								key='display_filters_dates'
 								dates={filters.dates}
@@ -62,7 +62,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!_.isNil(filters.genres) && !_.isEmpty(filters.genres) ? (
+						!(_.isNil(filters.genres) || _.isEmpty(filters.genres)) ? (
 							<Genres
 								key='display_filters_genres'
 								genres={filters.genres}
@@ -72,7 +72,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!_.isNil(filters.certifications) && !_.isEmpty(filters.certifications) ? (
+						!(_.isNil(filters.certifications) || _.isEmpty(filters.certifications)) ? (
 							<Certifications
 								key='display_filters_certifications'
 								certifications={filters.certifications}
@@ -81,7 +81,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!_.isNil(filters.rating) && !_.isEmpty(filters.rating) ? (
+						!(_.isNil(filters.rating) || _.isEmpty(filters.rating)) ? (
 							<Rating
 								key='display_filters_rating'
 								ratings={filters.rating}
@@ -90,7 +90,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!_.isNil(filters.count) && !_.isEmpty(filters.count) ? (
+						!(_.isNil(filters.count) || _.isEmpty(filters.count)) ? (
 							<Count
 								key='display_filters_count'
 								counts={filters.count}
@@ -99,7 +99,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!_.isNil(filters.runtime) && !_.isEmpty(filters.runtime) ? (
+						!(_.isNil(filters.runtime) || _.isEmpty(filters.runtime)) ? (
 							<Runtime
 								key='display_filters_runtime'
 								runtimes={filters.runtime}

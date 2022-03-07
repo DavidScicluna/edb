@@ -16,7 +16,7 @@ const Genres = ({ genres, mediaType, onClick, onDelete }: GenresProps): ReactEle
 	return (
 		<Tag
 			color={color}
-			isClickable={!_.isNil(onClick) && !_.isEmpty(onClick)}
+			isClickable={!(_.isNil(onClick) || _.isEmpty(onClick))}
 			onClick={onClick ? () => onClick() : undefined}
 			onDelete={onDelete ? () => onDelete() : undefined}
 			variant='outlined'

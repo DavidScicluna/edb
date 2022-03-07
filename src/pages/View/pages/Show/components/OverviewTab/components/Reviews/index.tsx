@@ -64,7 +64,7 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 						) : undefined
 				},
 				body:
-					!isLoading && !_.isNil(otherReviews[0]) && !_.isEmpty(otherReviews[0]) ? (
+					!isLoading && !(_.isNil(otherReviews[0]) || _.isEmpty(otherReviews[0])) ? (
 						<Review
 							renderFooterActions={
 								<HStack spacing={0}>
@@ -85,7 +85,7 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 							review={otherReviews[0]}
 							isLoading={false}
 						/>
-					) : !isLoading && !_.isNil(userReviews[0]) && !_.isEmpty(userReviews[0]) ? (
+					) : !isLoading && !(_.isNil(userReviews[0]) || _.isEmpty(userReviews[0])) ? (
 						<Review
 							renderFooterActions={
 								<HStack>
@@ -130,8 +130,8 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 						/>
 					),
 				footer:
-					(!_.isNil(otherReviews[0]) && !_.isEmpty(otherReviews[0])) ||
-					(!_.isNil(userReviews[0]) && !_.isEmpty(userReviews[0])) ? (
+					!(_.isNil(otherReviews[0]) || _.isEmpty(otherReviews[0])) ||
+					!(_.isNil(userReviews[0]) || _.isEmpty(userReviews[0])) ? (
 						<Button
 							color={color}
 							isFullWidth

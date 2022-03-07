@@ -40,7 +40,7 @@ const MediaVideo = (props: MediaVideoProps): ReactElement => {
 				width='100%'
 				ratio={handleReturnRatio('square')}
 				borderRadius='lg'
-				isDisabled={isLoading || _.isNil(videoId) || _.isEmpty(videoId)}
+				isDisabled={isLoading || _.isNil(videoId) || _.isEmpty(videoId)} // TODO: Check if is working!
 				renderIcon={({ color, fontSize }) => (
 					<Icon icon='play_arrow' type='outlined' color={color} fontSize={fontSize} />
 				)}

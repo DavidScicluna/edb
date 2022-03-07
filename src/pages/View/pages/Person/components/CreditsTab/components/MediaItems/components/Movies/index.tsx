@@ -43,12 +43,12 @@ const Movies = ({ movies, job, label }: MoviesProps): ReactElement => {
 									rating={movie?.vote_average || null}
 									title={movie?.title || ''}
 									subtitle={`${_.compact([
-										!_.isNil(movie?.release_date) && !_.isEmpty(movie?.release_date)
+										!(_.isNil(movie?.release_date) || _.isEmpty(movie?.release_date))
 											? `${handleReturnDate(movie.release_date || '', 'year')}`
 											: undefined,
-										!_.isNil(movie?.character) && !_.isEmpty(movie?.character)
+										!(_.isNil(movie?.character) || _.isEmpty(movie?.character))
 											? `As ${movie.character}`
-											: !_.isNil(movie?.job) && !_.isEmpty(movie?.job)
+											: !(_.isNil(movie?.job) || _.isEmpty(movie?.job))
 											? movie?.job
 											: undefined
 									]).join(' • ')}`}
@@ -73,12 +73,12 @@ const Movies = ({ movies, job, label }: MoviesProps): ReactElement => {
 									}}
 									title={movie?.title || ''}
 									subtitle={`${_.compact([
-										!_.isNil(movie?.release_date) && !_.isEmpty(movie?.release_date)
+										!(_.isNil(movie?.release_date) || _.isEmpty(movie?.release_date))
 											? `${handleReturnDate(movie.release_date || '', 'full')}`
 											: undefined,
-										!_.isNil(movie?.character) && !_.isEmpty(movie?.character)
+										!(_.isNil(movie?.character) || _.isEmpty(movie?.character))
 											? `As ${movie.character}`
-											: !_.isNil(movie?.job) && !_.isEmpty(movie?.job)
+											: !(_.isNil(movie?.job) || _.isEmpty(movie?.job))
 											? movie?.job
 											: undefined
 									]).join(' • ')}`}

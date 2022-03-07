@@ -21,13 +21,13 @@ const Credits = (props: CreditsProps): ReactElement => {
 	const [writers, setWriters] = useState<Crew[]>([]);
 
 	const renderCredits: ListItem[] = _.compact([
-		(!_.isNil(directors) && !_.isEmpty(directors)) || isLoading
+		!(_.isNil(directors) || _.isEmpty(directors)) || isLoading
 			? {
 					label: `Director${(directors || []).length > 1 ? 's' : ''}`,
 					children: <Credit key='movie-directors' people={directors} isLoading={isLoading} />
 			  }
 			: undefined,
-		(!_.isNil(executiveProducers) && !_.isEmpty(executiveProducers)) || isLoading
+		!(_.isNil(executiveProducers) || _.isEmpty(executiveProducers)) || isLoading
 			? {
 					label: `Executive Producer${(executiveProducers || []).length > 1 ? 's' : ''}`,
 					children: (
@@ -35,13 +35,13 @@ const Credits = (props: CreditsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		(!_.isNil(producers) && !_.isEmpty(producers)) || isLoading
+		!(_.isNil(producers) || _.isEmpty(producers)) || isLoading
 			? {
 					label: `Producer${(producers || []).length > 1 ? 's' : ''}`,
 					children: <Credit key='movie-producers' people={producers} isLoading={isLoading} />
 			  }
 			: undefined,
-		(!_.isNil(writers) && !_.isEmpty(writers)) || isLoading
+		!(_.isNil(writers) || _.isEmpty(writers)) || isLoading
 			? {
 					label: `Writer${(writers || []).length > 1 ? 's' : ''}`,
 					children: <Credit key='movie-producers' people={writers} isLoading={isLoading} />
@@ -50,7 +50,7 @@ const Credits = (props: CreditsProps): ReactElement => {
 	]);
 
 	useEffect(() => {
-		if (!_.isNil(crew) && !_.isEmpty(crew) && !isLoading) {
+		if (!(_.isNil(crew) || _.isEmpty(crew)) && !isLoading) {
 			crew.filter((person) => {
 				switch (person.job) {
 					case 'Director': {

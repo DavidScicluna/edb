@@ -115,7 +115,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 											variant='transparent'
 										/>
 									</WrapItem>
-								) : !_.isNil(certifications) || !_.isEmpty(certifications) ? (
+								) : !(_.isNil(certifications) || _.isEmpty(certifications)) ? (
 									sort([...(certifications || [])], 'order').map((certification) => (
 										<WrapItem key={certification.certification}>
 											<Certification

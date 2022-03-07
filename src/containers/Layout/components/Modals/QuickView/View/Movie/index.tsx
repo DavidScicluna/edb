@@ -88,10 +88,8 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 
 						<Collapse
 							in={
-								!_.isNil(movieQuery.data?.overview) ||
-								!_.isEmpty(movieQuery.data?.overview) ||
-								!_.isNil(movieQuery.data?.tagline) ||
-								!_.isEmpty(movieQuery.data?.tagline) ||
+								!(_.isNil(movieQuery.data?.overview) || _.isEmpty(movieQuery.data?.overview)) ||
+								!(_.isNil(movieQuery.data?.tagline) || _.isEmpty(movieQuery.data?.tagline)) ||
 								movieQuery.isFetching ||
 								movieQuery.isLoading
 							}
@@ -101,8 +99,7 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 							<VStack width='100%' spacing={2}>
 								<Collapse
 									in={
-										!_.isNil(movieQuery.data?.tagline) ||
-										!_.isEmpty(movieQuery.data?.tagline) ||
+										!(_.isNil(movieQuery.data?.tagline) || _.isEmpty(movieQuery.data?.tagline)) ||
 										movieQuery.isFetching ||
 										movieQuery.isLoading
 									}
@@ -116,8 +113,7 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 								</Collapse>
 								<Collapse
 									in={
-										!_.isNil(movieQuery.data?.overview) ||
-										!_.isEmpty(movieQuery.data?.overview) ||
+										!(_.isNil(movieQuery.data?.overview) || _.isEmpty(movieQuery.data?.overview)) ||
 										movieQuery.isFetching ||
 										movieQuery.isLoading
 									}

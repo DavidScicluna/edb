@@ -49,7 +49,7 @@ const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 						fontSize={fontSize}
 						isLoading={isLoading}
 					/>,
-					(!_.isNil(air_date) && !_.isEmpty(air_date)) || isLoading ? (
+					!(_.isNil(air_date) || _.isEmpty(air_date)) || isLoading ? (
 						<Date
 							key={`tv-show-${show?.id}-season-${season}-episode-${episode_number}-date`}
 							air_date={air_date}
@@ -58,7 +58,7 @@ const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					(!_.isNil(certification) && !_.isEmpty(certification)) || isLoading ? (
+					!(_.isNil(certification) || _.isEmpty(certification)) || isLoading ? (
 						<Certification
 							key={`tv-show-${show?.id}-certification`}
 							certification={certification}

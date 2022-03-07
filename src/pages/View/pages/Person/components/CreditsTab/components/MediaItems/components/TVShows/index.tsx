@@ -43,12 +43,12 @@ const TVShows = ({ shows, label, job }: TVShowsProps): ReactElement => {
 									rating={show?.vote_average || null}
 									title={show?.name || ''}
 									subtitle={`${_.compact([
-										!_.isNil(show?.first_air_date) && !_.isEmpty(show?.first_air_date)
+										!(_.isNil(show?.first_air_date) || _.isEmpty(show?.first_air_date))
 											? `${handleReturnDate(show.first_air_date || '', 'year')}`
 											: undefined,
-										!_.isNil(show?.character) && !_.isEmpty(show?.character)
+										!(_.isNil(show?.character) || _.isEmpty(show?.character))
 											? `As ${show.character}`
-											: !_.isNil(show?.job) && !_.isEmpty(show?.job)
+											: !(_.isNil(show?.job) || _.isEmpty(show?.job))
 											? show?.job
 											: undefined
 									]).join(' • ')}`}
@@ -73,12 +73,12 @@ const TVShows = ({ shows, label, job }: TVShowsProps): ReactElement => {
 									}}
 									title={show?.name || ''}
 									subtitle={`${_.compact([
-										!_.isNil(show?.first_air_date) && !_.isEmpty(show?.first_air_date)
+										!(_.isNil(show?.first_air_date) || _.isEmpty(show?.first_air_date))
 											? `${handleReturnDate(show.first_air_date || '', 'full')}`
 											: undefined,
-										!_.isNil(show?.character) && !_.isEmpty(show?.character)
+										!(_.isNil(show?.character) || _.isEmpty(show?.character))
 											? `As ${show.character}`
-											: !_.isNil(show?.job) && !_.isEmpty(show?.job)
+											: !(_.isNil(show?.job) || _.isEmpty(show?.job))
 											? show?.job
 											: undefined
 									]).join(' • ')}`}

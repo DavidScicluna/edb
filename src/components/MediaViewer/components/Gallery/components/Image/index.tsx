@@ -21,7 +21,7 @@ const GalleryImage = (props: GalleryImageProps): ReactElement => {
 			ratio={ratio}
 			borderRadius='lg'
 			isActive={isActive}
-			isDisabled={isError || _.isNil(path) || _.isEmpty(path)}
+			isDisabled={isError || _.isNil(path) || _.isEmpty(path)} // TODO: Check if is working!
 			renderIcon={({ color, fontSize }) => (
 				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
 			)}

@@ -109,11 +109,11 @@ const Episode = (props: EpisodeProps): ReactElement => {
 							]}
 						>
 							<Name name={name} isLoading={isLoading} inView={inView} />
-							{(!_.isNil(air_date) && !_.isEmpty(air_date)) || isLoading ? (
+							{!(_.isNil(air_date) || _.isEmpty(air_date)) || isLoading ? (
 								<Date date={air_date} isLoading={isLoading} inView={inView} />
 							) : null}
 						</VStack>
-						{(!_.isNil(overview) && !_.isEmpty(overview)) || isLoading ? (
+						{!(_.isNil(overview) || _.isEmpty(overview)) || isLoading ? (
 							<Overview overview={overview} isLoading={isLoading} inView={inView} />
 						) : null}
 					</VStack>

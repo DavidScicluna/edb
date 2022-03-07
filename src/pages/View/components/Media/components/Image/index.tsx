@@ -35,7 +35,7 @@ const MediaImage = (props: MediaImageProps): ReactElement => {
 			width={type === 'poster' ? posterWidth : backdropLogoWidth}
 			ratio={ratio}
 			borderRadius='lg'
-			isDisabled={isLoading || isError || _.isNil(path) || _.isEmpty(path)}
+			isDisabled={isLoading || isError || _.isNil(path) || _.isEmpty(path)} // TODO: Check if is working!
 			renderIcon={({ color, fontSize }) => (
 				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
 			)}

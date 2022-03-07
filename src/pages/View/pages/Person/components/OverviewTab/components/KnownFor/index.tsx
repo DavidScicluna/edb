@@ -92,11 +92,13 @@ const KnownFor = (props: KnownForProps): ReactElement => {
 						rating={mediaItem?.vote_average || null}
 						title={mediaItem?.title || mediaItem?.name || ''}
 						subtitle={_.compact([
-							!_.isNil(mediaItem?.release_date || mediaItem?.first_air_date) &&
-							!_.isEmpty(mediaItem?.release_date || mediaItem?.first_air_date)
+							!(
+								_.isNil(mediaItem?.release_date || mediaItem?.first_air_date) ||
+								_.isEmpty(mediaItem?.release_date || mediaItem?.first_air_date)
+							)
 								? handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')
 								: undefined,
-							!_.isNil(mediaItem?.genre_ids) && !_.isEmpty(mediaItem?.genre_ids)
+							!(_.isNil(mediaItem?.genre_ids) || _.isEmpty(mediaItem?.genre_ids))
 								? `${handleReturnGenresByID(
 										mediaItem?.genre_ids || [],
 										mediaItem?.title ? 'movie' : 'tv'

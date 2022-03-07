@@ -104,7 +104,7 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 											variant='transparent'
 										/>
 									</WrapItem>
-								) : !_.isNil(genres) || !_.isEmpty(genres) ? (
+								) : !(_.isNil(genres) || _.isEmpty(genres)) ? (
 									genres.map((genre) => (
 										<WrapItem key={genre.id}>
 											<Genre

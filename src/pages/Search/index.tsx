@@ -517,7 +517,7 @@ const Search = (): ReactElement => {
 	useEffect(() => {
 		const search = qs.parse(location.search);
 
-		if (!_.isNil(search) && !_.isEmpty(search)) {
+		if (!(_.isNil(search) || _.isEmpty(search))) {
 			if (location.hash && location.hash.length > 0) {
 				setSubmittedSearchTypes([location.hash.replace('#', '')]);
 				setUnSubmittedSearchTypes([location.hash.replace('#', '')]);

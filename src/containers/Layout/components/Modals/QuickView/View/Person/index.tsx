@@ -104,9 +104,8 @@ const Person = ({ id }: PersonProps): ReactElement => {
 
 							<Collapse
 								in={
-									(!_.isNil(personQuery.data?.biography) &&
-										!_.isEmpty(personQuery.data?.biography)) ||
-									(!_.isNil(personQuery.data?.birthday) && !_.isEmpty(personQuery.data?.birthday)) ||
+									!(_.isNil(personQuery.data?.biography) || _.isEmpty(personQuery.data?.biography)) ||
+									!(_.isNil(personQuery.data?.birthday) || _.isEmpty(personQuery.data?.birthday)) ||
 									personQuery.isFetching ||
 									personQuery.isLoading
 								}

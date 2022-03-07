@@ -143,8 +143,10 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 
 							<Collapse
 								in={
-									(!_.isNil(collectionQuery.data?.overview) &&
-										!_.isEmpty(collectionQuery.data?.overview)) ||
+									!(
+										_.isNil(collectionQuery.data?.overview) ||
+										_.isEmpty(collectionQuery.data?.overview)
+									) ||
 									collectionQuery.isFetching ||
 									collectionQuery.isLoading
 								}

@@ -14,7 +14,7 @@ const OverviewTab = ({ collectionQuery, imagesQuery, onClickImage, onChangeTab }
 		<VStack width='100%' spacing={4}>
 			<Collapse
 				in={
-					(!_.isNil(collectionQuery.data?.overview) && !_.isEmpty(collectionQuery.data?.overview)) ||
+					!(_.isNil(collectionQuery.data?.overview) || _.isEmpty(collectionQuery.data?.overview)) ||
 					collectionQuery.isFetching ||
 					collectionQuery.isLoading
 				}

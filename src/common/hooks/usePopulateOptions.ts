@@ -127,7 +127,7 @@ const usePopulateOptions = (): void => {
 		{
 			retry: true,
 			onSuccess: (certifications) => {
-				if (!_.isNil(certifications) && !_.isEmpty(certifications)) {
+				if (!(_.isNil(certifications) || _.isEmpty(certifications))) {
 					dispatch(setMovieCertifications({ ...(certifications || {}) }));
 				}
 			}
@@ -146,7 +146,7 @@ const usePopulateOptions = (): void => {
 		{
 			retry: true,
 			onSuccess: (certifications) => {
-				if (!_.isNil(certifications) && !_.isEmpty(certifications)) {
+				if (!(_.isNil(certifications) || _.isEmpty(certifications))) {
 					dispatch(setTVCertifications({ ...(certifications || {}) }));
 				}
 			}

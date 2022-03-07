@@ -83,10 +83,8 @@ const Show = ({ id }: ShowProps): ReactElement => {
 
 						<Collapse
 							in={
-								!_.isNil(tvShowQuery.data?.overview) ||
-								!_.isEmpty(tvShowQuery.data?.overview) ||
-								!_.isNil(tvShowQuery.data?.tagline) ||
-								!_.isEmpty(tvShowQuery.data?.tagline) ||
+								!(_.isNil(tvShowQuery.data?.overview) || _.isEmpty(tvShowQuery.data?.overview)) ||
+								!(_.isNil(tvShowQuery.data?.tagline) || _.isEmpty(tvShowQuery.data?.tagline)) ||
 								tvShowQuery.isFetching ||
 								tvShowQuery.isLoading
 							}
@@ -96,8 +94,7 @@ const Show = ({ id }: ShowProps): ReactElement => {
 							<VStack width='100%' spacing={2}>
 								<Collapse
 									in={
-										!_.isNil(tvShowQuery.data?.tagline) ||
-										!_.isEmpty(tvShowQuery.data?.tagline) ||
+										!(_.isNil(tvShowQuery.data?.tagline) || _.isEmpty(tvShowQuery.data?.tagline)) ||
 										tvShowQuery.isFetching ||
 										tvShowQuery.isLoading
 									}
@@ -111,8 +108,9 @@ const Show = ({ id }: ShowProps): ReactElement => {
 								</Collapse>
 								<Collapse
 									in={
-										!_.isNil(tvShowQuery.data?.overview) ||
-										!_.isEmpty(tvShowQuery.data?.overview) ||
+										!(
+											_.isNil(tvShowQuery.data?.overview) || _.isEmpty(tvShowQuery.data?.overview)
+										) ||
 										tvShowQuery.isFetching ||
 										tvShowQuery.isLoading
 									}

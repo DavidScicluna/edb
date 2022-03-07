@@ -41,10 +41,9 @@ const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
 							return {
 								id: `${season.id || index}`,
 								title: season.name || `Season ${season.season_number}`,
-								subtitle:
-									!_.isNil(season.air_date) && !_.isEmpty(season.air_date)
-										? handleReturnDate(season.air_date, 'full')
-										: undefined,
+								subtitle: !(_.isNil(season.air_date) || _.isEmpty(season.air_date))
+									? handleReturnDate(season.air_date, 'full')
+									: undefined,
 								total: {
 									number: season.episode_count || undefined,
 									suffix: season.episode_count ? ' episodes' : 'Confirmed'

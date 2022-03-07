@@ -58,7 +58,7 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 			</VStack>
 
 			<HStack ref={ref}>
-				<Fade in={!_.isNil(total) && !_.isEmpty(total) && inView} unmountOnExit>
+				<Fade in={!(_.isNil(total) || _.isEmpty(total)) && inView} unmountOnExit>
 					<Badge color={isOpen ? color : 'gray'} size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>
 						{total?.number ? (
 							<CountUp

@@ -21,13 +21,13 @@ const Details = ({ movie, isLoading = true }: DetailsProps): ReactElement => {
 	);
 
 	const renderDetails: ListItem[] = _.compact([
-		(!_.isNil(movie?.budget) && !_.isEmpty(String(movie?.budget))) || isLoading
+		!(_.isNil(movie?.budget) || _.isEmpty(String(movie?.budget))) || isLoading
 			? {
 					label: 'Budget',
 					children: <Budget key={`movie-${movie?.id}-budget`} budget={movie?.budget} isLoading={isLoading} />
 			  }
 			: undefined,
-		(!_.isNil(movie?.revenue) && !_.isEmpty(String(movie?.revenue))) || isLoading
+		!(_.isNil(movie?.revenue) || _.isEmpty(String(movie?.revenue))) || isLoading
 			? {
 					label: 'Revenue',
 					children: (
@@ -35,13 +35,13 @@ const Details = ({ movie, isLoading = true }: DetailsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		(!_.isNil(movie?.genres) && !_.isEmpty(movie?.genres)) || isLoading
+		!(_.isNil(movie?.genres) || _.isEmpty(movie?.genres)) || isLoading
 			? {
 					label: 'Genres',
 					children: <Genres genres={movie?.genres} isLoading={isLoading} />
 			  }
 			: undefined,
-		(!_.isNil(movie?.original_language) && !_.isEmpty(movie?.original_language)) || isLoading
+		!(_.isNil(movie?.original_language) || _.isEmpty(movie?.original_language)) || isLoading
 			? {
 					label: (movie?.spoken_languages?.length || 0) > 1 ? 'Original Language' : 'Language',
 					children: (
@@ -53,7 +53,7 @@ const Details = ({ movie, isLoading = true }: DetailsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		(!_.isNil(spokenLanguages) && !_.isEmpty(spokenLanguages)) || isLoading
+		!(_.isNil(spokenLanguages) || _.isEmpty(spokenLanguages)) || isLoading
 			? {
 					label: 'Other Languages',
 					children: (

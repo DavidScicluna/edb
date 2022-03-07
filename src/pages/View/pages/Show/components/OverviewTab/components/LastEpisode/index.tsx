@@ -29,9 +29,10 @@ const LastEpisode = ({ show, isLoading = true, onChangeTab }: LastEpisodeProps):
 								title={`Latest ${show?.name ? `"${show.name}"` : 'TV Show'} episode`}
 								isLoading={isLoading}
 							/>
-							{(!_.isNil(show?.last_episode_to_air?.air_date) &&
-								!_.isEmpty(show?.last_episode_to_air?.air_date)) ||
-							isLoading ? (
+							{!(
+								_.isNil(show?.last_episode_to_air?.air_date) ||
+								_.isEmpty(show?.last_episode_to_air?.air_date)
+							) || isLoading ? (
 								<Subtitle
 									subtitle={`Episode Aired on ${handleReturnDate(
 										show?.last_episode_to_air?.air_date || '',

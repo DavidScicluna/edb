@@ -13,7 +13,7 @@ const Certifications = ({ certifications, onClick, onDelete }: CertificationsPro
 	return (
 		<Tag
 			color={color}
-			isClickable={!_.isNil(onClick) && !_.isEmpty(onClick)}
+			isClickable={!(_.isNil(onClick) || _.isEmpty(onClick))}
 			onClick={onClick ? () => onClick() : undefined}
 			onDelete={onDelete ? () => onDelete() : undefined}
 			variant='outlined'

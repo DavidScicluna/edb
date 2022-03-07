@@ -65,8 +65,8 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 					<>
 						<Details show={tvShowQuery.data} isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading} />
 
-						{(!_.isNil(tvShowQuery.data?.created_by) && !_.isEmpty(tvShowQuery.data?.created_by)) ||
-						(!_.isNil(creditsQuery.data?.crew) && !_.isEmpty(creditsQuery.data?.crew)) ||
+						{!(_.isNil(tvShowQuery.data?.created_by) || _.isEmpty(tvShowQuery.data?.created_by)) ||
+						!(_.isNil(creditsQuery.data?.crew) || _.isEmpty(creditsQuery.data?.crew)) ||
 						tvShowQuery.isFetching ||
 						tvShowQuery.isLoading ||
 						creditsQuery.isFetching ||

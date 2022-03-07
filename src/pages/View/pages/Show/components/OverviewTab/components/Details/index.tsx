@@ -19,13 +19,13 @@ const Details = ({ show, isLoading = true }: DetailsProps): ReactElement => {
 	);
 
 	const renderDetails: ListItem[] = _.compact([
-		(!_.isNil(show?.genres) && !_.isEmpty(show?.genres)) || isLoading
+		!(_.isNil(show?.genres) || _.isEmpty(show?.genres)) || isLoading
 			? {
 					label: 'Genres',
 					children: <Genres key={`tv-show-${show?.id}-genres`} genres={show?.genres} isLoading={isLoading} />
 			  }
 			: undefined,
-		(!_.isNil(show?.original_language) && !_.isEmpty(show?.original_language)) || isLoading
+		!(_.isNil(show?.original_language) || _.isEmpty(show?.original_language)) || isLoading
 			? {
 					label: (show?.spoken_languages?.length || 0) > 1 ? 'Original Language' : 'Language',
 					children: (
@@ -37,7 +37,7 @@ const Details = ({ show, isLoading = true }: DetailsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		(!_.isNil(spokenLanguages) && !_.isEmpty(spokenLanguages)) || isLoading
+		!(_.isNil(spokenLanguages) || _.isEmpty(spokenLanguages)) || isLoading
 			? {
 					label: 'Other Languages',
 					children: (

@@ -66,7 +66,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 					<>
 						<Details movie={movieQuery.data} isLoading={movieQuery.isFetching || movieQuery.isLoading} />
 
-						{(!_.isNil(creditsQuery.data?.crew) && !_.isEmpty(creditsQuery.data?.crew)) ||
+						{!(_.isNil(creditsQuery.data?.crew) || _.isEmpty(creditsQuery.data?.crew)) ||
 						creditsQuery.isFetching ||
 						creditsQuery.isLoading ? (
 							<Credits
@@ -91,7 +91,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 			/>
 
 			<Collapse
-				in={collectionQuery.isSuccess && !_.isNil(collectionQuery.data) && !_.isEmpty(collectionQuery.data)}
+				in={collectionQuery.isSuccess && !(_.isNil(collectionQuery.data) || _.isEmpty(collectionQuery.data))}
 				unmountOnExit
 				style={{ width: '100%' }}
 			>

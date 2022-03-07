@@ -80,10 +80,8 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 			renderSubtitles={({ color, fontSize }) =>
 				_.compact([
 					<Status key={`tv-show-${id}-status`} status={status} fontSize={fontSize} isLoading={isLoading} />,
-					(!_.isNil(first_air_date) &&
-						!_.isEmpty(first_air_date) &&
-						!_.isNil(last_air_date) &&
-						!_.isEmpty(last_air_date)) ||
+					(!(_.isNil(first_air_date) || _.isEmpty(first_air_date)) &&
+						!(_.isNil(last_air_date) || _.isEmpty(last_air_date))) ||
 					isLoading ? (
 						<Date
 							key={`tv-show-${id}-date`}
@@ -95,7 +93,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					(!_.isNil(genres) && !_.isEmpty(genres)) || isLoading ? (
+					!(_.isNil(genres) || _.isEmpty(genres)) || isLoading ? (
 						<Genres
 							key={`tv-show-${id}-genres`}
 							genres={genres}
@@ -104,7 +102,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					(!_.isNil(certification) && !_.isEmpty(certification)) || isLoading ? (
+					!(_.isNil(certification) || _.isEmpty(certification)) || isLoading ? (
 						<Certification
 							key={`tv-show-${id}-certification`}
 							certification={certification}
@@ -112,7 +110,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					(!_.isNil(original_language) && !_.isEmpty(original_language)) || isLoading ? (
+					!(_.isNil(original_language) || _.isEmpty(original_language)) || isLoading ? (
 						<Language
 							key={`tv-show-${id}-original_language`}
 							language={original_language}
@@ -121,7 +119,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					(!_.isNil(runtime) && !_.isEmpty(runtime)) || isLoading ? (
+					!(_.isNil(runtime) || _.isEmpty(runtime)) || isLoading ? (
 						<Runtime
 							key={`tv-show-${id}-runtime`}
 							runtime={(runtime || []).reduce((a, b) => a + b, 0) / (runtime?.length || 0)}

@@ -62,7 +62,7 @@ const Header = (props: HeaderProps): ReactElement => {
 		return avatar_path || '';
 	};
 
-	const hasRating = !_.isNil(rating) || !_.isEmpty(rating) || isLoading;
+	const hasRating = !(_.isNil(rating) || _.isEmpty(rating)) || isLoading;
 
 	return (
 		<HStack

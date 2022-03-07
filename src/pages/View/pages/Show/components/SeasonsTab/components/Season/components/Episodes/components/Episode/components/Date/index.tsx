@@ -45,7 +45,7 @@ const Date = (props: DateProps): ReactElement => {
 						overflow='hidden'
 						whiteSpace='nowrap'
 					>
-						{!_.isNil(date) && !_.isEmpty(date) ? handleReturnDate(date || '', 'full') : 'Episode Date'}
+						{!(_.isNil(date) || _.isEmpty(date)) ? handleReturnDate(date || '', 'full') : 'Episode Date'}
 					</Text>
 				</SkeletonText>
 			) : null}
