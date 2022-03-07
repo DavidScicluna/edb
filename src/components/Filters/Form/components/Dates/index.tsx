@@ -61,10 +61,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 								renderButton={({ color, size, variant }) => (
 									<Button
 										color={color}
-										isDisabled={
-											!(_.isNil(value.gte) || _.isEmpty(value.gte)) ||
-											!(_.isNil(value.lte) || _.isEmpty(value.lte))
-										}
+										isDisabled={_.isNil(value.gte) && _.isEmpty(value.gte)}
 										onClick={() =>
 											form.setValue('dates', defaultValues.dates, { shouldDirty: true })
 										}
