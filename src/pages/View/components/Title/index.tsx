@@ -1,24 +1,14 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useMediaQuery, useBreakpointValue, VStack, Text } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Text } from '@chakra-ui/react';
 
 import { TitleProps } from './types';
 
 import HorizontalScroll from '../../../../components/HorizontalScroll';
-import { FontSizes } from '../../../../theme/types';
 
 const Title = (props: TitleProps): ReactElement => {
 	const { colorMode } = useColorMode();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
-
-	const fontSize = useBreakpointValue<keyof FontSizes>({
-		'base': '2xl',
-		'sm': '2xl',
-		'md': '3xl',
-		'lg': '3xl',
-		'xl': '3xl',
-		'2xl': '3xl'
-	});
 
 	const { renderTitle, renderSubtitles, mediaType, isLoading } = props;
 
@@ -30,7 +20,7 @@ const Title = (props: TitleProps): ReactElement => {
 		>
 			{renderTitle({
 				color: `gray.${colorMode === 'light' ? 900 : 50}`,
-				fontSize: fontSize === '2xl' ? '2xl' : '3xl',
+				fontSize: '3xl',
 				fontWeight: 'bold'
 			})}
 			{renderSubtitles ? (
@@ -39,7 +29,7 @@ const Title = (props: TitleProps): ReactElement => {
 						<Text
 							align='left'
 							color={`gray.${colorMode === 'light' ? 400 : 500}`}
-							fontSize='md'
+							fontSize='sm'
 							px={padding}
 						>
 							•
@@ -49,7 +39,7 @@ const Title = (props: TitleProps): ReactElement => {
 				>
 					{renderSubtitles({
 						color: `gray.${colorMode === 'light' ? 400 : 500}`,
-						fontSize: isSm ? 'xs' : 'sm'
+						fontSize: 'sm'
 					})}
 				</HorizontalScroll>
 			) : null}
