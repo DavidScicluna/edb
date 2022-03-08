@@ -32,6 +32,7 @@ const Image = (props: ImageProps): ReactElement => {
 	const [isThumbnailLoaded, setIsThumbnailLoaded] = useBoolean();
 	const [isThumbnailError, setIsThumbnailError] = useBoolean();
 
+	const [isBoringLoaded, setIsBoringLoaded] = useBoolean();
 	const [isBoringError, setIsBoringError] = useBoolean();
 
 	const centerProps = {
@@ -43,11 +44,17 @@ const Image = (props: ImageProps): ReactElement => {
 	return (
 		<Center position='relative' {...centerProps}>
 			{/* Fallback image */}
-			<Center position='absolute' {...centerProps}>
+			<Center
+				as={Fade}
+				position='absolute'
+				{...centerProps}
+				in={!(isFullLoaded || isThumbnailLoaded || isBoringLoaded)}
+				unmountOnExit
+			>
 				<CUIImage
 					{...rest}
 					width='auto'
-					height='auto'
+					height='100%'
 					maxWidth='none'
 					alt={`${alt} fallback image`}
 					position='absolute'
@@ -61,19 +68,25 @@ const Image = (props: ImageProps): ReactElement => {
 				as={Fade}
 				position='absolute'
 				{...centerProps}
-				in={!isBoringError && isThumbnailError && isFullError}
+				in={!isBoringError && !isThumbnailLoaded && !isFullLoaded}
 				unmountOnExit
 			>
 				<CUIImage
 					{...rest}
 					width='auto'
-					height='auto'
+					height='100%'
 					maxWidth='none'
 					alt={`${alt} boring image`}
 					position='absolute'
 					borderRadius={borderRadius}
-					onError={() => setIsBoringError.on()}
-					onLoad={() => setIsBoringError.off()}
+					onError={() => {
+						setIsBoringLoaded.off();
+						setIsBoringError.on();
+					}}
+					onLoad={() => {
+						setIsBoringLoaded.on();
+						setIsBoringError.off();
+					}}
 					src={fallbackSrc}
 				/>
 			</Center>

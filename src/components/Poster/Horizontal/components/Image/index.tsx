@@ -14,6 +14,7 @@ import Image from '../../../../Image';
 
 const commonStyleProps = {
 	width: 'inherit',
+	height: 'inherit',
 	borderRadius: 'inherit'
 };
 
