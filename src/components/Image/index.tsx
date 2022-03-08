@@ -26,11 +26,13 @@ const Image = (props: ImageProps): ReactElement => {
 
 	const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, 300));
 
+	const [isFullLoaded, setIsFullLoaded] = useBoolean();
+	const [isFullError, setIsFullError] = useBoolean();
+
 	const [isThumbnailLoaded, setIsThumbnailLoaded] = useBoolean();
 	const [isThumbnailError, setIsThumbnailError] = useBoolean();
 
-	const [isFullLoaded, setIsFullLoaded] = useBoolean();
-	const [isFullError, setIsFullError] = useBoolean();
+	const [isBoringError, setIsBoringError] = useBoolean();
 
 	const centerProps = {
 		width: '100%',
@@ -41,17 +43,38 @@ const Image = (props: ImageProps): ReactElement => {
 	return (
 		<Center position='relative' {...centerProps}>
 			{/* Fallback image */}
-			<Center as={Fade} position='absolute' {...centerProps} in={isThumbnailError || isFullError} unmountOnExit>
+			<Center position='absolute' {...centerProps}>
 				<CUIImage
 					{...rest}
-					width={width || 'auto'}
-					height={height || width ? 'auto' : '100%'}
-					maxWidth={maxWidth || 'none'}
+					width='auto'
+					height='auto'
+					maxWidth='none'
 					alt={`${alt} fallback image`}
 					position='absolute'
 					borderRadius={borderRadius}
+					src={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
+				/>
+			</Center>
+
+			{/* Boring image */}
+			<Center
+				as={Fade}
+				position='absolute'
+				{...centerProps}
+				in={!isBoringError && isThumbnailError && isFullError}
+				unmountOnExit
+			>
+				<CUIImage
+					{...rest}
+					width='auto'
+					height='auto'
+					maxWidth='none'
+					alt={`${alt} boring image`}
+					position='absolute'
+					borderRadius={borderRadius}
+					onError={() => setIsBoringError.on()}
+					onLoad={() => setIsBoringError.off()}
 					src={fallbackSrc}
-					fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
 				/>
 			</Center>
 
@@ -88,7 +111,6 @@ const Image = (props: ImageProps): ReactElement => {
 						}
 					}}
 					src={thumbnailSrc}
-					fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
 				/>
 			</Center>
 

@@ -1,16 +1,7 @@
 import { ReactElement } from 'react';
 import useInView from 'react-cool-inview';
 
-import {
-	useTheme,
-	useColorMode,
-	useBoolean,
-	Box,
-	Center,
-	AspectRatio,
-	Image as CUIImage,
-	Fade
-} from '@chakra-ui/react';
+import { useTheme, useColorMode, useBoolean, Center, AspectRatio, Image as CUIImage, Fade } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
 import { useElementSize } from 'usehooks-ts';
@@ -59,74 +50,54 @@ const Image = (props: ImageProps): ReactElement => {
 	};
 
 	return (
-		<Box
-			ref={ref}
-			as={AspectRatio}
-			width={width}
-			minWidth={width}
-			maxWidth={width}
-			borderRadius={borderRadius}
-			ratio={ratio}
-		>
+		<AspectRatio ref={ref} width={width} borderRadius={borderRadius} ratio={ratio}>
 			<AnimatePresence exitBeforeEnter initial={false}>
 				{inView ? (
 					<Center
+						{...commonStyleProps}
 						as={Fade}
 						key='clickable-image-content'
-						width='100%'
+						ref={imageRef}
 						in
 						unmountOnExit
-						style={{ ...commonStyleProps }}
+						onClick={children && !isDisabled && onClick ? () => onClick() : undefined}
+						onMouseEnter={children && !isDisabled ? () => setIsHovering.on() : undefined}
+						onMouseLeave={children && !isDisabled ? () => setIsHovering.off() : undefined}
 					>
-						<Box
-							{...commonStyleProps}
-							ref={imageRef}
-							onClick={children && !isDisabled && onClick ? () => onClick() : undefined}
-							onMouseEnter={children && !isDisabled ? () => setIsHovering.on() : undefined}
-							onMouseLeave={children && !isDisabled ? () => setIsHovering.off() : undefined}
-						>
-							<AspectRatio {...commonStyleProps} ratio={ratio}>
-								<>
-									{!isDisabled ? (
-										<Center
-											{...commonStyleProps}
-											position='absolute'
-											zIndex={1}
-											sx={{
-												cursor: 'pointer',
-												backgroundColor:
-													isHovering || isActive
-														? colorMode === 'light'
-															? 'rgba(0, 0, 0, 0.4)'
-															: 'rgba(255, 255, 255, 0.2)'
-														: 'transparent',
-												transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-in-out']}`
-											}}
-										>
-											<Fade in={isHovering || isActive} unmountOnExit>
-												{isActive ? (
-													<Icon {...iconProps} icon='check' type='outlined' />
-												) : (
-													renderIcon({ ...iconProps })
-												)}
-											</Fade>
-										</Center>
-									) : null}
+						<AspectRatio {...commonStyleProps} ratio={ratio}>
+							<>
+								{!isDisabled ? (
+									<Center
+										{...commonStyleProps}
+										position='absolute'
+										zIndex={1}
+										sx={{
+											cursor: 'pointer',
+											backgroundColor:
+												isHovering || isActive
+													? colorMode === 'light'
+														? 'rgba(0, 0, 0, 0.4)'
+														: 'rgba(255, 255, 255, 0.2)'
+													: 'transparent',
+											transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-in-out']}`
+										}}
+									>
+										<Fade in={isHovering || isActive} unmountOnExit>
+											{isActive ? (
+												<Icon {...iconProps} icon='check' type='outlined' />
+											) : (
+												renderIcon({ ...iconProps })
+											)}
+										</Fade>
+									</Center>
+								) : null}
 
-									{children}
-								</>
-							</AspectRatio>
-						</Box>
+								{children}
+							</>
+						</AspectRatio>
 					</Center>
 				) : (
-					<Center
-						as={Fade}
-						key='dummy-clickable-image'
-						width='100%'
-						in
-						unmountOnExit
-						style={{ ...commonStyleProps }}
-					>
+					<Center {...commonStyleProps} as={Fade} key='dummy-clickable-image' in unmountOnExit>
 						<AspectRatio {...commonStyleProps} ratio={ratio}>
 							<CUIImage
 								{...commonStyleProps}
@@ -137,7 +108,7 @@ const Image = (props: ImageProps): ReactElement => {
 					</Center>
 				)}
 			</AnimatePresence>
-		</Box>
+		</AspectRatio>
 	);
 };
 
