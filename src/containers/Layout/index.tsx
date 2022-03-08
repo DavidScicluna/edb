@@ -114,6 +114,14 @@ const Layout = (): ReactElement => {
 
 	return (
 		<Router>
+			<Collapse
+				in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
+				unmountOnExit
+				style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
+			>
+				<ProgressBar />
+			</Collapse>
+
 			<Container
 				width='100%'
 				maxWidth={`${
@@ -125,14 +133,6 @@ const Layout = (): ReactElement => {
 				sx={{ ...transition }}
 			>
 				<HStack width='100%' position='relative' spacing={0}>
-					<Collapse
-						in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
-						unmountOnExit
-						style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
-					>
-						<ProgressBar />
-					</Collapse>
-
 					{isLg ? <Sidebar /> : null}
 
 					<Box
