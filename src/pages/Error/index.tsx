@@ -40,7 +40,7 @@ const Error = (props: ErrorProps): ReactElement => {
 				)}
 
 				{renderActions ? (
-					<HStack alignItems='flex-start' spacing={2}>
+					<HStack width='100%' alignItems='flex-start' spacing={2}>
 						{renderActions({ color, colorMode, size: 'md' })}
 					</HStack>
 				) : null}

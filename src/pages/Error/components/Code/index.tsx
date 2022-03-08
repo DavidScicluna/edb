@@ -15,8 +15,8 @@ const Code = ({ code }: CodeProps): ReactElement => {
 		<Text
 			align='right'
 			color={`${color}.${colorMode === 'light' ? 400 : 500}`}
-			fontSize='6xl'
-			fontWeight='bold'
+			fontSize='8xl'
+			fontWeight='extrabold'
 			lineHeight='normal'
 		>
 			{code}
