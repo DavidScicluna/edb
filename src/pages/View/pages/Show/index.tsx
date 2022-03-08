@@ -219,7 +219,7 @@ const Show = (): ReactElement => {
 	};
 
 	const handleCheckLocation = (): void => {
-		const hash = String(location.hash).replace('#', '');
+		const hash = location.hash.replace('#', '');
 
 		switch (hash) {
 			case 'cast':

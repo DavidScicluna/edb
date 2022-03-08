@@ -112,7 +112,7 @@ const Lists = (): ReactElement => {
 	}, [lists]);
 
 	const handleCheckLocation = (): void => {
-		const hash = String(location.hash).replace('#', '');
+		const hash = location.hash.replace('#', '');
 
 		if (hash) {
 			if (lists.some((list) => list.id === hash)) {
