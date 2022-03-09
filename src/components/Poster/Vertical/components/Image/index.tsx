@@ -49,7 +49,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 		<AspectRatio width='100%' borderRadius='base' ratio={handleReturnRatio('portrait')}>
 			<AnimatePresence exitBeforeEnter initial={false}>
 				{inView ? (
-					<Center {...commonStyleProps} as={Fade} key='image' in unmountOnExit>
+					<Center {...commonStyleProps} as={Fade} key='image' position='relative' in unmountOnExit>
 						<>
 							<Skeleton {...commonStyleProps} isLoaded={inView}>
 								<Image
@@ -71,7 +71,6 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 							!isTouchDevice &&
 							mediaType !== 'company' ? (
 								<Center
-									{...commonStyleProps}
 									as={ScaleFade}
 									position='absolute'
 									bottom={theme.space[1]}
