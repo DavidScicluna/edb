@@ -19,14 +19,12 @@ const Actions = (props: ActionsProps): ReactElement => {
 
 	const { mediaItem, mediaType, title, isLoading = true, isError = false } = props;
 
-	const isDisabled: boolean = isError || isLoading || !mediaItem;
-
 	return (
 		<HStack width={isSm ? '100%' : 'auto'} spacing={2}>
 			{mediaType === 'movie' || mediaType === 'tv' ? (
 				<Bookmark
 					renderAction={({ lists, isDisabled: isDisabledProp, isBookmarked, onClick }) => {
-						const isDisabled: boolean = isDisabledProp || isLoading || !mediaItem;
+						const isDisabled: boolean = isDisabledProp || isError || isLoading || !mediaItem;
 
 						return (
 							<Button
@@ -52,18 +50,22 @@ const Actions = (props: ActionsProps): ReactElement => {
 				/>
 			) : null}
 			<Like
-				renderButton={({ isLiked, onClick }) => (
-					<Button
-						color={isLiked ? 'red' : 'gray'}
-						renderLeft={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
-						isFullWidth={isSm}
-						isDisabled={isDisabled}
-						onClick={() => onClick()}
-						variant='outlined'
-					>
-						{isLiked ? 'Liked' : 'Like'}
-					</Button>
-				)}
+				renderAction={({ isDisabled: isDisabledProp, isLiked, onClick }) => {
+					const isDisabled: boolean = isDisabledProp || isError || isLoading || !mediaItem;
+
+					return (
+						<Button
+							color={isLiked ? 'red' : 'gray'}
+							renderLeft={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
+							isFullWidth={isSm}
+							isDisabled={isDisabled}
+							onClick={() => onClick()}
+							variant='outlined'
+						>
+							{isLiked ? 'Liked' : 'Like'}
+						</Button>
+					);
+				}}
 				mediaType={mediaType === 'movie' ? 'movie' : mediaType === 'tv' ? 'tv' : 'person'}
 				mediaItem={mediaItem ? { ...mediaItem } : undefined}
 			/>

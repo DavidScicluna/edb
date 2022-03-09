@@ -1,27 +1,27 @@
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
+import _ from 'lodash';
 import moment from 'moment';
 
 import { LikeProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import Icon from '../../../components/Icon';
-import { setLiked } from '../../../store/slices/Users';
+import { defaultUser, getUser, setUserLiked } from '../../../store/slices/Users';
 
 export const handleReturnIcon = (isLiked: boolean, fontSize?: string): ReactElement => {
-	return isLiked ? (
-		<Icon icon='favorite' type='outlined' fontSize={fontSize} />
-	) : (
-		<Icon icon='favorite_border' type='outlined' fontSize={fontSize} />
-	);
+	return <Icon icon={isLiked ? 'favorite' : 'favorite_border'} type='outlined' fontSize={fontSize} />;
 };
 
 const Like = (props: LikeProps): ReactElement => {
 	const dispatch = useDispatch();
-	const liked = useSelector((state) => state.user.data.liked);
+	const user = useSelector((state) => state.app.data.user);
+	const liked = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.liked || defaultUser.data.liked
+	);
 
-	const { renderButton, mediaType, mediaItem } = props;
+	const { renderAction, mediaType, mediaItem } = props;
 
 	const isLiked: boolean =
 		liked && mediaItem
@@ -65,7 +65,7 @@ const Like = (props: LikeProps): ReactElement => {
 				break;
 		}
 
-		dispatch(setLiked({ ...updatedLiked }));
+		dispatch(setUserLiked({ id: user || '', data: { ...updatedLiked } }));
 	};
 
 	/**
@@ -110,10 +110,14 @@ const Like = (props: LikeProps): ReactElement => {
 				break;
 		}
 
-		dispatch(setLiked({ ...updatedLiked }));
+		dispatch(setUserLiked({ id: user || '', data: { ...updatedLiked } }));
 	};
 
-	return renderButton({ isLiked, onClick: isLiked ? () => handleRemoveLike() : () => handleLike() });
+	return renderAction({
+		isDisabled: _.isNil(user) || _.isEmpty(user),
+		isLiked,
+		onClick: isLiked ? () => handleRemoveLike() : () => handleLike()
+	});
 };
 
 export default Like;
