@@ -1,4 +1,4 @@
-import { List as ListType } from '../../../../../../store/slices/User/types';
+import { List as ListType } from '../../../../../../store/slices/Users/types';
 
 export type ToastProps = {
 	list?: ListType;

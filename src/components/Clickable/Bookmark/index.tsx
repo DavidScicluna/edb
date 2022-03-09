@@ -7,8 +7,8 @@ import { BookmarkProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import { toggleList } from '../../../store/slices/Modals';
-import { setLists } from '../../../store/slices/User';
-import { List } from '../../../store/slices/User/types';
+import { setLists } from '../../../store/slices/Users';
+import { List } from '../../../store/slices/Users/types';
 import ConfirmModal from '../../ConfirmModal';
 import Button from '../Button';
 

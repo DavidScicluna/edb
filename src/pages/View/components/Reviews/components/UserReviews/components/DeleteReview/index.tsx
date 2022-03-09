@@ -11,7 +11,7 @@ import IconButton from '../../../../../../../../components/Clickable/IconButton'
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
-import { setUserReviews } from '../../../../../../../../store/slices/User';
+import { setUserReviews } from '../../../../../../../../store/slices/Users';
 
 const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();

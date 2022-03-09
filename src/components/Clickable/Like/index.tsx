@@ -7,7 +7,7 @@ import { LikeProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import Icon from '../../../components/Icon';
-import { setLiked } from '../../../store/slices/User';
+import { setLiked } from '../../../store/slices/Users';
 
 export const handleReturnIcon = (isLiked: boolean, fontSize?: string): ReactElement => {
 	return isLiked ? (

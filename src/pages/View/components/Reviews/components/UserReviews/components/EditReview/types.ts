@@ -1,4 +1,4 @@
-import { UserReview } from '../../../../../../../../store/slices/User/types';
+import { UserReview } from '../../../../../../../../store/slices/Users/types';
 
 export type Form = {
 	review: string;

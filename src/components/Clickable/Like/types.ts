@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { MediaType } from '../../../common/types';
-import { GetMediaType } from '../../../store/slices/User/types';
+import { GetMediaType } from '../../../store/slices/Users/types';
 
 type RenderButtonProps = {
 	isLiked: boolean;

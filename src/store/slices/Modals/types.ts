@@ -1,5 +1,5 @@
 import { MediaType } from '../../../common/types';
-import { GetMediaType } from '../User/types';
+import { GetMediaType } from '../Users/types';
 
 export interface ListModal {
 	open: boolean;

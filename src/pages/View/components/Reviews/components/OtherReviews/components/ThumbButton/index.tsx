@@ -9,7 +9,7 @@ import { useSelector } from '../../../../../../../../common/hooks';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
-import { setOtherReviews } from '../../../../../../../../store/slices/User';
+import { setOtherReviews } from '../../../../../../../../store/slices/Users';
 
 const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 	const dispatch = useDispatch();

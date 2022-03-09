@@ -1,10 +1,21 @@
 import { ColorMode } from '@chakra-ui/react';
 
-import { MediaType, Review, FullCompany } from '../../../common/types';
+import { MediaType, Review, FullCompany, Genre } from '../../../common/types';
 import { FullMovie, Collection } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
 import { FullTV } from '../../../common/types/tv';
 import { Color } from '../../../theme/types';
+
+export type Info = {
+	name: string;
+	username: string;
+	bio?: string;
+	avatar_path?: string;
+	prefers?: {
+		movie?: Genre[];
+		tv?: Genre[];
+	};
+};
 
 export type SearchType = MediaType | 'collection' | string;
 
@@ -69,6 +80,7 @@ export type Theme = {
 
 export type StateProps = {
 	data: {
+		info: Info;
 		recentSearches: Search[];
 		recentlyViewed: MediaItems;
 		liked: MediaItems;

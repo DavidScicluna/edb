@@ -18,8 +18,8 @@ import ConfirmModal from '../../../../../../components/ConfirmModal';
 import Input from '../../../../../../components/Forms/Input';
 import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
-import { setLists } from '../../../../../../store/slices/User';
-import { List } from '../../../../../../store/slices/User/types';
+import { setLists } from '../../../../../../store/slices/Users';
+import { List } from '../../../../../../store/slices/Users/types';
 import { Theme } from '../../../../../../theme/types';
 
 const placeholders = [

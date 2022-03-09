@@ -20,7 +20,7 @@ import Icon from '../../../../../../../../components/Icon';
 import Modal from '../../../../../../../../components/Modal';
 import Panel from '../../../../../../../../components/Panel';
 import Tooltip from '../../../../../../../../components/Tooltip';
-import { setUserReviews } from '../../../../../../../../store/slices/User';
+import { setUserReviews } from '../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../theme/types';
 
 const defaultValues: Form = {

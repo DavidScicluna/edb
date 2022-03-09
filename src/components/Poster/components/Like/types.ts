@@ -1,5 +1,5 @@
 import { MediaType } from '../../../../common/types';
-import { MediaItem } from '../../../../store/slices/User/types';
+import { MediaItem } from '../../../../store/slices/Users/types';
 import { Size } from '../../../Clickable/IconButton/types';
 
 export type PosterLikeProps<MT extends MediaType> = {

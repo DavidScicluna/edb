@@ -14,7 +14,7 @@ import Button from '../../../../../../components/Clickable/Button';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Panel from '../../../../../../components/Panel';
-import { UserReview as UserReviewType } from '../../../../../../store/slices/User/types';
+import { UserReview as UserReviewType } from '../../../../../../store/slices/Users/types';
 import Review from '../Review';
 
 const incrementBy = 5;

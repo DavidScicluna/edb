@@ -16,7 +16,7 @@ import ConfirmModal from '../../../../../../components/ConfirmModal';
 import Input from '../../../../../../components/Forms/Input';
 import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
-import { setLists } from '../../../../../../store/slices/User';
+import { setLists } from '../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../theme/types';
 
 const placeholders = [

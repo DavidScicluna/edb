@@ -18,7 +18,7 @@ import Rating from '../../../../../../../../components/Forms/Rating';
 import Textarea from '../../../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../../../components/Modal';
 import Panel from '../../../../../../../../components/Panel';
-import { setUserReviews } from '../../../../../../../../store/slices/User';
+import { setUserReviews } from '../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../theme/types';
 
 const defaultValues: Form = {

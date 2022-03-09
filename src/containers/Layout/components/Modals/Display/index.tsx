@@ -12,8 +12,8 @@ import { handleCheckSystemColorMode } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
-import { setTheme } from '../../../../../store/slices/User';
-import { Theme } from '../../../../../store/slices/User/types';
+import { setTheme } from '../../../../../store/slices/Users';
+import { Theme } from '../../../../../store/slices/Users/types';
 
 const Display = (): ReactElement => {
 	const { setColorMode } = useColorMode();

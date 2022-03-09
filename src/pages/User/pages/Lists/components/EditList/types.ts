@@ -1,4 +1,4 @@
-import { List } from '../../../../../../store/slices/User/types';
+import { List } from '../../../../../../store/slices/Users/types';
 
 export type Form = {
 	label: string;

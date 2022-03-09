@@ -14,7 +14,7 @@ import Divider from '../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import Icon from '../../../../../../components/Icon';
 import Panel from '../../../../../../components/Panel';
-import { SearchType as SearchTypeValue } from '../../../../../../store/slices/User/types';
+import { SearchType as SearchTypeValue } from '../../../../../../store/slices/Users/types';
 
 export const searchTypes: SearchTypeType[] = [
 	{

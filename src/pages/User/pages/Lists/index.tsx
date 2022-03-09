@@ -25,7 +25,7 @@ import Icon from '../../../../components/Icon';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
-import { List as ListType } from '../../../../store/slices/User/types';
+import { List as ListType } from '../../../../store/slices/Users/types';
 
 const Lists = (): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

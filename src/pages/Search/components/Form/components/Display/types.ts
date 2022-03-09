@@ -1,4 +1,4 @@
-import { SearchType } from '../../../../../../store/slices/User/types';
+import { SearchType } from '../../../../../../store/slices/Users/types';
 
 type TotalResults = { [key in SearchType]: number };
 

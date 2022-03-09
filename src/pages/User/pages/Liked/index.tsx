@@ -16,7 +16,7 @@ import Divider from '../../../../components/Divider';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
-import { MediaItems } from '../../../../store/slices/User/types';
+import { MediaItems } from '../../../../store/slices/Users/types';
 import MediaTypesHeader from '../../components/MediaTypesHeader';
 import MediaTypesPicker from '../../components/MediaTypesPicker';
 import Movies from '../../components/Movies';

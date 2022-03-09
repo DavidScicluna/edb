@@ -4,7 +4,7 @@ import { PartialCompany, Response } from '../../../../common/types';
 import { Collection, PartialMovie } from '../../../../common/types/movie';
 import { PartialPerson } from '../../../../common/types/person';
 import { PartialTV } from '../../../../common/types/tv';
-import { SearchType } from '../../../../store/slices/User/types';
+import { SearchType } from '../../../../store/slices/Users/types';
 
 export type AllProps = {
 	query: string;

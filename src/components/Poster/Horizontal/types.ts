@@ -1,5 +1,5 @@
 import { MediaType } from '../../../common/types';
-import { MediaItem } from '../../../store/slices/User/types';
+import { MediaItem } from '../../../store/slices/Users/types';
 import { Image as ImageProps } from '../../Image/types';
 import { Rating, Count } from '../../Rating/types';
 

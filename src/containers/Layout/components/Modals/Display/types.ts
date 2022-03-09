@@ -1,3 +1,3 @@
-import { Theme } from '../../../../../store/slices/User/types';
+import { Theme } from '../../../../../store/slices/Users/types';
 
 export type Form = Theme;

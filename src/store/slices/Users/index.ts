@@ -2,10 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-import { StateProps, Search, MediaItems, List, UserReview, OtherReview, Theme } from './types';
+import { StateProps, Info, Search, MediaItems, List, UserReview, OtherReview, Theme } from './types';
 
 const initialState: StateProps = {
 	data: {
+		info: {
+			name: 'Guest',
+			username: 'guest'
+		},
 		recentSearches: [],
 		recentlyViewed: {
 			movies: [],
@@ -51,8 +55,8 @@ const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		setTheme: (state: StateProps, action: PayloadAction<Theme>) => {
-			state.ui.theme = action.payload;
+		setInfo: (state: StateProps, action: PayloadAction<Info>) => {
+			state.data.info = action.payload;
 		},
 		setRecentSearches: (state: StateProps, action: PayloadAction<Search[]>) => {
 			state.data.recentSearches = action.payload;
@@ -71,6 +75,9 @@ const userSlice = createSlice({
 		},
 		setOtherReviews: (state: StateProps, action: PayloadAction<OtherReview[]>) => {
 			state.data.reviews.other = action.payload;
+		},
+		setTheme: (state: StateProps, action: PayloadAction<Theme>) => {
+			state.ui.theme = action.payload;
 		}
 	}
 });

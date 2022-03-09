@@ -1,4 +1,4 @@
-import { ReviewState, OtherReview } from '../../../../../../../../store/slices/User/types';
+import { ReviewState, OtherReview } from '../../../../../../../../store/slices/Users/types';
 
 export type ThumbButtonProps = {
 	review?: OtherReview;

@@ -8,7 +8,7 @@ import { DeleteListProps } from './types';
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../components/ConfirmModal';
-import { setLists } from '../../../../../../store/slices/User/';
+import { setLists } from '../../../../../../store/slices/Users';
 
 const DeleteList = ({ id, isOpen, onClose, onCloseToast }: DeleteListProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

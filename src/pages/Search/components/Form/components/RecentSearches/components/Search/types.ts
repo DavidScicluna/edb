@@ -1,4 +1,4 @@
-import { Search, SearchType } from '../../../../../../../../store/slices/User/types';
+import { Search, SearchType } from '../../../../../../../../store/slices/Users/types';
 
 export type SearchProps = {
 	onDelete: (id: Search['id']) => void;

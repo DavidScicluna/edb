@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import appReducer from './slices/App';
 import modalsReducer from './slices/Modals';
 import optionsReducer from './slices/Options';
-import userReducer from './slices/User';
+import userReducer from './slices/Users';
 
 const rootReducer = combineReducers({
 	app: appReducer,

@@ -13,8 +13,8 @@ import Modal from '../../../../../components/Modal';
 import CreateList from '../../../../../pages/User/pages/Lists/components/CreateList';
 import { defaultListsModal, toggleList } from '../../../../../store/slices/Modals';
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
-import { setLists } from '../../../../../store/slices/User';
-import { List as ListType } from '../../../../../store/slices/User/types';
+import { setLists } from '../../../../../store/slices/Users';
+import { List as ListType } from '../../../../../store/slices/Users/types';
 
 const ListsModal = (): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

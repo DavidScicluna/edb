@@ -10,8 +10,8 @@ import { RecentSearchesProps } from './types';
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../components/Empty';
-import { setRecentSearches } from '../../../../../../store/slices/User';
-import { Search as SearchType } from '../../../../../../store/slices/User/types';
+import { setRecentSearches } from '../../../../../../store/slices/Users';
+import { Search as SearchType } from '../../../../../../store/slices/Users/types';
 import List from '../List';
 import ListItem from '../List/components/ListItem';
 

@@ -24,7 +24,7 @@ import SkeletonText from '../../../../components/Skeleton/Text';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
-import { setRecentlyViewed } from '../../../../store/slices/User';
+import { setRecentlyViewed } from '../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';

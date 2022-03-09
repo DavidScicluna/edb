@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { RenderProps as RenderButtonProps } from '../../../../../../../../components/Clickable/Button/types';
-import { SearchType as SearchTypeValue } from '../../../../../../../../store/slices/User/types';
+import { SearchType as SearchTypeValue } from '../../../../../../../../store/slices/Users/types';
 import { Color } from '../../../../../../../../theme/types';
 
 type RenderProps = { isActive: boolean } & RenderButtonProps;
