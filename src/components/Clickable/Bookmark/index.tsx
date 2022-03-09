@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import { useDisclosure } from '@chakra-ui/react';
 
+import _ from 'lodash';
+
 import { BookmarkProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import { toggleList } from '../../../store/slices/Modals';
-import { setLists } from '../../../store/slices/Users';
+import { getUser, setUserLists } from '../../../store/slices/Users';
 import { List } from '../../../store/slices/Users/types';
 import ConfirmModal from '../../ConfirmModal';
 import Button from '../Button';
@@ -16,11 +18,12 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
 	const dispatch = useDispatch();
-	const allLists = useSelector((state) => state.user.data.lists);
+	const user = useSelector((state) => state.app.data.user);
+	const allLists = useSelector((state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || []);
 
-	const { renderButton, title, mediaType, mediaItem } = props;
+	const { renderAction, title, mediaType, mediaItem } = props;
 
-	const lists = mediaItem
+	const lists: List[] = mediaItem
 		? allLists.filter((list) => {
 				switch (mediaType) {
 					case 'movie':
@@ -31,13 +34,14 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 						return;
 				}
 		  })
-		: undefined;
+		: [];
 	const isBookmarked: boolean = lists && (lists.length || 0) > 0 ? true : false;
 
 	const handleRemoveBookmark = (lists: List[]): void => {
 		dispatch(
-			setLists(
-				allLists.map((list) => {
+			setUserLists({
+				id: user || '',
+				data: allLists.map((list) => {
 					if (lists.includes(list)) {
 						const results = { ...list.results };
 
@@ -57,7 +61,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 						return list;
 					}
 				})
-			)
+			})
 		);
 	};
 
@@ -83,8 +87,9 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 
 	return (
 		<>
-			{renderButton({
+			{renderAction({
 				lists,
+				isDisabled: _.isNil(user) || _.isEmpty(user),
 				isBookmarked,
 				onClick:
 					isBookmarked && lists && (lists?.length || 0) > 0
@@ -100,11 +105,10 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 						Remove
 					</Button>
 				)}
-				title={`Remove "${title}" ${mediaType} from lists?`}
-				description={`Are you sure you want to remove "${title}" ${mediaType} from ${lists
-					?.map((list) => `"${list.label}"`)
-					.filter((list) => list)
-					.join(', ')} lists?`}
+				title='Remove from lists?'
+				description={`Are you sure you want to remove "${title}" ${mediaType} from ${_.compact(
+					lists.map((list) => `"${list.label}"`)
+				).join(', ')} lists?`}
 				isOpen={isConfirmOpen}
 				onClose={onCloseConfirm}
 			/>
