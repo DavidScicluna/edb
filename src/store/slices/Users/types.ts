@@ -1,5 +1,7 @@
 import { ColorMode } from '@chakra-ui/react';
 
+import { PayloadAction } from '@reduxjs/toolkit';
+
 import { MediaType, Review, FullCompany, Genre } from '../../../common/types';
 import { FullMovie, Collection } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
@@ -78,8 +80,9 @@ export type Theme = {
 	background: Background;
 };
 
-export type StateProps = {
+export type User = {
 	data: {
+		id: string;
 		info: Info;
 		recentSearches: Search[];
 		recentlyViewed: MediaItems;
@@ -89,5 +92,13 @@ export type StateProps = {
 	};
 	ui: {
 		theme: Theme;
+	};
+};
+
+export type UserAction<P> = PayloadAction<{ id: string; data: P }>;
+
+export type StateProps = {
+	data: {
+		users: User[];
 	};
 };
