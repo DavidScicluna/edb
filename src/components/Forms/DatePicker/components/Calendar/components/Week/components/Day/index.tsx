@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge, isNil } from 'lodash';
 
 import useStyles from './styles';
 import { DayProps } from './types';
@@ -24,10 +24,10 @@ const Day = (props: DayProps): ReactElement => {
 			{...rest}
 			tabIndex={0}
 			variant='unstyled'
-			sx={{ ..._.merge(style.day.default, style[colorMode][variant]) }}
-			_disabled={{ ..._.merge(style.day.disabled, style[colorMode].disabled[variant]) }}
+			sx={{ ...merge(style.day.default, style[colorMode][variant]) }}
+			_disabled={{ ...merge(style.day.disabled, style[colorMode].disabled[variant]) }}
 		>
-			<Center sx={{ opacity: !_.isNil(children) ? 1 : 0 }}>{children || '#'}</Center>
+			<Center sx={{ opacity: !isNil(children) ? 1 : 0 }}>{children || '#'}</Center>
 		</CUIButton>
 	);
 };

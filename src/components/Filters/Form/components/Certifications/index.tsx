@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import { useMediaQuery, Wrap, WrapItem, HStack } from '@chakra-ui/react';
 
 import sort from 'array-sort';
-import _ from 'lodash';
+import { isNil, isEmpty, range } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import Certification from './components/Certification';
@@ -76,8 +76,8 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 									<Button
 										color={color}
 										isDisabled={
-											_.isNil(certifications) ||
-											_.isEmpty(certifications) ||
+											isNil(certifications) ||
+											isEmpty(certifications) ||
 											value.length === 0 ||
 											value.length === ((certifications || [])?.length || 0)
 										}
@@ -93,7 +93,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 									</Button>
 									<Button
 										color={color}
-										isDisabled={_.isNil(certifications) || _.isEmpty(certifications)}
+										isDisabled={isNil(certifications) || isEmpty(certifications)}
 										onClick={() => handleAllClick()}
 										size='sm'
 										variant='text'
@@ -105,7 +105,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 						},
 						body: (
 							<Wrap width='100%' spacing={isSm ? 1 : 1.5}>
-								{_.isNil(certifications) || _.isEmpty(certifications) ? (
+								{isNil(certifications) || isEmpty(certifications) ? (
 									<WrapItem width='100%'>
 										<Empty
 											hasIllustration={false}
@@ -115,7 +115,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 											variant='transparent'
 										/>
 									</WrapItem>
-								) : !(_.isNil(certifications) || _.isEmpty(certifications)) ? (
+								) : !(isNil(certifications) || isEmpty(certifications)) ? (
 									sort([...(certifications || [])], 'order').map((certification) => (
 										<WrapItem key={certification.certification}>
 											<Certification
@@ -130,7 +130,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 										</WrapItem>
 									))
 								) : (
-									_.range(0, 5).map((_dummy, index) => (
+									range(0, 5).map((_dummy, index) => (
 										<WrapItem key={index}>
 											<Certification isLoading />
 										</WrapItem>

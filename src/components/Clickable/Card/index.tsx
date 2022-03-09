@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import useStyles from './styles';
 import { CardRef, CardProps } from './types';
@@ -38,13 +38,13 @@ const Card = forwardRef<CardRef, CardProps>(function Card(props, ref): ReactElem
 			isDisabled={isDisabled}
 			isFullWidth={isFullWidth}
 			variant='unstyled'
-			sx={{ ..._.merge(style.card.back, style[colorMode].back, sx?.back || {}) }}
-			_disabled={{ ..._.merge(style.card.disabled, style[colorMode].disabled) }}
+			sx={{ ...merge(style.card.back, style[colorMode].back, sx?.back || {}) }}
+			_disabled={{ ...merge(style.card.disabled, style[colorMode].disabled) }}
 		>
 			<Center
 				{...rest}
 				className='card_front'
-				sx={{ ..._.merge(style.card.front, style[colorMode].front, sx?.front || {}) }}
+				sx={{ ...merge(style.card.front, style[colorMode].front, sx?.front || {}) }}
 			>
 				{children}
 			</Center>

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 import moment from 'moment';
 
 import { LikeProps } from './types';
@@ -114,7 +114,7 @@ const Like = (props: LikeProps): ReactElement => {
 	};
 
 	return renderAction({
-		isDisabled: _.isNil(user) || _.isEmpty(user),
+		isDisabled: isNil(user) || isEmpty(user),
 		isLiked,
 		onClick: isLiked ? () => handleRemoveLike() : () => handleLike()
 	});

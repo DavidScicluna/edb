@@ -3,7 +3,7 @@ import useInView from 'react-cool-inview';
 
 import { useTheme, useColorMode, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import Body from './components/Body';
 import Footer from './components/Footer';
@@ -47,8 +47,8 @@ const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
 			aria-disabled={isDisabled}
 			width='100%'
 			spacing={0}
-			sx={{ ..._.merge(style.accordion, style[colorMode]) }}
-			_disabled={{ ..._.merge(style.disabled.accordion, style.disabled[colorMode]) }}
+			sx={{ ...merge(style.accordion, style[colorMode]) }}
+			_disabled={{ ...merge(style.disabled.accordion, style.disabled[colorMode]) }}
 		>
 			{id ? (
 				<VisuallyHidden>

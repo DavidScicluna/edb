@@ -3,7 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
 
 import { DateObj, useDayzed } from 'dayzed';
-import _ from 'lodash';
+import { isNil } from 'lodash';
 import moment from 'moment';
 
 import Calendar from './components/Calendar';
@@ -98,7 +98,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 						<Button
 							color={color}
 							colorMode={colorMode}
-							isDisabled={_.isNil(date) || isShowingYears || isShowingMonths}
+							isDisabled={isNil(date) || isShowingYears || isShowingMonths}
 							onClick={() => handleSetDate()}
 							size={size}
 						>

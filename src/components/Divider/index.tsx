@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Box } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import { DividerProps } from './types';
 
@@ -24,7 +24,7 @@ const Divider = (props: DividerProps): ReactElement => {
 			{...rest}
 			border='none'
 			sx={{
-				..._.merge(
+				...merge(
 					{
 						transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
 					},

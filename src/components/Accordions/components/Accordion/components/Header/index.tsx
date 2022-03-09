@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge, isNil, isEmpty } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import Subtitle from './components/Subtitle';
@@ -45,7 +45,7 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 			justifyContent='space-between'
 			onClick={!isDisabled ? () => onToggle() : undefined}
 			spacing={2}
-			sx={{ ..._.merge(style.header, style[colorMode]) }}
+			sx={{ ...merge(style.header, style[colorMode]) }}
 			_disabled={style.disabled}
 		>
 			<VStack
@@ -58,7 +58,7 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 			</VStack>
 
 			<HStack ref={ref}>
-				<Fade in={!(_.isNil(total) || _.isEmpty(total)) && inView} unmountOnExit>
+				<Fade in={!(isNil(total) || isEmpty(total)) && inView} unmountOnExit>
 					<Badge color={isOpen ? color : 'gray'} size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>
 						{total?.number ? (
 							<CountUp

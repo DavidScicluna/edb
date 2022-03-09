@@ -11,7 +11,7 @@ import {
 	Collapse
 } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, merge } from 'lodash';
 
 import useStyles from './styles';
 import { InputProps } from './types';
@@ -46,14 +46,14 @@ const Input = (props: InputProps): ReactElement => {
 			{label ? (
 				<FormLabel
 					sx={{
-						..._.merge(
+						...merge(
 							style.formLabel.default,
 							style.formLabel[size],
 							style[colorMode].formLabel.default,
 							sx?.formLabel || {}
 						)
 					}}
-					_invalid={{ ..._.merge(style[colorMode].formLabel.invalid) }}
+					_invalid={{ ...merge(style[colorMode].formLabel.invalid) }}
 				>
 					{label}
 				</FormLabel>
@@ -61,20 +61,20 @@ const Input = (props: InputProps): ReactElement => {
 			<CUIInput
 				{...rest}
 				autoComplete={autoComplete || 'off'}
-				isInvalid={!_.isNil(error)}
+				isInvalid={!isNil(error)}
 				isRequired={isRequired}
 				isDisabled={isDisabled}
 				id={name}
 				name={name}
 				sx={{
-					..._.merge(style.input.default, style.input[size], style[colorMode].input.default, sx?.input || {})
+					...merge(style.input.default, style.input[size], style[colorMode].input.default, sx?.input || {})
 				}}
-				_invalid={{ ..._.merge(style[colorMode].input.invalid) }}
+				_invalid={{ ...merge(style[colorMode].input.invalid) }}
 			/>
-			<Collapse in={!_.isNil(error)} unmountOnExit>
+			<Collapse in={!isNil(error)} unmountOnExit>
 				<FormHelperText
 					sx={{
-						..._.merge(
+						...merge(
 							style.formHelperText.default,
 							style.formHelperText[size],
 							style[colorMode].formHelperText,

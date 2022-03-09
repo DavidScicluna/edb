@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Radio as CUIRadio } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import useStyles from './styles';
 import { RadioProps } from './types';
@@ -25,7 +25,7 @@ const Radio = (props: RadioProps): ReactElement => {
 			color={color}
 			isChecked={isChecked}
 			isDisabled={isDisabled}
-			sx={{ ..._.merge(style.radio, style[colorMode]) }}
+			sx={{ ...merge(style.radio, style[colorMode]) }}
 		/>
 	);
 };

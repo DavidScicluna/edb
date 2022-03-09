@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, AspectRatio, Center, Image as CUIImage, ScaleFade, Fade } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import { PosterImageProps } from './types';
 
@@ -67,9 +67,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 							</Skeleton>
 
 							{/* Quick View component */}
-							{!(_.isNil(mediaItem) || _.isEmpty(mediaItem)) &&
-							!isTouchDevice &&
-							mediaType !== 'company' ? (
+							{!(isNil(mediaItem) || isEmpty(mediaItem)) && !isTouchDevice && mediaType !== 'company' ? (
 								<Center
 									as={ScaleFade}
 									position='absolute'

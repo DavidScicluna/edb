@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import Spinner from './components/Spinner';
 import useStyles from './styles';
@@ -77,7 +77,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
 			isFullWidth={isFullWidth}
 			variant='unstyled'
 			sx={{
-				..._.merge(
+				...merge(
 					style.button.back.default,
 					style.button.back[size],
 					style[colorMode].back[variant],
@@ -85,17 +85,13 @@ const Button = forwardRef<ButtonRef, ButtonProps>(function Button(props, ref): R
 				)
 			}}
 			_disabled={{
-				..._.merge(
-					style.button.disabled.default,
-					style.button.disabled[size],
-					style[colorMode].disabled[variant]
-				)
+				...merge(style.button.disabled.default, style.button.disabled[size], style[colorMode].disabled[variant])
 			}}
 		>
 			<Center
 				className='button_front'
 				sx={{
-					..._.merge(
+					...merge(
 						style.button.front.default,
 						style.button.front[size],
 						style[colorMode].front[variant],

@@ -11,7 +11,7 @@ import {
 	Collapse
 } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, merge } from 'lodash';
 
 import useStyles from './styles';
 import { TextareaProps } from './types';
@@ -46,14 +46,14 @@ const Textarea = (props: TextareaProps): ReactElement => {
 			{label ? (
 				<FormLabel
 					sx={{
-						..._.merge(
+						...merge(
 							style.formLabel.default,
 							style.formLabel[size],
 							style[colorMode].formLabel.default,
 							sx?.formLabel || {}
 						)
 					}}
-					_invalid={{ ..._.merge(style[colorMode].formLabel.invalid) }}
+					_invalid={{ ...merge(style[colorMode].formLabel.invalid) }}
 				>
 					{label}
 				</FormLabel>
@@ -61,25 +61,25 @@ const Textarea = (props: TextareaProps): ReactElement => {
 			<CUITextarea
 				{...rest}
 				autoComplete={autoComplete || 'off'}
-				isInvalid={!_.isNil(error)}
+				isInvalid={!isNil(error)}
 				isRequired={isRequired}
 				isDisabled={isDisabled}
 				id={name}
 				name={name}
 				sx={{
-					..._.merge(
+					...merge(
 						style.textarea.default,
 						style.textarea[size],
 						style[colorMode].textarea.default,
 						sx?.textarea || {}
 					)
 				}}
-				_invalid={{ ..._.merge(style[colorMode].textarea.invalid) }}
+				_invalid={{ ...merge(style[colorMode].textarea.invalid) }}
 			/>
-			<Collapse in={!_.isNil(error)} unmountOnExit>
+			<Collapse in={!isNil(error)} unmountOnExit>
 				<FormHelperText
 					sx={{
-						..._.merge(
+						...merge(
 							style.formHelperText.default,
 							style.formHelperText[size],
 							style[colorMode].formHelperText,

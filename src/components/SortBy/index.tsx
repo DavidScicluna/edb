@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import qs from 'query-string';
 
 import Direction from './components/Direction';
@@ -54,7 +54,7 @@ const SortBy = (props: SortByProps): ReactElement => {
 	const handleOpen = (): void => {
 		const search = qs.parse(location.search);
 
-		if (!_.isEmpty(search) && search && search['sort_by']) {
+		if (!isEmpty(search) && search && search['sort_by']) {
 			const splitSort = String(search['sort_by']).split('.');
 			const sort = sortBy.find((sort) => sort.value === splitSort[0]);
 
@@ -85,7 +85,7 @@ const SortBy = (props: SortByProps): ReactElement => {
 				title='Sort By'
 				renderActions={({ color, colorMode, size }) => (
 					<HStack spacing={2}>
-						<Fade in={isDirty || !_.isEqual(defaultValues, form.getValues())} unmountOnExit>
+						<Fade in={isDirty || !isEqual(defaultValues, form.getValues())} unmountOnExit>
 							<Button
 								color={color}
 								colorMode={colorMode}

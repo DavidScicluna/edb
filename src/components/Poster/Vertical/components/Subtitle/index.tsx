@@ -2,20 +2,20 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useConst, Box, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 
 import { SubtitleProps } from './types';
 
 import SkeletonText from '../../../../Skeleton/Text';
 
-const dummies = _.range(25, 100, 10);
+const dummies = range(25, 100, 10);
 
 const Subtitle = (props: SubtitleProps): ReactElement => {
 	const { colorMode } = useColorMode();
 
 	const { subtitle, isLoading = false, inView = true } = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 100);
+	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
 		<Box

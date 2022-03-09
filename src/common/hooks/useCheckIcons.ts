@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import _ from 'lodash';
+import { debounce } from 'lodash';
 
 import { toggleHasLoadedIcons } from '../../store/slices/App';
 
@@ -11,7 +11,7 @@ const useCheckIcons = (): boolean => {
 	const [hasLoaded, setHasLoaded] = useState<boolean>(false);
 
 	const handleCheckFonts = useCallback(
-		_.debounce(() => {
+		debounce(() => {
 			document.fonts.ready
 				.then(() => dispatch(toggleHasLoadedIcons(true)))
 				.catch(() => dispatch(toggleHasLoadedIcons(false)));

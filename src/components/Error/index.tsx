@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, VStack, Center, Image, Text, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import useStyles from './styles';
 import { ErrorProps } from './types';
@@ -136,7 +136,7 @@ const Error = (props: ErrorProps): ReactElement => {
 				width='100%'
 				spacing={handleReturnSpacing()}
 				p={handleReturnPadding()}
-				sx={{ ..._.merge(style.error[variant], style[colorMode][variant]) }}
+				sx={{ ...merge(style.error[variant], style[colorMode][variant]) }}
 			>
 				{hasIllustration ? (
 					<Center maxWidth={`${handleReturnIllustrationWidth()}%`}>

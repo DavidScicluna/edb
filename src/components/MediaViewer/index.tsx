@@ -2,7 +2,7 @@ import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, useColorMode, useDisclosure, useBoolean, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { uniq, debounce, isEmpty } from 'lodash';
 import { Swiper } from 'swiper';
 
 import Backdrop from './components/Backdrop';
@@ -23,7 +23,7 @@ const handleFlattenAssets = (assets: Asset[]): MediaItem[] => {
 
 	assets.forEach((asset) => {
 		if (asset.mediaItems.length > 0) {
-			mediaItems = _.uniq([...mediaItems, ...asset.mediaItems]);
+			mediaItems = uniq([...mediaItems, ...asset.mediaItems]);
 		}
 	});
 
@@ -48,7 +48,7 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
 	const [isHoveringBackdrop, setIsHoveringBackdrop] = useBoolean();
 
 	const handleOnToolkitHover = useCallback(
-		_.debounce((bool: boolean): void => {
+		debounce((bool: boolean): void => {
 			if (bool) {
 				setIsHoveringBackdrop.on();
 			} else {
@@ -144,7 +144,7 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
 	};
 
 	useEffect(() => {
-		if (swiper && !_.isEmpty(mediaItems) && !_.isEmpty(selectedPath)) {
+		if (swiper && !isEmpty(mediaItems) && !isEmpty(selectedPath)) {
 			const mediaItem = mediaItems.find(
 				({ data: { file_path, key } }) => file_path === selectedPath || key === selectedPath
 			);
@@ -161,7 +161,7 @@ const MediaViewer = (props: MediaViewerProps): ReactElement => {
 	}, [swiper, mediaItems, selectedPath]);
 
 	useEffect(() => {
-		if (isOpen && !_.isEmpty(assets) && !_.isEmpty(assets)) {
+		if (isOpen && !isEmpty(assets) && !isEmpty(assets)) {
 			setIsHoveringBackdrop.off();
 
 			setMediaItems(handleFlattenAssets(assets));

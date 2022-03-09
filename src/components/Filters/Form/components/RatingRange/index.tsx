@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 
 import { useTheme, useMediaQuery, useConst, ButtonGroup, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, compact } from 'lodash';
 
 import { RatingRangeProps } from './types';
 
@@ -23,10 +23,10 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const ratings = useConst(_.range(0, 11));
+	const ratings = useConst(range(0, 11));
 
 	const handleOnChange = (value: Filters['rating'], number: number): void => {
-		const rating = _.compact(value);
+		const rating = compact(value);
 
 		if (rating.some((num) => num === number)) {
 			form.setValue(
@@ -52,7 +52,7 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 			control={form.control}
 			name='rating'
 			render={({ field }) => {
-				const value = _.compact(field.value);
+				const value = compact(field.value);
 
 				return (
 					<Panel isFullWidth>

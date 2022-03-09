@@ -2,7 +2,7 @@ import { ReactElement, createContext, isValidElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, VStack, Box } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge, isNil } from 'lodash';
 
 import { handleReturnPadding } from './common/utils';
 import Body from './components/Body';
@@ -42,11 +42,11 @@ const Panel = (props: PanelProps): ReactElement => {
 				divider={isDivisible ? <Divider colorMode={colorMode} /> : undefined}
 				p={variant === 'outlined' ? handleReturnPadding(size, variant) : 0}
 				spacing={0}
-				sx={{ ..._.merge(style.panel[variant], style[colorMode][variant]) }}
+				sx={{ ...merge(style.panel[variant], style[colorMode][variant]) }}
 			>
 				{children.header ? (
 					!isValidElement(children.header) &&
-					(!_.isNil(children.header?.title) || !_.isNil(children.header?.actions)) ? (
+					(!isNil(children.header?.title) || !isNil(children.header?.actions)) ? (
 						<Header
 							actions={children.header?.actions}
 							colorMode={colorMode}
@@ -59,7 +59,7 @@ const Panel = (props: PanelProps): ReactElement => {
 					)
 				) : null}
 
-				<Body hasHeader={!_.isNil(children.header)} hasFooter={!_.isNil(children.footer)}>
+				<Body hasHeader={!isNil(children.header)} hasFooter={!isNil(children.footer)}>
 					{children.body}
 				</Body>
 

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router';
 
 import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import Certifications from './components/Certifications';
@@ -50,9 +50,9 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 		>
 			<Center width={`calc(100% - ${!isSm ? width + 34 : 0}px)`}>
 				<HorizontalScroll renderDivider={() => <Center mr={2} />}>
-					{_.compact([
-						!(_.isNil(filters.dates.gte) || _.isEmpty(filters.dates.gte)) ||
-						!(_.isNil(filters.dates.lte) || _.isEmpty(filters.dates.lte)) ? (
+					{compact([
+						!(isNil(filters.dates.gte) || isEmpty(filters.dates.gte)) ||
+						!(isNil(filters.dates.lte) || isEmpty(filters.dates.lte)) ? (
 							<Dates
 								key='display_filters_dates'
 								dates={filters.dates}
@@ -62,7 +62,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!(_.isNil(filters.genres) || _.isEmpty(filters.genres)) ? (
+						!(isNil(filters.genres) || isEmpty(filters.genres)) ? (
 							<Genres
 								key='display_filters_genres'
 								genres={filters.genres}
@@ -72,7 +72,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!(_.isNil(filters.certifications) || _.isEmpty(filters.certifications)) ? (
+						!(isNil(filters.certifications) || isEmpty(filters.certifications)) ? (
 							<Certifications
 								key='display_filters_certifications'
 								certifications={filters.certifications}
@@ -81,7 +81,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!(_.isNil(filters.rating) || _.isEmpty(filters.rating)) ? (
+						!(isNil(filters.rating) || isEmpty(filters.rating)) ? (
 							<Rating
 								key='display_filters_rating'
 								ratings={filters.rating}
@@ -90,7 +90,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!(_.isNil(filters.count) || _.isEmpty(filters.count)) ? (
+						!(isNil(filters.count) || isEmpty(filters.count)) ? (
 							<Count
 								key='display_filters_count'
 								counts={filters.count}
@@ -99,7 +99,7 @@ const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: Display
 							/>
 						) : null,
 
-						!(_.isNil(filters.runtime) || _.isEmpty(filters.runtime)) ? (
+						!(isNil(filters.runtime) || isEmpty(filters.runtime)) ? (
 							<Runtime
 								key='display_filters_runtime'
 								runtimes={filters.runtime}

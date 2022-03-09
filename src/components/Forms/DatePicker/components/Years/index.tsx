@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { VStack, SimpleGrid } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import Header from './components/Header';
 import { Direction } from './components/Header/types';
@@ -92,7 +92,7 @@ const Years = (props: YearsProps): ReactElement => {
 								{paramYears}
 							</Button>
 					  ))
-					: _.range(0, 12).map((_dummy, index) => (
+					: range(0, 12).map((_dummy, index) => (
 							<Button key={index} isDisabled isFullWidth size='lg' variant='text'>
 								<SkeletonText fontSize='md' isLoaded={false}>
 									9999

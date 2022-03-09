@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Center, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import Accordion from './components/Accordion';
@@ -74,7 +74,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 										onToggle={() => onToggleAccordion(accordion.id)}
 									/>
 							  ))
-							: _.range(0, 5).map((_dummy, index: number) => (
+							: range(0, 5).map((_dummy, index: number) => (
 									<Accordion key={index} isDisabled={isDisabled} isLoading />
 							  ))}
 					</HorizontalScroll>

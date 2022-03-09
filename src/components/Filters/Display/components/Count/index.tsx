@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import { CountProps } from './types';
 
@@ -13,7 +13,7 @@ const Count = ({ counts, onClick, onDelete }: CountProps): ReactElement => {
 	return (
 		<Tag
 			color={color}
-			isClickable={!(_.isNil(onClick) || _.isEmpty(onClick))}
+			isClickable={!(isNil(onClick) || isEmpty(onClick))}
 			onClick={onClick ? () => onClick() : undefined}
 			onDelete={onDelete ? () => onDelete() : undefined}
 			variant='outlined'

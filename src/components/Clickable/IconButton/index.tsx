@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, IconButton as CUIIconButton, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import Spinner from './components/Spinner';
 import useStyles from './styles';
@@ -38,7 +38,7 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
 			isDisabled={isLoading || isDisabled}
 			variant='unstyled'
 			sx={{
-				..._.merge(
+				...merge(
 					style.iconButton.back.default,
 					style.iconButton.back[size],
 					style[colorMode].back[variant],
@@ -46,7 +46,7 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
 				)
 			}}
 			_disabled={{
-				..._.merge(
+				...merge(
 					style.iconButton.disabled.default,
 					style.iconButton.disabled[size],
 					style[colorMode].disabled[variant]
@@ -56,7 +56,7 @@ const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButto
 			<Center
 				className='icon_button_front'
 				sx={{
-					..._.merge(
+					...merge(
 						style.iconButton.front.default,
 						style.iconButton.front[size],
 						style[colorMode].front[variant],

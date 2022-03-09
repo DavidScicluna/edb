@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import useStyles from './styles';
@@ -33,11 +33,11 @@ const Arrow = (props: ArrowProps): ReactElement => {
 			left={direction === 'left' ? 0 : undefined}
 			right={direction === 'right' ? 0 : undefined}
 			zIndex={5}
-			sx={{ ..._.merge({ top: '50%', transform: 'translateY(-50%)' }) }}
+			sx={{ ...merge({ top: '50%', transform: 'translateY(-50%)' }) }}
 			_after={
 				direction === 'left'
 					? {
-							..._.merge(
+							...merge(
 								{ ...style.arrow, width, minHeight: `${height}px`, height: '100%' },
 								style[colorMode][direction]
 							)
@@ -47,7 +47,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
 			_before={
 				direction === 'right'
 					? {
-							..._.merge(
+							...merge(
 								{ ...style.arrow, width, minHeight: `${height}px`, height: '100%' },
 								style[colorMode][direction]
 							)

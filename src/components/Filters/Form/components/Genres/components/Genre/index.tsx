@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useConst } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 
 import { GenreProps } from './types';
 
@@ -11,12 +11,12 @@ import Button from '../../../../../../Clickable/Button';
 import Icon from '../../../../../../Icon';
 import SkeletonText from '../../../../../../Skeleton/Text';
 
-const dummies = _.range(25, 100, 10);
+const dummies = range(25, 100, 10);
 
 const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreProps): ReactElement => {
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const dummy = useConst<number>(_.sample(dummies) || 100);
+	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
 		<Button

@@ -3,7 +3,7 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 import '../common/styles/styles.css';
 import { useBoolean } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { debounce } from 'lodash';
 
 import Header from './components/Header';
 import { HorizontalGridDefaultProps } from './types';
@@ -35,7 +35,7 @@ const HorizontalGridDefault = (props: HorizontalGridDefaultProps): ReactElement 
 	};
 
 	const handleCheckIsDisabled = useCallback(
-		_.debounce(() => {
+		debounce(() => {
 			if (visibleItemsWithoutSeparators.length) {
 				if (isFirstItemVisible) {
 					setIsLeftDisabled.on();

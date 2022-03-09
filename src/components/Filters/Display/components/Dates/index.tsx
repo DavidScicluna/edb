@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 import moment from 'moment';
 
 import { DatesProps } from './types';
@@ -18,7 +18,7 @@ const Dates = ({ dates, mediaType, onClick, onDelete }: DatesProps): ReactElemen
 	return (
 		<Tag
 			color={color}
-			isClickable={!(_.isNil(onClick) || _.isEmpty(onClick))}
+			isClickable={!(isNil(onClick) || isEmpty(onClick))}
 			onClick={onClick ? () => onClick() : undefined}
 			onDelete={onDelete ? () => onDelete() : undefined}
 			variant='outlined'
@@ -26,7 +26,7 @@ const Dates = ({ dates, mediaType, onClick, onDelete }: DatesProps): ReactElemen
 			{`${mediaType === 'movie' ? 'Release Date' : 'First Air Date'}: ${
 				moment(dates.gte).isSame(moment(dates.lte), 'date')
 					? moment(dates.gte).format(visibleFormat)
-					: _.compact([
+					: compact([
 							dates.gte ? `From: ${moment(dates.gte).format(visibleFormat)}` : null,
 							dates.lte ? `To: ${moment(dates.lte).format(visibleFormat)}` : null
 					  ]).join(' -> ')

@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 
 import { useMediaQuery, Wrap, WrapItem, HStack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, range } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import Genre from './components/Genre';
@@ -67,8 +67,8 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 									<Button
 										color={color}
 										isDisabled={
-											_.isNil(genres) ||
-											_.isEmpty(genres) ||
+											isNil(genres) ||
+											isEmpty(genres) ||
 											value.length === 0 ||
 											value.length === (genres?.length || 0)
 										}
@@ -82,7 +82,7 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 									</Button>
 									<Button
 										color={color}
-										isDisabled={_.isNil(genres) || _.isEmpty(genres)}
+										isDisabled={isNil(genres) || isEmpty(genres)}
 										onClick={() => handleAllClick()}
 										size='sm'
 										variant='text'
@@ -94,7 +94,7 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 						},
 						body: (
 							<Wrap width='100%' spacing={isSm ? 1 : 1.5}>
-								{_.isNil(genres) || _.isEmpty(genres) ? (
+								{isNil(genres) || isEmpty(genres) ? (
 									<WrapItem width='100%'>
 										<Empty
 											hasIllustration={false}
@@ -104,7 +104,7 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 											variant='transparent'
 										/>
 									</WrapItem>
-								) : !(_.isNil(genres) || _.isEmpty(genres)) ? (
+								) : !(isNil(genres) || isEmpty(genres)) ? (
 									genres.map((genre) => (
 										<WrapItem key={genre.id}>
 											<Genre
@@ -116,7 +116,7 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 										</WrapItem>
 									))
 								) : (
-									_.range(0, 15).map((_dummy, index) => (
+									range(0, 15).map((_dummy, index) => (
 										<WrapItem key={index}>
 											<Genre isLoading />
 										</WrapItem>

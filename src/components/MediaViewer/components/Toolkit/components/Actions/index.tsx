@@ -2,7 +2,7 @@ import { ReactElement, MouseEvent } from 'react';
 
 import { useMediaQuery, useBoolean, Stack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact } from 'lodash';
 
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
@@ -76,7 +76,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 		onClose();
 	};
 
-	const actions = _.compact([
+	const actions = compact([
 		// Close button
 		<IconButton
 			key='close_button'

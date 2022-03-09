@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { Fade, useColorMode, useTheme } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, range } from 'lodash';
 
 import Link from './components/Link';
 import { LinksProps } from './types';
@@ -28,7 +28,7 @@ const Links = (props: LinksProps): ReactElement => {
 	return !isLoading ? (
 		<>
 			{/* Facebook */}
-			<Fade in={!(_.isNil(socials?.facebook_id) || _.isEmpty(socials?.facebook_id))} unmountOnExit>
+			<Fade in={!(isNil(socials?.facebook_id) || isEmpty(socials?.facebook_id))} unmountOnExit>
 				<Link
 					aria-label={`${alt ? `"${alt}"` : ''} Facebook link`}
 					color='#4267B2' // Facebook Logo Color
@@ -39,7 +39,7 @@ const Links = (props: LinksProps): ReactElement => {
 			</Fade>
 
 			{/* Twitter */}
-			<Fade in={!(_.isNil(socials?.twitter_id) || _.isEmpty(socials?.twitter_id))} unmountOnExit>
+			<Fade in={!(isNil(socials?.twitter_id) || isEmpty(socials?.twitter_id))} unmountOnExit>
 				<Link
 					aria-label={`${alt ? `"${alt}"` : ''} Twitter link`}
 					color='#1DA1F2' // Twitter Logo Color
@@ -50,7 +50,7 @@ const Links = (props: LinksProps): ReactElement => {
 			</Fade>
 
 			{/* Instagram */}
-			<Fade in={!(_.isNil(socials?.instagram_id) || _.isEmpty(socials?.instagram_id))} unmountOnExit>
+			<Fade in={!(isNil(socials?.instagram_id) || isEmpty(socials?.instagram_id))} unmountOnExit>
 				<Link
 					aria-label={`${alt ? `"${alt}"` : ''} Instagram link`}
 					color={theme.colors[color][colorMode === 'light' ? 400 : 500]}
@@ -61,7 +61,7 @@ const Links = (props: LinksProps): ReactElement => {
 			</Fade>
 
 			{/* IMDB */}
-			<Fade in={!(_.isNil(socials?.imdb_id) || _.isEmpty(socials?.imdb_id))} unmountOnExit>
+			<Fade in={!(isNil(socials?.imdb_id) || isEmpty(socials?.imdb_id))} unmountOnExit>
 				<Link
 					aria-label={`${alt ? `"${alt}"` : ''} IMDB link`}
 					color='#F5C518' // IMDB Logo Color
@@ -72,7 +72,7 @@ const Links = (props: LinksProps): ReactElement => {
 			</Fade>
 
 			{/* Homepage */}
-			<Fade in={!(_.isNil(socials?.homepage_id) || _.isEmpty(socials?.homepage_id))} unmountOnExit>
+			<Fade in={!(isNil(socials?.homepage_id) || isEmpty(socials?.homepage_id))} unmountOnExit>
 				<Link
 					aria-label={`${alt ? `"${alt}"` : ''} Homepage link`}
 					color={theme.colors[color][colorMode === 'light' ? 400 : 500]}
@@ -84,7 +84,7 @@ const Links = (props: LinksProps): ReactElement => {
 		</>
 	) : (
 		<>
-			{_.range(0, 4).map((_dummy, index) => (
+			{range(0, 4).map((_dummy, index) => (
 				<Link key={index} isDisabled />
 			))}
 		</>

@@ -3,7 +3,7 @@ import useInView from 'react-cool-inview';
 
 import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import Description from './components/Description';
 import Image from './components/Image';
@@ -95,12 +95,12 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 							]}
 						>
 							<Title title={title} isLoading={isLoading} inView={inView} />
-							{!(_.isNil(subtitle) || _.isEmpty(subtitle)) || isLoading ? (
+							{!(isNil(subtitle) || isEmpty(subtitle)) || isLoading ? (
 								<Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
 							) : null}
 						</VStack>
 
-						{!(_.isNil(description) || _.isEmpty(description)) || isLoading ? (
+						{!(isNil(description) || isEmpty(description)) || isLoading ? (
 							<Description description={description} isLoading={isLoading} inView={inView} />
 						) : null}
 					</VStack>

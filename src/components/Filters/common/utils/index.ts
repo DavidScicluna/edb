@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { compact } from 'lodash';
 import qs from 'query-string';
 
 import { Filters, FiltersMediaTypes } from '../../types';
@@ -58,42 +58,42 @@ export const handlePopulateFilters = (locationSearch: string, mediaType: Filters
 	}
 
 	if (search['vote_average.gte'] && typeof search['vote_average.gte'] === 'string') {
-		filters.rating = _.compact([
+		filters.rating = compact([
 			Number(search['vote_average.gte']),
 			filters.rating && filters.rating[1] ? Number(filters.rating[1]) : null
 		]);
 	}
 
 	if (search['vote_average.lte'] && typeof search['vote_average.lte'] === 'string') {
-		filters.rating = _.compact([
+		filters.rating = compact([
 			filters.rating && filters.rating[0] ? Number(filters.rating[0]) : null,
 			Number(search['vote_average.lte'])
 		]);
 	}
 
 	if (search['vote_count.gte'] && typeof search['vote_count.gte'] === 'string') {
-		filters.count = _.compact([
+		filters.count = compact([
 			Number(search['vote_count.gte']),
 			filters.count && filters.count[1] ? Number(filters.count[1]) : null
 		]);
 	}
 
 	if (search['vote_count.lte'] && typeof search['vote_count.lte'] === 'string') {
-		filters.count = _.compact([
+		filters.count = compact([
 			filters.count && filters.count[0] ? Number(filters.count[0]) : null,
 			Number(search['vote_count.lte'])
 		]);
 	}
 
 	if (search['with_runtime.gte'] && typeof search['with_runtime.gte'] === 'string') {
-		filters.runtime = _.compact([
+		filters.runtime = compact([
 			Number(search['with_runtime.gte']),
 			filters.runtime && filters.runtime[1] ? Number(filters.runtime[1]) : null
 		]);
 	}
 
 	if (search['with_runtime.lte'] && typeof search['with_runtime.lte'] === 'string') {
-		filters.runtime = _.compact([
+		filters.runtime = compact([
 			filters.runtime && filters.runtime[0] ? Number(filters.runtime[0]) : null,
 			Number(search['with_runtime.lte'])
 		]);

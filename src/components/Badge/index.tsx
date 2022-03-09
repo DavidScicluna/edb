@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, useConst, Badge as CUIBadge, HStack, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample, merge } from 'lodash';
 
 import useStyles from './styles';
 import { BadgeProps } from './types';
@@ -11,7 +11,7 @@ import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../com
 import { Theme, Space } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
 
-const dummies = _.range(25, 100, 20);
+const dummies = range(25, 100, 20);
 
 const Badge = (props: BadgeProps): ReactElement => {
 	const theme = useTheme<Theme>();
@@ -31,7 +31,7 @@ const Badge = (props: BadgeProps): ReactElement => {
 		...rest
 	} = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 75);
+	const dummy = useConst<number>(sample(dummies) || 75);
 
 	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
@@ -62,7 +62,7 @@ const Badge = (props: BadgeProps): ReactElement => {
 		<CUIBadge
 			{...rest}
 			variant='unstyled'
-			sx={{ ..._.merge(style.badge.default, style.badge[size], style[colorMode][variant], sx) }}
+			sx={{ ...merge(style.badge.default, style.badge[size], style[colorMode][variant], sx) }}
 		>
 			<HStack width='100%' spacing={handleReturnSpacing()}>
 				{renderLeft

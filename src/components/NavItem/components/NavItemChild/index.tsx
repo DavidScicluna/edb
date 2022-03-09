@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useTheme, useColorMode, useBoolean, HStack, Text, Box } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import useStyles from './styles';
 import { NavItemChildProps } from './types';
@@ -70,7 +70,7 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
 						onMouseEnter={() => setIsHoveringChild.on()}
 						onMouseLeave={() => setIsHoveringChild.off()}
 						spacing={0}
-						sx={{ ..._.merge(style.common.child, style[colorMode].child) }}
+						sx={{ ...merge(style.common.child, style[colorMode].child) }}
 					>
 						<Text
 							align='left'

@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Tag as CUITag, HStack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import useStyles from './styles';
 import { TagRef, TagProps } from './types';
@@ -82,7 +82,7 @@ const Tag = forwardRef<TagRef, TagProps>(function Tag(props, ref): ReactElement 
 			{...rest}
 			ref={ref}
 			variant='unstyled'
-			sx={{ ..._.merge(style.tag.default, style.tag[size], style[colorMode][variant], sx) }}
+			sx={{ ...merge(style.tag.default, style.tag[size], style[colorMode][variant], sx) }}
 			_disabled={{ ...style.tag.disabled }}
 		>
 			<HStack width='100%' spacing={handleReturnSpacing()}>

@@ -3,7 +3,7 @@ import { ReactElement, Fragment, forwardRef, useRef, useState, useCallback, useE
 import '../common/styles/styles.css';
 import { useBoolean } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { debounce } from 'lodash';
 
 import Header from './components/Header';
 import { HorizontalGridTabbedRef, HorizontalGridTabbedProps } from './types';
@@ -51,7 +51,7 @@ const HorizontalGridTabbed = forwardRef<HorizontalGridTabbedRef, HorizontalGridT
 		};
 
 		const handleCheckIsDisabled = useCallback(
-			_.debounce(() => {
+			debounce(() => {
 				if (visibleItemsWithoutSeparators.length) {
 					if (isFirstItemVisible) {
 						setIsLeftDisabled.on();

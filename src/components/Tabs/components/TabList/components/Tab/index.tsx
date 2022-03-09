@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Tab as CUITab, HStack, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import useStyles from './styles';
 import { Size, TabsProps, RenderProps } from './types';
@@ -77,8 +77,8 @@ const Tab = (props: TabsProps): ReactElement => {
 		<CUITab
 			isDisabled={isDisabled}
 			isSelected={isSelected}
-			sx={{ ..._.merge(style.tab.default, style.tab[size], style[colorMode]) }}
-			_disabled={{ ..._.merge(style.disabled) }}
+			sx={{ ...merge(style.tab.default, style.tab[size], style[colorMode]) }}
+			_disabled={{ ...merge(style.disabled) }}
 		>
 			<HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing(size)}>
 				{renderLeft ? renderLeft(handleReturnRenderProps()) : null}

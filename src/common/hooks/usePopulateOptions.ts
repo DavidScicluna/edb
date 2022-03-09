@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import {
 	setCountries,
@@ -127,7 +127,7 @@ const usePopulateOptions = (): void => {
 		{
 			retry: true,
 			onSuccess: (certifications) => {
-				if (!(_.isNil(certifications) || _.isEmpty(certifications))) {
+				if (!(isNil(certifications) || isEmpty(certifications))) {
 					dispatch(setMovieCertifications({ ...(certifications || {}) }));
 				}
 			}
@@ -146,7 +146,7 @@ const usePopulateOptions = (): void => {
 		{
 			retry: true,
 			onSuccess: (certifications) => {
-				if (!(_.isNil(certifications) || _.isEmpty(certifications))) {
+				if (!(isNil(certifications) || isEmpty(certifications))) {
 					dispatch(setTVCertifications({ ...(certifications || {}) }));
 				}
 			}

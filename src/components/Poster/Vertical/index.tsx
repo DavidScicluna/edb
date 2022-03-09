@@ -3,7 +3,7 @@ import useInView from 'react-cool-inview';
 
 import { useBoolean, VStack, Center, HStack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import Image from './components/Image';
 import Subtitle from './components/Subtitle';
@@ -129,7 +129,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 						{/* Text */}
 						<VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0.25}>
 							<Title title={title} isLoading={isLoading} inView={inView} />
-							{!(_.isNil(subtitle) || _.isEmpty(subtitle)) || isLoading ? (
+							{!(isNil(subtitle) || isEmpty(subtitle)) || isLoading ? (
 								<Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
 							) : null}
 						</VStack>

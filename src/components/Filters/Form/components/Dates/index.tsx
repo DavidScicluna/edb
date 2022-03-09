@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 
 import { useMediaQuery, Stack, Center, Text, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 import moment from 'moment';
 
 import { DatesProps } from './types';
@@ -39,15 +39,15 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 								renderMessage={({ color, fontSize, fontWeight }) => (
 									<ScaleFade
 										in={
-											!(_.isNil(value.gte) || _.isEmpty(value.gte)) ||
-											!(_.isNil(value.lte) || _.isEmpty(value.lte))
+											!(isNil(value.gte) || isEmpty(value.gte)) ||
+											!(isNil(value.lte) || isEmpty(value.lte))
 										}
 										unmountOnExit
 									>
 										<Text color={color} fontSize={fontSize} fontWeight={fontWeight}>
 											{moment(value.gte).isSame(moment(value.lte), 'date')
 												? moment(value.gte).format(visibleFormat)
-												: _.compact([
+												: compact([
 														value.gte
 															? `From: ${moment(value.gte).format(visibleFormat)}`
 															: null,
@@ -61,7 +61,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 								renderButton={({ color, size, variant }) => (
 									<Button
 										color={color}
-										isDisabled={_.isNil(value.gte) && _.isEmpty(value.gte)}
+										isDisabled={isNil(value.gte) && isEmpty(value.gte)}
 										onClick={() =>
 											form.setValue('dates', defaultValues.dates, { shouldDirty: true })
 										}
@@ -120,7 +120,7 @@ const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 											'dates',
 											{
 												gte:
-													_.isNil(value.gte) && _.isEmpty(value.gte)
+													isNil(value.gte) && isEmpty(value.gte)
 														? moment(moment(date).subtract(1, 'days').toDate()).format(
 																dataFormat
 														  )

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil } from 'lodash';
 
 import { HeaderProps } from './types';
 
@@ -31,7 +31,7 @@ const Header = (props: HeaderProps): ReactElement => {
 			</IconButton>
 
 			{/* Current Decade */}
-			<Fade in={!_.isNil(index)} unmountOnExit>
+			<Fade in={!isNil(index)} unmountOnExit>
 				<Text
 					align='center'
 					color={`gray.${colorMode === 'light' ? 400 : 500}`}

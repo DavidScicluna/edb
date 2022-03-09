@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 
 import { useTheme, useMediaQuery, useConst, ButtonGroup, Text, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, compact } from 'lodash';
 
 import { RuntimeRangeProps } from './types';
 
@@ -22,10 +22,10 @@ const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const runtimes = useConst(_.range(0, 475, 45));
+	const runtimes = useConst(range(0, 475, 45));
 
 	const handleOnChange = (value: Filters['runtime'], number: number): void => {
-		const runtimes = _.compact(value);
+		const runtimes = compact(value);
 
 		if (runtimes.some((num) => num === number)) {
 			form.setValue(
@@ -51,7 +51,7 @@ const RuntimeRange = ({ form }: RuntimeRangeProps): ReactElement => {
 			control={form.control}
 			name='runtime'
 			render={({ field }) => {
-				const value = _.compact(field.value);
+				const value = compact(field.value);
 
 				return (
 					<Panel isFullWidth>

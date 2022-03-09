@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import { ParagraphProps } from './types';
@@ -67,7 +67,7 @@ const Paragraph = ({ title, paragraphs = '', isLoading = true }: ParagraphProps)
 					</Collapse>
 				) : (
 					<VStack width='100%' spacing={1}>
-						{_.range(0, 3).map((_dummy, index) => (
+						{range(0, 3).map((_dummy, index) => (
 							<SkeletonText key={index} width='100%' fontSize='xs' isLoaded={false}>
 								<Text align='left' fontSize='xs'>
 									{`Paragraph ${index + 1}`}

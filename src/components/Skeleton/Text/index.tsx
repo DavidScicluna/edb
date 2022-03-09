@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { SlideFade, useTheme } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { round } from 'lodash';
 
 import { SkeletonTextProps } from './types';
 
@@ -20,7 +20,7 @@ const SkeletonText = (props: SkeletonTextProps): ReactElement => {
 		if (fontSize) {
 			const pixels = handleConvertREMToPixels(handleConvertStringToNumber(theme.fontSizes[fontSize], 'rem'));
 
-			return _.round(pixels / 2);
+			return round(pixels / 2);
 		} else {
 			return 8;
 		}

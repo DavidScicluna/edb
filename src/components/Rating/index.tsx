@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, VStack, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { round } from 'lodash';
 
 import { RatingRef, RatingProps } from './types';
 
@@ -79,7 +79,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 						>
 							{children && !isLoading
 								? typeof children === 'number'
-									? _.round(Number(children))
+									? round(Number(children))
 									: children
 								: 'N/A'}
 						</Text>

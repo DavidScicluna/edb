@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { useDisclosure } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 
 import { BookmarkProps } from './types';
 
@@ -89,7 +89,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 		<>
 			{renderAction({
 				lists,
-				isDisabled: _.isNil(user) || _.isEmpty(user),
+				isDisabled: isNil(user) || isEmpty(user),
 				isBookmarked,
 				onClick:
 					isBookmarked && lists && (lists?.length || 0) > 0
@@ -106,7 +106,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 					</Button>
 				)}
 				title='Remove from lists?'
-				description={`Are you sure you want to remove "${title}" ${mediaType} from ${_.compact(
+				description={`Are you sure you want to remove "${title}" ${mediaType} from ${compact(
 					lists.map((list) => `"${list.label}"`)
 				).join(', ')} lists?`}
 				isOpen={isConfirmOpen}

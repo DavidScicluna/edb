@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 // import Adult from './components/Adult';
 import Certifications from './components/Certifications';
@@ -83,7 +83,7 @@ const FiltersForm = (props: FiltersFormProps): ReactElement => {
 				title='Filter'
 				renderActions={({ color, colorMode, size }) => (
 					<HStack spacing={isSm ? 1 : 2}>
-						<Fade in={!_.isEqual(defaultValues, form.getValues())} unmountOnExit>
+						<Fade in={!isEqual(defaultValues, form.getValues())} unmountOnExit>
 							<Button
 								color={color}
 								colorMode={colorMode}

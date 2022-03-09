@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useColorMode, Modal, ModalContent, ModalBody, VStack, Box, Text } from '@chakra-ui/react';
 
 import { motion } from 'framer-motion';
-import _ from 'lodash';
+import { range, reverse } from 'lodash';
 import { useInterval } from 'usehooks-ts';
 
 import useStyles from './styles';
@@ -86,8 +86,8 @@ const Splashscreen = ({ isOpen: isOpenProp }: SplashscreenProps): ReactElement =
 						<MotionBox
 							animate={{
 								backgroundPosition: [
-									..._.range(0, 101, 1).map((number) => `${number}%`),
-									..._.reverse(_.range(0, 101, 1).map((number) => `${number}%`))
+									...range(0, 101, 1).map((number) => `${number}%`),
+									...reverse(range(0, 101, 1).map((number) => `${number}%`))
 								]
 							}}
 							transition={{

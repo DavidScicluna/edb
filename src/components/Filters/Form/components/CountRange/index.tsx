@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 
 import { useTheme, useMediaQuery, useConst, ButtonGroup, Text, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, compact } from 'lodash';
 
 import { CountRangeProps } from './types';
 
@@ -22,10 +22,10 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const counts = useConst(_.range(0, 550, 50));
+	const counts = useConst(range(0, 550, 50));
 
 	const handleOnChange = (value: Filters['count'], number: number): void => {
-		const count = _.compact(value);
+		const count = compact(value);
 
 		if (count.some((num) => num === number)) {
 			form.setValue(
@@ -51,7 +51,7 @@ const CountRange = ({ form }: CountRangeProps): ReactElement => {
 			control={form.control}
 			name='count'
 			render={({ field }) => {
-				const value = _.compact(field.value);
+				const value = compact(field.value);
 
 				return (
 					<Panel isFullWidth>

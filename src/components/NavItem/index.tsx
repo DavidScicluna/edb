@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useTheme, useColorMode, useBoolean, VStack, HStack, Text, Box, ScaleFade, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { debounce, merge } from 'lodash';
 
 import NavItemChild from './components/NavItemChild';
 import useStyles from './styles';
@@ -48,7 +48,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 	});
 
 	const handleToggleChildren = useCallback(
-		_.debounce(() => {
+		debounce(() => {
 			setIsChildrenOpen.toggle();
 		}, 250),
 		[setIsChildrenOpen]
@@ -71,7 +71,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 			aria-disabled={isDisabled}
 			width='100%'
 			spacing={isExpanded ? 2 : 0}
-			sx={{ ..._.merge(style.common.container, style[colorMode].container) }}
+			sx={{ ...merge(style.common.container, style[colorMode].container) }}
 			onClick={!isDisabled && onClick ? () => onClick() : undefined}
 		>
 			<Tooltip
@@ -98,7 +98,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 						spacing={2}
 						onMouseEnter={() => setIsHoveringNav.on()}
 						onMouseLeave={() => setIsHoveringNav.off()}
-						sx={{ ..._.merge(style.common.main, style[colorMode].main) }}
+						sx={{ ...merge(style.common.main, style[colorMode].main) }}
 					>
 						<HStack width='100%' spacing={2}>
 							{renderIcon({ isActive, fontSize: theme.fontSizes['2xl'] })}

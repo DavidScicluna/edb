@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Center, Link as CUILink } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import useStyles from './styles';
 import { LinkProps } from './types';
@@ -27,7 +27,7 @@ const Link = (props: LinkProps): ReactElement => {
 			onClick={isDisabled ? (event) => event.preventDefault() : undefined}
 			sx={{ ...style.common.link }}
 		>
-			<Center sx={{ ..._.merge(style.common.icon) }}>
+			<Center sx={{ ...merge(style.common.icon) }}>
 				<Skeleton isLoaded={!isDisabled}>{icon || <Icon icon='error_outline' type='outlined' />}</Skeleton>
 			</Center>
 		</CUILink>

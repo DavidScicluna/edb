@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Center, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact } from 'lodash';
 
 import { NavigationProps } from './types';
 
@@ -28,7 +28,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
 
 			{/* Current Slide */}
 			<Text align='center' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='md'>
-				{_.compact([current + 1, total]).join(' / ')}
+				{compact([current + 1, total]).join(' / ')}
 			</Text>
 
 			{/* Right button */}

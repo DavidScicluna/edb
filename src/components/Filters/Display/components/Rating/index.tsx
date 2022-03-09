@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import { RatingProps } from './types';
 
@@ -13,7 +13,7 @@ const Rating = ({ ratings, onClick, onDelete }: RatingProps): ReactElement => {
 	return (
 		<Tag
 			color={color}
-			isClickable={!(_.isNil(onClick) || _.isEmpty(onClick))}
+			isClickable={!(isNil(onClick) || isEmpty(onClick))}
 			onClick={onClick ? () => onClick() : undefined}
 			onDelete={onDelete ? () => onDelete() : undefined}
 			variant='outlined'
