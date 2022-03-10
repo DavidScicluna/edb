@@ -7,9 +7,10 @@ import { useBoolean, VStack, Center, Fade, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
-import _ from 'lodash';
+import { uniqBy, debounce, isNil, isEmpty, compact, isBoolean } from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import All from './components/All';
 import Form from './components/Form';
@@ -31,8 +32,8 @@ import DisplayMode from '../../components/Clickable/DisplayMode';
 import Divider from '../../components/Divider';
 import Empty from '../../components/Empty';
 import Page from '../../containers/Page';
-import { setRecentSearches } from '../../store/slices/User';
-import { Search as SearchType, SearchType as SearchTypeValue } from '../../store/slices/User/types';
+import { defaultUser, getUser, setUserRecentSearches } from '../../store/slices/Users';
+import { Search as SearchType, SearchType as SearchTypeValue } from '../../store/slices/Users/types';
 
 const Search = (): ReactElement => {
 	const source = axios.CancelToken.source();
@@ -41,7 +42,11 @@ const Search = (): ReactElement => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const dispatch = useDispatch();
-	const recentSearches = useSelector((state) => state.user.data.recentSearches);
+	const user = useSelector((state) => state.app.data.user);
+	const recentSearches = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.recentSearches || defaultUser.data.recentSearches
+	);
 
 	const [submittedQuery, setSubmittedQuery] = useState<string>('');
 	const [unSubmittedQuery, setUnSubmittedQuery] = useState<string>('');
@@ -85,7 +90,7 @@ const Search = (): ReactElement => {
 
 				setKeywords({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(keywords, 'id')],
+					results: [...uniqBy(keywords, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
@@ -125,34 +130,38 @@ const Search = (): ReactElement => {
 
 				setMovies({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(movies, 'id')],
+					results: [...uniqBy(movies, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
 
 				if (
+					!(isNil(user) || isEmpty(user)) &&
 					data.pages.length === 1 &&
 					(submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'movie'))
 				) {
 					dispatch(
-						setRecentSearches([
-							..._.uniqBy(
-								[
-									...recentSearches,
-									{
-										id: qs.stringify({
-											query: submittedQuery,
-											date: moment(new Date()).format('LLLL'),
+						setUserRecentSearches({
+							id: user || '',
+							data: [
+								...uniqBy(
+									[
+										...recentSearches,
+										{
+											id: qs.stringify({
+												query: submittedQuery,
+												date: moment(new Date()).format('LLLL'),
+												searchTypes: submittedSearchTypes
+											}),
+											label: submittedQuery,
+											date: moment(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
-										}),
-										label: submittedQuery,
-										date: moment(new Date()).toISOString(),
-										searchTypes: submittedSearchTypes
-									}
-								],
-								'id'
-							)
-						])
+										}
+									],
+									'id'
+								)
+							]
+						})
 					);
 				}
 			}
@@ -191,34 +200,38 @@ const Search = (): ReactElement => {
 
 				setShows({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(shows, 'id')],
+					results: [...uniqBy(shows, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
 
 				if (
+					!(isNil(user) || isEmpty(user)) &&
 					data.pages.length === 1 &&
 					(submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'tv'))
 				) {
 					dispatch(
-						setRecentSearches([
-							..._.uniqBy(
-								[
-									...recentSearches,
-									{
-										id: qs.stringify({
-											query: submittedQuery,
-											date: moment(new Date()).format('LLLL'),
+						setUserRecentSearches({
+							id: user || '',
+							data: [
+								...uniqBy(
+									[
+										...recentSearches,
+										{
+											id: qs.stringify({
+												query: submittedQuery,
+												date: moment(new Date()).format('LLLL'),
+												searchTypes: submittedSearchTypes
+											}),
+											label: submittedQuery,
+											date: moment(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
-										}),
-										label: submittedQuery,
-										date: moment(new Date()).toISOString(),
-										searchTypes: submittedSearchTypes
-									}
-								],
-								'id'
-							)
-						])
+										}
+									],
+									'id'
+								)
+							]
+						})
 					);
 				}
 			}
@@ -257,34 +270,38 @@ const Search = (): ReactElement => {
 
 				setPeople({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(people, 'id')],
+					results: [...uniqBy(people, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
 
 				if (
+					!(isNil(user) || isEmpty(user)) &&
 					data.pages.length === 1 &&
 					(submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'person'))
 				) {
 					dispatch(
-						setRecentSearches([
-							..._.uniqBy(
-								[
-									...recentSearches,
-									{
-										id: qs.stringify({
-											query: submittedQuery,
-											date: moment(new Date()).format('LLLL'),
+						setUserRecentSearches({
+							id: user || '',
+							data: [
+								...uniqBy(
+									[
+										...recentSearches,
+										{
+											id: qs.stringify({
+												query: submittedQuery,
+												date: moment(new Date()).format('LLLL'),
+												searchTypes: submittedSearchTypes
+											}),
+											label: submittedQuery,
+											date: moment(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
-										}),
-										label: submittedQuery,
-										date: moment(new Date()).toISOString(),
-										searchTypes: submittedSearchTypes
-									}
-								],
-								'id'
-							)
-						])
+										}
+									],
+									'id'
+								)
+							]
+						})
 					);
 				}
 			}
@@ -322,34 +339,38 @@ const Search = (): ReactElement => {
 
 				setCompanies({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(companies, 'id')],
+					results: [...uniqBy(companies, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
 
 				if (
+					!(isNil(user) || isEmpty(user)) &&
 					data.pages.length === 1 &&
 					(submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'company'))
 				) {
 					dispatch(
-						setRecentSearches([
-							..._.uniqBy(
-								[
-									...recentSearches,
-									{
-										id: qs.stringify({
-											query: submittedQuery,
-											date: moment(new Date()).format('LLLL'),
+						setUserRecentSearches({
+							id: user || '',
+							data: [
+								...uniqBy(
+									[
+										...recentSearches,
+										{
+											id: qs.stringify({
+												query: submittedQuery,
+												date: moment(new Date()).format('LLLL'),
+												searchTypes: submittedSearchTypes
+											}),
+											label: submittedQuery,
+											date: moment(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
-										}),
-										label: submittedQuery,
-										date: moment(new Date()).toISOString(),
-										searchTypes: submittedSearchTypes
-									}
-								],
-								'id'
-							)
-						])
+										}
+									],
+									'id'
+								)
+							]
+						})
 					);
 				}
 			}
@@ -387,34 +408,38 @@ const Search = (): ReactElement => {
 
 				setCollections({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(collections, 'id')],
+					results: [...uniqBy(collections, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
 
 				if (
+					!(isNil(user) || isEmpty(user)) &&
 					data.pages.length === 1 &&
 					(submittedSearchTypes.length === 0 || submittedSearchTypes.some((type) => type === 'collection'))
 				) {
 					dispatch(
-						setRecentSearches([
-							..._.uniqBy(
-								[
-									...recentSearches,
-									{
-										id: qs.stringify({
-											query: submittedQuery,
-											date: moment(new Date()).format('LLLL'),
+						setUserRecentSearches({
+							id: user || '',
+							data: [
+								...uniqBy(
+									[
+										...recentSearches,
+										{
+											id: qs.stringify({
+												query: submittedQuery,
+												date: moment(new Date()).format('LLLL'),
+												searchTypes: submittedSearchTypes
+											}),
+											label: submittedQuery,
+											date: moment(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
-										}),
-										label: submittedQuery,
-										date: moment(new Date()).toISOString(),
-										searchTypes: submittedSearchTypes
-									}
-								],
-								'id'
-							)
-						])
+										}
+									],
+									'id'
+								)
+							]
+						})
 					);
 				}
 			}
@@ -422,14 +447,14 @@ const Search = (): ReactElement => {
 	);
 
 	const handleFetchKeywords = useCallback(
-		_.debounce(() => {
+		debounce(() => {
 			keywordsQuery.refetch();
 		}, 500),
 		[]
 	);
 
 	const handleSubmitQuery = useCallback(
-		_.debounce((query: string, paramSearchTypes?: SearchTypeValue[]): void => {
+		debounce((query: string, paramSearchTypes?: SearchTypeValue[]): void => {
 			setMovies(undefined);
 			setShows(undefined);
 			setPeople(undefined);
@@ -486,7 +511,7 @@ const Search = (): ReactElement => {
 	};
 
 	const handleCheckIfEmpty = useCallback(
-		_.debounce((): boolean => {
+		debounce((): boolean => {
 			let total = 0;
 
 			if (movies?.total_results) {
@@ -517,13 +542,13 @@ const Search = (): ReactElement => {
 	useEffect(() => {
 		const search = qs.parse(location.search);
 
-		if (!(_.isNil(search) || _.isEmpty(search))) {
+		if (!(isNil(search) || isEmpty(search))) {
 			if (location.hash && location.hash.length > 0) {
 				setSubmittedSearchTypes([location.hash.replace('#', '')]);
 				setUnSubmittedSearchTypes([location.hash.replace('#', '')]);
 			} else if (search && search.types && Array.isArray(search.types)) {
-				setSubmittedSearchTypes(_.compact([...search.types]));
-				setUnSubmittedSearchTypes(_.compact([...search.types]));
+				setSubmittedSearchTypes(compact([...search.types]));
+				setUnSubmittedSearchTypes(compact([...search.types]));
 			} else if (search && search.types && typeof search.types === 'string') {
 				setSubmittedSearchTypes([search.types]);
 				setUnSubmittedSearchTypes([search.types]);
@@ -548,7 +573,7 @@ const Search = (): ReactElement => {
 			{{
 				actions: (
 					<Fade
-						in={_.isBoolean(
+						in={isBoolean(
 							(!handleCheckIfEmpty() && submittedSearchTypes.length === 1) ||
 								(location.hash && location.hash.length > 0)
 						)}

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import sort from 'array-sort';
-import { range } from 'lodash';
+import { isEmpty, isNil, range } from 'lodash';
 
 import Search from './components/Search';
 import { RecentSearchesProps } from './types';
@@ -10,22 +10,41 @@ import { RecentSearchesProps } from './types';
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../components/Empty';
-import { defaultUser, getUser, setRecentSearches } from '../../../../../../store/slices/Users';
+import { defaultUser, getUser, setUserRecentSearches } from '../../../../../../store/slices/Users';
 import { Search as SearchType } from '../../../../../../store/slices/Users/types';
 import List from '../List';
 import ListItem from '../List/components/ListItem';
 
-const RecentSearches = (props: RecentSearchesProps): ReactElement => {
+const RecentSearches = ({ onSearchClick }: RecentSearchesProps): ReactElement => {
 	const dispatch = useDispatch();
-	const recentSearches = useSelector((state) => state.user.data.recentSearches);
+	const user = useSelector((state) => state.app.data.user);
+	const recentSearches = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.recentSearches || defaultUser.data.recentSearches
+	);
+
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
 
-	const { onSearchClick } = props;
+	const isDisabled: boolean = isNil(user) || isEmpty(user);
+
+	const handleClear = (): void => {
+		dispatch(
+			setUserRecentSearches({
+				id: user || '',
+				data: []
+			})
+		);
+	};
 
 	const handleDelete = (id: SearchType['id']): void => {
-		dispatch(setRecentSearches(recentSearches.filter((search) => search.id !== id)));
+		dispatch(
+			setUserRecentSearches({
+				id: user || '',
+				data: recentSearches.filter((search) => search.id !== id)
+			})
+		);
 	};
 
 	return (
@@ -34,8 +53,8 @@ const RecentSearches = (props: RecentSearchesProps): ReactElement => {
 			actions={
 				<Button
 					color={color}
-					isDisabled={recentSearches.length === 0}
-					onClick={() => dispatch(setRecentSearches([]))}
+					isDisabled={isDisabled || recentSearches.length === 0}
+					onClick={() => handleClear()}
 					size='sm'
 					variant='text'
 				>
@@ -48,7 +67,13 @@ const RecentSearches = (props: RecentSearchesProps): ReactElement => {
 			) : recentSearches.length > 0 ? (
 				<>
 					{sort([...recentSearches], 'date', { reverse: true }).map((search) => (
-						<Search key={search.id} {...search} onDelete={handleDelete} onClick={onSearchClick} />
+						<Search
+							key={search.id}
+							{...search}
+							isDisabled={isDisabled}
+							onDelete={handleDelete}
+							onClick={onSearchClick}
+						/>
 					))}
 				</>
 			) : (

@@ -19,7 +19,7 @@ const Search = (props: SearchProps): ReactElement => {
 	const [isHoveringList, setIsHoveringList] = useBoolean();
 	const [isHoveringDelete, setIsHoveringDelete] = useBoolean();
 
-	const { id, label, searchTypes = [], date, onDelete, onClick } = props;
+	const { id, label, searchTypes = [], date, isDisabled = false, onDelete, onClick } = props;
 
 	const filteredSearchTypes = allSearchTypes.filter((allSearchType) =>
 		searchTypes.some((searchType) => allSearchType.value === searchType)
@@ -47,7 +47,7 @@ const Search = (props: SearchProps): ReactElement => {
 				) : undefined
 			}
 			actions={
-				!isSm ? (
+				!isSm && !isDisabled ? (
 					<ScaleFade in={isHoveringList} unmountOnExit>
 						<Tooltip
 							aria-label={`Remove "${label}"`}
