@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, Text, Collapse } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { isNil, isEmpty } from 'lodash';
 import moment from 'moment';
 
 import { EditReviewProps, Form } from './types';
@@ -36,7 +37,12 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
 	const dispatch = useDispatch();
-	const userReviews = useSelector((state) => state.user.data.reviews.user);
+	const user = useSelector((state) => state.app.data.user);
+	const userReviews = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+	);
+
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
@@ -53,10 +59,13 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 
 	const { isDirty } = useFormState({ control: form.control });
 
+	const isDisabled: boolean = isNil(user) || isEmpty(user);
+
 	const handleSubmit = (values: Form): void => {
 		dispatch(
-			setUserReviews(
-				userReviews.map((review) =>
+			setUserReviews({
+				id: user || '',
+				data: userReviews.map((review) =>
 					review.id === id
 						? {
 								...review,
@@ -66,7 +75,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 						  }
 						: { ...review }
 				)
-			)
+			})
 		);
 
 		onCloseEditReview();
@@ -101,10 +110,18 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 
 	return (
 		<>
-			<Tooltip aria-label='Edit review' label='Edit review' isOpen={isHovering} placement='top' gutter={6}>
+			<Tooltip
+				aria-label='Edit review'
+				label='Edit review'
+				isDisabled={isDisabled}
+				isOpen={isHovering}
+				placement='top'
+				gutter={6}
+			>
 				<IconButton
 					aria-label='Edit review'
 					color={isEditReviewOpen ? color : 'gray'}
+					isDisabled={isDisabled}
 					onClick={() => onOpenEditReview()}
 					onMouseEnter={() => setIsHovering.on()}
 					onMouseLeave={() => setIsHovering.off()}
@@ -120,7 +137,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 					<Button
 						color={color}
 						colorMode={colorMode}
-						isDisabled={!isDirty}
+						isDisabled={isDisabled || !isDirty}
 						onClick={form.handleSubmit((values) => handleSubmit(values))}
 						size={size}
 					>

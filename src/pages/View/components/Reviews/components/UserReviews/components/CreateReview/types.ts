@@ -11,6 +11,7 @@ export type Form = {
 type RenderProps = {
 	color: keyof Color;
 	label: string;
+	isDisabled: boolean;
 	onClick: () => void;
 };
 

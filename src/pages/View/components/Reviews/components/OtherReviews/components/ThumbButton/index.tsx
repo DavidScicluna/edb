@@ -3,40 +3,55 @@ import { useDispatch } from 'react-redux';
 
 import { useBoolean } from '@chakra-ui/react';
 
+import { isEmpty, isNil } from 'lodash';
+
 import { ThumbButtonProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
-import { defaultUser, getUser, setOtherReviews } from '../../../../../../../../store/slices/Users';
+import { defaultUser, getUser, setUserOtherReviews } from '../../../../../../../../store/slices/Users';
 
 const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 	const dispatch = useDispatch();
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
-	const otherReviews = useSelector((state) => state.user.data.reviews.other);
 
-	const { review, state, label, isDisabled = false } = props;
+	const user = useSelector((state) => state.app.data.user);
+	const otherReviews = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews.other || defaultUser.data.reviews.other
+	);
+
+	const { review, state, label, isDisabled: isDisabledProp = false } = props;
 	const { id } = review || {};
 
 	const [isHovering, setIsHovering] = useBoolean();
 
 	const isActive = otherReviews.some((review) => review.id === id && review?.state === state) || false;
 
+	const isDisabled: boolean = isNil(user) || isEmpty(user) || isDisabledProp;
+
 	const handleReview = (): void => {
 		if (review) {
 			if (otherReviews.some((review) => review.id === id)) {
 				dispatch(
-					setOtherReviews(
-						otherReviews.map((review) =>
+					setUserOtherReviews({
+						id: user || '',
+						data: otherReviews.map((review) =>
 							review.id === id ? { ...review, state: !isActive ? state : undefined } : review
 						)
-					)
+					})
 				);
 			} else {
-				dispatch(setOtherReviews([...otherReviews, { ...review, state }]));
+				dispatch(
+					setUserOtherReviews({
+						id: user || '',
+						data: [...otherReviews, { ...review, state }]
+					})
+				);
 			}
 		}
 	};
@@ -45,7 +60,8 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 		<Tooltip
 			aria-label={isActive ? `Un-${label} review` : `${label} review`}
 			label={isActive ? `Un-${label} review` : `${label} review`}
-			isOpen={isHovering}
+			isDisabled={isDisabled}
+			isOpen={!isDisabled && isHovering}
 			placement='top'
 			gutter={4}
 		>

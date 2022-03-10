@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, useDisclosure, VStack, Text, Collapse } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { isEmpty, isNil } from 'lodash';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
@@ -34,7 +35,12 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
 	const dispatch = useDispatch();
-	const userReviews = useSelector((state) => state.user.data.reviews.user);
+	const user = useSelector((state) => state.app.data.user);
+	const userReviews = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+	);
+
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
@@ -47,27 +53,32 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 
 	const { isDirty } = useFormState({ control: form.control });
 
+	const isDisabled: boolean = isNil(user) || isEmpty(user);
+
 	const handleSubmit = (values: Form): void => {
 		const id = uuid();
 
 		dispatch(
-			setUserReviews([
-				...userReviews,
-				{
-					id,
-					author: 'Name', // TODO use user name
-					author_details: {
-						name: 'Name',
-						username: 'Username',
-						avatar_path: '',
-						rating: values.rating || undefined
-					}, // TODO use user details
-					content: values.review,
-					created_at: moment(new Date()).toISOString(),
-					updated_at: moment(new Date()).toISOString(),
-					mediaItem: { ...(mediaItem || {}), mediaType: mediaType === 'movie' ? 'movie' : 'tv' }
-				}
-			])
+			setUserReviews({
+				id: user || '',
+				data: [
+					...userReviews,
+					{
+						id,
+						author: 'Name', // TODO use user name
+						author_details: {
+							name: 'Name',
+							username: 'Username',
+							avatar_path: '',
+							rating: values.rating || undefined
+						}, // TODO use user details
+						content: values.review,
+						created_at: moment(new Date()).toISOString(),
+						updated_at: moment(new Date()).toISOString(),
+						mediaItem: { ...(mediaItem || {}), mediaType: mediaType === 'movie' ? 'movie' : 'tv' }
+					}
+				]
+			})
 		);
 
 		handleClose();
@@ -96,6 +107,7 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 			{renderAction({
 				color,
 				label: 'Create a new review',
+				isDisabled,
 				onClick: onOpenCreateReview
 			})}
 
@@ -105,7 +117,7 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 					<Button
 						color={color}
 						colorMode={colorMode}
-						isDisabled={!isDirty}
+						isDisabled={isDisabled || !isDirty}
 						onClick={form.handleSubmit((values) => handleSubmit(values))}
 						size={size}
 					>

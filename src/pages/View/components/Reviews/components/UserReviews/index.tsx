@@ -14,6 +14,7 @@ import Button from '../../../../../../components/Clickable/Button';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Panel from '../../../../../../components/Panel';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { UserReview as UserReviewType } from '../../../../../../store/slices/Users/types';
 import Review from '../Review';
 
@@ -22,7 +23,10 @@ const incrementBy = 5;
 const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReviewsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const userReviews: UserReviewType[] = useSelector((state) => state.user.data.reviews.user);
+	const userReviews = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+	);
 	const mediaItemUserReviews: UserReviewType[] = userReviews.filter(
 		(review) => review.mediaItem.id === mediaItem?.id
 	);
@@ -82,8 +86,8 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 							hasIllustration={false}
 							button={
 								<CreateReview
-									renderAction={({ color, label, onClick }) => (
-										<Button color={color} onClick={() => onClick()}>
+									renderAction={({ color, label, isDisabled, onClick }) => (
+										<Button color={color} isDisabled={isDisabled} onClick={() => onClick()}>
 											{label}
 										</Button>
 									)}
@@ -110,8 +114,14 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 				footer:
 					mediaItemUserReviews.length > 0 ? (
 						<CreateReview
-							renderAction={({ color, label, onClick }) => (
-								<Button color={color} isFullWidth onClick={() => onClick()} variant='text'>
+							renderAction={({ color, label, isDisabled, onClick }) => (
+								<Button
+									color={color}
+									isDisabled={isDisabled}
+									isFullWidth
+									onClick={() => onClick()}
+									variant='text'
+								>
 									{label}
 								</Button>
 							)}

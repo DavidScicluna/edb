@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
 
+import { isEmpty, isNil } from 'lodash';
+
 import { DeleteReviewProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
@@ -11,27 +13,46 @@ import IconButton from '../../../../../../../../components/Clickable/IconButton'
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
-import { setUserReviews } from '../../../../../../../../store/slices/Users';
+import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
 
 const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
 	const dispatch = useDispatch();
-	const userReviews = useSelector((state) => state.user.data.reviews.user);
+	const user = useSelector((state) => state.app.data.user);
+	const userReviews = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+	);
 
 	const [isHovering, setIsHovering] = useBoolean();
 
+	const isDisabled: boolean = isNil(user) || isEmpty(user);
+
 	const handleDelete = (): void => {
-		dispatch(setUserReviews(userReviews.filter((review) => review.id !== id)));
+		dispatch(
+			setUserReviews({
+				id: user || '',
+				data: userReviews.filter((review) => review.id !== id)
+			})
+		);
 		onCloseConfirm();
 	};
 
 	return (
 		<>
-			<Tooltip aria-label='Delete review' label='Delete review' isOpen={isHovering} placement='top' gutter={6}>
+			<Tooltip
+				aria-label='Delete review'
+				label='Delete review'
+				isDisabled={isDisabled}
+				isOpen={isHovering}
+				placement='top'
+				gutter={6}
+			>
 				<IconButton
 					aria-label='Delete review'
 					color={isHovering ? 'red' : 'gray'}
+					isDisabled={isDisabled}
 					onClick={() => onOpenConfirm()}
 					onMouseEnter={() => setIsHovering.on()}
 					onMouseLeave={() => setIsHovering.off()}
@@ -43,7 +64,13 @@ const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 
 			<ConfirmModal
 				renderActions={({ colorMode, size }) => (
-					<Button color='red' colorMode={colorMode} onClick={() => handleDelete()} size={size}>
+					<Button
+						color='red'
+						colorMode={colorMode}
+						isDisabled={isDisabled}
+						onClick={() => handleDelete()}
+						size={size}
+					>
 						Delete
 					</Button>
 				)}
