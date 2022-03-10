@@ -7,7 +7,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDisclosure, useConst, Text, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { range, sample, uniq, compact } from 'lodash';
+import { range, sample, uniq, compact, isNil, isEmpty } from 'lodash';
 
 import OverviewTab from './components/OverviewTab';
 import PartsTab from './components/PartsTab';
@@ -24,7 +24,7 @@ import SkeletonText from '../../../../components/Skeleton/Text';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
-import { defaultUser, getUser, setRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
@@ -40,7 +40,11 @@ const Collection = (): ReactElement => {
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
 	const dispatch = useDispatch();
-	const recentlyViewed = useSelector((state) => state.user.data.recentlyViewed);
+	const user = useSelector((state) => state.app.data.user);
+	const recentlyViewed = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.recentlyViewed || defaultUser.data.recentlyViewed
+	);
 
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
@@ -69,12 +73,17 @@ const Collection = (): ReactElement => {
 		},
 		{
 			onSuccess: (collection) => {
-				dispatch(
-					setRecentlyViewed({
-						...recentlyViewed,
-						collections: uniq([...recentlyViewed.collections, { ...collection }])
-					})
-				);
+				if (!(isNil(user) || isEmpty(user))) {
+					dispatch(
+						setUserRecentlyViewed({
+							id: user || '',
+							data: {
+								...recentlyViewed,
+								collections: uniq([...recentlyViewed.collections, { ...collection }])
+							}
+						})
+					);
+				}
 			}
 		}
 	);
