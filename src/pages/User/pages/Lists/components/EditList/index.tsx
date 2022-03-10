@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { sample } from 'lodash';
 import moment from 'moment';
 
 import { EditListProps, Form } from './types';
@@ -30,7 +31,8 @@ const placeholders = [
 	'Johnny Depp',
 	'Angelina Jolie'
 ];
-const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
+
+const placeholder = sample(placeholders);
 
 const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 	const theme = useTheme<Theme>();

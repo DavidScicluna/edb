@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-// import {} from 'lodash';
+import { sample } from 'lodash';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
@@ -33,7 +33,8 @@ const placeholders = [
 	'Johnny Depp',
 	'Angelina Jolie'
 ];
-const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
+
+const placeholder = sample(placeholders);
 
 const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElement => {
 	const theme = useTheme<Theme>();
