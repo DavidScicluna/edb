@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
+import { isEmpty, isNil } from 'lodash';
 import moment from 'moment';
 
 import List from './components/List';
@@ -13,7 +14,7 @@ import Modal from '../../../../../components/Modal';
 import CreateList from '../../../../../pages/User/pages/Lists/components/CreateList';
 import { defaultListsModal, toggleList } from '../../../../../store/slices/Modals';
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
-import { setLists } from '../../../../../store/slices/Users';
+import { defaultUser, getUser, setUserLists } from '../../../../../store/slices/Users';
 import { List as ListType } from '../../../../../store/slices/Users/types';
 
 const ListsModal = (): ReactElement => {
@@ -22,8 +23,11 @@ const ListsModal = (): ReactElement => {
 	const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
 
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state.app.data.user);
 	const listsModal: ListModalType = useSelector((state) => state.modals.ui.listsModal);
-	const lists: ListType[] = useSelector((state) => state.user.data.lists);
+	const lists = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists
+	);
 
 	const [selected, setSelected] = useState<ListType['id'][]>([]);
 
@@ -76,7 +80,12 @@ const ListsModal = (): ReactElement => {
 				});
 			});
 
-			dispatch(setLists([...updatedLists]));
+			dispatch(
+				setUserLists({
+					id: user || '',
+					data: [...updatedLists]
+				})
+			);
 
 			handleCloseLists();
 		}
@@ -105,6 +114,7 @@ const ListsModal = (): ReactElement => {
 					<Button
 						color={color}
 						colorMode={colorMode}
+						isDisabled={isNil(user) || isEmpty(user)}
 						onClick={() => (selected.length > 0 ? handleSaveItem() : onCreateListOpen())}
 						size={size}
 					>

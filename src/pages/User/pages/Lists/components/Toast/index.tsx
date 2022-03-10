@@ -2,8 +2,11 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
+import { isEmpty, isNil } from 'lodash';
+
 import { ToastProps } from './types';
 
+import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../components/Icon';
@@ -12,7 +15,11 @@ const Toast = (props: ToastProps): ReactElement => {
 	const { colorMode } = useColorMode();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
+	const user = useSelector((state) => state.app.data.user);
+
 	const { list, onEdit, onDelete, onClose } = props;
+
+	const isDisabled: boolean = isNil(user) || isEmpty(user);
 
 	return (
 		<HStack
@@ -41,6 +48,7 @@ const Toast = (props: ToastProps): ReactElement => {
 					<IconButton
 						aria-label='Edit selected list'
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
+						isDisabled={isDisabled}
 						onClick={() => onEdit()}
 						size='sm'
 					>
@@ -50,6 +58,7 @@ const Toast = (props: ToastProps): ReactElement => {
 					<Button
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
 						renderLeft={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
+						isDisabled={isDisabled}
 						onClick={() => onEdit()}
 					>
 						Edit
@@ -61,6 +70,7 @@ const Toast = (props: ToastProps): ReactElement => {
 						aria-label='Delete selected list'
 						color='red'
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
+						isDisabled={isDisabled}
 						onClick={() => onDelete()}
 						size='sm'
 					>
@@ -73,6 +83,7 @@ const Toast = (props: ToastProps): ReactElement => {
 						renderLeft={({ fontSize }) => (
 							<Icon icon='delete_outline' type='outlined' fontSize={fontSize} />
 						)}
+						isDisabled={isDisabled}
 						onClick={() => onDelete()}
 					>
 						Delete

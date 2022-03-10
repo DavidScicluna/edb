@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { sample } from 'lodash';
+import { isEmpty, isNil, sample } from 'lodash';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
@@ -18,8 +18,7 @@ import ConfirmModal from '../../../../../../components/ConfirmModal';
 import Input from '../../../../../../components/Forms/Input';
 import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
-import { defaultUser, getUser, setLists } from '../../../../../../store/slices/Users';
-import { List } from '../../../../../../store/slices/Users/types';
+import { defaultUser, getUser, setUserLists } from '../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../theme/types';
 
 const placeholders = [
@@ -43,7 +42,11 @@ const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElemen
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
 	const dispatch = useDispatch();
-	const lists = useSelector((state) => state.user.data.lists);
+	const user = useSelector((state) => state.app.data.user);
+	const lists = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists
+	);
+
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
@@ -60,19 +63,22 @@ const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElemen
 		const id = uuid();
 
 		dispatch(
-			setLists([
-				...lists,
-				{
-					id,
-					label: values.label,
-					description: values?.description || '',
-					date: moment(new Date()).toISOString(),
-					results: {
-						movies: [],
-						tv: []
+			setUserLists({
+				id: user || '',
+				data: [
+					...lists,
+					{
+						id,
+						label: values.label,
+						description: values?.description || '',
+						date: moment(new Date()).toISOString(),
+						results: {
+							movies: [],
+							tv: []
+						}
 					}
-				}
-			])
+				]
+			})
 		);
 
 		if (onSubmit) {
@@ -110,7 +116,7 @@ const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElemen
 					<Button
 						color={color}
 						colorMode={colorMode}
-						isDisabled={!isDirty}
+						isDisabled={isNil(user) || isEmpty(user) || !isDirty}
 						onClick={form.handleSubmit((values) => handleSubmit(values))}
 						size={size}
 					>

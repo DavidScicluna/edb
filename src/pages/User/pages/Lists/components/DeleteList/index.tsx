@@ -3,23 +3,35 @@ import { useDispatch } from 'react-redux';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
+import { isEmpty, isNil } from 'lodash';
+
 import { DeleteListProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../components/ConfirmModal';
-import { setLists } from '../../../../../../store/slices/Users';
+import { defaultUser, getUser, setUserLists } from '../../../../../../store/slices/Users';
 
 const DeleteList = ({ id, isOpen, onClose, onCloseToast }: DeleteListProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const dispatch = useDispatch();
-	const lists = useSelector((state) => state.user.data.lists);
-	const list = useSelector((state) => state.user.data.lists.find((list) => list.id === id));
+	const user = useSelector((state) => state.app.data.user);
+	const lists = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists
+	);
+	const list = useSelector((state) =>
+		getUser(state.users.data.users, state.app.data.user)?.data.lists.find((list) => list.id === id)
+	);
 
 	const handleDelete = (): void => {
 		if (list) {
-			dispatch(setLists(lists.filter((paramList) => paramList.id !== list.id)));
+			dispatch(
+				setUserLists({
+					id: user || '',
+					data: lists.filter((paramList) => paramList.id !== list.id)
+				})
+			);
 		}
 
 		onClose();
@@ -29,7 +41,13 @@ const DeleteList = ({ id, isOpen, onClose, onCloseToast }: DeleteListProps): Rea
 	return (
 		<ConfirmModal
 			renderActions={({ colorMode, size }) => (
-				<Button color='red' colorMode={colorMode} onClick={() => handleDelete()} size={size}>
+				<Button
+					color='red'
+					colorMode={colorMode}
+					isDisabled={isNil(user) || isEmpty(user)}
+					onClick={() => handleDelete()}
+					size={size}
+				>
 					Delete
 				</Button>
 			)}

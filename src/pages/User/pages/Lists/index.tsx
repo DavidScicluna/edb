@@ -40,10 +40,14 @@ const Lists = (): ReactElement => {
 
 	const toast = useToast();
 
+	const user = useSelector((state) => state.app.data.user);
+	const lists = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists
+	);
+
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
-	const lists = useSelector((state) => state.user.data.lists);
 
 	const [selectedListID, setSelectedListID] = useState<ListType['id']>();
 	const [activeTab, setActiveTab] = useState<number>();
@@ -140,6 +144,7 @@ const Lists = (): ReactElement => {
 						<Button
 							color={isCreateListOpen ? color : 'gray'}
 							onClick={() => onCreateListOpen()}
+							isDisabled={isNil(user) || isEmpty(user)}
 							isFullWidth={isSm}
 							variant='outlined'
 						>

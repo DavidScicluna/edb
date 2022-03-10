@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
 
+import { isEmpty, isNil } from 'lodash';
 import moment from 'moment';
 
 import Stats from './components/Stats';
@@ -12,11 +13,17 @@ import Button from '../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../components/Icon';
 import Modal from '../../../../../../components/Modal';
 import Panel from '../../../../../../components/Panel';
+import { getUser } from '../../../../../../store/slices/Users';
 
 const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): ReactElement => {
 	const { colorMode } = useColorMode();
 
-	const list = useSelector((state) => state.user.data.lists.find((list) => list.id === id));
+	const user = useSelector((state) => state.app.data.user);
+	const list = useSelector((state) =>
+		getUser(state.users.data.users, state.app.data.user)?.data.lists.find((list) => list.id === id)
+	);
+
+	const isDisabled: boolean = isNil(user) || isEmpty(user);
 
 	return (
 		<Modal
@@ -48,6 +55,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 					<Button
 						colorMode={colorMode}
 						renderLeft={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
+						isDisabled={isDisabled}
 						onClick={() => onEdit()}
 						size={size}
 					>
@@ -59,6 +67,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 						renderLeft={({ fontSize }) => (
 							<Icon icon='delete_outline' type='outlined' fontSize={fontSize} />
 						)}
+						isDisabled={isDisabled}
 						onClick={() => onDelete()}
 						size={size}
 					>

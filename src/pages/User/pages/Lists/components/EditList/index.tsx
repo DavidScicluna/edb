@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { sample } from 'lodash';
+import { isEmpty, isNil, sample } from 'lodash';
 import moment from 'moment';
 
 import { EditListProps, Form } from './types';
@@ -17,7 +17,7 @@ import ConfirmModal from '../../../../../../components/ConfirmModal';
 import Input from '../../../../../../components/Forms/Input';
 import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
-import { defaultUser, getUser, setLists } from '../../../../../../store/slices/Users';
+import { defaultUser, getUser, setUserLists } from '../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../theme/types';
 
 const placeholders = [
@@ -41,8 +41,14 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
 	const dispatch = useDispatch();
-	const lists = useSelector((state) => state.user.data.lists);
-	const list = useSelector((state) => state.user.data.lists.find((list) => list.id === id));
+	const user = useSelector((state) => state.app.data.user);
+	const lists = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists
+	);
+	const list = useSelector((state) =>
+		getUser(state.users.data.users, state.app.data.user)?.data.lists.find((list) => list.id === id)
+	);
+
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
@@ -58,8 +64,9 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 	const handleSubmit = (values: Form): void => {
 		if (list) {
 			dispatch(
-				setLists(
-					lists.map((paramList) =>
+				setUserLists({
+					id: user || '',
+					data: lists.map((paramList) =>
 						paramList.id === list.id
 							? {
 									...list,
@@ -72,7 +79,7 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 							  }
 							: { ...paramList }
 					)
-				)
+				})
 			);
 		}
 
@@ -109,7 +116,7 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 					<Button
 						color={color}
 						colorMode={colorMode}
-						isDisabled={!isDirty}
+						isDisabled={isNil(user) || isEmpty(user) || !isDirty}
 						onClick={form.handleSubmit((values) => handleSubmit(values))}
 						size={size}
 					>
