@@ -28,7 +28,6 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 		(state) =>
 			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
 	);
-	// TODO: Check if it works with useConst
 	const tvShowUserReviews = allUserReviews.filter((review) => review.mediaItem.id === show?.id);
 
 	const color = useSelector(

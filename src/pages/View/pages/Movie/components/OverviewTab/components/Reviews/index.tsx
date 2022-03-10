@@ -24,7 +24,10 @@ import EditReview from '../../../../../../components/Reviews/components/UserRevi
 const Reviews = ({ movie, reviews = [], isLoading = true, onChangeTab }: ReviewsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const allUserReviews = useSelector((state) => state.user.data.reviews.user);
+	const allUserReviews = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+	);
 	const movieUserReviews = allUserReviews.filter((review) => review.mediaItem.id === movie?.id);
 
 	const color = useSelector(
