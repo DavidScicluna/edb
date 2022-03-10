@@ -7,10 +7,10 @@ import { merge } from 'lodash';
 import useStyles from './styles';
 import { EmptyProps } from './types';
 
-import { defaultUser, getUser } from '../../../store/slices/Users';
 import * as fallback from '../../common/assets/fallback';
 import * as empty from '../../common/assets/illustrations/empty';
 import { useSelector } from '../../common/hooks';
+import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme, Space, FontSizes } from '../../theme/types';
 
 const Empty = (props: EmptyProps): ReactElement => {

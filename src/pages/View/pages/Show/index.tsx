@@ -4,11 +4,11 @@ import { useQuery, useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
-import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
 
 import sort from 'array-sort';
 import axios from 'axios';
-import { uniq, uniqBy, compact } from 'lodash';
+import { uniq, uniqBy, compact, isNil, isEmpty } from 'lodash';
 
 import OverviewTab from './components/OverviewTab';
 import SeasonsTab from './components/SeasonsTab';
@@ -26,7 +26,8 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
-import { defaultUser, getUser, setRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
+import { UserReview } from '../../../../store/slices/Users/types';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
@@ -47,9 +48,15 @@ const Show = (): ReactElement => {
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
-	const recentlyViewed = useSelector((state) => state.user.data.recentlyViewed);
-	const userReviews = useSelector((state) => state.user.data.reviews.user);
-	const tvShowUserReviews = userReviews.filter((review) => review.mediaItem.id === Number(id));
+	const user = useSelector((state) => state.app.data.user);
+	const recentlyViewed = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.recentlyViewed || defaultUser.data.recentlyViewed
+	);
+	const userReviews = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+	);
 
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
@@ -60,6 +67,10 @@ const Show = (): ReactElement => {
 	const [activeTab, setActiveTab] = useState<number>(0);
 
 	const [reviews, setReviews] = useState<Response<Review[]>>();
+
+	const tvShowUserReviews = useConst<UserReview[]>(
+		userReviews.filter((review) => review.mediaItem.id === Number(id))
+	);
 
 	// Fetching tv show details
 	const tvShowQuery = useQuery(
@@ -75,12 +86,17 @@ const Show = (): ReactElement => {
 		},
 		{
 			onSuccess: (show) => {
-				dispatch(
-					setRecentlyViewed({
-						...recentlyViewed,
-						tv: uniq([...recentlyViewed.tv, { ...show }])
-					})
-				);
+				if (!(isNil(user) || isEmpty(user))) {
+					dispatch(
+						setUserRecentlyViewed({
+							id: user || '',
+							data: {
+								...recentlyViewed,
+								tv: uniq([...recentlyViewed.tv, { ...show }])
+							}
+						})
+					);
+				}
 			}
 		}
 	);
