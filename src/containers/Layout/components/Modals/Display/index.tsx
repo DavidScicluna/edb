@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import { ColorMode, useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
 
+import { isEmpty, isNil } from 'lodash';
+
 import Background from './components/Background';
 import Color from './components/Color';
 
@@ -12,7 +14,7 @@ import { handleCheckSystemColorMode } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
-import { setTheme } from '../../../../../store/slices/Users';
+import { defaultUser, getUser, setUserTheme } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../store/slices/Users/types';
 
 const Display = (): ReactElement => {
@@ -21,12 +23,16 @@ const Display = (): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 672px)');
 
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state.app.data.user);
 	const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
-	const theme = useSelector((state) => state.user.ui.theme);
+	const theme = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme || defaultUser.ui.theme
+	);
 
 	const form = useForm<Theme>({ defaultValues: { ...theme } });
 	const color = form.watch('color');
 	const background = form.watch('background');
+
 	const colorMode: ColorMode = background === 'system' ? handleCheckSystemColorMode() : background;
 
 	const { isDirty, dirtyFields } = useFormState({ control: form.control });
@@ -35,7 +41,7 @@ const Display = (): ReactElement => {
 		handleClose();
 
 		dispatch(toggleSplashscreen(true));
-		dispatch(setTheme(newTheme));
+		dispatch(setUserTheme({ id: user || '', data: newTheme }));
 
 		form.reset({ ...newTheme });
 
@@ -63,7 +69,7 @@ const Display = (): ReactElement => {
 				<Button
 					color={color}
 					colorMode={colorMode}
-					isDisabled={!isDirty}
+					isDisabled={isNil(user) || isEmpty(user) || !isDirty}
 					onClick={form.handleSubmit((values) => handleSubmit(values))}
 					size={size}
 				>

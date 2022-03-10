@@ -26,6 +26,7 @@ import { NavItem } from '../../components/NavItem/types';
 import SplashscreenModal from '../../components/Splashscreen';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { toggleSplashscreen } from '../../store/slices/Modals';
+import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme } from '../../theme/types';
 
 export const navItems: NavItem[] = [
@@ -81,8 +82,10 @@ const Layout = (): ReactElement => {
 
 	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
-	const background = useSelector((state) => state.user.ui.theme.background);
-
+	const background = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.ui.theme.background || defaultUser.ui.theme.background
+	);
 	const isQuickViewOpen = useSelector((state) => state.modals.ui.quickViewModal.open);
 
 	const isFetching = useIsFetching();
