@@ -16,6 +16,7 @@ import Divider from '../../../../components/Divider';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { MediaItems } from '../../../../store/slices/Users/types';
 import MediaTypesHeader from '../../components/MediaTypesHeader';
 import MediaTypesPicker from '../../components/MediaTypesPicker';
@@ -51,7 +52,9 @@ const handleReturnMediaTypes = ({ movies, tv, people, companies, collections }: 
 };
 
 const Liked = (): ReactElement => {
-	const liked = useSelector((state) => state.user.data.liked);
+	const liked = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.liked || defaultUser.data.liked
+	);
 
 	const location = useLocation();
 	const navigate = useNavigate();
