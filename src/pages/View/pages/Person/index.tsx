@@ -7,7 +7,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { uniq } from 'lodash';
+import { isEmpty, isNil, uniq } from 'lodash';
 
 import { handleGetDepartments } from './common/utils';
 import CreditsTab from './components/CreditsTab';
@@ -25,7 +25,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
-import { defaultUser, getUser, setRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
@@ -40,8 +40,11 @@ const Person = (): ReactElement => {
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
 	const dispatch = useDispatch();
-	const recentlyViewed = useSelector((state) => state.user.data.recentlyViewed);
-
+	const user = useSelector((state) => state.app.data.user);
+	const recentlyViewed = useSelector(
+		(state) =>
+			getUser(state.users.data.users, state.app.data.user)?.data.recentlyViewed || defaultUser.data.recentlyViewed
+	);
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
@@ -67,12 +70,17 @@ const Person = (): ReactElement => {
 		},
 		{
 			onSuccess: (person) => {
-				dispatch(
-					setRecentlyViewed({
-						...recentlyViewed,
-						people: uniq([...recentlyViewed.people, { ...person }])
-					})
-				);
+				if (!(isNil(user) || isEmpty(user))) {
+					dispatch(
+						setUserRecentlyViewed({
+							id: user || '',
+							data: {
+								...recentlyViewed,
+								people: uniq([...recentlyViewed.people, { ...person }])
+							}
+						})
+					);
+				}
 			}
 		}
 	);
