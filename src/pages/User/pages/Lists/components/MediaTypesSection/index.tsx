@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil } from 'lodash';
 
 import { MediaTypesSectionProps } from './types';
 
@@ -60,7 +60,7 @@ const MediaTypesSection = ({ movies, tv, renderActions }: MediaTypesSectionProps
 					}}
 				/>
 
-				{_.isNil(activeTab) ? (
+				{isNil(activeTab) ? (
 					<MediaTypesPicker
 						mediaTypes={handleReturnMediaTypes()}
 						label='Oh no! 😢'

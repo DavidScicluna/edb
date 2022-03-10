@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { BackdropsProps } from './types';
 
@@ -55,7 +55,7 @@ const Backdrops = (props: BackdropsProps): ReactElement => {
 			) : (
 				<VerticalGrid columns={[1, 2, 2, 3, 3, 4]} displayMode='grid'>
 					{() =>
-						_.range(0, isSuccess && backdrops && backdrops.length > 0 ? backdrops.length : 20).map(
+						range(0, isSuccess && backdrops && backdrops.length > 0 ? backdrops.length : 20).map(
 							(_dummy, index: number) => (
 								<Image
 									key={index}

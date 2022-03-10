@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, range } from 'lodash';
 
 import Season from './components/Season';
 import { SeasonsTabProps } from './types';
@@ -41,7 +41,7 @@ const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
 							return {
 								id: `${season.id || index}`,
 								title: season.name || `Season ${season.season_number}`,
-								subtitle: !(_.isNil(season.air_date) || _.isEmpty(season.air_date))
+								subtitle: !(isNil(season.air_date) || isEmpty(season.air_date))
 									? handleReturnDate(season.air_date, 'full')
 									: undefined,
 								total: {
@@ -52,7 +52,7 @@ const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
 								data: { ...season }
 							};
 					  })
-					: _.range(0, 5).map((_dummy, index: number) => {
+					: range(0, 5).map((_dummy, index: number) => {
 							return {
 								id: `${index}`,
 								title: `Season ${index + 1}`,

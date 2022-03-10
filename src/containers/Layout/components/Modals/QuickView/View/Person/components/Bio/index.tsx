@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack, Text, useColorMode } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, range } from 'lodash';
 
 import { BioProps } from './types';
 
@@ -30,7 +30,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 					}}
 				>
 					{bio
-						? _.compact([
+						? compact([
 								birthday ? handleReturnDates(birthday, deathday, place_of_birth) : undefined,
 								bio
 						  ]).join('')
@@ -38,7 +38,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 				</Text>
 			) : (
 				<VStack width='100%'>
-					{_.range(0, 2).map((_dummy, index) => (
+					{range(0, 2).map((_dummy, index) => (
 						<SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
 							<Text
 								align='left'

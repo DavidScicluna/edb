@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useConst, HStack, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample, compact, isNil, isEmpty } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import Certification from './components/Certification';
@@ -19,7 +19,7 @@ import Rating from '../../../../../../components/Rating';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 
-const dummies = _.range(25, 75, 10);
+const dummies = range(25, 75, 10);
 
 // TODO: Make this dynamic
 const handleReturnCertification = (release_dates: FullMovie['release_dates']): string | undefined => {
@@ -49,7 +49,7 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 		runtime
 	} = movie || {};
 
-	const dummy = useConst<number>(_.sample(dummies) || 75);
+	const dummy = useConst<number>(sample(dummies) || 75);
 
 	const certification: string | undefined = handleReturnCertification(release_dates);
 
@@ -76,9 +76,9 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 				</HStack>
 			)}
 			renderSubtitles={({ color, fontSize }) =>
-				_.compact([
+				compact([
 					<Status key={`movie-${id}-status`} status={status} fontSize={fontSize} isLoading={isLoading} />,
-					!(_.isNil(release_date) || _.isEmpty(release_date)) || isLoading ? (
+					!(isNil(release_date) || isEmpty(release_date)) || isLoading ? (
 						<Date
 							key={`movie-${id}-release_date`}
 							date={release_date}
@@ -87,7 +87,7 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					!(_.isNil(genres) || _.isEmpty(genres)) || isLoading ? (
+					!(isNil(genres) || isEmpty(genres)) || isLoading ? (
 						<Genres
 							key={`movie-${id}-genres`}
 							genres={genres}
@@ -96,7 +96,7 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					!(_.isNil(certification) || _.isEmpty(certification)) || isLoading ? (
+					!(isNil(certification) || isEmpty(certification)) || isLoading ? (
 						<Certification
 							key={`movie-${id}-certification`}
 							certification={certification}
@@ -104,7 +104,7 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					!(_.isNil(original_language) || _.isEmpty(original_language)) || isLoading ? (
+					!(isNil(original_language) || isEmpty(original_language)) || isLoading ? (
 						<Language
 							key={`movie-${id}-original_language`}
 							language={original_language}
@@ -113,7 +113,7 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					!(_.isNil(runtime) || _.isEmpty(runtime)) || isLoading ? (
+					!(isNil(runtime) || isEmpty(runtime)) || isLoading ? (
 						<Runtime
 							key={`movie-${id}-runtime`}
 							runtime={runtime}

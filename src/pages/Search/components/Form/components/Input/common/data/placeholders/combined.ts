@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { range, sampleSize, sample } from 'lodash';
 
 import collections from './collections';
 import companies from './companies';
@@ -6,14 +6,14 @@ import movie from './movie';
 import people from './people';
 import tv from './tv';
 
-const numbers = _.range(0, 5);
+const numbers = range(0, 5);
 
 const placeholders = [
-	..._.sampleSize(collections, _.sample(numbers)),
-	..._.sampleSize(companies, _.sample(numbers)),
-	..._.sampleSize(movie, _.sample(numbers)),
-	..._.sampleSize(people, _.sample(numbers)),
-	..._.sampleSize(tv, _.sample(numbers))
+	...sampleSize(collections, sample(numbers)),
+	...sampleSize(companies, sample(numbers)),
+	...sampleSize(movie, sample(numbers)),
+	...sampleSize(people, sample(numbers)),
+	...sampleSize(tv, sample(numbers))
 ];
 
 export default placeholders;

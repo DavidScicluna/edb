@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { truncate } from 'lodash';
 
 import { DisplayProps } from './types';
 
@@ -75,7 +75,7 @@ const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): React
 					onMouseEnter={query.length > 20 ? () => setIsHovering.on() : undefined}
 					onMouseLeave={query.length > 20 ? () => setIsHovering.off() : undefined}
 				>
-					{`Your search results for "${_.truncate(query, { length: 20 })}"`}
+					{`Your search results for "${truncate(query, { length: 20 })}"`}
 				</Text>
 			</Tooltip>
 			<Text align='right' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm'>

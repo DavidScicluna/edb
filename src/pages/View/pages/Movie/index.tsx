@@ -8,7 +8,7 @@ import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import sort from 'array-sort';
 import axios from 'axios';
-import _ from 'lodash';
+import { isNil, uniq, uniqBy, compact } from 'lodash';
 
 import OverviewTab from './components/OverviewTab';
 import Title from './components/Title';
@@ -75,7 +75,7 @@ const Movie = (): ReactElement => {
 				dispatch(
 					setRecentlyViewed({
 						...recentlyViewed,
-						movies: _.uniq([...recentlyViewed.movies, { ...movie }])
+						movies: uniq([...recentlyViewed.movies, { ...movie }])
 					})
 				);
 			}
@@ -143,7 +143,7 @@ const Movie = (): ReactElement => {
 			return data;
 		},
 		{
-			enabled: movieQuery.isSuccess && !_.isNil(movieQuery.data?.belongs_to_collection?.id)
+			enabled: movieQuery.isSuccess && !isNil(movieQuery.data?.belongs_to_collection?.id)
 		}
 	);
 
@@ -171,7 +171,7 @@ const Movie = (): ReactElement => {
 
 				setReviews({
 					page: data.pages[data.pages.length - 1].page,
-					results: sort([..._.uniqBy(reviews, 'id')], 'updated_at', { reverse: true }),
+					results: sort([...uniqBy(reviews, 'id')], 'updated_at', { reverse: true }),
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
@@ -463,7 +463,7 @@ const Movie = (): ReactElement => {
 			{imagesQuery.isSuccess || videosQuery.isSuccess ? (
 				<MediaViewer
 					alt={movieQuery.data?.title || 'Movie Title'}
-					assets={_.compact([
+					assets={compact([
 						(imagesQuery.data?.posters || []).length > 0
 							? {
 									label: 'Posters',

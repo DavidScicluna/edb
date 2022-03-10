@@ -6,7 +6,7 @@ import { useBoolean, VStack, Center, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
-import _ from 'lodash';
+import { uniqBy, mergeWith, isNil } from 'lodash';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -67,7 +67,7 @@ const Trending = (): ReactElement => {
 
 				setMovies({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(movies, 'id')],
+					results: [...uniqBy(movies, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
@@ -101,7 +101,7 @@ const Trending = (): ReactElement => {
 
 				setShows({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(tvShows, 'id')],
+					results: [...uniqBy(tvShows, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
@@ -135,7 +135,7 @@ const Trending = (): ReactElement => {
 
 				setPeople({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(people, 'id')],
+					results: [...uniqBy(people, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
@@ -151,7 +151,7 @@ const Trending = (): ReactElement => {
 				navigate({
 					pathname: '.',
 					hash: allMediaTypes[0],
-					search: qs.stringify(_.mergeWith({ page: page + 1 }))
+					search: qs.stringify(mergeWith({ page: page + 1 }))
 				});
 
 				setIsFetchingPage.on();
@@ -166,7 +166,7 @@ const Trending = (): ReactElement => {
 				navigate({
 					pathname: '.',
 					hash: allMediaTypes[1],
-					search: qs.stringify(_.mergeWith({ page: page + 1 }))
+					search: qs.stringify(mergeWith({ page: page + 1 }))
 				});
 
 				setIsFetchingPage.on();
@@ -181,7 +181,7 @@ const Trending = (): ReactElement => {
 				navigate({
 					pathname: '.',
 					hash: allMediaTypes[2],
-					search: qs.stringify(_.mergeWith({ page: page + 1 }))
+					search: qs.stringify(mergeWith({ page: page + 1 }))
 				});
 
 				setIsFetchingPage.on();
@@ -289,7 +289,7 @@ const Trending = (): ReactElement => {
 							<Header activeTab={activeTab} />
 
 							<AnimatePresence exitBeforeEnter initial={false}>
-								{_.isNil(activeTab) ? (
+								{isNil(activeTab) ? (
 									<Center as={Fade} key='media-types-picker' width='100%' in unmountOnExit>
 										<MediaTypesPicker
 											onSelected={(index: number) =>

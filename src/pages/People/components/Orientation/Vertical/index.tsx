@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { VerticalPeopleProps } from './types';
 
@@ -33,7 +33,7 @@ const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
 	) : (
 		<VerticalGrid>
 			{({ displayMode }) =>
-				_.range(0, isSuccess && people && people.length > 0 ? people.length : 20).map((_dummy, index: number) =>
+				range(0, isSuccess && people && people.length > 0 ? people.length : 20).map((_dummy, index: number) =>
 					displayMode === 'list' ? (
 						<HorizontalPersonPoster key={index} isLoading />
 					) : (

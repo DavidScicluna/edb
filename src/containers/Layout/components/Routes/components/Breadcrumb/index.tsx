@@ -3,7 +3,7 @@ import { useQueryClient } from 'react-query';
 
 import { Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { startCase } from 'lodash';
 
 import { BreadcrumbProps, Data } from './types';
 
@@ -19,7 +19,7 @@ const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 		<Center>
 			{mediaType === 'episode'
 				? match.params.episode
-				: data?.title || data?.name || _.startCase(mediaType === 'tv' ? 'TV-show' : mediaType) || ''}
+				: data?.title || data?.name || startCase(mediaType === 'tv' ? 'TV-show' : mediaType) || ''}
 		</Center>
 	);
 };

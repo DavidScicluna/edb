@@ -2,7 +2,7 @@ import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, useOutsideClick, VStack, Fade, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import { FormProps } from './types';
 
@@ -38,7 +38,7 @@ const Form = ({ children }: FormProps): ReactElement => {
 				onClick={() => setIsFocused.on()}
 				spacing={0}
 				p={2}
-				sx={{ ..._.merge(style.panel.outlined, style[colorMode].outlined) }}
+				sx={{ ...merge(style.panel.outlined, style[colorMode].outlined) }}
 			>
 				{children.input}
 				<Collapse in={isFocused} unmountOnExit style={{ width: '100%' }}>

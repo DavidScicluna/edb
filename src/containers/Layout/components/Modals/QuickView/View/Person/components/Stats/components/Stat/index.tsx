@@ -3,20 +3,20 @@ import CountUp from 'react-countup';
 
 import { useColorMode, useConst, Stat as CUIStat, VStack, StatLabel, StatNumber } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 
 import { StatRef, StatProps } from './types';
 
 import SkeletonText from '../../../../../../../../../../../components/Skeleton/Text';
 
-const dummies = _.range(50, 150, 20);
+const dummies = range(50, 150, 20);
 
 const Stat = forwardRef<StatRef, StatProps>(function Stat(props, ref): ReactElement {
 	const { colorMode } = useColorMode();
 
 	const { label = '', number = 0, isLoading = true } = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 100);
+	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
 		<CUIStat ref={ref} justifyContent='center'>

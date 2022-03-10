@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useTheme, useColorMode, Box, HStack, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import { ListsTabButtonProps } from './types';
 
@@ -31,8 +31,8 @@ const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: Lis
 		<Box
 			aria-disabled={isDisabled}
 			onClick={!isSelected ? () => onClick() : undefined}
-			sx={{ ..._.merge(style.tab.default, style.tab[size], style[colorMode]) }}
-			_disabled={{ ..._.merge(style.disabled) }}
+			sx={{ ...merge(style.tab.default, style.tab[size], style[colorMode]) }}
+			_disabled={{ ...merge(style.disabled) }}
 		>
 			<HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing(size)}>
 				<Icon icon='grid_on' type={isSelected ? 'filled' : 'outlined'} fontSize={iconSize} />

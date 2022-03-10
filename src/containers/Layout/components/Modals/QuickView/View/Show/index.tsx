@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 
 import Overview from './components/Overview';
 import Tagline from './components/Tagline';
@@ -83,8 +83,8 @@ const Show = ({ id }: ShowProps): ReactElement => {
 
 						<Collapse
 							in={
-								!(_.isNil(tvShowQuery.data?.overview) || _.isEmpty(tvShowQuery.data?.overview)) ||
-								!(_.isNil(tvShowQuery.data?.tagline) || _.isEmpty(tvShowQuery.data?.tagline)) ||
+								!(isNil(tvShowQuery.data?.overview) || isEmpty(tvShowQuery.data?.overview)) ||
+								!(isNil(tvShowQuery.data?.tagline) || isEmpty(tvShowQuery.data?.tagline)) ||
 								tvShowQuery.isFetching ||
 								tvShowQuery.isLoading
 							}
@@ -94,7 +94,7 @@ const Show = ({ id }: ShowProps): ReactElement => {
 							<VStack width='100%' spacing={2}>
 								<Collapse
 									in={
-										!(_.isNil(tvShowQuery.data?.tagline) || _.isEmpty(tvShowQuery.data?.tagline)) ||
+										!(isNil(tvShowQuery.data?.tagline) || isEmpty(tvShowQuery.data?.tagline)) ||
 										tvShowQuery.isFetching ||
 										tvShowQuery.isLoading
 									}
@@ -108,9 +108,7 @@ const Show = ({ id }: ShowProps): ReactElement => {
 								</Collapse>
 								<Collapse
 									in={
-										!(
-											_.isNil(tvShowQuery.data?.overview) || _.isEmpty(tvShowQuery.data?.overview)
-										) ||
+										!(isNil(tvShowQuery.data?.overview) || isEmpty(tvShowQuery.data?.overview)) ||
 										tvShowQuery.isFetching ||
 										tvShowQuery.isLoading
 									}
@@ -139,7 +137,7 @@ const Show = ({ id }: ShowProps): ReactElement => {
 			{imagesQuery.isSuccess || videosQuery.isSuccess ? (
 				<MediaViewer
 					alt={tvShowQuery.data?.name || 'TV Show Name'}
-					assets={_.compact([
+					assets={compact([
 						(imagesQuery.data?.posters || []).length > 0
 							? {
 									label: 'Posters',

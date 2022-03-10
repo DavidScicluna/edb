@@ -3,7 +3,7 @@ import YouTube, { Options } from 'react-youtube';
 
 import { Box } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import { AssetVideoProps } from './types';
 
@@ -38,7 +38,7 @@ const AssetVideo = (props: AssetVideoProps): ReactElement => {
 				width='100%'
 				ratio={handleReturnRatio('square')}
 				borderRadius='lg'
-				isDisabled={isLoading || _.isNil(videoId) || _.isEmpty(videoId)} // TODO: Check if is working!
+				isDisabled={isLoading || isNil(videoId) || isEmpty(videoId)} // TODO: Check if is working!
 				renderIcon={({ color, fontSize }) => (
 					<Icon icon='play_arrow' type='outlined' color={color} fontSize={fontSize} />
 				)}

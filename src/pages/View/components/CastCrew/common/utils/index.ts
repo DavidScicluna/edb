@@ -1,5 +1,5 @@
 import sort from 'array-sort';
-import _ from 'lodash';
+import { lowerCase, compact } from 'lodash';
 
 import { Role as TVRole, Job as TVJob } from '../../../../../../common/types/tv';
 import { Credits, Department, Crew } from '../../types';
@@ -28,14 +28,14 @@ export const handleReturnCrew = (credits?: Credits): Department[] => {
 			);
 		} else {
 			departments.push({
-				id: _.lowerCase(`${person.department}-crew`),
+				id: lowerCase(`${person.department}-crew`),
 				title: person.department || '',
 				people: [person]
 			});
 		}
 	});
 
-	return _.compact([
+	return compact([
 		{
 			id: 'cast',
 			title: 'Cast',

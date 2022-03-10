@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import Cover from './components/Cover';
 import Overview from './components/Overview';
@@ -26,11 +26,11 @@ const Hero = (props: HeroProps): ReactElement => {
 							}}
 						</Cover>
 
-						{!(_.isNil(tagline) || _.isEmpty(tagline)) || isLoading ? (
+						{!(isNil(tagline) || isEmpty(tagline)) || isLoading ? (
 							<Tagline tagline={tagline} isLoading={isLoading} />
 						) : null}
 
-						{!(_.isNil(overview) || _.isEmpty(overview)) || isLoading ? (
+						{!(isNil(overview) || isEmpty(overview)) || isLoading ? (
 							<Overview overview={overview} isLoading={isLoading} />
 						) : null}
 

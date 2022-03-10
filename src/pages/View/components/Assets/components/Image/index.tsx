@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import { AssetImageProps } from './types';
 
@@ -22,7 +22,7 @@ const AssetImage = (props: AssetImageProps): ReactElement => {
 			width='100%'
 			ratio={aspect_ratio}
 			borderRadius='lg'
-			isDisabled={isLoading || isError || _.isNil(file_path) || _.isEmpty(file_path)} // TODO: Check if is working!
+			isDisabled={isLoading || isError || isNil(file_path) || isEmpty(file_path)} // TODO: Check if is working!
 			renderIcon={({ color, fontSize }) => (
 				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
 			)}

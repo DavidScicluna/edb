@@ -10,7 +10,7 @@ import {
 	Text
 } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { omit, isNil, isEmpty, merge } from 'lodash';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import { useTimeout } from 'usehooks-ts';
 
@@ -44,7 +44,7 @@ const Breadcrumbs = (): ReactElement => {
 		'2xl': 'md'
 	});
 
-	const breadcrumbsHook = useBreadcrumbs(routes.map((route) => _.omit(route, 'element')));
+	const breadcrumbsHook = useBreadcrumbs(routes.map((route) => omit(route, 'element')));
 
 	const [breadcrumbs, setBreadcrumbs] = useState(breadcrumbsHook);
 
@@ -71,10 +71,7 @@ const Breadcrumbs = (): ReactElement => {
 					fontSize={breadcrumbFontSize}
 					sx={{ ...style.common.breadcrumbItem }}
 				>
-					<SkeletonText
-						fontSize={breadcrumbFontSize}
-						isLoaded={!(_.isNil(breadcrumb) || _.isEmpty(breadcrumb))}
-					>
+					<SkeletonText fontSize={breadcrumbFontSize} isLoaded={!(isNil(breadcrumb) || isEmpty(breadcrumb))}>
 						{index === breadcrumbs.length - 1 ? (
 							<Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
 								{breadcrumb.breadcrumb}
@@ -83,7 +80,7 @@ const Breadcrumbs = (): ReactElement => {
 							<BreadcrumbLink
 								as={Link}
 								to={{ pathname: breadcrumb.match.pathname }}
-								sx={{ ..._.merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}
+								sx={{ ...merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}
 							>
 								{breadcrumb.breadcrumb}
 							</BreadcrumbLink>

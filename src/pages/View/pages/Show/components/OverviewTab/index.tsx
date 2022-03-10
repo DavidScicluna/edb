@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 
 import Cast from './components/Cast';
 import Credits from './components/Credits';
@@ -65,8 +65,8 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 					<>
 						<Details show={tvShowQuery.data} isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading} />
 
-						{!(_.isNil(tvShowQuery.data?.created_by) || _.isEmpty(tvShowQuery.data?.created_by)) ||
-						!(_.isNil(creditsQuery.data?.crew) || _.isEmpty(creditsQuery.data?.crew)) ||
+						{!(isNil(tvShowQuery.data?.created_by) || isEmpty(tvShowQuery.data?.created_by)) ||
+						!(isNil(creditsQuery.data?.crew) || isEmpty(creditsQuery.data?.crew)) ||
 						tvShowQuery.isFetching ||
 						tvShowQuery.isLoading ||
 						creditsQuery.isFetching ||
@@ -131,7 +131,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 
 			<Media
 				alt={tvShowQuery.data?.name}
-				assets={_.compact([
+				assets={compact([
 					{
 						label: 'Posters',
 						type: 'poster',

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useConst, VStack, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Collections from './components/Collections';
@@ -132,7 +132,7 @@ const Liked = (): ReactElement => {
 								/>
 							</Collapse>
 
-							{_.isNil(activeTab) || _.isNil(mediaTypes) || _.isEmpty(mediaTypes) ? (
+							{isNil(activeTab) || isNil(mediaTypes) || isEmpty(mediaTypes) ? (
 								<MediaTypesPicker
 									mediaTypes={mediaTypes}
 									label='Oh no! 😢'

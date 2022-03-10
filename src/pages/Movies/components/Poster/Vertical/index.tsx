@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty } from 'lodash';
 
 import { VerticalMoviePosterProps } from './types';
 
@@ -26,11 +26,11 @@ const VerticalMoviePoster = (props: VerticalMoviePosterProps): ReactElement => {
 			}}
 			rating={vote_average || null}
 			title={title || ''}
-			subtitle={`${_.compact([
-				!(_.isNil(release_date) || _.isEmpty(release_date))
+			subtitle={`${compact([
+				!(isNil(release_date) || isEmpty(release_date))
 					? `${handleReturnDate(release_date || '', 'year')} `
 					: undefined,
-				!(_.isNil(genre_ids) || _.isEmpty(genre_ids))
+				!(isNil(genre_ids) || isEmpty(genre_ids))
 					? `${handleReturnGenresByID(genre_ids || [], 'movie')}`
 					: undefined
 			]).join(' • ')}`}

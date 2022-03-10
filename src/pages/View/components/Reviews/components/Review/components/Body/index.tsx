@@ -2,7 +2,7 @@ import { ReactElement, useEffect } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import { BodyProps } from './types';
@@ -22,7 +22,7 @@ const Body = (props: BodyProps): ReactElement => {
 	// const [height, setHeight] = useState<number>();
 
 	// const handleContentRef = useCallback(
-	//   _.debounce((ref: HTMLDivElement | null) => {
+	//   debounce((ref: HTMLDivElement | null) => {
 	//     if (ref) {
 	//       setHeight(ref.offsetHeight);
 	//     } else {
@@ -70,7 +70,7 @@ const Body = (props: BodyProps): ReactElement => {
 				</Collapse>
 			) : (
 				<VStack width='100%' spacing={1}>
-					{_.range(0, 3).map((_dummy, index) => (
+					{range(0, 3).map((_dummy, index) => (
 						<SkeletonText key={index} width='100%' fontSize='xs' isLoaded={!isLoading}>
 							<Text align='left' fontSize='xs'>
 								{`Paragraph ${index + 1}`}

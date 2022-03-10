@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { VerticalSearchCompaniesProps } from './types';
 
@@ -45,7 +45,7 @@ const VerticalSearchCompanies = (props: VerticalSearchCompaniesProps): ReactElem
 			) : (
 				<VerticalGrid displayMode='grid'>
 					{({ displayMode }) =>
-						_.range(
+						range(
 							0,
 							isSuccess && companies?.results && companies.results.length > 0
 								? companies.results.length

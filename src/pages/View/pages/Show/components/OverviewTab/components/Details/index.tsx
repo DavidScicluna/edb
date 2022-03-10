@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty } from 'lodash';
 
 import Genres from './components/Genres';
 import Language from './components/Language';
@@ -18,14 +18,14 @@ const Details = ({ show, isLoading = true }: DetailsProps): ReactElement => {
 		(language) => language.iso_639_1 !== show?.original_language
 	);
 
-	const renderDetails: ListItem[] = _.compact([
-		!(_.isNil(show?.genres) || _.isEmpty(show?.genres)) || isLoading
+	const renderDetails: ListItem[] = compact([
+		!(isNil(show?.genres) || isEmpty(show?.genres)) || isLoading
 			? {
 					label: 'Genres',
 					children: <Genres key={`tv-show-${show?.id}-genres`} genres={show?.genres} isLoading={isLoading} />
 			  }
 			: undefined,
-		!(_.isNil(show?.original_language) || _.isEmpty(show?.original_language)) || isLoading
+		!(isNil(show?.original_language) || isEmpty(show?.original_language)) || isLoading
 			? {
 					label: (show?.spoken_languages?.length || 0) > 1 ? 'Original Language' : 'Language',
 					children: (
@@ -37,7 +37,7 @@ const Details = ({ show, isLoading = true }: DetailsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		!(_.isNil(spokenLanguages) || _.isEmpty(spokenLanguages)) || isLoading
+		!(isNil(spokenLanguages) || isEmpty(spokenLanguages)) || isLoading
 			? {
 					label: 'Other Languages',
 					children: (

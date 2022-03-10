@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { PostersProps } from './types';
 
@@ -55,7 +55,7 @@ const Posters = (props: PostersProps): ReactElement => {
 			) : (
 				<VerticalGrid displayMode='grid'>
 					{() =>
-						_.range(0, isSuccess && posters && posters.length > 0 ? posters.length : 20).map(
+						range(0, isSuccess && posters && posters.length > 0 ? posters.length : 20).map(
 							(_dummy, index: number) => (
 								<Image
 									key={index}

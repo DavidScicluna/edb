@@ -11,7 +11,7 @@ import {
 	Text
 } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample, merge } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import useStyles from './styles';
@@ -20,7 +20,7 @@ import { ListItemProps } from './types';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../theme/types';
 
-const dummies = _.range(25, 100, 10);
+const dummies = range(25, 100, 10);
 
 const ListItem = (props: ListItemProps): ReactElement => {
 	const theme = useTheme<Theme>();
@@ -31,13 +31,13 @@ const ListItem = (props: ListItemProps): ReactElement => {
 
 	const { title, subtitle, badge, actions, isLoading = true, variant = 'contained', ...rest } = props;
 
-	const titleDummy = useConst<number>(_.sample(dummies) || 100);
-	const subtitleDummy = useConst<number>(_.sample(dummies) || 100);
+	const titleDummy = useConst<number>(sample(dummies) || 100);
+	const subtitleDummy = useConst<number>(sample(dummies) || 100);
 
 	const style = useStyles(theme, { variant, isLoading });
 
 	return (
-		<CUIListItem {...rest} px={2} py={1} sx={{ ..._.merge(style.common, style[colorMode]) }}>
+		<CUIListItem {...rest} px={2} py={1} sx={{ ...merge(style.common, style[colorMode]) }}>
 			<VStack
 				width={`calc(100% - ${actions ? actionsWidth + 16 : 0}px)`}
 				alignItems='flex-start'

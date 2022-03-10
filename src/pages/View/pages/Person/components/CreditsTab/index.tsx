@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import MediaItems from './components/MediaItems';
 import { CreditsTabProps } from './types';
@@ -47,7 +47,7 @@ const CreditsTab = (props: CreditsTabProps): ReactElement => {
 								data: department.credits
 							};
 					  })
-					: _.range(0, 10).map((_dummy, index: number) => {
+					: range(0, 10).map((_dummy, index: number) => {
 							return {
 								id: `${index}`,
 								title: `Department ${index + 1}`,

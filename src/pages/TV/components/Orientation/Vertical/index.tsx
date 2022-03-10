@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { VerticalTVProps } from './types';
 
@@ -33,7 +33,7 @@ const VerticalTV = (props: VerticalTVProps): ReactElement => {
 	) : (
 		<VerticalGrid>
 			{({ displayMode }) =>
-				_.range(0, isSuccess && shows && shows.length > 0 ? shows.length : 20).map((_dummy, index: number) =>
+				range(0, isSuccess && shows && shows.length > 0 ? shows.length : 20).map((_dummy, index: number) =>
 					displayMode === 'list' ? (
 						<HorizontalTVShowPoster key={index} isLoading />
 					) : (

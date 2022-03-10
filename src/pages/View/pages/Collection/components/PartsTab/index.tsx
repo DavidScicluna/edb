@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { PartsTabProps } from './types';
 
@@ -72,7 +72,7 @@ const PartsTab = (props: PartsTabProps): ReactElement => {
 	) : (
 		<VerticalGrid>
 			{({ displayMode }) =>
-				_.range(0, isSuccess && parts && parts.length > 0 ? parts.length : 20).map((_dummy, index: number) =>
+				range(0, isSuccess && parts && parts.length > 0 ? parts.length : 20).map((_dummy, index: number) =>
 					displayMode === 'list' ? (
 						<HorizontalMoviePoster key={index} isLoading />
 					) : (

@@ -5,7 +5,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { useMediaQuery, useBoolean, VStack, ScaleFade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { uniqBy, mergeWith } from 'lodash';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -58,7 +58,7 @@ const People = (): ReactElement => {
 
 				setPeople({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(people, 'id')],
+					results: [...uniqBy(people, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
@@ -69,7 +69,7 @@ const People = (): ReactElement => {
 	const handleLoadMore = (): void => {
 		const page = people?.page || 1;
 
-		setSearchParams(_.mergeWith({ page: page + 1 }));
+		setSearchParams(mergeWith({ page: page + 1 }));
 
 		setIsFetchingPage.on();
 

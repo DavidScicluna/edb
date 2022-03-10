@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack, Text, useColorMode } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { OverviewProps } from './types';
 
@@ -20,7 +20,7 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
 				</Text>
 			) : (
 				<VStack width='100%'>
-					{_.range(0, 2).map((_dummy, index) => (
+					{range(0, 2).map((_dummy, index) => (
 						<SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
 							<Text
 								align='left'

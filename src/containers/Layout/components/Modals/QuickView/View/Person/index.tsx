@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import Bio from './components/Bio';
 import Stats from './components/Stats';
@@ -104,8 +104,8 @@ const Person = ({ id }: PersonProps): ReactElement => {
 
 							<Collapse
 								in={
-									!(_.isNil(personQuery.data?.biography) || _.isEmpty(personQuery.data?.biography)) ||
-									!(_.isNil(personQuery.data?.birthday) || _.isEmpty(personQuery.data?.birthday)) ||
+									!(isNil(personQuery.data?.biography) || isEmpty(personQuery.data?.biography)) ||
+									!(isNil(personQuery.data?.birthday) || isEmpty(personQuery.data?.birthday)) ||
 									personQuery.isFetching ||
 									personQuery.isLoading
 								}

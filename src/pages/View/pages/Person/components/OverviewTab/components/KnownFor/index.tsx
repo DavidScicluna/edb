@@ -3,7 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { useMediaQuery } from '@chakra-ui/react';
 
 import sort from 'array-sort';
-import _ from 'lodash';
+import { uniqBy, compact, isNil, isEmpty, range } from 'lodash';
 
 import { KnownForProps, KnownFor as KnownForType } from './types';
 
@@ -22,7 +22,7 @@ import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
  * @returns Array of Objects - Known for list
  */
 const handleGetKnownFor = (credits?: Credits): KnownForType => {
-	return _.uniqBy(
+	return uniqBy(
 		sort([...(credits?.cast || []), ...(credits?.crew || [])], 'popularity', {
 			reverse: true
 		}).filter((_item, index) => index < 20),
@@ -91,14 +91,14 @@ const KnownFor = (props: KnownForProps): ReactElement => {
 						}}
 						rating={mediaItem?.vote_average || null}
 						title={mediaItem?.title || mediaItem?.name || ''}
-						subtitle={_.compact([
+						subtitle={compact([
 							!(
-								_.isNil(mediaItem?.release_date || mediaItem?.first_air_date) ||
-								_.isEmpty(mediaItem?.release_date || mediaItem?.first_air_date)
+								isNil(mediaItem?.release_date || mediaItem?.first_air_date) ||
+								isEmpty(mediaItem?.release_date || mediaItem?.first_air_date)
 							)
 								? handleReturnDate(mediaItem?.release_date || mediaItem?.first_air_date || '', 'year')
 								: undefined,
-							!(_.isNil(mediaItem?.genre_ids) || _.isEmpty(mediaItem?.genre_ids))
+							!(isNil(mediaItem?.genre_ids) || isEmpty(mediaItem?.genre_ids))
 								? `${handleReturnGenresByID(
 										mediaItem?.genre_ids || [],
 										mediaItem?.title ? 'movie' : 'tv'
@@ -109,7 +109,7 @@ const KnownFor = (props: KnownForProps): ReactElement => {
 					/>
 				))
 			) : (
-				[..._.range(0, 20)].map((_dummy, index: number) => (
+				[...range(0, 20)].map((_dummy, index: number) => (
 					<VerticalPoster
 						key={index}
 						width={['185px', '205px', '230px']}

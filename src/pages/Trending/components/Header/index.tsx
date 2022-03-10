@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { HStack, Center, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import { HeaderProps } from './types';
@@ -24,9 +24,9 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 			minHeight='43px' // Size of DisplayMode since they might be un-rendered
 			maxHeight='43px' // Size of DisplayMode since they might be un-rendered
 			spacing={2}
-			divider={!_.isNil(activeTab) ? <Divider orientation='vertical' height={`${height}px`} mx={2} /> : undefined}
+			divider={!isNil(activeTab) ? <Divider orientation='vertical' height={`${height}px`} mx={2} /> : undefined}
 		>
-			<Center width={`calc(100% - ${!_.isNil(activeTab) ? width + 34 : 0}px)`}>
+			<Center width={`calc(100% - ${!isNil(activeTab) ? width + 34 : 0}px)`}>
 				<TabList color={color} size='lg'>
 					{[
 						{
@@ -51,7 +51,7 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 				</TabList>
 			</Center>
 
-			<Fade in={!_.isNil(activeTab)} unmountOnExit>
+			<Fade in={!isNil(activeTab)} unmountOnExit>
 				<DisplayMode ref={ref} />
 			</Fade>
 		</HStack>

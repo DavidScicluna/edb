@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { useMediaQuery, HStack, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import { ReviewsProps } from './types';
 
@@ -64,7 +64,7 @@ const Reviews = ({ movie, reviews = [], isLoading = true, onChangeTab }: Reviews
 						) : undefined
 				},
 				body:
-					!isLoading && !(_.isNil(otherReviews[0]) || _.isEmpty(otherReviews[0])) ? (
+					!isLoading && !(isNil(otherReviews[0]) || isEmpty(otherReviews[0])) ? (
 						<Review
 							renderFooterActions={
 								<HStack spacing={0}>
@@ -85,7 +85,7 @@ const Reviews = ({ movie, reviews = [], isLoading = true, onChangeTab }: Reviews
 							review={otherReviews[0]}
 							isLoading={false}
 						/>
-					) : !isLoading && !(_.isNil(userReviews[0]) || _.isEmpty(userReviews[0])) ? (
+					) : !isLoading && !(isNil(userReviews[0]) || isEmpty(userReviews[0])) ? (
 						<Review
 							renderFooterActions={
 								<HStack>
@@ -130,8 +130,8 @@ const Reviews = ({ movie, reviews = [], isLoading = true, onChangeTab }: Reviews
 						/>
 					),
 				footer:
-					!(_.isNil(otherReviews[0]) || _.isEmpty(otherReviews[0])) ||
-					!(_.isNil(userReviews[0]) || _.isEmpty(userReviews[0])) ? (
+					!(isNil(otherReviews[0]) || isEmpty(otherReviews[0])) ||
+					!(isNil(userReviews[0]) || isEmpty(userReviews[0])) ? (
 						<Button
 							color={color}
 							isFullWidth

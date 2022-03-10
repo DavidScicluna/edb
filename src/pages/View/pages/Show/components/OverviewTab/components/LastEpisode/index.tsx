@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
@@ -30,8 +30,8 @@ const LastEpisode = ({ show, isLoading = true, onChangeTab }: LastEpisodeProps):
 								isLoading={isLoading}
 							/>
 							{!(
-								_.isNil(show?.last_episode_to_air?.air_date) ||
-								_.isEmpty(show?.last_episode_to_air?.air_date)
+								isNil(show?.last_episode_to_air?.air_date) ||
+								isEmpty(show?.last_episode_to_air?.air_date)
 							) || isLoading ? (
 								<Subtitle
 									subtitle={`Episode Aired on ${handleReturnDate(

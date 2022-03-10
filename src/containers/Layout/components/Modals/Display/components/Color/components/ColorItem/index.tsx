@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { startCase } from 'lodash';
 
 import { ColorItemProps } from './types';
 
@@ -19,7 +19,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 	const [isMouseDown, setIsMouseDown] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
-	const label = useConst<string>(_.startCase(color));
+	const label = useConst<string>(startCase(color));
 
 	return (
 		<Tooltip

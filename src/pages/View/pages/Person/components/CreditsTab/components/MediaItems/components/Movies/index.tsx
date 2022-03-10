@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty } from 'lodash';
 
 import { MoviesProps } from './types';
 
@@ -42,13 +42,13 @@ const Movies = ({ movies, job, label }: MoviesProps): ReactElement => {
 									}}
 									rating={movie?.vote_average || null}
 									title={movie?.title || ''}
-									subtitle={`${_.compact([
-										!(_.isNil(movie?.release_date) || _.isEmpty(movie?.release_date))
+									subtitle={`${compact([
+										!(isNil(movie?.release_date) || isEmpty(movie?.release_date))
 											? `${handleReturnDate(movie.release_date || '', 'year')}`
 											: undefined,
-										!(_.isNil(movie?.character) || _.isEmpty(movie?.character))
+										!(isNil(movie?.character) || isEmpty(movie?.character))
 											? `As ${movie.character}`
-											: !(_.isNil(movie?.job) || _.isEmpty(movie?.job))
+											: !(isNil(movie?.job) || isEmpty(movie?.job))
 											? movie?.job
 											: undefined
 									]).join(' • ')}`}
@@ -72,13 +72,13 @@ const Movies = ({ movies, job, label }: MoviesProps): ReactElement => {
 										count: movie?.vote_count || null
 									}}
 									title={movie?.title || ''}
-									subtitle={`${_.compact([
-										!(_.isNil(movie?.release_date) || _.isEmpty(movie?.release_date))
+									subtitle={`${compact([
+										!(isNil(movie?.release_date) || isEmpty(movie?.release_date))
 											? `${handleReturnDate(movie.release_date || '', 'full')}`
 											: undefined,
-										!(_.isNil(movie?.character) || _.isEmpty(movie?.character))
+										!(isNil(movie?.character) || isEmpty(movie?.character))
 											? `As ${movie.character}`
-											: !(_.isNil(movie?.job) || _.isEmpty(movie?.job))
+											: !(isNil(movie?.job) || isEmpty(movie?.job))
 											? movie?.job
 											: undefined
 									]).join(' • ')}`}

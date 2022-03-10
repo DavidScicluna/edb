@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { Collapse, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import Footer from './components/Footer';
 import Image from './components/Image';
@@ -117,7 +117,7 @@ const Media = (props: MediaProps): ReactElement => {
 								)
 							)
 					) : (
-						_.range(0, 10).map((_dummy, index: number) =>
+						range(0, 10).map((_dummy, index: number) =>
 							asset.type === 'video' ? (
 								<Video key={index} alt={alt} isLoading />
 							) : (

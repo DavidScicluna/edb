@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useConst, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 import qs from 'query-string';
 
 import { GenreProps } from './types';
@@ -12,7 +12,7 @@ import Link from '../../../../../../../../../../../../components/Clickable/Link'
 import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../../../../../theme/types';
 
-const dummies = _.range(25, 150, 15);
+const dummies = range(25, 150, 15);
 
 const Genre = (props: GenreProps): ReactElement => {
 	const theme = useTheme<Theme>();
@@ -22,7 +22,7 @@ const Genre = (props: GenreProps): ReactElement => {
 
 	const { id, name, isLoading = true } = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 100);
+	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
 		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>

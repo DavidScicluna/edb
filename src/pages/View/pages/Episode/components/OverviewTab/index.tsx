@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 
 import Cast from './components/Cast';
 import Guests from './components/Guests';
@@ -19,7 +19,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 		<VStack width='100%' spacing={4}>
 			<Collapse
 				in={
-					!(_.isNil(episodeQuery.data?.overview) || _.isEmpty(episodeQuery.data?.overview)) ||
+					!(isNil(episodeQuery.data?.overview) || isEmpty(episodeQuery.data?.overview)) ||
 					episodeQuery.isFetching ||
 					episodeQuery.isLoading
 				}
@@ -55,7 +55,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 
 			<Media
 				alt={episodeQuery.data?.name}
-				assets={_.compact([
+				assets={compact([
 					{
 						label: 'Backdrops',
 						type: 'backdrop',

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useConst } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty, range } from 'lodash';
 
 import Backdrops from './components/Backdrops';
 import Posters from './components/Posters';
@@ -21,8 +21,8 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 	const { alt, assets: assetsProp, isError = false, isSuccess = false, isLoading = true, onClickAsset } = props;
 
 	const assets = useConst<Accordion<(Image | Video)[]>[]>(
-		_.compact([
-			!(_.isNil(assetsProp?.profiles) || _.isEmpty(assetsProp?.profiles)) || isLoading
+		compact([
+			!(isNil(assetsProp?.profiles) || isEmpty(assetsProp?.profiles)) || isLoading
 				? {
 						id: 'profiles',
 						title: 'Photos',
@@ -32,7 +32,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 						isDisabled: (assetsProp?.profiles?.length || 0) === 0
 				  }
 				: undefined,
-			!(_.isNil(assetsProp?.posters) || _.isEmpty(assetsProp?.posters)) || isLoading
+			!(isNil(assetsProp?.posters) || isEmpty(assetsProp?.posters)) || isLoading
 				? {
 						id: 'posters',
 						title: 'Posters',
@@ -42,7 +42,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 						isDisabled: (assetsProp?.posters?.length || 0) === 0
 				  }
 				: undefined,
-			!(_.isNil(assetsProp?.backdrops) || _.isEmpty(assetsProp?.backdrops)) || isLoading
+			!(isNil(assetsProp?.backdrops) || isEmpty(assetsProp?.backdrops)) || isLoading
 				? {
 						id: 'backdrops',
 						title: 'Backdrops',
@@ -52,7 +52,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 						isDisabled: (assetsProp?.backdrops?.length || 0) === 0
 				  }
 				: undefined,
-			!(_.isNil(assetsProp?.videos) || _.isEmpty(assetsProp?.videos)) || isLoading
+			!(isNil(assetsProp?.videos) || isEmpty(assetsProp?.videos)) || isLoading
 				? {
 						id: 'videos',
 						title: 'Videos',
@@ -70,7 +70,7 @@ const Assets = (props: AssetsTabProps): ReactElement => {
 			accordions={
 				!isLoading && isSuccess && assets && assets.length > 0
 					? [...assets]
-					: _.range(0, 4).map((_dummy, index: number) => {
+					: range(0, 4).map((_dummy, index: number) => {
 							return {
 								id: `${index}`,
 								title: `Asset ${index + 1}`,

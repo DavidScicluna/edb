@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 
 import Bio from './components/Bio';
 import KnownFor from './components/KnownFor';
@@ -17,8 +17,8 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 		<VStack width='100%' spacing={4}>
 			<Collapse
 				in={
-					!(_.isNil(person?.biography) || _.isEmpty(person?.biography)) ||
-					!(_.isNil(person?.birthday) || _.isEmpty(person?.birthday)) ||
+					!(isNil(person?.biography) || isEmpty(person?.biography)) ||
+					!(isNil(person?.birthday) || isEmpty(person?.birthday)) ||
 					isLoading?.person
 				}
 				unmountOnExit
@@ -44,7 +44,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 
 			<Media
 				alt={person?.name}
-				assets={_.compact([
+				assets={compact([
 					{
 						label: 'Photos',
 						type: 'poster',

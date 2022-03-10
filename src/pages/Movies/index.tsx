@@ -6,7 +6,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { useMediaQuery, useBoolean, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { uniqBy, debounce, isNil, isEmpty, omit, omitBy, merge, mergeWith } from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
 import { useElementSize, useUpdateEffect, useEffectOnce } from 'usehooks-ts';
@@ -77,7 +77,7 @@ const Movies = (): ReactElement => {
 
 				setMovies({
 					page: data.pages[data.pages.length - 1].page,
-					results: [..._.uniqBy(movies, 'id')],
+					results: [...uniqBy(movies, 'id')],
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
@@ -86,18 +86,18 @@ const Movies = (): ReactElement => {
 	);
 
 	const handleCheckFilters = useCallback(
-		_.debounce((filters: FiltersFormType) => {
+		debounce((filters: FiltersFormType) => {
 			let key: keyof FiltersFormType;
 			let total = 0;
 
 			for (key in filters) {
 				if (
 					key === 'dates' &&
-					(!(_.isNil(filters.dates.gte) || _.isEmpty(filters.dates.gte)) ||
-						!(_.isNil(filters.dates.lte) || _.isEmpty(filters.dates.lte)))
+					(!(isNil(filters.dates.gte) || isEmpty(filters.dates.gte)) ||
+						!(isNil(filters.dates.lte) || isEmpty(filters.dates.lte)))
 				) {
 					total = total + 1;
-				} else if (key !== 'dates' && !(_.isNil(filters[key]) || _.isEmpty(filters[key]))) {
+				} else if (key !== 'dates' && !(isNil(filters[key]) || isEmpty(filters[key]))) {
 					total = total + 1;
 				}
 			}
@@ -111,8 +111,8 @@ const Movies = (): ReactElement => {
 		const currentSearch = qs.parse(searchParams.toString() || '');
 		Object.keys(currentSearch).forEach((key) => key === 'sort_by' || delete currentSearch[key]);
 
-		const filters = _.omitBy(
-			_.merge({
+		const filters = omitBy(
+			merge({
 				...defaultFilters,
 				'certification': form.certifications.length > 0 ? form.certifications.join('|') : undefined,
 				// 'include_adult': form.adult ? String(form.adult) : undefined,
@@ -126,22 +126,22 @@ const Movies = (): ReactElement => {
 				'with_runtime.gte': form.runtime.length > 0 && form.runtime[0] ? form.runtime[0] : undefined,
 				'with_runtime.lte': form.runtime.length > 0 && form.runtime[1] ? form.runtime[1] : undefined
 			}),
-			_.isNil || _.isEmpty
+			isNil || isEmpty
 		);
 
-		setSearchParams(_.mergeWith({ ...currentSearch, ...filters }));
+		setSearchParams(mergeWith({ ...currentSearch, ...filters }));
 
 		setTimeout(() => moviesQuery.refetch(), 250);
 	};
 
 	const handleSetSortBy = (form: SortForm): void => {
-		const currentSearch = _.omit(qs.parse(searchParams.toString() || ''), 'sort_by');
+		const currentSearch = omit(qs.parse(searchParams.toString() || ''), 'sort_by');
 
 		const sortBy = {
 			sort_by: `${form.sortBy.value}.${form.direction}`
 		};
 
-		setSearchParams(_.mergeWith({ ...currentSearch, ...sortBy }));
+		setSearchParams(mergeWith({ ...currentSearch, ...sortBy }));
 
 		setTimeout(() => moviesQuery.refetch(), 250);
 	};
@@ -150,7 +150,7 @@ const Movies = (): ReactElement => {
 		const page = movies?.page || 1;
 		const currentSearch = qs.parse(searchParams.toString() || '');
 
-		setSearchParams(_.mergeWith({ ...currentSearch, page: page + 1 }));
+		setSearchParams(mergeWith({ ...currentSearch, page: page + 1 }));
 
 		setIsFetchingPage.on();
 
@@ -181,8 +181,8 @@ const Movies = (): ReactElement => {
 
 		setSearchParams(
 			Object.keys(currentSearch).length > 0
-				? _.merge({ ...defaultFilters, ...currentSearch })
-				: _.merge({ ...defaultFilters, sort_by: 'popularity.desc' })
+				? merge({ ...defaultFilters, ...currentSearch })
+				: merge({ ...defaultFilters, sort_by: 'popularity.desc' })
 		);
 
 		setTimeout(() => moviesQuery.refetch(), 250);

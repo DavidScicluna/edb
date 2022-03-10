@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { ProfilesProps } from './types';
 
@@ -55,7 +55,7 @@ const Profiles = (props: ProfilesProps): ReactElement => {
 			) : (
 				<VerticalGrid displayMode='grid'>
 					{() =>
-						_.range(0, isSuccess && profiles && profiles.length > 0 ? profiles.length : 20).map(
+						range(0, isSuccess && profiles && profiles.length > 0 ? profiles.length : 20).map(
 							(_dummy, index: number) => (
 								<Image
 									key={index}

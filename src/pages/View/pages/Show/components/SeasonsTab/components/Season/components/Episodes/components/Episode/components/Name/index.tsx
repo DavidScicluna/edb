@@ -2,14 +2,14 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 
 import { NameProps } from './types';
 
 import SkeletonText from '../../../../../../../../../../../../../../components/Skeleton/Text';
 import { FontSizes } from '../../../../../../../../../../../../../../theme/types';
 
-const dummies = _.range(25, 100, 10);
+const dummies = range(25, 100, 10);
 const height = ['19.25px', '22px', '24.75px', '27.5px', '33px', '41.25px'];
 
 const Name = (props: NameProps): ReactElement => {
@@ -25,7 +25,7 @@ const Name = (props: NameProps): ReactElement => {
 
 	const { name, isLoading = false, inView = true } = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 100);
+	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
 		<Box

@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { VideosProps } from './types';
 
@@ -50,7 +50,7 @@ const Videos = (props: VideosProps): ReactElement => {
 			) : (
 				<VerticalGrid displayMode='grid'>
 					{() =>
-						_.range(0, isSuccess && videos && videos.length > 0 ? videos.length : 20).map(
+						range(0, isSuccess && videos && videos.length > 0 ? videos.length : 20).map(
 							(_dummy, index: number) => <Video key={index} alt={alt} isLoading />
 						)
 					}

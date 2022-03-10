@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { CastProps } from './types';
 
@@ -74,7 +74,7 @@ const Cast = (props: CastProps): ReactElement => {
 						/>
 					))
 			) : (
-				_.range(0, 20).map((_dummy, index: number) => (
+				range(0, 20).map((_dummy, index: number) => (
 					<VerticalPoster key={index} width={width} mediaType='person' title='Cast Member Name' isLoading />
 				))
 			)}

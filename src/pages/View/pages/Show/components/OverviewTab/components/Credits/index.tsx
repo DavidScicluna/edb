@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty } from 'lodash';
 
 import CreatedBy from './components/CreatedBy';
 import Credit from './components/Credit';
@@ -22,8 +22,8 @@ const Credits = (props: CreditsProps): ReactElement => {
 	const [producers, setProducers] = useState<Crew[]>([]);
 	const [writers, setWriters] = useState<Crew[]>([]);
 
-	const renderCredits: ListItem[] = _.compact([
-		!(_.isNil(createdBy) || _.isEmpty(createdBy)) || isLoading
+	const renderCredits: ListItem[] = compact([
+		!(isNil(createdBy) || isEmpty(createdBy)) || isLoading
 			? {
 					label: 'Created By',
 					children: (
@@ -31,13 +31,13 @@ const Credits = (props: CreditsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		!(_.isNil(directors) || _.isEmpty(directors)) || isLoading
+		!(isNil(directors) || isEmpty(directors)) || isLoading
 			? {
 					label: `Director${(directors || []).length > 1 ? 's' : ''}`,
 					children: <Credit key={`tv-show-${show?.id}-directors`} people={directors} isLoading={isLoading} />
 			  }
 			: undefined,
-		!(_.isNil(executiveProducers) || _.isEmpty(executiveProducers)) || isLoading
+		!(isNil(executiveProducers) || isEmpty(executiveProducers)) || isLoading
 			? {
 					label: `Executive Producer${(executiveProducers || []).length > 1 ? 's' : ''}`,
 					children: (
@@ -49,13 +49,13 @@ const Credits = (props: CreditsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		!(_.isNil(producers) || _.isEmpty(producers)) || isLoading
+		!(isNil(producers) || isEmpty(producers)) || isLoading
 			? {
 					label: `Producer${(producers || []).length > 1 ? 's' : ''}`,
 					children: <Credit key={`tv-show-${show?.id}-producers`} people={producers} isLoading={isLoading} />
 			  }
 			: undefined,
-		!(_.isNil(writers) || _.isEmpty(writers)) || isLoading
+		!(isNil(writers) || isEmpty(writers)) || isLoading
 			? {
 					label: `Writer${(writers || []).length > 1 ? 's' : ''}`,
 					children: <Credit key={`tv-show-${show?.id}-producers`} people={writers} isLoading={isLoading} />
@@ -64,13 +64,13 @@ const Credits = (props: CreditsProps): ReactElement => {
 	]);
 
 	useEffect(() => {
-		if (!(_.isNil(show) || _.isEmpty(show)) && !isLoading) {
+		if (!(isNil(show) || isEmpty(show)) && !isLoading) {
 			setCreatedBy(show?.created_by || []);
 		}
 	}, [show]);
 
 	useEffect(() => {
-		if (!(_.isNil(crew) || _.isEmpty(crew)) && !isLoading) {
+		if (!(isNil(crew) || isEmpty(crew)) && !isLoading) {
 			crew.filter((person) => {
 				const jobs = person.jobs && person.jobs.length > 0 ? person.jobs.map((job) => job.job) : [];
 

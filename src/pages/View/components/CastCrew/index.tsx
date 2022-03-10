@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useConst, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { handleReturnCrew } from './common/utils';
 import Cast from './components/Cast';
@@ -51,7 +51,7 @@ const CastCrew = (props: CastCrewProps): ReactElement => {
 								data: department.people
 							};
 					  })
-					: _.range(0, 5).map((_dummy, index: number) => {
+					: range(0, 5).map((_dummy, index: number) => {
 							return {
 								id: `${index}`,
 								title: `Department ${index + 1}`,

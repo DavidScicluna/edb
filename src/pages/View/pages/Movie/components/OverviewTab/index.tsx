@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack, Collapse } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 
 import Cast from './components/Cast';
 import Collection from './components/Collection';
@@ -66,7 +66,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 					<>
 						<Details movie={movieQuery.data} isLoading={movieQuery.isFetching || movieQuery.isLoading} />
 
-						{!(_.isNil(creditsQuery.data?.crew) || _.isEmpty(creditsQuery.data?.crew)) ||
+						{!(isNil(creditsQuery.data?.crew) || isEmpty(creditsQuery.data?.crew)) ||
 						creditsQuery.isFetching ||
 						creditsQuery.isLoading ? (
 							<Credits
@@ -91,7 +91,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 			/>
 
 			<Collapse
-				in={collectionQuery.isSuccess && !(_.isNil(collectionQuery.data) || _.isEmpty(collectionQuery.data))}
+				in={collectionQuery.isSuccess && !(isNil(collectionQuery.data) || isEmpty(collectionQuery.data))}
 				unmountOnExit
 				style={{ width: '100%' }}
 			>
@@ -125,7 +125,7 @@ const OverviewTab = (props: OverviewTabProps): ReactElement => {
 
 			<Media
 				alt={movieQuery.data?.title}
-				assets={_.compact([
+				assets={compact([
 					{
 						label: 'Posters',
 						type: 'poster',

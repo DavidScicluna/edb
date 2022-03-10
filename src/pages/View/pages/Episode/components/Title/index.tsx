@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample, compact, isNil, isEmpty } from 'lodash';
 
 import Date from './components/Date';
 import Show from './components/Show';
@@ -13,13 +13,13 @@ import Title from '../../../../components/Title';
 import { handleReturnCertification } from '../../../Show/components/Title';
 import Certification from '../../../Show/components/Title/components/Certification';
 
-const dummies = _.range(25, 75, 10);
+const dummies = range(25, 75, 10);
 
 const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 	const { show, episode, isLoading = true } = props;
 	const { name, air_date, season_number: season, episode_number } = episode || {};
 
-	const dummy = useConst<number>(_.sample(dummies) || 75);
+	const dummy = useConst<number>(sample(dummies) || 75);
 
 	const certification: string | undefined = handleReturnCertification(show?.content_ratings);
 
@@ -40,7 +40,7 @@ const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 				</SkeletonText>
 			)}
 			renderSubtitles={({ color, fontSize }) =>
-				_.compact([
+				compact([
 					<Show
 						key={`tv-show-${show?.id}-name`}
 						name={show?.name}
@@ -49,7 +49,7 @@ const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 						fontSize={fontSize}
 						isLoading={isLoading}
 					/>,
-					!(_.isNil(air_date) || _.isEmpty(air_date)) || isLoading ? (
+					!(isNil(air_date) || isEmpty(air_date)) || isLoading ? (
 						<Date
 							key={`tv-show-${show?.id}-season-${season}-episode-${episode_number}-date`}
 							air_date={air_date}
@@ -58,7 +58,7 @@ const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 							isLoading={isLoading}
 						/>
 					) : undefined,
-					!(_.isNil(certification) || _.isEmpty(certification)) || isLoading ? (
+					!(isNil(certification) || isEmpty(certification)) || isLoading ? (
 						<Certification
 							key={`tv-show-${show?.id}-certification`}
 							certification={certification}

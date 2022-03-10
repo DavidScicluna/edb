@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { CastProps } from './types';
 
@@ -82,7 +82,7 @@ const Cast = (props: CastProps): ReactElement => {
 			) : (
 				<VerticalGrid displayMode='grid'>
 					{() =>
-						_.range(0, incrementBy).map((_dummy, index: number) => (
+						range(0, incrementBy).map((_dummy, index: number) => (
 							<VerticalPoster
 								key={index}
 								width='100%'

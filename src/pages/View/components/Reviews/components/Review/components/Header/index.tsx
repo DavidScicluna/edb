@@ -13,7 +13,7 @@ import {
 	SlideFade
 } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty, startCase, compact } from 'lodash';
 import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
@@ -62,7 +62,7 @@ const Header = (props: HeaderProps): ReactElement => {
 		return avatar_path || '';
 	};
 
-	const hasRating = !(_.isNil(rating) || _.isEmpty(rating)) || isLoading;
+	const hasRating = !(isNil(rating) || isEmpty(rating)) || isLoading;
 
 	return (
 		<HStack
@@ -99,7 +99,7 @@ const Header = (props: HeaderProps): ReactElement => {
 							overflow='hidden'
 							whiteSpace='nowrap'
 						>
-							{_.startCase(!isSm ? `Review by ${author || name}` : author || name)}
+							{startCase(!isSm ? `Review by ${author || name}` : author || name)}
 						</Text>
 					</SkeletonText>
 					<HorizontalScroll
@@ -114,7 +114,7 @@ const Header = (props: HeaderProps): ReactElement => {
 							</Text>
 						)}
 					>
-						{_.compact([
+						{compact([
 							<SkeletonText key='review_username' isLoaded={!isLoading} fontSize='sm'>
 								<Text
 									align='left'

@@ -2,19 +2,19 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useConst, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 
 import { BudgetProps } from './types';
 
 import { handleFormatMoney } from '../../../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
 
-const dummies = _.range(25, 100, 20);
+const dummies = range(25, 100, 20);
 
 const Budget = ({ budget, isLoading = true }: BudgetProps): ReactElement => {
 	const { colorMode } = useColorMode();
 
-	const dummy = useConst<number>(_.sample(dummies) || 50);
+	const dummy = useConst<number>(sample(dummies) || 50);
 
 	return (
 		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>

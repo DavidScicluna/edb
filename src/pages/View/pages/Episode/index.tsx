@@ -6,7 +6,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { compact } from 'lodash';
 
 import Actions from './components/Actions';
 import OverviewTab from './components/OverviewTab';
@@ -320,7 +320,7 @@ const Episode = (): ReactElement => {
 			{imagesQuery.isSuccess ? (
 				<MediaViewer
 					alt={episodeQuery.data?.name || 'Episode Name'}
-					assets={_.compact([
+					assets={compact([
 						(imagesQuery.data?.stills || []).length > 0
 							? {
 									label: 'Backdrops',

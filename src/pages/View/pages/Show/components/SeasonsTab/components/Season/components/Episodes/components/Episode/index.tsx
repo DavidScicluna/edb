@@ -3,7 +3,7 @@ import useInView from 'react-cool-inview';
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 import moment from 'moment';
 
 import Date from './components/Date';
@@ -109,11 +109,11 @@ const Episode = (props: EpisodeProps): ReactElement => {
 							]}
 						>
 							<Name name={name} isLoading={isLoading} inView={inView} />
-							{!(_.isNil(air_date) || _.isEmpty(air_date)) || isLoading ? (
+							{!(isNil(air_date) || isEmpty(air_date)) || isLoading ? (
 								<Date date={air_date} isLoading={isLoading} inView={inView} />
 							) : null}
 						</VStack>
-						{!(_.isNil(overview) || _.isEmpty(overview)) || isLoading ? (
+						{!(isNil(overview) || isEmpty(overview)) || isLoading ? (
 							<Overview overview={overview} isLoading={isLoading} inView={inView} />
 						) : null}
 					</VStack>
@@ -121,7 +121,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
 					{/* Episode Number */}
 					<Center
 						as={Fade}
-						in={!_.isNil(episode_number) && inView}
+						in={!isNil(episode_number) && inView}
 						unmountOnExit
 						sx={{
 							position: 'absolute',

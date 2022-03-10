@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Center } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import useStyles from './styles';
 import { Size } from './types';
@@ -18,7 +18,7 @@ const Logo = ({ size = 'md' }: { size?: Size }): ReactElement => {
 
 	const style = useStyles(theme, color, size);
 
-	return <Center sx={{ ..._.merge(style.common, style[colorMode]) }}>edb</Center>;
+	return <Center sx={{ ...merge(style.common, style[colorMode]) }}>edb</Center>;
 };
 
 export default Logo;

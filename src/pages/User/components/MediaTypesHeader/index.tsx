@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { Center, HStack, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, compact } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 import { MediaTypesHeaderProps } from './types';
@@ -35,14 +35,14 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 			maxHeight='43px' // Size of Actions since they might be un-rendered
 			spacing={2}
 			divider={
-				!_.isNil(activeTab) || renderActions ? (
+				!isNil(activeTab) || renderActions ? (
 					<Divider orientation='vertical' height={`${heightHeight}px`} />
 				) : undefined
 			}
 		>
-			<Center width={`calc(100% - ${!_.isNil(activeTab) || renderActions ? actionsWidth + 34 : 0}px)`}>
+			<Center width={`calc(100% - ${!isNil(activeTab) || renderActions ? actionsWidth + 34 : 0}px)`}>
 				<TabList color={color}>
-					{_.compact([
+					{compact([
 						mediaTypes.includes('movie')
 							? {
 									label: 'Movies',
@@ -180,13 +180,13 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 
 			{renderActions ? (
 				<HStack ref={actionsRef} spacing={2}>
-					<Fade in={!_.isNil(activeTab)} unmountOnExit>
+					<Fade in={!isNil(activeTab)} unmountOnExit>
 						<DisplayMode />
 					</Fade>
 					{renderActions ? renderActions() : null}
 				</HStack>
 			) : (
-				<Fade in={!_.isNil(activeTab)} unmountOnExit>
+				<Fade in={!isNil(activeTab)} unmountOnExit>
 					<DisplayMode ref={actionsRef} />
 				</Fade>
 			)}

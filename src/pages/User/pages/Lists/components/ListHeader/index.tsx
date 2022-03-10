@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, orderBy } from 'lodash';
 import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
@@ -23,10 +23,10 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
 
 	return (
 		<HorizontalScroll ref={ref}>
-			<ListsTabButton isSelected={_.isNil(activeTab)} onClick={onListsClick} />
+			<ListsTabButton isSelected={isNil(activeTab)} onClick={onListsClick} />
 			<Divider orientation='vertical' height={`${height}px`} mx={2} />
 			<TabList color={color} isActiveForced size='lg'>
-				{_.orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {
+				{orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {
 					return {
 						label: list.label,
 						renderRight:

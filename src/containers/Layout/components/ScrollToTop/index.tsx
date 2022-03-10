@@ -2,7 +2,7 @@ import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { debounce } from 'lodash';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
@@ -23,7 +23,7 @@ const ScrollToTop = (): ReactElement => {
 	const [isHovering, setIsHovering] = useBoolean();
 
 	const handleScroll = useCallback(
-		_.debounce(() => {
+		debounce(() => {
 			const scroll = document?.scrollingElement?.scrollTop || 0;
 
 			if (scroll <= height) {

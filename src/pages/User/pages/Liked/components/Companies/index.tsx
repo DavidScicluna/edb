@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { CompaniesProps } from './types';
 
@@ -48,7 +48,7 @@ const Companies = ({ companies }: CompaniesProps): ReactElement => {
 			) : (
 				<VerticalGrid>
 					{({ displayMode }) =>
-						_.range(0, companies && companies.length > 0 ? companies.length : 20).map(
+						range(0, companies && companies.length > 0 ? companies.length : 20).map(
 							(_dummy, index: number) =>
 								displayMode === 'list' ? (
 									<HorizontalCompanyPoster key={index} isLoading />

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty } from 'lodash';
 
 import Budget from './components/Budget';
 import Genres from './components/Genres';
@@ -20,14 +20,14 @@ const Details = ({ movie, isLoading = true }: DetailsProps): ReactElement => {
 		(language) => language.iso_639_1 !== movie?.original_language
 	);
 
-	const renderDetails: ListItem[] = _.compact([
-		!(_.isNil(movie?.budget) || _.isEmpty(String(movie?.budget))) || isLoading
+	const renderDetails: ListItem[] = compact([
+		!(isNil(movie?.budget) || isEmpty(String(movie?.budget))) || isLoading
 			? {
 					label: 'Budget',
 					children: <Budget key={`movie-${movie?.id}-budget`} budget={movie?.budget} isLoading={isLoading} />
 			  }
 			: undefined,
-		!(_.isNil(movie?.revenue) || _.isEmpty(String(movie?.revenue))) || isLoading
+		!(isNil(movie?.revenue) || isEmpty(String(movie?.revenue))) || isLoading
 			? {
 					label: 'Revenue',
 					children: (
@@ -35,13 +35,13 @@ const Details = ({ movie, isLoading = true }: DetailsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		!(_.isNil(movie?.genres) || _.isEmpty(movie?.genres)) || isLoading
+		!(isNil(movie?.genres) || isEmpty(movie?.genres)) || isLoading
 			? {
 					label: 'Genres',
 					children: <Genres genres={movie?.genres} isLoading={isLoading} />
 			  }
 			: undefined,
-		!(_.isNil(movie?.original_language) || _.isEmpty(movie?.original_language)) || isLoading
+		!(isNil(movie?.original_language) || isEmpty(movie?.original_language)) || isLoading
 			? {
 					label: (movie?.spoken_languages?.length || 0) > 1 ? 'Original Language' : 'Language',
 					children: (
@@ -53,7 +53,7 @@ const Details = ({ movie, isLoading = true }: DetailsProps): ReactElement => {
 					)
 			  }
 			: undefined,
-		!(_.isNil(spokenLanguages) || _.isEmpty(spokenLanguages)) || isLoading
+		!(isNil(spokenLanguages) || isEmpty(spokenLanguages)) || isLoading
 			? {
 					label: 'Other Languages',
 					children: (

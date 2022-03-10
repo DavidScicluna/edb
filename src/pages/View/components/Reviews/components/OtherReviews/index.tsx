@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { useMediaQuery, VStack, HStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import ThumbButton from './components/ThumbButton';
 import { OtherReviewsProps } from './types';
@@ -95,7 +95,7 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
 						</VStack>
 					) : (
 						<VStack width='100%' spacing={4}>
-							{_.range(0, 5).map((_dummy, index: number) => (
+							{range(0, 5).map((_dummy, index: number) => (
 								<Review
 									key={index}
 									renderFooterActions={

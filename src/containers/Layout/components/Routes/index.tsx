@@ -4,7 +4,7 @@ import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 import { useConst, Box } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
-import _ from 'lodash';
+import { omit } from 'lodash';
 
 import Animation from './components/Animation';
 import Breadcrumb from './components/Breadcrumb';
@@ -101,7 +101,7 @@ export const allRoutes: RouteType[] = [
 const Routes = (): ReactElement => {
 	const location = useLocation();
 
-	const routes = useConst(allRoutes.map((route) => _.omit(route, 'breadcrumb')));
+	const routes = useConst(allRoutes.map((route) => omit(route, 'breadcrumb')));
 
 	const handleReturnRoutes = (route: RouteType): ReactElement => {
 		const { path, element, children = [] } = route;

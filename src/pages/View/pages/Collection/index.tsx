@@ -7,7 +7,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDisclosure, useConst, Text, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { range, sample, uniq, compact } from 'lodash';
 
 import OverviewTab from './components/OverviewTab';
 import PartsTab from './components/PartsTab';
@@ -30,7 +30,7 @@ import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
 import Title from '../../components/Title';
 
-const dummies = _.range(25, 75, 10);
+const dummies = range(25, 75, 10);
 
 const tabs = ['overview', 'parts', 'assets'];
 
@@ -52,7 +52,7 @@ const Collection = (): ReactElement => {
 
 	const [selectedPath, setSelectedPath] = useState<string>();
 
-	const dummy = useConst<number>(_.sample(dummies) || 75);
+	const dummy = useConst<number>(sample(dummies) || 75);
 
 	// Fetching collection
 	const collectionQuery = useQuery(
@@ -70,7 +70,7 @@ const Collection = (): ReactElement => {
 				dispatch(
 					setRecentlyViewed({
 						...recentlyViewed,
-						collections: _.uniq([...recentlyViewed.collections, { ...collection }])
+						collections: uniq([...recentlyViewed.collections, { ...collection }])
 					})
 				);
 			}
@@ -278,7 +278,7 @@ const Collection = (): ReactElement => {
 			{imagesQuery.isSuccess ? (
 				<MediaViewer
 					alt={collectionQuery.data?.name || 'Collection Name'}
-					assets={_.compact([
+					assets={compact([
 						(imagesQuery.data?.posters || []).length > 0
 							? {
 									label: 'Posters',

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { VerticalSearchCollectionsProps } from './types';
 
@@ -53,7 +53,7 @@ const VerticalSearchCollections = (props: VerticalSearchCollectionsProps): React
 			) : (
 				<VerticalGrid displayMode='grid'>
 					{({ displayMode }) =>
-						_.range(
+						range(
 							0,
 							isSuccess && collections?.results && collections.results.length > 0
 								? collections.results.length

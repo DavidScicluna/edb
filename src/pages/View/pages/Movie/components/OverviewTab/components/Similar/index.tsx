@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { SimilarProps } from './types';
 
@@ -36,9 +36,7 @@ const Similar = (props: SimilarProps): ReactElement => {
 					<VerticalMoviePoster key={movie.id} width={width} movie={movie} isLoading={false} />
 				))
 			) : (
-				_.range(0, 20).map((_dummy, index: number) => (
-					<VerticalMoviePoster key={index} width={width} isLoading />
-				))
+				range(0, 20).map((_dummy, index: number) => <VerticalMoviePoster key={index} width={width} isLoading />)
 			)}
 		</HorizontalGrid>
 	);

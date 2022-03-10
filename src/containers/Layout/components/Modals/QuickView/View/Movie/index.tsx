@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { isNil, isEmpty, compact } from 'lodash';
 
 import Overview from './components/Overview';
 import Tagline from './components/Tagline';
@@ -88,8 +88,8 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 
 						<Collapse
 							in={
-								!(_.isNil(movieQuery.data?.overview) || _.isEmpty(movieQuery.data?.overview)) ||
-								!(_.isNil(movieQuery.data?.tagline) || _.isEmpty(movieQuery.data?.tagline)) ||
+								!(isNil(movieQuery.data?.overview) || isEmpty(movieQuery.data?.overview)) ||
+								!(isNil(movieQuery.data?.tagline) || isEmpty(movieQuery.data?.tagline)) ||
 								movieQuery.isFetching ||
 								movieQuery.isLoading
 							}
@@ -99,7 +99,7 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 							<VStack width='100%' spacing={2}>
 								<Collapse
 									in={
-										!(_.isNil(movieQuery.data?.tagline) || _.isEmpty(movieQuery.data?.tagline)) ||
+										!(isNil(movieQuery.data?.tagline) || isEmpty(movieQuery.data?.tagline)) ||
 										movieQuery.isFetching ||
 										movieQuery.isLoading
 									}
@@ -113,7 +113,7 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 								</Collapse>
 								<Collapse
 									in={
-										!(_.isNil(movieQuery.data?.overview) || _.isEmpty(movieQuery.data?.overview)) ||
+										!(isNil(movieQuery.data?.overview) || isEmpty(movieQuery.data?.overview)) ||
 										movieQuery.isFetching ||
 										movieQuery.isLoading
 									}
@@ -142,7 +142,7 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 			{imagesQuery.isSuccess || videosQuery.isSuccess ? (
 				<MediaViewer
 					alt={movieQuery.data?.title || 'Movie Title'}
-					assets={_.compact([
+					assets={compact([
 						(imagesQuery.data?.posters || []).length > 0
 							? {
 									label: 'Posters',

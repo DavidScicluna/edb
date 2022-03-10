@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { range, sample, isNil, isEmpty, compact } from 'lodash';
 
 import Overview from './components/Overview';
 import { CollectionProps } from './types';
@@ -30,7 +30,7 @@ import Title from '../../../../../../../pages/View/components/Title';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
 
-const dummies = _.range(25, 75, 10);
+const dummies = range(25, 75, 10);
 
 const Collection = ({ id }: CollectionProps): ReactElement => {
 	const source = axios.CancelToken.source();
@@ -42,7 +42,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 
 	const [selectedImagePath, setSelectedImagePath] = useState<string>();
 
-	const dummy = useConst<number>(_.sample(dummies) || 75);
+	const dummy = useConst<number>(sample(dummies) || 75);
 
 	// Fetching collection
 	const collectionQuery = useQuery([`collection-${id}`, id], async () => {
@@ -144,8 +144,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 							<Collapse
 								in={
 									!(
-										_.isNil(collectionQuery.data?.overview) ||
-										_.isEmpty(collectionQuery.data?.overview)
+										isNil(collectionQuery.data?.overview) || isEmpty(collectionQuery.data?.overview)
 									) ||
 									collectionQuery.isFetching ||
 									collectionQuery.isLoading
@@ -174,7 +173,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 			{imagesQuery.isSuccess ? (
 				<MediaViewer
 					alt={collectionQuery.data?.name || 'Collection Name'}
-					assets={_.compact([
+					assets={compact([
 						(imagesQuery.data?.posters || []).length > 0
 							? {
 									label: 'Posters',

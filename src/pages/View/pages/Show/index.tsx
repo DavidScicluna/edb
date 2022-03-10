@@ -8,7 +8,7 @@ import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import sort from 'array-sort';
 import axios from 'axios';
-import _ from 'lodash';
+import { uniq, uniqBy, compact } from 'lodash';
 
 import OverviewTab from './components/OverviewTab';
 import SeasonsTab from './components/SeasonsTab';
@@ -76,7 +76,7 @@ const Show = (): ReactElement => {
 				dispatch(
 					setRecentlyViewed({
 						...recentlyViewed,
-						tv: _.uniq([...recentlyViewed.tv, { ...show }])
+						tv: uniq([...recentlyViewed.tv, { ...show }])
 					})
 				);
 			}
@@ -155,7 +155,7 @@ const Show = (): ReactElement => {
 
 				setReviews({
 					page: data.pages[data.pages.length - 1].page,
-					results: sort([..._.uniqBy(reviews, 'id')], 'updated_at', { reverse: true }),
+					results: sort([...uniqBy(reviews, 'id')], 'updated_at', { reverse: true }),
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
@@ -475,7 +475,7 @@ const Show = (): ReactElement => {
 			{imagesQuery.isSuccess || videosQuery.isSuccess ? (
 				<MediaViewer
 					alt={tvShowQuery.data?.name || 'TV Show Name'}
-					assets={_.compact([
+					assets={compact([
 						(imagesQuery.data?.posters || []).length > 0
 							? {
 									label: 'Posters',

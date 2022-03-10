@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { HorizontalPeopleProps } from './types';
 
@@ -29,7 +29,7 @@ const HorizontalPeople = (props: HorizontalPeopleProps): ReactElement => {
 		</>
 	) : (
 		<>
-			{_.range(0, 20).map((_dummy, index: number) => (
+			{range(0, 20).map((_dummy, index: number) => (
 				<VerticalPersonPoster key={index} width={['185px', '205px', '230px']} isLoading />
 			))}
 		</>

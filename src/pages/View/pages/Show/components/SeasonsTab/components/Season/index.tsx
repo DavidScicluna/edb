@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import Episodes from './components/Episodes';
 import { SeasonProps } from './types';
@@ -40,8 +40,7 @@ const Season = (props: SeasonProps): ReactElement => {
 			<Collapse
 				in={
 					!(
-						_.isNil(seasonQuery.data?.overview || overview) ||
-						_.isEmpty(seasonQuery.data?.overview || overview)
+						isNil(seasonQuery.data?.overview || overview) || isEmpty(seasonQuery.data?.overview || overview)
 					) ||
 					seasonQuery.isFetching ||
 					seasonQuery.isLoading

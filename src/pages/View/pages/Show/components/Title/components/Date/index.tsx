@@ -2,19 +2,19 @@ import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 
 import { DateProps } from './types';
 
 import { handleReturnDate } from '../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
-const dummies = _.range(25, 100, 20);
+const dummies = range(25, 100, 20);
 
 const Date = (props: DateProps): ReactElement => {
 	const { in_production = false, first_air_date, last_air_date, color, fontSize, isLoading = true } = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 50);
+	const dummy = useConst<number>(sample(dummies) || 50);
 
 	// TODO: Check if date is empty with lodash
 	const handleDate = (): string => {

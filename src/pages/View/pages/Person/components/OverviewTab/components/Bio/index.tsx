@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { toString, compact } from 'lodash';
 import moment from 'moment';
 
 import { BioProps } from './types';
@@ -16,7 +16,7 @@ export const handleReturnDates = (
 	const birthDate = moment(birthday || '', 'YYYY-MM-DD').format('LL');
 	const birthPlace = place_of_birth ? `in ${place_of_birth}` : undefined;
 	const deathDate = deathday ? `and died on ${moment(deathday || '', 'YYYY-MM-DD').format('LL')}` : undefined;
-	const yearsOld = `(${_.toString(moment(birthday || new Date()).diff(deathday || new Date(), 'years')).replaceAll(
+	const yearsOld = `(${toString(moment(birthday || new Date()).diff(deathday || new Date(), 'years')).replaceAll(
 		'-',
 		''
 	)} years old)`;
@@ -30,7 +30,7 @@ const Bio = (props: BioProps): ReactElement => {
 	return (
 		<Paragraph
 			title='Biography'
-			paragraphs={_.compact([
+			paragraphs={compact([
 				birthday ? handleReturnDates(birthday, deathday, place_of_birth) : undefined,
 				biography
 			]).join('')}

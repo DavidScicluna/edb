@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample, isNil, isEmpty } from 'lodash';
 
 import { DateProps } from './types';
 
@@ -10,7 +10,7 @@ import { handleReturnDate } from '../../../../../../../../../../../../../../comm
 import SkeletonText from '../../../../../../../../../../../../../../components/Skeleton/Text';
 import { FontSizes } from '../../../../../../../../../../../../../../theme/types';
 
-const dummies = _.range(25, 100, 10);
+const dummies = range(25, 100, 10);
 const height = ['16.5px', '19.25px', '22px', '24.75px', '27.5px', '33px'];
 
 const Date = (props: DateProps): ReactElement => {
@@ -26,7 +26,7 @@ const Date = (props: DateProps): ReactElement => {
 
 	const { date, isLoading = false, inView = true } = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 100);
+	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
 		<Box
@@ -45,7 +45,7 @@ const Date = (props: DateProps): ReactElement => {
 						overflow='hidden'
 						whiteSpace='nowrap'
 					>
-						{!(_.isNil(date) || _.isEmpty(date)) ? handleReturnDate(date || '', 'full') : 'Episode Date'}
+						{!(isNil(date) || isEmpty(date)) ? handleReturnDate(date || '', 'full') : 'Episode Date'}
 					</Text>
 				</SkeletonText>
 			) : null}

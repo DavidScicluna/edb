@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useConst, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 
 import { PersonProps } from './types';
 
@@ -11,7 +11,7 @@ import Link from '../../../../../../../../../../../../components/Clickable/Link'
 import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../../../../../theme/types';
 
-const dummies = _.range(25, 100, 20);
+const dummies = range(25, 100, 20);
 
 const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 	const theme = useTheme<Theme>();
@@ -19,7 +19,7 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 
 	const color = useSelector((state) => state.user.ui.theme.color);
 
-	const dummy = useConst<number>(_.sample(dummies) || 50);
+	const dummy = useConst<number>(sample(dummies) || 50);
 
 	return (
 		<Link to={{ pathname: `/people/${person?.id}` }} isDisabled={isLoading}>

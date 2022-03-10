@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty } from 'lodash';
 
 import { HorizontalTVShowPosterProps } from './types';
 
@@ -28,11 +28,11 @@ const HorizontalTVShowPoster = (props: HorizontalTVShowPosterProps): ReactElemen
 				count: vote_count || null
 			}}
 			title={name || ''}
-			subtitle={`${_.compact([
-				!(_.isNil(first_air_date) || _.isEmpty(first_air_date))
+			subtitle={`${compact([
+				!(isNil(first_air_date) || isEmpty(first_air_date))
 					? `${handleReturnDate(first_air_date || '', 'full')}`
 					: undefined,
-				!(_.isNil(genre_ids) || _.isEmpty(genre_ids))
+				!(isNil(genre_ids) || isEmpty(genre_ids))
 					? `${handleReturnGenresByID(genre_ids || [], 'tv')}`
 					: undefined
 			]).join(' • ')}`}

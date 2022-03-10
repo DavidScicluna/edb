@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, isNil, isEmpty } from 'lodash';
 
 import { TVShowsProps } from './types';
 
@@ -42,13 +42,13 @@ const TVShows = ({ shows, label, job }: TVShowsProps): ReactElement => {
 									}}
 									rating={show?.vote_average || null}
 									title={show?.name || ''}
-									subtitle={`${_.compact([
-										!(_.isNil(show?.first_air_date) || _.isEmpty(show?.first_air_date))
+									subtitle={`${compact([
+										!(isNil(show?.first_air_date) || isEmpty(show?.first_air_date))
 											? `${handleReturnDate(show.first_air_date || '', 'year')}`
 											: undefined,
-										!(_.isNil(show?.character) || _.isEmpty(show?.character))
+										!(isNil(show?.character) || isEmpty(show?.character))
 											? `As ${show.character}`
-											: !(_.isNil(show?.job) || _.isEmpty(show?.job))
+											: !(isNil(show?.job) || isEmpty(show?.job))
 											? show?.job
 											: undefined
 									]).join(' • ')}`}
@@ -72,13 +72,13 @@ const TVShows = ({ shows, label, job }: TVShowsProps): ReactElement => {
 										count: show?.vote_count || null
 									}}
 									title={show?.name || ''}
-									subtitle={`${_.compact([
-										!(_.isNil(show?.first_air_date) || _.isEmpty(show?.first_air_date))
+									subtitle={`${compact([
+										!(isNil(show?.first_air_date) || isEmpty(show?.first_air_date))
 											? `${handleReturnDate(show.first_air_date || '', 'full')}`
 											: undefined,
-										!(_.isNil(show?.character) || _.isEmpty(show?.character))
+										!(isNil(show?.character) || isEmpty(show?.character))
 											? `As ${show.character}`
-											: !(_.isNil(show?.job) || _.isEmpty(show?.job))
+											: !(isNil(show?.job) || isEmpty(show?.job))
 											? show?.job
 											: undefined
 									]).join(' • ')}`}

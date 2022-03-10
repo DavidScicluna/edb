@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 
 import { MediaImageProps } from './types';
 
@@ -35,7 +35,7 @@ const MediaImage = (props: MediaImageProps): ReactElement => {
 			width={type === 'poster' ? posterWidth : backdropLogoWidth}
 			ratio={ratio}
 			borderRadius='lg'
-			isDisabled={isLoading || isError || _.isNil(path) || _.isEmpty(path)} // TODO: Check if is working!
+			isDisabled={isLoading || isError || isNil(path) || isEmpty(path)} // TODO: Check if is working!
 			renderIcon={({ color, fontSize }) => (
 				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
 			)}

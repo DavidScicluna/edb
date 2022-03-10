@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { VerticalMoviesProps } from './types';
 
@@ -33,7 +33,7 @@ const VerticalMovies = (props: VerticalMoviesProps): ReactElement => {
 	) : (
 		<VerticalGrid>
 			{({ displayMode }) =>
-				_.range(0, isSuccess && movies && movies.length > 0 ? movies.length : 20).map((_dummy, index: number) =>
+				range(0, isSuccess && movies && movies.length > 0 ? movies.length : 20).map((_dummy, index: number) =>
 					displayMode === 'list' ? (
 						<HorizontalMoviePoster key={index} isLoading />
 					) : (

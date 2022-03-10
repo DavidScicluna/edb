@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { RecommendationsProps } from './types';
 
@@ -40,9 +40,7 @@ const Recommendations = (props: RecommendationsProps): ReactElement => {
 					<VerticalMoviePoster key={movie.id} width={width} movie={movie} isLoading={false} />
 				))
 			) : (
-				_.range(0, 20).map((_dummy, index: number) => (
-					<VerticalMoviePoster key={index} width={width} isLoading />
-				))
+				range(0, 20).map((_dummy, index: number) => <VerticalMoviePoster key={index} width={width} isLoading />)
 			)}
 		</HorizontalGrid>
 	);

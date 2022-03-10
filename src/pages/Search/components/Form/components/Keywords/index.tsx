@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, useConst, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { sample, range } from 'lodash';
 
 import { KeywordsProps } from './types';
 
@@ -12,7 +12,7 @@ import Error from '../../../../../../components/Error';
 import List from '../List';
 import ListItem from '../List/components/ListItem';
 
-const dummy = _.sample(_.range(4, 8));
+const dummy = sample(range(4, 8));
 
 const Keywords = (props: KeywordsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -27,7 +27,7 @@ const Keywords = (props: KeywordsProps): ReactElement => {
 		onFetchNextPage
 	} = props;
 
-	const dummies = useConst<number[]>(_.range(0, dummy));
+	const dummies = useConst<number[]>(range(0, dummy));
 
 	return (
 		<VStack width='100%' spacing={4}>

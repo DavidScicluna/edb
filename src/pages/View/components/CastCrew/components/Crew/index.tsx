@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { capitalize, range } from 'lodash';
 
 import { CrewProps } from './types';
 
@@ -31,7 +31,7 @@ const Crew = (props: CrewProps): ReactElement => {
 					variant='outlined'
 				/>
 			) : !isLoading && isSuccess && crew && crew.length === 0 ? (
-				<Empty label={`${_.capitalize(title)} crew list is currently empty!`} variant='outlined' />
+				<Empty label={`${capitalize(title)} crew list is currently empty!`} variant='outlined' />
 			) : !isLoading && isSuccess && crew && crew.length > 0 ? (
 				<VStack width='100%' spacing={4}>
 					<VerticalGrid displayMode='grid'>
@@ -82,7 +82,7 @@ const Crew = (props: CrewProps): ReactElement => {
 			) : (
 				<VerticalGrid displayMode='grid'>
 					{() =>
-						_.range(0, incrementBy).map((_dummy, index: number) => (
+						range(0, incrementBy).map((_dummy, index: number) => (
 							<VerticalPoster
 								key={index}
 								width='100%'

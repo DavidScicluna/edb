@@ -4,7 +4,7 @@ import { useLocation } from 'react-router';
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
-import _ from 'lodash';
+import { isNil, isEmpty, orderBy } from 'lodash';
 import moment from 'moment';
 
 import CreateList from './components/CreateList';
@@ -76,7 +76,7 @@ const Lists = (): ReactElement => {
 	};
 
 	useEffect(() => {
-		if (!_.isNil(activeTab)) {
+		if (!isNil(activeTab)) {
 			handleResetSelected();
 		}
 	}, [activeTab]);
@@ -85,7 +85,7 @@ const Lists = (): ReactElement => {
 		toast.closeAll();
 
 		// TODO: Check if is working!
-		if (_.isNil(activeTab) && !(_.isNil(selectedListID) || _.isEmpty(selectedListID))) {
+		if (isNil(activeTab) && !(isNil(selectedListID) || isEmpty(selectedListID))) {
 			toast({
 				duration: null,
 				isClosable: true,
@@ -165,7 +165,7 @@ const Lists = (): ReactElement => {
 									/>
 								) : (
 									<AnimatePresence exitBeforeEnter initial={false}>
-										{_.isNil(activeTab) ? (
+										{isNil(activeTab) ? (
 											<Center as={Fade} key='list-picker' width='100%' in unmountOnExit>
 												<ListPicker
 													lists={lists}
@@ -177,7 +177,7 @@ const Lists = (): ReactElement => {
 										) : (
 											<Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
 												<TabPanels>
-													{_.orderBy(lists, (list) => moment(list.date), ['desc']).map(
+													{orderBy(lists, (list) => moment(list.date), ['desc']).map(
 														(list) => (
 															<MediaTypesSection
 																key={list.id}

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, useConst, HStack, Input as CUIInput, Fade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { sample } from 'lodash';
 
 import collectionsPlaceholders from './common/data/placeholders/collections';
 import combinedPlaceholders from './common/data/placeholders/combined';
@@ -58,7 +58,7 @@ const Input = (props: InputProps): ReactElement => {
 		}
 	};
 
-	const placeholder = useConst<string | undefined>(_.sample(handleReturnPlaceholders()));
+	const placeholder = useConst<string | undefined>(sample(handleReturnPlaceholders()));
 
 	return (
 		<HStack
@@ -74,6 +74,7 @@ const Input = (props: InputProps): ReactElement => {
 						<SearchTypes searchTypes={searchTypes} onClear={onClearSearchTypes} />
 					</Fade>
 				) : null}
+
 				<CUIInput
 					borderRadius='none'
 					color={`gray.${colorMode === 'light' ? 900 : 50}`}

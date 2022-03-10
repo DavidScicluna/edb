@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { HorizontalTVProps } from './types';
 
@@ -24,7 +24,7 @@ const HorizontalTV = (props: HorizontalTVProps): ReactElement => {
 		</>
 	) : (
 		<>
-			{_.range(0, 20).map((_dummy, index: number) => (
+			{range(0, 20).map((_dummy, index: number) => (
 				<VerticalTVShowPoster key={index} width={['185px', '205px', '230px']} isLoading />
 			))}
 		</>

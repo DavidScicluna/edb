@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import Episode from './components/Episode';
 import { EpisodesProps } from './types';
@@ -41,7 +41,7 @@ const Episodes = (props: EpisodesProps): ReactElement => {
 							<Episode key={episode.id} showId={showId} episode={episode} isLoading={false} />
 						))
 				) : (
-					_.range(0, 5).map((_dummy, index: number) => <Episode key={index} isLoading />)
+					range(0, 5).map((_dummy, index: number) => <Episode key={index} isLoading />)
 				)}
 			</VStack>
 

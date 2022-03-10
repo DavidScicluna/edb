@@ -2,21 +2,21 @@ import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range, sample } from 'lodash';
 
 import { LanguageProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
-const dummies = _.range(25, 150, 20);
+const dummies = range(25, 150, 20);
 
 const Language = (props: LanguageProps): ReactElement => {
 	const languages = useSelector((state) => state.options.data.languages);
 
 	const { language, color, fontSize, isLoading = true } = props;
 
-	const dummy = useConst<number>(_.sample(dummies) || 50);
+	const dummy = useConst<number>(sample(dummies) || 50);
 
 	return (
 		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>

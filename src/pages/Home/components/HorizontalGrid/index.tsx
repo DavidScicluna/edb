@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { compact, range } from 'lodash';
 
 import { HomeHorizontalGridRef, HomeHorizontalGridProps } from './types';
 
@@ -65,7 +65,7 @@ const HomeHorizontalGrid = forwardRef<HomeHorizontalGridRef, HomeHorizontalGridP
 			isDisabled={handleIsDisabled()}
 			renderTabListProps={{
 				color,
-				children: _.compact([
+				children: compact([
 					mediaTypes.includes('movie')
 						? {
 								label: `${title} Movies`,
@@ -105,7 +105,7 @@ const HomeHorizontalGrid = forwardRef<HomeHorizontalGridRef, HomeHorizontalGridP
 						<VerticalMoviePoster key={movie.id} width={width} movie={movie} isLoading={false} />
 					))
 				) : (
-					_.range(0, 20).map((_dummy, index: number) => (
+					range(0, 20).map((_dummy, index: number) => (
 						<VerticalMoviePoster key={index} width={width} isLoading />
 					))
 				)}
@@ -128,7 +128,7 @@ const HomeHorizontalGrid = forwardRef<HomeHorizontalGridRef, HomeHorizontalGridP
 						<VerticalTVShowPoster key={show.id} width={width} show={show} isLoading={false} />
 					))
 				) : (
-					_.range(0, 20).map((_dummy, index: number) => (
+					range(0, 20).map((_dummy, index: number) => (
 						<VerticalTVShowPoster key={index} width={width} isLoading />
 					))
 				)}
@@ -151,7 +151,7 @@ const HomeHorizontalGrid = forwardRef<HomeHorizontalGridRef, HomeHorizontalGridP
 						<VerticalPersonPoster key={person.id} width={width} person={person} isLoading={false} />
 					))
 				) : (
-					_.range(0, 20).map((_dummy, index: number) => (
+					range(0, 20).map((_dummy, index: number) => (
 						<VerticalPersonPoster key={index} width={width} isLoading />
 					))
 				)}

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import sort from 'array-sort';
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import Search from './components/Search';
 import { RecentSearchesProps } from './types';
@@ -51,7 +51,7 @@ const RecentSearches = (props: RecentSearchesProps): ReactElement => {
 				</>
 			) : (
 				<>
-					{_.range(0, 5).map((_dummy, index) => (
+					{range(0, 5).map((_dummy, index) => (
 						<ListItem
 							key={index}
 							id={String(index)}

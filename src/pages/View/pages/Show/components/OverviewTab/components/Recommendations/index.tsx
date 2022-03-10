@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import { RecommendationsProps } from './types';
 
@@ -40,7 +40,7 @@ const Recommendations = (props: RecommendationsProps): ReactElement => {
 					<VerticalTVShowPoster key={show.id} width={width} show={show} isLoading={false} />
 				))
 			) : (
-				_.range(0, 20).map((_dummy, index: number) => (
+				range(0, 20).map((_dummy, index: number) => (
 					<VerticalTVShowPoster key={index} width={width} isLoading />
 				))
 			)}

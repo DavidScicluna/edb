@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import _ from 'lodash';
+import { compact } from 'lodash';
 
 import { ShowProps } from './types';
 
@@ -14,7 +14,7 @@ const Show = (props: ShowProps): ReactElement => {
 
 	return (
 		<Badge color={color} size={fontSize} isLoading={isLoading} variant='outlined'>
-			{_.compact([name, season ? `S${season}` : undefined, episode ? `E${episode}` : undefined]).join(' • ')}
+			{compact([name, season ? `S${season}` : undefined, episode ? `E${episode}` : undefined]).join(' • ')}
 		</Badge>
 	);
 };

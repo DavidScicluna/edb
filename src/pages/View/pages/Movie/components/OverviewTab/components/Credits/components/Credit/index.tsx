@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
 
-import _ from 'lodash';
+import { range } from 'lodash';
 
 import Person from './components/Person';
 import { PeopleProps } from './types';
@@ -23,7 +23,7 @@ const Credit = ({ people = [], isLoading = true }: PeopleProps): ReactElement =>
 		>
 			{!isLoading
 				? people.map((person) => <Person key={person.id} person={person} isLoading={false} />)
-				: _.range(0, 2).map((_dummy, index: number) => <Person key={index} isLoading />)}
+				: range(0, 2).map((_dummy, index: number) => <Person key={index} isLoading />)}
 		</HorizontalScroll>
 	);
 };

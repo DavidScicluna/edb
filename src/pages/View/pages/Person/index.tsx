@@ -7,7 +7,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import _ from 'lodash';
+import { uniq } from 'lodash';
 
 import { handleGetDepartments } from './common/utils';
 import CreditsTab from './components/CreditsTab';
@@ -68,7 +68,7 @@ const Person = (): ReactElement => {
 				dispatch(
 					setRecentlyViewed({
 						...recentlyViewed,
-						people: _.uniq([...recentlyViewed.people, { ...person }])
+						people: uniq([...recentlyViewed.people, { ...person }])
 					})
 				);
 			}
