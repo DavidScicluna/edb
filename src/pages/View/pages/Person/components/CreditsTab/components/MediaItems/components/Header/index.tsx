@@ -12,9 +12,12 @@ import Badge from '../../../../../../../../../../components/Badge';
 import DisplayMode from '../../../../../../../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../../../../../../../components/Divider';
 import TabList from '../../../../../../../../../../components/Tabs/components/TabList';
+import { defaultUser, getUser } from '../../../../../../../../../../store/slices/Users';
 
 const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [ref, { width, height }] = useElementSize();
 

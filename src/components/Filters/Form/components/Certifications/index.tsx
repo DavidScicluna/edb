@@ -13,6 +13,7 @@ import { CertificationsProps } from './types';
 import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
 import { Certification as CertificationType } from '../../../../../common/types';
+import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Button from '../../../../Clickable/Button';
 import Divider from '../../../../Divider';
 import Empty from '../../../../Empty';
@@ -21,7 +22,9 @@ import Panel from '../../../../Panel';
 const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 	const certifications = useSelector((state) =>
 		mediaType === 'movie'
 			? state.options.data.certifications.movie?.US || []

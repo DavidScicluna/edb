@@ -10,6 +10,7 @@ import { useSelector } from '../../../../../../../../common/hooks';
 import Card from '../../../../../../../../components/Clickable/Card';
 import { CardRef } from '../../../../../../../../components/Clickable/Card/types';
 import Radio from '../../../../../../../../components/Forms/Radio';
+import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../theme/types';
 
 const ListItem = (props: ListItemProps): ReactElement => {
@@ -20,7 +21,9 @@ const ListItem = (props: ListItemProps): ReactElement => {
 
 	const { id, label, results, isSelected = false, onSelected, onClick } = props;
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [isHoveringRadio, setIsHoveringRadio] = useBoolean();
 

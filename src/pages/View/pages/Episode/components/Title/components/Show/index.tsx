@@ -6,9 +6,12 @@ import { ShowProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Badge from '../../../../../../../../components/Badge';
+import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 
 const Show = (props: ShowProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { name, season, episode, fontSize, isLoading = true } = props;
 

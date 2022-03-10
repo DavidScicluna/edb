@@ -14,13 +14,16 @@ import {
 } from '../../../../../../../../components/Tabs/components/TabList/components/Tab';
 import useStyles from '../../../../../../../../components/Tabs/components/TabList/components/Tab/styles';
 import { Size } from '../../../../../../../../components/Tabs/components/TabList/components/Tab/types';
+import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../theme/types';
 
 const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: ListsTabButtonProps) => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const size: Size = 'lg';
 	const style = useStyles(theme, { color, isFullWidth: false, isOnlyTab: false, isSelected, size });

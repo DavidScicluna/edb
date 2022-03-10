@@ -7,6 +7,7 @@ import { merge } from 'lodash';
 import useStyles from './styles';
 import { EmptyProps } from './types';
 
+import { defaultUser, getUser } from '../../../store/slices/Users';
 import * as fallback from '../../common/assets/fallback';
 import * as empty from '../../common/assets/illustrations/empty';
 import { useSelector } from '../../common/hooks';
@@ -26,7 +27,9 @@ const Empty = (props: EmptyProps): ReactElement => {
 		variant = 'outlined'
 	} = props;
 
-	const userThemeColor = useSelector((state) => state.user.ui.theme.color);
+	const userThemeColor = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const style = useStyles(theme, { color });
 

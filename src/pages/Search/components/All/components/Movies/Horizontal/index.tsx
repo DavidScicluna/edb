@@ -11,12 +11,15 @@ import { PartialMovie } from '../../../../../../../common/types/movie';
 import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
+import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import VerticalMoviePoster from '../../../../../../Movies/components/Poster/Vertical';
 
 const HorizontalSearchMovies = ({ query, movies = [], total = 0 }: HorizontalSearchMoviesProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	return (
 		<HorizontalGrid

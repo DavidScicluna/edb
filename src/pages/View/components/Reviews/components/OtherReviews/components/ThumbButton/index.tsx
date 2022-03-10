@@ -9,11 +9,13 @@ import { useSelector } from '../../../../../../../../common/hooks';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
-import { setOtherReviews } from '../../../../../../../../store/slices/Users';
+import { defaultUser, getUser, setOtherReviews } from '../../../../../../../../store/slices/Users';
 
 const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 	const dispatch = useDispatch();
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 	const otherReviews = useSelector((state) => state.user.data.reviews.other);
 
 	const { review, state, label, isDisabled = false } = props;

@@ -10,7 +10,7 @@ import { RecentSearchesProps } from './types';
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../components/Empty';
-import { setRecentSearches } from '../../../../../../store/slices/Users';
+import { defaultUser, getUser, setRecentSearches } from '../../../../../../store/slices/Users';
 import { Search as SearchType } from '../../../../../../store/slices/Users/types';
 import List from '../List';
 import ListItem from '../List/components/ListItem';
@@ -18,7 +18,9 @@ import ListItem from '../List/components/ListItem';
 const RecentSearches = (props: RecentSearchesProps): ReactElement => {
 	const dispatch = useDispatch();
 	const recentSearches = useSelector((state) => state.user.data.recentSearches);
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { onSearchClick } = props;
 

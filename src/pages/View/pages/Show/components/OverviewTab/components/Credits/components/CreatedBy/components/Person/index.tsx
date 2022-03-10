@@ -9,6 +9,7 @@ import { PersonProps } from './types';
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
+import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../../../../../theme/types';
 
 const dummies = range(25, 100, 20);
@@ -17,7 +18,9 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const dummy = useConst<number>(sample(dummies) || 50);
 

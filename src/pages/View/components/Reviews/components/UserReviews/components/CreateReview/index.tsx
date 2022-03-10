@@ -18,7 +18,7 @@ import Rating from '../../../../../../../../components/Forms/Rating';
 import Textarea from '../../../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../../../components/Modal';
 import Panel from '../../../../../../../../components/Panel';
-import { setUserReviews } from '../../../../../../../../store/slices/Users';
+import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../theme/types';
 
 const defaultValues: Form = {
@@ -35,7 +35,9 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 
 	const dispatch = useDispatch();
 	const userReviews = useSelector((state) => state.user.data.reviews.user);
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const form = useForm<Form>({
 		defaultValues,

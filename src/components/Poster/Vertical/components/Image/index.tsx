@@ -15,6 +15,7 @@ import { handleIsTouchDevice, handleReturnBoringTypeByMediaType, handleReturnRat
 import Button from '../../../../../components/Clickable/Button';
 import Skeleton from '../../../../../components/Skeleton';
 import { toggleQuickView } from '../../../../../store/slices/Modals';
+import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../theme/types';
 import Image from '../../../../Image';
 
@@ -31,7 +32,9 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 	const { colorMode } = useColorMode();
 
 	const dispatch = useDispatch();
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const {
 		mediaItem,

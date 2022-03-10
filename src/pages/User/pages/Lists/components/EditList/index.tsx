@@ -17,7 +17,7 @@ import ConfirmModal from '../../../../../../components/ConfirmModal';
 import Input from '../../../../../../components/Forms/Input';
 import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
-import { setLists } from '../../../../../../store/slices/Users';
+import { defaultUser, getUser, setLists } from '../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../theme/types';
 
 const placeholders = [
@@ -43,7 +43,9 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 	const dispatch = useDispatch();
 	const lists = useSelector((state) => state.user.data.lists);
 	const list = useSelector((state) => state.user.data.lists.find((list) => list.id === id));
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const form = useForm<Form>({
 		defaultValues,

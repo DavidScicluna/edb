@@ -12,9 +12,12 @@ import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
 import Icon from '../../../../components/Icon';
 import TabList from '../../../../components/Tabs/components/TabList';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 
 const Header = ({ activeTab }: HeaderProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [ref, { width, height }] = useElementSize();
 

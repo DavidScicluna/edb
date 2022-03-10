@@ -25,6 +25,7 @@ import Icon from '../../../../components/Icon';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { List as ListType } from '../../../../store/slices/Users/types';
 
 const Lists = (): ReactElement => {
@@ -39,7 +40,9 @@ const Lists = (): ReactElement => {
 
 	const toast = useToast();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 	const lists = useSelector((state) => state.user.data.lists);
 
 	const [selectedListID, setSelectedListID] = useState<ListType['id']>();

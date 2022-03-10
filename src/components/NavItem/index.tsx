@@ -12,6 +12,7 @@ import { NavItem as NavItemType } from './types';
 import { useSelector } from '../../common/hooks';
 import { handleParseDurationForFramer, handleConvertStringToNumber } from '../../common/utils';
 import Link from '../../components/Clickable/Link';
+import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme } from '../../theme/types';
 import IconButton from '../Clickable/IconButton';
 import Icon from '../Icon';
@@ -23,7 +24,9 @@ const NavItem = (props: NavItemType): ReactElement => {
 
 	const location = useLocation();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { renderIcon, children, label, path, isExpanded = true, isDisabled = false, onClick } = props;
 

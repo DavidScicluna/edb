@@ -14,6 +14,7 @@ import Divider from '../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import Icon from '../../../../../../components/Icon';
 import Panel from '../../../../../../components/Panel';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { SearchType as SearchTypeValue } from '../../../../../../store/slices/Users/types';
 
 export const searchTypes: SearchTypeType[] = [
@@ -64,7 +65,9 @@ const SearchTypes = ({ searchTypes: activeSearchTypes, onSetSearchTypes }: Searc
 
 	const [ref, { height }] = useElementSize();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const handleAllClick = (): void => {
 		if (activeSearchTypes.length === searchTypes.length) {

@@ -14,9 +14,12 @@ import { useSelector } from '../../../../common/hooks';
 import { Image, Video } from '../../../../common/types';
 import Accordions from '../../../../components/Accordions';
 import { Accordion } from '../../../../components/Accordions/types';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 
 const Assets = (props: AssetsTabProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { alt, assets: assetsProp, isError = false, isSuccess = false, isLoading = true, onClickAsset } = props;
 

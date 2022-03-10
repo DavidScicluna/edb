@@ -10,12 +10,15 @@ import { useSelector } from '../../../../../../../common/hooks';
 import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
+import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import VerticalCompanyPoster from '../components/Poster/Vertical';
 
 const Companies = ({ query, companies = [], total = 0 }: CompaniesProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	return (
 		<HorizontalGrid

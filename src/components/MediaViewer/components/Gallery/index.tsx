@@ -6,11 +6,14 @@ import Asset from './components/Asset';
 import { GalleryProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import Accordions from '../../../Accordions';
 import Modal from '../../../Modal';
 
 const Gallery = (props: GalleryProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { alt, assets, activeMediaItem, isOpen = false, onClick, onClose } = props;
 

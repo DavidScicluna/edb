@@ -15,11 +15,14 @@ import Badge from '../../../../../../components/Badge';
 import Divider from '../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import TabList from '../../../../../../components/Tabs/components/TabList';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 
 const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactElement => {
 	const [ref, { height }] = useElementSize();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	return (
 		<HorizontalScroll ref={ref}>

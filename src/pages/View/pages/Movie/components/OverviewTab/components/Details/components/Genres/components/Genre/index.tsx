@@ -10,6 +10,7 @@ import { GenreProps } from './types';
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
+import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../../../../../theme/types';
 
 const dummies = range(25, 150, 15);
@@ -18,7 +19,9 @@ const Genre = (props: GenreProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { id, name, isLoading = true } = props;
 

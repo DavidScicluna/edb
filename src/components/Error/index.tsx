@@ -10,6 +10,7 @@ import { ErrorProps } from './types';
 import * as fallback from '../../common/assets/fallback';
 import * as error from '../../common/assets/illustrations/error';
 import { useSelector } from '../../common/hooks';
+import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme, Space, FontSizes } from '../../theme/types';
 
 const Error = (props: ErrorProps): ReactElement => {
@@ -26,7 +27,9 @@ const Error = (props: ErrorProps): ReactElement => {
 		variant = 'outlined'
 	} = props;
 
-	const userThemeColor = useSelector((state) => state.user.ui.theme.color);
+	const userThemeColor = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const style = useStyles(theme, { color });
 

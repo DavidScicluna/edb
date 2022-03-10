@@ -8,6 +8,7 @@ import { DisplayModeRef, DisplayModeProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import { toggleDisplayMode } from '../../../store/slices/App';
+import { defaultUser, getUser } from '../../../store/slices/Users';
 import { Theme } from '../../../theme/types';
 import Icon from '../../Icon';
 import Tooltip from '../../Tooltip';
@@ -18,7 +19,9 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 
 	const dispatch = useDispatch();
 	const displayMode = useSelector((state) => state.app.ui.displayMode);
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const isFetching = useIsFetching();
 	const isMutating = useIsMutating();

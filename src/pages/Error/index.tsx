@@ -11,12 +11,15 @@ import { ErrorProps } from './types';
 import { useSelector } from '../../common/hooks';
 import Divider from '../../components/Divider';
 import { headerHeight } from '../../containers/Layout/common/data/dimensions';
+import { defaultUser, getUser } from '../../store/slices/Users';
 
 const Error = (props: ErrorProps): ReactElement => {
 	const { colorMode } = useColorMode();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [descriptionRef, { height }] = useElementSize();
 

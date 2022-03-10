@@ -14,13 +14,16 @@ import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
 import Icon from '../../../../components/Icon';
 import TabList from '../../../../components/Tabs/components/TabList';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 
 const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person', 'company', 'collection'];
 
 const defaultTotal: MediaTypesHeaderProps['total'] = { movie: 0, tv: 0, person: 0, company: 0, collection: 0 };
 
 const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [headerRef, { height: heightHeight }] = useElementSize();
 	const [actionsRef, { width: actionsWidth }] = useElementSize();

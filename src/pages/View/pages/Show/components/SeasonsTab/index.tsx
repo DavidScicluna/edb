@@ -12,9 +12,12 @@ import { handleReturnDate } from '../../../../../../common/utils';
 import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 
 const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { show, isError = false, isSuccess = false, isLoading = true } = props;
 

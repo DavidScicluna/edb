@@ -15,6 +15,7 @@ import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
+import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 
 /**
  * This method will filter from known for list and will return the 8 most voted movies/tv shows
@@ -33,7 +34,9 @@ const handleGetKnownFor = (credits?: Credits): KnownForType => {
 const KnownFor = (props: KnownForProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { credits, name, isError = false, isSuccess = false, isLoading = false, onChangeTab } = props;
 

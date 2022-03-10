@@ -25,7 +25,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
-import { setRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, setRecentlyViewed } from '../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
@@ -50,7 +50,9 @@ const Movie = (): ReactElement => {
 	const userReviews = useSelector((state) => state.user.data.reviews.user);
 	const movieUserReviews = userReviews.filter((review) => review.mediaItem.id === Number(id));
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [selectedPath, setSelectedPath] = useState<string>();
 

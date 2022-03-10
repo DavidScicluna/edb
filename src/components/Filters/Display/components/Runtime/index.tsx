@@ -5,10 +5,13 @@ import { isNil, isEmpty } from 'lodash';
 import { RuntimeProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Tag from '../../../../Clickable/Tag';
 
 const Runtime = ({ runtimes, onClick, onDelete }: RuntimeProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	return (
 		<Tag

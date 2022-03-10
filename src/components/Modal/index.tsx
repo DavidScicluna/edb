@@ -22,6 +22,7 @@ import { ModalProps } from './types';
 
 import { useSelector } from '../../common/hooks';
 import { handleConvertStringToNumber } from '../../common/utils';
+import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme } from '../../theme/types';
 import Button from '../Clickable/Button';
 import IconButton from '../Clickable/IconButton';
@@ -33,7 +34,9 @@ const Modal = (props: ModalProps): ReactElement | null => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const {
 		children,

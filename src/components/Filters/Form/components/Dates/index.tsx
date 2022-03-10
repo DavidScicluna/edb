@@ -10,6 +10,7 @@ import { DatesProps } from './types';
 
 import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Button from '../../../../Clickable/Button';
 import DatePicker from '../../../../Forms/DatePicker';
 import Panel from '../../../../Panel';
@@ -24,7 +25,9 @@ const visibleFormat = 'ddd, MMMM DD YYYY';
 const Dates = ({ form, mediaType }: DatesProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	return (
 		<Controller

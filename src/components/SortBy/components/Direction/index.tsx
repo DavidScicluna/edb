@@ -6,6 +6,7 @@ import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
 import { DirectionProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import Button from '../../../Clickable/Button';
 import Icon from '../../../Icon';
 import Panel from '../../../Panel';
@@ -14,7 +15,9 @@ import { SortDirection } from '../../types';
 const Direction = ({ form }: DirectionProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const handleOnChange = (direction: SortDirection) => {
 		form.setValue('direction', direction, { shouldDirty: true });

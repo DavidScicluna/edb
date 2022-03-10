@@ -11,12 +11,15 @@ import { PartialTV } from '../../../../../../../common/types/tv';
 import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
+import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import VerticalTVShowPoster from '../../../../../../TV/components/Poster/Vertical';
 
 const HorizontalSearchTV = ({ query, shows = [], total = 0 }: HorizontalSearchTVProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	return (
 		<HorizontalGrid

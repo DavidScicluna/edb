@@ -6,12 +6,15 @@ import moment from 'moment';
 import { DatesProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Tag from '../../../../Clickable/Tag';
 
 const visibleFormat = 'ddd, MMMM DD YYYY';
 
 const Dates = ({ dates, mediaType, onClick, onDelete }: DatesProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	console.log(dates.lte);
 

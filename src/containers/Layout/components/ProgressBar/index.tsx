@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { useColorMode, Progress } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { ColorShades } from '../../../../theme/types';
 
 const lightShades: ColorShades[] = [
@@ -15,7 +16,9 @@ const darkShades: ColorShades[] = [
 const ProgressBar = (): ReactElement => {
 	const { colorMode } = useColorMode();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	return (
 		<Progress

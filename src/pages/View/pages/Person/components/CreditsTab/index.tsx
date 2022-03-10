@@ -9,9 +9,12 @@ import { useSelector } from '../../../../../../common/hooks';
 import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 
 const CreditsTab = (props: CreditsTabProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { departments = [], name, isLoading = true, isError = false, isSuccess = false } = props;
 

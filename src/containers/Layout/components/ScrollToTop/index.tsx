@@ -9,6 +9,7 @@ import { useSelector } from '../../../../common/hooks';
 import IconButton from '../../../../components/Clickable/IconButton';
 import Icon from '../../../../components/Icon';
 import Tooltip from '../../../../components/Tooltip';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { Theme } from '../../../../theme/types';
 
 const ScrollToTop = (): ReactElement => {
@@ -16,7 +17,9 @@ const ScrollToTop = (): ReactElement => {
 
 	const { height } = useWindowSize();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [scrollHeight, setScrollHeight] = useState<number>(0);
 

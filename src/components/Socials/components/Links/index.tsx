@@ -15,13 +15,16 @@ import {
 } from '../../../../common/assets/icons';
 import { useSelector } from '../../../../common/hooks';
 import Icon from '../../../../components/Icon';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { Theme } from '../../../../theme/types';
 
 const Links = (props: LinksProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode } = useColorMode();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { alt, socials, isLoading = true, isDisabled = false } = props;
 

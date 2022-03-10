@@ -12,12 +12,15 @@ import { useSelector } from '../../../../../../../../common/hooks';
 import { handleReturnDate } from '../../../../../../../../common/utils';
 import Button from '../../../../../../../../components/Clickable/Button';
 import Panel from '../../../../../../../../components/Panel';
+import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 import Episode from '../../../SeasonsTab/components/Season/components/Episodes/components/Episode';
 
 const LastEpisode = ({ show, isLoading = true, onChangeTab }: LastEpisodeProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	return (
 		<Panel isFullWidth>

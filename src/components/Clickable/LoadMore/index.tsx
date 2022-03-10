@@ -6,13 +6,16 @@ import { useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '
 import { LoadMoreProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
+import { defaultUser, getUser } from '../../../store/slices/Users';
 import Button from '../Button';
 
 const LoadMore = (props: LoadMoreProps): ReactElement => {
 	const { colorMode } = useColorMode();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { amount = 0, total = 0, label, isLoading = false, isButtonVisible = true, onClick } = props;
 

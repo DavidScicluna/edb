@@ -14,6 +14,7 @@ import Badge from '../../../../../../../../components/Badge';
 import Button from '../../../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../../../components/Empty';
 import Panel from '../../../../../../../../components/Panel';
+import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 import ThumbButton from '../../../../../../components/Reviews/components/OtherReviews/components/ThumbButton';
 import Review from '../../../../../../components/Reviews/components/Review';
 import CreateReview from '../../../../../../components/Reviews/components/UserReviews/components/CreateReview';
@@ -26,7 +27,9 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 	const allUserReviews = useSelector((state) => state.user.data.reviews.user);
 	const tvShowUserReviews = allUserReviews.filter((review) => review.mediaItem.id === show?.id);
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const handleSortReview = <R extends ReviewType>(reviews: R[] = []): R[] => {
 		return reviews.sort(

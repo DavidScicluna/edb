@@ -12,6 +12,7 @@ import { useSelector } from '../../../../../../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../../common/utils';
 import Card from '../../../../../../../components/Clickable/Card';
 import Icon from '../../../../../../../components/Icon';
+import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../theme/types';
 
 const List = (props: ListProps): ReactElement => {
@@ -19,7 +20,9 @@ const List = (props: ListProps): ReactElement => {
 
 	const [ref, { width }] = useElementSize();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { list, isSelected = false, onClick } = props;
 	const { id, label, description, results, date } = list;

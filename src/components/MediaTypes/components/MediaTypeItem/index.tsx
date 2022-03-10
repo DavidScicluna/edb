@@ -8,6 +8,7 @@ import { MediaTypeItemProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { NonNullable } from '../../../../common/types';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { Theme } from '../../../../theme/types';
 import Card from '../../../Clickable/Card';
 import { CardRef } from '../../../Clickable/Card/types';
@@ -15,7 +16,9 @@ import { CardRef } from '../../../Clickable/Card/types';
 const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
 	const theme = useTheme<Theme>();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [ref, { height }] = useElementSize<NonNullable<CardRef>>();
 

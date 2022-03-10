@@ -16,6 +16,7 @@ import RuntimeRange from './components/RuntimeRange';
 import { FiltersFormProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
+import { defaultUser, getUser } from '../../../store/slices/Users';
 import Button from '../../Clickable/Button';
 import Icon from '../../Icon';
 import Modal from '../../Modal';
@@ -30,7 +31,9 @@ const FiltersForm = (props: FiltersFormProps): ReactElement => {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const location = useLocation();
 

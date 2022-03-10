@@ -8,13 +8,16 @@ import { PosterQuickviewProps } from './types';
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
 import { toggleQuickView } from '../../../../store/slices/Modals';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import IconButton from '../../../Clickable/IconButton';
 import Icon from '../../../Icon';
 import Tooltip from '../../../Tooltip';
 
 const PosterQuickview = <MT extends MediaType>(props: PosterQuickviewProps<MT>): ReactElement => {
 	const dispatch = useDispatch();
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 	const quickViewModal = useSelector((state) => state.modals.ui.quickViewModal);
 
 	const { title, mediaType, mediaItem, isLoading = true, size = 'md' } = props;

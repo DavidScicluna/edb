@@ -12,6 +12,7 @@ import { GenresProps } from './types';
 import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
 import { Genre as GenreType } from '../../../../../common/types';
+import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Button from '../../../../Clickable/Button';
 import Divider from '../../../../Divider';
 import Empty from '../../../../Empty';
@@ -20,7 +21,9 @@ import Panel from '../../../../Panel';
 const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 	const genres = useSelector((state) =>
 		mediaType === 'movie' ? state.options.data.genres.movie : state.options.data.genres.tv
 	);

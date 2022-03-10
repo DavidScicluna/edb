@@ -15,6 +15,7 @@ import Link from '../../../../components/Clickable/Link';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalTabbedGrid from '../../../../components/Grid/Horizontal/Tabbed';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import VerticalMoviePoster from '../../../Movies/components/Poster/Vertical';
 import VerticalPersonPoster from '../../../People/components/Poster/Vertical';
 import VerticalTVShowPoster from '../../../TV/components/Poster/Vertical';
@@ -27,7 +28,9 @@ const HomeHorizontalGrid = forwardRef<HomeHorizontalGridRef, HomeHorizontalGridP
 ): ReactElement {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { activeTab, title, to, mediaTypes, data, isLoading, isError, isSuccess, onTabChange } = props;
 

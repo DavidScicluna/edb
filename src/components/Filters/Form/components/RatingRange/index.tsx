@@ -9,6 +9,7 @@ import { RatingRangeProps } from './types';
 
 import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../theme/types';
 import Button from '../../../../Clickable/Button';
 import Panel from '../../../../Panel';
@@ -21,7 +22,9 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const [isMd] = useMediaQuery('(max-width: 760px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const ratings = useConst(range(0, 11));
 

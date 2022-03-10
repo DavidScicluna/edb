@@ -25,7 +25,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
-import { setRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, setRecentlyViewed } from '../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
@@ -42,7 +42,9 @@ const Person = (): ReactElement => {
 	const dispatch = useDispatch();
 	const recentlyViewed = useSelector((state) => state.user.data.recentlyViewed);
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { id } = useParams<{ id: string }>();
 	const location = useLocation();

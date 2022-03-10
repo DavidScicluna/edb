@@ -10,6 +10,7 @@ import { NavItemChildProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Link from '../../../../components/Clickable/Link';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { Theme } from '../../../../theme/types';
 import Tooltip from '../../../Tooltip';
 
@@ -19,7 +20,9 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
 
 	const location = useLocation();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { label, path, isLastChild = false, isExpanded = false } = props;
 

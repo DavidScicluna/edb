@@ -6,6 +6,7 @@ import { useColorMode, VStack, Text, useTheme } from '@chakra-ui/react';
 import { useSelector } from '../../../../../../common/hooks';
 import Link from '../../../../../../components/Clickable/Link';
 import { NavItem as NavItemProps } from '../../../../../../components/NavItem/types';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../theme/types';
 
 const NavItem = (props: NavItemProps): ReactElement => {
@@ -14,7 +15,9 @@ const NavItem = (props: NavItemProps): ReactElement => {
 
 	const location = useLocation();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { children, label, path } = props;
 

@@ -7,6 +7,7 @@ import { useElementSize } from 'usehooks-ts';
 import { HeaderProps, RenderMessageProps, RenderButtonProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../theme/types';
 import Divider from '../../../../Divider';
 
@@ -15,7 +16,9 @@ const Header = ({ label, renderMessage, renderButton }: HeaderProps): ReactEleme
 	const { colorMode } = useColorMode();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [ref, { height }] = useElementSize();
 

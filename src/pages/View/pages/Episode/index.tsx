@@ -23,6 +23,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
 import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
 import Structure from '../../components/Structure';
@@ -36,7 +37,9 @@ const Episode = (): ReactElement => {
 
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { id, season, episode } = useParams<{ id: string; season: string; episode: string }>();
 	const location = useLocation();

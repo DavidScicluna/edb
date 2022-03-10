@@ -7,6 +7,7 @@ import { range, sample } from 'lodash';
 import { GenreProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import Button from '../../../../../../Clickable/Button';
 import Icon from '../../../../../../Icon';
 import SkeletonText from '../../../../../../Skeleton/Text';
@@ -14,7 +15,9 @@ import SkeletonText from '../../../../../../Skeleton/Text';
 const dummies = range(25, 100, 10);
 
 const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreProps): ReactElement => {
-	const color = useSelector((state) => state.user.ui.theme.color);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const dummy = useConst<number>(sample(dummies) || 100);
 
