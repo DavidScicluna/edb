@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 import {
 	useTheme,
@@ -12,7 +12,6 @@ import {
 
 import { omit, isNil, isEmpty, merge } from 'lodash';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
-import { useTimeout } from 'usehooks-ts';
 
 import useStyles from './styles';
 
@@ -44,13 +43,15 @@ const Breadcrumbs = (): ReactElement => {
 		'2xl': 'md'
 	});
 
-	const breadcrumbsHook = useBreadcrumbs(routes.map((route) => omit(route, 'element')));
+	const getBreadcrumbs = useBreadcrumbs(routes.map((route) => omit(route, 'element')));
 
-	const [breadcrumbs, setBreadcrumbs] = useState(breadcrumbsHook);
+	const [breadcrumbs, setBreadcrumbs] = useState(getBreadcrumbs);
 
 	const style = useStyles(theme);
 
-	useTimeout(() => setBreadcrumbs(breadcrumbsHook), 2500);
+	useEffect(() => {
+		setTimeout(() => setBreadcrumbs(getBreadcrumbs), 2500);
+	}, [getBreadcrumbs]);
 
 	return (
 		<CUIBreadcrumb
