@@ -98,35 +98,42 @@ export const allRoutes: RouteType[] = [
 	}
 ];
 
+const handleReturnRoutes = (route: RouteType): ReactElement => {
+	const { path, element, children = [] } = route;
+
+	return (
+		<Route
+			{...route}
+			key={path}
+			path={path}
+			element={
+				<Animation>
+					<ErrorBoundary>
+						<Suspense fallback={<Box />}>{element}</Suspense>
+					</ErrorBoundary>
+				</Animation>
+			}
+		>
+			{children.map((child) => handleReturnRoutes(child))}
+		</Route>
+	);
+};
+
 const Routes = (): ReactElement => {
 	const location = useLocation();
 
 	const routes = useConst(allRoutes.map((route) => omit(route, 'breadcrumb')));
-
-	const handleReturnRoutes = (route: RouteType): ReactElement => {
-		const { path, element, children = [] } = route;
-
-		return (
-			<Route {...route} key={path} path={path} element={<Animation>{element}</Animation>}>
-				{children.map((child) => handleReturnRoutes(child))}
-			</Route>
-		);
-	};
 
 	useEffect(() => {
 		document.scrollingElement?.scrollTo(0, 0);
 	}, [location.pathname]);
 
 	return (
-		<ErrorBoundary>
-			<Suspense fallback={<Box />}>
-				<AnimatePresence exitBeforeEnter initial={false}>
-					<RRDRoutes location={location} key={location.pathname}>
-						{routes.map((route) => handleReturnRoutes(route))}
-					</RRDRoutes>
-				</AnimatePresence>
-			</Suspense>
-		</ErrorBoundary>
+		<AnimatePresence exitBeforeEnter initial={false}>
+			<RRDRoutes location={location} key={location.pathname}>
+				{routes.map((route) => handleReturnRoutes(route))}
+			</RRDRoutes>
+		</AnimatePresence>
 	);
 };
 
