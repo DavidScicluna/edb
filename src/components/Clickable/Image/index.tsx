@@ -1,7 +1,16 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 import useInView from 'react-cool-inview';
 
-import { useTheme, useColorMode, useBoolean, Center, AspectRatio, Image as CUIImage, Fade } from '@chakra-ui/react';
+import {
+	ColorMode,
+	useTheme,
+	useColorMode,
+	useBoolean,
+	Center,
+	AspectRatio,
+	Image as CUIImage,
+	Fade
+} from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
 import { useElementSize } from 'usehooks-ts';
@@ -21,10 +30,10 @@ const commonStyleProps = {
 };
 
 const Image = (props: ImageProps): ReactElement => {
-	const [imageRef, { height }] = useElementSize();
-
 	const theme = useTheme<Theme>();
-	const { colorMode } = useColorMode();
+	const { colorMode: colorModeHook } = useColorMode();
+
+	const [imageRef, { height }] = useElementSize();
 
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
 		threshold: [0.2, 0.4, 0.6, 0.8, 1],
@@ -34,6 +43,7 @@ const Image = (props: ImageProps): ReactElement => {
 	const {
 		children,
 		width = '100%',
+		colorMode: colorModeProp,
 		borderRadius = 'base',
 		ratio = handleReturnRatio('portrait'),
 		renderIcon,
@@ -43,6 +53,8 @@ const Image = (props: ImageProps): ReactElement => {
 	} = props;
 
 	const [isHovering, setIsHovering] = useBoolean();
+
+	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
 	const iconProps: IconProps = {
 		color: theme.colors.gray[colorMode === 'light' ? 50 : 900],
@@ -112,4 +124,4 @@ const Image = (props: ImageProps): ReactElement => {
 	);
 };
 
-export default Image;
+export default memo(Image);
