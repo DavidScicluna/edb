@@ -11,12 +11,14 @@ import { useUpdateEffect } from 'usehooks-ts';
 
 import VerticalPeople from './components/Orientation/Vertical';
 
+import { useSelector } from '../../common/hooks';
 import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialPerson } from '../../common/types/person';
 import DisplayMode from '../../components/Clickable/DisplayMode';
 import LoadMore from '../../components/Clickable/LoadMore';
 import Page from '../../containers/Page';
+import { defaultUser, getUser } from '../../store/slices/Users';
 
 const People = (): ReactElement => {
 	const source = axios.CancelToken.source();
@@ -25,6 +27,10 @@ const People = (): ReactElement => {
 
 	const location = useLocation();
 	const [searchParams, setSearchParams] = useSearchParams();
+
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [people, setPeople] = useState<Response<PartialPerson[]>>();
 	const [isFetchingPage, setIsFetchingPage] = useBoolean();
@@ -110,6 +116,7 @@ const People = (): ReactElement => {
 
 						<ScaleFade in={!peopleQuery.isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
 							<LoadMore
+								color={color}
 								amount={people?.results?.length || 0}
 								total={people?.total_results || 0}
 								label='People'

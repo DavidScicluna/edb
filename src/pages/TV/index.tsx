@@ -13,6 +13,7 @@ import { useElementSize, useUpdateEffect, useEffectOnce } from 'usehooks-ts';
 
 import VerticalTV from './components/Orientation/Vertical';
 
+import { useSelector } from '../../common/hooks';
 import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialTV } from '../../common/types/tv';
@@ -28,6 +29,7 @@ import SortBy from '../../components/SortBy';
 import { tvSortBy as sortBy } from '../../components/SortBy/common/data/sort';
 import { Form as SortForm } from '../../components/SortBy/types';
 import Page from '../../containers/Page';
+import { defaultUser, getUser } from '../../store/slices/Users';
 
 const defaultFilters = {
 	'language': 'en-US', // TODO: Make this dynamic
@@ -43,6 +45,10 @@ const TV = (): ReactElement => {
 
 	const location = useLocation();
 	const [searchParams, setSearchParams] = useSearchParams(defaultFilters);
+
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const [ref, { height }] = useElementSize();
 
@@ -273,6 +279,7 @@ const TV = (): ReactElement => {
 							style={{ width: isSm ? '100%' : 'auto' }}
 						>
 							<LoadMore
+								color={color}
 								amount={shows?.results?.length || 0}
 								total={shows?.total_results || 0}
 								label='TV Shows'

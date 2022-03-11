@@ -6,12 +6,14 @@ import { range } from 'lodash';
 
 import { PartsTabProps } from './types';
 
+import { useSelector } from '../../../../../../common/hooks';
 import { PartialMovie } from '../../../../../../common/types/movie';
 import { handleReturnDate } from '../../../../../../common/utils';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import HorizontalMoviePoster from '../../../../../Movies/components/Poster/Horizontal';
 import VerticalMoviePoster from '../../../../../Movies/components/Poster/Vertical';
 
@@ -19,6 +21,10 @@ const incrementBy = 20;
 
 const PartsTab = (props: PartsTabProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
+
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { name, parts = [], isLoading = true, isError = false, isSuccess = false } = props;
 
@@ -62,6 +68,7 @@ const PartsTab = (props: PartsTabProps): ReactElement => {
 
 			<ScaleFade in={!isError} unmountOnExit style={{ width: isSm ? '100%' : 'auto' }}>
 				<LoadMore
+					color={color}
 					amount={totalVisible}
 					total={parts.length || 0}
 					label={`${name ? `"${name}"` : 'Collection'} parts`}

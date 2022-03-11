@@ -6,16 +6,22 @@ import { range } from 'lodash';
 
 import { VideosProps } from './types';
 
+import { useSelector } from '../../../../../../common/hooks';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import Video from '../Video';
 
 const incrementBy = 5;
 
 const Videos = (props: VideosProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
+
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { alt, videos = [], isLoading = true, isError = false, isSuccess = false, onClickVideo } = props;
 
@@ -63,6 +69,7 @@ const Videos = (props: VideosProps): ReactElement => {
 				style={{ width: isSm ? '100%' : 'auto' }}
 			>
 				<LoadMore
+					color={color}
 					amount={totalVisible}
 					total={videos.length}
 					label={alt ? `"${alt}" videos` : 'Videos'}

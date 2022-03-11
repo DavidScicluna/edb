@@ -6,11 +6,13 @@ import { capitalize, range } from 'lodash';
 
 import { CrewProps } from './types';
 
+import { useSelector } from '../../../../../../common/hooks';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { handleReturnPersonJobLabel } from '../../common/utils';
 
 const incrementBy = 15;
@@ -18,9 +20,13 @@ const incrementBy = 15;
 const Crew = (props: CrewProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const { title, crew = [], isLoading = true, isError = false, isSuccess = false } = props;
+
+	const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
 	return (
 		<VStack width='100%' spacing={2}>
@@ -72,6 +78,7 @@ const Crew = (props: CrewProps): ReactElement => {
 						style={{ width: isSm ? '100%' : 'auto' }}
 					>
 						<LoadMore
+							color={color}
 							amount={totalVisible}
 							total={crew?.length || 0}
 							label={`${title} Crew`}

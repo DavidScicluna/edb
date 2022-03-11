@@ -31,6 +31,10 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 		(review) => review.mediaItem.id === mediaItem?.id
 	);
 
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
+
 	const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
 	return (
@@ -74,6 +78,7 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 								style={{ width: isSm ? '100%' : 'auto' }}
 							>
 								<LoadMore
+									color={color}
 									amount={totalVisible}
 									total={mediaItemUserReviews.length}
 									label={alt ? `"${alt}" reviews` : 'Reviews'}
