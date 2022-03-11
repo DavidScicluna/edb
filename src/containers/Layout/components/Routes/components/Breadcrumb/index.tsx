@@ -11,7 +11,7 @@ import { BreadcrumbProps, Data } from './types';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { FontSizes } from '../../../../../../theme/types';
 
-const dummies = range(25, 75, 15);
+const dummies = range(25, 75, 5);
 
 const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 	const { colorMode } = useColorMode();
@@ -38,7 +38,7 @@ const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 
 	return (
 		<SkeletonText
-			width={!isLoaded || !data ? `${dummy}px` : 'auto'}
+			width={!isLoaded || !data ? `${dummy}%` : 'auto'}
 			fontSize={breadcrumbFontSize}
 			isLoaded={isLoaded || !(isNil(data) || isEmpty(data))}
 		>

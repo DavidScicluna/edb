@@ -12,6 +12,9 @@ const Header = (props: HeaderProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 	const [isMd] = useMediaQuery('(max-width: 960px)');
 
+	const [leftRef, { width: leftWidth }] = useElementSize();
+	const [rightRef, { width: rightWidth }] = useElementSize();
+
 	const [containerRef, { width: containerWidth, height: containerHeight }] = useElementSize();
 	const [actionsRef, { width: actionsWidth }] = useElementSize();
 
@@ -19,20 +22,24 @@ const Header = (props: HeaderProps): ReactElement => {
 
 	return (
 		<HStack width='100%' p={2} spacing={2}>
-			{renderLeftHeaderPanel && !isMd
-				? renderLeftHeaderPanel({ width: containerWidth, height: containerHeight })
-				: null}
+			{renderLeftHeaderPanel && !isMd ? (
+				<Center ref={leftRef}>
+					{renderLeftHeaderPanel({ width: containerWidth, height: containerHeight })}
+				</Center>
+			) : null}
 
 			<Stack
 				ref={containerRef}
-				width='100%'
+				width={`calc(100% - ${
+					(renderLeftHeaderPanel ? leftWidth + 16 : 0) + (renderRightHeaderPanel ? rightWidth + 16 : 0)
+				}px)`}
 				direction={direction ? direction : isSm ? 'column' : 'row'}
 				alignItems='center'
 				justifyContent='space-between'
-				spacing={isSm ? 2 : 4}
+				spacing={isSm ? 2 : 6}
 			>
 				<VStack
-					width={isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + 32 : 0}px)`}
+					width={isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + 48 : 0}px)`}
 					alignItems='flex-start'
 					spacing={0.5}
 				>
@@ -47,9 +54,11 @@ const Header = (props: HeaderProps): ReactElement => {
 				) : null}
 			</Stack>
 
-			{renderRightHeaderPanel && !isMd
-				? renderRightHeaderPanel({ width: containerWidth, height: containerHeight })
-				: null}
+			{renderRightHeaderPanel && !isMd ? (
+				<Center ref={rightRef}>
+					{renderRightHeaderPanel({ width: containerWidth, height: containerHeight })}
+				</Center>
+			) : null}
 		</HStack>
 	);
 };
