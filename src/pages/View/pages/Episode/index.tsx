@@ -23,10 +23,12 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import Page from '../../../../containers/Page';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
 import Structure from '../../components/Structure';
+import VerticalPoster from '../../components/VerticalPoster';
 
 const tabs = ['overview', 'cast_guests_crew', 'assets'];
 
@@ -169,18 +171,30 @@ const Episode = (): ReactElement => {
 	return (
 		<>
 			<Tabs activeTab={activeTab} onChange={handleChangeTab}>
-				<Structure>
+				<Page
+					title={
+						<Title
+							show={tvShowQuery.data}
+							episode={episodeQuery.data}
+							isLoading={
+								tvShowQuery.isFetching ||
+								tvShowQuery.isLoading ||
+								episodeQuery.isFetching ||
+								episodeQuery.isLoading
+							}
+						/>
+					}
+				>
 					{{
-						title: (
-							<Title
-								show={tvShowQuery.data}
-								episode={episodeQuery.data}
-								isLoading={
-									tvShowQuery.isFetching ||
-									tvShowQuery.isLoading ||
-									episodeQuery.isFetching ||
-									episodeQuery.isLoading
-								}
+						renderLeftHeaderPanel: (props) => (
+							<VerticalPoster
+								{...props}
+								alt={tvShowQuery.data?.name || ''}
+								path={tvShowQuery.data?.poster_path || ''}
+								mediaType='tv'
+								srcSize={['w92', 'original']}
+								isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+								onClickPoster={handleOnAssetClick}
 							/>
 						),
 						actions: (
@@ -194,130 +208,146 @@ const Episode = (): ReactElement => {
 								}
 							/>
 						),
-						tabList: (
-							<TabList color={color}>
-								{[
-									{
-										label: 'Overview'
-									},
-									{
-										label: 'Cast, Guest Stars & Crew',
-										isDisabled:
-											creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
-										renderRight:
-											(creditsQuery.data?.cast?.length || 0) +
-												(creditsQuery.data?.guest_stars?.length || 0) +
-												(creditsQuery.data?.crew?.length || 0) >
-											0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(creditsQuery.data?.cast?.length || 0) +
-																		(creditsQuery.data?.guest_stars?.length || 0) +
-																		(creditsQuery.data?.crew?.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									},
-									{
-										label: 'Assets',
-										isDisabled:
-											imagesQuery.isError ||
-											imagesQuery.isFetching ||
-											imagesQuery.isLoading ||
-											videosQuery.isError ||
-											videosQuery.isFetching ||
-											videosQuery.isLoading ||
-											(imagesQuery.data?.stills?.length || 0) +
-												(videosQuery.data?.results?.length || 0) ===
-												0,
-										renderRight:
-											(imagesQuery.data?.stills?.length || 0) +
-												(videosQuery.data?.results?.length || 0) >
-											0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(imagesQuery.data?.stills?.length || 0) +
-																		(videosQuery.data?.results?.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									}
-								]}
-							</TabList>
-						),
-						socials: !isMd ? (
-							<Socials
-								alt={tvShowQuery.data?.name}
-								socials={{ ...externalIdsQuery.data, homepage_id: tvShowQuery.data?.homepage }}
-								orientation='horizontal'
-								isLoading={
-									tvShowQuery.isFetching ||
-									tvShowQuery.isLoading ||
-									externalIdsQuery.isFetching ||
-									externalIdsQuery.isLoading
-								}
-							/>
-						) : undefined,
-						tabPanels: (
-							<TabPanels>
-								<OverviewTab
-									tvShowQuery={tvShowQuery}
-									episodeQuery={episodeQuery}
-									creditsQuery={creditsQuery}
-									imagesQuery={imagesQuery}
-									videosQuery={videosQuery}
-									onAssetClick={handleOnAssetClick}
-									onChangeTab={handleChangeTab}
-								/>
-								<CastCrewTab
-									alt={episodeQuery.data?.name}
-									credits={creditsQuery.data}
-									isError={creditsQuery.isError}
-									isSuccess={creditsQuery.isSuccess}
-									isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
-								/>
-								<AssetsTab
-									alt={episodeQuery.data?.name}
-									assets={{
-										backdrops: imagesQuery.data?.stills,
-										videos: videosQuery.data?.results
-									}}
-									isError={imagesQuery.isError || videosQuery.isError}
-									isSuccess={imagesQuery.isSuccess || videosQuery.isSuccess}
-									isLoading={
-										imagesQuery.isFetching ||
-										imagesQuery.isLoading ||
-										videosQuery.isFetching ||
-										videosQuery.isLoading
-									}
-									onClickAsset={handleOnAssetClick}
-								/>
-							</TabPanels>
+						body: (
+							<Structure>
+								{{
+									tabList: (
+										<TabList color={color}>
+											{[
+												{
+													label: 'Overview'
+												},
+												{
+													label: 'Cast, Guest Stars & Crew',
+													isDisabled:
+														creditsQuery.isError ||
+														creditsQuery.isFetching ||
+														creditsQuery.isLoading,
+													renderRight:
+														(creditsQuery.data?.cast?.length || 0) +
+															(creditsQuery.data?.guest_stars?.length || 0) +
+															(creditsQuery.data?.crew?.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(creditsQuery.data?.cast?.length ||
+																						0) +
+																					(creditsQuery.data?.guest_stars
+																						?.length || 0) +
+																					(creditsQuery.data?.crew?.length ||
+																						0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												},
+												{
+													label: 'Assets',
+													isDisabled:
+														imagesQuery.isError ||
+														imagesQuery.isFetching ||
+														imagesQuery.isLoading ||
+														videosQuery.isError ||
+														videosQuery.isFetching ||
+														videosQuery.isLoading ||
+														(imagesQuery.data?.stills?.length || 0) +
+															(videosQuery.data?.results?.length || 0) ===
+															0,
+													renderRight:
+														(imagesQuery.data?.stills?.length || 0) +
+															(videosQuery.data?.results?.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(imagesQuery.data?.stills?.length ||
+																						0) +
+																					(videosQuery.data?.results
+																						?.length || 0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												}
+											]}
+										</TabList>
+									),
+									socials: !isMd ? (
+										<Socials
+											alt={tvShowQuery.data?.name}
+											socials={{
+												...externalIdsQuery.data,
+												homepage_id: tvShowQuery.data?.homepage
+											}}
+											orientation='horizontal'
+											isLoading={
+												tvShowQuery.isFetching ||
+												tvShowQuery.isLoading ||
+												externalIdsQuery.isFetching ||
+												externalIdsQuery.isLoading
+											}
+										/>
+									) : undefined,
+									tabPanels: (
+										<TabPanels>
+											<OverviewTab
+												tvShowQuery={tvShowQuery}
+												episodeQuery={episodeQuery}
+												creditsQuery={creditsQuery}
+												imagesQuery={imagesQuery}
+												videosQuery={videosQuery}
+												onAssetClick={handleOnAssetClick}
+												onChangeTab={handleChangeTab}
+											/>
+											<CastCrewTab
+												alt={episodeQuery.data?.name}
+												credits={creditsQuery.data}
+												isError={creditsQuery.isError}
+												isSuccess={creditsQuery.isSuccess}
+												isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
+											/>
+											<AssetsTab
+												alt={episodeQuery.data?.name}
+												assets={{
+													backdrops: imagesQuery.data?.stills,
+													videos: videosQuery.data?.results
+												}}
+												isError={imagesQuery.isError || videosQuery.isError}
+												isSuccess={imagesQuery.isSuccess || videosQuery.isSuccess}
+												isLoading={
+													imagesQuery.isFetching ||
+													imagesQuery.isLoading ||
+													videosQuery.isFetching ||
+													videosQuery.isLoading
+												}
+												onClickAsset={handleOnAssetClick}
+											/>
+										</TabPanels>
+									)
+								}}
+							</Structure>
 						)
 					}}
-				</Structure>
+				</Page>
 			</Tabs>
 
 			{imagesQuery.isSuccess ? (

@@ -26,6 +26,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import Page from '../../../../containers/Page';
 import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import { UserReview } from '../../../../store/slices/Users/types';
 import Actions from '../../components/Actions';
@@ -33,6 +34,7 @@ import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
 import ReviewsTab from '../../components/Reviews';
 import Structure from '../../components/Structure';
+import VerticalPoster from '../../components/VerticalPoster';
 
 const tabs = ['overview', 'cast_crew', 'seasons', 'reviews', 'assets'];
 
@@ -273,14 +275,26 @@ const Show = (): ReactElement => {
 	return (
 		<>
 			<Tabs activeTab={activeTab} onChange={handleChangeTab}>
-				<Structure>
+				<Page
+					title={
+						<Title show={tvShowQuery.data} isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading} />
+					}
+				>
 					{{
-						title: (
-							<Title
-								show={tvShowQuery.data}
-								isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
-							/>
-						),
+						renderLeftHeaderPanel:
+							activeTab !== 0
+								? (props) => (
+										<VerticalPoster
+											{...props}
+											alt={tvShowQuery.data?.name || ''}
+											path={tvShowQuery.data?.poster_path || ''}
+											mediaType='tv'
+											srcSize={['w92', 'original']}
+											isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+											onClickPoster={handleMediaClick}
+										/>
+								  )
+								: undefined,
 						actions: (
 							<Actions
 								mediaItem={tvShowQuery.data}
@@ -290,204 +304,227 @@ const Show = (): ReactElement => {
 								isError={tvShowQuery.isError}
 							/>
 						),
-						tabList: (
-							<TabList color={color}>
-								{[
-									{
-										label: 'Overview'
-									},
-									{
-										label: 'Cast & Crew',
-										isDisabled:
-											creditsQuery.isError || creditsQuery.isFetching || creditsQuery.isLoading,
-										renderRight:
-											(creditsQuery.data?.cast?.length || 0) +
-												(creditsQuery.data?.crew?.length || 0) >
-											0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(creditsQuery.data?.cast?.length || 0) +
-																		(creditsQuery.data?.crew?.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									},
-									{
-										label: 'Seasons',
-										isDisabled:
-											tvShowQuery.isError || tvShowQuery.isFetching || tvShowQuery.isLoading,
-										renderRight:
-											(tvShowQuery.data?.number_of_seasons || 0) > 0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={tvShowQuery.data?.number_of_seasons || 0}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									},
-									{
-										label: 'Reviews',
-										isDisabled:
-											tvShowQuery.isError ||
-											tvShowQuery.isFetching ||
-											tvShowQuery.isLoading ||
-											reviewsQuery.isError ||
-											reviewsQuery.isFetching ||
-											reviewsQuery.isLoading,
-										renderRight:
-											(reviews?.total_results || 0) + (tvShowUserReviews.length || 0) > 0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(reviews?.total_results || 0) +
-																		(tvShowUserReviews.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									},
-									{
-										label: 'Assets',
-										isDisabled:
-											imagesQuery.isError ||
-											imagesQuery.isFetching ||
-											imagesQuery.isLoading ||
-											videosQuery.isError ||
-											videosQuery.isFetching ||
-											videosQuery.isLoading ||
-											(imagesQuery.data?.posters?.length || 0) +
-												(imagesQuery.data?.backdrops?.length || 0) +
-												(videosQuery.data?.results?.length || 0) ===
-												0,
-										renderRight:
-											(imagesQuery.data?.posters?.length || 0) +
-												(imagesQuery.data?.backdrops?.length || 0) +
-												(videosQuery.data?.results?.length || 0) >
-											0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(imagesQuery.data?.posters?.length || 0) +
-																		(imagesQuery.data?.backdrops?.length || 0) +
-																		(videosQuery.data?.results?.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									}
-								]}
-							</TabList>
-						),
-						socials: !isMd ? (
-							<Socials
-								alt={tvShowQuery.data?.name}
-								socials={{ ...externalIdsQuery.data, homepage_id: tvShowQuery.data?.homepage }}
-								orientation='horizontal'
-								isLoading={
-									tvShowQuery.isFetching ||
-									tvShowQuery.isLoading ||
-									externalIdsQuery.isFetching ||
-									externalIdsQuery.isLoading
-								}
-							/>
-						) : undefined,
-						tabPanels: (
-							<TabPanels>
-								<OverviewTab
-									tvShowQuery={tvShowQuery}
-									creditsQuery={creditsQuery}
-									recommendationsQuery={recommendationsQuery}
-									similarQuery={similarQuery}
-									reviews={reviews}
-									reviewsQuery={reviewsQuery}
-									imagesQuery={imagesQuery}
-									videosQuery={videosQuery}
-									onAssetClick={handleOnAssetClick}
-									onChangeTab={handleChangeTab}
-								/>
-								<CastCrewTab
-									alt={tvShowQuery.data?.name}
-									credits={creditsQuery.data}
-									isError={creditsQuery.isError}
-									isSuccess={creditsQuery.isSuccess}
-									isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
-								/>
-								<SeasonsTab
-									show={tvShowQuery.data}
-									isError={tvShowQuery.isError}
-									isSuccess={tvShowQuery.isSuccess}
-									isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
-								/>
-								<ReviewsTab
-									alt={tvShowQuery.data?.name}
-									mediaItem={tvShowQuery.data ? { ...tvShowQuery.data } : undefined}
-									mediaType='tv'
-									reviews={reviews}
-									isError={reviewsQuery.isError}
-									isSuccess={reviewsQuery.isSuccess}
-									isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
-									hasNextPage={reviewsQuery.hasNextPage}
-									onFetchNextPage={reviewsQuery.fetchNextPage}
-								/>
-								<AssetsTab
-									alt={tvShowQuery.data?.name}
-									assets={{
-										posters: imagesQuery.data?.posters,
-										backdrops: imagesQuery.data?.backdrops,
-										videos: videosQuery.data?.results
-									}}
-									isError={imagesQuery.isError || videosQuery.isError}
-									isSuccess={imagesQuery.isSuccess || videosQuery.isSuccess}
-									isLoading={
-										imagesQuery.isFetching ||
-										imagesQuery.isLoading ||
-										videosQuery.isFetching ||
-										videosQuery.isLoading
-									}
-									onClickAsset={handleOnAssetClick}
-								/>
-							</TabPanels>
+						body: (
+							<Structure>
+								{{
+									tabList: (
+										<TabList color={color}>
+											{[
+												{
+													label: 'Overview'
+												},
+												{
+													label: 'Cast & Crew',
+													isDisabled:
+														creditsQuery.isError ||
+														creditsQuery.isFetching ||
+														creditsQuery.isLoading,
+													renderRight:
+														(creditsQuery.data?.cast?.length || 0) +
+															(creditsQuery.data?.crew?.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(creditsQuery.data?.cast?.length ||
+																						0) +
+																					(creditsQuery.data?.crew?.length ||
+																						0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												},
+												{
+													label: 'Seasons',
+													isDisabled:
+														tvShowQuery.isError ||
+														tvShowQuery.isFetching ||
+														tvShowQuery.isLoading,
+													renderRight:
+														(tvShowQuery.data?.number_of_seasons || 0) > 0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					tvShowQuery.data
+																						?.number_of_seasons || 0
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												},
+												{
+													label: 'Reviews',
+													isDisabled:
+														tvShowQuery.isError ||
+														tvShowQuery.isFetching ||
+														tvShowQuery.isLoading ||
+														reviewsQuery.isError ||
+														reviewsQuery.isFetching ||
+														reviewsQuery.isLoading,
+													renderRight:
+														(reviews?.total_results || 0) +
+															(tvShowUserReviews.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(reviews?.total_results || 0) +
+																					(tvShowUserReviews.length || 0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												},
+												{
+													label: 'Assets',
+													isDisabled:
+														imagesQuery.isError ||
+														imagesQuery.isFetching ||
+														imagesQuery.isLoading ||
+														videosQuery.isError ||
+														videosQuery.isFetching ||
+														videosQuery.isLoading ||
+														(imagesQuery.data?.posters?.length || 0) +
+															(imagesQuery.data?.backdrops?.length || 0) +
+															(videosQuery.data?.results?.length || 0) ===
+															0,
+													renderRight:
+														(imagesQuery.data?.posters?.length || 0) +
+															(imagesQuery.data?.backdrops?.length || 0) +
+															(videosQuery.data?.results?.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(imagesQuery.data?.posters
+																						?.length || 0) +
+																					(imagesQuery.data?.backdrops
+																						?.length || 0) +
+																					(videosQuery.data?.results
+																						?.length || 0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												}
+											]}
+										</TabList>
+									),
+									socials: !isMd ? (
+										<Socials
+											alt={tvShowQuery.data?.name}
+											socials={{
+												...externalIdsQuery.data,
+												homepage_id: tvShowQuery.data?.homepage
+											}}
+											orientation='horizontal'
+											isLoading={
+												tvShowQuery.isFetching ||
+												tvShowQuery.isLoading ||
+												externalIdsQuery.isFetching ||
+												externalIdsQuery.isLoading
+											}
+										/>
+									) : undefined,
+									tabPanels: (
+										<TabPanels>
+											<OverviewTab
+												tvShowQuery={tvShowQuery}
+												creditsQuery={creditsQuery}
+												recommendationsQuery={recommendationsQuery}
+												similarQuery={similarQuery}
+												reviews={reviews}
+												reviewsQuery={reviewsQuery}
+												imagesQuery={imagesQuery}
+												videosQuery={videosQuery}
+												onAssetClick={handleOnAssetClick}
+												onChangeTab={handleChangeTab}
+											/>
+											<CastCrewTab
+												alt={tvShowQuery.data?.name}
+												credits={creditsQuery.data}
+												isError={creditsQuery.isError}
+												isSuccess={creditsQuery.isSuccess}
+												isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
+											/>
+											<SeasonsTab
+												show={tvShowQuery.data}
+												isError={tvShowQuery.isError}
+												isSuccess={tvShowQuery.isSuccess}
+												isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+											/>
+											<ReviewsTab
+												alt={tvShowQuery.data?.name}
+												mediaItem={tvShowQuery.data ? { ...tvShowQuery.data } : undefined}
+												mediaType='tv'
+												reviews={reviews}
+												isError={reviewsQuery.isError}
+												isSuccess={reviewsQuery.isSuccess}
+												isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
+												hasNextPage={reviewsQuery.hasNextPage}
+												onFetchNextPage={reviewsQuery.fetchNextPage}
+											/>
+											<AssetsTab
+												alt={tvShowQuery.data?.name}
+												assets={{
+													posters: imagesQuery.data?.posters,
+													backdrops: imagesQuery.data?.backdrops,
+													videos: videosQuery.data?.results
+												}}
+												isError={imagesQuery.isError || videosQuery.isError}
+												isSuccess={imagesQuery.isSuccess || videosQuery.isSuccess}
+												isLoading={
+													imagesQuery.isFetching ||
+													imagesQuery.isLoading ||
+													videosQuery.isFetching ||
+													videosQuery.isLoading
+												}
+												onClickAsset={handleOnAssetClick}
+											/>
+										</TabPanels>
+									)
+								}}
+							</Structure>
 						)
 					}}
-				</Structure>
+				</Page>
 			</Tabs>
 
 			{imagesQuery.isSuccess || videosQuery.isSuccess ? (

@@ -24,11 +24,13 @@ import SkeletonText from '../../../../components/Skeleton/Text';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import Page from '../../../../containers/Page';
 import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
 import Title from '../../components/Title';
+import VerticalPoster from '../../components/VerticalPoster';
 
 const dummies = range(25, 75, 10);
 
@@ -140,37 +142,47 @@ const Collection = (): ReactElement => {
 	return (
 		<>
 			<Tabs activeTab={activeTab} onChange={handleChangeTab}>
-				<Structure>
-					{{
-						title: (
-							<Title
-								mediaType='collection'
-								renderTitle={({ color, fontSize, fontWeight }) => (
-									<SkeletonText
-										width={
-											collectionQuery.isFetching || collectionQuery.isLoading
-												? `${dummy}%`
-												: 'auto'
-										}
+				<Page
+					title={
+						<Title
+							mediaType='collection'
+							renderTitle={({ color, fontSize, fontWeight }) => (
+								<SkeletonText
+									width={
+										collectionQuery.isFetching || collectionQuery.isLoading ? `${dummy}%` : 'auto'
+									}
+									fontSize={fontSize}
+									isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
+								>
+									<Text
+										align='left'
+										color={color}
 										fontSize={fontSize}
-										isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
+										fontWeight={fontWeight}
+										whiteSpace={
+											collectionQuery.isFetching || collectionQuery.isLoading
+												? 'nowrap'
+												: 'normal'
+										}
 									>
-										<Text
-											align='left'
-											color={color}
-											fontSize={fontSize}
-											fontWeight={fontWeight}
-											whiteSpace={
-												collectionQuery.isFetching || collectionQuery.isLoading
-													? 'nowrap'
-													: 'normal'
-											}
-										>
-											{collectionQuery.data?.name || 'Collection Name'}
-										</Text>
-									</SkeletonText>
-								)}
+										{collectionQuery.data?.name || 'Collection Name'}
+									</Text>
+								</SkeletonText>
+							)}
+							isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
+						/>
+					}
+				>
+					{{
+						renderLeftHeaderPanel: (props) => (
+							<VerticalPoster
+								{...props}
+								alt={collectionQuery.data?.name || ''}
+								path={collectionQuery.data?.poster_path || ''}
+								mediaType='collection'
+								srcSize={['w92', 'original']}
 								isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
+								onClickPoster={handleOnAssetClick}
 							/>
 						),
 						actions: (
@@ -182,108 +194,119 @@ const Collection = (): ReactElement => {
 								isError={collectionQuery.isError}
 							/>
 						),
-						tabList: (
-							<TabList color={color}>
-								{[
-									{
-										label: 'Overview'
-									},
-									{
-										label: 'Parts',
-										isDisabled:
-											collectionQuery.isError ||
-											collectionQuery.isFetching ||
-											collectionQuery.isLoading ||
-											(collectionQuery.data?.parts?.length || 0) === 0,
-										renderRight:
-											(collectionQuery.data?.parts?.length || 0) > 0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={collectionQuery.data?.parts?.length || 0}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									},
-									{
-										label: 'Assets',
-										isDisabled:
-											imagesQuery.isError ||
-											imagesQuery.isFetching ||
-											imagesQuery.isLoading ||
-											(imagesQuery.data?.posters?.length || 0) +
-												(imagesQuery.data?.backdrops?.length || 0) ===
-												0,
-										renderRight:
-											(imagesQuery.data?.posters?.length || 0) +
-												(imagesQuery.data?.backdrops?.length || 0) >
-											0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(imagesQuery.data?.posters?.length || 0) +
-																		(imagesQuery.data?.backdrops?.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									}
-								]}
-							</TabList>
-						),
-						socials:
-							activeTab === 1 ? (
-								<Fade in unmountOnExit>
-									<DisplayMode />
-								</Fade>
-							) : undefined,
-						tabPanels: (
-							<TabPanels>
-								<OverviewTab
-									collectionQuery={collectionQuery}
-									imagesQuery={imagesQuery}
-									onClickImage={handleOnAssetClick}
-									onChangeTab={handleChangeTab}
-								/>
-								<PartsTab
-									name={collectionQuery.data?.name || undefined}
-									isError={collectionQuery.isError}
-									isSuccess={collectionQuery.isSuccess}
-									isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
-									parts={collectionQuery.data?.parts || []}
-								/>
-								<AssetsTab
-									alt={collectionQuery.data?.name}
-									assets={{
-										posters: imagesQuery.data?.posters,
-										backdrops: imagesQuery.data?.backdrops
-									}}
-									isError={imagesQuery.isError}
-									isSuccess={imagesQuery.isSuccess}
-									isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
-									onClickAsset={handleOnAssetClick}
-								/>
-							</TabPanels>
+						body: (
+							<Structure>
+								{{
+									tabList: (
+										<TabList color={color}>
+											{[
+												{
+													label: 'Overview'
+												},
+												{
+													label: 'Parts',
+													isDisabled:
+														collectionQuery.isError ||
+														collectionQuery.isFetching ||
+														collectionQuery.isLoading ||
+														(collectionQuery.data?.parts?.length || 0) === 0,
+													renderRight:
+														(collectionQuery.data?.parts?.length || 0) > 0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					collectionQuery.data?.parts
+																						?.length || 0
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												},
+												{
+													label: 'Assets',
+													isDisabled:
+														imagesQuery.isError ||
+														imagesQuery.isFetching ||
+														imagesQuery.isLoading ||
+														(imagesQuery.data?.posters?.length || 0) +
+															(imagesQuery.data?.backdrops?.length || 0) ===
+															0,
+													renderRight:
+														(imagesQuery.data?.posters?.length || 0) +
+															(imagesQuery.data?.backdrops?.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(imagesQuery.data?.posters
+																						?.length || 0) +
+																					(imagesQuery.data?.backdrops
+																						?.length || 0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												}
+											]}
+										</TabList>
+									),
+									socials:
+										activeTab === 1 ? (
+											<Fade in unmountOnExit>
+												<DisplayMode />
+											</Fade>
+										) : undefined,
+									tabPanels: (
+										<TabPanels>
+											<OverviewTab
+												collectionQuery={collectionQuery}
+												imagesQuery={imagesQuery}
+												onClickImage={handleOnAssetClick}
+												onChangeTab={handleChangeTab}
+											/>
+											<PartsTab
+												name={collectionQuery.data?.name || undefined}
+												isError={collectionQuery.isError}
+												isSuccess={collectionQuery.isSuccess}
+												isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
+												parts={collectionQuery.data?.parts || []}
+											/>
+											<AssetsTab
+												alt={collectionQuery.data?.name}
+												assets={{
+													posters: imagesQuery.data?.posters,
+													backdrops: imagesQuery.data?.backdrops
+												}}
+												isError={imagesQuery.isError}
+												isSuccess={imagesQuery.isSuccess}
+												isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
+												onClickAsset={handleOnAssetClick}
+											/>
+										</TabPanels>
+									)
+								}}
+							</Structure>
 						)
 					}}
-				</Structure>
+				</Page>
 			</Tabs>
 
 			{imagesQuery.isSuccess ? (

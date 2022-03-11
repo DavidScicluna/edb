@@ -25,6 +25,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
+import Page from '../../../../containers/Page';
 import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import { UserReview } from '../../../../store/slices/Users/types';
 import Actions from '../../components/Actions';
@@ -32,6 +33,7 @@ import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
 import ReviewsTab from '../../components/Reviews';
 import Structure from '../../components/Structure';
+import VerticalPoster from '../../components/VerticalPoster';
 
 const tabs = ['overview', 'cast_crew', 'reviews', 'assets'];
 
@@ -284,11 +286,24 @@ const Movie = (): ReactElement => {
 	return (
 		<>
 			<Tabs activeTab={activeTab} onChange={handleChangeTab}>
-				<Structure>
+				<Page
+					title={<Title movie={movieQuery.data} isLoading={movieQuery.isFetching || movieQuery.isLoading} />}
+				>
 					{{
-						title: (
-							<Title movie={movieQuery.data} isLoading={movieQuery.isFetching || movieQuery.isLoading} />
-						),
+						renderLeftHeaderPanel:
+							activeTab !== 0
+								? (props) => (
+										<VerticalPoster
+											{...props}
+											alt={movieQuery.data?.title || ''}
+											path={movieQuery.data?.poster_path || ''}
+											mediaType='movie'
+											srcSize={['w92', 'original']}
+											isLoading={movieQuery.isFetching || movieQuery.isLoading}
+											onClickPoster={handleMediaClick}
+										/>
+								  )
+								: undefined,
 						actions: (
 							<Actions
 								mediaItem={movieQuery.data}
@@ -298,182 +313,197 @@ const Movie = (): ReactElement => {
 								isError={movieQuery.isError}
 							/>
 						),
-						tabList: (
-							<TabList color={color}>
-								{[
-									{
-										label: 'Overview'
-									},
-									{
-										label: 'Cast & Crew',
-										isDisabled:
-											creditsQuery.isError ||
-											creditsQuery.isFetching ||
-											creditsQuery.isLoading ||
-											(creditsQuery.data?.cast?.length || 0) +
-												(creditsQuery.data?.crew?.length || 0) ===
-												0,
-										renderRight:
-											(creditsQuery.data?.cast?.length || 0) +
-												(creditsQuery.data?.crew?.length || 0) >
-											0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(creditsQuery.data?.cast?.length || 0) +
-																		(creditsQuery.data?.crew?.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									},
-									{
-										label: 'Reviews',
-										isDisabled:
-											movieQuery.isError ||
-											movieQuery.isFetching ||
-											movieQuery.isLoading ||
-											reviewsQuery.isError ||
-											reviewsQuery.isFetching ||
-											reviewsQuery.isLoading,
-										renderRight:
-											(reviews?.total_results || 0) + (movieUserReviews.length || 0) > 0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(reviews?.total_results || 0) +
-																		(movieUserReviews.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									},
-									{
-										label: 'Assets',
-										isDisabled:
-											imagesQuery.isError ||
-											imagesQuery.isFetching ||
-											imagesQuery.isLoading ||
-											videosQuery.isError ||
-											videosQuery.isFetching ||
-											videosQuery.isLoading ||
-											(imagesQuery.data?.posters?.length || 0) +
-												(imagesQuery.data?.backdrops?.length || 0) +
-												(videosQuery.data?.results?.length || 0) ===
-												0,
-										renderRight:
-											(imagesQuery.data?.posters?.length || 0) +
-												(imagesQuery.data?.backdrops?.length || 0) +
-												(videosQuery.data?.results?.length || 0) >
-											0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(imagesQuery.data?.posters?.length || 0) +
-																		(imagesQuery.data?.backdrops?.length || 0) +
-																		(videosQuery.data?.results?.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									}
-								]}
-							</TabList>
-						),
-						socials: !isMd ? (
-							<Socials
-								alt={movieQuery.data?.title}
-								socials={{ ...externalIdsQuery.data, homepage_id: movieQuery.data?.homepage }}
-								orientation='horizontal'
-								isLoading={
-									movieQuery.isFetching ||
-									movieQuery.isLoading ||
-									externalIdsQuery.isFetching ||
-									externalIdsQuery.isLoading
-								}
-							/>
-						) : undefined,
-						tabPanels: (
-							<TabPanels>
-								<OverviewTab
-									movieQuery={movieQuery}
-									creditsQuery={creditsQuery}
-									collectionQuery={collectionQuery}
-									recommendationsQuery={recommendationsQuery}
-									similarQuery={similarQuery}
-									reviews={reviews}
-									reviewsQuery={reviewsQuery}
-									imagesQuery={imagesQuery}
-									videosQuery={videosQuery}
-									onAssetClick={handleOnAssetClick}
-									onChangeTab={handleChangeTab}
-								/>
-								<CastCrewTab
-									alt={movieQuery.data?.title}
-									credits={creditsQuery.data}
-									isError={creditsQuery.isError}
-									isSuccess={creditsQuery.isSuccess}
-									isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
-								/>
-								<ReviewsTab
-									alt={movieQuery.data?.title}
-									mediaItem={movieQuery.data ? { ...movieQuery.data } : undefined}
-									mediaType='movie'
-									reviews={reviews}
-									isError={reviewsQuery.isError}
-									isSuccess={reviewsQuery.isSuccess}
-									isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
-									hasNextPage={reviewsQuery.hasNextPage}
-									onFetchNextPage={reviewsQuery.fetchNextPage}
-								/>
-								<AssetsTab
-									alt={movieQuery.data?.title}
-									assets={{
-										posters: imagesQuery.data?.posters,
-										backdrops: imagesQuery.data?.backdrops,
-										videos: videosQuery.data?.results
-									}}
-									isError={imagesQuery.isError || videosQuery.isError}
-									isSuccess={imagesQuery.isSuccess || videosQuery.isSuccess}
-									isLoading={
-										imagesQuery.isFetching ||
-										imagesQuery.isLoading ||
-										videosQuery.isFetching ||
-										videosQuery.isLoading
-									}
-									onClickAsset={handleOnAssetClick}
-								/>
-							</TabPanels>
+						body: (
+							<Structure>
+								{{
+									tabList: (
+										<TabList color={color}>
+											{[
+												{
+													label: 'Overview'
+												},
+												{
+													label: 'Cast & Crew',
+													isDisabled:
+														creditsQuery.isError ||
+														creditsQuery.isFetching ||
+														creditsQuery.isLoading ||
+														(creditsQuery.data?.cast?.length || 0) +
+															(creditsQuery.data?.crew?.length || 0) ===
+															0,
+													renderRight:
+														(creditsQuery.data?.cast?.length || 0) +
+															(creditsQuery.data?.crew?.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(creditsQuery.data?.cast?.length ||
+																						0) +
+																					(creditsQuery.data?.crew?.length ||
+																						0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												},
+												{
+													label: 'Reviews',
+													isDisabled:
+														movieQuery.isError ||
+														movieQuery.isFetching ||
+														movieQuery.isLoading ||
+														reviewsQuery.isError ||
+														reviewsQuery.isFetching ||
+														reviewsQuery.isLoading,
+													renderRight:
+														(reviews?.total_results || 0) + (movieUserReviews.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(reviews?.total_results || 0) +
+																					(movieUserReviews.length || 0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												},
+												{
+													label: 'Assets',
+													isDisabled:
+														imagesQuery.isError ||
+														imagesQuery.isFetching ||
+														imagesQuery.isLoading ||
+														videosQuery.isError ||
+														videosQuery.isFetching ||
+														videosQuery.isLoading ||
+														(imagesQuery.data?.posters?.length || 0) +
+															(imagesQuery.data?.backdrops?.length || 0) +
+															(videosQuery.data?.results?.length || 0) ===
+															0,
+													renderRight:
+														(imagesQuery.data?.posters?.length || 0) +
+															(imagesQuery.data?.backdrops?.length || 0) +
+															(videosQuery.data?.results?.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(imagesQuery.data?.posters
+																						?.length || 0) +
+																					(imagesQuery.data?.backdrops
+																						?.length || 0) +
+																					(videosQuery.data?.results
+																						?.length || 0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												}
+											]}
+										</TabList>
+									),
+									socials: !isMd ? (
+										<Socials
+											alt={movieQuery.data?.title}
+											socials={{
+												...externalIdsQuery.data,
+												homepage_id: movieQuery.data?.homepage
+											}}
+											orientation='horizontal'
+											isLoading={
+												movieQuery.isFetching ||
+												movieQuery.isLoading ||
+												externalIdsQuery.isFetching ||
+												externalIdsQuery.isLoading
+											}
+										/>
+									) : undefined,
+									tabPanels: (
+										<TabPanels>
+											<OverviewTab
+												movieQuery={movieQuery}
+												creditsQuery={creditsQuery}
+												collectionQuery={collectionQuery}
+												recommendationsQuery={recommendationsQuery}
+												similarQuery={similarQuery}
+												reviews={reviews}
+												reviewsQuery={reviewsQuery}
+												imagesQuery={imagesQuery}
+												videosQuery={videosQuery}
+												onAssetClick={handleOnAssetClick}
+												onChangeTab={handleChangeTab}
+											/>
+											<CastCrewTab
+												alt={movieQuery.data?.title}
+												credits={creditsQuery.data}
+												isError={creditsQuery.isError}
+												isSuccess={creditsQuery.isSuccess}
+												isLoading={creditsQuery.isFetching || creditsQuery.isLoading}
+											/>
+											<ReviewsTab
+												alt={movieQuery.data?.title}
+												mediaItem={movieQuery.data ? { ...movieQuery.data } : undefined}
+												mediaType='movie'
+												reviews={reviews}
+												isError={reviewsQuery.isError}
+												isSuccess={reviewsQuery.isSuccess}
+												isLoading={reviewsQuery.isFetching || reviewsQuery.isLoading}
+												hasNextPage={reviewsQuery.hasNextPage}
+												onFetchNextPage={reviewsQuery.fetchNextPage}
+											/>
+											<AssetsTab
+												alt={movieQuery.data?.title}
+												assets={{
+													posters: imagesQuery.data?.posters,
+													backdrops: imagesQuery.data?.backdrops,
+													videos: videosQuery.data?.results
+												}}
+												isError={imagesQuery.isError || videosQuery.isError}
+												isSuccess={imagesQuery.isSuccess || videosQuery.isSuccess}
+												isLoading={
+													imagesQuery.isFetching ||
+													imagesQuery.isLoading ||
+													videosQuery.isFetching ||
+													videosQuery.isLoading
+												}
+												onClickAsset={handleOnAssetClick}
+											/>
+										</TabPanels>
+									)
+								}}
+							</Structure>
 						)
 					}}
-				</Structure>
+				</Page>
 			</Tabs>
 
 			{imagesQuery.isSuccess || videosQuery.isSuccess ? (

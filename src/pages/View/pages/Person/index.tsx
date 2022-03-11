@@ -14,6 +14,7 @@ import CreditsTab from './components/CreditsTab';
 import OverviewTab from './components/OverviewTab';
 import Title from './components/Title';
 
+import Page from '../.../../../../../containers/Page';
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { ExternalIDs, Images } from '../../../../common/types';
@@ -29,6 +30,7 @@ import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/s
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
+import VerticalPoster from '../../components/VerticalPoster';
 
 const tabs = ['overview', 'credits', 'photos'];
 
@@ -190,13 +192,25 @@ const Person = (): ReactElement => {
 	return (
 		<>
 			<Tabs activeTab={activeTab} onChange={handleChangeTab}>
-				<Structure>
+				<Page
+					title={
+						<Title
+							person={personQuery.data}
+							departments={departments.map((department) => department.label)}
+							isLoading={personQuery.isFetching || personQuery.isLoading}
+						/>
+					}
+				>
 					{{
-						title: (
-							<Title
-								person={personQuery.data}
-								departments={departments.map((department) => department.label)}
+						renderLeftHeaderPanel: (props) => (
+							<VerticalPoster
+								{...props}
+								alt={personQuery.data?.name || ''}
+								path={personQuery.data?.profile_path || ''}
+								mediaType='person'
+								srcSize={['w45', 'original']}
 								isLoading={personQuery.isFetching || personQuery.isLoading}
+								onClickPoster={handleOnAssetClick}
 							/>
 						),
 						actions: (
@@ -208,132 +222,146 @@ const Person = (): ReactElement => {
 								isError={personQuery.isError}
 							/>
 						),
-						tabList: (
-							<TabList color={color}>
-								{[
-									{
-										label: 'Overview'
-									},
-									{
-										label: 'Credits',
-										isDisabled:
-											creditsQuery.isError ||
-											creditsQuery.isFetching ||
-											creditsQuery.isLoading ||
-											(creditsQuery.data?.cast?.length || 0) +
-												(creditsQuery.data?.crew?.length || 0) ===
-												0,
-										renderRight:
-											(creditsQuery.data?.cast?.length || 0) +
-												(creditsQuery.data?.crew?.length || 0) >
-											0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={
-																		(creditsQuery.data?.cast?.length || 0) +
-																		(creditsQuery.data?.crew?.length || 0)
-																	}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									},
-									{
-										label: 'Photos',
-										isDisabled:
-											imagesQuery.isError ||
-											imagesQuery.isFetching ||
-											imagesQuery.isLoading ||
-											(imagesQuery.data?.profiles?.length || 0) === 0,
-										renderRight:
-											(imagesQuery.data?.profiles?.length || 0) > 0
-												? ({ isSelected, size }) => (
-														<Fade in unmountOnExit>
-															<Badge
-																color={isSelected ? color : 'gray'}
-																isLight={!isSelected}
-																size={size}
-															>
-																<CountUp
-																	duration={1}
-																	end={imagesQuery.data?.profiles?.length || 0}
-																/>
-															</Badge>
-														</Fade>
-												  )
-												: undefined
-									}
-								]}
-							</TabList>
-						),
-						socials: !isMd ? (
-							<Socials
-								alt={personQuery.data?.name}
-								socials={{ ...externalIdsQuery.data, homepage_id: personQuery.data?.homepage }}
-								orientation='horizontal'
-								isLoading={
-									personQuery.isFetching ||
-									personQuery.isLoading ||
-									externalIdsQuery.isFetching ||
-									externalIdsQuery.isLoading
-								}
-							/>
-						) : undefined,
-						tabPanels: (
-							<TabPanels>
-								<OverviewTab
-									person={personQuery.data}
-									credits={creditsQuery.data}
-									images={imagesQuery.data?.profiles}
-									isError={{
-										person: personQuery.isError,
-										credits: creditsQuery.isError,
-										images: imagesQuery.isError
-									}}
-									isSuccess={{
-										person: personQuery.isSuccess,
-										credits: creditsQuery.isSuccess,
-										images: imagesQuery.isSuccess
-									}}
-									isLoading={{
-										person: personQuery.isFetching || personQuery.isLoading,
-										credits: creditsQuery.isFetching || creditsQuery.isLoading,
-										images: imagesQuery.isFetching || imagesQuery.isLoading
-									}}
-									onClickImage={handleOnAssetClick}
-									onChangeTab={handleChangeTab}
-								/>
-								<CreditsTab
-									departments={departments}
-									isError={movieCreditsQuery.isError || tvCreditsQuery.isError}
-									isSuccess={movieCreditsQuery.isSuccess && tvCreditsQuery.isSuccess}
-									isLoading={
-										movieCreditsQuery.isFetching ||
-										movieCreditsQuery.isLoading ||
-										tvCreditsQuery.isFetching ||
-										tvCreditsQuery.isLoading
-									}
-								/>
-								<AssetsTab
-									alt={personQuery.data?.name}
-									assets={{ profiles: imagesQuery.data?.profiles }}
-									isError={imagesQuery.isError}
-									isSuccess={imagesQuery.isSuccess}
-									isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
-									onClickAsset={handleOnAssetClick}
-								/>
-							</TabPanels>
+						body: (
+							<Structure>
+								{{
+									tabList: (
+										<TabList color={color}>
+											{[
+												{
+													label: 'Overview'
+												},
+												{
+													label: 'Credits',
+													isDisabled:
+														creditsQuery.isError ||
+														creditsQuery.isFetching ||
+														creditsQuery.isLoading ||
+														(creditsQuery.data?.cast?.length || 0) +
+															(creditsQuery.data?.crew?.length || 0) ===
+															0,
+													renderRight:
+														(creditsQuery.data?.cast?.length || 0) +
+															(creditsQuery.data?.crew?.length || 0) >
+														0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					(creditsQuery.data?.cast?.length ||
+																						0) +
+																					(creditsQuery.data?.crew?.length ||
+																						0)
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												},
+												{
+													label: 'Photos',
+													isDisabled:
+														imagesQuery.isError ||
+														imagesQuery.isFetching ||
+														imagesQuery.isLoading ||
+														(imagesQuery.data?.profiles?.length || 0) === 0,
+													renderRight:
+														(imagesQuery.data?.profiles?.length || 0) > 0
+															? ({ isSelected, size }) => (
+																	<Fade in unmountOnExit>
+																		<Badge
+																			color={isSelected ? color : 'gray'}
+																			isLight={!isSelected}
+																			size={size}
+																		>
+																			<CountUp
+																				duration={1}
+																				end={
+																					imagesQuery.data?.profiles
+																						?.length || 0
+																				}
+																			/>
+																		</Badge>
+																	</Fade>
+															  )
+															: undefined
+												}
+											]}
+										</TabList>
+									),
+									socials: !isMd ? (
+										<Socials
+											alt={personQuery.data?.name}
+											socials={{
+												...externalIdsQuery.data,
+												homepage_id: personQuery.data?.homepage
+											}}
+											orientation='horizontal'
+											isLoading={
+												personQuery.isFetching ||
+												personQuery.isLoading ||
+												externalIdsQuery.isFetching ||
+												externalIdsQuery.isLoading
+											}
+										/>
+									) : undefined,
+									tabPanels: (
+										<TabPanels>
+											<OverviewTab
+												person={personQuery.data}
+												credits={creditsQuery.data}
+												images={imagesQuery.data?.profiles}
+												isError={{
+													person: personQuery.isError,
+													credits: creditsQuery.isError,
+													images: imagesQuery.isError
+												}}
+												isSuccess={{
+													person: personQuery.isSuccess,
+													credits: creditsQuery.isSuccess,
+													images: imagesQuery.isSuccess
+												}}
+												isLoading={{
+													person: personQuery.isFetching || personQuery.isLoading,
+													credits: creditsQuery.isFetching || creditsQuery.isLoading,
+													images: imagesQuery.isFetching || imagesQuery.isLoading
+												}}
+												onClickImage={handleOnAssetClick}
+												onChangeTab={handleChangeTab}
+											/>
+											<CreditsTab
+												departments={departments}
+												isError={movieCreditsQuery.isError || tvCreditsQuery.isError}
+												isSuccess={movieCreditsQuery.isSuccess && tvCreditsQuery.isSuccess}
+												isLoading={
+													movieCreditsQuery.isFetching ||
+													movieCreditsQuery.isLoading ||
+													tvCreditsQuery.isFetching ||
+													tvCreditsQuery.isLoading
+												}
+											/>
+											<AssetsTab
+												alt={personQuery.data?.name}
+												assets={{ profiles: imagesQuery.data?.profiles }}
+												isError={imagesQuery.isError}
+												isSuccess={imagesQuery.isSuccess}
+												isLoading={imagesQuery.isFetching || imagesQuery.isLoading}
+												onClickAsset={handleOnAssetClick}
+											/>
+										</TabPanels>
+									)
+								}}
+							</Structure>
 						)
 					}}
-				</Structure>
+				</Page>
 			</Tabs>
 
 			{imagesQuery.isSuccess && (imagesQuery.data?.profiles || []).length > 0 ? (
