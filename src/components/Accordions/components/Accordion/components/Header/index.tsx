@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import CountUp from 'react-countup';
 
-import { useTheme, useColorMode, useMediaQuery, HStack, VStack, Fade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, HStack, VStack, Fade } from '@chakra-ui/react';
 
 import { merge, isNil, isEmpty } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
@@ -17,7 +17,6 @@ import Icon from '../../../../../Icon';
 
 const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 	const theme = useTheme<Theme>();
-	const { colorMode } = useColorMode();
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 	const [isMd] = useMediaQuery('(max-width: 992px)');
@@ -29,6 +28,7 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 		subtitle,
 		total,
 		color,
+		colorMode,
 		inView = false,
 		isOpen = false,
 		isDisabled = false,
@@ -53,13 +53,19 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 				alignItems='flex-start'
 				spacing={isLoading && subtitle ? 0.5 : 0}
 			>
-				<Title title={title} isLoading={isLoading} inView={inView} />
-				{subtitle ? <Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} /> : null}
+				<Title title={title} isLoading={isLoading} inView={inView} colorMode={colorMode} />
+				{subtitle ? (
+					<Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} colorMode={colorMode} />
+				) : null}
 			</VStack>
 
 			<HStack ref={ref}>
 				<Fade in={!(isNil(total) || isEmpty(total)) && inView} unmountOnExit>
-					<Badge color={isOpen ? color : 'gray'} size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>
+					<Badge
+						color={isOpen ? color : 'gray'}
+						colorMode={colorMode}
+						size={isSm ? 'xs' : isMd ? 'sm' : 'md'}
+					>
 						{total?.number ? (
 							<CountUp
 								duration={1}

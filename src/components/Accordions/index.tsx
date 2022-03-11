@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
 
-import { VStack } from '@chakra-ui/react';
+import { ColorMode, useColorMode, VStack } from '@chakra-ui/react';
 
 import { uniq } from 'lodash';
 
@@ -9,9 +9,20 @@ import QuickToggles from './components/QuickToggles';
 import { AccordionsProps, Accordion as AccordionType } from './types';
 
 const Accordions = <D,>(props: AccordionsProps<D>): ReactElement => {
+	const { colorMode: colorModeHook } = useColorMode();
+
 	const [openedAccordions, setOpenedAccordions] = useState<AccordionType<D>['id'][]>([]);
 
-	const { renderAccordion, accordions = [], color, isError = false, isLoading = true } = props;
+	const {
+		renderAccordion,
+		accordions = [],
+		color = 'gray',
+		colorMode: colorModeProp,
+		isError = false,
+		isLoading = true
+	} = props;
+
+	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
 	/**
 	 * This method will check whether the passed id is already opened, if so it will close it
@@ -46,6 +57,7 @@ const Accordions = <D,>(props: AccordionsProps<D>): ReactElement => {
 				})}
 				openedPanels={openedAccordions.length}
 				color={color}
+				colorMode={colorMode}
 				isLoading={isLoading}
 				isDisabled={isError}
 				onToggleAccordion={(id: AccordionType<D>['id']) => setOpenedAccordions(uniq([...openedAccordions, id]))}
@@ -58,6 +70,7 @@ const Accordions = <D,>(props: AccordionsProps<D>): ReactElement => {
 						{...accordion}
 						key={accordion.id}
 						color={color}
+						colorMode={colorMode}
 						isOpen={openedAccordions.some((openedAccordion) => openedAccordion === accordion.id)}
 						isDisabled={isError || accordion.isDisabled}
 						isLoading={isLoading}

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, HStack, Center, Text } from '@chakra-ui/react';
+import { HStack, Center, Text } from '@chakra-ui/react';
 
 import { range } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
@@ -13,15 +13,14 @@ import Divider from '../../../Divider';
 import HorizontalScroll from '../../../HorizontalScroll';
 
 const QuickToggles = (props: QuickTogglesProps): ReactElement => {
-	const { colorMode } = useColorMode();
-
 	const [textRef, { width: textWidth }] = useElementSize<HTMLParagraphElement>();
 	const [buttonRef, { width: buttonWidth, height: buttonHeight }] = useElementSize<HTMLButtonElement>();
 
 	const {
 		accordions,
 		openedPanels,
-		color,
+		color = 'gray',
+		colorMode,
 		isLoading = true,
 		isDisabled = false,
 		onToggleAccordion,
@@ -32,7 +31,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 		<HStack
 			width='100%'
 			justifyContent='stretch'
-			divider={<Divider orientation='vertical' height={`${buttonHeight}px`} />}
+			divider={<Divider colorMode={colorMode} orientation='vertical' height={`${buttonHeight}px`} />}
 			spacing={2}
 		>
 			{/* Width is calculated by the width of the hide/show button component and the 32 pixels +
@@ -69,13 +68,14 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 										key={accordion.id}
 										{...accordion}
 										color={color}
+										colorMode={colorMode}
 										isDisabled={isDisabled}
 										isLoading={false}
 										onToggle={() => onToggleAccordion(accordion.id)}
 									/>
 							  ))
 							: range(0, 5).map((_dummy, index: number) => (
-									<Accordion key={index} isDisabled={isDisabled} isLoading />
+									<Accordion key={index} colorMode={colorMode} isDisabled={isDisabled} isLoading />
 							  ))}
 					</HorizontalScroll>
 				</Center>
@@ -83,6 +83,7 @@ const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 
 			<Button
 				ref={buttonRef}
+				colorMode={colorMode}
 				isDisabled={isLoading}
 				onClick={() => onToggleAllAccordions()}
 				size='sm'

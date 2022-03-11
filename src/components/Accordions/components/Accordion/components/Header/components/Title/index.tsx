@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useConst, Box, Text } from '@chakra-ui/react';
+import { useConst, Box, Text } from '@chakra-ui/react';
 
 import { range, sample } from 'lodash';
 
@@ -11,9 +11,7 @@ import SkeletonText from '../../../../../../../Skeleton/Text';
 const dummies = range(25, 100, 10);
 
 const Title = (props: TitleProps): ReactElement => {
-	const { colorMode } = useColorMode();
-
-	const { title, isLoading = false, inView = true } = props;
+	const { title, isLoading = false, inView = true, colorMode } = props;
 
 	const dummy = useConst<number>(sample(dummies) || 100);
 
@@ -24,7 +22,12 @@ const Title = (props: TitleProps): ReactElement => {
 			height={['19.25px', '22px', '24.75px']} // Size of typography height
 		>
 			{inView ? (
-				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
+				<SkeletonText
+					colorMode={colorMode}
+					width={isLoading ? `${dummy}%` : 'auto'}
+					fontSize='sm'
+					isLoaded={!isLoading}
+				>
 					<Text
 						align='left'
 						fontSize={['sm', 'md', 'lg']}

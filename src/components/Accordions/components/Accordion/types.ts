@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
 
-import { Color } from '../../../../theme/types';
+import { ColorMode } from '@chakra-ui/react';
+
 import { RenderProps, AccordionsProps } from '../../types';
 
 export type AccordionProps<D> = Omit<RenderProps<D>, 'data' | 'onToggleAccordion'> & {
 	children: ReactElement;
 	footer?: ReactElement;
-	color?: keyof Color;
+	colorMode: ColorMode;
 	isDisabled?: boolean;
-	isLoading?: boolean;
 	onToggle: () => void;
-} & Omit<AccordionsProps<D>, 'renderAccordion' | 'accordions' | 'isError'>;
+} & Omit<AccordionsProps<D>, 'renderAccordion' | 'accordions' | 'colorMode' | 'isError'>;

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import useInView from 'react-cool-inview';
 
-import { useTheme, useColorMode, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
+import { useTheme, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
 
 import { merge } from 'lodash';
 
@@ -16,7 +16,6 @@ import Divider from '../../../Divider';
 
 const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
 	const theme = useTheme<Theme>();
-	const { colorMode } = useColorMode();
 
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
 		threshold: [0.2, 0.4, 0.6, 0.8, 1],
@@ -31,6 +30,7 @@ const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
 		subtitle,
 		total,
 		color,
+		colorMode,
 		isOpen: isOpenProp = false,
 		isDisabled = false,
 		isLoading = true,
@@ -61,6 +61,7 @@ const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
 				subtitle={subtitle}
 				total={total}
 				color={color}
+				colorMode={colorMode}
 				inView={inView}
 				isOpen={isOpen}
 				isDisabled={isDisabled}
@@ -71,9 +72,9 @@ const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
 			{children ? (
 				<Collapse in={isOpen && inView} unmountOnExit style={{ width: '100%' }}>
 					<VStack width='100%' spacing={0} px={2}>
-						<Divider />
+						<Divider colorMode={colorMode} />
 
-						<VStack width='100%' divider={<Divider />} spacing={0}>
+						<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={0}>
 							<Body>{children}</Body>
 
 							{footer ? <Footer footer={footer} /> : null}
