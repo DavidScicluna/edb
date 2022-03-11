@@ -19,7 +19,7 @@ import Rating from '../../../../../../components/Rating';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 
-const dummies = range(25, 75, 10);
+const dummies = range(25, 100, 5);
 
 // TODO: Make this dynamic
 export const handleReturnCertification = (content_ratings: FullTV['content_ratings']): string | undefined => {

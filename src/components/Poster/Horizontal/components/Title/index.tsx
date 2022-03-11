@@ -9,7 +9,7 @@ import { TitleProps } from './types';
 import { FontSizes } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
 
-const dummies = range(25, 100, 10);
+const dummies = range(25, 100, 5);
 const height = ['19.25px', '22px', '24.75px', '27.5px', '33px', '41.25px'];
 
 const Title = (props: TitleProps): ReactElement => {

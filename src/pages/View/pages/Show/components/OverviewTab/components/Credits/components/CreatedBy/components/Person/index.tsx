@@ -12,7 +12,7 @@ import SkeletonText from '../../../../../../../../../../../../components/Skeleto
 import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../../../../../theme/types';
 
-const dummies = range(25, 100, 20);
+const dummies = range(25, 200, 5);
 
 const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 	const theme = useTheme<Theme>();

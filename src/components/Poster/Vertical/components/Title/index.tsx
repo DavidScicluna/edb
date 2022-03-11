@@ -8,7 +8,7 @@ import { TitleProps } from './types';
 
 import SkeletonText from '../../../../Skeleton/Text';
 
-const dummies = range(25, 100, 10);
+const dummies = range(25, 100, 5);
 
 const Title = (props: TitleProps): ReactElement => {
 	const { colorMode } = useColorMode();

@@ -9,7 +9,7 @@ import { LanguageProps } from './types';
 import { useSelector } from '../../../../../../../../common/hooks';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
-const dummies = range(25, 150, 20);
+const dummies = range(25, 200, 5);
 
 const Language = (props: LanguageProps): ReactElement => {
 	const languages = useSelector((state) => state.options.data.languages);

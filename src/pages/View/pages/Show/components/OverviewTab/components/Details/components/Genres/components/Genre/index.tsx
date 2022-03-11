@@ -13,7 +13,7 @@ import SkeletonText from '../../../../../../../../../../../../components/Skeleto
 import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../../../../../theme/types';
 
-const dummies = range(25, 150, 15);
+const dummies = range(25, 200, 5);
 
 const Genre = (props: GenreProps): ReactElement => {
 	const theme = useTheme<Theme>();

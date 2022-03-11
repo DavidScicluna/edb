@@ -9,7 +9,7 @@ import { RuntimeProps } from './types';
 import { handleReturnRuntime } from '../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
-const dummies = range(25, 75, 20);
+const dummies = range(25, 200, 5);
 
 const Runtime = (props: RuntimeProps): ReactElement => {
 	const { runtime, color, fontSize, isLoading = true } = props;

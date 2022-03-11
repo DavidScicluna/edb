@@ -9,7 +9,7 @@ import { LanguageProps } from './types';
 import { useSelector } from '../../../../../../../../../../common/hooks';
 import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
 
-const dummies = range(25, 75, 15);
+const dummies = range(25, 200, 5);
 
 const Language = ({ language, isLoading = true }: LanguageProps): ReactElement => {
 	const { colorMode } = useColorMode();

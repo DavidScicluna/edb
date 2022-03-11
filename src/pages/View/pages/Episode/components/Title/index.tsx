@@ -13,7 +13,7 @@ import Title from '../../../../components/Title';
 import { handleReturnCertification } from '../../../Show/components/Title';
 import Certification from '../../../Show/components/Title/components/Certification';
 
-const dummies = range(25, 75, 10);
+const dummies = range(25, 100, 5);
 
 const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 	const { show, episode, isLoading = true } = props;

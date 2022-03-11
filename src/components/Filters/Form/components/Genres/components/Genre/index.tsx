@@ -12,7 +12,7 @@ import Button from '../../../../../../Clickable/Button';
 import Icon from '../../../../../../Icon';
 import SkeletonText from '../../../../../../Skeleton/Text';
 
-const dummies = range(25, 100, 10);
+const dummies = range(25, 200, 5);
 
 const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreProps): ReactElement => {
 	const color = useSelector(

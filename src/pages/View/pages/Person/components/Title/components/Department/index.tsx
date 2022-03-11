@@ -8,7 +8,7 @@ import { DepartmentProps } from './types';
 
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
-const dummies = range(25, 200, 6);
+const dummies = range(25, 200, 5);
 
 const Department = (props: DepartmentProps): ReactElement => {
 	const { department, color, fontSize, isLoading = true } = props;

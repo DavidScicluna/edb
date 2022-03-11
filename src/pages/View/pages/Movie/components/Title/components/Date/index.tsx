@@ -9,7 +9,7 @@ import { DateProps } from './types';
 
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
-const dummies = range(25, 100, 20);
+const dummies = range(25, 200, 5);
 
 const Date = (props: DateProps): ReactElement => {
 	const { date, color, fontSize, isLoading = true } = props;

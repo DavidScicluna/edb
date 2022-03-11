@@ -10,7 +10,7 @@ import { PersonTitleProps } from './types';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 
-const dummies = range(25, 75, 10);
+const dummies = range(25, 100, 5);
 
 const PersonTitle = (props: PersonTitleProps): ReactElement => {
 	const { person, departments = [], isLoading = true } = props;

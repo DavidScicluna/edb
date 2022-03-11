@@ -9,7 +9,7 @@ import { TaglineProps } from './types';
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import Label from '../../../../components/Label';
 
-const dummies = range(25, 100, 15);
+const dummies = range(25, 200, 5);
 
 const Tagline = ({ tagline, isLoading = true }: TaglineProps): ReactElement => {
 	const { colorMode } = useColorMode();

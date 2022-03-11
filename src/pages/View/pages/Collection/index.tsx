@@ -32,7 +32,7 @@ import Structure from '../../components/Structure';
 import Title from '../../components/Title';
 import VerticalPoster from '../../components/VerticalPoster';
 
-const dummies = range(25, 75, 10);
+const dummies = range(25, 100, 5);
 
 const tabs = ['overview', 'parts', 'assets'];
 

@@ -30,7 +30,7 @@ import Title from '../../../../../../../pages/View/components/Title';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
 
-const dummies = range(25, 75, 10);
+const dummies = range(25, 100, 5);
 
 const Collection = ({ id }: CollectionProps): ReactElement => {
 	const source = axios.CancelToken.source();

@@ -9,7 +9,7 @@ import { SubtitleProps } from './types';
 import { FontSizes } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
 
-const dummies = range(25, 100, 10);
+const dummies = range(25, 100, 5);
 const height = ['16.5px', '19.25px', '22px', '24.75px', '27.5px', '33px'];
 
 const Subtitle = (props: SubtitleProps): ReactElement => {

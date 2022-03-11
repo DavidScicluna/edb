@@ -11,7 +11,7 @@ import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../com
 import { Theme, Space } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
 
-const dummies = range(25, 100, 20);
+const dummies = range(25, 200, 5);
 
 const Badge = (props: BadgeProps): ReactElement => {
 	const theme = useTheme<Theme>();

@@ -56,6 +56,7 @@ const Breadcrumbs = (): ReactElement => {
 
 	return (
 		<CUIBreadcrumb
+			width='100%'
 			separator={
 				<Icon
 					icon='chevron_right'
@@ -66,7 +67,7 @@ const Breadcrumbs = (): ReactElement => {
 			}
 			spacing={1}
 		>
-			{[...(breadcrumbs.length > 0 ? breadcrumbs : range(0, 3))].map((breadcrumb, index) => {
+			{[...(breadcrumbs.length > 0 ? breadcrumbs : range(0, 2))].map((breadcrumb, index) => {
 				const isDummy = typeof breadcrumb === 'number';
 
 				return (

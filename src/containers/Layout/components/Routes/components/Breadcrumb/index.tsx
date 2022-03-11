@@ -11,7 +11,7 @@ import { BreadcrumbProps, Data } from './types';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { FontSizes } from '../../../../../../theme/types';
 
-const dummies = range(25, 75, 5);
+const dummies = range(25, 100, 5);
 
 const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 	const { colorMode } = useColorMode();

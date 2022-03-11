@@ -19,7 +19,7 @@ import Rating from '../../../../../../components/Rating';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 
-const dummies = range(25, 75, 10);
+const dummies = range(25, 100, 5);
 
 // TODO: Make this dynamic
 const handleReturnCertification = (release_dates: FullMovie['release_dates']): string | undefined => {

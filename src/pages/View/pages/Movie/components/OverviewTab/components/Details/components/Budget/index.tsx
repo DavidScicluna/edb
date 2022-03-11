@@ -9,7 +9,7 @@ import { BudgetProps } from './types';
 import { handleFormatMoney } from '../../../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
 
-const dummies = range(25, 100, 20);
+const dummies = range(25, 200, 5);
 
 const Budget = ({ budget, isLoading = true }: BudgetProps): ReactElement => {
 	const { colorMode } = useColorMode();

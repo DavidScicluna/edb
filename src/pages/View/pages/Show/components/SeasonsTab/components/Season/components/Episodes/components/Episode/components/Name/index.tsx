@@ -9,7 +9,7 @@ import { NameProps } from './types';
 import SkeletonText from '../../../../../../../../../../../../../../components/Skeleton/Text';
 import { FontSizes } from '../../../../../../../../../../../../../../theme/types';
 
-const dummies = range(25, 100, 10);
+const dummies = range(25, 100, 5);
 const height = ['19.25px', '22px', '24.75px', '27.5px', '33px', '41.25px'];
 
 const Name = (props: NameProps): ReactElement => {
