@@ -44,8 +44,8 @@ const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 			<Tooltip
 				aria-label='Delete review'
 				label='Delete review'
+				isOpen={!isDisabled && isHovering}
 				isDisabled={isDisabled}
-				isOpen={isHovering}
 				placement='top'
 				gutter={6}
 			>

@@ -52,10 +52,10 @@ const NavItemChild = (props: NavItemChildProps): ReactElement => {
 	return (
 		<Link to={{ pathname: path || '' }} isFullWidth isDisabled={!path} sx={{ ...style.common.link }}>
 			<Tooltip
-				aria-label={!isExpanded ? label : ''}
+				aria-label={label}
 				width='100%'
-				label={!isExpanded ? label : ''}
-				isOpen={isHoveringChild}
+				label={label}
+				isOpen={!isExpanded && isHoveringChild}
 				isDisabled={isExpanded}
 				placement='right'
 				gutter={16}

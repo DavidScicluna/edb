@@ -81,7 +81,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 				width='100%'
 				aria-label={!isExpanded ? label : ''}
 				label={!isExpanded ? label : ''}
-				isOpen={!isDisabled && !isExpanded && isHoveringNav}
+				isOpen={!(isDisabled || isExpanded) && isHoveringNav}
 				isDisabled={isDisabled || isExpanded}
 				placement='right'
 				gutter={16}

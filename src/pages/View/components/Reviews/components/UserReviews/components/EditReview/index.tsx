@@ -113,8 +113,8 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 			<Tooltip
 				aria-label='Edit review'
 				label='Edit review'
+				isOpen={!isDisabled && isHovering}
 				isDisabled={isDisabled}
-				isOpen={isHovering}
 				placement='top'
 				gutter={6}
 			>

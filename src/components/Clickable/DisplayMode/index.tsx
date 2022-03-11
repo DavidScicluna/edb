@@ -40,8 +40,8 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 						? 'Display is in Grid Mode (Tooltip)'
 						: 'Set display mode to Grid Mode (Tooltip)'
 				}
+				isOpen={!(isFetching > 0 || isMutating > 0) && isHoveringGrid}
 				isDisabled={isFetching > 0 || isMutating > 0}
-				isOpen={isHoveringGrid}
 				placement='top'
 				label={displayMode === 'grid' ? 'Display is in Grid Mode' : 'Set display mode to Grid Mode'}
 				gutter={isClickingGrid ? 7 : 10}
@@ -70,8 +70,8 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 						? 'Display is in List Mode (Tooltip)'
 						: 'Set display mode to List Mode (Tooltip)'
 				}
+				isOpen={!(isFetching > 0 || isMutating > 0) && isHoveringList}
 				isDisabled={isFetching > 0 || isMutating > 0}
-				isOpen={isHoveringList}
 				placement='top'
 				label={displayMode === 'list' ? 'Display is in List Mode' : 'Set display mode to List Mode'}
 				gutter={isClickingList ? 7 : 10}

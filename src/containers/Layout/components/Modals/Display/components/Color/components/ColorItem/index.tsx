@@ -25,9 +25,9 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 		<Tooltip
 			aria-label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
 			colorMode={colorMode}
-			isOpen={isHovering}
-			isDisabled={isActive}
 			label={isActive ? `Current color: ${label}` : `Set color to ${label}`}
+			isOpen={!isActive && isHovering}
+			isDisabled={isActive}
 			placement='top'
 			shouldWrapChildren
 			gutter={isMouseDown ? 8 : 11}

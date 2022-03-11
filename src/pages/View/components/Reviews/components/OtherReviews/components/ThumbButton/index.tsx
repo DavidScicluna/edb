@@ -60,8 +60,8 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 		<Tooltip
 			aria-label={isActive ? `Un-${label} review` : `${label} review`}
 			label={isActive ? `Un-${label} review` : `${label} review`}
-			isDisabled={isDisabled}
 			isOpen={!isDisabled && isHovering}
+			isDisabled={isDisabled}
 			placement='top'
 			gutter={4}
 		>
