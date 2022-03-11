@@ -30,8 +30,8 @@ const Poster = (props: PosterProps): ReactElement => {
 			<Skeleton isLoaded={!isLoading} borderRadius='lg'>
 				<Image
 					alt={`${alt ? `"${alt}"` : ''} ${mediaType === 'tv' ? 'tv show' : mediaType} poster`}
-					height={isSm ? '100%' : 'auto'}
-					maxWidth={isSm ? 'auto' : '100%'}
+					height={isSm ? '100%' : undefined}
+					maxWidth={isSm ? 'auto' : undefined}
 					borderRadius='lg'
 					boringType={handleReturnBoringTypeByMediaType(mediaType)}
 					onError={() => setIsImageError.on()}
