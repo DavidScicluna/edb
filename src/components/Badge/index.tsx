@@ -70,6 +70,7 @@ const Badge = (props: BadgeProps): ReactElement => {
 					: null}
 				<SkeletonText
 					as={Center}
+					colorMode={colorMode}
 					width={isLoading ? `${dummy}px` : 'auto'}
 					height={
 						isLoading
