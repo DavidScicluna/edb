@@ -3,8 +3,8 @@ import useInView from 'react-cool-inview';
 
 import { useBoolean, VStack, Center, HStack } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Image from './components/Image';
 import Subtitle from './components/Subtitle';

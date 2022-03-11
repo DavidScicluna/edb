@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import { ThumbButtonProps } from './types';
 

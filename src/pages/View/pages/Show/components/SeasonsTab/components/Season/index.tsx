@@ -4,8 +4,8 @@ import { useQuery } from 'react-query';
 import { VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Episodes from './components/Episodes';
 import { SeasonProps } from './types';

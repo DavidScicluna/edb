@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useConst, VStack, Collapse } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Collections from './components/Collections';

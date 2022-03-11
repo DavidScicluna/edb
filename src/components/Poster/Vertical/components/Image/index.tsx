@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, AspectRatio, Center, Image as CUIImage, ScaleFade, Fade } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import { PosterImageProps } from './types';
 

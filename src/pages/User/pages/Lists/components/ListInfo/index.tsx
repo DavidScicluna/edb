@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import moment from 'moment';
 
 import Stats from './components/Stats';

@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import { ToastProps } from './types';
 

@@ -3,8 +3,8 @@ import { ReactElement, useState, useEffect } from 'react';
 import { useMediaQuery, Stack } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import CreatedBy from './components/CreatedBy';
 import Credit from './components/Credit';

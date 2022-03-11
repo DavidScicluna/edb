@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
-import isNil from 'lodash/isNil';
-import isEmpty from 'lodash/isEmpty';
 import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import moment from 'moment';
 
 import { DatesProps } from './types';

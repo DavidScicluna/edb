@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, useDisclosure, VStack, Text, Collapse } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 

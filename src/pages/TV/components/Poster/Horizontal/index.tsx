@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
 import compact from 'lodash/compact';
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import { HorizontalTVShowPosterProps } from './types';
 

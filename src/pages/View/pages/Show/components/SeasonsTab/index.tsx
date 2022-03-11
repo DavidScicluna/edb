@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import { Fade } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 
 import Season from './components/Season';

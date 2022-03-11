@@ -4,8 +4,8 @@ import { useLocation } from 'react-router';
 import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
 import Certifications from './components/Certifications';

@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';

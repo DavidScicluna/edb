@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Cover from './components/Cover';
 import Overview from './components/Overview';

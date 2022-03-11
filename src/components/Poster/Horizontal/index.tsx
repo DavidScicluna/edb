@@ -3,8 +3,8 @@ import useInView from 'react-cool-inview';
 
 import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack, Center } from '@chakra-ui/react';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Description from './components/Description';
 import Image from './components/Image';

@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import moment from 'moment';
 
 import { LikeProps } from './types';
