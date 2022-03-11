@@ -1,14 +1,13 @@
 import { ReactElement } from 'react';
 import CountUp from 'react-countup';
 
-import { useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
 import { LoadMoreProps } from './types';
 
 import Button from '../Button';
 
 const LoadMore = (props: LoadMoreProps): ReactElement => {
-	const { colorMode } = useColorMode();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const {
@@ -21,7 +20,7 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
 		onClick,
 		buttonProps
 	} = props;
-	const { isDisabled = false, variant = 'outlined', ...rest } = buttonProps || {};
+	const { colorMode, isDisabled = false, variant = 'outlined', ...rest } = buttonProps || {};
 
 	return (
 		<VStack width={isSm ? '100%' : 'auto'} spacing={3}>
@@ -50,6 +49,7 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
 				<Button
 					{...rest}
 					color={color}
+					colorMode={colorMode}
 					isDisabled={isDisabled || amount >= total}
 					isLoading={isLoading}
 					isFullWidth
