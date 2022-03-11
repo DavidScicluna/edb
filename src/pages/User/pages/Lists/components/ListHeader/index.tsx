@@ -28,7 +28,7 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
 		<HorizontalScroll ref={ref}>
 			<ListsTabButton isSelected={isNil(activeTab)} onClick={onListsClick} />
 			<Divider orientation='vertical' height={`${height}px`} mx={2} />
-			<TabList color={color} isActiveForced size='lg'>
+			<TabList color={color} isActiveForced>
 				{orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {
 					return {
 						label: list.label,
