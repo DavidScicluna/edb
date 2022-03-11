@@ -6,4 +6,4 @@ export type DateProps = {
 	first_air_date: FullTV['first_air_date'];
 	last_air_date: FullTV['last_air_date'];
 	isLoading: boolean;
-} & Omit<RenderProps, 'fontWeight'>;
+} & Omit<RenderProps, 'fontWeight' | 'lineHeight'>;

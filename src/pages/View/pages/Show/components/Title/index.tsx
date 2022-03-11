@@ -58,7 +58,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 	return (
 		<Title
 			mediaType='tv'
-			renderTitle={({ color, fontSize, fontWeight }) => (
+			renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
 				<HStack divider={<Divider orientation='vertical' height={`${height}px`} />} spacing={2}>
 					<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
 						<Text
@@ -67,6 +67,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 							color={color}
 							fontSize={fontSize}
 							fontWeight={fontWeight}
+							lineHeight={lineHeight}
 							whiteSpace={isLoading ? 'nowrap' : 'normal'}
 						>
 							{name || 'TV Show Name'}

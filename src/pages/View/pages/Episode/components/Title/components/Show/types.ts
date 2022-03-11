@@ -6,4 +6,4 @@ export type ShowProps = {
 	season: Episode['season_number'];
 	episode: Episode['episode_number'];
 	isLoading: boolean;
-} & Omit<RenderProps, 'color' | 'fontWeight'>;
+} & Omit<RenderProps, 'color' | 'fontWeight' | 'lineHeight'>;

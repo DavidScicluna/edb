@@ -56,7 +56,7 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 	return (
 		<Title
 			mediaType='movie'
-			renderTitle={({ color, fontSize, fontWeight }) => (
+			renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
 				<HStack divider={<Divider orientation='vertical' height={`${height}px`} />} spacing={2}>
 					<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
 						<Text
@@ -65,6 +65,7 @@ const MovieTitle = (props: MovieTitleProps): ReactElement => {
 							color={color}
 							fontSize={fontSize}
 							fontWeight={fontWeight}
+							lineHeight={lineHeight}
 							whiteSpace={isLoading ? 'nowrap' : 'normal'}
 						>
 							{title || 'Movie Title'}

@@ -146,7 +146,7 @@ const Collection = (): ReactElement => {
 					title={
 						<Title
 							mediaType='collection'
-							renderTitle={({ color, fontSize, fontWeight }) => (
+							renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
 								<SkeletonText
 									width={
 										collectionQuery.isFetching || collectionQuery.isLoading ? `${dummy}%` : 'auto'
@@ -159,6 +159,7 @@ const Collection = (): ReactElement => {
 										color={color}
 										fontSize={fontSize}
 										fontWeight={fontWeight}
+										lineHeight={lineHeight}
 										whiteSpace={
 											collectionQuery.isFetching || collectionQuery.isLoading
 												? 'nowrap'

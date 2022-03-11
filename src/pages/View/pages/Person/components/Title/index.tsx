@@ -20,13 +20,14 @@ const PersonTitle = (props: PersonTitleProps): ReactElement => {
 	return (
 		<Title
 			mediaType='person'
-			renderTitle={({ color, fontSize, fontWeight }) => (
+			renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
 				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
 					<Text
 						align='left'
 						color={color}
 						fontSize={fontSize}
 						fontWeight={fontWeight}
+						lineHeight={lineHeight}
 						whiteSpace={isLoading ? 'nowrap' : 'normal'}
 					>
 						{person?.name || 'Person Name'}
