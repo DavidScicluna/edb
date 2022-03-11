@@ -10,6 +10,7 @@ import { HeaderProps } from './types';
 
 const Header = (props: HeaderProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
+	const [isMd] = useMediaQuery('(max-width: 960px)');
 
 	const [containerRef, { width: containerWidth, height: containerHeight }] = useElementSize();
 	const [actionsRef, { width: actionsWidth }] = useElementSize();
@@ -18,7 +19,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
 	return (
 		<HStack width='100%' p={2} spacing={2}>
-			{renderLeftHeaderPanel && !isSm
+			{renderLeftHeaderPanel && !isMd
 				? renderLeftHeaderPanel({ width: containerWidth, height: containerHeight })
 				: null}
 
@@ -33,7 +34,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				<VStack
 					width={isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + 32 : 0}px)`}
 					alignItems='flex-start'
-					spacing={0}
+					spacing={0.5}
 				>
 					<Breadcrumbs />
 					{title ? <Title title={title} /> : null}
@@ -46,7 +47,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				) : null}
 			</Stack>
 
-			{renderRightHeaderPanel && !isSm
+			{renderRightHeaderPanel && !isMd
 				? renderRightHeaderPanel({ width: containerWidth, height: containerHeight })
 				: null}
 		</HStack>
