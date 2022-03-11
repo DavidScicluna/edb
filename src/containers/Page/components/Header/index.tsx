@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, VStack, Center, Stack } from '@chakra-ui/react';
+import { useMediaQuery, VStack, Center, Stack, HStack } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
@@ -8,35 +8,48 @@ import Breadcrumbs from './components/Breadcrumbs';
 import Title from './components/Title';
 import { HeaderProps } from './types';
 
-const Header = ({ title, actions, direction }: HeaderProps): ReactElement => {
+const Header = (props: HeaderProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const [ref, { width }] = useElementSize();
+	const [containerRef, { width: containerWidth, height: containerHeight }] = useElementSize();
+	const [actionsRef, { width: actionsWidth }] = useElementSize();
+
+	const { title, actions, renderLeftHeaderPanel, renderRightHeaderPanel, direction } = props;
 
 	return (
-		<Stack
-			width='100%'
-			direction={direction ? direction : isSm ? 'column' : 'row'}
-			alignItems='center'
-			justifyContent='space-between'
-			p={2}
-			spacing={isSm ? 2 : 4}
-		>
-			<VStack
-				width={isSm ? '100%' : `calc(100% - ${actions ? width + 32 : 0}px)`}
-				alignItems='flex-start'
-				spacing={0}
-			>
-				<Breadcrumbs />
-				{title ? <Title title={title} /> : null}
-			</VStack>
+		<HStack width='100%' p={2} spacing={2}>
+			{renderLeftHeaderPanel && !isSm
+				? renderLeftHeaderPanel({ width: containerWidth, height: containerHeight })
+				: null}
 
-			{actions ? (
-				<Center ref={ref} width={direction ? 'auto' : isSm ? '100%' : 'auto'} height='100%'>
-					{actions}
-				</Center>
-			) : null}
-		</Stack>
+			<Stack
+				ref={containerRef}
+				width='100%'
+				direction={direction ? direction : isSm ? 'column' : 'row'}
+				alignItems='center'
+				justifyContent='space-between'
+				spacing={isSm ? 2 : 4}
+			>
+				<VStack
+					width={isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + 32 : 0}px)`}
+					alignItems='flex-start'
+					spacing={0}
+				>
+					<Breadcrumbs />
+					{title ? <Title title={title} /> : null}
+				</VStack>
+
+				{actions ? (
+					<Center ref={actionsRef} width={direction ? 'auto' : isSm ? '100%' : 'auto'} height='100%'>
+						{actions}
+					</Center>
+				) : null}
+			</Stack>
+
+			{renderRightHeaderPanel && !isSm
+				? renderRightHeaderPanel({ width: containerWidth, height: containerHeight })
+				: null}
+		</HStack>
 	);
 };
 

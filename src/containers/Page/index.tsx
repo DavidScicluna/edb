@@ -10,8 +10,11 @@ import { PageProps } from './types';
 
 import Divider from '../../components/Divider';
 
-const Page = ({ children, title, direction }: PageProps): ReactElement => {
+const Page = (props: PageProps): ReactElement => {
 	const location = useLocation();
+
+	const { children, title, direction } = props;
+	const { body, ...rest } = children;
 
 	const [isHome, setIsHome] = useBoolean(true);
 
@@ -27,11 +30,11 @@ const Page = ({ children, title, direction }: PageProps): ReactElement => {
 		<VStack width='100%' divider={!isHome ? <Divider /> : undefined} spacing={0}>
 			{/* Header */}
 			<Collapse in={!isHome} unmountOnExit style={{ width: '100%' }}>
-				<Header title={title} actions={children.actions} direction={direction} />{' '}
+				<Header {...rest} title={title} direction={direction} />{' '}
 			</Collapse>
 
 			{/* Body */}
-			<Box width='100%'>{children.body}</Box>
+			<Box width='100%'>{body}</Box>
 		</VStack>
 	);
 };

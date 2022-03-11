@@ -1,5 +1,3 @@
-import { PageProps } from '../../types';
+import { PageChildren, PageProps } from '../../types';
 
-export type HeaderProps = {
-	actions: PageProps['children']['actions'];
-} & Omit<PageProps, 'children'>;
+export type HeaderProps = Omit<PageChildren, 'body'> & Omit<PageProps, 'children'>;
