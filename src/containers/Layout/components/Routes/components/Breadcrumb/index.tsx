@@ -1,26 +1,58 @@
 import { ReactElement } from 'react';
 import { useQueryClient } from 'react-query';
 
-import { Center } from '@chakra-ui/react';
+import { useColorMode, useBreakpointValue, useBoolean, useConst, Text } from '@chakra-ui/react';
 
-import { startCase } from 'lodash';
+import { isEmpty, isNil, range, sample, startCase } from 'lodash';
+import { useTimeout } from 'usehooks-ts';
 
 import { BreadcrumbProps, Data } from './types';
 
-const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
-	const queryClient = useQueryClient();
+import SkeletonText from '../../../../../../components/Skeleton/Text';
+import { FontSizes } from '../../../../../../theme/types';
 
+const dummies = range(25, 75, 15);
+
+const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
+	const { colorMode } = useColorMode();
+	const breadcrumbFontSize = useBreakpointValue<keyof FontSizes>({
+		'base': 'sm',
+		'sm': 'sm',
+		'md': 'md',
+		'lg': 'md',
+		'xl': 'md',
+		'2xl': 'md'
+	});
+
+	const [isLoaded, setIsLoaded] = useBoolean();
+
+	const dummy = useConst<number>(sample(dummies) || 50);
+
+	const queryClient = useQueryClient();
 	const data: Data | undefined = queryClient.getQueryData([
 		`${mediaType === 'tv' || mediaType === 'episode' ? 'tv-show' : mediaType}-${match.params.id}`,
 		match.params.id
 	]);
 
+	useTimeout(() => setIsLoaded.on(), 2500);
+
 	return (
-		<Center>
-			{mediaType === 'episode'
-				? match.params.episode
-				: data?.title || data?.name || startCase(mediaType === 'tv' ? 'TV-show' : mediaType) || ''}
-		</Center>
+		<SkeletonText
+			width={!isLoaded || !data ? `${dummy}px` : 'auto'}
+			fontSize={breadcrumbFontSize}
+			isLoaded={isLoaded || !(isNil(data) || isEmpty(data))}
+		>
+			<Text
+				align='left'
+				color={`gray.${colorMode === 'light' ? 900 : 50}`}
+				fontSize={breadcrumbFontSize}
+				whiteSpace='nowrap'
+			>
+				{mediaType === 'episode'
+					? match.params.episode
+					: data?.title || data?.name || startCase(mediaType === 'tv' ? 'TV-show' : mediaType) || ''}
+			</Text>
+		</SkeletonText>
 	);
 };
 

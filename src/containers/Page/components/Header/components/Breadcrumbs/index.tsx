@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState } from 'react';
 
 import {
 	useTheme,
@@ -10,8 +10,9 @@ import {
 	Text
 } from '@chakra-ui/react';
 
-import { omit, isNil, isEmpty, merge } from 'lodash';
-import useBreadcrumbs from 'use-react-router-breadcrumbs';
+import { omit, merge, range } from 'lodash';
+import useBreadcrumbs, { BreadcrumbData } from 'use-react-router-breadcrumbs';
+import { useEffectOnce } from 'usehooks-ts';
 
 import useStyles from './styles';
 
@@ -45,13 +46,13 @@ const Breadcrumbs = (): ReactElement => {
 
 	const getBreadcrumbs = useBreadcrumbs(routes.map((route) => omit(route, 'element')));
 
-	const [breadcrumbs, setBreadcrumbs] = useState(getBreadcrumbs);
+	const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbData<string>[]>([]);
 
 	const style = useStyles(theme);
 
-	useEffect(() => {
+	useEffectOnce(() => {
 		setTimeout(() => setBreadcrumbs(getBreadcrumbs), 2500);
-	}, [getBreadcrumbs]);
+	});
 
 	return (
 		<CUIBreadcrumb
@@ -65,30 +66,34 @@ const Breadcrumbs = (): ReactElement => {
 			}
 			spacing={1}
 		>
-			{breadcrumbs.map((breadcrumb, index) => (
-				<BreadcrumbItem
-					key={breadcrumb.key}
-					isCurrentPage={index === breadcrumbs.length - 1}
-					fontSize={breadcrumbFontSize}
-					sx={{ ...style.common.breadcrumbItem }}
-				>
-					<SkeletonText fontSize={breadcrumbFontSize} isLoaded={!(isNil(breadcrumb) || isEmpty(breadcrumb))}>
-						{index === breadcrumbs.length - 1 ? (
-							<Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
-								{breadcrumb.breadcrumb}
-							</Text>
-						) : (
-							<BreadcrumbLink
-								as={Link}
-								to={{ pathname: breadcrumb.match.pathname }}
-								sx={{ ...merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}
-							>
-								{breadcrumb.breadcrumb}
-							</BreadcrumbLink>
-						)}
-					</SkeletonText>
-				</BreadcrumbItem>
-			))}
+			{[...(breadcrumbs.length > 0 ? breadcrumbs : range(0, 3))].map((breadcrumb, index) => {
+				const isDummy = typeof breadcrumb === 'number';
+
+				return (
+					<BreadcrumbItem
+						key={!isDummy ? breadcrumb.key : index}
+						isCurrentPage={!isDummy ? index === breadcrumbs.length - 1 : false}
+						fontSize={breadcrumbFontSize}
+						sx={{ ...style.common.breadcrumbItem }}
+					>
+						<SkeletonText fontSize={breadcrumbFontSize} isLoaded={!isDummy}>
+							{index === breadcrumbs.length - 1 || isDummy ? (
+								<Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
+									{!isDummy ? breadcrumb.breadcrumb : 'Dummy'}
+								</Text>
+							) : (
+								<BreadcrumbLink
+									as={Link}
+									to={{ pathname: breadcrumb.match.pathname }}
+									sx={{ ...merge(style.common.breadcrumbLink, style[colorMode].breadcrumbLink) }}
+								>
+									{breadcrumb.breadcrumb}
+								</BreadcrumbLink>
+							)}
+						</SkeletonText>
+					</BreadcrumbItem>
+				);
+			})}
 		</CUIBreadcrumb>
 	);
 };
