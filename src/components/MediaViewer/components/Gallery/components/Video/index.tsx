@@ -27,12 +27,13 @@ const opts: Options = {
 };
 
 const GalleryVideo = (props: GalleryVideoProps): ReactElement => {
-	const { alt, videoId, isActive = false, onClick } = props;
+	const { alt, videoId, colorMode, isActive = false, onClick } = props;
 
 	return (
 		<Box aria-label={alt} borderRadius='lg'>
 			<ClickableImage
 				borderRadius='lg'
+				colorMode={colorMode}
 				ratio={handleReturnRatio('square')}
 				isActive={isActive}
 				renderIcon={({ color, fontSize }) => (

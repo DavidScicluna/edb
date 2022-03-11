@@ -11,7 +11,7 @@ import Icon from '../../../../../Icon';
 import Image from '../../../../../Image';
 
 const GalleryImage = (props: GalleryImageProps): ReactElement => {
-	const { alt = '', ratio, path, boringType, srcSize, isActive = false, onClick } = props;
+	const { alt = '', ratio, path, boringType, srcSize, colorMode, isActive = false, onClick } = props;
 
 	const [isError, setIsError] = useBoolean();
 
@@ -20,6 +20,7 @@ const GalleryImage = (props: GalleryImageProps): ReactElement => {
 			width='100%'
 			ratio={ratio}
 			borderRadius='lg'
+			colorMode={colorMode}
 			isActive={isActive}
 			isDisabled={isError || isNil(path) || isEmpty(path)} // TODO: Check if is working!
 			renderIcon={({ color, fontSize }) => (

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Center } from '@chakra-ui/react';
+import { ColorMode, useColorMode, Center } from '@chakra-ui/react';
 
 import Asset from './components/Asset';
 import { GalleryProps } from './types';
@@ -11,14 +11,18 @@ import Accordions from '../../../Accordions';
 import Modal from '../../../Modal';
 
 const Gallery = (props: GalleryProps): ReactElement => {
+	const { colorMode: colorModeHook } = useColorMode();
+
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
 
 	const { alt, assets, activeMediaItem, isOpen = false, onClick, onClose } = props;
 
+	const colorMode: ColorMode = colorModeHook === 'light' ? 'dark' : 'light';
+
 	return (
-		<Modal title='Gallery' isOpen={isOpen} onClose={onClose} isCentered size='full'>
+		<Modal title='Gallery' colorMode={colorMode} isOpen={isOpen} onClose={onClose} isCentered size='full'>
 			<Center p={2}>
 				<Accordions
 					accordions={assets.map((asset) => {
@@ -35,6 +39,7 @@ const Gallery = (props: GalleryProps): ReactElement => {
 						<Asset
 							key={id}
 							alt={alt}
+							colorMode={colorMode}
 							activeMediaItem={activeMediaItem}
 							title={title}
 							data={data}
@@ -42,6 +47,7 @@ const Gallery = (props: GalleryProps): ReactElement => {
 						/>
 					)}
 					color={color}
+					colorMode={colorMode}
 					isLoading={false}
 					isError={false}
 				/>

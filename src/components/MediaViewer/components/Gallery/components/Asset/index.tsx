@@ -4,6 +4,8 @@ import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
 import { AssetProps } from './types';
 
+import { useSelector } from '../../../../../../common/hooks';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import LoadMore from '../../../../../Clickable/LoadMore';
 import VerticalGrid from '../../../../../Grid/Vertical';
 import Image from '../Image';
@@ -11,8 +13,14 @@ import Video from '../Video';
 
 const incrementBy = 8;
 
-const Asset = ({ alt, activeMediaItem, title, data = [], onClick }: AssetProps): ReactElement => {
+const Asset = (props: AssetProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
+
+	const color = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
+
+	const { alt, activeMediaItem, colorMode, title, data = [], onClick } = props;
 
 	const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
@@ -31,6 +39,7 @@ const Asset = ({ alt, activeMediaItem, title, data = [], onClick }: AssetProps):
 									path={mediaItem.data.file_path}
 									boringType={mediaItem.boringType}
 									srcSize={mediaItem.srcSize}
+									colorMode={colorMode}
 									isActive={mediaItem.data.file_path === activeMediaItem?.data.file_path}
 									onClick={() => onClick(mediaItem)}
 								/>
@@ -39,6 +48,7 @@ const Asset = ({ alt, activeMediaItem, title, data = [], onClick }: AssetProps):
 									key={id}
 									alt={alt}
 									videoId={mediaItem.data.key}
+									colorMode={colorMode}
 									isActive={mediaItem.data.key === activeMediaItem?.data.key}
 									onClick={() => onClick(mediaItem)}
 								/>
@@ -53,10 +63,12 @@ const Asset = ({ alt, activeMediaItem, title, data = [], onClick }: AssetProps):
 				style={{ width: isSm ? '100%' : 'auto' }}
 			>
 				<LoadMore
+					color={color}
 					amount={totalVisible}
 					total={data.length}
 					label={title || 'Asset Title'}
 					onClick={() => setTotalVisible(totalVisible + incrementBy)}
+					buttonProps={{ colorMode }}
 				/>
 			</ScaleFade>
 		</VStack>
