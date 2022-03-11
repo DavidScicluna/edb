@@ -2,7 +2,9 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import { compact, isNil, isEmpty } from 'lodash';
+import compact from 'lodash/compact';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 
 import { TVShowsProps } from './types';
 

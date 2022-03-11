@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
 
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 // import Adult from './components/Adult';
 import Certifications from './components/Certifications';

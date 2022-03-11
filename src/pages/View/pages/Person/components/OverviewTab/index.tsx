@@ -2,7 +2,9 @@ import { ReactElement } from 'react';
 
 import { VStack, Collapse } from '@chakra-ui/react';
 
-import { isNil, isEmpty, compact } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
+import compact from 'lodash/compact';
 
 import Bio from './components/Bio';
 import KnownFor from './components/KnownFor';

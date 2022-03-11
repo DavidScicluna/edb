@@ -3,7 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
 
 import { DateObj, useDayzed } from 'dayzed';
-import { isNil } from 'lodash';
+import isNil from 'lodash/isNil';
 import moment from 'moment';
 
 import Calendar from './components/Calendar';

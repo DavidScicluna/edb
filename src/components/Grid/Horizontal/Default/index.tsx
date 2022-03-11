@@ -3,7 +3,7 @@ import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 import '../common/styles/styles.css';
 import { useBoolean } from '@chakra-ui/react';
 
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 import Header from './components/Header';
 import { HorizontalGridDefaultProps } from './types';

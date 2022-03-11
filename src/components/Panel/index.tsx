@@ -2,7 +2,8 @@ import { ReactElement, createContext, isValidElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, VStack, Box } from '@chakra-ui/react';
 
-import { merge, isNil } from 'lodash';
+import isNil from 'lodash/isNil';
+import merge from 'lodash/merge';
 
 import { handleReturnPadding } from './common/utils';
 import Body from './components/Body';

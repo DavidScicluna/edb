@@ -3,7 +3,8 @@ import CountUp from 'react-countup';
 
 import { useMediaQuery, HStack, Fade } from '@chakra-ui/react';
 
-import { isNil, isEmpty } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 
 import { ReviewsProps } from './types';
 

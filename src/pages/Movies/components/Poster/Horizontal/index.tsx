@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
-import { compact, isNil, isEmpty } from 'lodash';
+import compact from 'lodash/compact';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 
 import { HorizontalMoviePosterProps } from './types';
 

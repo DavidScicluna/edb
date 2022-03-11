@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import { CastProps } from './types';
 

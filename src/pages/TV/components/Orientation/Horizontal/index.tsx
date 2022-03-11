@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import { HorizontalTVProps } from './types';
 

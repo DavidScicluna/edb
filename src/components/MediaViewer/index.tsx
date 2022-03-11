@@ -2,7 +2,9 @@ import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, useColorMode, useDisclosure, useBoolean, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
 
-import { uniq, debounce, isEmpty } from 'lodash';
+import debounce from 'lodash/debounce';
+import isEmpty from 'lodash/isEmpty';
+import uniq from 'lodash/uniq';
 import { Swiper } from 'swiper';
 
 import Backdrop from './components/Backdrop';

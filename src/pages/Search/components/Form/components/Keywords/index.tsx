@@ -2,7 +2,8 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, useConst, VStack, ScaleFade } from '@chakra-ui/react';
 
-import { sample, range } from 'lodash';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 
 import { KeywordsProps } from './types';
 

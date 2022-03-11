@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useTheme, useColorMode, Box, HStack, Center } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import { ListsTabButtonProps } from './types';
 

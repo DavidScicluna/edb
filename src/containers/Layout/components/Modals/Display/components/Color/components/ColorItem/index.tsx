@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@chakra-ui/react';
 
-import { startCase } from 'lodash';
+import startCase from 'lodash/startCase';
 
 import { ColorItemProps } from './types';
 

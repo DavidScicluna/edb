@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, useColorMode, Center, VStack, Text } from '@chakra-ui/react';
 
-import { round } from 'lodash';
+import round from 'lodash/round';
 
 import { RatingRef, RatingProps } from './types';
 

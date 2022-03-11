@@ -2,7 +2,11 @@ import { ReactElement } from 'react';
 
 import { useConst, HStack, Text } from '@chakra-ui/react';
 
-import { range, sample, compact, isNil, isEmpty } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 import { useElementSize } from 'usehooks-ts';
 
 import Certification from './components/Certification';

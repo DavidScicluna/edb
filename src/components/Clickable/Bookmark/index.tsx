@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import { useDisclosure } from '@chakra-ui/react';
 
-import { isNil, isEmpty, compact } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
+import compact from 'lodash/compact';
 
 import { BookmarkProps } from './types';
 

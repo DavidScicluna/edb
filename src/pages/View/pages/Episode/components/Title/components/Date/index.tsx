@@ -2,7 +2,10 @@ import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
 
-import { range, sample, isNil, isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 
 import { DateProps } from './types';
 

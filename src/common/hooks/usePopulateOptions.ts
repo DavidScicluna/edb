@@ -3,7 +3,8 @@ import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
 import axios from 'axios';
-import { isNil, isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import {
 	setCountries,

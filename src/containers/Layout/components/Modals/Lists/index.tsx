@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
-import { isEmpty, isNil } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import moment from 'moment';
 
 import List from './components/List';

@@ -1,5 +1,6 @@
 import sort from 'array-sort';
-import { lowerCase, compact } from 'lodash';
+import compact from 'lodash/compact';
+import lowerCase from 'lodash/lowerCase';
 
 import { Role as TVRole, Job as TVJob } from '../../../../../../common/types/tv';
 import { Credits, Department, Crew } from '../../types';

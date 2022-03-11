@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { compact } from 'lodash';
+import compact from 'lodash/compact';
 
 import { ShowProps } from './types';
 

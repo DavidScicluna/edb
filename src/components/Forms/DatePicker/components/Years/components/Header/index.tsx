@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, HStack, Text, Fade } from '@chakra-ui/react';
 
-import { isNil } from 'lodash';
+import isNil from 'lodash/isNil';
 
 import { HeaderProps } from './types';
 

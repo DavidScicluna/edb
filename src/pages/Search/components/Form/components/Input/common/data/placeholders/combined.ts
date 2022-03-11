@@ -1,4 +1,6 @@
-import { range, sampleSize, sample } from 'lodash';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
+import sampleSize from 'lodash/sampleSize';
 
 import collections from './collections';
 import companies from './companies';

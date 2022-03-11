@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useConst, Fade } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import { handleReturnCrew } from './common/utils';
 import Cast from './components/Cast';

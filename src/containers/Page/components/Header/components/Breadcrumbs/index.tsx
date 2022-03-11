@@ -10,7 +10,9 @@ import {
 	Text
 } from '@chakra-ui/react';
 
-import { omit, merge, range } from 'lodash';
+import merge from 'lodash/merge';
+import omit from 'lodash/omit';
+import range from 'lodash/range';
 import useBreadcrumbs, { BreadcrumbData } from 'use-react-router-breadcrumbs';
 import { useEffectOnce } from 'usehooks-ts';
 

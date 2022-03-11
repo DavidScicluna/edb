@@ -2,7 +2,9 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, useConst, Badge as CUIBadge, HStack, Center } from '@chakra-ui/react';
 
-import { range, sample, merge } from 'lodash';
+import merge from 'lodash/merge';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 
 import useStyles from './styles';
 import { BadgeProps } from './types';

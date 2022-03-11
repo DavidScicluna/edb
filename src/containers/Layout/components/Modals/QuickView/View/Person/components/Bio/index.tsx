@@ -2,7 +2,8 @@ import { ReactElement } from 'react';
 
 import { VStack, Text, useColorMode } from '@chakra-ui/react';
 
-import { compact, range } from 'lodash';
+import compact from 'lodash/compact';
+import range from 'lodash/range';
 
 import { BioProps } from './types';
 

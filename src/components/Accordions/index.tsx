@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { ColorMode, useColorMode, VStack } from '@chakra-ui/react';
 
-import { uniq } from 'lodash';
+import uniq from 'lodash/uniq';
 
 import Accordion from './components/Accordion';
 import QuickToggles from './components/QuickToggles';

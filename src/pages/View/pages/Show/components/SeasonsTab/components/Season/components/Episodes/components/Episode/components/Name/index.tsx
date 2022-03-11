@@ -2,7 +2,8 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 
-import { range, sample } from 'lodash';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 
 import { NameProps } from './types';
 

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, HStack, VStack, Text } from '@chakra-ui/react';
 
-import { compact } from 'lodash';
+import compact from 'lodash/compact';
 import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 

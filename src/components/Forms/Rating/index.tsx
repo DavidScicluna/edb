@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import Star from './components/Star';
 import { RatingProps } from './types';

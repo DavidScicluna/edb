@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Box } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import { DividerProps } from './types';
 

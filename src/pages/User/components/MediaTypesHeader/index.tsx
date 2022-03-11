@@ -3,7 +3,8 @@ import CountUp from 'react-countup';
 
 import { Center, HStack, Fade } from '@chakra-ui/react';
 
-import { isNil, compact } from 'lodash';
+import compact from 'lodash/compact';
+import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
 import { MediaTypesHeaderProps } from './types';

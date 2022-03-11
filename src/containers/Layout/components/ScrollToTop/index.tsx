@@ -2,7 +2,7 @@ import { ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
 
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';

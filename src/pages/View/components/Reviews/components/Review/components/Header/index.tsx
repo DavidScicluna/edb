@@ -13,7 +13,10 @@ import {
 	SlideFade
 } from '@chakra-ui/react';
 
-import { isNil, isEmpty, startCase, compact } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import startCase from 'lodash/startCase';
 import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 

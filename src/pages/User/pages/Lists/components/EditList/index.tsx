@@ -5,7 +5,9 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { isEmpty, isNil, sample } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import sample from 'lodash/sample';
 import moment from 'moment';
 
 import { EditListProps, Form } from './types';

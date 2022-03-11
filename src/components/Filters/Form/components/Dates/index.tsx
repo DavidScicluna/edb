@@ -3,7 +3,9 @@ import { Controller } from 'react-hook-form';
 
 import { useMediaQuery, Stack, Center, Text, ScaleFade } from '@chakra-ui/react';
 
-import { isNil, isEmpty, compact } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import moment from 'moment';
 
 import { DatesProps } from './types';

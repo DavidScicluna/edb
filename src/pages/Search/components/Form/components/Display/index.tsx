@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
 
-import { truncate } from 'lodash';
+import truncate from 'lodash/truncate';
 
 import { DisplayProps } from './types';
 

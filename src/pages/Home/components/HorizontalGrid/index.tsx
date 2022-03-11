@@ -2,7 +2,8 @@ import { ReactElement, forwardRef } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { compact, range } from 'lodash';
+import compact from 'lodash/compact';
+import range from 'lodash/range';
 
 import { HomeHorizontalGridRef, HomeHorizontalGridProps } from './types';
 

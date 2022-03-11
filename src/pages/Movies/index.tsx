@@ -6,7 +6,14 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { useMediaQuery, useBoolean, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { uniqBy, debounce, isNil, isEmpty, omit, omitBy, merge, mergeWith } from 'lodash';
+import debounce from 'lodash/debounce';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import merge from 'lodash/merge';
+import mergeWith from 'lodash/mergeWith';
+import omit from 'lodash/omit';
+import omitBy from 'lodash/omitBy';
+import uniqBy from 'lodash/uniqBy';
 import moment from 'moment';
 import qs from 'query-string';
 import { useElementSize, useUpdateEffect, useEffectOnce } from 'usehooks-ts';

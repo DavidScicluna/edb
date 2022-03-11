@@ -6,7 +6,9 @@ import { useBoolean, VStack, Center, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
-import { uniqBy, mergeWith, isNil } from 'lodash';
+import isNil from 'lodash/isNil';
+import mergeWith from 'lodash/mergeWith';
+import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
 

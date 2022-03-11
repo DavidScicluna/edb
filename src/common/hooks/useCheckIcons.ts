@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 import { toggleHasLoadedIcons } from '../../store/slices/App';
 

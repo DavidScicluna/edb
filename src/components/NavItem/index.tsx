@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 
 import { useTheme, useColorMode, useBoolean, VStack, HStack, Text, Box, ScaleFade, Collapse } from '@chakra-ui/react';
 
-import { debounce, merge } from 'lodash';
+import debounce from 'lodash/debounce';
+import merge from 'lodash/merge';
 
 import NavItemChild from './components/NavItemChild';
 import useStyles from './styles';

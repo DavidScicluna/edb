@@ -3,7 +3,8 @@ import { Link } from 'react-scroll';
 
 import { useConst } from '@chakra-ui/react';
 
-import { range, sample } from 'lodash';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 
 import { AccordionProps } from './types';
 

@@ -2,7 +2,8 @@ import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
 
-import { range, sample } from 'lodash';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 import moment from 'moment';
 
 import { DateProps } from './types';

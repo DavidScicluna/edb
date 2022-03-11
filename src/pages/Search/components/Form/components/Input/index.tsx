@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, useConst, HStack, Input as CUIInput, Fade } from '@chakra-ui/react';
 
-import { sample } from 'lodash';
+import sample from 'lodash/sample';
 
 import collectionsPlaceholders from './common/data/placeholders/collections';
 import combinedPlaceholders from './common/data/placeholders/combined';

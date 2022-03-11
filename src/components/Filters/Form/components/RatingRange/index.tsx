@@ -3,7 +3,8 @@ import { Controller } from 'react-hook-form';
 
 import { useTheme, useMediaQuery, useConst, ButtonGroup, ScaleFade } from '@chakra-ui/react';
 
-import { range, compact } from 'lodash';
+import compact from 'lodash/compact';
+import range from 'lodash/range';
 
 import { RatingRangeProps } from './types';
 

@@ -7,7 +7,12 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDisclosure, useConst, Text, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { range, sample, uniq, compact, isNil, isEmpty } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
+import uniq from 'lodash/uniq';
 
 import OverviewTab from './components/OverviewTab';
 import PartsTab from './components/PartsTab';

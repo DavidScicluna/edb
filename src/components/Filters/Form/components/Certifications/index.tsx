@@ -4,7 +4,9 @@ import { Controller } from 'react-hook-form';
 import { useMediaQuery, Wrap, WrapItem, HStack } from '@chakra-ui/react';
 
 import sort from 'array-sort';
-import { isNil, isEmpty, range } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
 import Certification from './components/Certification';

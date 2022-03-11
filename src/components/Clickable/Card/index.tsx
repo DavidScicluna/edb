@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import useStyles from './styles';
 import { CardRef, CardProps } from './types';

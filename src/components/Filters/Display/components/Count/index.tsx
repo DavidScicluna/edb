@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-import { isNil, isEmpty } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 
 import { CountProps } from './types';
 

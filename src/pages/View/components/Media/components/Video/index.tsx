@@ -3,7 +3,8 @@ import YouTube, { Options } from 'react-youtube';
 
 import { Box } from '@chakra-ui/react';
 
-import { isNil, isEmpty } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 
 import { MediaVideoProps } from './types';
 

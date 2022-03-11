@@ -11,7 +11,8 @@ import {
 	Collapse
 } from '@chakra-ui/react';
 
-import { isNil, merge } from 'lodash';
+import isNil from 'lodash/isNil';
+import merge from 'lodash/merge';
 
 import useStyles from './styles';
 import { TextareaProps } from './types';

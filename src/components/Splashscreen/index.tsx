@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useColorMode, Modal, ModalContent, ModalBody, VStack, Box, Text } from '@chakra-ui/react';
 
 import { motion } from 'framer-motion';
-import { range, reverse } from 'lodash';
+import range from 'lodash/range';
+import reverse from 'lodash/reverse';
 import { useInterval } from 'usehooks-ts';
 
 import useStyles from './styles';

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { HStack, Center, Fade } from '@chakra-ui/react';
 
-import { isNil } from 'lodash';
+import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
 import { HeaderProps } from './types';

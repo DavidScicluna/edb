@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Tag as CUITag, HStack } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import useStyles from './styles';
 import { TagRef, TagProps } from './types';

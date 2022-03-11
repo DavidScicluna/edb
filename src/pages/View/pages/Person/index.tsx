@@ -7,7 +7,9 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { isEmpty, isNil, uniq } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import uniq from 'lodash/uniq';
 
 import { handleGetDepartments } from './common/utils';
 import CreditsTab from './components/CreditsTab';

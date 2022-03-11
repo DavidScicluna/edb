@@ -3,7 +3,7 @@ import useInView from 'react-cool-inview';
 
 import { useTheme, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import Body from './components/Body';
 import Footer from './components/Footer';

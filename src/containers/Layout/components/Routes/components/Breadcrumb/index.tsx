@@ -3,7 +3,11 @@ import { useQueryClient } from 'react-query';
 
 import { useColorMode, useBreakpointValue, useBoolean, useConst, Text } from '@chakra-ui/react';
 
-import { isEmpty, isNil, range, sample, startCase } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
+import startCase from 'lodash/startCase';
 import { useTimeout } from 'usehooks-ts';
 
 import { BreadcrumbProps, Data } from './types';

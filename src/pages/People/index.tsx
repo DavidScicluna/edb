@@ -5,7 +5,8 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { useMediaQuery, useBoolean, VStack, ScaleFade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { uniqBy, mergeWith } from 'lodash';
+import mergeWith from 'lodash/mergeWith';
+import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
 

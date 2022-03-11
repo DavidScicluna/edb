@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { isEmpty, isNil } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 
 import { DeleteListProps } from './types';
 

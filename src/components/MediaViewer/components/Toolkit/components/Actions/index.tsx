@@ -2,7 +2,7 @@ import { ReactElement, MouseEvent } from 'react';
 
 import { useMediaQuery, useBoolean, Stack } from '@chakra-ui/react';
 
-import { compact } from 'lodash';
+import compact from 'lodash/compact';
 
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 

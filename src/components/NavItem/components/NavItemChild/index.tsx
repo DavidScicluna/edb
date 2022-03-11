@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useTheme, useColorMode, useBoolean, HStack, Text, Box } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import useStyles from './styles';
 import { NavItemChildProps } from './types';

@@ -8,7 +8,11 @@ import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
 
 import sort from 'array-sort';
 import axios from 'axios';
-import { uniq, uniqBy, compact, isNil, isEmpty } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
 
 import OverviewTab from './components/OverviewTab';
 import SeasonsTab from './components/SeasonsTab';

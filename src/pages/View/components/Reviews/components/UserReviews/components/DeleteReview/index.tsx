@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
 
-import { isEmpty, isNil } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import { DeleteReviewProps } from './types';
 

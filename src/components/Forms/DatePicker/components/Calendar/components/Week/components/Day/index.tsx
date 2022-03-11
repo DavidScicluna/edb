@@ -2,7 +2,8 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center } from '@chakra-ui/react';
 
-import { merge, isNil } from 'lodash';
+import isNil from 'lodash/isNil';
+import merge from 'lodash/merge';
 
 import useStyles from './styles';
 import { DayProps } from './types';

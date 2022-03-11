@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { SimpleGrid } from '@chakra-ui/react';
 
-import { orderBy } from 'lodash';
+import orderBy from 'lodash/orderBy';
 import moment from 'moment';
 
 import ListItem from './components/ListItem';

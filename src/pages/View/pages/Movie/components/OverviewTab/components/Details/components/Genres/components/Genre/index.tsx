@@ -2,7 +2,8 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useConst, Text } from '@chakra-ui/react';
 
-import { range, sample } from 'lodash';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 import qs from 'query-string';
 
 import { GenreProps } from './types';

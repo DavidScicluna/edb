@@ -3,7 +3,8 @@ import useInView from 'react-cool-inview';
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
 
-import { isNil, isEmpty } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 
 import Date from './components/Date';

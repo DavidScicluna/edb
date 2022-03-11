@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
 
 import useStyles from './styles';

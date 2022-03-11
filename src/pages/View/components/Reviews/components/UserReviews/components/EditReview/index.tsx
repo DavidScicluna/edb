@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, Text, Collapse } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { isNil, isEmpty } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 
 import { EditReviewProps, Form } from './types';

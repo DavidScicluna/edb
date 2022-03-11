@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Radio as CUIRadio } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import useStyles from './styles';
 import { RadioProps } from './types';

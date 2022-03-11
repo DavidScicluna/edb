@@ -3,7 +3,8 @@ import CountUp from 'react-countup';
 
 import { Fade } from '@chakra-ui/react';
 
-import { isNil, orderBy } from 'lodash';
+import isNil from 'lodash/isNil';
+import orderBy from 'lodash/orderBy';
 import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 

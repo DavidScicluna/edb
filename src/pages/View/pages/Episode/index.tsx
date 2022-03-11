@@ -6,7 +6,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { compact } from 'lodash';
+import compact from 'lodash/compact';
 
 import Actions from './components/Actions';
 import OverviewTab from './components/OverviewTab';

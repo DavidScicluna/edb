@@ -4,7 +4,9 @@ import { useLocation } from 'react-router';
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
-import { isNil, isEmpty, orderBy } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import orderBy from 'lodash/orderBy';
 import moment from 'moment';
 
 import CreateList from './components/CreateList';

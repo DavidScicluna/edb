@@ -3,7 +3,8 @@ import CountUp from 'react-countup';
 
 import { useColorMode, useConst, Stat as CUIStat, VStack, StatLabel, StatNumber } from '@chakra-ui/react';
 
-import { range, sample } from 'lodash';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 
 import { StatRef, StatProps } from './types';
 

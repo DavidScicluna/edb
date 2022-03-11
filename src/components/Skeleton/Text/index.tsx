@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { SlideFade, useTheme } from '@chakra-ui/react';
 
-import { round } from 'lodash';
+import round from 'lodash/round';
 
 import { SkeletonTextProps } from './types';
 

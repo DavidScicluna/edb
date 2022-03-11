@@ -4,7 +4,8 @@ import { useQuery } from 'react-query';
 import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { isNil, isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Bio from './components/Bio';
 import Stats from './components/Stats';

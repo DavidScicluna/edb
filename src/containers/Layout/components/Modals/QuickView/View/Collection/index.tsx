@@ -15,7 +15,11 @@ import {
 } from '@chakra-ui/react';
 
 import axios from 'axios';
-import { range, sample, isNil, isEmpty, compact } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 
 import Overview from './components/Overview';
 import { CollectionProps } from './types';

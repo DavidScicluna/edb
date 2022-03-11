@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import { ColorMode, useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
 
-import { isEmpty, isNil } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Background from './components/Background';
 import Color from './components/Color';

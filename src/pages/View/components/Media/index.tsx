@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { Collapse, Fade } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import Footer from './components/Footer';
 import Image from './components/Image';

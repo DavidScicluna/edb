@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, Center, Link as CUILink } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import useStyles from './styles';
 import { LinkProps } from './types';

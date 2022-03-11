@@ -11,7 +11,9 @@ import {
 	Text
 } from '@chakra-ui/react';
 
-import { range, sample, merge } from 'lodash';
+import merge from 'lodash/merge';
+import range from 'lodash/range';
+import sample from 'lodash/sample';
 import { useElementSize } from 'usehooks-ts';
 
 import useStyles from './styles';

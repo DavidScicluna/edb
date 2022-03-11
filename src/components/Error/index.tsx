@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, useColorMode, VStack, Center, Image, Text, Fade } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import useStyles from './styles';
 import { ErrorProps } from './types';

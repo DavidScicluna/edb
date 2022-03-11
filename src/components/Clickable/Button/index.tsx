@@ -2,7 +2,7 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center, HStack, Text } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import Spinner from './components/Spinner';
 import useStyles from './styles';

@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { VStack, SimpleGrid } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import Header from './components/Header';
 import { Direction } from './components/Header/types';

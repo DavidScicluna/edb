@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { VStack, Text, useColorMode } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import { OverviewProps } from './types';
 

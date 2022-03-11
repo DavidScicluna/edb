@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 import { useMediaQuery, VStack, HStack, ScaleFade } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import ThumbButton from './components/ThumbButton';
 import { OtherReviewsProps } from './types';

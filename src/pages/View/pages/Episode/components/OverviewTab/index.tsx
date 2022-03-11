@@ -2,7 +2,9 @@ import { ReactElement } from 'react';
 
 import { VStack, Collapse } from '@chakra-ui/react';
 
-import { isNil, isEmpty, compact } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Cast from './components/Cast';
 import Guests from './components/Guests';

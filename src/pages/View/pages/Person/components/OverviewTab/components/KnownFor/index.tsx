@@ -3,7 +3,11 @@ import { ReactElement, useState, useEffect } from 'react';
 import { useMediaQuery } from '@chakra-ui/react';
 
 import sort from 'array-sort';
-import { uniqBy, compact, isNil, isEmpty, range } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
+import uniqBy from 'lodash/uniqBy';
 
 import { KnownForProps, KnownFor as KnownForType } from './types';
 

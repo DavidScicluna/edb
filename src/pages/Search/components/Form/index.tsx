@@ -2,7 +2,7 @@ import { ReactElement, useRef } from 'react';
 
 import { useTheme, useColorMode, useBoolean, useOutsideClick, VStack, Fade, Collapse } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import { FormProps } from './types';
 

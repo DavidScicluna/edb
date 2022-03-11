@@ -2,7 +2,9 @@ import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import sort from 'array-sort';
-import { isEmpty, isNil, range } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
 
 import Search from './components/Search';
 import { RecentSearchesProps } from './types';

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 
 import Person from './components/Person';
 import { PeopleProps } from './types';

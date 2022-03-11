@@ -2,7 +2,9 @@ import { ReactElement } from 'react';
 
 import { Fade, useColorMode, useTheme } from '@chakra-ui/react';
 
-import { isNil, isEmpty, range } from 'lodash';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
+import range from 'lodash/range';
 
 import Link from './components/Link';
 import { LinksProps } from './types';

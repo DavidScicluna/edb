@@ -2,7 +2,9 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
 
-import { compact, isNil, isEmpty } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 import Genres from './components/Genres';
 import Language from './components/Language';

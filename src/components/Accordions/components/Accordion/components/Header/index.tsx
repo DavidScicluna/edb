@@ -3,7 +3,9 @@ import CountUp from 'react-countup';
 
 import { useTheme, useMediaQuery, HStack, VStack, Fade } from '@chakra-ui/react';
 
-import { merge, isNil, isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
 
 import Subtitle from './components/Subtitle';

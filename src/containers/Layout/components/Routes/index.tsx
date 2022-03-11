@@ -4,7 +4,7 @@ import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 import { useConst, Box } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 
 import Animation from './components/Animation';
 import Breadcrumb from './components/Breadcrumb';

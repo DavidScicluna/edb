@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Center, Text } from '@chakra-ui/react';
 
-import { compact } from 'lodash';
+import compact from 'lodash/compact';
 
 import { NavigationProps } from './types';
 

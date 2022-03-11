@@ -2,7 +2,10 @@ import { ReactElement } from 'react';
 
 import { useConst } from '@chakra-ui/react';
 
-import { compact, isNil, isEmpty, range } from 'lodash';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import range from 'lodash/range';
 
 import Backdrops from './components/Backdrops';
 import Posters from './components/Posters';

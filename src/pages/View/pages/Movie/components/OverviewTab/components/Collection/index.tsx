@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-import { compact, capitalize } from 'lodash';
+import capitalize from 'lodash/capitalize';
+import compact from 'lodash/compact';
 
 import { CollectionProps } from './types';
 

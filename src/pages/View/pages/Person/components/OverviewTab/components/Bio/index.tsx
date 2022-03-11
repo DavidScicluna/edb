@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-import { toString, compact } from 'lodash';
+import compact from 'lodash/compact';
+import toString from 'lodash/toString';
 import moment from 'moment';
 
 import { BioProps } from './types';

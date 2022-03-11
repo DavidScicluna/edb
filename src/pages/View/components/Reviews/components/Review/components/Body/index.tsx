@@ -2,7 +2,7 @@ import { ReactElement, useEffect } from 'react';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
 import { BodyProps } from './types';
