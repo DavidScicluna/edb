@@ -2,6 +2,8 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, AspectRatio } from '@chakra-ui/react';
 
+import { useWindowSize } from 'usehooks-ts';
+
 import { ImageViewerProps } from './types';
 
 import { handleReturnImageOrientation } from '../../../../common/utils';
@@ -11,13 +13,15 @@ const ImageViewer = (props: ImageViewerProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 	const [isLg] = useMediaQuery('(min-width: 1280px)');
 
+	const { height: windowHeight } = useWindowSize();
+
 	const { alt = '', width, height, aspect_ratio, file_path, boringType, srcSize } = props;
 
 	const orientation = handleReturnImageOrientation(width || 0, height || 0);
 
 	return (
 		<AspectRatio
-			width={orientation === 'landscape' && isLg ? '85%' : '100%'}
+			width={orientation === 'landscape' && isLg ? `${(windowHeight * 100) / 75}px` : '100%'}
 			height={!isSm ? (orientation === 'landscape' ? 'auto' : '100%') : 'auto'}
 			ratio={aspect_ratio}
 		>
