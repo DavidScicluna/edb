@@ -24,7 +24,7 @@ const Image = (props: ImageProps): ReactElement => {
 		...rest
 	} = props;
 
-	const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, 300));
+	const [fallbackSrc] = useState<string>(handleReturnBoringSrc(boringType, colorMode === 'light' ? 500 : 400));
 
 	const [isFullLoaded, setIsFullLoaded] = useBoolean();
 	const [isFullError, setIsFullError] = useBoolean();

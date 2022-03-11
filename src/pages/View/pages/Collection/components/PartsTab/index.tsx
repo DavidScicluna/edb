@@ -3,12 +3,12 @@ import { ReactElement, useState } from 'react';
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
 import { range } from 'lodash';
+import moment from 'moment';
 
 import { PartsTabProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { PartialMovie } from '../../../../../../common/types/movie';
-import { handleReturnDate } from '../../../../../../common/utils';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
@@ -31,11 +31,7 @@ const PartsTab = (props: PartsTabProps): ReactElement => {
 	const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
 	const handleSortParts = (parts: PartialMovie[] = []): PartialMovie[] => {
-		return parts.sort(
-			(a, b) =>
-				Number(handleReturnDate(b.release_date || '', 'full')) -
-				Number(handleReturnDate(a.release_date || '', 'full'))
-		);
+		return parts.sort((a, b) => moment(b.release_date || '').diff(a.release_date || ''));
 	};
 
 	return !isLoading && isError ? (
