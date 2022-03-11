@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isNil';
+import isEqual from 'lodash/isEqual';
 import qs from 'query-string';
 
 import Direction from './components/Direction';
