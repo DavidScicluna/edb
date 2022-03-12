@@ -5,10 +5,10 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import sample from 'lodash/sample';
-import moment from 'moment';
 
 import { EditListProps, Form } from './types';
 import { defaultValues, schema } from './validation';
@@ -74,7 +74,7 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 									...list,
 									label: values.label,
 									description: values?.description || '',
-									date: moment(new Date()).toISOString(),
+									date: dayjs(new Date()).toISOString(),
 									results: {
 										...list.results
 									}

@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, useDisclosure, VStack, Text, Collapse } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
 import { CreateReviewProps, Form } from './types';
@@ -74,8 +74,8 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 							rating: values.rating || undefined
 						}, // TODO use user details
 						content: values.review,
-						created_at: moment(new Date()).toISOString(),
-						updated_at: moment(new Date()).toISOString(),
+						created_at: dayjs(new Date()).toISOString(),
+						updated_at: dayjs(new Date()).toISOString(),
 						mediaItem: { ...(mediaItem || {}), mediaType: mediaType === 'movie' ? 'movie' : 'tv' }
 					}
 				]

@@ -2,9 +2,10 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-import moment from 'moment';
 
 import Stats from './components/Stats';
 import { ListInfoProps } from './types';
@@ -15,6 +16,8 @@ import Icon from '../../../../../../components/Icon';
 import Modal from '../../../../../../components/Modal';
 import Panel from '../../../../../../components/Panel';
 import { getUser } from '../../../../../../store/slices/Users';
+
+dayjs.extend(relativeTime);
 
 const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): ReactElement => {
 	const { colorMode } = useColorMode();
@@ -44,9 +47,9 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 								? 'Updated'
 								: 'Created'
 						} ${
-							moment(list?.date).isSame(moment(), 'day')
-								? moment(list?.date).fromNow()
-								: moment(list?.date).format('LL')
+							dayjs(list?.date).isSame(dayjs(), 'day')
+								? dayjs(list?.date).fromNow()
+								: dayjs(list?.date).format('LL')
 						}`}
 					</Text>
 				</VStack>

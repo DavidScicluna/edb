@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-import moment from 'moment';
 
 import List from './components/List';
 
@@ -52,7 +52,7 @@ const ListsModal = (): ReactElement => {
 						case 'movie': {
 							const movieMediaItem = {
 								...listsModal.mediaItem,
-								dateAdded: moment(new Date()).toISOString()
+								dateAdded: dayjs(new Date()).toISOString()
 							};
 
 							results.movies = [...results.movies, movieMediaItem];
@@ -61,7 +61,7 @@ const ListsModal = (): ReactElement => {
 						case 'tv': {
 							const showMediaItem = {
 								...listsModal.mediaItem,
-								dateAdded: moment(new Date()).toISOString()
+								dateAdded: dayjs(new Date()).toISOString()
 							};
 
 							results.tv = [...results.tv, showMediaItem];
@@ -74,7 +74,7 @@ const ListsModal = (): ReactElement => {
 					return updatedList.id === list
 						? {
 								...updatedList,
-								date: moment(new Date()).toISOString(),
+								date: dayjs(new Date()).toISOString(),
 								results: { ...results }
 						  }
 						: updatedList;

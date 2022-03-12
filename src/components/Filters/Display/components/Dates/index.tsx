@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 
+import dayjs from 'dayjs';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-import moment from 'moment';
 
 import { DatesProps } from './types';
 
@@ -29,11 +29,11 @@ const Dates = ({ dates, mediaType, onClick, onDelete }: DatesProps): ReactElemen
 			variant='outlined'
 		>
 			{`${mediaType === 'movie' ? 'Release Date' : 'First Air Date'}: ${
-				moment(dates.gte).isSame(moment(dates.lte), 'date')
-					? moment(dates.gte).format(visibleFormat)
+				dayjs(dates.gte).isSame(dayjs(dates.lte), 'date')
+					? dayjs(dates.gte).format(visibleFormat)
 					: compact([
-							dates.gte ? `From: ${moment(dates.gte).format(visibleFormat)}` : null,
-							dates.lte ? `To: ${moment(dates.lte).format(visibleFormat)}` : null
+							dates.gte ? `From: ${dayjs(dates.gte).format(visibleFormat)}` : null,
+							dates.lte ? `To: ${dayjs(dates.lte).format(visibleFormat)}` : null
 					  ]).join(' -> ')
 			}`}
 		</Tag>

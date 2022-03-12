@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
+import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-import moment from 'moment';
 
 import { LikeProps } from './types';
 
@@ -78,31 +78,31 @@ const Like = (props: LikeProps): ReactElement => {
 
 		switch (mediaType) {
 			case 'movie': {
-				const movieMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+				const movieMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
 
 				updatedLiked.movies = [...updatedLiked.movies, movieMediaItem];
 				break;
 			}
 			case 'tv': {
-				const showMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+				const showMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
 
 				updatedLiked.tv = [...updatedLiked.tv, showMediaItem];
 				break;
 			}
 			case 'person': {
-				const personMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+				const personMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
 
 				updatedLiked.people = [...updatedLiked.people, personMediaItem];
 				break;
 			}
 			case 'company': {
-				const companyMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+				const companyMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
 
 				updatedLiked.companies = [...updatedLiked.companies, companyMediaItem];
 				break;
 			}
 			case 'collection': {
-				const collectionMediaItem = { ...mediaItem, dateAdded: moment(new Date()).toISOString() };
+				const collectionMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
 
 				updatedLiked.collections = [...updatedLiked.collections, collectionMediaItem];
 				break;

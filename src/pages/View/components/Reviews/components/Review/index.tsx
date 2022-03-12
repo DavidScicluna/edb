@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import Body from './components/Body';
 import Footer from './components/Footer';
@@ -17,7 +17,7 @@ const Review = (props: ReviewProps): ReactElement => {
 	const { renderFooterActions, review, isLoading = true } = props;
 	const { author, author_details, created_at, updated_at, content } = review || {};
 
-	const hasUpdated = updated_at && !moment(updated_at).isSame(created_at);
+	const hasUpdated = updated_at && !dayjs(updated_at).isSame(created_at);
 	const hasDate = hasUpdated || isSm || false;
 	const hasFooter = hasDate || renderFooterActions;
 
@@ -37,9 +37,9 @@ const Review = (props: ReviewProps): ReactElement => {
 					<Footer
 						date={
 							hasUpdated
-								? `* Updated on: ${moment(updated_at).format('LLL')}`
+								? `* Updated on: ${dayjs(updated_at).format('LLL')}`
 								: isSm
-								? `* Created on: ${moment(created_at).format('LLL')}`
+								? `* Created on: ${dayjs(created_at).format('LLL')}`
 								: ''
 						}
 						renderActions={renderFooterActions}

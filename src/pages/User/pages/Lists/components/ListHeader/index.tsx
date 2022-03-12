@@ -3,9 +3,9 @@ import CountUp from 'react-countup';
 
 import { Fade } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
 import isNil from 'lodash/isNil';
 import orderBy from 'lodash/orderBy';
-import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
 import ListsTabButton from './components/ListsTabButton';
@@ -30,7 +30,7 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
 			<ListsTabButton isSelected={isNil(activeTab)} onClick={onListsClick} />
 			<Divider orientation='vertical' height={`${height}px`} mx={2} />
 			<TabList color={color} isActiveForced>
-				{orderBy(lists, (list) => moment(list.date), ['desc']).map((list) => {
+				{orderBy(lists, (list) => dayjs(list.date), ['desc']).map((list) => {
 					return {
 						label: list.label,
 						renderRight:

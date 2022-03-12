@@ -3,11 +3,11 @@ import { useLocation } from 'react-router';
 
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
 import { AnimatePresence } from 'framer-motion';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import orderBy from 'lodash/orderBy';
-import moment from 'moment';
 
 import CreateList from './components/CreateList';
 import DeleteList from './components/DeleteList';
@@ -187,7 +187,7 @@ const Lists = (): ReactElement => {
 										) : (
 											<Center as={Fade} key='list-tab-panels' width='100%' in unmountOnExit>
 												<TabPanels>
-													{orderBy(lists, (list) => moment(list.date), ['desc']).map(
+													{orderBy(lists, (list) => dayjs(list.date), ['desc']).map(
 														(list) => (
 															<MediaTypesSection
 																key={list.id}

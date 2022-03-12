@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux';
 import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, Text, Collapse } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-import moment from 'moment';
 
 import { EditReviewProps, Form } from './types';
 import { schema } from './validation';
@@ -72,7 +72,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 								...review,
 								author_details: { ...review.author_details, rating: values.rating || undefined }, // TODO use user details
 								content: values.review,
-								updated_at: moment(new Date()).toISOString()
+								updated_at: dayjs(new Date()).toISOString()
 						  }
 						: { ...review }
 				)

@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
+import dayjs from 'dayjs';
 import compact from 'lodash/compact';
 import toString from 'lodash/toString';
-import moment from 'moment';
 
 import { BioProps } from './types';
 
@@ -14,10 +14,10 @@ export const handleReturnDates = (
 	deathday: FullPerson['deathday'],
 	place_of_birth: FullPerson['place_of_birth']
 ): string => {
-	const birthDate = moment(birthday || '', 'YYYY-MM-DD').format('LL');
+	const birthDate = dayjs(birthday || '', 'YYYY-MM-DD').format('LL');
 	const birthPlace = place_of_birth ? `in ${place_of_birth}` : undefined;
-	const deathDate = deathday ? `and died on ${moment(deathday || '', 'YYYY-MM-DD').format('LL')}` : undefined;
-	const yearsOld = `(${toString(moment(birthday || new Date()).diff(deathday || new Date(), 'years')).replaceAll(
+	const deathDate = deathday ? `and died on ${dayjs(deathday || '', 'YYYY-MM-DD').format('LL')}` : undefined;
+	const yearsOld = `(${toString(dayjs(birthday || new Date()).diff(deathday || new Date(), 'years')).replaceAll(
 		'-',
 		''
 	)} years old)`;

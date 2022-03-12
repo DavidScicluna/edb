@@ -2,9 +2,9 @@ import { ReactElement } from 'react';
 
 import { useConst, Text } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
-import moment from 'moment';
 
 import { DateProps } from './types';
 
@@ -20,7 +20,7 @@ const Date = (props: DateProps): ReactElement => {
 	return (
 		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
 			<Text align='left' color={color} fontSize={fontSize} whiteSpace='nowrap'>
-				{moment(date).format('DD MMMM YYYY') || 'Movie Date'}
+				{dayjs(date).format('DD MMMM YYYY') || 'Movie Date'}
 			</Text>
 		</SkeletonText>
 	);

@@ -3,9 +3,10 @@ import useInView from 'react-cool-inview';
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-import moment from 'moment';
 
 import Date from './components/Date';
 import Image from './components/Image';
@@ -18,6 +19,8 @@ import Card from '../../../../../../../../../../../../components/Clickable/Card'
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import Rating from '../../../../../../../../../../../../components/Rating';
 import { FontSizes } from '../../../../../../../../../../../../theme/types';
+
+dayjs.extend(isSameOrAfter);
 
 const Episode = (props: EpisodeProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -49,7 +52,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
 		episode_number
 	} = episode || {};
 
-	const isFuture = moment(air_date).isSameOrAfter();
+	const isFuture = dayjs().isSameOrAfter(air_date);
 
 	return (
 		<Link

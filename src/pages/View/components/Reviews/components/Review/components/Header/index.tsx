@@ -13,11 +13,11 @@ import {
 	SlideFade
 } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import startCase from 'lodash/startCase';
-import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
 import { HeaderProps } from './types';
@@ -140,7 +140,7 @@ const Header = (props: HeaderProps): ReactElement => {
 										overflow='hidden'
 										whiteSpace='nowrap'
 									>
-										{moment(created_at || new Date()).format('LLL')}
+										{dayjs(created_at || new Date()).format('LLL')}
 									</Text>
 								</SkeletonText>
 							) : undefined,

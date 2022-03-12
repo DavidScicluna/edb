@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import { useTheme, HStack, VStack, Text } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
 import compact from 'lodash/compact';
-import moment from 'moment';
 import { useElementSize } from 'usehooks-ts';
 
 import { ListProps } from './types';
@@ -67,7 +67,7 @@ const List = (props: ListProps): ReactElement => {
 							results.movies.length + results.tv.length > 0
 								? `${results.movies.length + results.tv.length} items`
 								: undefined,
-							`${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${moment(
+							`${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${dayjs(
 								date
 							).fromNow()}`
 						]).join(' • ')}

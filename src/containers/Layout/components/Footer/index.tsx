@@ -3,7 +3,7 @@ import { useIsFetching, useIsMutating } from 'react-query';
 
 import { useColorMode, useMediaQuery, VStack, Stack, Box, Link, Text, useTheme } from '@chakra-ui/react';
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import NavItem from './components/NavItem';
 
@@ -47,7 +47,7 @@ const Footer = (): ReactElement => {
 					fontSize='md'
 					fontWeight='medium'
 				>
-					{`© ${moment().format('YYYY')} EDB, All rights reserved.`}
+					{`© ${dayjs().format('YYYY')} EDB, All rights reserved.`}
 				</Text>
 
 				<Text

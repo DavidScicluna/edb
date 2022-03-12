@@ -2,8 +2,8 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
 import range from 'lodash/range';
-import moment from 'moment';
 
 import { PartsTabProps } from './types';
 
@@ -31,7 +31,7 @@ const PartsTab = (props: PartsTabProps): ReactElement => {
 	const [totalVisible, setTotalVisible] = useState<number>(incrementBy);
 
 	const handleSortParts = (parts: PartialMovie[] = []): PartialMovie[] => {
-		return parts.sort((a, b) => moment(b.release_date || '').diff(a.release_date || ''));
+		return parts.sort((a, b) => dayjs(b.release_date || '').diff(a.release_date || ''));
 	};
 
 	return !isLoading && isError ? (

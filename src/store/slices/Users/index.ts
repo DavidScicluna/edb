@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 
 import { StateProps, UserAction, User, Info, Search, MediaItems, List, UserReview, OtherReview, Theme } from './types';
@@ -32,7 +32,7 @@ export const defaultUser: User = {
 				label: 'Watchlist',
 				description:
 					"A collection of movies and tv shows that I'm looking forward to watching and hopefully re-watch 🥳 🤓",
-				date: moment(new Date()).toISOString(),
+				date: dayjs(new Date()).toISOString(),
 				results: {
 					movies: [],
 					tv: []

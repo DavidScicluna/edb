@@ -2,7 +2,8 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, useBoolean, ScaleFade } from '@chakra-ui/react';
 
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 import { SearchProps } from './types';
 
@@ -12,6 +13,8 @@ import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import ListItem from '../../../List/components/ListItem';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
+
+dayjs.extend(relativeTime);
 
 const Search = (props: SearchProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -28,7 +31,7 @@ const Search = (props: SearchProps): ReactElement => {
 	return (
 		<ListItem
 			title={label}
-			subtitle={moment(date).fromNow()}
+			subtitle={dayjs(date).fromNow()}
 			badge={
 				filteredSearchTypes && filteredSearchTypes.length > 0 ? (
 					<Badge

@@ -2,9 +2,9 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
 
+import dayjs from 'dayjs';
 import { DateObj, useDayzed } from 'dayzed';
 import isNil from 'lodash/isNil';
-import moment from 'moment';
 
 import Calendar from './components/Calendar';
 import Months from './components/Months';
@@ -81,7 +81,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 				renderActions={({ color, colorMode, size }) => (
 					<HStack>
 						<Fade
-							in={date && !Array.isArray(date) ? !moment(date).isSame(new Date(), 'day') : false}
+							in={date && !Array.isArray(date) ? !dayjs(date).isSame(new Date(), 'day') : false}
 							unmountOnExit
 						>
 							<Button
