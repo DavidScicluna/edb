@@ -143,6 +143,8 @@ export default (
 			whiteSpace: 'nowrap',
 			lineHeight: 'normal',
 
+			m: 0,
+
 			transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
 		},
 		sm: {
