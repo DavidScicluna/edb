@@ -14,8 +14,6 @@ import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
 import QuickView from './components/Modals/QuickView';
 import ProgressBar from './components/ProgressBar';
-import Router from './components/Router';
-import Routes from './components/Routes';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 
@@ -28,6 +26,7 @@ import { toggleSidebarMode } from '../../store/slices/App';
 import { toggleSplashscreen } from '../../store/slices/Modals';
 import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme } from '../../theme/types';
+import { LayoutProps } from './types';
 
 export const navItems: NavItem[] = [
 	{
@@ -74,7 +73,7 @@ export const navItems: NavItem[] = [
 	}
 ];
 
-const Layout = (): ReactElement => {
+const Layout = ({ children }: LayoutProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { setColorMode } = useColorMode();
 
@@ -116,7 +115,7 @@ const Layout = (): ReactElement => {
 	}, [isDarkMode]);
 
 	return (
-		<Router>
+		<>
 			<Collapse
 				in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
 				unmountOnExit
@@ -156,7 +155,7 @@ const Layout = (): ReactElement => {
 								}px)`}
 								sx={{ ...transition }}
 							>
-								<Routes />
+								{children}
 							</Box>
 
 							<Footer />
@@ -174,7 +173,7 @@ const Layout = (): ReactElement => {
 			<ListsModal />
 
 			<SplashscreenModal />
-		</Router>
+		</>
 	);
 };
 
