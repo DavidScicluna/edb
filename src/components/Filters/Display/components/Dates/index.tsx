@@ -18,8 +18,6 @@ const Dates = ({ dates, mediaType, onClick, onDelete }: DatesProps): ReactElemen
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
 
-	console.log(dates.lte);
-
 	return (
 		<Tag
 			color={color}
