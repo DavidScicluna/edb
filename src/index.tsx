@@ -1,6 +1,17 @@
 import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Provider } from 'react-redux';
 
-import App from './containers/App';
+import { ChakraProvider } from '@chakra-ui/react';
+
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import store from './store';
+import theme from './theme';
+
+import Container from './containers/Container';
+
 // Importing Main Font (Work-Sans)
 import '@fontsource/work-sans/100.css';
 import '@fontsource/work-sans/200.css';
@@ -20,4 +31,27 @@ import '@fontsource/material-icons-outlined';
 
 import './index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			refetchOnReconnect: false,
+			retry: false
+		}
+	}
+});
+
+const persistor = persistStore(store);
+
+ReactDOM.render(
+	<Provider store={store}>
+		<PersistGate loading={null} persistor={persistor}>
+			<ChakraProvider theme={theme}>
+				<QueryClientProvider client={queryClient}>
+					<Container />
+				</QueryClientProvider>
+			</ChakraProvider>
+		</PersistGate>
+	</Provider>,
+	document.getElementById('root')
+);
