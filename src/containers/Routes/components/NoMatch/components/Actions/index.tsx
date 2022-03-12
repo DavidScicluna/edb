@@ -3,9 +3,9 @@ import { useLocation } from 'react-router';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import Button from '../../../../../../../../components/Clickable/Button';
-import Link from '../../../../../../../../components/Clickable/Link';
-import { RenderActionsProps as ActionsProps } from '../../../../../../../../pages/Error/types';
+import Button from '../../../../../../components/Clickable/Button';
+import Link from '../../../../../../components/Clickable/Link';
+import { RenderActionsProps as ActionsProps } from '../../../../../../pages/Error/types';
 
 const Actions = ({ color, colorMode, size }: ActionsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

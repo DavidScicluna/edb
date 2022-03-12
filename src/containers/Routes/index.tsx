@@ -10,21 +10,23 @@ import Animation from './components/Animation';
 import Breadcrumb from './components/Breadcrumb';
 import ErrorBoundary from './components/ErrorBoundary';
 import NoMatch from './components/NoMatch';
+import Layout from '../Layout';
 import { Route as RouteType } from './types';
+import { includes } from 'lodash';
 
-const Home = lazy(() => import('../../../../pages/Home'));
-const Movies = lazy(() => import('../../../../pages/Movies'));
-const People = lazy(() => import('../../../../pages/People'));
-const Search = lazy(() => import('../../../../pages/Search'));
-const Trending = lazy(() => import('../../../../pages/Trending'));
-const TV = lazy(() => import('../../../../pages/TV'));
-const Liked = lazy(() => import('../../../../pages/User/pages/Liked'));
-const Lists = lazy(() => import('../../../../pages/User/pages/Lists'));
-const Collection = lazy(() => import('../../../../pages/View/pages/Collection'));
-const Episode = lazy(() => import('../../../../pages/View/pages/Episode'));
-const Movie = lazy(() => import('../../../../pages/View/pages/Movie'));
-const Person = lazy(() => import('../../../../pages/View/pages/Person'));
-const Show = lazy(() => import('../../../../pages/View/pages/Show'));
+const Home = lazy(() => import('../../pages/Home'));
+const Movies = lazy(() => import('../../pages/Movies'));
+const People = lazy(() => import('../../pages/People'));
+const Search = lazy(() => import('../../pages/Search'));
+const Trending = lazy(() => import('../../pages/Trending'));
+const TV = lazy(() => import('../../pages/TV'));
+const Liked = lazy(() => import('../../pages/User/pages/Liked'));
+const Lists = lazy(() => import('../../pages/User/pages/Lists'));
+const Collection = lazy(() => import('../../pages/View/pages/Collection'));
+const Episode = lazy(() => import('../../pages/View/pages/Episode'));
+const Movie = lazy(() => import('../../pages/View/pages/Movie'));
+const Person = lazy(() => import('../../pages/View/pages/Person'));
+const Show = lazy(() => import('../../pages/View/pages/Show'));
 
 export const allRoutes: RouteType[] = [
 	{
@@ -93,6 +95,14 @@ export const allRoutes: RouteType[] = [
 		element: <Collection />
 	},
 	{
+		path: 'signin',
+		element: <NoMatch />
+	},
+	{
+		path: 'register',
+		element: <NoMatch />
+	},
+	{
 		path: '*',
 		element: <NoMatch />
 	}
@@ -131,7 +141,13 @@ const Routes = (): ReactElement => {
 	return (
 		<AnimatePresence exitBeforeEnter initial={false}>
 			<RRDRoutes location={location} key={location.pathname}>
-				{routes.map((route) => handleReturnRoutes(route))}
+				{routes.map((route) =>
+					route.path !== 'signin' && route.path !== 'register' ? (
+						<Layout>{handleReturnRoutes(route)}</Layout>
+					) : (
+						handleReturnRoutes(route)
+					)
+				)}
 			</RRDRoutes>
 		</AnimatePresence>
 	);

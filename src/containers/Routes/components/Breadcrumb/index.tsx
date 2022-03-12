@@ -12,8 +12,8 @@ import { useTimeout } from 'usehooks-ts';
 
 import { BreadcrumbProps, Data } from './types';
 
-import SkeletonText from '../../../../../../components/Skeleton/Text';
-import { FontSizes } from '../../../../../../theme/types';
+import SkeletonText from '../../../../components/Skeleton/Text';
+import { FontSizes } from '../../../../theme/types';
 
 const dummies = range(25, 100, 5);
 

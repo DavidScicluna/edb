@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import Button from '../../../../../../../../components/Clickable/Button';
-import { RenderActionsProps as ActionsProps } from '../../../../../../../../pages/Error/types';
+import Button from '../../../../../../components/Clickable/Button';
+import { RenderActionsProps as ActionsProps } from '../../../../../../pages/Error/types';
 
 const Actions = ({ color, colorMode, size }: ActionsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

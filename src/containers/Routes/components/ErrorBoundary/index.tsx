@@ -3,7 +3,7 @@ import { Component, ErrorInfo } from 'react';
 import Actions from './components/Actions';
 import { ErrorBoundaryProps, State } from './types';
 
-import Error from '../../../../../../pages/Error';
+import Error from '../../../../pages/Error';
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
 	public state: State = {
