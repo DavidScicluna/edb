@@ -48,7 +48,6 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 
 	const form = useForm<Form>({
 		defaultValues,
-		reValidateMode: 'onSubmit',
 		resolver: yupResolver(schema)
 	});
 

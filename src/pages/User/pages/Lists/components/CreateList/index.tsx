@@ -59,7 +59,6 @@ const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElemen
 
 	const form = useForm<Form>({
 		defaultValues,
-		reValidateMode: 'onSubmit',
 		resolver: yupResolver(schema)
 	});
 

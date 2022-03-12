@@ -61,7 +61,6 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 
 	const form = useForm<Form>({
 		defaultValues,
-		reValidateMode: 'onSubmit',
 		resolver: yupResolver(schema)
 	});
 
