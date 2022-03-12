@@ -12,7 +12,7 @@ import sample from 'lodash/sample';
 import { v4 as uuid } from 'uuid';
 
 import { CreateListProps, Form } from './types';
-import { defaultValues, schema } from './validation';
+import { schema } from './validation';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
@@ -34,8 +34,12 @@ const placeholders = [
 	'Johnny Depp',
 	'Angelina Jolie'
 ];
-
 const placeholder = sample(placeholders);
+
+const defaultValues: Form = {
+	label: '',
+	description: ''
+};
 
 const CreateList = ({ isOpen, onSubmit, onClose }: CreateListProps): ReactElement => {
 	const theme = useTheme<Theme>();

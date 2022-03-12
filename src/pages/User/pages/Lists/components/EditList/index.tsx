@@ -11,7 +11,7 @@ import isNil from 'lodash/isNil';
 import sample from 'lodash/sample';
 
 import { EditListProps, Form } from './types';
-import { defaultValues, schema } from './validation';
+import { schema } from './validation';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
@@ -33,8 +33,12 @@ const placeholders = [
 	'Johnny Depp',
 	'Angelina Jolie'
 ];
-
 const placeholder = sample(placeholders);
+
+const defaultValues: Form = {
+	label: '',
+	description: ''
+};
 
 const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 	const theme = useTheme<Theme>();
