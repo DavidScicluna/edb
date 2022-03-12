@@ -22,7 +22,7 @@ import Link from '../../../../../../components/Clickable/Link';
 import Icon from '../../../../../../components/Icon';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { FontSizes, Theme } from '../../../../../../theme/types';
-import { allRoutes as routes } from '../../../../../Layout/components/Routes';
+import { allRoutes as routes } from '../../../../../Routes';
 
 const Breadcrumbs = (): ReactElement => {
 	const theme = useTheme<Theme>();

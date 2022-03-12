@@ -3,9 +3,10 @@ import { ReactElement } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 
 import { useTimeout } from 'usehooks-ts';
-import Router from '../Router';
+
 import Splashscreen from './components/Splashscreen';
 
+import Router from '../Router';
 import Routes from '../Routes';
 
 const Container = (): ReactElement => {

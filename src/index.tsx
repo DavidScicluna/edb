@@ -7,10 +7,10 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import Container from './containers/Container';
 import store from './store';
 import theme from './theme';
 
-import Container from './containers/Container';
 
 // Importing Main Font (Work-Sans)
 import '@fontsource/work-sans/100.css';

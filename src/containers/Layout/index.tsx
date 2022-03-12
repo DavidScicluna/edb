@@ -16,6 +16,7 @@ import QuickView from './components/Modals/QuickView';
 import ProgressBar from './components/ProgressBar';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
+import { LayoutProps } from './types';
 
 import { useSelector, useCheckIcons, usePopulateOptions } from '../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
@@ -26,7 +27,6 @@ import { toggleSidebarMode } from '../../store/slices/App';
 import { toggleSplashscreen } from '../../store/slices/Modals';
 import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme } from '../../theme/types';
-import { LayoutProps } from './types';
 
 export const navItems: NavItem[] = [
 	{

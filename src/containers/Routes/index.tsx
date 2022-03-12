@@ -10,9 +10,9 @@ import Animation from './components/Animation';
 import Breadcrumb from './components/Breadcrumb';
 import ErrorBoundary from './components/ErrorBoundary';
 import NoMatch from './components/NoMatch';
-import Layout from '../Layout';
 import { Route as RouteType } from './types';
-import { includes } from 'lodash';
+
+import Layout from '../Layout';
 
 const Home = lazy(() => import('../../pages/Home'));
 const Movies = lazy(() => import('../../pages/Movies'));
