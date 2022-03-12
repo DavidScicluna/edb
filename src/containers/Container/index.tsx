@@ -14,17 +14,7 @@ const Container = (): ReactElement => {
 
 	useTimeout(() => setIsSplashscreenOpen.off(), 2500);
 
-	return (
-		<>
-			{isSplashscreenOpen ? (
-				<Splashscreen isOpen />
-			) : (
-				<Router>
-					<Routes />
-				</Router>
-			)}
-		</>
-	);
+	return <Router>{isSplashscreenOpen ? <Splashscreen isOpen /> : <Routes />}</Router>;
 };
 
 export default Container;

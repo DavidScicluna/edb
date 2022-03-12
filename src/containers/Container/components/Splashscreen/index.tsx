@@ -1,8 +1,10 @@
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 import { useColorMode } from '@chakra-ui/react';
 
+import { isEmpty, isNil } from 'lodash';
 import { useTernaryDarkMode, useEffectOnce } from 'usehooks-ts';
 
 import { SplashscreenProps } from './types';
@@ -15,7 +17,10 @@ import { defaultUser, getUser } from '../../../../store/slices/Users';
 const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 	const { setColorMode } = useColorMode();
 
+	const navigate = useNavigate();
+
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state.app.data.user);
 	const background = useSelector(
 		(state) =>
 			getUser(state.users.data.users, state.app.data.user)?.ui.theme.background || defaultUser.ui.theme.background
@@ -30,6 +35,10 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 			setColorMode(isDarkMode ? 'dark' : 'light');
 
 			setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
+		}
+
+		if (isNil(user) || isEmpty(user)) {
+			navigate('/signin');
 		}
 	});
 
