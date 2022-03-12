@@ -4,6 +4,7 @@ import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 import { useConst, Box } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
+import { isEmpty, isNil } from 'lodash';
 import omit from 'lodash/omit';
 
 import Animation from './components/Animation';
@@ -12,6 +13,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import NoMatch from './components/NoMatch';
 import { Route as RouteType } from './types';
 
+import { useSelector } from '../../common/hooks';
 import Layout from '../Layout';
 
 const Home = lazy(() => import('../../pages/Home'));
@@ -24,6 +26,7 @@ const Liked = lazy(() => import('../../pages/User/pages/Liked'));
 const Lists = lazy(() => import('../../pages/User/pages/Lists'));
 const Collection = lazy(() => import('../../pages/View/pages/Collection'));
 const Episode = lazy(() => import('../../pages/View/pages/Episode'));
+const Signin = lazy(() => import('../../pages/Signin'));
 const Movie = lazy(() => import('../../pages/View/pages/Movie'));
 const Person = lazy(() => import('../../pages/View/pages/Person'));
 const Show = lazy(() => import('../../pages/View/pages/Show'));
@@ -96,14 +99,10 @@ export const allRoutes: RouteType[] = [
 	},
 	{
 		path: 'signin',
-		element: <NoMatch />
+		element: <Signin />
 	},
 	{
 		path: 'register',
-		element: <NoMatch />
-	},
-	{
-		path: '*',
 		element: <NoMatch />
 	}
 ];
@@ -119,7 +118,9 @@ const handleReturnRoutes = (route: RouteType): ReactElement => {
 			element={
 				<Animation>
 					<ErrorBoundary>
-						<Suspense fallback={<Box />}>{element}</Suspense>
+						<Suspense fallback={<Box />}>
+							{path !== 'signin' && path !== 'register' ? <Layout>{element}</Layout> : element}
+						</Suspense>
 					</ErrorBoundary>
 				</Animation>
 			}
@@ -132,7 +133,15 @@ const handleReturnRoutes = (route: RouteType): ReactElement => {
 const Routes = (): ReactElement => {
 	const location = useLocation();
 
-	const routes = useConst(allRoutes.map((route) => omit(route, 'breadcrumb')));
+	const user = useSelector((state) => state.app.data.user);
+
+	const routes = useConst([
+		...allRoutes.map((route) => omit(route, 'breadcrumb')),
+		{
+			path: '*',
+			element: isNil(user) || isEmpty(user) ? <Signin /> : <NoMatch />
+		}
+	]);
 
 	useEffect(() => {
 		document.scrollingElement?.scrollTo(0, 0);
@@ -141,13 +150,7 @@ const Routes = (): ReactElement => {
 	return (
 		<AnimatePresence exitBeforeEnter initial={false}>
 			<RRDRoutes location={location} key={location.pathname}>
-				{routes.map((route) =>
-					route.path !== 'signin' && route.path !== 'register' ? (
-						<Layout>{handleReturnRoutes(route)}</Layout>
-					) : (
-						handleReturnRoutes(route)
-					)
-				)}
+				{routes.map((route) => handleReturnRoutes(route))}
 			</RRDRoutes>
 		</AnimatePresence>
 	);
