@@ -10,12 +10,22 @@ import { height } from '../..';
 import { Theme } from '../../../../../../theme/types';
 import Icon from '../../../../../Icon';
 import useStyles from '../../common/styles';
+import { handleReturnIcon } from '../Step/components/Icon';
+import { handleReturnColor } from '../Step/components/Status';
 
 const Next = (props: NextProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const { color, colorMode, isDisabled = false, isLast = false, onNext } = props;
+	const {
+		color,
+		colorMode,
+		isDisabled = false,
+		isLast = false,
+		hasErrors = false,
+		hasWarnings = false,
+		onNext
+	} = props;
 
 	const style = useStyles(theme, { color });
 
@@ -30,9 +40,9 @@ const Next = (props: NextProps): ReactElement => {
 					style[colorMode].idle,
 					!isSm
 						? {
-								borderRightWidth: '2px',
-								borderRightStyle: 'solid',
-								borderRightColor: `gray.${colorMode === 'light' ? 200 : 700}`
+								borderLeftWidth: '2px',
+								borderLeftStyle: 'solid',
+								borderLeftColor: `gray.${colorMode === 'light' ? 200 : 700}`
 						  }
 						: {}
 				)
@@ -40,9 +50,23 @@ const Next = (props: NextProps): ReactElement => {
 			_disabled={{ ...merge(style.disabled) }}
 		>
 			<Icon
-				icon={isLast ? 'check' : 'east'}
+				icon={
+					isLast
+						? hasErrors
+							? handleReturnIcon('error')
+							: hasWarnings
+							? handleReturnIcon('warning')
+							: 'check'
+						: 'east'
+				}
 				type='outlined'
-				color={`gray.${colorMode === 'light' ? 900 : 50}`}
+				color={
+					isLast && hasErrors
+						? `${handleReturnColor('error', color)}.${colorMode === 'light' ? 500 : 400}`
+						: isLast && hasWarnings
+						? `${handleReturnColor('warning', color)}.${colorMode === 'light' ? 500 : 400}`
+						: `gray.${colorMode === 'light' ? 900 : 50}`
+				}
 				fontSize='3xl'
 			/>
 		</Center>

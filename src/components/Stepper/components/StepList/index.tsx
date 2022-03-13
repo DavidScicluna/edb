@@ -78,6 +78,8 @@ const StepList = (props: StepListProps): ReactElement => {
 							color={color}
 							colorMode={colorMode}
 							isLast={activeStep === children.length - 1}
+							hasErrors={children.some((step) => step.status === 'error')}
+							hasWarnings={children.some((step) => step.status === 'warning')}
 							onNext={handleNext}
 						/>
 					</HStack>
@@ -130,6 +132,8 @@ const StepList = (props: StepListProps): ReactElement => {
 						color={color}
 						colorMode={colorMode}
 						isLast={activeStep === children.length - 1}
+						hasErrors={children.some((step) => step.status === 'error')}
+						hasWarnings={children.some((step) => step.status === 'warning')}
 						onNext={handleNext}
 					/>
 				</>
