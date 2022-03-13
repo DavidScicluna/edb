@@ -32,7 +32,6 @@ const Icon = forwardRef<IconRef, IconProps>(function Icon(props, ref): ReactElem
 				borderRadius: !hasLoaded ? 'base' : borderRadius,
 
 				overflow: 'hidden',
-				textTransform: 'ellipsis',
 				whiteSpace: 'nowrap'
 			}}
 		>

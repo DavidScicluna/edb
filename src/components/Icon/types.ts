@@ -1,6 +1,6 @@
 import { CenterProps } from '@chakra-ui/react';
 
-type Icon =
+export type Icon =
 	| '10k'
 	| '10mp'
 	| '11mp'

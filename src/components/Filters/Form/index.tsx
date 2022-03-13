@@ -27,7 +27,7 @@ export const defaultValues: Filters = handleReturnDefaultValues();
 
 const FiltersForm = (props: FiltersFormProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
-	const [isLg] = useMediaQuery('(max-width: 1024px)');
+	const [isLg] = useMediaQuery('(min-width: 1280px)');
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 

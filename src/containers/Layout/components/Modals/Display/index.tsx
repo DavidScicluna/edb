@@ -21,7 +21,7 @@ import { Theme } from '../../../../../store/slices/Users/types';
 const Display = (): ReactElement => {
 	const { setColorMode } = useColorMode();
 
-	const [isSm] = useMediaQuery('(max-width: 672px)');
+	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.app.data.user);

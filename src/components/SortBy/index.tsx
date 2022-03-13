@@ -27,7 +27,8 @@ const defaultValues: Form = {
 };
 
 const SortBy = (props: SortByProps): ReactElement => {
-	const [isMd] = useMediaQuery('(max-width: 900px)');
+	const [isMd] = useMediaQuery('(max-width: 960px)');
+
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const color = useSelector(
