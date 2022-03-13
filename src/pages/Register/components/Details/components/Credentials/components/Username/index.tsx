@@ -6,15 +6,15 @@ import Input from '../../../../../../../../components/Forms/Input';
 import Icon from '../../../../../../../../components/Icon';
 import { DetailsProps as UsernameProps } from '../../../../types';
 
-const Username = ({ form }: UsernameProps): ReactElement => {
+const Username = ({ form, color, colorMode }: UsernameProps): ReactElement => {
 	return (
 		<Controller
 			control={form.control}
 			name='username'
 			render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
 				<Input
-					// color={color}
-					color='blue'
+					color={color}
+					colorMode={colorMode}
 					label='Username'
 					error={error}
 					name={name}

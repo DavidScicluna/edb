@@ -7,12 +7,12 @@ import { isEmpty, isNil } from 'lodash';
 import Password from './components/Password';
 import Username from './components/Username';
 
-import { detailsDefaultValues as defaultValues } from '../../../..';
 import Button from '../../../../../../components/Clickable/Button';
 import Panel from '../../../../../../components/Panel';
+import { detailsDefaultValues as defaultValues } from '../../../../defaults';
 import { DetailsProps as CredentialsProps } from '../../types';
 
-const Credentials = ({ form }: CredentialsProps): ReactElement => {
+const Credentials = ({ form, color, colorMode }: CredentialsProps): ReactElement => {
 	const username = form.watch('username');
 	const password = form.watch('password');
 
@@ -22,13 +22,14 @@ const Credentials = ({ form }: CredentialsProps): ReactElement => {
 	};
 
 	return (
-		<Panel isFullWidth variant='outlined'>
+		<Panel colorMode={colorMode} isFullWidth variant='outlined'>
 			{{
 				header: {
 					title: 'Credentials',
 					actions: (
 						<Button
-							// color={color}
+							color={color}
+							colorMode={colorMode}
 							isDisabled={
 								(isNil(username) || isEmpty(username)) && (isNil(password) || isEmpty(password))
 							}
@@ -42,8 +43,8 @@ const Credentials = ({ form }: CredentialsProps): ReactElement => {
 				},
 				body: (
 					<VStack width='100%' spacing={2}>
-						<Username form={form} />
-						<Password form={form} />
+						<Username form={form} color={color} colorMode={colorMode} />
+						<Password form={form} color={color} colorMode={colorMode} />
 					</VStack>
 				)
 			}}

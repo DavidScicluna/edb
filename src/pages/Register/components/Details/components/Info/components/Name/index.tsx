@@ -6,7 +6,7 @@ import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 import Input from '../../../../../../../../components/Forms/Input';
 import { DetailsProps as NameProps } from '../../../../types';
 
-const Name = ({ form }: NameProps): ReactElement => {
+const Name = ({ form, color, colorMode }: NameProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	return (
@@ -16,8 +16,8 @@ const Name = ({ form }: NameProps): ReactElement => {
 				name='firstName'
 				render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
 					<Input
-						// color={color}
-						color='blue'
+						color={color}
+						colorMode={colorMode}
 						label='First name'
 						error={error}
 						name={name}
@@ -35,8 +35,8 @@ const Name = ({ form }: NameProps): ReactElement => {
 				name='lastName'
 				render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
 					<Input
-						// color={color}
-						color='blue'
+						color={color}
+						colorMode={colorMode}
 						label='Last name'
 						error={error}
 						name={name}

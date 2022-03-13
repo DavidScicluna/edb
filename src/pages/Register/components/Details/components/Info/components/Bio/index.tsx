@@ -7,7 +7,7 @@ import Textarea from '../../../../../../../../components/Forms/Textarea';
 import { Theme } from '../../../../../../../../theme/types';
 import { DetailsProps as BioProps } from '../../../../types';
 
-const Bio = ({ form }: BioProps): ReactElement => {
+const Bio = ({ form, color, colorMode }: BioProps): ReactElement => {
 	const theme = useTheme<Theme>();
 
 	return (
@@ -16,8 +16,8 @@ const Bio = ({ form }: BioProps): ReactElement => {
 			name='bio'
 			render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
 				<Textarea
-					// color={color}
-					color='blue'
+					color={color}
+					colorMode={colorMode}
 					label='Biography'
 					error={error}
 					name={name}

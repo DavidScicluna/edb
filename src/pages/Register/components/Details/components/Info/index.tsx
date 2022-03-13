@@ -7,12 +7,12 @@ import { isEmpty, isNil } from 'lodash';
 import Bio from './components/Bio';
 import Name from './components/Name';
 
-import { detailsDefaultValues as defaultValues } from '../../../..';
 import Button from '../../../../../../components/Clickable/Button';
 import Panel from '../../../../../../components/Panel';
+import { detailsDefaultValues as defaultValues } from '../../../../defaults';
 import { DetailsProps as InfoProps } from '../../types';
 
-const Info = ({ form }: InfoProps): ReactElement => {
+const Info = ({ form, color, colorMode }: InfoProps): ReactElement => {
 	const firstName = form.watch('firstName');
 	const lastName = form.watch('lastName');
 	const bio = form.watch('bio');
@@ -24,13 +24,14 @@ const Info = ({ form }: InfoProps): ReactElement => {
 	};
 
 	return (
-		<Panel isFullWidth variant='outlined'>
+		<Panel colorMode={colorMode} isFullWidth variant='outlined'>
 			{{
 				header: {
 					title: 'Information',
 					actions: (
 						<Button
-							// color={color}
+							color={color}
+							colorMode={colorMode}
 							isDisabled={
 								(isNil(firstName) || isEmpty(firstName)) &&
 								(isNil(lastName) || isEmpty(lastName)) &&
@@ -46,8 +47,8 @@ const Info = ({ form }: InfoProps): ReactElement => {
 				},
 				body: (
 					<VStack width='100%' spacing={2}>
-						<Name form={form} />
-						<Bio form={form} />
+						<Name form={form} color={color} colorMode={colorMode} />
+						<Bio form={form} color={color} colorMode={colorMode} />
 					</VStack>
 				)
 			}}

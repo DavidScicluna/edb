@@ -10,7 +10,7 @@ import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { DetailsProps as PasswordProps } from '../../../../types';
 
-const Password = ({ form }: PasswordProps): ReactElement => {
+const Password = ({ form, color, colorMode }: PasswordProps): ReactElement => {
 	const [isPasswordVisible, setIsPasswordVisible] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
@@ -20,8 +20,8 @@ const Password = ({ form }: PasswordProps): ReactElement => {
 			name='password'
 			render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
 				<Input
-					// color={color}
-					color='blue'
+					color={color}
+					colorMode={colorMode}
 					label='Password'
 					error={error}
 					name={name}
