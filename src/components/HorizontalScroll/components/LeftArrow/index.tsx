@@ -7,7 +7,7 @@ import { LeftArrowProps } from './types';
 
 import Arrow from '../Arrow';
 
-const LeftArrow = ({ isDisabled: isDisabledProp = false }: LeftArrowProps): ReactElement => {
+const LeftArrow = ({ colorMode, isDisabled: isDisabledProp = false }: LeftArrowProps): ReactElement => {
 	const { isFirstItemVisible, scrollPrev, visibleItemsWithoutSeparators, initComplete } =
 		useContext(VisibilityContext);
 
@@ -23,7 +23,14 @@ const LeftArrow = ({ isDisabled: isDisabledProp = false }: LeftArrowProps): Reac
 		}
 	}, [isFirstItemVisible, visibleItemsWithoutSeparators]);
 
-	return <Arrow direction='left' isDisabled={isDisabledProp || isDisabled} onClick={() => scrollPrev()} />;
+	return (
+		<Arrow
+			colorMode={colorMode}
+			direction='left'
+			isDisabled={isDisabledProp || isDisabled}
+			onClick={() => scrollPrev()}
+		/>
+	);
 };
 
 export default LeftArrow;

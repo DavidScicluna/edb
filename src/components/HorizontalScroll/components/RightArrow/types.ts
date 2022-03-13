@@ -1,3 +1,3 @@
-export type RightArrowProps = {
-	isDisabled?: boolean;
-};
+import { HorizontalScrollProps } from '../../types';
+
+export type RightArrowProps = Omit<HorizontalScrollProps, 'children' | 'renderDivider' | 'isFullWidth'>;

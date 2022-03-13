@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
@@ -14,11 +14,13 @@ import Icon from '../../../Icon';
 
 const Arrow = (props: ArrowProps): ReactElement => {
 	const theme = useTheme<Theme>();
-	const { colorMode } = useColorMode();
+	const { colorMode: colorModeHook } = useColorMode();
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const { direction, isDisabled = false, onClick } = props;
+	const { colorMode: colorModeProp, direction, isDisabled = false, onClick } = props;
+
+	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
 	const style = useStyles(theme, { isDisabled });
 
@@ -59,6 +61,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
 				<Center height='100%' backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}>
 					<IconButton
 						ref={ref}
+						colorMode={colorMode}
 						aria-label={`Scroll ${direction}`}
 						onClick={() => onClick()}
 						size={isSm ? 'sm' : 'md'}

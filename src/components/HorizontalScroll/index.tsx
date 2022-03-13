@@ -18,13 +18,13 @@ const HorizontalScroll = forwardRef<HorizontalScrollRef, HorizontalScrollProps>(
 ): ReactElement {
 	const theme = useTheme<Theme>();
 
-	const { children, renderDivider, isDisabled = false, isFullWidth = false } = props;
+	const { children, renderDivider, colorMode, isDisabled = false, isFullWidth = false } = props;
 
 	return (
 		<Box ref={ref} width='100%'>
 			<ScrollMenu
-				LeftArrow={<LeftArrow isDisabled={isDisabled} />}
-				RightArrow={<RightArrow isDisabled={isDisabled} />}
+				LeftArrow={<LeftArrow colorMode={colorMode} isDisabled={isDisabled} />}
+				RightArrow={<RightArrow colorMode={colorMode} isDisabled={isDisabled} />}
 				transitionDuration={handleConvertStringToNumber(theme.transition.duration['ultra-slow'], 'ms')}
 				wrapperClassName='wrapperContainer'
 				scrollContainerClassName={isFullWidth ? 'scrollFullWidthContainer' : 'scrollContainer'}

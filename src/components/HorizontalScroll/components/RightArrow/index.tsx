@@ -7,7 +7,7 @@ import { RightArrowProps } from './types';
 
 import Arrow from '../Arrow';
 
-const RightArrow = ({ isDisabled: isDisabledProp = false }: RightArrowProps): ReactElement => {
+const RightArrow = ({ colorMode, isDisabled: isDisabledProp = false }: RightArrowProps): ReactElement => {
 	const { isLastItemVisible, scrollNext, visibleItemsWithoutSeparators } = useContext(VisibilityContext);
 
 	const [isDisabled, setIsDisabled] = useBoolean(!visibleItemsWithoutSeparators.length && isLastItemVisible);
@@ -22,7 +22,14 @@ const RightArrow = ({ isDisabled: isDisabledProp = false }: RightArrowProps): Re
 		}
 	}, [isLastItemVisible, visibleItemsWithoutSeparators]);
 
-	return <Arrow direction='right' isDisabled={isDisabledProp || isDisabled} onClick={() => scrollNext()} />;
+	return (
+		<Arrow
+			colorMode={colorMode}
+			direction='right'
+			isDisabled={isDisabledProp || isDisabled}
+			onClick={() => scrollNext()}
+		/>
+	);
 };
 
 export default RightArrow;
