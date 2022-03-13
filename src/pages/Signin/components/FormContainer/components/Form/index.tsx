@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { useFormState } from 'react-hook-form';
 
-import { VStack, HStack, Center } from '@chakra-ui/react';
+import { VStack, HStack } from '@chakra-ui/react';
 
 import Password from './components/Password';
 import RememberMe from './components/RememberMe';
@@ -14,8 +14,6 @@ import Link from '../../../../../../components/Clickable/Link';
 
 const Form = ({ form, onSubmit }: FormProps): ReactElement => {
 	const { isDirty } = useFormState({ control: form.control });
-
-	console.log(isDirty);
 
 	return (
 		<VStack width='100%' spacing={4}>
@@ -34,7 +32,7 @@ const Form = ({ form, onSubmit }: FormProps): ReactElement => {
 				</HStack>
 			</VStack>
 
-			<Center width='100%'>
+			<VStack width='100%' spacing={1}>
 				<Button
 					color={color}
 					isDisabled={!isDirty}
@@ -43,7 +41,10 @@ const Form = ({ form, onSubmit }: FormProps): ReactElement => {
 				>
 					Sign In
 				</Button>
-			</Center>
+				<Button isFullWidth size='sm' variant='text'>
+					Or continue as guest
+				</Button>
+			</VStack>
 		</VStack>
 	);
 };
