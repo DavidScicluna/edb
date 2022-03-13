@@ -8,7 +8,7 @@ type SizeStyle = { [key in Size]: Style };
 
 type DefaultStyle = { default: Style };
 
-export type TabStyle = {
+type TabStyle = {
 	tab: DefaultStyle & SizeStyle;
 	disabled: Style;
 	light: Style;

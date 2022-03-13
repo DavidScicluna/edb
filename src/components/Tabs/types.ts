@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 import { TabsProps as CUITabsProps } from '@chakra-ui/react';
 
@@ -9,7 +9,7 @@ export type TabsContext = {
 export type TabsRef = HTMLDivElement | null;
 
 export type TabsProps = {
-	children: ReactElement | ReactElement[];
+	children: ReactNode;
 	activeTab?: number;
 	onChange: (index: number) => void;
 } & Omit<

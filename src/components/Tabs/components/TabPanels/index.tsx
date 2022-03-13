@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from 'react';
 
-import { TabPanels as CUITabPanels, TabPanel, Box, Fade } from '@chakra-ui/react';
+import { TabPanels as CUITabPanels, TabPanel, Center, Fade } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
 
@@ -16,9 +16,9 @@ const TabPanels = ({ children }: TabPanelsProps): ReactElement => {
 		<CUITabPanels as={AnimatePresence} width='100%' exitBeforeEnter initial={false}>
 			{children.map((panel, index) => (
 				<TabPanel key={`tab_panel_${index}`} width='100%' p={0}>
-					<Box as={Fade} in={activeTab === index} width='100%' unmountOnExit>
+					<Center as={Fade} in={activeTab === index} width='100%' unmountOnExit>
 						{panel}
-					</Box>
+					</Center>
 				</TabPanel>
 			))}
 		</CUITabPanels>
