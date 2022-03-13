@@ -18,7 +18,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 import { LayoutProps } from './types';
 
-import { useSelector, useCheckIcons, usePopulateOptions } from '../../common/hooks';
+import { useSelector } from '../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import Icon from '../../components/Icon';
 import { NavItem } from '../../components/NavItem/types';
@@ -93,10 +93,6 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 	const transition = useTransitionsStyle(theme);
 
 	const { isDarkMode } = useTernaryDarkMode();
-
-	useCheckIcons();
-
-	usePopulateOptions();
 
 	useEffect(() => {
 		if (!isLg) {
