@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, VStack, Center, Image, Text, Fade } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, VStack, Center, Image, Text, Fade } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
@@ -15,11 +15,16 @@ import { Theme, Space, FontSizes } from '../../theme/types';
 
 const Error = (props: ErrorProps): ReactElement => {
 	const theme = useTheme<Theme>();
-	const { colorMode } = useColorMode();
+	const { colorMode: colorModeHook } = useColorMode();
+
+	const userThemeColor = useSelector(
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	);
 
 	const {
 		button = undefined,
 		color = 'gray',
+		colorMode: colorModeProp,
 		label,
 		description,
 		hasIllustration = true,
@@ -27,9 +32,7 @@ const Error = (props: ErrorProps): ReactElement => {
 		variant = 'outlined'
 	} = props;
 
-	const userThemeColor = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
+	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
 	const style = useStyles(theme, { color });
 
