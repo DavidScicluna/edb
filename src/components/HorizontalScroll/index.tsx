@@ -18,7 +18,7 @@ const HorizontalScroll = forwardRef<HorizontalScrollRef, HorizontalScrollProps>(
 ): ReactElement {
 	const theme = useTheme<Theme>();
 
-	const { children, renderDivider, isDisabled = false } = props;
+	const { children, renderDivider, isDisabled = false, isFullWidth = false } = props;
 
 	return (
 		<Box ref={ref} width='100%'>
@@ -27,7 +27,7 @@ const HorizontalScroll = forwardRef<HorizontalScrollRef, HorizontalScrollProps>(
 				RightArrow={<RightArrow isDisabled={isDisabled} />}
 				transitionDuration={handleConvertStringToNumber(theme.transition.duration['ultra-slow'], 'ms')}
 				wrapperClassName='wrapperContainer'
-				scrollContainerClassName='scrollContainer'
+				scrollContainerClassName={isFullWidth ? 'scrollFullWidthContainer' : 'scrollContainer'}
 			>
 				{children.map((child, index) => (
 					<Child

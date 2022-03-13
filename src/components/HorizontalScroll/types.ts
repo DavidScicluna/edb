@@ -9,5 +9,6 @@ type RenderProps = {
 export type HorizontalScrollProps = {
 	children: ReactElement[];
 	renderDivider?: (props: RenderProps) => ReactElement;
+	isFullWidth?: boolean;
 	isDisabled?: boolean;
 };
