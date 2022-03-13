@@ -15,7 +15,7 @@ import { StepperContext as StepperContextType } from '../../types';
 
 export const height = '100px';
 
-const StepList = (props: StepListProps): ReactElement => {
+const StepList = ({ children = [] }: StepListProps): ReactElement => {
 	const {
 		activeStep = 0,
 		color,
@@ -27,11 +27,18 @@ const StepList = (props: StepListProps): ReactElement => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const { children = [] } = props;
+	const hasErrors: boolean = children.some((step) => step.status === 'error');
+	const hasWarnings: boolean = children.some((step) => step.status === 'warning');
 
 	const handleNext = (): void => {
 		if (activeStep === children.length - 1) {
-			onSubmit();
+			if (hasErrors) {
+				onChange(children.findIndex((step) => step.status === 'error'));
+			} else if (hasWarnings) {
+				onChange(children.findIndex((step) => step.status === 'warning'));
+			} else {
+				onSubmit();
+			}
 		} else {
 			onChange(activeStep + 1);
 		}
@@ -78,8 +85,8 @@ const StepList = (props: StepListProps): ReactElement => {
 							color={color}
 							colorMode={colorMode}
 							isLast={activeStep === children.length - 1}
-							hasErrors={children.some((step) => step.status === 'error')}
-							hasWarnings={children.some((step) => step.status === 'warning')}
+							hasErrors={hasErrors}
+							hasWarnings={hasWarnings}
 							onNext={handleNext}
 						/>
 					</HStack>
@@ -132,8 +139,8 @@ const StepList = (props: StepListProps): ReactElement => {
 						color={color}
 						colorMode={colorMode}
 						isLast={activeStep === children.length - 1}
-						hasErrors={children.some((step) => step.status === 'error')}
-						hasWarnings={children.some((step) => step.status === 'warning')}
+						hasErrors={hasErrors}
+						hasWarnings={hasWarnings}
 						onNext={handleNext}
 					/>
 				</>
