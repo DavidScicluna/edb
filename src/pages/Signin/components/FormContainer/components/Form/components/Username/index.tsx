@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form';
 
 import { color } from '../../../..';
 import Input from '../../../../../../../../components/Forms/Input';
+import Icon from '../../../../../../../../components/Icon';
 import { FormProps as UsernameProps } from '../../types';
 
 const Username = ({ form }: Omit<UsernameProps, 'onSubmit'>): ReactElement => {
@@ -19,6 +20,9 @@ const Username = ({ form }: Omit<UsernameProps, 'onSubmit'>): ReactElement => {
 					onChange={onChange}
 					isFullWidth
 					isRequired
+					renderInputLeftPanel={({ height }) => (
+						<Icon icon='alternate_email' type='outlined' fontSize={height} />
+					)}
 					value={value}
 				/>
 			)}
