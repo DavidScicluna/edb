@@ -18,13 +18,10 @@ const colors: Form['color'][] = [
 	'light_blue',
 	'cyan',
 	'teal',
-	'green',
 	'light_green',
 	'lime',
-	'yellow',
 	'orange',
-	'deep_orange',
-	'brown'
+	'deep_orange'
 ];
 
 const Color = ({ form }: { form: UseFormReturn<Form> }): ReactElement => {
