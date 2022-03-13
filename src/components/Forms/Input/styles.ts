@@ -10,16 +10,17 @@ type InvalidStyle = { invalid: Style };
 type DefaultStyle = { default: Style };
 
 type InputStyle = {
+	group: DefaultStyle & SizeStyle;
 	input: DefaultStyle & SizeStyle;
 	formLabel: DefaultStyle & SizeStyle;
 	formHelperText: DefaultStyle & SizeStyle;
 	light: {
-		input: DefaultStyle & InvalidStyle;
+		group: DefaultStyle & InvalidStyle;
 		formLabel: DefaultStyle & InvalidStyle;
 		formHelperText: Style;
 	};
 	dark: {
-		input: DefaultStyle & InvalidStyle;
+		group: DefaultStyle & InvalidStyle;
 		formLabel: DefaultStyle & InvalidStyle;
 		formHelperText: Style;
 	};
@@ -35,7 +36,7 @@ export default (
 	theme: Theme,
 	{ color = 'gray', isDisabled = false, isFullWidth = false }: StyleInputProps
 ): InputStyle => ({
-	input: {
+	group: {
 		default: {
 			'cursor': isDisabled ? 'not-allowed' : 'text',
 
@@ -51,15 +52,6 @@ export default (
 
 			'borderStyle': 'solid',
 			'borderWidth': '2px',
-
-			// 'outline': 'none',
-			// 'outlineWidth': '0px',
-			// 'outlineStyle': 'dashed',
-
-			'fontWeight': 'normal',
-			'textTransform': 'normal',
-			'whiteSpace': 'nowrap',
-			'lineHeight': 'normal',
 
 			'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
 
@@ -77,10 +69,6 @@ export default (
 			borderRadius: 'sm',
 
 			padding: theme.space[1]
-
-			// '&:focus': {
-			//   outlineOffset: '4px'
-			// }
 		},
 		md: {
 			fontSize: 'md',
@@ -88,10 +76,6 @@ export default (
 			borderRadius: 'base',
 
 			padding: `${theme.space[1.5]} ${theme.space[2]}`
-
-			// '&:focus': {
-			//   outlineOffset: '5px'
-			// }
 		},
 		lg: {
 			fontSize: 'lg',
@@ -99,10 +83,39 @@ export default (
 			borderRadius: 'lg',
 
 			padding: theme.space[2]
+		}
+	},
+	input: {
+		default: {
+			'cursor': isDisabled ? 'not-allowed' : 'text',
 
-			// '&:focus': {
-			//   outlineOffset: '6px'
-			// }
+			'borderRadius': 'none',
+
+			'fontWeight': 'normal',
+			'textTransform': 'none',
+			'whiteSpace': 'nowrap',
+			'lineHeight': 'normal',
+
+			'padding': 0,
+
+			'transition': `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`,
+
+			'&:focus': {
+				boxShadow: 'none'
+			},
+
+			'& .edb-icon': {
+				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
+			}
+		},
+		sm: {
+			fontSize: 'sm'
+		},
+		md: {
+			fontSize: 'md'
+		},
+		lg: {
+			fontSize: 'lg'
 		}
 	},
 	formLabel: {
@@ -164,7 +177,7 @@ export default (
 		}
 	},
 	light: {
-		input: {
+		group: {
 			default: {
 				'borderColor': 'gray.200',
 				'backgroundColor': 'transparent',
@@ -213,7 +226,7 @@ export default (
 		}
 	},
 	dark: {
-		input: {
+		group: {
 			default: {
 				'borderColor': 'gray.700',
 				'backgroundColor': 'transparent',

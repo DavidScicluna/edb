@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useCallback } from 'react';
 
 import {
 	ColorMode,
@@ -6,22 +6,31 @@ import {
 	useColorMode,
 	FormControl,
 	FormLabel,
+	InputGroup,
 	Input as CUIInput,
 	FormHelperText,
+	HStack,
+	Center,
 	Collapse
 } from '@chakra-ui/react';
 
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
+import { useElementSize } from 'usehooks-ts';
 
 import useStyles from './styles';
-import { InputProps } from './types';
+import { RenderProps, InputProps } from './types';
 
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
 
 const Input = (props: InputProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { colorMode: colorModeHook } = useColorMode();
+
+	const [inputLeftPanelRef, { width: inputLeftPanelWidth }] = useElementSize();
+	const [inputRef, { width: inputWidth, height: inputHeight }] = useElementSize();
+	const [inputRightPanelRef, { width: inputRightPanelWidth }] = useElementSize();
 
 	const {
 		autoComplete,
@@ -32,6 +41,8 @@ const Input = (props: InputProps): ReactElement => {
 		isDisabled = false,
 		isRequired = false,
 		isFullWidth = false,
+		renderInputLeftPanel,
+		renderInputRightPanel,
 		error,
 		size = 'md',
 		sx,
@@ -40,7 +51,38 @@ const Input = (props: InputProps): ReactElement => {
 
 	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
+	const renderProps: RenderProps = {
+		fontSize: size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'md',
+		width: inputWidth,
+		height: inputHeight
+	};
+
 	const style = useStyles(theme, { color, isDisabled, isFullWidth });
+
+	const handleReturnInputWidth = useCallback((): number => {
+		const hasLeft = !isNil(renderInputLeftPanel);
+		const hasRight = !isNil(renderInputRightPanel);
+
+		if (hasLeft || hasRight) {
+			let width = handleConvertREMToPixels(
+				handleConvertStringToNumber(
+					size === 'sm' ? theme.space[0.5] : size === 'md' ? theme.space[1] : theme.space[2],
+					'rem'
+				)
+			);
+
+			if (hasLeft) {
+				width = width + inputLeftPanelWidth;
+			}
+
+			if (hasRight) {
+				width = width + inputRightPanelWidth;
+			}
+
+			return width;
+		}
+		return 0;
+	}, [size, theme.space, renderInputLeftPanel, inputLeftPanelWidth, renderInputRightPanel, inputRightPanelWidth]);
 
 	return (
 		<FormControl id={name} isRequired={isRequired}>
@@ -59,19 +101,38 @@ const Input = (props: InputProps): ReactElement => {
 					{label}
 				</FormLabel>
 			) : null}
-			<CUIInput
-				{...rest}
-				autoComplete={autoComplete || 'off'}
-				isInvalid={!isNil(error)}
-				isRequired={isRequired}
-				isDisabled={isDisabled}
-				id={name}
-				name={name}
+
+			<HStack
+				as={InputGroup}
+				aria-invalid={!isNil(error)}
+				justifyContent='stretch'
+				spacing={size === 'sm' ? 0.5 : size === 'md' ? 1 : 2}
 				sx={{
-					...merge(style.input.default, style.input[size], style[colorMode].input.default, sx?.input || {})
+					...merge(style.group.default, style.group[size], style[colorMode].group.default, sx?.input || {})
 				}}
-				_invalid={{ ...merge(style[colorMode].input.invalid) }}
-			/>
+				_invalid={{ ...merge(style[colorMode].group.invalid) }}
+			>
+				{renderInputLeftPanel ? (
+					<Center ref={inputLeftPanelRef}>{renderInputLeftPanel({ ...renderProps })}</Center>
+				) : null}
+				<CUIInput
+					{...rest}
+					ref={inputRef}
+					width={`calc(100% - ${handleReturnInputWidth()}px)`}
+					autoComplete={autoComplete || 'off'}
+					isInvalid={!isNil(error)}
+					isRequired={isRequired}
+					isDisabled={isDisabled}
+					id={name}
+					name={name}
+					variant='unstyled'
+					sx={{ ...merge(style.input.default, style.input[size], sx?.input || {}) }}
+				/>
+				{renderInputRightPanel ? (
+					<Center ref={inputRightPanelRef}>{renderInputRightPanel({ ...renderProps })}</Center>
+				) : null}
+			</HStack>
+
 			<Collapse in={!isNil(error)} unmountOnExit>
 				<FormHelperText
 					sx={{

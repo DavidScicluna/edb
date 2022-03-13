@@ -1,9 +1,16 @@
+import { ReactNode } from 'react';
 import { ErrorOption } from 'react-hook-form';
 
 import { ColorMode, InputProps as CUIInputProps } from '@chakra-ui/react';
 
 import { Style } from '../../../common/types';
 import { Color } from '../../../theme/types';
+
+export type RenderProps = {
+	width: number;
+	height: number;
+	fontSize: 'xs' | 'sm' | 'md';
+};
 
 type AutoComplete = 'on' | 'password' | 'off';
 
@@ -16,6 +23,8 @@ export type InputProps = {
 	label?: string;
 	error?: ErrorOption;
 	isFullWidth?: boolean;
+	renderInputLeftPanel?: (props: RenderProps) => ReactNode;
+	renderInputRightPanel?: (props: RenderProps) => ReactNode;
 	size?: Size;
 	sx?: { input?: Style; formLabel?: Style; formHelperText?: Style };
 } & Omit<
