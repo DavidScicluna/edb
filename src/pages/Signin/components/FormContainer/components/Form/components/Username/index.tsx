@@ -17,6 +17,7 @@ const Username = ({ form }: Omit<UsernameProps, 'onSubmit'>): ReactElement => {
 					label='Username'
 					error={error}
 					name={name}
+					placeholder='johnsmith'
 					onChange={onChange}
 					isFullWidth
 					isRequired

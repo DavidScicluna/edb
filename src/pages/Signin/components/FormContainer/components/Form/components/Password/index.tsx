@@ -24,6 +24,7 @@ const Password = ({ form }: Omit<PasswordProps, 'onSubmit'>): ReactElement => {
 					label='Password'
 					error={error}
 					name={name}
+					placeholder={isPasswordVisible ? 'password' : '••••••••'}
 					onChange={onChange}
 					isFullWidth
 					isRequired
