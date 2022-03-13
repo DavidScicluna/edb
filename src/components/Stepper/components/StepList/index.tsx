@@ -107,6 +107,7 @@ const StepList = (props: StepListProps): ReactElement => {
 					<Cancel color={color} colorMode={colorMode} onCancel={onCancel} />
 					<Center width='calc(100% - 200px)'>
 						<HorizontalScroll
+							colorMode={colorMode}
 							isFullWidth
 							renderDivider={() => (
 								<Divider colorMode={colorMode} orientation='vertical' height={height} />

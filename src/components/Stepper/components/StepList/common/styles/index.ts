@@ -55,16 +55,16 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 	light: {
 		idle: {
 			'backgroundColor': 'gray.50',
-			'borderBottomColor': 'grey.200',
+			'borderBottomColor': 'gray.200',
 
 			'&:hover': {
 				backgroundColor: 'gray.100',
-				borderBottomColor: 'grey.300'
+				borderBottomColor: 'gray.200'
 			},
 
 			'&:active': {
 				backgroundColor: 'gray.200',
-				borderBottomColor: 'grey.400'
+				borderBottomColor: 'gray.200'
 			}
 		},
 		success: {
@@ -78,7 +78,7 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 
 			'&:active': {
 				backgroundColor: 'gray.200',
-				borderBottomColor: 'green.600'
+				borderBottomColor: 'green.500'
 			}
 		},
 		error: {
@@ -92,7 +92,7 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 
 			'&:active': {
 				backgroundColor: 'gray.200',
-				borderBottomColor: 'red.600'
+				borderBottomColor: 'red.500'
 			}
 		},
 		warning: {
@@ -106,7 +106,7 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 
 			'&:active': {
 				backgroundColor: 'gray.200',
-				borderBottomColor: 'yellow.600'
+				borderBottomColor: 'yellow.500'
 			}
 		},
 		active: {
@@ -120,23 +120,23 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 
 			'&:active': {
 				backgroundColor: 'gray.200',
-				borderBottomColor: `${color}.600`
+				borderBottomColor: `${color}.500`
 			}
 		}
 	},
 	dark: {
 		idle: {
 			'backgroundColor': 'gray.900',
-			'borderBottomColor': 'grey.700',
+			'borderBottomColor': 'gray.700',
 
 			'&:hover': {
 				backgroundColor: 'gray.800',
-				borderBottomColor: 'grey.600'
+				borderBottomColor: 'gray.700'
 			},
 
 			'&:active': {
 				backgroundColor: 'gray.700',
-				borderBottomColor: 'grey.500'
+				borderBottomColor: 'gray.700'
 			}
 		},
 		success: {
@@ -144,13 +144,13 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 			'borderBottomColor': 'green.400',
 
 			'&:hover': {
-				backgroundColor: 'gray.100',
+				backgroundColor: 'gray.800',
 				borderBottomColor: 'green.400'
 			},
 
 			'&:active': {
-				backgroundColor: 'gray.200',
-				borderBottomColor: 'green.300'
+				backgroundColor: 'gray.700',
+				borderBottomColor: 'green.400'
 			}
 		},
 		error: {
@@ -158,13 +158,13 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 			'borderBottomColor': 'red.400',
 
 			'&:hover': {
-				backgroundColor: 'gray.100',
+				backgroundColor: 'gray.800',
 				borderBottomColor: 'red.400'
 			},
 
 			'&:active': {
-				backgroundColor: 'gray.200',
-				borderBottomColor: 'red.300'
+				backgroundColor: 'gray.700',
+				borderBottomColor: 'red.400'
 			}
 		},
 		warning: {
@@ -172,13 +172,13 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 			'borderBottomColor': 'yellow.400',
 
 			'&:hover': {
-				backgroundColor: 'gray.100',
+				backgroundColor: 'gray.800',
 				borderBottomColor: 'yellow.400'
 			},
 
 			'&:active': {
-				backgroundColor: 'gray.200',
-				borderBottomColor: 'yellow.300'
+				backgroundColor: 'gray.700',
+				borderBottomColor: 'yellow.400'
 			}
 		},
 		active: {
@@ -186,13 +186,13 @@ export default (theme: Theme, { color }: StyleTabsProps): TabStyle => ({
 			'borderBottomColor': `${color}.400`,
 
 			'&:hover': {
-				backgroundColor: 'gray.100',
+				backgroundColor: 'gray.800',
 				borderBottomColor: `${color}.400`
 			},
 
 			'&:active': {
-				backgroundColor: 'gray.200',
-				borderBottomColor: `${color}.300`
+				backgroundColor: 'gray.700',
+				borderBottomColor: `${color}.400`
 			}
 		}
 	}

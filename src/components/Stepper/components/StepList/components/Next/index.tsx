@@ -11,12 +11,6 @@ import { Theme } from '../../../../../../theme/types';
 import Icon from '../../../../../Icon';
 import useStyles from '../../common/styles';
 
-const border = {
-	borderLeftWidth: '2px',
-	borderLeftStyle: 'solid',
-	borderLeftColor: 'gray.200'
-};
-
 const Next = (props: NextProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -30,7 +24,19 @@ const Next = (props: NextProps): ReactElement => {
 			aria-disabled={isDisabled}
 			width={isSm ? '50%' : height}
 			onClick={onNext ? () => onNext() : undefined}
-			sx={{ ...merge(style.step, style[colorMode].idle, !isSm ? border : {}) }}
+			sx={{
+				...merge(
+					style.step,
+					style[colorMode].idle,
+					!isSm
+						? {
+								borderRightWidth: '2px',
+								borderRightStyle: 'solid',
+								borderRightColor: `gray.${colorMode === 'light' ? 200 : 700}`
+						  }
+						: {}
+				)
+			}}
 			_disabled={{ ...merge(style.disabled) }}
 		>
 			<Icon

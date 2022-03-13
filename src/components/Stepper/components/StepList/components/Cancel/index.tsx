@@ -11,12 +11,6 @@ import { Theme } from '../../../../../../theme/types';
 import Icon from '../../../../../Icon';
 import useStyles from '../../common/styles';
 
-const border = {
-	borderRightWidth: '2px',
-	borderRightStyle: 'solid',
-	borderRightColor: 'gray.200'
-};
-
 const Cancel = (props: CancelProps): ReactElement => {
 	const theme = useTheme<Theme>();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -30,7 +24,19 @@ const Cancel = (props: CancelProps): ReactElement => {
 			aria-disabled={isDisabled}
 			width={isSm ? '50%' : height}
 			onClick={onCancel ? () => onCancel() : undefined}
-			sx={{ ...merge(style.step, style[colorMode].idle, !isSm ? border : {}) }}
+			sx={{
+				...merge(
+					style.step,
+					style[colorMode].idle,
+					!isSm
+						? {
+								borderRightWidth: '2px',
+								borderRightStyle: 'solid',
+								borderRightColor: `gray.${colorMode === 'light' ? 200 : 700}`
+						  }
+						: {}
+				)
+			}}
 			_disabled={{ ...merge(style.disabled) }}
 		>
 			<Icon icon='close' type='outlined' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='3xl' />
