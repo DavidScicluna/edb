@@ -8,15 +8,21 @@ import { FullPerson } from '../../../common/types/person';
 import { FullTV } from '../../../common/types/tv';
 import { Color } from '../../../theme/types';
 
+export type Credentials = {
+	username: string;
+	password: string;
+};
+
+export type InfoGenres = {
+	movie: Genre[];
+	tv: Genre[];
+};
+
 export type Info = {
 	name: string;
-	username: string;
 	bio?: string;
 	avatar_path?: string;
-	prefers?: {
-		movie?: Genre[];
-		tv?: Genre[];
-	};
+	prefers?: InfoGenres;
 };
 
 export type SearchType = MediaType | 'collection' | string;
@@ -73,17 +79,19 @@ export type UserReviews = {
 	other: OtherReview[];
 };
 
-export type Background = ColorMode | 'system';
+export type ThemeColor = keyof Omit<Color, 'gray' | 'red' | 'green' | 'yellow'>;
+export type ThemeColorMode = ColorMode | 'system';
 
 export type Theme = {
-	color: keyof Omit<Color, 'gray' | 'red'>;
-	background: Background;
+	color: ThemeColor;
+	colorMode: ThemeColorMode;
 };
 
 export type User = {
 	data: {
-		id: string;
-		info: Info;
+		id?: string;
+		credentials?: Credentials;
+		info?: Info;
 		recentSearches: Search[];
 		recentlyViewed: MediaItems;
 		liked: MediaItems;

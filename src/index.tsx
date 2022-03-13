@@ -11,7 +11,6 @@ import Container from './containers/Container';
 import store from './store';
 import theme from './theme';
 
-
 // Importing Main Font (Work-Sans)
 import '@fontsource/work-sans/100.css';
 import '@fontsource/work-sans/200.css';

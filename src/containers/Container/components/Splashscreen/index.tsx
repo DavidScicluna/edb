@@ -21,15 +21,15 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.app.data.user);
-	const background = useSelector(
+	const colorMode = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.ui.theme.background || defaultUser.ui.theme.background
+			getUser(state.users.data.users, state.app.data.user)?.ui.theme.colorMode || defaultUser.ui.theme.colorMode
 	);
 
 	const { isDarkMode } = useTernaryDarkMode();
 
 	useEffectOnce(() => {
-		if (background === 'system') {
+		if (colorMode === 'system') {
 			dispatch(toggleSplashscreen(true));
 
 			setColorMode(isDarkMode ? 'dark' : 'light');

@@ -81,9 +81,9 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 
 	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
-	const background = useSelector(
+	const colorMode = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.ui.theme.background || defaultUser.ui.theme.background
+			getUser(state.users.data.users, state.app.data.user)?.ui.theme.colorMode || defaultUser.ui.theme.colorMode
 	);
 	const isQuickViewOpen = useSelector((state) => state.modals.ui.quickViewModal.open);
 
@@ -101,7 +101,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 	}, [isLg]);
 
 	useUpdateEffect(() => {
-		if (background === 'system') {
+		if (colorMode === 'system') {
 			dispatch(toggleSplashscreen(true));
 
 			setColorMode(isDarkMode ? 'dark' : 'light');

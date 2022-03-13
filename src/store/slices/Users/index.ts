@@ -6,11 +6,6 @@ import { StateProps, UserAction, User, Info, Search, MediaItems, List, UserRevie
 
 export const defaultUser: User = {
 	data: {
-		id: uuid(),
-		info: {
-			name: 'Guest',
-			username: 'guest'
-		},
 		recentSearches: [],
 		recentlyViewed: {
 			movies: [],
@@ -46,8 +41,8 @@ export const defaultUser: User = {
 	},
 	ui: {
 		theme: {
-			color: 'blue',
-			background: 'light'
+			color: 'light_blue',
+			colorMode: 'light'
 		}
 	}
 };
