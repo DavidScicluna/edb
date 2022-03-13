@@ -2,8 +2,6 @@ import React, { ReactElement, useContext, useCallback } from 'react';
 
 import { useMediaQuery, Stack, HStack, Center } from '@chakra-ui/react';
 
-import { isNil } from 'lodash';
-
 import Cancel from './components/Cancel';
 import Next from './components/Next';
 import Step from './components/Step';
@@ -40,7 +38,7 @@ const StepList = (props: StepListProps): ReactElement => {
 	};
 
 	const handleChange = (index: number): void => {
-		if (onChange) {
+		if (onChange && activeStep !== index) {
 			onChange(index);
 		}
 	};
@@ -69,7 +67,12 @@ const StepList = (props: StepListProps): ReactElement => {
 		<Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={0}>
 			{isSm ? (
 				<>
-					<HStack width='100%' justifyContent='stretch' spacing={0}>
+					<HStack
+						width='100%'
+						justifyContent='stretch'
+						divider={<Divider colorMode={colorMode} orientation='vertical' height={height} />}
+						spacing={0}
+					>
 						<Cancel color={color} colorMode={colorMode} onCancel={onCancel} />
 						<Next
 							color={color}

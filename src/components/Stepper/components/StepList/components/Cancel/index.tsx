@@ -30,7 +30,7 @@ const Cancel = (props: CancelProps): ReactElement => {
 			aria-disabled={isDisabled}
 			width={isSm ? '50%' : height}
 			onClick={onCancel ? () => onCancel() : undefined}
-			sx={{ ...merge(style.step, style[colorMode].idle, border) }}
+			sx={{ ...merge(style.step, style[colorMode].idle, !isSm ? border : {}) }}
 			_disabled={{ ...merge(style.disabled) }}
 		>
 			<Icon icon='close' type='outlined' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='3xl' />

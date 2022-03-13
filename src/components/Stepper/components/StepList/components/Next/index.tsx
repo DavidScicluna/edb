@@ -30,7 +30,7 @@ const Next = (props: NextProps): ReactElement => {
 			aria-disabled={isDisabled}
 			width={isSm ? '50%' : height}
 			onClick={onNext ? () => onNext() : undefined}
-			sx={{ ...merge(style.step, style[colorMode].idle, border) }}
+			sx={{ ...merge(style.step, style[colorMode].idle, !isSm ? border : {}) }}
 			_disabled={{ ...merge(style.disabled) }}
 		>
 			<Icon
