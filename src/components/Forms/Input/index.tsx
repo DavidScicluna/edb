@@ -4,6 +4,7 @@ import {
 	ColorMode,
 	useTheme,
 	useColorMode,
+	useBoolean,
 	FormControl,
 	FormLabel,
 	InputGroup,
@@ -49,6 +50,8 @@ const Input = (props: InputProps): ReactElement => {
 		...rest
 	} = props;
 
+	const [isFocused, setIsFocused] = useBoolean();
+
 	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
 	const renderProps: RenderProps = {
@@ -64,7 +67,8 @@ const Input = (props: InputProps): ReactElement => {
 		const hasRight = !isNil(renderInputRightPanel);
 
 		if (hasLeft || hasRight) {
-			let width = handleConvertREMToPixels(
+			let width = 0;
+			const spacing = handleConvertREMToPixels(
 				handleConvertStringToNumber(
 					size === 'sm' ? theme.space[0.5] : size === 'md' ? theme.space[1] : theme.space[2],
 					'rem'
@@ -72,11 +76,11 @@ const Input = (props: InputProps): ReactElement => {
 			);
 
 			if (hasLeft) {
-				width = width + inputLeftPanelWidth;
+				width = width + inputLeftPanelWidth + spacing;
 			}
 
 			if (hasRight) {
-				width = width + inputRightPanelWidth;
+				width = width + inputRightPanelWidth + spacing;
 			}
 
 			return width;
@@ -108,9 +112,17 @@ const Input = (props: InputProps): ReactElement => {
 				justifyContent='stretch'
 				spacing={size === 'sm' ? 0.5 : size === 'md' ? 1 : 2}
 				sx={{
-					...merge(style.group.default, style.group[size], style[colorMode].group.default, sx?.input || {})
+					...merge(
+						style.group.default,
+						style.group[size],
+						style[colorMode].group.default,
+						isFocused ? style[colorMode].group.focus.default : {},
+						sx?.group || {}
+					)
 				}}
-				_invalid={{ ...merge(style[colorMode].group.invalid) }}
+				_invalid={{
+					...merge(style[colorMode].group.invalid, isFocused ? style[colorMode].group.focus.invalid : {})
+				}}
 			>
 				{renderInputLeftPanel ? (
 					<Center ref={inputLeftPanelRef}>{renderInputLeftPanel({ ...renderProps })}</Center>
@@ -125,6 +137,8 @@ const Input = (props: InputProps): ReactElement => {
 					isDisabled={isDisabled}
 					id={name}
 					name={name}
+					onFocus={() => setIsFocused.on()}
+					onBlur={() => setIsFocused.off()}
 					variant='unstyled'
 					sx={{ ...merge(style.input.default, style.input[size], sx?.input || {}) }}
 				/>

@@ -26,7 +26,7 @@ export type InputProps = {
 	renderInputLeftPanel?: (props: RenderProps) => ReactNode;
 	renderInputRightPanel?: (props: RenderProps) => ReactNode;
 	size?: Size;
-	sx?: { input?: Style; formLabel?: Style; formHelperText?: Style };
+	sx?: { group?: Style; input?: Style; formLabel?: Style; formHelperText?: Style };
 } & Omit<
 	CUIInputProps,
 	'autoComplete' | 'colorScheme' | 'errorBorderColor' | 'focusBorderColor' | 'isInvalid' | 'size' | 'variant' | 'sx'

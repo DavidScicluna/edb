@@ -7,6 +7,8 @@ type SizeStyle = { [key in Size]: Style };
 
 type InvalidStyle = { invalid: Style };
 
+type FocusStyle<S> = { focus: S };
+
 type DefaultStyle = { default: Style };
 
 type InputStyle = {
@@ -15,12 +17,12 @@ type InputStyle = {
 	formLabel: DefaultStyle & SizeStyle;
 	formHelperText: DefaultStyle & SizeStyle;
 	light: {
-		group: DefaultStyle & InvalidStyle;
+		group: DefaultStyle & InvalidStyle & FocusStyle<DefaultStyle & InvalidStyle>;
 		formLabel: DefaultStyle & InvalidStyle;
 		formHelperText: Style;
 	};
 	dark: {
-		group: DefaultStyle & InvalidStyle;
+		group: DefaultStyle & InvalidStyle & FocusStyle<DefaultStyle & InvalidStyle>;
 		formLabel: DefaultStyle & InvalidStyle;
 		formHelperText: Style;
 	};
@@ -187,12 +189,6 @@ export default (
 					borderColor: isDisabled ? 'gray.200' : `${color}.500`,
 					backgroundColor: 'transparent',
 					color: isDisabled ? 'gray.400' : `${color}.500`
-				},
-
-				'&:focus': {
-					borderColor: isDisabled ? 'gray.200' : `${color}.500`,
-					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.400' : `${color}.500`
 				}
 			},
 			invalid: {
@@ -204,9 +200,16 @@ export default (
 					borderColor: isDisabled ? 'gray.200' : 'red.500',
 					backgroundColor: 'transparent',
 					color: isDisabled ? 'gray.400' : 'red.600'
+				}
+			},
+			focus: {
+				default: {
+					borderColor: isDisabled ? 'gray.200' : `${color}.500`,
+					backgroundColor: 'transparent',
+					color: isDisabled ? 'gray.400' : `${color}.500`
 				},
 
-				'&:focus': {
+				invalid: {
 					borderColor: isDisabled ? 'gray.200' : 'red.600',
 					backgroundColor: 'transparent',
 					color: isDisabled ? 'gray.400' : 'red.600'
@@ -236,12 +239,6 @@ export default (
 					borderColor: isDisabled ? 'gray.700' : `${color}.400`,
 					backgroundColor: 'transparent',
 					color: isDisabled ? 'gray.500' : `${color}.400`
-				},
-
-				'&:focus': {
-					borderColor: isDisabled ? 'gray.700' : `${color}.400`,
-					backgroundColor: 'transparent',
-					color: isDisabled ? 'gray.500' : `${color}.400`
 				}
 			},
 			invalid: {
@@ -253,9 +250,16 @@ export default (
 					borderColor: isDisabled ? 'gray.700' : 'red.300',
 					backgroundColor: 'transparent',
 					color: isDisabled ? 'gray.500' : 'red.300'
+				}
+			},
+			focus: {
+				default: {
+					borderColor: isDisabled ? 'gray.700' : `${color}.400`,
+					backgroundColor: 'transparent',
+					color: isDisabled ? 'gray.500' : `${color}.400`
 				},
 
-				'&:focus': {
+				invalid: {
 					borderColor: isDisabled ? 'gray.700' : 'red.300',
 					backgroundColor: 'transparent',
 					color: isDisabled ? 'gray.500' : 'red.300'
