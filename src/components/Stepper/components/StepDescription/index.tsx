@@ -1,24 +1,37 @@
 import React, { ReactElement, useContext } from 'react';
 
-import { VStack, Text } from '@chakra-ui/react';
+import { useTheme, VStack, Text } from '@chakra-ui/react';
 
 import { StepDescriptionProps } from './types';
 
 import { StepperContext } from '../..';
+import { Theme } from '../../../../theme/types';
 import { StepperContext as StepperContextType } from '../../types';
 
 const StepDescription = (props: StepDescriptionProps): ReactElement => {
+	const theme = useTheme<Theme>();
+
 	const { color, colorMode } = useContext<StepperContextType>(StepperContext);
 
 	const { index, total, title, subtitle } = props;
 
 	return (
-		<VStack width='100%' alignItems='flex-start' spacing={0.5}>
+		<VStack
+			width='100%'
+			alignItems='flex-start'
+			spacing={0.5}
+			sx={{
+				'& *': {
+					transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']} !important`
+				}
+			}}
+		>
 			<Text
 				width='100%'
 				align='left'
 				color={`${color}.${colorMode === 'light' ? 500 : 400}`}
 				fontSize='md'
+				fontWeight='semibold'
 				lineHeight='normal'
 				isTruncated
 				overflow='hidden'

@@ -1,5 +1,6 @@
-import { StackProps } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+
+import { StackProps } from '@chakra-ui/react';
 
 import { Step } from '../StepList/components/Step/types';
 

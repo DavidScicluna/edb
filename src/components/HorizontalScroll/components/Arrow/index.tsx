@@ -35,7 +35,11 @@ const Arrow = (props: ArrowProps): ReactElement => {
 			left={direction === 'left' ? 0 : undefined}
 			right={direction === 'right' ? 0 : undefined}
 			zIndex={5}
-			sx={{ ...merge({ top: '50%', transform: 'translateY(-50%)' }) }}
+			sx={{
+				top: '50%',
+				transform: 'translateY(-50%)',
+				transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+			}}
 			_after={
 				direction === 'left'
 					? {
