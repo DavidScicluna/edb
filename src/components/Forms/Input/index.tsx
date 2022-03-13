@@ -1,4 +1,4 @@
-import { ReactElement, useCallback } from 'react';
+import { ReactElement, FocusEvent, useCallback } from 'react';
 
 import {
 	ColorMode,
@@ -44,6 +44,7 @@ const Input = (props: InputProps): ReactElement => {
 		isFullWidth = false,
 		renderInputLeftPanel,
 		renderInputRightPanel,
+		onBlur,
 		error,
 		size = 'md',
 		sx,
@@ -87,6 +88,14 @@ const Input = (props: InputProps): ReactElement => {
 		}
 		return 0;
 	}, [size, theme.space, renderInputLeftPanel, inputLeftPanelWidth, renderInputRightPanel, inputRightPanelWidth]);
+
+	const handleBlur = (event: FocusEvent<HTMLInputElement, Element>): void => {
+		setIsFocused.off();
+
+		if (onBlur) {
+			onBlur(event);
+		}
+	};
 
 	return (
 		<FormControl id={name} isRequired={isRequired}>
@@ -138,7 +147,7 @@ const Input = (props: InputProps): ReactElement => {
 					id={name}
 					name={name}
 					onFocus={() => setIsFocused.on()}
-					onBlur={() => setIsFocused.off()}
+					onBlur={(event) => handleBlur(event)}
 					variant='unstyled'
 					sx={{ ...merge(style.input.default, style.input[size], sx?.input || {}) }}
 				/>

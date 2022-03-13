@@ -111,6 +111,8 @@ export default (
 			fontWeight: 'medium',
 			textTransform: 'uppercase',
 			whiteSpace: 'nowrap',
+			overflow:'hidden',
+			textOverflow:'ellipses',
 			lineHeight: 'normal',
 
 			margin: 0,
@@ -140,6 +142,8 @@ export default (
 			fontWeight: 'medium',
 			textTransform: 'uppercase',
 			whiteSpace: 'nowrap',
+			overflow: 'hidden',
+			textOverflow: 'ellipses',
 			lineHeight: 'normal',
 
 			m: 0,
