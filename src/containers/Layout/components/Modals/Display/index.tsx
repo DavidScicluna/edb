@@ -2,18 +2,16 @@ import { ReactElement } from 'react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { ColorMode, useColorMode, useMediaQuery, VStack } from '@chakra-ui/react';
+import { ColorMode, useColorMode, useMediaQuery } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-
-import Background from './components/Background';
-import Color from './components/Color';
 
 import { useSelector } from '../../../../../common/hooks';
 import { handleCheckSystemColorMode } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
+import Customization from '../../../../../pages/Register/components/Customization';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
 import { defaultUser, getUser, setUserTheme } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../store/slices/Users/types';
@@ -32,9 +30,9 @@ const Display = (): ReactElement => {
 
 	const form = useForm<Theme>({ defaultValues: { ...theme } });
 	const color = form.watch('color');
-	const background = form.watch('background');
+	const formColorMode = form.watch('colorMode');
 
-	const colorMode: ColorMode = background === 'system' ? handleCheckSystemColorMode() : background;
+	const colorMode: ColorMode = formColorMode === 'system' ? handleCheckSystemColorMode() : formColorMode;
 
 	const { isDirty, dirtyFields } = useFormState({ control: form.control });
 
@@ -46,9 +44,9 @@ const Display = (): ReactElement => {
 
 		form.reset({ ...newTheme });
 
-		if (dirtyFields.background) {
-			if (newTheme.background !== 'system') {
-				setColorMode(newTheme.background);
+		if (dirtyFields.colorMode) {
+			if (newTheme.colorMode !== 'system') {
+				setColorMode(newTheme.colorMode);
 			} else {
 				setColorMode(handleCheckSystemColorMode());
 			}
@@ -83,10 +81,7 @@ const Display = (): ReactElement => {
 			isCentered
 			size={isSm ? 'full' : '3xl'}
 		>
-			<VStack spacing={2} p={2}>
-				<Color form={form} />
-				<Background form={form} />
-			</VStack>
+			<Customization form={form} />
 		</Modal>
 	);
 };
