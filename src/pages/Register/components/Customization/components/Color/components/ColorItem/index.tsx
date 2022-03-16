@@ -54,7 +54,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 							alignItems: 'center',
 							justifyContent: 'center',
 
-							backgroundColor: `${color}.400`,
+							backgroundColor: `${color}.${colorMode === 'light' ? 500 : 400}`,
 							borderRadius: 'full'
 						}}
 					>
