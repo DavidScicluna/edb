@@ -2,7 +2,11 @@ import { ReactElement } from 'react';
 
 import { VerticalPersonPosterProps } from './types';
 
+import { handleReturnImageSize } from '../../../../../common/utils';
 import VerticalPoster from '../../../../../components/Poster/Vertical';
+
+const thumbnail = handleReturnImageSize('profile', 'thumbnail');
+const full = handleReturnImageSize('profile', 'full');
 
 const VerticalPersonPoster = (props: VerticalPersonPosterProps): ReactElement => {
 	const { person, width, isLoading = true } = props;
@@ -16,10 +20,7 @@ const VerticalPersonPoster = (props: VerticalPersonPosterProps): ReactElement =>
 			image={{
 				alt: `${name || ''} person poster`,
 				src: profile_path || '',
-				size: {
-					thumbnail: 'w45',
-					full: 'original'
-				}
+				size: { thumbnail, full }
 			}}
 			title={name || ''}
 			subtitle={known_for_department || ''}

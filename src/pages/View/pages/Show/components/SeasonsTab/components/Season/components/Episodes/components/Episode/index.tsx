@@ -14,6 +14,7 @@ import Name from './components/Name';
 import Overview from './components/Overview';
 import { EpisodeProps } from './types';
 
+import { handleReturnImageSize } from '../../../../../../../../../../../../common/utils';
 import Badge from '../../../../../../../../../../../../components/Badge';
 import Card from '../../../../../../../../../../../../components/Clickable/Card';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
@@ -21,6 +22,9 @@ import Rating from '../../../../../../../../../../../../components/Rating';
 import { FontSizes } from '../../../../../../../../../../../../theme/types';
 
 dayjs.extend(isSameOrAfter);
+
+const thumbnail = handleReturnImageSize('still', 'thumbnail');
+const full = handleReturnImageSize('still', 'full');
 
 const Episode = (props: EpisodeProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -67,10 +71,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
 						image={{
 							alt: `${name ? `"${name}" episode` : 'Episode'} poster`,
 							src: still_path || '',
-							size: {
-								thumbnail: 'w92',
-								full: 'original'
-							}
+							size: { thumbnail, full }
 						}}
 						isLoading={isLoading}
 						inView={inView}

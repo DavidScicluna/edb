@@ -7,6 +7,7 @@ import range from 'lodash/range';
 import { CastProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
+import { handleReturnImageSize } from '../../../../../../../../common/utils';
 import Button from '../../../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
@@ -15,6 +16,9 @@ import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 
 const width = ['185px', '205px', '230px'];
+
+const thumbnail = handleReturnImageSize('profile', 'thumbnail');
+const full = handleReturnImageSize('profile', 'full');
 
 const Cast = (props: CastProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -65,10 +69,7 @@ const Cast = (props: CastProps): ReactElement => {
 							image={{
 								alt: `${person?.name || ''} person poster`,
 								src: person?.profile_path || '',
-								size: {
-									thumbnail: 'w45',
-									full: 'original'
-								}
+								size: { thumbnail, full }
 							}}
 							title={person?.name || ''}
 							subtitle={person.character ? `As ${person.character}` : ''}

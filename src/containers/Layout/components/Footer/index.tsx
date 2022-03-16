@@ -47,6 +47,28 @@ const Footer = (): ReactElement => {
 					fontSize='md'
 					fontWeight='medium'
 				>
+					{'Powered by'}{' '}
+					<Link
+						color={`gray.${colorMode === 'light' ? 400 : 500}`}
+						fontWeight='semibold'
+						href='https://www.themoviedb.org/'
+						isExternal
+						sx={{
+							transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
+						}}
+						_focus={{ boxShadow: 'none', color: `${color}.${colorMode === 'light' ? 600 : 300}` }}
+						_hover={{ color: `${color}.${colorMode === 'light' ? 500 : 400}` }}
+					>
+						themoviedb
+					</Link>
+				</Text>
+
+				<Text
+					align='center'
+					color={`gray.${colorMode === 'light' ? 400 : 500}`}
+					fontSize='md'
+					fontWeight='medium'
+				>
 					{`© ${dayjs().format('YYYY')} EDB, All rights reserved.`}
 				</Text>
 

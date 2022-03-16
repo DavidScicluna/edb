@@ -3,7 +3,11 @@ import { ReactElement } from 'react';
 import { VerticalCompanyPosterProps } from './types';
 
 import { useSelector } from '../../../../../../../../../common/hooks';
+import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import VerticalPoster from '../../../../../../../../../components/Poster/Vertical';
+
+const thumbnail = handleReturnImageSize('logo', 'thumbnail');
+const full = handleReturnImageSize('logo', 'full');
 
 const VerticalCompanyPoster = (props: VerticalCompanyPosterProps): ReactElement => {
 	const { company, width, isLoading = true } = props;
@@ -19,10 +23,7 @@ const VerticalCompanyPoster = (props: VerticalCompanyPosterProps): ReactElement 
 			image={{
 				alt: `${name || ''} company poster`,
 				src: logo_path || '',
-				size: {
-					thumbnail: 'w45',
-					full: 'original'
-				}
+				size: { full, thumbnail }
 			}}
 			title={name || ''}
 			subtitle={countries.find((country) => country.iso_3166_1 === origin_country)?.english_name || ''}

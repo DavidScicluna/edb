@@ -6,8 +6,11 @@ import isNil from 'lodash/isNil';
 
 import { HorizontalMoviePosterProps } from './types';
 
-import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
+import { handleReturnDate, handleReturnGenresByID, handleReturnImageSize } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';
+
+const thumbnail = handleReturnImageSize('poster', 'thumbnail');
+const full = handleReturnImageSize('poster', 'full');
 
 const HorizontalMoviePoster = (props: HorizontalMoviePosterProps): ReactElement => {
 	const { movie, isLoading = true } = props;
@@ -20,10 +23,7 @@ const HorizontalMoviePoster = (props: HorizontalMoviePosterProps): ReactElement 
 			image={{
 				alt: `${title || ''} movie poster`,
 				src: poster_path || '',
-				size: {
-					thumbnail: 'w92',
-					full: 'original'
-				}
+				size: { thumbnail, full }
 			}}
 			rating={{
 				rating: vote_average || null,

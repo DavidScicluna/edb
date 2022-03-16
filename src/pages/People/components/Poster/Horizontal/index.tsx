@@ -4,7 +4,11 @@ import sort from 'array-sort';
 
 import { HorizontalPersonPosterProps } from './types';
 
+import { handleReturnImageSize } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';
+
+const thumbnail = handleReturnImageSize('profile', 'thumbnail');
+const full = handleReturnImageSize('profile', 'full');
 
 const HorizontalPersonPoster = (props: HorizontalPersonPosterProps): ReactElement => {
 	const { person, isLoading = true } = props;
@@ -17,10 +21,7 @@ const HorizontalPersonPoster = (props: HorizontalPersonPosterProps): ReactElemen
 			image={{
 				alt: `${name || ''} person poster`,
 				src: profile_path || '',
-				size: {
-					thumbnail: 'w45',
-					full: 'original'
-				}
+				size: { thumbnail, full }
 			}}
 			title={name || ''}
 			subtitle={known_for_department || ''}

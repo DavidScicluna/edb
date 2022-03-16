@@ -9,7 +9,7 @@ import isNil from 'lodash/isNil';
 import { MoviesProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';
-import { handleReturnDate } from '../../../../../../../../../../common/utils';
+import { handleReturnDate, handleReturnImageSize } from '../../../../../../../../../../common/utils';
 import LoadMore from '../../../../../../../../../../components/Clickable/LoadMore';
 import VerticalGrid from '../../../../../../../../../../components/Grid/Vertical';
 import HorizontalPoster from '../../../../../../../../../../components/Poster/Horizontal';
@@ -18,6 +18,9 @@ import { defaultUser, getUser } from '../../../../../../../../../../store/slices
 import { Movie } from '../../types';
 
 const incrementBy = 20;
+
+const thumbnail = handleReturnImageSize('poster', 'thumbnail');
+const full = handleReturnImageSize('poster', 'full');
 
 const Movies = ({ movies, job, label }: MoviesProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -43,10 +46,7 @@ const Movies = ({ movies, job, label }: MoviesProps): ReactElement => {
 									image={{
 										alt: `${movie?.title || ''} movie poster`,
 										src: movie?.poster_path || '',
-										size: {
-											thumbnail: 'w92',
-											full: 'original'
-										}
+										size: { thumbnail, full }
 									}}
 									rating={movie?.vote_average || null}
 									title={movie?.title || ''}

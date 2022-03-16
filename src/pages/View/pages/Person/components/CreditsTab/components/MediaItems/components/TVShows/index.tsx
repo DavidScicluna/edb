@@ -9,7 +9,7 @@ import isNil from 'lodash/isNil';
 import { TVShowsProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';
-import { handleReturnDate } from '../../../../../../../../../../common/utils';
+import { handleReturnDate, handleReturnImageSize } from '../../../../../../../../../../common/utils';
 import LoadMore from '../../../../../../../../../../components/Clickable/LoadMore';
 import VerticalGrid from '../../../../../../../../../../components/Grid/Vertical';
 import HorizontalPoster from '../../../../../../../../../../components/Poster/Horizontal';
@@ -18,6 +18,9 @@ import { defaultUser, getUser } from '../../../../../../../../../../store/slices
 import { Show } from '../../types';
 
 const incrementBy = 20;
+
+const thumbnail = handleReturnImageSize('poster', 'thumbnail');
+const full = handleReturnImageSize('poster', 'full');
 
 const TVShows = ({ shows, label, job }: TVShowsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -43,10 +46,7 @@ const TVShows = ({ shows, label, job }: TVShowsProps): ReactElement => {
 									image={{
 										alt: `${show?.name || ''} tv show poster`,
 										src: show?.poster_path || '',
-										size: {
-											thumbnail: 'w92',
-											full: 'original'
-										}
+										size: { thumbnail, full }
 									}}
 									rating={show?.vote_average || null}
 									title={show?.name || ''}

@@ -2,7 +2,11 @@ import { ReactElement } from 'react';
 
 import { HorizontalCollectionPosterProps } from './types';
 
+import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import HorizontalPoster from '../../../../../../../../../components/Poster/Horizontal';
+
+const thumbnail = handleReturnImageSize('poster', 'thumbnail');
+const full = handleReturnImageSize('poster', 'full');
 
 const HorizontalCollectionPoster = (props: HorizontalCollectionPosterProps): ReactElement => {
 	const { collection, isLoading = true } = props;
@@ -15,10 +19,7 @@ const HorizontalCollectionPoster = (props: HorizontalCollectionPosterProps): Rea
 			image={{
 				alt: `${name || ''} collection poster`,
 				src: poster_path || '',
-				size: {
-					thumbnail: 'w92',
-					full: 'original'
-				}
+				size: { thumbnail, full }
 			}}
 			title={name || ''}
 			subtitle={overview || ''}

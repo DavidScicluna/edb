@@ -6,8 +6,11 @@ import isNil from 'lodash/isNil';
 
 import { VerticalMoviePosterProps } from './types';
 
-import { handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
+import { handleReturnDate, handleReturnGenresByID, handleReturnImageSize } from '../../../../../common/utils';
 import VerticalPoster from '../../../../../components/Poster/Vertical';
+
+const thumbnail = handleReturnImageSize('poster', 'thumbnail');
+const full = handleReturnImageSize('poster', 'full');
 
 const VerticalMoviePoster = (props: VerticalMoviePosterProps): ReactElement => {
 	const { movie, width, isLoading = true } = props;
@@ -21,10 +24,7 @@ const VerticalMoviePoster = (props: VerticalMoviePosterProps): ReactElement => {
 			image={{
 				alt: `${title || ''} movie poster`,
 				src: poster_path || '',
-				size: {
-					thumbnail: 'w92',
-					full: 'original'
-				}
+				size: { thumbnail, full }
 			}}
 			rating={vote_average || null}
 			title={title || ''}

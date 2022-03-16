@@ -8,6 +8,7 @@ import range from 'lodash/range';
 import { CrewProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
+import { handleReturnImageSize } from '../../../../../../common/utils';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
@@ -17,6 +18,9 @@ import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { handleReturnPersonJobLabel } from '../../common/utils';
 
 const incrementBy = 15;
+
+const thumbnail = handleReturnImageSize('profile', 'thumbnail');
+const full = handleReturnImageSize('profile', 'full');
 
 const Crew = (props: CrewProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -54,10 +58,7 @@ const Crew = (props: CrewProps): ReactElement => {
 										image={{
 											alt: `${person?.name || ''} person poster`,
 											src: person?.profile_path || '',
-											size: {
-												thumbnail: 'w45',
-												full: 'original'
-											}
+											size: { thumbnail, full }
 										}}
 										title={person?.name || ''}
 										subtitle={

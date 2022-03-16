@@ -2,7 +2,11 @@ import { ReactElement } from 'react';
 
 import { VerticalCollectionPosterProps } from './types';
 
+import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import VerticalPoster from '../../../../../../../../../components/Poster/Vertical';
+
+const thumbnail = handleReturnImageSize('poster', 'thumbnail');
+const full = handleReturnImageSize('poster', 'full');
 
 const VerticalCollectionPoster = (props: VerticalCollectionPosterProps): ReactElement => {
 	const { collection, width, isLoading = true } = props;
@@ -16,10 +20,7 @@ const VerticalCollectionPoster = (props: VerticalCollectionPosterProps): ReactEl
 			image={{
 				alt: `${name || ''} collection poster`,
 				src: poster_path || '',
-				size: {
-					thumbnail: 'w92',
-					full: 'original'
-				}
+				size: { thumbnail, full }
 			}}
 			title={name || ''}
 			subtitle={overview || ''}
