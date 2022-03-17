@@ -3,7 +3,7 @@ import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import { ColorMode, useTheme, useDisclosure, Center, Container } from '@chakra-ui/react';
+import { ColorMode, useTheme, useColorMode, useDisclosure, Center, Container } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import sha256 from 'crypto-js/sha256';
@@ -69,6 +69,7 @@ const defaultSteps: Step[] = [
 
 const Register = (): ReactElement => {
 	const theme = useTheme<Theme>();
+	const { colorMode: colorModeHook } = useColorMode();
 
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
@@ -104,7 +105,7 @@ const Register = (): ReactElement => {
 	const customizationForm = useForm<CustomizationForm>({
 		mode: 'onTouched',
 		reValidateMode: 'onChange',
-		defaultValues: customizationDefaultValues
+		defaultValues: { ...customizationDefaultValues, colorMode: colorModeHook }
 	});
 
 	const color = customizationForm.watch('color');
