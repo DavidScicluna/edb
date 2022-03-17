@@ -11,7 +11,7 @@ import { useSelector } from '../../../../../common/hooks';
 import { handleCheckSystemColorMode } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
-import Customization from '../../../../../pages/Register/components/Customization';
+import Customization from '../../../../../pages/Authentication/Register/components/Customization';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';
 import { defaultUser, getUser, setUserTheme } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../store/slices/Users/types';

@@ -27,7 +27,7 @@ const Lists = lazy(() => import('../../pages/User/pages/Lists'));
 const Collection = lazy(() => import('../../pages/View/pages/Collection'));
 const Episode = lazy(() => import('../../pages/View/pages/Episode'));
 const Signin = lazy(() => import('../../pages/Signin'));
-const Register = lazy(() => import('../../pages/Register'));
+const Register = lazy(() => import('../../pages/Authentication/Register'));
 const Movie = lazy(() => import('../../pages/View/pages/Movie'));
 const Person = lazy(() => import('../../pages/View/pages/Person'));
 const Show = lazy(() => import('../../pages/View/pages/Show'));
