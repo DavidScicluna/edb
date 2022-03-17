@@ -1,117 +1,70 @@
 import { ReactElement, useEffect } from 'react';
-import { useIsFetching, useIsMutating } from 'react-query';
-import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import {
-	useColorMode,
-	useDisclosure,
-	Avatar,
-	Popover,
-	PopoverTrigger,
-	Portal,
-	PopoverContent,
-	VStack,
-	HStack,
-	Text,
-	Box
-} from '@chakra-ui/react';
+import { useColorMode, useBoolean, Popover, PopoverTrigger, Portal, PopoverContent, VStack } from '@chakra-ui/react';
 
-import Icon from '../../../../../../components/Icon';
-import NavItem from '../../../../../../components/NavItem';
-import { NavItem as NavItemType } from '../../../../../../components/NavItem/types';
-import { toggleDisplay } from '../../../../../../store/slices/Modals';
+import Actions from './components/Actions';
+import Footer from './components/Footer';
+import Header from './components/Header';
+
+import { useSelector } from '../../../../../../common/hooks';
+import Avatar from '../../../../../../components/Avatar';
+import Button from '../../../../../../components/Clickable/Button';
+import Divider from '../../../../../../components/Divider';
+import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 
 const User = (): ReactElement => {
 	const { colorMode } = useColorMode();
-	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const dispatch = useDispatch();
+	const user = useSelector((state) => getUser(state.users.data.users, state.app.data.user) || defaultUser);
 
 	const location = useLocation();
 
-	const isFetching = useIsFetching();
-	const isMutating = useIsMutating();
+	const [isOpen, setIsOpen] = useBoolean();
 
-	const userLinks: NavItemType[] = [
-		{
-			renderIcon: ({ isActive, fontSize }) => (
-				<Icon icon={isActive ? 'favorite' : 'favorite_border'} type='outlined' fontSize={fontSize} />
-			),
-			label: 'Liked',
-			path: '/liked'
-		},
-		{
-			renderIcon: ({ isActive, fontSize }) => (
-				<Icon icon={isActive ? 'bookmark' : 'bookmark_border'} type='outlined' fontSize={fontSize} />
-			),
-			label: 'Lists',
-			path: '/lists'
-		},
-		{
-			renderIcon: ({ isActive, fontSize }) => (
-				<Icon icon='palette' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
-			),
-			label: 'Display',
-			onClick: () => dispatch(toggleDisplay(true))
-		}
-	];
-
-	useEffect(() => onClose(), [location]);
+	useEffect(() => setIsOpen.off(), [location]);
 
 	return (
-		<Popover isOpen={isOpen} placement='bottom-end' gutter={12} onOpen={onOpen} onClose={onClose}>
-			<PopoverTrigger>
-				<Avatar cursor='pointer' name='Test User' size='md' />
-			</PopoverTrigger>
-			<Portal>
-				<PopoverContent
-					width='auto'
-					minWidth='225px'
-					border='solid2'
-					borderColor={`gray.${colorMode === 'light' ? 200 : 700}`}
-					borderRadius='lg'
-					backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}
-					boxShadow='none'
-					p={2}
-					sx={{
-						'&:focus': {
-							boxShadow: 'none'
-						}
-					}}
-				>
-					<VStack width='100%' spacing={2}>
-						<HStack width='100%' justifyContent='flex-start' spacing={1}>
-							<Avatar cursor='pointer' name='Test User' size='md' />
-							<Text
-								align='left'
-								color={`gray.${colorMode === 'light' ? 900 : 50}`}
-								fontSize='md'
-								fontWeight='semibold'
-							>
-								Test User
-							</Text>
-						</HStack>
-						<Box
-							width='100%'
-							height='2px'
-							border='solid1'
-							borderColor={`gray.${colorMode === 'light' ? 200 : 700}`}
+		<>
+			<Popover isOpen={isOpen} placement='bottom-end' gutter={8} onClose={() => setIsOpen.off()}>
+				<PopoverTrigger>
+					<Button onClick={() => setIsOpen.toggle()} size='sm' variant='text' sx={{ front: { p: 0.5 } }}>
+						<Avatar
+							alt={user.data.info?.name || 'User'}
+							borderRadius='full'
+							cursor='pointer'
+							src={user.data.info?.avatar_path || ''}
 						/>
-						<VStack width='100%' spacing={1}>
-							{userLinks.map((userLink) => (
-								<NavItem
-									key={userLink.label}
-									{...userLink}
-									isExpanded
-									isDisabled={isFetching > 0 || isMutating > 0}
-								/>
-							))}
+					</Button>
+				</PopoverTrigger>
+				<Portal>
+					<PopoverContent
+						width='auto'
+						minWidth='275px'
+						borderWidth='2px'
+						borderStyle='solid'
+						borderColor={`gray.${colorMode === 'light' ? 200 : 700}`}
+						borderRadius='lg'
+						backgroundColor={`gray.${colorMode === 'light' ? 50 : 900}`}
+						boxShadow='2xl'
+						p={2}
+						_focus={{ boxShadow: 'none' }}
+					>
+						<VStack width='100%' divider={<Divider />} spacing={2}>
+							<Header
+								avatar_path={user.data.info?.avatar_path}
+								name={user.data.info?.name || 'Name'}
+								username={user.data.credentials?.username || 'username'}
+							/>
+
+							<Actions />
+
+							<Footer />
 						</VStack>
-					</VStack>
-				</PopoverContent>
-			</Portal>
-		</Popover>
+					</PopoverContent>
+				</Portal>
+			</Popover>
+		</>
 	);
 };
 

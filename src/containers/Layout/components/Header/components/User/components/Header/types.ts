@@ -1,0 +1,3 @@
+import { Credentials, Info } from '../../../../../../../../store/slices/Users/types';
+
+export type HeaderProps = Omit<Credentials, 'password'> & Omit<Info, 'bio' | 'background_path' | 'prefers'>;
