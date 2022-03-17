@@ -9,7 +9,6 @@ import { SkeletonTextProps } from './types';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
 import Skeleton from '../../Skeleton';
-import commonProps from '../common/props';
 
 const SkeletonText = (props: SkeletonTextProps): ReactElement => {
 	const theme = useTheme<Theme>();
@@ -27,7 +26,7 @@ const SkeletonText = (props: SkeletonTextProps): ReactElement => {
 	};
 
 	return (
-		<Skeleton {...rest} {...commonProps} isLoaded={isLoaded} height={height || 'auto'} type='text'>
+		<Skeleton {...rest} isLoaded={isLoaded} height={height || 'auto'} type='text'>
 			<SlideFade
 				in={isLoaded}
 				offsetY={handleReturnOffsetY()}

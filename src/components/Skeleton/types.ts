@@ -177,7 +177,5 @@ export type SkeletonProps = {
 	| 'endColor'
 	| 'fadeDuration'
 	| 'size'
-	| 'speed'
-	| 'startColor'
 	| 'startColor'
 >;
