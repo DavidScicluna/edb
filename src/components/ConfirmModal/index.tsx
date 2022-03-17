@@ -7,11 +7,17 @@ import { ConfirmModalProps } from './types';
 import Modal from '../Modal';
 
 const ConfirmModal = (props: ConfirmModalProps): ReactElement => {
-	const { description, ...rest } = props;
+	const { colorMode, description, ...rest } = props;
 
 	return (
-		<Modal {...rest} isConfirm isCentered size='md'>
-			<Text align='left' fontSize='md' fontWeight='normal' p={2}>
+		<Modal {...rest} colorMode={colorMode} isConfirm isCentered size='md'>
+			<Text
+				align='left'
+				color={`gray.${colorMode === 'light' ? 900 : 50}`}
+				fontSize='md'
+				fontWeight='normal'
+				p={2}
+			>
 				{description}
 			</Text>
 		</Modal>
