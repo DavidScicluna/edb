@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { ColorMode, useColorMode, useMediaQuery } from '@chakra-ui/react';
+import { ColorMode, useColorMode, useMediaQuery, Center } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
@@ -81,7 +81,9 @@ const Display = (): ReactElement => {
 			isCentered
 			size={isSm ? 'full' : '3xl'}
 		>
-			<Customization form={form} />
+			<Center p={2}>
+				<Customization form={form} />
+			</Center>
 		</Modal>
 	);
 };
