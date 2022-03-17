@@ -6,9 +6,9 @@ import { Size } from '../../components/Clickable/Button/types';
 import { Color } from '../../theme/types';
 
 export type RenderActionsProps = {
-	color: keyof Color;
-	colorMode: ColorMode;
-	size: Size;
+	color?: keyof Color;
+	colorMode?: ColorMode;
+	size?: Size;
 };
 
 export type ModalProps = {
@@ -16,4 +16,5 @@ export type ModalProps = {
 	renderActions?: ({ color, colorMode, size }: RenderActionsProps) => ReactElement;
 	colorMode?: ColorMode;
 	isConfirm?: boolean;
+	hasCancel?: boolean;
 } & CUIModalProps;

@@ -44,7 +44,8 @@ const Modal = (props: ModalProps): ReactElement | null => {
 		renderActions,
 		colorMode: colorModeProp,
 		isConfirm = false,
-		isOpen,
+		isOpen = false,
+		hasCancel = true,
 		onClose,
 		size,
 		...rest
@@ -124,9 +125,11 @@ const Modal = (props: ModalProps): ReactElement | null => {
 						p={2}
 						sx={{ transition }}
 					>
-						<Button colorMode={colorMode} onClick={() => onClose()} variant='outlined'>
-							Cancel
-						</Button>
+						{hasCancel ? (
+							<Button colorMode={colorMode} onClick={() => onClose()} variant='outlined'>
+								Cancel
+							</Button>
+						) : null}
 
 						{renderActions({ color, colorMode, size: 'md' })}
 					</ModalFooter>
