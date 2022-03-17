@@ -39,6 +39,8 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 
 		if (isNil(user) || isEmpty(user)) {
 			navigate('/signin');
+		} else if (location.pathname === '/signin') {
+			navigate('/');
 		}
 	});
 

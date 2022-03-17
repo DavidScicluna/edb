@@ -1,5 +1,5 @@
 import { ReactElement, lazy, useEffect, Suspense } from 'react';
-import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
+import { useLocation, useNavigate, Routes as RRDRoutes, Route } from 'react-router-dom';
 
 import { useConst, Box } from '@chakra-ui/react';
 
@@ -133,6 +133,7 @@ const handleReturnRoutes = (route: RouteType): ReactElement => {
 
 const Routes = (): ReactElement => {
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const user = useSelector((state) => state.app.data.user);
 
@@ -146,6 +147,12 @@ const Routes = (): ReactElement => {
 
 	useEffect(() => {
 		document.scrollingElement?.scrollTo(0, 0);
+
+		if (isNil(user) || isEmpty(user)) {
+			navigate('/signin');
+		} else if (location.pathname === '/signin') {
+			navigate('/');
+		}
 	}, [location.pathname]);
 
 	return (
