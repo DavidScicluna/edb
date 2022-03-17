@@ -184,6 +184,90 @@ export const handleReturnBoringTypeByMediaType = (mediaType: MediaType): BoringA
 	}
 };
 
+export const handleReturnImageSize = (image: Image, type: 'thumbnail' | 'full'): Images => {
+	const width = window.innerWidth;
+
+	switch (image) {
+		case 'backdrop': {
+			if (type === 'full') {
+				if (width > 1280) {
+					return 'original';
+				} else if (width > 780) {
+					return 'w1280';
+				} else {
+					return 'w780';
+				}
+			} else {
+				return 'w300';
+			}
+		}
+		case 'logo': {
+			if (type === 'full') {
+				if (width > 500) {
+					return 'original';
+				} else if (width > 300) {
+					return 'w500';
+				} else if (width > 185) {
+					return 'w300';
+				} else if (width > 154) {
+					return 'w185';
+				} else if (width > 92) {
+					return 'w154';
+				} else {
+					return 'w92';
+				}
+			} else {
+				return 'w45';
+			}
+		}
+		case 'poster': {
+			if (type === 'full') {
+				if (width > 780) {
+					return 'original';
+				} else if (width > 500) {
+					return 'w780';
+				} else if (width > 342) {
+					return 'w500';
+				} else if (width > 185) {
+					return 'w342';
+				} else if (width > 154) {
+					return 'w185';
+				} else {
+					return 'w154';
+				}
+			} else {
+				return 'w92';
+			}
+		}
+		case 'profile': {
+			if (type === 'full') {
+				if (width > 632) {
+					return 'original';
+				} else if (width > 185) {
+					return 'h632';
+				} else {
+					return 'w185';
+				}
+			} else {
+				return 'w45';
+			}
+		}
+		case 'still': {
+			if (type === 'full') {
+				if (width > 300) {
+					return 'original';
+				} else if (width > 185) {
+					return 'w300';
+				} else {
+					return 'w185';
+				}
+			} else {
+				return 'w92';
+			}
+		}
+	}
+};
+
 /**
  * This method will check if the element passed has a bigger width than its parent
  *
