@@ -1,16 +1,18 @@
 import React, { ReactElement } from 'react';
 
-import { Box } from '@chakra-ui/react';
+import { useColorMode, Box } from '@chakra-ui/react';
 
-import illustration from '../../../../common/assets/illustrations/signin/illustration.svg';
+import * as signin from '../../../../common/assets/illustrations/signin';
 
 const IllustrationContainer = (): ReactElement => {
+	const { colorMode } = useColorMode();
+
 	return (
 		<Box
 			width='100%'
 			height='inherit'
 			sx={{
-				backgroundImage: `url(${illustration})`,
+				backgroundImage: `url(${colorMode === 'light' ? signin.default.light : signin.default.dark})`,
 				backgroundPosition: 'center',
 				backgroundRepeat: 'no-repeat',
 				backgroundSize: 'cover'
