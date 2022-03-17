@@ -72,7 +72,7 @@ const Image = (props: ImageProps): ReactElement => {
 						ref={imageRef}
 						in
 						unmountOnExit
-						onClick={children && !isDisabled && onClick ? () => onClick() : undefined}
+						onClick={children && !isDisabled && onClick ? (event) => onClick(event) : undefined}
 						onMouseEnter={children && !isDisabled ? () => setIsHovering.on() : undefined}
 						onMouseLeave={children && !isDisabled ? () => setIsHovering.off() : undefined}
 					>

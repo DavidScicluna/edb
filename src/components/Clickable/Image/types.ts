@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 
 import { AspectRatioProps, ColorMode } from '@chakra-ui/react';
 
@@ -19,5 +19,5 @@ export type ImageProps = {
 	renderIcon: (props: IconProps) => ReactNode;
 	isDisabled?: boolean;
 	isActive?: boolean;
-	onClick?: () => void;
+	onClick?: (event: ReactMouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
