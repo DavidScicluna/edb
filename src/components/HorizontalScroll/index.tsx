@@ -1,4 +1,4 @@
-import { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef, memo } from 'react';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 
 import { useTheme, Box } from '@chakra-ui/react';
@@ -44,4 +44,4 @@ const HorizontalScroll = forwardRef<HorizontalScrollRef, HorizontalScrollProps>(
 	);
 });
 
-export default HorizontalScroll;
+export default memo(HorizontalScroll);

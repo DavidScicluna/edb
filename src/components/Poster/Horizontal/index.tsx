@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 import useInView from 'react-cool-inview';
 
 import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack, Center } from '@chakra-ui/react';
@@ -155,4 +155,4 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 	);
 };
 
-export default HorizontalPoster;
+export default memo(HorizontalPoster);

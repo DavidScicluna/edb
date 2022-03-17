@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 import useInView from 'react-cool-inview';
 
 import { useBoolean, VStack, Center, HStack } from '@chakra-ui/react';
@@ -190,4 +190,4 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 	);
 };
 
-export default VerticalPoster;
+export default memo(VerticalPoster);
