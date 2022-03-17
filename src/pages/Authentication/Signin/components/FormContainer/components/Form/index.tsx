@@ -9,8 +9,8 @@ import Username from './components/Username';
 import { FormProps } from './types';
 
 import { color } from '../..';
-import Button from '../../../../../../components/Clickable/Button';
-import Link from '../../../../../../components/Clickable/Link';
+import Button from '../../../../../../../components/Clickable/Button';
+import Link from '../../../../../../../components/Clickable/Link';
 
 const Form = ({ form, onSubmit }: FormProps): ReactElement => {
 	const { isDirty } = useFormState({ control: form.control });

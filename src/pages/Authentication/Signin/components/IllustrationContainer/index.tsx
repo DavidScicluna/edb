@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { useColorMode, Box } from '@chakra-ui/react';
 
-import * as signin from '../../../../common/assets/illustrations/signin';
+import * as signin from '../../../../../common/assets/illustrations/signin';
 
 const IllustrationContainer = (): ReactElement => {
 	const { colorMode } = useColorMode();

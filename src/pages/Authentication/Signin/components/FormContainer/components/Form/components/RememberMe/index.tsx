@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import { useTheme, Checkbox } from '@chakra-ui/react';
 
 import { color } from '../../../..';
-import { Theme } from '../../../../../../../../theme/types';
+import { Theme } from '../../../../../../../../../theme/types';
 import { FormProps as RememberMeProps } from '../../types';
 
 const RememberMe = ({ form }: Omit<RememberMeProps, 'onSubmit'>): ReactElement => {

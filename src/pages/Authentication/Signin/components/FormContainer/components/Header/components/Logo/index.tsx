@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useColorMode, Center, AspectRatio } from '@chakra-ui/react';
 
 import { color } from '../../../..';
-import { handleReturnRatio } from '../../../../../../../../common/utils';
+import { handleReturnRatio } from '../../../../../../../../../common/utils';
 
 const Logo = (): ReactElement => {
 	const { colorMode } = useColorMode();

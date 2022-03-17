@@ -11,10 +11,10 @@ import Header from './components/Header';
 import { Form as FormType } from './types';
 import { schema } from './validation';
 
-import { useSelector } from '../../../../common/hooks';
-import Button from '../../../../components/Clickable/Button';
-import Link from '../../../../components/Clickable/Link';
-import { Color } from '../../../../theme/types';
+import { useSelector } from '../../../../../common/hooks';
+import Button from '../../../../../components/Clickable/Button';
+import Link from '../../../../../components/Clickable/Link';
+import { Color } from '../../../../../theme/types';
 
 export const color: keyof Color = 'light_blue';
 

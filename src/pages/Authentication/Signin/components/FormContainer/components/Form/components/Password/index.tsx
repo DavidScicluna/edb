@@ -4,10 +4,10 @@ import { Controller } from 'react-hook-form';
 import { useBoolean } from '@chakra-ui/react';
 
 import { color } from '../../../..';
-import IconButton from '../../../../../../../../components/Clickable/IconButton';
-import Input from '../../../../../../../../components/Forms/Input';
-import Icon from '../../../../../../../../components/Icon';
-import Tooltip from '../../../../../../../../components/Tooltip';
+import IconButton from '../../../../../../../../../components/Clickable/IconButton';
+import Input from '../../../../../../../../../components/Forms/Input';
+import Icon from '../../../../../../../../../components/Icon';
+import Tooltip from '../../../../../../../../../components/Tooltip';
 import { FormProps as PasswordProps } from '../../types';
 
 const Password = ({ form }: Omit<PasswordProps, 'onSubmit'>): ReactElement => {

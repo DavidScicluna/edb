@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { color } from '../../../..';
-import Input from '../../../../../../../../components/Forms/Input';
-import Icon from '../../../../../../../../components/Icon';
+import Input from '../../../../../../../../../components/Forms/Input';
+import Icon from '../../../../../../../../../components/Icon';
 import { FormProps as UsernameProps } from '../../types';
 
 const Username = ({ form }: Omit<UsernameProps, 'onSubmit'>): ReactElement => {
