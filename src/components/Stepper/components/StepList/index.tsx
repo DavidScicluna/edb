@@ -29,6 +29,7 @@ const StepList = ({ children = [] }: StepListProps): ReactElement => {
 
 	const hasErrors: boolean = children.some((step) => step.status === 'error');
 	const hasWarnings: boolean = children.some((step) => step.status === 'warning');
+	const hasIdle: boolean = children.some((step) => step.status === 'idle');
 
 	const handleNext = (): void => {
 		if (activeStep === children.length - 1) {
@@ -36,6 +37,8 @@ const StepList = ({ children = [] }: StepListProps): ReactElement => {
 				onChange(children.findIndex((step) => step.status === 'error'));
 			} else if (hasWarnings) {
 				onChange(children.findIndex((step) => step.status === 'warning'));
+			} else if (hasIdle) {
+				onChange(children.findIndex((step) => step.status === 'idle'));
 			} else {
 				onSubmit();
 			}
@@ -87,6 +90,7 @@ const StepList = ({ children = [] }: StepListProps): ReactElement => {
 							isLast={activeStep === children.length - 1}
 							hasErrors={hasErrors}
 							hasWarnings={hasWarnings}
+							hasIdle={hasIdle}
 							onNext={handleNext}
 						/>
 					</HStack>
@@ -139,6 +143,7 @@ const StepList = ({ children = [] }: StepListProps): ReactElement => {
 						color={color}
 						colorMode={colorMode}
 						isLast={activeStep === children.length - 1}
+						hasIdle={hasIdle}
 						hasErrors={hasErrors}
 						hasWarnings={hasWarnings}
 						onNext={handleNext}

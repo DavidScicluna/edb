@@ -24,6 +24,7 @@ const Next = (props: NextProps): ReactElement => {
 		isLast = false,
 		hasErrors = false,
 		hasWarnings = false,
+		hasIdle = false,
 		onNext
 	} = props;
 
@@ -54,7 +55,7 @@ const Next = (props: NextProps): ReactElement => {
 					isLast
 						? hasErrors
 							? handleReturnIcon('error')
-							: hasWarnings
+							: hasWarnings || hasIdle
 							? handleReturnIcon('warning')
 							: 'check'
 						: 'east'

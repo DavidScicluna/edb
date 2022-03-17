@@ -8,5 +8,6 @@ export type NextProps = {
 	isLast?: boolean;
 	hasErrors?: boolean;
 	hasWarnings?: boolean;
+	hasIdle?: boolean;
 	onNext?: () => void;
 } & Omit<StepListProps, 'children'>;
