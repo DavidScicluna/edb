@@ -1,19 +1,19 @@
-import { ReactElement, lazy, useEffect, Suspense } from 'react';
-import { useLocation, useNavigate, Routes as RRDRoutes, Route } from 'react-router-dom';
+import { ReactElement, lazy, useEffect } from 'react';
+import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 
-import { useConst, Box } from '@chakra-ui/react';
+import { useConst } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
-import { isEmpty, isNil } from 'lodash';
 import omit from 'lodash/omit';
 
 import Animation from './components/Animation';
 import Breadcrumb from './components/Breadcrumb';
-import ErrorBoundary from './components/ErrorBoundary';
 import NoMatch from './components/NoMatch';
+import Private from './components/Private';
+import Public from './components/Public';
+import Suspense from './components/Suspense';
 import { Route as RouteType } from './types';
 
-import { useSelector } from '../../common/hooks';
 import Layout from '../Layout';
 
 const Home = lazy(() => import('../../pages/Home'));
@@ -33,82 +33,121 @@ const Person = lazy(() => import('../../pages/View/pages/Person'));
 const Show = lazy(() => import('../../pages/View/pages/Show'));
 
 export const allRoutes: RouteType[] = [
+	// Private Routes
 	{
 		path: '/',
-		breadcrumb: 'Home',
-		element: <Home />
+		children: [
+			{
+				path: '/',
+				children: [
+					{
+						path: '/',
+						breadcrumb: 'Home',
+						children: [
+							{
+								path: '/search',
+								breadcrumb: 'Search',
+								element: <Search />
+							},
+							{
+								path: '/trending',
+								breadcrumb: 'Trending',
+								element: <Trending />
+							},
+							{
+								path: '/movies',
+								breadcrumb: 'Movies',
+								children: [
+									{
+										path: '/movies/:id',
+										breadcrumb: (props) => <Breadcrumb {...props} mediaType='movie' />,
+										element: <Movie />
+									}
+								],
+								element: <Movies />
+							},
+							{
+								path: '/tvshows',
+								breadcrumb: 'TV Shows',
+								children: [
+									{
+										path: '/tvshows/:id',
+										breadcrumb: (props) => <Breadcrumb {...props} mediaType='tv' />,
+										children: [
+											{
+												path: '/tvshows/:id/season/:season/episode/:episode',
+												breadcrumb: (props) => <Breadcrumb {...props} mediaType='episode' />,
+												element: <Episode />
+											}
+										],
+										element: <Show />
+									}
+								],
+								element: <TV />
+							},
+							{
+								path: '/people',
+								breadcrumb: 'People',
+								children: [
+									{
+										path: '/people/:id',
+										breadcrumb: (props) => <Breadcrumb {...props} mediaType='person' />,
+										element: <Person />
+									}
+								],
+								element: <People />
+							},
+							{
+								path: '/liked',
+								breadcrumb: 'Liked',
+								element: <Liked />
+							},
+							{
+								path: '/lists',
+								breadcrumb: 'Lists',
+								element: <Lists />
+							},
+							{
+								path: '/collections/:id',
+								breadcrumb: (props) => <Breadcrumb {...props} mediaType='collection' />,
+								element: <Collection />
+							},
+							{
+								path: '*',
+								element: <NoMatch />
+							}
+						],
+						element: <Home />
+					}
+				],
+				element: <Layout />
+			}
+		],
+		element: <Private />
 	},
+
+	// Public Routes
 	{
-		path: 'search',
-		breadcrumb: 'Search',
-		element: <Search />
-	},
-	{
-		path: 'trending',
-		breadcrumb: 'Trending',
-		element: <Trending />
-	},
-	{
-		path: 'movies',
-		breadcrumb: 'Movies',
-		element: <Movies />
-	},
-	{
-		path: 'movies/:id',
-		breadcrumb: (props) => <Breadcrumb {...props} mediaType='movie' />,
-		element: <Movie />
-	},
-	{
-		path: 'tvshows',
-		breadcrumb: 'TV Shows',
-		element: <TV />
-	},
-	{
-		path: 'tvshows/:id',
-		breadcrumb: (props) => <Breadcrumb {...props} mediaType='tv' />,
-		element: <Show />
-	},
-	{
-		path: 'tvshows/:id/season/:season/episode/:episode',
-		breadcrumb: (props) => <Breadcrumb {...props} mediaType='episode' />,
-		element: <Episode />
-	},
-	{
-		path: 'people',
-		breadcrumb: 'People',
-		element: <People />
-	},
-	{
-		path: 'people/:id',
-		breadcrumb: (props) => <Breadcrumb {...props} mediaType='person' />,
-		element: <Person />
-	},
-	{
-		path: 'liked',
-		breadcrumb: 'Liked',
-		element: <Liked />
-	},
-	{
-		path: 'lists',
-		breadcrumb: 'Lists',
-		element: <Lists />
-	},
-	{
-		path: 'collections/:id',
-		breadcrumb: (props) => <Breadcrumb {...props} mediaType='collection' />,
-		element: <Collection />
-	},
-	{
-		path: 'signin',
-		element: <Signin />
-	},
-	{
-		path: 'register',
-		element: <Register />
+		path: '/',
+		children: [
+			{
+				path: '/signin',
+				element: <Signin />
+			},
+			{
+				path: '/register',
+				element: <Register />
+			},
+			{
+				path: '*',
+				element: <NoMatch />
+			}
+		],
+		element: <Public />
 	}
 ];
 
-const handleReturnRoutes = (route: RouteType): ReactElement => {
+const handleReturnRoute = (route: Omit<RouteType, 'breadcrumb'>): ReactElement => {
 	const { path, element, children = [] } = route;
 
 	return (
@@ -117,48 +156,35 @@ const handleReturnRoutes = (route: RouteType): ReactElement => {
 			key={path}
 			path={path}
 			element={
-				<Animation>
-					<ErrorBoundary>
-						<Suspense fallback={<Box />}>
-							{path !== 'signin' && path !== 'register' ? <Layout>{element}</Layout> : element}
-						</Suspense>
-					</ErrorBoundary>
-				</Animation>
+				<Suspense>
+					<Animation>{element}</Animation>
+				</Suspense>
 			}
 		>
-			{children.map((child) => handleReturnRoutes(child))}
+			{children.map((child) => handleReturnRoute(child))}
 		</Route>
 	);
 };
 
 const Routes = (): ReactElement => {
 	const location = useLocation();
-	const navigate = useNavigate();
 
-	const user = useSelector((state) => state.app.data.user);
-
-	const routes = useConst([
-		...allRoutes.map((route) => omit(route, 'breadcrumb')),
-		{
-			path: '*',
-			element: isNil(user) || isEmpty(user) ? <Signin /> : <NoMatch />
-		}
+	const routes = useConst<Omit<RouteType, 'breadcrumb'>[]>([
+		...allRoutes.map((route) => omit(route, 'breadcrumb'))
+		// {
+		// 	path: '*',
+		// 	element: isNil(user) || isEmpty(user) ? <Signin /> : <NoMatch />
+		// }
 	]);
 
 	useEffect(() => {
 		document.scrollingElement?.scrollTo(0, 0);
-
-		if (isNil(user) || isEmpty(user)) {
-			navigate('/signin');
-		} else if (location.pathname === '/signin') {
-			navigate('/');
-		}
 	}, [location.pathname]);
 
 	return (
 		<AnimatePresence exitBeforeEnter initial={false}>
-			<RRDRoutes location={location} key={location.pathname}>
-				{routes.map((route) => handleReturnRoutes(route))}
+			<RRDRoutes key={location.key} location={location}>
+				{routes.map((route) => handleReturnRoute(route))}
 			</RRDRoutes>
 		</AnimatePresence>
 	);
