@@ -1,8 +1,19 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, memo } from 'react';
 import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
-import { useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box, Collapse } from '@chakra-ui/react';
+import {
+	useTheme,
+	useColorMode,
+	useMediaQuery,
+	Container,
+	HStack,
+	VStack,
+	Box,
+	Collapse,
+	Slide
+} from '@chakra-ui/react';
 
 import { useTernaryDarkMode, useUpdateEffect } from 'usehooks-ts';
 
@@ -16,7 +27,6 @@ import QuickView from './components/Modals/QuickView';
 import ProgressBar from './components/ProgressBar';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
-import { LayoutProps } from './types';
 
 import { useSelector } from '../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
@@ -73,7 +83,7 @@ export const navItems: NavItem[] = [
 	}
 ];
 
-const Layout = ({ children }: LayoutProps): ReactElement => {
+const Layout = (): ReactElement => {
 	const theme = useTheme<Theme>();
 	const { setColorMode } = useColorMode();
 
@@ -111,7 +121,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 	}, [isDarkMode]);
 
 	return (
-		<>
+		<Slide in direction='bottom'>
 			<Collapse
 				in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
 				unmountOnExit
@@ -151,7 +161,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 								}px)`}
 								sx={{ ...transition }}
 							>
-								{children}
+								<Outlet />
 							</Box>
 
 							<Footer />
@@ -169,8 +179,8 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 			<ListsModal />
 
 			<SplashscreenModal />
-		</>
+		</Slide>
 	);
 };
 
-export default Layout;
+export default memo(Layout);
