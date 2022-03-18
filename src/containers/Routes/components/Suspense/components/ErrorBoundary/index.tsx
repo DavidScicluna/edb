@@ -1,9 +1,11 @@
 import { Component, ErrorInfo } from 'react';
 
+import { Container } from '@chakra-ui/react';
+
 import Actions from './components/Actions';
 import { ErrorBoundaryProps, State } from './types';
 
-import Error from '../../../../pages/Error';
+import Error from '../../../../../../pages/Error';
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
 	public state: State = {
@@ -23,12 +25,14 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
 	public render() {
 		if (this.state.hasError) {
 			return (
-				<Error
-					code={404}
-					title='Oh no! 😭'
-					subtitle='Unfortunately, something went wrong when trying to render the application. Please refresh to try again!'
-					renderActions={(props) => <Actions {...props} />}
-				/>
+				<Container maxWidth='container.md' centerContent>
+					<Error
+						code={404}
+						title='Oh no! 😭'
+						subtitle='Unfortunately, something went wrong when trying to render the application. Please refresh to try again!'
+						renderActions={(props) => <Actions {...props} />}
+					/>
+				</Container>
 			);
 		}
 
