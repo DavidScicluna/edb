@@ -41,83 +41,73 @@ export const allRoutes: RouteType[] = [
 				path: '/',
 				children: [
 					{
-						path: '/',
+						index: true,
 						breadcrumb: 'Home',
-						children: [
-							{
-								path: '/search',
-								breadcrumb: 'Search',
-								element: <Search />
-							},
-							{
-								path: '/trending',
-								breadcrumb: 'Trending',
-								element: <Trending />
-							},
-							{
-								path: '/movies',
-								breadcrumb: 'Movies',
-								children: [
-									{
-										path: '/movies/:id',
-										breadcrumb: (props) => <Breadcrumb {...props} mediaType='movie' />,
-										element: <Movie />
-									}
-								],
-								element: <Movies />
-							},
-							{
-								path: '/tvshows',
-								breadcrumb: 'TV Shows',
-								children: [
-									{
-										path: '/tvshows/:id',
-										breadcrumb: (props) => <Breadcrumb {...props} mediaType='tv' />,
-										children: [
-											{
-												path: '/tvshows/:id/season/:season/episode/:episode',
-												breadcrumb: (props) => <Breadcrumb {...props} mediaType='episode' />,
-												element: <Episode />
-											}
-										],
-										element: <Show />
-									}
-								],
-								element: <TV />
-							},
-							{
-								path: '/people',
-								breadcrumb: 'People',
-								children: [
-									{
-										path: '/people/:id',
-										breadcrumb: (props) => <Breadcrumb {...props} mediaType='person' />,
-										element: <Person />
-									}
-								],
-								element: <People />
-							},
-							{
-								path: '/liked',
-								breadcrumb: 'Liked',
-								element: <Liked />
-							},
-							{
-								path: '/lists',
-								breadcrumb: 'Lists',
-								element: <Lists />
-							},
-							{
-								path: '/collections/:id',
-								breadcrumb: (props) => <Breadcrumb {...props} mediaType='collection' />,
-								element: <Collection />
-							},
-							{
-								path: '*',
-								element: <NoMatch />
-							}
-						],
 						element: <Home />
+					},
+					{
+						path: '/search',
+						breadcrumb: 'Search',
+						element: <Search />
+					},
+					{
+						path: '/trending',
+						breadcrumb: 'Trending',
+						element: <Trending />
+					},
+					{
+						path: '/movies',
+						breadcrumb: 'Movies',
+						element: <Movies />
+					},
+					{
+						path: '/movies/:id',
+						breadcrumb: (props) => <Breadcrumb {...props} mediaType='movie' />,
+						element: <Movie />
+					},
+					{
+						path: '/tvshows',
+						breadcrumb: 'TV Shows',
+						element: <TV />
+					},
+					{
+						path: '/tvshows/:id',
+						breadcrumb: (props) => <Breadcrumb {...props} mediaType='tv' />,
+						element: <Show />
+					},
+					{
+						path: '/tvshows/:id/season/:season/episode/:episode',
+						breadcrumb: (props) => <Breadcrumb {...props} mediaType='episode' />,
+						element: <Episode />
+					},
+					{
+						path: '/people',
+						breadcrumb: 'People',
+						element: <People />
+					},
+					{
+						path: '/people/:id',
+						breadcrumb: (props) => <Breadcrumb {...props} mediaType='person' />,
+						element: <Person />
+					},
+					{
+						path: '/liked',
+						breadcrumb: 'Liked',
+						element: <Liked />
+					},
+					{
+						path: '/lists',
+						breadcrumb: 'Lists',
+						element: <Lists />
+					},
+					{
+						path: '/collections/:id',
+						breadcrumb: (props) => <Breadcrumb {...props} mediaType='collection' />,
+						element: <Collection />
+					},
+					{
+						path: '*',
+						element: <NoMatch />
 					}
 				],
 				element: <Layout />
@@ -147,13 +137,13 @@ export const allRoutes: RouteType[] = [
 	}
 ];
 
-const handleReturnRoute = (route: Omit<RouteType, 'breadcrumb'>): ReactElement => {
+const handleReturnRoute = (route: Omit<RouteType, 'index' | 'breadcrumb'>, index: number): ReactElement => {
 	const { path, element, children = [] } = route;
 
 	return (
 		<Route
 			{...route}
-			key={path}
+			key={index}
 			path={path}
 			element={
 				<Suspense>
@@ -161,7 +151,7 @@ const handleReturnRoute = (route: Omit<RouteType, 'breadcrumb'>): ReactElement =
 				</Suspense>
 			}
 		>
-			{children.map((child) => handleReturnRoute(child))}
+			{children.map((child, index) => handleReturnRoute(child, index))}
 		</Route>
 	);
 };
@@ -169,13 +159,7 @@ const handleReturnRoute = (route: Omit<RouteType, 'breadcrumb'>): ReactElement =
 const Routes = (): ReactElement => {
 	const location = useLocation();
 
-	const routes = useConst<Omit<RouteType, 'breadcrumb'>[]>([
-		...allRoutes.map((route) => omit(route, 'breadcrumb'))
-		// {
-		// 	path: '*',
-		// 	element: isNil(user) || isEmpty(user) ? <Signin /> : <NoMatch />
-		// }
-	]);
+	const routes = useConst<Omit<RouteType, 'breadcrumb'>[]>([...allRoutes.map((route) => omit(route, 'breadcrumb'))]);
 
 	useEffect(() => {
 		document.scrollingElement?.scrollTo(0, 0);
@@ -183,8 +167,8 @@ const Routes = (): ReactElement => {
 
 	return (
 		<AnimatePresence exitBeforeEnter initial={false}>
-			<RRDRoutes key={location.key} location={location}>
-				{routes.map((route) => handleReturnRoute(route))}
+			<RRDRoutes key={location.pathname} location={location}>
+				{routes.map((route, index) => handleReturnRoute(route, index))}
 			</RRDRoutes>
 		</AnimatePresence>
 	);

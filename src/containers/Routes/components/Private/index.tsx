@@ -8,7 +8,7 @@ import { useSelector } from '../../../../common/hooks';
 const Private = (): ReactElement => {
 	const user = useSelector((state) => state.app.data.user);
 
-	return !(isNil(user) || isEmpty(user)) ? <Outlet /> : <Navigate to='/signin' />;
+	return isNil(user) || isEmpty(user) ? <Navigate to='/signin' /> : <Outlet />;
 };
 
 export default Private;
