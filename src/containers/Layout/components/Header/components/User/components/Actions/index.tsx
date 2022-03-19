@@ -9,14 +9,18 @@ import { Style } from '../../../../../../../../common/types';
 import Button from '../../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../../components/Clickable/Link';
 import Icon from '../../../../../../../../components/Icon';
-import { toggleDisplay } from '../../../../../../../../store/slices/Modals';
+import { toggleDisplay, toggleUserSwitcher } from '../../../../../../../../store/slices/Modals';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 
 const sx: Style = { px: 0, justifyContent: 'flex-start' };
 
 const Actions = (): ReactElement => {
 	const dispatch = useDispatch();
+	const users = useSelector((state) => state.users.data.users);
+
 	const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
+	const isUserSwitcherModalOpen = useSelector((state) => state.modals.ui.isUserSwitcherModalOpen);
+
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
@@ -24,7 +28,7 @@ const Actions = (): ReactElement => {
 	const location = useLocation();
 
 	return (
-		<VStack width='100%'>
+		<VStack width='100%' spacing={0}>
 			<Link to='/profile' isDisabled={location.pathname === '/profile'} isFullWidth>
 				<Button
 					renderLeft={({ fontSize }) => (
@@ -81,6 +85,20 @@ const Actions = (): ReactElement => {
 					Lists
 				</Button>
 			</Link>
+
+			{users.length > 1 ? (
+				<Button
+					renderLeft={({ fontSize }) => <Icon icon='sync' type='outlined' fontSize={fontSize} />}
+					color={isUserSwitcherModalOpen ? color : 'gray'}
+					isFullWidth
+					onClick={() => dispatch(toggleUserSwitcher())}
+					size='lg'
+					variant='text'
+					sx={{ front: { ...sx } }}
+				>
+					Switch User
+				</Button>
+			) : null}
 
 			<Button
 				renderLeft={({ fontSize }) => (

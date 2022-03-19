@@ -19,6 +19,7 @@ export type StateProps = {
 		listsModal: ListModal;
 		quickViewModal: QuickViewModal;
 		isDisplayModalOpen: boolean;
+		isUserSwitcherModalOpen: boolean;
 		isSplashscreenOpen: boolean;
 	};
 };

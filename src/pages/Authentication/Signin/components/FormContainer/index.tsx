@@ -20,7 +20,7 @@ import Link from '../../../../../components/Clickable/Link';
 import { setUser } from '../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
 import { setUsers } from '../../../../../store/slices/Users';
-import { Credentials, User } from '../../../../../store/slices/Users/types';
+import { Credentials } from '../../../../../store/slices/Users/types';
 import { Color } from '../../../../../theme/types';
 
 export const color: keyof Color = 'light_blue';
@@ -54,32 +54,6 @@ const FormContainer = (): ReactElement => {
 		form.setValue('password', credentials.password, { shouldDirty: true });
 	};
 
-	const handleSuccessSignIn = (user: User, rememberMe: boolean): void => {
-		const id = user.data.id;
-
-		dispatch(setUser(id));
-		dispatch(
-			setUsers(
-				users.map((user) =>
-					user.data.id === id
-						? {
-								...user,
-								data: { ...user.data, credentials: { ...user.data.credentials, rememberMe } }
-						  }
-						: user
-				)
-			)
-		);
-
-		dispatch(toggleSplashscreen());
-
-		navigate('/', { replace: true });
-	};
-
-	const handleUnsuccessfulSignIn = (): void => {
-		// TODO: Implement global toast system
-	};
-
 	const handleSubmit = (credentials: FormType): void => {
 		const user = users.find((user) => user.data.credentials?.username === credentials.username);
 
@@ -88,9 +62,30 @@ const FormContainer = (): ReactElement => {
 			((isUserTyped && sha256(credentials.password).toString() === user.data.credentials?.password) ||
 				credentials.password === user.data.credentials?.password)
 		) {
-			handleSuccessSignIn(user, credentials.rememberMe);
+			const id = user.data.id;
+
+			dispatch(setUser(id));
+			dispatch(
+				setUsers(
+					users.map((user) =>
+						user.data.id === id
+							? {
+									...user,
+									data: {
+										...user.data,
+										credentials: { ...user.data.credentials, rememberMe: credentials.rememberMe }
+									}
+							  }
+							: user
+					)
+				)
+			);
+
+			dispatch(toggleSplashscreen());
+
+			navigate('/', { replace: true });
 		} else {
-			handleUnsuccessfulSignIn();
+			// TODO: Implement global toast system
 		}
 	};
 

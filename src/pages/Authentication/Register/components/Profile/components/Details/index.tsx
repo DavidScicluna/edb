@@ -40,6 +40,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 				<SkeletonText colorMode={colorMode} fontSize='4xl' isLoaded={hasFirstName || hasLastName} speed={0}>
 					<Text
 						align='left'
+						color={`gray.${colorMode === 'light' ? 900 : 50}`}
 						fontSize='4xl'
 						fontWeight='semibold'
 						isTruncated
@@ -56,6 +57,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 				<SkeletonText colorMode={colorMode} fontSize='md' isLoaded={hasUsername} speed={0}>
 					<Text
 						align='left'
+						color={`gray.${colorMode === 'light' ? 400 : 500}`}
 						fontSize='md'
 						fontWeight='medium'
 						isTruncated

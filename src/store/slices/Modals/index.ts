@@ -20,6 +20,7 @@ const initialState: StateProps = {
 		listsModal: { ...defaultListsModal },
 		quickViewModal: { ...defaultQuickViewModal },
 		isDisplayModalOpen: false,
+		isUserSwitcherModalOpen: false,
 		isSplashscreenOpen: true
 	}
 };
@@ -37,12 +38,15 @@ const modalsSlice = createSlice({
 		toggleDisplay: (state: StateProps) => {
 			state.ui.isDisplayModalOpen = !state.ui.isDisplayModalOpen;
 		},
+		toggleUserSwitcher: (state: StateProps) => {
+			state.ui.isUserSwitcherModalOpen = !state.ui.isUserSwitcherModalOpen;
+		},
 		toggleSplashscreen: (state: StateProps) => {
 			state.ui.isSplashscreenOpen = !state.ui.isSplashscreenOpen;
 		}
 	}
 });
 
-export const { setList, setQuickView, toggleDisplay, toggleSplashscreen } = modalsSlice.actions;
+export const { setList, setQuickView, toggleDisplay, toggleUserSwitcher, toggleSplashscreen } = modalsSlice.actions;
 
 export default modalsSlice.reducer;
