@@ -44,14 +44,14 @@ export default (
 	light: {
 		'& .chakra-checkbox__control': {
 			background: isChecked ? `${color}.500` : 'transparent',
-			borderColor: isChecked ? `${color}.500` : 'gray.400',
+			borderColor: isChecked ? `${color}.500` : 'gray.200',
 			color: isChecked ? 'gray.50' : 'transparent'
 		},
 
 		'&:hover': {
 			'& .chakra-checkbox__control': {
 				background: isChecked ? `${color}.600` : 'transparent',
-				borderColor: isChecked ? `${color}.600` : 'gray.500',
+				borderColor: isChecked ? `${color}.600` : 'gray.300',
 				color: isChecked ? 'gray.50' : 'transparent'
 			}
 		}
@@ -59,14 +59,14 @@ export default (
 	dark: {
 		'& .chakra-checkbox__control': {
 			background: isChecked ? `${color}.400` : 'transparent',
-			borderColor: isChecked ? `${color}.400` : 'gray.500',
+			borderColor: isChecked ? `${color}.400` : 'gray.700',
 			color: isChecked ? 'gray.900' : 'transparent'
 		},
 
 		'&:hover': {
 			'& .chakra-checkbox__control': {
 				background: isChecked ? `${color}.300` : 'transparent',
-				borderColor: isChecked ? `${color}.300` : 'gray.400',
+				borderColor: isChecked ? `${color}.300` : 'gray.600',
 				color: isChecked ? 'gray.900' : 'transparent'
 			}
 		}
