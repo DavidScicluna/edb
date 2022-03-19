@@ -111,8 +111,8 @@ export default (
 			fontWeight: 'medium',
 			textTransform: 'uppercase',
 			whiteSpace: 'nowrap',
-			overflow:'hidden',
-			textOverflow:'ellipses',
+			overflow: 'hidden',
+			textOverflow: 'ellipses',
 			lineHeight: 'normal',
 
 			margin: 0,
@@ -205,7 +205,11 @@ export default (
 		},
 		formLabel: {
 			default: {
-				color: `gray.${isDisabled ? 400 : 900}`
+				'color': `gray.${isDisabled ? 400 : 900}`,
+
+				'& .chakra-form__required-indicator': {
+					color: 'red.500'
+				}
 			},
 			invalid: {
 				color: 'red.500'
@@ -254,7 +258,11 @@ export default (
 		},
 		formLabel: {
 			default: {
-				color: `gray.${isDisabled ? 500 : 50}`
+				'color': `gray.${isDisabled ? 500 : 50}`,
+
+				'& .chakra-form__required-indicator': {
+					color: 'red.400'
+				}
 			},
 			invalid: {
 				color: 'red.400'
