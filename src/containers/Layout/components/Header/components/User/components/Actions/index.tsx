@@ -16,7 +16,8 @@ const sx: Style = { px: 0, justifyContent: 'flex-start' };
 
 const Actions = (): ReactElement => {
 	const dispatch = useDispatch();
-	const users = useSelector((state) => state.users.data.users);
+	const id = useSelector((state) => state.app.data.user);
+	const users = useSelector((state) => state.users.data.users.filter((user) => user.data.id !== id));
 
 	const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
 	const isUserSwitcherModalOpen = useSelector((state) => state.modals.ui.isUserSwitcherModalOpen);
