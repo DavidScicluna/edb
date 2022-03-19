@@ -3,14 +3,15 @@ import { Controller } from 'react-hook-form';
 
 import { useBoolean } from '@chakra-ui/react';
 
+import { PasswordProps } from './types';
+
 import { color } from '../../../..';
 import IconButton from '../../../../../../../../../components/Clickable/IconButton';
 import Input from '../../../../../../../../../components/Forms/Input';
 import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
-import { FormProps as PasswordProps } from '../../types';
 
-const Password = ({ form }: Omit<PasswordProps, 'onSubmit'>): ReactElement => {
+const Password = ({ form, onChange }: PasswordProps): ReactElement => {
 	const [isPasswordVisible, setIsPasswordVisible] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
@@ -18,14 +19,17 @@ const Password = ({ form }: Omit<PasswordProps, 'onSubmit'>): ReactElement => {
 		<Controller
 			control={form.control}
 			name='password'
-			render={({ field: { onChange, value, name }, fieldState: { error } }) => (
+			render={({ field: { onChange: fieldOnChange, value, name }, fieldState: { error } }) => (
 				<Input
 					color={color}
 					label='Password'
 					error={error}
 					name={name}
 					placeholder={isPasswordVisible ? 'password' : '••••••••'}
-					onChange={onChange}
+					onChange={(event) => {
+						fieldOnChange(event);
+						onChange();
+					}}
 					isFullWidth
 					isRequired
 					renderInputRightPanel={() => (

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { useFormState } from 'react-hook-form';
 
-import { VStack, HStack } from '@chakra-ui/react';
+import { VStack, HStack, Center } from '@chakra-ui/react';
 
 import Password from './components/Password';
 import RememberMe from './components/RememberMe';
@@ -12,14 +12,14 @@ import { color } from '../..';
 import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 
-const Form = ({ form, onSubmit }: FormProps): ReactElement => {
+const Form = ({ form, onSubmit, onChange }: FormProps): ReactElement => {
 	const { isDirty } = useFormState({ control: form.control });
 
 	return (
 		<VStack width='100%' spacing={4}>
 			<VStack width='100%' spacing={2}>
-				<Username form={form} />
-				<Password form={form} />
+				<Username form={form} onChange={onChange} />
+				<Password form={form} onChange={onChange} />
 
 				<HStack width='100%' justifyContent='space-between'>
 					<RememberMe form={form} />
@@ -33,17 +33,22 @@ const Form = ({ form, onSubmit }: FormProps): ReactElement => {
 			</VStack>
 
 			<VStack width='100%' spacing={1}>
-				<Button
-					color={color}
-					isDisabled={!isDirty}
-					isFullWidth
-					onClick={form.handleSubmit((values) => onSubmit(values))}
-				>
-					Sign In
-				</Button>
-				<Button isFullWidth size='sm' variant='text'>
-					Or continue as guest
-				</Button>
+				<Center width='100%'>
+					<Button
+						color={color}
+						isDisabled={!isDirty}
+						isFullWidth
+						onClick={form.handleSubmit((values) => onSubmit(values))}
+						sx={{ back: { marginTop: '0 !important' } }}
+					>
+						Sign In
+					</Button>
+				</Center>
+				<Center width='100%'>
+					<Button isFullWidth size='sm' variant='text'>
+						Or continue as guest
+					</Button>
+				</Center>
 			</VStack>
 		</VStack>
 	);
