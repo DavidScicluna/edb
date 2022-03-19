@@ -7,7 +7,7 @@ import { PosterQuickviewProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
-import { toggleQuickView } from '../../../../store/slices/Modals';
+import { setQuickView } from '../../../../store/slices/Modals';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import IconButton from '../../../Clickable/IconButton';
 import Icon from '../../../Icon';
@@ -44,7 +44,7 @@ const PosterQuickview = <MT extends MediaType>(props: PosterQuickviewProps<MT>):
 					event.stopPropagation();
 
 					dispatch(
-						toggleQuickView({
+						setQuickView({
 							open: true,
 							mediaType,
 							mediaItem: { id: mediaItem?.id || -1, title }

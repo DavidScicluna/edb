@@ -16,7 +16,7 @@ const Footer = (): ReactElement => {
 	const navigate = useNavigate();
 
 	const handleSignOut = (): void => {
-		dispatch(toggleSplashscreen(true));
+		dispatch(toggleSplashscreen());
 
 		navigate('/signin', { replace: false });
 

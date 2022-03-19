@@ -28,21 +28,21 @@ const modalsSlice = createSlice({
 	name: 'modals',
 	initialState,
 	reducers: {
-		toggleList: (state: StateProps, action: PayloadAction<ListModal>) => {
+		setList: (state: StateProps, action: PayloadAction<ListModal>) => {
 			state.ui.listsModal = action.payload;
 		},
-		toggleQuickView: (state: StateProps, action: PayloadAction<QuickViewModal>) => {
+		setQuickView: (state: StateProps, action: PayloadAction<QuickViewModal>) => {
 			state.ui.quickViewModal = action.payload;
 		},
-		toggleDisplay: (state: StateProps, action: PayloadAction<boolean>) => {
-			state.ui.isDisplayModalOpen = action.payload;
+		toggleDisplay: (state: StateProps) => {
+			state.ui.isDisplayModalOpen = !state.ui.isDisplayModalOpen;
 		},
-		toggleSplashscreen: (state: StateProps, action: PayloadAction<boolean>) => {
-			state.ui.isSplashscreenOpen = action.payload;
+		toggleSplashscreen: (state: StateProps) => {
+			state.ui.isSplashscreenOpen = !state.ui.isSplashscreenOpen;
 		}
 	}
 });
 
-export const { toggleList, toggleQuickView, toggleDisplay, toggleSplashscreen } = modalsSlice.actions;
+export const { setList, setQuickView, toggleDisplay, toggleSplashscreen } = modalsSlice.actions;
 
 export default modalsSlice.reducer;

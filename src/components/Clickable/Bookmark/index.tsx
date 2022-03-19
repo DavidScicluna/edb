@@ -10,7 +10,7 @@ import isNil from 'lodash/isNil';
 import { BookmarkProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
-import { toggleList } from '../../../store/slices/Modals';
+import { setList } from '../../../store/slices/Modals';
 import { getUser, setUserLists } from '../../../store/slices/Users';
 import { List } from '../../../store/slices/Users/types';
 import ConfirmModal from '../../ConfirmModal';
@@ -70,7 +70,7 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 	const handleOpenListsModal = (): void => {
 		if (mediaItem) {
 			dispatch(
-				toggleList({
+				setList({
 					open: true,
 					title,
 					mediaType,

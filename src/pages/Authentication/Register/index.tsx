@@ -229,7 +229,7 @@ const Register = (): ReactElement => {
 	};
 
 	const handleSubmit = (): void => {
-		dispatch(toggleSplashscreen(true));
+		dispatch(toggleSplashscreen());
 
 		const details = detailsForm.getValues();
 		const genres = genresForm.getValues();
@@ -269,8 +269,6 @@ const Register = (): ReactElement => {
 			dispatch(setUserInfo({ id, data: { ...info } }));
 			dispatch(setUserTheme({ id, data: { ...customization } }));
 		}, 250);
-
-		setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
 	};
 
 	return (

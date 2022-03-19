@@ -51,7 +51,7 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 
 	const handleSetColorMode = useCallback(() => {
 		if (colorMode === 'system') {
-			dispatch(toggleSplashscreen(true));
+			dispatch(toggleSplashscreen());
 
 			setColorMode(isDarkMode ? 'dark' : 'light');
 		} else {
@@ -76,7 +76,7 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 			closeOnEsc={false}
 			closeOnOverlayClick={false}
 			isOpen={isOpen}
-			onClose={() => dispatch(toggleSplashscreen(false))}
+			onClose={() => console.log('')}
 			motionPreset='slideInBottom'
 			scrollBehavior='inside'
 			size='full'

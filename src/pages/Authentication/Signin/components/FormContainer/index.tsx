@@ -56,7 +56,7 @@ const FormContainer = (): ReactElement => {
 	const handleSuccessSignIn = (id: string): void => {
 		dispatch(setUser(id));
 
-		dispatch(toggleSplashscreen(true));
+		dispatch(toggleSplashscreen());
 
 		navigate('/', { replace: true });
 	};

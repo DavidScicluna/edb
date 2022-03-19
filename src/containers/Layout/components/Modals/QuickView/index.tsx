@@ -14,7 +14,7 @@ import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import Empty from '../../../../../components/Empty';
 import Modal from '../../../../../components/Modal';
-import { defaultQuickViewModal, toggleQuickView } from '../../../../../store/slices/Modals';
+import { defaultQuickViewModal, setQuickView } from '../../../../../store/slices/Modals';
 
 const QuickView = (): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -23,7 +23,7 @@ const QuickView = (): ReactElement => {
 	const quickViewModal = useSelector((state) => state.modals.ui.quickViewModal);
 
 	const handleClose = (): void => {
-		dispatch(toggleQuickView({ ...defaultQuickViewModal }));
+		dispatch(setQuickView({ ...defaultQuickViewModal }));
 	};
 
 	return (

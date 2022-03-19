@@ -13,7 +13,7 @@ import { useSelector } from '../../../../../common/hooks';
 import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import CreateList from '../../../../../pages/User/pages/Lists/components/CreateList';
-import { defaultListsModal, toggleList } from '../../../../../store/slices/Modals';
+import { defaultListsModal, setList } from '../../../../../store/slices/Modals';
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
 import { defaultUser, getUser, setUserLists } from '../../../../../store/slices/Users';
 import { List as ListType } from '../../../../../store/slices/Users/types';
@@ -94,7 +94,7 @@ const ListsModal = (): ReactElement => {
 
 	const handleCloseLists = (): void => {
 		setSelected([]);
-		dispatch(toggleList({ ...defaultListsModal }));
+		dispatch(setList({ ...defaultListsModal }));
 	};
 
 	const handleCloseCreateList = (): void => {
@@ -123,7 +123,7 @@ const ListsModal = (): ReactElement => {
 					</Button>
 				)}
 				isOpen={listsModal.open}
-				onClose={() => dispatch(toggleList({ ...defaultListsModal }))}
+				onClose={() => dispatch(setList({ ...defaultListsModal }))}
 				isCentered
 				size='2xl'
 			>

@@ -88,7 +88,7 @@ const Actions = (): ReactElement => {
 				)}
 				color={isDisplayModalOpen ? color : 'gray'}
 				isFullWidth
-				onClick={() => dispatch(toggleDisplay(true))}
+				onClick={() => dispatch(toggleDisplay())}
 				size='lg'
 				variant='text'
 				sx={{ front: { ...sx } }}

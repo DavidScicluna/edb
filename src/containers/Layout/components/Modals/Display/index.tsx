@@ -39,7 +39,7 @@ const Display = (): ReactElement => {
 	const handleSubmit = (newTheme: Theme): void => {
 		handleClose();
 
-		dispatch(toggleSplashscreen(true));
+		dispatch(toggleSplashscreen());
 		dispatch(setUserTheme({ id: user || '', data: newTheme }));
 
 		form.reset({ ...newTheme });
@@ -51,14 +51,12 @@ const Display = (): ReactElement => {
 				setColorMode(handleCheckSystemColorMode());
 			}
 		}
-
-		setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
 	};
 
 	const handleClose = (): void => {
 		form.reset({ ...theme });
 
-		dispatch(toggleDisplay(false));
+		dispatch(toggleDisplay());
 	};
 
 	return (

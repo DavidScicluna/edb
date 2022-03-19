@@ -15,7 +15,7 @@ import { MediaType } from '../../../../../common/types';
 import { handleIsTouchDevice, handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../common/utils';
 import Button from '../../../../../components/Clickable/Button';
 import Skeleton from '../../../../../components/Skeleton';
-import { toggleQuickView } from '../../../../../store/slices/Modals';
+import { setQuickView } from '../../../../../store/slices/Modals';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../theme/types';
 import Image from '../../../../Image';
@@ -91,7 +91,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 											event.stopPropagation();
 
 											dispatch(
-												toggleQuickView({
+												setQuickView({
 													open: true,
 													mediaType,
 													mediaItem: { id: mediaItem?.id || -1, title }
