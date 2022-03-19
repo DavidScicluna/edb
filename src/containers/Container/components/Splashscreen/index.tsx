@@ -51,7 +51,7 @@ const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
 
 	const handleSetColorMode = useCallback(() => {
 		if (colorMode === 'system') {
-			dispatch(toggleSplashscreen());
+			dispatch(toggleSplashscreen(true));
 
 			setColorMode(isDarkMode ? 'dark' : 'light');
 		} else {

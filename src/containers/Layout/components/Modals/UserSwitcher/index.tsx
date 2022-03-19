@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useMediaQuery, useDisclosure, Center } from '@chakra-ui/react';
 
 import { SHA256 } from 'crypto-js';
+import dayjs from 'dayjs';
 import { isEmpty, isNil } from 'lodash';
 
 import Form from './components/Form';
@@ -16,6 +17,7 @@ import VerticalGrid from '../../../../../components/Grid/Vertical';
 import Modal from '../../../../../components/Modal';
 import { setUser } from '../../../../../store/slices/App';
 import { toggleSplashscreen, toggleUserSwitcher } from '../../../../../store/slices/Modals';
+import { setUsers } from '../../../../../store/slices/Users';
 import { User as UserType } from '../../../../../store/slices/Users/types';
 
 const UserSwitcher = (): ReactElement => {
@@ -32,7 +34,7 @@ const UserSwitcher = (): ReactElement => {
 
 	const handleClose = (): void => {
 		setSelected(undefined);
-		dispatch(toggleUserSwitcher());
+		dispatch(toggleUserSwitcher(false));
 	};
 
 	const handleSwitchUser = (values: FormType): void => {
@@ -40,7 +42,19 @@ const UserSwitcher = (): ReactElement => {
 			const id = selected.data.id;
 
 			dispatch(setUser(id));
-			dispatch(toggleSplashscreen());
+			dispatch(
+				setUsers(
+					users
+						.map((user) =>
+							user.data.id === id
+								? { ...user, data: { ...user.data, signedInAt: dayjs().toISOString() } }
+								: user
+						)
+						.sort((a, b) => dayjs(b.data.signedInAt).diff(a.data.signedInAt))
+				)
+			);
+
+			dispatch(toggleSplashscreen(true));
 
 			onFormClose();
 			handleClose();

@@ -23,7 +23,7 @@ const Container = (): ReactElement => {
 
 	useEffect(() => {
 		if (isSplashscreenOpen) {
-			setTimeout(() => dispatch(toggleSplashscreen()), 2500);
+			setTimeout(() => dispatch(toggleSplashscreen(false)), 2500);
 		}
 	}, [isSplashscreenOpen]);
 

@@ -48,7 +48,8 @@ export const defaultUser: User = {
 		reviews: {
 			user: [],
 			other: []
-		}
+		},
+		signedInAt: dayjs().toISOString()
 	},
 	ui: {
 		theme: {

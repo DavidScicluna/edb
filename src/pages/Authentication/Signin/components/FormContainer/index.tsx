@@ -7,6 +7,7 @@ import { useMediaQuery, useBoolean, Container, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import sha256 from 'crypto-js/sha256';
+import dayjs from 'dayjs';
 
 import Form from './components/Form';
 import Header from './components/Header';
@@ -67,21 +68,27 @@ const FormContainer = (): ReactElement => {
 			dispatch(setUser(id));
 			dispatch(
 				setUsers(
-					users.map((user) =>
-						user.data.id === id
-							? {
-									...user,
-									data: {
-										...user.data,
-										credentials: { ...user.data.credentials, rememberMe: credentials.rememberMe }
-									}
-							  }
-							: user
-					)
+					users
+						.map((user) =>
+							user.data.id === id
+								? {
+										...user,
+										data: {
+											...user.data,
+											credentials: {
+												...user.data.credentials,
+												rememberMe: credentials.rememberMe
+											},
+											signedInAt: dayjs().toISOString()
+										}
+								  }
+								: user
+						)
+						.sort((a, b) => dayjs(b.data.signedInAt).diff(a.data.signedInAt))
 				)
 			);
 
-			dispatch(toggleSplashscreen());
+			dispatch(toggleSplashscreen(true));
 
 			navigate('/', { replace: true });
 		} else {

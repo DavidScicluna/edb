@@ -99,6 +99,7 @@ export type User = {
 		liked: MediaItems;
 		lists: List[];
 		reviews: UserReviews;
+		signedInAt: string;
 	};
 	ui: {
 		theme: Theme;

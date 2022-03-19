@@ -7,6 +7,7 @@ import { ColorMode, useTheme, useColorMode, useDisclosure, Center, Container } f
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import sha256 from 'crypto-js/sha256';
+import dayjs from 'dayjs';
 import { isEmpty, isNil } from 'lodash';
 import { v4 as uuid } from 'uuid';
 
@@ -229,8 +230,6 @@ const Register = (): ReactElement => {
 	};
 
 	const handleSubmit = (): void => {
-		dispatch(toggleSplashscreen());
-
 		const details = detailsForm.getValues();
 		const genres = genresForm.getValues();
 		const customization = customizationForm.getValues();
@@ -253,7 +252,8 @@ const Register = (): ReactElement => {
 					password: sha256(details.password).toString(),
 					rememberMe: false
 				},
-				info: { ...info }
+				info: { ...info },
+				signedInAt: dayjs().toISOString()
 			},
 			ui: {
 				...defaultUser.ui,
@@ -262,7 +262,9 @@ const Register = (): ReactElement => {
 		};
 
 		dispatch(setUser(id));
-		dispatch(setUsers([...users, user]));
+		dispatch(setUsers([...users, user].sort((a, b) => dayjs(b.data.signedInAt).diff(a.data.signedInAt))));
+
+		dispatch(toggleSplashscreen(true));
 
 		navigate('/');
 

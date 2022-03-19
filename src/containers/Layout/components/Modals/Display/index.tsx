@@ -39,7 +39,7 @@ const Display = (): ReactElement => {
 	const handleSubmit = (newTheme: Theme): void => {
 		handleClose();
 
-		dispatch(toggleSplashscreen());
+		dispatch(toggleSplashscreen(true));
 		dispatch(setUserTheme({ id: user || '', data: newTheme }));
 
 		form.reset({ ...newTheme });
@@ -56,7 +56,7 @@ const Display = (): ReactElement => {
 	const handleClose = (): void => {
 		form.reset({ ...theme });
 
-		dispatch(toggleDisplay());
+		dispatch(toggleDisplay(false));
 	};
 
 	return (

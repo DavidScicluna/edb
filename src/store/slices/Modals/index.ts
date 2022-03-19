@@ -35,14 +35,14 @@ const modalsSlice = createSlice({
 		setQuickView: (state: StateProps, action: PayloadAction<QuickViewModal>) => {
 			state.ui.quickViewModal = action.payload;
 		},
-		toggleDisplay: (state: StateProps) => {
-			state.ui.isDisplayModalOpen = !state.ui.isDisplayModalOpen;
+		toggleDisplay: (state: StateProps, action: PayloadAction<boolean>) => {
+			state.ui.isDisplayModalOpen = action.payload;
 		},
-		toggleUserSwitcher: (state: StateProps) => {
-			state.ui.isUserSwitcherModalOpen = !state.ui.isUserSwitcherModalOpen;
+		toggleUserSwitcher: (state: StateProps, action: PayloadAction<boolean>) => {
+			state.ui.isUserSwitcherModalOpen = action.payload;
 		},
-		toggleSplashscreen: (state: StateProps) => {
-			state.ui.isSplashscreenOpen = !state.ui.isSplashscreenOpen;
+		toggleSplashscreen: (state: StateProps, action: PayloadAction<boolean>) => {
+			state.ui.isSplashscreenOpen = action.payload;
 		}
 	}
 });

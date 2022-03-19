@@ -91,7 +91,7 @@ const Actions = (): ReactElement => {
 					renderLeft={({ fontSize }) => <Icon icon='sync' type='outlined' fontSize={fontSize} />}
 					color={isUserSwitcherModalOpen ? color : 'gray'}
 					isFullWidth
-					onClick={() => dispatch(toggleUserSwitcher())}
+					onClick={() => dispatch(toggleUserSwitcher(true))}
 					size='lg'
 					variant='text'
 					sx={{ front: { ...sx } }}
@@ -106,7 +106,7 @@ const Actions = (): ReactElement => {
 				)}
 				color={isDisplayModalOpen ? color : 'gray'}
 				isFullWidth
-				onClick={() => dispatch(toggleDisplay())}
+				onClick={() => dispatch(toggleDisplay(true))}
 				size='lg'
 				variant='text'
 				sx={{ front: { ...sx } }}
