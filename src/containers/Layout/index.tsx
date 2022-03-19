@@ -3,17 +3,7 @@ import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
-import {
-	useTheme,
-	useColorMode,
-	useMediaQuery,
-	Container,
-	HStack,
-	VStack,
-	Box,
-	Collapse,
-	Slide
-} from '@chakra-ui/react';
+import { useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box, Collapse } from '@chakra-ui/react';
 
 import { useTernaryDarkMode, useUpdateEffect } from 'usehooks-ts';
 
@@ -24,6 +14,7 @@ import Header from './components/Header';
 import DisplayModal from './components/Modals/Display';
 import ListsModal from './components/Modals/Lists';
 import QuickView from './components/Modals/QuickView';
+import UserSwitcherModal from './components/Modals/UserSwitcher';
 import ProgressBar from './components/ProgressBar';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
@@ -32,7 +23,6 @@ import { useSelector } from '../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import Icon from '../../components/Icon';
 import { NavItem } from '../../components/NavItem/types';
-import SplashscreenModal from '../../components/Splashscreen';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { toggleSplashscreen } from '../../store/slices/Modals';
 import { defaultUser, getUser } from '../../store/slices/Users';
@@ -90,6 +80,7 @@ const Layout = (): ReactElement => {
 	const [isLg] = useMediaQuery('(min-width: 1280px)');
 
 	const dispatch = useDispatch();
+	const users = useSelector((state) => state.users.data.users);
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 	const colorMode = useSelector(
 		(state) =>
@@ -115,71 +106,71 @@ const Layout = (): ReactElement => {
 			dispatch(toggleSplashscreen(true));
 
 			setColorMode(isDarkMode ? 'dark' : 'light');
-
-			setTimeout(() => dispatch(toggleSplashscreen(false)), 5000);
 		}
 	}, [isDarkMode]);
 
 	return (
-		<Slide in direction='bottom'>
-			<Collapse
-				in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
-				unmountOnExit
-				style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
-			>
-				<ProgressBar />
-			</Collapse>
+		<Collapse in unmountOnExit>
+			<>
+				<Collapse
+					in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
+					unmountOnExit
+					style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
+				>
+					<ProgressBar />
+				</Collapse>
 
-			<Container
-				width='100%'
-				maxWidth={`${
-					handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) +
-					sidebarWidth.expanded
-				}px`}
-				centerContent
-				p={0}
-				sx={{ ...transition }}
-			>
-				<HStack width='100%' position='relative' spacing={0}>
-					{isLg ? <Sidebar /> : null}
+				<Container
+					width='100%'
+					maxWidth={`${
+						handleConvertREMToPixels(handleConvertStringToNumber(theme.breakpoints.xl, 'em')) +
+						sidebarWidth.expanded
+					}px`}
+					centerContent
+					p={0}
+					sx={{ ...transition }}
+				>
+					<HStack width='100%' position='relative' spacing={0}>
+						{isLg ? <Sidebar /> : null}
 
-					<Box
-						width={isLg ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
-						position='absolute'
-						top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '4px' : 0}
-						left={isLg ? `${sidebarWidth[sidebarMode]}px` : '0px'}
-						sx={{ ...transition }}
-					>
-						{!isLg ? <Header /> : null}
+						<Box
+							width={isLg ? `calc(100% - ${sidebarWidth[sidebarMode]}px)` : '100%'}
+							position='absolute'
+							top={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0 ? '4px' : 0}
+							left={isLg ? `${sidebarWidth[sidebarMode]}px` : '0px'}
+							sx={{ ...transition }}
+						>
+							{!isLg ? <Header /> : null}
 
-						<VStack width='100%' spacing={4} sx={{ ...transition }}>
-							<Box
-								width='100%'
-								minHeight={`calc(100vh - ${
-									headerHeight +
-									handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
-								}px)`}
-								sx={{ ...transition }}
-							>
-								<Outlet />
-							</Box>
+							<VStack width='100%' spacing={4} sx={{ ...transition }}>
+								<Box
+									width='100%'
+									minHeight={`calc(100vh - ${
+										headerHeight +
+										handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
+									}px)`}
+									sx={{ ...transition }}
+								>
+									<Outlet />
+								</Box>
 
-							<Footer />
-						</VStack>
+								<Footer />
+							</VStack>
 
-						<ScrollToTop />
-					</Box>
-				</HStack>
-			</Container>
+							<ScrollToTop />
+						</Box>
+					</HStack>
+				</Container>
 
-			<QuickView />
+				<QuickView />
 
-			<DisplayModal />
+				<DisplayModal />
 
-			<ListsModal />
+				{users.length > 0 ? <UserSwitcherModal /> : null}
 
-			<SplashscreenModal />
-		</Slide>
+				<ListsModal />
+			</>
+		</Collapse>
 	);
 };
 
