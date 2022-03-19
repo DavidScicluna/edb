@@ -26,15 +26,14 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
-	const genres = useSelector((state) =>
-		mediaType === 'movie' ? state.options.data.genres.movie : state.options.data.genres.tv
+	const allGenres = useSelector(
+		(state) => (mediaType === 'movie' ? state.options.data.genres.movie : state.options.data.genres.tv) || []
 	);
+	const genres = form.watch().genres || [];
 
 	const [ref, { height }] = useElementSize();
 
 	const handleGenreClick = (genre: GenreType): void => {
-		const genres = form.getValues().genres;
-
 		if (genres.some((activeGenre) => activeGenre === genre.id)) {
 			form.setValue(
 				'genres',
@@ -47,15 +46,15 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 	};
 
 	const handleAllClick = (): void => {
-		if (form.getValues().genres.length === (genres || []).length) {
+		if (genres.length === allGenres.length) {
 			form.setValue('genres', [], { shouldDirty: true });
 		} else {
-			form.setValue('genres', [...(genres || []).map((genre) => genre.id)], { shouldDirty: true });
+			form.setValue('genres', [...allGenres.map((genre) => genre.id)], { shouldDirty: true });
 		}
 	};
 
 	const handleAllLabel = (): string => {
-		return `${form.getValues().genres.length === (genres || []).length ? 'Remove' : 'Select'} All`;
+		return `${genres.length === allGenres.length ? 'Remove' : 'Select'} All`;
 	};
 
 	return (
@@ -72,10 +71,10 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 									<Button
 										color={color}
 										isDisabled={
-											isNil(genres) ||
-											isEmpty(genres) ||
+											isNil(allGenres) ||
+											isEmpty(allGenres) ||
 											value.length === 0 ||
-											value.length === (genres?.length || 0)
+											value.length === allGenres.length
 										}
 										onClick={() =>
 											form.setValue('genres', defaultValues.genres, { shouldDirty: true })
@@ -87,7 +86,7 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 									</Button>
 									<Button
 										color={color}
-										isDisabled={isNil(genres) || isEmpty(genres)}
+										isDisabled={isNil(allGenres) || isEmpty(allGenres)}
 										onClick={() => handleAllClick()}
 										size='sm'
 										variant='text'
@@ -99,7 +98,7 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 						},
 						body: (
 							<Wrap width='100%' spacing={isSm ? 1 : 1.5}>
-								{isNil(genres) || isEmpty(genres) ? (
+								{isNil(allGenres) || isEmpty(allGenres) ? (
 									<WrapItem width='100%'>
 										<Empty
 											hasIllustration={false}
@@ -109,8 +108,8 @@ const Genres = ({ form, mediaType }: GenresProps): ReactElement => {
 											variant='transparent'
 										/>
 									</WrapItem>
-								) : !(isNil(genres) || isEmpty(genres)) ? (
-									genres.map((genre) => (
+								) : !(isNil(allGenres) || isEmpty(allGenres)) ? (
+									allGenres.map((genre) => (
 										<WrapItem key={genre.id}>
 											<Genre
 												{...genre}

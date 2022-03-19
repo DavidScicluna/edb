@@ -27,17 +27,16 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
 	);
-	const certifications = useSelector((state) =>
+	const allCertifications = useSelector((state) =>
 		mediaType === 'movie'
 			? state.options.data.certifications.movie?.US || []
 			: state.options.data.certifications.tv?.US || []
 	);
+	const certifications = form.watch().certifications || [];
 
 	const [ref, { height }] = useElementSize();
 
 	const handleCertificationClick = (certification: CertificationType): void => {
-		const certifications = form.getValues().certifications;
-
 		if (certifications.some((activeCertification) => activeCertification === certification.certification)) {
 			form.setValue(
 				'certifications',
@@ -50,12 +49,12 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 	};
 
 	const handleAllClick = (): void => {
-		if (form.getValues().certifications.length === (certifications || []).length) {
+		if (certifications.length === allCertifications.length) {
 			form.setValue('certifications', [], { shouldDirty: true });
 		} else {
 			form.setValue(
 				'certifications',
-				[...(certifications || []).map((certification) => certification.certification)],
+				[...allCertifications.map((certification) => certification.certification)],
 				{
 					shouldDirty: true
 				}
@@ -64,7 +63,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 	};
 
 	const handleAllLabel = (): string => {
-		return `${form.getValues().certifications.length === (certifications || []).length ? 'Remove' : 'Select'} All`;
+		return `${certifications.length === allCertifications.length ? 'Remove' : 'Select'} All`;
 	};
 
 	return (
@@ -81,10 +80,10 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 									<Button
 										color={color}
 										isDisabled={
-											isNil(certifications) ||
-											isEmpty(certifications) ||
+											isNil(allCertifications) ||
+											isEmpty(allCertifications) ||
 											value.length === 0 ||
-											value.length === ((certifications || [])?.length || 0)
+											value.length === allCertifications.length
 										}
 										onClick={() =>
 											form.setValue('certifications', defaultValues.certifications, {
@@ -98,7 +97,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 									</Button>
 									<Button
 										color={color}
-										isDisabled={isNil(certifications) || isEmpty(certifications)}
+										isDisabled={isNil(allCertifications) || isEmpty(allCertifications)}
 										onClick={() => handleAllClick()}
 										size='sm'
 										variant='text'
@@ -110,7 +109,7 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 						},
 						body: (
 							<Wrap width='100%' spacing={isSm ? 1 : 1.5}>
-								{isNil(certifications) || isEmpty(certifications) ? (
+								{isNil(allCertifications) || isEmpty(allCertifications) ? (
 									<WrapItem width='100%'>
 										<Empty
 											hasIllustration={false}
@@ -120,8 +119,8 @@ const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement 
 											variant='transparent'
 										/>
 									</WrapItem>
-								) : !(isNil(certifications) || isEmpty(certifications)) ? (
-									sort([...(certifications || [])], 'order').map((certification) => (
+								) : !(isNil(allCertifications) || isEmpty(allCertifications)) ? (
+									sort([...allCertifications], 'order').map((certification) => (
 										<WrapItem key={certification.certification}>
 											<Certification
 												{...certification}
