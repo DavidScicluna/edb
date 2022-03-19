@@ -4,7 +4,7 @@ export type DetailsForm = {
 	firstName: Info['name'];
 	lastName: Info['name'];
 	bio: Info['bio'];
-} & Credentials;
+} & Omit<Credentials, 'rememberMe'>;
 
 export type GenresForm = InfoGenres;
 

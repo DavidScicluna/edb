@@ -19,7 +19,8 @@ import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import { setUser } from '../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
-import { Credentials } from '../../../../../store/slices/Users/types';
+import { setUsers } from '../../../../../store/slices/Users';
+import { Credentials, User } from '../../../../../store/slices/Users/types';
 import { Color } from '../../../../../theme/types';
 
 export const color: keyof Color = 'light_blue';
@@ -53,8 +54,22 @@ const FormContainer = (): ReactElement => {
 		form.setValue('password', credentials.password, { shouldDirty: true });
 	};
 
-	const handleSuccessSignIn = (id: string): void => {
+	const handleSuccessSignIn = (user: User, rememberMe: boolean): void => {
+		const id = user.data.id;
+
 		dispatch(setUser(id));
+		dispatch(
+			setUsers(
+				users.map((user) =>
+					user.data.id === id
+						? {
+								...user,
+								data: { ...user.data, credentials: { ...user.data.credentials, rememberMe } }
+						  }
+						: user
+				)
+			)
+		);
 
 		dispatch(toggleSplashscreen());
 
@@ -73,7 +88,7 @@ const FormContainer = (): ReactElement => {
 			((isUserTyped && sha256(credentials.password).toString() === user.data.credentials?.password) ||
 				credentials.password === user.data.credentials?.password)
 		) {
-			handleSuccessSignIn(user.data.id);
+			handleSuccessSignIn(user, credentials.rememberMe);
 		} else {
 			handleUnsuccessfulSignIn();
 		}

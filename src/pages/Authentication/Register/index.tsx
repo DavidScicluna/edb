@@ -250,7 +250,8 @@ const Register = (): ReactElement => {
 				id,
 				credentials: {
 					username: details.username,
-					password: sha256(details.password).toString()
+					password: sha256(details.password).toString(),
+					rememberMe: false
 				},
 				info: { ...info }
 			},

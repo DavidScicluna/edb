@@ -9,7 +9,8 @@ export const defaultUser: User = {
 		id: uuid(),
 		credentials: {
 			username: 'guest',
-			password: ''
+			password: '',
+			rememberMe: false
 		},
 		info: {
 			name: 'Guest',

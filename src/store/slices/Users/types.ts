@@ -11,6 +11,7 @@ import { Color } from '../../../theme/types';
 export type Credentials = {
 	username: string;
 	password: string;
+	rememberMe: boolean;
 };
 
 export type InfoGenres = {
