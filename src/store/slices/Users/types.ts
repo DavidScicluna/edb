@@ -21,7 +21,8 @@ export type InfoGenres = {
 export type Info = {
 	name: string;
 	bio?: string;
-	avatar_path?: string;
+	avatar_path: string;
+	background_path: string;
 	prefers?: InfoGenres;
 };
 
@@ -89,9 +90,9 @@ export type Theme = {
 
 export type User = {
 	data: {
-		id?: string;
-		credentials?: Credentials;
-		info?: Info;
+		id: string;
+		credentials: Credentials;
+		info: Info;
 		recentSearches: Search[];
 		recentlyViewed: MediaItems;
 		liked: MediaItems;

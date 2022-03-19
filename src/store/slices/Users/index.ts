@@ -6,6 +6,16 @@ import { StateProps, UserAction, User, Info, Search, MediaItems, List, UserRevie
 
 export const defaultUser: User = {
 	data: {
+		id: uuid(),
+		credentials: {
+			username: 'guest',
+			password: ''
+		},
+		info: {
+			name: 'Guest',
+			avatar_path: '',
+			background_path: ''
+		},
 		recentSearches: [],
 		recentlyViewed: {
 			movies: [],
@@ -49,10 +59,7 @@ export const defaultUser: User = {
 
 const initialState: StateProps = {
 	data: {
-		users: [
-			// TODO: Remove this
-			{ ...defaultUser }
-		]
+		users: []
 	}
 };
 
