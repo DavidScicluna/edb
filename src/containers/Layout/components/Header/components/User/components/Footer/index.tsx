@@ -6,6 +6,7 @@ import { Style } from '../../../../../../../../common/types';
 import Button from '../../../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../../../components/Icon';
 import { setUser } from '../../../../../../../../store/slices/App';
+import { toggleSplashscreen } from '../../../../../../../../store/slices/Modals';
 
 const sx: Style = { px: 0, justifyContent: 'flex-start' };
 
@@ -15,9 +16,11 @@ const Footer = (): ReactElement => {
 	const navigate = useNavigate();
 
 	const handleSignOut = (): void => {
-		navigate('/signin');
+		dispatch(toggleSplashscreen(true));
 
-		setTimeout(() => dispatch(setUser(undefined)), 500);
+		navigate('/signin', { replace: false });
+
+		dispatch(setUser(undefined));
 	};
 
 	return (
