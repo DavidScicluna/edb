@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { Controller, useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { useTheme, useColorMode, useDisclosure, VStack, Text, Collapse } from '@chakra-ui/react';
+import { useTheme, useColorMode, useDisclosure, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
@@ -138,16 +138,39 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 								{{
 									header: {
 										title: (
-											<Text
-												color={`gray.${colorMode === 'light' ? 900 : 50}`}
-												fontSize='sm'
-												fontWeight='medium'
-											>
-												Rating
-											</Text>
+											<HStack spacing={0.75}>
+												<Text
+													color={`gray.${colorMode === 'light' ? 900 : 50}`}
+													fontSize='sm'
+													fontWeight='medium'
+													textTransform='uppercase'
+													isTruncated
+													overflow='hidden'
+													whiteSpace='nowrap'
+												>
+													Rating
+												</Text>
+												<Text
+													color={`red.${colorMode === 'light' ? 500 : 400}`}
+													fontSize='sm'
+													fontWeight='medium'
+													textTransform='uppercase'
+													isTruncated
+													overflow='hidden'
+													whiteSpace='nowrap'
+												>
+													*
+												</Text>
+											</HStack>
 										),
 										actions: (
-											<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm'>
+											<Text
+												color={`gray.${colorMode === 'light' ? 400 : 500}`}
+												fontSize='sm'
+												isTruncated
+												overflow='hidden'
+												whiteSpace='nowrap'
+											>
 												{`${value} stars`}
 											</Text>
 										)
