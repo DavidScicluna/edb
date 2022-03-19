@@ -137,7 +137,7 @@ export const allRoutes: RouteType[] = [
 	}
 ];
 
-const handleReturnRoute = (route: Omit<RouteType, 'index' | 'breadcrumb'>, index: number): ReactElement => {
+const handleReturnRoute = (route: Omit<RouteType, 'index' | 'breadcrumb'>, index: string): ReactElement => {
 	const { path, element, children = [] } = route;
 
 	return (
@@ -151,7 +151,7 @@ const handleReturnRoute = (route: Omit<RouteType, 'index' | 'breadcrumb'>, index
 				</Suspense>
 			}
 		>
-			{children.map((child, index) => handleReturnRoute(child, index))}
+			{children.map((child, childIndex) => handleReturnRoute(child, `${index}${childIndex}`))}
 		</Route>
 	);
 };
@@ -168,7 +168,7 @@ const Routes = (): ReactElement => {
 	return (
 		<AnimatePresence exitBeforeEnter initial={false}>
 			<RRDRoutes key={location.pathname} location={location}>
-				{routes.map((route, index) => handleReturnRoute(route, index))}
+				{routes.map((route, index) => handleReturnRoute(route, `${index}`))}
 			</RRDRoutes>
 		</AnimatePresence>
 	);
