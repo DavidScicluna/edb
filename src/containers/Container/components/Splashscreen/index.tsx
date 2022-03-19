@@ -12,7 +12,7 @@ import { SplashscreenProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { toggleSplashscreen } from '../../../../store/slices/Modals';
-import { defaultUser, getUser } from '../../../../store/slices/Users';
+import { getUser } from '../../../../store/slices/Users';
 import { Color } from '../../../../theme/types';
 
 const MotionBox = motion(Box);
@@ -36,12 +36,11 @@ const colors: (keyof Color)[] = [
 ];
 
 const Splashscreen = ({ isOpen = false }: SplashscreenProps): ReactElement => {
-	const { setColorMode } = useColorMode();
+	const { colorMode: colorModeHook, setColorMode } = useColorMode();
 
 	const dispatch = useDispatch();
 	const colorMode = useSelector(
-		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.ui.theme.colorMode || defaultUser.ui.theme.colorMode
+		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.colorMode || colorModeHook
 	);
 
 	const style = useStyles();
