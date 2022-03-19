@@ -24,7 +24,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 			ref={ref}
 			width='100%'
 			justifyContent='space-between'
-			divider={<Divider orientation='vertical' height={`${height}px`} />}
+			divider={<Divider colorMode={colorMode} orientation='vertical' height={`${height}px`} />}
 			spacing={2}
 		>
 			<HStack alignItems='center' justifyContent='center'>
@@ -46,7 +46,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 			ref={ref}
 			width='100%'
 			justifyContent='space-between'
-			divider={<Divider orientation='vertical' height={`${height}px`} />}
+			divider={<Divider colorMode={colorMode} orientation='vertical' height={`${height}px`} />}
 			spacing={2}
 		>
 			<Button colorMode={colorMode} onClick={() => onClose()} variant='outlined'>

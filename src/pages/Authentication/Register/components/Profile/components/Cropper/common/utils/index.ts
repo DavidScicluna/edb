@@ -6,7 +6,6 @@ const handleCreateImage = (url: string): Promise<HTMLImageElement> => {
 		const image = new Image();
 		image.addEventListener('load', () => resolve(image));
 		image.addEventListener('error', (error) => reject(error));
-		// image.setAttribute('crossOrigin', 'anonymous'); // needed to avoid cross-origin issues on CodeSandbox
 		image.src = url;
 	});
 };
@@ -71,14 +70,14 @@ export const handleGetImage = async (
 	ctx.putImageData(data, 0, 0);
 
 	// As Base64 string
-	// return canvas.toDataURL('image/jpeg');
+	return canvas.toDataURL('image/jpeg');
 
 	// As a blob
-	return new Promise((resolve) => {
-		canvas.toBlob((file) => {
-			if (file) {
-				resolve(URL.createObjectURL(file));
-			}
-		}, 'image/jpeg');
-	});
+	// return new Promise((resolve) => {
+	// 	canvas.toBlob((file) => {
+	// 		if (file) {
+	// 			resolve(URL.createObjectURL(file));
+	// 		}
+	// 	}, 'image/jpeg');
+	// });
 };
