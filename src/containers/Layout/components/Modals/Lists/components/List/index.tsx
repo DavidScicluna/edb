@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, HStack, VStack, Text } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import compact from 'lodash/compact';
 import { useElementSize } from 'usehooks-ts';
 
@@ -14,6 +15,8 @@ import Card from '../../../../../../../components/Clickable/Card';
 import Icon from '../../../../../../../components/Icon';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../theme/types';
+
+dayjs.extend(relativeTime);
 
 const List = (props: ListProps): ReactElement => {
 	const theme = useTheme<Theme>();

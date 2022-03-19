@@ -87,7 +87,7 @@ const Actions = (): ReactElement => {
 				</Button>
 			</Link>
 
-			{users.length > 1 ? (
+			{users.length > 0 ? (
 				<Button
 					renderLeft={({ fontSize }) => <Icon icon='sync' type='outlined' fontSize={fontSize} />}
 					color={isUserSwitcherModalOpen ? color : 'gray'}

@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, VStack, Center } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
@@ -129,9 +129,9 @@ const ListsModal = (): ReactElement => {
 			>
 				<VStack spacing={2} p={2}>
 					{lists.map((list) => (
-						<span key={list.id} style={{ width: '100%' }}>
+						<Center key={list.id} width='100%'>
 							<List list={list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />
-						</span>
+						</Center>
 					))}
 				</VStack>
 			</Modal>
