@@ -55,7 +55,7 @@ const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactEl
 				{inView ? (
 					<Center {...commonStyleProps} as={Fade} key='image' position='relative' in unmountOnExit>
 						<>
-							<Skeleton {...commonStyleProps} isLoaded={inView}>
+							<Skeleton {...commonStyleProps} isLoaded={!isLoading}>
 								<Image
 									{...commonStyleProps}
 									alt={image?.alt || ''}

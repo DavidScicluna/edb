@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Skeleton as CUISkeleton } from '@chakra-ui/react';
 
-import { handleReturnColors } from './common/utils';
 import { SkeletonProps } from './types';
 
 import { handleConvertStringToNumber } from '../../common/utils';
@@ -18,11 +17,17 @@ const Skeleton = (props: SkeletonProps): ReactElement => {
 		colorMode: colorModeProp,
 		isLoaded = false,
 		type = 'default',
-		speed,
+		speed = undefined,
 		...rest
 	} = props;
 
 	const colorMode: ColorMode = colorModeProp || colorModeHook;
+
+	const handleReturnColors = (type: 'start' | 'end'): string => {
+		return theme.colors[color][
+			colorMode === 'light' ? (type === 'start' ? 200 : 300) : type === 'start' ? 700 : 600
+		];
+	};
 
 	return (
 		<CUISkeleton
@@ -30,12 +35,12 @@ const Skeleton = (props: SkeletonProps): ReactElement => {
 			isLoaded={isLoaded}
 			fadeDuration={
 				type === 'default' && !isLoaded
-					? handleConvertStringToNumber(theme.transition.duration['normal'], 'ms') || 250
+					? handleConvertStringToNumber(theme.transition.duration['normal'], 'ms') / 1000 || 0.25
 					: 0
 			}
-			speed={speed || handleConvertStringToNumber(theme.transition.duration['slower'], 'ms') || 750}
-			startColor={handleReturnColors(theme, 'start', color, colorMode)}
-			endColor={handleReturnColors(theme, 'end', color, colorMode)}
+			speed={speed || handleConvertStringToNumber(theme.transition.duration['slower'], 'ms') / 1000 || 0.75}
+			startColor={handleReturnColors('start')}
+			endColor={handleReturnColors('end')}
 		>
 			{children}
 		</CUISkeleton>
