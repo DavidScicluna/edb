@@ -11,7 +11,6 @@ import {
 	Fade
 } from '@chakra-ui/react';
 
-import { useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
 import { ImageProps } from './types';
@@ -47,52 +46,35 @@ const Image = (props: ImageProps): ReactElement => {
 	const [isThumbnailError, setIsThumbnailError] = useBoolean();
 
 	const [isBoringLoaded, setIsBoringLoaded] = useBoolean();
-	const [isBoringError, setIsBoringError] = useBoolean(true);
+	const [isBoringError, setIsBoringError] = useBoolean();
 
 	const fallbackID = useConst<string>(uuid());
 	const fallbackSrc = useConst<string>(
 		handleReturnBoringSrc(theme, boringType, colorMode === 'light' ? 500 : 400, fallbackID)
 	);
 
-	const commonProps: Style = {
+	const sx: Style = {
 		width: '100%',
 		height: '100%',
 		borderRadius,
 		position: 'absolute'
 	};
 
-	useUpdateEffect(() => {
-		if (isThumbnailLoaded) {
-			setIsFullError.off();
-			setIsBoringError.off();
-		}
-	}, [isThumbnailLoaded]);
-
 	return (
-		<Center position='relative' sx={{ ...commonProps }}>
+		<Center position='relative' sx={{ ...sx }}>
 			{/* Fallback image */}
-			<Center
-				as={Fade}
-				in={!(isFullLoaded || isThumbnailLoaded || isBoringLoaded)}
-				unmountOnExit
-				sx={{ ...commonProps }}
-			>
+			<Center as={Fade} in={!(isFullLoaded || isThumbnailLoaded || isBoringLoaded)} unmountOnExit sx={{ ...sx }}>
 				<CUIImage
 					{...rest}
 					alt={`${alt} fallback image`}
 					objectFit={objectFit || 'cover'}
 					src={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
-					sx={{ ...commonProps }}
+					sx={{ ...sx }}
 				/>
 			</Center>
 
 			{/* Boring image */}
-			<Center
-				as={Fade}
-				in={!isBoringError && !isThumbnailLoaded && !isFullLoaded}
-				unmountOnExit
-				sx={{ ...commonProps }}
-			>
+			<Center as={Fade} in={!isBoringError && isFullError && isThumbnailError} unmountOnExit sx={{ ...sx }}>
 				<CUIImage
 					{...rest}
 					alt={`${alt} boring image`}
@@ -106,12 +88,12 @@ const Image = (props: ImageProps): ReactElement => {
 						setIsBoringError.off();
 					}}
 					src={fallbackSrc}
-					sx={{ ...commonProps }}
+					sx={{ ...sx }}
 				/>
 			</Center>
 
 			{/* Thumbnail image */}
-			<Center as={Fade} in={!isThumbnailError && !isFullLoaded} unmountOnExit sx={{ ...commonProps }}>
+			<Center as={Fade} in={!isThumbnailError} unmountOnExit sx={{ ...sx }}>
 				<CUIImage
 					{...rest}
 					alt={`${alt} thumbnail`}
@@ -128,17 +110,19 @@ const Image = (props: ImageProps): ReactElement => {
 						setIsThumbnailLoaded.on();
 						setIsThumbnailError.off();
 
+						setIsFullError.off();
+
 						if (onLoad) {
 							onLoad(event);
 						}
 					}}
 					src={thumbnailSrc}
-					sx={{ ...commonProps }}
+					sx={{ ...sx }}
 				/>
 			</Center>
 
 			{/* Full size image */}
-			<Center as={Fade} in={!isFullError && isThumbnailLoaded} unmountOnExit sx={{ ...commonProps }}>
+			<Center as={Fade} in={!isFullError && isThumbnailLoaded} unmountOnExit sx={{ ...sx }}>
 				<CUIImage
 					{...rest}
 					alt={alt}
@@ -160,7 +144,7 @@ const Image = (props: ImageProps): ReactElement => {
 						}
 					}}
 					src={fullSrc}
-					sx={{ ...commonProps }}
+					sx={{ ...sx }}
 				/>
 			</Center>
 		</Center>
