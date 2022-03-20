@@ -198,6 +198,7 @@ const Register = (): ReactElement => {
 						user={detailsForm.getValues()}
 						color={color}
 						colorMode={colorMode}
+						onChange={() => handleChange(3)}
 					/>
 				);
 			default:

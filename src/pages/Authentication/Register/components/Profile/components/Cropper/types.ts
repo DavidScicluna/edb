@@ -8,4 +8,4 @@ export type CropperProps = {
 	isOpen?: boolean;
 	onCrop: (image: string) => void;
 	onClose: () => void;
-} & Omit<ProfileProps, 'id' | 'form' | 'user'>;
+} & Omit<ProfileProps, 'id' | 'form' | 'user' | 'onChange'>;

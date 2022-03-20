@@ -19,7 +19,7 @@ const Profile = (props: ProfileProps): ReactElement => {
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
-	const { id, form, user, color, colorMode } = props;
+	const { id, form, user, color, colorMode, onChange } = props;
 
 	const background = form.watch('background_path');
 	const avatar = form.watch('avatar_path');
@@ -38,6 +38,8 @@ const Profile = (props: ProfileProps): ReactElement => {
 		form.setValue('avatar_path', handleReturnBoringSrc(theme, 'beam', colorMode === 'light' ? 500 : 400, id), {
 			shouldDirty: true
 		});
+
+		onChange();
 	});
 
 	return (

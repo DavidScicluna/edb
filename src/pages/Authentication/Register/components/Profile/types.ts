@@ -9,4 +9,5 @@ export type ProfileProps = {
 	form: UseFormReturn<ProfileForm>;
 	user: DetailsForm;
 	colorMode: ColorMode;
+	onChange: () => void;
 } & Omit<CustomizationForm, 'colorMode'>;
