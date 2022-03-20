@@ -266,7 +266,7 @@ const Register = (): ReactElement => {
 
 		dispatch(toggleSplashscreen(true));
 
-		navigate('/');
+		navigate('/', { replace: true });
 
 		setTimeout(() => {
 			dispatch(setUserInfo({ id, data: { ...info } }));

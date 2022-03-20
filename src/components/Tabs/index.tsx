@@ -10,7 +10,16 @@ const Tabs = forwardRef<TabsRef, TabsProps>(function Tabs(props, ref): ReactElem
 	const { children, activeTab = -1, ...rest } = props;
 
 	return (
-		<CUITabs {...rest} ref={ref} width='100%' maxWidth='100%' isLazy lazyBehavior='unmount' variant='unstyled'>
+		<CUITabs
+			{...rest}
+			ref={ref}
+			width='100%'
+			maxWidth='100%'
+			index={activeTab}
+			isLazy
+			lazyBehavior='unmount'
+			variant='unstyled'
+		>
 			<TabsContext.Provider value={{ activeTab }}>{children}</TabsContext.Provider>
 		</CUITabs>
 	);

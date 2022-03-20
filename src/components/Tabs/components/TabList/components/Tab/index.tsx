@@ -76,6 +76,7 @@ const Tab = (props: TabsProps): ReactElement => {
 	return (
 		<CUITab
 			isDisabled={isDisabled}
+			isSelected={isSelected}
 			sx={{ ...merge(style.tab.default, style.tab[size], style[colorMode]) }}
 			_disabled={{ ...merge(style.disabled) }}
 		>
