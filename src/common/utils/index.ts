@@ -1,13 +1,12 @@
 import { ColorMode } from '@chakra-ui/react';
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 import qs from 'query-string';
-import { v4 as uuid } from 'uuid';
 
 import store from '../../store';
-import theme from '../../theme';
-import { ColorShades } from '../../theme/types';
+import { ColorShades, Theme } from '../../theme/types';
 import { Genre, BoringAvatarType, MediaType } from '../types';
+import { Image, Images } from '../types/images';
 
 export const handleReturnMediaTypeLabel = (mediaType: MediaType): string => {
 	switch (mediaType) {
@@ -94,7 +93,7 @@ export const handleIsTouchDevice = (): boolean => {
  * @returns - The section of the date
  */
 export const handleReturnDate = (date: string, section: 'year' | 'month' | 'day' | 'full'): string => {
-	const newDate = moment(date);
+	const newDate = dayjs(date);
 
 	switch (section) {
 		case 'year':
@@ -133,14 +132,14 @@ export const handleParseDurationForFramer = (time: number): number => {
  * This method will return a url that will fetch an img from boringavatars
  * boringavatars - https://boringavatars.com/
  *
+ * @param theme - The CUI Theme object
  * @param type - Type of asset from BoringAvatars
  * @param size - Size of the color spectrum
- * @param alt - Image alt
  * @returns - boringavatars URL
  */
-export const handleReturnBoringSrc = (type: BoringAvatarType, size: ColorShades): string => {
+export const handleReturnBoringSrc = (theme: Theme, type: BoringAvatarType, size: ColorShades, id: string): string => {
 	return qs.stringifyUrl({
-		url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${type}/${size}/${uuid()}`,
+		url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${type}/${size}/${id}`,
 		query: {
 			colors: [
 				theme.colors.red[size],
@@ -157,8 +156,7 @@ export const handleReturnBoringSrc = (type: BoringAvatarType, size: ColorShades)
 				theme.colors.lime[size],
 				theme.colors.yellow[size],
 				theme.colors.orange[size],
-				theme.colors.deep_orange[size],
-				theme.colors.brown[size]
+				theme.colors.deep_orange[size]
 			].join(','),
 			square: true
 		}
