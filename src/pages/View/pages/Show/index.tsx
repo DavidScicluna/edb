@@ -103,7 +103,6 @@ const Show = (): ReactElement => {
 								movies: recentlyViewed?.movies || [],
 								tv: uniq([...(recentlyViewed?.tv || []), { ...show }]),
 								people: recentlyViewed?.people || [],
-								companies: recentlyViewed?.companies || [],
 								collections: recentlyViewed?.collections || []
 							}
 						})

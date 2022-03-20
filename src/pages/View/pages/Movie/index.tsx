@@ -100,7 +100,6 @@ const Movie = (): ReactElement => {
 								movies: uniq([...(recentlyViewed?.movies || []), { ...movie }]),
 								tv: recentlyViewed?.tv || [],
 								people: recentlyViewed?.people || [],
-								companies: recentlyViewed?.companies || [],
 								collections: recentlyViewed?.collections || []
 							}
 						})

@@ -44,7 +44,6 @@ export const defaultUser: User = {
 			movies: [],
 			tv: [],
 			people: [],
-			companies: [],
 			collections: []
 		},
 		liked: {
@@ -123,7 +122,7 @@ const usersSlice = createSlice({
 					: { ...user }
 			);
 		},
-		setUserRecentlyViewed: (state: StateProps, action: UserAction<MediaItems>) => {
+		setUserRecentlyViewed: (state: StateProps, action: UserAction<Omit<MediaItems, 'companies'>>) => {
 			state.data.users = state.data.users.map((user) =>
 				user.data.id === action.payload.id
 					? {

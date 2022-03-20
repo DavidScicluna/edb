@@ -95,7 +95,7 @@ export type User = {
 		credentials?: Credentials;
 		info: Info;
 		recentSearches?: Search[];
-		recentlyViewed?: MediaItems;
+		recentlyViewed?: Omit<MediaItems, 'companies'>;
 		liked?: MediaItems;
 		lists?: List[];
 		reviews?: UserReviews;

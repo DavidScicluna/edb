@@ -39,7 +39,9 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 	const user = useSelector((state) => state.app.data.user);
 	const userReviews = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews?.user ||
+			defaultUser.data.reviews?.user ||
+			[]
 	);
 
 	const color = useSelector(
