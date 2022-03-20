@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
@@ -35,6 +36,8 @@ import Rating from '../../../../../../../../components/Rating';
 import Skeleton from '../../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../theme/types';
+
+dayjs.extend(localizedFormat);
 
 // TODO: Check if author is user and render header text differently
 

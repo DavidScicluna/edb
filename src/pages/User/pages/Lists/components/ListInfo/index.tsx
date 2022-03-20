@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
@@ -18,6 +19,7 @@ import Panel from '../../../../../../components/Panel';
 import { getUser } from '../../../../../../store/slices/Users';
 
 dayjs.extend(relativeTime);
+dayjs.extend(localizedFormat);
 
 const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): ReactElement => {
 	const { colorMode } = useColorMode();

@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import compact from 'lodash/compact';
 import toString from 'lodash/toString';
 
@@ -8,6 +9,8 @@ import { BioProps } from './types';
 
 import { FullPerson } from '../../../../../../../../common/types/person';
 import Paragraph from '../../../../../../../../components/Paragraph';
+
+dayjs.extend(localizedFormat);
 
 export const handleReturnDates = (
 	birthday: FullPerson['birthday'],
