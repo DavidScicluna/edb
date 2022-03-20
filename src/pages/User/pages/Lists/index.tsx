@@ -44,7 +44,7 @@ const Lists = (): ReactElement => {
 
 	const user = useSelector((state) => state.app.data.user);
 	const lists = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists || []
 	);
 
 	const color = useSelector(

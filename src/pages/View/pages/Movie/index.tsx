@@ -60,7 +60,9 @@ const Movie = (): ReactElement => {
 	);
 	const userReviews = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews?.user ||
+			defaultUser.data.reviews?.user ||
+			[]
 	);
 
 	const color = useSelector(
@@ -95,7 +97,11 @@ const Movie = (): ReactElement => {
 							id: user || '',
 							data: {
 								...recentlyViewed,
-								movies: uniq([...recentlyViewed.movies, { ...movie }])
+								movies: uniq([...(recentlyViewed?.movies || []), { ...movie }]),
+								tv: recentlyViewed?.tv || [],
+								people: recentlyViewed?.people || [],
+								companies: recentlyViewed?.companies || [],
+								collections: recentlyViewed?.collections || []
 							}
 						})
 					);

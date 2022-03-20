@@ -86,7 +86,11 @@ const Collection = (): ReactElement => {
 							id: user || '',
 							data: {
 								...recentlyViewed,
-								collections: uniq([...recentlyViewed.collections, { ...collection }])
+								movies: recentlyViewed?.movies || [],
+								tv: recentlyViewed?.tv || [],
+								people: recentlyViewed?.people || [],
+								companies: recentlyViewed?.companies || [],
+								collections: uniq([...(recentlyViewed?.collections ||[]), { ...collection }])
 							}
 						})
 					);

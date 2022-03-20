@@ -23,7 +23,9 @@ const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 	const user = useSelector((state) => state.app.data.user);
 	const userReviews = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews?.user ||
+			defaultUser.data.reviews?.user ||
+			[]
 	);
 
 	const [isHovering, setIsHovering] = useBoolean();

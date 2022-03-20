@@ -26,7 +26,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 
 	const user = useSelector((state) => state.app.data.user);
 	const list = useSelector((state) =>
-		getUser(state.users.data.users, state.app.data.user)?.data.lists.find((list) => list.id === id)
+		(getUser(state.users.data.users, state.app.data.user)?.data.lists || []).find((list) => list.id === id)
 	);
 
 	const isDisabled: boolean = isNil(user) || isEmpty(user);

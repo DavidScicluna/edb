@@ -48,11 +48,15 @@ const FormContainer = (): ReactElement => {
 		resolver: yupResolver(schema)
 	});
 
-	const handleUserClick = (credentials: Credentials): void => {
+	const handleUserClick = (credentials?: Credentials): void => {
 		setIsUserTyped.off();
 
-		form.setValue('username', credentials.username, { shouldDirty: true });
-		form.setValue('password', credentials.password, { shouldDirty: true });
+		if (credentials && credentials.username && credentials.password) {
+			form.setValue('username', credentials.username, { shouldDirty: true });
+			form.setValue('password', credentials.password, { shouldDirty: true });
+		} else {
+			// TODO: Implement global toast system
+		}
 	};
 
 	const handleSubmit = (credentials: FormType): void => {
@@ -68,7 +72,7 @@ const FormContainer = (): ReactElement => {
 			dispatch(setUser(id));
 			dispatch(
 				setUsers(
-					users
+					(users || [])
 						.map((user) =>
 							user.data.id === id
 								? {
@@ -76,7 +80,9 @@ const FormContainer = (): ReactElement => {
 										data: {
 											...user.data,
 											credentials: {
-												...user.data.credentials,
+												...(user.data.credentials || {}),
+												username: credentials.username,
+												password: credentials.password,
 												rememberMe: credentials.rememberMe
 											},
 											signedInAt: dayjs().toISOString()

@@ -27,7 +27,7 @@ const ListsModal = (): ReactElement => {
 	const user = useSelector((state) => state.app.data.user);
 	const listsModal: ListModalType = useSelector((state) => state.modals.ui.listsModal);
 	const lists = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists || []
 	);
 
 	const [selected, setSelected] = useState<ListType['id'][]>([]);

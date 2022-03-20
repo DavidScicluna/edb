@@ -22,7 +22,9 @@ const RecentSearches = ({ onSearchClick }: RecentSearchesProps): ReactElement =>
 	const user = useSelector((state) => state.app.data.user);
 	const recentSearches = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.data.recentSearches || defaultUser.data.recentSearches
+			getUser(state.users.data.users, state.app.data.user)?.data.recentSearches ||
+			defaultUser.data.recentSearches ||
+			[]
 	);
 
 	const color = useSelector(

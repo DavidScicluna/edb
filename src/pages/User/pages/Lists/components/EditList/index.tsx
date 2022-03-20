@@ -49,10 +49,10 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.app.data.user);
 	const lists = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists
+		(state) => getUser(state.users.data.users, state.app.data.user)?.data.lists || defaultUser.data.lists || []
 	);
 	const list = useSelector((state) =>
-		getUser(state.users.data.users, state.app.data.user)?.data.lists.find((list) => list.id === id)
+		(getUser(state.users.data.users, state.app.data.user)?.data.lists || []).find((list) => list.id === id)
 	);
 
 	const color = useSelector(

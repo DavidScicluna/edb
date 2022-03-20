@@ -71,7 +71,7 @@ const User = ({ user, isActive = false, onClick }: UserProps): ReactElement => {
 							transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 						}}
 					>
-						{`@${user.data.credentials.username}`}
+						{`@${user.data.credentials?.username || ''}`}
 					</Text>
 				</VStack>
 			</VStack>

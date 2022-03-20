@@ -23,7 +23,9 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 	const user = useSelector((state) => state.app.data.user);
 	const otherReviews = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.data.reviews.other || defaultUser.data.reviews.other
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews?.other ||
+			defaultUser.data.reviews?.other ||
+			[]
 	);
 
 	const { review, state, label, isDisabled: isDisabledProp = false } = props;

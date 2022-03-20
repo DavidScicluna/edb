@@ -26,26 +26,26 @@ import TV from '../../components/TV';
 
 const allMediaTypes: MediaType[] = ['movie', 'tv', 'person', 'company', 'collection'];
 
-const handleReturnMediaTypes = ({ movies, tv, people, companies, collections }: MediaItems): MediaType[] => {
+const handleReturnMediaTypes = (liked?: MediaItems): MediaType[] => {
 	const mediaTypes: MediaType[] = [];
 
-	if (movies.length > 0) {
+	if ((liked?.movies.length || 0) > 0) {
 		mediaTypes.push('movie');
 	}
 
-	if (tv.length > 0) {
+	if ((liked?.tv.length || 0) > 0) {
 		mediaTypes.push('tv');
 	}
 
-	if (people.length > 0) {
+	if ((liked?.people.length || 0) > 0) {
 		mediaTypes.push('person');
 	}
 
-	if (companies.length > 0) {
+	if ((liked?.companies.length || 0) > 0) {
 		mediaTypes.push('company');
 	}
 
-	if (collections.length > 0) {
+	if ((liked?.collections.length || 0) > 0) {
 		mediaTypes.push('collection');
 	}
 
@@ -62,11 +62,11 @@ const Liked = (): ReactElement => {
 
 	const mediaTypes = useConst<MediaType[]>(handleReturnMediaTypes(liked));
 
-	const movies = useConst<MediaItems['movies']>(liked.movies);
-	const tv = useConst<MediaItems['tv']>(liked.tv);
-	const people = useConst<MediaItems['people']>(liked.people);
-	const companies = useConst<MediaItems['companies']>(liked.companies);
-	const collections = useConst<MediaItems['collections']>(liked.collections);
+	const movies = useConst<MediaItems['movies']>(liked?.movies || []);
+	const tv = useConst<MediaItems['tv']>(liked?.tv || []);
+	const people = useConst<MediaItems['people']>(liked?.people || []);
+	const companies = useConst<MediaItems['companies']>(liked?.companies || []);
+	const collections = useConst<MediaItems['collections']>(liked?.collections || []);
 
 	const [activeTab, setActiveTab] = useState<number>();
 

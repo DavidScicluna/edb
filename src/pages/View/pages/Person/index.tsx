@@ -80,7 +80,11 @@ const Person = (): ReactElement => {
 							id: user || '',
 							data: {
 								...recentlyViewed,
-								people: uniq([...recentlyViewed.people, { ...person }])
+								movies: recentlyViewed?.movies || [],
+								tv: recentlyViewed?.tv || [],
+								people: uniq([...(recentlyViewed?.people || []), { ...person }]),
+								companies: recentlyViewed?.companies || [],
+								collections: recentlyViewed?.collections || []
 							}
 						})
 					);

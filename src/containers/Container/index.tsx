@@ -28,7 +28,7 @@ const Container = (): ReactElement => {
 	}, [isSplashscreenOpen]);
 
 	useEventListener('beforeunload', () => {
-		if (user && !user.data.credentials.rememberMe) {
+		if (user && !user.data.credentials?.rememberMe) {
 			dispatch(setUser(undefined));
 		}
 	});

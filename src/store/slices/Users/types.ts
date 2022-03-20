@@ -92,14 +92,14 @@ export type Theme = {
 export type User = {
 	data: {
 		id: string;
-		credentials: Credentials;
+		credentials?: Credentials;
 		info: Info;
-		recentSearches: Search[];
-		recentlyViewed: MediaItems;
-		liked: MediaItems;
-		lists: List[];
-		reviews: UserReviews;
-		signedInAt: string;
+		recentSearches?: Search[];
+		recentlyViewed?: MediaItems;
+		liked?: MediaItems;
+		lists?: List[];
+		reviews?: UserReviews;
+		signedInAt?: string;
 	};
 	ui: {
 		theme: Theme;

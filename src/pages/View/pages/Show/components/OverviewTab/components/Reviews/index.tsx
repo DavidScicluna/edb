@@ -27,7 +27,9 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 
 	const allUserReviews = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews?.user ||
+			defaultUser.data.reviews?.user ||
+			[]
 	);
 	const tvShowUserReviews = allUserReviews.filter((review) => review.mediaItem.id === show?.id);
 

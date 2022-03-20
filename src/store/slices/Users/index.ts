@@ -4,6 +4,28 @@ import { v4 as uuid } from 'uuid';
 
 import { StateProps, UserAction, User, Info, Search, MediaItems, List, UserReview, OtherReview, Theme } from './types';
 
+export const guest: User = {
+	data: {
+		id: uuid(),
+		credentials: {
+			username: 'guest',
+			password: '',
+			rememberMe: false
+		},
+		info: {
+			name: 'Guest',
+			avatar_path: '',
+			background_path: ''
+		}
+	},
+	ui: {
+		theme: {
+			color: 'light_blue',
+			colorMode: 'light'
+		}
+	}
+};
+
 export const defaultUser: User = {
 	data: {
 		id: uuid(),
@@ -95,7 +117,7 @@ const usersSlice = createSlice({
 							...user,
 							data: {
 								...user.data,
-								recentSearches: [...user.data.recentSearches, ...action.payload.data]
+								recentSearches: [...(user.data.recentSearches || []), ...action.payload.data]
 							}
 					  }
 					: { ...user }
@@ -140,7 +162,7 @@ const usersSlice = createSlice({
 							...user,
 							data: {
 								...user.data,
-								lists: [...user.data.lists, ...action.payload.data]
+								lists: [...(user.data.lists || []), ...action.payload.data]
 							}
 					  }
 					: { ...user }
@@ -154,8 +176,9 @@ const usersSlice = createSlice({
 							data: {
 								...user.data,
 								reviews: {
-									...user.data.reviews,
-									user: [...user.data.reviews.user, ...action.payload.data]
+									...(user.data.reviews || {}),
+									user: [...action.payload.data],
+									other: [...(user.data.reviews?.other || [])]
 								}
 							}
 					  }
@@ -170,8 +193,9 @@ const usersSlice = createSlice({
 							data: {
 								...user.data,
 								reviews: {
-									...user.data.reviews,
-									other: [...user.data.reviews.other, ...action.payload.data]
+									...(user.data.reviews || {}),
+									user: [...(user.data.reviews?.user || [])],
+									other: [...action.payload.data]
 								}
 							}
 					  }

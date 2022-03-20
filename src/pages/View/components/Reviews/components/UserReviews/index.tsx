@@ -25,7 +25,9 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 
 	const userReviews = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.data.reviews.user || defaultUser.data.reviews.user
+			getUser(state.users.data.users, state.app.data.user)?.data.reviews?.user ||
+			defaultUser.data.reviews?.user ||
+			[]
 	);
 	const mediaItemUserReviews: UserReviewType[] = userReviews.filter(
 		(review) => review.mediaItem.id === mediaItem?.id

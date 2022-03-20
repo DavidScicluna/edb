@@ -42,23 +42,31 @@ const Like = (props: LikeProps): ReactElement => {
 	 * Meaning the user has un-liked the media-item
 	 */
 	const handleRemoveLike = (): void => {
-		const updatedLiked = { ...liked };
+		const updatedLiked = {
+			movies: liked?.movies || [],
+			tv: liked?.tv || [],
+			people: liked?.people || [],
+			companies: liked?.companies || [],
+			collections: liked?.collections || []
+		};
 
 		switch (mediaType) {
 			case 'movie':
-				updatedLiked.movies = updatedLiked.movies.filter((movie) => movie.id !== mediaItem?.id);
+				updatedLiked.movies = (updatedLiked.movies || []).filter((movie) => movie.id !== mediaItem?.id);
 				break;
 			case 'tv':
-				updatedLiked.tv = updatedLiked.tv.filter((show) => show.id !== mediaItem?.id);
+				updatedLiked.tv = (updatedLiked.tv || []).filter((show) => show.id !== mediaItem?.id);
 				break;
 			case 'person':
-				updatedLiked.people = updatedLiked.people.filter((person) => person.id !== mediaItem?.id);
+				updatedLiked.people = (updatedLiked.people || []).filter((person) => person.id !== mediaItem?.id);
 				break;
 			case 'company':
-				updatedLiked.companies = updatedLiked.companies.filter((company) => company.id !== mediaItem?.id);
+				updatedLiked.companies = (updatedLiked.companies || []).filter(
+					(company) => company.id !== mediaItem?.id
+				);
 				break;
 			case 'collection':
-				updatedLiked.collections = updatedLiked.collections.filter(
+				updatedLiked.collections = (updatedLiked.collections || []).filter(
 					(collection) => collection.id !== mediaItem?.id
 				);
 				break;
@@ -74,7 +82,13 @@ const Like = (props: LikeProps): ReactElement => {
 	 * Meaning the user has liked the media-item
 	 */
 	const handleLike = (): void => {
-		const updatedLiked = { ...liked };
+		const updatedLiked = {
+			movies: liked?.movies || [],
+			tv: liked?.tv || [],
+			people: liked?.people || [],
+			companies: liked?.companies || [],
+			collections: liked?.collections || []
+		};
 
 		switch (mediaType) {
 			case 'movie': {
