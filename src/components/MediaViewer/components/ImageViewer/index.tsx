@@ -29,6 +29,7 @@ const ImageViewer = (props: ImageViewerProps): ReactElement => {
 				alt={alt}
 				borderRadius={orientation === 'landscape' && isLg ? 'xl' : 'none'}
 				boringType={boringType}
+				objectFit='contain'
 				thumbnailSrc={`${process.env.REACT_APP_IMAGE_URL}/${srcSize[0]}${file_path}`}
 				fullSrc={`${process.env.REACT_APP_IMAGE_URL}/${srcSize[1]}${file_path}`}
 			/>

@@ -31,6 +31,7 @@ const Image = (props: ImageProps): ReactElement => {
 		fullSrc,
 		boringType,
 		borderRadius = 'base',
+		objectFit,
 		colorMode: colorModeProp,
 		onError,
 		onLoad,
@@ -79,7 +80,7 @@ const Image = (props: ImageProps): ReactElement => {
 				<CUIImage
 					{...rest}
 					alt={`${alt} fallback image`}
-					objectFit='cover'
+					objectFit={objectFit || 'cover'}
 					src={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
 					sx={{ ...commonProps }}
 				/>
@@ -95,7 +96,7 @@ const Image = (props: ImageProps): ReactElement => {
 				<CUIImage
 					{...rest}
 					alt={`${alt} boring image`}
-					objectFit='cover'
+					objectFit={objectFit || 'cover'}
 					onError={() => {
 						setIsBoringLoaded.off();
 						setIsBoringError.on();
@@ -114,7 +115,7 @@ const Image = (props: ImageProps): ReactElement => {
 				<CUIImage
 					{...rest}
 					alt={`${alt} thumbnail`}
-					objectFit='cover'
+					objectFit={objectFit || 'cover'}
 					onError={(error) => {
 						setIsThumbnailLoaded.off();
 						setIsThumbnailError.on();
@@ -141,7 +142,7 @@ const Image = (props: ImageProps): ReactElement => {
 				<CUIImage
 					{...rest}
 					alt={alt}
-					objectFit='cover'
+					objectFit={objectFit || 'cover'}
 					onError={(error) => {
 						setIsFullLoaded.off();
 						setIsFullError.on();
