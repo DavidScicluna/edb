@@ -157,9 +157,8 @@ export default (
 
 			fontWeight: 'medium',
 			textTransform: 'uppercase',
-			whiteSpace: 'nowrap',
+			whiteSpace: 'wrap',
 			overflow: 'hidden',
-			textOverflow: 'ellipses',
 			lineHeight: 'normal',
 
 			m: 0,
@@ -172,12 +171,12 @@ export default (
 			pt: theme.space[0.5]
 		},
 		md: {
-			fontSize: 'sm',
+			fontSize: 'xs',
 
 			pt: theme.space[0.75]
 		},
 		lg: {
-			fontSize: 'md',
+			fontSize: 'sm',
 
 			pt: theme.space[1]
 		}
