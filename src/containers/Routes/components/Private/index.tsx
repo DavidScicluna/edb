@@ -1,14 +1,23 @@
-import React, { ReactElement, memo } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import React, { ReactElement } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 import { isEmpty, isNil } from 'lodash';
+import { useEffectOnce } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
 
 const Private = (): ReactElement => {
 	const user = useSelector((state) => state.app.data.user);
 
-	return isNil(user) || isEmpty(user) ? <Navigate to='/signin' replace /> : <Outlet />;
+	const navigate = useNavigate();
+
+	useEffectOnce(() => {
+		if (isNil(user) || isEmpty(user)) {
+			navigate('/signin', { replace: true });
+		}
+	});
+
+	return <Outlet />;
 };
 
-export default memo(Private);
+export default Private;
