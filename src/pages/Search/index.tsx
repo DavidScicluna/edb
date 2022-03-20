@@ -3,12 +3,18 @@ import { useInfiniteQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { useBoolean, VStack, Center, Fade, Collapse } from '@chakra-ui/react';
+import { useBoolean, useConst, VStack, Center, Fade, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { AnimatePresence } from 'framer-motion';
-import { uniqBy, debounce, isNil, isEmpty, compact, isBoolean } from 'lodash';
-import moment from 'moment';
+import compact from 'lodash/compact';
+import debounce from 'lodash/debounce';
+import isBoolean from 'lodash/isBoolean';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -32,8 +38,10 @@ import DisplayMode from '../../components/Clickable/DisplayMode';
 import Divider from '../../components/Divider';
 import Empty from '../../components/Empty';
 import Page from '../../containers/Page';
-import { defaultUser, getUser, setUserRecentSearches } from '../../store/slices/Users';
+import { defaultUser, getUser, guest, setUserRecentSearches } from '../../store/slices/Users';
 import { Search as SearchType, SearchType as SearchTypeValue } from '../../store/slices/Users/types';
+
+dayjs.extend(localizedFormat);
 
 const Search = (): ReactElement => {
 	const source = axios.CancelToken.source();
@@ -45,7 +53,9 @@ const Search = (): ReactElement => {
 	const user = useSelector((state) => state.app.data.user);
 	const recentSearches = useSelector(
 		(state) =>
-			getUser(state.users.data.users, state.app.data.user)?.data.recentSearches || defaultUser.data.recentSearches
+			getUser(state.users.data.users, state.app.data.user)?.data.recentSearches ||
+			defaultUser.data.recentSearches ||
+			[]
 	);
 
 	const [submittedQuery, setSubmittedQuery] = useState<string>('');
@@ -65,6 +75,8 @@ const Search = (): ReactElement => {
 
 	const [isQueryEnabled, setIsQueryEnabled] = useBoolean();
 	const [isQuerySubmitted, setIsQuerySubmitted] = useBoolean();
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	// Fetching Keywords
 	const keywordsQuery = useInfiniteQuery(
@@ -150,11 +162,11 @@ const Search = (): ReactElement => {
 										{
 											id: qs.stringify({
 												query: submittedQuery,
-												date: moment(new Date()).format('LLLL'),
+												date: dayjs(new Date()).format('LLLL'),
 												searchTypes: submittedSearchTypes
 											}),
 											label: submittedQuery,
-											date: moment(new Date()).toISOString(),
+											date: dayjs(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
 										}
 									],
@@ -220,11 +232,11 @@ const Search = (): ReactElement => {
 										{
 											id: qs.stringify({
 												query: submittedQuery,
-												date: moment(new Date()).format('LLLL'),
+												date: dayjs(new Date()).format('LLLL'),
 												searchTypes: submittedSearchTypes
 											}),
 											label: submittedQuery,
-											date: moment(new Date()).toISOString(),
+											date: dayjs(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
 										}
 									],
@@ -290,11 +302,11 @@ const Search = (): ReactElement => {
 										{
 											id: qs.stringify({
 												query: submittedQuery,
-												date: moment(new Date()).format('LLLL'),
+												date: dayjs(new Date()).format('LLLL'),
 												searchTypes: submittedSearchTypes
 											}),
 											label: submittedQuery,
-											date: moment(new Date()).toISOString(),
+											date: dayjs(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
 										}
 									],
@@ -359,11 +371,11 @@ const Search = (): ReactElement => {
 										{
 											id: qs.stringify({
 												query: submittedQuery,
-												date: moment(new Date()).format('LLLL'),
+												date: dayjs(new Date()).format('LLLL'),
 												searchTypes: submittedSearchTypes
 											}),
 											label: submittedQuery,
-											date: moment(new Date()).toISOString(),
+											date: dayjs(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
 										}
 									],
@@ -428,11 +440,11 @@ const Search = (): ReactElement => {
 										{
 											id: qs.stringify({
 												query: submittedQuery,
-												date: moment(new Date()).format('LLLL'),
+												date: dayjs(new Date()).format('LLLL'),
 												searchTypes: submittedSearchTypes
 											}),
 											label: submittedQuery,
-											date: moment(new Date()).toISOString(),
+											date: dayjs(new Date()).toISOString(),
 											searchTypes: submittedSearchTypes
 										}
 									],
@@ -539,6 +551,30 @@ const Search = (): ReactElement => {
 		[movies, shows, people, collections, companies]
 	);
 
+	useUpdateEffect(() => {
+		if (!(isNil(location.hash) || isEmpty(location.hash))) {
+			const search = qs.parse(location.search);
+
+			if (!(isNil(search) || isEmpty(search))) {
+				if (search && search.query && typeof search.query === 'string') {
+					setSubmittedSearchTypes([]);
+					setUnSubmittedSearchTypes([]);
+
+					setMovies(undefined);
+					setShows(undefined);
+					setPeople(undefined);
+					setCollections(undefined);
+					setCompanies(undefined);
+
+					setIsQueryEnabled.off();
+					setIsQuerySubmitted.off();
+
+					handleSubmitQuery(search.query, [location.hash.replace('#', '')]);
+				}
+			}
+		}
+	}, [location.hash]);
+
 	useEffect(() => {
 		const search = qs.parse(location.search);
 
@@ -643,7 +679,9 @@ const Search = (): ReactElement => {
 													searchTypes={unSubmittedSearchTypes}
 													onSetSearchTypes={handleSetSearchTypes}
 												/>
-												<RecentSearches onSearchClick={handleOnSearchClick} />
+												{!isGuest ? (
+													<RecentSearches onSearchClick={handleOnSearchClick} />
+												) : null}
 											</VStack>
 										)}
 									</AnimatePresence>
