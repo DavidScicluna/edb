@@ -24,9 +24,8 @@ const StepIcon = forwardRef<StepIconRef, StepIconProps>(function StepIcon(props,
 	const { color, colorMode, status } = props;
 
 	return (
-		<Center height='100%'>
+		<Center ref={ref} height='100%'>
 			<Icon
-				ref={ref}
 				icon={handleReturnIcon(status)}
 				type='outlined'
 				color={`${handleReturnColor(status, color)}.${colorMode === 'light' ? 500 : 400}`}

@@ -5,7 +5,7 @@ import { ColorMode, TagProps as CUITagProps } from '@chakra-ui/react';
 import { Style } from '../../../common/types';
 import { Color } from '../../../theme/types';
 
-export type TagRef = HTMLButtonElement | null;
+export type TagRef = HTMLSpanElement | null;
 
 export type Size = 'sm' | 'md' | 'lg';
 

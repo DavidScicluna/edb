@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme, HStack, VStack, Text } from '@chakra-ui/react';
+import { useTheme, HStack, VStack, Text, Center } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -77,12 +77,13 @@ const List = (props: ListProps): ReactElement => {
 					</Text>
 				</VStack>
 
-				<Icon
-					ref={ref}
-					icon={isSelected ? 'check_box' : 'check_box_outline_blank'}
-					type={isSelected ? 'filled' : 'outlined'}
-					fontSize={fontSize}
-				/>
+				<Center ref={ref}>
+					<Icon
+						icon={isSelected ? 'check_box' : 'check_box_outline_blank'}
+						type={isSelected ? 'filled' : 'outlined'}
+						fontSize={fontSize}
+					/>
+				</Center>
 			</HStack>
 		</Card>
 	);

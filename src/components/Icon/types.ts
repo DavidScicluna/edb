@@ -1869,8 +1869,6 @@ export type Icon =
 
 type IconType = 'filled' | 'outlined';
 
-export type IconRef = HTMLDivElement | null;
-
 export type IconProps = {
 	icon: Icon;
 	type: IconType;

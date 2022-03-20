@@ -1,13 +1,13 @@
-import { ReactElement, forwardRef } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, Center } from '@chakra-ui/react';
 
-import { IconRef, IconProps } from './types';
+import { IconProps } from './types';
 
 import * as fallback from '../../common/assets/fallback';
 import { useSelector } from '../../common/hooks';
 
-const Icon = forwardRef<IconRef, IconProps>(function Icon(props, ref): ReactElement {
+const Icon = (props: IconProps): ReactElement => {
 	const { colorMode } = useColorMode();
 
 	const hasLoaded = useSelector((state) => state.app.data.hasLoadedIcons);
@@ -18,7 +18,6 @@ const Icon = forwardRef<IconRef, IconProps>(function Icon(props, ref): ReactElem
 		<Center
 			{...rest}
 			as='span'
-			ref={ref}
 			fontSize={fontSize}
 			className={`material-icons${type === 'outlined' ? '-outlined' : ''} edb-icon`}
 			sx={{
@@ -38,6 +37,6 @@ const Icon = forwardRef<IconRef, IconProps>(function Icon(props, ref): ReactElem
 			{hasLoaded ? icon : ''}
 		</Center>
 	);
-});
+};
 
 export default Icon;
