@@ -13,17 +13,15 @@ const TabPanels = ({ children }: TabPanelsProps): ReactElement => {
 	const { activeTab = 0 } = useContext<TabsContextType>(TabsContext);
 
 	return (
-		<AnimatePresence exitBeforeEnter initial={false}>
-			<CUITabPanels width='100%'>
-				{children.map((panel, index) => (
-					<TabPanel key={`tab_panel_${index}`} width='100%' p={0}>
-						<Center as={Fade} in={activeTab === index} width='100%' unmountOnExit>
-							{panel}
-						</Center>
-					</TabPanel>
-				))}
-			</CUITabPanels>
-		</AnimatePresence>
+		<CUITabPanels as={AnimatePresence} width='100%' exitBeforeEnter initial={false}>
+			{children.map((panel, index) => (
+				<TabPanel key={`tab_panel_${index}`} width='100%' p={0}>
+					<Center as={Fade} in={activeTab === index} width='100%' unmountOnExit>
+						{panel}
+					</Center>
+				</TabPanel>
+			))}
+		</CUITabPanels>
 	);
 };
 
