@@ -4,7 +4,7 @@ import { useColorMode, VStack, Center, HStack, Text } from '@chakra-ui/react';
 
 import { UsersProps } from './types';
 
-import Avatar from '../../../../../../../components/Avatar';
+import Avatar from '../../../../../../../../../components/Avatar';
 
 const Users = ({ users, onUserClick }: UsersProps): ReactElement => {
 	const { colorMode } = useColorMode();

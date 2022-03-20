@@ -85,9 +85,6 @@ const initialState: StateProps = {
 	}
 };
 
-console.log(initialState);
-console.log(guest.data.id);
-
 const usersSlice = createSlice({
 	name: 'users',
 	initialState,

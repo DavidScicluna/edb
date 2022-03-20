@@ -11,7 +11,6 @@ import dayjs from 'dayjs';
 
 import Form from './components/Form';
 import Header from './components/Header';
-import Users from './components/Users';
 import { Form as FormType } from './types';
 import { schema } from './validation';
 
@@ -34,7 +33,6 @@ export const defaultValues: FormType = {
 
 const FormContainer = (): ReactElement => {
 	const [isSmWidth] = useMediaQuery('(max-width: 600px)');
-	const [isLgHeight] = useMediaQuery('(min-height: 900px)');
 
 	const navigate = useNavigate();
 
@@ -112,14 +110,18 @@ const FormContainer = (): ReactElement => {
 			maxWidth='container.sm'
 			centerContent
 			justifyContent='space-between'
-			p={6}
+			p={4}
 			spacing={0}
 		>
 			<Header />
 
-			{isLgHeight && users.length > 0 ? <Users users={users} onUserClick={handleUserClick} /> : null}
-
-			<Form form={form} onSubmit={handleSubmit} onChange={() => setIsUserTyped.on()} />
+			<Form
+				form={form}
+				users={users}
+				onSubmit={handleSubmit}
+				onChange={() => setIsUserTyped.on()}
+				onUserClick={handleUserClick}
+			/>
 
 			<Link to='/register' style={{ width: '100%', height: 'auto' }}>
 				<Button color={color} isFullWidth variant='text'>
