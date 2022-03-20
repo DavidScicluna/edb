@@ -31,7 +31,7 @@ import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
-import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, guest, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import { UserReview } from '../../../../store/slices/Users/types';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
@@ -79,6 +79,8 @@ const Show = (): ReactElement => {
 	const tvShowUserReviews = useConst<UserReview[]>(
 		userReviews.filter((review) => review.mediaItem.id === Number(id))
 	);
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	// Fetching tv show details
 	const tvShowQuery = useQuery(
@@ -304,7 +306,7 @@ const Show = (): ReactElement => {
 										/>
 								  )
 								: undefined,
-						actions: (
+						actions: !isGuest ? (
 							<Actions
 								mediaItem={tvShowQuery.data}
 								mediaType='tv'
@@ -312,7 +314,7 @@ const Show = (): ReactElement => {
 								isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
 								isError={tvShowQuery.isError}
 							/>
-						),
+						) : undefined,
 						body: (
 							<Structure>
 								{{

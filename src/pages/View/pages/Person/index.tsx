@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
-import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
 
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
@@ -28,7 +28,7 @@ import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
-import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, guest, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
@@ -60,6 +60,8 @@ const Person = (): ReactElement => {
 	const [activeTab, setActiveTab] = useState<number>(0);
 
 	const [selectedPath, setSelectedPath] = useState<string>();
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	// Fetching person details
 	const personQuery = useQuery(
@@ -218,7 +220,7 @@ const Person = (): ReactElement => {
 								onClickPoster={handleOnAssetClick}
 							/>
 						),
-						actions: (
+						actions: !isGuest ? (
 							<Actions
 								mediaItem={personQuery.data}
 								mediaType='person'
@@ -226,7 +228,7 @@ const Person = (): ReactElement => {
 								isLoading={personQuery.isFetching || personQuery.isLoading}
 								isError={personQuery.isError}
 							/>
-						),
+						) : undefined,
 						body: (
 							<Structure>
 								{{

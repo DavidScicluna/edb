@@ -6,7 +6,7 @@ import { StateProps, UserAction, User, Info, Search, MediaItems, List, UserRevie
 
 export const guest: User = {
 	data: {
-		id: uuid(),
+		id: 'guest',
 		credentials: {
 			username: 'guest',
 			password: '',
@@ -30,12 +30,12 @@ export const defaultUser: User = {
 	data: {
 		id: uuid(),
 		credentials: {
-			username: 'guest',
+			username: '',
 			password: '',
 			rememberMe: false
 		},
 		info: {
-			name: 'Guest',
+			name: '',
 			avatar_path: '',
 			background_path: ''
 		},
@@ -69,8 +69,7 @@ export const defaultUser: User = {
 		reviews: {
 			user: [],
 			other: []
-		},
-		signedInAt: dayjs().toISOString()
+		}
 	},
 	ui: {
 		theme: {
@@ -82,9 +81,12 @@ export const defaultUser: User = {
 
 const initialState: StateProps = {
 	data: {
-		users: []
+		users: [guest]
 	}
 };
+
+console.log(initialState);
+console.log(guest.data.id);
 
 const usersSlice = createSlice({
 	name: 'users',

@@ -2,27 +2,73 @@ import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import { useDisclosure } from '@chakra-ui/react';
+import { useTheme, useColorMode, useDisclosure } from '@chakra-ui/react';
+
+import dayjs from 'dayjs';
 
 import { GuestProps } from './types';
 
 import { color } from '../../../..';
+import { useSelector } from '../../../../../../../../../common/hooks';
+import { handleReturnBoringSrc } from '../../../../../../../../../common/utils';
 import Button from '../../../../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../../../../components/ConfirmModal';
 import { setUser } from '../../../../../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../../../../../store/slices/Modals';
+import { guest, setUsers } from '../../../../../../../../../store/slices/Users';
+import { Theme } from '../../../../../../../../../theme/types';
 
 const Guest = ({ renderAction }: GuestProps): ReactElement => {
+	const theme = useTheme<Theme>();
+	const { colorMode } = useColorMode();
+
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
 
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
+	const users = useSelector((state) => state.users.data.users);
 
 	const handleSubmit = (): void => {
 		onCloseConfirm();
 
-		dispatch(setUser('guest'));
+		dispatch(setUser(guest.data.id));
+		dispatch(
+			setUsers(
+				(users || [])
+					.map((user) =>
+						user.data.id === guest.data.id
+							? {
+									...guest,
+									data: {
+										...guest.data,
+										info: {
+											...guest.data.info,
+											avatar_path:
+												guest.data.info.avatar_path ||
+												handleReturnBoringSrc(
+													theme,
+													'beam',
+													colorMode === 'light' ? 500 : 400,
+													guest.data.id
+												),
+											background_path:
+												guest.data.info.background_path ||
+												handleReturnBoringSrc(
+													theme,
+													'sunset',
+													colorMode === 'light' ? 500 : 400,
+													guest.data.id
+												)
+										},
+										signedInAt: dayjs().toISOString()
+									}
+							  }
+							: user
+					)
+					.sort((a, b) => dayjs(b.data.signedInAt).diff(a.data.signedInAt))
+			)
+		);
 
 		dispatch(toggleSplashscreen(true));
 

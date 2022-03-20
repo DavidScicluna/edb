@@ -20,8 +20,8 @@ import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import { setUser } from '../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
-import { setUsers } from '../../../../../store/slices/Users';
-import { Credentials } from '../../../../../store/slices/Users/types';
+import { guest, setUsers } from '../../../../../store/slices/Users';
+import { Credentials, User } from '../../../../../store/slices/Users/types';
 import { Color } from '../../../../../theme/types';
 
 export const color: keyof Color = 'light_blue';
@@ -39,9 +39,11 @@ const FormContainer = (): ReactElement => {
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
-	const users = useSelector((state) => state.users.data.users);
+	const allUsers = useSelector((state) => state.users.data.users || []);
 
 	const [isUserTyped, setIsUserTyped] = useBoolean();
+
+	const users: User[] = allUsers.filter((user) => user.data.id !== guest.data.id) || [];
 
 	const form = useForm<FormType>({
 		defaultValues,
@@ -72,7 +74,7 @@ const FormContainer = (): ReactElement => {
 			dispatch(setUser(id));
 			dispatch(
 				setUsers(
-					(users || [])
+					allUsers
 						.map((user) =>
 							user.data.id === id
 								? {

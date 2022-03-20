@@ -1,7 +1,7 @@
 import { ReactElement, memo } from 'react';
 import useInView from 'react-cool-inview';
 
-import { useBoolean, VStack, Center, HStack } from '@chakra-ui/react';
+import { useBoolean, useConst, VStack, HStack, Center } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
@@ -11,10 +11,12 @@ import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { VerticalPosterProps } from './types';
 
+import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
 import { handleIsTouchDevice, handleReturnMediaTypeLabel } from '../../../common/utils';
 import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
+import { guest } from '../../../store/slices/Users';
 import Rating from '../../Rating';
 import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
@@ -28,12 +30,16 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 		unobserveOnEnter: true
 	});
 
+	const user = useSelector((state) => state.app.data.user);
+
 	const { width = '100%', mediaItem, mediaType, image, rating, title, subtitle, isLoading = true } = props;
 
 	const [isFocused, setIsFocused] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
 	const [isDisabled, setIsDisabled] = useBoolean();
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	const handleOnImageChange = (bool: boolean): void => {
 		if (bool) {
@@ -98,31 +104,35 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 										</Center>
 									) : null}
 									{/* Like component */}
-									<Center
-										onMouseEnter={() => setIsDisabled.on()}
-										onMouseLeave={() => setIsDisabled.off()}
-									>
-										<Like
-											title={title}
-											mediaType={mediaType}
-											mediaItem={mediaItem}
-											size='sm'
-											isLoading={isLoading}
-										/>
-									</Center>
+									{!isGuest ? (
+										<Center
+											onMouseEnter={() => setIsDisabled.on()}
+											onMouseLeave={() => setIsDisabled.off()}
+										>
+											<Like
+												title={title}
+												mediaType={mediaType}
+												mediaItem={mediaItem}
+												size='sm'
+												isLoading={isLoading}
+											/>
+										</Center>
+									) : null}
 									{/* List component */}
-									<Center
-										onMouseEnter={() => setIsDisabled.on()}
-										onMouseLeave={() => setIsDisabled.off()}
-									>
-										<Bookmark
-											title={title}
-											mediaType={mediaType}
-											mediaItem={mediaItem}
-											isLoading={isLoading}
-											size='sm'
-										/>
-									</Center>
+									{!isGuest ? (
+										<Center
+											onMouseEnter={() => setIsDisabled.on()}
+											onMouseLeave={() => setIsDisabled.off()}
+										>
+											<Bookmark
+												title={title}
+												mediaType={mediaType}
+												mediaItem={mediaItem}
+												isLoading={isLoading}
+												size='sm'
+											/>
+										</Center>
+									) : null}
 								</Center>
 							</HStack>
 						) : null}
@@ -162,26 +172,28 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 									</Center>
 								</Center>
 							) : null}
-							<Center
-								sx={{
-									position: 'absolute',
-									top: 1,
-									right: 2
-								}}
-							>
+							{!isGuest ? (
 								<Center
-									onMouseEnter={() => setIsDisabled.on()}
-									onMouseLeave={() => setIsDisabled.off()}
+									sx={{
+										position: 'absolute',
+										top: 1,
+										right: 2
+									}}
 								>
-									<Like
-										title={title}
-										mediaType={mediaType}
-										mediaItem={mediaItem}
-										isLoading={isLoading}
-										size='sm'
-									/>
+									<Center
+										onMouseEnter={() => setIsDisabled.on()}
+										onMouseLeave={() => setIsDisabled.off()}
+									>
+										<Like
+											title={title}
+											mediaType={mediaType}
+											mediaItem={mediaItem}
+											isLoading={isLoading}
+											size='sm'
+										/>
+									</Center>
 								</Center>
-							</Center>
+							) : null}
 						</>
 					) : null}
 				</VStack>

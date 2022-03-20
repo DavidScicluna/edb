@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, useConst, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
 import compact from 'lodash/compact';
@@ -12,12 +12,14 @@ import Overview from './components/Overview';
 import Tagline from './components/Tagline';
 import { ShowProps } from './types';
 
+import { useSelector } from '../../../../../../../common/hooks';
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images, Videos } from '../../../../../../../common/types';
 import { FullTV } from '../../../../../../../common/types/tv';
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/utils';
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import Title from '../../../../../../../pages/View/pages/Show/components/Title';
+import { guest } from '../../../../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
 
@@ -28,7 +30,11 @@ const Show = ({ id }: ShowProps): ReactElement => {
 
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
+	const user = useSelector((state) => state.app.data.user);
+
 	const [selectedPath, setSelectedPath] = useState<string>();
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	// Fetching tv show details
 	const tvShowQuery = useQuery([`tv-show-${id}`, id], async () => {
@@ -125,13 +131,15 @@ const Show = ({ id }: ShowProps): ReactElement => {
 							</VStack>
 						</Collapse>
 
-						<Actions
-							mediaItem={tvShowQuery.data}
-							mediaType='tv'
-							title={tvShowQuery.data?.name}
-							isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
-							isError={tvShowQuery.isError}
-						/>
+						{!isGuest ? (
+							<Actions
+								mediaItem={tvShowQuery.data}
+								mediaType='tv'
+								title={tvShowQuery.data?.name}
+								isLoading={tvShowQuery.isFetching || tvShowQuery.isLoading}
+								isError={tvShowQuery.isError}
+							/>
+						) : null}
 					</VStack>
 				</Center>
 			</Stack>

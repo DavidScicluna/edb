@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, useConst, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
@@ -11,6 +11,7 @@ import Bio from './components/Bio';
 import Stats from './components/Stats';
 import { PersonProps } from './types';
 
+import { useSelector } from '../../../../../../../common/hooks';
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images } from '../../../../../../../common/types';
 import { FullPerson, MovieCredits, TVCredits } from '../../../../../../../common/types/person';
@@ -18,6 +19,7 @@ import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/u
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import { handleGetDepartments } from '../../../../../../../pages/View/pages/Person/common/utils';
 import Title from '../../../../../../../pages/View/pages/Person/components/Title';
+import { guest } from '../../../../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
 
@@ -28,7 +30,11 @@ const Person = ({ id }: PersonProps): ReactElement => {
 
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
+	const user = useSelector((state) => state.app.data.user);
+
 	const [selectedImagePath, setSelectedImagePath] = useState<string>();
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	// Fetching person details
 	const personQuery = useQuery([`person-${id}`, id], async () => {
@@ -137,13 +143,15 @@ const Person = ({ id }: PersonProps): ReactElement => {
 							}
 						/>
 
-						<Actions
-							mediaItem={personQuery.data}
-							mediaType='person'
-							title={personQuery.data?.name}
-							isLoading={personQuery.isFetching || personQuery.isLoading}
-							isError={personQuery.isError}
-						/>
+						{!isGuest ? (
+							<Actions
+								mediaItem={personQuery.data}
+								mediaType='person'
+								title={personQuery.data?.name}
+								isLoading={personQuery.isFetching || personQuery.isLoading}
+								isError={personQuery.isError}
+							/>
+						) : null}
 					</VStack>
 				</Center>
 			</Stack>

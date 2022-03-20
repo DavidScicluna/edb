@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
 
-import { VStack } from '@chakra-ui/react';
+import { useConst, VStack } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Style } from '../../../../../../../../common/types';
@@ -10,14 +10,16 @@ import Button from '../../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../../components/Clickable/Link';
 import Icon from '../../../../../../../../components/Icon';
 import { toggleDisplay, toggleUserSwitcher } from '../../../../../../../../store/slices/Modals';
-import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
+import { defaultUser, getUser, guest } from '../../../../../../../../store/slices/Users';
 
 const sx: Style = { px: 0, justifyContent: 'flex-start' };
 
 const Actions = (): ReactElement => {
 	const dispatch = useDispatch();
 	const id = useSelector((state) => state.app.data.user);
-	const users = useSelector((state) => state.users.data.users.filter((user) => user.data.id !== id));
+	const users = useSelector((state) =>
+		state.users.data.users.filter((user) => user.data.id !== guest.data.id || user.data.id !== id)
+	);
 
 	const isDisplayModalOpen = useSelector((state) => state.modals.ui.isDisplayModalOpen);
 	const isUserSwitcherModalOpen = useSelector((state) => state.modals.ui.isUserSwitcherModalOpen);
@@ -28,64 +30,72 @@ const Actions = (): ReactElement => {
 
 	const location = useLocation();
 
+	const isGuest = useConst<boolean>(guest.data.id === id);
+
 	return (
 		<VStack width='100%' spacing={0}>
-			<Link to='/profile' isDisabled={location.pathname === '/profile'} isFullWidth>
-				<Button
-					renderLeft={({ fontSize }) => (
-						<Icon
-							icon='person'
-							type={location.pathname === '/profile' ? 'filled' : 'outlined'}
-							fontSize={fontSize}
-						/>
-					)}
-					color={location.pathname === '/profile' ? color : 'gray'}
-					isFullWidth
-					size='lg'
-					variant='text'
-					sx={{ front: { ...sx } }}
-				>
-					Profile
-				</Button>
-			</Link>
+			{!isGuest ? (
+				<Link to='/profile' isDisabled={location.pathname === '/profile'} isFullWidth>
+					<Button
+						renderLeft={({ fontSize }) => (
+							<Icon
+								icon='person'
+								type={location.pathname === '/profile' ? 'filled' : 'outlined'}
+								fontSize={fontSize}
+							/>
+						)}
+						color={location.pathname === '/profile' ? color : 'gray'}
+						isFullWidth
+						size='lg'
+						variant='text'
+						sx={{ front: { ...sx } }}
+					>
+						Profile
+					</Button>
+				</Link>
+			) : null}
 
-			<Link to='/liked' isDisabled={location.pathname === '/liked'} isFullWidth>
-				<Button
-					renderLeft={({ fontSize }) => (
-						<Icon
-							icon={location.pathname === '/liked' ? 'favorite' : 'favorite_border'}
-							type='outlined'
-							fontSize={fontSize}
-						/>
-					)}
-					color={location.pathname === '/liked' ? color : 'gray'}
-					isFullWidth
-					size='lg'
-					variant='text'
-					sx={{ front: { ...sx } }}
-				>
-					Liked
-				</Button>
-			</Link>
+			{!isGuest ? (
+				<Link to='/liked' isDisabled={location.pathname === '/liked'} isFullWidth>
+					<Button
+						renderLeft={({ fontSize }) => (
+							<Icon
+								icon={location.pathname === '/liked' ? 'favorite' : 'favorite_border'}
+								type='outlined'
+								fontSize={fontSize}
+							/>
+						)}
+						color={location.pathname === '/liked' ? color : 'gray'}
+						isFullWidth
+						size='lg'
+						variant='text'
+						sx={{ front: { ...sx } }}
+					>
+						Liked
+					</Button>
+				</Link>
+			) : null}
 
-			<Link to='/lists' isDisabled={location.pathname === '/lists'} isFullWidth>
-				<Button
-					renderLeft={({ fontSize }) => (
-						<Icon
-							icon={location.pathname === '/lists' ? 'bookmark' : 'bookmark_border'}
-							type='outlined'
-							fontSize={fontSize}
-						/>
-					)}
-					color={location.pathname === '/lists' ? color : 'gray'}
-					isFullWidth
-					size='lg'
-					variant='text'
-					sx={{ front: { ...sx } }}
-				>
-					Lists
-				</Button>
-			</Link>
+			{!isGuest ? (
+				<Link to='/lists' isDisabled={location.pathname === '/lists'} isFullWidth>
+					<Button
+						renderLeft={({ fontSize }) => (
+							<Icon
+								icon={location.pathname === '/lists' ? 'bookmark' : 'bookmark_border'}
+								type='outlined'
+								fontSize={fontSize}
+							/>
+						)}
+						color={location.pathname === '/lists' ? color : 'gray'}
+						isFullWidth
+						size='lg'
+						variant='text'
+						sx={{ front: { ...sx } }}
+					>
+						Lists
+					</Button>
+				</Link>
+			) : null}
 
 			{users.length > 0 ? (
 				<Button

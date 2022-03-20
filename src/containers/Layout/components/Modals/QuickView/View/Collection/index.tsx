@@ -24,6 +24,7 @@ import sample from 'lodash/sample';
 import Overview from './components/Overview';
 import { CollectionProps } from './types';
 
+import { useSelector } from '../../../../../../../common/hooks';
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images } from '../../../../../../../common/types';
 import { Collection as CollectionType } from '../../../../../../../common/types/movie';
@@ -31,6 +32,7 @@ import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/u
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import SkeletonText from '../../../../../../../components/Skeleton/Text';
 import Title from '../../../../../../../pages/View/components/Title';
+import { guest } from '../../../../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
 
@@ -44,7 +46,11 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
+	const user = useSelector((state) => state.app.data.user);
+
 	const [selectedImagePath, setSelectedImagePath] = useState<string>();
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	const dummy = useConst<number>(sample(dummies) || 75);
 
@@ -163,13 +169,15 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 							</Collapse>
 						</VStack>
 
-						<Actions
-							mediaItem={collectionQuery.data}
-							mediaType='collection'
-							title={collectionQuery.data?.name}
-							isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
-							isError={collectionQuery.isError}
-						/>
+						{!isGuest ? (
+							<Actions
+								mediaItem={collectionQuery.data}
+								mediaType='collection'
+								title={collectionQuery.data?.name}
+								isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
+								isError={collectionQuery.isError}
+							/>
+						) : null}
 					</VStack>
 				</Center>
 			</Stack>

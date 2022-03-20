@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { useMediaQuery, useDisclosure, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, useConst, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
 
 import axios from 'axios';
 import compact from 'lodash/compact';
@@ -12,12 +12,14 @@ import Overview from './components/Overview';
 import Tagline from './components/Tagline';
 import { MovieProps } from './types';
 
+import { useSelector } from '../../../../../../../common/hooks';
 import axiosInstance from '../../../../../../../common/scripts/axios';
 import { Images, Videos } from '../../../../../../../common/types';
 import { FullMovie } from '../../../../../../../common/types/movie';
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/utils';
 import MediaViewer from '../../../../../../../components/MediaViewer';
 import Title from '../../../../../../../pages/View/pages/Movie/components/Title';
+import { guest } from '../../../../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
 
@@ -28,7 +30,11 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 
 	const { isOpen: isMediaViewerOpen, onOpen: onMediaViewerOpen, onClose: onMediaViewerClose } = useDisclosure();
 
+	const user = useSelector((state) => state.app.data.user);
+
 	const [selectedPath, setSelectedPath] = useState<string>();
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	// Fetching movie details
 	const movieQuery = useQuery([`movie-${id}`, id], async () => {
@@ -130,13 +136,15 @@ const Movie = ({ id }: MovieProps): ReactElement => {
 							</VStack>
 						</Collapse>
 
-						<Actions
-							mediaItem={movieQuery.data}
-							mediaType='movie'
-							title={movieQuery.data?.title}
-							isLoading={movieQuery.isFetching || movieQuery.isLoading}
-							isError={movieQuery.isError}
-						/>
+						{!isGuest ? (
+							<Actions
+								mediaItem={movieQuery.data}
+								mediaType='movie'
+								title={movieQuery.data?.title}
+								isLoading={movieQuery.isFetching || movieQuery.isLoading}
+								isError={movieQuery.isError}
+							/>
+						) : null}
 					</VStack>
 				</Center>
 			</Stack>

@@ -30,7 +30,7 @@ import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
-import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, guest, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import { UserReview } from '../../../../store/slices/Users/types';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
@@ -76,6 +76,8 @@ const Movie = (): ReactElement => {
 	const [reviews, setReviews] = useState<Response<Review[]>>();
 
 	const movieUserReviews = useConst<UserReview[]>(userReviews.filter((review) => review.mediaItem.id === Number(id)));
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	// Fetching movie details
 	const movieQuery = useQuery(
@@ -313,7 +315,7 @@ const Movie = (): ReactElement => {
 										/>
 								  )
 								: undefined,
-						actions: (
+						actions: !isGuest ? (
 							<Actions
 								mediaItem={movieQuery.data}
 								mediaType='movie'
@@ -321,7 +323,7 @@ const Movie = (): ReactElement => {
 								isLoading={movieQuery.isFetching || movieQuery.isLoading}
 								isError={movieQuery.isError}
 							/>
-						),
+						) : undefined,
 						body: (
 							<Structure>
 								{{

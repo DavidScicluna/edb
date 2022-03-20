@@ -1,7 +1,7 @@
 import { ReactElement, memo } from 'react';
 import useInView from 'react-cool-inview';
 
-import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack, Center } from '@chakra-ui/react';
+import { useMediaQuery, useBreakpointValue, useBoolean, useConst, HStack, VStack, Center } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
@@ -12,8 +12,10 @@ import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import { HorizontalPosterProps } from './types';
 
+import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
 import { handleReturnMediaTypeLabel } from '../../../common/utils';
+import { guest } from '../../../store/slices/Users';
 import { FontSizes } from '../../../theme/types';
 import Card from '../..//Clickable/Card';
 import Link from '../../Clickable/Link';
@@ -38,9 +40,13 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 		unobserveOnEnter: true
 	});
 
+	const user = useSelector((state) => state.app.data.user);
+
 	const { mediaItem, mediaType, image, rating, title, subtitle, description, isLoading = true } = props;
 
 	const [isDisabled, setIsDisabled] = useBoolean();
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	return (
 		<Link
@@ -127,17 +133,19 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 							</Center>
 						) : null}
 						{/* Like component */}
-						<Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
-							<Like
-								title={title}
-								mediaType={mediaType}
-								mediaItem={mediaItem}
-								isLoading={isLoading}
-								size={isSm ? 'md' : 'lg'}
-							/>
-						</Center>
+						{!isGuest ? (
+							<Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
+								<Like
+									title={title}
+									mediaType={mediaType}
+									mediaItem={mediaItem}
+									isLoading={isLoading}
+									size={isSm ? 'md' : 'lg'}
+								/>
+							</Center>
+						) : null}
 						{/* List component */}
-						{mediaType === 'movie' || mediaType === 'tv' ? (
+						{!isGuest && (mediaType === 'movie' || mediaType === 'tv') ? (
 							<Center onMouseEnter={() => setIsDisabled.on()} onMouseLeave={() => setIsDisabled.off()}>
 								<Bookmark
 									title={title}

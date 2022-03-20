@@ -30,7 +30,7 @@ import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
-import { defaultUser, getUser, setUserRecentlyViewed } from '../../../../store/slices/Users';
+import { defaultUser, getUser, guest, setUserRecentlyViewed } from '../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
@@ -66,6 +66,8 @@ const Collection = (): ReactElement => {
 	const [selectedPath, setSelectedPath] = useState<string>();
 
 	const dummy = useConst<number>(sample(dummies) || 75);
+
+	const isGuest = useConst<boolean>(guest.data.id === user);
 
 	// Fetching collection
 	const collectionQuery = useQuery(
@@ -194,7 +196,7 @@ const Collection = (): ReactElement => {
 								onClickPoster={handleOnAssetClick}
 							/>
 						),
-						actions: (
+						actions: !isGuest ?(
 							<Actions
 								mediaItem={collectionQuery.data}
 								mediaType='collection'
@@ -202,7 +204,7 @@ const Collection = (): ReactElement => {
 								isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
 								isError={collectionQuery.isError}
 							/>
-						),
+						): undefined,
 						body: (
 							<Structure>
 								{{
