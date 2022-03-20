@@ -23,6 +23,7 @@ const Movies = lazy(() => import('../../pages/Movies'));
 const People = lazy(() => import('../../pages/People'));
 const Search = lazy(() => import('../../pages/Search'));
 const Trending = lazy(() => import('../../pages/Trending'));
+const ForgotPassword = lazy(() => import('../../pages/Authentication/ForgotPassword'));
 const TV = lazy(() => import('../../pages/TV'));
 const Liked = lazy(() => import('../../pages/User/pages/Liked'));
 const Lists = lazy(() => import('../../pages/User/pages/Lists'));
@@ -134,6 +135,10 @@ export const handleReturnRoutes = (user?: string): RouteType[] => {
 				{
 					path: '/register',
 					element: <Register />
+				},
+				{
+					path: '/forgot-password',
+					element: <ForgotPassword />
 				},
 				{
 					path: '*',
