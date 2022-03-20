@@ -9,7 +9,7 @@ import Input from '../../../../components/Forms/Input';
 import Icon from '../../../../components/Icon';
 import Tooltip from '../../../../components/Tooltip';
 
-const Password = ({ field, fieldState, color, colorMode }: PasswordProps): ReactElement => {
+const Password = ({ field, fieldState, label, color, colorMode }: PasswordProps): ReactElement => {
 	const [isPasswordVisible, setIsPasswordVisible] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
@@ -20,7 +20,7 @@ const Password = ({ field, fieldState, color, colorMode }: PasswordProps): React
 		<Input
 			color={color}
 			colorMode={colorMode}
-			label='Password'
+			label={label || 'Password'}
 			error={error}
 			name={name}
 			placeholder={isPasswordVisible ? 'password' : '••••••••'}
@@ -30,13 +30,13 @@ const Password = ({ field, fieldState, color, colorMode }: PasswordProps): React
 			isRequired
 			renderInputRightPanel={() => (
 				<Tooltip
-					aria-label={isPasswordVisible ? 'Hide password (tooltip)' : 'Show Password (tooltip)'}
-					label={isPasswordVisible ? 'Hide password' : 'Show Password'}
+					aria-label={isPasswordVisible ? 'Hide password (tooltip)' : `Show ${label || 'Password'} (tooltip)`}
+					label={isPasswordVisible ? 'Hide password' : `Show ${label || 'Password'}`}
 					placement='top'
 					isOpen={isHovering}
 				>
 					<IconButton
-						aria-label={isPasswordVisible ? 'Hide password' : 'Show Password'}
+						aria-label={isPasswordVisible ? 'Hide password' : `Show ${label || 'Password'}`}
 						onClick={() => setIsPasswordVisible.toggle()}
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}

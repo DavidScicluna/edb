@@ -9,6 +9,7 @@ import { Color } from '../../../../theme/types';
 export type PasswordProps = {
 	field: ControllerRenderProps<any, any>;
 	fieldState: ControllerFieldState;
+	label?: string;
 	color: keyof Color;
 	colorMode: ColorMode;
 };
