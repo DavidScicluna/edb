@@ -1,13 +1,17 @@
 import { ReactElement } from 'react';
 
-import { Text } from '@chakra-ui/react';
+import { ColorMode, useColorMode, Text } from '@chakra-ui/react';
 
 import { ConfirmModalProps } from './types';
 
 import Modal from '../Modal';
 
 const ConfirmModal = (props: ConfirmModalProps): ReactElement => {
-	const { colorMode, description, ...rest } = props;
+	const { colorMode: colorModeHook } = useColorMode();
+
+	const { colorMode: colorModeProp, description, ...rest } = props;
+
+	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
 	return (
 		<Modal {...rest} colorMode={colorMode} isConfirm isCentered size='md'>
