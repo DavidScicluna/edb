@@ -3,6 +3,7 @@ import { useFormState } from 'react-hook-form';
 
 import { VStack, HStack, Center } from '@chakra-ui/react';
 
+import Guest from './components/Guest';
 import Password from './components/Password';
 import RememberMe from './components/RememberMe';
 import Username from './components/Username';
@@ -45,9 +46,13 @@ const Form = ({ form, onSubmit, onChange }: FormProps): ReactElement => {
 					</Button>
 				</Center>
 				<Center width='100%'>
-					<Button isFullWidth size='sm' variant='text'>
-						Or continue as guest
-					</Button>
+					<Guest
+						renderAction={({ label, onClick }) => (
+							<Button isFullWidth onClick={() => onClick()} size='sm' variant='text'>
+								{label}
+							</Button>
+						)}
+					/>
 				</Center>
 			</VStack>
 		</VStack>
