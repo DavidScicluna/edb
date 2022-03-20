@@ -3,7 +3,8 @@ import React, { ReactElement } from 'react';
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
 import FormContainer from './components/FormContainer';
-import IllustrationContainer from './components/IllustrationContainer';
+
+import IllustrationContainer from '../components/IllustrationContainer';
 
 const SignIn = (): ReactElement => {
 	const [isMd] = useMediaQuery('(max-width: 960px)');

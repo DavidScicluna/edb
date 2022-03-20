@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
+import { Controller } from 'react-hook-form';
 
 import { VStack } from '@chakra-ui/react';
 
 import { isEmpty, isNil } from 'lodash';
 
-import Password from './components/Password';
-import Username from './components/Username';
-
 import Button from '../../../../../../../components/Clickable/Button';
 import Panel from '../../../../../../../components/Panel';
+import Password from '../../../../../components/Password';
+import Username from '../../../../../components/Username';
 import { detailsDefaultValues as defaultValues } from '../../../../defaults';
 import { DetailsProps as CredentialsProps } from '../../types';
 
@@ -43,8 +43,20 @@ const Credentials = ({ form, color, colorMode }: CredentialsProps): ReactElement
 				},
 				body: (
 					<VStack width='100%' spacing={2}>
-						<Username form={form} color={color} colorMode={colorMode} />
-						<Password form={form} color={color} colorMode={colorMode} />
+						<Controller
+							control={form.control}
+							name='username'
+							render={({ field, fieldState }) => (
+								<Username field={field} fieldState={fieldState} color={color} colorMode={colorMode} />
+							)}
+						/>
+						<Controller
+							control={form.control}
+							name='password'
+							render={({ field, fieldState }) => (
+								<Password field={field} fieldState={fieldState} color={color} colorMode={colorMode} />
+							)}
+						/>
 					</VStack>
 				)
 			}}

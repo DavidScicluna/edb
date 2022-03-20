@@ -1,26 +1,62 @@
 import React, { ReactElement } from 'react';
-import { useFormState } from 'react-hook-form';
+import { Controller, useFormState } from 'react-hook-form';
 
-import { VStack, HStack, Center } from '@chakra-ui/react';
+import { useColorMode, VStack, HStack, Center } from '@chakra-ui/react';
 
 import Guest from './components/Guest';
-import Password from './components/Password';
 import RememberMe from './components/RememberMe';
-import Username from './components/Username';
 import { FormProps } from './types';
 
 import { color } from '../..';
 import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
+import Password from '../../../../../components/Password';
+import Username from '../../../../../components/Username';
 
 const Form = ({ form, onSubmit, onChange }: FormProps): ReactElement => {
+	const { colorMode } = useColorMode();
+
 	const { isDirty } = useFormState({ control: form.control });
 
 	return (
 		<VStack width='100%' spacing={4}>
 			<VStack width='100%' spacing={2}>
-				<Username form={form} onChange={onChange} />
-				<Password form={form} onChange={onChange} />
+				<Controller
+					control={form.control}
+					name='username'
+					render={({ field, fieldState }) => (
+						<Username
+							field={{
+								...field,
+								onChange: (event: unknown) => {
+									field.onChange(event);
+									onChange();
+								}
+							}}
+							fieldState={fieldState}
+							color={color}
+							colorMode={colorMode}
+						/>
+					)}
+				/>
+				<Controller
+					control={form.control}
+					name='password'
+					render={({ field, fieldState }) => (
+						<Password
+							field={{
+								...field,
+								onChange: (event: unknown) => {
+									field.onChange(event);
+									onChange();
+								}
+							}}
+							fieldState={fieldState}
+							color={color}
+							colorMode={colorMode}
+						/>
+					)}
+				/>
 
 				<HStack width='100%' justifyContent='space-between'>
 					<RememberMe form={form} />
@@ -48,7 +84,7 @@ const Form = ({ form, onSubmit, onChange }: FormProps): ReactElement => {
 				<Center width='100%'>
 					<Guest
 						renderAction={({ label, onClick }) => (
-							<Button isFullWidth onClick={() => onClick()} size='sm' variant='text'>
+							<Button isFullWidth onClick={() => onClick()} variant='text'>
 								{label}
 							</Button>
 						)}
