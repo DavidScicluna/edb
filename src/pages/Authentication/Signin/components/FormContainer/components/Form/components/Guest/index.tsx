@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useTheme, useColorMode, useDisclosure } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router';
@@ -10,7 +12,6 @@ import dayjs from 'dayjs';
 import { color } from '../../../..';
 import { useSelector } from '../../../../../../../../../common/hooks';
 import { handleReturnBoringSrc } from '../../../../../../../../../common/utils';
-import Button from '../../../../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../../../../components/ConfirmModal';
 import { setUser } from '../../../../../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../../../../../store/slices/Modals';

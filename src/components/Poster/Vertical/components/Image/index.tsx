@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useTheme, useColorMode, AspectRatio, Center, Image as CUIImage, ScaleFade, Fade } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -13,7 +15,6 @@ import * as fallback from '../../../../../common/assets/fallback';
 import { useSelector } from '../../../../../common/hooks';
 import { MediaType } from '../../../../../common/types';
 import { handleIsTouchDevice, handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../common/utils';
-import Button from '../../../../../components/Clickable/Button';
 import Skeleton from '../../../../../components/Skeleton';
 import { setQuickView } from '../../../../../store/slices/Modals';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';

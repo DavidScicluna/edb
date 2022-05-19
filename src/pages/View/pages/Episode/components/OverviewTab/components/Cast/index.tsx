@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery } from '@chakra-ui/react';
 
 import range from 'lodash/range';
@@ -7,7 +9,6 @@ import range from 'lodash/range';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { handleReturnImageSize } from '../../../../../../../../common/utils';
-import Button from '../../../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';

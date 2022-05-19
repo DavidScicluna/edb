@@ -1,12 +1,13 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useConst } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
 
-import Button from '../../../../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../../../../components/Icon';
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 

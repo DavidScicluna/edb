@@ -1,14 +1,13 @@
 import { ReactElement } from 'react';
 
 
-import { VStack, Center } from '@chakra-ui/react';
+import { VStack, Center , Button } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import Button from '../../../Clickable/Button';
 import Icon from '../../../Icon';
 import Panel from '../../../Panel';
 import { SortBy } from '../../types';

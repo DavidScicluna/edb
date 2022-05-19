@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useColorMode, Container, VStack, Text, HStack } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router';
@@ -8,7 +10,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 
-import Button from '../../../../../components/Clickable/Button';
 import Divider from '../../../../../components/Divider';
 import Panel from '../../../../../components/Panel';
 import { Color } from '../../../../../theme/types';

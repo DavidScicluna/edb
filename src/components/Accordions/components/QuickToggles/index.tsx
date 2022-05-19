@@ -1,12 +1,11 @@
 import { ReactElement } from 'react';
 
-import { HStack, Center, Text } from '@chakra-ui/react';
+import { HStack, Center, Text , Button } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
 
-import Button from '../../../Clickable/Button';
 import Divider from '../../../Divider';
 import HorizontalScroll from '../../../HorizontalScroll';
 

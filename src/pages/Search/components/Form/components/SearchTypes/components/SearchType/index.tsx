@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
 
-import Button from '../../../../../../../../components/Clickable/Button';
+import { Button } from '@davidscicluna/component-library';
+
 import Icon from '../../../../../../../../components/Icon';
 
 import { SearchTypeProps } from './types';

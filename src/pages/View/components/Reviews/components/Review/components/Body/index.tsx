@@ -1,12 +1,13 @@
 import { ReactElement, useEffect } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
 
-import Button from '../../../../../../../../components/Clickable/Button';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { BodyProps } from './types';

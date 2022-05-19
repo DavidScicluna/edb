@@ -1,6 +1,8 @@
 import { ReactElement, useEffect } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -12,7 +14,6 @@ import isNil from 'lodash/isNil';
 
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import Button from '../../../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Rating from '../../../../../../../../components/Forms/Rating';

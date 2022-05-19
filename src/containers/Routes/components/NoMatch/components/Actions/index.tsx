@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router';
 
 
-import Button from '../../../../../../components/Clickable/Button';
 import Link from '../../../../../../components/Clickable/Link';
 import { RenderActionsProps as ActionsProps } from '../../../../../../pages/Error/types';
 

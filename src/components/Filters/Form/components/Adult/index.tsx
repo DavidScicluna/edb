@@ -5,7 +5,8 @@ import { HStack } from '@chakra-ui/react';
 
 
 // import { useSelector } from '../../../../../common/hooks';
-import Button from '../../../../Clickable/Button';
+import { Button } from '@chakra-ui/react';
+
 // import Icon from '../../../../Icon';
 import Panel from '../../../../Panel';
 

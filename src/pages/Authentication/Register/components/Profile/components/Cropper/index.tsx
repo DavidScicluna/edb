@@ -3,6 +3,8 @@ import React, { ReactElement, useState, useCallback } from 'react';
 
 // eslint-disable-next-line import/no-unresolved
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useTheme, useMediaQuery, useBoolean, VStack, Center } from '@chakra-ui/react';
 
 import { Area } from 'react-easy-crop/types';
@@ -12,7 +14,6 @@ import { debounce } from 'lodash';
 
 
 import { handleReturnRatio } from '../../../../../../../common/utils';
-import Button from '../../../../../../../components/Clickable/Button';
 import Modal from '../../../../../../../components/Modal';
 import { Theme } from '../../../../../../../theme/types';
 

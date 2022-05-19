@@ -1,6 +1,8 @@
 import { ReactElement, useState } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, HStack, VStack, ScaleFade } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
@@ -8,7 +10,6 @@ import CountUp from 'react-countup';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Badge from '../../../../../../components/Badge';
-import Button from '../../../../../../components/Clickable/Button';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Panel from '../../../../../../components/Panel';

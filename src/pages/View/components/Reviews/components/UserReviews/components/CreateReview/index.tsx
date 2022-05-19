@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useTheme, useColorMode, useDisclosure, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -13,7 +15,6 @@ import { v4 as uuid } from 'uuid';
 
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import Button from '../../../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Rating from '../../../../../../../../components/Forms/Rating';
 import Textarea from '../../../../../../../../components/Forms/Textarea';

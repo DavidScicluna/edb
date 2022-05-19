@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
@@ -7,7 +9,6 @@ import isNil from 'lodash/isNil';
 
 
 import { useSelector } from '../../../../../../common/hooks';
-import Button from '../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../components/Icon';
 

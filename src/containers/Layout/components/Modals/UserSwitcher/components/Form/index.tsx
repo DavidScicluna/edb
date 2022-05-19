@@ -1,13 +1,14 @@
 import React, { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, VStack } from '@chakra-ui/react';
 
 import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 
-import Button from '../../../../../../../components/Clickable/Button';
 import Modal from '../../../../../../../components/Modal';
 import { defaultValues } from '../../../../../../../pages/Authentication/Signin/components/FormContainer';
 import { schema } from '../../../../../../../pages/Authentication/Signin/components/FormContainer/validation';

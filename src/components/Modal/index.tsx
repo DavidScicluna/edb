@@ -14,7 +14,7 @@ import {
 	ModalFooter,
 	HStack,
 	Text
-} from '@chakra-ui/react';
+, Button } from '@chakra-ui/react';
 
 import { useTimeout } from 'usehooks-ts';
 
@@ -23,7 +23,6 @@ import { useSelector } from '../../common/hooks';
 import { handleConvertStringToNumber } from '../../common/utils';
 import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme } from '../../theme/types';
-import Button from '../Clickable/Button';
 import IconButton from '../Clickable/IconButton';
 import Icon from '../Icon';
 

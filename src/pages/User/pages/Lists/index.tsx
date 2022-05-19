@@ -1,6 +1,8 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router';
@@ -12,7 +14,6 @@ import orderBy from 'lodash/orderBy';
 
 
 import { useSelector } from '../../../../common/hooks';
-import Button from '../../../../components/Clickable/Button';
 import IconButton from '../../../../components/Clickable/IconButton';
 import Divider from '../../../../components/Divider';
 import Empty from '../../../../components/Empty';

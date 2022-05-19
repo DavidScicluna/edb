@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
+import {Button} from '@davidscicluna/component-library';
+
 import { ColorMode, useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
 
 
-import Button from '../Button';
 
 import { LoadMoreProps } from './types';
 

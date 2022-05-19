@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
@@ -10,7 +12,6 @@ import isNil from 'lodash/isNil';
 
 
 import { useSelector } from '../../../../../../common/hooks';
-import Button from '../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../components/Icon';
 import Modal from '../../../../../../components/Modal';
 import Panel from '../../../../../../components/Panel';

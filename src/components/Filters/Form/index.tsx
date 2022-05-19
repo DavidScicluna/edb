@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, VStack, HStack, Fade , Button } from '@chakra-ui/react';
 
 import { useForm, useFormState } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
@@ -9,7 +9,6 @@ import isEqual from 'lodash/isEqual';
 // import Adult from './components/Adult';
 import { useSelector } from '../../../common/hooks';
 import { defaultUser, getUser } from '../../../store/slices/Users';
-import Button from '../../Clickable/Button';
 import Icon from '../../Icon';
 import Modal from '../../Modal';
 import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';

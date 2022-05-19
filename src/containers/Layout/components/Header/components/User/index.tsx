@@ -1,6 +1,8 @@
 import { ReactElement, useEffect } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useColorMode, useBoolean, Popover, PopoverTrigger, Portal, PopoverContent, VStack } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router-dom';
@@ -8,7 +10,6 @@ import { useLocation } from 'react-router-dom';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Avatar from '../../../../../../components/Avatar';
-import Button from '../../../../../../components/Clickable/Button';
 import Divider from '../../../../../../components/Divider';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 

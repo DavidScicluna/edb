@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
+import { ButtonSize, ButtonVariant} from '@davidscicluna/component-library';
+
 import { TextProps } from '@chakra-ui/react';
 
 import { Color, FontSizes } from '../../../../../theme/types';
-import { Size, Variant } from '../../../../Clickable/Button/types';
 
 export type RenderMessageProps = {
 	color: string;
@@ -13,8 +14,8 @@ export type RenderMessageProps = {
 
 export type RenderButtonProps = {
 	color: keyof Color;
-	size: Size;
-	variant: Variant;
+	size: ButtonSize;
+	variant: ButtonVariant;
 };
 
 export type HeaderProps = {

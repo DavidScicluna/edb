@@ -1,5 +1,7 @@
 import { ReactElement, forwardRef } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
@@ -10,7 +12,6 @@ import { useSelector } from '../../../../common/hooks';
 import { PartialMovie } from '../../../../common/types/movie';
 import { PartialPerson } from '../../../../common/types/person';
 import { PartialTV } from '../../../../common/types/tv';
-import Button from '../../../../components/Clickable/Button';
 import Link from '../../../../components/Clickable/Link';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';

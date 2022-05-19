@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, HStack } from '@chakra-ui/react';
 
 
 import { useSelector } from '../../../../common/hooks';
 import Bookmark from '../../../../components/Clickable/Bookmark';
-import Button from '../../../../components/Clickable/Button';
 import Like, { handleReturnIcon } from '../../../../components/Clickable/Like';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 

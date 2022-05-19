@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, Stack, Center , Button } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router';
 import compact from 'lodash/compact';
@@ -8,7 +8,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
-import Button from '../../Clickable/Button';
 import Divider from '../../Divider';
 import HorizontalScroll from '../../HorizontalScroll';
 import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';

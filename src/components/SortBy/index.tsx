@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 
-import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, HStack, VStack, Fade , Button } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router-dom';
 import { useForm, useFormState } from 'react-hook-form';
@@ -14,7 +14,6 @@ import { useSelector } from '../../common/hooks';
 import Icon from '../../components/Icon';
 import Modal from '../../components/Modal';
 import { defaultUser, getUser } from '../../store/slices/Users';
-import Button from '../Clickable/Button';
 
 import { SortByProps, Form } from './types';
 import Sort from './components/Sort';

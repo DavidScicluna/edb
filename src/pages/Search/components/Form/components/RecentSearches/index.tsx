@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useDispatch } from 'react-redux';
 import sort from 'array-sort';
 import isEmpty from 'lodash/isEmpty';
@@ -8,7 +10,6 @@ import range from 'lodash/range';
 
 
 import { useSelector } from '../../../../../../common/hooks';
-import Button from '../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../components/Empty';
 import { defaultUser, getUser, setUserRecentSearches } from '../../../../../../store/slices/Users';
 import { Search as SearchType } from '../../../../../../store/slices/Users/types';

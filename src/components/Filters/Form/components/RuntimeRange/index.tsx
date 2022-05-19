@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 
-import { useTheme, useMediaQuery, useConst, ButtonGroup, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, useConst, ButtonGroup, Text, ScaleFade , Button } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
@@ -12,7 +12,6 @@ import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../theme/types';
-import Button from '../../../../Clickable/Button';
 import Panel from '../../../../Panel';
 import { Filters } from '../../../types';
 import { handleCheckIfInRange } from '../../common/utils';

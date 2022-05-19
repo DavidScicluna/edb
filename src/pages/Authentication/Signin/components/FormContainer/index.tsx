@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useBoolean, Container, VStack } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router';
@@ -12,7 +14,6 @@ import dayjs from 'dayjs';
 
 
 import { useSelector } from '../../../../../common/hooks';
-import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import { setUser } from '../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';

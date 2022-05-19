@@ -1,5 +1,7 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useBoolean, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import { useInfiniteQuery } from 'react-query';
@@ -24,7 +26,6 @@ import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialTV } from '../../common/types/tv';
 import Badge from '../../components/Badge';
-import Button from '../../components/Clickable/Button';
 import DisplayMode from '../../components/Clickable/DisplayMode';
 import LoadMore from '../../components/Clickable/LoadMore';
 import { handlePopulateFilters } from '../../components/Filters/common/utils';

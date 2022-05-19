@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, Center } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -8,7 +10,6 @@ import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';
 import { handleReturnMediaTypeLabel } from '../../../../../common/utils';
-import Button from '../../../../../components/Clickable/Button';
 import Link from '../../../../../components/Clickable/Link';
 import Empty from '../../../../../components/Empty';
 import Modal from '../../../../../components/Modal';

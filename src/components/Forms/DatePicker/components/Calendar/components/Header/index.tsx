@@ -1,9 +1,8 @@
 import { ReactElement } from 'react';
 
-import { HStack } from '@chakra-ui/react';
+import { HStack , Button } from '@chakra-ui/react';
 
 
-import Button from '../../../../../../Clickable/Button';
 import IconButton from '../../../../../../Clickable/IconButton';
 import Icon from '../../../../../../Icon';
 import { full } from '../../../../common/data/months';

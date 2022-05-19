@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useDisclosure } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -14,7 +16,7 @@ import { setList } from '../../../store/slices/Modals';
 import { getUser, setUserLists } from '../../../store/slices/Users';
 import { List } from '../../../store/slices/Users/types';
 import ConfirmModal from '../../ConfirmModal';
-import Button from '../Button';
+
 
 import { BookmarkProps } from './types';
 

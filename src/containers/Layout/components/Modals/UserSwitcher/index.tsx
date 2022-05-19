@@ -1,6 +1,8 @@
 import React, { ReactElement, useState } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useDisclosure, Center } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -10,7 +12,6 @@ import { isEmpty, isNil } from 'lodash';
 
 
 import { useSelector } from '../../../../../common/hooks';
-import Button from '../../../../../components/Clickable/Button';
 import VerticalGrid from '../../../../../components/Grid/Vertical';
 import Modal from '../../../../../components/Modal';
 import { setUser } from '../../../../../store/slices/App';

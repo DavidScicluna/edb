@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useTheme, useColorMode, VStack } from '@chakra-ui/react';
 
 import { useIsFetching, useIsMutating } from 'react-query';
@@ -8,7 +10,6 @@ import { useDispatch } from 'react-redux';
 
 import { navItems } from '../../.';
 import { useSelector } from '../../../../common/hooks';
-import Button from '../../../../components/Clickable/Button';
 import Icon from '../../../../components/Icon';
 import { toggleSidebarMode } from '../../../../store/slices/App';
 import { Theme } from '../../../../theme/types';

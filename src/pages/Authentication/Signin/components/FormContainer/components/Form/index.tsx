@@ -1,13 +1,14 @@
 import React, { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useColorMode, useMediaQuery, VStack, HStack, Center } from '@chakra-ui/react';
 
 import { Controller, useFormState } from 'react-hook-form';
 
 
 import { color } from '../..';
-import Button from '../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../components/Clickable/Link';
 import Panel from '../../../../../../../components/Panel';
 import Password from '../../../../../components/Password';

@@ -1,6 +1,8 @@
 import { ReactElement, useEffect } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -13,7 +15,6 @@ import sample from 'lodash/sample';
 
 
 import { useSelector } from '../../../../../../common/hooks';
-import Button from '../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../components/ConfirmModal';
 import Input from '../../../../../../components/Forms/Input';
 import Textarea from '../../../../../../components/Forms/Textarea';

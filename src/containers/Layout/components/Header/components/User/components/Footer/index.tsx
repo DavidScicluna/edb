@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { Style } from '../../../../../../../../common/types';
-import Button from '../../../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../../../components/Icon';
 import { setUser } from '../../../../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../../../../store/slices/Modals';

@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, HStack, Wrap, WrapItem } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
@@ -10,7 +12,6 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { Genre as GenreType } from '../../../../../../../common/types';
-import Button from '../../../../../../../components/Clickable/Button';
 import Divider from '../../../../../../../components/Divider';
 import Empty from '../../../../../../../components/Empty';
 import Panel from '../../../../../../../components/Panel';

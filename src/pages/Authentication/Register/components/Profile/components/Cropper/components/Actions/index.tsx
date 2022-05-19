@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
 
-import Button from '../../../../../../../../../components/Clickable/Button';
 import Divider from '../../../../../../../../../components/Divider';
 import Grid from '../Grid';
 import Rotate from '../Rotate';

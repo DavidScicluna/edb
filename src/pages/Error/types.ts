@@ -4,13 +4,14 @@ import { ColorMode } from '@chakra-ui/react';
 
 export type DescriptionRef = HTMLDivElement | null;
 
-import { Size } from '../../components/Clickable/Button/types';
+import { ButtonSize} from '@davidscicluna/component-library';
+
 import { Color } from '../../theme/types';
 
 export type RenderActionsProps = {
 	color: keyof Color;
 	colorMode: ColorMode;
-	size: Size;
+	size: ButtonSize;
 };
 
 export type ErrorProps = {

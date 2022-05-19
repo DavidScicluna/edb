@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { ColorMode, useColorMode, useMediaQuery, Center } from '@chakra-ui/react';
 
 import { useForm, useFormState } from 'react-hook-form';
@@ -9,7 +11,6 @@ import isNil from 'lodash/isNil';
 
 import { useSelector } from '../../../../../common/hooks';
 import { handleCheckSystemColorMode } from '../../../../../common/utils';
-import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import Customization from '../../../../../pages/Authentication/Register/components/Customization';
 import { toggleDisplay, toggleSplashscreen } from '../../../../../store/slices/Modals';

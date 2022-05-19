@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, Stack, VStack, Center, Text } from '@chakra-ui/react';
 
 import { compact, isEmpty, isNil } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
 
-import Button from '../../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../../components/Icon';
 import Skeleton from '../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../components/Skeleton/Text';

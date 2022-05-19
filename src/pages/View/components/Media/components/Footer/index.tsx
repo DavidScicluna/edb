@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery } from '@chakra-ui/react';
 
 
 import { useSelector } from '../../../../../../common/hooks';
-import Button from '../../../../../../components/Clickable/Button';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 
 import { FooterProps } from './types';

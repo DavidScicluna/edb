@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, VStack } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
@@ -8,7 +10,6 @@ import isNil from 'lodash/isNil';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { handleReturnDate } from '../../../../../../../../common/utils';
-import Button from '../../../../../../../../components/Clickable/Button';
 import Panel from '../../../../../../../../components/Panel';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 import Episode from '../../../SeasonsTab/components/Season/components/Episodes/components/Episode';

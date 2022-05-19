@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useConst, VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -8,7 +10,6 @@ import { useLocation } from 'react-router';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Style } from '../../../../../../../../common/types';
-import Button from '../../../../../../../../components/Clickable/Button';
 import Link from '../../../../../../../../components/Clickable/Link';
 import Icon from '../../../../../../../../components/Icon';
 import { toggleDisplay, toggleUserSwitcher } from '../../../../../../../../store/slices/Modals';

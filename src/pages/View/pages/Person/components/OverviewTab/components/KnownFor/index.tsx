@@ -1,5 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery } from '@chakra-ui/react';
 
 import sort from 'array-sort';
@@ -13,7 +15,6 @@ import uniqBy from 'lodash/uniqBy';
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Credits } from '../../../../../../../../common/types/person';
 import { handleReturnDate, handleReturnGenresByID, handleReturnImageSize } from '../../../../../../../../common/utils';
-import Button from '../../../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';

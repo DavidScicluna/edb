@@ -1,6 +1,8 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useDisclosure, VStack, Center } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -10,7 +12,6 @@ import isNil from 'lodash/isNil';
 
 
 import { useSelector } from '../../../../../common/hooks';
-import Button from '../../../../../components/Clickable/Button';
 import Modal from '../../../../../components/Modal';
 import CreateList from '../../../../../pages/User/pages/Lists/components/CreateList';
 import { defaultListsModal, setList } from '../../../../../store/slices/Modals';

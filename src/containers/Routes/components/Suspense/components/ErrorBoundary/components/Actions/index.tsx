@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery } from '@chakra-ui/react';
 
-import Button from '../../../../../../../../components/Clickable/Button';
 import { RenderActionsProps as ActionsProps } from '../../../../../../../../pages/Error/types';
 
 const Actions = ({ color, colorMode, size }: ActionsProps): ReactElement => {

@@ -1,14 +1,13 @@
 import { ReactElement } from 'react';
 
 
-import { useConst } from '@chakra-ui/react';
+import { useConst , Button } from '@chakra-ui/react';
 
 import { Link } from 'react-scroll';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
 
-import Button from '../../../../../Clickable/Button';
 import SkeletonText from '../../../../../Skeleton/Text';
 
 import { AccordionProps } from './types';

@@ -1,4 +1,4 @@
-import { ButtonProps } from '../Button/types';
+import { ButtonProps } from '@davidscicluna/component-library';
 
 export type LoadMoreProps = {
 	amount: number;

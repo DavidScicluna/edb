@@ -1,12 +1,11 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse } from '@chakra-ui/react';
+import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse , Button } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
 
-import Button from '../Clickable/Button';
 import Panel from '../Panel';
 import SkeletonText from '../Skeleton/Text';
 

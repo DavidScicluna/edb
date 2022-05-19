@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react';
 
+import { Button } from '@davidscicluna/component-library';
+
 import { VStack } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import { isEmpty, isNil } from 'lodash';
 
-import Button from '../../../../../../../components/Clickable/Button';
 import Panel from '../../../../../../../components/Panel';
 import Password from '../../../../../components/Password';
 import Username from '../../../../../components/Username';

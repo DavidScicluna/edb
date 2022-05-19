@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { useMediaQuery, HStack, Fade } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
@@ -12,7 +14,6 @@ import { useSelector } from '../../../../../../../../common/hooks';
 import { Review as ReviewType } from '../../../../../../../../common/types';
 import { handleReturnDate } from '../../../../../../../../common/utils';
 import Badge from '../../../../../../../../components/Badge';
-import Button from '../../../../../../../../components/Clickable/Button';
 import Empty from '../../../../../../../../components/Empty';
 import Panel from '../../../../../../../../components/Panel';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';

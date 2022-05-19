@@ -1,12 +1,11 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
+import { useDisclosure, useBoolean, HStack, Fade , Button } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import { DateObj, useDayzed } from 'dayzed';
 import isNil from 'lodash/isNil';
 
-import Button from '../../Clickable/Button';
 import Icon from '../../Icon';
 import Modal from '../../Modal';
 

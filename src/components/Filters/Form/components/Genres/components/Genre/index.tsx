@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useConst } from '@chakra-ui/react';
+import { useConst , Button } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import sample from 'lodash/sample';
@@ -8,7 +8,6 @@ import sample from 'lodash/sample';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
-import Button from '../../../../../../Clickable/Button';
 import Icon from '../../../../../../Icon';
 import SkeletonText from '../../../../../../Skeleton/Text';
 

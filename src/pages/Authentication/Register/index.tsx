@@ -1,6 +1,8 @@
 import React, { ReactElement, useState, useCallback } from 'react';
 
 
+import { Button } from '@davidscicluna/component-library';
+
 import { ColorMode, useTheme, useColorMode, useDisclosure, Center, Container } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router';
@@ -15,7 +17,6 @@ import { v4 as uuid } from 'uuid';
 
 import { useSelector } from '../../../common/hooks';
 import { handleCheckSystemColorMode } from '../../../common/utils';
-import Button from '../../../components/Clickable/Button';
 import ConfirmModal from '../../../components/ConfirmModal';
 import Stepper from '../../../components/Stepper';
 import StepList from '../../../components/Stepper/components/StepList';
