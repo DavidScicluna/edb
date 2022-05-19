@@ -196,7 +196,7 @@ const Collection = (): ReactElement => {
 								onClickPoster={handleOnAssetClick}
 							/>
 						),
-						actions: !isGuest ?(
+						actions: !isGuest ? (
 							<Actions
 								mediaItem={collectionQuery.data}
 								mediaType='collection'
@@ -204,7 +204,7 @@ const Collection = (): ReactElement => {
 								isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
 								isError={collectionQuery.isError}
 							/>
-						): undefined,
+						) : undefined,
 						body: (
 							<Structure>
 								{{
