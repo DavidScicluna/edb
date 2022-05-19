@@ -1,11 +1,12 @@
+import { IconButtonSize} from '@davidscicluna/component-library';
+
 import { MediaType } from '../../../../common/types';
 import { MediaItem } from '../../../../store/slices/Users/types';
-import { Size } from '../../../Clickable/IconButton/types';
 
 export type PosterQuickviewProps<MT extends MediaType> = {
 	mediaItem?: MediaItem<MT>;
 	mediaType: MediaType;
 	title: string;
 	isLoading: boolean;
-	size: Size;
+	size: IconButtonSize;
 };

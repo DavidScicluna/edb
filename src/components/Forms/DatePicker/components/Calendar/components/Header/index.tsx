@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { HStack , Button } from '@chakra-ui/react';
 
 
-import IconButton from '../../../../../../Clickable/IconButton';
 import Icon from '../../../../../../Icon';
 import { full } from '../../../../common/data/months';
 

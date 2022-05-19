@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useColorMode, Center, Text } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
 
 
-import IconButton from '../../../../../Clickable/IconButton';
 import Icon from '../../../../../Icon';
 
 import { NavigationProps } from './types';

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Button ,  IconButton, } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
@@ -9,7 +9,6 @@ import isNil from 'lodash/isNil';
 
 
 import { useSelector } from '../../../../../../common/hooks';
-import IconButton from '../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../components/Icon';
 
 import { ToastProps } from './types';

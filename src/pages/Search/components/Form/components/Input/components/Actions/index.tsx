@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { HStack, Fade } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
 
-import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Divider from '../../../../../../../../components/Divider';
 import Icon from '../../../../../../../../components/Icon';
 

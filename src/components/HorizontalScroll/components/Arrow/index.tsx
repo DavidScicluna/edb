@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { ColorMode, useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
@@ -7,7 +9,6 @@ import { useElementSize } from 'usehooks-ts';
 
 
 import { Theme } from '../../../../theme/types';
-import IconButton from '../../../Clickable/IconButton';
 import Icon from '../../../Icon';
 
 import { ArrowProps } from './types';

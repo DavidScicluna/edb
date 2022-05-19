@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useBoolean } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -10,7 +12,6 @@ import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
 import { setQuickView } from '../../../../store/slices/Modals';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import IconButton from '../../../Clickable/IconButton';
 import Icon from '../../../Icon';
 import Tooltip from '../../../Tooltip';
 

@@ -1,6 +1,8 @@
 import { ReactElement, useCallback, useEffect } from 'react';
 
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useTheme, useColorMode, useBoolean, VStack, HStack, Text, Box, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router-dom';
@@ -13,7 +15,6 @@ import { handleParseDurationForFramer, handleConvertStringToNumber } from '../..
 import Link from '../../components/Clickable/Link';
 import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme } from '../../theme/types';
-import IconButton from '../Clickable/IconButton';
 import Icon from '../Icon';
 import Tooltip from '../Tooltip';
 

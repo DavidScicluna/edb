@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 
-import { Button } from '@davidscicluna/component-library';
+import { Button ,  IconButton, } from '@davidscicluna/component-library';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
 
@@ -11,7 +11,6 @@ import isNil from 'lodash/isNil';
 
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';

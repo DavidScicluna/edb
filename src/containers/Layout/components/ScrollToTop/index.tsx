@@ -1,12 +1,13 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
 
 import debounce from 'lodash/debounce';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
-import IconButton from '../../../../components/Clickable/IconButton';
 import Icon from '../../../../components/Icon';
 import Tooltip from '../../../../components/Tooltip';
 import { defaultUser, getUser } from '../../../../store/slices/Users';

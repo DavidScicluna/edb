@@ -1,11 +1,12 @@
 import { ReactElement, MouseEvent } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useBoolean, Stack } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
 
 
-import IconButton from '../../../../../Clickable/IconButton';
 import Icon from '../../../../../Icon';
 
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';

@@ -1,4 +1,4 @@
-import { ButtonProps } from '../../../../../../../../Clickable/Button/types';
+import { ButtonProps } from '@davidscicluna/component-library';
 
 export type Variant = 'contained' | 'text';
 

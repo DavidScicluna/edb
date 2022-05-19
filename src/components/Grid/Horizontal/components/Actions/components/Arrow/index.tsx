@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useBoolean } from '@chakra-ui/react';
 
 
-import IconButton from '../../../../../../Clickable/IconButton';
 import Icon from '../../../../../../Icon';
 import Tooltip from '../../../../../../Tooltip';
 

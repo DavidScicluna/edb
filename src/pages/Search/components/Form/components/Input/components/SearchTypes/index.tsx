@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
 
 
-import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';

@@ -1,19 +1,19 @@
 import { ReactElement, forwardRef } from 'react';
 
-import {  useBoolean, } from '@chakra-ui/react';
-import {ButtonGroupRef as DisplayModeRef, ButtonGroupProps as DisplayModeProps,  ButtonGroup } from '@davidscicluna/component-library';
+import {ButtonGroupRef as DisplayModeRef, ButtonGroupProps as DisplayModeProps,  ButtonGroup , useDispatch ,  IconButton, } from '@davidscicluna/component-library';
 
-import { useDispatch } from 'react-redux';
+import {  useBoolean, } from '@chakra-ui/react';
+
+
 import { useIsFetching, useIsMutating } from 'react-query';
 
 
 import { useSelector } from '../../../common/hooks';
 import { toggleDisplayMode } from '../../../store/slices/App';
 import { defaultUser, getUser } from '../../../store/slices/Users';
-
 import Icon from '../../Icon';
 import Tooltip from '../../Tooltip';
-import IconButton from '../IconButton';
+
 
 
 const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function DisplayMode(props, ref): ReactElement {

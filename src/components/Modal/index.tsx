@@ -1,5 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import {
 	ColorMode,
 	useTheme,
@@ -23,7 +25,6 @@ import { useSelector } from '../../common/hooks';
 import { handleConvertStringToNumber } from '../../common/utils';
 import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme } from '../../theme/types';
-import IconButton from '../Clickable/IconButton';
 import Icon from '../Icon';
 
 import { ModalProps } from './types';

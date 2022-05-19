@@ -1,5 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import {
 	useColorMode,
 	useDisclosure,
@@ -13,7 +15,6 @@ import {
 import { useLocation } from 'react-router-dom';
 
 
-import IconButton from '../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../components/Icon';
 import { navItems } from '../../../../index';
 import NavItems from '../../../NavItems';

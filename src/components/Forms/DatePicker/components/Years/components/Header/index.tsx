@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useColorMode, HStack, Text, Fade } from '@chakra-ui/react';
 
 import isNil from 'lodash/isNil';
 
 
-import IconButton from '../../../../../../Clickable/IconButton';
 import Icon from '../../../../../../Icon';
 import years from '../../../../common/data/years';
 

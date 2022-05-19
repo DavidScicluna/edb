@@ -1,5 +1,7 @@
 import { ReactElement, forwardRef } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { ColorMode, useTheme, useColorMode, Tag as CUITag, HStack } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
@@ -8,7 +10,6 @@ import merge from 'lodash/merge';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
 import { Theme, Space } from '../../../theme/types';
 import Icon from '../../Icon';
-import IconButton from '../IconButton';
 
 import { TagRef, TagProps } from './types';
 import useStyles from './styles';

@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useBoolean } from '@chakra-ui/react';
 
 
@@ -7,7 +9,6 @@ import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import Bookmark from '../../../Clickable/Bookmark';
-import IconButton from '../../../Clickable/IconButton';
 import Icon from '../../../Icon';
 import Tooltip from '../../../Tooltip';
 

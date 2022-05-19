@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 
 
-import { Button } from '@davidscicluna/component-library';
+import { Button ,  IconButton, } from '@davidscicluna/component-library';
 
 import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
 
@@ -14,7 +14,6 @@ import isNil from 'lodash/isNil';
 
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Rating from '../../../../../../../../components/Forms/Rating';
 import Textarea from '../../../../../../../../components/Forms/Textarea';

@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useBoolean } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -9,7 +11,6 @@ import isNil from 'lodash/isNil';
 
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { defaultUser, getUser, setUserOtherReviews } from '../../../../../../../../store/slices/Users';

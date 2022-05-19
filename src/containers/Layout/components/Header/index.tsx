@@ -1,12 +1,13 @@
 import { ReactElement } from 'react';
 
 
+import {  IconButton, } from '@davidscicluna/component-library';
+
 import { useTheme, useColorMode, HStack, Fade } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router-dom';
 
 
-import IconButton from '../../../../components/Clickable/IconButton';
 import Link from '../../../../components/Clickable/Link';
 import Icon from '../../../../components/Icon';
 import { Theme } from '../../../../theme/types';
