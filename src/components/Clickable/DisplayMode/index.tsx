@@ -1,6 +1,7 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, useBoolean, ButtonGroup } from '@chakra-ui/react';
+import {  useBoolean, } from '@chakra-ui/react';
+import {ButtonGroupRef as DisplayModeRef, ButtonGroupProps as DisplayModeProps,  ButtonGroup } from '@davidscicluna/component-library';
 
 import { useDispatch } from 'react-redux';
 import { useIsFetching, useIsMutating } from 'react-query';
@@ -9,15 +10,14 @@ import { useIsFetching, useIsMutating } from 'react-query';
 import { useSelector } from '../../../common/hooks';
 import { toggleDisplayMode } from '../../../store/slices/App';
 import { defaultUser, getUser } from '../../../store/slices/Users';
-import { Theme } from '../../../theme/types';
+
 import Icon from '../../Icon';
 import Tooltip from '../../Tooltip';
 import IconButton from '../IconButton';
 
-import { DisplayModeRef, DisplayModeProps } from './types';
 
 const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function DisplayMode(props, ref): ReactElement {
-	const theme = useTheme<Theme>();
+	
 
 	const dispatch = useDispatch();
 	const displayMode = useSelector((state) => state.app.ui.displayMode);
@@ -35,7 +35,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 	const [isClickingList, setIsClickingList] = useBoolean();
 
 	return (
-		<ButtonGroup ref={ref} {...props} isAttached>
+		<ButtonGroup  {...props} ref={ref} isAttached>
 			<Tooltip
 				aria-label={
 					displayMode === 'grid'
@@ -58,10 +58,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 					onMouseEnter={() => setIsHoveringGrid.on()}
 					onMouseLeave={() => setIsHoveringGrid.off()}
 					variant='outlined'
-					sx={{
-						back: { borderRadius: `${theme.radii.base} 0 0 ${theme.radii.base}` },
-						front: { borderRadius: `${theme.radii.base} 0 0 ${theme.radii.base}` }
-					}}
+					
 				>
 					<Icon icon='grid_on' type={displayMode === 'grid' ? 'filled' : 'outlined'} />
 				</IconButton>
@@ -88,10 +85,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 					onMouseEnter={() => setIsHoveringList.on()}
 					onMouseLeave={() => setIsHoveringList.off()}
 					variant='outlined'
-					sx={{
-						back: { borderRadius: `0 ${theme.radii.base} ${theme.radii.base} 0` },
-						front: { borderRadius: `0 ${theme.radii.base} ${theme.radii.base} 0` }
-					}}
+					
 				>
 					<Icon icon='view_agenda' type={displayMode === 'list' ? 'filled' : 'outlined'} />
 				</IconButton>
