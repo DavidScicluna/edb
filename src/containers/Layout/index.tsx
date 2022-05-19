@@ -1,11 +1,20 @@
 import { ReactElement, useEffect, memo } from 'react';
-import { useIsFetching, useIsMutating } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { Outlet } from 'react-router-dom';
 
 import { useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box, Collapse } from '@chakra-ui/react';
 
+import { useIsFetching, useIsMutating } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 import { useTernaryDarkMode, useUpdateEffect } from 'usehooks-ts';
+
+import { useSelector } from '../../common/hooks';
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
+import Icon from '../../components/Icon';
+import { NavItem } from '../../components/NavItem/types';
+import { toggleSidebarMode } from '../../store/slices/App';
+import { toggleSplashscreen } from '../../store/slices/Modals';
+import { defaultUser, getUser } from '../../store/slices/Users';
+import { Theme } from '../../theme/types';
 
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
@@ -19,14 +28,6 @@ import ProgressBar from './components/ProgressBar';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 
-import { useSelector } from '../../common/hooks';
-import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
-import Icon from '../../components/Icon';
-import { NavItem } from '../../components/NavItem/types';
-import { toggleSidebarMode } from '../../store/slices/App';
-import { toggleSplashscreen } from '../../store/slices/Modals';
-import { defaultUser, getUser } from '../../store/slices/Users';
-import { Theme } from '../../theme/types';
 
 export const navItems: NavItem[] = [
 	{

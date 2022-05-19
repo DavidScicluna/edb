@@ -1,15 +1,17 @@
 import { ReactElement } from 'react';
-import { Link } from 'react-scroll';
+
 
 import { useConst } from '@chakra-ui/react';
 
+import { Link } from 'react-scroll';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import { AccordionProps } from './types';
 
 import Button from '../../../../../Clickable/Button';
 import SkeletonText from '../../../../../Skeleton/Text';
+
+import { AccordionProps } from './types';
 
 const dummies = range(25, 200, 5);
 

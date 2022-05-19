@@ -1,28 +1,17 @@
 import React, { ReactElement, useState, useCallback } from 'react';
-import { useForm, useFormState } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+
 
 import { ColorMode, useTheme, useColorMode, useDisclosure, Center, Container } from '@chakra-ui/react';
 
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import sha256 from 'crypto-js/sha256';
 import dayjs from 'dayjs';
 import { isEmpty, isNil } from 'lodash';
 import { v4 as uuid } from 'uuid';
 
-import Customization from './components/Customization';
-import Details from './components/Details';
-import Genres from './components/Genres';
-import Profile from './components/Profile';
-import {
-	detailsDefaultValues,
-	genresDefaultValues,
-	customizationDefaultValues,
-	profileDefaultValues
-} from './defaults';
-import { DetailsForm, GenresForm, CustomizationForm, ProfileForm } from './types';
-import { detailsSchema } from './validation';
 
 import { useSelector } from '../../../common/hooks';
 import { handleCheckSystemColorMode } from '../../../common/utils';
@@ -38,6 +27,19 @@ import { toggleSplashscreen } from '../../../store/slices/Modals';
 import { defaultUser, setUserInfo, setUserTheme, setUsers } from '../../../store/slices/Users';
 import { User, Info } from '../../../store/slices/Users/types';
 import { Theme } from '../../../theme/types';
+
+import { detailsSchema } from './validation';
+import { DetailsForm, GenresForm, CustomizationForm, ProfileForm } from './types';
+import {
+	detailsDefaultValues,
+	genresDefaultValues,
+	customizationDefaultValues,
+	profileDefaultValues
+} from './defaults';
+import Profile from './components/Profile';
+import Genres from './components/Genres';
+import Details from './components/Details';
+import Customization from './components/Customization';
 
 const id = uuid();
 

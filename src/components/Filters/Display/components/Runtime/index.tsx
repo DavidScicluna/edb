@@ -3,11 +3,12 @@ import { ReactElement } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { RuntimeProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Tag from '../../../../Clickable/Tag';
+
+import { RuntimeProps } from './types';
 
 const Runtime = ({ runtimes, onClick, onDelete }: RuntimeProps): ReactElement => {
 	const color = useSelector(

@@ -1,12 +1,10 @@
 import React, { ReactElement } from 'react';
-import { Controller, useFormState } from 'react-hook-form';
+
 
 import { useColorMode, useMediaQuery, VStack, HStack, Center } from '@chakra-ui/react';
 
-import Guest from './components/Guest';
-import RememberMe from './components/RememberMe';
-import Users from './components/Users';
-import { FormProps } from './types';
+import { Controller, useFormState } from 'react-hook-form';
+
 
 import { color } from '../..';
 import Button from '../../../../../../../components/Clickable/Button';
@@ -14,6 +12,11 @@ import Link from '../../../../../../../components/Clickable/Link';
 import Panel from '../../../../../../../components/Panel';
 import Password from '../../../../../components/Password';
 import Username from '../../../../../components/Username';
+
+import { FormProps } from './types';
+import Users from './components/Users';
+import RememberMe from './components/RememberMe';
+import Guest from './components/Guest';
 
 const Form = ({ form, users, onSubmit, onChange, onUserClick }: FormProps): ReactElement => {
 	const { colorMode } = useColorMode();

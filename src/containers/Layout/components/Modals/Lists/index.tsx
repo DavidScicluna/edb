@@ -1,13 +1,13 @@
 import { ReactElement, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 import { useMediaQuery, useDisclosure, VStack, Center } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import List from './components/List';
 
 import { useSelector } from '../../../../../common/hooks';
 import Button from '../../../../../components/Clickable/Button';
@@ -17,6 +17,8 @@ import { defaultListsModal, setList } from '../../../../../store/slices/Modals';
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
 import { defaultUser, getUser, setUserLists } from '../../../../../store/slices/Users';
 import { List as ListType } from '../../../../../store/slices/Users/types';
+
+import List from './components/List';
 
 const ListsModal = (): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

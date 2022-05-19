@@ -1,9 +1,8 @@
 import { ReactElement, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
+import { useDispatch } from 'react-redux';
 import { useEventListener } from 'usehooks-ts';
 
-import Splashscreen from './components/Splashscreen';
 
 import { useCheckIcons, usePopulateOptions, useSelector } from '../../common/hooks';
 import { setUser } from '../../store/slices/App';
@@ -11,6 +10,8 @@ import { toggleSplashscreen } from '../../store/slices/Modals';
 import { getUser } from '../../store/slices/Users';
 import Router from '../Router';
 import Routes from '../Routes';
+
+import Splashscreen from './components/Splashscreen';
 
 const Container = (): ReactElement => {
 	const dispatch = useDispatch();

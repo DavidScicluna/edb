@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import { HStack, Center } from '@chakra-ui/react';
 
+import { MediaType as MediaType } from '../../common/types';
+import Icon from '../Icon';
+
 import MediaTypeItem from './components/MediaTypeItem';
 import { MediaTypeItem as MediaTypeItemType } from './components/MediaTypeItem/types';
 import { MediaTypesProps } from './types';
 
-import { MediaType as MediaType } from '../../common/types';
-import Icon from '../Icon';
 
 export const mediaTypesList: MediaTypeItemType[] = [
 	{

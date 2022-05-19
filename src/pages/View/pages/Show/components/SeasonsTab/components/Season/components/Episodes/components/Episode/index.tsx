@@ -1,18 +1,14 @@
 import { ReactElement } from 'react';
-import useInView from 'react-cool-inview';
+
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
 
+import useInView from 'react-cool-inview';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import Date from './components/Date';
-import Image from './components/Image';
-import Name from './components/Name';
-import Overview from './components/Overview';
-import { EpisodeProps } from './types';
 
 import { handleReturnImageSize } from '../../../../../../../../../../../../common/utils';
 import Badge from '../../../../../../../../../../../../components/Badge';
@@ -20,6 +16,12 @@ import Card from '../../../../../../../../../../../../components/Clickable/Card'
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import Rating from '../../../../../../../../../../../../components/Rating';
 import { FontSizes } from '../../../../../../../../../../../../theme/types';
+
+import { EpisodeProps } from './types';
+import Overview from './components/Overview';
+import Name from './components/Name';
+import Image from './components/Image';
+import Date from './components/Date';
 
 dayjs.extend(isSameOrAfter);
 

@@ -5,7 +5,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
 
-import { HomeHorizontalGridRef, HomeHorizontalGridProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { PartialMovie } from '../../../../common/types/movie';
@@ -20,6 +19,8 @@ import { defaultUser, getUser } from '../../../../store/slices/Users';
 import VerticalMoviePoster from '../../../Movies/components/Poster/Vertical';
 import VerticalPersonPoster from '../../../People/components/Poster/Vertical';
 import VerticalTVShowPoster from '../../../TV/components/Poster/Vertical';
+
+import { HomeHorizontalGridRef, HomeHorizontalGridProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

@@ -1,14 +1,15 @@
 import { ReactElement, forwardRef } from 'react';
-import CountUp from 'react-countup';
 
 import { useColorMode, useConst, Stat as CUIStat, VStack, StatLabel, StatNumber } from '@chakra-ui/react';
 
+import CountUp from 'react-countup';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
+import SkeletonText from '../../../../../../../../../../../components/Skeleton/Text';
+
 import { StatRef, StatProps } from './types';
 
-import SkeletonText from '../../../../../../../../../../../components/Skeleton/Text';
 
 const dummies = range(50, 150, 20);
 

@@ -5,11 +5,12 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { DatesProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Tag from '../../../../Clickable/Tag';
+
+import { DatesProps } from './types';
 
 const visibleFormat = 'ddd, MMMM DD YYYY';
 

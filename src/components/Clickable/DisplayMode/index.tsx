@@ -1,10 +1,10 @@
 import { ReactElement, forwardRef } from 'react';
-import { useIsFetching, useIsMutating } from 'react-query';
-import { useDispatch } from 'react-redux';
 
 import { useTheme, useBoolean, ButtonGroup } from '@chakra-ui/react';
 
-import { DisplayModeRef, DisplayModeProps } from './types';
+import { useDispatch } from 'react-redux';
+import { useIsFetching, useIsMutating } from 'react-query';
+
 
 import { useSelector } from '../../../common/hooks';
 import { toggleDisplayMode } from '../../../store/slices/App';
@@ -13,6 +13,8 @@ import { Theme } from '../../../theme/types';
 import Icon from '../../Icon';
 import Tooltip from '../../Tooltip';
 import IconButton from '../IconButton';
+
+import { DisplayModeRef, DisplayModeProps } from './types';
 
 const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function DisplayMode(props, ref): ReactElement {
 	const theme = useTheme<Theme>();

@@ -4,12 +4,13 @@ import { useTheme, useColorMode, useMediaQuery, VStack, HStack, Text, Fade } fro
 
 import { useElementSize } from 'usehooks-ts';
 
-import { HeaderProps, RenderMessageProps, RenderButtonProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../theme/types';
 import Divider from '../../../../Divider';
+
+import { HeaderProps, RenderMessageProps, RenderButtonProps } from './types';
 
 const Header = ({ label, renderMessage, renderButton }: HeaderProps): ReactElement => {
 	const theme = useTheme<Theme>();

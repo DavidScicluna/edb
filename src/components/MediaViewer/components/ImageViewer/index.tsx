@@ -4,10 +4,11 @@ import { useMediaQuery, AspectRatio } from '@chakra-ui/react';
 
 import { useWindowSize } from 'usehooks-ts';
 
-import { ImageViewerProps } from './types';
 
 import { handleReturnImageOrientation } from '../../../../common/utils';
 import Image from '../../../Image';
+
+import { ImageViewerProps } from './types';
 
 const ImageViewer = (props: ImageViewerProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

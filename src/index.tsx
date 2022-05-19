@@ -1,9 +1,8 @@
+import { ChakraProvider } from '@chakra-ui/react';
+
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
-
-import { ChakraProvider } from '@chakra-ui/react';
-
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 

@@ -5,12 +5,13 @@ import { useBoolean } from '@chakra-ui/react';
 
 import debounce from 'lodash/debounce';
 
-import Header from './components/Header';
-import { HorizontalGridDefaultProps } from './types';
 
 import Panel from '../../../Panel';
 import Scroll from '../components/Scroll';
 import { ScrollMenu } from '../types';
+
+import { HorizontalGridDefaultProps } from './types';
+import Header from './components/Header';
 
 const HorizontalGridDefault = (props: HorizontalGridDefaultProps): ReactElement => {
 	const ref = useRef<ScrollMenu>({} as ScrollMenu);

@@ -5,10 +5,11 @@ import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-u
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import { DescriptionProps } from './types';
 
 import { FontSizes } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
+
+import { DescriptionProps } from './types';
 
 const dummies = range(25, 100, 5);
 const height = ['16.5px', '19.25px', '22px', '24.75px', '27.5px', '33px'];

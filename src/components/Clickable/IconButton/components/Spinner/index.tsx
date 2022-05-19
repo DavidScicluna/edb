@@ -1,14 +1,16 @@
 import { ReactElement } from 'react';
-import { BounceLoader } from 'react-spinners';
+
 
 import { useTheme } from '@chakra-ui/react';
 
+import { BounceLoader } from 'react-spinners';
 import { css } from '@emotion/react';
 
-import { SpinnerProps } from './types';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../common/utils';
 import { Theme } from '../../../../../theme/types';
+
+import { SpinnerProps } from './types';
 
 const Spinner = ({ color, colorMode, size = 'md', variant = 'contained' }: SpinnerProps): ReactElement => {
 	const theme = useTheme<Theme>();

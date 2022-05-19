@@ -4,10 +4,11 @@ import { useColorMode, Center, Text } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
 
-import { NavigationProps } from './types';
 
 import IconButton from '../../../../../Clickable/IconButton';
 import Icon from '../../../../../Icon';
+
+import { NavigationProps } from './types';
 
 const Navigation = (props: NavigationProps): ReactElement => {
 	const { colorMode } = useColorMode();

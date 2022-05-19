@@ -4,10 +4,11 @@ import { ColorMode, useTheme, useColorMode, Checkbox as CUICheckbox } from '@cha
 
 import merge from 'lodash/merge';
 
+import { Theme } from '../../../theme/types';
+
 import useStyles from './styles';
 import { CheckboxProps } from './types';
 
-import { Theme } from '../../../theme/types';
 
 const Checkbox = (props: CheckboxProps): ReactElement => {
 	const theme = useTheme<Theme>();

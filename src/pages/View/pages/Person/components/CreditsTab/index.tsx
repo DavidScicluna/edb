@@ -2,14 +2,15 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-import MediaItems from './components/MediaItems';
-import { CreditsTabProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
+
+import { CreditsTabProps } from './types';
+import MediaItems from './components/MediaItems';
 
 const CreditsTab = (props: CreditsTabProps): ReactElement => {
 	const color = useSelector(

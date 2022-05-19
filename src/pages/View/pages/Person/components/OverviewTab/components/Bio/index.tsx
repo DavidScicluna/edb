@@ -5,10 +5,11 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import compact from 'lodash/compact';
 import toString from 'lodash/toString';
 
-import { BioProps } from './types';
 
 import { FullPerson } from '../../../../../../../../common/types/person';
 import Paragraph from '../../../../../../../../components/Paragraph';
+
+import { BioProps } from './types';
 
 dayjs.extend(localizedFormat);
 

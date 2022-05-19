@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
-import { useQueryClient } from 'react-query';
+
 
 import { useColorMode, useBreakpointValue, useBoolean, useConst, Text } from '@chakra-ui/react';
 
+import { useQueryClient } from 'react-query';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
@@ -10,10 +11,11 @@ import sample from 'lodash/sample';
 import startCase from 'lodash/startCase';
 import { useTimeout } from 'usehooks-ts';
 
-import { BreadcrumbProps, Data } from './types';
 
 import SkeletonText from '../../../../components/Skeleton/Text';
 import { FontSizes } from '../../../../theme/types';
+
+import { BreadcrumbProps, Data } from './types';
 
 const dummies = range(25, 100, 5);
 

@@ -6,11 +6,12 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
+import { Crew } from '../../../../../../../../common/types/movie';
+import Label from '../../../../../../components/Hero/components/Label';
+
 import Credit from './components/Credit';
 import { CreditsProps, ListItem } from './types';
 
-import { Crew } from '../../../../../../../../common/types/movie';
-import Label from '../../../../../../components/Hero/components/Label';
 
 const Credits = (props: CreditsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

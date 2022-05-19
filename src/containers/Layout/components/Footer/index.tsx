@@ -1,16 +1,18 @@
 import { ReactElement } from 'react';
-import { useIsFetching, useIsMutating } from 'react-query';
+
 
 import { useColorMode, useMediaQuery, VStack, Stack, Box, Link, Text, useTheme } from '@chakra-ui/react';
 
+import { useIsFetching, useIsMutating } from 'react-query';
 import dayjs from 'dayjs';
 
-import NavItem from './components/NavItem';
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { Theme } from '../../../../theme/types';
 import { navItems } from '../../index';
+
+import NavItem from './components/NavItem';
 
 const Footer = (): ReactElement => {
 	const theme = useTheme<Theme>();

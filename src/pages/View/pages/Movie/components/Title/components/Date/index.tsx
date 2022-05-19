@@ -6,9 +6,10 @@ import dayjs from 'dayjs';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
+import SkeletonText from '../../../../../../../../components/Skeleton/Text';
+
 import { DateProps } from './types';
 
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 const dummies = range(25, 200, 5);
 

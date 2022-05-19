@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
+
 
 import { useTheme, useMediaQuery, useConst, ButtonGroup, Text, ScaleFade } from '@chakra-ui/react';
 
+import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
 
-import { CountRangeProps } from './types';
 
 import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
@@ -17,6 +17,8 @@ import Panel from '../../../../Panel';
 import { Filters } from '../../../types';
 import { handleCheckIfInRange } from '../../common/utils';
 import Header from '../Header';
+
+import { CountRangeProps } from './types';
 
 const CountRange = ({ form }: CountRangeProps): ReactElement => {
 	const theme = useTheme<Theme>();

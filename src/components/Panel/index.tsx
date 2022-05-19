@@ -5,6 +5,9 @@ import { ColorMode, useTheme, useColorMode, VStack, Box } from '@chakra-ui/react
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
 
+import { Theme } from '../../theme/types';
+import Divider from '../Divider';
+
 import { handleReturnPadding } from './common/utils';
 import Body from './components/Body';
 import Footer from './components/Footer';
@@ -12,8 +15,6 @@ import Header from './components/Header';
 import useStyles from './styles';
 import { Context, PanelProps } from './types';
 
-import { Theme } from '../../theme/types';
-import Divider from '../Divider';
 
 export const PanelContext = createContext<Context>({ size: 'md', variant: 'outlined' });
 

@@ -2,9 +2,10 @@ import { ReactElement, useState, useCallback } from 'react';
 
 import { useColorMode, VStack, List as CUIList, Text } from '@chakra-ui/react';
 
+import Panel from '../../../../../../components/Panel';
+
 import { ListProps, Ref } from './types';
 
-import Panel from '../../../../../../components/Panel';
 
 const List = (props: ListProps): ReactElement => {
 	const { colorMode } = useColorMode();

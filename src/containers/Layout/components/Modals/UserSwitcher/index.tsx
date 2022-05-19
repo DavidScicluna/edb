@@ -1,15 +1,13 @@
 import React, { ReactElement, useState } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 import { useMediaQuery, useDisclosure, Center } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
 import { SHA256 } from 'crypto-js';
 import dayjs from 'dayjs';
 import { isEmpty, isNil } from 'lodash';
 
-import Form from './components/Form';
-import { Form as FormType } from './components/Form/types';
-import User from './components/User';
 
 import { useSelector } from '../../../../../common/hooks';
 import Button from '../../../../../components/Clickable/Button';
@@ -19,6 +17,10 @@ import { setUser } from '../../../../../store/slices/App';
 import { toggleSplashscreen, toggleUserSwitcher } from '../../../../../store/slices/Modals';
 import { setUsers } from '../../../../../store/slices/Users';
 import { User as UserType } from '../../../../../store/slices/Users/types';
+
+import User from './components/User';
+import { Form as FormType } from './components/Form/types';
+import Form from './components/Form';
 
 const UserSwitcher = (): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

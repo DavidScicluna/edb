@@ -4,7 +4,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 
-import { GuestsProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { handleReturnImageSize } from '../../../../../../../../common/utils';
@@ -14,6 +13,8 @@ import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
+
+import { GuestsProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

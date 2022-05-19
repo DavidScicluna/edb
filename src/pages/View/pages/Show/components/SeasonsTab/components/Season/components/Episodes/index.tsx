@@ -4,14 +4,15 @@ import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 
-import Episode from './components/Episode';
-import { EpisodesProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';
 import LoadMore from '../../../../../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../../../../../components/Empty';
 import Error from '../../../../../../../../../../components/Error';
 import { defaultUser, getUser } from '../../../../../../../../../../store/slices/Users';
+
+import { EpisodesProps } from './types';
+import Episode from './components/Episode';
 
 const incrementBy = 10;
 

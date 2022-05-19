@@ -4,6 +4,10 @@ import { useTheme, useColorMode, useMediaQuery, useConst, HStack, Input as CUIIn
 
 import sample from 'lodash/sample';
 
+import Icon from '../../../../../../components/Icon';
+import { Theme } from '../../../../../../theme/types';
+import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';
+
 import collectionsPlaceholders from './common/data/placeholders/collections';
 import combinedPlaceholders from './common/data/placeholders/combined';
 import companiesPlaceholders from './common/data/placeholders/companies';
@@ -14,9 +18,6 @@ import Actions from './components/Actions';
 import SearchTypes from './components/SearchTypes';
 import { InputProps } from './types';
 
-import Icon from '../../../../../../components/Icon';
-import { Theme } from '../../../../../../theme/types';
-import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';
 
 const Input = (props: InputProps): ReactElement => {
 	const theme = useTheme<Theme>();

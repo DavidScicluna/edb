@@ -1,16 +1,14 @@
 import { ReactElement, useState, useEffect } from 'react';
-import CountUp from 'react-countup';
-import { useQuery } from 'react-query';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+
 
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import CountUp from 'react-countup';
 import axios from 'axios';
 import compact from 'lodash/compact';
 
-import Actions from './components/Actions';
-import OverviewTab from './components/OverviewTab';
-import Title from './components/Title';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
@@ -29,6 +27,10 @@ import AssetsTab from '../../components/Assets';
 import CastCrewTab from '../../components/CastCrew';
 import Structure from '../../components/Structure';
 import VerticalPoster from '../../components/VerticalPoster';
+
+import Title from './components/Title';
+import OverviewTab from './components/OverviewTab';
+import Actions from './components/Actions';
 
 const tabs = ['overview', 'cast_guests_crew', 'assets'];
 

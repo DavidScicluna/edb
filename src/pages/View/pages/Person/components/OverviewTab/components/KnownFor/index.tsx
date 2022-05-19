@@ -9,7 +9,6 @@ import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 import uniqBy from 'lodash/uniqBy';
 
-import { KnownForProps, KnownFor as KnownForType } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Credits } from '../../../../../../../../common/types/person';
@@ -20,6 +19,8 @@ import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
+
+import { KnownForProps, KnownFor as KnownForType } from './types';
 
 /**
  * This method will filter from known for list and will return the 8 most voted movies/tv shows

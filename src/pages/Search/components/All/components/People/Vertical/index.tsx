@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import { VerticalSearchPeopleProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import LoadMore from '../../../../../../../components/Clickable/LoadMore';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import VerticalPeople from '../../../../../../People/components/Orientation/Vertical';
+
+import { VerticalSearchPeopleProps } from './types';
 
 const VerticalSearchPeople = ({ query, people, peopleQuery }: VerticalSearchPeopleProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

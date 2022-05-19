@@ -1,8 +1,9 @@
-import { ArrowProps } from './types';
 
 import { Style } from '../../../../common/types';
 import { Theme } from '../../../../theme/types';
 import { handleConvertHexToRGB } from '../../common/utils';
+
+import { ArrowProps } from './types';
 
 type DirectionStyle = {
 	left: Style;

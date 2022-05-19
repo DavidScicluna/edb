@@ -1,15 +1,16 @@
 import { ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
 
+import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { LikeProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import Icon from '../../../components/Icon';
 import { defaultUser, getUser, setUserLiked } from '../../../store/slices/Users';
+
+import { LikeProps } from './types';
 
 export const handleReturnIcon = (isLiked: boolean, fontSize?: string): ReactElement => {
 	return <Icon icon={isLiked ? 'favorite' : 'favorite_border'} type='outlined' fontSize={fontSize} />;

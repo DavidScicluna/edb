@@ -4,10 +4,11 @@ import { useMediaQuery, useBoolean, Stack } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
 
-import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
 import IconButton from '../../../../../Clickable/IconButton';
 import Icon from '../../../../../Icon';
+
+import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

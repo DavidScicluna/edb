@@ -5,7 +5,6 @@ import { useMediaQuery, useConst, VStack, ScaleFade } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import { KeywordsProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
@@ -14,6 +13,8 @@ import Error from '../../../../../../components/Error';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import List from '../List';
 import ListItem from '../List/components/ListItem';
+
+import { KeywordsProps } from './types';
 
 const dummy = sample(range(4, 8));
 

@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
-import { HorizontalCollectionPosterProps } from './types';
 
 import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import HorizontalPoster from '../../../../../../../../../components/Poster/Horizontal';
+
+import { HorizontalCollectionPosterProps } from './types';
 
 const thumbnail = handleReturnImageSize('poster', 'thumbnail');
 const full = handleReturnImageSize('poster', 'full');

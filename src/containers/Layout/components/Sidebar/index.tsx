@@ -1,8 +1,10 @@
 import { ReactElement } from 'react';
+
+import { useTheme, useColorMode, VStack } from '@chakra-ui/react';
+
 import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import { useTheme, useColorMode, VStack } from '@chakra-ui/react';
 
 import { navItems } from '../../.';
 import { useSelector } from '../../../../common/hooks';

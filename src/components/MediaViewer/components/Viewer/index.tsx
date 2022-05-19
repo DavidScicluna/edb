@@ -2,12 +2,12 @@ import { ReactElement, useCallback } from 'react';
 
 import { useTheme, Center, SlideFade } from '@chakra-ui/react';
 
-import { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { Swiper as SwiperType } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import { useEventListener } from 'usehooks-ts';
 
-import { ViewerProps, SwiperDirection, ViewerEvent } from './types';
 
 import {
 	handleIsTouchDevice,
@@ -15,6 +15,8 @@ import {
 	handleConvertStringToNumber
 } from '../../../../common/utils';
 import { Theme } from '../../../../theme/types';
+
+import { ViewerProps, SwiperDirection, ViewerEvent } from './types';
 
 const isTouchDevice: boolean = handleIsTouchDevice();
 

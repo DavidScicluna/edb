@@ -4,7 +4,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 import qs from 'query-string';
 
-import { CompaniesProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import Button from '../../../../../../../components/Clickable/Button';
@@ -12,6 +11,8 @@ import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import VerticalCompanyPoster from '../components/Poster/Vertical';
+
+import { CompaniesProps } from './types';
 
 const Companies = ({ query, companies = [], total = 0 }: CompaniesProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

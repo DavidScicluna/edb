@@ -1,8 +1,10 @@
 import React, { ReactElement } from 'react';
+
+import { useConst, VStack } from '@chakra-ui/react';
+
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
 
-import { useConst, VStack } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Style } from '../../../../../../../../common/types';

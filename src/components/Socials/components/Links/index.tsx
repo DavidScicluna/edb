@@ -6,8 +6,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 
-import Link from './components/Link';
-import { LinksProps } from './types';
 
 import {
 	facebook as FacebookIcon,
@@ -19,6 +17,9 @@ import { useSelector } from '../../../../common/hooks';
 import Icon from '../../../../components/Icon';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { Theme } from '../../../../theme/types';
+
+import { LinksProps } from './types';
+import Link from './components/Link';
 
 const Links = (props: LinksProps): ReactElement => {
 	const theme = useTheme<Theme>();

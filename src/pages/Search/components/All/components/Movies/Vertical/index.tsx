@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import { VerticalSearchMoviesProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import LoadMore from '../../../../../../../components/Clickable/LoadMore';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import VerticalMovies from '../../../../../../Movies/components/Orientation/Vertical';
+
+import { VerticalSearchMoviesProps } from './types';
 
 const VerticalSearchMovies = ({ query, movies, moviesQuery }: VerticalSearchMoviesProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

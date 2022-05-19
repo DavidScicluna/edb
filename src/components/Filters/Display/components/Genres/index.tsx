@@ -3,11 +3,12 @@ import { ReactElement } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { GenresProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Tag from '../../../../Clickable/Tag';
+
+import { GenresProps } from './types';
 
 const Genres = ({ genres, mediaType, onClick, onDelete }: GenresProps): ReactElement => {
 	const color = useSelector(

@@ -1,12 +1,10 @@
 import { ReactElement, useState } from 'react';
-import CountUp from 'react-countup';
+
 
 import { useMediaQuery, HStack, VStack, ScaleFade } from '@chakra-ui/react';
 
-import CreateReview from './components/CreateReview';
-import DeleteReview from './components/DeleteReview';
-import EditReview from './components/EditReview';
-import { UserReviewsProps } from './types';
+import CountUp from 'react-countup';
+
 
 import { useSelector } from '../../../../../../common/hooks';
 import Badge from '../../../../../../components/Badge';
@@ -17,6 +15,11 @@ import Panel from '../../../../../../components/Panel';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { UserReview as UserReviewType } from '../../../../../../store/slices/Users/types';
 import Review from '../Review';
+
+import { UserReviewsProps } from './types';
+import EditReview from './components/EditReview';
+import DeleteReview from './components/DeleteReview';
+import CreateReview from './components/CreateReview';
 
 const incrementBy = 5;
 

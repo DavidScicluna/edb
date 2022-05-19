@@ -5,13 +5,14 @@ import { useTheme, useColorMode, useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import { PersonProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
 import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../../../../../theme/types';
+
+import { PersonProps } from './types';
 
 const dummies = range(25, 200, 5);
 

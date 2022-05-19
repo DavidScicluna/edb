@@ -1,12 +1,14 @@
 import React, { ReactElement } from 'react';
+
 import { Controller } from 'react-hook-form';
 
-import { UsernameProps } from './types';
 
 import { useSelector } from '../../../../../../../../../common/hooks';
 import Input from '../../../../../../../../../components/Forms/Input';
 import Icon from '../../../../../../../../../components/Icon';
 import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
+
+import { UsernameProps } from './types';
 
 const Username = ({ form }: UsernameProps): ReactElement => {
 	const color = useSelector(

@@ -2,11 +2,12 @@ import { ReactElement, useContext } from 'react';
 
 import { Box } from '@chakra-ui/react';
 
-import { BodyProps } from './types';
 
 import { PanelContext } from '../../.';
 import { handleReturnPadding } from '../../common/utils';
 import { Context } from '../../types';
+
+import { BodyProps } from './types';
 
 const Body = (props: BodyProps): ReactElement => {
 	const { size = 'md', variant = 'outlined' } = useContext<Context>(PanelContext);

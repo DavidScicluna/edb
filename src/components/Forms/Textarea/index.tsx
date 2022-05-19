@@ -14,10 +14,11 @@ import {
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
 
+import { Theme } from '../../../theme/types';
+
 import useStyles from './styles';
 import { TextareaProps } from './types';
 
-import { Theme } from '../../../theme/types';
 
 const Textarea = (props: TextareaProps): ReactElement => {
 	const theme = useTheme<Theme>();

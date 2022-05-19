@@ -6,10 +6,11 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { OverviewTabProps } from './types';
 
 import Paragraph from '../../../../../../components/Paragraph';
 import Media from '../../../../components/Media';
+
+import { OverviewTabProps } from './types';
 
 const OverviewTab = ({ collectionQuery, imagesQuery, onClickImage, onChangeTab }: OverviewTabProps): ReactElement => {
 	return (

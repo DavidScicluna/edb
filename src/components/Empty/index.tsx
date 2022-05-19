@@ -4,14 +4,15 @@ import { ColorMode, useTheme, useColorMode, VStack, Center, Image, Text, Fade } 
 
 import merge from 'lodash/merge';
 
-import useStyles from './styles';
-import { EmptyProps } from './types';
 
 import * as fallback from '../../common/assets/fallback';
 import * as empty from '../../common/assets/illustrations/empty';
 import { useSelector } from '../../common/hooks';
 import { defaultUser, getUser } from '../../store/slices/Users';
 import { Theme, Space, FontSizes } from '../../theme/types';
+
+import { EmptyProps } from './types';
+import useStyles from './styles';
 
 const Empty = (props: EmptyProps): ReactElement => {
 	const theme = useTheme<Theme>();

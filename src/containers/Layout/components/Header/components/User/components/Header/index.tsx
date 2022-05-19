@@ -4,9 +4,10 @@ import { useColorMode, HStack, VStack, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
+import Avatar from '../../../../../../../../components/Avatar';
+
 import { HeaderProps } from './types';
 
-import Avatar from '../../../../../../../../components/Avatar';
 
 const Header = ({ avatar_path, name, username }: HeaderProps): ReactElement => {
 	const { colorMode } = useColorMode();

@@ -2,10 +2,11 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Text } from '@chakra-ui/react';
 
-import { CodeProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
+
+import { CodeProps } from './types';
 
 const Code = ({ code }: CodeProps): ReactElement => {
 	const { colorMode } = useColorMode();

@@ -1,14 +1,14 @@
 import { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
+
 
 import { useMediaQuery, Stack, Center, Text, ScaleFade } from '@chakra-ui/react';
 
+import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { DatesProps } from './types';
 
 import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
@@ -17,6 +17,8 @@ import Button from '../../../../Clickable/Button';
 import DatePicker from '../../../../Forms/DatePicker';
 import Panel from '../../../../Panel';
 import Header from '../Header';
+
+import { DatesProps } from './types';
 
 const minDate = new Date(1900, 1);
 const maxDate = new Date(2100, 1);

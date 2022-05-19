@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { PosterQuickviewProps } from './types';
+import { useDispatch } from 'react-redux';
+
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
@@ -12,6 +13,8 @@ import { defaultUser, getUser } from '../../../../store/slices/Users';
 import IconButton from '../../../Clickable/IconButton';
 import Icon from '../../../Icon';
 import Tooltip from '../../../Tooltip';
+
+import { PosterQuickviewProps } from './types';
 
 const PosterQuickview = <MT extends MediaType>(props: PosterQuickviewProps<MT>): ReactElement => {
 	const dispatch = useDispatch();

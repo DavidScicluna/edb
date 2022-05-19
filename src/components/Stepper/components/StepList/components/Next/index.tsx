@@ -4,7 +4,6 @@ import { useTheme, useMediaQuery, Center } from '@chakra-ui/react';
 
 import { merge } from 'lodash';
 
-import { NextProps } from './types';
 
 import { height } from '../..';
 import { Theme } from '../../../../../../theme/types';
@@ -12,6 +11,8 @@ import Icon from '../../../../../Icon';
 import useStyles from '../../common/styles';
 import { handleReturnIcon } from '../Step/components/Icon';
 import { handleReturnColor } from '../Step/components/Status';
+
+import { NextProps } from './types';
 
 const Next = (props: NextProps): ReactElement => {
 	const theme = useTheme<Theme>();

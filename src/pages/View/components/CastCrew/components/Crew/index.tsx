@@ -5,7 +5,6 @@ import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import capitalize from 'lodash/capitalize';
 import range from 'lodash/range';
 
-import { CrewProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { handleReturnImageSize } from '../../../../../../common/utils';
@@ -16,6 +15,8 @@ import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import VerticalPoster from '../../../../../../components/Poster/Vertical';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { handleReturnPersonJobLabel } from '../../common/utils';
+
+import { CrewProps } from './types';
 
 const incrementBy = 15;
 

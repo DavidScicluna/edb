@@ -1,5 +1,4 @@
 import { ReactElement, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import {
 	useColorMode,
@@ -10,6 +9,9 @@ import {
 	DrawerBody,
 	Center
 } from '@chakra-ui/react';
+
+import { useLocation } from 'react-router-dom';
+
 
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../components/Icon';

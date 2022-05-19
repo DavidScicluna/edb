@@ -1,12 +1,20 @@
 import { ReactElement } from 'react';
-import { useForm, useFormState } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
 
+import { useForm, useFormState } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 import isEqual from 'lodash/isEqual';
 
 // import Adult from './components/Adult';
+import { useSelector } from '../../../common/hooks';
+import { defaultUser, getUser } from '../../../store/slices/Users';
+import Button from '../../Clickable/Button';
+import Icon from '../../Icon';
+import Modal from '../../Modal';
+import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';
+import { Filters } from '../types';
+
 import Certifications from './components/Certifications';
 import CountRange from './components/CountRange';
 import Dates from './components/Dates';
@@ -15,13 +23,6 @@ import RatingRange from './components/RatingRange';
 import RuntimeRange from './components/RuntimeRange';
 import { FiltersFormProps } from './types';
 
-import { useSelector } from '../../../common/hooks';
-import { defaultUser, getUser } from '../../../store/slices/Users';
-import Button from '../../Clickable/Button';
-import Icon from '../../Icon';
-import Modal from '../../Modal';
-import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';
-import { Filters } from '../types';
 
 export const defaultValues: Filters = handleReturnDefaultValues();
 

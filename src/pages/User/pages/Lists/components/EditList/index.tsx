@@ -1,17 +1,16 @@
 import { ReactElement, useEffect } from 'react';
-import { useForm, useFormState, Controller } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+
 
 import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
+import { useForm, useFormState, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import sample from 'lodash/sample';
 
-import { EditListProps, Form } from './types';
-import { schema } from './validation';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
@@ -21,6 +20,9 @@ import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
 import { defaultUser, getUser, setUserLists } from '../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../theme/types';
+
+import { schema } from './validation';
+import { EditListProps, Form } from './types';
 
 const placeholders = [
 	'Action Movies',

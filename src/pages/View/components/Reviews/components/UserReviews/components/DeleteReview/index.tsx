@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { DeleteReviewProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
@@ -15,6 +15,8 @@ import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
+
+import { DeleteReviewProps } from './types';
 
 const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();

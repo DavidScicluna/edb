@@ -1,4 +1,5 @@
 import { ContextType } from 'react';
+
 import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
 import { PanelProps } from '../../Panel/types';

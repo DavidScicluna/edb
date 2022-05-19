@@ -1,18 +1,20 @@
 import React, { ReactElement } from 'react';
-import { useForm, useFormState } from 'react-hook-form';
+
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
 
+import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import Password from './components/Password';
-import Username from './components/Username';
-import { Form as FormType, FormProps } from './types';
 
 import Button from '../../../../../../../components/Clickable/Button';
 import Modal from '../../../../../../../components/Modal';
 import { defaultValues } from '../../../../../../../pages/Authentication/Signin/components/FormContainer';
 import { schema } from '../../../../../../../pages/Authentication/Signin/components/FormContainer/validation';
+
+import { Form as FormType, FormProps } from './types';
+import Username from './components/Username';
+import Password from './components/Password';
 
 const Form = ({ isOpen = false, onClose, onSubmit }: FormProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

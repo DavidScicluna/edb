@@ -1,16 +1,15 @@
 import { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
+
 
 import { useMediaQuery, Wrap, WrapItem, HStack } from '@chakra-ui/react';
 
+import { Controller } from 'react-hook-form';
 import sort from 'array-sort';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
-import Certification from './components/Certification';
-import { CertificationsProps } from './types';
 
 import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
@@ -20,6 +19,9 @@ import Button from '../../../../Clickable/Button';
 import Divider from '../../../../Divider';
 import Empty from '../../../../Empty';
 import Panel from '../../../../Panel';
+
+import { CertificationsProps } from './types';
+import Certification from './components/Certification';
 
 const Certifications = ({ form, mediaType }: CertificationsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

@@ -3,11 +3,12 @@ import { ReactElement } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { CountProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Tag from '../../../../Clickable/Tag';
+
+import { CountProps } from './types';
 
 const Count = ({ counts, onClick, onDelete }: CountProps): ReactElement => {
 	const color = useSelector(

@@ -2,9 +2,10 @@ import { ReactElement } from 'react';
 
 import { useTheme, Center } from '@chakra-ui/react';
 
+import { Theme } from '../../../../theme/types';
+
 import { ChildProps } from './types';
 
-import { Theme } from '../../../../theme/types';
 
 const Child = ({ children, renderDivider, isLast = false }: ChildProps): ReactElement => {
 	const theme = useTheme<Theme>();

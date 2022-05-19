@@ -1,9 +1,10 @@
 import { ReactElement, useState, useEffect } from 'react';
-import { useInfiniteQuery } from 'react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+
 
 import { useBoolean, VStack, Center, Fade } from '@chakra-ui/react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useInfiniteQuery } from 'react-query';
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
 import isNil from 'lodash/isNil';
@@ -12,11 +13,6 @@ import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import Header from './components/Header';
-import MediaTypesPicker from './components/MediaTypesPicker';
-import Movies from './components/Movies';
-import People from './components/People';
-import TV from './components/TV';
 
 import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { MediaType, Response } from '../../common/types';
@@ -27,6 +23,12 @@ import Divider from '../../components/Divider';
 import Tabs from '../../components/Tabs';
 import TabPanels from '../../components/Tabs/components/TabPanels';
 import Page from '../../containers/Page';
+
+import TV from './components/TV';
+import People from './components/People';
+import Movies from './components/Movies';
+import MediaTypesPicker from './components/MediaTypesPicker';
+import Header from './components/Header';
 
 const allMediaTypes: MediaType[] = ['movie', 'tv', 'person', 'company', 'collection'];
 

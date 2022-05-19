@@ -4,12 +4,13 @@ import { HStack, Center } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-import { HeaderProps } from './types';
 
 import Divider from '../../../../../Divider';
 import TabList from '../../../../../Tabs/components/TabList';
 import Actions from '../../../components/Actions';
 import { ScrollMenu } from '../../../types';
+
+import { HeaderProps } from './types';
 
 const Header = (props: HeaderProps): ReactElement => {
 	const [ref, { width, height }] = useElementSize();

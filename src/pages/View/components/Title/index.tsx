@@ -2,9 +2,10 @@ import { ReactElement } from 'react';
 
 import { useColorMode, VStack, Text } from '@chakra-ui/react';
 
+import HorizontalScroll from '../../../../components/HorizontalScroll';
+
 import { TitleProps } from './types';
 
-import HorizontalScroll from '../../../../components/HorizontalScroll';
 
 const Title = (props: TitleProps): ReactElement => {
 	const { colorMode } = useColorMode();

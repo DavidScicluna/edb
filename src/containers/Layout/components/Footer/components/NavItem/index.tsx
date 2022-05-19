@@ -1,7 +1,9 @@
 import { ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { useColorMode, VStack, Text, useTheme } from '@chakra-ui/react';
+
+import { useLocation } from 'react-router-dom';
+
 
 import { useSelector } from '../../../../../../common/hooks';
 import Link from '../../../../../../components/Clickable/Link';

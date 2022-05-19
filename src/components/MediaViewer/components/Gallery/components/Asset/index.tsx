@@ -2,7 +2,6 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import { AssetProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
@@ -10,6 +9,8 @@ import LoadMore from '../../../../../Clickable/LoadMore';
 import VerticalGrid from '../../../../../Grid/Vertical';
 import Image from '../Image';
 import Video from '../Video';
+
+import { AssetProps } from './types';
 
 const incrementBy = 8;
 

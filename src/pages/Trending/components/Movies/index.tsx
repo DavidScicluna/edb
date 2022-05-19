@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
-import { MoviesProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import VerticalMovies from '../../../Movies/components/Orientation/Vertical';
+
+import { MoviesProps } from './types';
 
 const Movies = ({ movies, query, onLoadMore }: MoviesProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

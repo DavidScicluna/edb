@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import { AspectRatio, Fade } from '@chakra-ui/react';
 
-import { EpisodeImageProps } from './types';
 
 import {
 	handleReturnBoringTypeByMediaType,
@@ -10,6 +9,8 @@ import {
 } from '../../../../../../../../../../../../../../common/utils';
 import Image from '../../../../../../../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../../../../../../../components/Skeleton';
+
+import { EpisodeImageProps } from './types';
 
 const width = ['100px', '116px', '152px', '188px', '188px', '224px'];
 

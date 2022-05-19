@@ -1,12 +1,11 @@
 import React, { ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
 
 import { useTheme, useColorMode, useDisclosure } from '@chakra-ui/react';
 
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 
-import { GuestProps } from './types';
 
 import { color } from '../../../..';
 import { useSelector } from '../../../../../../../../../common/hooks';
@@ -17,6 +16,8 @@ import { setUser } from '../../../../../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../../../../../store/slices/Modals';
 import { guest, setUsers } from '../../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../../theme/types';
+
+import { GuestProps } from './types';
 
 const Guest = ({ renderAction }: GuestProps): ReactElement => {
 	const theme = useTheme<Theme>();

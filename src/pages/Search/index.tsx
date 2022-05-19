@@ -1,10 +1,11 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
-import { useInfiniteQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { useLocation, useSearchParams } from 'react-router-dom';
+
 
 import { useBoolean, useConst, VStack, Center, Fade, Collapse } from '@chakra-ui/react';
 
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useInfiniteQuery } from 'react-query';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -18,15 +19,6 @@ import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import All from './components/All';
-import Form from './components/Form';
-import Display from './components/Form/components/Display';
-import Input from './components/Form/components/Input';
-import Keywords from './components/Form/components/Keywords';
-import { Keyword } from './components/Form/components/Keywords/types';
-import RecentSearches from './components/Form/components/RecentSearches';
-import SearchTypes from './components/Form/components/SearchTypes';
-import { InputKeyboardEvent, InputChangeEvent } from './types';
 
 import { useSelector } from '../../common/hooks';
 import axiosInstance from '../../common/scripts/axios';
@@ -40,6 +32,16 @@ import Empty from '../../components/Empty';
 import Page from '../../containers/Page';
 import { defaultUser, getUser, guest, setUserRecentSearches } from '../../store/slices/Users';
 import { Search as SearchType, SearchType as SearchTypeValue } from '../../store/slices/Users/types';
+
+import { InputKeyboardEvent, InputChangeEvent } from './types';
+import SearchTypes from './components/Form/components/SearchTypes';
+import RecentSearches from './components/Form/components/RecentSearches';
+import { Keyword } from './components/Form/components/Keywords/types';
+import Keywords from './components/Form/components/Keywords';
+import Input from './components/Form/components/Input';
+import Display from './components/Form/components/Display';
+import Form from './components/Form';
+import All from './components/All';
 
 dayjs.extend(localizedFormat);
 

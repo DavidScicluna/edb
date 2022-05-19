@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
 
-import { SearchTypesProps } from './types';
 
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
+
+import { SearchTypesProps } from './types';
 
 const SearchTypes = ({ searchTypes, onClear }: SearchTypesProps): ReactElement => {
 	const { colorMode } = useColorMode();

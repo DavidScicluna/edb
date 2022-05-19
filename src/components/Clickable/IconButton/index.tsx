@@ -4,11 +4,12 @@ import { ColorMode, useTheme, useColorMode, IconButton as CUIIconButton, Center 
 
 import merge from 'lodash/merge';
 
+import { Theme } from '../../../theme/types';
+
 import Spinner from './components/Spinner';
 import useStyles from './styles';
 import { IconButtonRef, IconButtonProps } from './types';
 
-import { Theme } from '../../../theme/types';
 
 const IconButton = forwardRef<IconButtonRef, IconButtonProps>(function IconButton(props, ref): ReactElement {
 	const theme = useTheme<Theme>();

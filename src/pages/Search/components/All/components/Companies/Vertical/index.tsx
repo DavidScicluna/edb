@@ -4,7 +4,6 @@ import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 
-import { VerticalSearchCompaniesProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { PartialCompany } from '../../../../../../../common/types';
@@ -15,6 +14,8 @@ import VerticalGrid from '../../../../../../../components/Grid/Vertical';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import HorizontalCompanyPoster from '../components/Poster/Horizontal';
 import VerticalCompanyPoster from '../components/Poster/Vertical';
+
+import { VerticalSearchCompaniesProps } from './types';
 
 const VerticalSearchCompanies = (props: VerticalSearchCompaniesProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

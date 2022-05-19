@@ -1,11 +1,14 @@
 import { ReactElement, lazy, useEffect } from 'react';
-import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 
 import { useConst } from '@chakra-ui/react';
 
+import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { compact } from 'lodash';
 import omit from 'lodash/omit';
+
+import { guest } from '../../store/slices/Users';
+import Layout from '../Layout';
 
 import Animation from './components/Animation';
 import Breadcrumb from './components/Breadcrumb';
@@ -15,8 +18,6 @@ import Public from './components/Public';
 import Suspense from './components/Suspense';
 import { Route as RouteType } from './types';
 
-import { guest } from '../../store/slices/Users';
-import Layout from '../Layout';
 
 const Home = lazy(() => import('../../pages/Home'));
 const Movies = lazy(() => import('../../pages/Movies'));

@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { MediaTypesPickerProps } from './types';
 
 import { MediaType } from '../../../../common/types';
 import Empty from '../../../../components/Empty';
 import MediaTypes, { mediaTypesList } from '../../../../components/MediaTypes';
+
+import { MediaTypesPickerProps } from './types';
 
 const MediaTypesPicker = ({ onSelected }: MediaTypesPickerProps): ReactElement => {
 	return (

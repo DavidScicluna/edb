@@ -1,7 +1,8 @@
-import { TextareaProps, Size } from './types';
 
 import { Style } from '../../../common/types';
 import { Theme } from '../../../theme/types';
+
+import { TextareaProps, Size } from './types';
 
 type SizeStyle = { [key in Size]: Style };
 

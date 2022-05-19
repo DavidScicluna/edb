@@ -2,13 +2,14 @@ import { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 
-import { ActionsProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import Bookmark from '../../../../../../../components/Clickable/Bookmark';
 import Button from '../../../../../../../components/Clickable/Button';
 import Like, { handleReturnIcon } from '../../../../../../../components/Clickable/Like';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
+
+import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
 	const color = useSelector(

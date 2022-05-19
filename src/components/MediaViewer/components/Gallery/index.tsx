@@ -2,13 +2,14 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useColorMode, Center } from '@chakra-ui/react';
 
-import Asset from './components/Asset';
-import { GalleryProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import Accordions from '../../../Accordions';
 import Modal from '../../../Modal';
+
+import { GalleryProps } from './types';
+import Asset from './components/Asset';
 
 const Gallery = (props: GalleryProps): ReactElement => {
 	const { colorMode: colorModeHook } = useColorMode();

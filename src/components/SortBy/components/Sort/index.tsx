@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
+
 
 import { VStack, Center } from '@chakra-ui/react';
 
-import { SortProps } from './types';
+import { Controller } from 'react-hook-form';
+
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
@@ -11,6 +12,8 @@ import Button from '../../../Clickable/Button';
 import Icon from '../../../Icon';
 import Panel from '../../../Panel';
 import { SortBy } from '../../types';
+
+import { SortProps } from './types';
 
 const Sort = ({ form, sortBy }: SortProps): ReactElement => {
 	const color = useSelector(

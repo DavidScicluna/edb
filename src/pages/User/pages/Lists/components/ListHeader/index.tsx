@@ -1,15 +1,14 @@
 import { ReactElement } from 'react';
-import CountUp from 'react-countup';
+
 
 import { Fade } from '@chakra-ui/react';
 
+import CountUp from 'react-countup';
 import dayjs from 'dayjs';
 import isNil from 'lodash/isNil';
 import orderBy from 'lodash/orderBy';
 import { useElementSize } from 'usehooks-ts';
 
-import ListsTabButton from './components/ListsTabButton';
-import { ListHeaderProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Badge from '../../../../../../components/Badge';
@@ -17,6 +16,9 @@ import Divider from '../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import TabList from '../../../../../../components/Tabs/components/TabList';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
+
+import { ListHeaderProps } from './types';
+import ListsTabButton from './components/ListsTabButton';
 
 const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactElement => {
 	const [ref, { height }] = useElementSize();

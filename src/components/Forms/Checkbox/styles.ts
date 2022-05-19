@@ -1,7 +1,8 @@
-import { CheckboxProps } from './types';
 
 import { Style } from '../../../common/types';
 import { Theme } from '../../../theme/types';
+
+import { CheckboxProps } from './types';
 
 type CheckboxStyle = {
 	checkbox: Style;

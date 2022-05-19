@@ -1,11 +1,11 @@
 import { ReactElement, useState, useEffect } from 'react';
-import CountUp from 'react-countup';
-import { useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { useDisclosure, useConst, Text, Fade } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import CountUp from 'react-countup';
 import axios from 'axios';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
@@ -14,8 +14,6 @@ import range from 'lodash/range';
 import sample from 'lodash/sample';
 import uniq from 'lodash/uniq';
 
-import OverviewTab from './components/OverviewTab';
-import PartsTab from './components/PartsTab';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
@@ -36,6 +34,9 @@ import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
 import Title from '../../components/Title';
 import VerticalPoster from '../../components/VerticalPoster';
+
+import PartsTab from './components/PartsTab';
+import OverviewTab from './components/OverviewTab';
 
 const dummies = range(25, 100, 5);
 

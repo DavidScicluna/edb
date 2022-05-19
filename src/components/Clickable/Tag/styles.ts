@@ -1,8 +1,9 @@
-import { TagProps, Variant, Size } from './types';
 
 import { Style } from '../../../common/types';
 import { handleIsTouchDevice } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
+
+import { TagProps, Variant, Size } from './types';
 
 type VariantStyle = { [key in Variant]: Style };
 

@@ -1,6 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react';
-import CountUp from 'react-countup';
-import { useQuery } from 'react-query';
+
 
 import {
 	useColorMode,
@@ -14,6 +13,8 @@ import {
 	Collapse
 } from '@chakra-ui/react';
 
+import { useQuery } from 'react-query';
+import CountUp from 'react-countup';
 import axios from 'axios';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
@@ -21,8 +22,6 @@ import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import Overview from './components/Overview';
-import { CollectionProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import axiosInstance from '../../../../../../../common/scripts/axios';
@@ -35,6 +34,9 @@ import Title from '../../../../../../../pages/View/components/Title';
 import { guest } from '../../../../../../../store/slices/Users';
 import Actions from '../../components/Actions';
 import Poster from '../../components/Poster';
+
+import { CollectionProps } from './types';
+import Overview from './components/Overview';
 
 const dummies = range(25, 100, 5);
 

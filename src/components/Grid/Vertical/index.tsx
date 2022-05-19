@@ -2,11 +2,12 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
-import { VerticalGridProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import { handleIsTouchDevice } from '../../../common/utils';
 import { DisplayMode } from '../../../store/slices/App/types';
+
+import { VerticalGridProps } from './types';
 
 const isTouchDevice: boolean = handleIsTouchDevice();
 

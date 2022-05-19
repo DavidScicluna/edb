@@ -2,12 +2,13 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import { PeopleProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import VerticalPeople from '../../../../../People/components/Orientation/Vertical';
+
+import { PeopleProps } from './types';
 
 const incrementBy = 20;
 

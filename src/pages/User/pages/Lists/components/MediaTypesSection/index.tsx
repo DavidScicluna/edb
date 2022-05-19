@@ -4,7 +4,6 @@ import { VStack } from '@chakra-ui/react';
 
 import isNil from 'lodash/isNil';
 
-import { MediaTypesSectionProps } from './types';
 
 import { MediaType } from '../../../../../../common/types';
 import Divider from '../../../../../../components/Divider';
@@ -14,6 +13,8 @@ import MediaTypesHeader from '../../../../components/MediaTypesHeader';
 import MediaTypesPicker from '../../../../components/MediaTypesPicker';
 import Movies from '../../../../components/Movies';
 import TV from '../../../../components/TV';
+
+import { MediaTypesSectionProps } from './types';
 
 const MediaTypesSection = ({ movies, tv, renderActions }: MediaTypesSectionProps): ReactElement => {
 	const [activeTab, setActiveTab] = useState<number>();

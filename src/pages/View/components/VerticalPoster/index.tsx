@@ -2,13 +2,14 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { VerticalPosterProps } from './types';
 
 import { handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../common/utils';
 import ClickableImage from '../../../../components/Clickable/Image';
 import Icon from '../../../../components/Icon';
 import Image from '../../../../components/Image';
 import Skeleton from '../../../../components/Skeleton';
+
+import { VerticalPosterProps } from './types';
 
 const VerticalPoster = (props: VerticalPosterProps): ReactElement => {
 	const { height, alt, path, mediaType, srcSize, isLoading = false, onClickPoster } = props;

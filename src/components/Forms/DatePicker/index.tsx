@@ -6,14 +6,15 @@ import dayjs from 'dayjs';
 import { DateObj, useDayzed } from 'dayzed';
 import isNil from 'lodash/isNil';
 
+import Button from '../../Clickable/Button';
+import Icon from '../../Icon';
+import Modal from '../../Modal';
+
 import Calendar from './components/Calendar';
 import Months from './components/Months';
 import Years from './components/Years';
 import { DatePickerProps } from './types';
 
-import Button from '../../Clickable/Button';
-import Icon from '../../Icon';
-import Modal from '../../Modal';
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
 	const { isOpen, onOpen, onClose } = useDisclosure();

@@ -8,8 +8,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import Stats from './components/Stats';
-import { ListInfoProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
@@ -17,6 +15,9 @@ import Icon from '../../../../../../components/Icon';
 import Modal from '../../../../../../components/Modal';
 import Panel from '../../../../../../components/Panel';
 import { getUser } from '../../../../../../store/slices/Users';
+
+import { ListInfoProps } from './types';
+import Stats from './components/Stats';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);

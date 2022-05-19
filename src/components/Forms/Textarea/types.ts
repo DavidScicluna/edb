@@ -1,6 +1,7 @@
+import { ColorMode, TextareaProps as CUITextareaProps } from '@chakra-ui/react';
+
 import { ErrorOption } from 'react-hook-form';
 
-import { ColorMode, TextareaProps as CUITextareaProps } from '@chakra-ui/react';
 
 import { Style } from '../../../common/types';
 import { Color } from '../../../theme/types';

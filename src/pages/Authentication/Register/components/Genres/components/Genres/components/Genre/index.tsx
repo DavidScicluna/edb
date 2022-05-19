@@ -5,11 +5,12 @@ import { useConst } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import { GenreProps } from './types';
 
 import Button from '../../../../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../../../../components/Icon';
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
+
+import { GenreProps } from './types';
 
 const dummies = range(25, 200, 5);
 

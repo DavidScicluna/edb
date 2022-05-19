@@ -4,7 +4,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 import qs from 'query-string';
 
-import { HorizontalSearchTVProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { PartialTV } from '../../../../../../../common/types/tv';
@@ -13,6 +12,8 @@ import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import VerticalTVShowPoster from '../../../../../../TV/components/Poster/Vertical';
+
+import { HorizontalSearchTVProps } from './types';
 
 const HorizontalSearchTV = ({ query, shows = [], total = 0 }: HorizontalSearchTVProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

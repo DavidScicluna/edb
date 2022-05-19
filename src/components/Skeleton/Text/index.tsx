@@ -4,11 +4,12 @@ import { SlideFade, useTheme } from '@chakra-ui/react';
 
 import round from 'lodash/round';
 
-import { SkeletonTextProps } from './types';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
 import { Theme } from '../../../theme/types';
 import Skeleton from '../../Skeleton';
+
+import { SkeletonTextProps } from './types';
 
 const SkeletonText = (props: SkeletonTextProps): ReactElement => {
 	const theme = useTheme<Theme>();

@@ -19,11 +19,12 @@ import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
 
+import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
+import { Theme } from '../../../theme/types';
+
 import useStyles from './styles';
 import { RenderProps, InputProps } from './types';
 
-import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
-import { Theme } from '../../../theme/types';
 
 const Input = (props: InputProps): ReactElement => {
 	const theme = useTheme<Theme>();

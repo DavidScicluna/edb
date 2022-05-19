@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { StatusProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Badge from '../../../../../../../../components/Badge';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
+
+import { StatusProps } from './types';
 
 const Status = (props: StatusProps): ReactElement => {
 	const color = useSelector(

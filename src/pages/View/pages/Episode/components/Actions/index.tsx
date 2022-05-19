@@ -2,10 +2,11 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { ActionsProps } from './types';
 
 import Button from '../../../../../../components/Clickable/Button';
 import Link from '../../../../../../components/Clickable/Link';
+
+import { ActionsProps } from './types';
 
 const Actions = ({ show, isLoading = true }: ActionsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

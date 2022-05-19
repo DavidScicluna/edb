@@ -4,12 +4,13 @@ import { useTheme, useMediaQuery, Center } from '@chakra-ui/react';
 
 import { merge } from 'lodash';
 
-import { CancelProps } from './types';
 
 import { height } from '../..';
 import { Theme } from '../../../../../../theme/types';
 import Icon from '../../../../../Icon';
 import useStyles from '../../common/styles';
+
+import { CancelProps } from './types';
 
 const Cancel = (props: CancelProps): ReactElement => {
 	const theme = useTheme<Theme>();

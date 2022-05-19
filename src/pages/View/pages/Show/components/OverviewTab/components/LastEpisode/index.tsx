@@ -5,9 +5,6 @@ import { useMediaQuery, VStack } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import Subtitle from './components/Subtitle';
-import Title from './components/Title';
-import { LastEpisodeProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { handleReturnDate } from '../../../../../../../../common/utils';
@@ -15,6 +12,10 @@ import Button from '../../../../../../../../components/Clickable/Button';
 import Panel from '../../../../../../../../components/Panel';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 import Episode from '../../../SeasonsTab/components/Season/components/Episodes/components/Episode';
+
+import { LastEpisodeProps } from './types';
+import Title from './components/Title';
+import Subtitle from './components/Subtitle';
 
 const LastEpisode = ({ show, isLoading = true, onChangeTab }: LastEpisodeProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

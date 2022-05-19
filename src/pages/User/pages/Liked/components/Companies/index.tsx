@@ -4,7 +4,6 @@ import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 
-import { CompaniesProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { PartialCompany } from '../../../../../../common/types';
@@ -15,6 +14,8 @@ import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import HorizontalCompanyPoster from '../../../../../Search/components/All/components/Companies/components/Poster/Horizontal';
 import VerticalCompanyPoster from '../../../../../Search/components/All/components/Companies/components/Poster/Vertical';
+
+import { CompaniesProps } from './types';
 
 const incrementBy = 20;
 

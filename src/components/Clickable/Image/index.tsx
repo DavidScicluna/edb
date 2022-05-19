@@ -1,5 +1,5 @@
 import { ReactElement, memo } from 'react';
-import useInView from 'react-cool-inview';
+
 
 import {
 	ColorMode,
@@ -12,15 +12,17 @@ import {
 	Fade
 } from '@chakra-ui/react';
 
+import useInView from 'react-cool-inview';
 import { AnimatePresence } from 'framer-motion';
 import { useElementSize } from 'usehooks-ts';
 
-import { ImageProps, IconProps } from './types';
 
 import * as fallback from '../../../common/assets/fallback';
 import { handleReturnRatio } from '../../../common/utils';
 import Icon from '../../../components/Icon';
 import { Theme } from '../../../theme/types';
+
+import { ImageProps, IconProps } from './types';
 
 const commonStyleProps = {
 	width: 'inherit',

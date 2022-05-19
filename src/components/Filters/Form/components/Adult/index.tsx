@@ -3,12 +3,13 @@ import { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 
-import { AdultProps } from './types';
 
 // import { useSelector } from '../../../../../common/hooks';
 import Button from '../../../../Clickable/Button';
 // import Icon from '../../../../Icon';
 import Panel from '../../../../Panel';
+
+import { AdultProps } from './types';
 
 const Adult = ({ mediaType }: AdultProps): ReactElement => {
 	// const color = useSelector((state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color);

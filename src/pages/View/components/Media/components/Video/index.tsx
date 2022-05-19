@@ -1,17 +1,19 @@
 import { ReactElement } from 'react';
-import YouTube, { Options } from 'react-youtube';
+
 
 import { Box } from '@chakra-ui/react';
 
+import YouTube, { Options } from 'react-youtube';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { MediaVideoProps } from './types';
 
 import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Icon from '../../../../../../components/Icon';
 import Skeleton from '../../../../../../components/Skeleton';
+
+import { MediaVideoProps } from './types';
 
 import './styles.css';
 

@@ -2,12 +2,13 @@ import React, { ReactElement, useContext } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import { StepPanelProps } from './types';
 
 import { StepperContext } from '../..';
 import Divider from '../../../Divider';
 import { StepperContext as StepperContextType } from '../../types';
 import StepDescription from '../StepDescription';
+
+import { StepPanelProps } from './types';
 
 const StepPanel = ({ children, index, total, title, subtitle, ...rest }: StepPanelProps): ReactElement => {
 	const { colorMode } = useContext<StepperContextType>(StepperContext);

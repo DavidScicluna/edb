@@ -1,19 +1,21 @@
 import { ReactElement, useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 import { useColorMode, Modal, ModalContent, ModalBody, VStack, Box, Text } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { range, reverse } from 'lodash';
 import { useTernaryDarkMode, useInterval, useEffectOnce } from 'usehooks-ts';
 
-import useStyles from './styles';
-import { SplashscreenProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import { toggleSplashscreen } from '../../../../store/slices/Modals';
 import { getUser } from '../../../../store/slices/Users';
 import { Color } from '../../../../theme/types';
+
+import { SplashscreenProps } from './types';
+import useStyles from './styles';
 
 const MotionBox = motion(Box);
 

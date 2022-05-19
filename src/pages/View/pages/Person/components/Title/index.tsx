@@ -5,11 +5,12 @@ import { useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
+import SkeletonText from '../../../../../../components/Skeleton/Text';
+import Title from '../../../../components/Title';
+
 import Department from './components/Department';
 import { PersonTitleProps } from './types';
 
-import SkeletonText from '../../../../../../components/Skeleton/Text';
-import Title from '../../../../components/Title';
 
 const dummies = range(25, 100, 5);
 

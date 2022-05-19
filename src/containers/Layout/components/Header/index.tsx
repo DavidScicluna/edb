@@ -1,16 +1,19 @@
 import { ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
+
 
 import { useTheme, useColorMode, HStack, Fade } from '@chakra-ui/react';
 
-import Menu from './components/Menu';
-import User from './components/User';
+import { useLocation } from 'react-router-dom';
+
 
 import IconButton from '../../../../components/Clickable/IconButton';
 import Link from '../../../../components/Clickable/Link';
 import Icon from '../../../../components/Icon';
 import { Theme } from '../../../../theme/types';
 import useTransitionsStyle from '../../common/styles/transitions';
+
+import User from './components/User';
+import Menu from './components/Menu';
 
 const Header = (): ReactElement => {
 	const theme = useTheme<Theme>();

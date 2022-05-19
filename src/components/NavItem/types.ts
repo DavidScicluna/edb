@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
 
+import { FontSizes } from '../../theme/types';
+
 import { NavItemChild } from './components/NavItemChild/types';
 
-import { FontSizes } from '../../theme/types';
 
 type RenderProps = {
 	isActive: boolean;

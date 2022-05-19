@@ -4,13 +4,14 @@ import { VStack } from '@chakra-ui/react';
 
 import { isEmpty, isNil } from 'lodash';
 
-import Bio from './components/Bio';
-import Name from './components/Name';
 
 import Button from '../../../../../../../components/Clickable/Button';
 import Panel from '../../../../../../../components/Panel';
 import { detailsDefaultValues as defaultValues } from '../../../../defaults';
 import { DetailsProps as InfoProps } from '../../types';
+
+import Name from './components/Name';
+import Bio from './components/Bio';
 
 const Info = ({ form, color, colorMode }: InfoProps): ReactElement => {
 	const firstName = form.watch('firstName');

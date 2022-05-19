@@ -7,10 +7,11 @@ import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import { DateProps } from './types';
 
 import { handleReturnDate } from '../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
+
+import { DateProps } from './types';
 
 const dummies = range(25, 200, 5);
 

@@ -2,12 +2,13 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import { TVProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import VerticalTV from '../../../TV/components/Orientation/Vertical';
+
+import { TVProps } from './types';
 
 const incrementBy = 20;
 

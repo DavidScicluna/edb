@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
+
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { PasswordProps } from './types';
+import { Controller } from 'react-hook-form';
+
 
 import { useSelector } from '../../../../../../../../../common/hooks';
 import IconButton from '../../../../../../../../../components/Clickable/IconButton';
@@ -11,6 +12,8 @@ import Input from '../../../../../../../../../components/Forms/Input';
 import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
+
+import { PasswordProps } from './types';
 
 const Password = ({ form }: PasswordProps): ReactElement => {
 	const color = useSelector(

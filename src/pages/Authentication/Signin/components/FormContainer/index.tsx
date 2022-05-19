@@ -1,18 +1,15 @@
 import React, { ReactElement } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+
 
 import { useMediaQuery, useBoolean, Container, VStack } from '@chakra-ui/react';
 
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import sha256 from 'crypto-js/sha256';
 import dayjs from 'dayjs';
 
-import Form from './components/Form';
-import Header from './components/Header';
-import { Form as FormType } from './types';
-import { schema } from './validation';
 
 import { useSelector } from '../../../../../common/hooks';
 import Button from '../../../../../components/Clickable/Button';
@@ -22,6 +19,11 @@ import { toggleSplashscreen } from '../../../../../store/slices/Modals';
 import { guest, setUsers } from '../../../../../store/slices/Users';
 import { Credentials, User } from '../../../../../store/slices/Users/types';
 import { Color } from '../../../../../theme/types';
+
+import { schema } from './validation';
+import { Form as FormType } from './types';
+import Header from './components/Header';
+import Form from './components/Form';
 
 export const color: keyof Color = 'light_blue';
 

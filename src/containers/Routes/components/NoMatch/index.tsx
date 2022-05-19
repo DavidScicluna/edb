@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import Error from '../../../../pages/Error';
+
 import Actions from './components/Actions';
 
-import Error from '../../../../pages/Error';
 
 const NoMatch = (): ReactElement => {
 	return (

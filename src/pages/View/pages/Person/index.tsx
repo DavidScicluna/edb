@@ -1,20 +1,17 @@
 import { ReactElement, useState, useEffect } from 'react';
-import CountUp from 'react-countup';
-import { useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+
 
 import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
 
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useQuery } from 'react-query';
+import CountUp from 'react-countup';
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import uniq from 'lodash/uniq';
 
-import { handleGetDepartments } from './common/utils';
-import CreditsTab from './components/CreditsTab';
-import OverviewTab from './components/OverviewTab';
-import Title from './components/Title';
 
 import Page from '../.../../../../../containers/Page';
 import { useSelector } from '../../../../common/hooks';
@@ -33,6 +30,11 @@ import Actions from '../../components/Actions';
 import AssetsTab from '../../components/Assets';
 import Structure from '../../components/Structure';
 import VerticalPoster from '../../components/VerticalPoster';
+
+import Title from './components/Title';
+import OverviewTab from './components/OverviewTab';
+import CreditsTab from './components/CreditsTab';
+import { handleGetDepartments } from './common/utils';
 
 const tabs = ['overview', 'credits', 'photos'];
 

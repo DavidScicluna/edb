@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
 
 import { VStack } from '@chakra-ui/react';
 
+import { Controller } from 'react-hook-form';
 import { isEmpty, isNil } from 'lodash';
 
 import Button from '../../../../../../../components/Clickable/Button';

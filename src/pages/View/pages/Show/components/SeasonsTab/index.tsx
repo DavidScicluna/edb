@@ -6,8 +6,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 
-import Season from './components/Season';
-import { SeasonsTabProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { handleReturnDate } from '../../../../../../common/utils';
@@ -15,6 +13,9 @@ import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
+
+import { SeasonsTabProps } from './types';
+import Season from './components/Season';
 
 const SeasonsTab = (props: SeasonsTabProps): ReactElement => {
 	const color = useSelector(

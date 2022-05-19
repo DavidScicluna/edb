@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
-import { TVProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import VerticalTV from '../../../TV/components/Orientation/Vertical';
+
+import { TVProps } from './types';
 
 const TV = ({ shows, query, onLoadMore }: TVProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

@@ -4,13 +4,14 @@ import { useColorMode, AspectRatio, Center, Image as CUIImage, Fade } from '@cha
 
 import { AnimatePresence } from 'framer-motion';
 
-import { PosterImageProps } from './types';
 
 import * as fallback from '../../../../../common/assets/fallback';
 import { MediaType } from '../../../../../common/types';
 import { handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../common/utils';
 import Skeleton from '../../../../../components/Skeleton';
 import Image from '../../../../Image';
+
+import { PosterImageProps } from './types';
 
 const commonStyleProps = {
 	width: 'inherit',

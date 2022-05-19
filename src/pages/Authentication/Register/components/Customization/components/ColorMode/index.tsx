@@ -1,15 +1,18 @@
 import { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
+
 
 import { useMediaQuery, Stack, Center, Text } from '@chakra-ui/react';
 
-import ColorModeItem from './components/ColorModeItem';
-import { ColorMode as ColorModeType } from './types';
+import { Controller } from 'react-hook-form';
+
 
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
 import Icon from '../../../../../../../components/Icon';
 import Panel from '../../../../../../../components/Panel';
 import { CustomizationProps as ColorModeProps } from '../../types';
+
+import { ColorMode as ColorModeType } from './types';
+import ColorModeItem from './components/ColorModeItem';
 
 const colorModes: ColorModeType[] = [
 	{

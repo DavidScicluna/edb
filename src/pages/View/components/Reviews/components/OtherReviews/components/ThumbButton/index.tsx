@@ -1,18 +1,20 @@
 import { ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 import { useBoolean } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { ThumbButtonProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { defaultUser, getUser, setUserOtherReviews } from '../../../../../../../../store/slices/Users';
+
+import { ThumbButtonProps } from './types';
 
 const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 	const dispatch = useDispatch();

@@ -5,9 +5,10 @@ import { useColorMode, useMediaQuery, useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
+import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
+
 import { SubtitleProps } from './types';
 
-import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
 
 const dummies = range(25, 100, 5);
 

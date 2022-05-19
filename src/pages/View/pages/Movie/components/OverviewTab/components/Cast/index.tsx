@@ -4,7 +4,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 
-import { CastProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Cast as CastType } from '../../../../../../../../common/types/movie';
@@ -15,6 +14,8 @@ import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalPoster from '../../../../../../../../components/Poster/Vertical';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
+
+import { CastProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

@@ -2,10 +2,11 @@ import { ReactElement } from 'react';
 
 import { useTheme, Text, HStack } from '@chakra-ui/react';
 
-import { ColorModeItemProps } from './types';
 
 import Card from '../../../../../../../../../components/Clickable/Card';
 import { Theme } from '../../../../../../../../../theme/types';
+
+import { ColorModeItemProps } from './types';
 
 const ColorModeItem = (props: ColorModeItemProps): ReactElement => {
 	const theme = useTheme<Theme>();

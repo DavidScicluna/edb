@@ -1,7 +1,8 @@
-import { RadioProps } from './types';
 
 import { Style } from '../../../common/types';
 import { Theme } from '../../../theme/types';
+
+import { RadioProps } from './types';
 
 type RadioStyle = {
 	radio: Style;

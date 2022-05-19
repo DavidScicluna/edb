@@ -1,17 +1,20 @@
 import { ReactElement, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+
 
 import { useColorMode, useBoolean, Popover, PopoverTrigger, Portal, PopoverContent, VStack } from '@chakra-ui/react';
 
-import Actions from './components/Actions';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import { useLocation } from 'react-router-dom';
+
 
 import { useSelector } from '../../../../../../common/hooks';
 import Avatar from '../../../../../../components/Avatar';
 import Button from '../../../../../../components/Clickable/Button';
 import Divider from '../../../../../../components/Divider';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
+
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Actions from './components/Actions';
 
 const User = (): ReactElement => {
 	const { colorMode } = useColorMode();

@@ -5,12 +5,13 @@ import { HStack, Center, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
-import Accordion from './components/Accordion';
-import { QuickTogglesProps } from './types';
 
 import Button from '../../../Clickable/Button';
 import Divider from '../../../Divider';
 import HorizontalScroll from '../../../HorizontalScroll';
+
+import { QuickTogglesProps } from './types';
+import Accordion from './components/Accordion';
 
 const QuickToggles = (props: QuickTogglesProps): ReactElement => {
 	const [textRef, { width: textWidth }] = useElementSize<HTMLParagraphElement>();

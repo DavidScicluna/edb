@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-import { VerticalTVProps } from './types';
 
 import { PartialTV } from '../../../../../common/types/tv';
 import Empty from '../../../../../components/Empty';
@@ -10,6 +9,8 @@ import Error from '../../../../../components/Error';
 import VerticalGrid from '../../../../../components/Grid/Vertical';
 import HorizontalTVShowPoster from '../../Poster/Horizontal';
 import VerticalTVShowPoster from '../../Poster/Vertical';
+
+import { VerticalTVProps } from './types';
 
 const VerticalTV = (props: VerticalTVProps): ReactElement => {
 	const { isError = false, isSuccess = false, isLoading = true, shows } = props;

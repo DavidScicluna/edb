@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
 
-import { UsernameProps } from './types';
 
 import Input from '../../../../components/Forms/Input';
 import Icon from '../../../../components/Icon';
+
+import { UsernameProps } from './types';
 
 const Username = ({ field, fieldState, color, colorMode }: UsernameProps): ReactElement => {
 	const { name, onBlur, onChange, value } = field;

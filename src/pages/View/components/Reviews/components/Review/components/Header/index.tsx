@@ -21,7 +21,6 @@ import isNil from 'lodash/isNil';
 import startCase from 'lodash/startCase';
 import { useElementSize } from 'usehooks-ts';
 
-import { HeaderProps } from './types';
 
 import {
 	handleConvertREMToPixels,
@@ -36,6 +35,8 @@ import Rating from '../../../../../../../../components/Rating';
 import Skeleton from '../../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 import { Theme } from '../../../../../../../../theme/types';
+
+import { HeaderProps } from './types';
 
 dayjs.extend(localizedFormat);
 

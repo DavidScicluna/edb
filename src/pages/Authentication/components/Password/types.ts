@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { ColorMode } from '@chakra-ui/react';
+
 import { ControllerRenderProps, ControllerFieldState } from 'react-hook-form';
 
-import { ColorMode } from '@chakra-ui/react';
 
 import { Color } from '../../../../theme/types';
 

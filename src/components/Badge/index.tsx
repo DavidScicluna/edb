@@ -6,12 +6,13 @@ import merge from 'lodash/merge';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import useStyles from './styles';
-import { BadgeProps } from './types';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
 import { Theme, Space } from '../../theme/types';
 import SkeletonText from '../Skeleton/Text';
+
+import { BadgeProps } from './types';
+import useStyles from './styles';
 
 const dummies = range(25, 200, 5);
 

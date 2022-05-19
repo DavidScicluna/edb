@@ -4,7 +4,6 @@ import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-u
 
 import { useElementSize } from 'usehooks-ts';
 
-import { ListItemProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Card from '../../../../../../../../components/Clickable/Card';
@@ -12,6 +11,8 @@ import { CardRef } from '../../../../../../../../components/Clickable/Card/types
 import Radio from '../../../../../../../../components/Forms/Radio';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../theme/types';
+
+import { ListItemProps } from './types';
 
 const ListItem = (props: ListItemProps): ReactElement => {
 	const theme = useTheme<Theme>();

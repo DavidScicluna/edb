@@ -5,7 +5,6 @@ import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import range from 'lodash/range';
 
-import { PartsTabProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import { PartialMovie } from '../../../../../../common/types/movie';
@@ -16,6 +15,8 @@ import VerticalGrid from '../../../../../../components/Grid/Vertical';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import HorizontalMoviePoster from '../../../../../Movies/components/Poster/Horizontal';
 import VerticalMoviePoster from '../../../../../Movies/components/Poster/Vertical';
+
+import { PartsTabProps } from './types';
 
 const incrementBy = 20;
 

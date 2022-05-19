@@ -1,6 +1,7 @@
+import { ColorMode } from '@chakra-ui/react';
+
 import { UseFormReturn } from 'react-hook-form';
 
-import { ColorMode } from '@chakra-ui/react';
 
 import { GenresForm, CustomizationForm } from '../../types';
 

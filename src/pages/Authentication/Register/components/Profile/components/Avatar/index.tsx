@@ -4,13 +4,14 @@ import { useMediaQuery, useDisclosure, Center, Image } from '@chakra-ui/react';
 
 import Compressor from 'compressorjs';
 
-import { AvatarProps } from './types';
 
 import * as fallback from '../../../../../../../common/assets/fallback';
 import { handleReturnRatio } from '../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../components/Clickable/Image';
 import Icon from '../../../../../../../components/Icon';
 import Cropper from '../Cropper';
+
+import { AvatarProps } from './types';
 
 const Avatar = ({ color, colorMode, alt, form, avatar }: AvatarProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

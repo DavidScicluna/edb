@@ -2,11 +2,12 @@ import React, { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { GridProps } from './types';
 
 import IconButton from '../../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
+
+import { GridProps } from './types';
 
 const Grid = ({ colorMode, isActive = false, onToggle }: GridProps): ReactElement => {
 	const [isHovering, setIsHovering] = useBoolean();

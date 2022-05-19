@@ -1,16 +1,15 @@
 import { ReactElement, useEffect } from 'react';
-import { Controller, useForm, useFormState } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+
 
 import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
+import { Controller, useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { EditReviewProps, Form } from './types';
-import { schema } from './validation';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Button from '../../../../../../../../components/Clickable/Button';
@@ -24,6 +23,9 @@ import Panel from '../../../../../../../../components/Panel';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../theme/types';
+
+import { schema } from './validation';
+import { EditReviewProps, Form } from './types';
 
 const defaultValues: Form = {
 	review: '',

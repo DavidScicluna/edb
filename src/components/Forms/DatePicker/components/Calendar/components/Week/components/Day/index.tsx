@@ -5,10 +5,11 @@ import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center } from '
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
 
+import { Theme } from '../../../../../../../../../theme/types';
+
 import useStyles from './styles';
 import { DayProps } from './types';
 
-import { Theme } from '../../../../../../../../../theme/types';
 
 const Day = (props: DayProps): ReactElement => {
 	const theme = useTheme<Theme>();

@@ -1,17 +1,19 @@
 import { ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 import { useMediaQuery } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { DeleteListProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import ConfirmModal from '../../../../../../components/ConfirmModal';
 import { defaultUser, getUser, setUserLists } from '../../../../../../store/slices/Users';
+
+import { DeleteListProps } from './types';
 
 const DeleteList = ({ id, isOpen, onClose, onCloseToast }: DeleteListProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

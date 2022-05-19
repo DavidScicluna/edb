@@ -13,12 +13,13 @@ import {
 
 import { v4 as uuid } from 'uuid';
 
-import { ImageProps } from './types';
 
 import * as fallback from '../../common/assets/fallback';
 import { Style } from '../../common/types';
 import { handleReturnBoringSrc } from '../../common/utils';
 import { Theme } from '../../theme/types';
+
+import { ImageProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
 	const theme = useTheme<Theme>();

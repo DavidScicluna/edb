@@ -7,6 +7,9 @@ import isEmpty from 'lodash/isEmpty';
 import uniq from 'lodash/uniq';
 import { Swiper } from 'swiper';
 
+import { handleConvertStringToNumber } from '../../common/utils';
+import { Theme } from '../../theme/types';
+
 import Backdrop from './components/Backdrop';
 import Gallery from './components/Gallery';
 import ImageViewer from './components/ImageViewer';
@@ -17,8 +20,6 @@ import VideoViewer from './components/VideoViewer';
 import Viewer from './components/Viewer';
 import { MediaViewerProps, Asset, MediaItem, NavigationDirection } from './types';
 
-import { handleConvertStringToNumber } from '../../common/utils';
-import { Theme } from '../../theme/types';
 
 const handleFlattenAssets = (assets: Asset[]): MediaItem[] => {
 	let mediaItems: MediaItem[] = [];

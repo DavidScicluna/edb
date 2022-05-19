@@ -5,10 +5,11 @@ import { useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import { RuntimeProps } from './types';
 
 import { handleReturnRuntime } from '../../../../../../../../common/utils';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
+
+import { RuntimeProps } from './types';
 
 const dummies = range(25, 200, 5);
 

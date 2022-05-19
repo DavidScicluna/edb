@@ -2,11 +2,12 @@ import React, { ReactElement } from 'react';
 
 import { useBoolean, Center } from '@chakra-ui/react';
 
-import { RotateProps } from './types';
 
 import IconButton from '../../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
+
+import { RotateProps } from './types';
 
 const Rotate = ({ colorMode, rotation, onRotation }: RotateProps): ReactElement => {
 	const [isHoveringLeft, setIsHoveringLeft] = useBoolean();

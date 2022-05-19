@@ -4,9 +4,10 @@ import { VStack, HStack, Center } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
+import Divider from '../../../../components/Divider';
+
 import { StructureProps } from './types';
 
-import Divider from '../../../../components/Divider';
 
 const Structure = ({ children }: StructureProps): ReactElement => {
 	const [ref, { width, height }] = useElementSize();

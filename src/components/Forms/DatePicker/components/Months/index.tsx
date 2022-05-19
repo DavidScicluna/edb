@@ -2,10 +2,11 @@ import { ReactElement } from 'react';
 
 import { SimpleGrid } from '@chakra-ui/react';
 
-import { MonthsProps } from './types';
 
 import Button from '../../../../Clickable/Button';
 import { full } from '../../common/data/months';
+
+import { MonthsProps } from './types';
 
 const Months = (props: MonthsProps): ReactElement => {
 	const { color, month, year, minDate, maxDate, onMonthClick } = props;

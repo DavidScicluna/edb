@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-import { HorizontalMoviesProps } from './types';
 
 import { PartialMovie } from '../../../../../common/types/movie';
 import Empty from '../../../../../components/Empty';
 import Error from '../../../../../components/Error';
 import VerticalMoviePoster from '../../Poster/Vertical';
+
+import { HorizontalMoviesProps } from './types';
 
 const HorizontalMovies = (props: HorizontalMoviesProps): ReactElement => {
 	const { isError = false, isSuccess = false, isLoading = true, movies } = props;

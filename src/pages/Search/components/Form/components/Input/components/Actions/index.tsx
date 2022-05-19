@@ -4,11 +4,12 @@ import { HStack, Fade } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-import { ActionsProps } from './types';
 
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
 import Divider from '../../../../../../../../components/Divider';
 import Icon from '../../../../../../../../components/Icon';
+
+import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
 	const [ref, { height }] = useElementSize();

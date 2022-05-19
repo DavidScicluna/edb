@@ -2,16 +2,17 @@ import React, { ReactElement, useContext, useCallback } from 'react';
 
 import { useMediaQuery, Stack, HStack, Center } from '@chakra-ui/react';
 
+import { StepperContext } from '../../.';
+import Divider from '../../../Divider';
+import HorizontalScroll from '../../../HorizontalScroll';
+import { StepperContext as StepperContextType } from '../../types';
+
 import Cancel from './components/Cancel';
 import Next from './components/Next';
 import Step from './components/Step';
 import { Status } from './components/Step/types';
 import { StepListProps, Step as StepType } from './types';
 
-import { StepperContext } from '../../.';
-import Divider from '../../../Divider';
-import HorizontalScroll from '../../../HorizontalScroll';
-import { StepperContext as StepperContextType } from '../../types';
 
 export const height = '100px';
 

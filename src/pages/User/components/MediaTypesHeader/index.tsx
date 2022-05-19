@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
-import CountUp from 'react-countup';
+
 
 import { Center, HStack, Fade } from '@chakra-ui/react';
 
+import CountUp from 'react-countup';
 import compact from 'lodash/compact';
 import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
-import { MediaTypesHeaderProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Badge from '../../../../components/Badge';
@@ -16,6 +16,8 @@ import Divider from '../../../../components/Divider';
 import Icon from '../../../../components/Icon';
 import TabList from '../../../../components/Tabs/components/TabList';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
+
+import { MediaTypesHeaderProps } from './types';
 
 const defaultMediaTypes: MediaTypesHeaderProps['mediaTypes'] = ['movie', 'tv', 'person', 'company', 'collection'];
 

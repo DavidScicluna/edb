@@ -5,7 +5,6 @@ import { HStack, Center, Fade } from '@chakra-ui/react';
 import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
-import { HeaderProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
@@ -13,6 +12,8 @@ import Divider from '../../../../components/Divider';
 import Icon from '../../../../components/Icon';
 import TabList from '../../../../components/Tabs/components/TabList';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
+
+import { HeaderProps } from './types';
 
 const Header = ({ activeTab }: HeaderProps): ReactElement => {
 	const color = useSelector(

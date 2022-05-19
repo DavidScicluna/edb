@@ -4,14 +4,15 @@ import { useColorMode, useMediaQuery, Center, HStack, VStack } from '@chakra-ui/
 
 import { useElementSize } from 'usehooks-ts';
 
-import Code from './components/Code';
-import Description from './components/Description';
-import { ErrorProps } from './types';
 
 import { useSelector } from '../../common/hooks';
 import Divider from '../../components/Divider';
 import { headerHeight } from '../../containers/Layout/common/data/dimensions';
 import { defaultUser, getUser } from '../../store/slices/Users';
+
+import { ErrorProps } from './types';
+import Description from './components/Description';
+import Code from './components/Code';
 
 const Error = (props: ErrorProps): ReactElement => {
 	const { colorMode } = useColorMode();

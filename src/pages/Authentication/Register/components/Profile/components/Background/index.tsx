@@ -4,12 +4,13 @@ import { useDisclosure, Box, Image } from '@chakra-ui/react';
 
 import Compressor from 'compressorjs';
 
-import { BackgroundProps } from './types';
 
 import * as fallback from '../../../../../../../common/assets/fallback';
 import ClickableImage from '../../../../../../../components/Clickable/Image';
 import Icon from '../../../../../../../components/Icon';
 import Cropper from '../Cropper';
+
+import { BackgroundProps } from './types';
 
 const Background = ({ color, colorMode, alt, form, background }: BackgroundProps): ReactElement => {
 	const { isOpen: isCropperOpen, onOpen: onOpenCropper, onClose: onCloseCropper } = useDisclosure();

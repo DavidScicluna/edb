@@ -1,14 +1,15 @@
 import { ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { useBoolean, VStack, Box, Collapse } from '@chakra-ui/react';
 
+import { useLocation } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
+
+import Divider from '../../components/Divider';
 
 import Header from './components/Header';
 import { PageProps } from './types';
 
-import Divider from '../../components/Divider';
 
 const Page = (props: PageProps): ReactElement => {
 	const location = useLocation();

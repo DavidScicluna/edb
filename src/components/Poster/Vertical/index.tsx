@@ -1,15 +1,12 @@
 import { ReactElement, memo } from 'react';
-import useInView from 'react-cool-inview';
+
 
 import { useBoolean, useConst, VStack, HStack, Center } from '@chakra-ui/react';
 
+import useInView from 'react-cool-inview';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import Image from './components/Image';
-import Subtitle from './components/Subtitle';
-import Title from './components/Title';
-import { VerticalPosterProps } from './types';
 
 import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
@@ -21,6 +18,11 @@ import Rating from '../../Rating';
 import Bookmark from '../components/Bookmark';
 import Like from '../components/Like';
 import Quickview from '../components/Quickview';
+
+import { VerticalPosterProps } from './types';
+import Title from './components/Title';
+import Subtitle from './components/Subtitle';
+import Image from './components/Image';
 
 const isTouchDevice: boolean = handleIsTouchDevice();
 

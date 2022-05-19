@@ -2,12 +2,13 @@ import React, { ReactElement, forwardRef } from 'react';
 
 import { Center } from '@chakra-ui/react';
 
-import { StepIconRef, StepIconProps } from './types';
 
 import Icon from '../../../../../../../Icon';
 import { Icon as IconType } from '../../../../../../../Icon/types';
 import { Status } from '../../types';
 import { handleReturnColor } from '../Status';
+
+import { StepIconRef, StepIconProps } from './types';
 
 export const handleReturnIcon = (status: Status): IconType => {
 	switch (status) {

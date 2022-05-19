@@ -1,8 +1,9 @@
-import { TabsProps, Size } from './types';
 
 import { Style } from '../../../../../../common/types';
 import { handleIsTouchDevice } from '../../../../../../common/utils';
 import { Theme } from '../../../../../../theme/types';
+
+import { TabsProps, Size } from './types';
 
 type SizeStyle = { [key in Size]: Style };
 

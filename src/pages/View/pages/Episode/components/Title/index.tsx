@@ -8,14 +8,15 @@ import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import Date from './components/Date';
-import Show from './components/Show';
-import { EpisodeTitleProps } from './types';
 
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 import { handleReturnCertification } from '../../../Show/components/Title';
 import Certification from '../../../Show/components/Title/components/Certification';
+
+import { EpisodeTitleProps } from './types';
+import Show from './components/Show';
+import Date from './components/Date';
 
 const dummies = range(25, 100, 5);
 

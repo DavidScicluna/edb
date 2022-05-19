@@ -2,10 +2,11 @@ import { ReactElement } from 'react';
 
 import sort from 'array-sort';
 
-import { HorizontalPersonPosterProps } from './types';
 
 import { handleReturnImageSize } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';
+
+import { HorizontalPersonPosterProps } from './types';
 
 const thumbnail = handleReturnImageSize('profile', 'thumbnail');
 const full = handleReturnImageSize('profile', 'full');

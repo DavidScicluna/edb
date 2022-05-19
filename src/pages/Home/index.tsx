@@ -2,11 +2,12 @@ import { ReactElement } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
+import Page from '../../containers/Page';
+
 import Popular from './components/Popular';
 import TopRated from './components/TopRated';
 import Trending from './components/Trending';
 
-import Page from '../../containers/Page';
 
 const Home = (): ReactElement => {
 	return (

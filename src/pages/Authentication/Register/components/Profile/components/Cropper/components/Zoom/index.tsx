@@ -2,12 +2,13 @@ import React, { ReactElement } from 'react';
 
 import { useBoolean, Center } from '@chakra-ui/react';
 
-import { ZoomProps } from './types';
 
 import { minZoom, maxZoom } from '../..';
 import IconButton from '../../../../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
+
+import { ZoomProps } from './types';
 
 const Zoom = ({ colorMode, zoom, onSetZoom }: ZoomProps): ReactElement => {
 	const [isHoveringIn, setIsHoveringIn] = useBoolean();

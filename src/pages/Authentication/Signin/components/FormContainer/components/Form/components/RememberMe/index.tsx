@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react';
+
 import { Controller } from 'react-hook-form';
 
-import { RememberMeProps } from './types';
 
 import { color } from '../../../..';
 import Checkbox from '../../../../../../../../../components/Forms/Checkbox';
+
+import { RememberMeProps } from './types';
 
 const RememberMe = ({ form }: RememberMeProps): ReactElement => {
 	return (

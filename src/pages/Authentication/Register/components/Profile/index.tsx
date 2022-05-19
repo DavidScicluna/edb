@@ -4,13 +4,14 @@ import { useTheme, useMediaQuery, VStack } from '@chakra-ui/react';
 
 import { useEffectOnce } from 'usehooks-ts';
 
+import { handleReturnBoringSrc } from '../../../../../common/utils';
+import { Theme } from '../../../../../theme/types';
+
 import Avatar from './components/Avatar';
 import Background from './components/Background';
 import Details from './components/Details';
 import { ProfileProps } from './types';
 
-import { handleReturnBoringSrc } from '../../../../../common/utils';
-import { Theme } from '../../../../../theme/types';
 
 // TODO: Use Profile component with edit mode on
 

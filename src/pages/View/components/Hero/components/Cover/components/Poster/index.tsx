@@ -2,13 +2,14 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { PosterProps } from './types';
 
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../../components/Clickable/Image';
 import Icon from '../../../../../../../../components/Icon';
 import Image from '../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../components/Skeleton';
+
+import { PosterProps } from './types';
 
 const Poster = (props: PosterProps): ReactElement => {
 	const { alt, path, mediaType, isLoading = false, isError = false, onClick } = props;

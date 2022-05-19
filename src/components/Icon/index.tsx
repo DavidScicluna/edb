@@ -2,10 +2,11 @@ import { ReactElement } from 'react';
 
 import { useColorMode, Center } from '@chakra-ui/react';
 
-import { IconProps } from './types';
 
 import * as fallback from '../../common/assets/fallback';
 import { useSelector } from '../../common/hooks';
+
+import { IconProps } from './types';
 
 const Icon = (props: IconProps): ReactElement => {
 	const { colorMode } = useColorMode();

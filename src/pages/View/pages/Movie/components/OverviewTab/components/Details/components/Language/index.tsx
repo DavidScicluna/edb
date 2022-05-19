@@ -5,10 +5,11 @@ import { useColorMode, useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import { LanguageProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';
 import SkeletonText from '../../../../../../../../../../components/Skeleton/Text';
+
+import { LanguageProps } from './types';
 
 const dummies = range(25, 200, 5);
 

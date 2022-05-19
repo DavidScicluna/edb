@@ -2,10 +2,11 @@ import { ReactElement, forwardRef } from 'react';
 
 import { ColorMode, useTheme, useColorMode, Tooltip as CUITooltip, Center } from '@chakra-ui/react';
 
-import { TooltipRef, TooltipProps } from './types';
 
 import { handleIsTouchDevice, handleConvertStringToNumber } from '../../common/utils';
 import { Theme } from '../../theme/types';
+
+import { TooltipRef, TooltipProps } from './types';
 
 const isTouchDevice: boolean = handleIsTouchDevice();
 

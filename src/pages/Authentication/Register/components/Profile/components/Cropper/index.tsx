@@ -1,21 +1,24 @@
 import React, { ReactElement, useState, useCallback } from 'react';
-import RECCropper from 'react-easy-crop';
+
 
 // eslint-disable-next-line import/no-unresolved
-import { Area } from 'react-easy-crop/types';
 
 import { useTheme, useMediaQuery, useBoolean, VStack, Center } from '@chakra-ui/react';
 
+import { Area } from 'react-easy-crop/types';
+
+import RECCropper from 'react-easy-crop';
 import { debounce } from 'lodash';
 
-import { handleGetImage } from './common/utils';
-import Actions from './components/Actions';
-import { CropperProps } from './types';
 
 import { handleReturnRatio } from '../../../../../../../common/utils';
 import Button from '../../../../../../../components/Clickable/Button';
 import Modal from '../../../../../../../components/Modal';
 import { Theme } from '../../../../../../../theme/types';
+
+import { CropperProps } from './types';
+import Actions from './components/Actions';
+import { handleGetImage } from './common/utils';
 
 export const minZoom = 1;
 export const maxZoom = 5;

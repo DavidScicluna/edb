@@ -4,13 +4,14 @@ import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-import { ActionsProps } from './types';
 
 import Button from '../../../../../../../../../components/Clickable/Button';
 import Divider from '../../../../../../../../../components/Divider';
 import Grid from '../Grid';
 import Rotate from '../Rotate';
 import Zoom from '../Zoom';
+
+import { ActionsProps } from './types';
 
 const Actions = (props: ActionsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

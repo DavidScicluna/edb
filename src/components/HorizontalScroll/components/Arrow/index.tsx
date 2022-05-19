@@ -5,12 +5,13 @@ import { ColorMode, useTheme, useColorMode, useMediaQuery, Center, ScaleFade } f
 import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
 
-import useStyles from './styles';
-import { ArrowProps } from './types';
 
 import { Theme } from '../../../../theme/types';
 import IconButton from '../../../Clickable/IconButton';
 import Icon from '../../../Icon';
+
+import { ArrowProps } from './types';
+import useStyles from './styles';
 
 const Arrow = (props: ArrowProps): ReactElement => {
 	const theme = useTheme<Theme>();

@@ -1,7 +1,9 @@
 import { ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { VStack, Fade } from '@chakra-ui/react';
+
+import { useLocation } from 'react-router-dom';
+
 
 import HorizontalSearchCollections from './components/Collections/Horizontal';
 import VerticalSearchCollections from './components/Collections/Vertical';

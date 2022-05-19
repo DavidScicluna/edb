@@ -4,9 +4,6 @@ import { useColorMode, HStack, Box, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-import SearchType from './components/SearchType';
-import { SearchType as SearchTypeType } from './components/SearchType/types';
-import { SearchTypesProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
@@ -16,6 +13,10 @@ import Icon from '../../../../../../components/Icon';
 import Panel from '../../../../../../components/Panel';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { SearchType as SearchTypeValue } from '../../../../../../store/slices/Users/types';
+
+import { SearchTypesProps } from './types';
+import { SearchType as SearchTypeType } from './components/SearchType/types';
+import SearchType from './components/SearchType';
 
 export const searchTypes: SearchTypeType[] = [
 	{

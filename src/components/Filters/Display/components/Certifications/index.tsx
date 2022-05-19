@@ -3,11 +3,12 @@ import { ReactElement } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { CertificationsProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Tag from '../../../../Clickable/Tag';
+
+import { CertificationsProps } from './types';
 
 const Certifications = ({ certifications, onClick, onDelete }: CertificationsProps): ReactElement => {
 	const color = useSelector(

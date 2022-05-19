@@ -2,12 +2,13 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-import { MoviesProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import LoadMore from '../../../../components/Clickable/LoadMore';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import VerticalMovies from '../../../Movies/components/Orientation/Vertical';
+
+import { MoviesProps } from './types';
 
 const incrementBy = 20;
 

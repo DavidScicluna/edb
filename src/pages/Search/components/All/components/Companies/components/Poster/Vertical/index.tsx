@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { VerticalCompanyPosterProps } from './types';
 
 import { useSelector } from '../../../../../../../../../common/hooks';
 import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import VerticalPoster from '../../../../../../../../../components/Poster/Vertical';
+
+import { VerticalCompanyPosterProps } from './types';
 
 const thumbnail = handleReturnImageSize('logo', 'thumbnail');
 const full = handleReturnImageSize('logo', 'full');

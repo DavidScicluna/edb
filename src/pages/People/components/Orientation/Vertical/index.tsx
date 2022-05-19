@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-import { VerticalPeopleProps } from './types';
 
 import { PartialPerson } from '../../../../../common/types/person';
 import Empty from '../../../../../components/Empty';
@@ -10,6 +9,8 @@ import Error from '../../../../../components/Error';
 import VerticalGrid from '../../../../../components/Grid/Vertical';
 import HorizontalPersonPoster from '../../Poster/Horizontal';
 import VerticalPersonPoster from '../../Poster/Vertical';
+
+import { VerticalPeopleProps } from './types';
 
 const VerticalPeople = (props: VerticalPeopleProps): ReactElement => {
 	const { isError = false, isSuccess = false, isLoading = true, people } = props;

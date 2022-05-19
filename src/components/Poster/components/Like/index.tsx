@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { PosterLikeProps } from './types';
 
 import { MediaType } from '../../../../common/types';
 import IconButton from '../../../Clickable/IconButton';
 import Like, { handleReturnIcon } from '../../../Clickable/Like';
 import Tooltip from '../../../Tooltip';
+
+import { PosterLikeProps } from './types';
 
 const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElement => {
 	const { title, mediaType, mediaItem, isLoading = true, size = 'md' } = props;

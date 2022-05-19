@@ -5,13 +5,14 @@ import { useBoolean } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { AssetImageProps } from './types';
 
 import { handleReturnBoringTypeByMediaType } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Icon from '../../../../../../components/Icon';
 import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
+
+import { AssetImageProps } from './types';
 
 const AssetImage = (props: AssetImageProps): ReactElement => {
 	const { alt, aspect_ratio, file_path, srcSize, isLoading = true, onClickImage } = props;

@@ -5,11 +5,12 @@ import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse } from '@ch
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
-import { ParagraphProps } from './types';
 
 import Button from '../Clickable/Button';
 import Panel from '../Panel';
 import SkeletonText from '../Skeleton/Text';
+
+import { ParagraphProps } from './types';
 
 const limit = 44;
 

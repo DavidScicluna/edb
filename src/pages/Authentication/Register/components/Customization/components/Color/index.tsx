@@ -1,14 +1,17 @@
 import { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
+
 
 import { ColorMode, SimpleGrid } from '@chakra-ui/react';
 
-import ColorItem from './components/ColorItem';
+import { Controller } from 'react-hook-form';
+
 
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
 import Panel from '../../../../../../../components/Panel';
 import { Form } from '../../../../../../../containers/Layout/components/Modals/Display/types';
 import { CustomizationProps as ColorProps } from '../../types';
+
+import ColorItem from './components/ColorItem';
 
 const colors: Form['color'][] = [
 	'pink',

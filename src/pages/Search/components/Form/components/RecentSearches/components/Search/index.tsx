@@ -5,7 +5,6 @@ import { useMediaQuery, useBoolean, ScaleFade } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { SearchProps } from './types';
 
 import Badge from '../../../../../../../../components/Badge';
 import IconButton from '../../../../../../../../components/Clickable/IconButton';
@@ -13,6 +12,8 @@ import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import ListItem from '../../../List/components/ListItem';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
+
+import { SearchProps } from './types';
 
 dayjs.extend(relativeTime);
 

@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react';
-import { Controller } from 'react-hook-form';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
+
+import { Controller } from 'react-hook-form';
+
 
 import Input from '../../../../../../../../../components/Forms/Input';
 import { DetailsProps as NameProps } from '../../../../types';

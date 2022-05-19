@@ -1,13 +1,12 @@
 import React, { ReactElement } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+
 
 import { useColorMode, Container, VStack, Text, HStack } from '@chakra-ui/react';
 
+import { useNavigate } from 'react-router';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Form } from './types';
-import { schema } from './validation';
 
 import Button from '../../../../../components/Clickable/Button';
 import Divider from '../../../../../components/Divider';
@@ -15,6 +14,9 @@ import Panel from '../../../../../components/Panel';
 import { Color } from '../../../../../theme/types';
 import Password from '../../../components/Password';
 import Username from '../../../components/Username';
+
+import { schema } from './validation';
+import { Form } from './types';
 
 export const color: keyof Color = 'light_blue';
 

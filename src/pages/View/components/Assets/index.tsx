@@ -7,17 +7,18 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 
+import { useSelector } from '../../../../common/hooks';
+import { Image, Video } from '../../../../common/types';
+import Accordions from '../../../../components/Accordions';
+import { Accordion } from '../../../../components/Accordions/types';
+import { defaultUser, getUser } from '../../../../store/slices/Users';
+
 import Backdrops from './components/Backdrops';
 import Posters from './components/Posters';
 import Profiles from './components/Profiles';
 import Videos from './components/Videos';
 import { AssetsTabProps } from './types';
 
-import { useSelector } from '../../../../common/hooks';
-import { Image, Video } from '../../../../common/types';
-import Accordions from '../../../../components/Accordions';
-import { Accordion } from '../../../../components/Accordions/types';
-import { defaultUser, getUser } from '../../../../store/slices/Users';
 
 const Assets = (props: AssetsTabProps): ReactElement => {
 	const color = useSelector(

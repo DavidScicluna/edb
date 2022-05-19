@@ -6,13 +6,14 @@ import range from 'lodash/range';
 import sample from 'lodash/sample';
 import qs from 'query-string';
 
-import { GenreProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
 import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../../../../../theme/types';
+
+import { GenreProps } from './types';
 
 const dummies = range(25, 200, 5);
 

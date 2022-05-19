@@ -2,12 +2,13 @@ import { ReactElement } from 'react';
 
 import { HStack } from '@chakra-ui/react';
 
-import { HeaderProps } from './types';
 
 import Button from '../../../../../../Clickable/Button';
 import IconButton from '../../../../../../Clickable/IconButton';
 import Icon from '../../../../../../Icon';
 import { full } from '../../../../common/data/months';
+
+import { HeaderProps } from './types';
 
 const Header = (props: HeaderProps): ReactElement => {
 	const { dayzed, month, year, onToggleYears, onToggleMonths } = props;

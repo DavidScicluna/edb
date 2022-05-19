@@ -4,11 +4,12 @@ import { ColorMode, useColorMode, useMediaQuery, HStack, Center, Text } from '@c
 
 import { useElementSize } from 'usehooks-ts';
 
-import { HeaderProps } from './types';
 
 import { PanelContext } from '../../.';
 import { handleReturnPadding } from '../../common/utils';
 import { Context } from '../../types';
+
+import { HeaderProps } from './types';
 
 const Header = ({ title, actions, colorMode: colorModeProp }: HeaderProps): ReactElement => {
 	const { colorMode: colorModeHook } = useColorMode();

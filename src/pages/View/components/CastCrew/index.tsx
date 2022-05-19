@@ -4,16 +4,17 @@ import { useConst, Fade } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 
-import { handleReturnCrew } from './common/utils';
-import Cast from './components/Cast';
-import Crew from './components/Crew';
-import { Department, CastCrewProps } from './types';
 
 import { useSelector } from '../../../../common/hooks';
 import Accordions from '../../../../components/Accordions';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
+
+import { Department, CastCrewProps } from './types';
+import Crew from './components/Crew';
+import Cast from './components/Cast';
+import { handleReturnCrew } from './common/utils';
 
 const CastCrew = (props: CastCrewProps): ReactElement => {
 	const color = useSelector(

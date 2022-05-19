@@ -2,9 +2,10 @@ import React from 'react';
 
 import { useTheme, useColorMode, Box, Fade } from '@chakra-ui/react';
 
+import { Theme } from '../../../../theme/types';
+
 import { BackdropProps } from './types';
 
-import { Theme } from '../../../../theme/types';
 
 const Backdrop = ({ isHovering = false }: BackdropProps) => {
 	const theme = useTheme<Theme>();

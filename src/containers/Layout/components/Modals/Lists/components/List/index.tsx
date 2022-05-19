@@ -7,7 +7,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import compact from 'lodash/compact';
 import { useElementSize } from 'usehooks-ts';
 
-import { ListProps } from './types';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../../common/utils';
@@ -15,6 +14,8 @@ import Card from '../../../../../../../components/Clickable/Card';
 import Icon from '../../../../../../../components/Icon';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../theme/types';
+
+import { ListProps } from './types';
 
 dayjs.extend(relativeTime);
 

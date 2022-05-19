@@ -4,7 +4,6 @@ import { useTheme, useColorMode, Box, HStack, Center } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
-import { ListsTabButtonProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Icon from '../../../../../../../../components/Icon';
@@ -16,6 +15,8 @@ import useStyles from '../../../../../../../../components/Tabs/components/TabLis
 import { Size } from '../../../../../../../../components/Tabs/components/TabList/components/Tab/types';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 import { Theme } from '../../../../../../../../theme/types';
+
+import { ListsTabButtonProps } from './types';
 
 const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: ListsTabButtonProps) => {
 	const theme = useTheme<Theme>();

@@ -1,21 +1,22 @@
 import { ReactElement } from 'react';
-import CountUp from 'react-countup';
 
 import { useTheme, useMediaQuery, HStack, VStack, Fade } from '@chakra-ui/react';
 
+import CountUp from 'react-countup';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
+
+import { Theme } from '../../../../../../theme/types';
+import Badge from '../../../../../Badge';
+import Icon from '../../../../../Icon';
 
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import useStyles from './styles';
 import { HeaderProps } from './types';
 
-import { Theme } from '../../../../../../theme/types';
-import Badge from '../../../../../Badge';
-import Icon from '../../../../../Icon';
 
 const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 	const theme = useTheme<Theme>();

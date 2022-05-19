@@ -2,11 +2,12 @@ import { ReactElement } from 'react';
 
 import compact from 'lodash/compact';
 
-import { ShowProps } from './types';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Badge from '../../../../../../../../components/Badge';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
+
+import { ShowProps } from './types';
 
 const Show = (props: ShowProps): ReactElement => {
 	const color = useSelector(

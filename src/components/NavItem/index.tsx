@@ -1,14 +1,12 @@
 import { ReactElement, useCallback, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+
 
 import { useTheme, useColorMode, useBoolean, VStack, HStack, Text, Box, ScaleFade, Collapse } from '@chakra-ui/react';
 
+import { useLocation } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 
-import NavItemChild from './components/NavItemChild';
-import useStyles from './styles';
-import { NavItem as NavItemType } from './types';
 
 import { useSelector } from '../../common/hooks';
 import { handleParseDurationForFramer, handleConvertStringToNumber } from '../../common/utils';
@@ -18,6 +16,10 @@ import { Theme } from '../../theme/types';
 import IconButton from '../Clickable/IconButton';
 import Icon from '../Icon';
 import Tooltip from '../Tooltip';
+
+import { NavItem as NavItemType } from './types';
+import useStyles from './styles';
+import NavItemChild from './components/NavItemChild';
 
 const NavItem = (props: NavItemType): ReactElement => {
 	const theme = useTheme<Theme>();

@@ -9,6 +9,12 @@ import range from 'lodash/range';
 import sample from 'lodash/sample';
 import { useElementSize } from 'usehooks-ts';
 
+import { FullTV } from '../../../../../../common/types/tv';
+import Divider from '../../../../../../components/Divider';
+import Rating from '../../../../../../components/Rating';
+import SkeletonText from '../../../../../../components/Skeleton/Text';
+import Title from '../../../../components/Title';
+
 import Certification from './components/Certification';
 import Date from './components/Date';
 import Genres from './components/Genres';
@@ -17,11 +23,6 @@ import Runtime from './components/Runtime';
 import Status from './components/Status';
 import { TVShowTitleProps } from './types';
 
-import { FullTV } from '../../../../../../common/types/tv';
-import Divider from '../../../../../../components/Divider';
-import Rating from '../../../../../../components/Rating';
-import SkeletonText from '../../../../../../components/Skeleton/Text';
-import Title from '../../../../components/Title';
 
 const dummies = range(25, 100, 5);
 

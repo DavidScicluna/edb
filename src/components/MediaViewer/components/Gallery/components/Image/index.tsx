@@ -5,11 +5,12 @@ import { useBoolean } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { GalleryImageProps } from './types';
 
 import ClickableImage from '../../../../../Clickable/Image';
 import Icon from '../../../../../Icon';
 import Image from '../../../../../Image';
+
+import { GalleryImageProps } from './types';
 
 const GalleryImage = (props: GalleryImageProps): ReactElement => {
 	const { alt = '', ratio, path, boringType, srcSize, colorMode, isActive = false, onClick } = props;

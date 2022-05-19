@@ -4,12 +4,13 @@ import { useTheme, useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@c
 
 import startCase from 'lodash/startCase';
 
-import { ColorItemProps } from './types';
 
 import Card from '../../../../../../../../../components/Clickable/Card';
 import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 import { Theme } from '../../../../../../../../../theme/types';
+
+import { ColorItemProps } from './types';
 
 const ColorItem = (props: ColorItemProps): ReactElement => {
 	const theme = useTheme<Theme>();

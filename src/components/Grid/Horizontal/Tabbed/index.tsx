@@ -5,14 +5,15 @@ import { useBoolean } from '@chakra-ui/react';
 
 import debounce from 'lodash/debounce';
 
-import Header from './components/Header';
-import { HorizontalGridTabbedRef, HorizontalGridTabbedProps } from './types';
 
 import Panel from '../../../Panel';
 import Tabs from '../../../Tabs';
 import TabPanels from '../../../Tabs/components/TabPanels';
 import Scroll from '../components/Scroll';
 import { ScrollMenu } from '../types';
+
+import { HorizontalGridTabbedRef, HorizontalGridTabbedProps } from './types';
+import Header from './components/Header';
 
 const HorizontalGridTabbed = forwardRef<HorizontalGridTabbedRef, HorizontalGridTabbedProps>(
 	function HorizontalGridTabbed(props, ref): ReactElement {

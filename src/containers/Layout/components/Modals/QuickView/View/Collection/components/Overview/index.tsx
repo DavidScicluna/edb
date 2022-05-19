@@ -4,10 +4,11 @@ import { useColorMode, VStack, Text } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 
-import { OverviewProps } from './types';
 
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import Label from '../../../../components/Label';
+
+import { OverviewProps } from './types';
 
 const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement => {
 	const { colorMode } = useColorMode();

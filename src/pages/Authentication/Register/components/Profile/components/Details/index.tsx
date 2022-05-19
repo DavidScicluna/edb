@@ -5,12 +5,13 @@ import { useMediaQuery, Stack, VStack, Center, Text } from '@chakra-ui/react';
 import { compact, isEmpty, isNil } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import { DetailsProps } from './types';
 
 import Button from '../../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../../components/Icon';
 import Skeleton from '../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../components/Skeleton/Text';
+
+import { DetailsProps } from './types';
 
 const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

@@ -16,13 +16,14 @@ import range from 'lodash/range';
 import useBreadcrumbs, { BreadcrumbData } from 'use-react-router-breadcrumbs';
 import { useEffectOnce } from 'usehooks-ts';
 
-import useStyles from './styles';
 
 import Link from '../../../../../../components/Clickable/Link';
 import Icon from '../../../../../../components/Icon';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { FontSizes, Theme } from '../../../../../../theme/types';
 import { allRoutes as routes } from '../../../../../Routes';
+
+import useStyles from './styles';
 
 const Breadcrumbs = (): ReactElement => {
 	const theme = useTheme<Theme>();

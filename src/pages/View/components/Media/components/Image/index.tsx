@@ -5,12 +5,13 @@ import { useBoolean } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { MediaImageProps } from './types';
 
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Icon from '../../../../../../components/Icon';
 import Image from '../../../../../../components/Image';
 import Skeleton from '../../../../../../components/Skeleton';
+
+import { MediaImageProps } from './types';
 
 const posterWidth = ['185px', '205px', '230px'];
 const backdropLogoWidth = ['330px', '355px', '380'];

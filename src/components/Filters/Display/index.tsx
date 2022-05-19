@@ -1,12 +1,18 @@
 import { ReactElement, useState, useEffect } from 'react';
-import { useLocation } from 'react-router';
 
 import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
+import { useLocation } from 'react-router';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
+
+import Button from '../../Clickable/Button';
+import Divider from '../../Divider';
+import HorizontalScroll from '../../HorizontalScroll';
+import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';
+import { Filters } from '../types';
 
 import Certifications from './components/Certifications';
 import Count from './components/Count';
@@ -16,11 +22,6 @@ import Rating from './components/Rating';
 import Runtime from './components/Runtime';
 import { DisplayFiltersProps } from './types';
 
-import Button from '../../Clickable/Button';
-import Divider from '../../Divider';
-import HorizontalScroll from '../../HorizontalScroll';
-import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';
-import { Filters } from '../types';
 
 export const defaultValues: Filters = handleReturnDefaultValues();
 

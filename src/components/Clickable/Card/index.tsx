@@ -4,10 +4,11 @@ import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center } from '
 
 import merge from 'lodash/merge';
 
+import { Theme } from '../../../theme/types';
+
 import useStyles from './styles';
 import { CardRef, CardProps } from './types';
 
-import { Theme } from '../../../theme/types';
 
 const Card = forwardRef<CardRef, CardProps>(function Card(props, ref): ReactElement {
 	const theme = useTheme<Theme>();

@@ -4,9 +4,10 @@ import { ColorMode, useTheme, useColorMode, Box } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
+import { Theme } from '../../theme/types';
+
 import { DividerProps } from './types';
 
-import { Theme } from '../../theme/types';
 
 const Divider = (props: DividerProps): ReactElement => {
 	const theme = useTheme<Theme>();

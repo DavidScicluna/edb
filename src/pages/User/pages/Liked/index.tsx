@@ -1,15 +1,13 @@
 import { ReactElement, useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+
 
 import { useConst, VStack, Collapse } from '@chakra-ui/react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import { useEffectOnce } from 'usehooks-ts';
 
-import Collections from './components/Collections';
-import Companies from './components/Companies';
-import People from './components/People';
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
@@ -23,6 +21,10 @@ import MediaTypesHeader from '../../components/MediaTypesHeader';
 import MediaTypesPicker from '../../components/MediaTypesPicker';
 import Movies from '../../components/Movies';
 import TV from '../../components/TV';
+
+import People from './components/People';
+import Companies from './components/Companies';
+import Collections from './components/Collections';
 
 const allMediaTypes: MediaType[] = ['movie', 'tv', 'person', 'company', 'collection'];
 

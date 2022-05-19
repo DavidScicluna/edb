@@ -5,12 +5,13 @@ import { useMediaQuery } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
+import Panel from '../../../../../../components/Panel';
+
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { ReviewProps } from './types';
 
-import Panel from '../../../../../../components/Panel';
 
 dayjs.extend(localizedFormat);
 

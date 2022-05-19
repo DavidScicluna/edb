@@ -1,13 +1,14 @@
 import { ReactElement } from 'react';
-import CountUp from 'react-countup';
 
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
 
+import CountUp from 'react-countup';
 import truncate from 'lodash/truncate';
+
+import Tooltip from '../../../../../../components/Tooltip';
 
 import { DisplayProps } from './types';
 
-import Tooltip from '../../../../../../components/Tooltip';
 
 const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): ReactElement => {
 	const { colorMode } = useColorMode();

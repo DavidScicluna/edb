@@ -1,9 +1,10 @@
 import { ColorMode } from '@chakra-ui/react';
 
-import { LinkProps } from './types';
 
 import { Style } from '../../../../../../common/types';
 import { Theme } from '../../../../../../theme/types';
+
+import { LinkProps } from './types';
 
 type LinkStyle = {
 	common: {

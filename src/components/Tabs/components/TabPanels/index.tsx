@@ -4,10 +4,11 @@ import { TabPanels as CUITabPanels, TabPanel, Center, Fade } from '@chakra-ui/re
 
 import { AnimatePresence } from 'framer-motion';
 
-import { TabPanelsProps } from './types';
 
 import { TabsContext } from '../../.';
 import { TabsContext as TabsContextType } from '../../types';
+
+import { TabPanelsProps } from './types';
 
 const TabPanels = ({ children }: TabPanelsProps): ReactElement => {
 	const { activeTab = 0 } = useContext<TabsContextType>(TabsContext);

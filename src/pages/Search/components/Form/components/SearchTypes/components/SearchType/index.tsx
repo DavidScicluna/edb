@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
-import { SearchTypeProps } from './types';
 
 import Button from '../../../../../../../../components/Clickable/Button';
 import Icon from '../../../../../../../../components/Icon';
+
+import { SearchTypeProps } from './types';
 
 const SearchType = (props: SearchTypeProps): ReactElement => {
 	const { value, label, color, isActive = false, renderLeft, onClick } = props;

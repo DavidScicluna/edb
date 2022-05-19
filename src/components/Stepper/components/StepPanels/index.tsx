@@ -4,10 +4,11 @@ import { Center, Fade } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
 
-import { StepPanelsProps } from './types';
 
 import { StepperContext } from '../..';
 import { StepperContext as StepperContextType } from '../../types';
+
+import { StepPanelsProps } from './types';
 
 const StepPanels = ({ children }: StepPanelsProps): ReactElement => {
 	const { activeStep = 0 } = useContext<StepperContextType>(StepperContext);

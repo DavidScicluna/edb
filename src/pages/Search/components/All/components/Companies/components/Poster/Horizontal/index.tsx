@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
-import { HorizontalCompanyPosterProps } from './types';
 
 import { useSelector } from '../../../../../../../../../common/hooks';
 import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import HorizontalPoster from '../../../../../../../../../components/Poster/Horizontal';
+
+import { HorizontalCompanyPosterProps } from './types';
 
 const thumbnail = handleReturnImageSize('logo', 'thumbnail');
 const full = handleReturnImageSize('logo', 'full');

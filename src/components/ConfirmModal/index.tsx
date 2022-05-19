@@ -2,9 +2,10 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useColorMode, Text } from '@chakra-ui/react';
 
+import Modal from '../Modal';
+
 import { ConfirmModalProps } from './types';
 
-import Modal from '../Modal';
 
 const ConfirmModal = (props: ConfirmModalProps): ReactElement => {
 	const { colorMode: colorModeHook } = useColorMode();

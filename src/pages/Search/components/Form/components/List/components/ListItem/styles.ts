@@ -1,7 +1,8 @@
-import { ListItemProps, Variant } from './types';
 
 import { Style } from '../../../../../../../../common/types';
 import { Theme } from '../../../../../../../../theme/types';
+
+import { ListItemProps, Variant } from './types';
 
 type ListItemStyle = {
 	common: Style;

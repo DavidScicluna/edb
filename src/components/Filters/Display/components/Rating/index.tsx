@@ -3,11 +3,12 @@ import { ReactElement } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { RatingProps } from './types';
 
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import Tag from '../../../../Clickable/Tag';
+
+import { RatingProps } from './types';
 
 const Rating = ({ ratings, onClick, onDelete }: RatingProps): ReactElement => {
 	const color = useSelector(

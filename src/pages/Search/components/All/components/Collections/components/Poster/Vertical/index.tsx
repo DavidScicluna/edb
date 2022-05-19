@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
-import { VerticalCollectionPosterProps } from './types';
 
 import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import VerticalPoster from '../../../../../../../../../components/Poster/Vertical';
+
+import { VerticalCollectionPosterProps } from './types';
 
 const thumbnail = handleReturnImageSize('poster', 'thumbnail');
 const full = handleReturnImageSize('poster', 'full');

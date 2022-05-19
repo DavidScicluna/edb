@@ -1,22 +1,15 @@
 import { ReactElement, useState, useEffect } from 'react';
-import { useLocation } from 'react-router';
+
 
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 
+import { useLocation } from 'react-router';
 import dayjs from 'dayjs';
 import { AnimatePresence } from 'framer-motion';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import orderBy from 'lodash/orderBy';
 
-import CreateList from './components/CreateList';
-import DeleteList from './components/DeleteList';
-import EditList from './components/EditList';
-import ListHeader from './components/ListHeader';
-import ListInfo from './components/ListInfo';
-import ListPicker from './components/ListPicker';
-import MediaTypesSection from './components/MediaTypesSection';
-import Toast from './components/Toast';
 
 import { useSelector } from '../../../../common/hooks';
 import Button from '../../../../components/Clickable/Button';
@@ -29,6 +22,15 @@ import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import { List as ListType } from '../../../../store/slices/Users/types';
+
+import Toast from './components/Toast';
+import MediaTypesSection from './components/MediaTypesSection';
+import ListPicker from './components/ListPicker';
+import ListInfo from './components/ListInfo';
+import ListHeader from './components/ListHeader';
+import EditList from './components/EditList';
+import DeleteList from './components/DeleteList';
+import CreateList from './components/CreateList';
 
 const Lists = (): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');

@@ -2,13 +2,14 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-import { SimilarProps } from './types';
 
 import { PartialMovie } from '../../../../../../../../common/types/movie';
 import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalMoviePoster from '../../../../../../../Movies/components/Poster/Vertical';
+
+import { SimilarProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

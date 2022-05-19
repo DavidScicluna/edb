@@ -6,7 +6,6 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { TVShowsProps } from './types';
 
 import { useSelector } from '../../../../../../../../../../common/hooks';
 import { handleReturnDate, handleReturnImageSize } from '../../../../../../../../../../common/utils';
@@ -16,6 +15,8 @@ import HorizontalPoster from '../../../../../../../../../../components/Poster/Ho
 import VerticalPoster from '../../../../../../../../../../components/Poster/Vertical';
 import { defaultUser, getUser } from '../../../../../../../../../../store/slices/Users';
 import { Show } from '../../types';
+
+import { TVShowsProps } from './types';
 
 const incrementBy = 20;
 

@@ -4,12 +4,13 @@ import { useTheme, useColorMode, Center, Link as CUILink } from '@chakra-ui/reac
 
 import merge from 'lodash/merge';
 
-import useStyles from './styles';
-import { LinkProps } from './types';
 
 import { Theme } from '../../../../../../theme/types';
 import Icon from '../../../../../Icon';
 import Skeleton from '../../../../../Skeleton';
+
+import { LinkProps } from './types';
+import useStyles from './styles';
 
 const Link = (props: LinkProps): ReactElement => {
 	const theme = useTheme<Theme>();

@@ -4,13 +4,14 @@ import { ColorMode, useTheme, useColorMode, Tag as CUITag, HStack } from '@chakr
 
 import merge from 'lodash/merge';
 
-import useStyles from './styles';
-import { TagRef, TagProps } from './types';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
 import { Theme, Space } from '../../../theme/types';
 import Icon from '../../Icon';
 import IconButton from '../IconButton';
+
+import { TagRef, TagProps } from './types';
+import useStyles from './styles';
 
 const Tag = forwardRef<TagRef, TagProps>(function Tag(props, ref): ReactElement {
 	const theme = useTheme<Theme>();

@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 import { useTheme, useColorMode, AspectRatio, Center, Image as CUIImage, ScaleFade, Fade } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { PosterImageProps } from './types';
 
 import * as fallback from '../../../../../common/assets/fallback';
 import { useSelector } from '../../../../../common/hooks';
@@ -19,6 +19,8 @@ import { setQuickView } from '../../../../../store/slices/Modals';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
 import { Theme } from '../../../../../theme/types';
 import Image from '../../../../Image';
+
+import { PosterImageProps } from './types';
 
 const commonStyleProps = {
 	width: 'inherit',

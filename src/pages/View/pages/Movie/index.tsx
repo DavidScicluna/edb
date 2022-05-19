@@ -1,11 +1,11 @@
 import { ReactElement, useState, useEffect } from 'react';
-import CountUp from 'react-countup';
-import { useQuery, useInfiniteQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
 
+import { useDispatch } from 'react-redux';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useQuery, useInfiniteQuery } from 'react-query';
+import CountUp from 'react-countup';
 import sort from 'array-sort';
 import axios from 'axios';
 import compact from 'lodash/compact';
@@ -14,8 +14,6 @@ import isNil from 'lodash/isNil';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 
-import OverviewTab from './components/OverviewTab';
-import Title from './components/Title';
 
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
@@ -38,6 +36,9 @@ import CastCrewTab from '../../components/CastCrew';
 import ReviewsTab from '../../components/Reviews';
 import Structure from '../../components/Structure';
 import VerticalPoster from '../../components/VerticalPoster';
+
+import Title from './components/Title';
+import OverviewTab from './components/OverviewTab';
 
 const tabs = ['overview', 'cast_crew', 'reviews', 'assets'];
 

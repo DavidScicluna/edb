@@ -4,11 +4,12 @@ import { useColorMode, HStack, Text, Fade } from '@chakra-ui/react';
 
 import isNil from 'lodash/isNil';
 
-import { HeaderProps } from './types';
 
 import IconButton from '../../../../../../Clickable/IconButton';
 import Icon from '../../../../../../Icon';
 import years from '../../../../common/data/years';
+
+import { HeaderProps } from './types';
 
 const Header = (props: HeaderProps): ReactElement => {
 	const { colorMode } = useColorMode();

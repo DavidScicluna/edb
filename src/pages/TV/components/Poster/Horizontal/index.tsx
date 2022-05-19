@@ -4,10 +4,11 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { HorizontalTVShowPosterProps } from './types';
 
 import { handleReturnDate, handleReturnGenresByID, handleReturnImageSize } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';
+
+import { HorizontalTVShowPosterProps } from './types';
 
 const thumbnail = handleReturnImageSize('poster', 'thumbnail');
 const full = handleReturnImageSize('poster', 'full');

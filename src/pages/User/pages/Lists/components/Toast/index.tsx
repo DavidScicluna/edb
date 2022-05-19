@@ -5,12 +5,13 @@ import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { ToastProps } from './types';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Button from '../../../../../../components/Clickable/Button';
 import IconButton from '../../../../../../components/Clickable/IconButton';
 import Icon from '../../../../../../components/Icon';
+
+import { ToastProps } from './types';
 
 const Toast = (props: ToastProps): ReactElement => {
 	const { colorMode } = useColorMode();

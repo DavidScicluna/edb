@@ -1,16 +1,15 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { useInfiniteQuery } from 'react-query';
-import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { useMediaQuery, useBoolean, VStack, ScaleFade } from '@chakra-ui/react';
 
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useInfiniteQuery } from 'react-query';
 import axios from 'axios';
 import mergeWith from 'lodash/mergeWith';
 import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import VerticalPeople from './components/Orientation/Vertical';
 
 import { useSelector } from '../../common/hooks';
 import axiosInstance, { handleDelay } from '../../common/scripts/axios';
@@ -20,6 +19,8 @@ import DisplayMode from '../../components/Clickable/DisplayMode';
 import LoadMore from '../../components/Clickable/LoadMore';
 import Page from '../../containers/Page';
 import { defaultUser, getUser } from '../../store/slices/Users';
+
+import VerticalPeople from './components/Orientation/Vertical';
 
 const People = (): ReactElement => {
 	const source = axios.CancelToken.source();

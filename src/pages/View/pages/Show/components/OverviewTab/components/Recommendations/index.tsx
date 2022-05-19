@@ -2,13 +2,14 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-import { RecommendationsProps } from './types';
 
 import { PartialTV } from '../../../../../../../../common/types/tv';
 import Empty from '../../../../../../../../components/Empty';
 import Error from '../../../../../../../../components/Error';
 import HorizontalGrid from '../../../../../../../../components/Grid/Horizontal/Default';
 import VerticalTVShowPoster from '../../../../../../../TV/components/Poster/Vertical';
+
+import { RecommendationsProps } from './types';
 
 const width = ['185px', '205px', '230px'];
 

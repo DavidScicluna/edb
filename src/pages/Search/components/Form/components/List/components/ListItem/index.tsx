@@ -16,11 +16,12 @@ import range from 'lodash/range';
 import sample from 'lodash/sample';
 import { useElementSize } from 'usehooks-ts';
 
+import SkeletonText from '../../../../../../../../components/Skeleton/Text';
+import { Theme } from '../../../../../../../../theme/types';
+
 import useStyles from './styles';
 import { ListItemProps } from './types';
 
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import { Theme } from '../../../../../../../../theme/types';
 
 const dummies = range(25, 100, 10);
 

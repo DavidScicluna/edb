@@ -2,12 +2,13 @@ import React, { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { PasswordProps } from './types';
 
 import IconButton from '../../../../components/Clickable/IconButton';
 import Input from '../../../../components/Forms/Input';
 import Icon from '../../../../components/Icon';
 import Tooltip from '../../../../components/Tooltip';
+
+import { PasswordProps } from './types';
 
 const Password = ({ field, fieldState, label, color, colorMode }: PasswordProps): ReactElement => {
 	const [isPasswordVisible, setIsPasswordVisible] = useBoolean();

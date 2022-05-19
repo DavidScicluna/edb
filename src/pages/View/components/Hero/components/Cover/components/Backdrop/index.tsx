@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { BackdropProps } from './types';
 
 import { youtube as YouTubeIcon } from '../../../../../../../../common/assets/icons';
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../../common/utils';
@@ -10,6 +9,8 @@ import ClickableImage from '../../../../../../../../components/Clickable/Image';
 import Icon from '../../../../../../../../components/Icon';
 import Image from '../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../components/Skeleton';
+
+import { BackdropProps } from './types';
 
 const Backdrop = (props: BackdropProps): ReactElement => {
 	const { alt, path, mediaType, video = true, isLoading = false, isError = false, onClick } = props;

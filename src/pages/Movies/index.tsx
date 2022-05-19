@@ -1,10 +1,10 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
-import CountUp from 'react-countup';
-import { useInfiniteQuery } from 'react-query';
-import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { useMediaQuery, useBoolean, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 
+import { useInfiniteQuery } from 'react-query';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import CountUp from 'react-countup';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import debounce from 'lodash/debounce';
@@ -18,7 +18,6 @@ import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useElementSize, useUpdateEffect, useEffectOnce } from 'usehooks-ts';
 
-import VerticalMovies from './components/Orientation/Vertical';
 
 import { useSelector } from '../../common/hooks';
 import axiosInstance, { handleDelay } from '../../common/scripts/axios';
@@ -37,6 +36,8 @@ import { movieSortBy as sortBy } from '../../components/SortBy/common/data/sort'
 import { Form as SortForm } from '../../components/SortBy/types';
 import Page from '../../containers/Page';
 import { defaultUser, getUser } from '../../store/slices/Users';
+
+import VerticalMovies from './components/Orientation/Vertical';
 
 const defaultFilters = {
 	'language': 'en-US', // TODO: Make this dynamic

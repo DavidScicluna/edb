@@ -2,9 +2,10 @@ import React, { ReactElement } from 'react';
 
 import { Text } from '@chakra-ui/react';
 
+import { Color } from '../../../../../../../../theme/types';
+
 import { StatusProps } from './types';
 
-import { Color } from '../../../../../../../../theme/types';
 
 export const handleReturnColor = (status: StatusProps['status'], color: StatusProps['color']): keyof Color => {
 	switch (status) {
