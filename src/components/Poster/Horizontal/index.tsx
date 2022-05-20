@@ -1,12 +1,10 @@
 import { ReactElement, memo } from 'react';
 
-
 import { useMediaQuery, useBreakpointValue, useBoolean, useConst, HStack, VStack, Center } from '@chakra-ui/react';
 
-import useInView from 'react-cool-inview';
+import { useInView } from 'react-cool-inview';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-
 
 import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';

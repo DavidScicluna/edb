@@ -1,14 +1,12 @@
 import { ReactElement } from 'react';
 
-
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
 
-import useInView from 'react-cool-inview';
+import { useInView } from 'react-cool-inview';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-
 
 import { handleReturnImageSize } from '../../../../../../../../../../../../common/utils';
 import Badge from '../../../../../../../../../../../../components/Badge';

@@ -1,6 +1,5 @@
 import { ReactElement, memo } from 'react';
 
-
 import {
 	ColorMode,
 	useTheme,
@@ -12,10 +11,9 @@ import {
 	Fade
 } from '@chakra-ui/react';
 
-import useInView from 'react-cool-inview';
+import { useInView } from 'react-cool-inview';
 import { AnimatePresence } from 'framer-motion';
 import { useElementSize } from 'usehooks-ts';
-
 
 import * as fallback from '../../../common/assets/fallback';
 import { handleReturnRatio } from '../../../common/utils';

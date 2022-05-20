@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTheme, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
 
-import useInView from 'react-cool-inview';
+import { useInView } from 'react-cool-inview';
 import merge from 'lodash/merge';
 
 import { Theme } from '../../../../theme/types';
@@ -13,7 +13,6 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import useStyles from './styles';
 import { AccordionProps } from './types';
-
 
 const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
 	const theme = useTheme<Theme>();

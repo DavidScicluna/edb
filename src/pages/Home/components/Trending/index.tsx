@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import useInView from 'react-cool-inview';
+import { useInView } from 'react-cool-inview';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
