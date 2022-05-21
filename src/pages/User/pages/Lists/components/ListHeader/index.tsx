@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { Fade } from '@chakra-ui/react';
 
@@ -9,9 +10,7 @@ import isNil from 'lodash/isNil';
 import orderBy from 'lodash/orderBy';
 import { useElementSize } from 'usehooks-ts';
 
-
 import { useSelector } from '../../../../../../common/hooks';
-import Badge from '../../../../../../components/Badge';
 import Divider from '../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import TabList from '../../../../../../components/Tabs/components/TabList';
@@ -44,10 +43,16 @@ const ListHeader = ({ activeTab, lists, onListsClick }: ListHeaderProps): ReactE
 												isLight={!isSelected}
 												size={size}
 											>
-												<CountUp
-													duration={1}
-													end={list.results.movies.length || 0 + list.results.tv.length || 0}
-												/>
+												<BadgeLabel>
+													<CountUp
+														duration={1}
+														end={
+															list.results.movies.length ||
+															0 + list.results.tv.length ||
+															0
+														}
+													/>
+												</BadgeLabel>
 											</Badge>
 										</Fade>
 								  )

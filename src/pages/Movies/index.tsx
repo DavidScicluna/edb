@@ -1,6 +1,6 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Button, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBoolean, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 
@@ -20,12 +20,10 @@ import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useElementSize, useUpdateEffect, useEffectOnce } from 'usehooks-ts';
 
-
 import { useSelector } from '../../common/hooks';
 import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { Response } from '../../common/types';
 import { PartialMovie } from '../../common/types/movie';
-import Badge from '../../components/Badge';
 import DisplayMode from '../../components/Clickable/DisplayMode';
 import LoadMore from '../../components/Clickable/LoadMore';
 import { handlePopulateFilters } from '../../components/Filters/common/utils';
@@ -237,7 +235,9 @@ const Movies = (): ReactElement => {
 											? ({ color }) => (
 													<Fade in unmountOnExit>
 														<Badge color={color} size='xs'>
-															<CountUp duration={1} end={totalActiveFilters} />
+															<BadgeLabel>
+																<CountUp duration={1} end={totalActiveFilters} />
+															</BadgeLabel>
 														</Badge>
 													</Fade>
 											  )

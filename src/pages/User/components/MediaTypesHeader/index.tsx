@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { Center, HStack, Fade } from '@chakra-ui/react';
 
@@ -8,9 +9,7 @@ import compact from 'lodash/compact';
 import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
-
 import { useSelector } from '../../../../common/hooks';
-import Badge from '../../../../components/Badge';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
 import Icon from '../../../../components/Icon';
@@ -69,7 +68,9 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 															isLight={!isSelected}
 															size={size}
 														>
-															<CountUp duration={1} end={total.movie || 0} />
+															<BadgeLabel>
+																<CountUp duration={1} end={total.movie || 0} />
+															</BadgeLabel>
 														</Badge>
 													</Fade>
 											  )
@@ -92,7 +93,9 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 															isLight={!isSelected}
 															size={size}
 														>
-															<CountUp duration={1} end={total.tv || 0} />
+															<BadgeLabel>
+																<CountUp duration={1} end={total.tv || 0} />
+															</BadgeLabel>
 														</Badge>
 													</Fade>
 											  )
@@ -119,7 +122,9 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 															isLight={!isSelected}
 															size={size}
 														>
-															<CountUp duration={1} end={total.person || 0} />
+															<BadgeLabel>
+																<CountUp duration={1} end={total.person || 0} />
+															</BadgeLabel>
 														</Badge>
 													</Fade>
 											  )
@@ -146,7 +151,9 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 															isLight={!isSelected}
 															size={size}
 														>
-															<CountUp duration={1} end={total.company || 0} />
+															<BadgeLabel>
+																<CountUp duration={1} end={total.company || 0} />
+															</BadgeLabel>
 														</Badge>
 													</Fade>
 											  )
@@ -173,7 +180,9 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 															isLight={!isSelected}
 															size={size}
 														>
-															<CountUp duration={1} end={total.collection || 0} />
+															<BadgeLabel>
+																<CountUp duration={1} end={total.collection || 0} />
+															</BadgeLabel>
 														</Badge>
 													</Fade>
 											  )

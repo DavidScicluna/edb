@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
-
-import { Button } from '@davidscicluna/component-library';
+import { Button, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, HStack, Fade } from '@chakra-ui/react';
 
@@ -9,11 +8,9 @@ import CountUp from 'react-countup';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Review as ReviewType } from '../../../../../../../../common/types';
 import { handleReturnDate } from '../../../../../../../../common/utils';
-import Badge from '../../../../../../../../components/Badge';
 import Empty from '../../../../../../../../components/Empty';
 import Panel from '../../../../../../../../components/Panel';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
@@ -65,12 +62,14 @@ const Reviews = ({ show, reviews = [], isLoading = true, onChangeTab }: ReviewsP
 						(reviews?.length || 0) + (tvShowUserReviews.length || 0) > 0 && !isSm ? (
 							<Fade in unmountOnExit>
 								<Badge size='sm'>
-									<CountUp
-										duration={1}
-										prefix='Total of '
-										end={(reviews?.length || 0) + (tvShowUserReviews.length || 0)}
-										suffix=' reviews'
-									/>
+									<BadgeLabel>
+										<CountUp
+											duration={1}
+											prefix='Total of '
+											end={(reviews?.length || 0) + (tvShowUserReviews.length || 0)}
+											suffix=' reviews'
+										/>
+									</BadgeLabel>
 								</Badge>
 							</Fade>
 						) : undefined

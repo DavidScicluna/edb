@@ -1,14 +1,12 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBoolean, ScaleFade } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-
-import Badge from '../../../../../../../../components/Badge';
 import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import ListItem from '../../../List/components/ListItem';
@@ -44,10 +42,12 @@ const Search = (props: SearchProps): ReactElement => {
 						}
 						size='xs'
 					>
-						{filteredSearchTypes
-							.map((searchType) => searchType.label)
-							.filter((searchType) => searchType)
-							.join(' • ')}
+						<BadgeLabel>
+							{filteredSearchTypes
+								.map((searchType) => searchType.label)
+								.filter((searchType) => searchType)
+								.join(' • ')}
+						</BadgeLabel>
 					</Badge>
 				) : undefined
 			}

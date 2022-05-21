@@ -1,14 +1,13 @@
 import { ReactElement } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { HStack, Center } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
 import { useElementSize } from 'usehooks-ts';
 
-
 import { useSelector } from '../../../../../../../../../../common/hooks';
-import Badge from '../../../../../../../../../../components/Badge';
 import DisplayMode from '../../../../../../../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../../../../../../../components/Divider';
 import TabList from '../../../../../../../../../../components/Tabs/components/TabList';
@@ -33,7 +32,9 @@ const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
 							isDisabled: movies === 0,
 							renderRight: ({ isSelected, size }) => (
 								<Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
-									<CountUp duration={1} end={movies} />
+									<BadgeLabel>
+										<CountUp duration={1} end={movies} />
+									</BadgeLabel>
 								</Badge>
 							)
 						},
@@ -42,7 +43,9 @@ const Header = ({ movies = 0, shows = 0 }: HeaderProps): ReactElement => {
 							isDisabled: shows === 0,
 							renderRight: ({ isSelected, size }) => (
 								<Badge color={isSelected ? color : 'gray'} isLight={!isSelected} size={size}>
-									<CountUp duration={1} end={shows} />
+									<BadgeLabel>
+										<CountUp duration={1} end={shows} />
+									</BadgeLabel>
 								</Badge>
 							)
 						}

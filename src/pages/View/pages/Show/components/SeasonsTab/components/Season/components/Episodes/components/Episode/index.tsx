@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
@@ -9,7 +11,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
 import { handleReturnImageSize } from '../../../../../../../../../../../../common/utils';
-import Badge from '../../../../../../../../../../../../components/Badge';
 import Card from '../../../../../../../../../../../../components/Clickable/Card';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import Rating from '../../../../../../../../../../../../components/Rating';
@@ -134,7 +135,9 @@ const Episode = (props: EpisodeProps): ReactElement => {
 							right: 2
 						}}
 					>
-						<Badge size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>{`Episode ${episode_number}`}</Badge>
+						<Badge size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>
+							<BadgeLabel>{`Episode ${episode_number}`}</BadgeLabel>
+						</Badge>
 					</Center>
 				</HStack>
 			</Card>

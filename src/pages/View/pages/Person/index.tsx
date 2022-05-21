@@ -1,5 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
 
@@ -12,14 +13,12 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import uniq from 'lodash/uniq';
 
-
 import Page from '../.../../../../../containers/Page';
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { ExternalIDs, Images } from '../../../../common/types';
 import { FullPerson, Credits as CreditsType, MovieCredits, TVCredits } from '../../../../common/types/person';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
-import Badge from '../../../../components/Badge';
 import MediaViewer from '../../../../components/MediaViewer';
 import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
@@ -260,15 +259,17 @@ const Person = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					(creditsQuery.data?.cast?.length ||
-																						0) +
-																					(creditsQuery.data?.crew?.length ||
-																						0)
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						(creditsQuery.data?.cast
+																							?.length || 0) +
+																						(creditsQuery.data?.crew
+																							?.length || 0)
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )
@@ -290,13 +291,15 @@ const Person = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					imagesQuery.data?.profiles
-																						?.length || 0
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						imagesQuery.data?.profiles
+																							?.length || 0
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )

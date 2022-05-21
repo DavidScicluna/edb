@@ -1,5 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
+
 import { useDisclosure, useConst, Text, Fade } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -14,13 +16,11 @@ import range from 'lodash/range';
 import sample from 'lodash/sample';
 import uniq from 'lodash/uniq';
 
-
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { Images } from '../../../../common/types';
 import { Collection as CollectionType } from '../../../../common/types/movie';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
-import Badge from '../../../../components/Badge';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import MediaViewer from '../../../../components/MediaViewer';
 import SkeletonText from '../../../../components/Skeleton/Text';
@@ -231,13 +231,15 @@ const Collection = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					collectionQuery.data?.parts
-																						?.length || 0
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						collectionQuery.data?.parts
+																							?.length || 0
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )
@@ -263,15 +265,17 @@ const Collection = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					(imagesQuery.data?.posters
-																						?.length || 0) +
-																					(imagesQuery.data?.backdrops
-																						?.length || 0)
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						(imagesQuery.data?.posters
+																							?.length || 0) +
+																						(imagesQuery.data?.backdrops
+																							?.length || 0)
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )

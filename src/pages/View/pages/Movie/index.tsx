@@ -1,5 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -14,13 +16,11 @@ import isNil from 'lodash/isNil';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 
-
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { ExternalIDs, Images, Response, Review, Videos } from '../../../../common/types';
 import { FullMovie, Credits, Collection, PartialMovie } from '../../../../common/types/movie';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
-import Badge from '../../../../components/Badge';
 import MediaViewer from '../../../../components/MediaViewer';
 import { AssetType } from '../../../../components/MediaViewer/types';
 import Socials from '../../../../components/Socials';
@@ -354,15 +354,17 @@ const Movie = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					(creditsQuery.data?.cast?.length ||
-																						0) +
-																					(creditsQuery.data?.crew?.length ||
-																						0)
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						(creditsQuery.data?.cast
+																							?.length || 0) +
+																						(creditsQuery.data?.crew
+																							?.length || 0)
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )
@@ -387,13 +389,15 @@ const Movie = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					(reviews?.total_results || 0) +
-																					(movieUserReviews.length || 0)
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						(reviews?.total_results || 0) +
+																						(movieUserReviews.length || 0)
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )
@@ -424,17 +428,19 @@ const Movie = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					(imagesQuery.data?.posters
-																						?.length || 0) +
-																					(imagesQuery.data?.backdrops
-																						?.length || 0) +
-																					(videosQuery.data?.results
-																						?.length || 0)
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						(imagesQuery.data?.posters
+																							?.length || 0) +
+																						(imagesQuery.data?.backdrops
+																							?.length || 0) +
+																						(videosQuery.data?.results
+																							?.length || 0)
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )

@@ -1,14 +1,13 @@
 import { ReactElement } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, HStack, ScaleFade } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../../../common/hooks';
-import Badge from '../../../../../../components/Badge';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
@@ -44,7 +43,9 @@ const OtherReviews = (props: OtherReviewsProps): ReactElement => {
 					actions:
 						(reviews?.results?.length || 0) > 0 ? (
 							<Badge size='lg'>
-								<CountUp duration={1} end={reviews?.results?.length || 0} />
+								<BadgeLabel>
+									<CountUp duration={1} end={reviews?.results?.length || 0} />
+								</BadgeLabel>
 							</Badge>
 						) : undefined
 				},

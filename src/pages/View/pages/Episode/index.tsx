@@ -1,5 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
 
@@ -9,13 +10,11 @@ import CountUp from 'react-countup';
 import axios from 'axios';
 import compact from 'lodash/compact';
 
-
 import { useSelector } from '../../../../common/hooks';
 import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
 import { ExternalIDs, Images, Videos } from '../../../../common/types';
 import { FullTV, Episode as EpisodeType, EpisodeCredits } from '../../../../common/types/tv';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
-import Badge from '../../../../components/Badge';
 import MediaViewer from '../../../../components/MediaViewer';
 import Socials from '../../../../components/Socials';
 import Tabs from '../../../../components/Tabs';
@@ -237,17 +236,19 @@ const Episode = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					(creditsQuery.data?.cast?.length ||
-																						0) +
-																					(creditsQuery.data?.guest_stars
-																						?.length || 0) +
-																					(creditsQuery.data?.crew?.length ||
-																						0)
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						(creditsQuery.data?.cast
+																							?.length || 0) +
+																						(creditsQuery.data?.guest_stars
+																							?.length || 0) +
+																						(creditsQuery.data?.crew
+																							?.length || 0)
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )
@@ -276,15 +277,17 @@ const Episode = (): ReactElement => {
 																			isLight={!isSelected}
 																			size={size}
 																		>
-																			<CountUp
-																				duration={1}
-																				end={
-																					(imagesQuery.data?.stills?.length ||
-																						0) +
-																					(videosQuery.data?.results
-																						?.length || 0)
-																				}
-																			/>
+																			<BadgeLabel>
+																				<CountUp
+																					duration={1}
+																					end={
+																						(imagesQuery.data?.stills
+																							?.length || 0) +
+																						(videosQuery.data?.results
+																							?.length || 0)
+																					}
+																				/>
+																			</BadgeLabel>
 																		</Badge>
 																	</Fade>
 															  )

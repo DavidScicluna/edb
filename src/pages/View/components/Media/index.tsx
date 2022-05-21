@@ -1,15 +1,14 @@
 import { ReactElement, useState, Fragment } from 'react';
 
+import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { Collapse, Fade } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
-import Badge from '../../../../components/Badge';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import HorizontalTabbedGrid from '../../../../components/Grid/Horizontal/Tabbed';
@@ -67,7 +66,9 @@ const Media = (props: MediaProps): ReactElement => {
 												isLight={!isSelected}
 												size={size}
 											>
-												<CountUp duration={1} end={asset.data?.length || 0} />
+												<BadgeLabel>
+													<CountUp duration={1} end={asset.data?.length || 0} />
+												</BadgeLabel>
 											</Badge>
 										</Fade>
 								  )

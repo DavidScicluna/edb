@@ -1,15 +1,12 @@
 import { ReactElement, useState } from 'react';
 
-
-import { Button } from '@davidscicluna/component-library';
+import { Button, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, HStack, VStack, ScaleFade } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
 
-
 import { useSelector } from '../../../../../../common/hooks';
-import Badge from '../../../../../../components/Badge';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';
 import Panel from '../../../../../../components/Panel';
@@ -53,7 +50,9 @@ const UserReviews = ({ alt, mediaItem, mediaType, isLoading = true }: UserReview
 					actions:
 						(mediaItemUserReviews.length || 0) > 0 ? (
 							<Badge size='lg'>
-								<CountUp duration={1} end={mediaItemUserReviews.length || 0} />
+								<BadgeLabel>
+									<CountUp duration={1} end={mediaItemUserReviews.length || 0} />
+								</BadgeLabel>
 							</Badge>
 						) : undefined
 				},
