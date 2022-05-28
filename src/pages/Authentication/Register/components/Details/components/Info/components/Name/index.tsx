@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { Input } from '@davidscicluna/component-library';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
-
 import { Controller } from 'react-hook-form';
 import { isBoolean } from 'lodash';
 

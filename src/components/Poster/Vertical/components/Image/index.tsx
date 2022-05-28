@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, AspectRatio, Center, Image as CUIImage, ScaleFade, Fade } from '@chakra-ui/react';
-
 import { useDispatch } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import isEmpty from 'lodash/isEmpty';

@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
-
 import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
 

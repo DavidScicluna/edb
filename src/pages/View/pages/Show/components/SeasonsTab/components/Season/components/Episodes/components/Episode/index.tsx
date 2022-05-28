@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { FontSize, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
-
 import { useInView } from 'react-cool-inview';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';

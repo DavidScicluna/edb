@@ -3,7 +3,6 @@ import { ReactElement, useState, useCallback, useEffect } from 'react';
 import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, Box, SlideFade } from '@chakra-ui/react';
-
 import debounce from 'lodash/debounce';
 import { useWindowSize } from 'usehooks-ts';
 

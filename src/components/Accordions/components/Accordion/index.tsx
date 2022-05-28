@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { useTheme, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
-
 import { useInView } from 'react-cool-inview';
 import merge from 'lodash/merge';
 

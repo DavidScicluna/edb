@@ -4,7 +4,6 @@ import { ReactElement } from 'react';
 import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Center } from '@chakra-ui/react';
-
 import { useDispatch } from 'react-redux';
 
 

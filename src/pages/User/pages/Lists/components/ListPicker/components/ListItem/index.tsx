@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, Radio } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
-
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../../../common/hooks';

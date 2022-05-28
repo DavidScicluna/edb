@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { FontSize } from '@davidscicluna/component-library';
 
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
-
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 

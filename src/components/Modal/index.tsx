@@ -16,7 +16,6 @@ import {
 	HStack,
 	Text
 } from '@chakra-ui/react';
-
 import { useTimeout } from 'usehooks-ts';
 
 import { useSelector } from '../../common/hooks';

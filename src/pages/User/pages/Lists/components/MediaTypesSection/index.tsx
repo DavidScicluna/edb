@@ -1,7 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import { VStack } from '@chakra-ui/react';
-
 import isNil from 'lodash/isNil';
 
 

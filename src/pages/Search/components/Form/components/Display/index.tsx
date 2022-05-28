@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
-
 import CountUp from 'react-countup';
 import truncate from 'lodash/truncate';
 

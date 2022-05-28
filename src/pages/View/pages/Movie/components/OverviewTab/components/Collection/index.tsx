@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
 
 import { Text } from '@chakra-ui/react';
-
 import capitalize from 'lodash/capitalize';
 import compact from 'lodash/compact';
 

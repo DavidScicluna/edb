@@ -1,7 +1,6 @@
 import { ReactElement, useContext, useEffect } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
-
 import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
 

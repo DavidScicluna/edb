@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
 import { HStack, VStack, Text, Center } from '@chakra-ui/react';
-
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import compact from 'lodash/compact';

@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Badge, BadgeLabel, Icon } from '@davidscicluna/component-library';
 
 import { Center, HStack, Fade } from '@chakra-ui/react';
-
 import CountUp from 'react-countup';
 import compact from 'lodash/compact';
 import isNil from 'lodash/isNil';

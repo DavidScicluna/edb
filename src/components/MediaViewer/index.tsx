@@ -3,7 +3,6 @@ import { ReactElement, useState, useCallback, useEffect } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { useColorMode, useDisclosure, useBoolean, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
-
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 import uniq from 'lodash/uniq';

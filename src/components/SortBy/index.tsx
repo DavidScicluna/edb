@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router-dom';
 import { useForm, useFormState } from 'react-hook-form';
 import isEmpty from 'lodash/isEmpty';

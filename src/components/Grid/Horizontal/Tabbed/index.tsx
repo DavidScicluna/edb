@@ -4,7 +4,6 @@ import '../common/styles/styles.css';
 import { Card, CardBody, CardFooter } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
-
 import debounce from 'lodash/debounce';
 
 import Tabs from '../../../Tabs';

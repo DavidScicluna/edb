@@ -3,7 +3,6 @@ import { ReactElement, useState, Fragment } from 'react';
 import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { Collapse, Fade } from '@chakra-ui/react';
-
 import CountUp from 'react-countup';
 import range from 'lodash/range';
 

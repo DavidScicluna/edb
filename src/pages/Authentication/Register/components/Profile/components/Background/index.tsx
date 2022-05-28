@@ -3,7 +3,6 @@ import React, { ReactElement, ChangeEvent, useRef, useState } from 'react';
 import { Icon } from '@davidscicluna/component-library';
 
 import { useDisclosure, Box, Image } from '@chakra-ui/react';
-
 import Compressor from 'compressorjs';
 
 import * as fallback from '../../../../../../../common/assets/fallback';

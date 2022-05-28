@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 
 import { useConst , Button } from '@chakra-ui/react';
-
 import { Link } from 'react-scroll';
 import range from 'lodash/range';
 import sample from 'lodash/sample';

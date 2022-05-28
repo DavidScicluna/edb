@@ -11,7 +11,6 @@ import {
 	DrawerBody,
 	Center
 } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router-dom';
 
 import { navItems } from '../../../../index';

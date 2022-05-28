@@ -2,7 +2,6 @@ import { ReactElement, useState, useEffect } from 'react';
 
 
 import { useMediaQuery, useDisclosure, useConst, Stack, Center, VStack, Collapse } from '@chakra-ui/react';
-
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import compact from 'lodash/compact';

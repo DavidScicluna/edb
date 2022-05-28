@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery, AspectRatio } from '@chakra-ui/react';
-
 import YouTube from 'react-youtube';
 
 

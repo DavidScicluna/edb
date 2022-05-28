@@ -4,7 +4,6 @@ import { ReactElement } from 'react';
 import { Button } from '@davidscicluna/component-library';
 
 import { useDisclosure } from '@chakra-ui/react';
-
 import { useDispatch } from 'react-redux';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';

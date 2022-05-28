@@ -2,10 +2,9 @@ import { ReactElement, useCallback } from 'react';
 
 import { useTheme } from '@davidscicluna/component-library';
 
-import { Center, SlideFade } from '@chakra-ui/react';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { Center, SlideFade } from '@chakra-ui/react';
 import { Swiper as SwiperType } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import { useEventListener } from 'usehooks-ts';

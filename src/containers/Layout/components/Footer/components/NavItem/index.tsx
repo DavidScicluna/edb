@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { useColorMode, VStack, Text } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router-dom';
 
 import { useSelector } from '../../../../../../common/hooks';

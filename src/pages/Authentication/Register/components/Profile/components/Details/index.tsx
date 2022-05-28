@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, VStack, Center, Text } from '@chakra-ui/react';
-
 import { compact, isEmpty, isNil } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 

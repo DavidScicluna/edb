@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { useMediaQuery, VStack, Center, Stack, HStack } from '@chakra-ui/react';
-
 import { useElementSize } from 'usehooks-ts';
 
 import Breadcrumbs from './components/Breadcrumbs';

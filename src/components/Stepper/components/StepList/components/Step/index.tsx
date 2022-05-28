@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { HStack, VStack, Fade } from '@chakra-ui/react';
-
 import { merge } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 

@@ -3,7 +3,6 @@ import { ReactElement, forwardRef, memo } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { Box } from '@chakra-ui/react';
-
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 
 import './common/styles/styles.css';

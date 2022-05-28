@@ -3,7 +3,6 @@ import { ReactElement, useState, useCallback } from 'react';
 import { Color } from '@davidscicluna/component-library';
 
 import { useColorMode, Modal, ModalContent, ModalBody, VStack, Box, Text } from '@chakra-ui/react';
-
 import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { range, reverse } from 'lodash';

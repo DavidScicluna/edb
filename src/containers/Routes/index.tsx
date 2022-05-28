@@ -1,7 +1,6 @@
 import { ReactElement, lazy, useEffect } from 'react';
 
 import { useConst } from '@chakra-ui/react';
-
 import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { compact } from 'lodash';

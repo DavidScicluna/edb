@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
-
 import range from 'lodash/range';
 
 

@@ -1,7 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useColorMode, useMediaQuery, Stack, Center , Button } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';

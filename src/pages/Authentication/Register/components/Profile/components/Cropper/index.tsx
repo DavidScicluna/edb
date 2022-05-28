@@ -2,10 +2,9 @@ import React, { ReactElement, useState, useCallback } from 'react';
 
 import { useTheme, Button } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useBoolean, VStack, Center } from '@chakra-ui/react';
-
 import { Area } from 'react-easy-crop/types';
 
+import { useMediaQuery, useBoolean, VStack, Center } from '@chakra-ui/react';
 import RECCropper from 'react-easy-crop';
 import { debounce } from 'lodash';
 

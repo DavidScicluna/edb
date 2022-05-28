@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { Card, CardBody, CardFooter, Color, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, Container, VStack, HStack, Text } from '@chakra-ui/react';
-
 import { useNavigate } from 'react-router';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

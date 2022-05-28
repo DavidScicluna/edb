@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { Card, CardBody, CardFooter, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, VStack, HStack, Center } from '@chakra-ui/react';
-
 import { Controller, useFormState } from 'react-hook-form';
 
 import { color } from '../..';

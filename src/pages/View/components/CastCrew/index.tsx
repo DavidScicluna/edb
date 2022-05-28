@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { useConst, Fade } from '@chakra-ui/react';
-
 import range from 'lodash/range';
 
 

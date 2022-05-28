@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { SlideFade } from '@chakra-ui/react';
-
 import round from 'lodash/round';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';

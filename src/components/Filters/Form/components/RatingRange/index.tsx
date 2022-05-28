@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Card, CardBody, ButtonGroup, Button } from '@davidscicluna/component-library';
 
 import { useTheme, useMediaQuery, useConst, ScaleFade } from '@chakra-ui/react';
-
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
 import range from 'lodash/range';

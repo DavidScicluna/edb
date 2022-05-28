@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, Box } from '@chakra-ui/react';
-
 import merge from 'lodash/merge';
 
 import { DividerProps } from './types';

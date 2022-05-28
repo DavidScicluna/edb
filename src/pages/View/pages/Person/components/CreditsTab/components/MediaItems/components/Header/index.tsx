@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { HStack, Center } from '@chakra-ui/react';
-
 import CountUp from 'react-countup';
 import { useElementSize } from 'usehooks-ts';
 

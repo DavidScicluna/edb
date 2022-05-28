@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, Center, Link as CUILink } from '@chakra-ui/react';
-
 import merge from 'lodash/merge';
 
 import Skeleton from '../../../../../Skeleton';

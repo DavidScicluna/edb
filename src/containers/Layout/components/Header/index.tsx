@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, HStack, Fade } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router-dom';
 
 import Link from '../../../../components/Clickable/Link';

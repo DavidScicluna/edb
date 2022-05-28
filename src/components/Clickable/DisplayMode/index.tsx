@@ -9,7 +9,6 @@ import {
 } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
-
 import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 

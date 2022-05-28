@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Icon } from '@davidscicluna/component-library';
 
 import { HStack, Center, Fade } from '@chakra-ui/react';
-
 import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 

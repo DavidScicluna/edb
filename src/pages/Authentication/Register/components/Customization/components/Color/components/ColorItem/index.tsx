@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@chakra-ui/react';
-
 import startCase from 'lodash/startCase';
 
 import Card from '../../../../../../../../../components/Clickable/Card';

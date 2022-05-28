@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { HStack, Center } from '@chakra-ui/react';
-
 import { useElementSize } from 'usehooks-ts';
 
 

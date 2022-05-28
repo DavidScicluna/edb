@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { Input, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
-
 import { Controller } from 'react-hook-form';
 
 // import { useSelector } from '../../../../../../../../../common/hooks';

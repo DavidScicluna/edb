@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { useBoolean, VStack, Box, Collapse } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router-dom';
 import { useEffectOnce } from 'usehooks-ts';
 

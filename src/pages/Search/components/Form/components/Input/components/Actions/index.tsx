@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { HStack, Fade } from '@chakra-ui/react';
-
 import { useElementSize } from 'usehooks-ts';
 
 import Divider from '../../../../../../../../components/Divider';

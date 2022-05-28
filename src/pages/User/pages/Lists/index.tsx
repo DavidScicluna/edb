@@ -3,7 +3,6 @@ import { ReactElement, useState, useEffect } from 'react';
 import { Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router';
 import dayjs from 'dayjs';
 import { AnimatePresence } from 'framer-motion';

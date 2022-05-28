@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Button } from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, useMediaQuery, Center } from '@chakra-ui/react';
-
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';

@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, HStack, Text, Box } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router-dom';
 import merge from 'lodash/merge';
 

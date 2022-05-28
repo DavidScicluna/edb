@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { Space, FontSize } from '@davidscicluna/component-library';
 
 import { ColorMode, useTheme, useColorMode, VStack, Center, Image, Text, Fade } from '@chakra-ui/react';
-
 import merge from 'lodash/merge';
 
 import * as fallback from '../../common/assets/fallback';

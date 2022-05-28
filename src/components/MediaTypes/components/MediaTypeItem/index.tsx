@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { NonNullable, useTheme } from '@davidscicluna/component-library';
 
 import { Center, Text } from '@chakra-ui/react';
-
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';

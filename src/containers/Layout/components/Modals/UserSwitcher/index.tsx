@@ -4,7 +4,6 @@ import React, { ReactElement, useState } from 'react';
 import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, Center } from '@chakra-ui/react';
-
 import { useDispatch } from 'react-redux';
 import { SHA256 } from 'crypto-js';
 import dayjs from 'dayjs';

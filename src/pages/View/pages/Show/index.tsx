@@ -3,7 +3,6 @@ import { ReactElement, useState, useEffect } from 'react';
 import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
-
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useQuery, useInfiniteQuery } from 'react-query';

@@ -3,7 +3,6 @@ import { ReactElement, memo } from 'react';
 import { Style, useTheme } from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, useBoolean, useConst, Center, Image as CUIImage, Fade } from '@chakra-ui/react';
-
 import { v4 as uuid } from 'uuid';
 
 import * as fallback from '../../common/assets/fallback';

@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { Card, CardHeader, CardBody, Button } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
-
 import { isEmpty, isNil } from 'lodash';
 
 import { detailsDefaultValues as defaultValues } from '../../../../defaults';

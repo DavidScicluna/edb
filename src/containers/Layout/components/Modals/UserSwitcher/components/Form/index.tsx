@@ -4,7 +4,6 @@ import React, { ReactElement } from 'react';
 import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
-
 import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 

@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { useColorMode, useConst, ListItem as CUIListItem, VStack, HStack, Center, Text } from '@chakra-ui/react';
-
 import merge from 'lodash/merge';
 import range from 'lodash/range';
 import sample from 'lodash/sample';

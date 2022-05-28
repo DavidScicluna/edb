@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, useDisclosure } from '@chakra-ui/react';
-
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';

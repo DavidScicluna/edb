@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, VStack, Stack, Box, Link, Text } from '@chakra-ui/react';
-
 import { useIsFetching, useIsMutating } from 'react-query';
 import dayjs from 'dayjs';
 

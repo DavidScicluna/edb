@@ -3,7 +3,6 @@ import { ReactElement, useCallback, useEffect } from 'react';
 import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, VStack, HStack, Text, Box, ScaleFade, Collapse } from '@chakra-ui/react';
-
 import { useLocation } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';

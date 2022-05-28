@@ -2,7 +2,6 @@ import { ReactElement, useState, useEffect } from 'react';
 
 
 import { useBoolean, VStack, Center, Fade } from '@chakra-ui/react';
-
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import axios from 'axios';

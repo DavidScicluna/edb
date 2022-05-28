@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, Button as CUIButton, Center } from '@chakra-ui/react';
-
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
 

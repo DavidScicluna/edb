@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { Input, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
-
 import { isBoolean } from 'lodash';
 
 import Tooltip from '../../../../components/Tooltip';

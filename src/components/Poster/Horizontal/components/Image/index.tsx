@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, AspectRatio, Center, Image as CUIImage, Fade } from '@chakra-ui/react';
-
 import { AnimatePresence } from 'framer-motion';
 
 

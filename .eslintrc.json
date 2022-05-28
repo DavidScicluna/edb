@@ -79,7 +79,7 @@
 						"position": "before"
 					},
 					{
-						"pattern": "@chakra-ui/**",
+						"pattern": "@chakra-ui",
 						"group": "external",
 						"position": "before"
 					}

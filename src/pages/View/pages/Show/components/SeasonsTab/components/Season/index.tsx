@@ -2,7 +2,6 @@ import { ReactElement, useEffect } from 'react';
 
 
 import { VStack, Collapse } from '@chakra-ui/react';
-
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';

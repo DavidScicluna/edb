@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { VStack, HStack, Center } from '@chakra-ui/react';
-
 import { useElementSize } from 'usehooks-ts';
 
 import Divider from '../../../../components/Divider';

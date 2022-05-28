@@ -1,7 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 
 import { useMediaQuery, useBoolean, VStack, ScaleFade } from '@chakra-ui/react';
-
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import axios from 'axios';

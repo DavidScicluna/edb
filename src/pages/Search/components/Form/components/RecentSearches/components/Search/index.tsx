@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { IconButton, Badge, BadgeLabel, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBoolean, ScaleFade } from '@chakra-ui/react';
-
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 

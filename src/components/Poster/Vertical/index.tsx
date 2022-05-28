@@ -1,7 +1,6 @@
 import { ReactElement, memo } from 'react';
 
 import { useBoolean, useConst, VStack, HStack, Center } from '@chakra-ui/react';
-
 import { useInView } from 'react-cool-inview';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';

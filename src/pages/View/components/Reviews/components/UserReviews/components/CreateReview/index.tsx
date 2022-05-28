@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useTheme, Card, CardHeader, CardBody, CardFooter, Textarea, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, useDisclosure, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
-
 import { useDispatch } from 'react-redux';
 import { Controller, useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

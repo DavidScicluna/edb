@@ -1,7 +1,6 @@
 import { Color } from '@davidscicluna/component-library';
 
 import { ColorMode } from '@chakra-ui/react';
-
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { MediaType, Review, FullCompany, Genre } from '../../../common/types';

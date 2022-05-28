@@ -3,7 +3,6 @@ import { ReactElement, useState, useCallback } from 'react';
 import { useTheme, Button } from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, useDisclosure, Center, Container } from '@chakra-ui/react';
-
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useForm, useFormState } from 'react-hook-form';
