@@ -98,7 +98,7 @@ const SearchTypes = ({ searchTypes: activeSearchTypes, onSetSearchTypes }: Searc
 						fontSize='sm'
 						textTransform='uppercase'
 					>
-						I'm looking for...
+						{"I'm looking for..."}
 					</Text>
 				)}
 				actions={

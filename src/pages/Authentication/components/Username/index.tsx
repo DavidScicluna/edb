@@ -2,8 +2,9 @@ import React, { ReactElement } from 'react';
 
 import { Input, Icon } from '@davidscicluna/component-library';
 
-import { UsernameProps } from './types';
 import { isBoolean } from 'lodash';
+
+import { UsernameProps } from './types';
 
 const Username = ({ field, fieldState, colorMode }: UsernameProps): ReactElement => {
 	const { name, onBlur, onChange, value } = field;

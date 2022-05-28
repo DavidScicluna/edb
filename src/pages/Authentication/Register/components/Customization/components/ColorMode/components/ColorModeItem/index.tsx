@@ -1,15 +1,15 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Text, HStack } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
 
+import { Text, HStack } from '@chakra-ui/react';
 
 import Card from '../../../../../../../../../components/Clickable/Card';
-import { Theme } from '../../../../../../../../../theme/types';
 
 import { ColorModeItemProps } from './types';
 
 const ColorModeItem = (props: ColorModeItemProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const { renderLeft, label, value, color, colorMode, isActive = false, onClick } = props;
 

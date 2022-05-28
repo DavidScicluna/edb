@@ -1,11 +1,11 @@
 html {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 body {
-  overflow-y: scroll;
+	overflow-y: scroll;
 }
 
 #chakra-toast-manager-bottom {
-  z-index: 1350 !important;
+	z-index: 1350 !important;
 }

@@ -1,6 +1,6 @@
-import { ColorMode } from '@chakra-ui/react';
+import { Color } from '@davidscicluna/component-library';
 
-import { Color } from '../../../../theme/types';
+import { ColorMode } from '@chakra-ui/react';
 
 export type QuickToggle = {
 	id: string;
@@ -10,7 +10,7 @@ export type QuickToggle = {
 export type QuickTogglesProps = {
 	accordions: QuickToggle[];
 	openedPanels: number;
-	color?: keyof Color;
+	color?: Color;
 	colorMode: ColorMode;
 	isLoading?: boolean;
 	isDisabled?: boolean;

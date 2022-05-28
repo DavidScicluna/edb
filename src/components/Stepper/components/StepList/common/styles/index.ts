@@ -1,6 +1,6 @@
+import { Theme, Style } from '@davidscicluna/component-library';
+
 import { height } from '../..';
-import { Style } from '../../../../../../common/types';
-import { Theme } from '../../../../../../theme/types';
 import { StepProps, Status } from '../../components/Step/types';
 
 type StatusStyle = { [key in Status]: Style };

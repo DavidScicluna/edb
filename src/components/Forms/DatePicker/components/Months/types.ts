@@ -1,7 +1,7 @@
-import { Color } from '../../../../../theme/types';
+import { Color } from '@davidscicluna/component-library';
 
 export type MonthsProps = {
-	color: keyof Color;
+	color: Color;
 	month: number;
 	year: number;
 	minDate?: Date;

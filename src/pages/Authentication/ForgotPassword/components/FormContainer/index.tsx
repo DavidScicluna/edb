@@ -1,25 +1,21 @@
 import React, { ReactElement } from 'react';
 
+import { Card, CardBody, CardFooter, Color, Button } from '@davidscicluna/component-library';
 
-import { Button } from '@davidscicluna/component-library';
-
-import { useColorMode, Container, VStack, Text, HStack } from '@chakra-ui/react';
+import { useColorMode, Container, VStack, HStack, Text } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-
 import Divider from '../../../../../components/Divider';
-import Panel from '../../../../../components/Panel';
-import { Color } from '../../../../../theme/types';
 import Password from '../../../components/Password';
 import Username from '../../../components/Username';
 
 import { schema } from './validation';
 import { Form } from './types';
 
-export const color: keyof Color = 'light_blue';
+export const color: Color = 'light_blue';
 
 export const defaultValues: Form = {
 	username: '',
@@ -55,30 +51,38 @@ const FormContainer = (): ReactElement => {
 			p={4}
 			spacing={0}
 		>
-			<Panel size='xl' isFullWidth>
-				{{
-					body: (
-						<VStack width='100%' divider={<Divider />} spacing={4}>
-							<VStack width='100%' alignItems='flex-start' spacing={0}>
-								<Text
-									align='left'
-									color={`gray.${colorMode === 'light' ? 900 : 50}`}
-									fontSize='4xl'
-									fontWeight='semibold'
-								>
-									Forgot Password?
-								</Text>
-								<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm'>
-									In order to reset password please enter the username, the current password and the
-									new password!
-								</Text>
-							</VStack>
+			<Card isFullWidth>
+				<CardBody>
+					<VStack width='100%' divider={<Divider />} spacing={4}>
+						<VStack width='100%' alignItems='flex-start' spacing={0}>
+							<Text
+								align='left'
+								color={`gray.${colorMode === 'light' ? 900 : 50}`}
+								fontSize='4xl'
+								fontWeight='semibold'
+							>
+								Forgot Password?
+							</Text>
+							<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm'>
+								In order to reset password please enter the username, the current password and the new
+								password!
+							</Text>
+						</VStack>
 
+						<Controller
+							control={form.control}
+							name='username'
+							render={({ field, fieldState }) => (
+								<Username field={field} fieldState={fieldState} color={color} colorMode={colorMode} />
+							)}
+						/>
+
+						<VStack width='100%' spacing={2}>
 							<Controller
 								control={form.control}
-								name='username'
+								name='password'
 								render={({ field, fieldState }) => (
-									<Username
+									<Password
 										field={field}
 										fieldState={fieldState}
 										color={color}
@@ -86,62 +90,47 @@ const FormContainer = (): ReactElement => {
 									/>
 								)}
 							/>
-
-							<VStack width='100%' spacing={2}>
-								<Controller
-									control={form.control}
-									name='password'
-									render={({ field, fieldState }) => (
-										<Password
-											field={field}
-											fieldState={fieldState}
-											color={color}
-											colorMode={colorMode}
-										/>
-									)}
-								/>
-								<Controller
-									control={form.control}
-									name='newPassword'
-									render={({ field, fieldState }) => (
-										<Password
-											field={field}
-											fieldState={fieldState}
-											label='New Password'
-											color={color}
-											colorMode={colorMode}
-										/>
-									)}
-								/>
-								<Controller
-									control={form.control}
-									name='confirmNewPassword'
-									render={({ field, fieldState }) => (
-										<Password
-											field={field}
-											fieldState={fieldState}
-											label='Confirm Password'
-											color={color}
-											colorMode={colorMode}
-										/>
-									)}
-								/>
-							</VStack>
+							<Controller
+								control={form.control}
+								name='newPassword'
+								render={({ field, fieldState }) => (
+									<Password
+										field={field}
+										fieldState={fieldState}
+										label='New Password'
+										color={color}
+										colorMode={colorMode}
+									/>
+								)}
+							/>
+							<Controller
+								control={form.control}
+								name='confirmNewPassword'
+								render={({ field, fieldState }) => (
+									<Password
+										field={field}
+										fieldState={fieldState}
+										label='Confirm Password'
+										color={color}
+										colorMode={colorMode}
+									/>
+								)}
+							/>
 						</VStack>
-					),
-					footer: (
-						<HStack width='100%' justifyContent='space-between'>
-							<Button onClick={() => navigate(-1)} variant='outlined'>
-								Back
-							</Button>
+					</VStack>
+				</CardBody>
+				<CardFooter>
+					<HStack width='100%' justifyContent='space-between'>
+						<Button onClick={() => navigate(-1)} variant='outlined'>
+							Back
+						</Button>
 
-							<Button color={color} onClick={form.handleSubmit((values) => handleChangePassword(values))}>
-								Change Password
-							</Button>
-						</HStack>
-					)
-				}}
-			</Panel>
+						<Button color={color} onClick={form.handleSubmit((values) => handleChangePassword(values))}>
+							Change Password
+						</Button>
+					</HStack>
+				</CardFooter>
+			</Card>
 		</Container>
 	);
 };

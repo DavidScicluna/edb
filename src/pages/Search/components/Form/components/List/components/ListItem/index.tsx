@@ -1,15 +1,8 @@
 import { ReactElement } from 'react';
 
-import {
-	useTheme,
-	useColorMode,
-	useConst,
-	ListItem as CUIListItem,
-	VStack,
-	HStack,
-	Center,
-	Text
-} from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { useColorMode, useConst, ListItem as CUIListItem, VStack, HStack, Center, Text } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 import range from 'lodash/range';
@@ -17,16 +10,14 @@ import sample from 'lodash/sample';
 import { useElementSize } from 'usehooks-ts';
 
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import { Theme } from '../../../../../../../../theme/types';
 
 import useStyles from './styles';
 import { ListItemProps } from './types';
 
-
 const dummies = range(25, 100, 10);
 
 const ListItem = (props: ListItemProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const [badgeRef, { width: badgeWidth }] = useElementSize();

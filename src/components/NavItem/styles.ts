@@ -1,5 +1,4 @@
-import { Style } from '../../common/types';
-import { Theme, Color } from '../../theme/types';
+import { Theme, Style, Color } from '@davidscicluna/component-library';
 
 type NavItemStyle = {
 	common: {
@@ -18,7 +17,7 @@ type NavItemStyle = {
 };
 
 type StyleNavItemProps = {
-	color: keyof Color;
+	color: Color;
 	isActive: boolean;
 	isChildActive: boolean;
 	renderChildren: boolean;

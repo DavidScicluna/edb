@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, HStack, VStack, Fade } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { HStack, VStack, Fade } from '@chakra-ui/react';
 
 import { merge } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import { Theme } from '../../../../../../theme/types';
 import useStyles from '../../common/styles';
 
 import Description from './components/Description';
@@ -13,9 +14,8 @@ import Icon from './components/Icon';
 import Status from './components/Status';
 import { StepProps } from './types';
 
-
 const Step = (props: StepProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const [ref, { width }] = useElementSize();
 

@@ -1,26 +1,25 @@
 import { ReactElement } from 'react';
 
-import { useTheme, HStack, VStack, Text, Center } from '@chakra-ui/react';
+import { useTheme, Icon } from '@davidscicluna/component-library';
+
+import { HStack, VStack, Text, Center } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import compact from 'lodash/compact';
 import { useElementSize } from 'usehooks-ts';
 
-
 import { useSelector } from '../../../../../../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../../common/utils';
 import Card from '../../../../../../../components/Clickable/Card';
-import Icon from '../../../../../../../components/Icon';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../../theme/types';
 
 import { ListProps } from './types';
 
 dayjs.extend(relativeTime);
 
 const List = (props: ListProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const [ref, { width }] = useElementSize();
 
@@ -81,7 +80,7 @@ const List = (props: ListProps): ReactElement => {
 				<Center ref={ref}>
 					<Icon
 						icon={isSelected ? 'check_box' : 'check_box_outline_blank'}
-						type={isSelected ? 'filled' : 'outlined'}
+						category={isSelected ? 'filled' : 'outlined'}
 						fontSize={fontSize}
 					/>
 				</Center>

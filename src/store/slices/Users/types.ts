@@ -1,3 +1,5 @@
+import { Color } from '@davidscicluna/component-library';
+
 import { ColorMode } from '@chakra-ui/react';
 
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -6,7 +8,6 @@ import { MediaType, Review, FullCompany, Genre } from '../../../common/types';
 import { FullMovie, Collection } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
 import { FullTV } from '../../../common/types/tv';
-import { Color } from '../../../theme/types';
 
 export type Credentials = {
 	username: string;
@@ -81,7 +82,7 @@ export type UserReviews = {
 	other: OtherReview[];
 };
 
-export type ThemeColor = keyof Omit<Color, 'gray' | 'red' | 'green' | 'yellow'>;
+export type ThemeColor = Exclude<Color, 'gray' | 'red' | 'green' | 'yellow'>;
 export type ThemeColorMode = ColorMode | 'system';
 
 export type Theme = {

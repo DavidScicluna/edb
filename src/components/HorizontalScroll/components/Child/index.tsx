@@ -1,14 +1,13 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Center } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
 
-import { Theme } from '../../../../theme/types';
+import { Center } from '@chakra-ui/react';
 
 import { ChildProps } from './types';
 
-
 const Child = ({ children, renderDivider, isLast = false }: ChildProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	return (
 		<Center height='100%'>

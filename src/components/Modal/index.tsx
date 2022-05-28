@@ -1,10 +1,9 @@
 import { ReactElement, useEffect } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { useTheme, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import {
 	ColorMode,
-	useTheme,
 	useColorMode,
 	useMediaQuery,
 	useBoolean,
@@ -16,21 +15,18 @@ import {
 	ModalFooter,
 	HStack,
 	Text
-, Button } from '@chakra-ui/react';
+} from '@chakra-ui/react';
 
 import { useTimeout } from 'usehooks-ts';
-
 
 import { useSelector } from '../../common/hooks';
 import { handleConvertStringToNumber } from '../../common/utils';
 import { defaultUser, getUser } from '../../store/slices/Users';
-import { Theme } from '../../theme/types';
-import Icon from '../Icon';
 
 import { ModalProps } from './types';
 
 const Modal = (props: ModalProps): ReactElement | null => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -113,7 +109,7 @@ const Modal = (props: ModalProps): ReactElement | null => {
 							onClick={() => onClose()}
 							variant='icon'
 						>
-							<Icon icon='close' type='outlined' />
+							<Icon icon='close' category='outlined' />
 						</IconButton>
 					</HStack>
 				</ModalHeader>

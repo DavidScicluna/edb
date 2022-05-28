@@ -1,9 +1,8 @@
 import { ReactNode } from 'react';
 
-import { ColorMode, TagProps as CUITagProps } from '@chakra-ui/react';
+import { Color, Style } from '@davidscicluna/component-library';
 
-import { Style } from '../../../common/types';
-import { Color } from '../../../theme/types';
+import { ColorMode, TagProps as CUITagProps } from '@chakra-ui/react';
 
 export type TagRef = HTMLSpanElement | null;
 
@@ -12,7 +11,7 @@ export type Size = 'sm' | 'md' | 'lg';
 export type Variant = 'contained' | 'outlined' | 'text';
 
 export type RenderProps = {
-	color?: keyof Color;
+	color?: Color;
 	colorMode?: ColorMode;
 	width?: string;
 	height?: string;
@@ -20,7 +19,7 @@ export type RenderProps = {
 };
 
 export type TagProps = {
-	color?: keyof Color;
+	color?: Color;
 	colorMode?: ColorMode;
 	renderLeft?: (props: RenderProps) => ReactNode;
 	renderRight?: (props: RenderProps) => ReactNode;

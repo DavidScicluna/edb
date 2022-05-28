@@ -20,6 +20,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
+import { isBoolean } from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
@@ -30,7 +31,6 @@ import { defaultUser, getUser, setUserReviews } from '../../../../../../../../st
 
 import { schema } from './validation';
 import { EditReviewProps, Form } from './types';
-import { isBoolean } from 'lodash';
 
 const defaultValues: Form = {
 	review: '',

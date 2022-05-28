@@ -1,19 +1,18 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useMediaQuery, Center } from '@chakra-ui/react';
+import { useTheme, Icon } from '@davidscicluna/component-library';
+
+import { useMediaQuery, Center } from '@chakra-ui/react';
 
 import { merge } from 'lodash';
 
-
 import { height } from '../..';
-import { Theme } from '../../../../../../theme/types';
-import Icon from '../../../../../Icon';
 import useStyles from '../../common/styles';
 
 import { CancelProps } from './types';
 
 const Cancel = (props: CancelProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const { color, colorMode, isDisabled = false, onCancel } = props;
@@ -40,7 +39,7 @@ const Cancel = (props: CancelProps): ReactElement => {
 			}}
 			_disabled={{ ...merge(style.disabled) }}
 		>
-			<Icon icon='close' type='outlined' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='3xl' />
+			<Icon icon='close' category='outlined' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='3xl' />
 		</Center>
 	);
 };

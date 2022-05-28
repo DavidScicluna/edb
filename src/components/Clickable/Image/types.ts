@@ -2,12 +2,10 @@ import { ReactElement, ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 
 import { AspectRatioProps, ColorMode } from '@chakra-ui/react';
 
-import { FontSizes, Color } from '../../../theme/types';
-
 export type IconProps = {
-	color?: Color['gray'][50] | Color['gray'][900];
+	color?: string;
 	colorMode?: ColorMode;
-	fontSize?: FontSizes['6xl'] | FontSizes['7xl'];
+	fontSize?: string;
 };
 
 export type ImageProps = {

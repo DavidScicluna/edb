@@ -1,19 +1,17 @@
 import { ReactElement } from 'react';
 
-import { ButtonSize, ButtonVariant} from '@davidscicluna/component-library';
+import { Color, FontSize, ButtonSize, ButtonVariant } from '@davidscicluna/component-library';
 
 import { TextProps } from '@chakra-ui/react';
 
-import { Color, FontSizes } from '../../../../../theme/types';
-
 export type RenderMessageProps = {
 	color: string;
-	fontSize: keyof FontSizes;
+	fontSize: FontSize;
 	fontWeight: TextProps['fontWeight'];
 };
 
 export type RenderButtonProps = {
-	color: keyof Color;
+	color: Color;
 	size: ButtonSize;
 	variant: ButtonVariant;
 };

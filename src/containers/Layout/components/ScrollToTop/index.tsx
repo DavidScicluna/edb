@@ -1,20 +1,18 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
-import { useTheme, useBoolean, Box, SlideFade } from '@chakra-ui/react';
+import { useBoolean, Box, SlideFade } from '@chakra-ui/react';
 
 import debounce from 'lodash/debounce';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../common/hooks';
-import Icon from '../../../../components/Icon';
 import Tooltip from '../../../../components/Tooltip';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import { Theme } from '../../../../theme/types';
 
 const ScrollToTop = (): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const { height } = useWindowSize();
 
@@ -72,7 +70,7 @@ const ScrollToTop = (): ReactElement => {
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 					>
-						<Icon icon='arrow_upward' type='outlined' />
+						<Icon icon='arrow_upward' category='outlined' />
 					</IconButton>
 				</Tooltip>
 			</SlideFade>

@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import { v4 as uuid } from 'uuid';
+import { isBoolean } from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
@@ -20,7 +21,6 @@ import { defaultUser, getUser, setUserReviews } from '../../../../../../../../st
 
 import { schema } from './validation';
 import { CreateReviewProps, Form } from './types';
-import { isBoolean } from 'lodash';
 
 const defaultValues: Form = {
 	review: '',

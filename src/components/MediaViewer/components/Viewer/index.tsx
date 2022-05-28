@@ -1,6 +1,8 @@
 import { ReactElement, useCallback } from 'react';
 
-import { useTheme, Center, SlideFade } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { Center, SlideFade } from '@chakra-ui/react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -8,20 +10,18 @@ import { Swiper as SwiperType } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import { useEventListener } from 'usehooks-ts';
 
-
 import {
 	handleIsTouchDevice,
 	handleParseDurationForFramer,
 	handleConvertStringToNumber
 } from '../../../../common/utils';
-import { Theme } from '../../../../theme/types';
 
 import { ViewerProps, SwiperDirection, ViewerEvent } from './types';
 
 const isTouchDevice: boolean = handleIsTouchDevice();
 
 const Viewer = (props: ViewerProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const {
 		activeIndex = 0,

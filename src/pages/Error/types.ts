@@ -1,15 +1,13 @@
 import { ReactElement } from 'react';
 
+import { ButtonSize, Color } from '@davidscicluna/component-library';
+
 import { ColorMode } from '@chakra-ui/react';
 
 export type DescriptionRef = HTMLDivElement | null;
 
-import { ButtonSize} from '@davidscicluna/component-library';
-
-import { Color } from '../../theme/types';
-
 export type RenderActionsProps = {
-	color: keyof Color;
+	color: Color;
 	colorMode: ColorMode;
 	size: ButtonSize;
 };

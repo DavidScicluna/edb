@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import { Color } from '@davidscicluna/component-library';
+
 import { ColorMode } from '@chakra-ui/react';
 
-import { Color } from '../../theme/types';
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -10,7 +11,7 @@ export type Variant = 'transparent' | 'outlined';
 
 export type ErrorProps = {
 	button?: ReactElement;
-	color?: keyof Color;
+	color?: Color;
 	colorMode?: ColorMode;
 	label: string;
 	description?: string;

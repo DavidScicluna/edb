@@ -1,15 +1,13 @@
 import { ReactElement } from 'react';
 
+import { useTheme, Button } from '@davidscicluna/component-library';
 
-import { Button } from '@davidscicluna/component-library';
-
-import { useTheme, useColorMode, AspectRatio, Center, Image as CUIImage, ScaleFade, Fade } from '@chakra-ui/react';
+import { useColorMode, AspectRatio, Center, Image as CUIImage, ScaleFade, Fade } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-
 
 import * as fallback from '../../../../../common/assets/fallback';
 import { useSelector } from '../../../../../common/hooks';
@@ -18,7 +16,6 @@ import { handleIsTouchDevice, handleReturnBoringTypeByMediaType, handleReturnRat
 import Skeleton from '../../../../../components/Skeleton';
 import { setQuickView } from '../../../../../store/slices/Modals';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
-import { Theme } from '../../../../../theme/types';
 import Image from '../../../../Image';
 
 import { PosterImageProps } from './types';
@@ -32,7 +29,7 @@ const commonStyleProps = {
 const isTouchDevice: boolean = handleIsTouchDevice();
 
 const PosterImage = <MT extends MediaType>(props: PosterImageProps<MT>): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const dispatch = useDispatch();

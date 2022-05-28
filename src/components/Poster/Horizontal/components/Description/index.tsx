@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 
+import { FontSize } from '@davidscicluna/component-library';
+
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-
-import { FontSizes } from '../../../../../theme/types';
 import SkeletonText from '../../../../Skeleton/Text';
 
 import { DescriptionProps } from './types';
@@ -16,7 +16,7 @@ const height = ['16.5px', '19.25px', '22px', '24.75px', '27.5px', '33px'];
 
 const Description = (props: DescriptionProps): ReactElement => {
 	const { colorMode } = useColorMode();
-	const fontSize = useBreakpointValue<keyof FontSizes>({
+	const fontSize = useBreakpointValue<FontSize>({
 		'base': 'xs',
 		'sm': 'sm',
 		'md': 'md',

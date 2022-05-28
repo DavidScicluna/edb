@@ -1,23 +1,19 @@
 import { ReactElement } from 'react';
 
+import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
-import {  IconButton, } from '@davidscicluna/component-library';
-
-import { useTheme, useColorMode, HStack, Fade } from '@chakra-ui/react';
+import { useColorMode, HStack, Fade } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router-dom';
 
-
 import Link from '../../../../components/Clickable/Link';
-import Icon from '../../../../components/Icon';
-import { Theme } from '../../../../theme/types';
 import useTransitionsStyle from '../../common/styles/transitions';
 
 import User from './components/User';
 import Menu from './components/Menu';
 
 const Header = (): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const location = useLocation();
@@ -44,7 +40,7 @@ const Header = (): ReactElement => {
 				<Fade in={location.pathname !== '/search'} unmountOnExit>
 					<Link to={{ pathname: '/search' }}>
 						<IconButton aria-label='Open Menu' size='lg' variant='icon'>
-							<Icon icon='search' type='outlined' />
+							<Icon icon='search' category='outlined' />
 						</IconButton>
 					</Link>
 				</Fade>

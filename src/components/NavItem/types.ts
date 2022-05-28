@@ -1,13 +1,12 @@
 import { ReactNode } from 'react';
 
-import { FontSizes } from '../../theme/types';
+import { FontSize } from '@davidscicluna/component-library';
 
 import { NavItemChild } from './components/NavItemChild/types';
 
-
 type RenderProps = {
 	isActive: boolean;
-	fontSize: FontSizes['2xl'];
+	fontSize: FontSize;
 };
 
 export type NavItem = {

@@ -1,13 +1,12 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { useTheme, Button } from '@davidscicluna/component-library';
 
-import { useTheme, useColorMode, useDisclosure } from '@chakra-ui/react';
+import { useColorMode, useDisclosure } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-
 
 import { color } from '../../../..';
 import { useSelector } from '../../../../../../../../../common/hooks';
@@ -16,12 +15,11 @@ import ConfirmModal from '../../../../../../../../../components/ConfirmModal';
 import { setUser } from '../../../../../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../../../../../store/slices/Modals';
 import { guest, setUsers } from '../../../../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../../../../theme/types';
 
 import { GuestProps } from './types';
 
 const Guest = ({ renderAction }: GuestProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();

@@ -1,24 +1,24 @@
 import { ReactElement, forwardRef } from 'react';
 
-import {ButtonGroupRef as DisplayModeRef, ButtonGroupProps as DisplayModeProps,  ButtonGroup , useDispatch ,  IconButton, } from '@davidscicluna/component-library';
+import {
+	ButtonGroupRef as DisplayModeRef,
+	ButtonGroupProps as DisplayModeProps,
+	ButtonGroup,
+	IconButton,
+	Icon
+} from '@davidscicluna/component-library';
 
-import {  useBoolean, } from '@chakra-ui/react';
-
+import { useBoolean } from '@chakra-ui/react';
 
 import { useIsFetching, useIsMutating } from 'react-query';
-
+import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../common/hooks';
 import { toggleDisplayMode } from '../../../store/slices/App';
 import { defaultUser, getUser } from '../../../store/slices/Users';
-import Icon from '../../Icon';
 import Tooltip from '../../Tooltip';
 
-
-
 const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function DisplayMode(props, ref): ReactElement {
-	
-
 	const dispatch = useDispatch();
 	const displayMode = useSelector((state) => state.app.ui.displayMode);
 	const color = useSelector(
@@ -35,7 +35,7 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 	const [isClickingList, setIsClickingList] = useBoolean();
 
 	return (
-		<ButtonGroup  {...props} ref={ref} isAttached>
+		<ButtonGroup {...props} ref={ref} isAttached>
 			<Tooltip
 				aria-label={
 					displayMode === 'grid'
@@ -58,9 +58,8 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 					onMouseEnter={() => setIsHoveringGrid.on()}
 					onMouseLeave={() => setIsHoveringGrid.off()}
 					variant='outlined'
-					
 				>
-					<Icon icon='grid_on' type={displayMode === 'grid' ? 'filled' : 'outlined'} />
+					<Icon icon='grid_on' category={displayMode === 'grid' ? 'filled' : 'outlined'} />
 				</IconButton>
 			</Tooltip>
 			<Tooltip
@@ -85,9 +84,8 @@ const DisplayMode = forwardRef<DisplayModeRef, DisplayModeProps>(function Displa
 					onMouseEnter={() => setIsHoveringList.on()}
 					onMouseLeave={() => setIsHoveringList.off()}
 					variant='outlined'
-					
 				>
-					<Icon icon='view_agenda' type={displayMode === 'list' ? 'filled' : 'outlined'} />
+					<Icon icon='view_agenda' category={displayMode === 'list' ? 'filled' : 'outlined'} />
 				</IconButton>
 			</Tooltip>
 		</ButtonGroup>

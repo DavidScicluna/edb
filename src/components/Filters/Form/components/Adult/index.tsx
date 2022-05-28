@@ -12,7 +12,8 @@ import { HStack, Text } from '@chakra-ui/react';
 import { AdultProps } from './types';
 
 const Adult = ({ mediaType }: AdultProps): ReactElement => {
-	// const color = useSelector((state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color);
+	// const color = useSelector((state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color
+	// || defaultUser.ui.theme.color);
 
 	return (
 		// <Controller

@@ -1,10 +1,11 @@
+import { Theme, ColorHues } from '@davidscicluna/component-library';
+
 import { ColorMode } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import qs from 'query-string';
 
 import store from '../../store';
-import { ColorShades, Theme } from '../../theme/types';
 import { Genre, BoringAvatarType, MediaType } from '../types';
 import { Image, Images } from '../types/images';
 
@@ -137,7 +138,7 @@ export const handleParseDurationForFramer = (time: number): number => {
  * @param size - Size of the color spectrum
  * @returns - boringavatars URL
  */
-export const handleReturnBoringSrc = (theme: Theme, type: BoringAvatarType, size: ColorShades, id: string): string => {
+export const handleReturnBoringSrc = (theme: Theme, type: BoringAvatarType, size: ColorHues, id: string): string => {
 	return qs.stringifyUrl({
 		url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${type}/${size}/${id}`,
 		query: {

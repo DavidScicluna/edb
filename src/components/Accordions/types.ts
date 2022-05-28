@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
-import { ColorMode } from '@chakra-ui/react';
+import { Color } from '@davidscicluna/component-library';
 
-import { Color } from '../../theme/types';
+import { ColorMode } from '@chakra-ui/react';
 
 export type Total = {
 	prefix?: string;
@@ -27,7 +27,7 @@ export type RenderProps<D> = {
 export type AccordionsProps<D> = {
 	renderAccordion: (props: RenderProps<D>) => ReactElement;
 	accordions?: Accordion<D>[];
-	color?: keyof Color;
+	color?: Color;
 	colorMode?: ColorMode;
 	isError?: boolean;
 	isLoading?: boolean;

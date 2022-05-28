@@ -1,15 +1,15 @@
 import { ReactElement, ReactNode } from 'react';
 
+import { Color, Style } from '@davidscicluna/component-library';
+
 import { ColorMode, BoxProps } from '@chakra-ui/react';
 
-import { Style } from '../../../common/types';
-import { Color } from '../../../theme/types';
 
 export type CardRef = HTMLButtonElement | null;
 
 export type CardProps = {
 	children: ReactElement | ReactNode;
-	color?: keyof Color;
+	color?: Color;
 	colorMode?: ColorMode;
 	isFullWidth?: boolean;
 	isLight?: boolean;

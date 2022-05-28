@@ -1,7 +1,7 @@
-import { Color } from '../../../../../theme/types';
+import { Color } from '@davidscicluna/component-library';
 
 export type YearsProps = {
-	color: keyof Color;
+	color: Color;
 	year: number;
 	minDate?: Date;
 	maxDate?: Date;

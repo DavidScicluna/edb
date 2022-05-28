@@ -1,11 +1,11 @@
-import { ColorMode, SkeletonProps as CUISkeletonProps } from '@chakra-ui/react';
+import { Color } from '@davidscicluna/component-library';
 
-import { Color } from '../../theme/types';
+import { ColorMode, SkeletonProps as CUISkeletonProps } from '@chakra-ui/react';
 
 type SkeletonType = 'default' | 'text';
 
 export type SkeletonProps = {
-	color?: keyof Color;
+	color?: Color;
 	colorMode?: ColorMode;
 	type?: SkeletonType;
 } & Omit<

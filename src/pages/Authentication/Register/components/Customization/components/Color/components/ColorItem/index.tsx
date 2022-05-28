@@ -1,19 +1,18 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@chakra-ui/react';
+import { useTheme, Icon } from '@davidscicluna/component-library';
+
+import { useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@chakra-ui/react';
 
 import startCase from 'lodash/startCase';
 
-
 import Card from '../../../../../../../../../components/Clickable/Card';
-import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
-import { Theme } from '../../../../../../../../../theme/types';
 
 import { ColorItemProps } from './types';
 
 const ColorItem = (props: ColorItemProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const { color, colorMode, isActive, onClick } = props;
 
@@ -62,7 +61,7 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 						<ScaleFade in={isActive} unmountOnExit>
 							<Icon
 								icon='check'
-								type='outlined'
+								category='outlined'
 								color={theme.colors.gray[colorMode === 'light' ? 50 : 900]}
 								fontSize={theme.fontSizes['4xl']}
 							/>

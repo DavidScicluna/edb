@@ -1,7 +1,6 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
-
-import { Button } from '@davidscicluna/component-library';
+import { Color, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBoolean, Container, VStack } from '@chakra-ui/react';
 
@@ -12,21 +11,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import sha256 from 'crypto-js/sha256';
 import dayjs from 'dayjs';
 
-
 import { useSelector } from '../../../../../common/hooks';
 import Link from '../../../../../components/Clickable/Link';
 import { setUser } from '../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../store/slices/Modals';
 import { guest, setUsers } from '../../../../../store/slices/Users';
 import { Credentials, User } from '../../../../../store/slices/Users/types';
-import { Color } from '../../../../../theme/types';
 
 import { schema } from './validation';
 import { Form as FormType } from './types';
 import Header from './components/Header';
 import Form from './components/Form';
 
-export const color: keyof Color = 'light_blue';
+export const color: Color = 'light_blue';
 
 export const defaultValues: FormType = {
 	username: '',

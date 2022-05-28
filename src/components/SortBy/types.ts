@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 
-import { Color } from '../../theme/types';
+import { Color } from '@davidscicluna/component-library';
 
 export type SortBy = {
 	label: string;
@@ -15,7 +15,7 @@ export type Form = {
 };
 
 export type RenderButtonProps = {
-	color: keyof Color;
+	color: Color;
 	icon: ReactNode;
 	onClick: () => void;
 };

@@ -1,6 +1,5 @@
+import { Theme, Style } from '@davidscicluna/component-library';
 
-import { Style } from '../../../../common/types';
-import { Theme } from '../../../../theme/types';
 import { handleConvertHexToRGB } from '../../common/utils';
 
 import { ArrowProps } from './types';

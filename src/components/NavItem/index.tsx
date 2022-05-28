@@ -1,21 +1,17 @@
 import { ReactElement, useCallback, useEffect } from 'react';
 
+import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
-import {  IconButton, } from '@davidscicluna/component-library';
-
-import { useTheme, useColorMode, useBoolean, VStack, HStack, Text, Box, ScaleFade, Collapse } from '@chakra-ui/react';
+import { useColorMode, useBoolean, VStack, HStack, Text, Box, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 
-
 import { useSelector } from '../../common/hooks';
 import { handleParseDurationForFramer, handleConvertStringToNumber } from '../../common/utils';
 import Link from '../../components/Clickable/Link';
 import { defaultUser, getUser } from '../../store/slices/Users';
-import { Theme } from '../../theme/types';
-import Icon from '../Icon';
 import Tooltip from '../Tooltip';
 
 import { NavItem as NavItemType } from './types';
@@ -23,7 +19,7 @@ import useStyles from './styles';
 import NavItemChild from './components/NavItemChild';
 
 const NavItem = (props: NavItemType): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const location = useLocation();
@@ -109,6 +105,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 					>
 						<HStack width='100%' spacing={2}>
 							{renderIcon({ isActive, fontSize: theme.fontSizes['2xl'] })}
+
 							<ScaleFade
 								in={isExpanded}
 								unmountOnExit
@@ -147,7 +144,7 @@ const NavItem = (props: NavItemType): ReactElement => {
 								>
 									<Icon
 										icon='chevron_right'
-										type='outlined'
+										category='outlined'
 										sx={{ transform: `rotate(${isChildrenOpen ? '90deg' : '0deg'})` }}
 									/>
 								</IconButton>

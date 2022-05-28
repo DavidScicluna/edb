@@ -1,16 +1,15 @@
 import { ReactElement } from 'react';
 
-import { ColorMode, useTheme, useColorMode, Box } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { ColorMode, useColorMode, Box } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
-import { Theme } from '../../theme/types';
-
 import { DividerProps } from './types';
 
-
 const Divider = (props: DividerProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const { colorMode: colorModeProp, orientation = 'horizontal', sx, ...rest } = props;

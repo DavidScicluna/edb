@@ -1,5 +1,7 @@
 import { ReactElement, memo } from 'react';
 
+import { FontSize } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useBreakpointValue, useBoolean, useConst, HStack, VStack, Center } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
@@ -10,7 +12,6 @@ import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
 import { handleReturnMediaTypeLabel } from '../../../common/utils';
 import { guest } from '../../../store/slices/Users';
-import { FontSizes } from '../../../theme/types';
 import Card from '../..//Clickable/Card';
 import Link from '../../Clickable/Link';
 import Rating from '../../Rating';
@@ -26,7 +27,7 @@ import Description from './components/Description';
 
 const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
-	const ratingFontSize = useBreakpointValue<keyof Omit<FontSizes, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'>>({
+	const ratingFontSize = useBreakpointValue<Exclude<FontSize, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'>>({
 		'base': 'sm',
 		'sm': 'md',
 		'md': 'lg',

@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Badge, BadgeLabel, Icon } from '@davidscicluna/component-library';
+
 import { useTheme, useMediaQuery, HStack, VStack, Fade } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
@@ -8,18 +10,13 @@ import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
 
-import { Theme } from '../../../../../../theme/types';
-import Badge from '../../../../../Badge';
-import Icon from '../../../../../Icon';
-
 import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import useStyles from './styles';
 import { HeaderProps } from './types';
 
-
 const Header = <D,>(props: HeaderProps<D>): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 	const [isMd] = useMediaQuery('(max-width: 992px)');
@@ -69,20 +66,22 @@ const Header = <D,>(props: HeaderProps<D>): ReactElement => {
 						colorMode={colorMode}
 						size={isSm ? 'xs' : isMd ? 'sm' : 'md'}
 					>
-						{total?.number ? (
-							<CountUp
-								duration={1}
-								prefix={total?.prefix || ''}
-								end={total?.number || 0}
-								suffix={total?.suffix || ''}
-							/>
-						) : (
-							total?.prefix || total?.suffix || ''
-						)}
+						<BadgeLabel>
+							{total?.number ? (
+								<CountUp
+									duration={1}
+									prefix={total?.prefix || ''}
+									end={total?.number || 0}
+									suffix={total?.suffix || ''}
+								/>
+							) : (
+								total?.prefix || total?.suffix || ''
+							)}
+						</BadgeLabel>
 					</Badge>
 				</Fade>
 
-				<Icon icon='chevron_right' type='outlined' fontSize={theme.fontSizes.xl} />
+				<Icon icon='chevron_right' category='outlined' fontSize={theme.fontSizes.xl} />
 			</HStack>
 		</HStack>
 	);

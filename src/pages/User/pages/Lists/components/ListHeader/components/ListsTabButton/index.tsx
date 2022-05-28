@@ -1,12 +1,10 @@
-import React from 'react';
+import { useTheme, Icon } from '@davidscicluna/component-library';
 
-import { useTheme, useColorMode, Box, HStack, Center } from '@chakra-ui/react';
+import { useColorMode, Box, HStack, Center } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
-
 import { useSelector } from '../../../../../../../../common/hooks';
-import Icon from '../../../../../../../../components/Icon';
 import {
 	handleReturnSpacing,
 	handleReturnIconSize
@@ -14,12 +12,11 @@ import {
 import useStyles from '../../../../../../../../components/Tabs/components/TabList/components/Tab/styles';
 import { Size } from '../../../../../../../../components/Tabs/components/TabList/components/Tab/types';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../../../theme/types';
 
 import { ListsTabButtonProps } from './types';
 
 const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: ListsTabButtonProps) => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const color = useSelector(
@@ -39,7 +36,7 @@ const ListsTabButton = ({ isDisabled = false, isSelected = false, onClick }: Lis
 			_disabled={{ ...merge(style.disabled) }}
 		>
 			<HStack width='100%' alignItems='inherit' justifyContent='inherit' spacing={handleReturnSpacing(size)}>
-				<Icon icon='grid_on' type={isSelected ? 'filled' : 'outlined'} fontSize={iconSize} />
+				<Icon icon='grid_on' category={isSelected ? 'filled' : 'outlined'} fontSize={iconSize} />
 				<Center>Lists</Center>
 			</HStack>
 		</Box>

@@ -1,17 +1,17 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { ColorMode, useTheme, useColorMode, Tooltip as CUITooltip, Center } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
 
+import { ColorMode, useColorMode, Tooltip as CUITooltip, Center } from '@chakra-ui/react';
 
 import { handleIsTouchDevice, handleConvertStringToNumber } from '../../common/utils';
-import { Theme } from '../../theme/types';
 
 import { TooltipRef, TooltipProps } from './types';
 
 const isTouchDevice: boolean = handleIsTouchDevice();
 
 const Tooltip = forwardRef<TooltipRef, TooltipProps>(function Tooltip(props, ref): ReactElement {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const {

@@ -1,18 +1,16 @@
 import { ReactElement } from 'react';
 
+import { Card, CardBody, ButtonGroup, Button } from '@davidscicluna/component-library';
 
-import { useTheme, useMediaQuery, useConst, ButtonGroup, ScaleFade , Button } from '@chakra-ui/react';
+import { useTheme, useMediaQuery, useConst, ScaleFade } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
 
-
 import { defaultValues } from '../..';
 import { useSelector } from '../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../store/slices/Users';
-import { Theme } from '../../../../../theme/types';
-import Panel from '../../../../Panel';
 import Rating from '../../../../Rating';
 import { Filters } from '../../../types';
 import { handleCheckIfInRange } from '../../common/utils';
@@ -21,7 +19,7 @@ import Header from '../Header';
 import { RatingRangeProps } from './types';
 
 const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const [isMd] = useMediaQuery('(max-width: 760px)');
 
 	const color = useSelector(
@@ -60,74 +58,68 @@ const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
 				const value = compact(field.value);
 
 				return (
-					<Panel isFullWidth>
-						{{
-							header: (
-								<Header
-									label='Rating Range'
-									renderMessage={() => (
-										<ScaleFade in={value.length > 0} unmountOnExit>
-											<Rating>{value.join(' -> ')}</Rating>
-										</ScaleFade>
-									)}
-									renderButton={({ color, size, variant }) => (
-										<Button
-											color={color}
-											isDisabled={value.length === 0}
-											onClick={() =>
-												form.setValue('rating', defaultValues.rating, { shouldDirty: true })
+					<Card isFullWidth>
+						<Header
+							label='Rating Range'
+							renderMessage={() => (
+								<ScaleFade in={value.length > 0} unmountOnExit>
+									<Rating>{value.join(' -> ')}</Rating>
+								</ScaleFade>
+							)}
+							renderButton={({ color, size, variant }) => (
+								<Button
+									color={color}
+									isDisabled={value.length === 0}
+									onClick={() => form.setValue('rating', defaultValues.rating, { shouldDirty: true })}
+									size={size}
+									variant={variant}
+								>
+									Clear
+								</Button>
+							)}
+						/>
+						<CardBody>
+							<ButtonGroup isAttached sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
+								{ratings.map((number) => (
+									<Button
+										key={number}
+										color={
+											value.some((rating) => rating === number) ||
+											handleCheckIfInRange(number, value)
+												? color
+												: 'gray'
+										}
+										isFullWidth
+										onClick={() => handleOnChange(value, number)}
+										variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
+										sx={{
+											back: {
+												flex: isMd ? 1 : '',
+												minWidth: isMd ? `${100 / 6}%` : 'auto',
+												borderRadius:
+													number === ratings[0]
+														? `${theme.radii.base} 0 0 ${theme.radii.base}`
+														: number === ratings[ratings.length - 1]
+														? `0 ${theme.radii.base} ${theme.radii.base} 0`
+														: 0
+											},
+											front: {
+												px: 0.5,
+												borderRadius:
+													number === ratings[0]
+														? `${theme.radii.base} 0 0 ${theme.radii.base}`
+														: number === ratings[ratings.length - 1]
+														? `0 ${theme.radii.base} ${theme.radii.base} 0`
+														: 0
 											}
-											size={size}
-											variant={variant}
-										>
-											Clear
-										</Button>
-									)}
-								/>
-							),
-							body: (
-								<ButtonGroup width='100%' isAttached flexWrap={isMd ? 'wrap' : 'nowrap'}>
-									{ratings.map((number) => (
-										<Button
-											key={number}
-											color={
-												value.some((rating) => rating === number) ||
-												handleCheckIfInRange(number, value)
-													? color
-													: 'gray'
-											}
-											isFullWidth
-											onClick={() => handleOnChange(value, number)}
-											variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
-											sx={{
-												back: {
-													flex: isMd ? 1 : '',
-													minWidth: isMd ? `${100 / 6}%` : 'auto',
-													borderRadius:
-														number === ratings[0]
-															? `${theme.radii.base} 0 0 ${theme.radii.base}`
-															: number === ratings[ratings.length - 1]
-															? `0 ${theme.radii.base} ${theme.radii.base} 0`
-															: 0
-												},
-												front: {
-													px: 0.5,
-													borderRadius:
-														number === ratings[0]
-															? `${theme.radii.base} 0 0 ${theme.radii.base}`
-															: number === ratings[ratings.length - 1]
-															? `0 ${theme.radii.base} ${theme.radii.base} 0`
-															: 0
-												}
-											}}
-										>
-											{String(number)}
-										</Button>
-									))}
-								</ButtonGroup>
-							)
-						}}
-					</Panel>
+										}}
+									>
+										{String(number)}
+									</Button>
+								))}
+							</ButtonGroup>
+						</CardBody>
+					</Card>
 				);
 			}}
 		/>

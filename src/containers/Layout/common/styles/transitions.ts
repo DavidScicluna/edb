@@ -1,4 +1,4 @@
-import { Theme } from '../../../../theme/types';
+import { Theme } from '@davidscicluna/component-library';
 
 type TransitionsStyle = {
 	transition: string;

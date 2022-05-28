@@ -1,8 +1,6 @@
+import { Theme, Style } from '@davidscicluna/component-library';
+
 import { ColorMode } from '@chakra-ui/react';
-
-
-import { Style } from '../../../../../../common/types';
-import { Theme } from '../../../../../../theme/types';
 
 import { LinkProps } from './types';
 

@@ -1,25 +1,25 @@
 import { ReactElement, useRef } from 'react';
 
-import { useTheme, useColorMode, useBoolean, useOutsideClick, VStack, Fade, Collapse } from '@chakra-ui/react';
+// import { useTheme } from '@davidscicluna/component-library';
 
-import merge from 'lodash/merge';
+import { useBoolean, useOutsideClick, VStack, Fade, Collapse } from '@chakra-ui/react';
 
+// import merge from 'lodash/merge';
 
 import Divider from '../../../../components/Divider';
-import usePanelStyles from '../../../../components/Panel/styles';
-import { Theme } from '../../../../theme/types';
+// import usePanelStyles from '../../../../components/Panel/styles';
 
 import { FormProps } from './types';
 
 const Form = ({ children }: FormProps): ReactElement => {
-	const theme = useTheme<Theme>();
-	const { colorMode } = useColorMode();
+	// const theme = useTheme();
+	// const { colorMode } = useColorMode();
 
 	const ref = useRef<HTMLInputElement | null>(null);
 
 	const [isFocused, setIsFocused] = useBoolean();
 
-	const style = usePanelStyles(theme, { color: 'gray', isFullWidth: true });
+	// const style = usePanelStyles(theme, { color: 'gray', isFullWidth: true });
 
 	useOutsideClick({
 		ref,
@@ -39,7 +39,7 @@ const Form = ({ children }: FormProps): ReactElement => {
 				onClick={() => setIsFocused.on()}
 				spacing={0}
 				p={2}
-				sx={{ ...merge(style.panel.outlined, style[colorMode].outlined) }}
+				// sx={{ ...merge(style.panel.outlined, style[colorMode].outlined) }}
 			>
 				{children.input}
 				<Collapse in={isFocused} unmountOnExit style={{ width: '100%' }}>

@@ -1,18 +1,17 @@
 import { ReactElement } from 'react';
 
-import { ColorMode, useTheme, useColorMode, Button as CUIButton, Center } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { ColorMode, useColorMode, Button as CUIButton, Center } from '@chakra-ui/react';
 
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
 
-import { Theme } from '../../../../../../../../../theme/types';
-
 import useStyles from './styles';
 import { DayProps } from './types';
 
-
 const Day = (props: DayProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const { children, color = 'gray', colorMode: colorModeProp, variant = 'contained', ...rest } = props;

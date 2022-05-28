@@ -1,22 +1,22 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useMediaQuery, VStack } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { useMediaQuery, VStack } from '@chakra-ui/react';
 
 import { useEffectOnce } from 'usehooks-ts';
 
 import { handleReturnBoringSrc } from '../../../../../common/utils';
-import { Theme } from '../../../../../theme/types';
 
 import Avatar from './components/Avatar';
 import Background from './components/Background';
 import Details from './components/Details';
 import { ProfileProps } from './types';
 
-
 // TODO: Use Profile component with edit mode on
 
 const Profile = (props: ProfileProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 

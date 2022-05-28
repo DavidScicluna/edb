@@ -1,16 +1,16 @@
 import React, { ReactElement, useContext } from 'react';
 
-import { useTheme, VStack, Text } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
 
+import { VStack, Text } from '@chakra-ui/react';
 
 import { StepperContext } from '../..';
-import { Theme } from '../../../../theme/types';
 import { StepperContext as StepperContextType } from '../../types';
 
 import { StepDescriptionProps } from './types';
 
 const StepDescription = (props: StepDescriptionProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const { color, colorMode } = useContext<StepperContextType>(StepperContext);
 

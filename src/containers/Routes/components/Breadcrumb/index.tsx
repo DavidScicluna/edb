@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 
+import { FontSize } from '@davidscicluna/component-library';
 
 import { useColorMode, useBreakpointValue, useBoolean, useConst, Text } from '@chakra-ui/react';
 
@@ -11,9 +12,7 @@ import sample from 'lodash/sample';
 import startCase from 'lodash/startCase';
 import { useTimeout } from 'usehooks-ts';
 
-
 import SkeletonText from '../../../../components/Skeleton/Text';
-import { FontSizes } from '../../../../theme/types';
 
 import { BreadcrumbProps, Data } from './types';
 
@@ -21,7 +20,7 @@ const dummies = range(25, 100, 5);
 
 const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 	const { colorMode } = useColorMode();
-	const breadcrumbFontSize = useBreakpointValue<keyof FontSizes>({
+	const breadcrumbFontSize = useBreakpointValue<FontSize>({
 		'base': 'sm',
 		'sm': 'sm',
 		'md': 'md',

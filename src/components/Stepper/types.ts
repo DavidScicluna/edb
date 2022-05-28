@@ -1,10 +1,10 @@
-import { ColorMode, StackProps } from '@chakra-ui/react';
+import { Color } from '@davidscicluna/component-library';
 
-import { Color } from '../../theme/types';
+import { ColorMode, StackProps } from '@chakra-ui/react';
 
 export type StepperContext = {
 	activeStep: number;
-	color: keyof Omit<Color, 'gray' | 'red' | 'green' | 'yellow'>;
+	color: Exclude<Color, 'gray' | 'red' | 'green' | 'yellow'>;
 	colorMode: ColorMode;
 	onChange: (index: number) => void;
 	onCancel: () => void;

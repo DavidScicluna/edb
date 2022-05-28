@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { useTheme, useColorMode, Box, Fade } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
 
-import { Theme } from '../../../../theme/types';
+import { useColorMode, Box, Fade } from '@chakra-ui/react';
 
 import { BackdropProps } from './types';
 
-
 const Backdrop = ({ isHovering = false }: BackdropProps) => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	return (

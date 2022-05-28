@@ -1,21 +1,21 @@
 import { ReactElement } from 'react';
 
+import { Space, FontSize } from '@davidscicluna/component-library';
+
 import { ColorMode, useTheme, useColorMode, VStack, Center, Image, Text, Fade } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
-
 
 import * as fallback from '../../common/assets/fallback';
 import * as empty from '../../common/assets/illustrations/empty';
 import { useSelector } from '../../common/hooks';
 import { defaultUser, getUser } from '../../store/slices/Users';
-import { Theme, Space, FontSizes } from '../../theme/types';
 
 import { EmptyProps } from './types';
 import useStyles from './styles';
 
 const Empty = (props: EmptyProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const userThemeColor = useSelector(
@@ -42,7 +42,7 @@ const Empty = (props: EmptyProps): ReactElement => {
 	 *
 	 * @returns - number: Padding value
 	 */
-	const handleReturnPadding = (): keyof Space => {
+	const handleReturnPadding = (): Space => {
 		switch (size) {
 			case 'xs':
 				return 1;
@@ -62,7 +62,7 @@ const Empty = (props: EmptyProps): ReactElement => {
 	 *
 	 * @returns - number: Spacing value
 	 */
-	const handleReturnSpacing = (): keyof Space => {
+	const handleReturnSpacing = (): Space => {
 		switch (size) {
 			case 'xs':
 				return 0.5;
@@ -102,7 +102,7 @@ const Empty = (props: EmptyProps): ReactElement => {
 	 *
 	 * @returns - number: Spacing value
 	 */
-	const handleReturnLabelFontSize = (): keyof FontSizes => {
+	const handleReturnLabelFontSize = (): FontSize => {
 		switch (size) {
 			case 'xs':
 				return 'sm';
@@ -122,7 +122,7 @@ const Empty = (props: EmptyProps): ReactElement => {
 	 *
 	 * @returns - number: Spacing value
 	 */
-	const handleReturnDescriptionFontSize = (): keyof FontSizes => {
+	const handleReturnDescriptionFontSize = (): FontSize => {
 		switch (size) {
 			case 'xs':
 				return 'xs';

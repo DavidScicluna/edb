@@ -5,7 +5,6 @@ import { useTheme, VStack, VisuallyHidden, Collapse } from '@chakra-ui/react';
 import { useInView } from 'react-cool-inview';
 import merge from 'lodash/merge';
 
-import { Theme } from '../../../../theme/types';
 import Divider from '../../../Divider';
 
 import Body from './components/Body';
@@ -15,7 +14,7 @@ import useStyles from './styles';
 import { AccordionProps } from './types';
 
 const Accordion = <D,>(props: AccordionProps<D>): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
 		threshold: [0.2, 0.4, 0.6, 0.8, 1],

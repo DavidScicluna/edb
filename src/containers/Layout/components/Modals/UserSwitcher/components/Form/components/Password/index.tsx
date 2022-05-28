@@ -8,10 +8,11 @@ import { Controller } from 'react-hook-form';
 
 // import { useSelector } from '../../../../../../../../../common/hooks';
 // import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
+import { isBoolean } from 'lodash';
+
 import Tooltip from '../../../../../../../../../components/Tooltip';
 
 import { PasswordProps } from './types';
-import { isBoolean } from 'lodash';
 
 const Password = ({ form }: PasswordProps): ReactElement => {
 	// const color = useSelector(

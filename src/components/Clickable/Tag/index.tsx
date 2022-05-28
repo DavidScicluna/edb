@@ -1,21 +1,18 @@
 import { ReactElement, forwardRef } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { Space, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { ColorMode, useTheme, useColorMode, Tag as CUITag, HStack } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
-
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
-import { Theme, Space } from '../../../theme/types';
-import Icon from '../../Icon';
 
 import { TagRef, TagProps } from './types';
 import useStyles from './styles';
 
 const Tag = forwardRef<TagRef, TagProps>(function Tag(props, ref): ReactElement {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const {
@@ -50,7 +47,7 @@ const Tag = forwardRef<TagRef, TagProps>(function Tag(props, ref): ReactElement 
 	 *
 	 * @returns - number: Spacing value
 	 */
-	const handleReturnSpacing = (): keyof Space => {
+	const handleReturnSpacing = (): Space => {
 		switch (size) {
 			case 'sm':
 				return 0.5;
@@ -120,7 +117,7 @@ const Tag = forwardRef<TagRef, TagProps>(function Tag(props, ref): ReactElement 
 						size={size}
 						variant='icon'
 					>
-						<Icon icon='clear' type='outlined' />
+						<Icon icon='clear' category='outlined' />
 					</IconButton>
 				) : null}
 			</HStack>

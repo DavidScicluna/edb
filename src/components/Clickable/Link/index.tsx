@@ -5,14 +5,11 @@ import { Link as CUILink, useTheme } from '@chakra-ui/react';
 import { Link as RRDLink } from 'react-router-dom';
 import merge from 'lodash/merge';
 
-import { Theme } from '../../../theme/types';
-
 import useStyles from './styles';
 import { LinkProps } from './types';
 
-
 const Link = (props: LinkProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const { children, isDisabled = false, isFullWidth = false, sx, ...rest } = props;
 

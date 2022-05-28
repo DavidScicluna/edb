@@ -12,6 +12,7 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import sample from 'lodash/sample';
 import { v4 as uuid } from 'uuid';
+import { isBoolean } from 'lodash';
 
 import { useSelector } from '../../../../../../common/hooks';
 import ConfirmModal from '../../../../../../components/ConfirmModal';
@@ -20,7 +21,6 @@ import { defaultUser, getUser, setUserLists } from '../../../../../../store/slic
 
 import { schema } from './validation';
 import { CreateListProps, Form } from './types';
-import { isBoolean } from 'lodash';
 
 const placeholders = [
 	'Action Movies',

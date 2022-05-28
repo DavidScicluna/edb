@@ -1,9 +1,9 @@
+import { Color } from '@davidscicluna/component-library';
+
 import { RenderProps, DateObj } from 'dayzed';
 
-import { Color } from '../../../../../../../theme/types';
-
 export type WeekProps = {
-	color: keyof Color;
+	color: Color;
 	dayzed: RenderProps;
 	weekdays: Array<DateObj | ''>;
 };

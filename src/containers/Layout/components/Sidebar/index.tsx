@@ -1,24 +1,21 @@
 import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 
-import { useTheme, useColorMode, VStack } from '@chakra-ui/react';
+import { useColorMode, VStack } from '@chakra-ui/react';
 
 import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-
 import { navItems } from '../../.';
 import { useSelector } from '../../../../common/hooks';
-import Icon from '../../../../components/Icon';
 import { toggleSidebarMode } from '../../../../store/slices/App';
-import { Theme } from '../../../../theme/types';
 import { sidebarWidth } from '../../common/data/dimensions';
 import useTransitionsStyle from '../../common/styles/transitions';
 import NavItems from '../NavItems';
 
 const Sidebar = (): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const transition = useTransitionsStyle(theme);
@@ -57,7 +54,7 @@ const Sidebar = (): ReactElement => {
 					renderLeft={({ fontSize }) => (
 						<Icon
 							icon={sidebarMode === 'expanded' ? 'remove' : 'add'}
-							type='outlined'
+							category='outlined'
 							fontSize={fontSize}
 						/>
 					)}

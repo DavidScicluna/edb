@@ -1,5 +1,4 @@
-import { Style } from '../../../../../../common/types';
-import { Theme } from '../../../../../../theme/types';
+import { Theme, Style } from '@davidscicluna/component-library';
 
 type BreadcrumbsStyle = {
 	common: {

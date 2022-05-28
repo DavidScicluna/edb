@@ -1,6 +1,8 @@
 import { ReactElement, useEffect, memo } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, Container, HStack, VStack, Box, Collapse } from '@chakra-ui/react';
+import { useTheme, Icon } from '@davidscicluna/component-library';
+
+import { useColorMode, useMediaQuery, Container, HStack, VStack, Box, Collapse } from '@chakra-ui/react';
 
 import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
@@ -9,12 +11,10 @@ import { useTernaryDarkMode, useUpdateEffect } from 'usehooks-ts';
 
 import { useSelector } from '../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../common/utils';
-import Icon from '../../components/Icon';
 import { NavItem } from '../../components/NavItem/types';
 import { toggleSidebarMode } from '../../store/slices/App';
 import { toggleSplashscreen } from '../../store/slices/Modals';
 import { defaultUser, getUser } from '../../store/slices/Users';
-import { Theme } from '../../theme/types';
 
 import { sidebarWidth, headerHeight } from './common/data/dimensions';
 import useTransitionsStyle from './common/styles/transitions';
@@ -28,46 +28,45 @@ import ProgressBar from './components/ProgressBar';
 import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 
-
 export const navItems: NavItem[] = [
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='home' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='home' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Home',
 		path: '/'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='search' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='search' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Search',
 		path: '/search'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='whatshot' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='whatshot' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Trending',
 		path: '/trending'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='theaters' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='theaters' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Movies',
 		path: '/movies'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='tv' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='tv' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'TV Shows',
 		path: '/tvshows'
 	},
 	{
 		renderIcon: ({ isActive, fontSize }) => (
-			<Icon icon='people_alt' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='people_alt' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'People',
 		path: '/people'
@@ -75,7 +74,7 @@ export const navItems: NavItem[] = [
 ];
 
 const Layout = (): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { setColorMode } = useColorMode();
 
 	const [isLg] = useMediaQuery('(min-width: 1280px)');

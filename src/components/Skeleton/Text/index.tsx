@@ -1,18 +1,18 @@
 import { ReactElement } from 'react';
 
-import { SlideFade, useTheme } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { SlideFade } from '@chakra-ui/react';
 
 import round from 'lodash/round';
 
-
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';
-import { Theme } from '../../../theme/types';
 import Skeleton from '../../Skeleton';
 
 import { SkeletonTextProps } from './types';
 
 const SkeletonText = (props: SkeletonTextProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const { children, height, fontSize, isLoaded = false, ...rest } = props;
 

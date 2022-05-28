@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { FontSize, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
 
@@ -14,7 +14,6 @@ import { handleReturnImageSize } from '../../../../../../../../../../../../commo
 import Card from '../../../../../../../../../../../../components/Clickable/Card';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import Rating from '../../../../../../../../../../../../components/Rating';
-import { FontSizes } from '../../../../../../../../../../../../theme/types';
 
 import { EpisodeProps } from './types';
 import Overview from './components/Overview';
@@ -31,7 +30,7 @@ const Episode = (props: EpisodeProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 	const [isMd] = useMediaQuery('(max-width: 992px)');
 
-	const ratingFontSize = useBreakpointValue<keyof Omit<FontSizes, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'>>({
+	const ratingFontSize = useBreakpointValue<Exclude<FontSize, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'>>({
 		'base': 'sm',
 		'sm': 'md',
 		'md': 'lg',

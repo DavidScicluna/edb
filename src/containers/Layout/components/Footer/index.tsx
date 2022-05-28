@@ -1,21 +1,20 @@
 import { ReactElement } from 'react';
 
+import { useTheme } from '@davidscicluna/component-library';
 
-import { useColorMode, useMediaQuery, VStack, Stack, Box, Link, Text, useTheme } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, VStack, Stack, Box, Link, Text } from '@chakra-ui/react';
 
 import { useIsFetching, useIsMutating } from 'react-query';
 import dayjs from 'dayjs';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import { Theme } from '../../../../theme/types';
 import { navItems } from '../../index';
 
 import NavItem from './components/NavItem';
 
 const Footer = (): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 

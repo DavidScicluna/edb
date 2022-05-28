@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
-import { Fade, useColorMode, useTheme } from '@chakra-ui/react';
+import { useTheme, Icon } from '@davidscicluna/component-library';
+
+import { Fade, useColorMode } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
-
 
 import {
 	facebook as FacebookIcon,
@@ -14,15 +15,13 @@ import {
 	imdb as ImdbIcon
 } from '../../../../common/assets/icons';
 import { useSelector } from '../../../../common/hooks';
-import Icon from '../../../../components/Icon';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import { Theme } from '../../../../theme/types';
 
 import { LinksProps } from './types';
 import Link from './components/Link';
 
 const Links = (props: LinksProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const color = useSelector(
@@ -83,7 +82,7 @@ const Links = (props: LinksProps): ReactElement => {
 					aria-label={`${alt ? `"${alt}"` : ''} Homepage link`}
 					color={theme.colors[color][colorMode === 'light' ? 400 : 500]}
 					href={socials?.homepage_id || ''}
-					icon={<Icon icon='language' type='outlined' />}
+					icon={<Icon icon='language' category='outlined' />}
 					isDisabled={isDisabled}
 				/>
 			</Fade>

@@ -1,22 +1,22 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Tab as CUITab, HStack, Center } from '@chakra-ui/react';
+import { Theme, Space, useTheme } from '@davidscicluna/component-library';
+
+import { useColorMode, Tab as CUITab, HStack, Center } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../common/utils';
-import { Space, Theme } from '../../../../../../theme/types';
 
 import useStyles from './styles';
 import { Size, TabsProps, RenderProps } from './types';
-
 
 /**
  * This method will return the appropriate spacing depending on the size passed
  *
  * @returns - number: Spacing value
  */
-export const handleReturnSpacing = (size: Size): keyof Space => {
+export const handleReturnSpacing = (size: Size): Space => {
 	switch (size) {
 		case 'sm':
 			return 0.5;
@@ -44,7 +44,7 @@ export const handleReturnIconSize = (size: Size, theme: Theme): number => {
 };
 
 const Tab = (props: TabsProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const {

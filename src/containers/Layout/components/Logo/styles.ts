@@ -1,7 +1,6 @@
+import { Theme, Style } from '@davidscicluna/component-library';
 
-import { Style } from '../../../../common/types';
 import { Theme as UserTheme } from '../../../../store/slices/Users/types';
-import { Theme } from '../../../../theme/types';
 
 import { Size } from './types';
 

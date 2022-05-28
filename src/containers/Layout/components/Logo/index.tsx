@@ -1,19 +1,19 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, Center } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { useColorMode, Center } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import { Theme } from '../../../../theme/types';
 
 import { Size } from './types';
 import useStyles from './styles';
 
 const Logo = ({ size = 'md' }: { size?: Size }): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const color = useSelector(

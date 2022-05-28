@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
 
+import { FontSize } from '@davidscicluna/component-library';
+
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-
 import SkeletonText from '../../../../../../../../../../../../../../components/Skeleton/Text';
-import { FontSizes } from '../../../../../../../../../../../../../../theme/types';
 
 import { NameProps } from './types';
 
@@ -16,7 +16,7 @@ const height = ['19.25px', '22px', '24.75px', '27.5px', '33px', '41.25px'];
 
 const Name = (props: NameProps): ReactElement => {
 	const { colorMode } = useColorMode();
-	const fontSize = useBreakpointValue<keyof FontSizes>({
+	const fontSize = useBreakpointValue<FontSize>({
 		'base': 'sm',
 		'sm': 'md',
 		'md': 'lg',

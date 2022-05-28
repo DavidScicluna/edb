@@ -1,6 +1,6 @@
-import { Style } from '../../../../common/types';
+import { Theme, Style } from '@davidscicluna/component-library';
+
 import { Theme as UserTheme } from '../../../../store/slices/Users/types';
-import { Theme } from '../../../../theme/types';
 
 type NavItemChildStyle = {
 	common: {

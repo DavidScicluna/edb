@@ -1,5 +1,4 @@
-import { Style } from '../../../common/types';
-import { Theme } from '../../../theme/types';
+import { Theme, Style } from '@davidscicluna/component-library';
 
 export default (theme: Theme, isFullWidth = false): Style => ({
 	'width': isFullWidth ? '100%' : 'auto',

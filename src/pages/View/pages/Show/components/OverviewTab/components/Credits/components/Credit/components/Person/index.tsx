@@ -1,23 +1,23 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useConst, Text } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { useColorMode, useConst, Text } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import sample from 'lodash/sample';
-
 
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
 import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../../../../../../../theme/types';
 
 import { PersonProps } from './types';
 
 const dummies = range(25, 200, 5);
 
 const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const color = useSelector(

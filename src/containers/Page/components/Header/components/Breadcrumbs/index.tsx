@@ -1,7 +1,8 @@
 import { ReactElement, useState } from 'react';
 
+import { FontSize, useTheme, Icon } from '@davidscicluna/component-library';
+
 import {
-	useTheme,
 	useColorMode,
 	useBreakpointValue,
 	Breadcrumb as CUIBreadcrumb,
@@ -16,17 +17,14 @@ import range from 'lodash/range';
 import useBreadcrumbs, { BreadcrumbData } from 'use-react-router-breadcrumbs';
 import { useEffectOnce } from 'usehooks-ts';
 
-
 import Link from '../../../../../../components/Clickable/Link';
-import Icon from '../../../../../../components/Icon';
 import SkeletonText from '../../../../../../components/Skeleton/Text';
-import { FontSizes, Theme } from '../../../../../../theme/types';
 import { allRoutes as routes } from '../../../../../Routes';
 
 import useStyles from './styles';
 
 const Breadcrumbs = (): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const iconFontSize = useBreakpointValue({
@@ -38,7 +36,7 @@ const Breadcrumbs = (): ReactElement => {
 		'2xl': theme.fontSizes.lg
 	});
 
-	const breadcrumbFontSize = useBreakpointValue<keyof FontSizes>({
+	const breadcrumbFontSize = useBreakpointValue<FontSize>({
 		'base': 'sm',
 		'sm': 'sm',
 		'md': 'md',
@@ -63,7 +61,7 @@ const Breadcrumbs = (): ReactElement => {
 			separator={
 				<Icon
 					icon='chevron_right'
-					type='outlined'
+					category='outlined'
 					color={theme.colors.gray[colorMode === 'light' ? 400 : 500]}
 					fontSize={iconFontSize}
 				/>

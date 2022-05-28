@@ -7,8 +7,9 @@ import { Controller } from 'react-hook-form';
 // import { useSelector } from '../../../../../../../../../common/hooks';
 // import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
 
-import { UsernameProps } from './types';
 import { isBoolean } from 'lodash';
+
+import { UsernameProps } from './types';
 
 const Username = ({ form }: UsernameProps): ReactElement => {
 	// const color = useSelector(

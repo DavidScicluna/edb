@@ -1,21 +1,20 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Center, Text } from '@chakra-ui/react';
+import { NonNullable, useTheme } from '@davidscicluna/component-library';
+
+import { Center, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-
 import { useSelector } from '../../../../common/hooks';
-import { NonNullable } from '../../../../common/types';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import { Theme } from '../../../../theme/types';
 import Card from '../../../Clickable/Card';
 import { CardRef } from '../../../Clickable/Card/types';
 
 import { MediaTypeItemProps } from './types';
 
 const MediaTypeItem = (props: MediaTypeItemProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color

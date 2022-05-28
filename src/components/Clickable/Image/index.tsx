@@ -1,5 +1,7 @@
 import { ReactElement, memo } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
+
 import {
 	ColorMode,
 	useTheme,
@@ -17,8 +19,6 @@ import { useElementSize } from 'usehooks-ts';
 
 import * as fallback from '../../../common/assets/fallback';
 import { handleReturnRatio } from '../../../common/utils';
-import Icon from '../../../components/Icon';
-import { Theme } from '../../../theme/types';
 
 import { ImageProps, IconProps } from './types';
 
@@ -30,7 +30,7 @@ const commonStyleProps = {
 };
 
 const Image = (props: ImageProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const [imageRef, { height }] = useElementSize();
@@ -96,7 +96,7 @@ const Image = (props: ImageProps): ReactElement => {
 									>
 										<Fade in={isHovering || isActive} unmountOnExit>
 											{isActive ? (
-												<Icon {...iconProps} icon='check' type='outlined' />
+												<Icon {...iconProps} icon='check' category='outlined' />
 											) : (
 												renderIcon({ ...iconProps })
 											)}

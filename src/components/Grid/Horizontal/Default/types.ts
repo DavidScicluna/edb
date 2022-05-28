@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
-import { Header } from '../../../Panel/types';
+import { CardHeaderProps } from '@davidscicluna/component-library';
+
 import { HorizontalGridProps } from '../types';
 
 export type HorizontalGridDefaultProps = {
 	children: ReactElement | ReactElement[];
-	title: Header['title'];
+	title: CardHeaderProps['title'];
 } & HorizontalGridProps;

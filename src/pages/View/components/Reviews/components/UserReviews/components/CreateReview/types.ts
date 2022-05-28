@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-import { Color } from '../../../../../../../../theme/types';
+import { Color } from '@davidscicluna/component-library';
+
 import { UserReviewsProps } from '../../types';
 
 export type Form = {
@@ -9,7 +10,7 @@ export type Form = {
 };
 
 type RenderProps = {
-	color: keyof Color;
+	color: Color;
 	label: string;
 	isDisabled: boolean;
 	onClick: () => void;

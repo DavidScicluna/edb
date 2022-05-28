@@ -1,6 +1,7 @@
-import { FontSizes } from '../../../theme/types';
+import { FontSize } from '@davidscicluna/component-library';
+
 import { SkeletonProps } from '../types';
 
 export type SkeletonTextProps = {
-	fontSize?: keyof FontSizes & string;
+	fontSize?: FontSize & string;
 } & SkeletonProps;

@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
+import { useTheme } from '@davidscicluna/component-library';
+
 import {
-	useTheme,
 	useColorMode,
 	useMediaQuery,
 	useConst,
@@ -21,7 +22,6 @@ import isNil from 'lodash/isNil';
 import startCase from 'lodash/startCase';
 import { useElementSize } from 'usehooks-ts';
 
-
 import {
 	handleConvertREMToPixels,
 	handleConvertStringToNumber,
@@ -34,7 +34,6 @@ import Image from '../../../../../../../../components/Image';
 import Rating from '../../../../../../../../components/Rating';
 import Skeleton from '../../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
-import { Theme } from '../../../../../../../../theme/types';
 
 import { HeaderProps } from './types';
 
@@ -43,7 +42,7 @@ dayjs.extend(localizedFormat);
 // TODO: Check if author is user and render header text differently
 
 const Header = (props: HeaderProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');

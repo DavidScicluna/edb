@@ -1,21 +1,16 @@
 import React, { ReactElement, useState, useCallback } from 'react';
 
+import { useTheme, Button } from '@davidscicluna/component-library';
 
-// eslint-disable-next-line import/no-unresolved
-
-import { Button } from '@davidscicluna/component-library';
-
-import { useTheme, useMediaQuery, useBoolean, VStack, Center } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, VStack, Center } from '@chakra-ui/react';
 
 import { Area } from 'react-easy-crop/types';
 
 import RECCropper from 'react-easy-crop';
 import { debounce } from 'lodash';
 
-
 import { handleReturnRatio } from '../../../../../../../common/utils';
 import Modal from '../../../../../../../components/Modal';
-import { Theme } from '../../../../../../../theme/types';
 
 import { CropperProps } from './types';
 import Actions from './components/Actions';
@@ -25,7 +20,7 @@ export const minZoom = 1;
 export const maxZoom = 5;
 
 const Cropper = ({ color, colorMode, type, image, isOpen = false, onCrop, onClose }: CropperProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const [crop, setCrop] = useState({ x: 0, y: 0 });

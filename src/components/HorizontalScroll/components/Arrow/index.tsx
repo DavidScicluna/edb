@@ -1,21 +1,17 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
-import { ColorMode, useTheme, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
+import { ColorMode, useColorMode, useMediaQuery, Center, ScaleFade } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 import { useElementSize } from 'usehooks-ts';
-
-
-import { Theme } from '../../../../theme/types';
-import Icon from '../../../Icon';
 
 import { ArrowProps } from './types';
 import useStyles from './styles';
 
 const Arrow = (props: ArrowProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -74,7 +70,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
 						variant='icon'
 						sx={{ back: { height: '100%' } }}
 					>
-						<Icon icon={direction === 'left' ? 'chevron_left' : 'chevron_right'} type='outlined' />
+						<Icon icon={direction === 'left' ? 'chevron_left' : 'chevron_right'} category='outlined' />
 					</IconButton>
 				</Center>
 			</ScaleFade>

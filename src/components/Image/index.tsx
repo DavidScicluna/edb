@@ -1,28 +1,18 @@
 import { ReactElement, memo } from 'react';
 
-import {
-	ColorMode,
-	useTheme,
-	useColorMode,
-	useBoolean,
-	useConst,
-	Center,
-	Image as CUIImage,
-	Fade
-} from '@chakra-ui/react';
+import { Style, useTheme } from '@davidscicluna/component-library';
+
+import { ColorMode, useColorMode, useBoolean, useConst, Center, Image as CUIImage, Fade } from '@chakra-ui/react';
 
 import { v4 as uuid } from 'uuid';
 
-
 import * as fallback from '../../common/assets/fallback';
-import { Style } from '../../common/types';
 import { handleReturnBoringSrc } from '../../common/utils';
-import { Theme } from '../../theme/types';
 
 import { ImageProps } from './types';
 
 const Image = (props: ImageProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const {

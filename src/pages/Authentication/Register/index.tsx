@@ -1,9 +1,8 @@
-import React, { ReactElement, useState, useCallback } from 'react';
+import { ReactElement, useState, useCallback } from 'react';
 
+import { useTheme, Button } from '@davidscicluna/component-library';
 
-import { Button } from '@davidscicluna/component-library';
-
-import { ColorMode, useTheme, useColorMode, useDisclosure, Center, Container } from '@chakra-ui/react';
+import { ColorMode, useColorMode, useDisclosure, Center, Container } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
@@ -13,7 +12,6 @@ import sha256 from 'crypto-js/sha256';
 import dayjs from 'dayjs';
 import { isEmpty, isNil } from 'lodash';
 import { v4 as uuid } from 'uuid';
-
 
 import { useSelector } from '../../../common/hooks';
 import { handleCheckSystemColorMode } from '../../../common/utils';
@@ -27,7 +25,6 @@ import { setUser } from '../../../store/slices/App';
 import { toggleSplashscreen } from '../../../store/slices/Modals';
 import { defaultUser, setUserInfo, setUserTheme, setUsers } from '../../../store/slices/Users';
 import { User, Info } from '../../../store/slices/Users/types';
-import { Theme } from '../../../theme/types';
 
 import { detailsSchema } from './validation';
 import { DetailsForm, GenresForm, CustomizationForm, ProfileForm } from './types';
@@ -72,7 +69,7 @@ const defaultSteps: Step[] = [
 ];
 
 const Register = (): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode: colorModeHook } = useColorMode();
 
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();

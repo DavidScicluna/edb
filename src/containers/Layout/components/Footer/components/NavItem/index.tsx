@@ -1,18 +1,18 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, VStack, Text, useTheme } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { useColorMode, VStack, Text } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router-dom';
-
 
 import { useSelector } from '../../../../../../common/hooks';
 import Link from '../../../../../../components/Clickable/Link';
 import { NavItem as NavItemProps } from '../../../../../../components/NavItem/types';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../theme/types';
 
 const NavItem = (props: NavItemProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const location = useLocation();

@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 
-import { Color } from '../../../../../../theme/types';
+import { Color } from '@davidscicluna/component-library';
 
 export type RenderProps = {
 	width?: string;
 	height?: string;
-	color?: keyof Color;
+	color?: Color;
 	isSelected?: boolean;
 	fontSize?: string;
 	size?: 'xs' | 'sm' | 'md';

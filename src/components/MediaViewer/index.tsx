@@ -1,6 +1,8 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
-import { useTheme, useColorMode, useDisclosure, useBoolean, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { useColorMode, useDisclosure, useBoolean, Modal, ModalContent, ModalBody } from '@chakra-ui/react';
 
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
@@ -8,7 +10,6 @@ import uniq from 'lodash/uniq';
 import { Swiper } from 'swiper';
 
 import { handleConvertStringToNumber } from '../../common/utils';
-import { Theme } from '../../theme/types';
 
 import Backdrop from './components/Backdrop';
 import Gallery from './components/Gallery';
@@ -19,7 +20,6 @@ import Navigation from './components/Toolkit/components/Navigation';
 import VideoViewer from './components/VideoViewer';
 import Viewer from './components/Viewer';
 import { MediaViewerProps, Asset, MediaItem, NavigationDirection } from './types';
-
 
 const handleFlattenAssets = (assets: Asset[]): MediaItem[] => {
 	let mediaItems: MediaItem[] = [];
@@ -34,7 +34,7 @@ const handleFlattenAssets = (assets: Asset[]): MediaItem[] => {
 };
 
 const MediaViewer = (props: MediaViewerProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const { isOpen: isGalleryOpen, onOpen: onGalleryOpen, onClose: onGalleryClose } = useDisclosure();

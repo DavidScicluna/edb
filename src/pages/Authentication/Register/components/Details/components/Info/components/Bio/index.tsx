@@ -3,9 +3,9 @@ import React, { ReactElement } from 'react';
 import { useTheme, Textarea } from '@davidscicluna/component-library';
 
 import { Controller } from 'react-hook-form';
+import { isBoolean } from 'lodash';
 
 import { DetailsProps as BioProps } from '../../../../types';
-import { isBoolean } from 'lodash';
 
 const Bio = ({ form, colorMode }: BioProps): ReactElement => {
 	const theme = useTheme();

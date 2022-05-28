@@ -1,8 +1,10 @@
 import { ReactElement } from 'react';
+
 import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
-import { CertificationProps } from './types';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
+
+import { CertificationProps } from './types';
 
 const Certification = (props: CertificationProps): ReactElement => {
 	const { certification, fontSize, isLoading = true } = props;

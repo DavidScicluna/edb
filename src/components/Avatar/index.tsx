@@ -1,17 +1,15 @@
-import React, { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, AspectRatio, Center } from '@chakra-ui/react';
 
-
 import { handleReturnRatio } from '../../common/utils';
-import { Theme } from '../../theme/types';
 import Image from '../Image';
 import Skeleton from '../Skeleton';
 
 import { AvatarRef, AvatarProps } from './types';
 
 const Avatar = forwardRef<AvatarRef, AvatarProps>(function Avatar(props, ref): ReactElement {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 
 	const { alt, borderRadius, isLoading = false, size = 'md', src, ...rest } = props;
 

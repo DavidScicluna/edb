@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
+import { CardHeaderProps } from '@davidscicluna/component-library';
+
 import { MediaType } from '../../../../../../common/types';
-import { Header as PanelHeader } from '../../../../../../components/Panel/types';
 
 export type Ref = HTMLDivElement | null;
 
@@ -13,4 +14,4 @@ export type Trending = {
 
 export type ListProps = {
 	children: ReactElement;
-} & PanelHeader;
+} & CardHeaderProps;

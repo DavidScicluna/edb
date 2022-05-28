@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useMediaQuery, useConst, HStack, Input as CUIInput, Fade } from '@chakra-ui/react';
+import { useTheme, Icon } from '@davidscicluna/component-library';
+
+import { useColorMode, useMediaQuery, useConst, HStack, Input as CUIInput, Fade } from '@chakra-ui/react';
 
 import sample from 'lodash/sample';
 
-import Icon from '../../../../../../components/Icon';
-import { Theme } from '../../../../../../theme/types';
 import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';
 
 import collectionsPlaceholders from './common/data/placeholders/collections';
@@ -18,9 +18,8 @@ import Actions from './components/Actions';
 import SearchTypes from './components/SearchTypes';
 import { InputProps } from './types';
 
-
 const Input = (props: InputProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const [isSm] = useMediaQuery('(max-width: 600px)');
@@ -68,7 +67,7 @@ const Input = (props: InputProps): ReactElement => {
 			justifyContent='space-between'
 		>
 			<HStack flex={1}>
-				<Icon icon='search' type='outlined' color={theme.colors.gray[colorMode === 'light' ? 400 : 500]} />
+				<Icon icon='search' category='outlined' color={theme.colors.gray[colorMode === 'light' ? 400 : 500]} />
 
 				{!isSm ? (
 					<Fade in={searchTypes.length > 0} unmountOnExit>

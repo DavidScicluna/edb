@@ -1,13 +1,12 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme, useMediaQuery, Center } from '@chakra-ui/react';
+import { useTheme, Icon } from '@davidscicluna/component-library';
+
+import { useMediaQuery, Center } from '@chakra-ui/react';
 
 import { merge } from 'lodash';
 
-
 import { height } from '../..';
-import { Theme } from '../../../../../../theme/types';
-import Icon from '../../../../../Icon';
 import useStyles from '../../common/styles';
 import { handleReturnIcon } from '../Step/components/Icon';
 import { handleReturnColor } from '../Step/components/Status';
@@ -15,7 +14,7 @@ import { handleReturnColor } from '../Step/components/Status';
 import { NextProps } from './types';
 
 const Next = (props: NextProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const {
@@ -61,7 +60,7 @@ const Next = (props: NextProps): ReactElement => {
 							: 'check'
 						: 'east'
 				}
-				type='outlined'
+				category='outlined'
 				color={
 					isLast && hasErrors
 						? `${handleReturnColor('error', color)}.${colorMode === 'light' ? 500 : 400}`

@@ -1,15 +1,16 @@
 import { ReactElement } from 'react';
 
+import { ColorHues } from '@davidscicluna/component-library';
+
 import { useColorMode, Progress } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import { ColorShades } from '../../../../theme/types';
 
-const lightShades: ColorShades[] = [
+const lightShades: ColorHues[] = [
 	50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 800, 700, 600, 500, 400, 300, 200, 100, 50
 ];
-const darkShades: ColorShades[] = [
+const darkShades: ColorHues[] = [
 	900, 800, 700, 600, 500, 400, 300, 200, 100, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900
 ];
 
