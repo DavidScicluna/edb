@@ -1,28 +1,29 @@
 import React, { ReactElement } from 'react';
 
-import { Icon } from '@davidscicluna/component-library';
-
-import Input from '../../../../components/Forms/Input';
+import { Input, Icon } from '@davidscicluna/component-library';
 
 import { UsernameProps } from './types';
+import { isBoolean } from 'lodash';
 
-const Username = ({ field, fieldState, color, colorMode }: UsernameProps): ReactElement => {
+const Username = ({ field, fieldState, colorMode }: UsernameProps): ReactElement => {
 	const { name, onBlur, onChange, value } = field;
 	const { error } = fieldState;
 
 	return (
 		<Input
-			color={color}
+			// color={color}
+			color='blue'
 			colorMode={colorMode}
 			label='Username'
-			error={error}
 			name={name}
+			helper={error ? error.message : undefined}
 			placeholder='johnsmith'
 			onBlur={onBlur}
 			onChange={onChange}
+			isError={isBoolean(error)}
 			isFullWidth
 			isRequired
-			renderInputLeftPanel={({ height }) => <Icon icon='alternate_email' category='outlined' fontSize={height} />}
+			renderLeftPanel={() => <Icon icon='alternate_email' category='outlined' />}
 			value={value}
 		/>
 	);

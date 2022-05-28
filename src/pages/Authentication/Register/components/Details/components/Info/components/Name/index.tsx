@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
 
+import { Input } from '@davidscicluna/component-library';
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
-
-import Input from '../../../../../../../../../components/Forms/Input';
 import { DetailsProps as NameProps } from '../../../../types';
+import { isBoolean } from 'lodash';
 
-const Name = ({ form, color, colorMode }: NameProps): ReactElement => {
+const Name = ({ form, colorMode }: NameProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	return (
@@ -18,14 +18,16 @@ const Name = ({ form, color, colorMode }: NameProps): ReactElement => {
 				name='firstName'
 				render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
 					<Input
-						color={color}
+						// color={color}
+						color='blue'
 						colorMode={colorMode}
 						label='First name'
-						error={error}
 						name={name}
+						helper={error ? error.message : undefined}
 						placeholder='John'
 						onBlur={onBlur}
 						onChange={onChange}
+						isError={isBoolean(error)}
 						isFullWidth
 						isRequired
 						value={value}
@@ -37,14 +39,16 @@ const Name = ({ form, color, colorMode }: NameProps): ReactElement => {
 				name='lastName'
 				render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
 					<Input
-						color={color}
+						// color={color}
+						color='blue'
 						colorMode={colorMode}
 						label='Last name'
-						error={error}
 						name={name}
+						helper={error ? error.message : undefined}
 						placeholder='Smith'
 						onBlur={onBlur}
 						onChange={onChange}
+						isError={isBoolean(error)}
 						isFullWidth
 						isRequired
 						value={value}

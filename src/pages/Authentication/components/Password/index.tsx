@@ -1,15 +1,15 @@
 import React, { ReactElement } from 'react';
 
-import { IconButton, Icon } from '@davidscicluna/component-library';
+import { Input, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import Input from '../../../../components/Forms/Input';
 import Tooltip from '../../../../components/Tooltip';
 
 import { PasswordProps } from './types';
+import { isBoolean } from 'lodash';
 
-const Password = ({ field, fieldState, label, color, colorMode }: PasswordProps): ReactElement => {
+const Password = ({ field, fieldState, label, colorMode }: PasswordProps): ReactElement => {
 	const [isPasswordVisible, setIsPasswordVisible] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
@@ -18,17 +18,19 @@ const Password = ({ field, fieldState, label, color, colorMode }: PasswordProps)
 
 	return (
 		<Input
-			color={color}
+			// color={color}
+			color='blue'
 			colorMode={colorMode}
 			label={label || 'Password'}
-			error={error}
 			name={name}
+			helper={error ? error.message : undefined}
 			placeholder={isPasswordVisible ? 'password' : '••••••••'}
 			onBlur={onBlur}
 			onChange={onChange}
+			isError={isBoolean(error)}
 			isFullWidth
 			isRequired
-			renderInputRightPanel={() => (
+			renderRightPanel={() => (
 				<Tooltip
 					aria-label={isPasswordVisible ? 'Hide password (tooltip)' : `Show ${label || 'Password'} (tooltip)`}
 					label={isPasswordVisible ? 'Hide password' : `Show ${label || 'Password'}`}
