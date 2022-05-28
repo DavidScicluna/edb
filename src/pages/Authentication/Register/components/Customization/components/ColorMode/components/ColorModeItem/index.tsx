@@ -1,33 +1,34 @@
 import { ReactElement } from 'react';
 
-import { useTheme } from '@davidscicluna/component-library';
+import { useTheme, Card, CardBody } from '@davidscicluna/component-library';
 
 import { Text, HStack } from '@chakra-ui/react';
-
-import Card from '../../../../../../../../../components/Clickable/Card';
 
 import { ColorModeItemProps } from './types';
 
 const ColorModeItem = (props: ColorModeItemProps): ReactElement => {
 	const theme = useTheme();
 
-	const { renderLeft, label, value, color, colorMode, isActive = false, onClick } = props;
+	const { renderLeft, label, value, colorMode, isActive = false, onClick } = props;
 
 	return (
 		<Card
-			color={isActive ? color : 'gray'}
+			// color={isActive ? color : 'gray'}
+			color={isActive ? 'blue' : 'gray'}
 			colorMode={colorMode}
 			isClickable
 			isFullWidth
 			onClick={onClick ? () => onClick(value) : undefined}
 			p={2}
 		>
-			<HStack width='100%' justifyContent='center' spacing={1}>
-				{renderLeft({ isActive, fontSize: theme.fontSizes.xl })}
-				<Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase'>
-					{label}
-				</Text>
-			</HStack>
+			<CardBody>
+				<HStack width='100%' justifyContent='center' spacing={1}>
+					{renderLeft({ isActive, fontSize: theme.fontSizes.xl })}
+					<Text align='center' fontSize='xl' fontWeight='semibold' textTransform='uppercase'>
+						{label}
+					</Text>
+				</HStack>
+			</CardBody>
 		</Card>
 	);
 };

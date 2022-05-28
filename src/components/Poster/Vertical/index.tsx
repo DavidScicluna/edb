@@ -1,5 +1,6 @@
 import { ReactElement, memo } from 'react';
 
+import { Card, CardBody } from '@davidscicluna/component-library';
 import { useBoolean, useConst, VStack, HStack, Center } from '@chakra-ui/react';
 import { useInView } from 'react-cool-inview';
 import isEmpty from 'lodash/isEmpty';
@@ -8,7 +9,6 @@ import isNil from 'lodash/isNil';
 import { useSelector } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
 import { handleIsTouchDevice, handleReturnMediaTypeLabel } from '../../../common/utils';
-import Card from '../../../components/Clickable/Card';
 import Link from '../../../components/Clickable/Link';
 import { guest } from '../../../store/slices/Users';
 import Rating from '../../Rating';
@@ -62,33 +62,102 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 			onMouseEnter={() => setIsHovering.on()}
 			onMouseLeave={() => setIsHovering.off()}
 		>
-			<Card isFullWidth isDisabled={isLoading} isClickable={mediaType !== 'company'} isFixed={isDisabled} isLight>
-				<VStack ref={ref} width={width} position='relative' spacing={1} p={1}>
-					{/* Image */}
-					<Image
-						mediaItem={mediaItem}
-						mediaType={mediaType}
-						image={image}
-						title={title}
-						isFocused={isFocused}
-						isHovering={isHovering}
-						isLoading={isLoading}
-						inView={inView}
-						onMouseChange={handleOnImageChange}
-					/>
+			<Card isFullWidth isDisabled={isLoading} isClickable={mediaType !== 'company'} isLight>
+				<CardBody>
+					<VStack ref={ref} width={width} position='relative' spacing={1} p={1}>
+						{/* Image */}
+						<Image
+							mediaItem={mediaItem}
+							mediaType={mediaType}
+							image={image}
+							title={title}
+							isFocused={isFocused}
+							isHovering={isHovering}
+							isLoading={isLoading}
+							inView={inView}
+							onMouseChange={handleOnImageChange}
+						/>
 
-					<VStack width='100%' spacing={isLoading ? 1 : 0.5}>
-						{/* Header */}
-						{mediaType === 'movie' || mediaType === 'tv' ? (
-							<HStack width='100%' justify='space-between'>
-								{/* Rating component */}
-								<Rating size='md' inView={inView} isLoading={isLoading}>
-									{rating}
-								</Rating>
+						<VStack width='100%' spacing={isLoading ? 1 : 0.5}>
+							{/* Header */}
+							{mediaType === 'movie' || mediaType === 'tv' ? (
+								<HStack width='100%' justify='space-between'>
+									{/* Rating component */}
+									<Rating size='md' inView={inView} isLoading={isLoading}>
+										{rating}
+									</Rating>
 
-								<Center>
-									{/* Quick View component */}
-									{isTouchDevice ? (
+									<Center>
+										{/* Quick View component */}
+										{isTouchDevice ? (
+											<Center
+												onMouseEnter={() => setIsDisabled.on()}
+												onMouseLeave={() => setIsDisabled.off()}
+											>
+												<Quickview
+													title={title}
+													mediaType={mediaType}
+													mediaItem={mediaItem}
+													isLoading={isLoading}
+													size='sm'
+												/>
+											</Center>
+										) : null}
+										{/* Like component */}
+										{!isGuest ? (
+											<Center
+												onMouseEnter={() => setIsDisabled.on()}
+												onMouseLeave={() => setIsDisabled.off()}
+											>
+												<Like
+													title={title}
+													mediaType={mediaType}
+													mediaItem={mediaItem}
+													size='sm'
+													isLoading={isLoading}
+												/>
+											</Center>
+										) : null}
+										{/* List component */}
+										{!isGuest ? (
+											<Center
+												onMouseEnter={() => setIsDisabled.on()}
+												onMouseLeave={() => setIsDisabled.off()}
+											>
+												<Bookmark
+													title={title}
+													mediaType={mediaType}
+													mediaItem={mediaItem}
+													isLoading={isLoading}
+													size='sm'
+												/>
+											</Center>
+										) : null}
+									</Center>
+								</HStack>
+							) : null}
+
+							{/* Text */}
+							<VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0.25}>
+								<Title title={title} isLoading={isLoading} inView={inView} />
+								{!(isNil(subtitle) || isEmpty(subtitle)) || isLoading ? (
+									<Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
+								) : null}
+							</VStack>
+						</VStack>
+
+						{/* Like / Quick View component */}
+						{mediaType === 'person' || mediaType === 'company' || mediaType === 'collection' ? (
+							<>
+								{/* Quick View component */}
+								{isTouchDevice && mediaType !== 'company' ? (
+									<Center
+										sx={{
+											position: 'absolute',
+											top: 1,
+											left: 2
+										}}
+									>
 										<Center
 											onMouseEnter={() => setIsDisabled.on()}
 											onMouseLeave={() => setIsDisabled.off()}
@@ -101,9 +170,16 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 												size='sm'
 											/>
 										</Center>
-									) : null}
-									{/* Like component */}
-									{!isGuest ? (
+									</Center>
+								) : null}
+								{!isGuest ? (
+									<Center
+										sx={{
+											position: 'absolute',
+											top: 1,
+											right: 2
+										}}
+									>
 										<Center
 											onMouseEnter={() => setIsDisabled.on()}
 											onMouseLeave={() => setIsDisabled.off()}
@@ -112,90 +188,16 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 												title={title}
 												mediaType={mediaType}
 												mediaItem={mediaItem}
-												size='sm'
-												isLoading={isLoading}
-											/>
-										</Center>
-									) : null}
-									{/* List component */}
-									{!isGuest ? (
-										<Center
-											onMouseEnter={() => setIsDisabled.on()}
-											onMouseLeave={() => setIsDisabled.off()}
-										>
-											<Bookmark
-												title={title}
-												mediaType={mediaType}
-												mediaItem={mediaItem}
 												isLoading={isLoading}
 												size='sm'
 											/>
 										</Center>
-									) : null}
-								</Center>
-							</HStack>
+									</Center>
+								) : null}
+							</>
 						) : null}
-
-						{/* Text */}
-						<VStack width='100%' alignItems='flex-start' spacing={isLoading ? 0.5 : 0.25}>
-							<Title title={title} isLoading={isLoading} inView={inView} />
-							{!(isNil(subtitle) || isEmpty(subtitle)) || isLoading ? (
-								<Subtitle subtitle={subtitle} isLoading={isLoading} inView={inView} />
-							) : null}
-						</VStack>
 					</VStack>
-
-					{/* Like / Quick View component */}
-					{mediaType === 'person' || mediaType === 'company' || mediaType === 'collection' ? (
-						<>
-							{/* Quick View component */}
-							{isTouchDevice && mediaType !== 'company' ? (
-								<Center
-									sx={{
-										position: 'absolute',
-										top: 1,
-										left: 2
-									}}
-								>
-									<Center
-										onMouseEnter={() => setIsDisabled.on()}
-										onMouseLeave={() => setIsDisabled.off()}
-									>
-										<Quickview
-											title={title}
-											mediaType={mediaType}
-											mediaItem={mediaItem}
-											isLoading={isLoading}
-											size='sm'
-										/>
-									</Center>
-								</Center>
-							) : null}
-							{!isGuest ? (
-								<Center
-									sx={{
-										position: 'absolute',
-										top: 1,
-										right: 2
-									}}
-								>
-									<Center
-										onMouseEnter={() => setIsDisabled.on()}
-										onMouseLeave={() => setIsDisabled.off()}
-									>
-										<Like
-											title={title}
-											mediaType={mediaType}
-											mediaItem={mediaItem}
-											isLoading={isLoading}
-											size='sm'
-										/>
-									</Center>
-								</Center>
-							) : null}
-						</>
-					) : null}
-				</VStack>
+				</CardBody>
 			</Card>
 		</Link>
 	);

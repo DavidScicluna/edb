@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { FontSize, Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { FontSize, Card, CardBody, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center, Fade } from '@chakra-ui/react';
 import { useInView } from 'react-cool-inview';
@@ -10,7 +10,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
 import { handleReturnImageSize } from '../../../../../../../../../../../../common/utils';
-import Card from '../../../../../../../../../../../../components/Clickable/Card';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
 import Rating from '../../../../../../../../../../../../components/Rating';
 
@@ -64,80 +63,88 @@ const Episode = (props: EpisodeProps): ReactElement => {
 			to={{ pathname: `/tvshows/${showId}/season/${season}/episode/${episode_number}` }}
 		>
 			<Card isFullWidth isDisabled={isLoading} isClickable={!isFuture} isLight>
-				<HStack ref={ref} width='100%' position='relative' spacing={[1, 1, 2, 2, 2, 2]} p={[1, 1, 2, 2, 2, 2]}>
-					{/* Image */}
-					<Image
-						image={{
-							alt: `${name ? `"${name}" episode` : 'Episode'} poster`,
-							src: still_path || '',
-							size: { thumbnail, full }
-						}}
-						isLoading={isLoading}
-						inView={inView}
-					/>
-
-					<VStack
-						width={[
-							'calc(100% - 108px)',
-							'calc(100% - 124px)',
-							'calc(100% - 168px)',
-							'calc(100% - 204px)',
-							'calc(100% - 204px)',
-							'calc(100% - 240px)'
-						]}
-						alignItems='flex-start'
-						spacing={[
-							isLoading ? 2 : 1,
-							isLoading ? 2 : 1,
-							isLoading ? 4 : 2,
-							isLoading ? 4 : 2,
-							isLoading ? 4 : 2,
-							isLoading ? 4 : 2
-						]}
+				<CardBody>
+					<HStack
+						ref={ref}
+						width='100%'
+						position='relative'
+						spacing={[1, 1, 2, 2, 2, 2]}
+						p={[1, 1, 2, 2, 2, 2]}
 					>
-						{/* Rating */}
-						<Rating count={vote_count} inView={inView} size={ratingFontSize} isLoading={isLoading}>
-							{vote_average}
-						</Rating>
+						{/* Image */}
+						<Image
+							image={{
+								alt: `${name ? `"${name}" episode` : 'Episode'} poster`,
+								src: still_path || '',
+								size: { thumbnail, full }
+							}}
+							isLoading={isLoading}
+							inView={inView}
+						/>
 
 						<VStack
-							width='100%'
+							width={[
+								'calc(100% - 108px)',
+								'calc(100% - 124px)',
+								'calc(100% - 168px)',
+								'calc(100% - 204px)',
+								'calc(100% - 204px)',
+								'calc(100% - 240px)'
+							]}
 							alignItems='flex-start'
 							spacing={[
-								isLoading ? 0.5 : 0.25,
-								isLoading ? 0.5 : 0.25,
-								isLoading ? 1 : 0.5,
-								isLoading ? 1 : 0.5,
-								isLoading ? 1 : 0.5,
-								isLoading ? 1 : 0.5
+								isLoading ? 2 : 1,
+								isLoading ? 2 : 1,
+								isLoading ? 4 : 2,
+								isLoading ? 4 : 2,
+								isLoading ? 4 : 2,
+								isLoading ? 4 : 2
 							]}
 						>
-							<Name name={name} isLoading={isLoading} inView={inView} />
-							{!(isNil(air_date) || isEmpty(air_date)) || isLoading ? (
-								<Date date={air_date} isLoading={isLoading} inView={inView} />
+							{/* Rating */}
+							<Rating count={vote_count} inView={inView} size={ratingFontSize} isLoading={isLoading}>
+								{vote_average}
+							</Rating>
+
+							<VStack
+								width='100%'
+								alignItems='flex-start'
+								spacing={[
+									isLoading ? 0.5 : 0.25,
+									isLoading ? 0.5 : 0.25,
+									isLoading ? 1 : 0.5,
+									isLoading ? 1 : 0.5,
+									isLoading ? 1 : 0.5,
+									isLoading ? 1 : 0.5
+								]}
+							>
+								<Name name={name} isLoading={isLoading} inView={inView} />
+								{!(isNil(air_date) || isEmpty(air_date)) || isLoading ? (
+									<Date date={air_date} isLoading={isLoading} inView={inView} />
+								) : null}
+							</VStack>
+							{!(isNil(overview) || isEmpty(overview)) || isLoading ? (
+								<Overview overview={overview} isLoading={isLoading} inView={inView} />
 							) : null}
 						</VStack>
-						{!(isNil(overview) || isEmpty(overview)) || isLoading ? (
-							<Overview overview={overview} isLoading={isLoading} inView={inView} />
-						) : null}
-					</VStack>
 
-					{/* Episode Number */}
-					<Center
-						as={Fade}
-						in={!isNil(episode_number) && inView}
-						unmountOnExit
-						sx={{
-							position: 'absolute',
-							top: 2,
-							right: 2
-						}}
-					>
-						<Badge size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>
-							<BadgeLabel>{`Episode ${episode_number}`}</BadgeLabel>
-						</Badge>
-					</Center>
-				</HStack>
+						{/* Episode Number */}
+						<Center
+							as={Fade}
+							in={!isNil(episode_number) && inView}
+							unmountOnExit
+							sx={{
+								position: 'absolute',
+								top: 2,
+								right: 2
+							}}
+						>
+							<Badge size={isSm ? 'xs' : isMd ? 'sm' : 'md'}>
+								<BadgeLabel>{`Episode ${episode_number}`}</BadgeLabel>
+							</Badge>
+						</Center>
+					</HStack>
+				</CardBody>
 			</Card>
 		</Link>
 	);

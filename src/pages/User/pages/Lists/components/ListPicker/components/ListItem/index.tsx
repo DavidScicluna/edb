@@ -1,13 +1,11 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Radio } from '@davidscicluna/component-library';
+import { CardRef, useTheme, Card, CardBody, Radio } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import Card from '../../../../../../../../components/Clickable/Card';
-import { CardRef } from '../../../../../../../../components/Clickable/Card/types';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
 
 import { ListItemProps } from './types';
@@ -34,62 +32,65 @@ const ListItem = (props: ListItemProps): ReactElement => {
 	return (
 		<Card
 			ref={ref}
-			color={isSelected ? color : 'gray'}
+			// color={isSelected ? color : 'gray'}
+			color={isSelected ? 'blue' : 'gray'}
 			isFullWidth
-			isFixed={isHoveringRadio}
+			// isFixed={isHoveringRadio}
 			isClickable
 			onClick={!isHoveringRadio ? () => onClick(id) : undefined}
 			sx={{ back: { height: `${width}px` } }}
 		>
-			<VStack
-				position='relative'
-				width='100%'
-				height='100%'
-				alignItems='center'
-				justifyContent='center'
-				spacing={0}
-			>
-				<Box position='absolute' top={theme.space[2]} left={theme.space[2]}>
-					<Radio
-						// color={color}
-						color='blue'
-						isChecked={isSelected}
-						onMouseEnter={() => setIsHoveringRadio.on()}
-						onMouseLeave={() => setIsHoveringRadio.off()}
-						onClick={() => onSelected(id)}
-					/>
-				</Box>
-				<Text
-					align='center'
-					color={isSelected ? `${color}.400` : `gray.${colorMode === 'light' ? 900 : 50}`}
-					fontSize='xl'
-					fontWeight='semibold'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='nowrap'
-					sx={{ transition }}
+			<CardBody>
+				<VStack
+					position='relative'
+					width='100%'
+					height='100%'
+					alignItems='center'
+					justifyContent='center'
+					spacing={0}
 				>
-					{label}
-				</Text>
-				<Text
-					align='center'
-					color={isSelected ? `${color}.400` : `gray.${colorMode === 'light' ? 400 : 500}`}
-					fontSize='sm'
-					fontWeight='400'
-					textTransform='capitalize'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='nowrap'
-					sx={{ transition }}
-				>
-					{`${[
-						`${movies} movie${movies === 0 || movies > 1 ? 's' : ''}`,
-						`${tv} TV show${tv === 0 || tv > 1 ? 's' : ''}`
-					]
-						.filter((item) => item)
-						.join(' • ')}`}
-				</Text>
-			</VStack>
+					<Box position='absolute' top={theme.space[2]} left={theme.space[2]}>
+						<Radio
+							// color={color}
+							color='blue'
+							isChecked={isSelected}
+							onMouseEnter={() => setIsHoveringRadio.on()}
+							onMouseLeave={() => setIsHoveringRadio.off()}
+							onClick={() => onSelected(id)}
+						/>
+					</Box>
+					<Text
+						align='center'
+						color={isSelected ? `${color}.400` : `gray.${colorMode === 'light' ? 900 : 50}`}
+						fontSize='xl'
+						fontWeight='semibold'
+						isTruncated
+						overflow='hidden'
+						whiteSpace='nowrap'
+						sx={{ transition }}
+					>
+						{label}
+					</Text>
+					<Text
+						align='center'
+						color={isSelected ? `${color}.400` : `gray.${colorMode === 'light' ? 400 : 500}`}
+						fontSize='sm'
+						fontWeight='400'
+						textTransform='capitalize'
+						isTruncated
+						overflow='hidden'
+						whiteSpace='nowrap'
+						sx={{ transition }}
+					>
+						{`${[
+							`${movies} movie${movies === 0 || movies > 1 ? 's' : ''}`,
+							`${tv} TV show${tv === 0 || tv > 1 ? 's' : ''}`
+						]
+							.filter((item) => item)
+							.join(' • ')}`}
+					</Text>
+				</VStack>
+			</CardBody>
 		</Card>
 	);
 };

@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Icon } from '@davidscicluna/component-library';
+import { useTheme, Card, CardBody, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@chakra-ui/react';
 import startCase from 'lodash/startCase';
 
-import Card from '../../../../../../../../../components/Clickable/Card';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 
 import { ColorItemProps } from './types';
@@ -32,7 +31,8 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 			gutter={isMouseDown ? 8 : 11}
 		>
 			<Card
-				color={isActive ? color : 'gray'}
+				// color={isActive ? color : 'gray'}
+				color={isActive ? 'blue' : 'gray'}
 				colorMode={colorMode}
 				isFullWidth
 				isClickable
@@ -43,33 +43,35 @@ const ColorItem = (props: ColorItemProps): ReactElement => {
 				onMouseLeave={() => setIsHovering.off()}
 				p={2}
 			>
-				<VStack width='100%' spacing={0.75}>
-					<Box
-						sx={{
-							width: theme.fontSizes['6xl'],
-							height: theme.fontSizes['6xl'],
+				<CardBody>
+					<VStack width='100%' spacing={0.75}>
+						<Box
+							sx={{
+								width: theme.fontSizes['6xl'],
+								height: theme.fontSizes['6xl'],
 
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
 
-							backgroundColor: `${color}.${colorMode === 'light' ? 500 : 400}`,
-							borderRadius: 'full'
-						}}
-					>
-						<ScaleFade in={isActive} unmountOnExit>
-							<Icon
-								icon='check'
-								category='outlined'
-								color={theme.colors.gray[colorMode === 'light' ? 50 : 900]}
-								fontSize={theme.fontSizes['4xl']}
-							/>
-						</ScaleFade>
-					</Box>
-					<Text align='center' fontSize='sm' fontWeight='medium'>
-						{label}
-					</Text>
-				</VStack>
+								backgroundColor: `${color}.${colorMode === 'light' ? 500 : 400}`,
+								borderRadius: 'full'
+							}}
+						>
+							<ScaleFade in={isActive} unmountOnExit>
+								<Icon
+									icon='check'
+									category='outlined'
+									color={theme.colors.gray[colorMode === 'light' ? 50 : 900]}
+									fontSize={theme.fontSizes['4xl']}
+								/>
+							</ScaleFade>
+						</Box>
+						<Text align='center' fontSize='sm' fontWeight='medium'>
+							{label}
+						</Text>
+					</VStack>
+				</CardBody>
 			</Card>
 		</Tooltip>
 	);

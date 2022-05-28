@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Icon } from '@davidscicluna/component-library';
+import { useTheme, Card, CardBody, Icon } from '@davidscicluna/component-library';
 
 import { HStack, VStack, Text, Center } from '@chakra-ui/react';
 import dayjs from 'dayjs';
@@ -10,7 +10,6 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../../common/utils';
-import Card from '../../../../../../../components/Clickable/Card';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 
 import { ListProps } from './types';
@@ -33,57 +32,60 @@ const List = (props: ListProps): ReactElement => {
 
 	return (
 		<Card
-			color={isSelected ? color : 'gray'}
+			// color={isSelected ? color : 'gray'}
+			color={isSelected ? 'blue' : 'gray'}
 			isFullWidth
 			isClickable
 			onClick={() => onClick(id, isSelected)}
 			px={2}
 			py={1}
 		>
-			<HStack width='100%' justifyContent='space-between' spacing={2}>
-				<VStack
-					width={`calc(100% - ${
-						width + handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
-					}px)`}
-					alignItems='flex-start'
-					spacing={0}
-				>
-					<Text align='left' fontSize='md' fontWeight='semibold' textTransform='capitalize'>
-						{label}
-					</Text>
-					{description && description.length > 0 ? (
-						<Text
-							width='auto'
-							maxWidth='100%'
-							align='left'
-							fontSize='xs'
-							fontWeight='400'
-							textTransform='capitalize'
-							isTruncated
-						>
-							{description}
+			<CardBody>
+				<HStack width='100%' justifyContent='space-between' spacing={2}>
+					<VStack
+						width={`calc(100% - ${
+							width + handleConvertREMToPixels(handleConvertStringToNumber(theme.space[4], 'rem'))
+						}px)`}
+						alignItems='flex-start'
+						spacing={0}
+					>
+						<Text align='left' fontSize='md' fontWeight='semibold' textTransform='capitalize'>
+							{label}
 						</Text>
-					) : null}
-					<Text align='left' fontSize='xs' fontWeight='400' textTransform='capitalize'>
-						{compact([
-							results.movies.length + results.tv.length > 0
-								? `${results.movies.length + results.tv.length} items`
-								: undefined,
-							`${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${dayjs(
-								date
-							).fromNow()}`
-						]).join(' • ')}
-					</Text>
-				</VStack>
+						{description && description.length > 0 ? (
+							<Text
+								width='auto'
+								maxWidth='100%'
+								align='left'
+								fontSize='xs'
+								fontWeight='400'
+								textTransform='capitalize'
+								isTruncated
+							>
+								{description}
+							</Text>
+						) : null}
+						<Text align='left' fontSize='xs' fontWeight='400' textTransform='capitalize'>
+							{compact([
+								results.movies.length + results.tv.length > 0
+									? `${results.movies.length + results.tv.length} items`
+									: undefined,
+								`${results.movies.length + results.tv.length > 0 ? 'Updated' : 'Created'} ${dayjs(
+									date
+								).fromNow()}`
+							]).join(' • ')}
+						</Text>
+					</VStack>
 
-				<Center ref={ref}>
-					<Icon
-						icon={isSelected ? 'check_box' : 'check_box_outline_blank'}
-						category={isSelected ? 'filled' : 'outlined'}
-						fontSize={fontSize}
-					/>
-				</Center>
-			</HStack>
+					<Center ref={ref}>
+						<Icon
+							icon={isSelected ? 'check_box' : 'check_box_outline_blank'}
+							category={isSelected ? 'filled' : 'outlined'}
+							fontSize={fontSize}
+						/>
+					</Center>
+				</HStack>
+			</CardBody>
 		</Card>
 	);
 };
