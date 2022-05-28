@@ -1,11 +1,9 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
-import { HStack , Button } from '@chakra-ui/react';
+import { HStack, Button } from '@chakra-ui/react';
 
-
-import Icon from '../../../../../../Icon';
 import { full } from '../../../../common/data/months';
 
 import { HeaderProps } from './types';
@@ -22,7 +20,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				size='lg'
 				variant='icon'
 			>
-				<Icon icon='chevron_left' type='outlined' />
+				<Icon icon='chevron_left' category='outlined' />
 			</IconButton>
 
 			{/* Month & Year */}
@@ -42,7 +40,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				size='lg'
 				variant='icon'
 			>
-				<Icon icon='chevron_right' type='outlined' />
+				<Icon icon='chevron_right' category='outlined' />
 			</IconButton>
 		</HStack>
 	);

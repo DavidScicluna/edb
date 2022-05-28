@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
-
-import { useMediaQuery, useDisclosure, HStack, VStack, Fade , Button } from '@chakra-ui/react';
+import { Button, Icon } from '@davidscicluna/component-library';
+import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
 
 import { useLocation } from 'react-router-dom';
 import { useForm, useFormState } from 'react-hook-form';
@@ -9,9 +9,7 @@ import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import qs from 'query-string';
 
-
 import { useSelector } from '../../common/hooks';
-import Icon from '../../components/Icon';
 import Modal from '../../components/Modal';
 import { defaultUser, getUser } from '../../store/slices/Users';
 
@@ -83,7 +81,7 @@ const SortBy = (props: SortByProps): ReactElement => {
 		<>
 			{renderButton({
 				color: isOpen ? color : 'gray',
-				icon: <Icon icon='import_export' type='outlined' />,
+				icon: <Icon icon='import_export' category='outlined' />,
 				onClick: () => handleOpen()
 			})}
 

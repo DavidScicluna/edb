@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
-
-import { Button ,  IconButton, } from '@davidscicluna/component-library';
+import { Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
 
@@ -9,10 +8,8 @@ import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { useSelector } from '../../../../../../../../common/hooks';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
-import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
 
@@ -63,7 +60,7 @@ const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 					onMouseLeave={() => setIsHovering.off()}
 					variant='icon'
 				>
-					<Icon icon='delete_outline' type='outlined' />
+					<Icon icon='delete_outline' category='outlined' />
 				</IconButton>
 			</Tooltip>
 

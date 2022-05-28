@@ -1,13 +1,12 @@
 import { ReactElement } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { useBoolean } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import ClickableImage from '../../../../../Clickable/Image';
-import Icon from '../../../../../Icon';
 import Image from '../../../../../Image';
 
 import { GalleryImageProps } from './types';
@@ -26,7 +25,7 @@ const GalleryImage = (props: GalleryImageProps): ReactElement => {
 			isActive={isActive}
 			isDisabled={isError || isNil(path) || isEmpty(path)} // TODO: Check if is working!
 			renderIcon={({ color, fontSize }) => (
-				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
+				<Icon icon='search' category='outlined' color={color} fontSize={fontSize} />
 			)}
 			onClick={onClick}
 		>

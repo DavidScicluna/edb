@@ -1,14 +1,13 @@
 import React, { ReactElement, ChangeEvent, useRef, useState } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { useMediaQuery, useDisclosure, Center, Image } from '@chakra-ui/react';
 
 import Compressor from 'compressorjs';
 
-
 import * as fallback from '../../../../../../../common/assets/fallback';
 import { handleReturnRatio } from '../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../components/Clickable/Image';
-import Icon from '../../../../../../../components/Icon';
 import Cropper from '../Cropper';
 
 import { AvatarProps } from './types';
@@ -67,7 +66,7 @@ const Avatar = ({ color, colorMode, alt, form, avatar }: AvatarProps): ReactElem
 				<ClickableImage
 					ratio={handleReturnRatio(isSm ? 'square' : 'portrait')}
 					renderIcon={({ color, fontSize }) => (
-						<Icon icon='upload_file' type='outlined' color={color} fontSize={fontSize} />
+						<Icon icon='upload_file' category='outlined' color={color} fontSize={fontSize} />
 					)}
 					onClick={(event) => {
 						event.preventDefault();

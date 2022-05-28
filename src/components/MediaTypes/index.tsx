@@ -1,47 +1,46 @@
 import { ReactElement } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { HStack, Center } from '@chakra-ui/react';
 
 import { MediaType as MediaType } from '../../common/types';
-import Icon from '../Icon';
 
 import MediaTypeItem from './components/MediaTypeItem';
 import { MediaTypeItem as MediaTypeItemType } from './components/MediaTypeItem/types';
 import { MediaTypesProps } from './types';
 
-
 export const mediaTypesList: MediaTypeItemType[] = [
 	{
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='theaters' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='theaters' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Movies',
 		value: 'movie'
 	},
 	{
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='tv' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='tv' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'TV Shows',
 		value: 'tv'
 	},
 	{
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='people_alt' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='people_alt' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'People',
 		value: 'person'
 	},
 	{
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='business' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='business' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Companies',
 		value: 'company'
 	},
 	{
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='library_books' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='library_books' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		),
 		label: 'Collections',
 		value: 'collection'

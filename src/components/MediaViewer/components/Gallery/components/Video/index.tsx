@@ -1,16 +1,14 @@
 import { ReactElement } from 'react';
 
-
+import { Icon } from '@davidscicluna/component-library';
 import { Box } from '@chakra-ui/react';
 
 import YouTube, { Options } from 'react-youtube';
 
 import './styles.css';
 
-
 import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../Clickable/Image';
-import Icon from '../../../../../Icon';
 
 import { GalleryVideoProps } from './types';
 
@@ -40,7 +38,7 @@ const GalleryVideo = (props: GalleryVideoProps): ReactElement => {
 				ratio={handleReturnRatio('square')}
 				isActive={isActive}
 				renderIcon={({ color, fontSize }) => (
-					<Icon icon='play_arrow' type='outlined' color={color} fontSize={fontSize} />
+					<Icon icon='play_arrow' category='outlined' color={color} fontSize={fontSize} />
 				)}
 				onClick={onClick}
 			>

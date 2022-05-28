@@ -1,11 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, Center } from '@chakra-ui/react';
 
-
-import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 
 import { RotateProps } from './types';
@@ -49,7 +47,7 @@ const Rotate = ({ colorMode, rotation, onRotation }: RotateProps): ReactElement 
 					onMouseLeave={() => setIsHoveringLeft.off()}
 					variant='icon'
 				>
-					<Icon icon='rotate_left' type='outlined' />
+					<Icon icon='rotate_left' category='outlined' />
 				</IconButton>
 			</Tooltip>
 			<Tooltip
@@ -67,7 +65,7 @@ const Rotate = ({ colorMode, rotation, onRotation }: RotateProps): ReactElement 
 					onMouseLeave={() => setIsHoveringRight.off()}
 					variant='icon'
 				>
-					<Icon icon='rotate_right' type='outlined' />
+					<Icon icon='rotate_right' category='outlined' />
 				</IconButton>
 			</Tooltip>
 		</Center>

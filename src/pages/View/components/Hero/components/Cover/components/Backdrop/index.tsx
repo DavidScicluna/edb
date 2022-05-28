@@ -1,12 +1,11 @@
 import { ReactElement } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { useBoolean } from '@chakra-ui/react';
-
 
 import { youtube as YouTubeIcon } from '../../../../../../../../common/assets/icons';
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../../components/Clickable/Image';
-import Icon from '../../../../../../../../components/Icon';
 import Image from '../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../components/Skeleton';
 
@@ -27,7 +26,7 @@ const Backdrop = (props: BackdropProps): ReactElement => {
 				video ? (
 					<YouTubeIcon style={{ color, width: fontSize, height: fontSize }} />
 				) : (
-					<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
+					<Icon icon='search' category='outlined' color={color} fontSize={fontSize} />
 				)
 			}
 			onClick={path ? () => onClick(path, video) : undefined}

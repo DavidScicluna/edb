@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react';
 
-
 import Input from '../../../../components/Forms/Input';
-import Icon from '../../../../components/Icon';
+import { Icon } from '@davidscicluna/component-library';
 
 import { UsernameProps } from './types';
 
@@ -22,7 +21,7 @@ const Username = ({ field, fieldState, color, colorMode }: UsernameProps): React
 			onChange={onChange}
 			isFullWidth
 			isRequired
-			renderInputLeftPanel={({ height }) => <Icon icon='alternate_email' type='outlined' fontSize={height} />}
+			renderInputLeftPanel={({ height }) => <Icon icon='alternate_email' category='outlined' fontSize={height} />}
 			value={value}
 		/>
 	);

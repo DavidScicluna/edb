@@ -1,15 +1,13 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
-
 
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import Bookmark from '../../../Clickable/Bookmark';
-import Icon from '../../../Icon';
 import Tooltip from '../../../Tooltip';
 
 import { PosterBookmarkProps } from './types';
@@ -91,7 +89,7 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 										? 'bookmark_add'
 										: 'bookmark_border'
 								}
-								type='outlined'
+								category='outlined'
 							/>
 						</IconButton>
 					</Tooltip>

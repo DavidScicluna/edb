@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Button, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
 
@@ -10,9 +10,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { useSelector } from '../../../../../../common/hooks';
-import Icon from '../../../../../../components/Icon';
 import Modal from '../../../../../../components/Modal';
 import Panel from '../../../../../../components/Panel';
 import { getUser } from '../../../../../../store/slices/Users';
@@ -62,7 +60,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 				<HStack spacing={2}>
 					<Button
 						colorMode={colorMode}
-						renderLeft={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
+						renderLeft={({ fontSize }) => <Icon icon='edit' category='outlined' fontSize={fontSize} />}
 						isDisabled={isDisabled}
 						onClick={() => onEdit()}
 						size={size}
@@ -73,7 +71,7 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 						color='red'
 						colorMode={colorMode}
 						renderLeft={({ fontSize }) => (
-							<Icon icon='delete_outline' type='outlined' fontSize={fontSize} />
+							<Icon icon='delete_outline' category='outlined' fontSize={fontSize} />
 						)}
 						isDisabled={isDisabled}
 						onClick={() => onDelete()}

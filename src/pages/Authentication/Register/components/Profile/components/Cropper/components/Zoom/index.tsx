@@ -1,12 +1,10 @@
 import React, { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, Center } from '@chakra-ui/react';
 
-
 import { minZoom, maxZoom } from '../..';
-import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 
 import { ZoomProps } from './types';
@@ -34,7 +32,7 @@ const Zoom = ({ colorMode, zoom, onSetZoom }: ZoomProps): ReactElement => {
 					onMouseLeave={() => setIsHoveringOut.off()}
 					variant='icon'
 				>
-					<Icon icon='zoom_out' type='outlined' />
+					<Icon icon='zoom_out' category='outlined' />
 				</IconButton>
 			</Tooltip>
 			<Tooltip
@@ -54,7 +52,7 @@ const Zoom = ({ colorMode, zoom, onSetZoom }: ZoomProps): ReactElement => {
 					onMouseLeave={() => setIsHoveringIn.off()}
 					variant='icon'
 				>
-					<Icon icon='zoom_in' type='outlined' />
+					<Icon icon='zoom_in' category='outlined' />
 				</IconButton>
 			</Tooltip>
 		</Center>

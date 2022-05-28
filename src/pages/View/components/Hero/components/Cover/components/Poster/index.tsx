@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { useBoolean } from '@chakra-ui/react';
-
 
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../../components/Clickable/Image';
-import Icon from '../../../../../../../../components/Icon';
 import Image from '../../../../../../../../components/Image';
 import Skeleton from '../../../../../../../../components/Skeleton';
 
@@ -22,7 +21,7 @@ const Poster = (props: PosterProps): ReactElement => {
 			borderRadius='lg'
 			isDisabled={isLoading || isError || isImageError}
 			renderIcon={({ color, fontSize }) => (
-				<Icon icon='search' type='outlined' color={color} fontSize={fontSize} />
+				<Icon icon='search' category='outlined' color={color} fontSize={fontSize} />
 			)}
 			onClick={path ? () => onClick(path) : undefined}
 		>

@@ -1,13 +1,12 @@
 import { ReactElement } from 'react';
 
-import { IconButton, Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { IconButton, Badge, BadgeLabel, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBoolean, ScaleFade } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import ListItem from '../../../List/components/ListItem';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
@@ -67,7 +66,7 @@ const Search = (props: SearchProps): ReactElement => {
 								onMouseLeave={() => setIsHoveringDelete.off()}
 								variant='icon'
 							>
-								<Icon icon='clear' type='outlined' />
+								<Icon icon='clear' category='outlined' />
 							</IconButton>
 						</Tooltip>
 					</ScaleFade>

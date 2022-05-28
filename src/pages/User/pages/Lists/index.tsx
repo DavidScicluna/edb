@@ -1,7 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-
-import { Button ,  IconButton, } from '@davidscicluna/component-library';
+import { Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, useToast, VStack, Collapse, Fade, Center } from '@chakra-ui/react';
 
@@ -12,11 +11,9 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import orderBy from 'lodash/orderBy';
 
-
 import { useSelector } from '../../../../common/hooks';
 import Divider from '../../../../components/Divider';
 import Empty from '../../../../components/Empty';
-import Icon from '../../../../components/Icon';
 import Tabs from '../../../../components/Tabs';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
 import Page from '../../../../containers/Page';
@@ -206,7 +203,7 @@ const Lists = (): ReactElement => {
 																	>
 																		<Icon
 																			icon='info'
-																			type={
+																			category={
 																				isListInfoOpen ? 'filled' : 'outlined'
 																			}
 																		/>

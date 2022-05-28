@@ -1,15 +1,14 @@
 import { ReactElement } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { HStack, Center, Fade } from '@chakra-ui/react';
 
 import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
-
 import { useSelector } from '../../../../common/hooks';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
-import Icon from '../../../../components/Icon';
 import TabList from '../../../../components/Tabs/components/TabList';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 
@@ -36,19 +35,27 @@ const Header = ({ activeTab }: HeaderProps): ReactElement => {
 						{
 							label: 'Movies',
 							renderLeft: ({ isSelected, fontSize }) => (
-								<Icon icon='theaters' type={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
+								<Icon
+									icon='theaters'
+									category={isSelected ? 'filled' : 'outlined'}
+									fontSize={fontSize}
+								/>
 							)
 						},
 						{
 							label: 'TV Shows',
 							renderLeft: ({ isSelected, fontSize }) => (
-								<Icon icon='tv' type={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
+								<Icon icon='tv' category={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
 							)
 						},
 						{
 							label: 'People',
 							renderLeft: ({ isSelected, fontSize }) => (
-								<Icon icon='people_alt' type={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
+								<Icon
+									icon='people_alt'
+									category={isSelected ? 'filled' : 'outlined'}
+									fontSize={fontSize}
+								/>
 							)
 						}
 					]}

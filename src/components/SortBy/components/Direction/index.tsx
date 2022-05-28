@@ -1,14 +1,12 @@
 import { ReactElement } from 'react';
 
-
-import { useMediaQuery, Stack, Center , Button } from '@chakra-ui/react';
+import { Button, Icon } from '@davidscicluna/component-library';
+import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import Icon from '../../../Icon';
 import Panel from '../../../Panel';
 import { SortDirection } from '../../types';
 
@@ -41,12 +39,12 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 									<Button
 										color={value === 'asc' ? color : 'gray'}
 										renderLeft={({ fontSize }) => (
-											<Icon icon='arrow_upward' type='outlined' fontSize={fontSize} />
+											<Icon icon='arrow_upward' category='outlined' fontSize={fontSize} />
 										)}
 										renderRight={
 											value === 'asc'
 												? ({ fontSize }) => (
-														<Icon icon='check' type='outlined' fontSize={fontSize} />
+														<Icon icon='check' category='outlined' fontSize={fontSize} />
 												  )
 												: undefined
 										}
@@ -62,12 +60,12 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 									<Button
 										color={value === 'desc' ? color : 'gray'}
 										renderLeft={({ fontSize }) => (
-											<Icon icon='arrow_downward' type='outlined' fontSize={fontSize} />
+											<Icon icon='arrow_downward' category='outlined' fontSize={fontSize} />
 										)}
 										renderRight={
 											value === 'desc'
 												? ({ fontSize }) => (
-														<Icon icon='check' type='outlined' fontSize={fontSize} />
+														<Icon icon='check' category='outlined' fontSize={fontSize} />
 												  )
 												: undefined
 										}

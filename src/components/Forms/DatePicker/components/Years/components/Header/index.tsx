@@ -1,13 +1,11 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, HStack, Text, Fade } from '@chakra-ui/react';
 
 import isNil from 'lodash/isNil';
 
-
-import Icon from '../../../../../../Icon';
 import years from '../../../../common/data/years';
 
 import { HeaderProps } from './types';
@@ -29,7 +27,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				size='lg'
 				variant='icon'
 			>
-				<Icon icon='chevron_left' type='outlined' />
+				<Icon icon='chevron_left' category='outlined' />
 			</IconButton>
 
 			{/* Current Decade */}
@@ -54,7 +52,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				size='lg'
 				variant='icon'
 			>
-				<Icon icon='chevron_right' type='outlined' />
+				<Icon icon='chevron_right' category='outlined' />
 			</IconButton>
 		</HStack>
 	);

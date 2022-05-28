@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
-
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -9,9 +8,7 @@ import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { useSelector } from '../../../../../../../../common/hooks';
-import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { defaultUser, getUser, setUserOtherReviews } from '../../../../../../../../store/slices/Users';
 
@@ -80,7 +77,10 @@ const ThumbButton = (props: ThumbButtonProps): ReactElement => {
 				onMouseLeave={() => setIsHovering.off()}
 				variant='icon'
 			>
-				<Icon icon={state === 'isLiked' ? 'thumb_up' : 'thumb_down'} type={isActive ? 'filled' : 'outlined'} />
+				<Icon
+					icon={state === 'isLiked' ? 'thumb_up' : 'thumb_down'}
+					category={isActive ? 'filled' : 'outlined'}
+				/>
 			</IconButton>
 		</Tooltip>
 	);

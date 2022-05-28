@@ -1,14 +1,12 @@
 import { ReactElement } from 'react';
 
-
-import { VStack, Center , Button } from '@chakra-ui/react';
+import { Button, Icon } from '@davidscicluna/component-library';
+import { VStack, Center } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import Icon from '../../../Icon';
 import Panel from '../../../Panel';
 import { SortBy } from '../../types';
 
@@ -42,7 +40,11 @@ const Sort = ({ form, sortBy }: SortProps): ReactElement => {
 											renderRight={
 												sort.value === value.value
 													? ({ fontSize }) => (
-															<Icon icon='check' type='outlined' fontSize={fontSize} />
+															<Icon
+																icon='check'
+																category='outlined'
+																fontSize={fontSize}
+															/>
 													  )
 													: undefined
 											}

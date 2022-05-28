@@ -1,14 +1,12 @@
 import React, { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, VStack, Center, Text } from '@chakra-ui/react';
 
 import { compact, isEmpty, isNil } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-
-import Icon from '../../../../../../../components/Icon';
 import Skeleton from '../../../../../../../components/Skeleton';
 import SkeletonText from '../../../../../../../components/Skeleton/Text';
 
@@ -73,7 +71,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 
 			<Center ref={buttonRef}>
 				<Skeleton colorMode={colorMode} isLoaded={false} speed={0}>
-					<Button renderLeft={() => <Icon icon='edit' type='outlined' />} isDisabled variant='outlined'>
+					<Button renderLeft={() => <Icon icon='edit' category='outlined' />} isDisabled variant='outlined'>
 						Edit
 					</Button>
 				</Skeleton>

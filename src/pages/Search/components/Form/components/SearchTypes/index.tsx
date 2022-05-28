@@ -1,16 +1,14 @@
 import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Button, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, HStack, Box, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import Divider from '../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
-import Icon from '../../../../../../components/Icon';
 import Panel from '../../../../../../components/Panel';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { SearchType as SearchTypeValue } from '../../../../../../store/slices/Users/types';
@@ -25,7 +23,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'Movies',
 		color: 'blue',
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='theaters' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='theaters' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -33,7 +31,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'TV Shows',
 		color: 'orange',
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='tv' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='tv' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -41,7 +39,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'People',
 		color: 'yellow',
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='people_alt' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='people_alt' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -49,7 +47,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'Collections',
 		color: 'pink',
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='library_books' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='library_books' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -57,7 +55,7 @@ export const searchTypes: SearchTypeType[] = [
 		label: 'Companies',
 		color: 'purple',
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='business' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='business' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	}
 ];

@@ -1,6 +1,6 @@
 import { ReactElement, useEffect } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import {
 	useColorMode,
@@ -14,8 +14,6 @@ import {
 
 import { useLocation } from 'react-router-dom';
 
-
-import Icon from '../../../../../../components/Icon';
 import { navItems } from '../../../../index';
 import NavItems from '../../../NavItems';
 
@@ -30,7 +28,7 @@ const Menu = (): ReactElement => {
 	return (
 		<>
 			<IconButton aria-label='Open Menu' onClick={onOpen} size='lg' variant='icon'>
-				<Icon icon='menu' type='outlined' />
+				<Icon icon='menu' category='outlined' />
 			</IconButton>
 
 			<Drawer isOpen={isOpen} blockScrollOnMount={false} placement='left' onClose={onClose}>
@@ -39,7 +37,7 @@ const Menu = (): ReactElement => {
 					<DrawerBody position='relative' py={1} px={1}>
 						<Center position='absolute' top={1} right={1}>
 							<IconButton aria-label='Close modal?' onClick={() => onClose()} variant='icon'>
-								<Icon icon='close' type='outlined' />
+								<Icon icon='close' category='outlined' />
 							</IconButton>
 						</Center>
 

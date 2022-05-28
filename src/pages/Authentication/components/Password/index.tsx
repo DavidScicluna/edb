@@ -1,12 +1,10 @@
 import React, { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
-
 import Input from '../../../../components/Forms/Input';
-import Icon from '../../../../components/Icon';
 import Tooltip from '../../../../components/Tooltip';
 
 import { PasswordProps } from './types';
@@ -45,7 +43,7 @@ const Password = ({ field, fieldState, label, color, colorMode }: PasswordProps)
 						size='sm'
 						variant='icon'
 					>
-						<Icon icon={isPasswordVisible ? 'visibility_off' : 'visibility'} type='outlined' />
+						<Icon icon={isPasswordVisible ? 'visibility_off' : 'visibility'} category='outlined' />
 					</IconButton>
 				</Tooltip>
 			)}

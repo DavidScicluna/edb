@@ -1,11 +1,9 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
 
-
-import Icon from '../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { searchTypes as allSearchTypes } from '../../../SearchTypes';
 
@@ -56,7 +54,7 @@ const SearchTypes = ({ searchTypes, onClear }: SearchTypesProps): ReactElement =
 						size='sm'
 						variant='icon'
 					>
-						<Icon icon='clear' type='outlined' />
+						<Icon icon='clear' category='outlined' />
 					</IconButton>
 				</Tooltip>
 			) : undefined}

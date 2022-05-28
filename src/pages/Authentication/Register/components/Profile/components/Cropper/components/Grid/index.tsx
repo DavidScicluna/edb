@@ -1,11 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
-
-import Icon from '../../../../../../../../../components/Icon';
 import Tooltip from '../../../../../../../../../components/Tooltip';
 
 import { GridProps } from './types';
@@ -29,7 +27,7 @@ const Grid = ({ colorMode, isActive = false, onToggle }: GridProps): ReactElemen
 				onMouseLeave={() => setIsHovering.off()}
 				variant='icon'
 			>
-				<Icon icon={!isActive ? 'grid_off' : 'grid_on'} type='outlined' />
+				<Icon icon={!isActive ? 'grid_off' : 'grid_on'} category='outlined' />
 			</IconButton>
 		</Tooltip>
 	);

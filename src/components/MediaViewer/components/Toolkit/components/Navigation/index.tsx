@@ -1,13 +1,10 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, Center, Text } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
-
-
-import Icon from '../../../../../Icon';
 
 import { NavigationProps } from './types';
 
@@ -25,7 +22,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
 				onClick={() => onNavigation('prev')}
 				variant='icon'
 			>
-				<Icon icon='arrow_back' type='outlined' />
+				<Icon icon='arrow_back' category='outlined' />
 			</IconButton>
 
 			{/* Current Slide */}
@@ -40,7 +37,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
 				onClick={() => onNavigation('next')}
 				variant='icon'
 			>
-				<Icon icon='arrow_forward' type='outlined' />
+				<Icon icon='arrow_forward' category='outlined' />
 			</IconButton>
 		</Center>
 	);

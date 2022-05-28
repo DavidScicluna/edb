@@ -1,10 +1,8 @@
 import React, { ReactElement, forwardRef } from 'react';
 
+import { Icon, IconType } from '@davidscicluna/component-library';
 import { Center } from '@chakra-ui/react';
 
-
-import Icon from '../../../../../../../Icon';
-import { Icon as IconType } from '../../../../../../../Icon/types';
 import { Status } from '../../types';
 import { handleReturnColor } from '../Status';
 
@@ -28,7 +26,7 @@ const StepIcon = forwardRef<StepIconRef, StepIconProps>(function StepIcon(props,
 		<Center ref={ref} height='100%'>
 			<Icon
 				icon={handleReturnIcon(status)}
-				type='outlined'
+				category='outlined'
 				color={`${handleReturnColor(status, color)}.${colorMode === 'light' ? 500 : 400}`}
 				fontSize='3xl'
 			/>

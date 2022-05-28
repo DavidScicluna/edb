@@ -1,13 +1,11 @@
 import { ReactElement } from 'react';
 
-
 import { useMediaQuery, Stack, Center, Text } from '@chakra-ui/react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { Controller } from 'react-hook-form';
 
-
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
-import Icon from '../../../../../../../components/Icon';
 import Panel from '../../../../../../../components/Panel';
 import { CustomizationProps as ColorModeProps } from '../../types';
 
@@ -19,7 +17,7 @@ const colorModes: ColorModeType[] = [
 		label: 'Light',
 		value: 'light',
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='light_mode' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='light_mode' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	},
 	{
@@ -27,11 +25,11 @@ const colorModes: ColorModeType[] = [
 		value: 'system',
 		renderLeft: ({ isActive, fontSize }) => (
 			<Center>
-				<Icon icon='light_mode' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+				<Icon icon='light_mode' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 				<Text align='center' fontSize='xl' mx={0.5}>
 					/
 				</Text>
-				<Icon icon='dark_mode' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+				<Icon icon='dark_mode' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 			</Center>
 		)
 	},
@@ -39,7 +37,7 @@ const colorModes: ColorModeType[] = [
 		label: 'Dark',
 		value: 'dark',
 		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='dark_mode' type={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
+			<Icon icon='dark_mode' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
 		)
 	}
 ];

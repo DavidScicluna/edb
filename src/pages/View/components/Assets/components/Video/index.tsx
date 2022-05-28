@@ -1,16 +1,14 @@
 import { ReactElement } from 'react';
 
-
+import { Icon } from '@davidscicluna/component-library';
 import { Box } from '@chakra-ui/react';
 
 import YouTube, { Options } from 'react-youtube';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
-import Icon from '../../../../../../components/Icon';
 import Skeleton from '../../../../../../components/Skeleton';
 
 import { AssetVideoProps } from './types';
@@ -43,7 +41,7 @@ const AssetVideo = (props: AssetVideoProps): ReactElement => {
 				borderRadius='lg'
 				isDisabled={isLoading || isNil(videoId) || isEmpty(videoId)} // TODO: Check if is working!
 				renderIcon={({ color, fontSize }) => (
-					<Icon icon='play_arrow' type='outlined' color={color} fontSize={fontSize} />
+					<Icon icon='play_arrow' category='outlined' color={color} fontSize={fontSize} />
 				)}
 				onClick={onClickVideo && videoId ? () => onClickVideo(videoId) : undefined}
 			>

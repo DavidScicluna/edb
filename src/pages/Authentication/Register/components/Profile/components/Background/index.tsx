@@ -1,13 +1,12 @@
 import React, { ReactElement, ChangeEvent, useRef, useState } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { useDisclosure, Box, Image } from '@chakra-ui/react';
 
 import Compressor from 'compressorjs';
 
-
 import * as fallback from '../../../../../../../common/assets/fallback';
 import ClickableImage from '../../../../../../../components/Clickable/Image';
-import Icon from '../../../../../../../components/Icon';
 import Cropper from '../Cropper';
 
 import { BackgroundProps } from './types';
@@ -50,7 +49,7 @@ const Background = ({ color, colorMode, alt, form, background }: BackgroundProps
 					borderRadius='none'
 					ratio={20 / 5}
 					renderIcon={({ color, fontSize }) => (
-						<Icon icon='upload_file' type='outlined' color={color} fontSize={fontSize} />
+						<Icon icon='upload_file' category='outlined' color={color} fontSize={fontSize} />
 					)}
 					onClick={(e) => {
 						e.preventDefault();

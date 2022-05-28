@@ -1,14 +1,12 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { HStack, Fade } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-
 import Divider from '../../../../../../../../components/Divider';
-import Icon from '../../../../../../../../components/Icon';
 
 import { ActionsProps } from './types';
 
@@ -34,7 +32,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 					size='sm'
 					variant='icon'
 				>
-					<Icon icon='clear' type='outlined' />
+					<Icon icon='clear' category='outlined' />
 				</IconButton>
 			</Fade>
 
@@ -45,7 +43,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 				size='sm'
 				variant='icon'
 			>
-				<Icon icon='send' type='outlined' />
+				<Icon icon='send' category='outlined' />
 			</IconButton>
 		</HStack>
 	);

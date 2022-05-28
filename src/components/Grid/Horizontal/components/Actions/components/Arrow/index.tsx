@@ -1,11 +1,9 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
-
-import Icon from '../../../../../../Icon';
 import Tooltip from '../../../../../../Tooltip';
 
 import { ArrowProps } from './types';
@@ -36,7 +34,7 @@ const Arrow = (props: ArrowProps): ReactElement => {
 				size='sm'
 				variant='outlined'
 			>
-				<Icon icon={direction === 'left' ? 'arrow_back' : 'arrow_forward'} type='outlined' />
+				<Icon icon={direction === 'left' ? 'arrow_back' : 'arrow_forward'} category='outlined' />
 			</IconButton>
 		</Tooltip>
 	);

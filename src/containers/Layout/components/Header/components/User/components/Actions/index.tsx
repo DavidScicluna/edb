@@ -1,17 +1,15 @@
 import React, { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Style, Button, Icon } from '@davidscicluna/component-library';
 
 import { useConst, VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
 
-
 import { useSelector } from '../../../../../../../../common/hooks';
-import { Style } from '../../../../../../../../common/types';
+
 import Link from '../../../../../../../../components/Clickable/Link';
-import Icon from '../../../../../../../../components/Icon';
 import { toggleDisplay, toggleUserSwitcher } from '../../../../../../../../store/slices/Modals';
 import { defaultUser, getUser, guest } from '../../../../../../../../store/slices/Users';
 
@@ -43,7 +41,7 @@ const Actions = (): ReactElement => {
 						renderLeft={({ fontSize }) => (
 							<Icon
 								icon='person'
-								type={location.pathname === '/profile' ? 'filled' : 'outlined'}
+								category={location.pathname === '/profile' ? 'filled' : 'outlined'}
 								fontSize={fontSize}
 							/>
 						)}
@@ -64,7 +62,7 @@ const Actions = (): ReactElement => {
 						renderLeft={({ fontSize }) => (
 							<Icon
 								icon={location.pathname === '/liked' ? 'favorite' : 'favorite_border'}
-								type='outlined'
+								category='outlined'
 								fontSize={fontSize}
 							/>
 						)}
@@ -85,7 +83,7 @@ const Actions = (): ReactElement => {
 						renderLeft={({ fontSize }) => (
 							<Icon
 								icon={location.pathname === '/lists' ? 'bookmark' : 'bookmark_border'}
-								type='outlined'
+								category='outlined'
 								fontSize={fontSize}
 							/>
 						)}
@@ -102,7 +100,7 @@ const Actions = (): ReactElement => {
 
 			{users.length > 0 ? (
 				<Button
-					renderLeft={({ fontSize }) => <Icon icon='sync' type='outlined' fontSize={fontSize} />}
+					renderLeft={({ fontSize }) => <Icon icon='sync' category='outlined' fontSize={fontSize} />}
 					color={isUserSwitcherModalOpen ? color : 'gray'}
 					isFullWidth
 					onClick={() => dispatch(toggleUserSwitcher(true))}
@@ -116,7 +114,7 @@ const Actions = (): ReactElement => {
 
 			<Button
 				renderLeft={({ fontSize }) => (
-					<Icon icon='palette' type={isDisplayModalOpen ? 'filled' : 'outlined'} fontSize={fontSize} />
+					<Icon icon='palette' category={isDisplayModalOpen ? 'filled' : 'outlined'} fontSize={fontSize} />
 				)}
 				color={isDisplayModalOpen ? color : 'gray'}
 				isFullWidth

@@ -1,19 +1,18 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useDisclosure, useBoolean, HStack, Fade , Button } from '@chakra-ui/react';
+import { Button, Icon } from '@davidscicluna/component-library';
+import { useDisclosure, useBoolean, HStack, Fade } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import { DateObj, useDayzed } from 'dayzed';
 import isNil from 'lodash/isNil';
 
-import Icon from '../../Icon';
 import Modal from '../../Modal';
 
 import Calendar from './components/Calendar';
 import Months from './components/Months';
 import Years from './components/Years';
 import { DatePickerProps } from './types';
-
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -72,7 +71,11 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 		<>
 			{renderToggleModal({
 				color: isOpen ? color : 'gray',
-				icon: isOpen ? <Icon icon='date_range' type='filled' /> : <Icon icon='date_range' type='outlined' />,
+				icon: isOpen ? (
+					<Icon icon='date_range' category='filled' />
+				) : (
+					<Icon icon='date_range' category='outlined' />
+				),
 				onClick: () => onOpen()
 			})}
 

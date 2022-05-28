@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
-import { useMediaQuery, useDisclosure, VStack, HStack, Fade , Button } from '@chakra-ui/react';
+import { Button, Icon } from '@davidscicluna/component-library';
+import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
 
 import { useForm, useFormState } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
@@ -9,7 +10,6 @@ import isEqual from 'lodash/isEqual';
 // import Adult from './components/Adult';
 import { useSelector } from '../../../common/hooks';
 import { defaultUser, getUser } from '../../../store/slices/Users';
-import Icon from '../../Icon';
 import Modal from '../../Modal';
 import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';
 import { Filters } from '../types';
@@ -21,7 +21,6 @@ import Genres from './components/Genres';
 import RatingRange from './components/RatingRange';
 import RuntimeRange from './components/RuntimeRange';
 import { FiltersFormProps } from './types';
-
 
 export const defaultValues: Filters = handleReturnDefaultValues();
 
@@ -78,7 +77,7 @@ const FiltersForm = (props: FiltersFormProps): ReactElement => {
 		<>
 			{renderButton({
 				color: isOpen ? color : 'gray',
-				icon: <Icon icon='visibility' type='outlined' />,
+				icon: <Icon icon='visibility' category='outlined' />,
 				onClick: () => handleOpen()
 			})}
 

@@ -1,14 +1,12 @@
 import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Button, Icon } from '@davidscicluna/component-library';
 
 import { useConst } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-
-import Icon from '../../../../../../../../../components/Icon';
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 
 import { GenreProps } from './types';
@@ -25,7 +23,7 @@ const Genre = (props: GenreProps): ReactElement => {
 			color={isActive ? color : 'gray'}
 			colorMode={colorMode}
 			renderRight={
-				isActive ? ({ fontSize }) => <Icon icon='check' type='outlined' fontSize={fontSize} /> : undefined
+				isActive ? ({ fontSize }) => <Icon icon='check' category='outlined' fontSize={fontSize} /> : undefined
 			}
 			onClick={onClick ? () => onClick({ id, name }) : undefined}
 			isDisabled={isLoading}

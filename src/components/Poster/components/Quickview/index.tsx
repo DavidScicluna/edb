@@ -1,18 +1,15 @@
 import React, { ReactElement } from 'react';
 
-
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { MediaType } from '../../../../common/types';
 import { setQuickView } from '../../../../store/slices/Modals';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import Icon from '../../../Icon';
 import Tooltip from '../../../Tooltip';
 
 import { PosterQuickviewProps } from './types';
@@ -60,7 +57,7 @@ const PosterQuickview = <MT extends MediaType>(props: PosterQuickviewProps<MT>):
 				size={size}
 				variant='icon'
 			>
-				<Icon icon='zoom_out_map' type='outlined' />
+				<Icon icon='zoom_out_map' category='outlined' />
 			</IconButton>
 		</Tooltip>
 	);

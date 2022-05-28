@@ -1,15 +1,13 @@
 import { ReactElement } from 'react';
 
-import { Button ,  IconButton, } from '@davidscicluna/component-library';
+import { Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { useSelector } from '../../../../../../common/hooks';
-import Icon from '../../../../../../components/Icon';
 
 import { ToastProps } from './types';
 
@@ -54,12 +52,12 @@ const Toast = (props: ToastProps): ReactElement => {
 						onClick={() => onEdit()}
 						size='sm'
 					>
-						<Icon icon='edit' type='outlined' />
+						<Icon icon='edit' category='outlined' />
 					</IconButton>
 				) : (
 					<Button
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
-						renderLeft={({ fontSize }) => <Icon icon='edit' type='outlined' fontSize={fontSize} />}
+						renderLeft={({ fontSize }) => <Icon icon='edit' category='outlined' fontSize={fontSize} />}
 						isDisabled={isDisabled}
 						onClick={() => onEdit()}
 					>
@@ -76,14 +74,14 @@ const Toast = (props: ToastProps): ReactElement => {
 						onClick={() => onDelete()}
 						size='sm'
 					>
-						<Icon icon='delete_outline' type='outlined' />
+						<Icon icon='delete_outline' category='outlined' />
 					</IconButton>
 				) : (
 					<Button
 						color='red'
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
 						renderLeft={({ fontSize }) => (
-							<Icon icon='delete_outline' type='outlined' fontSize={fontSize} />
+							<Icon icon='delete_outline' category='outlined' fontSize={fontSize} />
 						)}
 						isDisabled={isDisabled}
 						onClick={() => onDelete()}
@@ -100,7 +98,7 @@ const Toast = (props: ToastProps): ReactElement => {
 				size={isSm ? 'sm' : 'md'}
 				variant='icon'
 			>
-				<Icon icon='close' type='outlined' />
+				<Icon icon='close' category='outlined' />
 			</IconButton>
 		</HStack>
 	);

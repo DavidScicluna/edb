@@ -1,9 +1,6 @@
 import { ReactElement } from 'react';
 
-
-import { Button } from '@davidscicluna/component-library';
-
-import Icon from '../../../../../../../../components/Icon';
+import { Button, Icon } from '@davidscicluna/component-library';
 
 import { SearchTypeProps } from './types';
 
@@ -20,7 +17,7 @@ const SearchType = (props: SearchTypeProps): ReactElement => {
 				})
 			}
 			renderRight={
-				isActive ? ({ fontSize }) => <Icon icon='check' type='outlined' fontSize={fontSize} /> : undefined
+				isActive ? ({ fontSize }) => <Icon icon='check' category='outlined' fontSize={fontSize} /> : undefined
 			}
 			onClick={() => onClick(value)}
 			variant='outlined'

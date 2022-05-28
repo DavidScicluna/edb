@@ -1,12 +1,10 @@
 import React, { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Style, Button, Icon } from '@davidscicluna/component-library';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import { Style } from '../../../../../../../../common/types';
-import Icon from '../../../../../../../../components/Icon';
 import { setUser } from '../../../../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../../../../store/slices/Modals';
 
@@ -27,7 +25,7 @@ const Footer = (): ReactElement => {
 
 	return (
 		<Button
-			renderLeft={({ fontSize }) => <Icon icon='logout' type='outlined' fontSize={fontSize} />}
+			renderLeft={({ fontSize }) => <Icon icon='logout' category='outlined' fontSize={fontSize} />}
 			color='red'
 			isFullWidth
 			onClick={() => handleSignOut()}

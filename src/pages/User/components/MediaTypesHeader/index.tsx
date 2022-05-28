@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { Badge, BadgeLabel, Icon } from '@davidscicluna/component-library';
 
 import { Center, HStack, Fade } from '@chakra-ui/react';
 
@@ -12,7 +12,6 @@ import { useElementSize } from 'usehooks-ts';
 import { useSelector } from '../../../../common/hooks';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import Divider from '../../../../components/Divider';
-import Icon from '../../../../components/Icon';
 import TabList from '../../../../components/Tabs/components/TabList';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 
@@ -55,7 +54,7 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 									renderLeft: ({ isSelected, fontSize }) => (
 										<Icon
 											icon='theaters'
-											type={isSelected ? 'filled' : 'outlined'}
+											category={isSelected ? 'filled' : 'outlined'}
 											fontSize={fontSize}
 										/>
 									),
@@ -82,7 +81,11 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 									label: 'TV Shows',
 									isDisabled: total.tv === 0,
 									renderLeft: ({ isSelected, fontSize }) => (
-										<Icon icon='tv' type={isSelected ? 'filled' : 'outlined'} fontSize={fontSize} />
+										<Icon
+											icon='tv'
+											category={isSelected ? 'filled' : 'outlined'}
+											fontSize={fontSize}
+										/>
 									),
 									renderRight:
 										(total.tv || 0) > 0
@@ -109,7 +112,7 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 									renderLeft: ({ isSelected, fontSize }) => (
 										<Icon
 											icon='people_alt'
-											type={isSelected ? 'filled' : 'outlined'}
+											category={isSelected ? 'filled' : 'outlined'}
 											fontSize={fontSize}
 										/>
 									),
@@ -138,7 +141,7 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 									renderLeft: ({ isSelected, fontSize }) => (
 										<Icon
 											icon='business'
-											type={isSelected ? 'filled' : 'outlined'}
+											category={isSelected ? 'filled' : 'outlined'}
 											fontSize={fontSize}
 										/>
 									),
@@ -167,7 +170,7 @@ const MediaTypesHeader = (props: MediaTypesHeaderProps): ReactElement => {
 									renderLeft: ({ isSelected, fontSize }) => (
 										<Icon
 											icon='library_books'
-											type={isSelected ? 'filled' : 'outlined'}
+											category={isSelected ? 'filled' : 'outlined'}
 											fontSize={fontSize}
 										/>
 									),

@@ -1,13 +1,10 @@
 import { ReactElement, MouseEvent } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBoolean, Stack } from '@chakra-ui/react';
 
 import compact from 'lodash/compact';
-
-
-import Icon from '../../../../../Icon';
 
 import { ActionsProps, HTMLFullscreenElement, FullscreenDocument } from './types';
 
@@ -86,12 +83,12 @@ const Actions = (props: ActionsProps): ReactElement => {
 			onClick={(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => handleClose(event)}
 			variant='icon'
 		>
-			<Icon icon='close' type='outlined' />
+			<Icon icon='close' category='outlined' />
 		</IconButton>,
 
 		// Gallery button
 		<IconButton key='gallery_button' aria-label='Open Gallery' onClick={() => onGalleryClick()} variant='icon'>
-			<Icon icon='dashboard' type='outlined' />
+			<Icon icon='dashboard' category='outlined' />
 		</IconButton>,
 
 		//  Fullscreen button
@@ -104,7 +101,7 @@ const Actions = (props: ActionsProps): ReactElement => {
 				}
 				variant='icon'
 			>
-				<Icon icon={isFullscreen ? 'fullscreen_exit' : 'fullscreen'} type='outlined' />
+				<Icon icon={isFullscreen ? 'fullscreen_exit' : 'fullscreen'} category='outlined' />
 			</IconButton>
 		) : undefined
 	]);

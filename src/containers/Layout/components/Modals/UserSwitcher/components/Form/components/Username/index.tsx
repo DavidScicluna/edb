@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react';
 
+import { Icon } from '@davidscicluna/component-library';
 import { Controller } from 'react-hook-form';
-
 
 import { useSelector } from '../../../../../../../../../common/hooks';
 import Input from '../../../../../../../../../components/Forms/Input';
-import Icon from '../../../../../../../../../components/Icon';
 import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
 
 import { UsernameProps } from './types';
@@ -30,7 +29,7 @@ const Username = ({ form }: UsernameProps): ReactElement => {
 					isFullWidth
 					isRequired
 					renderInputLeftPanel={({ height }) => (
-						<Icon icon='alternate_email' type='outlined' fontSize={height} />
+						<Icon icon='alternate_email' category='outlined' fontSize={height} />
 					)}
 					value={value}
 				/>
