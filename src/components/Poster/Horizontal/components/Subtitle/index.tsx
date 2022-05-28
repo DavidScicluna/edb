@@ -41,9 +41,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 						fontSize={fontSize}
 						fontWeight='normal'
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 					>
 						{subtitle || 'Poster Subtitle'}
 					</Text>

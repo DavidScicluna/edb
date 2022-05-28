@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useColorMode, AspectRatio, Center, Image as CUIImage, Fade } from '@chakra-ui/react';
 import { AnimatePresence } from 'framer-motion';
 
-
 import * as fallback from '../../../../../common/assets/fallback';
 import { MediaType } from '../../../../../common/types';
 import { handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../common/utils';

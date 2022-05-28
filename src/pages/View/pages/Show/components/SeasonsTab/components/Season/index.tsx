@@ -1,12 +1,10 @@
 import { ReactElement, useEffect } from 'react';
 
-
 import { VStack, Collapse } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-
 
 import axiosInstance from '../../../../../../../../common/scripts/axios';
 import { FullSeason } from '../../../../../../../../common/types/tv';

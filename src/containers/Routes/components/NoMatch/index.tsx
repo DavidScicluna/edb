@@ -4,7 +4,6 @@ import Error from '../../../../pages/Error';
 
 import Actions from './components/Actions';
 
-
 const NoMatch = (): ReactElement => {
 	return (
 		<Error

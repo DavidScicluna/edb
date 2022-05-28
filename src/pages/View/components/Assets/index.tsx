@@ -18,7 +18,6 @@ import Profiles from './components/Profiles';
 import Videos from './components/Videos';
 import { AssetsTabProps } from './types';
 
-
 const Assets = (props: AssetsTabProps): ReactElement => {
 	const color = useSelector(
 		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color

@@ -4,7 +4,6 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { handleReturnDate, handleReturnGenresByID, handleReturnImageSize } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';
 

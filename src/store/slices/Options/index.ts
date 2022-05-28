@@ -4,7 +4,6 @@ import { Country, Language, Job, Genre, Certifications } from '../../../common/t
 
 import { StateProps } from './types';
 
-
 const initialState: StateProps = {
 	data: {
 		countries: [],

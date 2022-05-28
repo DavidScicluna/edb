@@ -4,7 +4,6 @@ import { Color } from '@davidscicluna/component-library';
 
 import { ColorMode } from '@chakra-ui/react';
 
-
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type Variant = 'transparent' | 'outlined';

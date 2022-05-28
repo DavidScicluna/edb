@@ -4,7 +4,6 @@ import { CardProps, CardFooterProps } from '@davidscicluna/component-library';
 
 import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
-
 type ScrollMenuContext = ContextType<typeof VisibilityContext>;
 
 export type ScrollMenu = Omit<ScrollMenuContext, 'children' | 'LeftArrow' | 'RightArrow'>;

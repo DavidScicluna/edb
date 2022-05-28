@@ -2,7 +2,6 @@ import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import LoadMore from '../../../../../Clickable/LoadMore';

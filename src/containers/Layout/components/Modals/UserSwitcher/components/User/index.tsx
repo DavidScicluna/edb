@@ -48,9 +48,7 @@ const User = ({ user, isActive = false, onClick }: UserProps): ReactElement => {
 							fontSize='2xl'
 							fontWeight='semibold'
 							lineHeight='normal'
-							isTruncated
-							overflow='hidden'
-							whiteSpace='nowrap'
+							noOfLines={1}
 							sx={{
 								transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 							}}
@@ -66,9 +64,7 @@ const User = ({ user, isActive = false, onClick }: UserProps): ReactElement => {
 							}
 							fontSize='md'
 							fontWeight='medium'
-							isTruncated
-							overflow='hidden'
-							whiteSpace='nowrap'
+							noOfLines={1}
 							sx={{
 								transition: `${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
 							}}

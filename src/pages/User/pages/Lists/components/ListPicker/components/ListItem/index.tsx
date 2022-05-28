@@ -64,9 +64,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 						color={isSelected ? `${color}.400` : `gray.${colorMode === 'light' ? 900 : 50}`}
 						fontSize='xl'
 						fontWeight='semibold'
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 						sx={{ transition }}
 					>
 						{label}
@@ -77,9 +75,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 						fontSize='sm'
 						fontWeight='400'
 						textTransform='capitalize'
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 						sx={{ transition }}
 					>
 						{`${[

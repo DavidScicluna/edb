@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';

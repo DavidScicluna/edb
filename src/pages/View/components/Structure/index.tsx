@@ -7,7 +7,6 @@ import Divider from '../../../../components/Divider';
 
 import { StructureProps } from './types';
 
-
 const Structure = ({ children }: StructureProps): ReactElement => {
 	const [ref, { width, height }] = useElementSize();
 

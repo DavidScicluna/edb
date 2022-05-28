@@ -3,11 +3,9 @@ import { ReactElement, useContext, useEffect } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
-
 import Arrow from '../Arrow';
 
 import { LeftArrowProps } from './types';
-
 
 const LeftArrow = ({ colorMode, isDisabled: isDisabledProp = false }: LeftArrowProps): ReactElement => {
 	const { isFirstItemVisible, scrollPrev, visibleItemsWithoutSeparators, initComplete } =

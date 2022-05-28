@@ -41,9 +41,7 @@ const Name = (props: NameProps): ReactElement => {
 						fontSize={fontSize}
 						fontWeight='semibold'
 						color={`gray.${colorMode === 'light' ? 900 : 50}`}
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 					>
 						{name || 'Episode Name'}
 					</Text>

@@ -8,7 +8,6 @@ import SkeletonText from '../../../../../../../Skeleton/Text';
 
 import { SubtitleProps } from './types';
 
-
 const dummies = range(25, 100, 5);
 
 const Subtitle = (props: SubtitleProps): ReactElement => {
@@ -33,9 +32,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 						align='left'
 						fontSize={['xs', 'sm']}
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 					>
 						{subtitle || 'Subtitle'}
 					</Text>

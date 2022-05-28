@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-
 import { PartialMovie } from '../../../../../common/types/movie';
 import Empty from '../../../../../components/Empty';
 import Error from '../../../../../components/Error';

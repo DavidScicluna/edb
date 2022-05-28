@@ -1,6 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-
 import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, VStack, Center } from '@chakra-ui/react';
@@ -8,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-
 
 import { useSelector } from '../../../../../common/hooks';
 import Modal from '../../../../../components/Modal';

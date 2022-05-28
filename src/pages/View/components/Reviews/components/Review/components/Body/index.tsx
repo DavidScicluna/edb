@@ -6,7 +6,6 @@ import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@ch
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
-
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { BodyProps } from './types';

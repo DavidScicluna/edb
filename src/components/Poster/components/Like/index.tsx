@@ -1,9 +1,8 @@
 import { ReactElement } from 'react';
 
-import {  IconButton, } from '@davidscicluna/component-library';
+import { IconButton } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
-
 
 import { MediaType } from '../../../../common/types';
 import Like, { handleReturnIcon } from '../../../Clickable/Like';

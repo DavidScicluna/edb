@@ -8,7 +8,6 @@ import Tooltip from '../../../../../../components/Tooltip';
 
 import { DisplayProps } from './types';
 
-
 const Display = ({ query = '', searchTypes, totalResults }: DisplayProps): ReactElement => {
 	const { colorMode } = useColorMode();
 

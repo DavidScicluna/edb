@@ -60,7 +60,6 @@ const List = (props: ListProps): ReactElement => {
 								fontSize='xs'
 								fontWeight='400'
 								textTransform='capitalize'
-								isTruncated
 							>
 								{description}
 							</Text>

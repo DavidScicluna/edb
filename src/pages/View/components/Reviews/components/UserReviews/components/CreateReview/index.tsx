@@ -167,9 +167,7 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 										<Text
 											color={`gray.${colorMode === 'light' ? 400 : 500}`}
 											fontSize='sm'
-											isTruncated
-											overflow='hidden'
-											whiteSpace='nowrap'
+											noOfLines={1}
 										>
 											{`${value} stars`}
 										</Text>

@@ -2,7 +2,6 @@ import { ReactElement, useContext } from 'react';
 
 import { TabList as CUITabList } from '@chakra-ui/react';
 
-
 import { TabsContext } from '../../.';
 import HorizontalScroll from '../../../HorizontalScroll';
 import { TabsContext as TabsContextType } from '../../types';

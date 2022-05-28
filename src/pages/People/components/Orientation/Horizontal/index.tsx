@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import range from 'lodash/range';
 
-
 import { PartialPerson } from '../../../../../common/types/person';
 import Empty from '../../../../../components/Empty';
 import Error from '../../../../../components/Error';

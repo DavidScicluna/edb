@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useMediaQuery, AspectRatio } from '@chakra-ui/react';
 import { useWindowSize } from 'usehooks-ts';
 
-
 import { handleReturnImageOrientation } from '../../../../common/utils';
 import Image from '../../../Image';
 

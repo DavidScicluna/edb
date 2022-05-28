@@ -5,7 +5,6 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import compact from 'lodash/compact';
 import toString from 'lodash/toString';
 
-
 import { FullPerson } from '../../../../../../../../common/types/person';
 import Paragraph from '../../../../../../../../components/Paragraph';
 

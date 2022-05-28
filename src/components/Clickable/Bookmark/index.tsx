@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 
-
 import { Button } from '@davidscicluna/component-library';
 
 import { useDisclosure } from '@chakra-ui/react';
@@ -9,13 +8,11 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { useSelector } from '../../../common/hooks';
 import { setList } from '../../../store/slices/Modals';
 import { getUser, setUserLists } from '../../../store/slices/Users';
 import { List } from '../../../store/slices/Users/types';
 import ConfirmModal from '../../ConfirmModal';
-
 
 import { BookmarkProps } from './types';
 

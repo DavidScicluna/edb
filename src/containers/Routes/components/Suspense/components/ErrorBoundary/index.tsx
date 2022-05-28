@@ -7,7 +7,6 @@ import Error from '../../../../../../pages/Error';
 import Actions from './components/Actions';
 import { ErrorBoundaryProps, State } from './types';
 
-
 class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
 	public state: State = {
 		hasError: false

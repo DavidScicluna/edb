@@ -5,7 +5,6 @@ import { Button } from '@davidscicluna/component-library';
 import { useMediaQuery } from '@chakra-ui/react';
 import qs from 'query-string';
 
-
 import { useSelector } from '../../../../../../../common/hooks';
 import Link from '../../../../../../../components/Clickable/Link';
 import HorizontalGrid from '../../../../../../../components/Grid/Horizontal/Default';

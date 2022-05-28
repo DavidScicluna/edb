@@ -9,7 +9,6 @@ import SkeletonText from '../../../../../../../../../../../components/Skeleton/T
 
 import { StatRef, StatProps } from './types';
 
-
 const dummies = range(50, 150, 20);
 
 const Stat = forwardRef<StatRef, StatProps>(function Stat(props, ref): ReactElement {

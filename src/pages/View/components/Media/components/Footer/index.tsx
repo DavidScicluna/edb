@@ -4,7 +4,6 @@ import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 

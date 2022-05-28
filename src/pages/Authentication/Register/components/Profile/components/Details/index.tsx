@@ -42,9 +42,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 						color={`gray.${colorMode === 'light' ? 900 : 50}`}
 						fontSize='4xl'
 						fontWeight='semibold'
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 					>
 						{!hasFirstName && !hasLastName
 							? 'First Last Name '
@@ -59,9 +57,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}
 						fontSize='md'
 						fontWeight='medium'
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 					>
 						{hasUsername ? `@${user.username}` : 'User @Username'}
 					</Text>

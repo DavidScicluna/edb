@@ -55,9 +55,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 							align='left'
 							color={`gray.${colorMode === 'light' ? 900 : 50}`}
 							fontSize='md'
-							isTruncated
-							overflow='hidden'
-							whiteSpace='nowrap'
+							noOfLines={1}
 						>
 							{title}
 						</Text>
@@ -74,9 +72,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 								align='left'
 								color={`gray.${colorMode === 'light' ? 400 : 500}`}
 								fontSize='xs'
-								isTruncated
-								overflow='hidden'
-								whiteSpace='nowrap'
+								noOfLines={1}
 							>
 								{subtitle}
 							</Text>

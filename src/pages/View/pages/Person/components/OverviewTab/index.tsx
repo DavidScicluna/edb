@@ -11,7 +11,6 @@ import Bio from './components/Bio';
 import KnownFor from './components/KnownFor';
 import { OverviewTabProps } from './types';
 
-
 const OverviewTab = (props: OverviewTabProps): ReactElement => {
 	const { person, credits, images, isLoading, isError, isSuccess, onClickImage, onChangeTab } = props;
 

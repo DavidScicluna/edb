@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 
-
 import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import HorizontalPoster from '../../../../../../../../../components/Poster/Horizontal';
 

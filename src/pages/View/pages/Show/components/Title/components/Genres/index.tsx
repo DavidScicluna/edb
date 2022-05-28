@@ -8,7 +8,6 @@ import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { GenresProps } from './types';
 
-
 const dummies = range(25, 200, 5);
 
 const Genres = (props: GenresProps): ReactElement => {

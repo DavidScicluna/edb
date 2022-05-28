@@ -4,7 +4,6 @@ import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import { PartialMovie } from '../../../../../../common/types/movie';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';

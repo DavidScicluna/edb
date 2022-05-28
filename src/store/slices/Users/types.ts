@@ -85,7 +85,8 @@ export type ThemeColor = Exclude<Color, 'gray' | 'red' | 'green' | 'yellow'>;
 export type ThemeColorMode = ColorMode | 'system';
 
 export type Theme = {
-	color: ThemeColor;
+	// color: ThemeColor;
+	color: any;
 	colorMode: ThemeColorMode;
 };
 

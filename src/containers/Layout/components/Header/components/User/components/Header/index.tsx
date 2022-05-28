@@ -22,20 +22,11 @@ const Header = ({ avatar_path, name, username }: HeaderProps): ReactElement => {
 					fontSize='xl'
 					fontWeight='bold'
 					lineHeight='normal'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='nowrap'
+					noOfLines={1}
 				>
 					{name}
 				</Text>
-				<Text
-					align='left'
-					color={`gray.${colorMode === 'light' ? 400 : 500}`}
-					fontSize='sm'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='nowrap'
-				>
+				<Text align='left' color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm' noOfLines={1}>
 					{`@${username}`}
 				</Text>
 			</VStack>

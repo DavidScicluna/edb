@@ -19,7 +19,6 @@ import Reviews from './components/Reviews';
 import Similar from './components/Similar';
 import { OverviewTabProps } from './types';
 
-
 const OverviewTab = (props: OverviewTabProps): ReactElement => {
 	const {
 		movieQuery,

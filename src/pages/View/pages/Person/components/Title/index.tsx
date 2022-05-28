@@ -10,7 +10,6 @@ import Title from '../../../../components/Title';
 import Department from './components/Department';
 import { PersonTitleProps } from './types';
 
-
 const dummies = range(25, 100, 5);
 
 const PersonTitle = (props: PersonTitleProps): ReactElement => {

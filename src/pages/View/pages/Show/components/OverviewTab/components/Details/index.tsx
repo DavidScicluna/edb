@@ -12,7 +12,6 @@ import Language from './components/Language';
 import Languages from './components/Languages';
 import { DetailsProps, ListItem } from './types';
 
-
 const Details = ({ show, isLoading = true }: DetailsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 

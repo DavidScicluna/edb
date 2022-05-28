@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Card, CardHeader, CardBody , Icon } from '@davidscicluna/component-library';
+import { Card, CardHeader, CardBody, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, Center, Text } from '@chakra-ui/react';
 import { Controller } from 'react-hook-form';

@@ -8,7 +8,6 @@ import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { DepartmentProps } from './types';
 
-
 const dummies = range(25, 200, 5);
 
 const Department = (props: DepartmentProps): ReactElement => {

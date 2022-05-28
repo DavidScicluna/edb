@@ -12,7 +12,6 @@ import Movies from './components/Movies';
 import TVShows from './components/TVShows';
 import { MediaItemsProps } from './types';
 
-
 const MediaItems = (props: MediaItemsProps): ReactElement => {
 	const { movies = [], shows = [], label, job } = props;
 

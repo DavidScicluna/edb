@@ -7,7 +7,6 @@ import HorizontalScroll from '../../../../../../../../../../components/Horizonta
 import Genre from './components/Genre';
 import { GenresProps } from './types';
 
-
 const Genres = ({ genres = [], isLoading = true }: GenresProps): ReactElement => {
 	const { colorMode } = useColorMode();
 

@@ -4,7 +4,6 @@ import { useColorMode, useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import Label from '../../../../components/Label';
 

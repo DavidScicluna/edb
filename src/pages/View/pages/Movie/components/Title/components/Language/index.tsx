@@ -4,7 +4,6 @@ import { useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-
 import { useSelector } from '../../../../../../../../common/hooks';
 import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 

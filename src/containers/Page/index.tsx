@@ -10,7 +10,6 @@ import Divider from '../../components/Divider';
 import Header from './components/Header';
 import { PageProps } from './types';
 
-
 const Page = (props: PageProps): ReactElement => {
 	const location = useLocation();
 

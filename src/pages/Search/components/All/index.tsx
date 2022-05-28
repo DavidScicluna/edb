@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 import { VStack, Fade } from '@chakra-ui/react';
 
-
 import HorizontalSearchCollections from './components/Collections/Horizontal';
 import VerticalSearchCollections from './components/Collections/Vertical';
 import HorizontalSearchCompanies from './components/Companies/Horizontal';

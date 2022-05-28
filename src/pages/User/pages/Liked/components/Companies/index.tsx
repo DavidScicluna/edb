@@ -3,7 +3,6 @@ import { ReactElement, useState } from 'react';
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import { PartialCompany } from '../../../../../../common/types';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';

@@ -8,7 +8,6 @@ import Divider from '../../../../../../../../../components/Divider';
 import Stat from './components/Stat';
 import { StatsProps, Stat as StatType } from './types';
 
-
 const Stats = (props: StatsProps): ReactElement => {
 	const { colorMode } = useColorMode();
 

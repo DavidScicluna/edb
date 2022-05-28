@@ -7,7 +7,6 @@ import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 import { handleReturnCertification } from '../../../Show/components/Title';

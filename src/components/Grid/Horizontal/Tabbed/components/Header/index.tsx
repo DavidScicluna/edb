@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { HStack, Center } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
 
-
 import Divider from '../../../../../Divider';
 import TabList from '../../../../../Tabs/components/TabList';
 import Actions from '../../../components/Actions';

@@ -4,7 +4,6 @@ import { useColorMode, useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Label from '../Label';
 
@@ -25,9 +24,7 @@ const Tagline = ({ tagline, isLoading = true }: TaglineProps): ReactElement => {
 					color={`gray.${colorMode === 'light' ? 900 : 50}`}
 					fontSize='md'
 					fontStyle='italic'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='nowrap'
+					noOfLines={1}
 				>
 					{tagline || 'Tagline'}
 				</Text>

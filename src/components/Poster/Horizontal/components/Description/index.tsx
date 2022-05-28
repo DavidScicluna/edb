@@ -41,9 +41,7 @@ const Description = (props: DescriptionProps): ReactElement => {
 						fontSize={fontSize}
 						fontWeight='normal'
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 					>
 						{description || 'Poster Description'}
 					</Text>

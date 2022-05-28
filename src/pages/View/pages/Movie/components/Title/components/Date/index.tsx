@@ -9,7 +9,6 @@ import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { DateProps } from './types';
 
-
 const dummies = range(25, 200, 5);
 
 const Date = (props: DateProps): ReactElement => {

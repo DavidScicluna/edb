@@ -5,7 +5,6 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import Paragraph from '../../../../../../components/Paragraph';
 import Media from '../../../../components/Media';
 

@@ -6,7 +6,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { PartialMovie } from '../../../../common/types/movie';
 import { PartialPerson } from '../../../../common/types/person';

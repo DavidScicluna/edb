@@ -22,7 +22,6 @@ import Runtime from './components/Runtime';
 import Status from './components/Status';
 import { MovieTitleProps } from './types';
 
-
 const dummies = range(25, 100, 5);
 
 // TODO: Make this dynamic

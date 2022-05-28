@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import { AspectRatio, Fade } from '@chakra-ui/react';
 
-
 import {
 	handleReturnBoringTypeByMediaType,
 	handleReturnRatio

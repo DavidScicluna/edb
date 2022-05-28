@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 
-
 import { useSelector } from '../../../../../../../../../common/hooks';
 import { handleReturnImageSize } from '../../../../../../../../../common/utils';
 import VerticalPoster from '../../../../../../../../../components/Poster/Vertical';

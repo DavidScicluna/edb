@@ -27,9 +27,7 @@ const Description = ({ colorMode, index, title, subtitle }: DescriptionProps): R
 					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='sm'
 					lineHeight='normal'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='nowrap'
+					noOfLines={1}
 				>
 					{subtitle}
 				</Text>

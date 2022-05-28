@@ -8,7 +8,6 @@ import SkeletonText from '../../../../Skeleton/Text';
 
 import { TitleProps } from './types';
 
-
 const dummies = range(25, 100, 5);
 
 const Title = (props: TitleProps): ReactElement => {
@@ -31,9 +30,7 @@ const Title = (props: TitleProps): ReactElement => {
 						fontSize='sm'
 						fontWeight='semibold'
 						color={`gray.${colorMode === 'light' ? 900 : 50}`}
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 					>
 						{title || 'Poster Title'}
 					</Text>

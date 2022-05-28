@@ -1,6 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useBoolean, VStack, Center, Fade } from '@chakra-ui/react';
@@ -12,7 +11,6 @@ import mergeWith from 'lodash/mergeWith';
 import uniqBy from 'lodash/uniqBy';
 import qs from 'query-string';
 import { useUpdateEffect } from 'usehooks-ts';
-
 
 import axiosInstance, { handleDelay } from '../../common/scripts/axios';
 import { MediaType, Response } from '../../common/types';

@@ -8,7 +8,6 @@ import HorizontalScroll from '../../../../../../../../../../components/Horizonta
 import Person from './components/Person';
 import { PeopleProps } from './types';
 
-
 const Credit = ({ people = [], isLoading = true }: PeopleProps): ReactElement => {
 	const { colorMode } = useColorMode();
 

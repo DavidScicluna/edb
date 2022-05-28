@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 
-
 import { MediaType } from '../../../../common/types';
 import Empty from '../../../../components/Empty';
 import MediaTypes, { mediaTypesList } from '../../../../components/MediaTypes';

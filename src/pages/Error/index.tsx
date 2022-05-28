@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useColorMode, useMediaQuery, Center, HStack, VStack } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
 
-
 import { useSelector } from '../../common/hooks';
 import Divider from '../../components/Divider';
 import { headerHeight } from '../../containers/Layout/common/data/dimensions';

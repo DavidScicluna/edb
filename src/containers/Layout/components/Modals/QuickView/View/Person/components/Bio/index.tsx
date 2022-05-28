@@ -4,7 +4,6 @@ import { VStack, Text, useColorMode } from '@chakra-ui/react';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
 
-
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import { handleReturnDates } from '../../../../../../../../../pages/View/pages/Person/components/OverviewTab/components/Bio';
 import Label from '../../../../components/Label';
@@ -17,19 +16,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 	return (
 		<Label width='100%' label='Bio'>
 			{!isLoading ? (
-				<Text
-					align='left'
-					color={`gray.${colorMode === 'light' ? 900 : 50}`}
-					fontSize='md'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='normal'
-					sx={{
-						'display': '-webkit-box !important',
-						'-webkit-line-clamp': '3',
-						'-webkit-box-orient': 'vertical'
-					}}
-				>
+				<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='md' noOfLines={3}>
 					{bio
 						? compact([
 								birthday ? handleReturnDates(birthday, deathday, place_of_birth) : undefined,

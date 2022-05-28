@@ -5,7 +5,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import { handleReturnDate } from '../../../../../../common/utils';
 import Accordions from '../../../../../../components/Accordions';

@@ -4,7 +4,6 @@ import { Button } from '@davidscicluna/component-library';
 
 import { HStack } from '@chakra-ui/react';
 
-
 import { useSelector } from '../../../../../../../common/hooks';
 import Bookmark from '../../../../../../../components/Clickable/Bookmark';
 import Like, { handleReturnIcon } from '../../../../../../../components/Clickable/Like';

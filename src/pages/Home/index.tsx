@@ -8,7 +8,6 @@ import Popular from './components/Popular';
 import TopRated from './components/TopRated';
 import Trending from './components/Trending';
 
-
 const Home = (): ReactElement => {
 	return (
 		<Page>

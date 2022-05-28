@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { VStack, Text, useColorMode } from '@chakra-ui/react';
 import range from 'lodash/range';
 
-
 import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import Label from '../../../../components/Label';
 
@@ -15,19 +14,7 @@ const Overview = ({ overview, isLoading = true }: OverviewProps): ReactElement =
 	return (
 		<Label width='100%' label='Overview'>
 			{!isLoading ? (
-				<Text
-					align='left'
-					color={`gray.${colorMode === 'light' ? 900 : 50}`}
-					fontSize='md'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='normal'
-					sx={{
-						'display': '-webkit-box !important',
-						'-webkit-line-clamp': '3',
-						'-webkit-box-orient': 'vertical'
-					}}
-				>
+				<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='md' noOfLines={3}>
 					{overview || 'Movie Overview'}
 				</Text>
 			) : (

@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { VStack, SimpleGrid , Button } from '@chakra-ui/react';
+import { VStack, SimpleGrid, Button } from '@chakra-ui/react';
 import range from 'lodash/range';
 
 import SkeletonText from '../../../../Skeleton/Text';
@@ -9,7 +9,6 @@ import years from '../../common/data/years';
 import Header from './components/Header';
 import { Direction } from './components/Header/types';
 import { YearsProps } from './types';
-
 
 const Years = (props: YearsProps): ReactElement => {
 	const [currentYears, setCurrentYears] = useState<number[]>([]);

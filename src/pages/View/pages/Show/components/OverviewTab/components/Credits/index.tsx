@@ -12,7 +12,6 @@ import CreatedBy from './components/CreatedBy';
 import Credit from './components/Credit';
 import { CreditsProps, ListItem } from './types';
 
-
 const Credits = (props: CreditsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 

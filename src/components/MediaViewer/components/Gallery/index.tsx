@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import { ColorMode, useColorMode, Center } from '@chakra-ui/react';
 
-
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
 import Accordions from '../../../Accordions';

@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import { useMediaQuery, SimpleGrid } from '@chakra-ui/react';
 
-
 import { useSelector } from '../../../common/hooks';
 import { handleIsTouchDevice } from '../../../common/utils';
 import { DisplayMode } from '../../../store/slices/App/types';

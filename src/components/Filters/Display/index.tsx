@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { useColorMode, useMediaQuery, Stack, Center , Button } from '@chakra-ui/react';
+import { useColorMode, useMediaQuery, Stack, Center, Button } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
@@ -19,7 +19,6 @@ import Genres from './components/Genres';
 import Rating from './components/Rating';
 import Runtime from './components/Runtime';
 import { DisplayFiltersProps } from './types';
-
 
 export const defaultValues: Filters = handleReturnDefaultValues();
 

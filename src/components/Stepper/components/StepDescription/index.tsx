@@ -60,9 +60,7 @@ const StepDescription = (props: StepDescriptionProps): ReactElement => {
 					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='md'
 					lineHeight='normal'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='nowrap'
+					noOfLines={1}
 				>
 					{subtitle}
 				</Text>

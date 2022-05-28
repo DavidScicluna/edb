@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { useConst, Fade } from '@chakra-ui/react';
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../common/hooks';
 import Accordions from '../../../../components/Accordions';
 import Empty from '../../../../components/Empty';

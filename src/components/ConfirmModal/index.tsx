@@ -6,7 +6,6 @@ import Modal from '../Modal';
 
 import { ConfirmModalProps } from './types';
 
-
 const ConfirmModal = (props: ConfirmModalProps): ReactElement => {
 	const { colorMode: colorModeHook } = useColorMode();
 

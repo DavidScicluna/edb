@@ -4,7 +4,6 @@ import { useMediaQuery, useConst, VStack, ScaleFade } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import LoadMore from '../../../../../../components/Clickable/LoadMore';
 import Empty from '../../../../../../components/Empty';

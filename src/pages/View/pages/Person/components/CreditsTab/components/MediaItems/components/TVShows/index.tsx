@@ -5,7 +5,6 @@ import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { useSelector } from '../../../../../../../../../../common/hooks';
 import { handleReturnDate, handleReturnImageSize } from '../../../../../../../../../../common/utils';
 import LoadMore from '../../../../../../../../../../components/Clickable/LoadMore';

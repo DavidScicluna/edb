@@ -8,7 +8,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import Empty from '../../../../../../components/Empty';
 import { defaultUser, getUser, setUserRecentSearches } from '../../../../../../store/slices/Users';

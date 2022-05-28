@@ -1,4 +1,4 @@
-import { IconButtonSize} from '@davidscicluna/component-library';
+import { IconButtonSize } from '@davidscicluna/component-library';
 
 import { MediaType } from '../../../../common/types';
 import { MediaItem } from '../../../../store/slices/Users/types';

@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { VStack, Text, useColorMode } from '@chakra-ui/react';
 import range from 'lodash/range';
 
-
 import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Label from '../Label';
 

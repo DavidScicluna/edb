@@ -6,7 +6,6 @@ import HorizontalScroll from '../../../../components/HorizontalScroll';
 
 import { TitleProps } from './types';
 
-
 const Title = (props: TitleProps): ReactElement => {
 	const { colorMode } = useColorMode();
 

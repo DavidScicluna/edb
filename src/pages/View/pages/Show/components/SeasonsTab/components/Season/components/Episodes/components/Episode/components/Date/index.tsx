@@ -44,9 +44,7 @@ const Date = (props: DateProps): ReactElement => {
 						fontSize={fontSize}
 						fontWeight='normal'
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}
-						isTruncated
-						overflow='hidden'
-						whiteSpace='nowrap'
+						noOfLines={1}
 					>
 						{!(isNil(date) || isEmpty(date)) ? handleReturnDate(date || '', 'full') : 'Episode Date'}
 					</Text>

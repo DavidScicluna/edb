@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 
 import sort from 'array-sort';
 
-
 import { handleReturnImageSize } from '../../../../../common/utils';
 import HorizontalPoster from '../../../../../components/Poster/Horizontal';
 

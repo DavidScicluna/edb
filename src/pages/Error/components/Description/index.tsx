@@ -6,7 +6,6 @@ import { DescriptionRef } from '../../types';
 
 import { DescriptionProps } from './types';
 
-
 const Description = forwardRef<DescriptionRef, DescriptionProps>(function Description(props, ref): ReactElement {
 	const { colorMode } = useColorMode();
 

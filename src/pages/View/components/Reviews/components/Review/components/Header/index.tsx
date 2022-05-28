@@ -100,9 +100,7 @@ const Header = (props: HeaderProps): ReactElement => {
 							fontSize={isSm ? 'xl' : '2xl'}
 							fontWeight='semibold'
 							lineHeight='normal'
-							isTruncated
-							overflow='hidden'
-							whiteSpace='nowrap'
+							noOfLines={1}
 						>
 							{startCase(!isSm ? `Review by ${author || name}` : author || name)}
 						</Text>
@@ -125,9 +123,7 @@ const Header = (props: HeaderProps): ReactElement => {
 									align='left'
 									color={`gray.${colorMode === 'light' ? 400 : 500}`}
 									fontSize='sm'
-									isTruncated
-									overflow='hidden'
-									whiteSpace='nowrap'
+									noOfLines={1}
 								>
 									{`@${username || 'username'}`}
 								</Text>
@@ -138,9 +134,7 @@ const Header = (props: HeaderProps): ReactElement => {
 										align='left'
 										color={`gray.${colorMode === 'light' ? 400 : 500}`}
 										fontSize='sm'
-										isTruncated
-										overflow='hidden'
-										whiteSpace='nowrap'
+										noOfLines={1}
 									>
 										{dayjs(created_at || new Date()).format('LLL')}
 									</Text>

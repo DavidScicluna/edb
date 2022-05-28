@@ -25,9 +25,7 @@ const Users = ({ users, onUserClick }: UsersProps): ReactElement => {
 					fontSize='sm'
 					fontWeight='medium'
 					textTransform='uppercase'
-					isTruncated
-					overflow='hidden'
-					whiteSpace='nowrap'
+					noOfLines={1}
 				>
 					Recent Users
 				</Text>

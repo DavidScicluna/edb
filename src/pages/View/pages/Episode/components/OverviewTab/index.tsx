@@ -13,7 +13,6 @@ import Guests from './components/Guests';
 import Show from './components/Show';
 import { OverviewTabProps } from './types';
 
-
 const OverviewTab = (props: OverviewTabProps): ReactElement => {
 	const { tvShowQuery, episodeQuery, creditsQuery, imagesQuery, videosQuery, onAssetClick, onChangeTab } = props;
 

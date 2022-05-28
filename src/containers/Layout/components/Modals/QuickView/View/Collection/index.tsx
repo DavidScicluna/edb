@@ -1,6 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-
 import {
 	useColorMode,
 	useMediaQuery,
@@ -20,7 +19,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
-
 
 import { useSelector } from '../../../../../../../common/hooks';
 import axiosInstance from '../../../../../../../common/scripts/axios';

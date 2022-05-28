@@ -14,7 +14,6 @@ import Languages from './components/Languages';
 import Revenue from './components/Revenue';
 import { DetailsProps, ListItem } from './types';
 
-
 const Details = ({ movie, isLoading = true }: DetailsProps): ReactElement => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
