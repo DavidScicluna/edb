@@ -1,11 +1,9 @@
 import { ReactElement, useState, useCallback } from 'react';
 
+import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
 import { useColorMode, VStack, List as CUIList, Text } from '@chakra-ui/react';
 
-import Panel from '../../../../../../components/Panel';
-
 import { ListProps, Ref } from './types';
-
 
 const List = (props: ListProps): ReactElement => {
 	const { colorMode } = useColorMode();
@@ -20,40 +18,34 @@ const List = (props: ListProps): ReactElement => {
 	}, []);
 
 	return (
-		<Panel isFullWidth isDivisible={false} size='xs' variant='transparent'>
-			{{
-				header: {
-					title: (
-						<Text
-							align='left'
-							color={`gray.${colorMode === 'light' ? 400 : 500}`}
-							fontSize='sm'
-							fontWeight='bold'
-							textTransform='uppercase'
-							isTruncated
-							overflow='hidden'
-							whiteSpace='nowrap'
-						>
-							{title}
-						</Text>
-					),
-					actions
-				},
-				body: (
-					<VStack
-						as={CUIList}
-						ref={(ref: Ref) => handleIsOverflown(ref)}
-						width='100%'
-						maxHeight='35vh'
-						overflowY='auto'
-						pr={isOverflown ? 2 : 0}
-						spacing={0}
+		<Card isFullWidth isDivisible={false} variant='transparent'>
+			<CardHeader
+				renderTitle={(props) => (
+					<Text
+						{...props}
+						color={`gray.${colorMode === 'light' ? 400 : 500}`}
+						fontSize='sm'
+						textTransform='uppercase'
 					>
-						{children}
-					</VStack>
-				)
-			}}
-		</Panel>
+						{title}
+					</Text>
+				)}
+				actions={actions}
+			/>
+			<CardBody>
+				<VStack
+					as={CUIList}
+					ref={(ref: Ref) => handleIsOverflown(ref)}
+					width='100%'
+					maxHeight='35vh'
+					overflowY='auto'
+					pr={isOverflown ? 2 : 0}
+					spacing={0}
+				>
+					{children}
+				</VStack>
+			</CardBody>
+		</Card>
 	);
 };
 

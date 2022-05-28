@@ -1,46 +1,42 @@
 import { ReactElement } from 'react';
 
+import { Card, CardBody } from '@davidscicluna/component-library';
 import { VStack } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-
-import Panel from '../../../../components/Panel';
 
 import Cover from './components/Cover';
 import Overview from './components/Overview';
 import Tagline from './components/Tagline';
 import { HeroProps } from './types';
 
-
 const Hero = (props: HeroProps): ReactElement => {
 	const { renderPoster, renderBackdrop, renderDetails, tagline, overview, isLoading = true } = props;
 
 	return (
-		<Panel isFullWidth>
-			{{
-				body: (
-					<VStack position='relative' alignItems='stretch' spacing={2}>
-						<Cover>
-							{{
-								poster: renderPoster(),
-								backdrop: renderBackdrop()
-							}}
-						</Cover>
+		<Card isFullWidth>
+			<CardBody>
+				<VStack position='relative' alignItems='stretch' spacing={2}>
+					<Cover>
+						{{
+							poster: renderPoster(),
+							backdrop: renderBackdrop()
+						}}
+					</Cover>
 
-						{!(isNil(tagline) || isEmpty(tagline)) || isLoading ? (
-							<Tagline tagline={tagline} isLoading={isLoading} />
-						) : null}
+					{!(isNil(tagline) || isEmpty(tagline)) || isLoading ? (
+						<Tagline tagline={tagline} isLoading={isLoading} />
+					) : null}
 
-						{!(isNil(overview) || isEmpty(overview)) || isLoading ? (
-							<Overview overview={overview} isLoading={isLoading} />
-						) : null}
+					{!(isNil(overview) || isEmpty(overview)) || isLoading ? (
+						<Overview overview={overview} isLoading={isLoading} />
+					) : null}
 
-						{renderDetails()}
-					</VStack>
-				)
-			}}
-		</Panel>
+					{renderDetails()}
+				</VStack>
+			</CardBody>
+		</Card>
 	);
 };
 

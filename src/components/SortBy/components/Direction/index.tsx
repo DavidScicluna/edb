@@ -1,13 +1,12 @@
 import { ReactElement } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
-import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, Button, Icon } from '@davidscicluna/component-library';
+import { useMediaQuery, Stack, Center, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import Panel from '../../../Panel';
 import { SortDirection } from '../../types';
 
 import { DirectionProps } from './types';
@@ -28,59 +27,55 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 			control={form.control}
 			name='direction'
 			render={({ field: { value } }) => (
-				<Panel isFullWidth>
-					{{
-						header: {
-							title: 'Direction'
-						},
-						body: (
-							<Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
-								<Center width='100%'>
-									<Button
-										color={value === 'asc' ? color : 'gray'}
-										renderLeft={({ fontSize }) => (
-											<Icon icon='arrow_upward' category='outlined' fontSize={fontSize} />
-										)}
-										renderRight={
-											value === 'asc'
-												? ({ fontSize }) => (
-														<Icon icon='check' category='outlined' fontSize={fontSize} />
-												  )
-												: undefined
-										}
-										isFullWidth
-										onClick={value !== 'asc' ? () => handleOnChange('asc') : undefined}
-										size='lg'
-										variant='outlined'
-									>
-										Ascending order
-									</Button>
-								</Center>
-								<Center width='100%'>
-									<Button
-										color={value === 'desc' ? color : 'gray'}
-										renderLeft={({ fontSize }) => (
-											<Icon icon='arrow_downward' category='outlined' fontSize={fontSize} />
-										)}
-										renderRight={
-											value === 'desc'
-												? ({ fontSize }) => (
-														<Icon icon='check' category='outlined' fontSize={fontSize} />
-												  )
-												: undefined
-										}
-										isFullWidth
-										onClick={value !== 'desc' ? () => handleOnChange('desc') : undefined}
-										size='lg'
-										variant='outlined'
-									>
-										Descending order
-									</Button>
-								</Center>
-							</Stack>
-						)
-					}}
-				</Panel>
+				<Card isFullWidth>
+					<CardHeader renderTitle={(props) => <Text {...props}>Direction</Text>} />
+					<CardBody>
+						<Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
+							<Center width='100%'>
+								<Button
+									color={value === 'asc' ? color : 'gray'}
+									renderLeft={({ fontSize }) => (
+										<Icon icon='arrow_upward' category='outlined' fontSize={fontSize} />
+									)}
+									renderRight={
+										value === 'asc'
+											? ({ fontSize }) => (
+													<Icon icon='check' category='outlined' fontSize={fontSize} />
+											  )
+											: undefined
+									}
+									isFullWidth
+									onClick={value !== 'asc' ? () => handleOnChange('asc') : undefined}
+									size='lg'
+									variant='outlined'
+								>
+									Ascending order
+								</Button>
+							</Center>
+							<Center width='100%'>
+								<Button
+									color={value === 'desc' ? color : 'gray'}
+									renderLeft={({ fontSize }) => (
+										<Icon icon='arrow_downward' category='outlined' fontSize={fontSize} />
+									)}
+									renderRight={
+										value === 'desc'
+											? ({ fontSize }) => (
+													<Icon icon='check' category='outlined' fontSize={fontSize} />
+											  )
+											: undefined
+									}
+									isFullWidth
+									onClick={value !== 'desc' ? () => handleOnChange('desc') : undefined}
+									size='lg'
+									variant='outlined'
+								>
+									Descending order
+								</Button>
+							</Center>
+						</Stack>
+					</CardBody>
+				</Card>
 			)}
 		/>
 	);

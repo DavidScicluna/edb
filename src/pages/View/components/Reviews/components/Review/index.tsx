@@ -1,17 +1,14 @@
 import { ReactElement } from 'react';
-
+import { Card, CardBody, CardFooter } from '@davidscicluna/component-library';
 import { useMediaQuery } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-import Panel from '../../../../../../components/Panel';
-
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { ReviewProps } from './types';
-
 
 dayjs.extend(localizedFormat);
 
@@ -26,18 +23,18 @@ const Review = (props: ReviewProps): ReactElement => {
 	const hasFooter = hasDate || renderFooterActions;
 
 	return (
-		<Panel isFullWidth>
-			{{
-				header: (
-					<Header
-						{...(author_details || {})}
-						author={author}
-						created_at={!isSm ? created_at : ''}
-						isLoading={isLoading}
-					/>
-				),
-				body: <Body content={content} isLoading={isLoading} />,
-				footer: hasFooter ? (
+		<Card isFullWidth>
+			<Header
+				{...(author_details || {})}
+				author={author}
+				created_at={!isSm ? created_at : ''}
+				isLoading={isLoading}
+			/>
+			<CardBody>
+				<Body content={content} isLoading={isLoading} />
+			</CardBody>
+			{hasFooter && (
+				<CardFooter>
 					<Footer
 						date={
 							hasUpdated
@@ -48,9 +45,9 @@ const Review = (props: ReviewProps): ReactElement => {
 						}
 						renderActions={renderFooterActions}
 					/>
-				) : undefined
-			}}
-		</Panel>
+				</CardFooter>
+			)}
+		</Card>
 	);
 };
 

@@ -1,12 +1,11 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse , Button } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, Button } from '@davidscicluna/component-library';
+import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 
-
-import Panel from '../Panel';
 import SkeletonText from '../Skeleton/Text';
 
 import { ParagraphProps } from './types';
@@ -31,24 +30,19 @@ const Paragraph = ({ title, paragraphs = '', isLoading = true }: ParagraphProps)
 	};
 
 	return (
-		<Panel isFullWidth size='sm'>
-			{{
-				header: {
-					title,
-					actions: (
-						<ScaleFade in={isLoading || (height || 0) > limit} unmountOnExit>
-							<Button
-								isDisabled={isLoading}
-								onClick={() => setIsExpanded.toggle()}
-								size='sm'
-								variant='text'
-							>
-								{`Read ${isExpanded ? 'Less' : 'More'}`}
-							</Button>
-						</ScaleFade>
-					)
-				},
-				body: !isLoading ? (
+		<Card isFullWidth>
+			<CardHeader
+				renderTitle={(props) => <Text {...props}>{title}</Text>}
+				actions={
+					<ScaleFade in={isLoading || (height || 0) > limit} unmountOnExit>
+						<Button isDisabled={isLoading} onClick={() => setIsExpanded.toggle()} size='sm' variant='text'>
+							{`Read ${isExpanded ? 'Less' : 'More'}`}
+						</Button>
+					</ScaleFade>
+				}
+			/>
+			<CardBody>
+				{!isLoading ? (
 					<Collapse in={isExpanded} startingHeight={(height || limit) >= limit ? limit : height || limit}>
 						<VStack ref={ref} width='100%' alignItems='flex-start' spacing={2}>
 							{handleFormatIntoParagraphs(paragraphs)
@@ -75,9 +69,9 @@ const Paragraph = ({ title, paragraphs = '', isLoading = true }: ParagraphProps)
 							</SkeletonText>
 						))}
 					</VStack>
-				)
-			}}
-		</Panel>
+				)}
+			</CardBody>
+		</Card>
 	);
 };
 

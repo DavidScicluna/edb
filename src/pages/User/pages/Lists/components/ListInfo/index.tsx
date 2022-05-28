@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { Card, CardHeader, CardBody, Button, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, VStack, HStack, Text } from '@chakra-ui/react';
 
@@ -12,7 +12,6 @@ import isNil from 'lodash/isNil';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Modal from '../../../../../../components/Modal';
-import Panel from '../../../../../../components/Panel';
 import { getUser } from '../../../../../../store/slices/Users';
 
 import { ListInfoProps } from './types';
@@ -88,23 +87,19 @@ const ListInfo = ({ id, isOpen, onEdit, onDelete, onClose }: ListInfoProps): Rea
 		>
 			<VStack width='100%' spacing={2} p={2}>
 				{list?.description ? (
-					<Panel isFullWidth>
-						{{
-							header: {
-								title: 'Description'
-							},
-							body: (
-								<Text
-									align='left'
-									color={`gray.${colorMode === 'light' ? 900 : 50}`}
-									fontSize='lg'
-									fontWeight='normal'
-								>
-									{list.description}
-								</Text>
-							)
-						}}
-					</Panel>
+					<Card isFullWidth>
+						<CardHeader renderTitle={(props) => <Text {...props}>Description</Text>} />
+						<CardBody>
+							<Text
+								align='left'
+								color={`gray.${colorMode === 'light' ? 900 : 50}`}
+								fontSize='lg'
+								fontWeight='normal'
+							>
+								{list.description}
+							</Text>
+						</CardBody>
+					</Card>
 				) : null}
 
 				<Stats totalMovies={list?.results.movies.length || 0} totalTvs={list?.results.tv.length || 0} />

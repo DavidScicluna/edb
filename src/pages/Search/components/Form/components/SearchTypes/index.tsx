@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { Card, CardHeader, CardBody, Button, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, HStack, Box, Text } from '@chakra-ui/react';
 
@@ -9,7 +9,6 @@ import { useElementSize } from 'usehooks-ts';
 import { useSelector } from '../../../../../../common/hooks';
 import Divider from '../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../components/HorizontalScroll';
-import Panel from '../../../../../../components/Panel';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { SearchType as SearchTypeValue } from '../../../../../../store/slices/Users/types';
 
@@ -90,56 +89,50 @@ const SearchTypes = ({ searchTypes: activeSearchTypes, onSetSearchTypes }: Searc
 	};
 
 	return (
-		<Panel isFullWidth isDivisible={false} size='xs' variant='transparent'>
-			{{
-				header: {
-					title: (
-						<Text
-							align='left'
-							color={`gray.${colorMode === 'light' ? 400 : 500}`}
-							fontSize='sm'
-							fontWeight='bold'
-							textTransform='uppercase'
-							isTruncated
-							overflow='hidden'
-							whiteSpace='nowrap'
+		<Card isFullWidth isDivisible={false} variant='transparent'>
+			<CardHeader
+				renderTitle={(props) => (
+					<Text
+						{...props}
+						color={`gray.${colorMode === 'light' ? 400 : 500}`}
+						fontSize='sm'
+						textTransform='uppercase'
+					>
+						I'm looking for...
+					</Text>
+				)}
+				actions={
+					<HStack ref={ref} divider={<Divider orientation='vertical' height={`${height}px`} />}>
+						<Button
+							color={color}
+							isDisabled={
+								activeSearchTypes.length === 0 || activeSearchTypes.length === searchTypes.length
+							}
+							onClick={() => onSetSearchTypes([])}
+							size='sm'
+							variant='text'
 						>
-							{`I'm looking for...`}
-						</Text>
-					),
-					actions: (
-						<HStack ref={ref} divider={<Divider orientation='vertical' height={`${height}px`} />}>
-							<Button
-								color={color}
-								isDisabled={
-									activeSearchTypes.length === 0 || activeSearchTypes.length === searchTypes.length
-								}
-								onClick={() => onSetSearchTypes([])}
-								size='sm'
-								variant='text'
-							>
-								Clear
-							</Button>
-							<Button color={color} onClick={() => handleAllClick()} size='sm' variant='text'>
-								{handleAllLabel()}
-							</Button>
-						</HStack>
-					)
-				},
-				body: (
-					<HorizontalScroll renderDivider={() => <Box p={1} />}>
-						{searchTypes.map((type) => (
-							<SearchType
-								{...type}
-								key={type.value}
-								isActive={activeSearchTypes.some((activeType) => activeType === type.value)}
-								onClick={handleSearchTypeClick}
-							/>
-						))}
-					</HorizontalScroll>
-				)
-			}}
-		</Panel>
+							Clear
+						</Button>
+						<Button color={color} onClick={() => handleAllClick()} size='sm' variant='text'>
+							{handleAllLabel()}
+						</Button>
+					</HStack>
+				}
+			/>
+			<CardBody>
+				<HorizontalScroll renderDivider={() => <Box p={1} />}>
+					{searchTypes.map((type) => (
+						<SearchType
+							{...type}
+							key={type.value}
+							isActive={activeSearchTypes.some((activeType) => activeType === type.value)}
+							onClick={handleSearchTypeClick}
+						/>
+					))}
+				</HorizontalScroll>
+			</CardBody>
+		</Card>
 	);
 };
 

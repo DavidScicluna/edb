@@ -1,13 +1,11 @@
 import React, { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Card, CardHeader, CardBody, Button } from '@davidscicluna/component-library';
 
-import { VStack } from '@chakra-ui/react';
+import { VStack, Text } from '@chakra-ui/react';
 
 import { isEmpty, isNil } from 'lodash';
 
-
-import Panel from '../../../../../../../components/Panel';
 import { detailsDefaultValues as defaultValues } from '../../../../defaults';
 import { DetailsProps as InfoProps } from '../../types';
 
@@ -26,35 +24,33 @@ const Info = ({ form, color, colorMode }: InfoProps): ReactElement => {
 	};
 
 	return (
-		<Panel colorMode={colorMode} isFullWidth variant='outlined'>
-			{{
-				header: {
-					title: 'Information',
-					actions: (
-						<Button
-							color={color}
-							colorMode={colorMode}
-							isDisabled={
-								(isNil(firstName) || isEmpty(firstName)) &&
-								(isNil(lastName) || isEmpty(lastName)) &&
-								(isNil(bio) || isEmpty(bio))
-							}
-							onClick={() => handleClear()}
-							size='sm'
-							variant='text'
-						>
-							Clear
-						</Button>
-					)
-				},
-				body: (
-					<VStack width='100%' spacing={2}>
-						<Name form={form} color={color} colorMode={colorMode} />
-						<Bio form={form} color={color} colorMode={colorMode} />
-					</VStack>
-				)
-			}}
-		</Panel>
+		<Card colorMode={colorMode} isFullWidth variant='outlined'>
+			<CardHeader
+				renderTitle={(props) => <Text {...props}>Information</Text>}
+				actions={
+					<Button
+						color={color}
+						colorMode={colorMode}
+						isDisabled={
+							(isNil(firstName) || isEmpty(firstName)) &&
+							(isNil(lastName) || isEmpty(lastName)) &&
+							(isNil(bio) || isEmpty(bio))
+						}
+						onClick={() => handleClear()}
+						size='sm'
+						variant='text'
+					>
+						Clear
+					</Button>
+				}
+			/>
+			<CardBody>
+				<VStack width='100%' spacing={2}>
+					<Name form={form} color={color} colorMode={colorMode} />
+					<Bio form={form} color={color} colorMode={colorMode} />
+				</VStack>
+			</CardBody>
+		</Card>
 	);
 };
 

@@ -1,13 +1,11 @@
 import { ReactElement } from 'react';
 
-
-import { ColorMode, SimpleGrid } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
+import { ColorMode, SimpleGrid, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
-
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
-import Panel from '../../../../../../../components/Panel';
 import { Form } from '../../../../../../../containers/Layout/components/Modals/Display/types';
 import { CustomizationProps as ColorProps } from '../../types';
 
@@ -37,26 +35,22 @@ const Color = ({ form }: ColorProps): ReactElement => {
 			control={form.control}
 			name='color'
 			render={({ field: { value } }) => (
-				<Panel colorMode={colorMode} isFullWidth>
-					{{
-						header: {
-							title: 'Color'
-						},
-						body: (
-							<SimpleGrid width='100%' columns={[1, 3, 4]} spacing={2}>
-								{colors.map((color, index) => (
-									<ColorItem
-										key={index}
-										color={color}
-										colorMode={colorMode}
-										isActive={color === value}
-										onClick={() => form.setValue('color', color, { shouldDirty: true })}
-									/>
-								))}
-							</SimpleGrid>
-						)
-					}}
-				</Panel>
+				<Card colorMode={colorMode} isFullWidth>
+					<CardHeader renderTitle={(props) => <Text {...props}>Color</Text>} />
+					<CardBody>
+						<SimpleGrid width='100%' columns={[1, 3, 4]} spacing={2}>
+							{colors.map((color, index) => (
+								<ColorItem
+									key={index}
+									color={color}
+									colorMode={colorMode}
+									isActive={color === value}
+									onClick={() => form.setValue('color', color, { shouldDirty: true })}
+								/>
+							))}
+						</SimpleGrid>
+					</CardBody>
+				</Card>
 			)}
 		/>
 	);

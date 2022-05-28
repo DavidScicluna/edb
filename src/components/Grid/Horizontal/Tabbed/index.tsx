@@ -1,12 +1,11 @@
 import { ReactElement, Fragment, forwardRef, useRef, useState, useCallback, useEffect } from 'react';
 
 import '../common/styles/styles.css';
+import { Card, CardBody, CardFooter } from '@davidscicluna/component-library';
 import { useBoolean } from '@chakra-ui/react';
 
 import debounce from 'lodash/debounce';
 
-
-import Panel from '../../../Panel';
 import Tabs from '../../../Tabs';
 import TabPanels from '../../../Tabs/components/TabPanels';
 import Scroll from '../components/Scroll';
@@ -83,39 +82,31 @@ const HorizontalGridTabbed = forwardRef<HorizontalGridTabbedRef, HorizontalGridT
 
 		return (
 			<Tabs ref={ref} activeTab={activeTab} onChange={handleOnChange}>
-				<Panel {...rest} isFullWidth>
-					{{
-						header: (
-							<Header
-								scrollMenu={scrollRef.current}
-								isDisabled={isDisabled}
-								isLeftDisabled={isLeftDisabled}
-								isRightDisabled={isRightDisabled}
-								renderTabListProps={renderTabListProps}
-							/>
-						),
-						body: (
-							<TabPanels>
-								{children.map((panel, index) => (
-									<Fragment key={index}>
-										{panel.props.children && panel.props.children.length > 0 ? (
-											<Scroll
-												apiRef={scrollRef}
-												onInit={handleUpdateApi}
-												onUpdate={handleUpdateApi}
-											>
-												{panel.props.children}
-											</Scroll>
-										) : (
-											panel
-										)}
-									</Fragment>
-								))}
-							</TabPanels>
-						),
-						footer
-					}}
-				</Panel>
+				<Card {...rest} isFullWidth>
+					<Header
+						scrollMenu={scrollRef.current}
+						isDisabled={isDisabled}
+						isLeftDisabled={isLeftDisabled}
+						isRightDisabled={isRightDisabled}
+						renderTabListProps={renderTabListProps}
+					/>
+					<CardBody>
+						<TabPanels>
+							{children.map((panel, index) => (
+								<Fragment key={index}>
+									{panel.props.children && panel.props.children.length > 0 ? (
+										<Scroll apiRef={scrollRef} onInit={handleUpdateApi} onUpdate={handleUpdateApi}>
+											{panel.props.children}
+										</Scroll>
+									) : (
+										panel
+									)}
+								</Fragment>
+							))}
+						</TabPanels>
+					</CardBody>
+					{footer && <CardFooter>{footer}</CardFooter>}
+				</Card>
 			</Tabs>
 		);
 	}

@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 
+import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
 import { useMediaQuery, Stack, Center, Text } from '@chakra-ui/react';
 
 import { Icon } from '@davidscicluna/component-library';
 import { Controller } from 'react-hook-form';
 
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';
-import Panel from '../../../../../../../components/Panel';
 import { CustomizationProps as ColorModeProps } from '../../types';
 
 import { ColorMode as ColorModeType } from './types';
@@ -52,30 +52,26 @@ const ColorMode = ({ form }: ColorModeProps): ReactElement => {
 			control={form.control}
 			name='colorMode'
 			render={({ field: { value } }) => (
-				<Panel colorMode={value === 'system' ? handleCheckSystemColorMode() : value} isFullWidth>
-					{{
-						header: {
-							title: 'Color-Mode'
-						},
-						body: (
-							<Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
-								{colorModes.map((colormode) => (
-									<Center width='100%' key={colormode.value}>
-										<ColorModeItem
-											{...colormode}
-											color={color}
-											colorMode={value === 'system' ? handleCheckSystemColorMode() : value}
-											isActive={value === colormode.value}
-											onClick={() =>
-												form.setValue('colorMode', colormode.value, { shouldDirty: true })
-											}
-										/>
-									</Center>
-								))}
-							</Stack>
-						)
-					}}
-				</Panel>
+				<Card colorMode={value === 'system' ? handleCheckSystemColorMode() : value} isFullWidth>
+					<CardHeader renderTitle={(props) => <Text {...props}>Color-Mode</Text>} />
+					<CardBody>
+						<Stack width='100%' direction={isSm ? 'column' : 'row'} spacing={2}>
+							{colorModes.map((colormode) => (
+								<Center width='100%' key={colormode.value}>
+									<ColorModeItem
+										{...colormode}
+										color={color}
+										colorMode={value === 'system' ? handleCheckSystemColorMode() : value}
+										isActive={value === colormode.value}
+										onClick={() =>
+											form.setValue('colorMode', colormode.value, { shouldDirty: true })
+										}
+									/>
+								</Center>
+							))}
+						</Stack>
+					</CardBody>
+				</Card>
 			)}
 		/>
 	);

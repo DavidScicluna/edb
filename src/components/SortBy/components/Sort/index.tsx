@@ -1,13 +1,12 @@
 import { ReactElement } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
-import { VStack, Center } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, Button, Icon } from '@davidscicluna/component-library';
+import { VStack, Center, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import Panel from '../../../Panel';
 import { SortBy } from '../../types';
 
 import { SortProps } from './types';
@@ -26,43 +25,33 @@ const Sort = ({ form, sortBy }: SortProps): ReactElement => {
 			control={form.control}
 			name='sortBy'
 			render={({ field: { value } }) => (
-				<Panel isFullWidth>
-					{{
-						header: {
-							title: 'Sort by'
-						},
-						body: (
-							<VStack width='100%' spacing={2}>
-								{sortBy.map((sort) => (
-									<Center key={sort.value} width='100%'>
-										<Button
-											color={sort.value === value.value ? color : 'gray'}
-											renderRight={
-												sort.value === value.value
-													? ({ fontSize }) => (
-															<Icon
-																icon='check'
-																category='outlined'
-																fontSize={fontSize}
-															/>
-													  )
-													: undefined
-											}
-											isFullWidth
-											onClick={
-												sort.value !== value.value ? () => handleOnChange(sort) : undefined
-											}
-											size='lg'
-											variant='outlined'
-										>
-											{sort.label}
-										</Button>
-									</Center>
-								))}
-							</VStack>
-						)
-					}}
-				</Panel>
+				<Card isFullWidth>
+					<CardHeader renderTitle={(props) => <Text {...props}>Sort by</Text>} />
+					<CardBody>
+						<VStack width='100%' spacing={2}>
+							{sortBy.map((sort) => (
+								<Center key={sort.value} width='100%'>
+									<Button
+										color={sort.value === value.value ? color : 'gray'}
+										renderRight={
+											sort.value === value.value
+												? ({ fontSize }) => (
+														<Icon icon='check' category='outlined' fontSize={fontSize} />
+												  )
+												: undefined
+										}
+										isFullWidth
+										onClick={sort.value !== value.value ? () => handleOnChange(sort) : undefined}
+										size='lg'
+										variant='outlined'
+									>
+										{sort.label}
+									</Button>
+								</Center>
+							))}
+						</VStack>
+					</CardBody>
+				</Card>
 			)}
 		/>
 	);

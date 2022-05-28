@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
+import { Text } from '@chakra-ui/react';
 import capitalize from 'lodash/capitalize';
 import compact from 'lodash/compact';
+import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
 
-
-import Panel from '../../../../../../../../components/Panel';
 import HorizontalCollectionPoster from '../../../../../../../Search/components/All/components/Collections/components/Poster/Horizontal';
 
 import { CollectionProps } from './types';
@@ -15,18 +15,22 @@ const Collection = ({ collection }: CollectionProps): ReactElement => {
 	};
 
 	return (
-		<Panel isFullWidth>
-			{{
-				header: {
-					title: `Part of the ${
-						collection?.name
-							? `"${capitalize(handleReturnFormattedTitle(collection.name))}" Collection`
-							: 'Collection'
-					}`
-				},
-				body: <HorizontalCollectionPoster collection={collection} isLoading={false} />
-			}}
-		</Panel>
+		<Card isFullWidth>
+			<CardHeader
+				renderTitle={(props) => (
+					<Text {...props}>
+						{`Part of the ${
+							collection?.name
+								? `"${capitalize(handleReturnFormattedTitle(collection.name))}" Collection`
+								: 'Collection'
+						}`}
+					</Text>
+				)}
+			/>
+			<CardBody>
+				<HorizontalCollectionPoster collection={collection} isLoading={false} />
+			</CardBody>
+		</Card>
 	);
 };
 

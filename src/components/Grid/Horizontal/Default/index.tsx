@@ -1,12 +1,11 @@
 import { ReactElement, useRef, useState, useCallback, useEffect } from 'react';
 
 import '../common/styles/styles.css';
+import { Card, CardBody, CardFooter } from '@davidscicluna/component-library';
 import { useBoolean } from '@chakra-ui/react';
 
 import debounce from 'lodash/debounce';
 
-
-import Panel from '../../../Panel';
 import Scroll from '../components/Scroll';
 import { ScrollMenu } from '../types';
 
@@ -57,27 +56,25 @@ const HorizontalGridDefault = (props: HorizontalGridDefaultProps): ReactElement 
 	useEffect(() => handleCheckIsDisabled(), [isFirstItemVisible, isLastItemVisible, visibleItemsWithoutSeparators]);
 
 	return (
-		<Panel {...rest} isFullWidth>
-			{{
-				header: (
-					<Header
-						title={title}
-						scrollMenu={ref.current}
-						isDisabled={isDisabled}
-						isLeftDisabled={isLeftDisabled}
-						isRightDisabled={isRightDisabled}
-					/>
-				),
-				body: Array.isArray(children) ? (
+		<Card {...rest} isFullWidth>
+			<Header
+				title={title}
+				scrollMenu={ref.current}
+				isDisabled={isDisabled}
+				isLeftDisabled={isLeftDisabled}
+				isRightDisabled={isRightDisabled}
+			/>
+			<CardBody>
+				{Array.isArray(children) ? (
 					<Scroll apiRef={ref} onInit={handleUpdateApi} onUpdate={handleUpdateApi}>
 						{children}
 					</Scroll>
 				) : (
 					children
-				),
-				footer
-			}}
-		</Panel>
+				)}
+			</CardBody>
+			{footer && <CardFooter>{footer}</CardFooter>}
+		</Card>
 	);
 };
 
