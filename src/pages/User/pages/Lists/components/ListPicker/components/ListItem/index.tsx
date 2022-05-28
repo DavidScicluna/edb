@@ -1,21 +1,20 @@
 import { ReactElement } from 'react';
 
-import { useTheme, useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
+import { useTheme, Radio } from '@davidscicluna/component-library';
+
+import { useColorMode, useBoolean, VStack, Text, Box } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
-
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Card from '../../../../../../../../components/Clickable/Card';
 import { CardRef } from '../../../../../../../../components/Clickable/Card/types';
-import Radio from '../../../../../../../../components/Forms/Radio';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../../../theme/types';
 
 import { ListItemProps } from './types';
 
 const ListItem = (props: ListItemProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const [ref, { width }] = useElementSize<NonNullable<CardRef>>();
@@ -53,7 +52,8 @@ const ListItem = (props: ListItemProps): ReactElement => {
 			>
 				<Box position='absolute' top={theme.space[2]} left={theme.space[2]}>
 					<Radio
-						color={color}
+						// color={color}
+						color='blue'
 						isChecked={isSelected}
 						onMouseEnter={() => setIsHoveringRadio.on()}
 						onMouseLeave={() => setIsHoveringRadio.off()}
