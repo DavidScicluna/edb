@@ -1,7 +1,8 @@
 import { ReactElement, useEffect, useState } from 'react';
 
-import { useMediaQuery, useBoolean, VStack, ScaleFade } from '@chakra-ui/react';
 import { useLocation, useSearchParams } from 'react-router-dom';
+
+import { useMediaQuery, useBoolean, VStack, ScaleFade } from '@chakra-ui/react';
 import { useInfiniteQuery } from 'react-query';
 import axios from 'axios';
 import mergeWith from 'lodash/mergeWith';

@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
+import { useLocation } from 'react-router-dom';
+
 import { Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
 import isEqual from 'lodash/isEqual';
 
 // import Adult from './components/Adult';

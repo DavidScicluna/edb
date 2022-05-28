@@ -1,6 +1,7 @@
 import { ReactElement, memo } from 'react';
 
 import { Card, CardBody } from '@davidscicluna/component-library';
+
 import { useBoolean, useConst, VStack, HStack, Center } from '@chakra-ui/react';
 import { useInView } from 'react-cool-inview';
 import isEmpty from 'lodash/isEmpty';

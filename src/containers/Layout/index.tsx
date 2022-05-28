@@ -1,11 +1,12 @@
 import { ReactElement, useEffect, memo } from 'react';
 
+import { Outlet } from 'react-router-dom';
+
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, Container, HStack, VStack, Box, Collapse } from '@chakra-ui/react';
 import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { Outlet } from 'react-router-dom';
 import { useTernaryDarkMode, useUpdateEffect } from 'usehooks-ts';
 
 import { useSelector } from '../../common/hooks';

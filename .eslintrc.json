@@ -74,6 +74,11 @@
 						"position": "before"
 					},
 					{
+						"pattern": "react-router-dom",
+						"group": "external",
+						"position": "before"
+					},
+					{
 						"pattern": "@davidscicluna/component-library",
 						"group": "external",
 						"position": "before"

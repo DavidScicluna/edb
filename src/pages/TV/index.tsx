@@ -1,10 +1,11 @@
 import { ReactElement, useState, useCallback, useEffect } from 'react';
 
+import { useLocation, useSearchParams } from 'react-router-dom';
+
 import { Button, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBoolean, HStack, VStack, Fade, ScaleFade, Collapse } from '@chakra-ui/react';
 import { useInfiniteQuery } from 'react-query';
-import { useLocation, useSearchParams } from 'react-router-dom';
 import CountUp from 'react-countup';
 import axios from 'axios';
 import dayjs from 'dayjs';

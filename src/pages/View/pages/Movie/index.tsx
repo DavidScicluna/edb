@@ -1,10 +1,11 @@
 import { ReactElement, useState, useEffect } from 'react';
 
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+
 import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, useConst, Fade } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useQuery, useInfiniteQuery } from 'react-query';
 import CountUp from 'react-countup';
 import sort from 'array-sort';

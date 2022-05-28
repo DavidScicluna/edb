@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
-import { useBoolean, VStack, Box, Collapse } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
+
+import { useBoolean, VStack, Box, Collapse } from '@chakra-ui/react';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Divider from '../../components/Divider';

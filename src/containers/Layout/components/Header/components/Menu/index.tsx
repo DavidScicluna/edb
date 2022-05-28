@@ -1,5 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 
+import { useLocation } from 'react-router-dom';
+
 import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import {
@@ -11,7 +13,6 @@ import {
 	DrawerBody,
 	Center
 } from '@chakra-ui/react';
-import { useLocation } from 'react-router-dom';
 
 import { navItems } from '../../../../index';
 import NavItems from '../../../NavItems';

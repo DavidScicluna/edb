@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 
+import { useLocation } from 'react-router-dom';
+
 import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, HStack, Fade } from '@chakra-ui/react';
-import { useLocation } from 'react-router-dom';
 
 import Link from '../../../../components/Clickable/Link';
 import useTransitionsStyle from '../../common/styles/transitions';
