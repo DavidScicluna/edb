@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
+
 import { Card, CardBody, CardFooter } from '@davidscicluna/component-library';
+
 import { useMediaQuery } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';

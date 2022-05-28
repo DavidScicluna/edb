@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { Card, CardHeader, CardBody, Button } from '@davidscicluna/component-library';
+
 import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse } from '@chakra-ui/react';
 
 import range from 'lodash/range';

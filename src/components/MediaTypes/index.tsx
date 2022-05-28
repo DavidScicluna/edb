@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { Icon } from '@davidscicluna/component-library';
+
 import { HStack, Center } from '@chakra-ui/react';
 
 import { MediaType as MediaType } from '../../common/types';

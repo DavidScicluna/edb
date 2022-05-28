@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { Card, CardBody } from '@davidscicluna/component-library';
+
 import { VStack } from '@chakra-ui/react';
 
 import isEmpty from 'lodash/isEmpty';

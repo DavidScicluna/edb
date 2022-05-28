@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { Icon } from '@davidscicluna/component-library';
+
 import { Box } from '@chakra-ui/react';
 
 import YouTube, { Options } from 'react-youtube';

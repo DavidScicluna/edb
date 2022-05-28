@@ -1,6 +1,7 @@
 import { ReactElement, useState, useCallback } from 'react';
 
 import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
+
 import { useColorMode, VStack, List as CUIList, Text } from '@chakra-ui/react';
 
 import { ListProps, Ref } from './types';

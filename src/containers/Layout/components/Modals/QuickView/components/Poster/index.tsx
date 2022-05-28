@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { Icon } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useBoolean } from '@chakra-ui/react';
 
 import { handleReturnBoringTypeByMediaType, handleReturnRatio } from '../../../../../../../common/utils';

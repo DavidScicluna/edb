@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react';
 
-import Input from '../../../../components/Forms/Input';
 import { Icon } from '@davidscicluna/component-library';
+
+import Input from '../../../../components/Forms/Input';
 
 import { UsernameProps } from './types';
 

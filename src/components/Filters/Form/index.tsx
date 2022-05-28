@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { Button, Icon } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
 
 import { useForm, useFormState } from 'react-hook-form';

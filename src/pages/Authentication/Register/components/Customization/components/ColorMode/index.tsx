@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 
-import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
+import { Card, CardHeader, CardBody , Icon } from '@davidscicluna/component-library';
+
 import { useMediaQuery, Stack, Center, Text } from '@chakra-ui/react';
 
-import { Icon } from '@davidscicluna/component-library';
 import { Controller } from 'react-hook-form';
 
 import { handleCheckSystemColorMode } from '../../../../../../../common/utils';

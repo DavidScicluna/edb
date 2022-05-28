@@ -1,6 +1,7 @@
 import React, { ReactElement, ChangeEvent, useRef, useState } from 'react';
 
 import { Icon } from '@davidscicluna/component-library';
+
 import { useMediaQuery, useDisclosure, Center, Image } from '@chakra-ui/react';
 
 import Compressor from 'compressorjs';

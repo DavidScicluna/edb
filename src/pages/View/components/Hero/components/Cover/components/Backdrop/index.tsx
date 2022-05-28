@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { Icon } from '@davidscicluna/component-library';
+
 import { useBoolean } from '@chakra-ui/react';
 
 import { youtube as YouTubeIcon } from '../../../../../../../../common/assets/icons';

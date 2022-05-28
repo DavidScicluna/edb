@@ -1,9 +1,11 @@
 import { ReactElement } from 'react';
 
 import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
-import HorizontalTVShowPoster from '../../../../../../../TV/components/Poster/Horizontal';
 
 import { Text } from '@chakra-ui/react';
+
+import HorizontalTVShowPoster from '../../../../../../../TV/components/Poster/Horizontal';
+
 import { ShowProps } from './types';
 
 const Show = ({ show, isLoading = true }: ShowProps): ReactElement => {

@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { Icon } from '@davidscicluna/component-library';
+
 import { Controller } from 'react-hook-form';
 
 import { useSelector } from '../../../../../../../../../common/hooks';

@@ -1,6 +1,7 @@
 import React, { ReactElement, forwardRef } from 'react';
 
 import { Icon, IconType } from '@davidscicluna/component-library';
+
 import { Center } from '@chakra-ui/react';
 
 import { Status } from '../../types';
