@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react';
+import { ReactElement, useContext } from 'react';
 
 import { useTheme } from '@davidscicluna/component-library';
 

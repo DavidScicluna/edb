@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { useColorMode, HStack, VStack, Text } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
@@ -6,7 +6,6 @@ import { useElementSize } from 'usehooks-ts';
 import Avatar from '../../../../../../../../components/Avatar';
 
 import { HeaderProps } from './types';
-
 
 const Header = ({ avatar_path, name, username }: HeaderProps): ReactElement => {
 	const { colorMode } = useColorMode();

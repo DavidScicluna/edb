@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 import { isEmpty, isNil } from 'lodash';

@@ -1,10 +1,9 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
-
 
 import Divider from '../../../../../../../../../components/Divider';
 import Grid from '../Grid';

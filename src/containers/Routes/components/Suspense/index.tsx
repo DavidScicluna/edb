@@ -1,4 +1,4 @@
-import React, { ReactElement, Suspense as RSuspense } from 'react';
+import { ReactElement, Suspense as RSuspense } from 'react';
 
 import { Box } from '@chakra-ui/react';
 

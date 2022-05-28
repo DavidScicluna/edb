@@ -1,4 +1,4 @@
-import React, { ReactElement, createContext, forwardRef } from 'react';
+import { ReactElement, createContext, forwardRef } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 

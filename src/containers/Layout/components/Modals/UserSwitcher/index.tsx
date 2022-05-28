@@ -1,5 +1,4 @@
-import React, { ReactElement, useState } from 'react';
-
+import { ReactElement, useState } from 'react';
 
 import { Button } from '@davidscicluna/component-library';
 
@@ -8,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { SHA256 } from 'crypto-js';
 import dayjs from 'dayjs';
 import { isEmpty, isNil } from 'lodash';
-
 
 import { useSelector } from '../../../../../common/hooks';
 import VerticalGrid from '../../../../../components/Grid/Vertical';

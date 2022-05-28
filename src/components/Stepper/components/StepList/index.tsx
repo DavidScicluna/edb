@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useCallback } from 'react';
+import { ReactElement, useContext, useCallback } from 'react';
 
 import { useMediaQuery, Stack, HStack, Center } from '@chakra-ui/react';
 
@@ -12,7 +12,6 @@ import Next from './components/Next';
 import Step from './components/Step';
 import { Status } from './components/Step/types';
 import { StepListProps, Step as StepType } from './types';
-
 
 export const height = '100px';
 

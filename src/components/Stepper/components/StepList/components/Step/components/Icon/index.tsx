@@ -1,4 +1,4 @@
-import React, { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { Icon, IconType } from '@davidscicluna/component-library';
 
