@@ -1,9 +1,8 @@
 import { ReactElement, useEffect } from 'react';
 
+import { useTheme, Input, Textarea, Button } from '@davidscicluna/component-library';
 
-import { Button } from '@davidscicluna/component-library';
-
-import { useTheme, useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 import { useForm, useFormState, Controller } from 'react-hook-form';
@@ -13,17 +12,14 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import sample from 'lodash/sample';
 
-
 import { useSelector } from '../../../../../../common/hooks';
 import ConfirmModal from '../../../../../../components/ConfirmModal';
-import Input from '../../../../../../components/Forms/Input';
-import Textarea from '../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../components/Modal';
 import { defaultUser, getUser, setUserLists } from '../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../theme/types';
 
 import { schema } from './validation';
 import { EditListProps, Form } from './types';
+import { isBoolean } from 'lodash';
 
 const placeholders = [
 	'Action Movies',
@@ -44,7 +40,7 @@ const defaultValues: Form = {
 };
 
 const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	const { isOpen: isConfirmOpen, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
@@ -58,9 +54,9 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 		(getUser(state.users.data.users, state.app.data.user)?.data.lists || []).find((list) => list.id === id)
 	);
 
-	const color = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
+	// const color = useSelector(
+	// 	(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	// );
 
 	const form = useForm<Form>({
 		defaultValues,
@@ -142,12 +138,14 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 						name='label'
 						render={({ field: { onChange, value, name }, fieldState: { error } }) => (
 							<Input
-								color={color}
+								// color={color}
+								color='blue'
 								label='Label'
-								error={error}
 								name={name}
+								helper={error ? error.message : undefined}
 								placeholder={`Try "${placeholder}"`}
 								onChange={onChange}
+								isError={isBoolean(error)}
 								isFullWidth
 								isRequired
 								value={value}
@@ -159,11 +157,13 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 						name='description'
 						render={({ field: { onChange, value, name }, fieldState: { error } }) => (
 							<Textarea
-								color={color}
+								// color={color}
+								color='blue'
 								label='Description'
-								error={error}
 								name={name}
+								helper={error ? error.message : undefined}
 								onChange={onChange}
+								isError={isBoolean(error)}
 								isFullWidth
 								value={value}
 								sx={{ textarea: { height: theme.space[12.5] } }}

@@ -1,16 +1,14 @@
 import React, { ReactElement } from 'react';
 
-import { useTheme } from '@chakra-ui/react';
+import { useTheme, Textarea } from '@davidscicluna/component-library';
 
 import { Controller } from 'react-hook-form';
 
-
-import Textarea from '../../../../../../../../../components/Forms/Textarea';
-import { Theme } from '../../../../../../../../../theme/types';
 import { DetailsProps as BioProps } from '../../../../types';
+import { isBoolean } from 'lodash';
 
-const Bio = ({ form, color, colorMode }: BioProps): ReactElement => {
-	const theme = useTheme<Theme>();
+const Bio = ({ form, colorMode }: BioProps): ReactElement => {
+	const theme = useTheme();
 
 	return (
 		<Controller
@@ -18,14 +16,16 @@ const Bio = ({ form, color, colorMode }: BioProps): ReactElement => {
 			name='bio'
 			render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
 				<Textarea
-					color={color}
+					// color={color}
+					color='blue'
 					colorMode={colorMode}
 					label='Biography'
-					error={error}
 					name={name}
+					helper={error ? error.message : undefined}
 					placeholder='My name is John Smith ...'
 					onBlur={onBlur}
 					onChange={onChange}
+					isError={isBoolean(error)}
 					isFullWidth
 					value={value}
 					sx={{ textarea: { height: theme.space[12.5] } }}

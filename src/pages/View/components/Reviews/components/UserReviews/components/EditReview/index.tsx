@@ -1,9 +1,18 @@
 import { ReactElement, useEffect } from 'react';
 
+import {
+	useTheme,
+	Button,
+	Card,
+	CardHeader,
+	CardBody,
+	CardFooter,
+	Textarea,
+	IconButton,
+	Icon
+} from '@davidscicluna/component-library';
 
-import { Button ,  IconButton, } from '@davidscicluna/component-library';
-
-import { useTheme, useColorMode, useDisclosure, useBoolean, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
+import { useColorMode, useDisclosure, useBoolean, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 import { Controller, useForm, useFormState } from 'react-hook-form';
@@ -12,20 +21,16 @@ import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-
 import { useSelector } from '../../../../../../../../common/hooks';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Rating from '../../../../../../../../components/Forms/Rating';
-import Textarea from '../../../../../../../../components/Forms/Textarea';
-import Icon from '../../../../../../../../components/Icon';
 import Modal from '../../../../../../../../components/Modal';
-import Panel from '../../../../../../../../components/Panel';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../../../theme/types';
 
 import { schema } from './validation';
 import { EditReviewProps, Form } from './types';
+import { isBoolean } from 'lodash';
 
 const defaultValues: Form = {
 	review: '',
@@ -33,7 +38,7 @@ const defaultValues: Form = {
 };
 
 const EditReview = ({ review }: EditReviewProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const { isOpen: isEditReviewOpen, onOpen: onOpenEditReview, onClose: onCloseEditReview } = useDisclosure();
@@ -131,7 +136,7 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 					onMouseLeave={() => setIsHovering.off()}
 					variant='icon'
 				>
-					<Icon icon='edit' type='outlined' />
+					<Icon icon='edit' category='outlined' />
 				</IconButton>
 			</Tooltip>
 
@@ -158,57 +163,58 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 						control={form.control}
 						name='rating'
 						render={({ field: { value, name }, fieldState: { error } }) => (
-							<Panel color={error ? 'red' : 'gray'} isFullWidth>
-								{{
-									header: {
-										title: (
-											<HStack spacing={0.75}>
-												<Text
-													color={`gray.${colorMode === 'light' ? 900 : 50}`}
-													fontSize='sm'
-													fontWeight='medium'
-													textTransform='uppercase'
-													isTruncated
-													overflow='hidden'
-													whiteSpace='nowrap'
-												>
-													Rating
-												</Text>
-												<Text
-													color={`red.${colorMode === 'light' ? 500 : 400}`}
-													fontSize='sm'
-													fontWeight='medium'
-													textTransform='uppercase'
-													isTruncated
-													overflow='hidden'
-													whiteSpace='nowrap'
-												>
-													*
-												</Text>
-											</HStack>
-										),
-										actions: (
-											<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm'>
-												{`${value} stars`}
+							<Card color={error ? 'red' : 'gray'} isFullWidth>
+								<CardHeader
+									renderTitle={(props) => (
+										<HStack spacing={0.75}>
+											<Text
+												{...props}
+												fontSize='sm'
+												fontWeight='medium'
+												textTransform='uppercase'
+												isTruncated
+												overflow='hidden'
+												whiteSpace='nowrap'
+											>
+												Rating
 											</Text>
-										)
-									},
-									body: (
-										<Rating
-											name={name}
-											onChange={(value) => form.setValue('rating', value, { shouldDirty: true })}
-											value={value || 0}
-										/>
-									),
-									footer: error ? (
+											<Text
+												{...props}
+												color={`red.${colorMode === 'light' ? 500 : 400}`}
+												fontSize='sm'
+												fontWeight='medium'
+												textTransform='uppercase'
+												isTruncated
+												overflow='hidden'
+												whiteSpace='nowrap'
+											>
+												*
+											</Text>
+										</HStack>
+									)}
+									actions={
+										<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='sm'>
+											{`${value} stars`}
+										</Text>
+									}
+								/>
+								<CardBody>
+									<Rating
+										name={name}
+										onChange={(value) => form.setValue('rating', value, { shouldDirty: true })}
+										value={value || 0}
+									/>
+								</CardBody>
+								{error && (
+									<CardFooter>
 										<Collapse in={Boolean(error)} unmountOnExit>
 											<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs'>
-												{error}
+												{error.message}
 											</Text>
 										</Collapse>
-									) : undefined
-								}}
-							</Panel>
+									</CardFooter>
+								)}
+							</Card>
 						)}
 					/>
 					<Controller
@@ -216,11 +222,13 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 						name='review'
 						render={({ field: { onChange, value, name }, fieldState: { error } }) => (
 							<Textarea
-								color={color}
+								// color={color}
+								color='blue'
 								label='Review'
-								error={error}
 								name={name}
+								helper={error ? error.message : undefined}
 								onChange={onChange}
+								isError={isBoolean(error)}
 								isFullWidth
 								isRequired
 								value={value}

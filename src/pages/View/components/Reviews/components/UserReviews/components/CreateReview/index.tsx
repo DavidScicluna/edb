@@ -1,9 +1,8 @@
 import { ReactElement } from 'react';
 
+import { useTheme, Card, CardHeader, CardBody, CardFooter, Textarea, Button } from '@davidscicluna/component-library';
 
-import { Button } from '@davidscicluna/component-library';
-
-import { useTheme, useColorMode, useDisclosure, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
+import { useColorMode, useDisclosure, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 import { Controller, useForm, useFormState } from 'react-hook-form';
@@ -13,18 +12,15 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import { v4 as uuid } from 'uuid';
 
-
 import { useSelector } from '../../../../../../../../common/hooks';
 import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Rating from '../../../../../../../../components/Forms/Rating';
-import Textarea from '../../../../../../../../components/Forms/Textarea';
 import Modal from '../../../../../../../../components/Modal';
-import Panel from '../../../../../../../../components/Panel';
 import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
-import { Theme } from '../../../../../../../../theme/types';
 
 import { schema } from './validation';
 import { CreateReviewProps, Form } from './types';
+import { isBoolean } from 'lodash';
 
 const defaultValues: Form = {
 	review: '',
@@ -32,7 +28,7 @@ const defaultValues: Form = {
 };
 
 const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps): ReactElement => {
-	const theme = useTheme<Theme>();
+	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
 	const { isOpen: isCreateReview, onOpen: onOpenCreateReview, onClose: onCloseCreateReview } = useDisclosure();
@@ -139,63 +135,64 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 						control={form.control}
 						name='rating'
 						render={({ field: { value, name }, fieldState: { error } }) => (
-							<Panel color={error ? 'red' : 'gray'} isFullWidth size='sm'>
-								{{
-									header: {
-										title: (
-											<HStack spacing={0.75}>
-												<Text
-													color={`gray.${colorMode === 'light' ? 900 : 50}`}
-													fontSize='sm'
-													fontWeight='medium'
-													textTransform='uppercase'
-													isTruncated
-													overflow='hidden'
-													whiteSpace='nowrap'
-												>
-													Rating
-												</Text>
-												<Text
-													color={`red.${colorMode === 'light' ? 500 : 400}`}
-													fontSize='sm'
-													fontWeight='medium'
-													textTransform='uppercase'
-													isTruncated
-													overflow='hidden'
-													whiteSpace='nowrap'
-												>
-													*
-												</Text>
-											</HStack>
-										),
-										actions: (
+							<Card color={error ? 'red' : 'gray'} isFullWidth>
+								<CardHeader
+									renderTitle={(props) => (
+										<HStack spacing={0.75}>
 											<Text
-												color={`gray.${colorMode === 'light' ? 400 : 500}`}
+												{...props}
 												fontSize='sm'
+												fontWeight='medium'
+												textTransform='uppercase'
 												isTruncated
 												overflow='hidden'
 												whiteSpace='nowrap'
 											>
-												{`${value} stars`}
+												Rating
 											</Text>
-										)
-									},
-									body: (
-										<Rating
-											name={name}
-											onChange={(value) => form.setValue('rating', value, { shouldDirty: true })}
-											value={value || 0}
-										/>
-									),
-									footer: error ? (
+											<Text
+												{...props}
+												color={`red.${colorMode === 'light' ? 500 : 400}`}
+												fontSize='sm'
+												fontWeight='medium'
+												textTransform='uppercase'
+												isTruncated
+												overflow='hidden'
+												whiteSpace='nowrap'
+											>
+												*
+											</Text>
+										</HStack>
+									)}
+									actions={
+										<Text
+											color={`gray.${colorMode === 'light' ? 400 : 500}`}
+											fontSize='sm'
+											isTruncated
+											overflow='hidden'
+											whiteSpace='nowrap'
+										>
+											{`${value} stars`}
+										</Text>
+									}
+								/>
+								<CardBody>
+									<Rating
+										name={name}
+										onChange={(value) => form.setValue('rating', value, { shouldDirty: true })}
+										value={value || 0}
+									/>
+								</CardBody>
+								{error && (
+									<CardFooter>
 										<Collapse in={Boolean(error)} unmountOnExit>
 											<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs'>
-												{error}
+												{error.message}
 											</Text>
 										</Collapse>
-									) : undefined
-								}}
-							</Panel>
+									</CardFooter>
+								)}
+							</Card>
 						)}
 					/>
 					<Controller
@@ -203,11 +200,13 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 						name='review'
 						render={({ field: { onChange, value, name }, fieldState: { error } }) => (
 							<Textarea
-								color={color}
+								// color={color}
+								color='blue'
 								label='Review'
-								error={error}
 								name={name}
+								helper={error ? error.message : undefined}
 								onChange={onChange}
+								isError={isBoolean(error)}
 								isFullWidth
 								isRequired
 								value={value}

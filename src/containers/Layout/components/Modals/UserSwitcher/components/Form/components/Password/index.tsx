@@ -1,25 +1,22 @@
 import React, { ReactElement } from 'react';
 
-
-import {  IconButton, } from '@davidscicluna/component-library';
+import { Input, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
-
-import { useSelector } from '../../../../../../../../../common/hooks';
-import Input from '../../../../../../../../../components/Forms/Input';
-import Icon from '../../../../../../../../../components/Icon';
+// import { useSelector } from '../../../../../../../../../common/hooks';
+// import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
 import Tooltip from '../../../../../../../../../components/Tooltip';
-import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
 
 import { PasswordProps } from './types';
+import { isBoolean } from 'lodash';
 
 const Password = ({ form }: PasswordProps): ReactElement => {
-	const color = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
+	// const color = useSelector(
+	// 	(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
+	// );
 
 	const [isPasswordVisible, setIsPasswordVisible] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
@@ -30,15 +27,17 @@ const Password = ({ form }: PasswordProps): ReactElement => {
 			name='password'
 			render={({ field: { onChange, value, name }, fieldState: { error } }) => (
 				<Input
-					color={color}
+					// color={color}
+					color='blue'
 					label='Password'
-					error={error}
 					name={name}
+					helper={error ? error.message : undefined}
 					placeholder={isPasswordVisible ? 'password' : '••••••••'}
 					onChange={onChange}
+					isError={isBoolean(error)}
 					isFullWidth
 					isRequired
-					renderInputRightPanel={() => (
+					renderRightPanel={() => (
 						<Tooltip
 							aria-label={isPasswordVisible ? 'Hide password (tooltip)' : 'Show Password (tooltip)'}
 							label={isPasswordVisible ? 'Hide password' : 'Show Password'}
@@ -53,7 +52,7 @@ const Password = ({ form }: PasswordProps): ReactElement => {
 								size='sm'
 								variant='icon'
 							>
-								<Icon icon={isPasswordVisible ? 'visibility_off' : 'visibility'} type='outlined' />
+								<Icon icon={isPasswordVisible ? 'visibility_off' : 'visibility'} category='outlined' />
 							</IconButton>
 						</Tooltip>
 					)}
