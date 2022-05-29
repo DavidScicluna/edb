@@ -1,6 +1,15 @@
 import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import {
+	ConfirmModal,
+	ConfirmModalBody,
+	ConfirmModalTitle,
+	ConfirmModalSubtitle,
+	ConfirmModalFooter,
+	Button,
+	IconButton,
+	Icon
+} from '@davidscicluna/component-library';
 
 import { useDisclosure } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
@@ -12,7 +21,6 @@ import { useSelector } from '../../../common/hooks';
 import { setList } from '../../../store/slices/Modals';
 import { getUser, setUserLists } from '../../../store/slices/Users';
 import { List } from '../../../store/slices/Users/types';
-import ConfirmModal from '../../ConfirmModal';
 
 import { BookmarkProps } from './types';
 
@@ -102,18 +110,35 @@ const Bookmark = (props: BookmarkProps): ReactElement => {
 			})}
 
 			<ConfirmModal
-				renderActions={({ colorMode, size }) => (
-					<Button color='red' colorMode={colorMode} onClick={() => handleCloseConfirm()} size={size}>
-						Remove
-					</Button>
+				renderCancel={({ icon, category, ...rest }) => (
+					<IconButton {...rest}>
+						<Icon icon={icon} category={category} />
+					</IconButton>
 				)}
-				title='Remove from lists?'
-				description={`Are you sure you want to remove "${title}" ${mediaType} from ${compact(
-					lists.map((list) => `"${list.label}"`)
-				).join(', ')} lists?`}
 				isOpen={isConfirmOpen}
 				onClose={onCloseConfirm}
-			/>
+			>
+				<ConfirmModalBody>
+					<ConfirmModalTitle>Remove from lists?</ConfirmModalTitle>
+					<ConfirmModalSubtitle>
+						{`Are you sure you want to remove "${title}" ${mediaType} from ${compact(
+							lists.map((list) => `"${list.label}"`)
+						).join(', ')} lists?`}
+					</ConfirmModalSubtitle>
+				</ConfirmModalBody>
+				<ConfirmModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={onCloseConfirm}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button {...props} color='red' onClick={handleCloseConfirm}>
+							Remove
+						</Button>
+					)}
+				/>
+			</ConfirmModal>
 		</>
 	);
 };

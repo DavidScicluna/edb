@@ -1,6 +1,15 @@
 import { ReactElement } from 'react';
 
-import { Button, IconButton, Icon } from '@davidscicluna/component-library';
+import {
+	ConfirmModal,
+	ConfirmModalBody,
+	ConfirmModalTitle,
+	ConfirmModalSubtitle,
+	ConfirmModalFooter,
+	Button,
+	IconButton,
+	Icon
+} from '@davidscicluna/component-library';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
@@ -8,7 +17,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Tooltip from '../../../../../../../../components/Tooltip';
 import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
 
@@ -64,22 +72,33 @@ const DeleteReview = ({ id }: DeleteReviewProps): ReactElement => {
 			</Tooltip>
 
 			<ConfirmModal
-				renderActions={({ colorMode, size }) => (
-					<Button
-						color='red'
-						colorMode={colorMode}
-						isDisabled={isDisabled}
-						onClick={() => handleDelete()}
-						size={size}
-					>
-						Delete
-					</Button>
+				renderCancel={({ icon, category, ...rest }) => (
+					<IconButton {...rest}>
+						<Icon icon={icon} category={category} />
+					</IconButton>
 				)}
-				title='Delete review'
-				description='Are you sure you want to delete the review? You will not be able to retrieve this review back!'
 				isOpen={isConfirmOpen}
 				onClose={onCloseConfirm}
-			/>
+			>
+				<ConfirmModalBody>
+					<ConfirmModalTitle>Delete review</ConfirmModalTitle>
+					<ConfirmModalSubtitle>
+						Are you sure you want to delete the review? You will not be able to retrieve this review back!
+					</ConfirmModalSubtitle>
+				</ConfirmModalBody>
+				<ConfirmModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={onCloseConfirm}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button {...props} color='red' isDisabled={isDisabled} onClick={handleDelete}>
+							Delete
+						</Button>
+					)}
+				/>
+			</ConfirmModal>
 		</>
 	);
 };

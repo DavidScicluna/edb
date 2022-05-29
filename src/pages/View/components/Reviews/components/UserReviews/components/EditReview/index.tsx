@@ -2,12 +2,17 @@ import { ReactElement, useEffect } from 'react';
 
 import {
 	useTheme,
-	Button,
+	ConfirmModal,
+	ConfirmModalBody,
+	ConfirmModalTitle,
+	ConfirmModalSubtitle,
+	ConfirmModalFooter,
 	Card,
 	CardHeader,
 	CardBody,
 	CardFooter,
 	Textarea,
+	Button,
 	IconButton,
 	Icon
 } from '@davidscicluna/component-library';
@@ -22,7 +27,6 @@ import isNil from 'lodash/isNil';
 import { isBoolean } from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Rating from '../../../../../../../../components/Forms/Rating';
 import Modal from '../../../../../../../../components/Modal';
 import Tooltip from '../../../../../../../../components/Tooltip';
@@ -239,16 +243,38 @@ const EditReview = ({ review }: EditReviewProps): ReactElement => {
 			</Modal>
 
 			<ConfirmModal
-				title='Unsaved data!'
-				renderActions={({ colorMode, size }) => (
-					<Button color={color} colorMode={colorMode} onClick={() => handleCloseConfirm()} size={size}>
-						Close
-					</Button>
+				renderCancel={({ icon, category, ...rest }) => (
+					<IconButton {...rest}>
+						<Icon icon={icon} category={category} />
+					</IconButton>
 				)}
-				description='Are you sure you want to close the modal, the data inserted will be lost unless you save it!'
 				isOpen={isConfirmOpen}
 				onClose={onCloseConfirm}
-			/>
+			>
+				<ConfirmModalBody>
+					<ConfirmModalTitle>Unsaved data!</ConfirmModalTitle>
+					<ConfirmModalSubtitle>
+						Are you sure you want to close the modal, the data inserted will be lost unless you save it!
+					</ConfirmModalSubtitle>
+				</ConfirmModalBody>
+				<ConfirmModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={onCloseConfirm}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button
+							{...props}
+							// color={color}
+							color='blue'
+							onClick={handleCloseConfirm}
+						>
+							Close
+						</Button>
+					)}
+				/>
+			</ConfirmModal>
 		</>
 	);
 };

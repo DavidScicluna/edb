@@ -1,6 +1,16 @@
 import { ReactElement, useState, useCallback } from 'react';
 
-import { useTheme, Button } from '@davidscicluna/component-library';
+import {
+	useTheme,
+	ConfirmModal,
+	ConfirmModalBody,
+	ConfirmModalTitle,
+	ConfirmModalSubtitle,
+	ConfirmModalFooter,
+	Button,
+	IconButton,
+	Icon
+} from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, useDisclosure, Center, Container } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
@@ -14,7 +24,6 @@ import { v4 as uuid } from 'uuid';
 
 import { useSelector } from '../../../common/hooks';
 import { handleCheckSystemColorMode } from '../../../common/utils';
-import ConfirmModal from '../../../components/ConfirmModal';
 import Stepper from '../../../components/Stepper';
 import StepList from '../../../components/Stepper/components/StepList';
 import { Step, Status } from '../../../components/Stepper/components/StepList/components/Step/types';
@@ -302,17 +311,40 @@ const Register = (): ReactElement => {
 			</Center>
 
 			<ConfirmModal
-				renderActions={({ size }) => (
-					<Button color={color} colorMode={colorMode} onClick={() => handleCloseConfirm()} size={size}>
-						Go Back
-					</Button>
+				renderCancel={({ icon, category, ...rest }) => (
+					<IconButton {...rest}>
+						<Icon icon={icon} category={category} />
+					</IconButton>
 				)}
-				title='Cancel User Creation?'
-				description='Are you sure you want to cancel creating a new user? Once you close the page you will not be able to retrieve the data!'
 				colorMode={colorMode}
 				isOpen={isConfirmOpen}
 				onClose={onCloseConfirm}
-			/>
+			>
+				<ConfirmModalBody>
+					<ConfirmModalTitle>Cancel User Creation?</ConfirmModalTitle>
+					<ConfirmModalSubtitle>
+						Are you sure you want to cancel creating a new user? Once you close the page you will not be
+						able to retrieve the data!
+					</ConfirmModalSubtitle>
+				</ConfirmModalBody>
+				<ConfirmModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={onCloseConfirm}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button
+							{...props}
+							// color={color}
+							color='blue'
+							onClick={handleCloseConfirm}
+						>
+							Go Back
+						</Button>
+					)}
+				/>
+			</ConfirmModal>
 		</>
 	);
 };

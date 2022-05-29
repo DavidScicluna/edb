@@ -1,6 +1,21 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Card, CardHeader, CardBody, CardFooter, Textarea, Button } from '@davidscicluna/component-library';
+import {
+	useTheme,
+	ConfirmModal,
+	ConfirmModalBody,
+	ConfirmModalTitle,
+	ConfirmModalSubtitle,
+	ConfirmModalFooter,
+	Card,
+	CardHeader,
+	CardBody,
+	CardFooter,
+	Textarea,
+	Button,
+	IconButton,
+	Icon
+} from '@davidscicluna/component-library';
 
 import { useColorMode, useDisclosure, VStack, HStack, Text, Collapse } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
@@ -13,7 +28,6 @@ import { v4 as uuid } from 'uuid';
 import { isBoolean } from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import ConfirmModal from '../../../../../../../../components/ConfirmModal';
 import Rating from '../../../../../../../../components/Forms/Rating';
 import Modal from '../../../../../../../../components/Modal';
 import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
@@ -215,16 +229,38 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 			</Modal>
 
 			<ConfirmModal
-				renderActions={({ color, colorMode, size }) => (
-					<Button color={color} colorMode={colorMode} onClick={() => handleCloseConfirm()} size={size}>
-						Close
-					</Button>
+				renderCancel={({ icon, category, ...rest }) => (
+					<IconButton {...rest}>
+						<Icon icon={icon} category={category} />
+					</IconButton>
 				)}
-				title='Unsaved data!'
-				description='Are you sure you want to close the modal, the data inserted will be lost unless you save it!'
 				isOpen={isConfirmOpen}
 				onClose={onCloseConfirm}
-			/>
+			>
+				<ConfirmModalBody>
+					<ConfirmModalTitle>Unsaved data!</ConfirmModalTitle>
+					<ConfirmModalSubtitle>
+						Are you sure you want to close the modal, the data inserted will be lost unless you save it!
+					</ConfirmModalSubtitle>
+				</ConfirmModalBody>
+				<ConfirmModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={onCloseConfirm}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button
+							{...props}
+							// color={color}
+							color='blue'
+							onClick={handleCloseConfirm}
+						>
+							Close
+						</Button>
+					)}
+				/>
+			</ConfirmModal>
 		</>
 	);
 };

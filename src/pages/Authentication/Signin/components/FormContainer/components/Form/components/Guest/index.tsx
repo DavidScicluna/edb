@@ -1,16 +1,25 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Button } from '@davidscicluna/component-library';
+import {
+	useTheme,
+	ConfirmModal,
+	ConfirmModalBody,
+	ConfirmModalTitle,
+	ConfirmModalSubtitle,
+	ConfirmModalFooter,
+	Button,
+	IconButton,
+	Icon
+} from '@davidscicluna/component-library';
 
 import { useColorMode, useDisclosure } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 
-import { color } from '../../../..';
+// import { color } from '../../../..';
 import { useSelector } from '../../../../../../../../../common/hooks';
 import { handleReturnBoringSrc } from '../../../../../../../../../common/utils';
-import ConfirmModal from '../../../../../../../../../components/ConfirmModal';
 import { setUser } from '../../../../../../../../../store/slices/App';
 import { toggleSplashscreen } from '../../../../../../../../../store/slices/Modals';
 import { guest, setUsers } from '../../../../../../../../../store/slices/Users';
@@ -82,16 +91,39 @@ const Guest = ({ renderAction }: GuestProps): ReactElement => {
 			})}
 
 			<ConfirmModal
-				renderActions={({ colorMode, size }) => (
-					<Button color={color} colorMode={colorMode} onClick={() => handleSubmit()} size={size}>
-						Sign in
-					</Button>
+				renderCancel={({ icon, category, ...rest }) => (
+					<IconButton {...rest}>
+						<Icon icon={icon} category={category} />
+					</IconButton>
 				)}
-				title='Sign in as a Guest?'
-				description='Are you sure you want to sign in as a guest? You will not be able to like, create and add to lists!'
 				isOpen={isConfirmOpen}
 				onClose={onCloseConfirm}
-			/>
+			>
+				<ConfirmModalBody>
+					<ConfirmModalTitle>Sign in as a Guest?</ConfirmModalTitle>
+					<ConfirmModalSubtitle>
+						Are you sure you want to sign in as a guest? You will not be able to like, create and add to
+						lists!
+					</ConfirmModalSubtitle>
+				</ConfirmModalBody>
+				<ConfirmModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={onCloseConfirm}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button
+							{...props}
+							// color={color}
+							color='blue'
+							onClick={handleSubmit}
+						>
+							Sign in
+						</Button>
+					)}
+				/>
+			</ConfirmModal>
 		</>
 	);
 };
