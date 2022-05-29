@@ -1,15 +1,14 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, VStack, Center } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, VStack, Center, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
 import { useSelector } from '../../../../../common/hooks';
-import Modal from '../../../../../components/Modal';
 import CreateList from '../../../../../pages/User/pages/Lists/components/CreateList';
 import { defaultListsModal, setList } from '../../../../../store/slices/Modals';
 import { ListModal as ListModalType } from '../../../../../store/slices/Modals/types';
@@ -92,9 +91,13 @@ const ListsModal = (): ReactElement => {
 		}
 	};
 
+	const handleClose = (): void => {
+		dispatch(setList({ ...defaultListsModal }));
+	};
+
 	const handleCloseLists = (): void => {
 		setSelected([]);
-		dispatch(setList({ ...defaultListsModal }));
+		handleClose();
 	};
 
 	const handleCloseCreateList = (): void => {
@@ -109,31 +112,46 @@ const ListsModal = (): ReactElement => {
 
 	return (
 		<>
-			<Modal
-				title={isSm ? 'Add to a list/s' : `Add "${listsModal.title}" to a list`}
-				renderActions={({ color, colorMode, size }) => (
-					<Button
-						color={color}
-						colorMode={colorMode}
-						isDisabled={isNil(user) || isEmpty(user)}
-						onClick={() => (selected.length > 0 ? handleSaveItem() : onCreateListOpen())}
-						size={size}
-					>
-						{selected.length > 0 ? `Save to List${selected.length > 1 ? 's' : ''}` : 'Create a new List'}
-					</Button>
-				)}
-				isOpen={listsModal.open}
-				onClose={() => dispatch(setList({ ...defaultListsModal }))}
-				isCentered
-				size='2xl'
-			>
-				<VStack spacing={2} p={2}>
-					{lists.map((list) => (
-						<Center key={list.id} width='100%'>
-							<List list={list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />
-						</Center>
-					))}
-				</VStack>
+			<Modal isOpen={listsModal.open} onClose={handleClose} size='2xl'>
+				<ModalHeader
+					renderTitle={(props) => (
+						<Text {...props}>{isSm ? 'Add to a list/s' : `Add "${listsModal.title}" to a list`}</Text>
+					)}
+					renderCancel={({ icon, category, ...rest }) => (
+						<IconButton {...rest}>
+							<Icon icon={icon} category={category} />
+						</IconButton>
+					)}
+				/>
+				<ModalBody>
+					<VStack spacing={2} p={2}>
+						{lists.map((list) => (
+							<Center key={list.id} width='100%'>
+								<List list={list} isSelected={selected.includes(list.id)} onClick={handleIsSelected} />
+							</Center>
+						))}
+					</VStack>
+				</ModalBody>
+				<ModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={handleClose}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button
+							{...props}
+							// color={color}
+							color='blue'
+							isDisabled={isNil(user) || isEmpty(user)}
+							onClick={() => (selected.length > 0 ? handleSaveItem() : onCreateListOpen())}
+						>
+							{selected.length > 0
+								? `Save to List${selected.length > 1 ? 's' : ''}`
+								: 'Create a new List'}
+						</Button>
+					)}
+				/>
 			</Modal>
 
 			<CreateList

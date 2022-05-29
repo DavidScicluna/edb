@@ -1,12 +1,11 @@
 import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
-import { useMediaQuery, VStack } from '@chakra-ui/react';
+import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import Modal from '../../../../../../../components/Modal';
 import { defaultValues } from '../../../../../../../pages/Authentication/Signin/components/FormContainer';
 import { schema } from '../../../../../../../pages/Authentication/Signin/components/FormContainer/validation';
 
@@ -25,28 +24,39 @@ const Form = ({ isOpen = false, onClose, onSubmit }: FormProps): ReactElement =>
 	const { isDirty } = useFormState({ control: form.control });
 
 	return (
-		<Modal
-			title='Enter Credentials'
-			renderActions={({ color, colorMode, size }) => (
-				<Button
-					color={color}
-					colorMode={colorMode}
-					isDisabled={!isDirty}
-					onClick={form.handleSubmit((values) => onSubmit(values))}
-					size={size}
-				>
-					Switch User
-				</Button>
-			)}
-			isOpen={isOpen}
-			onClose={() => onClose()}
-			isCentered
-			size={isSm ? 'full' : '2xl'}
-		>
-			<VStack width='100%' spacing={2} p={2}>
-				<Username form={form} />
-				<Password form={form} />
-			</VStack>
+		<Modal isOpen={isOpen} onClose={onClose} size={isSm ? 'full' : '2xl'}>
+			<ModalHeader
+				renderTitle={(props) => <Text {...props}>Enter Credentials</Text>}
+				renderCancel={({ icon, category, ...rest }) => (
+					<IconButton {...rest}>
+						<Icon icon={icon} category={category} />
+					</IconButton>
+				)}
+			/>
+			<ModalBody>
+				<VStack width='100%' spacing={2} p={2}>
+					<Username form={form} />
+					<Password form={form} />
+				</VStack>
+			</ModalBody>
+			<ModalFooter
+				renderCancel={(props) => (
+					<Button {...props} onClick={onClose}>
+						Cancel
+					</Button>
+				)}
+				renderAction={(props) => (
+					<Button
+						{...props}
+						// color={color}
+						color='blue'
+						isDisabled={!isDirty}
+						onClick={form.handleSubmit((values) => onSubmit(values))}
+					>
+						Switch User
+					</Button>
+				)}
+			/>
 		</Modal>
 	);
 };

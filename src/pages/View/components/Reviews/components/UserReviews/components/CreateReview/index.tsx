@@ -2,6 +2,10 @@ import { ReactElement } from 'react';
 
 import {
 	useTheme,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
 	ConfirmModal,
 	ConfirmModalBody,
 	ConfirmModalTitle,
@@ -29,7 +33,6 @@ import { isBoolean } from 'lodash';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import Rating from '../../../../../../../../components/Forms/Rating';
-import Modal from '../../../../../../../../components/Modal';
 import { defaultUser, getUser, setUserReviews } from '../../../../../../../../store/slices/Users';
 
 import { schema } from './validation';
@@ -125,107 +128,118 @@ const CreateReview = ({ renderAction, mediaItem, mediaType }: CreateReviewProps)
 				onClick: onOpenCreateReview
 			})}
 
-			<Modal
-				title='Create a new review'
-				renderActions={({ color, colorMode, size }) => (
-					<Button
-						color={color}
-						colorMode={colorMode}
-						isDisabled={isDisabled || !isDirty}
-						onClick={form.handleSubmit((values) => handleSubmit(values))}
-						size={size}
-					>
-						Submit Review
-					</Button>
-				)}
-				isOpen={isCreateReview}
-				onClose={handleCheckClose}
-				isCentered
-				size='lg'
-			>
-				<VStack spacing={3} p={2}>
-					<Controller
-						control={form.control}
-						name='rating'
-						render={({ field: { value, name }, fieldState: { error } }) => (
-							<Card color={error ? 'red' : 'gray'} isFullWidth>
-								<CardHeader
-									renderTitle={(props) => (
-										<HStack spacing={0.75}>
+			<Modal isOpen={isCreateReview} onClose={handleCheckClose} size='lg'>
+				<ModalHeader
+					renderTitle={(props) => <Text {...props}>Create a new review</Text>}
+					renderCancel={({ icon, category, ...rest }) => (
+						<IconButton {...rest}>
+							<Icon icon={icon} category={category} />
+						</IconButton>
+					)}
+				/>
+				<ModalBody>
+					<VStack spacing={3} p={2}>
+						<Controller
+							control={form.control}
+							name='rating'
+							render={({ field: { value, name }, fieldState: { error } }) => (
+								<Card color={error ? 'red' : 'gray'} isFullWidth>
+									<CardHeader
+										renderTitle={(props) => (
+											<HStack spacing={0.75}>
+												<Text
+													{...props}
+													fontSize='sm'
+													fontWeight='medium'
+													textTransform='uppercase'
+													isTruncated
+													overflow='hidden'
+													whiteSpace='nowrap'
+												>
+													Rating
+												</Text>
+												<Text
+													{...props}
+													color={`red.${colorMode === 'light' ? 500 : 400}`}
+													fontSize='sm'
+													fontWeight='medium'
+													textTransform='uppercase'
+													isTruncated
+													overflow='hidden'
+													whiteSpace='nowrap'
+												>
+													*
+												</Text>
+											</HStack>
+										)}
+										actions={
 											<Text
-												{...props}
+												color={`gray.${colorMode === 'light' ? 400 : 500}`}
 												fontSize='sm'
-												fontWeight='medium'
-												textTransform='uppercase'
-												isTruncated
-												overflow='hidden'
-												whiteSpace='nowrap'
+												noOfLines={1}
 											>
-												Rating
+												{`${value} stars`}
 											</Text>
-											<Text
-												{...props}
-												color={`red.${colorMode === 'light' ? 500 : 400}`}
-												fontSize='sm'
-												fontWeight='medium'
-												textTransform='uppercase'
-												isTruncated
-												overflow='hidden'
-												whiteSpace='nowrap'
-											>
-												*
-											</Text>
-										</HStack>
-									)}
-									actions={
-										<Text
-											color={`gray.${colorMode === 'light' ? 400 : 500}`}
-											fontSize='sm'
-											noOfLines={1}
-										>
-											{`${value} stars`}
-										</Text>
-									}
-								/>
-								<CardBody>
-									<Rating
-										name={name}
-										onChange={(value) => form.setValue('rating', value, { shouldDirty: true })}
-										value={value || 0}
+										}
 									/>
-								</CardBody>
-								{error && (
-									<CardFooter>
-										<Collapse in={Boolean(error)} unmountOnExit>
-											<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs'>
-												{error.message}
-											</Text>
-										</Collapse>
-									</CardFooter>
-								)}
-							</Card>
-						)}
-					/>
-					<Controller
-						control={form.control}
-						name='review'
-						render={({ field: { onChange, value, name }, fieldState: { error } }) => (
-							<Textarea
-								// color={color}
-								color='blue'
-								label='Review'
-								name={name}
-								helper={error ? error.message : undefined}
-								onChange={onChange}
-								isError={isBoolean(error)}
-								isFullWidth
-								isRequired
-								value={value}
-								sx={{ textarea: { height: theme.space[12.5] } }}
-							/>
-						)}
-					/>
-				</VStack>
+									<CardBody>
+										<Rating
+											name={name}
+											onChange={(value) => form.setValue('rating', value, { shouldDirty: true })}
+											value={value || 0}
+										/>
+									</CardBody>
+									{error && (
+										<CardFooter>
+											<Collapse in={Boolean(error)} unmountOnExit>
+												<Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize='xs'>
+													{error.message}
+												</Text>
+											</Collapse>
+										</CardFooter>
+									)}
+								</Card>
+							)}
+						/>
+						<Controller
+							control={form.control}
+							name='review'
+							render={({ field: { onChange, value, name }, fieldState: { error } }) => (
+								<Textarea
+									// color={color}
+									color='blue'
+									label='Review'
+									name={name}
+									helper={error ? error.message : undefined}
+									onChange={onChange}
+									isError={isBoolean(error)}
+									isFullWidth
+									isRequired
+									value={value}
+									sx={{ textarea: { height: theme.space[12.5] } }}
+								/>
+							)}
+						/>
+					</VStack>
+				</ModalBody>
+				<ModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={handleCheckClose}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button
+							{...props}
+							// color={color}
+							color='blue'
+							isDisabled={isDisabled || !isDirty}
+							onClick={form.handleSubmit((values) => handleSubmit(values))}
+						>
+							Submit Review
+						</Button>
+					)}
+				/>
 			</Modal>
 
 			<ConfirmModal

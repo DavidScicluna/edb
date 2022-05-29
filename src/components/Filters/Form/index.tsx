@@ -2,16 +2,15 @@ import { ReactElement } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, VStack, HStack, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, VStack, HStack, Text, Fade } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import isEqual from 'lodash/isEqual';
 
 // import Adult from './components/Adult';
 import { useSelector } from '../../../common/hooks';
 import { defaultUser, getUser } from '../../../store/slices/Users';
-import Modal from '../../Modal';
 import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';
 import { Filters } from '../types';
 
@@ -82,46 +81,57 @@ const FiltersForm = (props: FiltersFormProps): ReactElement => {
 				onClick: () => handleOpen()
 			})}
 
-			<Modal
-				title='Filter'
-				renderActions={({ color, colorMode, size }) => (
-					<HStack spacing={isSm ? 1 : 2}>
-						<Fade in={!isEqual(defaultValues, form.getValues())} unmountOnExit>
-							<Button
-								color={color}
-								colorMode={colorMode}
-								onClick={() => handleReset()}
-								size={size}
-								variant='text'
-							>
-								Reset
-							</Button>
-						</Fade>
-						<Button
-							color={color}
-							colorMode={colorMode}
-							isDisabled={!isDirty}
-							onClick={form.handleSubmit((values) => handleSubmit(values))}
-							size={size}
-						>
-							Search
+			<Modal isOpen={isOpen} onClose={handleClose} size={isLg ? 'full' : '5xl'}>
+				<ModalHeader
+					renderTitle={(props) => <Text {...props}>Filter</Text>}
+					renderCancel={({ icon, category, ...rest }) => (
+						<IconButton {...rest}>
+							<Icon icon={icon} category={category} />
+						</IconButton>
+					)}
+				/>
+				<ModalBody>
+					<VStack width='100%' spacing={2} p={2}>
+						<Dates form={form} mediaType={mediaType} />
+						<Genres form={form} mediaType={mediaType} />
+						<Certifications form={form} mediaType={mediaType} />
+						<RatingRange form={form} />
+						<CountRange form={form} />
+						<RuntimeRange form={form} />
+						{/* {mediaType === 'movie' ? <Adult form={form} mediaType={mediaType} /> : null} */}
+					</VStack>
+				</ModalBody>
+				<ModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={handleClose}>
+							Cancel
 						</Button>
-					</HStack>
-				)}
-				isOpen={isOpen}
-				onClose={handleClose}
-				isCentered
-				size={isLg ? 'full' : '5xl'}
-			>
-				<VStack width='100%' spacing={2} p={2}>
-					<Dates form={form} mediaType={mediaType} />
-					<Genres form={form} mediaType={mediaType} />
-					<Certifications form={form} mediaType={mediaType} />
-					<RatingRange form={form} />
-					<CountRange form={form} />
-					<RuntimeRange form={form} />
-					{/* {mediaType === 'movie' ? <Adult form={form} mediaType={mediaType} /> : null} */}
-				</VStack>
+					)}
+					renderAction={(props) => (
+						<HStack spacing={isSm ? 1 : 2}>
+							<Fade in={!isEqual(defaultValues, form.getValues())} unmountOnExit>
+								<Button
+									{...props}
+									// color={color}
+									color='blue'
+									onClick={handleReset}
+									variant='text'
+								>
+									Reset
+								</Button>
+							</Fade>
+							<Button
+								{...props}
+								// color={color}
+								color='blue'
+								isDisabled={!isDirty}
+								onClick={form.handleSubmit((values) => handleSubmit(values))}
+							>
+								Search
+							</Button>
+						</HStack>
+					)}
+				/>
 			</Modal>
 		</>
 	);

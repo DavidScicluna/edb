@@ -1,8 +1,8 @@
 import { ReactElement, useState } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, Center } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, Center, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { SHA256 } from 'crypto-js';
 import dayjs from 'dayjs';
@@ -10,7 +10,6 @@ import { isEmpty, isNil } from 'lodash';
 
 import { useSelector } from '../../../../../common/hooks';
 import VerticalGrid from '../../../../../components/Grid/Vertical';
-import Modal from '../../../../../components/Modal';
 import { setUser } from '../../../../../store/slices/App';
 import { toggleSplashscreen, toggleUserSwitcher } from '../../../../../store/slices/Modals';
 import { setUsers } from '../../../../../store/slices/Users';
@@ -65,38 +64,49 @@ const UserSwitcher = (): ReactElement => {
 
 	return (
 		<>
-			<Modal
-				title='Switch User'
-				renderActions={({ color, colorMode, size }) => (
-					<Button
-						color={color}
-						colorMode={colorMode}
-						isDisabled={isNil(selected) || isEmpty(selected)}
-						onClick={() => onFormOpen()}
-						size={size}
-					>
-						Enter Credentials
-					</Button>
-				)}
-				isOpen={isUserSwitcherModalOpen}
-				onClose={() => handleClose()}
-				isCentered
-				size={isSm ? 'full' : '4xl'}
-			>
-				<Center width='100%' p={2}>
-					<VerticalGrid columns={[1, 2, 3, 3, 3, 3]} displayMode='grid'>
-						{() =>
-							users.map((user) => (
-								<User
-									key={user.data.id}
-									user={user}
-									isActive={selected?.data.id === user.data.id}
-									onClick={() => setSelected(user)}
-								/>
-							))
-						}
-					</VerticalGrid>
-				</Center>
+			<Modal isOpen={isUserSwitcherModalOpen} onClose={handleClose} size={isSm ? 'full' : '4xl'}>
+				<ModalHeader
+					renderTitle={(props) => <Text {...props}>Switch User</Text>}
+					renderCancel={({ icon, category, ...rest }) => (
+						<IconButton {...rest}>
+							<Icon icon={icon} category={category} />
+						</IconButton>
+					)}
+				/>
+				<ModalBody>
+					<Center width='100%' p={2}>
+						<VerticalGrid columns={[1, 2, 3, 3, 3, 3]} displayMode='grid'>
+							{() =>
+								users.map((user) => (
+									<User
+										key={user.data.id}
+										user={user}
+										isActive={selected?.data.id === user.data.id}
+										onClick={() => setSelected(user)}
+									/>
+								))
+							}
+						</VerticalGrid>
+					</Center>
+				</ModalBody>
+				<ModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={handleClose}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button
+							{...props}
+							// color={color}
+							color='blue'
+							isDisabled={isNil(selected) || isEmpty(selected)}
+							onClick={onFormOpen}
+						>
+							Enter Credentials
+						</Button>
+					)}
+				/>
 			</Modal>
 
 			{isUserSwitcherModalOpen ? (

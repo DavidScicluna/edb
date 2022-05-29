@@ -2,6 +2,10 @@ import { ReactElement, useEffect } from 'react';
 
 import {
 	useTheme,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
 	ConfirmModal,
 	ConfirmModalBody,
 	ConfirmModalTitle,
@@ -14,7 +18,7 @@ import {
 	Icon
 } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, VStack, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { useForm, useFormState, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -25,7 +29,6 @@ import sample from 'lodash/sample';
 import { isBoolean } from 'lodash';
 
 import { useSelector } from '../../../../../../common/hooks';
-import Modal from '../../../../../../components/Modal';
 import { defaultUser, getUser, setUserLists } from '../../../../../../store/slices/Users';
 
 import { schema } from './validation';
@@ -124,63 +127,76 @@ const EditList = ({ id, isOpen, onClose }: EditListProps): ReactElement => {
 
 	return (
 		<>
-			<Modal
-				title={isSm ? 'Edit List' : `Edit ${list ? `"${list.label}"` : ''} List`}
-				renderActions={({ color, colorMode, size }) => (
-					<Button
-						color={color}
-						colorMode={colorMode}
-						isDisabled={isNil(user) || isEmpty(user) || !isDirty}
-						onClick={form.handleSubmit((values) => handleSubmit(values))}
-						size={size}
-					>
-						{isSm ? 'Save' : 'Save List'}
-					</Button>
-				)}
-				isOpen={isOpen}
-				onClose={handleCheckClose}
-				isCentered
-				size='lg'
-			>
-				<VStack spacing={3} p={2}>
-					<Controller
-						control={form.control}
-						name='label'
-						render={({ field: { onChange, value, name }, fieldState: { error } }) => (
-							<Input
-								// color={color}
-								color='blue'
-								label='Label'
-								name={name}
-								helper={error ? error.message : undefined}
-								placeholder={`Try "${placeholder}"`}
-								onChange={onChange}
-								isError={isBoolean(error)}
-								isFullWidth
-								isRequired
-								value={value}
-							/>
-						)}
-					/>
-					<Controller
-						control={form.control}
-						name='description'
-						render={({ field: { onChange, value, name }, fieldState: { error } }) => (
-							<Textarea
-								// color={color}
-								color='blue'
-								label='Description'
-								name={name}
-								helper={error ? error.message : undefined}
-								onChange={onChange}
-								isError={isBoolean(error)}
-								isFullWidth
-								value={value}
-								sx={{ textarea: { height: theme.space[12.5] } }}
-							/>
-						)}
-					/>
-				</VStack>
+			<Modal isOpen={isOpen} onClose={handleCheckClose} size='lg'>
+				<ModalHeader
+					renderTitle={(props) => (
+						<Text {...props}>{isSm ? 'Edit List' : `Edit ${list ? `"${list.label}"` : ''} List`}</Text>
+					)}
+					renderCancel={({ icon, category, ...rest }) => (
+						<IconButton {...rest}>
+							<Icon icon={icon} category={category} />
+						</IconButton>
+					)}
+				/>
+				<ModalBody>
+					<VStack spacing={3} p={2}>
+						<Controller
+							control={form.control}
+							name='label'
+							render={({ field: { onChange, value, name }, fieldState: { error } }) => (
+								<Input
+									// color={color}
+									color='blue'
+									label='Label'
+									name={name}
+									helper={error ? error.message : undefined}
+									placeholder={`Try "${placeholder}"`}
+									onChange={onChange}
+									isError={isBoolean(error)}
+									isFullWidth
+									isRequired
+									value={value}
+								/>
+							)}
+						/>
+						<Controller
+							control={form.control}
+							name='description'
+							render={({ field: { onChange, value, name }, fieldState: { error } }) => (
+								<Textarea
+									// color={color}
+									color='blue'
+									label='Description'
+									name={name}
+									helper={error ? error.message : undefined}
+									onChange={onChange}
+									isError={isBoolean(error)}
+									isFullWidth
+									value={value}
+									sx={{ textarea: { height: theme.space[12.5] } }}
+								/>
+							)}
+						/>
+					</VStack>
+				</ModalBody>
+				<ModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={onClose}>
+							Cancel
+						</Button>
+					)}
+					renderAction={(props) => (
+						<Button
+							{...props}
+							// color={color}
+							color='blue'
+							isDisabled={isNil(user) || isEmpty(user) || !isDirty}
+							onClick={form.handleSubmit((values) => handleSubmit(values))}
+						>
+							{isSm ? 'Save' : 'Save List'}
+						</Button>
+					)}
+				/>
 			</Modal>
 
 			<ConfirmModal

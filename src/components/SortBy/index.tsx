@@ -2,16 +2,15 @@ import { ReactElement } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, HStack, VStack, Fade } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, HStack, VStack, Text, Fade } from '@chakra-ui/react';
 import { useForm, useFormState } from 'react-hook-form';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import qs from 'query-string';
 
 import { useSelector } from '../../common/hooks';
-import Modal from '../../components/Modal';
 import { defaultUser, getUser } from '../../store/slices/Users';
 
 import { SortByProps, Form } from './types';
@@ -86,41 +85,52 @@ const SortBy = (props: SortByProps): ReactElement => {
 				onClick: () => handleOpen()
 			})}
 
-			<Modal
-				title='Sort By'
-				renderActions={({ color, colorMode, size }) => (
-					<HStack spacing={2}>
-						<Fade in={isDirty || !isEqual(defaultValues, form.getValues())} unmountOnExit>
-							<Button
-								color={color}
-								colorMode={colorMode}
-								onClick={() => handleReset()}
-								size={size}
-								variant='text'
-							>
-								Reset
-							</Button>
-						</Fade>
-						<Button
-							color={color}
-							colorMode={colorMode}
-							isDisabled={!isDirty}
-							onClick={form.handleSubmit((values) => handleSubmit(values))}
-							size={size}
-						>
-							Sort
+			<Modal isOpen={isOpen} onClose={handleClose} size={isMd ? 'full' : '4xl'}>
+				<ModalHeader
+					renderTitle={(props) => <Text {...props}>Sort By</Text>}
+					renderCancel={({ icon, category, ...rest }) => (
+						<IconButton {...rest}>
+							<Icon icon={icon} category={category} />
+						</IconButton>
+					)}
+				/>
+				<ModalBody>
+					<VStack width='100%' spacing={2} p={2}>
+						<Direction form={form} />
+						<Sort form={form} sortBy={sortBy} />
+					</VStack>
+				</ModalBody>
+				<ModalFooter
+					renderCancel={(props) => (
+						<Button {...props} onClick={handleClose}>
+							Cancel
 						</Button>
-					</HStack>
-				)}
-				isOpen={isOpen}
-				onClose={handleClose}
-				isCentered
-				size={isMd ? 'full' : '4xl'}
-			>
-				<VStack width='100%' spacing={2} p={2}>
-					<Direction form={form} />
-					<Sort form={form} sortBy={sortBy} />
-				</VStack>
+					)}
+					renderAction={(props) => (
+						<HStack spacing={2}>
+							<Fade in={isDirty || !isEqual(defaultValues, form.getValues())} unmountOnExit>
+								<Button
+									{...props}
+									// color={color}
+									color='blue'
+									onClick={handleReset}
+									variant='text'
+								>
+									Reset
+								</Button>
+							</Fade>
+							<Button
+								{...props}
+								// color={color}
+								color='blue'
+								isDisabled={!isDirty}
+								onClick={form.handleSubmit((values) => handleSubmit(values))}
+							>
+								Sort
+							</Button>
+						</HStack>
+					)}
+				/>
 			</Modal>
 		</>
 	);
