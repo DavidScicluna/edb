@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Icon } from '@davidscicluna/component-library';
+import { Skeleton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
@@ -8,7 +8,6 @@ import isNil from 'lodash/isNil';
 
 import ClickableImage from '../../../../../../components/Clickable/Image';
 import Image from '../../../../../../components/Image';
-import Skeleton from '../../../../../../components/Skeleton';
 
 import { MediaImageProps } from './types';
 

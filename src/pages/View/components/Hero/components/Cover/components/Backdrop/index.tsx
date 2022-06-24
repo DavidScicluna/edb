@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Icon } from '@davidscicluna/component-library';
+import { Skeleton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -8,7 +8,6 @@ import { youtube as YouTubeIcon } from '../../../../../../../../common/assets/ic
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../../common/utils';
 import ClickableImage from '../../../../../../../../components/Clickable/Image';
 import Image from '../../../../../../../../components/Image';
-import Skeleton from '../../../../../../../../components/Skeleton';
 
 import { BackdropProps } from './types';
 

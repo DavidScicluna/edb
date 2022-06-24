@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Icon } from '@davidscicluna/component-library';
+import { Skeleton, Icon } from '@davidscicluna/component-library';
 
 import { Box } from '@chakra-ui/react';
 import YouTube, { Options } from 'react-youtube';
@@ -9,7 +9,6 @@ import isNil from 'lodash/isNil';
 
 import { handleReturnRatio } from '../../../../../../common/utils';
 import ClickableImage from '../../../../../../components/Clickable/Image';
-import Skeleton from '../../../../../../components/Skeleton';
 
 import { AssetVideoProps } from './types';
 

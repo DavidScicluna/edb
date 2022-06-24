@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { AspectRatio, Fade } from '@chakra-ui/react';
 
 import {
@@ -7,7 +9,6 @@ import {
 	handleReturnRatio
 } from '../../../../../../../../../../../../../../common/utils';
 import Image from '../../../../../../../../../../../../../../components/Image';
-import Skeleton from '../../../../../../../../../../../../../../components/Skeleton';
 
 import { EpisodeImageProps } from './types';
 

@@ -1,13 +1,10 @@
 import { ReactElement } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { Skeleton, Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, VStack, Center, Text } from '@chakra-ui/react';
 import { compact, isEmpty, isNil } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
-
-import Skeleton from '../../../../../../../components/Skeleton';
-import SkeletonText from '../../../../../../../components/Skeleton/Text';
 
 import { DetailsProps } from './types';
 
@@ -36,7 +33,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 				alignItems='flex-start'
 				spacing={!(hasFirstName || hasLastName || hasUsername) ? 1 : 0}
 			>
-				<SkeletonText colorMode={colorMode} fontSize='4xl' isLoaded={hasFirstName || hasLastName} speed={0}>
+				<Skeleton colorMode={colorMode} isLoaded={hasFirstName || hasLastName} speed={0} type='text'>
 					<Text
 						align='left'
 						color={`gray.${colorMode === 'light' ? 900 : 50}`}
@@ -50,8 +47,8 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 									' '
 							  )}
 					</Text>
-				</SkeletonText>
-				<SkeletonText colorMode={colorMode} fontSize='md' isLoaded={hasUsername} speed={0}>
+				</Skeleton>
+				<Skeleton colorMode={colorMode} isLoaded={hasUsername} speed={0} type='text'>
 					<Text
 						align='left'
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}
@@ -61,7 +58,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 					>
 						{hasUsername ? `@${user.username}` : 'User @Username'}
 					</Text>
-				</SkeletonText>
+				</Skeleton>
 			</VStack>
 
 			<Center ref={buttonRef}>
