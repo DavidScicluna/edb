@@ -1,9 +1,13 @@
 import { ReactElement } from 'react';
 
+import { IconType, IconCategory } from '@davidscicluna/component-library';
+
 import { MediaType } from '../../../common/types';
 import { GetMediaType } from '../../../store/slices/Users/types';
 
-type RenderProps = {
+export type RenderProps = {
+	iconType: IconType;
+	iconCategory: IconCategory;
 	isDisabled: boolean;
 	isLiked: boolean;
 	onClick: () => void;

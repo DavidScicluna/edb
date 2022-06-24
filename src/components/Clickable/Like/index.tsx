@@ -1,22 +1,15 @@
-import { ReactElement } from 'react';
-
-import { Icon } from '@davidscicluna/component-library';
+import { FC } from 'react';
 
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
+import { isEmpty, isNil } from 'lodash';
 
 import { useSelector } from '../../../common/hooks';
 import { defaultUser, getUser, setUserLiked } from '../../../store/slices/Users';
 
 import { LikeProps } from './types';
 
-export const handleReturnIcon = (isLiked: boolean, fontSize?: string): ReactElement => {
-	return <Icon icon={isLiked ? 'favorite' : 'favorite_border'} category='outlined' fontSize={fontSize} />;
-};
-
-const Like = (props: LikeProps): ReactElement => {
+const Like: FC<LikeProps> = (props) => {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.app.data.user);
 	const liked = useSelector(
@@ -130,6 +123,8 @@ const Like = (props: LikeProps): ReactElement => {
 	};
 
 	return renderAction({
+		iconType: isLiked ? 'favorite' : 'favorite_border',
+		iconCategory: 'outlined',
 		isDisabled: isNil(user) || isEmpty(user),
 		isLiked,
 		onClick: isLiked ? () => handleRemoveLike() : () => handleLike()

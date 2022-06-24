@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Button, Icon } from '@davidscicluna/component-library';
 
 import { HStack } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import Bookmark from '../../../../../../../components/Clickable/Bookmark';
-import Like, { handleReturnIcon } from '../../../../../../../components/Clickable/Like';
+import Like from '../../../../../../../components/Clickable/Like';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
 
 import { ActionsProps } from './types';
@@ -49,13 +49,13 @@ const Actions = (props: ActionsProps): ReactElement => {
 				/>
 			) : null}
 			<Like
-				renderAction={({ isDisabled: isDisabledProp, isLiked, onClick }) => {
+				renderAction={({ iconType, iconCategory, isDisabled: isDisabledProp, isLiked, onClick }) => {
 					const isDisabled: boolean = isDisabledProp || isError || isLoading || !mediaItem;
 
 					return (
 						<Button
 							color={isLiked ? 'red' : 'gray'}
-							renderLeft={({ fontSize }) => handleReturnIcon(isLiked, fontSize)}
+							renderLeft={(props) => <Icon {...props} icon={iconType} category={iconCategory} />}
 							isFullWidth
 							isDisabled={isDisabled}
 							onClick={() => onClick()}
