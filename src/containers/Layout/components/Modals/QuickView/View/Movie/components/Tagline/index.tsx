@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { useColorMode, useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import Label from '../../../../components/Label';
 
 import { TaglineProps } from './types';
@@ -18,7 +19,7 @@ const Tagline = ({ tagline, isLoading = true }: TaglineProps): ReactElement => {
 
 	return (
 		<Label width='100%' label='Tagline'>
-			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>
+			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
 				<Text
 					align='left'
 					color={`gray.${colorMode === 'light' ? 900 : 50}`}
@@ -28,7 +29,7 @@ const Tagline = ({ tagline, isLoading = true }: TaglineProps): ReactElement => {
 				>
 					{tagline || 'Movie Tagline'}
 				</Text>
-			</SkeletonText>
+			</Skeleton>
 		</Label>
 	);
 };

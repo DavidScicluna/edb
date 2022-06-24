@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react';
 
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
-import { Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { Badge, BadgeLabel, Skeleton } from '@davidscicluna/component-library';
 
 import { useDisclosure, useConst, Text, Fade } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
@@ -23,7 +23,6 @@ import { Collection as CollectionType } from '../../../../common/types/movie';
 import { handleReturnBoringTypeByMediaType } from '../../../../common/utils';
 import DisplayMode from '../../../../components/Clickable/DisplayMode';
 import MediaViewer from '../../../../components/MediaViewer';
-import SkeletonText from '../../../../components/Skeleton/Text';
 import Tabs from '../../../../components/Tabs';
 import TabList from '../../../../components/Tabs/components/TabList';
 import TabPanels from '../../../../components/Tabs/components/TabPanels';
@@ -158,12 +157,12 @@ const Collection = (): ReactElement => {
 						<Title
 							mediaType='collection'
 							renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
-								<SkeletonText
+								<Skeleton
 									width={
 										collectionQuery.isFetching || collectionQuery.isLoading ? `${dummy}%` : 'auto'
 									}
-									fontSize={fontSize}
 									isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
+									type='text'
 								>
 									<Text
 										align='left'
@@ -179,7 +178,7 @@ const Collection = (): ReactElement => {
 									>
 										{collectionQuery.data?.name || 'Collection Name'}
 									</Text>
-								</SkeletonText>
+								</Skeleton>
 							)}
 							isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
 						/>

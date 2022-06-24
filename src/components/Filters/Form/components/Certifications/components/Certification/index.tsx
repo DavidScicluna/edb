@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { Skeleton, Button, Icon } from '@davidscicluna/component-library';
 
 import { useConst } from '@chakra-ui/react';
 import range from 'lodash/range';
@@ -8,7 +8,6 @@ import sample from 'lodash/sample';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
-import SkeletonText from '../../../../../../Skeleton/Text';
 
 import { CertificationProps } from './types';
 
@@ -31,9 +30,9 @@ const Certification = (props: CertificationProps): ReactElement => {
 			isDisabled={isLoading}
 			variant='outlined'
 		>
-			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
+			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
 				{certification || 'Certification'}
-			</SkeletonText>
+			</Skeleton>
 		</Button>
 	);
 };

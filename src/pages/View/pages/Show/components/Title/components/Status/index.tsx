@@ -1,10 +1,9 @@
 import { ReactElement } from 'react';
 
-import { Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { Badge, BadgeLabel, Skeleton } from '@davidscicluna/component-library';
 
 import { useSelector } from '../../../../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../../../../store/slices/Users';
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { StatusProps } from './types';
 
@@ -19,8 +18,8 @@ const Status = (props: StatusProps): ReactElement => {
 		<Badge color={color} size={fontSize} variant='outlined'>
 			{}
 			<BadgeLabel>
-				{/* TODO: FIX SkeletonText */}
-				{isLoading ? <SkeletonText isLoaded={!isLoading} /> : status || 'TV Show Status'}
+				{/* TODO: FIX Skeleton */}
+				{isLoading ? <Skeleton isLoaded={!isLoading} type='text' /> : status || 'TV Show Status'}
 			</BadgeLabel>
 		</Badge>
 	);

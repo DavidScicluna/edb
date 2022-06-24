@@ -1,12 +1,10 @@
 import { ReactElement } from 'react';
 
-import { FontSize } from '@davidscicluna/component-library';
+import { FontSize, Skeleton } from '@davidscicluna/component-library';
 
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
-
-import SkeletonText from '../../../../Skeleton/Text';
 
 import { DescriptionProps } from './types';
 
@@ -35,7 +33,7 @@ const Description = (props: DescriptionProps): ReactElement => {
 			height={height} // Size of typography height
 		>
 			{inView ? (
-				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
 					<Text
 						align='left'
 						fontSize={fontSize}
@@ -45,7 +43,7 @@ const Description = (props: DescriptionProps): ReactElement => {
 					>
 						{description || 'Poster Description'}
 					</Text>
-				</SkeletonText>
+				</Skeleton>
 			) : null}
 		</Box>
 	);

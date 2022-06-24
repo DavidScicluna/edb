@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme } from '@davidscicluna/component-library';
+import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
 import { useColorMode, useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
@@ -9,7 +9,6 @@ import qs from 'query-string';
 
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
-import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
 import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
 
 import { GenreProps } from './types';
@@ -29,7 +28,7 @@ const Genre = (props: GenreProps): ReactElement => {
 	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
-		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
 			<Link to={{ pathname: '/tvshows', search: qs.stringify({ with_genres: id }) }} isDisabled={isLoading}>
 				<Text
 					align='left'
@@ -49,7 +48,7 @@ const Genre = (props: GenreProps): ReactElement => {
 					{name || 'Genre'}
 				</Text>
 			</Link>
-		</SkeletonText>
+		</Skeleton>
 	);
 };
 

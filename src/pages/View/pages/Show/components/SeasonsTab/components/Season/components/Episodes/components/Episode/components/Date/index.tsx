@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { FontSize } from '@davidscicluna/component-library';
+import { FontSize, Skeleton } from '@davidscicluna/component-library';
 
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
@@ -9,7 +9,6 @@ import range from 'lodash/range';
 import sample from 'lodash/sample';
 
 import { handleReturnDate } from '../../../../../../../../../../../../../../common/utils';
-import SkeletonText from '../../../../../../../../../../../../../../components/Skeleton/Text';
 
 import { DateProps } from './types';
 
@@ -38,7 +37,7 @@ const Date = (props: DateProps): ReactElement => {
 			height={height} // Size of typography height
 		>
 			{inView ? (
-				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
 					<Text
 						align='left'
 						fontSize={fontSize}
@@ -48,7 +47,7 @@ const Date = (props: DateProps): ReactElement => {
 					>
 						{!(isNil(date) || isEmpty(date)) ? handleReturnDate(date || '', 'full') : 'Episode Date'}
 					</Text>
-				</SkeletonText>
+				</Skeleton>
 			) : null}
 		</Box>
 	);

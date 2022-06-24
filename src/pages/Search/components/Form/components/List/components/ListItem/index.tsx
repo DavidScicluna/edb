@@ -1,14 +1,12 @@
 import { ReactElement } from 'react';
 
-import { useTheme } from '@davidscicluna/component-library';
+import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
 import { useColorMode, useConst, ListItem as CUIListItem, VStack, HStack, Center, Text } from '@chakra-ui/react';
 import merge from 'lodash/merge';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 import { useElementSize } from 'usehooks-ts';
-
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import useStyles from './styles';
 import { ListItemProps } from './types';
@@ -46,10 +44,10 @@ const ListItem = (props: ListItemProps): ReactElement => {
 					}
 				>
 					{badge ? <Center ref={badgeRef}>{badge}</Center> : null}
-					<SkeletonText
+					<Skeleton
 						width={isLoading ? `${titleDummy}%` : badge ? `calc(100% - ${badgeWidth + 10}px)` : '100%'}
-						fontSize='md'
 						isLoaded={!isLoading}
+						type='text'
 					>
 						<Text
 							align='left'
@@ -59,15 +57,11 @@ const ListItem = (props: ListItemProps): ReactElement => {
 						>
 							{title}
 						</Text>
-					</SkeletonText>
+					</Skeleton>
 				</HStack>
 				{subtitle || isLoading ? (
 					<HStack width='100%'>
-						<SkeletonText
-							width={isLoading ? `${subtitleDummy}%` : '100%'}
-							fontSize='xs'
-							isLoaded={!isLoading}
-						>
+						<Skeleton width={isLoading ? `${subtitleDummy}%` : '100%'} isLoaded={!isLoading} type='text'>
 							<Text
 								align='left'
 								color={`gray.${colorMode === 'light' ? 400 : 500}`}
@@ -76,7 +70,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 							>
 								{subtitle}
 							</Text>
-						</SkeletonText>
+						</Skeleton>
 					</HStack>
 				) : null}
 			</VStack>

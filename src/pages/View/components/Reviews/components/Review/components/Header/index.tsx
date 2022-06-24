@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme } from '@davidscicluna/component-library';
+import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
 import {
 	useColorMode,
@@ -31,8 +31,6 @@ import Divider from '../../../../../../../../components/Divider';
 import HorizontalScroll from '../../../../../../../../components/HorizontalScroll';
 import Image from '../../../../../../../../components/Image';
 import Rating from '../../../../../../../../components/Rating';
-import Skeleton from '../../../../../../../../components/Skeleton';
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { HeaderProps } from './types';
 
@@ -93,7 +91,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				</AspectRatio>
 
 				<VStack width={`calc(100% - ${avatar + 16}px)`} alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-					<SkeletonText isLoaded={!isLoading} fontSize={isSm ? 'xl' : '2xl'}>
+					<Skeleton isLoaded={!isLoading} type='text'>
 						<Text
 							align='left'
 							color={`gray.${colorMode === 'light' ? 900 : 50}`}
@@ -104,7 +102,7 @@ const Header = (props: HeaderProps): ReactElement => {
 						>
 							{startCase(!isSm ? `Review by ${author || name}` : author || name)}
 						</Text>
-					</SkeletonText>
+					</Skeleton>
 					<HorizontalScroll
 						renderDivider={({ padding }) => (
 							<Text
@@ -118,7 +116,7 @@ const Header = (props: HeaderProps): ReactElement => {
 						)}
 					>
 						{compact([
-							<SkeletonText key='review_username' isLoaded={!isLoading} fontSize='sm'>
+							<Skeleton key='review_username' isLoaded={!isLoading} type='text'>
 								<Text
 									align='left'
 									color={`gray.${colorMode === 'light' ? 400 : 500}`}
@@ -127,9 +125,9 @@ const Header = (props: HeaderProps): ReactElement => {
 								>
 									{`@${username || 'username'}`}
 								</Text>
-							</SkeletonText>,
+							</Skeleton>,
 							created_at ? (
-								<SkeletonText key='review_created_at' isLoaded={!isLoading} fontSize='sm'>
+								<Skeleton key='review_created_at' isLoaded={!isLoading} type='text'>
 									<Text
 										align='left'
 										color={`gray.${colorMode === 'light' ? 400 : 500}`}
@@ -138,7 +136,7 @@ const Header = (props: HeaderProps): ReactElement => {
 									>
 										{dayjs(created_at || new Date()).format('LLL')}
 									</Text>
-								</SkeletonText>
+								</Skeleton>
 							) : undefined,
 							hasRating && isSm ? (
 								<Rating key='review_rating' size='sm' isLoading={isLoading}>

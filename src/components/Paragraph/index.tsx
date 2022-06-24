@@ -1,12 +1,10 @@
 import { ReactElement } from 'react';
 
-import { Card, CardHeader, CardBody, Button } from '@davidscicluna/component-library';
+import { Card, CardHeader, CardBody, Skeleton, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, VStack, Text, ScaleFade, Collapse } from '@chakra-ui/react';
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
-
-import SkeletonText from '../Skeleton/Text';
 
 import { ParagraphProps } from './types';
 
@@ -62,11 +60,11 @@ const Paragraph = ({ title, paragraphs = '', isLoading = true }: ParagraphProps)
 				) : (
 					<VStack width='100%' spacing={1}>
 						{range(0, 3).map((_dummy, index) => (
-							<SkeletonText key={index} width='100%' fontSize='xs' isLoaded={false}>
+							<Skeleton key={index} width='100%' isLoaded={false} type='text'>
 								<Text align='left' fontSize='xs'>
 									{`Paragraph ${index + 1}`}
 								</Text>
-							</SkeletonText>
+							</Skeleton>
 						))}
 					</VStack>
 				)}

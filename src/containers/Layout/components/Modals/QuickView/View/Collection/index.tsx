@@ -1,5 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import {
 	useColorMode,
 	useMediaQuery,
@@ -26,7 +28,6 @@ import { Images } from '../../../../../../../common/types';
 import { Collection as CollectionType } from '../../../../../../../common/types/movie';
 import { handleReturnBoringTypeByMediaType } from '../../../../../../../common/utils';
 import MediaViewer from '../../../../../../../components/MediaViewer';
-import SkeletonText from '../../../../../../../components/Skeleton/Text';
 import Title from '../../../../../../../pages/View/components/Title';
 import { guest } from '../../../../../../../store/slices/Users';
 import Actions from '../../components/Actions';
@@ -108,14 +109,14 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 								<Title
 									mediaType='collection'
 									renderTitle={({ color, fontSize, fontWeight }) => (
-										<SkeletonText
+										<Skeleton
 											width={
 												collectionQuery.isFetching || collectionQuery.isLoading
 													? `${dummy}%`
 													: '100%'
 											}
-											fontSize={fontSize}
 											isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
+											type='text'
 										>
 											<Text
 												align='left'
@@ -130,14 +131,14 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 											>
 												{collectionQuery.data?.name || 'Collection Name'}
 											</Text>
-										</SkeletonText>
+										</Skeleton>
 									)}
 									isLoading={collectionQuery.isFetching || collectionQuery.isLoading}
 								/>
-								<SkeletonText
+								<Skeleton
 									width='100%'
-									fontSize='md'
 									isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
+									type='text'
 								>
 									<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='md'>
 										<CountUp
@@ -147,7 +148,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 											suffix=' parts.'
 										/>
 									</Text>
-								</SkeletonText>
+								</Skeleton>
 							</VStack>
 
 							<Collapse

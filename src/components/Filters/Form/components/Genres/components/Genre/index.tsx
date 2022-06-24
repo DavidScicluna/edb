@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { Skeleton, Button, Icon } from '@davidscicluna/component-library';
 
 import { useConst } from '@chakra-ui/react';
 import range from 'lodash/range';
@@ -8,7 +8,6 @@ import sample from 'lodash/sample';
 
 import { useSelector } from '../../../../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
-import SkeletonText from '../../../../../../Skeleton/Text';
 
 import { GenreProps } from './types';
 
@@ -29,9 +28,9 @@ const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreP
 			isDisabled={isLoading}
 			variant='outlined'
 		>
-			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='sm' isLoaded={!isLoading}>
+			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
 				{name || 'Genre'}
-			</SkeletonText>
+			</Skeleton>
 		</Button>
 	);
 };

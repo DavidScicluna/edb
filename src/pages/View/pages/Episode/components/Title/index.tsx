@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { useConst, Text } from '@chakra-ui/react';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
@@ -7,7 +9,6 @@ import isNil from 'lodash/isNil';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
-import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 import { handleReturnCertification } from '../../../Show/components/Title';
 import Certification from '../../../Show/components/Title/components/Certification';
@@ -30,7 +31,7 @@ const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 		<Title
 			mediaType='tv'
 			renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
-				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
 					<Text
 						align='left'
 						color={color}
@@ -41,7 +42,7 @@ const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 					>
 						{name || 'Episode Name'}
 					</Text>
-				</SkeletonText>
+				</Skeleton>
 			)}
 			renderSubtitles={({ color, fontSize }) =>
 				compact([

@@ -1,11 +1,9 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, Icon } from '@davidscicluna/component-library';
+import { useTheme, Skeleton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, Center, VStack, Text } from '@chakra-ui/react';
 import round from 'lodash/round';
-
-import SkeletonText from '../Skeleton/Text';
 
 import { RatingRef, RatingProps } from './types';
 
@@ -67,7 +65,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 			/>
 
 			{inView ? (
-				<SkeletonText fontSize={size} isLoaded={!isLoading} ml={0.5}>
+				<Skeleton isLoaded={!isLoading} ml={0.5} type='text'>
 					<VStack spacing={0.25}>
 						<Text
 							align='left'
@@ -89,7 +87,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
             </Text>
           ) : null} */}
 					</VStack>
-				</SkeletonText>
+				</Skeleton>
 			) : null}
 		</Center>
 	);

@@ -8,7 +8,6 @@ import sample from 'lodash/sample';
 
 import { useSelector } from '../../../../../../../../../../../../common/hooks';
 import Link from '../../../../../../../../../../../../components/Clickable/Link';
-import SkeletonText from '../../../../../../../../../../../../components/Skeleton/Text';
 import { defaultUser, getUser } from '../../../../../../../../../../../../store/slices/Users';
 
 import { PersonProps } from './types';
@@ -27,7 +26,7 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 
 	return (
 		<Link to={{ pathname: `/people/${person?.id}` }} isDisabled={isLoading}>
-			<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize='md' isLoaded={!isLoading}>
+			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
 				<Text
 					align='left'
 					color={`gray.${colorMode === 'light' ? 900 : 50}`}
@@ -45,7 +44,7 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 				>
 					{person?.name || 'Person Name'}
 				</Text>
-			</SkeletonText>
+			</Skeleton>
 		</Link>
 	);
 };

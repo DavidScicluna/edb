@@ -1,12 +1,10 @@
 import { ReactElement } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { Skeleton, Button, Icon } from '@davidscicluna/component-library';
 
 import { useConst } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
-
-import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 
 import { GenreProps } from './types';
 
@@ -26,14 +24,9 @@ const Genre = (props: GenreProps): ReactElement => {
 			isDisabled={isLoading}
 			variant='outlined'
 		>
-			<SkeletonText
-				colorMode={colorMode}
-				width={isLoading ? `${dummy}px` : 'auto'}
-				fontSize='sm'
-				isLoaded={!isLoading}
-			>
+			<Skeleton colorMode={colorMode} width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
 				{name || 'Genre'}
-			</SkeletonText>
+			</Skeleton>
 		</Button>
 	);
 };

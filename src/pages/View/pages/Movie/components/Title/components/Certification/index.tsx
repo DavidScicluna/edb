@@ -1,8 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Badge, BadgeLabel } from '@davidscicluna/component-library';
-
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
+import { Badge, BadgeLabel, Skeleton } from '@davidscicluna/component-library';
 
 import { CertificationProps } from './types';
 
@@ -13,8 +11,8 @@ const Certification = (props: CertificationProps): ReactElement => {
 		<Badge size={fontSize} variant='outlined'>
 			<BadgeLabel>
 				{isLoading ? (
-					// TODO: FIX SkeletonText
-					<SkeletonText isLoaded={!isLoading} />
+					// TODO: FIX Skeleton
+					<Skeleton isLoaded={!isLoading} type='text' />
 				) : (
 					certification || 'Movie Certification'
 				)}

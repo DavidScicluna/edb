@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
 import { handleReturnRuntime } from '../../../../../../../../common/utils';
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { RuntimeProps } from './types';
 
@@ -17,11 +18,11 @@ const Runtime = (props: RuntimeProps): ReactElement => {
 	const dummy = useConst<number>(sample(dummies) || 50);
 
 	return (
-		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
 			<Text align='left' color={color} fontSize={fontSize} whiteSpace='nowrap'>
 				{handleReturnRuntime(runtime || 0) || 'Movie Runtime'}
 			</Text>
-		</SkeletonText>
+		</Skeleton>
 	);
 };
 

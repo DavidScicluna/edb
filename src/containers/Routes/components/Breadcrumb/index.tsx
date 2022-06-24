@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { FontSize } from '@davidscicluna/component-library';
+import { FontSize, Skeleton } from '@davidscicluna/component-library';
 
 import { useColorMode, useBreakpointValue, useBoolean, useConst, Text } from '@chakra-ui/react';
 import { useQueryClient } from 'react-query';
@@ -10,8 +10,6 @@ import range from 'lodash/range';
 import sample from 'lodash/sample';
 import startCase from 'lodash/startCase';
 import { useTimeout } from 'usehooks-ts';
-
-import SkeletonText from '../../../../components/Skeleton/Text';
 
 import { BreadcrumbProps, Data } from './types';
 
@@ -41,10 +39,10 @@ const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 	useTimeout(() => setIsLoaded.on(), 2500);
 
 	return (
-		<SkeletonText
+		<Skeleton
 			width={!isLoaded || !data ? `${dummy}%` : 'auto'}
-			fontSize={breadcrumbFontSize}
 			isLoaded={isLoaded || !(isNil(data) || isEmpty(data))}
+			type='text'
 		>
 			<Text
 				align='left'
@@ -56,7 +54,7 @@ const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 					? match.params.episode
 					: data?.title || data?.name || startCase(mediaType === 'tv' ? 'TV-show' : mediaType) || ''}
 			</Text>
-		</SkeletonText>
+		</Skeleton>
 	);
 };
 

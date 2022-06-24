@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { useColorMode, useConst, Box, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
-
-import SkeletonText from '../../../../Skeleton/Text';
 
 import { SubtitleProps } from './types';
 
@@ -24,7 +24,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 			height='16.5px' // Size of typography height
 		>
 			{inView ? (
-				<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize='xs' isLoaded={!isLoading}>
+				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
 					<Text
 						align='left'
 						fontSize='xs'
@@ -34,7 +34,7 @@ const Subtitle = (props: SubtitleProps): ReactElement => {
 					>
 						{subtitle || 'Poster Subtitle'}
 					</Text>
-				</SkeletonText>
+				</Skeleton>
 			) : null}
 		</Box>
 	);

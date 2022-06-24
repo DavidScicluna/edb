@@ -1,11 +1,11 @@
 import { ReactElement, forwardRef } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { useColorMode, useConst, Stat as CUIStat, VStack, StatLabel, StatNumber } from '@chakra-ui/react';
 import CountUp from 'react-countup';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
-
-import SkeletonText from '../../../../../../../../../../../components/Skeleton/Text';
 
 import { StatRef, StatProps } from './types';
 
@@ -21,7 +21,7 @@ const Stat = forwardRef<StatRef, StatProps>(function Stat(props, ref): ReactElem
 	return (
 		<CUIStat ref={ref} justifyContent='center'>
 			<VStack spacing={0}>
-				<SkeletonText fontSize='3xl' isLoaded={!isLoading}>
+				<Skeleton isLoaded={!isLoading} type='text'>
 					<StatNumber
 						color={`gray.${colorMode === 'light' ? 900 : 50}`}
 						fontSize='3xl'
@@ -30,7 +30,7 @@ const Stat = forwardRef<StatRef, StatProps>(function Stat(props, ref): ReactElem
 					>
 						{!isLoading ? <CountUp duration={1} end={number || 0} /> : dummy}
 					</StatNumber>
-				</SkeletonText>
+				</Skeleton>
 				<StatLabel
 					color={`gray.${colorMode === 'light' ? 400 : 500}`}
 					fontSize='xs'

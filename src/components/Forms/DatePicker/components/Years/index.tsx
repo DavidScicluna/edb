@@ -1,11 +1,10 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Skeleton, Button } from '@davidscicluna/component-library';
 
 import { VStack, SimpleGrid } from '@chakra-ui/react';
 import range from 'lodash/range';
 
-import SkeletonText from '../../../../Skeleton/Text';
 import years from '../../common/data/years';
 
 import Header from './components/Header';
@@ -94,9 +93,9 @@ const Years = (props: YearsProps): ReactElement => {
 					  ))
 					: range(0, 12).map((_dummy, index) => (
 							<Button key={index} isDisabled isFullWidth size='lg' variant='text'>
-								<SkeletonText fontSize='md' isLoaded={false}>
+								<Skeleton isLoaded={false} type='text'>
 									9999
-								</SkeletonText>
+								</Skeleton>
 							</Button>
 					  ))}
 			</SimpleGrid>

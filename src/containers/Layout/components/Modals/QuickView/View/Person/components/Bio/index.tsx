@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { VStack, Text, useColorMode } from '@chakra-ui/react';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
 
-import SkeletonText from '../../../../../../../../../components/Skeleton/Text';
 import { handleReturnDates } from '../../../../../../../../../pages/View/pages/Person/components/OverviewTab/components/Bio';
 import Label from '../../../../components/Label';
 
@@ -27,7 +28,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 			) : (
 				<VStack width='100%'>
 					{range(0, 2).map((_dummy, index) => (
-						<SkeletonText key={index} width='100%' fontSize='md' isLoaded={false}>
+						<Skeleton key={index} width='100%' isLoaded={false} type='text'>
 							<Text
 								align='left'
 								color={`gray.${colorMode === 'light' ? 900 : 50}`}
@@ -36,7 +37,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 							>
 								{`Person Bio ${index + 1}`}
 							</Text>
-						</SkeletonText>
+						</Skeleton>
 					))}
 				</VStack>
 			)}

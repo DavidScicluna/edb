@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { useConst, HStack, Text } from '@chakra-ui/react';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
@@ -11,7 +13,6 @@ import { useElementSize } from 'usehooks-ts';
 import { FullTV } from '../../../../../../common/types/tv';
 import Divider from '../../../../../../components/Divider';
 import Rating from '../../../../../../components/Rating';
-import SkeletonText from '../../../../../../components/Skeleton/Text';
 import Title from '../../../../components/Title';
 
 import Certification from './components/Certification';
@@ -63,7 +64,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 			mediaType='tv'
 			renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
 				<HStack divider={<Divider orientation='vertical' height={`${height}px`} />} spacing={2}>
-					<SkeletonText width={isLoading ? `${dummy}%` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+					<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
 						<Text
 							ref={ratingRef}
 							align='left'
@@ -75,7 +76,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 						>
 							{name || 'TV Show Name'}
 						</Text>
-					</SkeletonText>
+					</Skeleton>
 					<Rating count={vote_count} size={fontSize} isLoading={isLoading}>
 						{vote_average}
 					</Rating>

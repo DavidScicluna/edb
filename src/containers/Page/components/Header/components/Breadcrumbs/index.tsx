@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
 
-import { FontSize, useTheme, Icon } from '@davidscicluna/component-library';
+import { FontSize, useTheme, Skeleton, Icon } from '@davidscicluna/component-library';
 
 import {
 	useColorMode,
@@ -17,7 +17,6 @@ import useBreadcrumbs, { BreadcrumbData } from 'use-react-router-breadcrumbs';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Link from '../../../../../../components/Clickable/Link';
-import SkeletonText from '../../../../../../components/Skeleton/Text';
 import { allRoutes as routes } from '../../../../../Routes';
 
 import useStyles from './styles';
@@ -77,7 +76,7 @@ const Breadcrumbs = (): ReactElement => {
 						fontSize={breadcrumbFontSize}
 						sx={{ ...style.common.breadcrumbItem }}
 					>
-						<SkeletonText fontSize={breadcrumbFontSize} isLoaded={!isDummy}>
+						<Skeleton isLoaded={!isDummy} type='text'>
 							{index === breadcrumbs.length - 1 || isDummy ? (
 								<Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
 									{!isDummy ? breadcrumb.breadcrumb : 'Dummy'}
@@ -91,7 +90,7 @@ const Breadcrumbs = (): ReactElement => {
 									{breadcrumb.breadcrumb}
 								</BreadcrumbLink>
 							)}
-						</SkeletonText>
+						</Skeleton>
 					</BreadcrumbItem>
 				);
 			})}

@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { useConst, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 
 import { handleReturnDate } from '../../../../../../../../common/utils';
-import SkeletonText from '../../../../../../../../components/Skeleton/Text';
 
 import { DateProps } from './types';
 
@@ -33,11 +34,11 @@ const Date = (props: DateProps): ReactElement => {
 	};
 
 	return (
-		<SkeletonText width={isLoading ? `${dummy}px` : 'auto'} fontSize={fontSize} isLoaded={!isLoading}>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
 			<Text align='left' color={color} fontSize={fontSize} whiteSpace='nowrap'>
 				{first_air_date && last_air_date && !isLoading ? handleDate() : 'TV Show Date'}
 			</Text>
-		</SkeletonText>
+		</Skeleton>
 	);
 };
 
