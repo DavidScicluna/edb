@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 
-import { SimpleGrid, Button } from '@chakra-ui/react';
+import { Button } from '@davidscicluna/component-library';
+
+import { SimpleGrid } from '@chakra-ui/react';
 
 import { full } from '../../common/data/months';
 

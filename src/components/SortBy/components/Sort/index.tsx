@@ -35,9 +35,7 @@ const Sort = ({ form, sortBy }: SortProps): ReactElement => {
 										color={sort.value === value.value ? color : 'gray'}
 										renderRight={
 											sort.value === value.value
-												? ({ fontSize }) => (
-														<Icon icon='check' category='outlined' fontSize={fontSize} />
-												  )
+												? (props) => <Icon {...props} icon='check' category='outlined' />
 												: undefined
 										}
 										isFullWidth

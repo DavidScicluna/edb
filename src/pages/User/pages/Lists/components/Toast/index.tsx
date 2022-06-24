@@ -51,12 +51,12 @@ const Toast = (props: ToastProps): ReactElement => {
 						onClick={() => onEdit()}
 						size='sm'
 					>
-						<Icon icon='edit' category='outlined' />
+						<Icon {...props} icon='edit' category='outlined' />
 					</IconButton>
 				) : (
 					<Button
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
-						renderLeft={({ fontSize }) => <Icon icon='edit' category='outlined' fontSize={fontSize} />}
+						renderLeft={(props) => <Icon {...props} icon='edit' category='outlined' />}
 						isDisabled={isDisabled}
 						onClick={() => onEdit()}
 					>
@@ -79,9 +79,7 @@ const Toast = (props: ToastProps): ReactElement => {
 					<Button
 						color='red'
 						colorMode={colorMode === 'light' ? 'dark' : 'light'}
-						renderLeft={({ fontSize }) => (
-							<Icon icon='delete_outline' category='outlined' fontSize={fontSize} />
-						)}
+						renderLeft={(props) => <Icon {...props} icon='delete_outline' category='outlined' />}
 						isDisabled={isDisabled}
 						onClick={() => onDelete()}
 					>
@@ -97,7 +95,7 @@ const Toast = (props: ToastProps): ReactElement => {
 				size={isSm ? 'sm' : 'md'}
 				variant='icon'
 			>
-				<Icon icon='close' category='outlined' />
+				<Icon {...props} icon='close' category='outlined' />
 			</IconButton>
 		</HStack>
 	);

@@ -20,41 +20,31 @@ export const searchTypes: SearchTypeType[] = [
 		value: 'movie',
 		label: 'Movies',
 		color: 'blue',
-		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='theaters' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
-		)
+		renderLeft: (props) => <Icon {...props} icon='theaters' category={isActive ? 'filled' : 'outlined'} />
 	},
 	{
 		value: 'tv',
 		label: 'TV Shows',
 		color: 'orange',
-		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='tv' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
-		)
+		renderLeft: (props) => <Icon {...props} icon='tv' category={isActive ? 'filled' : 'outlined'} />
 	},
 	{
 		value: 'person',
 		label: 'People',
 		color: 'yellow',
-		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='people_alt' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
-		)
+		renderLeft: (props) => <Icon {...props} icon='people_alt' category={isActive ? 'filled' : 'outlined'} />
 	},
 	{
 		value: 'collection',
 		label: 'Collections',
 		color: 'pink',
-		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='library_books' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
-		)
+		renderLeft: (props) => <Icon {...props} icon='library_books' category={isActive ? 'filled' : 'outlined'} />
 	},
 	{
 		value: 'company',
 		label: 'Companies',
 		color: 'purple',
-		renderLeft: ({ isActive, fontSize }) => (
-			<Icon icon='business' category={isActive ? 'filled' : 'outlined'} fontSize={fontSize} />
-		)
+		renderLeft: (props) => <Icon {...props} icon='business' category={isActive ? 'filled' : 'outlined'} />
 	}
 ];
 

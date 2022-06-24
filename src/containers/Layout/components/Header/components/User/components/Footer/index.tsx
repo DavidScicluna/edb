@@ -25,7 +25,7 @@ const Footer = (): ReactElement => {
 
 	return (
 		<Button
-			renderLeft={({ fontSize }) => <Icon icon='logout' category='outlined' fontSize={fontSize} />}
+			renderLeft={(props) => <Icon {...props} icon='logout' category='outlined' />}
 			color='red'
 			isFullWidth
 			onClick={() => handleSignOut()}

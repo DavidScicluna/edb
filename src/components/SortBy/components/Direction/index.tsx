@@ -34,14 +34,10 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 							<Center width='100%'>
 								<Button
 									color={value === 'asc' ? color : 'gray'}
-									renderLeft={({ fontSize }) => (
-										<Icon icon='arrow_upward' category='outlined' fontSize={fontSize} />
-									)}
+									renderLeft={(props) => <Icon {...props} icon='arrow_upward' category='outlined' />}
 									renderRight={
 										value === 'asc'
-											? ({ fontSize }) => (
-													<Icon icon='check' category='outlined' fontSize={fontSize} />
-											  )
+											? (props) => <Icon {...props} icon='check' category='outlined' />
 											: undefined
 									}
 									isFullWidth
@@ -55,14 +51,12 @@ const Direction = ({ form }: DirectionProps): ReactElement => {
 							<Center width='100%'>
 								<Button
 									color={value === 'desc' ? color : 'gray'}
-									renderLeft={({ fontSize }) => (
-										<Icon icon='arrow_downward' category='outlined' fontSize={fontSize} />
+									renderLeft={(props) => (
+										<Icon {...props} icon='arrow_downward' category='outlined' />
 									)}
 									renderRight={
 										value === 'desc'
-											? ({ fontSize }) => (
-													<Icon icon='check' category='outlined' fontSize={fontSize} />
-											  )
+											? (props) => <Icon {...props} icon='check' category='outlined' />
 											: undefined
 									}
 									isFullWidth

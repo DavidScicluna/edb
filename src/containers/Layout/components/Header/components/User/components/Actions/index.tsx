@@ -36,11 +36,11 @@ const Actions = (): ReactElement => {
 			{!isGuest ? (
 				<Link to='/profile' isDisabled={location.pathname === '/profile'} isFullWidth>
 					<Button
-						renderLeft={({ fontSize }) => (
+						renderLeft={(props) => (
 							<Icon
+								{...props}
 								icon='person'
 								category={location.pathname === '/profile' ? 'filled' : 'outlined'}
-								fontSize={fontSize}
 							/>
 						)}
 						color={location.pathname === '/profile' ? color : 'gray'}
@@ -57,11 +57,11 @@ const Actions = (): ReactElement => {
 			{!isGuest ? (
 				<Link to='/liked' isDisabled={location.pathname === '/liked'} isFullWidth>
 					<Button
-						renderLeft={({ fontSize }) => (
+						renderLeft={(props) => (
 							<Icon
+								{...props}
 								icon={location.pathname === '/liked' ? 'favorite' : 'favorite_border'}
 								category='outlined'
-								fontSize={fontSize}
 							/>
 						)}
 						color={location.pathname === '/liked' ? color : 'gray'}
@@ -78,11 +78,11 @@ const Actions = (): ReactElement => {
 			{!isGuest ? (
 				<Link to='/lists' isDisabled={location.pathname === '/lists'} isFullWidth>
 					<Button
-						renderLeft={({ fontSize }) => (
+						renderLeft={(props) => (
 							<Icon
+								{...props}
 								icon={location.pathname === '/lists' ? 'bookmark' : 'bookmark_border'}
 								category='outlined'
-								fontSize={fontSize}
 							/>
 						)}
 						color={location.pathname === '/lists' ? color : 'gray'}
@@ -98,7 +98,7 @@ const Actions = (): ReactElement => {
 
 			{users.length > 0 ? (
 				<Button
-					renderLeft={({ fontSize }) => <Icon icon='sync' category='outlined' fontSize={fontSize} />}
+					renderLeft={(props) => <Icon {...props} icon='sync' category='outlined' />}
 					color={isUserSwitcherModalOpen ? color : 'gray'}
 					isFullWidth
 					onClick={() => dispatch(toggleUserSwitcher(true))}
@@ -111,8 +111,8 @@ const Actions = (): ReactElement => {
 			) : null}
 
 			<Button
-				renderLeft={({ fontSize }) => (
-					<Icon icon='palette' category={isDisplayModalOpen ? 'filled' : 'outlined'} fontSize={fontSize} />
+				renderLeft={(props) => (
+					<Icon {...props} icon='palette' category={isDisplayModalOpen ? 'filled' : 'outlined'} />
 				)}
 				color={isDisplayModalOpen ? color : 'gray'}
 				isFullWidth

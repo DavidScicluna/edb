@@ -21,9 +21,7 @@ const Genre = (props: GenreProps): ReactElement => {
 		<Button
 			color={isActive ? color : 'gray'}
 			colorMode={colorMode}
-			renderRight={
-				isActive ? ({ fontSize }) => <Icon icon='check' category='outlined' fontSize={fontSize} /> : undefined
-			}
+			renderRight={isActive ? (props) => <Icon {...props} icon='check' category='outlined' /> : undefined}
 			onClick={onClick ? () => onClick({ id, name }) : undefined}
 			isDisabled={isLoading}
 			variant='outlined'

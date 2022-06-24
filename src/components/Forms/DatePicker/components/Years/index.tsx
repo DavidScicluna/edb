@@ -1,6 +1,8 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { VStack, SimpleGrid, Button } from '@chakra-ui/react';
+import { Button } from '@davidscicluna/component-library';
+
+import { VStack, SimpleGrid } from '@chakra-ui/react';
 import range from 'lodash/range';
 
 import SkeletonText from '../../../../Skeleton/Text';

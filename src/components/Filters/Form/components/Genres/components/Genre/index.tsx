@@ -24,9 +24,7 @@ const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreP
 	return (
 		<Button
 			color={isActive ? color : 'gray'}
-			renderRight={
-				isActive ? ({ fontSize }) => <Icon icon='check' category='outlined' fontSize={fontSize} /> : undefined
-			}
+			renderRight={isActive ? (props) => <Icon {...props} icon='check' category='outlined' /> : undefined}
 			onClick={onClick ? () => onClick({ id, name }) : undefined}
 			isDisabled={isLoading}
 			variant='outlined'

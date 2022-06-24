@@ -66,7 +66,11 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 
 			<Center ref={buttonRef}>
 				<Skeleton colorMode={colorMode} isLoaded={false} speed={0}>
-					<Button renderLeft={() => <Icon icon='edit' category='outlined' />} isDisabled variant='outlined'>
+					<Button
+						renderLeft={(props) => <Icon {...props} icon='edit' category='outlined' />}
+						isDisabled
+						variant='outlined'
+					>
 						Edit
 					</Button>
 				</Skeleton>
