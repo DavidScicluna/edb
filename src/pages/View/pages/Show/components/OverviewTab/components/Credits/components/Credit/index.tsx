@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 
+import { HorizontalScroll } from '@davidscicluna/component-library';
+
 import { useColorMode, Text } from '@chakra-ui/react';
 import range from 'lodash/range';
-
-import HorizontalScroll from '../../../../../../../../../../components/HorizontalScroll';
 
 import Person from './components/Person';
 import { PeopleProps } from './types';

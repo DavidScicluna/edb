@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { HorizontalScroll, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { Fade } from '@chakra-ui/react';
 import CountUp from 'react-countup';
@@ -11,7 +11,6 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Divider from '../../../../../../components/Divider';
-import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import TabList from '../../../../../../components/Tabs/components/TabList';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 

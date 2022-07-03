@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 
+import { HorizontalScroll } from '@davidscicluna/component-library';
+
 import { useColorMode, Text } from '@chakra-ui/react';
 
-import HorizontalScroll from '../../../../../../../../../../components/HorizontalScroll';
 import Language from '../Language';
 
 import { LanguagesProps } from './types';

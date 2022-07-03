@@ -1,10 +1,11 @@
 import { ReactElement, useContext, useCallback } from 'react';
 
+import { HorizontalScroll } from '@davidscicluna/component-library';
+
 import { useMediaQuery, Stack, HStack, Center } from '@chakra-ui/react';
 
 import { StepperContext } from '../../.';
 import Divider from '../../../Divider';
-import HorizontalScroll from '../../../HorizontalScroll';
 import { StepperContext as StepperContextType } from '../../types';
 
 import Cancel from './components/Cancel';
@@ -96,7 +97,7 @@ const StepList = ({ children = [] }: StepListProps): ReactElement => {
 					</HStack>
 					<Center width={isSm ? '100%' : 'calc(100% - 200px)'}>
 						<HorizontalScroll
-							isFullWidth
+							colorMode={colorMode}
 							renderDivider={() => (
 								<Divider colorMode={colorMode} orientation='vertical' height={height} />
 							)}
@@ -121,7 +122,6 @@ const StepList = ({ children = [] }: StepListProps): ReactElement => {
 					<Center width='calc(100% - 200px)'>
 						<HorizontalScroll
 							colorMode={colorMode}
-							isFullWidth
 							renderDivider={() => (
 								<Divider colorMode={colorMode} orientation='vertical' height={height} />
 							)}

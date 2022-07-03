@@ -1,13 +1,12 @@
 import { ReactElement } from 'react';
 
-import { Card, CardHeader, CardBody, Button, Icon } from '@davidscicluna/component-library';
+import { Card, CardHeader, CardBody, HorizontalScroll, Button, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, HStack, Box, Text } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../common/hooks';
 import Divider from '../../../../../../components/Divider';
-import HorizontalScroll from '../../../../../../components/HorizontalScroll';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
 import { SearchType as SearchTypeValue } from '../../../../../../store/slices/Users/types';
 

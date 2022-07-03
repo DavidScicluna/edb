@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { HorizontalScroll, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
@@ -10,7 +10,6 @@ import isNil from 'lodash/isNil';
 import { useElementSize } from 'usehooks-ts';
 
 import Divider from '../../Divider';
-import HorizontalScroll from '../../HorizontalScroll';
 import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';
 import { Filters } from '../types';
 

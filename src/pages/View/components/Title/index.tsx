@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
-import { useColorMode, VStack, Text } from '@chakra-ui/react';
+import { HorizontalScroll } from '@davidscicluna/component-library';
 
-import HorizontalScroll from '../../../../components/HorizontalScroll';
+import { useColorMode, VStack, Text } from '@chakra-ui/react';
 
 import { TitleProps } from './types';
 

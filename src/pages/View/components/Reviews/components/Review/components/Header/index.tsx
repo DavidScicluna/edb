@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useTheme, Skeleton } from '@davidscicluna/component-library';
+import { useTheme, HorizontalScroll, Skeleton } from '@davidscicluna/component-library';
 
 import {
 	useColorMode,
@@ -28,7 +28,6 @@ import {
 	handleReturnRatio
 } from '../../../../../../../../common/utils';
 import Divider from '../../../../../../../../components/Divider';
-import HorizontalScroll from '../../../../../../../../components/HorizontalScroll';
 import Image from '../../../../../../../../components/Image';
 import Rating from '../../../../../../../../components/Rating';
 

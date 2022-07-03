@@ -1,9 +1,10 @@
 import { ReactElement, useContext } from 'react';
 
+import { HorizontalScroll } from '@davidscicluna/component-library';
+
 import { TabList as CUITabList } from '@chakra-ui/react';
 
 import { TabsContext } from '../../.';
-import HorizontalScroll from '../../../HorizontalScroll';
 import { TabsContext as TabsContextType } from '../../types';
 
 import { TabListProps } from './types';
