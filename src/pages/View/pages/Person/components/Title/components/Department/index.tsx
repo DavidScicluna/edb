@@ -16,7 +16,7 @@ const Department = (props: DepartmentProps): ReactElement => {
 	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
-		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 			<Text align='left' color={color} fontSize={fontSize} whiteSpace='nowrap'>
 				{department || 'Department Name'}
 			</Text>

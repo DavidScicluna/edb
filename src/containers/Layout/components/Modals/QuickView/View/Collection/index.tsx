@@ -116,7 +116,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 													: '100%'
 											}
 											isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
-											type='text'
+											variant='text'
 										>
 											<Text
 												align='left'
@@ -138,7 +138,7 @@ const Collection = ({ id }: CollectionProps): ReactElement => {
 								<Skeleton
 									width='100%'
 									isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
-									type='text'
+									variant='text'
 								>
 									<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='md'>
 										<CountUp

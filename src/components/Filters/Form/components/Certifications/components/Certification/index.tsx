@@ -30,7 +30,7 @@ const Certification = (props: CertificationProps): ReactElement => {
 			isDisabled={isLoading}
 			variant='outlined'
 		>
-			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 				{certification || 'Certification'}
 			</Skeleton>
 		</Button>

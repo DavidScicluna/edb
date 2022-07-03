@@ -12,7 +12,7 @@ const Certification = (props: CertificationProps): ReactElement => {
 			<BadgeLabel>
 				{isLoading ? (
 					// TODO: FIX Skeleton
-					<Skeleton isLoaded={!isLoading} type='text' />
+					<Skeleton isLoaded={!isLoading} variant='text' />
 				) : (
 					certification || 'Movie Certification'
 				)}

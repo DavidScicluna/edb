@@ -18,7 +18,7 @@ const Budget = ({ budget, isLoading = true }: BudgetProps): ReactElement => {
 	const dummy = useConst<number>(sample(dummies) || 50);
 
 	return (
-		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 			<Text align='left' color={`gray.${colorMode === 'light' ? 900 : 50}`} fontSize='md' whiteSpace='nowrap'>
 				{budget ? `$${handleFormatMoney(budget)}` : 'Movie Budget'}
 			</Text>

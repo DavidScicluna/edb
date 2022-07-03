@@ -26,7 +26,7 @@ const Person = ({ person, isLoading = true }: PersonProps): ReactElement => {
 
 	return (
 		<Link to={{ pathname: `/people/${person?.id}` }} isDisabled={isLoading}>
-			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 				<Text
 					align='left'
 					color={`gray.${colorMode === 'light' ? 900 : 50}`}

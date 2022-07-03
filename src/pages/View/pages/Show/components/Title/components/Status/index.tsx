@@ -19,7 +19,7 @@ const Status = (props: StatusProps): ReactElement => {
 			{}
 			<BadgeLabel>
 				{/* TODO: FIX Skeleton */}
-				{isLoading ? <Skeleton isLoaded={!isLoading} type='text' /> : status || 'TV Show Status'}
+				{isLoading ? <Skeleton isLoaded={!isLoading} variant='text' /> : status || 'TV Show Status'}
 			</BadgeLabel>
 		</Badge>
 	);

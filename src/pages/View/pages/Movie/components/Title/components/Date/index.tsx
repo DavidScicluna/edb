@@ -17,7 +17,7 @@ const Date = (props: DateProps): ReactElement => {
 	const dummy = useConst<number>(sample(dummies) || 50);
 
 	return (
-		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 			<Text align='left' color={color} fontSize={fontSize} whiteSpace='nowrap'>
 				{dayjs(date).format('DD MMMM YYYY') || 'Movie Date'}
 			</Text>

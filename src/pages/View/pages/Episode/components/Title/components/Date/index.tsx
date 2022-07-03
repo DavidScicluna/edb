@@ -20,7 +20,7 @@ const Date = (props: DateProps): ReactElement => {
 	const dummy = useConst<number>(sample(dummies) || 50);
 
 	return (
-		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 			<Text align='left' color={color} fontSize={fontSize} whiteSpace='nowrap'>
 				{!(isNil(air_date) || isEmpty(air_date)) && !isLoading
 					? `Episode Aired on ${handleReturnDate(air_date || '', 'full')}`

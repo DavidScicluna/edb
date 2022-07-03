@@ -28,7 +28,7 @@ const Genre = (props: GenreProps): ReactElement => {
 	const dummy = useConst<number>(sample(dummies) || 100);
 
 	return (
-		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 			<Link to={{ pathname: '/tvshows', search: qs.stringify({ with_genres: id }) }} isDisabled={isLoading}>
 				<Text
 					align='left'

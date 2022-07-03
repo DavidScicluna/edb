@@ -24,7 +24,12 @@ const Genre = (props: GenreProps): ReactElement => {
 			isDisabled={isLoading}
 			variant='outlined'
 		>
-			<Skeleton colorMode={colorMode} width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+			<Skeleton
+				colorMode={colorMode}
+				width={isLoading ? `${dummy}px` : 'auto'}
+				isLoaded={!isLoading}
+				variant='text'
+			>
 				{name || 'Genre'}
 			</Skeleton>
 		</Button>

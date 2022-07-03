@@ -93,7 +93,7 @@ const Years = (props: YearsProps): ReactElement => {
 					  ))
 					: range(0, 12).map((_dummy, index) => (
 							<Button key={index} isDisabled isFullWidth size='lg' variant='text'>
-								<Skeleton isLoaded={false} type='text'>
+								<Skeleton isLoaded={false} variant='text'>
 									9999
 								</Skeleton>
 							</Button>

@@ -31,7 +31,7 @@ const EpisodeTitle = (props: EpisodeTitleProps): ReactElement => {
 		<Title
 			mediaType='tv'
 			renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
-				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
+				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} variant='text'>
 					<Text
 						align='left'
 						color={color}

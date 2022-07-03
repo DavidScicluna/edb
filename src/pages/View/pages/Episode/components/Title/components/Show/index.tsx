@@ -21,7 +21,7 @@ const Show = (props: ShowProps): ReactElement => {
 			<BadgeLabel>
 				{isLoading ? (
 					// TODO: FIX SkeletonText
-					<Skeleton isLoaded={!isLoading} type='text' />
+					<Skeleton isLoaded={!isLoading} variant='text' />
 				) : (
 					compact([name, season ? `S${season}` : undefined, episode ? `E${episode}` : undefined]).join(' • ')
 				)}

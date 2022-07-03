@@ -28,7 +28,7 @@ const Bio = ({ birthday, place_of_birth, deathday, bio, isLoading = true }: BioP
 			) : (
 				<VStack width='100%'>
 					{range(0, 2).map((_dummy, index) => (
-						<Skeleton key={index} width='100%' isLoaded={false} type='text'>
+						<Skeleton key={index} width='100%' isLoaded={false} variant='text'>
 							<Text
 								align='left'
 								color={`gray.${colorMode === 'light' ? 900 : 50}`}

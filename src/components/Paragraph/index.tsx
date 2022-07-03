@@ -60,7 +60,7 @@ const Paragraph = ({ title, paragraphs = '', isLoading = true }: ParagraphProps)
 				) : (
 					<VStack width='100%' spacing={1}>
 						{range(0, 3).map((_dummy, index) => (
-							<Skeleton key={index} width='100%' isLoaded={false} type='text'>
+							<Skeleton key={index} width='100%' isLoaded={false} variant='text'>
 								<Text align='left' fontSize='xs'>
 									{`Paragraph ${index + 1}`}
 								</Text>

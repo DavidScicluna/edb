@@ -64,7 +64,7 @@ const TVShowTitle = (props: TVShowTitleProps): ReactElement => {
 			mediaType='tv'
 			renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
 				<HStack divider={<Divider orientation='vertical' height={`${height}px`} />} spacing={2}>
-					<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
+					<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} variant='text'>
 						<Text
 							ref={ratingRef}
 							align='left'

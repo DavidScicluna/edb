@@ -69,7 +69,7 @@ const Body = (props: BodyProps): ReactElement => {
 			) : (
 				<VStack width='100%' spacing={1}>
 					{range(0, 3).map((_dummy, index) => (
-						<Skeleton key={index} width='100%' isLoaded={!isLoading} type='text'>
+						<Skeleton key={index} width='100%' isLoaded={!isLoading} variant='text'>
 							<Text align='left' fontSize='xs'>
 								{`Paragraph ${index + 1}`}
 							</Text>

@@ -162,7 +162,7 @@ const Collection = (): ReactElement => {
 										collectionQuery.isFetching || collectionQuery.isLoading ? `${dummy}%` : 'auto'
 									}
 									isLoaded={!collectionQuery.isFetching || !collectionQuery.isLoading}
-									type='text'
+									variant='text'
 								>
 									<Text
 										align='left'

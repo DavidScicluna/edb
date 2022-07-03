@@ -22,7 +22,7 @@ const PersonTitle = (props: PersonTitleProps): ReactElement => {
 		<Title
 			mediaType='person'
 			renderTitle={({ color, fontSize, fontWeight, lineHeight }) => (
-				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
+				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} variant='text'>
 					<Text
 						align='left'
 						color={color}

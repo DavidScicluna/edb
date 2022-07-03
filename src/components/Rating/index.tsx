@@ -65,7 +65,7 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 			/>
 
 			{inView ? (
-				<Skeleton isLoaded={!isLoading} ml={0.5} type='text'>
+				<Skeleton isLoaded={!isLoading} ml={0.5} variant='text'>
 					<VStack spacing={0.25}>
 						<Text
 							align='left'

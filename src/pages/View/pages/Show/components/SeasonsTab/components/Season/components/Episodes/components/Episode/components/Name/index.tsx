@@ -33,7 +33,7 @@ const Name = (props: NameProps): ReactElement => {
 			height={height} // Size of typography height
 		>
 			{inView ? (
-				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} type='text'>
+				<Skeleton width={isLoading ? `${dummy}%` : 'auto'} isLoaded={!isLoading} variant='text'>
 					<Text
 						align='left'
 						fontSize={fontSize}

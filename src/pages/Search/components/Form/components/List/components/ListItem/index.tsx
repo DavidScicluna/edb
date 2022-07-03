@@ -47,7 +47,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 					<Skeleton
 						width={isLoading ? `${titleDummy}%` : badge ? `calc(100% - ${badgeWidth + 10}px)` : '100%'}
 						isLoaded={!isLoading}
-						type='text'
+						variant='text'
 					>
 						<Text
 							align='left'
@@ -61,7 +61,7 @@ const ListItem = (props: ListItemProps): ReactElement => {
 				</HStack>
 				{subtitle || isLoading ? (
 					<HStack width='100%'>
-						<Skeleton width={isLoading ? `${subtitleDummy}%` : '100%'} isLoaded={!isLoading} type='text'>
+						<Skeleton width={isLoading ? `${subtitleDummy}%` : '100%'} isLoaded={!isLoading} variant='text'>
 							<Text
 								align='left'
 								color={`gray.${colorMode === 'light' ? 400 : 500}`}

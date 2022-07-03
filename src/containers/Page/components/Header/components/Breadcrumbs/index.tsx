@@ -76,7 +76,7 @@ const Breadcrumbs = (): ReactElement => {
 						fontSize={breadcrumbFontSize}
 						sx={{ ...style.common.breadcrumbItem }}
 					>
-						<Skeleton isLoaded={!isDummy} type='text'>
+						<Skeleton isLoaded={!isDummy} variant='text'>
 							{index === breadcrumbs.length - 1 || isDummy ? (
 								<Text align='left' sx={{ ...style[colorMode].breadcrumbActive }}>
 									{!isDummy ? breadcrumb.breadcrumb : 'Dummy'}

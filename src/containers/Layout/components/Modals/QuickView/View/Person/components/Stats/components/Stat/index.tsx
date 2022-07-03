@@ -21,7 +21,7 @@ const Stat = forwardRef<StatRef, StatProps>(function Stat(props, ref): ReactElem
 	return (
 		<CUIStat ref={ref} justifyContent='center'>
 			<VStack spacing={0}>
-				<Skeleton isLoaded={!isLoading} type='text'>
+				<Skeleton isLoaded={!isLoading} variant='text'>
 					<StatNumber
 						color={`gray.${colorMode === 'light' ? 900 : 50}`}
 						fontSize='3xl'

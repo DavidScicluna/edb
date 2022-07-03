@@ -90,7 +90,7 @@ const Header = (props: HeaderProps): ReactElement => {
 				</AspectRatio>
 
 				<VStack width={`calc(100% - ${avatar + 16}px)`} alignItems='flex-start' spacing={isLoading ? 0.5 : 0}>
-					<Skeleton isLoaded={!isLoading} type='text'>
+					<Skeleton isLoaded={!isLoading} variant='text'>
 						<Text
 							align='left'
 							color={`gray.${colorMode === 'light' ? 900 : 50}`}
@@ -115,7 +115,7 @@ const Header = (props: HeaderProps): ReactElement => {
 						)}
 					>
 						{compact([
-							<Skeleton key='review_username' isLoaded={!isLoading} type='text'>
+							<Skeleton key='review_username' isLoaded={!isLoading} variant='text'>
 								<Text
 									align='left'
 									color={`gray.${colorMode === 'light' ? 400 : 500}`}
@@ -126,7 +126,7 @@ const Header = (props: HeaderProps): ReactElement => {
 								</Text>
 							</Skeleton>,
 							created_at ? (
-								<Skeleton key='review_created_at' isLoaded={!isLoading} type='text'>
+								<Skeleton key='review_created_at' isLoaded={!isLoading} variant='text'>
 									<Text
 										align='left'
 										color={`gray.${colorMode === 'light' ? 400 : 500}`}

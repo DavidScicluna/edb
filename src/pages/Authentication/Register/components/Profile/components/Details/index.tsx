@@ -33,7 +33,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 				alignItems='flex-start'
 				spacing={!(hasFirstName || hasLastName || hasUsername) ? 1 : 0}
 			>
-				<Skeleton colorMode={colorMode} isLoaded={hasFirstName || hasLastName} speed={0} type='text'>
+				<Skeleton colorMode={colorMode} isLoaded={hasFirstName || hasLastName} speed={0} variant='text'>
 					<Text
 						align='left'
 						color={`gray.${colorMode === 'light' ? 900 : 50}`}
@@ -48,7 +48,7 @@ const Details = ({ colorMode, user }: DetailsProps): ReactElement => {
 							  )}
 					</Text>
 				</Skeleton>
-				<Skeleton colorMode={colorMode} isLoaded={hasUsername} speed={0} type='text'>
+				<Skeleton colorMode={colorMode} isLoaded={hasUsername} speed={0} variant='text'>
 					<Text
 						align='left'
 						color={`gray.${colorMode === 'light' ? 400 : 500}`}

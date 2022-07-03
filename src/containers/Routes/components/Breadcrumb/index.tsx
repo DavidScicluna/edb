@@ -42,7 +42,7 @@ const Breadcrumb = ({ match, mediaType }: BreadcrumbProps): ReactElement => {
 		<Skeleton
 			width={!isLoaded || !data ? `${dummy}%` : 'auto'}
 			isLoaded={isLoaded || !(isNil(data) || isEmpty(data))}
-			type='text'
+			variant='text'
 		>
 			<Text
 				align='left'

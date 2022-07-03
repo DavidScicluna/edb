@@ -19,7 +19,7 @@ const Tagline = ({ tagline, isLoading = true }: TaglineProps): ReactElement => {
 
 	return (
 		<Label width='100%' label='Tagline'>
-			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 				<Text
 					align='left'
 					color={`gray.${colorMode === 'light' ? 900 : 50}`}

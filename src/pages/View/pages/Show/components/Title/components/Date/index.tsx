@@ -34,7 +34,7 @@ const Date = (props: DateProps): ReactElement => {
 	};
 
 	return (
-		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+		<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 			<Text align='left' color={color} fontSize={fontSize} whiteSpace='nowrap'>
 				{first_air_date && last_air_date && !isLoading ? handleDate() : 'TV Show Date'}
 			</Text>

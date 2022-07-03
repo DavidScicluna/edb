@@ -28,7 +28,7 @@ const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreP
 			isDisabled={isLoading}
 			variant='outlined'
 		>
-			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} type='text'>
+			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
 				{name || 'Genre'}
 			</Skeleton>
 		</Button>

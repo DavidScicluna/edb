@@ -18,7 +18,7 @@ const Status = (props: StatusProps): ReactElement => {
 		<Badge color={color} size={fontSize} variant='outlined'>
 			{/* TODO: FIX SkeletonText */}
 			<BadgeLabel>
-				{isLoading ? <Skeleton isLoaded={!isLoading} type='text' /> : status || 'Movie Status'}
+				{isLoading ? <Skeleton isLoaded={!isLoading} variant='text' /> : status || 'Movie Status'}
 			</BadgeLabel>
 		</Badge>
 	);

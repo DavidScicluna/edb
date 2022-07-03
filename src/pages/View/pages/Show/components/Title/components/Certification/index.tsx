@@ -11,7 +11,11 @@ const Certification = (props: CertificationProps): ReactElement => {
 		<Badge size={fontSize} variant='outlined'>
 			<BadgeLabel>
 				{/* TODO: FIX Skeleton */}
-				{isLoading ? <Skeleton isLoaded={!isLoading} type='text' /> : certification || 'TV Show Certification'}
+				{isLoading ? (
+					<Skeleton isLoaded={!isLoading} variant='text' />
+				) : (
+					certification || 'TV Show Certification'
+				)}
 			</BadgeLabel>
 		</Badge>
 	);
