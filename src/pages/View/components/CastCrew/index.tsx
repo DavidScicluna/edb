@@ -1,10 +1,25 @@
 import { ReactElement } from 'react';
 
-import { useConst, Fade } from '@chakra-ui/react';
+import {
+	Accordions,
+	AccordionsQuickToggles,
+	AccordionsPanel,
+	Accordion,
+	AccordionHeader,
+	AccordionBody,
+	DummyAccordions,
+	DummyQuickToggles,
+	DummyAccordionsPanel,
+	DummyAccordion,
+	DummyAccordionHeader,
+	Fade
+} from '@davidscicluna/component-library';
+
+import { useConst, Text } from '@chakra-ui/react';
+
 import range from 'lodash/range';
 
 import { useSelector } from '../../../../common/hooks';
-import Accordions from '../../../../components/Accordions';
 import Empty from '../../../../components/Empty';
 import Error from '../../../../components/Error';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
@@ -38,47 +53,78 @@ const CastCrew = (props: CastCrewProps): ReactElement => {
 				variant='outlined'
 			/>
 		</Fade>
+	) : !isLoading && isSuccess && departments && departments.length > 0 ? (
+		<Accordions<Department>
+			accordions={departments.map((department) => {
+				return {
+					id: department.id,
+					title: department.title,
+					data: { ...department }
+				};
+			})}
+		>
+			<AccordionsQuickToggles<Department> color={color} />
+
+			<AccordionsPanel<Department>>
+				{({ accordions }) =>
+					accordions.map(({ id, title, data: department }) => (
+						<Accordion
+							key={id}
+							id={id}
+							isDisabled={department.people.length === 0}
+							header={
+								<AccordionHeader
+									renderTitle={(props) => <Text {...props}>{title}</Text>}
+									// TODO: Add CountUp Actions
+									// total: {
+									// 	number: department.people.length
+									// },
+								/>
+							}
+							body={
+								<AccordionBody>
+									{id === 'cast' || id === 'guest_stars' ? (
+										<Cast
+											key={id}
+											cast={department.people}
+											isLoading={isLoading}
+											isError={isError}
+											isSuccess={isSuccess}
+										/>
+									) : (
+										<Crew
+											key={id}
+											title={title}
+											crew={department.people}
+											isLoading={isLoading}
+											isError={isError}
+											isSuccess={isSuccess}
+										/>
+									)}
+								</AccordionBody>
+							}
+							spacing={2}
+							p={2}
+						/>
+					))
+				}
+			</AccordionsPanel>
+		</Accordions>
 	) : (
-		<Accordions
-			accordions={
-				!isLoading && isSuccess && departments && departments.length > 0
-					? departments.map((department) => {
-							return {
-								id: department.id,
-								title: department.title,
-								total: {
-									number: department.people.length
-								},
-								isDisabled: department.people.length === 0,
-								data: department.people
-							};
-					  })
-					: range(0, 5).map((_dummy, index: number) => {
-							return {
-								id: `${index}`,
-								title: `Department ${index + 1}`,
-								isDisabled: true
-							};
-					  })
-			}
-			renderAccordion={({ id, title, data }) =>
-				id === 'cast' || id === 'guest_stars' ? (
-					<Cast key={id} cast={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
-				) : (
-					<Crew
-						key={id}
-						title={title}
-						crew={data}
-						isLoading={isLoading}
-						isError={isError}
-						isSuccess={isSuccess}
-					/>
-				)
-			}
-			color={color}
-			isLoading={isLoading}
-			isError={isError}
-		/>
+		<DummyAccordions accordions={range(5)}>
+			<DummyQuickToggles color={color} />
+
+			<DummyAccordionsPanel>
+				{({ accordions }) =>
+					accordions.map((dummy) => (
+						<DummyAccordion key={dummy} p={2}>
+							{/* // TODO: Add Dummy CountUp Actions */}
+							<DummyAccordionHeader hasSubtitle />
+						</DummyAccordion>
+					))
+				}
+			</DummyAccordionsPanel>
+		</DummyAccordions>
 	);
 };
 

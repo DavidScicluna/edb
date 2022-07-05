@@ -1,12 +1,28 @@
 import { ReactElement } from 'react';
 
+import {
+	Accordions,
+	AccordionsQuickToggles,
+	AccordionsPanel,
+	Accordion,
+	AccordionHeader,
+	AccordionBody,
+	DummyAccordions,
+	DummyQuickToggles,
+	DummyAccordionsPanel,
+	DummyAccordion,
+	DummyAccordionHeader
+} from '@davidscicluna/component-library';
+
+import { Text } from '@chakra-ui/react';
+
 import range from 'lodash/range';
 
 import { useSelector } from '../../../../../../common/hooks';
-import Accordions from '../../../../../../components/Accordions';
 import Empty from '../../../../../../components/Empty';
 import Error from '../../../../../../components/Error';
 import { defaultUser, getUser } from '../../../../../../store/slices/Users';
+import { Department } from '../../types';
 
 import { CreditsTabProps } from './types';
 import MediaItems from './components/MediaItems';
@@ -26,55 +42,89 @@ const CreditsTab = (props: CreditsTabProps): ReactElement => {
 		/>
 	) : !isLoading && isSuccess && departments.length === 0 ? (
 		<Empty label={`${name ? `"${name}" credits` : 'Credits'} list is currently empty!`} variant='outlined' />
+	) : !isLoading && isSuccess && departments.length > 0 ? (
+		<Accordions<Department>
+			accordions={departments.map((department) => {
+				return {
+					id: department.id,
+					title: department.label,
+					data: { ...department }
+				};
+			})}
+		>
+			<AccordionsQuickToggles<Department> color={color} />
+
+			<AccordionsPanel<Department>>
+				{({ accordions }) =>
+					accordions.map(({ id, title, data: department }) => (
+						<Accordion
+							key={id}
+							id={id}
+							isDisabled={
+								(department.credits.cast?.movie?.length || 0) +
+									(department.credits.cast?.tv?.length || 0) +
+									(department.credits.crew?.movie?.length || 0) +
+									(department.credits.crew?.tv?.length || 0) ===
+								0
+							}
+							header={
+								<AccordionHeader
+									renderTitle={(props) => <Text {...props}>{title}</Text>}
+									// TODO: Add CountUp Actions
+									// total: {
+									// 	number:
+									// 		(department.credits.cast?.movie?.length || 0) +
+									// 		(department.credits.cast?.tv?.length || 0) +
+									// 		(department.credits.crew?.movie?.length || 0) +
+									// 		(department.credits.crew?.tv?.length || 0)
+									// },
+								/>
+							}
+							body={
+								<AccordionBody>
+									<MediaItems
+										movies={[
+											...(department.credits?.cast?.movie || []),
+											...(department.credits?.crew?.movie || [])
+										]}
+										shows={[
+											...(department.credits?.cast?.tv || []),
+											...(department.credits?.crew?.tv || [])
+										]}
+										label={title}
+										job={
+											(department.credits?.cast?.movie?.length || 0) +
+												(department.credits?.cast?.tv?.length || 0) >
+											(department.credits?.crew?.movie?.length || 0) +
+												(department.credits?.crew?.tv?.length || 0)
+												? 'cast'
+												: 'crew'
+										}
+									/>
+								</AccordionBody>
+							}
+							spacing={2}
+							p={2}
+						/>
+					))
+				}
+			</AccordionsPanel>
+		</Accordions>
 	) : (
-		<Accordions
-			accordions={
-				!isLoading && isSuccess && departments.length > 0
-					? departments.map((department) => {
-							return {
-								id: department.id,
-								title: department.label,
-								total: {
-									number:
-										(department.credits.cast?.movie?.length || 0) +
-										(department.credits.cast?.tv?.length || 0) +
-										(department.credits.crew?.movie?.length || 0) +
-										(department.credits.crew?.tv?.length || 0)
-								},
-								isDisabled:
-									(department.credits.cast?.movie?.length || 0) +
-										(department.credits.cast?.tv?.length || 0) +
-										(department.credits.crew?.movie?.length || 0) +
-										(department.credits.crew?.tv?.length || 0) ===
-									0,
-								data: department.credits
-							};
-					  })
-					: range(0, 10).map((_dummy, index: number) => {
-							return {
-								id: `${index}`,
-								title: `Department ${index + 1}`,
-								isDisabled: true
-							};
-					  })
-			}
-			renderAccordion={({ title, data }) => (
-				<MediaItems
-					movies={[...(data?.cast?.movie || []), ...(data?.crew?.movie || [])]}
-					shows={[...(data?.cast?.tv || []), ...(data?.crew?.tv || [])]}
-					label={title}
-					job={
-						(data?.cast?.movie?.length || 0) + (data?.cast?.tv?.length || 0) >
-						(data?.crew?.movie?.length || 0) + (data?.crew?.tv?.length || 0)
-							? 'cast'
-							: 'crew'
-					}
-				/>
-			)}
-			color={color}
-			isLoading={isLoading}
-			isError={isError}
-		/>
+		<DummyAccordions accordions={range(10)}>
+			<DummyQuickToggles color={color} />
+
+			<DummyAccordionsPanel>
+				{({ accordions }) =>
+					accordions.map((dummy) => (
+						<DummyAccordion key={dummy} p={2}>
+							{/* // TODO: Add Dummy CountUp Actions */}
+							<DummyAccordionHeader />
+						</DummyAccordion>
+					))
+				}
+			</DummyAccordionsPanel>
+		</DummyAccordions>
 	);
 };
 

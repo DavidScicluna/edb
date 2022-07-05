@@ -1,12 +1,24 @@
 import { ReactElement } from 'react';
 
-import { Modal, ModalHeader, ModalBody, IconButton, Icon } from '@davidscicluna/component-library';
+import {
+	Modal,
+	ModalHeader,
+	ModalBody,
+	Accordions,
+	AccordionsQuickToggles,
+	AccordionsPanel,
+	Accordion,
+	AccordionHeader,
+	AccordionBody,
+	IconButton,
+	Icon
+} from '@davidscicluna/component-library';
 
-import { ColorMode, useColorMode, Center, Text } from '@chakra-ui/react';
+import { ColorMode, useColorMode, Text } from '@chakra-ui/react';
 
 import { useSelector } from '../../../../common/hooks';
 import { defaultUser, getUser } from '../../../../store/slices/Users';
-import Accordions from '../../../Accordions';
+import { MediaItem } from '../../types';
 
 import { GalleryProps } from './types';
 import Asset from './components/Asset';
@@ -33,35 +45,55 @@ const Gallery = (props: GalleryProps): ReactElement => {
 				)}
 			/>
 			<ModalBody>
-				<Center p={2}>
-					<Accordions
-						accordions={assets.map((asset) => {
-							return {
-								id: asset.label.toLowerCase(),
-								title: asset.label,
-								total: {
-									number: asset.mediaItems.length
-								},
-								data: asset.mediaItems
-							};
-						})}
-						renderAccordion={({ id, title, data }) => (
-							<Asset
-								key={id}
-								alt={alt}
-								colorMode={colorMode}
-								activeMediaItem={activeMediaItem}
-								title={title}
-								data={data}
-								onClick={onClick}
-							/>
-						)}
-						color={color}
-						colorMode={colorMode}
-						isLoading={false}
-						isError={false}
-					/>
-				</Center>
+				<Accordions<MediaItem[]>
+					colorMode={colorMode}
+					accordions={assets.map((asset) => {
+						return {
+							id: asset.label.toLowerCase(),
+							title: asset.label,
+							data: asset.mediaItems
+						};
+					})}
+					p={2}
+				>
+					<AccordionsQuickToggles<MediaItem[]> color={color} />
+
+					<AccordionsPanel<MediaItem[]>>
+						{({ accordions }) =>
+							accordions.map(({ id, title, data }) => (
+								<Accordion
+									key={id}
+									id={id}
+									header={
+										<AccordionHeader
+											renderTitle={(props) => <Text {...props}>{title}</Text>}
+											// TODO: Add CountUp Actions
+											// total: {
+											// 	number: season.episode_count || undefined,
+											// 	suffix: season.episode_count ? ' episodes' : 'Confirmed'
+											// },
+										/>
+									}
+									body={
+										<AccordionBody>
+											<Asset
+												key={id}
+												alt={alt}
+												colorMode={colorMode}
+												activeMediaItem={activeMediaItem}
+												title={title}
+												data={data}
+												onClick={onClick}
+											/>
+										</AccordionBody>
+									}
+									spacing={2}
+									p={2}
+								/>
+							))
+						}
+					</AccordionsPanel>
+				</Accordions>
 			</ModalBody>
 		</Modal>
 	);
