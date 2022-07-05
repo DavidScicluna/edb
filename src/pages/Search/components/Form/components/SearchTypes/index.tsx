@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Card, CardHeader, CardBody, HorizontalScroll, Button, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, HStack, Box, Text } from '@chakra-ui/react';
+
 import { useElementSize } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../common/hooks';

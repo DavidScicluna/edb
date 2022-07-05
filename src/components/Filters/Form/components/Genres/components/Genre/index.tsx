@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Skeleton, Button, Icon } from '@davidscicluna/component-library';
 
 import { useConst } from '@chakra-ui/react';
+
 import range from 'lodash/range';
 import sample from 'lodash/sample';
 

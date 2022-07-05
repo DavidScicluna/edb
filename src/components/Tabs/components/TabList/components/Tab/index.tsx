@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Theme, Space, useTheme } from '@davidscicluna/component-library';
 
 import { useColorMode, Tab as CUITab, HStack, Center } from '@chakra-ui/react';
+
 import merge from 'lodash/merge';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../../../../common/utils';

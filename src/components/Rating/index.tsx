@@ -3,6 +3,7 @@ import { ReactElement, forwardRef } from 'react';
 import { useTheme, Skeleton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, Center, VStack, Text } from '@chakra-ui/react';
+
 import round from 'lodash/round';
 
 import { RatingRef, RatingProps } from './types';

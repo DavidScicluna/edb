@@ -3,6 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { HorizontalScroll, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
+
 import { useLocation } from 'react-router';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';

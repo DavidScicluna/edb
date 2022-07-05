@@ -19,6 +19,7 @@ import {
 } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, VStack, Text } from '@chakra-ui/react';
+
 import { useDispatch } from 'react-redux';
 import { useForm, useFormState, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

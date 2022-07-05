@@ -3,6 +3,7 @@ import { ReactElement, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Button, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, HStack, VStack, Text, ScaleFade } from '@chakra-ui/react';
+
 import CountUp from 'react-countup';
 
 import { useSelector } from '../../../../../../common/hooks';

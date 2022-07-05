@@ -3,6 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { Skeleton, Button } from '@davidscicluna/component-library';
 
 import { VStack, SimpleGrid } from '@chakra-ui/react';
+
 import range from 'lodash/range';
 
 import years from '../../common/data/years';

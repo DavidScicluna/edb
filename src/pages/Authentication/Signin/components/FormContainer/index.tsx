@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Color, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBoolean, Container, VStack } from '@chakra-ui/react';
+
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';

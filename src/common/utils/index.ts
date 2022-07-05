@@ -1,6 +1,7 @@
 import { Theme, ColorHues } from '@davidscicluna/component-library';
 
 import { ColorMode } from '@chakra-ui/react';
+
 import dayjs from 'dayjs';
 import qs from 'query-string';
 

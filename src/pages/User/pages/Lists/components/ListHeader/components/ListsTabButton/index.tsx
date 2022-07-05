@@ -1,6 +1,7 @@
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, Box, HStack, Center } from '@chakra-ui/react';
+
 import merge from 'lodash/merge';
 
 import { useSelector } from '../../../../../../../../common/hooks';

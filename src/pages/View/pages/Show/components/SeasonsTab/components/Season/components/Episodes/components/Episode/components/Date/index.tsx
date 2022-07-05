@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { FontSize, Skeleton } from '@davidscicluna/component-library';
 
 import { useColorMode, useBreakpointValue, useConst, Box, Text } from '@chakra-ui/react';
+
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import range from 'lodash/range';

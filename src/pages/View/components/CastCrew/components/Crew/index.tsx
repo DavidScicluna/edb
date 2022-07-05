@@ -1,6 +1,7 @@
 import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import capitalize from 'lodash/capitalize';
 import range from 'lodash/range';
 

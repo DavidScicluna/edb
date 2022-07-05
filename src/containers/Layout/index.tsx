@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, Container, HStack, VStack, Box, Collapse } from '@chakra-ui/react';
+
 import { useIsFetching, useIsMutating } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useTernaryDarkMode, useUpdateEffect } from 'usehooks-ts';

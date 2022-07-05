@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, HStack, Text, Fade } from '@chakra-ui/react';
+
 import isNil from 'lodash/isNil';
 
 import years from '../../../../common/data/years';

@@ -2,11 +2,9 @@ import { ReactElement } from 'react';
 
 import { Input, Icon } from '@davidscicluna/component-library';
 
-import { Controller } from 'react-hook-form';
-
 // import { useSelector } from '../../../../../../../../../common/hooks';
 // import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
-
+import { Controller } from 'react-hook-form';
 import { isBoolean } from 'lodash';
 
 import { UsernameProps } from './types';

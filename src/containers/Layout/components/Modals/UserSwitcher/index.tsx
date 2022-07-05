@@ -3,6 +3,7 @@ import { ReactElement, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, Center, Text } from '@chakra-ui/react';
+
 import { useDispatch } from 'react-redux';
 import { SHA256 } from 'crypto-js';
 import dayjs from 'dayjs';

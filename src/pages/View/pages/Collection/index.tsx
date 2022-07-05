@@ -5,6 +5,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Badge, BadgeLabel, Skeleton } from '@davidscicluna/component-library';
 
 import { useDisclosure, useConst, Text, Fade } from '@chakra-ui/react';
+
 import { useDispatch } from 'react-redux';
 import { useQuery } from 'react-query';
 import CountUp from 'react-countup';

@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Link as RRDLink } from 'react-router-dom';
 
 import { Link as CUILink, useTheme } from '@chakra-ui/react';
+
 import merge from 'lodash/merge';
 
 import useStyles from './styles';

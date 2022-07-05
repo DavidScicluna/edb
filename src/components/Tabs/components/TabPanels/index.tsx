@@ -1,6 +1,7 @@
 import { ReactElement, useContext } from 'react';
 
 import { TabPanels as CUITabPanels, TabPanel, Center, Fade } from '@chakra-ui/react';
+
 import { AnimatePresence } from 'framer-motion';
 
 import { TabsContext } from '../../.';

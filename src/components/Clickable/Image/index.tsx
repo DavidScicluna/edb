@@ -12,6 +12,7 @@ import {
 	Image as CUIImage,
 	Fade
 } from '@chakra-ui/react';
+
 import { useInView } from 'react-cool-inview';
 import { AnimatePresence } from 'framer-motion';
 import { useElementSize } from 'usehooks-ts';

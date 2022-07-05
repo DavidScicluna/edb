@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, HStack, VStack, Text, Fade } from '@chakra-ui/react';
+
 import { useForm, useFormState } from 'react-hook-form';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';

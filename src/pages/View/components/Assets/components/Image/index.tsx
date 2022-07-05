@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Skeleton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
+
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 

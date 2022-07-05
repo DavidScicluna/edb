@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { FontSize, Skeleton } from '@davidscicluna/component-library';
 
 import { useColorMode, useBreakpointValue, useBoolean, useConst, Text } from '@chakra-ui/react';
+
 import { useQueryClient } from 'react-query';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';

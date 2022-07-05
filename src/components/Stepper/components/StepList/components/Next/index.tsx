@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Center } from '@chakra-ui/react';
+
 import { merge } from 'lodash';
 
 import { height } from '../..';

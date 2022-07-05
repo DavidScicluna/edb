@@ -5,6 +5,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, Fade } from '@chakra-ui/react';
+
 import { useQuery } from 'react-query';
 import CountUp from 'react-countup';
 import axios from 'axios';

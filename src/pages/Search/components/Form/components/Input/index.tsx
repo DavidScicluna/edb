@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, useConst, HStack, Input as CUIInput, Fade } from '@chakra-ui/react';
+
 import sample from 'lodash/sample';
 
 import { InputKeyboardEvent, InputChangeEvent } from '../../../../types';

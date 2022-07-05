@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { SimpleGrid } from '@chakra-ui/react';
+
 import dayjs from 'dayjs';
 import orderBy from 'lodash/orderBy';
 

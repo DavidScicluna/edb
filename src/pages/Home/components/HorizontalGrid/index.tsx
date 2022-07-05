@@ -3,6 +3,7 @@ import { ReactElement, forwardRef } from 'react';
 import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
+
 import compact from 'lodash/compact';
 import range from 'lodash/range';
 

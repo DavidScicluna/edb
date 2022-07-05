@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, HStack, Text, Box } from '@chakra-ui/react';
+
 import merge from 'lodash/merge';
 
 import { useSelector } from '../../../../common/hooks';

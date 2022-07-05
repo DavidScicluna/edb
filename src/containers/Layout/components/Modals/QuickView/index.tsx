@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Center, Text } from '@chakra-ui/react';
+
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../../../../common/hooks';

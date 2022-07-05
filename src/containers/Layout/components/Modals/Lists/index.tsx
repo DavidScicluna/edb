@@ -3,6 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, VStack, Center, Text } from '@chakra-ui/react';
+
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import isEmpty from 'lodash/isEmpty';

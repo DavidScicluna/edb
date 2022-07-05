@@ -3,6 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
+
 import sort from 'array-sort';
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';

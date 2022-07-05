@@ -10,6 +10,7 @@ import {
 	BreadcrumbLink,
 	Text
 } from '@chakra-ui/react';
+
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import range from 'lodash/range';

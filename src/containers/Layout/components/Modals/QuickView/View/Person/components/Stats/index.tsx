@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, StatGroup, HStack } from '@chakra-ui/react';
+
 import { useElementSize } from 'usehooks-ts';
 
 import Divider from '../../../../../../../../../components/Divider';

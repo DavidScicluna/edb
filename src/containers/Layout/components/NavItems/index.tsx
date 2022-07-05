@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, VStack, Box } from '@chakra-ui/react';
+
 import { useIsFetching, useIsMutating } from 'react-query';
 
 import { useSelector } from '../../../../common/hooks';

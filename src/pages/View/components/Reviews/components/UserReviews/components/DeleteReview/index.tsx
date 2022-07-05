@@ -12,6 +12,7 @@ import {
 } from '@davidscicluna/component-library';
 
 import { useDisclosure, useBoolean } from '@chakra-ui/react';
+
 import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';

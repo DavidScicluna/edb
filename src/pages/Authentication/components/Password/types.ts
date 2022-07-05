@@ -3,6 +3,7 @@
 import { Color } from '@davidscicluna/component-library';
 
 import { ColorMode } from '@chakra-ui/react';
+
 import { ControllerRenderProps, ControllerFieldState } from 'react-hook-form';
 
 export type PasswordProps = {

@@ -1,6 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
+
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';

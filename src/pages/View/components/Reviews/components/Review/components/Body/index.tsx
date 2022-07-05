@@ -3,6 +3,7 @@ import { ReactElement, useEffect } from 'react';
 import { Skeleton, Button } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, VStack, Text, Collapse, ScaleFade } from '@chakra-ui/react';
+
 import range from 'lodash/range';
 import { useElementSize } from 'usehooks-ts';
 

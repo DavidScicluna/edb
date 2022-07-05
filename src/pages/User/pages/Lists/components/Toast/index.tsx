@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useColorMode, useMediaQuery, HStack, Text } from '@chakra-ui/react';
+
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 

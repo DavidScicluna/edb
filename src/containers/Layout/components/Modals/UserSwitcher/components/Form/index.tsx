@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
+
 import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 

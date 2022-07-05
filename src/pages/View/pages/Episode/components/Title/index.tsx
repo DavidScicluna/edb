@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Skeleton } from '@davidscicluna/component-library';
 
 import { useConst, Text } from '@chakra-ui/react';
+
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';

@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme, Card, CardBody, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst, VStack, Box, Text, ScaleFade } from '@chakra-ui/react';
+
 import startCase from 'lodash/startCase';
 
 import Tooltip from '../../../../../../../../../components/Tooltip';

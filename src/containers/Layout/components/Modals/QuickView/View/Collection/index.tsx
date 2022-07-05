@@ -13,6 +13,7 @@ import {
 	Text,
 	Collapse
 } from '@chakra-ui/react';
+
 import { useQuery } from 'react-query';
 import CountUp from 'react-countup';
 import axios from 'axios';

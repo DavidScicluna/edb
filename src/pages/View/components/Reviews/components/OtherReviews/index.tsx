@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Card, CardHeader, CardBody, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, HStack, Text, ScaleFade } from '@chakra-ui/react';
+
 import CountUp from 'react-countup';
 import range from 'lodash/range';
 

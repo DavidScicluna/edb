@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Card, CardBody, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, Center, Text, ScaleFade } from '@chakra-ui/react';
+
 import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
 import compact from 'lodash/compact';

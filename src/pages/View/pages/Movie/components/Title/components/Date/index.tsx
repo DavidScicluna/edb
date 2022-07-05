@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Skeleton } from '@davidscicluna/component-library';
 
 import { useConst, Text } from '@chakra-ui/react';
+
 import dayjs from 'dayjs';
 import range from 'lodash/range';
 import sample from 'lodash/sample';

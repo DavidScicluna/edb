@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack } from '@chakra-ui/react';
+
 import { useEffectOnce } from 'usehooks-ts';
 
 import { handleReturnBoringSrc } from '../../../../../common/utils';

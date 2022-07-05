@@ -3,6 +3,7 @@ import { ReactElement, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useBoolean, VStack, Center, Fade } from '@chakra-ui/react';
+
 import { useInfiniteQuery } from 'react-query';
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';

@@ -3,6 +3,7 @@ import { ReactElement, forwardRef } from 'react';
 import { Space, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { ColorMode, useTheme, useColorMode, Tag as CUITag, HStack } from '@chakra-ui/react';
+
 import merge from 'lodash/merge';
 
 import { handleConvertREMToPixels, handleConvertStringToNumber } from '../../../common/utils';

@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { useTheme } from '@davidscicluna/component-library';
 
 import { useColorMode, Center } from '@chakra-ui/react';
+
 import merge from 'lodash/merge';
 
 import { useSelector } from '../../../../common/hooks';

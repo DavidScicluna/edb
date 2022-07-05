@@ -3,6 +3,7 @@ import { ReactElement, memo } from 'react';
 import { FontSize, Card, CardBody } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useBreakpointValue, useBoolean, useConst, HStack, VStack, Center } from '@chakra-ui/react';
+
 import { useInView } from 'react-cool-inview';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';

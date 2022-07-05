@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Text } from '@chakra-ui/react';
+
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 

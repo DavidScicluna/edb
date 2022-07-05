@@ -1,6 +1,7 @@
 import { ReactElement, useState } from 'react';
 
 import { useMediaQuery, VStack, ScaleFade } from '@chakra-ui/react';
+
 import dayjs from 'dayjs';
 import range from 'lodash/range';
 

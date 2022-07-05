@@ -1,6 +1,7 @@
-import { Accordion } from '../../../../../../components/Accordions/types';
+import { AccordionType } from '@davidscicluna/component-library';
+
 import { CastCrewProps, Cast } from '../../types';
 
 export type CastProps = Omit<CastCrewProps, 'credits'> & {
 	cast?: Cast[];
-} & Omit<Accordion<Cast[]>, 'id' | 'title' | 'subtitle' | 'total' | 'isDisabled' | 'data'>;
+} & Omit<AccordionType<Cast[]>, 'id' | 'title' | 'subtitle' | 'total' | 'isDisabled' | 'data'>;

@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useColorMode, HStack, VStack, Text } from '@chakra-ui/react';
+
 import { useElementSize } from 'usehooks-ts';
 
 import Avatar from '../../../../../../../../components/Avatar';

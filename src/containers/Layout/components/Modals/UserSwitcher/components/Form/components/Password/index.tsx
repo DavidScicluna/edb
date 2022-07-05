@@ -3,10 +3,10 @@ import { ReactElement } from 'react';
 import { Input, IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
-import { Controller } from 'react-hook-form';
 
 // import { useSelector } from '../../../../../../../../../common/hooks';
 // import { defaultUser, getUser } from '../../../../../../../../../store/slices/Users';
+import { Controller } from 'react-hook-form';
 import { isBoolean } from 'lodash';
 
 import Tooltip from '../../../../../../../../../components/Tooltip';
