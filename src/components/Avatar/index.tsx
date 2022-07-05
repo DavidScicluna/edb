@@ -1,10 +1,11 @@
 import { ReactElement, forwardRef } from 'react';
 
+import { Skeleton } from '@davidscicluna/component-library';
+
 import { useTheme, AspectRatio, Center } from '@chakra-ui/react';
 
 import { handleReturnRatio } from '../../common/utils';
 import Image from '../Image';
-import Skeleton from '../Skeleton';
 
 import { AvatarRef, AvatarProps } from './types';
 
@@ -35,7 +36,7 @@ const Avatar = forwardRef<AvatarRef, AvatarProps>(function Avatar(props, ref): R
 			borderRadius={borderRadius}
 			ratio={handleReturnRatio('square')}
 		>
-			<Center as={Skeleton} borderRadius={borderRadius} isLoaded={!isLoading}>
+			<Center as={Skeleton} borderRadius={borderRadius} isLoaded={!isLoading} variant='circle'>
 				<Image
 					{...rest}
 					alt={`${alt} Avatar`}

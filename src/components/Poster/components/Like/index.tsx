@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 
-import { IconButton } from '@davidscicluna/component-library';
+import { IconButton, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
 import { MediaType } from '../../../../common/types';
-import Like, { handleReturnIcon } from '../../../Clickable/Like';
+import Like from '../../../Clickable/Like';
 import Tooltip from '../../../Tooltip';
 
 import { PosterLikeProps } from './types';
@@ -17,7 +17,7 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 
 	return (
 		<Like
-			renderAction={({ isDisabled: isDisabledProp, isLiked, onClick }) => {
+			renderAction={({ iconType, iconCategory, isDisabled: isDisabledProp, isLiked, onClick }) => {
 				const isDisabled: boolean = isDisabledProp || isLoading || !mediaItem;
 
 				return (
@@ -48,7 +48,7 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 							size={size}
 							variant='icon'
 						>
-							{handleReturnIcon(isLiked)}
+							<Icon icon={iconType} category={iconCategory} />
 						</IconButton>
 					</Tooltip>
 				);

@@ -1,6 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 
 import { VStack, Collapse } from '@chakra-ui/react';
+
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
@@ -16,20 +17,16 @@ import Episodes from './components/Episodes';
 const Season = (props: SeasonProps): ReactElement => {
 	const source = axios.CancelToken.source();
 
-	const { showId, title, season, isOpen = false } = props;
+	const { showId, title, season } = props;
 	const { season_number: number, overview } = season || {};
 
 	// Fetching tv show season
-	const seasonQuery = useQuery(
-		[`tv-show-${showId}-season-${number}`, showId],
-		async () => {
-			const { data } = await axiosInstance.get<FullSeason>(`/tv/${showId}/season/${number}`, {
-				cancelToken: source.token
-			});
-			return data;
-		},
-		{ enabled: isOpen }
-	);
+	const seasonQuery = useQuery([`tv-show-${showId}-season-${number}`, showId], async () => {
+		const { data } = await axiosInstance.get<FullSeason>(`/tv/${showId}/season/${number}`, {
+			cancelToken: source.token
+		});
+		return data;
+	});
 
 	useEffect(() => {
 		return () => source.cancel();
