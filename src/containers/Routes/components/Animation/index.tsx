@@ -1,26 +1,28 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-import { Box } from '@chakra-ui/react';
+import { useTheme, utils } from '@davidscicluna/component-library';
 
-import { motion } from 'framer-motion';
+import { useConst, Box as CUIBox, BoxProps as AnimationProps } from '@chakra-ui/react';
 
-import { AnimationProps } from './types';
+import { Transition, motion } from 'framer-motion';
 
-const MotionBox = motion(Box);
+const Box = motion(CUIBox);
 
-const Animation = ({ children }: AnimationProps): ReactElement => {
+const { getTransitionDuration, getTransitionEasings } = utils;
+
+// TODO: Maybe convert animation to SlideFade/Slide
+const Animation: FC<AnimationProps> = ({ children }) => {
+	const theme = useTheme();
+
+	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'ultra-slow' }));
+	const easing = useConst<number[]>(getTransitionEasings({ theme }));
+
+	const config = useConst<Transition>({ duration, easing });
+
 	return (
-		<MotionBox
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{
-				duration: 1,
-				ease: [0.76, 0, 0.24, 1]
-			}}
-		>
+		<Box initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ...config }}>
 			{children}
-		</MotionBox>
+		</Box>
 	);
 };
 
