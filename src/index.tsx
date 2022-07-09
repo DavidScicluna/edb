@@ -1,17 +1,8 @@
-import React from 'react';
+import { StrictMode } from 'react';
 
-import { theme } from '@davidscicluna/component-library';
+import { createRoot } from 'react-dom/client';
 
-import { ChakraProvider } from '@chakra-ui/react';
-
-import ReactDOM from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { Provider } from 'react-redux';
-import { persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
-
-import Container from './containers/Container';
-import store from './store';
+import Providers from './containers/Providers';
 
 // Importing Main Fonts (Work Sans & Roboto)
 import '@fontsource/work-sans/100.css';
@@ -62,31 +53,11 @@ import '@fontsource/roboto-mono/700-italic.css';
 import '@fontsource/material-icons';
 import '@fontsource/material-icons-outlined';
 
-import './index.css';
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement as HTMLElement);
 
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-			refetchOnReconnect: false,
-			retry: false
-		}
-	}
-});
-
-const persistor = persistStore(store);
-
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<PersistGate loading={null} persistor={persistor}>
-				<ChakraProvider theme={theme}>
-					<QueryClientProvider client={queryClient}>
-						<Container />
-					</QueryClientProvider>
-				</ChakraProvider>
-			</PersistGate>
-		</Provider>
-	</React.StrictMode>
+	<StrictMode>
+		<Providers />
+	</StrictMode>
 );
