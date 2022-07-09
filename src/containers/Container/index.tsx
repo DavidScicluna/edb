@@ -1,37 +1,45 @@
-import { ReactElement, useEffect } from 'react';
+import { FC } from 'react';
 
+import { Slide } from '@davidscicluna/component-library';
+
+import { useBoolean } from '@chakra-ui/react';
+
+import { useWillUnmount } from 'rooks';
 import { useDispatch } from 'react-redux';
-import { useEventListener } from 'usehooks-ts';
+import { useEffectOnce, useIsFirstRender, useTimeout } from 'usehooks-ts';
 
 import { usePopulateOptions, useSelector } from '../../common/hooks';
-import { setUser } from '../../store/slices/App';
-import { toggleSplashscreen } from '../../store/slices/Modals';
-import { getUser } from '../../store/slices/Users';
-import Router from '../Router';
 import Routes from '../Routes';
+import { guest, setUser } from '../../store/slices/Users';
+import Splashscreen from '../Splashscreen';
 
-import Splashscreen from './components/Splashscreen';
-
-const Container = (): ReactElement => {
+const Container: FC = () => {
 	const dispatch = useDispatch();
-	const isSplashscreenOpen = useSelector((state) => state.modals.ui.isSplashscreenOpen);
-	const user = useSelector((state) => getUser(state.users.data.users, state.app.data.user));
+	const user = useSelector((state) => state.users.data.activeUser);
+
+	const isFirstRender = useIsFirstRender();
+
+	const [isSplashscreenOpen, setSetIsSplashscreenOpen] = useBoolean();
 
 	usePopulateOptions();
 
-	useEffect(() => {
-		if (isSplashscreenOpen) {
-			setTimeout(() => dispatch(toggleSplashscreen(false)), 2500);
-		}
-	}, [isSplashscreenOpen]);
+	useEffectOnce(() => setSetIsSplashscreenOpen.on());
 
-	useEventListener('beforeunload', () => {
-		if (user && !user.data.credentials?.rememberMe) {
-			dispatch(setUser(undefined));
+	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 2500 : null);
+
+	useWillUnmount(() => {
+		if (!user.data.credentials.rememberMe) {
+			dispatch(setUser({ ...guest }));
 		}
 	});
 
-	return <Router>{isSplashscreenOpen ? <Splashscreen isOpen /> : <Routes />}</Router>;
+	return isFirstRender && isSplashscreenOpen ? (
+		<Splashscreen isOpen />
+	) : (
+		<Slide in direction='bottom'>
+			<Routes />
+		</Slide>
+	);
 };
 
 export default Container;
