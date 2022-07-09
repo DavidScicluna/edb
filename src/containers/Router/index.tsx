@@ -1,9 +1,9 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-import { BrowserRouter as RRDRouter, BrowserRouterProps as RouterProps } from 'react-router-dom';
+import { BrowserRouter, BrowserRouterProps as RouterProps } from 'react-router-dom';
 
-const Router = ({ children }: RouterProps): ReactElement => {
-	return <RRDRouter basename={process.env.PUBLIC_URL}>{children}</RRDRouter>;
+const Router: FC<RouterProps> = ({ children }) => {
+	return <BrowserRouter basename={process.env.PUBLIC_URL}>{children}</BrowserRouter>;
 };
 
 export default Router;
