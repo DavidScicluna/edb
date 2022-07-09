@@ -84,7 +84,7 @@
 						"position": "before"
 					},
 					{
-						"pattern": "@chakra-ui",
+						"pattern": "@chakra-ui/react",
 						"group": "external",
 						"position": "before"
 					}
