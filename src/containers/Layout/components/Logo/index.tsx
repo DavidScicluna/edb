@@ -1,28 +1,27 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
 import { useTheme } from '@davidscicluna/component-library';
 
-import { useColorMode, Center } from '@chakra-ui/react';
+import { Center } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
-import { useSelector } from '../../../../common/hooks';
-import { defaultUser, getUser } from '../../../../store/slices/Users';
+import { useUserTheme } from '../../../../common/hooks';
 
-import { Size } from './types';
-import useStyles from './styles';
+import { isClickable as defaultIsClickable, size as defaultSize } from './common/data/defaultPropValues';
+import { LogoProps } from './types';
+import useStyles from './common/styles';
 
-const Logo = ({ size = 'md' }: { size?: Size }): ReactElement => {
+const Logo: FC<LogoProps> = (props) => {
 	const theme = useTheme();
-	const { colorMode } = useColorMode();
 
-	const color = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
+	const { color, colorMode } = useUserTheme();
 
-	const style = useStyles(theme, color, size);
+	const { isClickable = defaultIsClickable, size = defaultSize, sx } = props;
 
-	return <Center sx={{ ...merge(style.common, style[colorMode]) }}>edb</Center>;
+	const style = useStyles({ theme, color, colorMode, isClickable, size });
+
+	return <Center sx={merge(style.logo, sx)}>edb</Center>;
 };
 
 export default Logo;
