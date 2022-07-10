@@ -1,27 +1,22 @@
-import { ReactElement, useState, useCallback, useEffect } from 'react';
+import { FC, useCallback } from 'react';
 
-import { useTheme, IconButton, Icon } from '@davidscicluna/component-library';
+import { useTheme, Tooltip, IconButton, Icon, ScaleFade } from '@davidscicluna/component-library';
 
-import { useBoolean, Box, SlideFade } from '@chakra-ui/react';
+import { useBoolean, Center } from '@chakra-ui/react';
 
-import debounce from 'lodash/debounce';
-import { useWindowSize } from 'usehooks-ts';
+import { debounce } from 'lodash';
+import { useWindowEventListener, useWindowSize } from 'rooks';
 
-import { useSelector } from '../../../../common/hooks';
-import Tooltip from '../../../../components/Tooltip';
-import { defaultUser, getUser } from '../../../../store/slices/Users';
+import { useUserTheme } from '../../../../common/hooks';
 
-const ScrollToTop = (): ReactElement => {
+const ScrollToTop: FC = () => {
 	const theme = useTheme();
+
+	const { color, colorMode } = useUserTheme();
 
 	const { height } = useWindowSize();
 
-	const color = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
-
-	const [scrollHeight, setScrollHeight] = useState<number>(0);
-
+	const [isVisible, setIsVisible] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
 	const handleScroll = useCallback(
@@ -29,52 +24,52 @@ const ScrollToTop = (): ReactElement => {
 			const scroll = document?.scrollingElement?.scrollTop || 0;
 
 			if (scroll <= height) {
+				setIsVisible.off();
 				setIsHovering.off();
+			} else {
+				setIsVisible.on();
+				setIsHovering.on();
 			}
-
-			setScrollHeight(scroll);
 		}, 250),
-		[document, setScrollHeight]
+		[document, height]
 	);
 
-	useEffect(() => {
-		handleScroll();
-
-		window.addEventListener('scroll', handleScroll);
-
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
+	useWindowEventListener('scroll', () => handleScroll());
 
 	return (
-		<Box
+		<Center
 			position='fixed'
 			bottom={theme.space[2]}
 			right={theme.space[2]}
 			zIndex={theme.zIndices.toast}
-			borderRadius='lg'
-			boxShadow='lg'
+			// borderRadius='lg'
+			// boxShadow='lg'
+			background='transparent'
 			backgroundColor='transparent'
 		>
-			<SlideFade in={scrollHeight > screen.height} unmountOnExit offsetY={theme.space[2]}>
+			<ScaleFade in={isVisible} unmountOnExit>
 				<Tooltip
+					color={color}
+					colorMode={colorMode}
 					aria-label='Scroll to top'
 					label='Scroll to the top'
 					placement='left'
 					isOpen={isHovering}
-					gutter={6}
+					// gutter={6}
 				>
 					<IconButton
 						aria-label='Scroll to top'
 						color={color}
+						colorMode={colorMode}
 						onClick={() => document.scrollingElement?.scrollTo(0, 0)}
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 					>
-						<Icon icon='arrow_upward' category='outlined' />
+						<Icon icon='keyboard_double_arrow_up' category='outlined' />
 					</IconButton>
 				</Tooltip>
-			</SlideFade>
-		</Box>
+			</ScaleFade>
+		</Center>
 	);
 };
 
