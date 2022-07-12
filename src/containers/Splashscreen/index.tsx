@@ -1,8 +1,8 @@
 import { FC, useState, useCallback } from 'react';
 
-import { useTheme, Modal, ModalBody, SlideFade, utils } from '@davidscicluna/component-library';
+import { useTheme, Modal, ModalBody, SlideFade, utils, Slide } from '@davidscicluna/component-library';
 
-import { useConst, Center } from '@chakra-ui/react';
+import { useConst, Center, Show } from '@chakra-ui/react';
 
 import { useEffectOnce, useInterval } from 'usehooks-ts';
 
@@ -48,10 +48,15 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 	const delayE = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 2);
 
 	const [colorD, setColorD] = useState<string>('');
-	const delayD = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 3);
+	const delayD = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 2.5);
 
 	const [colorB, setColorB] = useState<string>('');
-	const delayB = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4);
+	const delayB = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 3);
+
+	const delayLabelTop = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4);
+	const delayLabelRight = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4.25);
+	const delayLabelBottom = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4.75);
+	const delayLabelLeft = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 5);
 
 	const handleSetColors = useCallback(() => {
 		const colors = setColors({ colorE, colorD, colorB } as ColorLetters);
@@ -61,34 +66,59 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 		setColorB(colors.colorB);
 	}, [colorE, colorD, colorB]);
 
-	// useInterval(() => handleSetColors(), 1000);
-	useInterval(() => handleSetColors(), 5000);
+	useInterval(() => handleSetColors(), 1000);
 
 	useEffectOnce(() => handleSetColors());
 
 	return (
-		<Modal closeOnEsc={false} closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size='full'>
+		<Modal closeOnEsc={false} closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size='full' spacing={0}>
 			<ModalBody backgroundColor={getColor({ theme, colorMode, type: 'background' })}>
-				<Center width='100%' height='100vh' p={2} sx={{ letterSpacing: '0.5px' }}>
-					{/* Top & Bottom */}
-					<Label colorMode={colorMode} position='absolute' top={theme.space[2]} />
-					<Label colorMode={colorMode} position='absolute' bottom={theme.space[2]} />
+				<Center width='100%' height='100vh' sx={{ letterSpacing: '0.5px' }}>
+					{/* Top */}
+					<Center position='absolute' top={theme.space[2]}>
+						<Slide direction='top' in transition={{ enter: { delay: delayLabelTop } }}>
+							<Center p={2}>
+								<Label colorMode={colorMode} />
+							</Center>
+						</Slide>
+					</Center>
 
-					{/* Left & Right */}
-					<Label
-						colorMode={colorMode}
-						position='absolute'
-						top='50%'
-						left={`-${(181.02 - 48) / 2}`}
-						transform='translateY(-50%) rotate(-90deg)'
-					/>
-					<Label
-						colorMode={colorMode}
-						position='absolute'
-						top='50%'
-						right={`-${(181.02 - 48) / 2}`}
-						transform='translateY(-50%) rotate(-270deg)'
-					/>
+					{/* Bottom */}
+					<Center position='absolute' bottom={theme.space[2]}>
+						<Slide direction='bottom' in transition={{ enter: { delay: delayLabelBottom } }}>
+							<Center p={2}>
+								<Label colorMode={colorMode} />
+							</Center>
+						</Slide>
+					</Center>
+
+					<Show breakpoint='(min-width: 600px)'>
+						{/* Left */}
+						<Slide direction='left' in transition={{ enter: { delay: delayLabelLeft } }}>
+							<Center
+								position='absolute'
+								top='50%'
+								left={`-${theme.space[10]}`}
+								transform='translateY(-50%) rotate(-90deg)'
+								p={2}
+							>
+								<Label colorMode={colorMode} />
+							</Center>
+						</Slide>
+
+						{/* Right */}
+						<Slide direction='right' in transition={{ enter: { delay: delayLabelRight } }}>
+							<Center
+								position='absolute'
+								top='50%'
+								right={`-${theme.space[10]}`}
+								transform='translateY(-50%) rotate(-270deg)'
+								p={2}
+							>
+								<Label colorMode={colorMode} />
+							</Center>
+						</Slide>
+					</Show>
 
 					{logo.split('').map((letter, index) => (
 						<SlideFade
