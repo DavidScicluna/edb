@@ -6,7 +6,7 @@ import { useBoolean } from '@chakra-ui/react';
 
 import { useWillUnmount } from 'rooks';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useIsFirstRender, useTimeout } from 'usehooks-ts';
+import { useIsFirstRender, useTimeout } from 'usehooks-ts';
 
 import { usePopulateOptions, useSelector } from '../../common/hooks';
 import Routes from '../Routes';
@@ -19,13 +19,11 @@ const Container: FC = () => {
 
 	const isFirstRender = useIsFirstRender();
 
-	const [isSplashscreenOpen, setSetIsSplashscreenOpen] = useBoolean();
+	const [isSplashscreenOpen, setSetIsSplashscreenOpen] = useBoolean(isFirstRender);
 
 	usePopulateOptions();
 
-	useEffectOnce(() => setSetIsSplashscreenOpen.on());
-
-	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 2500 : null);
+	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 5000 : null);
 
 	useWillUnmount(() => {
 		if (!user.data.credentials.rememberMe) {
@@ -33,8 +31,8 @@ const Container: FC = () => {
 		}
 	});
 
-	return isFirstRender && isSplashscreenOpen ? (
-		<Splashscreen isOpen />
+	return isSplashscreenOpen ? (
+		<Splashscreen isOpen onClose={() => setSetIsSplashscreenOpen.off()} />
 	) : (
 		<Slide in direction='bottom'>
 			<Routes />
