@@ -1,6 +1,6 @@
 import { memoize, merge } from 'lodash';
 
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 import { size as defaultSize } from '../data/defaultPropValues';
 
 import logo from './logo';

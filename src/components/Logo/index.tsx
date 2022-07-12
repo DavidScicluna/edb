@@ -6,7 +6,7 @@ import { Center } from '@chakra-ui/react';
 
 import merge from 'lodash/merge';
 
-import { useUserTheme } from '../../../../common/hooks';
+import { useUserTheme } from '../../common/hooks';
 
 import { isClickable as defaultIsClickable, size as defaultSize } from './common/data/defaultPropValues';
 import { LogoProps } from './types';

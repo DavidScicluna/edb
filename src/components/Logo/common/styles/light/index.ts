@@ -2,7 +2,7 @@ import { Style, utils } from '@davidscicluna/component-library';
 
 import { darken } from 'color2k';
 
-import { color as defaultColor } from '../../../../../../../common/data/defaultPropValues';
+import { color as defaultColor } from '../../../../../common/data/defaultPropValues';
 import { size as defaultSize } from '../../data/defaultPropValues';
 import { getAmount, getSizeConfig } from '../../utils';
 
