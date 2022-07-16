@@ -8,7 +8,11 @@ import merge from 'lodash/merge';
 
 import { useUserTheme } from '../../common/hooks';
 
-import { isClickable as defaultIsClickable, size as defaultSize } from './common/data/defaultPropValues';
+import {
+	isClickable as defaultIsClickable,
+	isSquare as defaultIsSquare,
+	size as defaultSize
+} from './common/data/defaultPropValues';
 import { LogoProps } from './types';
 import useStyles from './common/styles';
 
@@ -17,9 +21,9 @@ const Logo: FC<LogoProps> = (props) => {
 
 	const { color, colorMode } = useUserTheme();
 
-	const { isClickable = defaultIsClickable, size = defaultSize, sx } = props;
+	const { isClickable = defaultIsClickable, isSquare = defaultIsSquare, size = defaultSize, sx } = props;
 
-	const style = useStyles({ theme, color, colorMode, isClickable, size });
+	const style = useStyles({ theme, color, colorMode, isClickable, isSquare, size });
 
 	return <Center sx={merge(style.logo, sx)}>edb</Center>;
 };
