@@ -1,9 +1,10 @@
 import { FC } from 'react';
 
-import { Slide } from '@davidscicluna/component-library';
+import { Fade } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
+import { AnimatePresence } from 'framer-motion';
 import { useWillUnmount } from 'rooks';
 import { useDispatch } from 'react-redux';
 import { useIsFirstRender, useTimeout } from 'usehooks-ts';
@@ -12,6 +13,7 @@ import { usePopulateOptions, useSelector } from '../../common/hooks';
 import Routes from '../Routes';
 import { guest, setUser } from '../../store/slices/Users';
 import Splashscreen from '../Splashscreen';
+import Router from '../Router';
 
 const Container: FC = () => {
 	const dispatch = useDispatch();
@@ -31,12 +33,25 @@ const Container: FC = () => {
 		}
 	});
 
-	return isSplashscreenOpen ? (
-		<Splashscreen isOpen onClose={() => setSetIsSplashscreenOpen.off()} />
-	) : (
-		<Slide in direction='bottom'>
-			<Routes />
-		</Slide>
+	return (
+		<Router>
+			<AnimatePresence exitBeforeEnter initial={false}>
+				<Splashscreen
+					key='ds-edb-splashscreen-key'
+					isOpen={isSplashscreenOpen}
+					onClose={() => setSetIsSplashscreenOpen.off()}
+				/>
+
+				<Fade
+					key='ds-edb-splashscreen-routes-key'
+					in={!isSplashscreenOpen}
+					unmountOnExit
+					style={{ minHeight: '100vh' }}
+				>
+					<Routes />
+				</Fade>
+			</AnimatePresence>
+		</Router>
 	);
 };
 
