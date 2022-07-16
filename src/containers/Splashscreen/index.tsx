@@ -48,15 +48,12 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 	const delayE = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 2);
 
 	const [colorD, setColorD] = useState<string>('');
-	const delayD = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 2.5);
+	const delayD = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 3);
 
 	const [colorB, setColorB] = useState<string>('');
-	const delayB = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 3);
+	const delayB = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4);
 
-	const delayLabelTop = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4);
-	const delayLabelRight = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4.25);
-	const delayLabelBottom = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4.75);
-	const delayLabelLeft = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 5);
+	const delayLabel = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 5);
 
 	const handleSetColors = useCallback(() => {
 		const colors = setColors({ colorE, colorD, colorB } as ColorLetters);
@@ -76,7 +73,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 				<Center width='100%' height='100vh' sx={{ letterSpacing: '0.5px' }}>
 					{/* Top */}
 					<Center position='absolute' top={theme.space[2]}>
-						<Slide direction='top' in transition={{ enter: { delay: delayLabelTop } }}>
+						<Slide direction='top' in transition={{ enter: { delay: delayLabel } }}>
 							<Center p={2}>
 								<Label colorMode={colorMode} />
 							</Center>
@@ -85,7 +82,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 
 					{/* Bottom */}
 					<Center position='absolute' bottom={theme.space[2]}>
-						<Slide direction='bottom' in transition={{ enter: { delay: delayLabelBottom } }}>
+						<Slide direction='bottom' in transition={{ enter: { delay: delayLabel } }}>
 							<Center p={2}>
 								<Label colorMode={colorMode} />
 							</Center>
@@ -94,7 +91,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 
 					<Show breakpoint='(min-width: 600px)'>
 						{/* Left */}
-						<Slide direction='left' in transition={{ enter: { delay: delayLabelLeft } }}>
+						<Slide direction='left' in transition={{ enter: { delay: delayLabel } }}>
 							<Center
 								position='absolute'
 								top='50%'
@@ -107,7 +104,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 						</Slide>
 
 						{/* Right */}
-						<Slide direction='right' in transition={{ enter: { delay: delayLabelRight } }}>
+						<Slide direction='right' in transition={{ enter: { delay: delayLabel } }}>
 							<Center
 								position='absolute'
 								top='50%'
