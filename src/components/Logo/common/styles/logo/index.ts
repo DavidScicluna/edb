@@ -1,6 +1,10 @@
 import { Style, utils } from '@davidscicluna/component-library';
 
-import { isClickable as defaultIsClickable, size as defaultSize } from '../../data/defaultPropValues';
+import {
+	isClickable as defaultIsClickable,
+	isSquare as defaultIsSquare,
+	size as defaultSize
+} from '../../data/defaultPropValues';
 import { getSizeConfig } from '../../utils';
 
 import { LogoStyleProps } from './types';
@@ -9,28 +13,31 @@ const { checkIsTouchDevice } = utils;
 
 const isTouchDevice: boolean = checkIsTouchDevice();
 
-// transition: [
-//   `width, ${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`,
-//   `padding, ${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`,
-//   `font-size, ${theme.transition.duration['ultra-slow']} ${theme.transition.easing['ease-in-out']}`,
-//   `background-color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
-//   `border-color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`,
-//   `color ${theme.transition.duration.faster} ${theme.transition.easing['ease-out']}`
-// ]
-//   .filter((style) => style)
-//   .join(', ')
-
-export default ({ theme, isClickable = defaultIsClickable, size = defaultSize }: LogoStyleProps): Style => {
-	const config = getSizeConfig({ size });
+export default ({
+	theme,
+	isClickable = defaultIsClickable,
+	isSquare = defaultIsSquare,
+	size = defaultSize
+}: LogoStyleProps): Style => {
+	const config = getSizeConfig({ isSquare, size });
 	const width = config.width;
 	const height = config.height;
 	const fontSize = config.fontSize;
 	const radius = config.radius;
 	const border = config.border;
+	const padding = config.padding;
 
 	const transition = 'none';
-	const transitionProperty = ['width', 'height', 'background', 'background-color', 'border-color', 'color'];
-	const transitionDuration = theme.transition.duration['ultra-slow'];
+	const transitionProperty = [
+		'width',
+		'height',
+		'background',
+		'background-color',
+		'border-color',
+		'color',
+		'font-size'
+	].join(', ');
+	const transitionDuration = theme.transition.duration.slow;
 	const transitionTimingFunction = theme.transition.easing['ease-in-out'];
 
 	return {
@@ -38,8 +45,8 @@ export default ({ theme, isClickable = defaultIsClickable, size = defaultSize }:
 
 		'pointerEvents': isClickable ? 'auto' : 'none',
 
-		'width': `${width}`,
-		'height': `${height}`,
+		'width': `${width}px`,
+		'height': `${height}px`,
 
 		'minWidth': 'auto',
 		'minHeight': 'auto',
@@ -61,7 +68,7 @@ export default ({ theme, isClickable = defaultIsClickable, size = defaultSize }:
 		'borderRadius': theme.radii[radius],
 
 		'fontFamily': '"Pacifico", cursive',
-		'fontSize': theme.fontSizes[fontSize],
+		'fontSize': `${fontSize}%`,
 		'fontWeight': theme.fontWeights.normal,
 		'textTransform': 'lowercase',
 		'whiteSpace': 'nowrap',
@@ -69,6 +76,8 @@ export default ({ theme, isClickable = defaultIsClickable, size = defaultSize }:
 		'letterSpacing': '.6px',
 
 		'WebkitTapHighlightColor': theme.colors.transparent,
+
+		'p': theme.space[padding],
 
 		'transition': transition,
 		'transitionProperty': transitionProperty,

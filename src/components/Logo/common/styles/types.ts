@@ -9,7 +9,7 @@ export type LogoStyleProps = {
 	theme: Theme;
 	color: UserThemeColor;
 	colorMode: ColorMode;
-} & Pick<LogoProps, 'isClickable' | 'size'>;
+} & Pick<LogoProps, 'isClickable' | 'isSquare' | 'size'>;
 
 export type LogoStyleReturn = {
 	logo: Style;
