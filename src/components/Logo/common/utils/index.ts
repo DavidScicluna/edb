@@ -25,7 +25,7 @@ export const getSizeConfig = memoize(
 				return {
 					width: isSquare ? 30 : 60,
 					height: 30,
-					fontSize: 100,
+					fontSize: isSquare ? 75 : 100,
 					radius: 'xs',
 					border: 1,
 					offset: 2,
@@ -33,40 +33,40 @@ export const getSizeConfig = memoize(
 				};
 			case 'sm':
 				return {
-					width: isSquare ? 36 : 72,
-					height: 36,
+					width: isSquare ? 40 : 80,
+					height: 40,
 					fontSize: isSquare ? 100 : 150,
-					radius: 'xs',
+					radius: 'sm',
 					border: 1,
 					offset: 2,
 					padding: 0.5
 				};
 			case 'lg':
 				return {
-					width: isSquare ? 50 : 100,
-					height: 50,
-					fontSize: isSquare ? 150 : 200,
-					radius: 'base',
+					width: isSquare ? 70 : 140,
+					height: 70,
+					fontSize: isSquare ? 200 : 250,
+					radius: 'lg',
 					border: 2,
 					offset: 4,
 					padding: 1.5
 				};
 			case 'xl':
 				return {
-					width: isSquare ? 60 : 120,
-					height: 60,
-					fontSize: isSquare ? 150 : 200,
-					radius: 'base',
+					width: isSquare ? 90 : 180,
+					height: 90,
+					fontSize: isSquare ? 250 : 300,
+					radius: 'xl',
 					border: 2,
 					offset: 4,
 					padding: 2
 				};
 			default:
 				return {
-					width: isSquare ? 42 : 84,
-					height: 42,
-					fontSize: isSquare ? 125 : 175,
-					radius: 'sm',
+					width: isSquare ? 50 : 100,
+					height: 50,
+					fontSize: isSquare ? 150 : 200,
+					radius: 'base',
 					border: 2,
 					offset: 4,
 					padding: 1

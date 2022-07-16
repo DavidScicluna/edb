@@ -34,8 +34,10 @@ export default ({
 		'background',
 		'background-color',
 		'border-color',
+		'border-radius',
 		'color',
-		'font-size'
+		'font-size',
+		'padding'
 	].join(', ');
 	const transitionDuration = theme.transition.duration.slow;
 	const transitionTimingFunction = theme.transition.easing['ease-in-out'];
