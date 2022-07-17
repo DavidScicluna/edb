@@ -1,4 +1,4 @@
 export const sidebar = {
-	expanded: 240,
+	expanded: 252,
 	collapsed: 84
 };
