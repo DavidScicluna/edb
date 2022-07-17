@@ -16,10 +16,10 @@ import ScrollToTop from '../../../ScrollToTop';
 const paths = ['/', '/search', '/trending'];
 
 const StructureMobile: FC = () => {
+	const { color, colorMode } = useUserTheme();
+
 	const location = useLocation();
 	const navigate = useNavigate();
-
-	const { color, colorMode } = useUserTheme();
 
 	const user = useSelector((state) => state.users.data.activeUser);
 
