@@ -38,10 +38,9 @@ const navItems: NavItemType[] = [
 
 const Navigation: FC = () => {
 	const theme = useTheme();
+	const { color, colorMode } = useUserTheme();
 
 	const location = useLocation();
-
-	const { color, colorMode } = useUserTheme();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
