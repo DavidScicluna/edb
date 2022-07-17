@@ -48,12 +48,12 @@ import '@fontsource/roboto-mono/600.css';
 import '@fontsource/roboto-mono/600-italic.css';
 import '@fontsource/roboto-mono/700.css';
 import '@fontsource/roboto-mono/700-italic.css';
-
-// Importing Material UI Icons
+// Importing Main Fonts (Pacifico)
 import '@fontsource/pacifico/400.css';
 
 // Importing Material UI Icons
 import '@fontsource/material-icons';
+import '@fontsource/material-icons-outlined';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement as HTMLElement);
