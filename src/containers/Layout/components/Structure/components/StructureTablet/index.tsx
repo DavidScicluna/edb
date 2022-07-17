@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useLocation, Outlet } from 'react-router-dom';
 
 import { useTheme, InternalLink, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
 
-import { useDisclosure, useConst, VStack, HStack, Center, Avatar } from '@chakra-ui/react';
+import { useDisclosure, VStack, HStack, Center, Avatar } from '@chakra-ui/react';
 
 import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 
@@ -18,6 +18,7 @@ const { getColor } = utils;
 
 const StructureTablet: FC = () => {
 	const theme = useTheme();
+	const { colorMode } = useUserTheme();
 
 	const location = useLocation();
 
@@ -25,11 +26,11 @@ const StructureTablet: FC = () => {
 
 	const user = useSelector((state) => state.users.data.activeUser);
 
-	const { colorMode } = useUserTheme();
-
 	const [headerRef, { height: headerHeight }] = useElementSize();
 
-	const background = useConst<string>(getColor({ theme, colorMode, type: 'background' }));
+	const [background, setBackground] = useState<string>(getColor({ theme, colorMode, type: 'background' }));
+
+	useUpdateEffect(() => setBackground(getColor({ theme, colorMode, type: 'background' })), [colorMode]);
 
 	useUpdateEffect(() => onSidebarClose(), [location.pathname]);
 
