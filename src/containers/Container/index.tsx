@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { Fade } from '@davidscicluna/component-library';
 
-import { useBoolean } from '@chakra-ui/react';
+import { useBoolean, Center } from '@chakra-ui/react';
 
 import { AnimatePresence } from 'framer-motion';
 import { useWillUnmount } from 'rooks';
@@ -36,20 +36,22 @@ const Container: FC = () => {
 	return (
 		<Router>
 			<AnimatePresence exitBeforeEnter initial={false}>
-				<Splashscreen
-					key='ds-edb-splashscreen-key'
-					isOpen={isSplashscreenOpen}
-					onClose={() => setSetIsSplashscreenOpen.off()}
-				/>
+				<Center width='100%' minHeight='100vh' position='relative'>
+					<Splashscreen
+						key='ds-edb-splashscreen-key'
+						isOpen={isSplashscreenOpen}
+						onClose={() => setSetIsSplashscreenOpen.off()}
+					/>
 
-				<Fade
-					key='ds-edb-splashscreen-routes-key'
-					in={!isSplashscreenOpen}
-					unmountOnExit
-					style={{ minHeight: '100vh' }}
-				>
-					<Routes />
-				</Fade>
+					<Fade
+						key='ds-edb-routes-key'
+						in={!isSplashscreenOpen}
+						unmountOnExit
+						style={{ width: '100%', minHeight: '100vh', position: 'absolute' }}
+					>
+						<Routes />
+					</Fade>
+				</Center>
 			</AnimatePresence>
 		</Router>
 	);
