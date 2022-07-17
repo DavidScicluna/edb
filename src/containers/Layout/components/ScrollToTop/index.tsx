@@ -11,7 +11,6 @@ import { useUserTheme } from '../../../../common/hooks';
 
 const ScrollToTop: FC = () => {
 	const theme = useTheme();
-
 	const { color, colorMode } = useUserTheme();
 
 	const { height } = useWindowSize();
@@ -49,7 +48,6 @@ const ScrollToTop: FC = () => {
 		>
 			<ScaleFade in={isVisible} unmountOnExit>
 				<Tooltip
-					color={color}
 					colorMode={colorMode}
 					aria-label='Scroll to top'
 					label='Scroll to the top'
@@ -65,7 +63,7 @@ const ScrollToTop: FC = () => {
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 					>
-						<Icon icon='keyboard_double_arrow_up' category='outlined' />
+						<Icon colorMode={colorMode} icon='keyboard_double_arrow_up' category='outlined' />
 					</IconButton>
 				</Tooltip>
 			</ScaleFade>
