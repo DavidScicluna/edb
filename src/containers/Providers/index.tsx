@@ -9,7 +9,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import Router from '../Router';
 import store from '../../store';
 import Container from '../Container';
 
@@ -33,9 +32,7 @@ const Providers: FC = () => {
 				<ChakraProvider theme={theme} resetCSS>
 					<ColorModeScript initialColorMode={theme.config.initialColorMode} />
 					<QueryClientProvider client={queryClient}>
-						<Router>
-							<Container />
-						</Router>
+						<Container />
 					</QueryClientProvider>
 				</ChakraProvider>
 			</PersistGate>
