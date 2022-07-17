@@ -7,6 +7,7 @@ import { useTheme } from '@davidscicluna/component-library';
 import { HStack, Center, VStack } from '@chakra-ui/react';
 
 import { useUpdateEffect } from 'usehooks-ts';
+import { pick } from 'lodash';
 
 import { useSelector } from '../../../../../../common/hooks';
 import useStyle from '../../../../common/styles';
@@ -34,11 +35,14 @@ const StructureDesktop: FC = () => {
 
 			<VStack
 				width={`calc(100% - ${sidebarWidth}px)`}
+				minHeight='100vh'
 				position='absolute'
 				top={0}
 				left={`${sidebarWidth}px`}
+				alignItems='center'
+				justifyContent='center'
 				spacing={0}
-				sx={{ ...style }}
+				sx={{ ...pick(style, 'transitionDelay') }}
 			>
 				<Outlet />
 

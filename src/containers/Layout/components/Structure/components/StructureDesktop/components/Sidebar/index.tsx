@@ -1,11 +1,12 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useTheme, Divider, InternalLink, IconButton, Icon, utils } from '@davidscicluna/component-library';
 
-import { useConst, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 import { omit } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Logo from '../../../../../../../../components/Logo';
 import useStyles from '../../../../../../common/styles';
@@ -17,15 +18,16 @@ const { getColor } = utils;
 
 const Sidebar: FC = () => {
 	const theme = useTheme();
+	const { colorMode } = useUserTheme();
 
 	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
-	const { colorMode } = useUserTheme();
+	const [background, setBackground] = useState<string>(getColor({ theme, colorMode, type: 'background' }));
 
 	const style = useStyles({ theme });
 
-	const background = useConst<string>(getColor({ theme, colorMode, type: 'background' }));
+	useUpdateEffect(() => setBackground(getColor({ theme, colorMode, type: 'background' })), [colorMode]);
 
 	return (
 		<VStack
