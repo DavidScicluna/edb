@@ -68,11 +68,11 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 	useEffectOnce(() => handleSetColors());
 
 	return (
-		<Modal closeOnEsc={false} closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size='full' spacing={0}>
-			<ModalBody backgroundColor={getColor({ theme, colorMode, type: 'background' })}>
-				<Center width='100%' height='100vh' sx={{ letterSpacing: '0.5px' }}>
+		<Modal isOpen={isOpen} closeOnEsc={false} closeOnOverlayClick={false} onClose={onClose} size='full' spacing={0}>
+			<ModalBody backgroundColor={getColor({ theme, colorMode, type: 'background' })} sx={{ transition: 'none' }}>
+				<Center width='100%' height='100vh'>
 					{/* Top */}
-					<Center position='absolute' top={theme.space[2]}>
+					<Center position='absolute' top={0} left='50%' transform='translateY(-50%)'>
 						<Slide direction='top' in transition={{ enter: { delay: delayLabel } }}>
 							<Center p={2}>
 								<Label colorMode={colorMode} />
@@ -81,7 +81,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 					</Center>
 
 					{/* Bottom */}
-					<Center position='absolute' bottom={theme.space[2]}>
+					<Center position='absolute' bottom={0} left='50%' transform='translateY(-50%)'>
 						<Slide direction='bottom' in transition={{ enter: { delay: delayLabel } }}>
 							<Center p={2}>
 								<Label colorMode={colorMode} />
@@ -117,19 +117,21 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 						</Slide>
 					</Show>
 
-					{logo.split('').map((letter, index) => (
-						<SlideFade
-							key={index}
-							in
-							transition={{ enter: { delay: index === 0 ? delayE : index === 1 ? delayD : delayB } }}
-						>
-							<Letter
-								letter={letter}
-								color={(index === 0 ? colorE : index === 1 ? colorD : colorB) as SplashscreenColor}
-								colorMode={colorMode}
-							/>
-						</SlideFade>
-					))}
+					<Center letterSpacing='0.5px'>
+						{logo.split('').map((letter, index) => (
+							<SlideFade
+								key={index}
+								in
+								transition={{ enter: { delay: index === 0 ? delayE : index === 1 ? delayD : delayB } }}
+							>
+								<Letter
+									letter={letter}
+									color={(index === 0 ? colorE : index === 1 ? colorD : colorB) as SplashscreenColor}
+									colorMode={colorMode}
+								/>
+							</SlideFade>
+						))}
+					</Center>
 				</Center>
 			</ModalBody>
 		</Modal>
