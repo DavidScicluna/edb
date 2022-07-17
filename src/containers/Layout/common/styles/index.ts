@@ -6,8 +6,8 @@ import { LayoutStyleProps } from './types';
 
 export default memoize(({ theme }: LayoutStyleProps): Style => {
 	const transition = 'none';
-	const transitionProperty = ['width', 'min-width', 'max-width', 'height'].join(', ');
-	const transitionDuration = theme.transition.duration['ultra-slow'];
+	const transitionProperty = ['width', 'min-width', 'max-width', 'height', 'min-height', 'max-height'].join(', ');
+	const transitionDuration = theme.transition.duration.normal;
 	const transitionDelay = theme.transition.duration.normal;
 	const transitionTimingFunction = theme.transition.easing['ease-in-out'];
 
