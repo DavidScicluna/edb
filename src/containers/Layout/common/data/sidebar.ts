@@ -1,4 +1,6 @@
+const num = 84;
+
 export const sidebar = {
-	expanded: 252,
-	collapsed: 84
+	expanded: num * 4,
+	collapsed: num
 };
