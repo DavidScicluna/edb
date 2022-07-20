@@ -1,10 +1,7 @@
 import { FC } from 'react';
 
-import { Fade } from '@davidscicluna/component-library';
+import { useBoolean } from '@chakra-ui/react';
 
-import { useBoolean, Center } from '@chakra-ui/react';
-
-import { AnimatePresence } from 'framer-motion';
 import { useWillUnmount } from 'rooks';
 import { useDispatch } from 'react-redux';
 import { useIsFirstRender, useTimeout } from 'usehooks-ts';
@@ -17,42 +14,29 @@ import Router from '../Router';
 
 const Container: FC = () => {
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.users.data.activeUser);
+	const activeUser = useSelector((state) => state.users.data.activeUser);
 
 	const isFirstRender = useIsFirstRender();
 
 	const [isSplashscreenOpen, setSetIsSplashscreenOpen] = useBoolean(isFirstRender);
+	const [isRoutesVisible, setSetIsRoutesVisible] = useBoolean();
 
 	usePopulateOptions();
 
 	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 5000 : null);
+	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 4000 : null);
 
 	useWillUnmount(() => {
-		if (!user.data.credentials.rememberMe) {
+		if (!activeUser.data.credentials.rememberMe) {
 			dispatch(setUser({ ...guest }));
 		}
 	});
 
 	return (
 		<Router>
-			<AnimatePresence exitBeforeEnter initial={false}>
-				<Center width='100%' minHeight='100vh' position='relative'>
-					<Splashscreen
-						key='ds-edb-splashscreen-key'
-						isOpen={isSplashscreenOpen}
-						onClose={() => setSetIsSplashscreenOpen.off()}
-					/>
+			<Splashscreen isOpen={isSplashscreenOpen} onClose={() => setSetIsSplashscreenOpen.off()} />
 
-					<Fade
-						key='ds-edb-routes-key'
-						in={!isSplashscreenOpen}
-						unmountOnExit
-						style={{ width: '100%', minHeight: '100vh', position: 'absolute' }}
-					>
-						<Routes />
-					</Fade>
-				</Center>
-			</AnimatePresence>
+			{isRoutesVisible && <Routes />}
 		</Router>
 	);
 };
