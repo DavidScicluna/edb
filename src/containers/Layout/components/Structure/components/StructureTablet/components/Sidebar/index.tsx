@@ -25,10 +25,15 @@ const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 	return (
 		<Drawer isOpen={isOpen} isFullHeight placement='left' preserveScrollBarGap onClose={() => onClose()} size='xs'>
 			<DrawerOverlay />
-			<DrawerContent backgroundColor={background} sx={{ transition: 'none' }}>
+			<DrawerContent background={background} backgroundColor={background} sx={{ transition: 'none' }}>
 				<DrawerBody position='relative' p={0} m={0} sx={{ transition: 'none' }}>
 					<Center position='absolute' top={theme.space[2]} right={theme.space[2]}>
-						<IconButton aria-label='Close modal' onClick={() => onClose()} variant='icon'>
+						<IconButton
+							aria-label='Close modal'
+							colorMode={colorMode}
+							onClick={() => onClose()}
+							variant='icon'
+						>
 							<Icon icon='close' category='outlined' />
 						</IconButton>
 					</Center>
@@ -36,7 +41,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 					<VStack
 						width='100%'
 						alignItems='flex-start'
-						divider={<Divider />}
+						divider={<Divider colorMode={colorMode} />}
 						background={background}
 						backgroundColor={background}
 						p={2}

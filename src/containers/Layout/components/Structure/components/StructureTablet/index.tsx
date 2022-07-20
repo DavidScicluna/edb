@@ -4,27 +4,29 @@ import { useLocation, Outlet } from 'react-router-dom';
 
 import { useTheme, InternalLink, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
 
-import { useDisclosure, VStack, HStack, Center, Avatar } from '@chakra-ui/react';
+import { useDisclosure, VStack, HStack, Center } from '@chakra-ui/react';
 
 import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 
 import { useUserTheme, useSelector } from '../../../../../../common/hooks';
 import ScrollToTop from '../../../ScrollToTop';
 import Gradient from '../Gradient';
+import UserPopper from '../UserPopper';
+import Avatar from '../../../../../../components/Avatar';
 
 import Sidebar from './components/Sidebar';
-
 const { getColor } = utils;
 
 const StructureTablet: FC = () => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
+	const { color, colorMode } = useUserTheme();
 
 	const location = useLocation();
 
 	const { isOpen: isSidebarOpen, onOpen: onSidebarOpen, onClose: onSidebarClose } = useDisclosure();
 
 	const user = useSelector((state) => state.users.data.activeUser);
+	const { name, avatar_path } = user.data.info;
 
 	const [headerRef, { height: headerHeight }] = useElementSize();
 
@@ -56,21 +58,46 @@ const StructureTablet: FC = () => {
 						onClick={() => onSidebarOpen()}
 						variant='icon'
 					>
-						<Icon colorMode={colorMode} icon='menu' />
+						<Icon icon='menu' />
 					</IconButton>
 
 					<HStack spacing={2}>
 						<Fade in={location.pathname !== '/search'} unmountOnExit>
 							<InternalLink to={{ pathname: '/search' }}>
 								<IconButton aria-label='Search Button' colorMode={colorMode} variant='icon'>
-									<Icon colorMode={colorMode} icon='search' />
+									<Icon icon='search' />
 								</IconButton>
 							</InternalLink>
 						</Fade>
 
-						<IconButton aria-label='SideBar Navigation Menu Button' colorMode={colorMode} variant='icon'>
-							<Avatar name={user.data.info.name} src={user.data.info.avatar_path} />
-						</IconButton>
+						<UserPopper
+							gutter={32}
+							renderAction={({ isOpen }) => (
+								<IconButton
+									aria-label='SideBar Navigation Menu Button'
+									colorMode={colorMode}
+									variant='icon'
+									sx={{
+										width: 'auto',
+										height: 'auto',
+										borderRadius: theme.radii.full,
+										outlineOffset: theme.space['0.5'],
+										outline: `${isOpen ? 2 : 0}px solid ${
+											isOpen
+												? getColor({
+														theme,
+														colorMode,
+														color,
+														type: 'color'
+												  })
+												: theme.colors.transparent
+										}`
+									}}
+								>
+									<Avatar alt={name} borderRadius='full' src={{ full: avatar_path }} size='6xl' />
+								</IconButton>
+							)}
+						/>
 					</HStack>
 				</HStack>
 
