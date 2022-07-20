@@ -4,17 +4,17 @@ import { useLocation } from 'react-router-dom';
 
 import { InternalLink, Button, Icon } from '@davidscicluna/component-library';
 
-import { useBoolean, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
-import { useUpdateEffect } from 'usehooks-ts';
 
+import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
-import { guest } from '../../../../../../../../store/slices/Users';
 import { toggleUserSwitcherModal, toggleUserThemeModal } from '../../../../../../../../store/slices/Modals';
 import { sx } from '../../common/styles';
+import { UserPopperCommonProps } from '../../common/types';
 
-const Actions: FC = () => {
+const Actions: FC<UserPopperCommonProps> = ({ isGuest = defaultIsGuest }) => {
 	const { color, colorMode } = useUserTheme();
 
 	const location = useLocation();
@@ -25,10 +25,6 @@ const Actions: FC = () => {
 
 	const isUserThemeModalOpen = useSelector((state) => state.modals.ui.isUserThemeModalOpen);
 	const isUserSwitcherModalOpen = useSelector((state) => state.modals.ui.isUserSwitcherModalOpen);
-
-	const [isGuest, setIsGuest] = useBoolean(guest.data.id === activeUser.data.id);
-
-	useUpdateEffect(() => setIsGuest[guest.data.id === activeUser.data.id ? 'on' : 'off'](), [activeUser]);
 
 	return (
 		<VStack width='100%' spacing={0}>
