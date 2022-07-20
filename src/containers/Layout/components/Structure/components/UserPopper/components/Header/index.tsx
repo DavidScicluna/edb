@@ -6,14 +6,16 @@ import { HStack, VStack, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
+import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import Avatar from '../../../../../../../../components/Avatar';
+import { UserPopperCommonProps } from '../../common/types';
 
 const { convertREMToPixels, convertStringToNumber, getColor } = utils;
 
 const spacing: Space = 2;
 
-const Header: FC = () => {
+const Header: FC<UserPopperCommonProps> = ({ isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -31,14 +33,15 @@ const Header: FC = () => {
 
 	return (
 		<HStack width='100%' spacing={spacing}>
-			<Avatar ref={avatarRef} alt={name} borderRadius='base' src={{ full: avatar_path }} />
+			<Avatar ref={avatarRef} alt={name} borderRadius='base' src={{ full: avatar_path }} size='7xl' />
 
 			<VStack width={handleContentWidth()} alignItems='flex-start' spacing={0.5}>
 				<Text
 					align='left'
 					color={getColor({ theme, colorMode, type: 'text.primary' })}
-					fontSize='xl'
+					fontSize='2xl'
 					fontWeight='bold'
+					lineHeight='normal'
 					noOfLines={1}
 				>
 					{name}
@@ -47,9 +50,10 @@ const Header: FC = () => {
 					align='left'
 					color={getColor({ theme, colorMode, type: 'text.secondary' })}
 					fontSize='sm'
+					lineHeight='normal'
 					noOfLines={1}
 				>
-					{`@${username}`}
+					{`@${isGuest ? name : username}`}
 				</Text>
 			</VStack>
 		</HStack>
