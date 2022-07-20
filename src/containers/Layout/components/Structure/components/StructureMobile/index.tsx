@@ -1,19 +1,24 @@
-import { FC, useState, useCallback } from 'react';
+import { FC, useState, useCallback, useEffect } from 'react';
 
 import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 
-import { TabBar, Icon } from '@davidscicluna/component-library';
+import { TabBar, Icon, utils } from '@davidscicluna/component-library';
 
-import { VStack, Center, Avatar } from '@chakra-ui/react';
+import { useBoolean, VStack, Center } from '@chakra-ui/react';
 
-import { useElementSize, useUpdateEffect } from 'usehooks-ts';
+import { useElementSize } from 'usehooks-ts';
 
 import Gradient from '../Gradient';
 import { useUserTheme, useSelector } from '../../../../../../common/hooks';
 import ScrollToTop from '../../../ScrollToTop';
+import UserPopper from '../UserPopper';
+import Avatar from '../../../../../../components/Avatar';
 
-// TODO: Add Profile path
 const paths = ['/', '/search', '/trending'];
+
+const { checkIsTouchDevice } = utils;
+
+const isTouchDevice: boolean = checkIsTouchDevice();
 
 const StructureMobile: FC = () => {
 	const { color, colorMode } = useUserTheme();
@@ -22,20 +27,26 @@ const StructureMobile: FC = () => {
 	const navigate = useNavigate();
 
 	const user = useSelector((state) => state.users.data.activeUser);
+	const { name, avatar_path } = user.data.info;
 
 	const [tabBarRef, { height: tabBarHeight }] = useElementSize();
 
 	const [activeTab, setActiveTab] = useState<number>(paths.findIndex((path) => path === location.pathname));
 
+	const [isPopperOpen, setIsPopperOpen] = useBoolean();
+	const [isHoveringPopper, setIsHoveringPopper] = useBoolean();
+
 	const handleTabBarChange = useCallback(
 		(index: number) => {
-			setActiveTab(index);
-			navigate(paths[index]);
+			if (index !== 3) {
+				setActiveTab(index);
+				navigate(paths[index]);
+			}
 		},
 		[paths]
 	);
 
-	useUpdateEffect(() => setActiveTab(paths.findIndex((path) => path === location.pathname)), [location.pathname]);
+	useEffect(() => setActiveTab(paths.findIndex((path) => path === location.pathname)), [location.pathname]);
 
 	return (
 		<VStack width='100%' minHeight='100vh' position='relative' spacing={0}>
@@ -51,7 +62,7 @@ const StructureMobile: FC = () => {
 				<TabBar
 					color={color}
 					colorMode={colorMode}
-					activeTab={activeTab}
+					activeTab={!isPopperOpen ? activeTab : 3}
 					onChange={handleTabBarChange}
 					tabs={[
 						{
@@ -85,10 +96,29 @@ const StructureMobile: FC = () => {
 							label: 'Trending'
 						},
 						{
-							renderIcon: (props) => (
-								<Avatar {...props} name={user.data.info.name} src={user.data.info.avatar_path} />
+							renderIcon: () => (
+								<Center mb={1}>
+									<UserPopper
+										isOpen={isPopperOpen}
+										gutter={32}
+										placement='bottom-end'
+										renderAction={() => (
+											<Avatar
+												alt={name}
+												borderRadius='full'
+												src={{ full: avatar_path }}
+												size='3xl'
+											/>
+										)}
+									/>
+								</Center>
 							),
-							label: 'You'
+							label: 'You',
+							onClick: () => setIsPopperOpen.on(),
+							onBlur: !isHoveringPopper ? () => setIsPopperOpen.off() : undefined,
+							onMouseEnter: !isTouchDevice ? () => setIsHoveringPopper.on() : undefined,
+							onMouseLeave: !isTouchDevice ? () => setIsHoveringPopper.off() : undefined,
+							sx: isPopperOpen ? { cursor: 'pointer', pointerEvents: 'auto' } : {}
 						}
 					]}
 				/>
