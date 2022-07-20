@@ -8,25 +8,22 @@ import { useDisclosure, VStack, HStack, Center } from '@chakra-ui/react';
 
 import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 
-import { useUserTheme, useSelector } from '../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../common/hooks';
 import ScrollToTop from '../../../ScrollToTop';
 import Gradient from '../Gradient';
-import UserPopper from '../UserPopper';
-import Avatar from '../../../../../../components/Avatar';
 
 import Sidebar from './components/Sidebar';
+import User from './components/User';
+
 const { getColor } = utils;
 
 const StructureTablet: FC = () => {
 	const theme = useTheme();
-	const { color, colorMode } = useUserTheme();
+	const { colorMode } = useUserTheme();
 
 	const location = useLocation();
 
 	const { isOpen: isSidebarOpen, onOpen: onSidebarOpen, onClose: onSidebarClose } = useDisclosure();
-
-	const activeUser = useSelector((state) => state.users.data.activeUser);
-	const { name, avatar_path } = activeUser.data.info;
 
 	const [headerRef, { height: headerHeight }] = useElementSize();
 
@@ -70,39 +67,7 @@ const StructureTablet: FC = () => {
 							</InternalLink>
 						</Fade>
 
-						<UserPopper
-							gutter={32}
-							renderAction={({ isOpen }) => (
-								<IconButton
-									aria-label='SideBar Navigation User Menu Button'
-									colorMode={colorMode}
-									variant='icon'
-									sx={{
-										width: 'auto',
-										height: 'auto',
-										borderRadius: theme.radii.full,
-										outlineOffset: theme.space['0.5'],
-										outline: `${isOpen ? 2 : 0}px solid ${
-											isOpen
-												? getColor({
-														theme,
-														colorMode,
-														color,
-														type: 'color'
-												  })
-												: theme.colors.transparent
-										}`
-									}}
-								>
-									<Avatar
-										alt={name}
-										borderRadius='full'
-										src={{ full: avatar_path }}
-										size={theme.fontSizes['6xl']}
-									/>
-								</IconButton>
-							)}
-						/>
+						<User />
 					</HStack>
 				</HStack>
 
