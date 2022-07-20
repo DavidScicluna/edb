@@ -1,10 +1,12 @@
-import { ReactElement, forwardRef } from 'react';
+import { ReactElement, forwardRef, useState, useCallback } from 'react';
 
-import { Skeleton } from '@davidscicluna/component-library';
+import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
-import { useTheme, AspectRatio, Center } from '@chakra-ui/react';
+import { AspectRatio, Center } from '@chakra-ui/react';
 
-import { handleReturnRatio } from '../../common/utils';
+import { useUpdateEffect } from 'usehooks-ts';
+
+import { getRatio } from '../../common/utils';
 import Image from '../Image';
 
 import { AvatarRef, AvatarProps } from './types';
@@ -12,39 +14,20 @@ import { AvatarRef, AvatarProps } from './types';
 const Avatar = forwardRef<AvatarRef, AvatarProps>(function Avatar(props, ref): ReactElement {
 	const theme = useTheme();
 
-	const { alt, borderRadius, isLoading = false, size = 'md', src, ...rest } = props;
+	const { borderRadius, isLoading = false, size = 'md', ...rest } = props;
 
-	const handeReturnWidth = (): string => {
-		switch (size) {
-			case 'xs':
-				return theme.fontSizes['xl'];
-			case 'sm':
-				return theme.fontSizes['3xl'];
-			case 'lg':
-				return theme.fontSizes['7xl'];
-			case 'xl':
-				return theme.fontSizes['9xl'];
-			default:
-				return theme.fontSizes['5xl'];
-		}
-	};
+	const [fontSize, setFontSize] = useState<string>(theme.fontSizes[size]);
+
+	const handeGetWidth = useCallback((): void => {
+		setFontSize(theme.fontSizes[size]);
+	}, [theme, size]);
+
+	useUpdateEffect(() => handeGetWidth(), [size]);
 
 	return (
-		<AspectRatio
-			ref={ref}
-			width={handeReturnWidth()}
-			borderRadius={borderRadius}
-			ratio={handleReturnRatio('square')}
-		>
-			<Center as={Skeleton} borderRadius={borderRadius} isLoaded={!isLoading} variant='circle'>
-				<Image
-					{...rest}
-					alt={`${alt} Avatar`}
-					boringType='beam'
-					borderRadius={borderRadius}
-					thumbnailSrc={src}
-					fullSrc={src}
-				/>
+		<AspectRatio ref={ref} width={fontSize} height={fontSize} ratio={getRatio({ orientation: 'square' })}>
+			<Center as={Skeleton} isLoaded={!isLoading} borderRadius={borderRadius}>
+				<Image {...rest} borderRadius={borderRadius} />
 			</Center>
 		</AspectRatio>
 	);

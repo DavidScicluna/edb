@@ -1,11 +1,12 @@
+import { FontSize } from '@davidscicluna/component-library';
+
 import { ImageProps } from '../Image/types';
 
-export type AvatarRef = HTMLDivElement | null;
+export type AvatarSize = FontSize;
 
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-export type AvatarProps = {
+export type AvatarProps = ImageProps & {
 	isLoading?: boolean;
-	size?: Size;
-	src: ImageProps['fullSrc'];
-} & Omit<ImageProps, 'boringType' | 'thumbnailSrc' | 'fullSrc'>;
+	size?: AvatarSize;
+};
+
+export type AvatarRef = HTMLDivElement | null;
