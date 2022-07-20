@@ -25,8 +25,8 @@ const StructureTablet: FC = () => {
 
 	const { isOpen: isSidebarOpen, onOpen: onSidebarOpen, onClose: onSidebarClose } = useDisclosure();
 
-	const user = useSelector((state) => state.users.data.activeUser);
-	const { name, avatar_path } = user.data.info;
+	const activeUser = useSelector((state) => state.users.data.activeUser);
+	const { name, avatar_path } = activeUser.data.info;
 
 	const [headerRef, { height: headerHeight }] = useElementSize();
 
@@ -74,7 +74,7 @@ const StructureTablet: FC = () => {
 							gutter={32}
 							renderAction={({ isOpen }) => (
 								<IconButton
-									aria-label='SideBar Navigation Menu Button'
+									aria-label='SideBar Navigation User Menu Button'
 									colorMode={colorMode}
 									variant='icon'
 									sx={{
@@ -94,7 +94,12 @@ const StructureTablet: FC = () => {
 										}`
 									}}
 								>
-									<Avatar alt={name} borderRadius='full' src={{ full: avatar_path }} size='6xl' />
+									<Avatar
+										alt={name}
+										borderRadius='full'
+										src={{ full: avatar_path }}
+										size={theme.fontSizes['6xl']}
+									/>
 								</IconButton>
 							)}
 						/>
