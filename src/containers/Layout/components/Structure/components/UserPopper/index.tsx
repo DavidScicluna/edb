@@ -25,7 +25,7 @@ import Header from './components/Header';
 import Actions from './components/Actions';
 import { UserPopperProps } from './types';
 
-const { getColor } = utils;
+const { convertREMToPixels, convertStringToNumber, getColor } = utils;
 
 // TODO: Extract Popover into a component called Popper in component-library
 
@@ -56,6 +56,8 @@ const UserPopper: FC<UserPopperProps> = (props) => {
 	return (
 		<Popover
 			{...rest}
+			arrowSize={convertREMToPixels(convertStringToNumber(theme.space[1.5], 'rem'))}
+			arrowShadowColor={border}
 			isOpen={isOpen || isPopperOpen}
 			placement={placement}
 			gutter={gutter}
@@ -83,7 +85,7 @@ const UserPopper: FC<UserPopperProps> = (props) => {
 					p={2}
 					_focus={{ boxShadow: '2xl' }}
 				>
-					<PopoverArrow background={border} backgroundColor={border} />
+					<PopoverArrow />
 
 					<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={2}>
 						<Header isGuest={isGuest} />

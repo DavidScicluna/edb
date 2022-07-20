@@ -19,9 +19,9 @@ const Header: FC<UserPopperCommonProps> = ({ isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const user = useSelector((state) => state.users.data.activeUser);
-	const { name, avatar_path } = user.data.info;
-	const { username } = user.data.credentials;
+	const activeUser = useSelector((state) => state.users.data.activeUser);
+	const { name, avatar_path } = activeUser.data.info;
+	const { username } = activeUser.data.credentials;
 
 	const [avatarRef, { width: avatarWidth }] = useElementSize();
 
@@ -33,7 +33,13 @@ const Header: FC<UserPopperCommonProps> = ({ isGuest = defaultIsGuest }) => {
 
 	return (
 		<HStack width='100%' spacing={spacing}>
-			<Avatar ref={avatarRef} alt={name} borderRadius='base' src={{ full: avatar_path }} size='7xl' />
+			<Avatar
+				ref={avatarRef}
+				alt={name}
+				borderRadius='base'
+				src={{ full: avatar_path }}
+				size={theme.fontSizes['7xl']}
+			/>
 
 			<VStack width={handleContentWidth()} alignItems='flex-start' spacing={0.5}>
 				<Text
