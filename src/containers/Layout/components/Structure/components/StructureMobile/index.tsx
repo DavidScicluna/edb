@@ -2,7 +2,7 @@ import { FC, useState, useCallback, useEffect } from 'react';
 
 import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 
-import { TabBar, Icon, utils } from '@davidscicluna/component-library';
+import { useTheme, TabBar, Icon, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, VStack, Center } from '@chakra-ui/react';
 
@@ -21,13 +21,14 @@ const { checkIsTouchDevice } = utils;
 const isTouchDevice: boolean = checkIsTouchDevice();
 
 const StructureMobile: FC = () => {
+	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const user = useSelector((state) => state.users.data.activeUser);
-	const { name, avatar_path } = user.data.info;
+	const activeUser = useSelector((state) => state.users.data.activeUser);
+	const { name, avatar_path } = activeUser.data.info;
 
 	const [tabBarRef, { height: tabBarHeight }] = useElementSize();
 
@@ -107,7 +108,7 @@ const StructureMobile: FC = () => {
 												alt={name}
 												borderRadius='full'
 												src={{ full: avatar_path }}
-												size='3xl'
+												size={theme.fontSizes['3xl']}
 											/>
 										)}
 									/>
