@@ -13,6 +13,7 @@ import useStyles from '../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import { toggleSidebarMode } from '../../../../../../../../store/slices/App';
 import Navigation from '../../../Navigation';
+import User from '../User';
 
 const { getColor } = utils;
 
@@ -44,7 +45,13 @@ const Sidebar: FC = () => {
 			spacing={4}
 			sx={{ ...style }}
 		>
-			<VStack width='100%' alignItems='flex-start' divider={<Divider />} spacing={2} sx={{ ...style }}>
+			<VStack
+				width='100%'
+				alignItems='flex-start'
+				divider={<Divider colorMode={colorMode} />}
+				spacing={2}
+				sx={{ ...style }}
+			>
 				<InternalLink to={{ pathname: '/' }}>
 					<Logo
 						isClickable={false}
@@ -57,7 +64,9 @@ const Sidebar: FC = () => {
 				<Navigation />
 			</VStack>
 
-			<VStack width='100%' spacing={2} sx={{ ...style }}>
+			<VStack width='100%' spacing={1} sx={{ ...style }}>
+				<User />
+
 				<IconButton
 					aria-label={sidebarMode === 'expanded' ? 'Collapse navigation-bar' : 'Expand navigation-bar'}
 					colorMode={colorMode}
