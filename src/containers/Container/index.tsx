@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { Collapse } from '@davidscicluna/component-library';
+
 import { useBoolean } from '@chakra-ui/react';
 
 import { useWillUnmount } from 'rooks';
@@ -36,7 +38,9 @@ const Container: FC = () => {
 		<Router>
 			<Splashscreen isOpen={isSplashscreenOpen} onClose={() => setSetIsSplashscreenOpen.off()} />
 
-			{isRoutesVisible && <Routes />}
+			<Collapse in={isRoutesVisible} unmountOnExit>
+				<Routes />
+			</Collapse>
 		</Router>
 	);
 };
