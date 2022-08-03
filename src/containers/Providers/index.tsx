@@ -2,10 +2,12 @@ import { FC } from 'react';
 
 import { theme } from '@davidscicluna/component-library';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { Provider as ReduxProvider } from 'react-redux';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -33,6 +35,7 @@ const Providers: FC = () => {
 					<ColorModeScript initialColorMode={theme.config.initialColorMode} />
 					<QueryClientProvider client={queryClient}>
 						<Container />
+						{process.env.NODE_ENV !== 'production' && <ReactQueryDevtools initialIsOpen={false} />}
 					</QueryClientProvider>
 				</ChakraProvider>
 			</PersistGate>
