@@ -1,7 +1,7 @@
 export type Orientation = 'vertical' | 'horizontal';
 
 // Data Types
-export type BoringAvatarType = 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
+export type BoringAvatarVariant = 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
 
 export type Response<Data> = {
 	page?: number;
