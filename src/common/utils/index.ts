@@ -1,12 +1,11 @@
-import { Theme, ColorHues } from '@davidscicluna/component-library';
-
-import { ColorMode } from '@chakra-ui/react';
+import { Theme, ColorHues, Colors } from '@davidscicluna/component-library';
 
 import dayjs from 'dayjs';
+import { memoize } from 'lodash';
 import qs from 'query-string';
 
 import store from '../../store';
-import { Genre, BoringAvatarType, MediaType } from '../types';
+import { Genre, BoringAvatarVariant, MediaType } from '../types';
 import { Image, Images } from '../types/images';
 
 export const handleReturnMediaTypeLabel = (mediaType: MediaType): string => {
@@ -28,16 +27,6 @@ export const handleFormatMoney = (money: number): string => {
 	return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-export const handleConvertEasingsIntoNumbers = (easing: string): number[] => {
-	return easing
-		.replace('cubic-bezier', '')
-		.replace('(', '')
-		.replace(')', '')
-		.replace(' ', '')
-		.split(',')
-		.map((number) => Number(number));
-};
-
 /**
  * This method will return the genres names from the genre ids
  *
@@ -53,37 +42,6 @@ export const handleReturnGenresByID = (genres: number[], mediaType: 'movie' | 't
 		.map((genre) => genre.name)
 		.filter((genre) => genre)
 		.join(', ');
-};
-
-/**
- * This method will convert a REM size to PX size
- *
- * @param rem - number: REM size
- * @returns - number: Converted PX size from REM size
- */
-export const handleConvertREMToPixels = (rem: number): number => {
-	return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-};
-
-/**
- * This method will remove a portion of a string from the string passed and convert the string to a number
- *
- * @param string - string: String value to be cut & converted
- * @param cut - string: The string to cut from the string
- * @returns number: A number from the string passed
- */
-export const handleConvertStringToNumber = (string: string, cut: string): number => {
-	return Number(string.replace(cut, ''));
-};
-
-/**
- * This method will check whether the user's device is a touch device or not
- *
- * @returns boolean: Either its a touch device or not
- */
-export const handleIsTouchDevice = (): boolean => {
-	return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-	// || navigator.msMaxTouchPoints > 0;
 };
 
 /**
@@ -125,44 +83,52 @@ export const handleReturnRuntime = (runtime: number): string => {
 	return time.filter((date) => date).join(' ');
 };
 
-export const handleParseDurationForFramer = (time: number): number => {
-	return time / 1000;
+type GetBoringAvatarSrcProps = {
+	id: string;
+	colors: Colors;
+	hue: ColorHues;
+	size: number;
+	variant: BoringAvatarVariant;
 };
 
 /**
  * This method will return a url that will fetch an img from boringavatars
  * boringavatars - https://boringavatars.com/
  *
- * @param theme - The CUI Theme object
- * @param type - Type of asset from BoringAvatars
- * @param size - Size of the color spectrum
+ * @param id - ID to generate a custom avatar
+ * @param colors - The CUI Theme colors object
+ * @param hue - Color Hue within the Theme colors object
+ * @param size - Size of image in pixels
+ * @param variant - Type of asset from BoringAvatars
  * @returns - boringavatars URL
  */
-export const handleReturnBoringSrc = (theme: Theme, type: BoringAvatarType, size: ColorHues, id: string): string => {
+export const getBoringAvatarSrc = memoize((props: GetBoringAvatarSrcProps): string => {
+	const { id, colors, hue, size, variant } = props;
+
 	return qs.stringifyUrl({
-		url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${type}/${size}/${id}`,
+		url: `${process.env.REACT_APP_FALLBACK_IMAGE_URL}/${variant}/${size}/${id}`,
 		query: {
 			colors: [
-				theme.colors.red[size],
-				theme.colors.pink[size],
-				theme.colors.purple[size],
-				theme.colors.deep_purple[size],
-				theme.colors.indigo[size],
-				theme.colors.blue[size],
-				theme.colors.light_blue[size],
-				theme.colors.cyan[size],
-				theme.colors.teal[size],
-				theme.colors.green[size],
-				theme.colors.light_green[size],
-				theme.colors.lime[size],
-				theme.colors.yellow[size],
-				theme.colors.orange[size],
-				theme.colors.deep_orange[size]
+				colors.red[hue],
+				colors.pink[hue],
+				colors.purple[hue],
+				colors.deep_purple[hue],
+				colors.indigo[hue],
+				colors.blue[hue],
+				colors.light_blue[hue],
+				colors.cyan[hue],
+				colors.teal[hue],
+				colors.green[hue],
+				colors.light_green[hue],
+				colors.lime[hue],
+				colors.yellow[hue],
+				colors.orange[hue],
+				colors.deep_orange[hue]
 			].join(','),
 			square: true
 		}
 	});
-};
+});
 
 /**
  * This method will return the appropriate Boring Avatar Type depending on the mediaType passed
@@ -170,7 +136,7 @@ export const handleReturnBoringSrc = (theme: Theme, type: BoringAvatarType, size
  * @param mediaType MediaType - The type of mediaType - 'movie' | 'tv' | 'person' | 'company' | 'collection'
  * @returns BoringAvatarType - Boring Avatar Type
  */
-export const handleReturnBoringTypeByMediaType = (mediaType: MediaType): BoringAvatarType => {
+export const handleReturnBoringTypeByMediaType = (mediaType: MediaType): BoringAvatarVariant => {
 	switch (mediaType) {
 		case 'collection':
 			return 'pixel';
@@ -285,14 +251,6 @@ export const handleIsOverflowing = (element: HTMLElement): boolean => {
 	return isOverflowing;
 };
 
-export const handleCheckSystemColorMode = (): ColorMode => {
-	if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		return 'dark';
-	} else {
-		return 'light';
-	}
-};
-
 export const handleReturnImageOrientation = (width = 0, height = 0): 'landscape' | 'portrait' | 'square' => {
 	if (width > height) {
 		return 'landscape';
@@ -303,7 +261,9 @@ export const handleReturnImageOrientation = (width = 0, height = 0): 'landscape'
 	}
 };
 
-export const handleReturnRatio = (orientation: 'landscape' | 'portrait' | 'square'): number => {
+type getRatioProps = { orientation: 'landscape' | 'portrait' | 'square' };
+
+export const getRatio = memoize(({ orientation }: getRatioProps): number => {
 	switch (orientation) {
 		case 'landscape':
 			return 1.77777777777778;
@@ -312,4 +272,4 @@ export const handleReturnRatio = (orientation: 'landscape' | 'portrait' | 'squar
 		case 'square':
 			return 1 / 1;
 	}
-};
+});
