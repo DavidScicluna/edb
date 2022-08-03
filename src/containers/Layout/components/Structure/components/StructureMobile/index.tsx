@@ -1,6 +1,6 @@
 import { FC, useState, useCallback, useEffect } from 'react';
 
-import { useLocation, useNavigate, Outlet } from 'react-router-dom';
+import { useLocation, useNavigate, Outlet } from 'react-router';
 
 import { useTheme, TabBar, Icon, utils } from '@davidscicluna/component-library';
 

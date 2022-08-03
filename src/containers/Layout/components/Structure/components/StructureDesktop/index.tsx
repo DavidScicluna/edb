@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import { useTheme } from '@davidscicluna/component-library';
 

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { useLocation, Outlet } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router';
 
 import { useTheme, InternalLink, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
 

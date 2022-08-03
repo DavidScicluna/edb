@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import { useTheme, Divider, utils } from '@davidscicluna/component-library';
 

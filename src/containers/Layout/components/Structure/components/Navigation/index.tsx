@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { NavItemType, useTheme, SideNavigation, NavItem, Icon } from '@davidscicluna/component-library';
-
 import { useLocation } from 'react-router';
+
+import { NavItemType, useTheme, SideNavigation, NavItem, Icon } from '@davidscicluna/component-library';
 
 import useStyles from '../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../common/hooks';
