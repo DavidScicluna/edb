@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { ColorHues, useTheme, Collapse, utils } from '@davidscicluna/component-library';
 
-import { Progress } from '@chakra-ui/react';
+import { useIsFetching, useIsMutating } from '@tanstack/react-query';
 
-import { useIsFetching, useIsMutating } from 'react-query';
+import { Progress } from '@chakra-ui/react';
 
 import { useSelector, useUserTheme } from '../../../../common/hooks';
 
