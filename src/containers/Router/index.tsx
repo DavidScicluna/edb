@@ -1,6 +1,6 @@
 import { FC, useCallback } from 'react';
 
-import { BrowserRouter, BrowserRouterProps as RouterProps } from 'react-router-dom';
+import { BrowserRouter as RRRouter, BrowserRouterProps as RouterProps } from 'react-router-dom';
 
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -16,7 +16,7 @@ const Router: FC<RouterProps> = ({ children }) => {
 
 	useEffectOnce(() => handleRedirectToBasename());
 
-	return <BrowserRouter basename={basename}>{children}</BrowserRouter>;
+	return <RRRouter basename={basename}>{children}</RRRouter>;
 };
 
 export default Router;
