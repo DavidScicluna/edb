@@ -45,13 +45,16 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 	const { colorMode } = useUserTheme();
 
 	const [colorE, setColorE] = useState<string>('');
-	const delayE = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 2);
+	const enterDelayE = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 2);
+	const letterDelayE = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 2);
 
 	const [colorD, setColorD] = useState<string>('');
-	const delayD = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 3);
+	const enterDelayD = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 3);
+	const letterDelayD = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 3);
 
 	const [colorB, setColorB] = useState<string>('');
-	const delayB = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4);
+	const enterDelayB = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4);
+	const letterDelayB = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 4);
 
 	const delayLabel = useConst<number>(getTransitionDelay({ theme, duration: 'normal' }) * 5);
 
@@ -122,12 +125,17 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 							<SlideFade
 								key={index}
 								in
-								transition={{ enter: { delay: index === 0 ? delayE : index === 1 ? delayD : delayB } }}
+								transition={{
+									enter: {
+										delay: index === 0 ? enterDelayE : index === 1 ? enterDelayD : enterDelayB
+									}
+								}}
 							>
 								<Letter
 									letter={letter}
 									color={(index === 0 ? colorE : index === 1 ? colorD : colorB) as SplashscreenColor}
 									colorMode={colorMode}
+									delay={index === 0 ? letterDelayE : index === 1 ? letterDelayD : letterDelayB}
 								/>
 							</SlideFade>
 						))}
