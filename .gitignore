@@ -9,10 +9,12 @@
 
 # Yarn 2
 .yarn/*
-!.yarn/releases/
-!.yarn/plugins/
-!.yarn/versions/
-!.yarn/sdks/
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 # testing
 /coverage
