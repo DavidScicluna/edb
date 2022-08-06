@@ -8,7 +8,7 @@ import { useWillUnmount } from 'rooks';
 import { useDispatch } from 'react-redux';
 import { useIsFirstRender, useTimeout } from 'usehooks-ts';
 
-import { usePopulateOptions, useSelector } from '../../common/hooks';
+import { useCheckColorMode, usePopulateOptions, useSelector } from '../../common/hooks';
 import Routes from '../Routes';
 import { guest, setUser } from '../../store/slices/Users';
 import Splashscreen from '../Splashscreen';
@@ -25,8 +25,10 @@ const Container: FC = () => {
 
 	usePopulateOptions();
 
-	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 5000 : null);
-	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 4000 : null);
+	useCheckColorMode();
+
+	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 10000 : null);
+	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 7500 : null);
 
 	useWillUnmount(() => {
 		if (!activeUser.data.credentials.rememberMe) {
