@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useTheme, Modal, ModalBody, ScaleFade, SlideFade, utils } from '@davidscicluna/component-library';
+import { useTheme, Modal, ModalBody, SlideFade, utils } from '@davidscicluna/component-library';
 
 import { useConst, Center, Show } from '@chakra-ui/react';
 
@@ -31,7 +31,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 				<Center width='100%' height='100vh'>
 					{/* Top */}
 					<Center position='absolute' top={0} left='50%' transform='translateX(-50%)' p={2}>
-						<SlideFade in transition={{ enter: { delay: delayLabel } }}>
+						<SlideFade in transition={{ enter: { delay: delayLabel } }} unmountOnExit>
 							<Label colorMode={colorMode} />
 						</SlideFade>
 					</Center>
@@ -44,7 +44,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 						transform='translateX(-50%) rotate(-180deg)'
 						p={2}
 					>
-						<SlideFade in transition={{ enter: { delay: delayLabel } }}>
+						<SlideFade in transition={{ enter: { delay: delayLabel } }} unmountOnExit>
 							<Label colorMode={colorMode} />
 						</SlideFade>
 					</Center>
@@ -58,7 +58,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 							transform='translateY(-50%) rotate(-90deg)'
 							p={2}
 						>
-							<SlideFade in transition={{ enter: { delay: delayLabel } }}>
+							<SlideFade in transition={{ enter: { delay: delayLabel } }} unmountOnExit>
 								<Label colorMode={colorMode} />
 							</SlideFade>
 						</Center>
@@ -71,15 +71,15 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 							transform='translateY(-50%) rotate(-270deg)'
 							p={2}
 						>
-							<SlideFade in transition={{ enter: { delay: delayLabel } }}>
+							<SlideFade in transition={{ enter: { delay: delayLabel } }} unmountOnExit>
 								<Label colorMode={colorMode} />
 							</SlideFade>
 						</Center>
 					</Show>
 
-					<ScaleFade in transition={{ enter: { delay: delayLogo } }}>
+					<SlideFade in transition={{ enter: { delay: delayLogo } }} unmountOnExit>
 						<Logo />
-					</ScaleFade>
+					</SlideFade>
 				</Center>
 			</ModalBody>
 		</Modal>
