@@ -4,8 +4,13 @@ import { useLocation } from 'react-router';
 
 import { NavItemType, useTheme, SideNavigation, NavItem, Icon } from '@davidscicluna/component-library';
 
+import { useDispatch } from 'react-redux';
+
 import useStyles from '../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../common/hooks';
+import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
+import { StructureCommonProps as NavigationProps } from '../../common/types';
+import { toggleUserThemeModal } from '../../../../../../store/slices/Modals';
 
 const navItems: NavItemType[] = [
 	{ title: 'Home', path: { pathname: '/' }, renderLeftIcon: (props) => <Icon {...props} icon='home' /> },
@@ -36,13 +41,15 @@ const navItems: NavItemType[] = [
 	}
 ];
 
-const Navigation: FC = () => {
+const Navigation: FC<NavigationProps> = ({ isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
 	const location = useLocation();
 
+	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+	const isUserThemeModalOpen = useSelector((state) => state.modals.ui.isUserThemeModalOpen);
 
 	const style = useStyles({ theme });
 
@@ -51,6 +58,18 @@ const Navigation: FC = () => {
 			{navItems.map((navItem) => (
 				<NavItem key={navItem.title} {...navItem} isActive={location.pathname === navItem.path.pathname} />
 			))}
+
+			{isGuest && (
+				<NavItem
+					title='Display'
+					path={{}}
+					isActive={isUserThemeModalOpen}
+					renderLeftIcon={(props) => (
+						<Icon {...props} icon='palette' category={isUserThemeModalOpen ? 'filled' : 'outlined'} />
+					)}
+					onClick={() => dispatch(toggleUserThemeModal(true))}
+				/>
+			)}
 		</SideNavigation>
 	);
 };
