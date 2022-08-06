@@ -7,27 +7,34 @@ import { useTheme, TabBar, Icon, utils } from '@davidscicluna/component-library'
 import { useBoolean, VStack, Center } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
+import { compact } from 'lodash';
+import { useDispatch } from 'react-redux';
 
+import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
+import { StructureCommonProps as StructureMobileProps } from '../../common/types';
 import Gradient from '../Gradient';
 import { useUserTheme, useSelector } from '../../../../../../common/hooks';
 import ScrollToTop from '../../../ScrollToTop';
 import UserPopper from '../UserPopper';
 import Avatar from '../../../../../../components/Avatar';
+import { toggleUserThemeModal } from '../../../../../../store/slices/Modals';
 
-const paths = ['/', '/search', '/trending'];
+const paths = ['/', '/search', '/trending', '', '/signin'];
 
 const { checkIsTouchDevice } = utils;
 
 const isTouchDevice: boolean = checkIsTouchDevice();
 
-const StructureMobile: FC = () => {
+const StructureMobile: FC<StructureMobileProps> = ({ isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const dispatch = useDispatch();
 	const activeUser = useSelector((state) => state.users.data.activeUser);
+	const isUserThemeModalOpen = useSelector((state) => state.modals.ui.isUserThemeModalOpen);
 	const { name, avatar_path } = activeUser.data.info;
 
 	const [tabBarRef, { height: tabBarHeight }] = useElementSize();
@@ -37,10 +44,12 @@ const StructureMobile: FC = () => {
 	const [isPopperOpen, setIsPopperOpen] = useBoolean();
 	const [isHoveringPopper, setIsHoveringPopper] = useBoolean();
 
+	// TODO: Check if with guest this logic is correct
 	const handleTabBarChange = useCallback(
 		(index: number) => {
+			setActiveTab(index);
+
 			if (index !== 3) {
-				setActiveTab(index);
 				navigate(paths[index]);
 			}
 		},
@@ -63,9 +72,9 @@ const StructureMobile: FC = () => {
 				<TabBar
 					color={color}
 					colorMode={colorMode}
-					activeTab={!isPopperOpen ? activeTab : 3}
+					activeTab={isPopperOpen || isUserThemeModalOpen ? 3 : activeTab}
 					onChange={handleTabBarChange}
-					tabs={[
+					tabs={compact([
 						{
 							renderIcon: (props) => (
 								<Icon
@@ -96,32 +105,57 @@ const StructureMobile: FC = () => {
 							),
 							label: 'Trending'
 						},
-						{
-							renderIcon: () => (
-								<Center mb={1}>
-									<UserPopper
-										isOpen={isPopperOpen}
-										gutter={32}
-										placement='bottom-end'
-										renderAction={() => (
-											<Avatar
-												alt={name}
-												borderRadius='full'
-												src={{ full: avatar_path }}
-												size={theme.fontSizes['3xl']}
+						isGuest
+							? {
+									renderIcon: (props) => (
+										<Icon
+											{...props}
+											icon='palette'
+											category={isUserThemeModalOpen ? 'filled' : 'outlined'}
+										/>
+									),
+									label: 'Display',
+									onClick: () => dispatch(toggleUserThemeModal(true)),
+									sx: isUserThemeModalOpen ? { cursor: 'pointer', pointerEvents: 'auto' } : {}
+							  }
+							: undefined,
+						!isGuest
+							? {
+									renderIcon: () => (
+										<Center mb={1}>
+											<UserPopper
+												isOpen={isPopperOpen}
+												gutter={32}
+												placement='bottom-end'
+												renderAction={() => (
+													<Avatar
+														alt={name}
+														borderRadius='full'
+														src={{ full: avatar_path }}
+														size={theme.fontSizes['3xl']}
+													/>
+												)}
 											/>
-										)}
-									/>
-								</Center>
-							),
-							label: 'You',
-							onClick: () => setIsPopperOpen.on(),
-							onBlur: !isHoveringPopper ? () => setIsPopperOpen.off() : undefined,
-							onMouseEnter: !isTouchDevice ? () => setIsHoveringPopper.on() : undefined,
-							onMouseLeave: !isTouchDevice ? () => setIsHoveringPopper.off() : undefined,
-							sx: isPopperOpen ? { cursor: 'pointer', pointerEvents: 'auto' } : {}
-						}
-					]}
+										</Center>
+									),
+									label: 'You',
+									onClick: () => setIsPopperOpen.on(),
+									onBlur: !isHoveringPopper ? () => setIsPopperOpen.off() : undefined,
+									onMouseEnter: !isTouchDevice ? () => setIsHoveringPopper.on() : undefined,
+									onMouseLeave: !isTouchDevice ? () => setIsHoveringPopper.off() : undefined,
+									sx: isPopperOpen ? { cursor: 'pointer', pointerEvents: 'auto' } : {}
+							  }
+							: {
+									renderIcon: (props) => (
+										<Icon
+											{...props}
+											icon='login'
+											category={location.pathname === paths[3] ? 'filled' : 'outlined'}
+										/>
+									),
+									label: 'Sign in'
+							  }
+					])}
 				/>
 			</Center>
 		</VStack>
