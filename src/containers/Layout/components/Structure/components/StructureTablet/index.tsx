@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 
 import { useLocation, Outlet } from 'react-router';
 
-import { useTheme, InternalLink, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
+import { useTheme, InternalLink, Button, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
 
 import { useDisclosure, VStack, HStack, Center } from '@chakra-ui/react';
 
@@ -11,15 +11,17 @@ import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 import { useUserTheme } from '../../../../../../common/hooks';
 import ScrollToTop from '../../../ScrollToTop';
 import Gradient from '../Gradient';
+import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
+import { StructureCommonProps as StructureTabletProps } from '../../common/types';
 
 import Sidebar from './components/Sidebar';
 import User from './components/User';
 
 const { getColor } = utils;
 
-const StructureTablet: FC = () => {
+const StructureTablet: FC<StructureTabletProps> = ({ isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
+	const { color, colorMode } = useUserTheme();
 
 	const location = useLocation();
 
@@ -67,7 +69,13 @@ const StructureTablet: FC = () => {
 							</InternalLink>
 						</Fade>
 
-						<User />
+						{!isGuest ? (
+							<User />
+						) : (
+							<InternalLink to={{ pathname: '/signin' }}>
+								<Button color={color}>Sign in</Button>
+							</InternalLink>
+						)}
 					</HStack>
 				</HStack>
 
@@ -85,7 +93,7 @@ const StructureTablet: FC = () => {
 				<ScrollToTop />
 			</VStack>
 
-			<Sidebar isOpen={isSidebarOpen} onClose={onSidebarClose} />
+			<Sidebar isGuest={isGuest} isOpen={isSidebarOpen} onClose={onSidebarClose} />
 		</>
 	);
 };

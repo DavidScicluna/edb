@@ -37,7 +37,8 @@ const User: FC = () => {
 										type: 'color'
 								  })
 								: theme.colors.transparent
-						}`
+						}`,
+						transition: `outline ${theme.transition.duration.faster} ${theme.transition.easing['ease-in-out']}`
 					}}
 				>
 					<Avatar alt={name} borderRadius='full' src={{ full: avatar_path }} size={theme.fontSizes['5xl']} />

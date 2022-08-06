@@ -6,6 +6,7 @@ import { Drawer, DrawerOverlay, DrawerContent, DrawerBody, VStack, Center } from
 
 import { useUpdateEffect } from 'usehooks-ts';
 
+import { isGuest as defaultIsGuest } from '../../../../common/data/defaultPropValues';
 import Logo from '../../../../../../../../components/Logo';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import Navigation from '../../../Navigation';
@@ -14,7 +15,7 @@ import { SidebarProps } from './types';
 
 const { getColor } = utils;
 
-const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
+const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest, isOpen = false, onClose }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -51,7 +52,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 							<Logo isClickable={false} isSquare size='xl' />
 						</InternalLink>
 
-						<Navigation />
+						<Navigation isGuest={isGuest} />
 					</VStack>
 				</DrawerBody>
 			</DrawerContent>
