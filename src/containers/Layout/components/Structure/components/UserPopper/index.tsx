@@ -4,21 +4,11 @@ import { useLocation } from 'react-router';
 
 import { useTheme, Divider, utils } from '@davidscicluna/component-library';
 
-import {
-	useDisclosure,
-	useBoolean,
-	Popover,
-	PopoverTrigger,
-	Portal,
-	PopoverContent,
-	PopoverArrow,
-	VStack
-} from '@chakra-ui/react';
+import { useDisclosure, Popover, PopoverTrigger, Portal, PopoverContent, PopoverArrow, VStack } from '@chakra-ui/react';
 
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { useSelector, useUserTheme } from '../../../../../../common/hooks';
-import { guest } from '../../../../../../store/slices/Users';
+import { useUserTheme } from '../../../../../../common/hooks';
 
 import SignOut from './components/SignOut';
 import Header from './components/Header';
@@ -35,18 +25,12 @@ const UserPopper: FC<UserPopperProps> = (props) => {
 
 	const location = useLocation();
 
-	const activeUser = useSelector((state) => state.users.data.activeUser);
-
 	const { isOpen = false, onOpen, onClose, renderAction, placement = 'bottom-end', gutter = 8, ...rest } = props;
 
 	const { isOpen: isPopperOpen, onOpen: onPopperOpen, onClose: onPopperClose } = useDisclosure();
 
-	const [isGuest, setIsGuest] = useBoolean(guest.data.id === activeUser.data.id);
-
 	const [background, setBackground] = useState<string>(getColor({ theme, colorMode, type: 'background' }));
 	const [border, setBorder] = useState<string>(getColor({ theme, colorMode, type: 'divider' }));
-
-	useUpdateEffect(() => setIsGuest[guest.data.id === activeUser.data.id ? 'on' : 'off'](), [activeUser]);
 
 	useUpdateEffect(() => setBackground(getColor({ theme, colorMode, type: 'background' })), [colorMode]);
 	useUpdateEffect(() => setBorder(getColor({ theme, colorMode, type: 'divider' })), [colorMode]);
@@ -75,24 +59,36 @@ const UserPopper: FC<UserPopperProps> = (props) => {
 				<PopoverContent
 					width='auto'
 					minWidth='275px'
-					background={background}
-					backgroundColor={background}
 					borderRadius='lg'
 					borderWidth='2px'
 					borderStyle='solid'
 					borderColor={border}
-					boxShadow='2xl'
-					p={2}
-					_focus={{ boxShadow: '2xl' }}
+					boxShadow='none'
+					_focus={{ boxShadow: 'none' }}
 				>
-					<PopoverArrow />
+					<PopoverArrow
+						background={`${background} !important`}
+						backgroundColor={`${background} !important`}
+						borderWidth='2px'
+						borderStyle='solid'
+						borderColor={border}
+						boxShadow='none !important'
+					/>
 
-					<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={2}>
-						<Header isGuest={isGuest} />
+					<VStack
+						width='100%'
+						background={background}
+						backgroundColor={background}
+						borderRadius='inherit'
+						divider={<Divider colorMode={colorMode} />}
+						spacing={2}
+						p={2}
+					>
+						<Header />
 
-						<Actions isGuest={isGuest} />
+						<Actions />
 
-						{!isGuest && <SignOut />}
+						<SignOut />
 					</VStack>
 				</PopoverContent>
 			</Portal>

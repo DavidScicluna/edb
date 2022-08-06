@@ -8,13 +8,11 @@ import { VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 
-import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import { toggleUserSwitcherModal, toggleUserThemeModal } from '../../../../../../../../store/slices/Modals';
 import { sx } from '../../common/styles';
-import { UserPopperCommonProps } from '../../common/types';
 
-const Actions: FC<UserPopperCommonProps> = ({ isGuest = defaultIsGuest }) => {
+const Actions: FC = () => {
 	const { color, colorMode } = useUserTheme();
 
 	const location = useLocation();
@@ -28,71 +26,65 @@ const Actions: FC<UserPopperCommonProps> = ({ isGuest = defaultIsGuest }) => {
 
 	return (
 		<VStack width='100%' spacing={0}>
-			{!isGuest && (
-				<InternalLink to='/profile' isDisabled={location.pathname === '/profile'} isFullWidth>
-					<Button
-						color={location.pathname === '/profile' ? color : 'gray'}
-						colorMode={colorMode}
-						renderLeft={(props) => (
-							<Icon
-								{...props}
-								icon='person'
-								category={location.pathname === '/profile' ? 'filled' : 'outlined'}
-							/>
-						)}
-						isFullWidth
-						size='lg'
-						variant='text'
-						sx={{ ...sx }}
-					>
-						Profile
-					</Button>
-				</InternalLink>
-			)}
+			<InternalLink to='/profile' isDisabled={location.pathname === '/profile'} isFullWidth>
+				<Button
+					color={location.pathname === '/profile' ? color : 'gray'}
+					colorMode={colorMode}
+					renderLeft={(props) => (
+						<Icon
+							{...props}
+							icon='person'
+							category={location.pathname === '/profile' ? 'filled' : 'outlined'}
+						/>
+					)}
+					isFullWidth
+					size='lg'
+					variant='text'
+					sx={{ ...sx }}
+				>
+					Profile
+				</Button>
+			</InternalLink>
 
-			{!isGuest && (
-				<InternalLink to='/liked' isDisabled={location.pathname === '/liked'} isFullWidth>
-					<Button
-						color={location.pathname === '/liked' ? color : 'gray'}
-						colorMode={colorMode}
-						renderLeft={(props) => (
-							<Icon
-								{...props}
-								icon={location.pathname === '/liked' ? 'favorite' : 'favorite_border'}
-								category='outlined'
-							/>
-						)}
-						isFullWidth
-						size='lg'
-						variant='text'
-						sx={{ ...sx }}
-					>
-						Liked
-					</Button>
-				</InternalLink>
-			)}
+			<InternalLink to='/liked' isDisabled={location.pathname === '/liked'} isFullWidth>
+				<Button
+					color={location.pathname === '/liked' ? color : 'gray'}
+					colorMode={colorMode}
+					renderLeft={(props) => (
+						<Icon
+							{...props}
+							icon={location.pathname === '/liked' ? 'favorite' : 'favorite_border'}
+							category='outlined'
+						/>
+					)}
+					isFullWidth
+					size='lg'
+					variant='text'
+					sx={{ ...sx }}
+				>
+					Liked
+				</Button>
+			</InternalLink>
 
-			{!isGuest && (
-				<InternalLink to='/lists' isDisabled={location.pathname === '/lists'} isFullWidth>
-					<Button
-						color={location.pathname === '/lists' ? color : 'gray'}
-						colorMode={colorMode}
-						renderLeft={(props) => (
-							<Icon
-								{...props}
-								icon={location.pathname === '/lists' ? 'bookmark' : 'bookmark_border'}
-								category='outlined'
-							/>
-						)}
-						isFullWidth
-						size='lg'
-						variant='text'
-						sx={{ ...sx }}
-					>
-						Lists
-					</Button>
-				</InternalLink>
-			)}
+			<InternalLink to='/lists' isDisabled={location.pathname === '/lists'} isFullWidth>
+				<Button
+					color={location.pathname === '/lists' ? color : 'gray'}
+					colorMode={colorMode}
+					renderLeft={(props) => (
+						<Icon
+							{...props}
+							icon={location.pathname === '/lists' ? 'bookmark' : 'bookmark_border'}
+							category='outlined'
+						/>
+					)}
+					isFullWidth
+					size='lg'
+					variant='text'
+					sx={{ ...sx }}
+				>
+					Lists
+				</Button>
+			</InternalLink>
 
 			{users.length > 0 && (
 				<Button

@@ -6,16 +6,14 @@ import { HStack, VStack, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import Avatar from '../../../../../../../../components/Avatar';
-import { UserPopperCommonProps } from '../../common/types';
 
 const { convertREMToPixels, convertStringToNumber, getColor } = utils;
 
 const spacing: Space = 2;
 
-const Header: FC<UserPopperCommonProps> = ({ isGuest = defaultIsGuest }) => {
+const Header: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -59,7 +57,7 @@ const Header: FC<UserPopperCommonProps> = ({ isGuest = defaultIsGuest }) => {
 					lineHeight='normal'
 					noOfLines={1}
 				>
-					{`@${isGuest ? name : username}`}
+					{`@${username}`}
 				</Text>
 			</VStack>
 		</HStack>
