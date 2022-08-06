@@ -27,8 +27,8 @@ const Container: FC = () => {
 
 	useCheckColorMode();
 
-	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 10000 : null);
-	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 7500 : null);
+	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 7500 : null);
+	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 5000 : null);
 
 	useWillUnmount(() => {
 		if (!activeUser.data.credentials.rememberMe) {
