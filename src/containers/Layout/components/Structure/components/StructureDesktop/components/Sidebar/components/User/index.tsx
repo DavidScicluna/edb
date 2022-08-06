@@ -7,11 +7,11 @@ import { useBoolean, useConst, VStack, HStack, Text } from '@chakra-ui/react';
 import { Transition } from 'framer-motion';
 import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 
-import useStyles from '../../../../../../common/styles';
-import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
-import UserPopper from '../../../UserPopper';
-import Avatar from '../../../../../../../../components/Avatar';
-import { guest } from '../../../../../../../../store/slices/Users';
+import useStyles from '../../../../../../../../common/styles';
+import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
+import UserPopper from '../../../../../UserPopper';
+import Avatar from '../../../../../../../../../../components/Avatar';
+import { guest } from '../../../../../../../../../../store/slices/Users';
 
 const { getTransitionDelay, convertREMToPixels, convertStringToNumber, getColor } = utils;
 

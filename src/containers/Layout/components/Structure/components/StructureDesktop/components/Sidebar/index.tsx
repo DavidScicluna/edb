@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { useTheme, Divider, InternalLink, IconButton, Icon, utils } from '@davidscicluna/component-library';
+import { useTheme, Divider, InternalLink, Button, IconButton, Icon, utils } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
@@ -8,18 +8,21 @@ import { useDispatch } from 'react-redux';
 import { omit } from 'lodash';
 import { useUpdateEffect } from 'usehooks-ts';
 
+import { isGuest as defaultIsGuest } from '../../../../common/data/defaultPropValues';
+import { StructureCommonProps as SidebarProps } from '../../../../common/types';
 import Logo from '../../../../../../../../components/Logo';
 import useStyles from '../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import { toggleSidebarMode } from '../../../../../../../../store/slices/App';
 import Navigation from '../../../Navigation';
-import User from '../User';
+
+import User from './components/User';
 
 const { getColor } = utils;
 
-const Sidebar: FC = () => {
+const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
+	const { color, colorMode } = useUserTheme();
 
 	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
@@ -61,11 +64,19 @@ const Sidebar: FC = () => {
 					/>
 				</InternalLink>
 
-				<Navigation />
+				<Navigation isGuest={isGuest} />
 			</VStack>
 
 			<VStack width='100%' spacing={1} sx={{ ...style }}>
-				<User />
+				{!isGuest ? (
+					<User />
+				) : (
+					<InternalLink to={{ pathname: '/signin' }} isFullWidth>
+						<Button color={color} isFullWidth>
+							Sign in
+						</Button>
+					</InternalLink>
+				)}
 
 				<IconButton
 					aria-label={sidebarMode === 'expanded' ? 'Collapse navigation-bar' : 'Expand navigation-bar'}

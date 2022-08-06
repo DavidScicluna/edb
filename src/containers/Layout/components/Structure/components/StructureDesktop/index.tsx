@@ -9,6 +9,8 @@ import { HStack, Center, VStack } from '@chakra-ui/react';
 import { useUpdateEffect } from 'usehooks-ts';
 import { pick } from 'lodash';
 
+import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
+import { StructureCommonProps as StructureDesktopProps } from '../../common/types';
 import { useSelector } from '../../../../../../common/hooks';
 import useStyle from '../../../../common/styles';
 import ScrollToTop from '../../../ScrollToTop';
@@ -16,7 +18,7 @@ import { sidebar } from '../../../../common/data/sidebar';
 
 import Sidebar from './components/Sidebar';
 
-const StructureDesktop: FC = () => {
+const StructureDesktop: FC<StructureDesktopProps> = ({ isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
@@ -30,7 +32,7 @@ const StructureDesktop: FC = () => {
 	return (
 		<HStack width='100%' minHeight='100vh' position='relative' spacing={0} sx={{ ...style }}>
 			<Center width={sidebarWidth} position='fixed' top={0} left={0} sx={{ ...style }}>
-				<Sidebar />
+				<Sidebar isGuest={isGuest} />
 			</Center>
 
 			<VStack
