@@ -8,18 +8,15 @@ import { useBoolean, VStack, Center } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 import { compact } from 'lodash';
-import { useDispatch } from 'react-redux';
 
 import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
 import { StructureCommonProps as StructureMobileProps } from '../../common/types';
 import Gradient from '../Gradient';
 import { useUserTheme, useSelector } from '../../../../../../common/hooks';
-import ScrollToTop from '../../../ScrollToTop';
 import UserPopper from '../UserPopper';
 import Avatar from '../../../../../../components/Avatar';
-import { toggleUserThemeModal } from '../../../../../../store/slices/Modals';
 
-const paths = ['/', '/search', '/trending', '', '/signin'];
+const paths = ['/', '/search', '/trending', '/signin'];
 
 const { checkIsTouchDevice } = utils;
 
@@ -32,9 +29,7 @@ const StructureMobile: FC<StructureMobileProps> = ({ isGuest = defaultIsGuest })
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const dispatch = useDispatch();
 	const activeUser = useSelector((state) => state.users.data.activeUser);
-	const isUserThemeModalOpen = useSelector((state) => state.modals.ui.isUserThemeModalOpen);
 	const { name, avatar_path } = activeUser.data.info;
 
 	const [tabBarRef, { height: tabBarHeight }] = useElementSize();
@@ -49,7 +44,7 @@ const StructureMobile: FC<StructureMobileProps> = ({ isGuest = defaultIsGuest })
 		(index: number) => {
 			setActiveTab(index);
 
-			if (index !== 3) {
+			if (!isGuest ? index !== 3 : true) {
 				navigate(paths[index]);
 			}
 		},
@@ -62,8 +57,6 @@ const StructureMobile: FC<StructureMobileProps> = ({ isGuest = defaultIsGuest })
 		<VStack width='100%' minHeight='100vh' position='relative' spacing={0}>
 			<Center width='100%' minHeight={`calc(100vh - ${tabBarHeight}px)`} position='relative' top={0}>
 				<Outlet />
-
-				<ScrollToTop />
 			</Center>
 
 			<Gradient position='fixed' bottom={tabBarHeight} />
@@ -72,7 +65,7 @@ const StructureMobile: FC<StructureMobileProps> = ({ isGuest = defaultIsGuest })
 				<TabBar
 					color={color}
 					colorMode={colorMode}
-					activeTab={isPopperOpen || isUserThemeModalOpen ? 3 : activeTab}
+					activeTab={isPopperOpen ? 3 : activeTab}
 					onChange={handleTabBarChange}
 					tabs={compact([
 						{
@@ -105,20 +98,6 @@ const StructureMobile: FC<StructureMobileProps> = ({ isGuest = defaultIsGuest })
 							),
 							label: 'Trending'
 						},
-						isGuest
-							? {
-									renderIcon: (props) => (
-										<Icon
-											{...props}
-											icon='palette'
-											category={isUserThemeModalOpen ? 'filled' : 'outlined'}
-										/>
-									),
-									label: 'Display',
-									onClick: () => dispatch(toggleUserThemeModal(true)),
-									sx: isUserThemeModalOpen ? { cursor: 'pointer', pointerEvents: 'auto' } : {}
-							  }
-							: undefined,
 						!isGuest
 							? {
 									renderIcon: () => (
