@@ -7,13 +7,11 @@ import { useTheme } from '@davidscicluna/component-library';
 import { HStack, Center, VStack } from '@chakra-ui/react';
 
 import { useUpdateEffect } from 'usehooks-ts';
-import { pick } from 'lodash';
 
 import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
 import { StructureCommonProps as StructureDesktopProps } from '../../common/types';
 import { useSelector } from '../../../../../../common/hooks';
 import useStyle from '../../../../common/styles';
-import ScrollToTop from '../../../ScrollToTop';
 import { sidebar } from '../../../../common/data/sidebar';
 
 import Sidebar from './components/Sidebar';
@@ -44,7 +42,7 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ isGuest = defaultIsGuest 
 				alignItems='center'
 				justifyContent='center'
 				spacing={0}
-				sx={{ ...pick(style, 'transitionDelay') }}
+				sx={{ ...style }}
 			>
 				<Outlet />
 
@@ -62,8 +60,6 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ isGuest = defaultIsGuest 
 					{/* <Footer /> */}
 				{/* </VStack> */}
 			</VStack>
-
-			<ScrollToTop />
 		</HStack>
 	);
 };
