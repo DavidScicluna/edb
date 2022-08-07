@@ -5,13 +5,14 @@ import {
 	ModalHeader,
 	ModalBody,
 	ModalFooter,
+	Divider,
 	Button,
 	IconButton,
 	Icon,
 	utils
 } from '@davidscicluna/component-library';
 
-import { ColorMode, useColorMode, Text } from '@chakra-ui/react';
+import { ColorMode, useColorMode, VStack, Text } from '@chakra-ui/react';
 
 import { useForm, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -69,8 +70,16 @@ const UserThemeModal: FC = () => {
 	useEffect(() => setColorMode(watchColorMode === 'system' ? getColorMode() : watchColorMode), [watchColorMode]);
 
 	return (
-		<form onSubmit={form.handleSubmit((theme) => handleSubmit({ ...theme }))}>
-			<Modal colorMode={colorMode} isOpen={isUserThemeModalOpen} onClose={handleClose} size='3xl'>
+		<Modal colorMode={colorMode} isOpen={isUserThemeModalOpen} onClose={handleClose} size='3xl'>
+			{/* TODO: Find a way to have form as parent in Modal to get form working properly */}
+			<VStack
+				as='form'
+				width='100%'
+				overflow='auto'
+				divider={<Divider colorMode={colorMode} />}
+				onSubmit={form.handleSubmit((theme) => handleSubmit({ ...theme }))}
+				spacing={2}
+			>
 				<ModalHeader
 					renderTitle={(props) => <Text {...props}>Edit Application Theme</Text>}
 					renderCancel={({ icon, category, ...rest }) => (
@@ -79,6 +88,7 @@ const UserThemeModal: FC = () => {
 						</IconButton>
 					)}
 				/>
+
 				<ModalBody>
 					<UserThemeCustomization form={form} color={watchColor} colorMode={watchColorMode} />
 				</ModalBody>
@@ -94,8 +104,8 @@ const UserThemeModal: FC = () => {
 						</Button>
 					)}
 				/>
-			</Modal>
-		</form>
+			</VStack>
+		</Modal>
 	);
 };
 
