@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { useTheme, Divider, InternalLink, Button, IconButton, Icon, utils } from '@davidscicluna/component-library';
+import { useTheme, Divider, InternalLink, IconButton, Icon, utils } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
@@ -15,14 +15,16 @@ import useStyles from '../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import { toggleSidebarMode } from '../../../../../../../../store/slices/App';
 import Navigation from '../../../Navigation';
+import GuestColorModeSwitcher from '../../../GuestColorModeSwitcher';
 
 import User from './components/User';
+import SignInButton from './components/SignInButton';
 
 const { getColor } = utils;
 
 const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
-	const { color, colorMode } = useUserTheme();
+	const { colorMode } = useUserTheme();
 
 	const dispatch = useDispatch();
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
@@ -64,18 +66,18 @@ const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest }) => {
 					/>
 				</InternalLink>
 
-				<Navigation isGuest={isGuest} />
+				<Navigation />
 			</VStack>
 
 			<VStack width='100%' spacing={1} sx={{ ...style }}>
 				{!isGuest ? (
 					<User />
 				) : (
-					<InternalLink to={{ pathname: '/signin' }} isFullWidth>
-						<Button color={color} isFullWidth>
-							Sign in
-						</Button>
-					</InternalLink>
+					<>
+						<GuestColorModeSwitcher />
+
+						<SignInButton />
+					</>
 				)}
 
 				<IconButton
