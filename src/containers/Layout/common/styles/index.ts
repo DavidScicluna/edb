@@ -13,6 +13,10 @@ export default memoize(({ theme }: LayoutStyleProps): Style => {
 		'height',
 		'min-height',
 		'max-height',
+		'top',
+		'bottom',
+		'left',
+		'right',
 		'padding'
 	].join(', ');
 	const transitionDuration = theme.transition.duration.slow;
