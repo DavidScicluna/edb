@@ -1,6 +1,4 @@
-import { StructureCommonProps } from '../../../../common/types';
-
-export type SidebarProps = StructureCommonProps & {
+export type SidebarProps = {
 	isOpen?: boolean;
 	onClose: () => void;
 };

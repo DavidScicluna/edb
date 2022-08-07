@@ -6,16 +6,16 @@ import { Drawer, DrawerOverlay, DrawerContent, DrawerBody, VStack, Center } from
 
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { isGuest as defaultIsGuest } from '../../../../common/data/defaultPropValues';
 import Logo from '../../../../../../../../components/Logo';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import Navigation from '../../../Navigation';
+import GuestColorModeSwitcher from '../../../GuestColorModeSwitcher';
 
 import { SidebarProps } from './types';
 
 const { getColor } = utils;
 
-const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest, isOpen = false, onClose }) => {
+const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -41,18 +41,27 @@ const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest, isOpen = false, o
 
 					<VStack
 						width='100%'
-						alignItems='flex-start'
-						divider={<Divider colorMode={colorMode} />}
+						height='100vh'
+						justifyContent='space-between'
 						background={background}
 						backgroundColor={background}
 						p={2}
-						spacing={2}
+						spacing={0}
 					>
-						<InternalLink to={{ pathname: '/' }}>
-							<Logo isClickable={false} isSquare size='xl' />
-						</InternalLink>
+						<VStack
+							width='100%'
+							alignItems='flex-start'
+							divider={<Divider colorMode={colorMode} />}
+							spacing={2}
+						>
+							<InternalLink to={{ pathname: '/' }}>
+								<Logo isClickable={false} isSquare size='xl' />
+							</InternalLink>
 
-						<Navigation isGuest={isGuest} />
+							<Navigation />
+						</VStack>
+
+						<GuestColorModeSwitcher isFixed />
 					</VStack>
 				</DrawerBody>
 			</DrawerContent>
