@@ -1,5 +1,5 @@
-type StructureType = 'mobile' | 'tablet' | 'desktop';
+import { LayoutCommonProps } from '../../common/types';
 
-export type StructureProps = {
-	type: StructureType;
-};
+import { StructureCommonProps } from './common/types';
+
+export type StructureProps = LayoutCommonProps & StructureCommonProps;
