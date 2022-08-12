@@ -4,18 +4,22 @@ import { Input, Icon } from '@davidscicluna/component-library';
 
 import { isBoolean } from 'lodash';
 
+import { useUserTheme } from '../../../../common/hooks';
+
 import { UsernameProps } from './types';
 
-const Username = ({ field, fieldState, colorMode }: UsernameProps): ReactElement => {
-	const { name, onBlur, onChange, value } = field;
+const Username = ({ field, fieldState }: UsernameProps): ReactElement => {
+	const { color, colorMode } = useUserTheme();
+
+	const { onChange, onBlur, value, name } = field;
 	const { error } = fieldState;
 
 	return (
 		<Input
-			// color={color}
-			color='blue'
+			color={color}
 			colorMode={colorMode}
 			label='Username'
+			id={name}
 			name={name}
 			helper={error ? error.message : undefined}
 			placeholder='johnsmith'
@@ -24,7 +28,7 @@ const Username = ({ field, fieldState, colorMode }: UsernameProps): ReactElement
 			isError={isBoolean(error)}
 			isFullWidth
 			isRequired
-			renderLeftPanel={() => <Icon icon='alternate_email' category='outlined' />}
+			renderLeftPanel={(props) => <Icon {...props} icon='alternate_email' category='outlined' />}
 			value={value}
 		/>
 	);
