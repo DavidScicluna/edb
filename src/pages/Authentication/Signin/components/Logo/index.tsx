@@ -14,10 +14,10 @@ const Logo: FC = () => {
 
 	return (
 		<Center
-			width={[theme.space[10], theme.space[16]]}
-			height={[theme.space[10], theme.space[16]]}
-			fontSize={['200%', '300%']}
-			borderWidth={['2px', '4px']}
+			width={[theme.space[10], theme.space[12], theme.space[14], theme.space[16]]}
+			height={[theme.space[10], theme.space[12], theme.space[14], theme.space[16]]}
+			fontSize={['200%', '250%', '250%', '300%']}
+			borderWidth={['2px', '2px', '4px', '4px']}
 			sx={{
 				cursor: 'default',
 
