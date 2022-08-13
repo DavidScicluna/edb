@@ -94,6 +94,7 @@ const Footer: FC<FooterProps> = ({ form }) => {
 						<Icon icon={icon} category={category} />
 					</IconButton>
 				)}
+				spacing={2}
 			>
 				<ConfirmModalBody>
 					<ConfirmModalTitle>Sign in as a Guest?</ConfirmModalTitle>
