@@ -114,7 +114,7 @@ const SignIn: FC = () => {
 				maxWidth='container.sm'
 				centerContent
 				justifyContent='space-between'
-				p={[2, 3, 4, 6]}
+				p={[2, 3, 3.5, 4]}
 				spacing={0}
 			>
 				<Header />
