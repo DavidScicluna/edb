@@ -1,5 +1,4 @@
 import Illustration from './Illustration';
-import Password from './Password';
-import Username from './Username';
+import PasswordIcon from './PasswordIcon';
 
-export { Illustration, Password, Username };
+export { Illustration, PasswordIcon };
