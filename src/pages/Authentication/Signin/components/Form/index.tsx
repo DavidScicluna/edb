@@ -17,8 +17,8 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 
 	return (
 		<DSUIForm width='100%' onSubmit={handleSubmit((values) => onSubmit({ ...values }))}>
-			<Card colorMode={colorMode} isFullWidth p={[2, 3, 4, 5]}>
-				<VStack width='100%' divider={<Divider />} spacing={[1, 1.5, 2, 2.5]}>
+			<Card colorMode={colorMode} isFullWidth p={[2, 3, 3.5, 4]}>
+				<VStack width='100%' divider={<Divider />} spacing={[1, 1.5, 1.75, 2]}>
 					<CardBody>
 						<Body form={form} />
 					</CardBody>
