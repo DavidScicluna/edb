@@ -1,20 +1,18 @@
 import React, { FC } from 'react';
 
-import { useTheme, Checkbox, CheckboxTitle, InternalLink, Button, utils } from '@davidscicluna/component-library';
+import { Checkbox, CheckboxTitle, InternalLink, Button } from '@davidscicluna/component-library';
 
 import { VStack, HStack } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
+import { omit } from 'lodash';
 
 import { Username, Password } from '../../../../../components';
 import { useUserTheme } from '../../../../../../../common/hooks';
 
 import { BodyProps } from './types';
 
-const { getColor } = utils;
-
 const Body: FC<BodyProps> = ({ form }) => {
-	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
 	const { control } = form;
@@ -45,11 +43,10 @@ const Body: FC<BodyProps> = ({ form }) => {
 							name={name}
 							isChecked={value}
 							onBlur={onBlur}
-							onChange={(event) => form.setValue(name, event.target.checked, { shouldDirty: false })}
+							onChange={({ isChecked }) => form.setValue(name, isChecked, { shouldDirty: false })}
 							renderRightPanel={(props) => (
 								<CheckboxTitle
-									{...props}
-									color={getColor({ theme, colorMode, type: 'text.secondary' })}
+									{...omit(props, ['width', 'height'])}
 									fontSize='xs'
 									fontWeight='semibold'
 									textTransform='uppercase'
