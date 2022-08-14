@@ -46,6 +46,7 @@ const ForgotPassword: FC = () => {
 				width={isLg ? `calc(100% - ${illustrationWidth}px)` : '100%'}
 				minHeight='100vh'
 				position='absolute'
+				top={0}
 				left={0}
 				alignItems='center'
 				justifyContent='center'
@@ -54,7 +55,7 @@ const ForgotPassword: FC = () => {
 				<Form form={form} onSubmit={handleChangePassword} />
 			</Center>
 
-			{isLg && <Illustration ref={illustrationRef} position='fixed' right={0} />}
+			{isLg && <Illustration ref={illustrationRef} position='fixed' top={0} right={0} />}
 		</Center>
 	);
 };

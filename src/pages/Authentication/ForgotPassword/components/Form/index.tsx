@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router';
 
 import {
+	useTheme,
 	Form as DSUIForm,
 	Card,
 	CardHeader,
@@ -14,7 +15,7 @@ import {
 	Button
 } from '@davidscicluna/component-library';
 
-import { useBoolean, useConst, Container, VStack, HStack, Text } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean, useConst, Container, VStack, HStack, Text } from '@chakra-ui/react';
 
 import { useFormState, Controller } from 'react-hook-form';
 import { sample } from 'lodash';
@@ -26,6 +27,9 @@ import { PasswordIcon } from '../../../components';
 import { FormProps } from './types';
 
 const Form: FC<FormProps> = ({ form, onSubmit }) => {
+	const theme = useTheme();
+	const [isSm] = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
+
 	const { color, colorMode } = useUserTheme();
 
 	const navigate = useNavigate();
@@ -67,7 +71,7 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 							)}
 						/>
 						<CardBody>
-							<VStack width='100%' divider={<Divider />} spacing={4}>
+							<VStack width='100%' divider={<Divider />} spacing={[2, 2, 3, 3]}>
 								<Controller
 									control={control}
 									name='username'
@@ -85,8 +89,13 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 											isError={!!error}
 											isFullWidth
 											isRequired
-											renderLeftPanel={(props) => (
-												<Icon {...props} icon='alternate_email' category='outlined' />
+											renderLeftPanel={({ color, ...rest }) => (
+												<Icon
+													{...rest}
+													icon='alternate_email'
+													category='outlined'
+													skeletonColor={color}
+												/>
 											)}
 											value={value}
 										/>
@@ -113,14 +122,15 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 												isError={!!error}
 												isFullWidth
 												isRequired
-												renderRightPanel={(props) => (
+												renderRightPanel={({ color, ...rest }) => (
 													<PasswordIcon
-														{...props}
+														{...rest}
 														label='Current Password'
 														isVisible={isCurrentPassVisible}
 														isHovering={isHoveringCurrentPass}
 														setIsVisible={setIsCurrentPassVisible}
 														setIsHovering={setIsHoveringCurrentPass}
+														iconProps={{ ...rest, skeletonColor: color }}
 													/>
 												)}
 												type={isCurrentPassVisible ? 'text' : 'password'}
@@ -148,14 +158,15 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 												isError={!!error}
 												isFullWidth
 												isRequired
-												renderRightPanel={(props) => (
+												renderRightPanel={({ color, ...rest }) => (
 													<PasswordIcon
-														{...props}
+														{...rest}
 														label='New Password'
 														isVisible={isNewPassVisible}
 														isHovering={isHoveringNewPass}
 														setIsVisible={setIsNewPassVisible}
 														setIsHovering={setIsHoveringNewPass}
+														iconProps={{ ...rest, skeletonColor: color }}
 													/>
 												)}
 												type={isNewPassVisible ? 'text' : 'password'}
@@ -183,14 +194,15 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 												isError={!!error}
 												isFullWidth
 												isRequired
-												renderRightPanel={(props) => (
+												renderRightPanel={({ color, ...rest }) => (
 													<PasswordIcon
-														{...props}
+														{...rest}
 														label='Confirm Password'
 														isVisible={isConfirmPassVisible}
 														isHovering={isHoveringConfirmPass}
 														setIsVisible={setIsConfirmPassVisible}
 														setIsHovering={setIsHoveringConfirmPass}
+														iconProps={{ ...rest, skeletonColor: color }}
 													/>
 												)}
 												type={isConfirmPassVisible ? 'text' : 'password'}
@@ -208,7 +220,7 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 								</Button>
 
 								<Button color={color} colorMode={colorMode} isDisabled={!isDirty} type='submit'>
-									Change Password
+									{isSm ? 'Change Password' : 'Change'}
 								</Button>
 							</HStack>
 						</CardFooter>
