@@ -1,14 +1,14 @@
 import { FC } from 'react';
 
-import { useTheme, Modal, ModalBody, ScaleFade, Fade, utils } from '@davidscicluna/component-library';
+import { useTheme, Modal, ModalBody, ScaleFade, SlideFade, utils } from '@davidscicluna/component-library';
 
-import { useConst, Center, Show } from '@chakra-ui/react';
+import { useBreakpointValue, useConst, Center, Show } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../common/hooks';
 
-import Label from './components/Label';
+import SplashscreenLabel from './components/SplashscreenLabel';
 import { SplashscreenProps } from './types';
-import Logo from './components/SplashscreenLogo';
+import SplashscreenLogo from './components/SplashscreenLogo';
 
 const { getColor, getTransitionDuration } = utils;
 
@@ -19,6 +19,15 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 	const theme = useTheme();
 
 	const { colorMode } = useUserTheme();
+
+	const logoOffsetY = useBreakpointValue({
+		'base': '25vw',
+		'sm': '20vw',
+		'md': '15vw',
+		'lg': '12.5vw',
+		'xl': '12.5vw',
+		'2xl': '10vw'
+	});
 
 	const delayLogo = useConst<number>(1);
 	const delayLabel = useConst<number>(2.5);
@@ -36,7 +45,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 							transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}
 							unmountOnExit
 						>
-							<Label colorMode={colorMode} />
+							<SplashscreenLabel colorMode={colorMode} />
 						</ScaleFade>
 					</Center>
 
@@ -53,7 +62,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 							transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}
 							unmountOnExit
 						>
-							<Label colorMode={colorMode} />
+							<SplashscreenLabel colorMode={colorMode} />
 						</ScaleFade>
 					</Center>
 
@@ -71,7 +80,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 								transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}
 								unmountOnExit
 							>
-								<Label colorMode={colorMode} />
+								<SplashscreenLabel colorMode={colorMode} />
 							</ScaleFade>
 						</Center>
 
@@ -88,14 +97,19 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 								transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}
 								unmountOnExit
 							>
-								<Label colorMode={colorMode} />
+								<SplashscreenLabel colorMode={colorMode} />
 							</ScaleFade>
 						</Center>
 					</Show>
 
-					<Fade in transition={{ enter: { duration, delay: delayLogo }, exit: { duration } }} unmountOnExit>
-						<Logo />
-					</Fade>
+					<SlideFade
+						in
+						transition={{ enter: { duration, delay: delayLogo }, exit: { duration } }}
+						unmountOnExit
+						offsetY={logoOffsetY}
+					>
+						<SplashscreenLogo />
+					</SlideFade>
 				</Center>
 			</ModalBody>
 		</Modal>
