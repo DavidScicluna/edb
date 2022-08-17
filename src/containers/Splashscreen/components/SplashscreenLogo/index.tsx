@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback } from 'react';
+import { FC, useState, useCallback } from 'react';
 
 import { useTheme, utils } from '@davidscicluna/component-library';
 
