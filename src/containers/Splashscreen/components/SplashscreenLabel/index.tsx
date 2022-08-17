@@ -4,11 +4,11 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { Text } from '@chakra-ui/react';
 
-import { LabelProps } from './types';
+import { SplashscreenLabelProps } from './types';
 
 const { getColor } = utils;
 
-const Label: FC<LabelProps> = ({ colorMode, ...rest }) => {
+const SplashscreenLabel: FC<SplashscreenLabelProps> = ({ colorMode, ...rest }) => {
 	const theme = useTheme();
 
 	return (
@@ -26,4 +26,4 @@ const Label: FC<LabelProps> = ({ colorMode, ...rest }) => {
 	);
 };
 
-export default Label;
+export default SplashscreenLabel;
