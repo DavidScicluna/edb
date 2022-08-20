@@ -1,4 +1,10 @@
+import { AxiosRequestConfig } from 'axios';
+
 export type Orientation = 'vertical' | 'horizontal';
+
+export type AxiosConfig = Omit<AxiosRequestConfig, 'cancelToken'>;
+
+export type QueryError = { status_message?: string; status_code?: number };
 
 // Data Types
 export type BoringAvatarVariant = 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
@@ -145,6 +151,8 @@ export type Genre = {
 	name?: string;
 };
 
+export type Genres = { genres?: Genre[] };
+
 export type Certification = {
 	certification?: string;
 	meaning?: string;
@@ -153,4 +161,6 @@ export type Certification = {
 
 // export type CertificationKey = 'US' | 'CA' | 'DE' | 'GB' | 'AU' | 'BR' | 'FR' | 'NZ' | 'IN';
 
-export type Certifications = { [key: string]: Certification[] };
+export type CountryCertifications = { [key: string]: Certification[] };
+
+export type Certifications = { certifications?: CountryCertifications };
