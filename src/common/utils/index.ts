@@ -1,4 +1,4 @@
-import { Theme, ColorHues, Colors } from '@davidscicluna/component-library';
+import { ColorHues, Colors } from '@davidscicluna/component-library';
 
 import dayjs from 'dayjs';
 import { memoize } from 'lodash';
