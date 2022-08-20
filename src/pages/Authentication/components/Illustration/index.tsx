@@ -4,7 +4,7 @@ import { useConst, Box } from '@chakra-ui/react';
 
 import { sample } from 'lodash';
 
-import signin from '../../../../common/assets/illustrations/signin';
+import signin from '../../../../common/assets/illustrations';
 import { useUserTheme } from '../../../../common/hooks';
 
 import { IllustrationRef, IllustrationProps } from './types';
