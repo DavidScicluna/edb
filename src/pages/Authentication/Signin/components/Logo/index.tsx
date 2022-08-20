@@ -1,8 +1,10 @@
-import React, { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { Center } from '@chakra-ui/react';
+
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../common/hooks';
 
@@ -11,6 +13,10 @@ const { getColor } = utils;
 const Logo: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
+
+	const [color, setColor] = useState(getColor({ theme, colorMode, type: 'text.primary' }));
+
+	useUpdateEffect(() => setColor(getColor({ theme, colorMode, type: 'text.primary' })), [colorMode]);
 
 	return (
 		<Center
@@ -35,12 +41,12 @@ const Logo: FC = () => {
 				userSelect: 'none',
 
 				borderStyle: 'solid',
-				borderColor: getColor({ theme, colorMode, type: 'text.primary' }),
+				borderColor: color,
 				borderRadius: theme.radii.full,
 
 				background: theme.colors.transparent,
 				backgroundColor: theme.colors.transparent,
-				color: getColor({ theme, colorMode, type: 'text.primary' }),
+				color: color,
 
 				fontFamily: '"Pacifico", cursive',
 				fontWeight: theme.fontWeights.normal,
