@@ -1,10 +1,10 @@
-import { DetailsProps } from '../../types';
+import { DetailsStepProps } from '../../types';
 
 type Placeholder = {
 	firstName: string;
 	lastName: string;
 };
 
-export type InfoProps = DetailsProps & {
+export type InfoProps = DetailsStepProps & {
 	placeholder: Placeholder;
 };

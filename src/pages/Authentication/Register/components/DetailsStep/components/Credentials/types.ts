@@ -1,5 +1,5 @@
-import { DetailsProps } from '../../types';
+import { DetailsStepProps } from '../../types';
 
-export type CredentialsProps = DetailsProps & {
+export type CredentialsProps = DetailsStepProps & {
 	placeholder: string;
 };
