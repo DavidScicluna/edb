@@ -12,3 +12,4 @@ export const movieGenresQueryKey: QueryKey = ['movie_genres'];
 
 export const tvShowCertificationsQueryKey: QueryKey = ['tv_show_certifications'];
 
+export const tvShowGenresQueryKey: QueryKey = ['tv_show_genres'];

@@ -4,6 +4,8 @@ import useLanguagesQuery from './useLanguagesQuery';
 import useMovieCertificationsQuery from './useMovieCertificationsQuery';
 import useMovieGenresQuery from './useMovieGenresQuery';
 import useTVShowCertificationsQuery from './useTVShowCertificationsQuery';
+import useTVShowGenresQuery from './useTVShowGenresQuery';
+
 export {
 	useCountriesQuery,
 	useJobsQuery,
@@ -11,4 +13,5 @@ export {
 	useMovieCertificationsQuery,
 	useMovieGenresQuery,
 	useTVShowCertificationsQuery,
+	useTVShowGenresQuery
 };
