@@ -1,3 +1,5 @@
+import { IconProps } from '@davidscicluna/component-library';
+
 import { CenterProps } from '@chakra-ui/react';
 
 type SetProps = {
@@ -12,4 +14,5 @@ export type PasswordIconProps = Omit<CenterProps, 'children'> & {
 	isHovering?: boolean;
 	setIsVisible: SetProps;
 	setIsHovering: SetProps;
+	iconProps?: Omit<IconProps, 'icon' | 'category'>;
 };

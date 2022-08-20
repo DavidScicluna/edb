@@ -11,26 +11,37 @@ import { PasswordIconProps } from './types';
 const PasswordIcon = (props: PasswordIconProps): ReactElement => {
 	const { colorMode } = useUserTheme();
 
-	const { label = 'Password', isVisible = false, isHovering = false, setIsVisible, setIsHovering, ...rest } = props;
-
-	console.log(props);
+	const {
+		label = 'Password',
+		isVisible = false,
+		isHovering = false,
+		setIsVisible,
+		setIsHovering,
+		iconProps = {},
+		...rest
+	} = props;
 
 	return (
 		<Tooltip
 			colorMode={colorMode}
-			aria-label={isVisible ? 'Hide PasswordIcon (tooltip)' : `Show ${label} (tooltip)`}
-			label={isVisible ? 'Hide PasswordIcon' : `Show ${label}`}
-			placement='top'
+			aria-label={isVisible ? `Hide ${label} (tooltip)` : `Show ${label} (tooltip)`}
+			label={isVisible ? `Hide ${label}` : `Show ${label}`}
+			placement='top-end'
 			isOpen={isHovering}
 		>
 			<Center
 				{...rest}
-				aria-label={isVisible ? 'Hide password' : `Show ${label}`}
+				aria-label={isVisible ? `Hide ${label}` : `Show ${label}`}
 				onClick={() => setIsVisible.toggle()}
 				onMouseEnter={() => setIsHovering.on()}
 				onMouseLeave={() => setIsHovering.off()}
 			>
-				<Icon icon={isVisible ? 'visibility_off' : 'visibility'} category='outlined' />
+				<Icon
+					{...iconProps}
+					colorMode={colorMode}
+					icon={isVisible ? 'visibility_off' : 'visibility'}
+					category='outlined'
+				/>
 			</Center>
 		</Tooltip>
 	);
