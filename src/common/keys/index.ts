@@ -6,3 +6,5 @@ export const jobsQueryKey: QueryKey = ['jobs'];
 
 export const languagesQueryKey: QueryKey = ['languages'];
 
+export const movieCertificationsQueryKey: QueryKey = ['movie_certifications'];
+
