@@ -2,12 +2,14 @@ import { FC, useState, useCallback } from 'react';
 
 import { useNavigate } from 'react-router';
 
-import { SimpleGrid, Container, VStack, Show } from '@chakra-ui/react';
+import { useTheme } from '@davidscicluna/component-library';
+
+import { useMediaQuery, Center, Container, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 import { debounce, merge } from 'lodash';
 import { SHA256 } from 'crypto-js';
 import { sort } from 'fast-sort';
@@ -33,10 +35,15 @@ export const defaultValues: FormType = {
 };
 
 const SignIn: FC = () => {
+	const theme = useTheme();
+	const [isLg] = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
+
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
 	const users = useSelector((state) => state.users.data.users);
+
+	const [illustrationRef, { width: illustrationWidth, height: illustrationHeight }] = useElementSize();
 
 	const [selectedUserID, setSelectedUserID] = useState<string>('');
 
@@ -46,8 +53,8 @@ const SignIn: FC = () => {
 	});
 	const { control, setValue, getValues } = form;
 
-	const username = useWatch({ control, name: 'username' });
-	const password = useWatch({ control, name: 'password' });
+	const watchUsername = useWatch({ control, name: 'username' });
+	const watchPassword = useWatch({ control, name: 'password' });
 
 	const handleUserClick = (user: User): void => {
 		setSelectedUserID(user.data.id);
@@ -59,11 +66,15 @@ const SignIn: FC = () => {
 		debounce((): void => {
 			const user = users.find((user) => user.data.id === selectedUserID);
 
-			if (user && user.data.credentials.username !== username && user.data.credentials.password !== password) {
+			if (
+				user &&
+				user.data.credentials.username !== watchUsername &&
+				user.data.credentials.password !== watchPassword
+			) {
 				setSelectedUserID('');
 			}
 		}, 500),
-		[users, selectedUserID, username, password]
+		[users, selectedUserID, watchUsername, watchPassword]
 	);
 
 	const handleSubmitForm = (credentials: FormType): void => {
@@ -99,33 +110,42 @@ const SignIn: FC = () => {
 		}
 	};
 
-	useUpdateEffect(() => handleCheckForm(), [username, password]);
+	useUpdateEffect(() => handleCheckForm(), [watchUsername, watchPassword]);
 
 	return (
-		<SimpleGrid width='100%' height='100vh' columns={[1, 1, 1, 2]} spacing={0}>
-			<Show breakpoint='(min-width: 992px)'>
-				<Illustration />
-			</Show>
+		<Center width='100%' minHeight='100vh' position='relative' overflowX='hidden' overflowY='auto'>
+			{isLg && <Illustration ref={illustrationRef} position='fixed' top={0} left={0} />}
 
-			<Container
-				as={VStack}
-				width='100%'
-				height='inherit'
-				maxWidth='container.sm'
-				centerContent
-				justifyContent='space-between'
-				p={[2, 3, 3.5, 4]}
-				spacing={0}
+			<Center
+				width={isLg ? `calc(100% - ${illustrationWidth}px)` : '100%'}
+				minHeight='100vh'
+				position='absolute'
+				top={0}
+				right={0}
+				alignItems='center'
+				justifyContent='center'
 			>
-				<Header />
+				<Container
+					as={VStack}
+					width='100%'
+					minHeight='inherit'
+					maxWidth='container.lg'
+					centerContent
+					justifyContent='space-between'
+					spacing={[3, 3, 4, 4]}
+					px={[2, 2, 3, 3]}
+					py={[3, 3, 4, 4]}
+				>
+					<Header />
 
-				{users.length > 0 && <Users selectedUserID={selectedUserID} onUserClick={handleUserClick} />}
+					{users.length > 0 && <Users selectedUserID={selectedUserID} onUserClick={handleUserClick} />}
 
-				<Form form={form} onSubmit={handleSubmitForm} />
+					<Form form={form} onSubmit={handleSubmitForm} />
 
-				<Footer />
-			</Container>
-		</SimpleGrid>
+					<Footer />
+				</Container>
+			</Center>
+		</Center>
 	);
 };
 
