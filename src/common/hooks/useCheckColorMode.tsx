@@ -29,13 +29,16 @@ const useCheckColorMode = (): void => {
 	const { setColorMode } = useColorMode();
 
 	// const dispatch = useDispatch();
-	const theme = useSelector((state) => state.users.data.activeUser.ui.theme || guest.ui.theme);
+	const colorMode = useSelector(
+		(state) => state.users.data.activeUser.ui.theme.colorMode || guest.ui.theme.colorMode
+	);
 
+	// Checks user OS color-scheme mode
 	const isDarkMode = useMediaMatch('(prefers-color-scheme: dark)');
 
 	const handleSetColorMode = useCallback(
 		debounce(() => {
-			const mode = getMode({ colorMode: theme.colorMode, isDarkMode });
+			const mode = getMode({ colorMode, isDarkMode });
 
 			setColorMode(mode);
 			// TODO: Maybe show spinner
@@ -43,7 +46,7 @@ const useCheckColorMode = (): void => {
 			// 	dispatch(toggleSpinnerModal(true));
 			// }
 		}, 1000),
-		[theme, isDarkMode]
+		[colorMode, isDarkMode]
 	);
 
 	useEffect(() => handleSetColorMode(), [isDarkMode]);
