@@ -1,14 +1,27 @@
-const names: string[] = [
-	'James Smith',
-	'Mary Johnson',
-	'Robert Williams',
-	'Patricia Brown',
-	'John Jones',
-	'Jennifer Garcia',
-	'Michael Miller',
-	'Linda Davis',
-	'David Rodriguez',
-	'Elizabeth Martinez'
+const firstNames: string[] = [
+	'James',
+	'Mary',
+	'Robert',
+	'Patricia',
+	'John',
+	'Jennifer',
+	'Michael',
+	'Linda',
+	'David',
+	'Elizabeth'
+];
+
+const lastNames: string[] = [
+	'Smith',
+	'Johnson',
+	'Williams',
+	'Brown',
+	'Jones',
+	'Garcia',
+	'Miller',
+	'Davis',
+	'Rodriguez',
+	'Martinez'
 ];
 
 const usernames: string[] = [
@@ -24,4 +37,4 @@ const usernames: string[] = [
 	'elizabethmartinez'
 ];
 
-export { names, usernames };
+export { firstNames, lastNames, usernames };
