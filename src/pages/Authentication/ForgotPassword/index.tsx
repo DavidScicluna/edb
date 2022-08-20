@@ -1,18 +1,19 @@
 import { FC } from 'react';
 
-import { useParams } from 'react-router';
+import { useLocation } from 'react-router';
 
 import { useTheme } from '@davidscicluna/component-library';
 
-import { useMediaQuery, Center } from '@chakra-ui/react';
+import { useMediaQuery, Center, Container } from '@chakra-ui/react';
 
+import qs from 'query-string';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useElementSize } from 'usehooks-ts';
 
 import Illustration from '../components/Illustration';
 
-import { Form as FormType, Params } from './types';
+import { Form as FormType } from './types';
 import { schema } from './validation';
 import Form from './components/Form';
 
@@ -27,12 +28,12 @@ const ForgotPassword: FC = () => {
 	const theme = useTheme();
 	const [isLg] = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
 
-	const { username } = useParams<Params>();
+	const location = useLocation();
 
 	const [illustrationRef, { width: illustrationWidth }] = useElementSize();
 
 	const form = useForm<FormType>({
-		defaultValues: { ...defaultValues, username },
+		defaultValues: { ...defaultValues, ...qs.parse(location.search) },
 		resolver: yupResolver(schema)
 	});
 
@@ -50,9 +51,10 @@ const ForgotPassword: FC = () => {
 				left={0}
 				alignItems='center'
 				justifyContent='center'
-				p={[2, 2, 3, 3]}
 			>
-				<Form form={form} onSubmit={handleChangePassword} />
+				<Container maxWidth='container.lg' centerContent px={[2, 2, 3, 3]} py={[3, 3, 4, 4]}>
+					<Form form={form} onSubmit={handleChangePassword} />
+				</Container>
 			</Center>
 
 			{isLg && <Illustration ref={illustrationRef} position='fixed' top={0} right={0} />}
