@@ -12,9 +12,9 @@ import {
 
 import Credentials from './components/Credentials';
 import Info from './components/Info';
-import { DetailsProps } from './types';
+import { DetailsStepProps } from './types';
 
-const Details: FC<DetailsProps> = ({ ...rest }) => {
+const DetailsStep: FC<DetailsStepProps> = ({ ...rest }) => {
 	const placeholderIndex = useConst<number | undefined>(sample(range(usernamePlaceholders.length)));
 
 	const usernamePlaceholder = useConst<string>(
@@ -32,4 +32,4 @@ const Details: FC<DetailsProps> = ({ ...rest }) => {
 	);
 };
 
-export default Details;
+export default DetailsStep;
