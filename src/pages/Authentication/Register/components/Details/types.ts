@@ -1,10 +1,8 @@
-import { ColorMode } from '@chakra-ui/react';
-
 import { UseFormReturn } from 'react-hook-form';
 
-import { DetailsForm, CustomizationForm } from '../../types';
+import { RegisterCommonProps } from '../../common/types';
+import { DetailsForm } from '../../types';
 
-export type DetailsProps = {
+export type DetailsProps = RegisterCommonProps & {
 	form: UseFormReturn<DetailsForm>;
-	colorMode: ColorMode;
-} & Omit<CustomizationForm, 'colorMode'>;
+};
