@@ -4,10 +4,7 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
 
-import { compact } from 'lodash';
-import { useWindowSize } from 'usehooks-ts';
-
-import { useSelector, useUserTheme } from '../../../../../common/hooks';
+import { useUserTheme } from '../../../../../common/hooks';
 import Logo from '../Logo';
 
 const { getColor } = utils;
@@ -15,10 +12,6 @@ const { getColor } = utils;
 const Header: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
-
-	const { height: windowHeight } = useWindowSize();
-
-	const users = useSelector((state) => state.users.data.users.length);
 
 	return (
 		<VStack width='100%' spacing={2}>
@@ -28,7 +21,7 @@ const Header: FC = () => {
 				<Text
 					align='center'
 					color={getColor({ theme, colorMode, type: 'text.primary' })}
-					fontSize={['3xl', '4xl', '5xl', '6xl']}
+					fontSize={['4xl', '4xl', '6xl', '6xl']}
 					lineHeight='base'
 					whiteSpace='nowrap'
 				>
@@ -37,14 +30,10 @@ const Header: FC = () => {
 				<Text
 					align='center'
 					color={getColor({ theme, colorMode, type: 'text.secondary' })}
-					fontSize={['xs', 'xs', 'xs', 'sm']}
+					fontSize={['xs', 'xs', 'sm', 'sm']}
 				>
-					{compact([
-						'Welcome to The Entertainment Database application or EDB for short.',
-						users === 0 || windowHeight > 960
-							? 'The one-stop app for all things Movies, TV Shows, and the people that make it happen!'
-							: null
-					]).join(' ')}
+					Welcome to The Entertainment Database application or EDB for short. The one-stop app for all things
+					Movies, TV Shows, and the people that make it happen!
 				</Text>
 			</VStack>
 		</VStack>
