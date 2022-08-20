@@ -1,43 +1,62 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-import { Card, CardHeader, CardBody, Button } from '@davidscicluna/component-library';
+import { useTheme, Card, CardHeader, CardBody, Button, Input, Textarea } from '@davidscicluna/component-library';
 
-import { VStack, Text } from '@chakra-ui/react';
+import { useMediaQuery, VStack, Text, SimpleGrid } from '@chakra-ui/react';
 
-import { isEmpty, isNil } from 'lodash';
+import { useWatch, Controller } from 'react-hook-form';
 
+import {} from '../../../../../common/data/placeholders';
+import {
+	color as defaultColor,
+	colorMode as defaultColorMode
+} from '../../../../../../../common/data/defaultPropValues';
 import { detailsDefaultValues as defaultValues } from '../../../../defaults';
-import { DetailsProps as InfoProps } from '../../types';
 
-import Name from './components/Name';
-import Bio from './components/Bio';
+import { InfoProps } from './types';
 
-const Info = ({ form, color, colorMode }: InfoProps): ReactElement => {
-	const firstName = form.watch('firstName');
-	const lastName = form.watch('lastName');
-	const bio = form.watch('bio');
+const Info: FC<InfoProps> = (props) => {
+	const theme = useTheme();
+	const [isSm] = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
+
+	const { form, color = defaultColor, colorMode = defaultColorMode, placeholder } = props;
+	const { control, getValues, reset } = form;
+
+	const watchFirstName = useWatch({ control, name: 'firstName' });
+	const watchLastName = useWatch({ control, name: 'lastName' });
+	const watchBio = useWatch({ control, name: 'bio' });
 
 	const handleClear = (): void => {
-		form.setValue('firstName', defaultValues.firstName, { shouldDirty: false });
-		form.setValue('lastName', defaultValues.lastName, { shouldDirty: false });
-		form.setValue('bio', defaultValues.bio, { shouldDirty: false });
+		reset(
+			{
+				...getValues(),
+				firstName: defaultValues.firstName,
+				lastName: defaultValues.lastName,
+				bio: defaultValues.bio
+			},
+			{
+				keepDirty: true,
+				keepDirtyValues: true,
+				keepErrors: true,
+				keepIsSubmitted: true,
+				keepIsValid: true,
+				keepSubmitCount: true,
+				keepTouched: true
+			}
+		);
 	};
 
 	return (
-		<Card colorMode={colorMode} isFullWidth variant='outlined'>
+		<Card colorMode={colorMode} isFullWidth variant='outlined' p={2}>
 			<CardHeader
 				renderTitle={(props) => <Text {...props}>Information</Text>}
 				actions={
 					<Button
 						color={color}
 						colorMode={colorMode}
-						isDisabled={
-							(isNil(firstName) || isEmpty(firstName)) &&
-							(isNil(lastName) || isEmpty(lastName)) &&
-							(isNil(bio) || isEmpty(bio))
-						}
+						isDisabled={!watchFirstName && !watchLastName && !watchBio}
 						onClick={() => handleClear()}
-						size='sm'
+						size='xs'
 						variant='text'
 					>
 						Clear
@@ -46,8 +65,70 @@ const Info = ({ form, color, colorMode }: InfoProps): ReactElement => {
 			/>
 			<CardBody>
 				<VStack width='100%' spacing={2}>
-					<Name form={form} color={color} colorMode={colorMode} />
-					<Bio form={form} color={color} colorMode={colorMode} />
+					<SimpleGrid width='100%' columns={isSm ? 2 : 1} spacing={2}>
+						<Controller
+							control={control}
+							name='firstName'
+							render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
+								<Input
+									color={color}
+									colorMode={colorMode}
+									label='First name'
+									name={name}
+									helper={error ? error.message : undefined}
+									placeholder={placeholder.firstName}
+									onBlur={onBlur}
+									onChange={onChange}
+									isError={!!error}
+									isFullWidth
+									isRequired
+									value={value}
+								/>
+							)}
+						/>
+
+						<Controller
+							control={control}
+							name='lastName'
+							render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
+								<Input
+									color={color}
+									colorMode={colorMode}
+									label='Last name'
+									name={name}
+									helper={error ? error.message : undefined}
+									placeholder={placeholder.lastName}
+									onBlur={onBlur}
+									onChange={onChange}
+									isError={!!error}
+									isFullWidth
+									isRequired
+									value={value}
+								/>
+							)}
+						/>
+					</SimpleGrid>
+
+					<Controller
+						control={control}
+						name='bio'
+						render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
+							<Textarea
+								color={color}
+								colorMode={colorMode}
+								label='Biography'
+								name={name}
+								helper={error ? error.message : undefined}
+								placeholder={`My name is ${placeholder.firstName} ${placeholder.lastName} ...`}
+								onBlur={onBlur}
+								onChange={onChange}
+								isError={!!error}
+								isFullWidth
+								value={value}
+								sx={{ textarea: { height: theme.space[12.5] } }}
+							/>
+						)}
+					/>
 				</VStack>
 			</CardBody>
 		</Card>
