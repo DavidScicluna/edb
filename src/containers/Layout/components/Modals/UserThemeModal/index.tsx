@@ -14,7 +14,7 @@ import {
 
 import { ColorMode, useColorMode, VStack, Text } from '@chakra-ui/react';
 
-import { useForm, useFormState } from 'react-hook-form';
+import { useForm, useWatch, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import UserThemeCustomization from '../../../../../components/User/UserThemeCustomization';
@@ -37,22 +37,24 @@ const UserThemeModal: FC = () => {
 	const [colorMode, setColorMode] = useState<ColorMode>(theme.colorMode);
 
 	const form = useForm<Form>({ defaultValues: { ...theme } });
+	const { control, reset, handleSubmit } = form;
 
-	const [watchColor, watchColorMode] = form.watch(['color', 'colorMode']);
+	const watchColor = useWatch({ control, name: 'color' });
+	const watchColorMode = useWatch({ control, name: 'colorMode' });
 
-	const { isDirty, dirtyFields } = useFormState({ control: form.control });
+	const { isDirty, dirtyFields } = useFormState({ control });
 
 	const handleClose = (): void => {
-		form.reset({ ...theme });
+		reset({ ...theme });
 
 		dispatch(toggleUserThemeModal(false));
 	};
 
-	const handleSubmit = ({ color, colorMode }: Form): void => {
+	const handleSubmitForm = ({ color, colorMode }: Form): void => {
 		dispatch(toggleSpinnerModal(true));
 		dispatch(setUserTheme({ id, data: { color, colorMode } }));
 
-		form.reset({ color, colorMode });
+		reset({ color, colorMode });
 
 		if (dirtyFields.colorMode) {
 			if (colorMode !== 'system') {
@@ -77,7 +79,7 @@ const UserThemeModal: FC = () => {
 				width='100%'
 				overflow='auto'
 				divider={<Divider colorMode={colorMode} />}
-				onSubmit={form.handleSubmit((theme) => handleSubmit({ ...theme }))}
+				onSubmit={handleSubmit((theme) => handleSubmitForm({ ...theme }))}
 				spacing={2}
 			>
 				<ModalHeader
