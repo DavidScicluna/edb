@@ -21,12 +21,12 @@ const Spinner: FC<SpinnerProps> = ({ isOpen = false, onClose }) => {
 	const { colorMode } = useUserTheme();
 
 	const logoOffsetY = useBreakpointValue({
-		'base': '25vw',
-		'sm': '20vw',
-		'md': '15vw',
-		'lg': '12.5vw',
-		'xl': '12.5vw',
-		'2xl': '10vw'
+		'base': '20vw',
+		'sm': '15vw',
+		'md': '10vw',
+		'lg': '7.5vw',
+		'xl': '7.5vw',
+		'2xl': '5vw'
 	});
 
 	const delayLogo = useConst<number>(0.5);
