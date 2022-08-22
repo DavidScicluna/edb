@@ -57,7 +57,7 @@ const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest }) => {
 				spacing={2}
 				sx={{ ...style }}
 			>
-				<InternalLink to={{ pathname: '/' }}>
+				<InternalLink to='/'>
 					<Logo
 						isClickable={false}
 						isSquare

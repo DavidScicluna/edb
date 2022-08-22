@@ -54,7 +54,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 							divider={<Divider colorMode={colorMode} />}
 							spacing={2}
 						>
-							<InternalLink to={{ pathname: '/' }}>
+							<InternalLink to='/'>
 								<Logo isClickable={false} isSquare size='xl' />
 							</InternalLink>
 

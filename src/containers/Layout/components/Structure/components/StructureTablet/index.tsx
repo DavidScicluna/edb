@@ -61,7 +61,7 @@ const StructureTablet: FC<StructureTabletProps> = ({ isGuest = defaultIsGuest })
 
 					<HStack spacing={2}>
 						<Fade in={location.pathname !== '/search'} unmountOnExit>
-							<InternalLink to={{ pathname: '/search' }}>
+							<InternalLink to='/search'>
 								<IconButton aria-label='Search Button' colorMode={colorMode} variant='icon'>
 									<Icon icon='search' />
 								</IconButton>
@@ -71,7 +71,7 @@ const StructureTablet: FC<StructureTabletProps> = ({ isGuest = defaultIsGuest })
 						{!isGuest ? (
 							<User />
 						) : (
-							<InternalLink to={{ pathname: '/signin' }}>
+							<InternalLink to='/signin'>
 								<Button color={color}>Sign in</Button>
 							</InternalLink>
 						)}
