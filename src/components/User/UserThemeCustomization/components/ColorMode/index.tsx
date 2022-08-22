@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Card, CardHeader, CardBody, utils } from '@davidscicluna/component-library';
+import { useTheme, Card, CardHeader, CardBody, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, Text } from '@chakra-ui/react';
 
@@ -13,12 +13,17 @@ import ColorModeItem from './components/ColorModeItem';
 
 const { getColorMode } = utils;
 
-const ColorMode: FC<ColorModeProps> = ({ form, color = defaultColor, colorMode = defaultColorMode }) => {
-	const [isXs] = useMediaQuery('(max-width: 600px)');
+const ColorMode: FC<ColorModeProps> = (props) => {
+	// TODO: Update all Media Querys to use theme breakpoints
+	const theme = useTheme();
+	const [isXs] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
+	const { form, color = defaultColor, colorMode = defaultColorMode } = props;
+	const { control, setValue } = form;
 
 	return (
 		<Controller
-			control={form.control}
+			control={control}
 			name='colorMode'
 			render={({ field: { onBlur, value, name, ref } }) => (
 				<Card
@@ -38,7 +43,7 @@ const ColorMode: FC<ColorModeProps> = ({ form, color = defaultColor, colorMode =
 								label='Light'
 								value='light'
 								isActive={value === 'light'}
-								onClick={() => form.setValue(name, 'light', { shouldDirty: true })}
+								onClick={() => setValue(name, 'light', { shouldDirty: true })}
 							/>
 
 							{/* System */}
@@ -48,7 +53,7 @@ const ColorMode: FC<ColorModeProps> = ({ form, color = defaultColor, colorMode =
 								label='System'
 								value='system'
 								isActive={value === 'system'}
-								onClick={() => form.setValue(name, 'system', { shouldDirty: true })}
+								onClick={() => setValue(name, 'system', { shouldDirty: true })}
 							/>
 
 							{/* Dark */}
@@ -58,7 +63,7 @@ const ColorMode: FC<ColorModeProps> = ({ form, color = defaultColor, colorMode =
 								label='Dark'
 								value='dark'
 								isActive={value === 'dark'}
-								onClick={() => form.setValue(name, 'dark', { shouldDirty: true })}
+								onClick={() => setValue(name, 'dark', { shouldDirty: true })}
 							/>
 						</Stack>
 					</CardBody>

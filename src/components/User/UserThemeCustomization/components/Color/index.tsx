@@ -30,10 +30,13 @@ const colors: UserThemeColor[] = [
 
 const { getColorMode } = utils;
 
-const Color: FC<ColorProps> = ({ form, colorMode = defaultColorMode }) => {
+const Color: FC<ColorProps> = (props) => {
+	const { form, colorMode = defaultColorMode } = props;
+	const { control, setValue } = form;
+
 	return (
 		<Controller
-			control={form.control}
+			control={control}
 			name='color'
 			render={({ field: { onBlur, value, name, ref } }) => (
 				<Card
@@ -53,7 +56,7 @@ const Color: FC<ColorProps> = ({ form, colorMode = defaultColorMode }) => {
 									colorMode={colorMode}
 									label={startCase(capitalize(color))}
 									isActive={color === value}
-									onClick={() => form.setValue(name, color, { shouldDirty: true })}
+									onClick={() => setValue(name, color, { shouldDirty: true })}
 								/>
 							))}
 						</SimpleGrid>

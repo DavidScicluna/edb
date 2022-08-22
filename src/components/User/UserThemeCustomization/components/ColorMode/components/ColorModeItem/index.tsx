@@ -58,7 +58,7 @@ const ColorModeItem: FC<ColorModeItemProps> = (props) => {
 					width={theme.fontSizes['8xl']}
 					height={theme.fontSizes['8xl']}
 					fontSize={theme.fontSizes['8xl']}
-					icon={value === 'light' ? 'light_mode' : value === 'dark' ? 'dark_mode' : 'autorenew'}
+					icon={value === 'light' ? 'light_mode' : value === 'dark' ? 'dark_mode' : 'contrast'}
 				/>
 			</CardBody>
 		</Card>
