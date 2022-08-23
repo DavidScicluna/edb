@@ -4,6 +4,8 @@ import { Card, CardHeader, CardBody, Badge, BadgeLabel, Button } from '@davidsci
 
 import { Wrap, WrapItem, Text } from '@chakra-ui/react';
 
+import { useIsFetching } from '@tanstack/react-query';
+
 import { Controller } from 'react-hook-form';
 import { range } from 'lodash';
 
@@ -12,6 +14,7 @@ import QueryError from '../../../../../../../components/Empties/QueryError';
 import { useSelector } from '../../../../../../../common/hooks';
 import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../../../common/types';
 import { genresDefaultValues as defaultValues } from '../../../../defaults';
+import { tvShowGenresQueryKey } from '../../../../../../../common/keys';
 import { useTVShowGenresQuery } from '../../../../../../../common/queries';
 import {
 	color as defaultColor,
@@ -26,21 +29,17 @@ const TVShowGenres: FC<TVShowGenresProps> = (props) => {
 	const { color = defaultColor, colorMode = defaultColorMode, form } = props;
 	const { control, setValue } = form;
 
+	const isFetchingTVShowGenres = useIsFetching(tvShowGenresQueryKey);
+
 	const stateGenres = useSelector((state) => state.options.data.genres.tv || []);
 
 	const [allGenres, setAllGenres] = useState<GenreType[]>([...stateGenres]);
 
 	const [error, setError] = useState<QueryErrorType>();
 
-	const {
-		isFetching: isFetchingTVShowGenres,
-		isLoading: isTVShowGenresLoading,
-		isError: isTVShowGenresError,
-		isSuccess: isTVShowGenresSuccess,
-		refetch: refetchTVShowGenres
-	} = useTVShowGenresQuery({
+	const { isFetching, isLoading, isError, isSuccess, refetch } = useTVShowGenresQuery({
 		options: {
-			enabled: stateGenres.length === 0,
+			enabled: !isFetchingTVShowGenres && allGenres.length === 0,
 			onSuccess: ({ genres = [] }) => setAllGenres([...genres]),
 			onError: (error) => setError(error.response?.data)
 		}
@@ -62,7 +61,7 @@ const TVShowGenres: FC<TVShowGenresProps> = (props) => {
 								genres={genres.length}
 								onClear={() => setValue(name, defaultValues[name], { shouldDirty: true })}
 								onToggle={() =>
-									setValue(name, genres === allGenres ? [] : [...allGenres], {
+									setValue(name, genres.length === allGenres.length ? [] : [...allGenres], {
 										shouldDirty: true
 									})
 								}
@@ -70,16 +69,16 @@ const TVShowGenres: FC<TVShowGenresProps> = (props) => {
 						}
 					/>
 					<CardBody>
-						{isFetchingTVShowGenres || isTVShowGenresLoading ? (
-							<Wrap width='100%' spacing={1}>
+						{isFetching || isLoading ? (
+							<Wrap width='100%' spacing={1.5}>
 								{range(0, 15).map((_dummy, index) => (
 									<WrapItem key={index}>
 										<DummyGenre colorMode={colorMode} />
 									</WrapItem>
 								))}
 							</Wrap>
-						) : isTVShowGenresSuccess && allGenres.length > 0 ? (
-							<Wrap width='100%' spacing={1}>
+						) : isSuccess && allGenres.length > 0 ? (
+							<Wrap width='100%' spacing={1.5}>
 								{allGenres.map(({ id, ...rest }) => (
 									<WrapItem key={id}>
 										<Genre
@@ -101,7 +100,7 @@ const TVShowGenres: FC<TVShowGenresProps> = (props) => {
 									</WrapItem>
 								))}
 							</Wrap>
-						) : isTVShowGenresError ? (
+						) : isError ? (
 							<QueryError
 								colorMode={colorMode}
 								type='TV Show Genres'
@@ -117,7 +116,7 @@ const TVShowGenres: FC<TVShowGenresProps> = (props) => {
 										: undefined
 								}
 								renderAction={({ children, ...rest }) => (
-									<Button {...rest} color={color} onClick={() => refetchTVShowGenres()}>
+									<Button {...rest} color={color} onClick={() => refetch()}>
 										{children}
 									</Button>
 								)}
