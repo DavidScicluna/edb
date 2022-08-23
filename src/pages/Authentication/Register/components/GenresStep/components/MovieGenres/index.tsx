@@ -4,6 +4,8 @@ import { Card, CardHeader, CardBody, Badge, BadgeLabel, Button } from '@davidsci
 
 import { Wrap, WrapItem, Text } from '@chakra-ui/react';
 
+import { useIsFetching } from '@tanstack/react-query';
+
 import { Controller } from 'react-hook-form';
 import { range } from 'lodash';
 
@@ -21,10 +23,13 @@ import { GenresStepProps as MovieGenresProps } from '../../types';
 import Genre from '../Genre';
 import DummyGenre from '../DummyGenre';
 import Actions from '../Actions';
+import { movieGenresQueryKey } from '../../../../../../../common/keys';
 
 const MovieGenres: FC<MovieGenresProps> = (props) => {
 	const { color = defaultColor, colorMode = defaultColorMode, form } = props;
 	const { control, setValue } = form;
+
+	const isFetchingMovieGenres = useIsFetching(movieGenresQueryKey);
 
 	const stateGenres = useSelector((state) => state.options.data.genres.movie || []);
 
@@ -32,15 +37,9 @@ const MovieGenres: FC<MovieGenresProps> = (props) => {
 
 	const [error, setError] = useState<QueryErrorType>();
 
-	const {
-		isFetching: isFetchingMovieGenres,
-		isLoading: isMovieGenresLoading,
-		isError: isMovieGenresError,
-		isSuccess: isMovieGenresSuccess,
-		refetch: refetchMovieGenres
-	} = useMovieGenresQuery({
+	const { isFetching, isLoading, isError, isSuccess, refetch } = useMovieGenresQuery({
 		options: {
-			enabled: stateGenres.length === 0,
+			enabled: !isFetchingMovieGenres && allGenres.length === 0,
 			onSuccess: ({ genres = [] }) => setAllGenres([...genres]),
 			onError: (error) => setError(error.response?.data)
 		}
@@ -62,7 +61,7 @@ const MovieGenres: FC<MovieGenresProps> = (props) => {
 								genres={genres.length}
 								onClear={() => setValue(name, defaultValues[name], { shouldDirty: true })}
 								onToggle={() =>
-									setValue(name, genres === allGenres ? [] : [...allGenres], {
+									setValue(name, genres.length === allGenres.length ? [] : [...allGenres], {
 										shouldDirty: true
 									})
 								}
@@ -70,16 +69,16 @@ const MovieGenres: FC<MovieGenresProps> = (props) => {
 						}
 					/>
 					<CardBody>
-						{isFetchingMovieGenres || isMovieGenresLoading ? (
-							<Wrap width='100%' spacing={1}>
+						{isFetching || isLoading ? (
+							<Wrap width='100%' spacing={1.5}>
 								{range(0, 15).map((_dummy, index) => (
 									<WrapItem key={index}>
 										<DummyGenre colorMode={colorMode} />
 									</WrapItem>
 								))}
 							</Wrap>
-						) : isMovieGenresSuccess && allGenres.length > 0 ? (
-							<Wrap width='100%' spacing={1}>
+						) : isSuccess && allGenres.length > 0 ? (
+							<Wrap width='100%' spacing={1.5}>
 								{allGenres.map(({ id, ...rest }) => (
 									<WrapItem key={id}>
 										<Genre
@@ -101,7 +100,7 @@ const MovieGenres: FC<MovieGenresProps> = (props) => {
 									</WrapItem>
 								))}
 							</Wrap>
-						) : isMovieGenresError ? (
+						) : isError ? (
 							<QueryError
 								colorMode={colorMode}
 								type='Movie Genres'
@@ -117,7 +116,7 @@ const MovieGenres: FC<MovieGenresProps> = (props) => {
 										: undefined
 								}
 								renderAction={({ children, ...rest }) => (
-									<Button {...rest} color={color} onClick={() => refetchMovieGenres()}>
+									<Button {...rest} color={color} onClick={() => refetch()}>
 										{children}
 									</Button>
 								)}
