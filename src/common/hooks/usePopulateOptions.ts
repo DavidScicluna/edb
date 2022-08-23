@@ -23,52 +23,31 @@ const usePopulateOptions = (): void => {
 	const dispatch = useDispatch();
 
 	useCountriesQuery({
-		options: {
-			retry: true,
-			onSuccess: (countries = []) => dispatch(setCountries([...countries]))
-		}
+		options: { onSuccess: (countries = []) => dispatch(setCountries([...countries])) }
 	});
 
 	useJobsQuery({
-		options: {
-			retry: true,
-			onSuccess: (jobs = []) => dispatch(setJobs([...jobs]))
-		}
+		options: { onSuccess: (jobs = []) => dispatch(setJobs([...jobs])) }
 	});
 
 	useLanguagesQuery({
-		options: {
-			retry: true,
-			onSuccess: (languages = []) => dispatch(setLanguages([...languages]))
-		}
+		options: { onSuccess: (languages = []) => dispatch(setLanguages([...languages])) }
 	});
 
 	useMovieCertificationsQuery({
-		options: {
-			retry: true,
-			onSuccess: (certifications) => dispatch(setMovieCertifications({ ...(certifications || {}) }))
-		}
+		options: { onSuccess: (certifications) => dispatch(setMovieCertifications({ ...(certifications || {}) })) }
 	});
 
 	useMovieGenresQuery({
-		options: {
-			retry: true,
-			onSuccess: ({ genres = [] }) => dispatch(setMovieGenres([...genres]))
-		}
-	});
-
-	useTVShowGenresQuery({
-		options: {
-			retry: true,
-			onSuccess: ({ genres = [] }) => dispatch(setTVGenres([...genres]))
-		}
+		options: { onSuccess: ({ genres = [] }) => dispatch(setMovieGenres([...genres])) }
 	});
 
 	useTVShowCertificationsQuery({
-		options: {
-			retry: true,
-			onSuccess: (certifications) => dispatch(setTVCertifications({ ...(certifications || {}) }))
-		}
+		options: { onSuccess: (certifications) => dispatch(setTVCertifications({ ...(certifications || {}) })) }
+	});
+
+	useTVShowGenresQuery({
+		options: { onSuccess: ({ genres = [] }) => dispatch(setTVGenres([...genres])) }
 	});
 };
 
