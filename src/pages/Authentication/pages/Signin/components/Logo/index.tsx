@@ -6,7 +6,7 @@ import { Center } from '@chakra-ui/react';
 
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { useUserTheme } from '../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../common/hooks';
 
 const { getColor } = utils;
 

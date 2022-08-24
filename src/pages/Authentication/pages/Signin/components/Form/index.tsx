@@ -33,18 +33,18 @@ import qs from 'query-string';
 import { merge, omit, sample } from 'lodash';
 import { useDispatch } from 'react-redux';
 
-import { useUserTheme } from '../../../../../common/hooks';
-import { usernames as placeholders } from '../../../common/data/placeholders';
-import { PasswordIcon } from '../../../components';
-import { toggleSpinnerModal } from '../../../../../store/slices/Modals';
-import { guest, setUser } from '../../../../../store/slices/Users';
-import { getBoringAvatarSrc } from '../../../../../common/utils';
+import { useUserTheme } from '../../../../../../common/hooks';
+import { usernames as placeholders } from '../../../../common/data/placeholders';
+import { PasswordIcon } from '../../../../components';
+import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
+import { guest, setUser } from '../../../../../../store/slices/Users';
+import { getBoringAvatarSrc } from '../../../../../../common/utils';
 
 import { FormProps } from './types';
 
 const { getHue } = utils;
 
-const Form: FC<FormProps> = ({ form, onSubmit }) => {
+const Form: FC<FormProps> = (props) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -54,7 +54,8 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 
 	const navigate = useNavigate();
 
-	const { control, handleSubmit: handleSubmitForm } = form;
+	const { form, onSubmit } = props;
+	const { control, setValue, handleSubmit: handleSubmitForm } = form;
 
 	const watchUsername = useWatch({ control, name: 'username' });
 
@@ -181,7 +182,7 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 												isChecked={value}
 												onBlur={onBlur}
 												onChange={({ isChecked }) =>
-													form.setValue(name, isChecked, { shouldDirty: false })
+													setValue(name, isChecked, { shouldDirty: false })
 												}
 												renderRightPanel={(props) => (
 													<CheckboxTitle
@@ -202,7 +203,7 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 
 									<InternalLink
 										to={{
-											pathname: '/forgot-password',
+											pathname: '/authentication/forgot-password',
 											search: watchUsername ? qs.stringify({ username: watchUsername }) : ''
 										}}
 									>
@@ -262,7 +263,6 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 							/>
 						)}
 						color={color}
-						variant='transparent'
 						p={3}
 					/>
 
@@ -281,7 +281,6 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 								Sign in
 							</Button>
 						)}
-						spacing={2}
 					/>
 				</ConfirmModalStack>
 			</ConfirmModal>

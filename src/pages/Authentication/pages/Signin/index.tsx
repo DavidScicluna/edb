@@ -15,11 +15,11 @@ import { SHA256 } from 'crypto-js';
 import { sort } from 'fast-sort';
 import dayjs from 'dayjs';
 
-import Illustration from '../components/Illustration';
-import { useSelector } from '../../../common/hooks';
-import { User } from '../../../store/slices/Users/types';
-import { setUser, setUsers } from '../../../store/slices/Users';
-import { toggleSpinnerModal } from '../../../store/slices/Modals';
+import Illustration from '../../components/Illustration';
+import { useSelector } from '../../../../common/hooks';
+import { User } from '../../../../store/slices/Users/types';
+import { setUser, setUsers } from '../../../../store/slices/Users';
+import { toggleSpinnerModal } from '../../../../store/slices/Modals';
 
 import Form from './components/Form';
 import Header from './components/Header';
@@ -43,7 +43,7 @@ const SignIn: FC = () => {
 	const dispatch = useDispatch();
 	const users = useSelector((state) => state.users.data.users);
 
-	const [illustrationRef, { width: illustrationWidth, height: illustrationHeight }] = useElementSize();
+	const [illustrationRef, { width: illustrationWidth }] = useElementSize();
 
 	const [selectedUserID, setSelectedUserID] = useState<string>('');
 
@@ -81,7 +81,9 @@ const SignIn: FC = () => {
 		const user = users.find((user) => user.data.id === selectedUserID);
 
 		if (user && SHA256(credentials.password).toString() === user.data.credentials.password) {
-			const form = getValues();
+			dispatch(toggleSpinnerModal(true));
+
+			const { rememberMe } = getValues();
 
 			const updatedUser: User = merge(
 				{ ...user },
@@ -89,22 +91,23 @@ const SignIn: FC = () => {
 					...user,
 					data: {
 						...user.data,
-						credentials: { ...user.data.credentials, rememberMe: form.rememberMe },
+						credentials: { ...user.data.credentials, rememberMe },
 						signedInAt: dayjs().toISOString()
 					}
 				}
 			);
 
-			const updatedUsers: User[] = sort([...users.filter((u) => u.data.id !== user.data.id), updatedUser]).desc(
-				(u) => u.data.signedInAt
-			);
+			const updatedUsers: User[] = sort([
+				...users.filter((u) => u.data.id !== updatedUser.data.id),
+				updatedUser
+			]).desc((u) => u.data.signedInAt);
 
 			dispatch(setUser({ ...updatedUser }));
 			dispatch(setUsers([...updatedUsers]));
 
-			dispatch(toggleSpinnerModal(true));
-
 			navigate('/', { replace: true });
+
+			setTimeout(() => dispatch(toggleSpinnerModal(false)), 1000);
 		} else {
 			// TODO: Implement global toast system
 		}

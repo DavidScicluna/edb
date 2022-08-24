@@ -4,7 +4,7 @@ import { useTheme, InternalLink, Card, CardBody, Icon, utils } from '@davidscicl
 
 import { VStack, Center, Text } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../../../common/hooks';
 
 const { getColor } = utils;
 
@@ -13,7 +13,7 @@ const CreateUser: FC = () => {
 	const { color, colorMode } = useUserTheme();
 
 	return (
-		<InternalLink to='/register'>
+		<InternalLink to='/authentication/register'>
 			<Card color='gray' colorMode={colorMode} isClickable p={1}>
 				<CardBody>
 					<VStack width='100%' spacing={1}>

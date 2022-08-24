@@ -4,7 +4,7 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../common/hooks';
 import Logo from '../Logo';
 
 const { getColor } = utils;

@@ -6,7 +6,7 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 import { compact } from 'lodash';
 
-import { useUserTheme } from '../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../common/hooks';
 
 const Footer: FC = () => {
 	const { color, colorMode } = useUserTheme();
@@ -14,7 +14,7 @@ const Footer: FC = () => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	return (
-		<InternalLink to='/register' isFullWidth>
+		<InternalLink to='/authentication/register' isFullWidth>
 			<Button color={color} colorMode={colorMode} isFullWidth size='xs' variant='text'>
 				{compact([!isSm ? "Don't have an account yet?" : null, 'Create New Account!']).join(' ')}
 			</Button>

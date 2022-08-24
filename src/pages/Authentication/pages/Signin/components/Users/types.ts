@@ -1,4 +1,4 @@
-import { User } from '../../../../../store/slices/Users/types';
+import { User } from '../../../../../../store/slices/Users/types';
 
 export type UsersProps = {
 	selectedUserID?: User['data']['id'];

@@ -4,8 +4,8 @@ import { useTheme, Card, CardBody, utils } from '@davidscicluna/component-librar
 
 import { VStack, Text } from '@chakra-ui/react';
 
-import Avatar from '../../../../../../../components/Avatar';
-import { useUserTheme } from '../../../../../../../common/hooks';
+import Avatar from '../../../../../../../../components/Avatar';
+import { useUserTheme } from '../../../../../../../../common/hooks';
 
 import { UserProps } from './types';
 

@@ -6,7 +6,7 @@ import { HStack, Text } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
 
-import { useSelector, useUserTheme } from '../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../../common/hooks';
 
 import { UsersProps } from './types';
 import User from './components/User';
