@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useElementSize } from 'usehooks-ts';
 
-import Illustration from '../components/Illustration';
+import Illustration from '../../components/Illustration';
 
 import { Form as FormType } from './types';
 import { schema } from './validation';

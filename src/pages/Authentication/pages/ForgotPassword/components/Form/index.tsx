@@ -20,9 +20,9 @@ import { useMediaQuery, useBoolean, useConst, VStack, HStack, Text } from '@chak
 import { useFormState, Controller } from 'react-hook-form';
 import { sample } from 'lodash';
 
-import { usernames as placeholders } from '../../../common/data/placeholders';
-import { useUserTheme } from '../../../../../common/hooks';
-import { PasswordIcon } from '../../../components';
+import { usernames as placeholders } from '../../../../common/data/placeholders';
+import { useUserTheme } from '../../../../../../common/hooks';
+import { PasswordIcon } from '../../../../components';
 
 import { FormProps } from './types';
 

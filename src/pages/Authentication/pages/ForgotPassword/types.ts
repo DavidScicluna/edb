@@ -1,4 +1,4 @@
-import { AuthenticationForm } from '../common/types';
+import { AuthenticationForm } from '../../common/types';
 
 export type Form = AuthenticationForm & {
 	newPassword: string;
