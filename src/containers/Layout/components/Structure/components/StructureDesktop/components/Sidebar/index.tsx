@@ -9,7 +9,6 @@ import { omit } from 'lodash';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { isGuest as defaultIsGuest } from '../../../../common/data/defaultPropValues';
-import { StructureCommonProps as SidebarProps } from '../../../../common/types';
 import Logo from '../../../../../../../../components/Logo';
 import useStyles from '../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
@@ -19,6 +18,7 @@ import GuestColorModeSwitcher from '../../../GuestColorModeSwitcher';
 
 import User from './components/User';
 import SignInButton from './components/SignInButton';
+import { SidebarProps } from './types';
 
 const { getColor } = utils;
 

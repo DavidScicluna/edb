@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { useLocation, Outlet } from 'react-router';
+import { useLocation } from 'react-router';
 
 import { useTheme, InternalLink, Button, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
 
@@ -18,7 +18,7 @@ import User from './components/User';
 
 const { getColor } = utils;
 
-const StructureTablet: FC<StructureTabletProps> = ({ isGuest = defaultIsGuest }) => {
+const StructureTablet: FC<StructureTabletProps> = ({ children, isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -71,7 +71,7 @@ const StructureTablet: FC<StructureTabletProps> = ({ isGuest = defaultIsGuest })
 						{!isGuest ? (
 							<User />
 						) : (
-							<InternalLink to='/signin'>
+							<InternalLink to='/authentication/signin'>
 								<Button color={color}>Sign in</Button>
 							</InternalLink>
 						)}
@@ -86,7 +86,7 @@ const StructureTablet: FC<StructureTabletProps> = ({ isGuest = defaultIsGuest })
 					position='relative'
 					top={headerHeight}
 				>
-					<Outlet />
+					{children}
 				</Center>
 			</VStack>
 

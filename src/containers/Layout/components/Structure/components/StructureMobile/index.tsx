@@ -1,6 +1,6 @@
 import { FC, useState, useCallback, useEffect } from 'react';
 
-import { useLocation, useNavigate, Outlet } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 import { useTheme, TabBar, Icon, utils } from '@davidscicluna/component-library';
 
@@ -16,13 +16,13 @@ import { useUserTheme, useSelector } from '../../../../../../common/hooks';
 import UserPopper from '../UserPopper';
 import Avatar from '../../../../../../components/Avatar';
 
-const paths = ['/', '/search', '/trending', '/signin'];
+const paths = ['/', '/search', '/trending', '/authentication/signin'];
 
 const { checkIsTouchDevice } = utils;
 
 const isTouchDevice: boolean = checkIsTouchDevice();
 
-const StructureMobile: FC<StructureMobileProps> = ({ isGuest = defaultIsGuest }) => {
+const StructureMobile: FC<StructureMobileProps> = ({ children, isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -56,7 +56,7 @@ const StructureMobile: FC<StructureMobileProps> = ({ isGuest = defaultIsGuest })
 	return (
 		<VStack width='100%' minHeight='100vh' position='relative' spacing={0}>
 			<Center width='100%' minHeight={`calc(100vh - ${tabBarHeight}px)`} position='relative' top={0}>
-				<Outlet />
+				{children}
 			</Center>
 
 			<Gradient position='fixed' bottom={tabBarHeight} />

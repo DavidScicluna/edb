@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { Style, useTheme, InternalLink, Button, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
 
@@ -41,7 +41,7 @@ const SignInButton: FC = () => {
 					transition={{ enter: { ...buttonConfig } }}
 					style={{ width: '100%' }}
 				>
-					<InternalLink to={{ pathname: '/signin' }} isFullWidth>
+					<InternalLink to='/authentication/signin' isFullWidth>
 						<Button color={color} colorMode={colorMode} isFullWidth>
 							Sign in
 						</Button>
@@ -53,8 +53,9 @@ const SignInButton: FC = () => {
 				<Fade in={sidebarMode === 'collapsed'} unmountOnExit>
 					{/* TODO: Check why tooltip keeps re rendering! */}
 					{/* <Tooltip aria-label='Sign in' isOpen={isTooltipOpen} placement='top' label='Sign in'> */}
-					<InternalLink to={{ pathname: '/signin' }} isFullWidth>
+					<InternalLink to='/authentication/signin' isFullWidth>
 						<IconButton
+							aria-label='Sign-in Button'
 							color={color}
 							colorMode={colorMode}
 							// onMouseEnter={() => setIsTooltipOpen.on()}

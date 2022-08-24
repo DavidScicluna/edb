@@ -1,7 +1,5 @@
 import { FC, useState } from 'react';
 
-import { Outlet } from 'react-router';
-
 import { useTheme } from '@davidscicluna/component-library';
 
 import { HStack, Center, VStack } from '@chakra-ui/react';
@@ -16,7 +14,7 @@ import { sidebar } from '../../../../common/data/sidebar';
 
 import Sidebar from './components/Sidebar';
 
-const StructureDesktop: FC<StructureDesktopProps> = ({ isGuest = defaultIsGuest }) => {
+const StructureDesktop: FC<StructureDesktopProps> = ({ children, isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
@@ -44,7 +42,7 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ isGuest = defaultIsGuest 
 				spacing={0}
 				sx={{ ...style }}
 			>
-				<Outlet />
+				{children}
 
 				{/* <VStack width='100%' spacing={4} sx={{ ...style }}>
 					<Box
