@@ -11,6 +11,7 @@ import { toggleSidebarMode } from '../../store/slices/App';
 import { useSelector } from '../../common/hooks';
 import { guest } from '../../store/slices/Users';
 
+import { LayoutProps } from './types';
 import { sidebar } from './common/data/sidebar';
 import useStyles from './common/styles';
 // import Footer from './components/Footer';
@@ -27,7 +28,7 @@ import ScrollToTop from './components/ScrollToTop';
 
 const { convertREMToPixels, convertStringToNumber } = utils;
 
-const Layout: FC = () => {
+const Layout: FC<LayoutProps> = ({ children }) => {
 	const theme = useTheme();
 
 	const [isMd] = useMediaQuery('(min-width: 600px)');
@@ -76,7 +77,9 @@ const Layout: FC = () => {
 
 				<ScrollToTop device={isMd && !isLg ? 'tablet' : isLg ? 'desktop' : 'mobile'} />
 
-				<Structure device={isMd && !isLg ? 'tablet' : isLg ? 'desktop' : 'mobile'} isGuest={isGuest} />
+				<Structure device={isMd && !isLg ? 'tablet' : isLg ? 'desktop' : 'mobile'} isGuest={isGuest}>
+					{children}
+				</Structure>
 			</Container>
 
 			{/* <QuickViewModal /> */}
