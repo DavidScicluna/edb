@@ -13,7 +13,7 @@ const CreateUser: FC = () => {
 	const { color, colorMode } = useUserTheme();
 
 	return (
-		<InternalLink to='/authentication/register'>
+		<InternalLink to='/register'>
 			<Card color='gray' colorMode={colorMode} isClickable p={1}>
 				<CardBody>
 					<VStack width='100%' spacing={1}>

@@ -14,7 +14,7 @@ const Footer: FC = () => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
 
 	return (
-		<InternalLink to='/authentication/register' isFullWidth>
+		<InternalLink to='/register' isFullWidth>
 			<Button color={color} colorMode={colorMode} isFullWidth size='xs' variant='text'>
 				{compact([!isSm ? "Don't have an account yet?" : null, 'Create New Account!']).join(' ')}
 			</Button>

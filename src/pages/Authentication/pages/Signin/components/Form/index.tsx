@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
-import { useNavigate } from 'react-router';
-
 import {
 	useTheme,
 	ConfirmModal,
@@ -22,27 +20,20 @@ import {
 	InternalLink,
 	Button,
 	IconButton,
-	Icon,
-	utils
+	Icon
 } from '@davidscicluna/component-library';
 
 import { useDisclosure, useBoolean, useConst, VStack, HStack } from '@chakra-ui/react';
 
 import { useWatch, useFormState, Controller } from 'react-hook-form';
 import qs from 'query-string';
-import { merge, omit, sample } from 'lodash';
-import { useDispatch } from 'react-redux';
+import { omit, sample } from 'lodash';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import { usernames as placeholders } from '../../../../common/data/placeholders';
 import { PasswordIcon } from '../../../../components';
-import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
-import { guest, setUser } from '../../../../../../store/slices/Users';
-import { getBoringAvatarSrc } from '../../../../../../common/utils';
 
 import { FormProps } from './types';
-
-const { getHue } = utils;
 
 const Form: FC<FormProps> = (props) => {
 	const theme = useTheme();
@@ -50,11 +41,7 @@ const Form: FC<FormProps> = (props) => {
 
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
-	const dispatch = useDispatch();
-
-	const navigate = useNavigate();
-
-	const { form, onSubmit } = props;
+	const { form, onSubmitAsGuest, onSubmit } = props;
 	const { control, setValue, handleSubmit: handleSubmitForm } = form;
 
 	const watchUsername = useWatch({ control, name: 'username' });
@@ -68,34 +55,7 @@ const Form: FC<FormProps> = (props) => {
 
 	const handleSubmitAsGuest = (): void => {
 		onConfirmClose();
-
-		dispatch(toggleSpinnerModal(true));
-
-		// TODO: Check if avatar is re generated
-		dispatch(
-			setUser({
-				...merge(guest, {
-					...guest,
-					data: {
-						...guest.data,
-						info: {
-							...guest.data.info,
-							avatar_path: getBoringAvatarSrc({
-								id: guest.data.id,
-								colors: theme.colors,
-								hue: getHue({ colorMode, type: 'color' }),
-								size: 500,
-								variant: 'beam'
-							})
-						}
-					}
-				})
-			})
-		);
-
-		navigate('/', { replace: true });
-
-		setTimeout(() => dispatch(toggleSpinnerModal(true)), 1000);
+		onSubmitAsGuest();
 	};
 
 	return (
@@ -203,7 +163,7 @@ const Form: FC<FormProps> = (props) => {
 
 									<InternalLink
 										to={{
-											pathname: '/authentication/forgot-password',
+											pathname: '/forgot-password',
 											search: watchUsername ? qs.stringify({ username: watchUsername }) : ''
 										}}
 									>

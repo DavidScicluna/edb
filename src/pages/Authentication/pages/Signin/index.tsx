@@ -2,7 +2,7 @@ import { FC, useState, useCallback } from 'react';
 
 import { useNavigate } from 'react-router';
 
-import { useTheme } from '@davidscicluna/component-library';
+import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Center, Container, VStack } from '@chakra-ui/react';
 
@@ -16,10 +16,11 @@ import { sort } from 'fast-sort';
 import dayjs from 'dayjs';
 
 import Illustration from '../../components/Illustration';
-import { useSelector } from '../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../common/hooks';
 import { User } from '../../../../store/slices/Users/types';
-import { setUser, setUsers } from '../../../../store/slices/Users';
+import { guest, setUser, setUsers } from '../../../../store/slices/Users';
 import { toggleSpinnerModal } from '../../../../store/slices/Modals';
+import { getBoringAvatarSrc } from '../../../../common/utils';
 
 import Form from './components/Form';
 import Header from './components/Header';
@@ -27,6 +28,8 @@ import { Form as FormType } from './types';
 import { schema } from './validation';
 import Footer from './components/Footer';
 import Users from './components/Users';
+
+const { getHue } = utils;
 
 export const defaultValues: FormType = {
 	username: '',
@@ -37,6 +40,8 @@ export const defaultValues: FormType = {
 const SignIn: FC = () => {
 	const theme = useTheme();
 	const [isLg] = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
+
+	const { colorMode } = useUserTheme();
 
 	const navigate = useNavigate();
 
@@ -76,6 +81,36 @@ const SignIn: FC = () => {
 		}, 500),
 		[users, selectedUserID, watchUsername, watchPassword]
 	);
+
+	const handleSubmitAsGuest = (): void => {
+		dispatch(toggleSpinnerModal(true));
+
+		// TODO: Check if avatar is re generated
+		dispatch(
+			setUser({
+				...merge(guest, {
+					...guest,
+					data: {
+						...guest.data,
+						info: {
+							...guest.data.info,
+							avatar_path: getBoringAvatarSrc({
+								id: guest.data.id,
+								colors: theme.colors,
+								hue: getHue({ colorMode, type: 'color' }),
+								size: 500,
+								variant: 'beam'
+							})
+						}
+					}
+				})
+			})
+		);
+
+		navigate('/', { replace: true });
+
+		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2000);
+	};
 
 	const handleSubmitForm = (credentials: FormType): void => {
 		const user = users.find((user) => user.data.id === selectedUserID);
@@ -143,7 +178,7 @@ const SignIn: FC = () => {
 
 					{users.length > 0 && <Users selectedUserID={selectedUserID} onUserClick={handleUserClick} />}
 
-					<Form form={form} onSubmit={handleSubmitForm} />
+					<Form form={form} onSubmitAsGuest={handleSubmitAsGuest} onSubmit={handleSubmitForm} />
 
 					<Footer />
 				</Container>
