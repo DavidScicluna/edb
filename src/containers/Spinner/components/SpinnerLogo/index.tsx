@@ -9,8 +9,7 @@ import {
 	CircularProgressLabel as ProgressLabel
 } from '@chakra-ui/react';
 
-import { merge, round } from 'lodash';
-import { useElementSize } from 'usehooks-ts';
+import { merge } from 'lodash';
 
 import { useUserTheme } from '../../../../common/hooks';
 
@@ -31,12 +30,10 @@ const SpinnerLogo: FC = () => {
 		'2xl': '10vw'
 	});
 
-	const [ref, { width: logoWidth }] = useElementSize();
-
 	const style = useStyles({ theme });
 
 	return (
-		<AspectRatio ref={ref} width={logoMaxWidth} ratio={1 / 1}>
+		<AspectRatio width={logoMaxWidth} ratio={1 / 1}>
 			<Progress
 				capIsRound
 				color={getColor({ theme, colorMode, color, type: 'color' })}
@@ -49,8 +46,7 @@ const SpinnerLogo: FC = () => {
 					sx={{
 						...merge(style.logo, {
 							color: getColor({ theme, colorMode, color, type: 'color' }),
-
-							fontSize: `${round(logoWidth / 2.5)}px`
+							fontSize: '500%'
 						})
 					}}
 				>
