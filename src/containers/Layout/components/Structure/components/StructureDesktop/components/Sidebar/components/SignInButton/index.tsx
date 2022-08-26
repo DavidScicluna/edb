@@ -41,7 +41,7 @@ const SignInButton: FC = () => {
 					transition={{ enter: { ...buttonConfig } }}
 					style={{ width: '100%' }}
 				>
-					<InternalLink to='/authentication/signin' isFullWidth>
+					<InternalLink to='/signin' isFullWidth>
 						<Button color={color} colorMode={colorMode} isFullWidth>
 							Sign in
 						</Button>
@@ -53,7 +53,7 @@ const SignInButton: FC = () => {
 				<Fade in={sidebarMode === 'collapsed'} unmountOnExit>
 					{/* TODO: Check why tooltip keeps re rendering! */}
 					{/* <Tooltip aria-label='Sign in' isOpen={isTooltipOpen} placement='top' label='Sign in'> */}
-					<InternalLink to='/authentication/signin' isFullWidth>
+					<InternalLink to='/signin' isFullWidth>
 						<IconButton
 							aria-label='Sign-in Button'
 							color={color}

@@ -26,7 +26,7 @@ const SignOut: FC = () => {
 	const handleSignOut = (): void => {
 		dispatch(toggleSpinnerModal(true));
 
-		navigate('/authentication/signin');
+		navigate('/signin');
 
 		setTimeout(() => {
 			dispatch(toggleSpinnerModal(false));
