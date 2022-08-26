@@ -66,7 +66,7 @@ const UserThemeModal: FC = () => {
 
 		handleClose();
 
-		setTimeout(() => dispatch(toggleSpinnerModal(false)), 500);
+		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
 
 	useEffect(() => setColorMode(watchColorMode === 'system' ? getColorMode() : watchColorMode), [watchColorMode]);
