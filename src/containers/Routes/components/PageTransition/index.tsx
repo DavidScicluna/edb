@@ -14,13 +14,19 @@ const { getTransitionDuration, getTransitionEasings } = utils;
 const PageTransition: FC<PageTransitionProps> = ({ children }) => {
 	const theme = useTheme();
 
-	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'ultra-slow' }));
+	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
 	const easing = useConst<number[]>(getTransitionEasings({ theme }));
 
 	const config = useConst<Transition>({ duration, easing });
 
 	return (
-		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ...config }}>
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ ...config }}
+			style={{ width: '100%', height: '100%' }}
+		>
 			{children}
 		</motion.div>
 	);
