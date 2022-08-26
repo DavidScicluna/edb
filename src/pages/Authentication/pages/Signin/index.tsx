@@ -107,9 +107,9 @@ const SignIn: FC = () => {
 			})
 		);
 
-		navigate('/', { replace: true });
+		setTimeout(() => navigate('/'), 500);
 
-		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2000);
+		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
 
 	const handleSubmitForm = (credentials: FormType): void => {
@@ -140,9 +140,9 @@ const SignIn: FC = () => {
 			dispatch(setUser({ ...updatedUser }));
 			dispatch(setUsers([...updatedUsers]));
 
-			navigate('/', { replace: true });
+			setTimeout(() => navigate('/'), 500);
 
-			setTimeout(() => dispatch(toggleSpinnerModal(false)), 1000);
+			setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 		} else {
 			// TODO: Implement global toast system
 		}
