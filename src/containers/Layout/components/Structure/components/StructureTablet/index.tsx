@@ -31,7 +31,7 @@ const StructureTablet: FC<StructureTabletProps> = ({ children, isGuest = default
 
 	const [headerRef, { height: headerHeight }] = useElementSize();
 
-	const [isAuthentication, setisAuthentication] = useBoolean();
+	const [isAuthentication, setIsAuthentication] = useBoolean();
 
 	const [background, setBackground] = useState<string>(getColor({ theme, colorMode, type: 'background' }));
 
@@ -43,7 +43,7 @@ const StructureTablet: FC<StructureTabletProps> = ({ children, isGuest = default
 
 	useUpdateEffect(() => onSidebarClose(), [location.pathname]);
 
-	useEffect(() => setisAuthentication[authPaths.includes(location.pathname) ? 'on' : 'off'](), [location.pathname]);
+	useEffect(() => setIsAuthentication[authPaths.includes(location.pathname) ? 'on' : 'off'](), [location.pathname]);
 
 	return (
 		<>

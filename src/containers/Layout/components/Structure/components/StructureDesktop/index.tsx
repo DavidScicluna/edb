@@ -1,5 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 
+import { useLocation } from 'react-router';
+
 import { useTheme, Fade, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst, HStack, Center, VStack } from '@chakra-ui/react';
@@ -22,11 +24,14 @@ const authPaths = ['/signin', '/register', '/forgot-password'];
 const StructureDesktop: FC<StructureDesktopProps> = ({ children, isGuest = defaultIsGuest }) => {
 	const theme = useTheme();
 
+	const location = useLocation();
+
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
 	const [sidebarWidth, setSidebarWidth] = useState<number>(sidebar[sidebarMode]);
 
-	const [isAuthentication, setisAuthentication] = useBoolean();
+	const [isAuthentication, setIsAuthentication] = useBoolean();
+	const [isPositionDelayed, setIsPositionDelayed] = useBoolean();
 
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
 
@@ -36,7 +41,10 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children, isGuest = defau
 
 	useUpdateEffect(() => setSidebarWidth(sidebar[sidebarMode]), [sidebarMode]);
 
-	useEffect(() => setisAuthentication[authPaths.includes(location.pathname) ? 'on' : 'off'](), [location.pathname]);
+	useEffect(() => setIsAuthentication[authPaths.includes(location.pathname) ? 'on' : 'off'](), [location.pathname]);
+	useEffect(() => {
+		setTimeout(() => setIsPositionDelayed[isAuthentication ? 'on' : 'off'](), 500);
+	}, [isAuthentication]);
 
 	return (
 		<HStack width='100%' minHeight='100vh' position='relative' spacing={0} sx={{ ...style }}>
@@ -51,15 +59,15 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children, isGuest = defau
 			</Fade>
 
 			<VStack
-				width={`calc(100% - ${sidebarWidth}px)`}
+				width={!isAuthentication ? `calc(100% - ${sidebarWidth}px)` : '100%'}
 				minHeight='100vh'
 				position='absolute'
 				top={0}
-				left={`${sidebarWidth}px`}
+				left={!isAuthentication ? `${sidebarWidth}px` : 0}
 				alignItems='center'
 				justifyContent='center'
 				spacing={0}
-				sx={{ ...style }}
+				sx={!isPositionDelayed ? { ...style } : {}}
 			>
 				{children}
 

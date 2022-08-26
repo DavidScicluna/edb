@@ -26,34 +26,37 @@ const SignOut: FC = () => {
 	const handleSignOut = (): void => {
 		dispatch(toggleSpinnerModal(true));
 
-		navigate('/signin');
-
-		setTimeout(() => {
-			dispatch(toggleSpinnerModal(false));
-			dispatch(
-				setUser(
-					merge(
-						{ ...guest },
-						{
-							...guest,
-							data: {
-								...guest.data,
-								info: {
-									...guest.data.info,
-									avatar_path: getBoringAvatarSrc({
-										id: guest.data.id,
-										colors: theme.colors,
-										hue: getHue({ colorMode, type: 'color' }),
-										size: 500,
-										variant: 'beam'
-									})
+		setTimeout(
+			() =>
+				dispatch(
+					setUser(
+						merge(
+							{ ...guest },
+							{
+								...guest,
+								data: {
+									...guest.data,
+									info: {
+										...guest.data.info,
+										avatar_path: getBoringAvatarSrc({
+											id: guest.data.id,
+											colors: theme.colors,
+											hue: getHue({ colorMode, type: 'color' }),
+											size: 500,
+											variant: 'beam'
+										})
+									}
 								}
 							}
-						}
+						)
 					)
-				)
-			);
-		}, 250);
+				),
+			250
+		);
+
+		setTimeout(() => navigate('/signin'), 500);
+
+		setTimeout(() => toggleSpinnerModal(false), 2500);
 	};
 
 	return (

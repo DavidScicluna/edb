@@ -42,7 +42,7 @@ const StructureMobile: FC<StructureMobileProps> = ({ children, isGuest = default
 	const [isPopperOpen, setIsPopperOpen] = useBoolean();
 	const [isHoveringPopper, setIsHoveringPopper] = useBoolean();
 
-	const [isAuthentication, setisAuthentication] = useBoolean();
+	const [isAuthentication, setIsAuthentication] = useBoolean();
 
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
 
@@ -62,7 +62,7 @@ const StructureMobile: FC<StructureMobileProps> = ({ children, isGuest = default
 
 	useEffect(() => setActiveTab(tabPaths.findIndex((path) => path === location.pathname)), [location.pathname]);
 
-	useEffect(() => setisAuthentication[authPaths.includes(location.pathname) ? 'on' : 'off'](), [location.pathname]);
+	useEffect(() => setIsAuthentication[authPaths.includes(location.pathname) ? 'on' : 'off'](), [location.pathname]);
 
 	return (
 		<VStack width='100%' minHeight='100vh' position='relative' spacing={0}>
