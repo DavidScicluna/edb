@@ -19,7 +19,7 @@ import Sidebar from './components/Sidebar';
 
 const { getTransitionDuration } = utils;
 
-const authPaths = ['/signin', '/register', '/forgot-password'];
+const authPaths = ['/signin', '/register', '/reset-password'];
 
 const StructureDesktop: FC<StructureDesktopProps> = ({ children, isGuest = defaultIsGuest }) => {
 	const theme = useTheme();

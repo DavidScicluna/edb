@@ -23,7 +23,7 @@ const isTouchDevice: boolean = checkIsTouchDevice();
 
 const tabPaths = ['/', '/search', '/trending', '/signin'];
 
-const authPaths = ['/signin', '/register', '/forgot-password'];
+const authPaths = ['/signin', '/register', '/reset-password'];
 
 const StructureMobile: FC<StructureMobileProps> = ({ children, isGuest = defaultIsGuest }) => {
 	const theme = useTheme();

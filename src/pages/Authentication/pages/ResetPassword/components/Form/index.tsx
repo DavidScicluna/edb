@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import { useNavigate } from 'react-router';
 
@@ -17,11 +17,11 @@ import {
 
 import { useMediaQuery, useBoolean, useConst, VStack, HStack, Text } from '@chakra-ui/react';
 
-import { useFormState, Controller } from 'react-hook-form';
+import { useWatch, useFormState, Controller } from 'react-hook-form';
 import { sample } from 'lodash';
 
 import { usernames as placeholders } from '../../../../common/data/placeholders';
-import { useUserTheme } from '../../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../../common/hooks';
 import { PasswordIcon } from '../../../../components';
 
 import { FormProps } from './types';
@@ -34,9 +34,15 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 
 	const navigate = useNavigate();
 
+	const users = useSelector((state) => state.users.data.users || []);
+
 	const { control, handleSubmit } = form;
 
+	const watchUsername = useWatch({ control, name: 'username' });
+
 	const { isDirty } = useFormState({ control });
+
+	const [isUserChecked, setIsUserChecked] = useBoolean();
 
 	// Current Password
 	const [isCurrentPassVisible, setIsCurrentPassVisible] = useBoolean();
@@ -52,6 +58,11 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 
 	const placeholder = useConst<string>(sample(placeholders) || 'johnsmith');
 
+	useEffect(
+		() => setIsUserChecked[users.some((user) => user.data.credentials.username === watchUsername) ? 'on' : 'off'](),
+		[watchUsername]
+	);
+
 	return (
 		<DSUIForm width='100%' onSubmit={handleSubmit((values) => onSubmit({ ...values }))}>
 			<Card colorMode={colorMode} isFullWidth p={[2, 2, 3, 3]} spacing={0}>
@@ -59,7 +70,7 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 					<CardHeader
 						renderTitle={(props) => (
 							<Text {...props} fontSize='2xl'>
-								Forgot Password?
+								Reset Password?
 							</Text>
 						)}
 						renderSubtitle={(props) => (
@@ -78,6 +89,7 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 									<Input
 										color={color}
 										colorMode={colorMode}
+										autoComplete='off'
 										label='Username'
 										id={name}
 										name={name}
@@ -96,6 +108,18 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 												skeletonColor={color}
 											/>
 										)}
+										renderRightPanel={
+											value.length >= 5
+												? ({ color, ...rest }) => (
+														<Icon
+															{...rest}
+															icon={isUserChecked ? 'done' : 'close'}
+															category='outlined'
+															skeletonColor={color}
+														/>
+												  )
+												: undefined
+										}
 										value={value}
 									/>
 								)}
@@ -109,12 +133,14 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 										<Input
 											color={color}
 											colorMode={colorMode}
+											autoComplete='password'
 											label='Current Password'
 											name={name}
 											helper={error ? error.message : undefined}
 											placeholder={isCurrentPassVisible ? 'password' : '••••••••'}
 											onBlur={onBlur}
 											onChange={onChange}
+											isDisabled={!isUserChecked}
 											isError={!!error}
 											isFullWidth
 											isRequired
@@ -142,12 +168,14 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 										<Input
 											color={color}
 											colorMode={colorMode}
+											autoComplete='password'
 											label='New Password'
 											name={name}
 											helper={error ? error.message : undefined}
 											placeholder={isNewPassVisible ? 'password' : '••••••••'}
 											onBlur={onBlur}
 											onChange={onChange}
+											isDisabled={!isUserChecked}
 											isError={!!error}
 											isFullWidth
 											isRequired
@@ -175,12 +203,14 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 										<Input
 											color={color}
 											colorMode={colorMode}
+											autoComplete='password'
 											label='Confirm Password'
 											name={name}
 											helper={error ? error.message : undefined}
 											placeholder={isConfirmPassVisible ? 'password' : '••••••••'}
 											onBlur={onBlur}
 											onChange={onChange}
+											isDisabled={!isUserChecked}
 											isError={!!error}
 											isFullWidth
 											isRequired
