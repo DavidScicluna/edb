@@ -16,7 +16,10 @@ import {
 	BoxOther
 } from '@davidscicluna/component-library';
 
-import { BoxProps } from '@chakra-ui/react';
+import { BoxProps, ColorMode } from '@chakra-ui/react';
+
+export type IllustrationIndex = 1 | 2 | 3 | 4 | 5 | 6;
+export type IllustrationIndexes = IllustrationIndex[];
 
 export type IllustrationRef = HTMLDivElement | null;
 
@@ -39,4 +42,4 @@ type Omitted =
 	| 'as'
 	| 'children';
 
-export type IllustrationProps = Omit<BoxProps, Omitted>;
+export type IllustrationProps = Omit<BoxProps, Omitted> & { colorMode: ColorMode };

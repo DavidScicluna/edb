@@ -5,16 +5,16 @@ import { useConst, Box } from '@chakra-ui/react';
 import { sample } from 'lodash';
 
 import signin from '../../../../common/assets/illustrations';
-import { useUserTheme } from '../../../../common/hooks';
+import { colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 
-import { IllustrationRef, IllustrationProps } from './types';
+import { IllustrationIndex, IllustrationIndexes, IllustrationRef, IllustrationProps } from './types';
 
-const illustrations: [1, 2, 3, 4, 5, 6] = [1, 2, 3, 4, 5, 6];
+const illustrations: IllustrationIndexes = [1, 2, 3, 4, 5, 6];
 
 const Illustration = forwardRef<IllustrationRef, IllustrationProps>(function Illustration(props, ref): ReactElement {
-	const { colorMode } = useUserTheme();
+	const { colorMode = defaultColorMode } = props;
 
-	const illustration = useConst<string>(signin[colorMode][sample(illustrations) || 3]);
+	const random = useConst<IllustrationIndex>(sample(illustrations) || 3);
 
 	return (
 		<Box
@@ -23,7 +23,7 @@ const Illustration = forwardRef<IllustrationRef, IllustrationProps>(function Ill
 			width='50%'
 			height='100vh'
 			sx={{
-				backgroundImage: `url(${illustration})`,
+				backgroundImage: `url(${signin[colorMode][random]})`,
 				backgroundPosition: 'center',
 				backgroundRepeat: 'no-repeat',
 				backgroundSize: 'cover'
