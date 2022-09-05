@@ -1,7 +1,5 @@
 import { FC, useEffect } from 'react';
 
-import { useNavigate } from 'react-router';
-
 import {
 	useTheme,
 	Form as DSUIForm,
@@ -26,13 +24,11 @@ import { PasswordIcon } from '../../../../components';
 
 import { FormProps } from './types';
 
-const Form: FC<FormProps> = ({ form, onSubmit }) => {
+const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 	const theme = useTheme();
 	const [isSm] = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
 
 	const { color, colorMode } = useUserTheme();
-
-	const navigate = useNavigate();
 
 	const users = useSelector((state) => state.users.data.users || []);
 
@@ -235,7 +231,7 @@ const Form: FC<FormProps> = ({ form, onSubmit }) => {
 					</CardBody>
 					<CardFooter>
 						<HStack width='100%' justifyContent='space-between' spacing={0}>
-							<Button colorMode={colorMode} onClick={() => navigate(-1)} variant='outlined'>
+							<Button colorMode={colorMode} onClick={() => onBack()} variant='outlined'>
 								Back
 							</Button>
 
