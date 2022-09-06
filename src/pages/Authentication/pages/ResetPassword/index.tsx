@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate, useOutletContext } from 'react-router';
 
 import {
 	useTheme,
@@ -16,20 +16,22 @@ import {
 	Icon
 } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, Center, Container } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, HStack, Center } from '@chakra-ui/react';
 
 import qs from 'query-string';
 import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useElementSize } from 'usehooks-ts';
+import { useElementSize, useDebounce, useWindowSize } from 'usehooks-ts';
 import { useDispatch } from 'react-redux';
 import sha256 from 'crypto-js/sha256';
 import { sort } from 'fast-sort';
 
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 import Illustration from '../../components/Illustration';
-import { useSelector, useUserTheme } from '../../../../common/hooks';
+import { useSelector } from '../../../../common/hooks';
 import { User } from '../../../../store/slices/Users/types';
 import { setUsers } from '../../../../store/slices/Users';
+import { AuthenticationOutletContext } from '../../types';
 
 import { Form as FormType } from './types';
 import { schema } from './validation';
@@ -45,18 +47,21 @@ export const defaultValues: FormType = {
 const ForgotPassword: FC = () => {
 	const theme = useTheme();
 	const [isLg] = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
+	const [isXl] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
-	const { color, colorMode } = useUserTheme();
-
 	const location = useLocation();
 	const navigate = useNavigate();
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const dispatch = useDispatch();
 	const users = useSelector((state) => state.users.data.users);
 
-	const [illustrationRef, { width: illustrationWidth }] = useElementSize();
+	const { width: windowWidth } = useWindowSize();
+
+	const [containerRef, { width: containerWidth = 0 }] = useElementSize();
+	const debouncedContainerWidth = useDebounce<number>(containerWidth, 0);
 
 	const form = useForm<FormType>({
 		defaultValues: { ...defaultValues, ...qs.parse(location.search) },
@@ -68,7 +73,7 @@ const ForgotPassword: FC = () => {
 	const { isDirty } = useFormState({ control });
 
 	const handleClose = (): void => {
-		navigate('/signin');
+		navigate('/authentication/signin');
 	};
 
 	const handleCloseConfirm = (): void => {
@@ -112,25 +117,34 @@ const ForgotPassword: FC = () => {
 
 	return (
 		<>
-			<Center width='100%' minHeight='100vh' position='relative' overflowX='hidden' overflowY='auto'>
+			<HStack
+				ref={containerRef}
+				width='100%'
+				minHeight='100vh'
+				position='relative'
+				alignItems='center'
+				justifyContent='flex-start'
+				spacing={0}
+			>
 				<Center
-					width={isLg ? `calc(100% - ${illustrationWidth}px)` : '100%'}
+					width={isLg ? `${debouncedContainerWidth / 2}px` : '100%'}
 					minHeight='100vh'
-					position='absolute'
-					top={0}
-					left={0}
-					alignItems='center'
-					justifyContent='center'
+					px={[2, 2, 3, 3]}
+					py={[3, 3, 4, 4]}
 				>
-					<Container maxWidth='container.lg' centerContent px={[2, 2, 3, 3]} py={[3, 3, 4, 4]}>
-						<Form form={form} onSubmit={handleChangePassword} onBack={handleCheckBack} />
-					</Container>
+					<Form form={form} onSubmit={handleChangePassword} onBack={handleCheckBack} />
 				</Center>
 
 				{isLg && (
-					<Illustration ref={illustrationRef} colorMode={colorMode} position='fixed' top={0} right={0} />
+					<Illustration
+						width={`${debouncedContainerWidth / 2}px`}
+						height='100vh'
+						position='fixed'
+						right={`${isXl ? (windowWidth - containerWidth) / 2 : 0}px`}
+						colorMode={colorMode}
+					/>
 				)}
-			</Center>
+			</HStack>
 
 			{/* TODO: Extract ConfirmModal to Prompt */}
 			<ConfirmModal
