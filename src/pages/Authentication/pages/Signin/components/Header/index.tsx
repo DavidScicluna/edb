@@ -4,18 +4,19 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../common/hooks';
 import Logo from '../Logo';
+import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
+
+import { HeaderProps } from './types';
 
 const { getColor } = utils;
 
-const Header: FC = () => {
+const Header: FC<HeaderProps> = ({ colorMode = defaultColorMode }) => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
 
 	return (
 		<VStack width='100%' spacing={2}>
-			<Logo />
+			<Logo colorMode={colorMode} />
 
 			<VStack width='100%' spacing={0}>
 				<Text
