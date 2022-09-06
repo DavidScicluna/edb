@@ -29,19 +29,18 @@ import { useWatch, useFormState, Controller } from 'react-hook-form';
 import qs from 'query-string';
 import { omit, sample } from 'lodash';
 
-import { useUserTheme } from '../../../../../../common/hooks';
 import { usernames as placeholders } from '../../../../common/data/placeholders';
 import { PasswordIcon } from '../../../../components';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 
 import { FormProps } from './types';
 
 const Form: FC<FormProps> = (props) => {
 	const theme = useTheme();
-	const { color, colorMode } = useUserTheme();
 
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
-	const { form, onSubmitAsGuest, onSubmit } = props;
+	const { color = defaultColor, colorMode = defaultColorMode, form, onSubmitAsGuest, onSubmit } = props;
 	const { control, setValue, handleSubmit: handleSubmitForm } = form;
 
 	const watchUsername = useWatch({ control, name: 'username' });
@@ -72,6 +71,7 @@ const Form: FC<FormProps> = (props) => {
 										<Input
 											color={color}
 											colorMode={colorMode}
+											autoComplete='off'
 											label='Username'
 											id={name}
 											name={name}
@@ -102,6 +102,7 @@ const Form: FC<FormProps> = (props) => {
 										<Input
 											color={color}
 											colorMode={colorMode}
+											autoComplete='password'
 											label='Password'
 											name={name}
 											helper={error ? error.message : undefined}
@@ -163,12 +164,12 @@ const Form: FC<FormProps> = (props) => {
 
 									<InternalLink
 										to={{
-											pathname: '/forgot-password',
+											pathname: '/authentication/reset-password',
 											search: watchUsername ? qs.stringify({ username: watchUsername }) : ''
 										}}
 									>
 										<Button color={color} colorMode={colorMode} size='xs' variant='text'>
-											Forgot password?
+											Reset password?
 										</Button>
 									</InternalLink>
 								</HStack>
