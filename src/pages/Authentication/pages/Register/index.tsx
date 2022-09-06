@@ -1,8 +1,9 @@
-import { ReactElement, useState, useCallback, useEffect } from 'react';
+import { FC, ReactElement, useState, useCallback, useEffect } from 'react';
 
 import { useNavigate, useOutletContext } from 'react-router';
 
 import {
+	StepperOnChangeProps,
 	useTheme,
 	Step,
 	Stepper,
@@ -23,7 +24,7 @@ import {
 	Undefinable
 } from '@davidscicluna/component-library';
 
-import { useDisclosure, Box } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
 import { useDispatch } from 'react-redux';
@@ -33,11 +34,6 @@ import sha256 from 'crypto-js/sha256';
 import dayjs from 'dayjs';
 import { isEmpty, isNil } from 'lodash';
 import { v4 as uuid } from 'uuid';
-
-// import { handleCheckSystemColorMode } from '../../../common/utils';
-
-// import { setUser } from '../../../store/slices/App';
-// import { toggleSplashscreen } from '../../../store/slices/Modals';
 
 import { useSelector, useUserTheme } from '../../../../common/hooks';
 import { defaultUser, setUserInfo, setUserTheme, setUsers, setUser } from '../../../../store/slices/Users';
@@ -85,9 +81,9 @@ const defaultSteps: Step[] = [
 	}
 ];
 
-const { getColor, getHue, getColorMode } = utils;
+const { getHue, getColorMode } = utils;
 
-const Register = (): ReactElement => {
+const Register: FC = () => {
 	const theme = useTheme();
 	const userTheme = useUserTheme();
 
@@ -254,9 +250,8 @@ const Register = (): ReactElement => {
 		[detailsForm, genresForm, customizationForm, watchColor, colorMode]
 	);
 
-	// Set type StepperOnChangeProps
 	const handleChange = useCallback(
-		({ index }: { index: number }): void => {
+		({ index }: StepperOnChangeProps): void => {
 			setSteps(
 				steps.map((step, index) =>
 					index === activeStep ? { ...step, status: handleStepStatus(activeStep) } : step
@@ -343,25 +338,23 @@ const Register = (): ReactElement => {
 
 	return (
 		<>
-			<Box width='100%' sx={{ background: getColor({ theme, colorMode, type: 'background' }) }}>
-				<Stepper
-					activeStep={activeStep}
-					color={watchColor}
-					colorMode={colorMode}
-					onChange={handleChange}
-					onCancel={handleCheckCancel}
-					onSubmit={handleSubmit}
-				>
-					<StepList>{[...steps]}</StepList>
-					<StepPanels>
-						{steps.map((step, index) => (
-							<StepPanel key={step.title} {...step} index={index} total={steps.length} p={3}>
-								{handleReturnElement(index)}
-							</StepPanel>
-						))}
-					</StepPanels>
-				</Stepper>
-			</Box>
+			<Stepper
+				activeStep={activeStep}
+				color={watchColor}
+				colorMode={colorMode}
+				onChange={handleChange}
+				onCancel={handleCheckCancel}
+				onSubmit={handleSubmit}
+			>
+				<StepList>{[...steps]}</StepList>
+				<StepPanels>
+					{steps.map((step, index) => (
+						<StepPanel key={step.title} {...step} index={index} total={steps.length} p={3}>
+							{handleReturnElement(index)}
+						</StepPanel>
+					))}
+				</StepPanels>
+			</Stepper>
 
 			<ConfirmModal
 				colorMode={colorMode}
