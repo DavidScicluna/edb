@@ -1,48 +1,71 @@
 import { FC } from 'react';
 
-import { Card, CardHeader, CardBody } from '@davidscicluna/component-library';
+import {
+	CollapsibleCard,
+	CollapsibleCardHeader,
+	CollapsibleCardBody,
+	HorizontalScroll
+} from '@davidscicluna/component-library';
 
-import { HStack, Text } from '@chakra-ui/react';
+import { useBoolean, Box, Text } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
 
-import { useSelector, useUserTheme } from '../../../../../../common/hooks';
+import { useSelector } from '../../../../../../common/hooks';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 
 import { UsersProps } from './types';
 import User from './components/User';
 import CreateUser from './components/CreateUser';
 
-// TODO: Refactor to be a collapsible Card
-const Users: FC<UsersProps> = ({ selectedUserID, onUserClick }) => {
-	const { colorMode } = useUserTheme();
-
+// TODO: Refactor to be a collapsible Card & to HorizontalGrid with arrows in Header action
+const Users: FC<UsersProps> = (props) => {
 	const users = useSelector((state) => state.users.data.users || []);
 
-	return (
-		<Card colorMode={colorMode} isFullWidth>
-			<CardHeader
-				renderTitle={(props) => <Text {...props}>Recent Sign-Ins</Text>}
-				renderSubtitle={(props) => <Text {...props}>Click your picture or create a new account.</Text>}
-			/>
-			<CardBody>
-				<HStack width='100%' spacing={1}>
-					{/* Users */}
-					{sort([...users])
-						.desc((u) => u.data.signedInAt)
-						.map((user) => (
-							<User
-								key={user.data.id}
-								user={{ ...user }}
-								isSelected={selectedUserID === user.data.id}
-								onClick={() => onUserClick({ ...user })}
-							/>
-						))}
+	const { color = defaultColor, colorMode = defaultColorMode, selectedUserID, onUserClick } = props;
 
-					{/* Create New Account Button */}
-					<CreateUser />
-				</HStack>
-			</CardBody>
-		</Card>
+	const [isOpen, setIsOpen] = useBoolean();
+
+	return (
+		<CollapsibleCard
+			header={
+				<CollapsibleCardHeader
+					renderTitle={(props) => (
+						<Text {...props} fontSize='md' fontWeight='semibold'>
+							Recent Sign ins
+						</Text>
+					)}
+					renderSubtitle={(props) => <Text {...props}>Click your picture or create a new account.</Text>}
+				/>
+			}
+			body={
+				<CollapsibleCardBody>
+					<HorizontalScroll colorMode={colorMode} renderDivider={() => <Box padding={1} />}>
+						{[
+							...sort([...users])
+								.desc((u) => u.data.signedInAt)
+								.map((user) => (
+									<User
+										key={user.data.id}
+										color={color}
+										colorMode={colorMode}
+										user={{ ...user }}
+										isSelected={selectedUserID === user.data.id}
+										onClick={() => onUserClick({ ...user })}
+									/>
+								)),
+
+							<CreateUser key='ds-edb-signin-create-user' color={color} colorMode={colorMode} />
+						].map((user) => user)}
+					</HorizontalScroll>
+				</CollapsibleCardBody>
+			}
+			colorMode={colorMode}
+			isOpen={isOpen}
+			isFullWidth
+			onOpen={() => setIsOpen.toggle()}
+			p={2}
+		/>
 	);
 };
 

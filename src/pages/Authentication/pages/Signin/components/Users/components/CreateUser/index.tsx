@@ -1,44 +1,56 @@
 import { FC } from 'react';
 
-import { useTheme, InternalLink, Card, CardBody, Icon, utils } from '@davidscicluna/component-library';
+import { useTheme, InternalLink, Card, CardBody, CardFooter, Icon, utils } from '@davidscicluna/component-library';
 
-import { VStack, Center, Text } from '@chakra-ui/react';
+import { Center, Text } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../../../common/hooks';
+import {
+	color as defaultColor,
+	colorMode as defaultColorMode
+} from '../../../../../../../../common/data/defaultPropValues';
+
+import { CreateUserProps } from './types';
 
 const { getColor } = utils;
 
-const CreateUser: FC = () => {
+const CreateUser: FC<CreateUserProps> = ({ color = defaultColor, colorMode = defaultColorMode }) => {
 	const theme = useTheme();
-	const { color, colorMode } = useUserTheme();
 
 	return (
-		<InternalLink to='/register'>
-			<Card color='gray' colorMode={colorMode} isClickable p={1}>
+		<InternalLink to='/authentication/register' isFullWidth sx={{ height: '100%' }}>
+			<Card
+				colorMode={colorMode}
+				isLight
+				isDivisible={false}
+				isClickable
+				isFullWidth={false}
+				p={2}
+				sx={{ height: '100%' }}
+			>
 				<CardBody>
-					<VStack width='100%' spacing={1}>
-						<Center width={theme.space[5]} height={theme.space[5]} background={theme.colors.transparent}>
-							<Icon
-								color={getColor({ theme, colorMode, color, type: 'color' })}
-								colorMode={colorMode}
-								width={theme.fontSizes['2xl']}
-								height={theme.fontSizes['2xl']}
-								fontSize={theme.fontSizes['2xl']}
-								icon='add_box'
-								skeletonColor={color}
-							/>
-						</Center>
-
-						<Text
-							align='center'
-							color={getColor({ theme, colorMode, type: 'text.primary' })}
-							fontSize='md'
-							fontWeight='semibold'
-						>
-							Create New Account
-						</Text>
-					</VStack>
+					<Center>
+						<Icon
+							color={getColor({ theme, colorMode, color, type: 'color' })}
+							colorMode={colorMode}
+							width={theme.space[8]}
+							height={theme.space[8]}
+							fontSize={theme.space[8]}
+							icon='add_circle_outline'
+							skeletonColor={color}
+						/>
+					</Center>
 				</CardBody>
+				<CardFooter>
+					<Text
+						align='center'
+						color={getColor({ theme, colorMode, type: 'text.primary' })}
+						fontSize='sm'
+						fontWeight='semibold'
+						noOfLines={1}
+					>
+						Create New Account
+					</Text>
+				</CardFooter>
 			</Card>
 		</InternalLink>
 	);
