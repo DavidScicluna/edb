@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
 import { Tooltip, Icon } from '@davidscicluna/component-library';
 
@@ -8,7 +8,7 @@ import { colorMode as defaultColorMode } from '../../../../common/data/defaultPr
 
 import { PasswordIconProps } from './types';
 
-const PasswordIcon = (props: PasswordIconProps): ReactElement => {
+const PasswordIcon: FC<PasswordIconProps> = (props) => {
 	const {
 		colorMode = defaultColorMode,
 		label = 'Password',
