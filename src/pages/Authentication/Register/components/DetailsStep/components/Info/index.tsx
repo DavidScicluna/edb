@@ -6,7 +6,6 @@ import { useMediaQuery, VStack, Text, SimpleGrid } from '@chakra-ui/react';
 
 import { useWatch, Controller } from 'react-hook-form';
 
-import {} from '../../../../../common/data/placeholders';
 import {
 	color as defaultColor,
 	colorMode as defaultColorMode

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import { Card, CardHeader, CardBody, Button, Input, Icon } from '@davidscicluna/component-library';
 
@@ -12,12 +12,15 @@ import {
 } from '../../../../../../../common/data/defaultPropValues';
 import { detailsDefaultValues as defaultValues } from '../../../../defaults';
 import { PasswordIcon } from '../../../../../components';
+import { useSelector } from '../../../../../../../common/hooks';
 
 import { CredentialsProps } from './types';
 
 const Credentials: FC<CredentialsProps> = (props) => {
+	const users = useSelector((state) => state.users.data.users || []);
+
 	const { form, color = defaultColor, colorMode = defaultColorMode, placeholder } = props;
-	const { control, getValues, reset } = form;
+	const { control, getValues, clearErrors, setValue, setError, reset } = form;
 
 	const watchUsername = useWatch({ control, name: 'username' });
 	const watchPassword = useWatch({ control, name: 'password' });
@@ -39,6 +42,23 @@ const Credentials: FC<CredentialsProps> = (props) => {
 			}
 		);
 	};
+
+	const handleUsernameChange = useCallback(
+		(value: string): void => {
+			if (users.every((user) => user.data.credentials.username !== value.trim())) {
+				clearErrors('username');
+				setValue('username', value.trim(), { shouldDirty: true });
+			} else {
+				setValue('username', '', { shouldDirty: true });
+				setError(
+					'username',
+					{ type: 'custom', message: 'The username must be unique! Please try another.' },
+					{ shouldFocus: true }
+				);
+			}
+		},
+		[users]
+	);
 
 	return (
 		<Card colorMode={colorMode} isFullWidth variant='outlined' p={2}>
@@ -62,17 +82,18 @@ const Credentials: FC<CredentialsProps> = (props) => {
 					<Controller
 						control={control}
 						name='username'
-						render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
+						render={({ field: { onBlur, value, name }, fieldState: { error } }) => (
 							<Input
 								color={color}
 								colorMode={colorMode}
+								autoComplete='off'
 								label='Username'
 								id={name}
 								name={name}
 								helper={error ? error.message : undefined}
 								placeholder={placeholder}
 								onBlur={onBlur}
-								onChange={onChange}
+								onChange={(event) => handleUsernameChange(event.target.value)}
 								isError={!!error}
 								isFullWidth
 								isRequired
@@ -90,6 +111,7 @@ const Credentials: FC<CredentialsProps> = (props) => {
 							<Input
 								color={color}
 								colorMode={colorMode}
+								autoComplete='password'
 								label='Password'
 								name={name}
 								helper={error ? error.message : undefined}
