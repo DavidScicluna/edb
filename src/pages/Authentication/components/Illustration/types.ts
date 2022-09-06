@@ -4,7 +4,6 @@ import {
 	BoxColor,
 	BoxGradient,
 	BoxTypography,
-	BoxLayout,
 	BoxFlexbox,
 	BoxGrid,
 	BoxBackground,
@@ -21,15 +20,12 @@ import { BoxProps, ColorMode } from '@chakra-ui/react';
 export type IllustrationIndex = 1 | 2 | 3 | 4 | 5 | 6;
 export type IllustrationIndexes = IllustrationIndex[];
 
-export type IllustrationRef = HTMLDivElement | null;
-
 type Omitted =
 	| BoxMargin
 	| BoxPadding
 	| BoxColor
 	| BoxGradient
 	| BoxTypography
-	| BoxLayout
 	| BoxFlexbox
 	| BoxGrid
 	| BoxBackground
