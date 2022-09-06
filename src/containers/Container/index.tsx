@@ -1,47 +1,55 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import { Collapse } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
-import { useWillUnmount } from 'rooks';
 import { useDispatch } from 'react-redux';
-import { useIsFirstRender, useTimeout } from 'usehooks-ts';
+import { useEventListener, useIsFirstRender, useTimeout } from 'usehooks-ts';
 
-import { useCheckColorMode, usePopulateOptions, useSelector } from '../../common/hooks';
+import { usePopulateOptions, useSelector } from '../../common/hooks';
+import Layout from '../Layout';
 import Routes from '../Routes';
 import { guest, setUser } from '../../store/slices/Users';
 import Splashscreen from '../Splashscreen';
+import Spinner from '../Spinner';
 import Router from '../Router';
+import { toggleSpinnerModal } from '../../store/slices/Modals';
 
 const Container: FC = () => {
 	const dispatch = useDispatch();
-	const activeUser = useSelector((state) => state.users.data.activeUser);
 
 	const isFirstRender = useIsFirstRender();
+
+	const activeUser = useSelector((state) => state.users.data.activeUser);
+	const isSpinnerModalOpen = useSelector((state) => state.modals.ui.isSpinnerModalOpen);
 
 	const [isSplashscreenOpen, setSetIsSplashscreenOpen] = useBoolean(isFirstRender);
 	const [isRoutesVisible, setSetIsRoutesVisible] = useBoolean();
 
-	usePopulateOptions();
-
-	useCheckColorMode();
-
-	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 7500 : null);
-	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 5000 : null);
-
-	useWillUnmount(() => {
+	const handleCheckRememberMe = useCallback((): void => {
 		if (!activeUser.data.credentials.rememberMe) {
 			dispatch(setUser({ ...guest }));
 		}
-	});
+	}, [activeUser, guest]);
+
+	usePopulateOptions();
+
+	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 5000 : null);
+	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 2500 : null);
+
+	useEventListener('beforeunload', () => handleCheckRememberMe());
 
 	return (
 		<Router>
 			<Splashscreen isOpen={isSplashscreenOpen} onClose={() => setSetIsSplashscreenOpen.off()} />
 
+			<Spinner isOpen={isSpinnerModalOpen} onClose={() => dispatch(toggleSpinnerModal(false))} />
+
 			<Collapse in={isRoutesVisible} unmountOnExit>
-				<Routes />
+				<Layout>
+					<Routes />
+				</Layout>
 			</Collapse>
 		</Router>
 	);
