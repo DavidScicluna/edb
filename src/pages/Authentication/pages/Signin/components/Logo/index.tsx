@@ -6,13 +6,14 @@ import { Center } from '@chakra-ui/react';
 
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { useUserTheme } from '../../../../../../common/hooks';
+import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
+
+import { LogoProps } from './types';
 
 const { getColor } = utils;
 
-const Logo: FC = () => {
+const Logo: FC<LogoProps> = ({ colorMode = defaultColorMode }) => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
 
 	const [color, setColor] = useState(getColor({ theme, colorMode, type: 'text.primary' }));
 
