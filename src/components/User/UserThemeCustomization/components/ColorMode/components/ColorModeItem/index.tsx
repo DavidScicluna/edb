@@ -48,7 +48,7 @@ const ColorModeItem: FC<ColorModeItemProps> = (props) => {
 					</Text>
 				)}
 				actions={
-					<ScaleFade in={isActive}>
+					<ScaleFade in={isActive} unmountOnExit={false}>
 						<Icon icon='check' color={getColor({ theme, colorMode, color, type: 'color' })} />
 					</ScaleFade>
 				}
