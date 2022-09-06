@@ -4,14 +4,13 @@ import { Tooltip, Icon } from '@davidscicluna/component-library';
 
 import { Center } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../common/hooks';
+import { colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 
 import { PasswordIconProps } from './types';
 
 const PasswordIcon = (props: PasswordIconProps): ReactElement => {
-	const { colorMode } = useUserTheme();
-
 	const {
+		colorMode = defaultColorMode,
 		label = 'Password',
 		isVisible = false,
 		isHovering = false,

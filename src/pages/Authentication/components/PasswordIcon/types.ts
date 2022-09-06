@@ -1,6 +1,6 @@
 import { IconProps } from '@davidscicluna/component-library';
 
-import { CenterProps } from '@chakra-ui/react';
+import { ColorMode, CenterProps } from '@chakra-ui/react';
 
 type SetProps = {
 	on: () => void;
@@ -9,6 +9,7 @@ type SetProps = {
 };
 
 export type PasswordIconProps = Omit<CenterProps, 'children'> & {
+	colorMode?: ColorMode;
 	label?: string;
 	isVisible?: boolean;
 	isHovering?: boolean;
