@@ -1,3 +1,5 @@
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../common/data/defaultPropValues';
+
 import { DetailsForm, GenresForm, CustomizationForm, ProfileForm } from './types';
 
 export const detailsDefaultValues: DetailsForm = {
@@ -14,8 +16,8 @@ export const genresDefaultValues: GenresForm = {
 };
 
 export const customizationDefaultValues: CustomizationForm = {
-	color: 'light_blue',
-	colorMode: 'light'
+	color: defaultColor,
+	colorMode: defaultColorMode
 };
 
 export const profileDefaultValues: ProfileForm = {

@@ -1,4 +1,4 @@
-import { Credentials, Info, InfoGenres, Theme } from '../../../store/slices/Users/types';
+import { Credentials, Info, InfoGenres, UserTheme } from '../../../store/slices/Users/types';
 
 export type DetailsForm = {
 	firstName: Info['name'];
@@ -8,7 +8,7 @@ export type DetailsForm = {
 
 export type GenresForm = InfoGenres;
 
-export type CustomizationForm = Theme;
+export type CustomizationForm = UserTheme;
 
 export type ProfileForm = {
 	avatar_path: Info['avatar_path'];
