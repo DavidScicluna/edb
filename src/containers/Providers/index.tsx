@@ -1,8 +1,6 @@
 import { FC } from 'react';
 
-import { theme } from '@davidscicluna/component-library';
-
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
+import { DSCLProvider } from '@davidscicluna/component-library';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -31,13 +29,12 @@ const Providers: FC = () => {
 	return (
 		<ReduxProvider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<ChakraProvider theme={theme} resetCSS>
-					<ColorModeScript initialColorMode={theme.config.initialColorMode} />
+				<DSCLProvider>
 					<QueryClientProvider client={queryClient}>
 						<Container />
 						{process.env.NODE_ENV !== 'production' && <ReactQueryDevtools initialIsOpen={false} />}
 					</QueryClientProvider>
-				</ChakraProvider>
+				</DSCLProvider>
 			</PersistGate>
 		</ReduxProvider>
 	);
