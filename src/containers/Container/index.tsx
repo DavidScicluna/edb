@@ -25,6 +25,7 @@ const Container: FC = () => {
 	const isSpinnerModalOpen = useSelector((state) => state.modals.ui.isSpinnerModalOpen);
 
 	const [isSplashscreenOpen, setSetIsSplashscreenOpen] = useBoolean(isFirstRender);
+	const [isSpinnerVisible, setSetIsSpinnerVisible] = useBoolean();
 	const [isRoutesVisible, setSetIsRoutesVisible] = useBoolean();
 
 	const handleCheckRememberMe = useCallback((): void => {
@@ -35,8 +36,9 @@ const Container: FC = () => {
 
 	usePopulateOptions();
 
-	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 5000 : null);
-	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 2500 : null);
+	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 6000 : null);
+	useTimeout(() => setSetIsSpinnerVisible.on(), isSplashscreenOpen ? 8000 : null);
+	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 3000 : null);
 
 	useEventListener('beforeunload', () => handleCheckRememberMe());
 
@@ -44,7 +46,9 @@ const Container: FC = () => {
 		<Router>
 			<Splashscreen isOpen={isSplashscreenOpen} onClose={() => setSetIsSplashscreenOpen.off()} />
 
-			<Spinner isOpen={isSpinnerModalOpen} onClose={() => dispatch(toggleSpinnerModal(false))} />
+			{isSpinnerVisible && (
+				<Spinner isOpen={isSpinnerModalOpen} onClose={() => dispatch(toggleSpinnerModal(false))} />
+			)}
 
 			<Collapse in={isRoutesVisible} unmountOnExit>
 				<Layout>
