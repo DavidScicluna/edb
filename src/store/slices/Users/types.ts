@@ -4,7 +4,7 @@ import { ColorMode } from '@chakra-ui/react';
 
 import { PayloadAction } from '@reduxjs/toolkit';
 
-import { MediaType, FullCompany, Genre } from '../../../common/types';
+import { MediaType, FullCompany, Genre, Language } from '../../../common/types';
 import { FullMovie, Collection } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
 import { FullTV } from '../../../common/types/tv';
@@ -90,6 +90,8 @@ export type List = {
 export type UserThemeColor = Exclude<Color, 'transparent' | 'black' | 'white' | 'gray' | 'red' | 'green' | 'yellow'>;
 export type UserThemeColorMode = ColorMode | 'system';
 
+export type UserLanguage = Language; // TODO: Replace type with language iso codes
+
 export type UserTheme = {
 	color: UserThemeColor;
 	colorMode: UserThemeColorMode;
@@ -110,6 +112,7 @@ export type User = {
 		createdAt: string;
 	};
 	ui: {
+		language: UserLanguage;
 		theme: UserTheme;
 	};
 };

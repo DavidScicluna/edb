@@ -20,6 +20,7 @@ const initialState: StateProps = {
 		listsModal: { ...defaultListsModal },
 		quickViewModal: { ...defaultQuickViewModal },
 		isUserThemeModalOpen: false,
+		isInternationalizationModalOpen: false,
 		isSpinnerModalOpen: false
 	}
 };
@@ -37,12 +38,21 @@ const modalsSlice = createSlice({
 		toggleUserThemeModal: (state: StateProps, action: PayloadAction<boolean>) => {
 			state.ui.isUserThemeModalOpen = action.payload;
 		},
+		toggleInternationalizationModal: (state: StateProps, action: PayloadAction<boolean>) => {
+			state.ui.isInternationalizationModalOpen = action.payload;
+		},
 		toggleSpinnerModal: (state: StateProps, action: PayloadAction<boolean>) => {
 			state.ui.isSpinnerModalOpen = action.payload;
 		}
 	}
 });
 
-export const { setListsModal, setQuickViewModal, toggleUserThemeModal, toggleSpinnerModal } = modalsSlice.actions;
+export const {
+	setListsModal,
+	setQuickViewModal,
+	toggleUserThemeModal,
+	toggleInternationalizationModal,
+	toggleSpinnerModal
+} = modalsSlice.actions;
 
 export default modalsSlice.reducer;

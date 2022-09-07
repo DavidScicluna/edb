@@ -18,8 +18,9 @@ import {
 	List,
 	// UserReview,
 	// OtherReview,
-	UserTheme,
-	UserThemeColor
+	UserLanguage,
+	UserThemeColor,
+	UserTheme
 } from './types';
 
 const colors: UserThemeColor[] = [
@@ -94,6 +95,11 @@ export const defaultUser: User = {
 		createdAt: dayjs().toISOString()
 	},
 	ui: {
+		language: {
+			english_name: 'English',
+			iso_639_1: 'en',
+			name: 'English'
+		},
 		theme: {
 			color: color,
 			colorMode: 'system'
@@ -302,6 +308,29 @@ const usersSlice = createSlice({
 		// 			: { ...user }
 		// 	);
 		// },
+		setUserLanguage: (state: StateProps, action: UserAction<UserLanguage>) => {
+			const user = getUser({ users: state.data.users, user: action.payload.id });
+			const updatedUser: User = {
+				...user,
+				data: {
+					...user.data,
+					updatedAt: dayjs().toISOString()
+				},
+				ui: {
+					...user.ui,
+					language: action.payload.data
+				}
+			};
+
+			state.data.users = updateUsers({
+				users: state.data.users,
+				user: { ...updatedUser }
+			});
+
+			if (state.data.activeUser.data.id === user.data.id) {
+				state.data.activeUser = { ...updatedUser };
+			}
+		},
 		setUserTheme: (state: StateProps, action: UserAction<UserTheme>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
 			const updatedUser: User = {
@@ -341,6 +370,7 @@ export const {
 	setUserLists,
 	// setUserReviews,
 	// setUserOtherReviews,
+	setUserLanguage,
 	setUserTheme
 } = usersSlice.actions;
 
