@@ -6,9 +6,6 @@ const initialState: StateProps = {
 	ui: {
 		displayMode: 'grid',
 		sidebarMode: 'expanded'
-	},
-	data: {
-		hasLoadedIcons: false
 	}
 };
 
@@ -16,12 +13,6 @@ const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
-		setUser: (state: StateProps, action: PayloadAction<string | undefined>) => {
-			state.data.user = action.payload;
-		},
-		toggleHasLoadedIcons: (state: StateProps, action: PayloadAction<boolean>) => {
-			state.data.hasLoadedIcons = action.payload;
-		},
 		toggleDisplayMode: (state: StateProps, action: PayloadAction<DisplayMode>) => {
 			state.ui.displayMode = action.payload;
 		},
@@ -31,6 +22,6 @@ const appSlice = createSlice({
 	}
 });
 
-export const { setUser, toggleHasLoadedIcons, toggleDisplayMode, toggleSidebarMode } = appSlice.actions;
+export const { toggleDisplayMode, toggleSidebarMode } = appSlice.actions;
 
 export default appSlice.reducer;
