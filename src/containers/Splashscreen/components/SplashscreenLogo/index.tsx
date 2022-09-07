@@ -4,7 +4,7 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { useBreakpointValue, useBoolean, useConst, AspectRatio, Center } from '@chakra-ui/react';
 
-import { includes, merge, round, sample } from 'lodash';
+import { includes, merge, round, sample, uniq } from 'lodash';
 import { useElementSize, useInterval, useTimeout } from 'usehooks-ts';
 
 import { color as defaultColor } from '../../../../common/data/defaultPropValues';
@@ -61,10 +61,12 @@ const SplashscreenLogo: FC = () => {
 	const handlePickColor = useCallback(() => {
 		if (usedColors.length === colors.length) {
 			setColor(sampledColor);
-			setUsedColors([sampledColor]);
+			setUsedColors(uniq([sampledColor]));
 		} else {
-			setColor(sample(colors.filter((c) => c !== color && includes(usedColors, color))) || color);
-			setUsedColors((usedColors) => [...usedColors, color]);
+			const newColor = sample(colors.filter((c) => c !== color && includes(usedColors, color))) || color;
+
+			setColor(newColor);
+			setUsedColors((usedColors) => uniq([...usedColors, newColor]));
 		}
 	}, [colors, color, usedColors, sampledColor]);
 
@@ -72,9 +74,9 @@ const SplashscreenLogo: FC = () => {
 	useTimeout(() => {
 		setIsAnimatingMiddle.off();
 		setIsAnimatingEnd.on();
-	}, 2500);
+	}, 2000);
 
-	useInterval(() => handlePickColor(), isAnimatingEnd ? 500 : null);
+	useInterval(() => handlePickColor(), isAnimatingEnd ? 750 : null);
 
 	return (
 		<AspectRatio ref={ref} width={logoMaxWidth} ratio={1 / 1}>
@@ -103,7 +105,12 @@ const SplashscreenLogo: FC = () => {
 										type: isAnimatingEnd ? 'color' : colorMode === 'light' ? 'darkest' : 'lightest'
 								  })
 								: 'transparent',
-						fontSize: isAnimatingMiddle || isAnimatingEnd ? `${round(logoWidth / 2.5)}px` : '2000%'
+						fontSize:
+							isAnimatingMiddle || isAnimatingEnd
+								? logoWidth
+									? `${round(logoWidth / 2.5)}px`
+									: '500%'
+								: '5000%'
 					})
 				}}
 			>

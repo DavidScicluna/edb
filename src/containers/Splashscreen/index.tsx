@@ -29,8 +29,8 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 		'2xl': '10vw'
 	});
 
-	const delayLogo = useConst<number>(0.5);
-	const delayLabel = useConst<number>(1);
+	const delayLogo = useConst<number>(1);
+	const delayLabel = useConst<number>(2.5);
 
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
 
