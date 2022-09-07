@@ -20,6 +20,7 @@ import {
 	InternalLink,
 	Button,
 	IconButton,
+	IconButtonIcon,
 	Icon
 } from '@davidscicluna/component-library';
 
@@ -208,7 +209,7 @@ const Form: FC<FormProps> = (props) => {
 				onClose={onConfirmClose}
 				renderCancel={({ icon, category, ...rest }) => (
 					<IconButton {...rest}>
-						<Icon icon={icon} category={category} />
+						<IconButtonIcon icon={icon} category={category} />
 					</IconButton>
 				)}
 			>

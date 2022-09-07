@@ -13,6 +13,7 @@ import {
 	ConfirmModalFooter,
 	Button,
 	IconButton,
+	IconButtonIcon,
 	Icon
 } from '@davidscicluna/component-library';
 
@@ -151,7 +152,7 @@ const ForgotPassword: FC = () => {
 				colorMode={colorMode}
 				renderCancel={({ icon, category, ...rest }) => (
 					<IconButton {...rest}>
-						<Icon icon={icon} category={category} />
+						<IconButtonIcon icon={icon} category={category} />
 					</IconButton>
 				)}
 				isOpen={isConfirmOpen}

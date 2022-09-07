@@ -19,6 +19,7 @@ import {
 	ConfirmModalFooter,
 	Button,
 	IconButton,
+	IconButtonIcon,
 	Icon,
 	utils,
 	Undefinable
@@ -360,7 +361,7 @@ const Register: FC = () => {
 				colorMode={colorMode}
 				renderCancel={({ icon, category, ...rest }) => (
 					<IconButton {...rest}>
-						<Icon icon={icon} category={category} />
+						<IconButtonIcon icon={icon} category={category} />
 					</IconButton>
 				)}
 				isOpen={isConfirmOpen}
