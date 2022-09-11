@@ -8,7 +8,7 @@ import {
 	Divider,
 	Button,
 	IconButton,
-	Icon,
+	IconButtonIcon,
 	utils
 } from '@davidscicluna/component-library';
 
@@ -27,16 +27,16 @@ import { Form } from './types';
 const { getColorMode } = utils;
 
 const UserThemeModal: FC = () => {
-	const theme = useUserTheme();
+	const userTheme = useUserTheme();
 	const { setColorMode: setCUIColorMode } = useColorMode();
 
 	const dispatch = useDispatch();
 	const id = useSelector((state) => state.users.data.activeUser.data.id);
 	const isUserThemeModalOpen = useSelector((state) => state.modals.ui.isUserThemeModalOpen);
 
-	const [colorMode, setColorMode] = useState<ColorMode>(theme.colorMode);
+	const [colorMode, setColorMode] = useState<ColorMode>(userTheme.colorMode);
 
-	const form = useForm<Form>({ defaultValues: { ...theme } });
+	const form = useForm<Form>({ defaultValues: { ...userTheme } });
 	const { control, reset, handleSubmit } = form;
 
 	const watchColor = useWatch({ control, name: 'color' });
@@ -45,7 +45,7 @@ const UserThemeModal: FC = () => {
 	const { isDirty, dirtyFields } = useFormState({ control });
 
 	const handleClose = (): void => {
-		reset({ ...theme });
+		reset({ ...userTheme });
 
 		dispatch(toggleUserThemeModal(false));
 	};
@@ -86,7 +86,7 @@ const UserThemeModal: FC = () => {
 					renderTitle={(props) => <Text {...props}>Edit Application Theme</Text>}
 					renderCancel={({ icon, category, ...rest }) => (
 						<IconButton {...rest}>
-							<Icon icon={icon} category={category} />
+							<IconButtonIcon icon={icon} category={category} />
 						</IconButton>
 					)}
 				/>
