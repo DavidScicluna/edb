@@ -25,7 +25,9 @@ const Languages: FC<LanguagesProps> = ({ form }) => {
 						.by({ asc: 'english_name' })
 						.filter(
 							(language) =>
-								!!language.name && !language.name.includes('?') && !language.name.includes('No')
+								!!language.name &&
+								!language.name.includes('?') &&
+								!language.name.includes('No Language')
 						)
 						.map((language) => (
 							<Language
