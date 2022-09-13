@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { IconType, IconCategory } from '@davidscicluna/component-library';
 
 import { MediaType } from '../../../common/types';
-import { GetMediaType } from '../../../store/slices/Users/types';
+import { MediaItem } from '../../../store/slices/Users/types';
 
 export type RenderProps = {
 	iconType: IconType;
@@ -13,8 +13,6 @@ export type RenderProps = {
 	onClick: () => void;
 };
 
-export interface LikeProps {
+export type LikeProps<MT extends MediaType> = Pick<MediaItem<MT>, 'mediaItem' | 'mediaType'> & {
 	renderAction: (props: RenderProps) => ReactElement;
-	mediaType: MediaType;
-	mediaItem?: GetMediaType<this['mediaType']>;
-}
+};

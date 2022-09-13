@@ -1,133 +1,181 @@
-import { FC } from 'react';
+import { ReactElement, useCallback, useEffect } from 'react';
+
+import { useBoolean } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-import { isEmpty, isNil } from 'lodash';
+import { useDebounce } from 'usehooks-ts';
 
 import { useSelector } from '../../../common/hooks';
-import { defaultUser, getUser, setUserLiked } from '../../../store/slices/Users';
+import { setUserLiked } from '../../../store/slices/Users';
+import { FullCompany, MediaType } from '../../../common/types';
+import { MediaItems } from '../../../store/slices/Users/types';
+import { Collection, FullMovie } from '../../../common/types/movie';
+import { FullPerson } from '../../../common/types/person';
+import { FullTV } from '../../../common/types/tv';
 
 import { LikeProps } from './types';
 
-const Like: FC<LikeProps> = (props) => {
+const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.app.data.user);
-	const liked = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.data.liked || defaultUser.data.liked
-	);
+
+	const user = useSelector((state) => state.users.data.activeUser);
+
+	const { id, liked } = user.data;
 
 	const { renderAction, mediaType, mediaItem } = props;
 
-	const isLiked: boolean =
-		liked && mediaItem
-			? mediaType === 'movie'
-				? liked.movies.some((movie) => movie.id === mediaItem.id)
-				: mediaType === 'tv'
-				? liked.tv.some((show) => show.id === mediaItem.id)
-				: mediaType === 'person'
-				? liked.people.some((person) => person.id === mediaItem.id)
-				: mediaType === 'company'
-				? liked.companies.some((company) => company.id === mediaItem.id)
-				: liked.collections.some((collection) => collection.id === mediaItem.id)
-			: false;
+	const [isLiked, setIsLiked] = useBoolean();
+	const isLikedDebounced = useDebounce(isLiked, 500);
 
-	/**
-	 * This method will remove the media-item from its respective media type array
-	 * Meaning the user has un-liked the media-item
-	 */
-	const handleRemoveLike = (): void => {
-		const updatedLiked = {
-			movies: liked?.movies || [],
-			tv: liked?.tv || [],
-			people: liked?.people || [],
-			companies: liked?.companies || [],
-			collections: liked?.collections || []
-		};
+	const handleIsLiked = useCallback((): void => {
+		let isLiked = false;
 
 		switch (mediaType) {
-			case 'movie':
-				updatedLiked.movies = (updatedLiked.movies || []).filter((movie) => movie.id !== mediaItem?.id);
+			case 'movie': {
+				isLiked = liked.movies.some((movie) => movie.mediaItem.id === mediaItem.id);
 				break;
-			case 'tv':
-				updatedLiked.tv = (updatedLiked.tv || []).filter((show) => show.id !== mediaItem?.id);
+			}
+			case 'tv': {
+				isLiked = liked.tv.some((show) => show.mediaItem.id === mediaItem.id);
 				break;
-			case 'person':
-				updatedLiked.people = (updatedLiked.people || []).filter((person) => person.id !== mediaItem?.id);
+			}
+			case 'person': {
+				isLiked = liked.people.some((person) => person.mediaItem.id === mediaItem.id);
 				break;
-			case 'company':
-				updatedLiked.companies = (updatedLiked.companies || []).filter(
-					(company) => company.id !== mediaItem?.id
-				);
+			}
+			case 'company': {
+				isLiked = liked.companies.some((company) => company.mediaItem.id === mediaItem.id);
 				break;
-			case 'collection':
-				updatedLiked.collections = (updatedLiked.collections || []).filter(
-					(collection) => collection.id !== mediaItem?.id
-				);
+			}
+			case 'collection': {
+				isLiked = liked.collections.some((collection) => collection.mediaItem.id === mediaItem.id);
 				break;
-			default:
-				break;
+			}
 		}
 
-		dispatch(setUserLiked({ id: user || '', data: { ...updatedLiked } }));
-	};
+		setIsLiked[isLiked ? 'on' : 'off']();
+	}, [mediaType, mediaItem, liked]);
 
-	/**
-	 * This method will save the media-item into its respective media type array
-	 * Meaning the user has liked the media-item
-	 */
-	const handleLike = (): void => {
-		const updatedLiked = {
-			movies: liked?.movies || [],
-			tv: liked?.tv || [],
-			people: liked?.people || [],
-			companies: liked?.companies || [],
-			collections: liked?.collections || []
+	const handleRemoveLike = useCallback((): void => {
+		const updatedLiked: MediaItems = {
+			movies: [...(liked.movies || [])],
+			tv: [...(liked.tv || [])],
+			people: [...(liked.people || [])],
+			companies: [...(liked.companies || [])],
+			collections: [...(liked.collections || [])]
 		};
 
 		switch (mediaType) {
 			case 'movie': {
-				const movieMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
-
-				updatedLiked.movies = [...updatedLiked.movies, movieMediaItem];
+				updatedLiked.movies = updatedLiked.movies.filter((movie) => movie.mediaItem.id !== mediaItem.id);
 				break;
 			}
 			case 'tv': {
-				const showMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
-
-				updatedLiked.tv = [...updatedLiked.tv, showMediaItem];
+				updatedLiked.tv = updatedLiked.tv.filter((show) => show.mediaItem.id !== mediaItem.id);
 				break;
 			}
 			case 'person': {
-				const personMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
-
-				updatedLiked.people = [...updatedLiked.people, personMediaItem];
+				updatedLiked.people = updatedLiked.people.filter((person) => person.mediaItem.id !== mediaItem.id);
 				break;
 			}
 			case 'company': {
-				const companyMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
-
-				updatedLiked.companies = [...updatedLiked.companies, companyMediaItem];
+				updatedLiked.companies = updatedLiked.companies.filter(
+					(company) => company.mediaItem.id !== mediaItem.id
+				);
 				break;
 			}
 			case 'collection': {
-				const collectionMediaItem = { ...mediaItem, dateAdded: dayjs(new Date()).toISOString() };
+				updatedLiked.collections = updatedLiked.collections.filter(
+					(collection) => collection.mediaItem.id !== mediaItem.id
+				);
+				break;
+			}
+		}
 
-				updatedLiked.collections = [...updatedLiked.collections, collectionMediaItem];
+		dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
+	}, [mediaType, mediaItem, liked, id]);
+
+	const handleLike = useCallback((): void => {
+		const updatedLiked: MediaItems = {
+			movies: [...(liked.movies || [])],
+			tv: [...(liked.tv || [])],
+			people: [...(liked.people || [])],
+			companies: [...(liked.companies || [])],
+			collections: [...(liked.collections || [])]
+		};
+
+		switch (mediaType) {
+			case 'movie': {
+				updatedLiked.movies = [
+					...updatedLiked.movies,
+					{
+						mediaItem: { ...(mediaItem as FullMovie) },
+						mediaType: 'movie',
+						dateAdded: dayjs(new Date()).toISOString()
+					}
+				];
+				break;
+			}
+			case 'tv': {
+				updatedLiked.tv = [
+					...updatedLiked.tv,
+					{
+						mediaItem: { ...(mediaItem as FullTV) },
+						mediaType: 'tv',
+						dateAdded: dayjs(new Date()).toISOString()
+					}
+				];
+				break;
+			}
+			case 'person': {
+				updatedLiked.people = [
+					...updatedLiked.people,
+					{
+						mediaItem: { ...(mediaItem as FullPerson) },
+						mediaType: 'person',
+						dateAdded: dayjs(new Date()).toISOString()
+					}
+				];
+				break;
+			}
+			case 'company': {
+				updatedLiked.companies = [
+					...updatedLiked.companies,
+					{
+						mediaItem: { ...(mediaItem as FullCompany) },
+						mediaType: 'company',
+						dateAdded: dayjs(new Date()).toISOString()
+					}
+				];
+				break;
+			}
+			case 'collection': {
+				updatedLiked.collections = [
+					...updatedLiked.collections,
+					{
+						mediaItem: { ...(mediaItem as Collection) },
+						mediaType: 'collection',
+						dateAdded: dayjs(new Date()).toISOString()
+					}
+				];
 				break;
 			}
 			default:
 				break;
 		}
 
-		dispatch(setUserLiked({ id: user || '', data: { ...updatedLiked } }));
-	};
+		dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
+	}, [mediaType, mediaItem, liked, id]);
+
+	useEffect(() => handleIsLiked(), [liked]);
 
 	return renderAction({
-		iconType: isLiked ? 'favorite' : 'favorite_border',
+		iconType: isLikedDebounced ? 'favorite' : 'favorite_border',
 		iconCategory: 'outlined',
-		isDisabled: isNil(user) || isEmpty(user),
-		isLiked,
-		onClick: isLiked ? () => handleRemoveLike() : () => handleLike()
+		isDisabled: !!user,
+		isLiked: isLikedDebounced,
+		onClick: isLikedDebounced ? () => handleRemoveLike() : () => handleLike()
 	});
 };
 
