@@ -1,73 +1,74 @@
-import { ReactElement, forwardRef } from 'react';
+import { FC, useCallback } from 'react';
 
-import { useTheme, Skeleton, Icon } from '@davidscicluna/component-library';
+import { useTheme, Tooltip, Skeleton, Icon, utils } from '@davidscicluna/component-library';
 
-import { useColorMode, Center, VStack, Text } from '@chakra-ui/react';
+import { useBoolean, HStack, Center, Text } from '@chakra-ui/react';
 
 import round from 'lodash/round';
+import { useElementSize } from 'usehooks-ts';
 
-import { RatingRef, RatingProps } from './types';
+import { useUserTheme } from '../../common/hooks';
 
-const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): ReactElement {
+import { RatingProps, MouseEvent } from './types';
+
+const { getColor } = utils;
+
+const Rating: FC<RatingProps> = (props) => {
 	const theme = useTheme();
-	const { colorMode } = useColorMode();
+	const { colorMode } = useUserTheme();
 
-	const { children, inView = true, isLoading = false, size = 'md' } = props;
+	const [textRef, { width: textWidth }] = useElementSize();
 
-	/**
-	 * This method will return the appropriate font-size from theme depending on size prop
-	 *
-	 * @returns - string: Theme size
-	 */
-	const handleReturnIconSize = (): string => {
-		switch (size) {
-			case 'xs':
-				return theme.fontSizes.md;
-			case 'sm':
-				return theme.fontSizes.lg;
-			case 'lg':
-				return theme.fontSizes.xl;
-			case 'xl':
-				return theme.fontSizes['2xl'];
-			case '2xl':
-				return theme.fontSizes['3xl'];
-			case '3xl':
-				return theme.fontSizes['4xl'];
-			default:
-				return theme.fontSizes.xl;
+	const {
+		rating,
+		count,
+		inView = true,
+		isLoading = false,
+		onMouseEnter,
+		onMouseLeave,
+		spacing = 0.75,
+		size = 'md',
+		...rest
+	} = props;
+
+	const [isTooltipOpen, setIsTooltipOpen] = useBoolean();
+
+	const handleMouseEnter = useCallback((event: MouseEvent) => {
+		setIsTooltipOpen.on();
+
+		if (onMouseEnter) {
+			onMouseEnter(event);
 		}
-	};
+	}, []);
 
-	/**
-	 * This method will return the appropriate font-size from theme depending on size prop
-	 *
-	 * @returns - string: Theme size
-	 */
-	// const handleReturnCountSize = (): string => {
-	//   switch (size) {
-	//     case 'sm':
-	//       return 'xs';
-	//     case 'lg':
-	//       return 'sm';
-	//     case 'xl':
-	//       return 'sm';
-	//     default:
-	//       return 'xs';
-	//   }
-	// };
+	const handleMouseLeave = useCallback((event: MouseEvent) => {
+		setIsTooltipOpen.off();
+
+		if (onMouseLeave) {
+			onMouseLeave(event);
+		}
+	}, []);
 
 	return (
-		<Center ref={ref}>
-			<Icon
-				icon='star'
-				category='outlined'
-				color={theme.colors.yellow[colorMode === 'light' ? 500 : 400]}
-				fontSize={handleReturnIconSize()}
-			/>
+		<Tooltip
+			aria-label='Count of Ratings (tooltip)'
+			colorMode={colorMode}
+			label={`${count} Ratings`}
+			isOpen={!!count && !isLoading && isTooltipOpen}
+			placement='right'
+		>
+			<HStack {...rest} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} spacing={spacing}>
+				<Icon
+					width={`${textWidth}px`}
+					height={`${textWidth}px`}
+					fontSize={`${textWidth}px`}
+					icon='star'
+					category='outlined'
+					color={getColor({ theme, colorMode, color: 'yellow', type: 'color' })}
+				/>
 
-			{inView ? (
-				<Skeleton isLoaded={!isLoading} ml={0.5} variant='text'>
-					<VStack spacing={0.25}>
+				<Center ref={textRef}>
+					<Skeleton isLoaded={inView && !isLoading} variant='text'>
 						<Text
 							align='left'
 							fontSize={size}
@@ -75,23 +76,17 @@ const Rating = forwardRef<RatingRef, RatingProps>(function Rating(props, ref): R
 							color={`gray.${colorMode === 'light' ? 900 : 50}`}
 							whiteSpace='nowrap'
 						>
-							{children && !isLoading
-								? typeof children === 'number'
-									? round(Number(children))
-									: children
+							{rating && !isLoading
+								? typeof rating === 'number'
+									? round(Number(rating), 1)
+									: '0.0'
 								: 'N/A'}
 						</Text>
-						{/* TODO: Find a way to better display count */}
-						{/* {count ? (
-            <Text color={`gray.${colorMode === 'light' ? 400 : 500}`} fontSize={handleReturnCountSize()}>
-              {count}
-            </Text>
-          ) : null} */}
-					</VStack>
-				</Skeleton>
-			) : null}
-		</Center>
+					</Skeleton>
+				</Center>
+			</HStack>
+		</Tooltip>
 	);
-});
+};
 
 export default Rating;

@@ -1,17 +1,21 @@
-import { FontSize } from '@davidscicluna/component-library';
+import { MouseEvent as ME } from 'react';
 
-export type RatingRef = HTMLDivElement | null;
+import { FontSize, Nullable } from '@davidscicluna/component-library';
 
-type Size = Exclude<FontSize, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'> & string;
+import { StackProps } from '@chakra-ui/react';
 
-export type Rating = number | string | undefined | null;
+export type MouseEvent = ME<HTMLDivElement, globalThis.MouseEvent>;
 
-export type Count = number | undefined | null;
+type RatingSize = Exclude<FontSize, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'> & string;
 
-export type RatingProps = {
-	children?: Rating;
+export type Rating = Nullable<number | string>;
+
+export type Count = Nullable<number>;
+
+export type RatingProps = Omit<StackProps, 'children' | 'direction'> & {
+	rating?: Rating;
 	count?: Count;
 	inView?: boolean;
 	isLoading?: boolean;
-	size?: Size;
-} & Omit<Rating, 'rating'>;
+	size?: RatingSize;
+};
