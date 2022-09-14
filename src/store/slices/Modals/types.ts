@@ -1,11 +1,11 @@
 import { MediaType } from '../../../common/types';
 import { GetMediaType } from '../Users/types';
 
-export interface ListModal {
-	isOpen: boolean;
-	title: string;
+export interface BookmarkModal {
 	mediaType: MediaType;
 	mediaItem: GetMediaType<this['mediaType']> | null;
+	isOpen: boolean;
+	title: string;
 }
 
 export type QuickViewModal = {
@@ -16,7 +16,7 @@ export type QuickViewModal = {
 
 export type StateProps = {
 	ui: {
-		listsModal: ListModal;
+		bookmarkModal: BookmarkModal;
 		quickViewModal: QuickViewModal;
 		isUserThemeModalOpen: boolean;
 		isInternationalizationModalOpen: boolean;

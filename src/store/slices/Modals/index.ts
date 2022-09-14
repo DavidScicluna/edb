@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { StateProps, ListModal, QuickViewModal } from './types';
+import { StateProps, BookmarkModal, QuickViewModal } from './types';
 
-export const defaultListsModal: ListModal = {
-	isOpen: false,
-	title: '',
+export const defaultBookmarkModal: BookmarkModal = {
 	mediaType: 'movie',
-	mediaItem: null
+	mediaItem: null,
+	isOpen: false,
+	title: ''
 };
 
 export const defaultQuickViewModal: QuickViewModal = {
@@ -17,7 +17,7 @@ export const defaultQuickViewModal: QuickViewModal = {
 
 const initialState: StateProps = {
 	ui: {
-		listsModal: { ...defaultListsModal },
+		bookmarkModal: { ...defaultBookmarkModal },
 		quickViewModal: { ...defaultQuickViewModal },
 		isUserThemeModalOpen: false,
 		isInternationalizationModalOpen: false,
@@ -27,10 +27,10 @@ const initialState: StateProps = {
 
 const modalsSlice = createSlice({
 	name: 'modals',
-	initialState,
+	initialState: { ...initialState },
 	reducers: {
-		setListsModal: (state: StateProps, action: PayloadAction<ListModal>) => {
-			state.ui.listsModal = action.payload;
+		setBookmarkModal: (state: StateProps, action: PayloadAction<BookmarkModal>) => {
+			state.ui.bookmarkModal = action.payload;
 		},
 		setQuickViewModal: (state: StateProps, action: PayloadAction<QuickViewModal>) => {
 			state.ui.quickViewModal = action.payload;
@@ -48,7 +48,7 @@ const modalsSlice = createSlice({
 });
 
 export const {
-	setListsModal,
+	setBookmarkModal,
 	setQuickViewModal,
 	toggleUserThemeModal,
 	toggleInternationalizationModal,
