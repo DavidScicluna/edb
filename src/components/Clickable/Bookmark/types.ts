@@ -1,18 +1,22 @@
 import { ReactElement } from 'react';
 
-import { MediaType } from '../../../common/types';
-import { GetMediaType, List } from '../../../store/slices/Users/types';
+import { IconCategory, IconType } from '@davidscicluna/component-library';
 
-type RenderProps = {
-	lists?: List[];
+import { MediaType } from '../../../common/types';
+import { MediaItem } from '../../../store/slices/Users/types';
+
+type RenderActionProps = {
+	iconType: IconType;
+	iconCategory: IconCategory;
 	isDisabled: boolean;
 	isBookmarked: boolean;
+	isBookmarkedMultiple: boolean;
 	onClick: () => void;
 };
 
-export interface BookmarkProps {
-	renderAction: (props: RenderProps) => ReactElement;
+export type BookmarkProps<MT extends MediaType> = Pick<MediaItem<MT>, 'mediaItem' | 'mediaType'> & {
+	renderAction: (props: RenderActionProps) => ReactElement;
 	title: string;
-	mediaType: MediaType;
-	mediaItem?: GetMediaType<this['mediaType']>;
-}
+	isFocused?: boolean;
+	isHovering?: boolean;
+};
