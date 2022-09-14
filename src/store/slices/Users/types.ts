@@ -52,8 +52,10 @@ export type GetMediaType<MT extends MediaType> = MT extends 'movie'
 	: Collection;
 
 export type MediaItem<MT extends MediaType> = {
-	dateAdded: string;
-} & GetMediaType<MT>;
+	mediaItem: GetMediaType<MT>;
+	mediaType: MT;
+	addedAt: string;
+};
 
 export type MediaItems = {
 	movies: MediaItem<'movie'>[];
@@ -63,13 +65,15 @@ export type MediaItems = {
 	collections: MediaItem<'collection'>[];
 };
 
-export type List = {
+export type UserListMediaItems = Omit<MediaItems, 'people' | 'companies' | 'collections'>;
+
+export type UserList = {
 	id: string;
 	label: string;
 	description?: string;
 	updatedAt: string;
 	createdAt: string;
-	results: Omit<MediaItems, 'people' | 'companies' | 'collections'>;
+	mediaItems: UserListMediaItems;
 };
 
 // export type ReviewState = 'isLiked' | 'isDisliked';
@@ -105,7 +109,7 @@ export type User = {
 		recentSearches: Search[];
 		recentlyViewed: Omit<MediaItems, 'companies'>;
 		liked: MediaItems;
-		lists: List[];
+		lists: UserList[];
 		// reviews: UserReviews;
 		signedInAt: string;
 		updatedAt: string;

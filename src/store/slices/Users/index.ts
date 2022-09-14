@@ -15,7 +15,7 @@ import {
 	Info,
 	Search,
 	MediaItems,
-	List,
+	UserList,
 	// UserReview,
 	// OtherReview,
 	UserLanguage,
@@ -80,7 +80,7 @@ export const defaultUser: User = {
 					"A collection of movies and tv shows that I'm looking forward to watching and hopefully re-watch 🥳 🤓",
 				updatedAt: dayjs(new Date()).toISOString(),
 				createdAt: dayjs(new Date()).toISOString(),
-				results: {
+				mediaItems: {
 					movies: [],
 					tv: []
 				}
@@ -152,7 +152,7 @@ const updateUsers = memoize(({ users, user }: UpdateUsersProps): User[] => {
 
 const usersSlice = createSlice({
 	name: 'users',
-	initialState,
+	initialState: { ...initialState },
 	reducers: {
 		setUser: (state: StateProps, action: PayloadAction<User>) => {
 			state.data.activeUser = action.payload;
@@ -250,7 +250,7 @@ const usersSlice = createSlice({
 			}
 		},
 		// TODO: Maybe add more reducers to update specific lists with utils like user
-		setUserLists: (state: StateProps, action: UserAction<List[]>) => {
+		setUserLists: (state: StateProps, action: UserAction<UserList[]>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
 			const updatedUser: User = {
 				...user,
