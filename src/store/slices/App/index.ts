@@ -11,7 +11,7 @@ const initialState: StateProps = {
 
 const appSlice = createSlice({
 	name: 'app',
-	initialState,
+	initialState: { ...initialState },
 	reducers: {
 		toggleDisplayMode: (state: StateProps, action: PayloadAction<DisplayMode>) => {
 			state.ui.displayMode = action.payload;
