@@ -22,7 +22,7 @@ const initialState: StateProps = {
 
 const optionsSlice = createSlice({
 	name: 'options',
-	initialState,
+	initialState: { ...initialState },
 	reducers: {
 		setCountries: (state: StateProps, action: PayloadAction<Country[]>) => {
 			state.data.countries = action.payload;
