@@ -5,7 +5,7 @@ import { IconType, IconCategory } from '@davidscicluna/component-library';
 import { MediaType } from '../../../common/types';
 import { MediaItem } from '../../../store/slices/Users/types';
 
-export type RenderProps = {
+export type RenderActionProps = {
 	iconType: IconType;
 	iconCategory: IconCategory;
 	isDisabled: boolean;
@@ -14,5 +14,5 @@ export type RenderProps = {
 };
 
 export type LikeProps<MT extends MediaType> = Pick<MediaItem<MT>, 'mediaItem' | 'mediaType'> & {
-	renderAction: (props: RenderProps) => ReactElement;
+	renderAction: (props: RenderActionProps) => ReactElement;
 };

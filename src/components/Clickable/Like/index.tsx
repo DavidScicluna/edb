@@ -5,11 +5,12 @@ import { useBoolean } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import { useDebounce } from 'usehooks-ts';
+import { sort } from 'fast-sort';
 
 import { useSelector } from '../../../common/hooks';
 import { setUserLiked } from '../../../store/slices/Users';
 import { FullCompany, MediaType } from '../../../common/types';
-import { MediaItems } from '../../../store/slices/Users/types';
+import { MediaItem, MediaItems } from '../../../store/slices/Users/types';
 import { Collection, FullMovie } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
 import { FullTV } from '../../../common/types/tv';
@@ -19,9 +20,9 @@ import { LikeProps } from './types';
 const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 	const dispatch = useDispatch();
 
-	const user = useSelector((state) => state.users.data.activeUser);
+	const activeUser = useSelector((state) => state.users.data.activeUser);
 
-	const { id, liked } = user.data;
+	const { id, liked } = activeUser.data;
 
 	const { renderAction, mediaType, mediaItem } = props;
 
@@ -57,7 +58,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 		setIsLiked[isLiked ? 'on' : 'off']();
 	}, [mediaType, mediaItem, liked]);
 
-	const handleRemoveLike = useCallback((): void => {
+	const handleUnlike = useCallback((): void => {
 		const updatedLiked: MediaItems = {
 			movies: [...(liked.movies || [])],
 			tv: [...(liked.tv || [])],
@@ -68,27 +69,33 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 
 		switch (mediaType) {
 			case 'movie': {
-				updatedLiked.movies = updatedLiked.movies.filter((movie) => movie.mediaItem.id !== mediaItem.id);
+				updatedLiked.movies = sort([
+					...updatedLiked.movies.filter((movie) => movie.mediaItem.id !== mediaItem.id)
+				]).by({ desc: (movie) => movie.addedAt });
 				break;
 			}
 			case 'tv': {
-				updatedLiked.tv = updatedLiked.tv.filter((show) => show.mediaItem.id !== mediaItem.id);
+				updatedLiked.tv = sort([...updatedLiked.tv.filter((show) => show.mediaItem.id !== mediaItem.id)]).by({
+					desc: (show) => show.addedAt
+				});
 				break;
 			}
 			case 'person': {
-				updatedLiked.people = updatedLiked.people.filter((person) => person.mediaItem.id !== mediaItem.id);
+				updatedLiked.people = sort([
+					...updatedLiked.people.filter((person) => person.mediaItem.id !== mediaItem.id)
+				]).by({ desc: (person) => person.addedAt });
 				break;
 			}
 			case 'company': {
-				updatedLiked.companies = updatedLiked.companies.filter(
-					(company) => company.mediaItem.id !== mediaItem.id
-				);
+				updatedLiked.companies = sort([
+					...updatedLiked.companies.filter((company) => company.mediaItem.id !== mediaItem.id)
+				]).by({ desc: (company) => company.addedAt });
 				break;
 			}
 			case 'collection': {
-				updatedLiked.collections = updatedLiked.collections.filter(
-					(collection) => collection.mediaItem.id !== mediaItem.id
-				);
+				updatedLiked.collections = sort([
+					...updatedLiked.collections.filter((collection) => collection.mediaItem.id !== mediaItem.id)
+				]).by({ desc: (collection) => collection.addedAt });
 				break;
 			}
 		}
@@ -107,62 +114,60 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 
 		switch (mediaType) {
 			case 'movie': {
-				updatedLiked.movies = [
+				updatedLiked.movies = sort([
 					...updatedLiked.movies,
 					{
 						mediaItem: { ...(mediaItem as FullMovie) },
 						mediaType: 'movie',
-						dateAdded: dayjs(new Date()).toISOString()
-					}
-				];
+						addedAt: dayjs(new Date()).toISOString()
+					} as MediaItem<'movie'>
+				]).by({ desc: (movie) => movie.addedAt });
 				break;
 			}
 			case 'tv': {
-				updatedLiked.tv = [
+				updatedLiked.tv = sort([
 					...updatedLiked.tv,
 					{
 						mediaItem: { ...(mediaItem as FullTV) },
 						mediaType: 'tv',
-						dateAdded: dayjs(new Date()).toISOString()
-					}
-				];
+						addedAt: dayjs(new Date()).toISOString()
+					} as MediaItem<'tv'>
+				]).by({ desc: (show) => show.addedAt });
 				break;
 			}
 			case 'person': {
-				updatedLiked.people = [
+				updatedLiked.people = sort([
 					...updatedLiked.people,
 					{
 						mediaItem: { ...(mediaItem as FullPerson) },
 						mediaType: 'person',
-						dateAdded: dayjs(new Date()).toISOString()
-					}
-				];
+						addedAt: dayjs(new Date()).toISOString()
+					} as MediaItem<'person'>
+				]).by({ desc: (person) => person.addedAt });
 				break;
 			}
 			case 'company': {
-				updatedLiked.companies = [
+				updatedLiked.companies = sort([
 					...updatedLiked.companies,
 					{
 						mediaItem: { ...(mediaItem as FullCompany) },
 						mediaType: 'company',
-						dateAdded: dayjs(new Date()).toISOString()
-					}
-				];
+						addedAt: dayjs(new Date()).toISOString()
+					} as MediaItem<'company'>
+				]).by({ desc: (company) => company.addedAt });
 				break;
 			}
 			case 'collection': {
-				updatedLiked.collections = [
+				updatedLiked.collections = sort([
 					...updatedLiked.collections,
 					{
 						mediaItem: { ...(mediaItem as Collection) },
 						mediaType: 'collection',
-						dateAdded: dayjs(new Date()).toISOString()
-					}
-				];
+						addedAt: dayjs(new Date()).toISOString()
+					} as MediaItem<'collection'>
+				]).by({ desc: (collection) => collection.addedAt });
 				break;
 			}
-			default:
-				break;
 		}
 
 		dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
@@ -173,9 +178,9 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 	return renderAction({
 		iconType: isLikedDebounced ? 'favorite' : 'favorite_border',
 		iconCategory: 'outlined',
-		isDisabled: !!user,
+		isDisabled: !!activeUser,
 		isLiked: isLikedDebounced,
-		onClick: isLikedDebounced ? () => handleRemoveLike() : () => handleLike()
+		onClick: isLikedDebounced ? () => handleUnlike() : () => handleLike()
 	});
 };
 
