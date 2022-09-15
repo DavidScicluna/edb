@@ -7,7 +7,7 @@ import { useBoolean, HStack, Center, Text } from '@chakra-ui/react';
 import round from 'lodash/round';
 import { useElementSize } from 'usehooks-ts';
 
-import { useUserTheme } from '../../common/hooks';
+import { useUserTheme } from '../../../common/hooks';
 
 import { RatingProps, MouseEvent } from './types';
 
@@ -73,14 +73,10 @@ const Rating: FC<RatingProps> = (props) => {
 							align='left'
 							fontSize={size}
 							fontWeight='semibold'
-							color={`gray.${colorMode === 'light' ? 900 : 50}`}
-							whiteSpace='nowrap'
+							color={getColor({ theme, colorMode, type: 'text.primary' })}
+							noOfLines={1}
 						>
-							{rating && !isLoading
-								? typeof rating === 'number'
-									? round(Number(rating), 1)
-									: '0.0'
-								: 'N/A'}
+							{rating && !isLoading ? round(Number(rating), 1) : 'N/A'}
 						</Text>
 					</Skeleton>
 				</Center>
