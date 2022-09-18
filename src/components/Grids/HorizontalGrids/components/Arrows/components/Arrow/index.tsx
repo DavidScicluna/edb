@@ -9,7 +9,6 @@ import { ArrowProps } from './types';
 const Arrow: FC<ArrowProps> = (props) => {
 	const { direction, isDisabled = false, ...rest } = props;
 
-	// const [isMouseDown, setIsMouseDown] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
 	return (
@@ -19,14 +18,11 @@ const Arrow: FC<ArrowProps> = (props) => {
 			placement='top'
 			isOpen={!isDisabled && isHovering}
 			isDisabled={isDisabled}
-			// gutter={!isDisabled && isHovering && isMouseDown ? 7 : 10}
 		>
 			<IconButton
 				{...rest}
 				aria-label={`Scroll ${direction}`}
 				isDisabled={isDisabled}
-				// onMouseDown={() => setIsMouseDown.on()}
-				// onMouseUp={() => setIsMouseDown.off()}
 				onMouseEnter={() => setIsHovering.on()}
 				onMouseLeave={() => setIsHovering.off()}
 			>
