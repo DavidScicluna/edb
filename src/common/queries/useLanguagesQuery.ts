@@ -2,7 +2,7 @@ import { Undefinable } from '@davidscicluna/component-library';
 
 import { UseQueryResult, UseQueryOptions, useQuery } from '@tanstack/react-query';
 
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { languagesQueryKey } from '../keys';
@@ -13,13 +13,13 @@ export type UseLanguagesQueryOptions = UseQueryOptions<Language[], AxiosError<Qu
 
 export type UseLanguagesQueryResult = UseQueryResult<Language[], AxiosError<QueryError>>;
 
-type UseLanguagesQueryProps = Undefinable<{
+type UseLanguagesQueryParams = Undefinable<{
 	config?: AxiosConfig;
 	options?: UseLanguagesQueryOptions;
 }>;
 
-const useLanguagesQuery = ({ config = {}, options = {} }: UseLanguagesQueryProps = {}): UseLanguagesQueryResult => {
-	const source = axios.CancelToken.source();
+const useLanguagesQuery = ({ config = {}, options = {} }: UseLanguagesQueryParams = {}): UseLanguagesQueryResult => {
+	const controller = new AbortController();
 
 	// const toast = useToast();
 
@@ -28,7 +28,7 @@ const useLanguagesQuery = ({ config = {}, options = {} }: UseLanguagesQueryProps
 		async () => {
 			const { data } = await axiosInstance.get<Language[]>('/configuration/languages', {
 				...config,
-				cancelToken: source.token
+				signal: controller.signal
 			});
 			return data;
 		},
@@ -47,7 +47,7 @@ const useLanguagesQuery = ({ config = {}, options = {} }: UseLanguagesQueryProps
 		}
 	);
 
-	useWillUnmount(() => source.cancel());
+	useWillUnmount(() => controller.abort());
 
 	return query;
 };

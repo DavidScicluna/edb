@@ -2,7 +2,7 @@ import { Undefinable } from '@davidscicluna/component-library';
 
 import { UseQueryResult, UseQueryOptions, useQuery } from '@tanstack/react-query';
 
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { countriesQueryKey } from '../keys';
@@ -13,13 +13,13 @@ export type UseCountriesQueryOptions = UseQueryOptions<Country[], AxiosError<Que
 
 export type UseCountriesQueryResult = UseQueryResult<Country[], AxiosError<QueryError>>;
 
-type UseCountriesQueryProps = Undefinable<{
+type UseCountriesQueryParams = Undefinable<{
 	config?: AxiosConfig;
 	options?: UseCountriesQueryOptions;
 }>;
 
-const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryProps = {}): UseCountriesQueryResult => {
-	const source = axios.CancelToken.source();
+const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParams = {}): UseCountriesQueryResult => {
+	const controller = new AbortController();
 
 	// const toast = useToast();
 
@@ -28,7 +28,7 @@ const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryProps
 		async () => {
 			const { data } = await axiosInstance.get<Country[]>('/configuration/countries', {
 				...config,
-				cancelToken: source.token
+				signal: controller.signal
 			});
 			return data;
 		},
@@ -47,7 +47,7 @@ const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryProps
 		}
 	);
 
-	useWillUnmount(() => source.cancel());
+	useWillUnmount(() => controller.abort());
 
 	return query;
 };

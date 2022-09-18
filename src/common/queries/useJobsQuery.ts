@@ -2,7 +2,7 @@ import { Undefinable } from '@davidscicluna/component-library';
 
 import { UseQueryResult, UseQueryOptions, useQuery } from '@tanstack/react-query';
 
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { jobsQueryKey } from '../keys';
@@ -13,13 +13,13 @@ export type UseJobsQueryOptions = UseQueryOptions<Job[], AxiosError<QueryError>>
 
 export type UseJobsQueryResult = UseQueryResult<Job[], AxiosError<QueryError>>;
 
-type UseJobsQueryProps = Undefinable<{
+type UseJobsQueryParams = Undefinable<{
 	config?: AxiosConfig;
 	options?: UseJobsQueryOptions;
 }>;
 
-const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryProps = {}): UseJobsQueryResult => {
-	const source = axios.CancelToken.source();
+const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): UseJobsQueryResult => {
+	const controller = new AbortController();
 
 	// const toast = useToast();
 
@@ -28,7 +28,7 @@ const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryProps = {}): Us
 		async () => {
 			const { data } = await axiosInstance.get<Job[]>('/configuration/jobs', {
 				...config,
-				cancelToken: source.token
+				signal: controller.signal
 			});
 			return data;
 		},
@@ -47,7 +47,7 @@ const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryProps = {}): Us
 		}
 	);
 
-	useWillUnmount(() => source.cancel());
+	useWillUnmount(() => controller.abort());
 
 	return query;
 };
