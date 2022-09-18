@@ -4,6 +4,7 @@ import { memoize } from 'lodash';
 
 import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
+import { UsePopularQueryProps } from '../queries/usePopularQuery';
 
 export const countriesQueryKey: QueryKey = ['countries'];
 
@@ -16,3 +17,6 @@ export const certificationsQueryKey = memoize(
 );
 
 export const genresQueryKey = memoize(({ mediaType }: UseGenresQueryProps): QueryKey => [`${mediaType}_genres`]);
+
+export const popularQueryKey = memoize(({ mediaType }: UsePopularQueryProps): QueryKey => [`popular_${mediaType}`]);
+
