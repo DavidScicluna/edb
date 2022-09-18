@@ -8,6 +8,7 @@ import { useDebounce, useTimeout } from 'usehooks-ts';
 
 import { usePopularQuery } from '../../../../common/queries';
 import HomeHorizontalGrid from '../HomeHorizontalGrid';
+import { formatMediaType } from '../../../../common/utils';
 
 const Popular: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
@@ -56,7 +57,7 @@ const Popular: FC = () => {
 				subtitle='A list containing the most popular Movies & TV Shows at the moment.'
 				to={({ mediaType }) => {
 					return {
-						pathname: mediaType === 'movie' ? '/movies' : '/tvshows',
+						pathname: formatMediaType({ mediaType }),
 						search: qs.stringify({ sort_by: 'popularity.desc' })
 					};
 				}}

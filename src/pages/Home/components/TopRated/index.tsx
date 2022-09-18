@@ -8,6 +8,7 @@ import { useDebounce, useTimeout } from 'usehooks-ts';
 
 import { useTopRatedQuery } from '../../../../common/queries';
 import HomeHorizontalGrid from '../HomeHorizontalGrid';
+import { formatMediaType } from '../../../../common/utils';
 
 const TopRated: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
@@ -56,7 +57,7 @@ const TopRated: FC = () => {
 				subtitle='A list containing the highest-rated Movies & TV Shows of all time.'
 				to={({ mediaType }) => {
 					return {
-						pathname: mediaType === 'movie' ? '/movies' : '/tvshows',
+						pathname: formatMediaType({ mediaType }),
 						search: qs.stringify({ sort_by: 'vote_average.desc' })
 					};
 				}}

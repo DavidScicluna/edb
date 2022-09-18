@@ -116,7 +116,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 									<QueryEmptySubtitle>
 										{getEmptySubtitle({
 											type: 'error',
-											label: `"${title}" ${formatMediaTypeLabel({
+											label: `${title} ${formatMediaTypeLabel({
 												type: 'multiple',
 												mediaType: 'movie'
 											})}`
@@ -134,7 +134,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 									<QueryEmptySubtitle>
 										{getEmptySubtitle({
 											type: 'empty',
-											label: `"${title}" ${formatMediaTypeLabel({
+											label: `${title} ${formatMediaTypeLabel({
 												type: 'multiple',
 												mediaType: 'movie'
 											})}`
@@ -174,7 +174,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 									<QueryEmptySubtitle>
 										{getEmptySubtitle({
 											type: 'error',
-											label: `"${title}" ${formatMediaTypeLabel({
+											label: `${title} ${formatMediaTypeLabel({
 												type: 'multiple',
 												mediaType: 'tv'
 											})}`
@@ -192,7 +192,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 									<QueryEmptySubtitle>
 										{getEmptySubtitle({
 											type: 'empty',
-											label: `"${title}" ${formatMediaTypeLabel({
+											label: `${title} ${formatMediaTypeLabel({
 												type: 'multiple',
 												mediaType: 'tv'
 											})}`
@@ -232,7 +232,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 									<QueryEmptySubtitle>
 										{getEmptySubtitle({
 											type: 'error',
-											label: `"${title}" ${formatMediaTypeLabel({
+											label: `${title} ${formatMediaTypeLabel({
 												type: 'multiple',
 												mediaType: 'tv'
 											})}`
@@ -250,7 +250,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 									<QueryEmptySubtitle>
 										{getEmptySubtitle({
 											type: 'empty',
-											label: `"${title}" ${formatMediaTypeLabel({
+											label: `${title} ${formatMediaTypeLabel({
 												type: 'multiple',
 												mediaType: 'tv'
 											})}`
