@@ -1,95 +1,89 @@
-import { ReactElement, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
+
+import { useBoolean, Center } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
-import { useQuery } from 'react-query';
-import axios from 'axios';
 import qs from 'query-string';
+import { useDebounce, useTimeout } from 'usehooks-ts';
 
-import axiosInstance, { handleDelay } from '../../../../common/scripts/axios';
-import { Response } from '../../../../common/types';
-import { PartialMovie } from '../../../../common/types/movie';
-import { PartialTV } from '../../../../common/types/tv';
-import HomeHorizontalGrid from '../HorizontalGrid';
+import { useTopRatedQuery } from '../../../../common/queries';
+import HomeHorizontalGrid from '../HomeHorizontalGrid';
 
-const TopRated = (): ReactElement => {
-	const source = axios.CancelToken.source();
-
+const TopRated: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
 		threshold: [0.2, 0.4, 0.6, 0.8, 1],
 		unobserveOnEnter: true
 	});
 
 	const [activeTab, setActiveTab] = useState<number>(0);
+	const activeTabDebounced = useDebounce<number>(activeTab, 250);
+
+	const [isMoviesQueryEnabled, setIsMoviesQueryEnabled] = useBoolean();
+	const [isShowsQueryEnabled, setIsShowsQueryEnabled] = useBoolean();
 
 	// Fetching Top Rated Movies
-	const topRatedMoviesQuery = useQuery(
-		'top-rated-movies',
-		async () => {
-			const { data } = await axiosInstance
-				.get<Response<PartialMovie[]>>('/movie/top_rated', {
-					cancelToken: source.token
-				})
-				.then((response) => handleDelay(2500, response));
-			return data;
-		},
-		{ enabled: activeTab === 0 && inView }
-	);
+	const {
+		data: movies,
+		isFetching: isFetchingMovies = false,
+		isLoading: isMoviesLoading = false,
+		isError: isMoviesError = false,
+		isSuccess: isMoviesSuccess = false
+	} = useTopRatedQuery({
+		props: { mediaType: 'movie' },
+		options: { enabled: isMoviesQueryEnabled }
+	});
 
 	// Fetching Top Rated TV Shows
-	const topRatedTVQuery = useQuery(
-		'top-rated-tv-shows',
-		async () => {
-			const { data } = await axiosInstance
-				.get<Response<PartialTV[]>>('/tv/top_rated', {
-					cancelToken: source.token
-				})
-				.then((response) => handleDelay(2500, response));
-			return data;
-		},
-		{ enabled: activeTab === 1 && inView }
-	);
+	const {
+		data: shows,
+		isFetching: isFetchingShows = false,
+		isLoading: isShowsLoading = false,
+		isError: isShowsError = false,
+		isSuccess: isShowsSuccess = false
+	} = useTopRatedQuery({
+		props: { mediaType: 'tv' },
+		options: { enabled: isShowsQueryEnabled }
+	});
 
-	useEffect(() => {
-		return () => source.cancel();
-	}, []);
+	useTimeout(() => setIsMoviesQueryEnabled.on(), activeTabDebounced === 0 && inView ? 1000 : null);
+	useTimeout(() => setIsShowsQueryEnabled.on(), activeTabDebounced === 1 && inView ? 1000 : null);
 
 	return (
-		<HomeHorizontalGrid
-			ref={ref}
-			activeTab={activeTab}
-			title='Top Rated'
-			to={({ mediaType }) => {
-				if (mediaType === 'movie') {
+		<Center ref={ref} width='100%'>
+			<HomeHorizontalGrid
+				activeTab={activeTabDebounced}
+				title='Top Rated'
+				subtitle='A list containing the highest-rated Movies & TV Shows of all time.'
+				to={({ mediaType }) => {
 					return {
-						pathname: '/movies',
+						pathname: mediaType === 'movie' ? '/movies' : '/tvshows',
 						search: qs.stringify({ sort_by: 'vote_average.desc' })
 					};
-				} else {
-					return {
-						pathname: '/tvshows',
-						search: qs.stringify({ sort_by: 'vote_average.desc' })
-					};
-				}
-			}}
-			mediaTypes={['movie', 'tv']}
-			data={{
-				movie: topRatedMoviesQuery.data?.results || [],
-				tv: topRatedTVQuery.data?.results || []
-			}}
-			isLoading={{
-				movie: topRatedMoviesQuery.isFetching || topRatedMoviesQuery.isLoading,
-				tv: topRatedTVQuery.isFetching || topRatedTVQuery.isLoading
-			}}
-			isError={{
-				movie: topRatedMoviesQuery.isError,
-				tv: topRatedTVQuery.isError
-			}}
-			isSuccess={{
-				movie: topRatedMoviesQuery.isSuccess,
-				tv: topRatedTVQuery.isSuccess
-			}}
-			onTabChange={(index: number) => setActiveTab(index)}
-		/>
+				}}
+				mediaTypes={['movie', 'tv']}
+				data={{
+					movie: movies?.results || [],
+					tv: shows?.results || [],
+					person: []
+				}}
+				isLoading={{
+					movie: isFetchingMovies || isMoviesLoading,
+					tv: isFetchingShows || isShowsLoading,
+					person: false
+				}}
+				isError={{
+					movie: isMoviesError,
+					tv: isShowsError,
+					person: false
+				}}
+				isSuccess={{
+					movie: isMoviesSuccess,
+					tv: isShowsSuccess,
+					person: false
+				}}
+				onChange={({ index }) => setActiveTab(index)}
+			/>
+		</Center>
 	);
 };
 
