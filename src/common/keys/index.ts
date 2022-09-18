@@ -1,15 +1,18 @@
 import { QueryKey } from '@tanstack/react-query';
 
+import { memoize } from 'lodash';
+
+import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
+
 export const countriesQueryKey: QueryKey = ['countries'];
 
 export const jobsQueryKey: QueryKey = ['jobs'];
 
 export const languagesQueryKey: QueryKey = ['languages'];
 
-export const movieCertificationsQueryKey: QueryKey = ['movie_certifications'];
-
 export const movieGenresQueryKey: QueryKey = ['movie_genres'];
-
-export const tvShowCertificationsQueryKey: QueryKey = ['tv_show_certifications'];
+export const certificationsQueryKey = memoize(
+	({ mediaType }: UseCertificationsQueryProps): QueryKey => [`${mediaType}_certifications`]
+);
 
 export const tvShowGenresQueryKey: QueryKey = ['tv_show_genres'];
