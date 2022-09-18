@@ -23,8 +23,8 @@ const HorizontalGridTabbedBody: FC<HorizontalGridTabbedBodyProps> = ({ children,
 								renderDivider={() => <Center mr={2} />}
 								LeftArrow={<Center />}
 								RightArrow={<Center />}
-								onInit={onSetScroll}
-								onUpdate={onSetScroll}
+								onInit={(scroll) => onSetScroll(scroll)}
+								onUpdate={(scroll) => onSetScroll(scroll)}
 							>
 								{panel.props.children}
 							</HorizontalScroll>
