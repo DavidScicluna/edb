@@ -9,15 +9,7 @@ import {
 	setTVCertifications,
 	setTVGenres
 } from '../../store/slices/Options';
-import {
-	useCountriesQuery,
-	useJobsQuery,
-	useLanguagesQuery,
-	useMovieCertificationsQuery,
-	useMovieGenresQuery,
-	useTVShowCertificationsQuery,
-	useTVShowGenresQuery
-} from '../queries';
+import { useCertificationsQuery, useCountriesQuery, useGenresQuery, useJobsQuery, useLanguagesQuery } from '../queries';
 
 const usePopulateOptions = (): void => {
 	const dispatch = useDispatch();
@@ -34,19 +26,23 @@ const usePopulateOptions = (): void => {
 		options: { onSuccess: (languages = []) => dispatch(setLanguages([...languages])) }
 	});
 
-	useMovieCertificationsQuery({
+	useCertificationsQuery({
+		props: { mediaType: 'movie' },
 		options: { onSuccess: (certifications) => dispatch(setMovieCertifications({ ...(certifications || {}) })) }
 	});
 
-	useMovieGenresQuery({
+	useGenresQuery({
+		props: { mediaType: 'movie' },
 		options: { onSuccess: ({ genres = [] }) => dispatch(setMovieGenres([...genres])) }
 	});
 
-	useTVShowCertificationsQuery({
+	useCertificationsQuery({
+		props: { mediaType: 'tv' },
 		options: { onSuccess: (certifications) => dispatch(setTVCertifications({ ...(certifications || {}) })) }
 	});
 
-	useTVShowGenresQuery({
+	useGenresQuery({
+		props: { mediaType: 'tv' },
 		options: { onSuccess: ({ genres = [] }) => dispatch(setTVGenres([...genres])) }
 	});
 };
