@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 
 export type Orientation = 'vertical' | 'horizontal';
 
-export type AxiosConfig = Omit<AxiosRequestConfig, 'cancelToken'>;
+export type AxiosConfig = Omit<AxiosRequestConfig, 'cancelToken' | 'signal'>;
 
 export type QueryError = { status_message?: string; status_code?: number };
 
