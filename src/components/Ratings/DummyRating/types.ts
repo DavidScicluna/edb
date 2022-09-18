@@ -5,5 +5,6 @@ import { StackProps } from '@chakra-ui/react';
 type RatingSize = Exclude<FontSize, '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'> & string;
 
 export type DummyRatingProps = Omit<StackProps, 'children' | 'direction'> & {
+	hasCount?: boolean;
 	size?: RatingSize;
 };
