@@ -5,8 +5,8 @@ import useJobsQuery from './useJobsQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import usePopularQuery from './usePopularQuery';
 import useTopRatedQuery from './useTopRatedQuery';
+import useTrendingQuery from './useTrendingQuery';
 
-export { useCertificationsQuery, useCountriesQuery, useGenresQuery, useJobsQuery, useLanguagesQuery };
 export {
 	useCertificationsQuery,
 	useCountriesQuery,
@@ -15,4 +15,5 @@ export {
 	useLanguagesQuery,
 	usePopularQuery,
 	useTopRatedQuery,
+	useTrendingQuery
 };

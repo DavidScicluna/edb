@@ -6,6 +6,7 @@ import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
+import { UseTrendingQueryProps } from '../queries/useTrendingQuery';
 
 export const countriesQueryKey: QueryKey = ['countries'];
 
@@ -23,3 +24,6 @@ export const popularQueryKey = memoize(({ mediaType }: UsePopularQueryProps): Qu
 
 export const topRatedQueryKey = memoize(({ mediaType }: UseTopRatedQueryProps): QueryKey => [`top_rated_${mediaType}`]);
 
+export const trendingQueryKey = memoize(
+	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`${time}_${mediaType}_trending`]
+);
