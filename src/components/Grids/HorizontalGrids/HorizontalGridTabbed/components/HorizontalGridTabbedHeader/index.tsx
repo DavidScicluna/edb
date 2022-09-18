@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect } from 'react';
 
-import { useTheme, CardHeader, TabList, Divider, utils } from '@davidscicluna/component-library';
+import { useTheme, CardHeader, TabList, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst, VStack, HStack } from '@chakra-ui/react';
 
@@ -28,7 +28,7 @@ const HorizontalGridTabbedHeader: FC<HorizontalGridTabbedHeaderProps> = (props) 
 		scrollNext
 	} = scroll as ScrollContext;
 
-	const { actions, tabListProps, iconButtonProps, ...rest } = props;
+	const { cardHeaderProps, tabListProps, iconButtonProps, spacing = 2, ...rest } = props;
 
 	const duration = useConst<number>(convertStringToNumber(theme.transition.duration.normal, 'ms'));
 
@@ -41,9 +41,9 @@ const HorizontalGridTabbedHeader: FC<HorizontalGridTabbedHeaderProps> = (props) 
 	useEffect(() => {
 		if (visibleItemsWithoutSeparators.length) {
 			if (!initComplete || (initComplete && isFirstItemVisible)) {
-				setIsLeftArrowDisabled.off();
-			} else {
 				setIsLeftArrowDisabled.on();
+			} else {
+				setIsLeftArrowDisabled.off();
 			}
 		}
 	}, [initComplete, visibleItemsWithoutSeparators, isFirstItemVisible]);
@@ -51,27 +51,27 @@ const HorizontalGridTabbedHeader: FC<HorizontalGridTabbedHeaderProps> = (props) 
 	useEffect(() => {
 		if (visibleItemsWithoutSeparators.length) {
 			if (isLastItemVisible) {
-				setIsRightArrowDisabled.off();
-			} else {
 				setIsRightArrowDisabled.on();
+			} else {
+				setIsRightArrowDisabled.off();
 			}
 		}
 	}, [visibleItemsWithoutSeparators, isLastItemVisible]);
 
 	return (
-		<VStack width='100%' divider={<Divider />} spacing={2}>
+		<VStack {...rest} width='100%' spacing={spacing}>
 			<CardHeader
-				{...rest}
+				{...cardHeaderProps}
 				actions={
 					<HStack spacing={2}>
-						{actions}
+						{cardHeaderProps.actions}
 
 						<Arrows
-							{...iconButtonProps}
 							isLeftDisabled={debouncedIsLeftArrowDisabled}
 							isRightDisabled={debouncedIsRightArrowDisabled}
-							onLeftClick={scrollPrev}
-							onRightClick={scrollNext}
+							onLeftClick={() => scrollPrev()}
+							onRightClick={() => scrollNext()}
+							iconButtonProps={{ ...iconButtonProps }}
 						/>
 					</HStack>
 				}
