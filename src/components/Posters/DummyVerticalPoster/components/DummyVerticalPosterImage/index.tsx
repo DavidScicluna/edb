@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { Skeleton } from '@davidscicluna/component-library';
+import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
-import { AspectRatio, Center } from '@chakra-ui/react';
+import { AspectRatio } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../../../../common/hooks';
 import { getRatio } from '../../../../../common/utils';
@@ -14,13 +14,25 @@ const commonStyleProps = {
 };
 
 const DummyVerticalPosterImage: FC = () => {
+	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
 	return (
-		<AspectRatio width='100%' borderRadius='base' ratio={getRatio({ orientation: 'portrait' })}>
-			<Skeleton {...commonStyleProps} colorMode={colorMode} isLoaded={false}>
-				<Center />
-			</Skeleton>
+		<AspectRatio
+			{...commonStyleProps}
+			width='100%'
+			ratio={getRatio({ orientation: 'portrait' })}
+			overflow='hidden'
+			borderRadius={`13px 13px ${theme.radii.none} ${theme.radii.none}`}
+		>
+			<Skeleton
+				{...commonStyleProps}
+				width='100%'
+				height='100%'
+				colorMode={colorMode}
+				borderRadius='none'
+				isLoaded={false}
+			/>
 		</AspectRatio>
 	);
 };
