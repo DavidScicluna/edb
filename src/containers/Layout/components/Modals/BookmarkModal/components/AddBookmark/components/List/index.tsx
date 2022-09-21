@@ -29,7 +29,7 @@ const List: FC<ListProps> = (props) => {
 	const { id, label, description, mediaItems, createdAt, updatedAt } = list;
 
 	const handleContentWidth = useCallback(() => {
-		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem')) * 2;
+		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem'));
 
 		return `calc(100% - ${iconWidth + spacingWidth}px)`;
 	}, [theme, spacing, iconWidth]);
@@ -38,8 +38,9 @@ const List: FC<ListProps> = (props) => {
 		<Card
 			color={isSelected ? color : 'gray'}
 			colorMode={colorMode}
-			isFullWidth
 			isClickable
+			isFullWidth
+			isLight={false}
 			onClick={() => onClick({ id, isSelected })}
 			px={2}
 			py={1}
@@ -52,21 +53,21 @@ const List: FC<ListProps> = (props) => {
 							width={theme.fontSizes['3xl']}
 							height={theme.fontSizes['3xl']}
 							fontSize={theme.fontSizes['3xl']}
-							icon={isSelected ? 'check_circle' : 'check_circle_outline'}
+							icon={isSelected ? 'check_box' : 'check_box_outline_blank'}
 							category='filled'
 							skeletonColor={isSelected ? color : 'gray'}
 						/>
 					</Center>
 
 					<VStack width={handleContentWidth()} alignItems='flex-start' spacing={0}>
-						<Text align='left' fontSize='md' fontWeight='semibold' textTransform='capitalize' noOfLines={1}>
+						<Text align='left' fontSize='xl' fontWeight='semibold' textTransform='capitalize' noOfLines={1}>
 							{label}
 						</Text>
 
 						{description && (
 							<Text
 								align='left'
-								fontSize='xs'
+								fontSize='sm'
 								fontWeight='normal'
 								textTransform='capitalize'
 								noOfLines={1}
@@ -81,7 +82,9 @@ const List: FC<ListProps> = (props) => {
 									? `Total of ${mediaItems.movies.length + mediaItems.tv.length} items`
 									: null,
 								createdAt ? `Created ${dayjs(createdAt).fromNow()}` : null,
-								updatedAt ? `Updated ${dayjs(updatedAt).fromNow()}` : null
+								mediaItems.movies.length + mediaItems.tv.length > 0 && updatedAt
+									? `Updated ${dayjs(updatedAt).fromNow()}`
+									: null
 							]).join(' • ')}
 						</Text>
 					</VStack>

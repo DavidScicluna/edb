@@ -100,7 +100,9 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 		});
 
 		dispatch(setUserLists({ id, data: sort([...updatedLists]).by({ desc: (list) => list.updatedAt }) }));
-	}, [id, lists, selected, mediaType, mediaItem]);
+
+		onClose();
+	}, [id, lists, selected, mediaType, mediaItem, onClose]);
 
 	const handleResetModal = useCallback((): void => {
 		setSelected([]);
@@ -128,7 +130,7 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 					)}
 				/>
 				<ModalBody>
-					<VStack spacing={2} p={2}>
+					<VStack spacing={2}>
 						{lists.map((list) => (
 							<List
 								key={list.id}
@@ -145,7 +147,7 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 						<Button
 							{...props}
 							color={color}
-							isDisabled={!!id}
+							isDisabled={!id}
 							onClick={selected.length > 0 ? () => handleSaveItem() : () => onCreateListOpen()}
 						>
 							{selected.length > 0
