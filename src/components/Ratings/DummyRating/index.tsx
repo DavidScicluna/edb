@@ -1,10 +1,13 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useTheme, Skeleton, Icon, utils } from '@davidscicluna/component-library';
 
 import { HStack, Text } from '@chakra-ui/react';
 
+import { useUpdateEffect } from 'usehooks-ts';
+
 import { useUserTheme } from '../../../common/hooks';
+import { getFontSizeHeight } from '../../../common/utils';
 
 import { DummyRatingProps } from './types';
 
@@ -14,14 +17,20 @@ const DummyRating: FC<DummyRatingProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { hasCount = false, spacing = 0.75, size = 'md', ...rest } = props;
+	const { hasCount = false, spacing = 0.5, size = 'md', ...rest } = props;
+
+	const [iconSize, setIconSize] = useState<string>(
+		`${getFontSizeHeight({ theme, fontSize: size, lineHeight: 'base' })}px`
+	);
+
+	useUpdateEffect(() => setIconSize(`${getFontSizeHeight({ theme, fontSize: size, lineHeight: 'base' })}px`), [size]);
 
 	return (
 		<HStack {...rest} spacing={spacing}>
 			<Icon
-				width={`${theme.fontSizes[size]} * ${theme.lineHeights.base}`}
-				height={`${theme.fontSizes[size]} * ${theme.lineHeights.base}`}
-				fontSize={`${theme.fontSizes[size]} * ${theme.lineHeights.base}`}
+				width={iconSize}
+				height={iconSize}
+				fontSize={iconSize}
 				icon='star'
 				category='outlined'
 				color={getColor({ theme, colorMode, color: 'yellow', type: 'color' })}
@@ -42,6 +51,7 @@ const DummyRating: FC<DummyRatingProps> = (props) => {
 							</Text>
 						) : undefined
 					}
+					spacing={spacing}
 				>
 					<Text
 						align='left'
