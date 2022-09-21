@@ -90,9 +90,9 @@ export const defaultUser: User = {
 		// 	user: [],
 		// 	other: []
 		// },
-		signedInAt: dayjs().toISOString(),
-		updatedAt: dayjs().toISOString(),
-		createdAt: dayjs().toISOString()
+		signedInAt: dayjs(new Date()).toISOString(),
+		updatedAt: dayjs(new Date()).toISOString(),
+		createdAt: dayjs(new Date()).toISOString()
 	},
 	ui: {
 		language: {
@@ -166,11 +166,8 @@ const usersSlice = createSlice({
 				...user,
 				data: {
 					...user.data,
-					info: {
-						...user.data.info,
-						...action.payload.data
-					},
-					updatedAt: dayjs().toISOString()
+					info: { ...action.payload.data },
+					updatedAt: dayjs(new Date()).toISOString()
 				}
 			};
 
@@ -189,8 +186,8 @@ const usersSlice = createSlice({
 				...user,
 				data: {
 					...user.data,
-					recentSearches: [...user.data.recentSearches, ...action.payload.data],
-					updatedAt: dayjs().toISOString()
+					recentSearches: [...action.payload.data],
+					updatedAt: dayjs(new Date()).toISOString()
 				}
 			};
 
@@ -209,11 +206,8 @@ const usersSlice = createSlice({
 				...user,
 				data: {
 					...user.data,
-					recentlyViewed: {
-						...user.data.recentlyViewed,
-						...action.payload.data
-					},
-					updatedAt: dayjs().toISOString()
+					recentlyViewed: { ...action.payload.data },
+					updatedAt: dayjs(new Date()).toISOString()
 				}
 			};
 
@@ -232,11 +226,8 @@ const usersSlice = createSlice({
 				...user,
 				data: {
 					...user.data,
-					liked: {
-						...user.data.liked,
-						...action.payload.data
-					},
-					updatedAt: dayjs().toISOString()
+					liked: { ...action.payload.data },
+					updatedAt: dayjs(new Date()).toISOString()
 				}
 			};
 
@@ -256,8 +247,8 @@ const usersSlice = createSlice({
 				...user,
 				data: {
 					...user.data,
-					lists: [...user.data.lists, ...action.payload.data],
-					updatedAt: dayjs().toISOString()
+					lists: [...action.payload.data],
+					updatedAt: dayjs(new Date()).toISOString()
 				}
 			};
 
@@ -314,7 +305,7 @@ const usersSlice = createSlice({
 				...user,
 				data: {
 					...user.data,
-					updatedAt: dayjs().toISOString()
+					updatedAt: dayjs(new Date()).toISOString()
 				},
 				ui: {
 					...user.ui,
@@ -337,14 +328,11 @@ const usersSlice = createSlice({
 				...user,
 				data: {
 					...user.data,
-					updatedAt: dayjs().toISOString()
+					updatedAt: dayjs(new Date()).toISOString()
 				},
 				ui: {
 					...user.ui,
-					theme: {
-						...user.ui.theme,
-						...action.payload.data
-					}
+					theme: { ...action.payload.data }
 				}
 			};
 
