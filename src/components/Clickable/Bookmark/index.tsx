@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useEffect } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
-import { useDebounce } from 'usehooks-ts';
+import { debounce } from 'lodash';
 
 import { useSelector } from '../../../common/hooks';
 import { setBookmarkModal } from '../../../store/slices/Modals';
@@ -20,10 +20,8 @@ const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement 
 	const { renderAction, mediaType, mediaItem, title, isFocused = false, isHovering = false } = props;
 
 	const [isBookmarked, setIsBookmarked] = useBoolean();
-	const isBookmarkedDebounced = useDebounce(isBookmarked, 500);
 
 	const [isBookmarkedMultiple, setIsBookmarkedMultiple] = useBoolean();
-	const isBookmarkedMultipleDebounced = useDebounce(isBookmarkedMultiple, 500);
 
 	const handleIsBookmarked = useCallback((): void => {
 		let isBookmarked = false;
@@ -52,22 +50,25 @@ const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement 
 		setIsBookmarkedMultiple[inLists > 1 ? 'on' : 'off']();
 	}, [lists, mediaType, mediaItem, lists]);
 
-	const handleBookmarkClick = useCallback((): void => {
-		dispatch(
-			setBookmarkModal({
-				mediaType,
-				mediaItem,
-				title,
-				isOpen: true
-			})
-		);
-	}, [mediaType, mediaItem, title]);
+	const handleBookmarkClick = useCallback(
+		debounce((): void => {
+			dispatch(
+				setBookmarkModal({
+					mediaType,
+					mediaItem,
+					title,
+					isOpen: true
+				})
+			);
+		}, 1000),
+		[mediaType, mediaItem, title]
+	);
 
 	useEffect(() => handleIsBookmarked(), [lists]);
 
 	return renderAction({
-		iconType: isBookmarkedDebounced
-			? isBookmarkedMultipleDebounced
+		iconType: isBookmarked
+			? isBookmarkedMultiple
 				? 'bookmarks'
 				: isFocused || isHovering
 				? 'bookmark_remove'
@@ -75,10 +76,10 @@ const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement 
 			: isFocused || isHovering
 			? 'bookmark_add'
 			: 'bookmark_border',
-		iconCategory: 'outlined',
-		isDisabled: !!activeUser,
-		isBookmarked: isBookmarkedDebounced,
-		isBookmarkedMultiple: isBookmarkedMultipleDebounced,
+		iconCategory: isBookmarked ? 'filled' : 'outlined',
+		isDisabled: !activeUser,
+		isBookmarked: isBookmarked,
+		isBookmarkedMultiple: isBookmarkedMultiple,
 		onClick: () => handleBookmarkClick()
 	});
 };
