@@ -1,15 +1,14 @@
-import { FC, useCallback, useEffect } from 'react';
+import { FC, useState, useCallback } from 'react';
 
-import { useBoolean } from '@chakra-ui/react';
-
-import { useDebounce } from 'usehooks-ts';
 import { useDispatch } from 'react-redux';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../common/hooks';
 import { defaultBookmarkModal, setBookmarkModal } from '../../../../../store/slices/Modals';
 
 import AddBookmark from './components/AddBookmark';
 import RemoveBookmark from './components/RemoveBookmark';
+import { BookmarkModalType } from './types';
 
 const BookmarkModal: FC = () => {
 	const dispatch = useDispatch();
@@ -20,43 +19,49 @@ const BookmarkModal: FC = () => {
 
 	const { mediaType, mediaItem } = bookmarkModal;
 
-	const [isBookmarkedMultiple, setIsBookmarkedMultiple] = useBoolean();
-	const isBookmarkedMultipleDebounced = useDebounce(isBookmarkedMultiple, 500);
+	const [type, setType] = useState<BookmarkModalType>(undefined);
 
 	const handleClose = useCallback(() => {
 		dispatch(setBookmarkModal({ ...defaultBookmarkModal }));
 	}, [defaultBookmarkModal]);
 
 	const handleIsBookmarked = useCallback((): void => {
-		let inLists = 0;
+		if (bookmarkModal.isOpen) {
+			let inLists = 0;
 
-		lists.forEach((list) => {
-			switch (mediaType) {
-				case 'movie': {
-					if (list.mediaItems.movies.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
-						inLists = inLists + 1;
+			lists.forEach((list) => {
+				switch (mediaType) {
+					case 'movie': {
+						if (list.mediaItems.movies.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
+							inLists = inLists + 1;
+						}
+						return;
 					}
-					return;
-				}
-				case 'tv': {
-					if (list.mediaItems.tv.some((show) => show.mediaItem.id === mediaItem?.id)) {
-						inLists = inLists + 1;
+					case 'tv': {
+						if (list.mediaItems.tv.some((show) => show.mediaItem.id === mediaItem?.id)) {
+							inLists = inLists + 1;
+						}
+						return;
 					}
-					return;
 				}
-			}
-		});
+			});
 
-		setIsBookmarkedMultiple[inLists > 1 ? 'on' : 'off']();
-	}, [lists, mediaType, mediaItem, lists]);
+			setType(inLists >= 1 ? 'remove' : 'add');
+		} else {
+			setType(undefined);
+		}
+	}, [bookmarkModal, lists, mediaType, mediaItem, lists]);
 
-	useEffect(() => handleIsBookmarked(), [bookmarkModal]);
+	useUpdateEffect(() => handleIsBookmarked(), [bookmarkModal.isOpen]);
 
-	return isBookmarkedMultipleDebounced ? (
-		<RemoveBookmark {...bookmarkModal} onClose={handleClose} />
-	) : (
-		<AddBookmark {...bookmarkModal} onClose={handleClose} />
-	);
+	switch (type) {
+		case 'add':
+			return <AddBookmark {...bookmarkModal} onClose={handleClose} />;
+		case 'remove':
+			return <RemoveBookmark {...bookmarkModal} onClose={handleClose} />;
+		default:
+			return null;
+	}
 };
 
 export default BookmarkModal;
