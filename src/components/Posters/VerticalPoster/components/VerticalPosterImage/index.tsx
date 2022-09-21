@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
-import { Colors, useTheme, Skeleton, Button, utils } from '@davidscicluna/component-library';
+import { Colors, useTheme, Button, ScaleFade, utils } from '@davidscicluna/component-library';
 
-import { useConst, AspectRatio, Center, ScaleFade } from '@chakra-ui/react';
+import { useConst, AspectRatio, Box } from '@chakra-ui/react';
 
 import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
@@ -24,6 +24,8 @@ import { VerticalPosterImageProps } from './types';
 const { checkIsTouchDevice, getHue } = utils;
 
 const isTouchDevice: boolean = checkIsTouchDevice();
+
+const border = 2;
 
 const commonStyleProps = {
 	width: 'inherit',
@@ -51,29 +53,50 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 	const randomID = useConst<string>(uuid());
 
 	return (
-		<AspectRatio width='100%' borderRadius='base' ratio={getRatio({ orientation: 'portrait' })}>
-			<Center {...commonStyleProps} position='relative'>
-				<Skeleton {...commonStyleProps} colorMode={colorMode} isLoaded={inView}>
-					<Image
-						{...commonStyleProps}
-						alt={image.alt}
-						src={{
-							boring: getBoringAvatarSrc({
-								id: mediaItem.id ? String(mediaItem.id) : randomID,
-								colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
-								hue: getHue({ colorMode, type: 'color' }),
-								size: 500,
-								variant: getBoringAvatarVariantByMediaType({ mediaType })
-							}),
-							fallback: `${process.env.REACT_APP_IMAGE_URL}/${image.size.fallback}${image.src}`,
-							full: `${process.env.REACT_APP_IMAGE_URL}/${image.size.full}${image.src}`
-						}}
-					/>
-				</Skeleton>
+		<AspectRatio
+			{...commonStyleProps}
+			width='100%'
+			ratio={getRatio({ orientation: 'portrait' })}
+			overflow='hidden'
+			borderRadius={`${theme.radii.lg} ${theme.radii.lg} ${theme.radii.none} ${theme.radii.none}`}
+		>
+			<Box
+				{...commonStyleProps}
+				position='relative'
+				sx={{
+					width: `calc(100% - ${border * 2}px) !important`,
+					height: `calc(100% - ${border}px) !important`,
+
+					top: `${border}px !important`,
+					right: `${border}px !important`,
+					left: `${border}px !important`,
+
+					borderRadius: `${theme.space['1.75']} ${theme.space['1.75']} ${theme.radii.none} ${theme.radii.none}`
+				}}
+			>
+				<Image
+					{...commonStyleProps}
+					alt={image.alt}
+					src={{
+						boring: inView
+							? getBoringAvatarSrc({
+									id: mediaItem.id ? String(mediaItem.id) : randomID,
+									colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
+									hue: getHue({ colorMode, type: 'color' }),
+									size: 500,
+									variant: getBoringAvatarVariantByMediaType({ mediaType })
+							  })
+							: undefined,
+						thumbnail: inView
+							? `${process.env.REACT_APP_IMAGE_URL}/${image.size.thumbnail}${image.src}`
+							: undefined,
+						full: inView ? `${process.env.REACT_APP_IMAGE_URL}/${image.size.full}${image.src}` : undefined
+					}}
+				/>
 
 				{/* Quick View component */}
-				{!!mediaItem && !isTouchDevice && mediaType !== 'company' && (
-					<Center
+				{/* {!!mediaItem && !isTouchDevice && mediaType !== 'company' && (
+					<Box
 						as={ScaleFade}
 						width='100%'
 						position='absolute'
@@ -99,13 +122,13 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 									})
 								);
 							}}
-							size='sm'
+							size='xs'
 						>
 							Quick view
 						</Button>
-					</Center>
-				)}
-			</Center>
+					</Box>
+				)} */}
+			</Box>
 		</AspectRatio>
 	);
 };
