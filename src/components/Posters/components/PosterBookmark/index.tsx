@@ -7,6 +7,7 @@ import { useBoolean } from '@chakra-ui/react';
 import { useSelector, useUserTheme } from '../../../../common/hooks';
 import Bookmark from '../../../Clickable/Bookmark';
 import { MediaType } from '../../../../common/types';
+import { formatMediaTypeLabel } from '../../../../common/utils';
 
 import { PosterBookmarkProps } from './types';
 
@@ -27,17 +28,20 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 					colorMode={colorMode}
 					aria-label={
 						isBookmarked
-							? `Remove "${title}" ${mediaType} from ${isBookmarkedMultiple ? 'lists' : 'list'} (tooltip)`
-							: `Add "${title}" ${mediaType} to a list (tooltip)`
+							? `Remove "${title}" ${formatMediaTypeLabel({ type: 'single', mediaType })} from ${
+									isBookmarkedMultiple ? 'lists' : 'list'
+							  } (tooltip)`
+							: `Add "${title}" ${formatMediaTypeLabel({
+									type: 'single',
+									mediaType
+							  })} to a list (tooltip)`
 					}
 					label={
 						isBookmarked
-							? title.length <= 15
-								? `Remove "${title}" from ${isBookmarkedMultiple ? 'lists' : 'list'}`
-								: `Remove from ${isBookmarkedMultiple ? 'lists' : 'list'}`
-							: title.length <= 15
-							? `Add "${title}" to a list`
-							: `Add to a list`
+							? `Remove ${formatMediaTypeLabel({ type: 'single', mediaType })} from ${
+									isBookmarkedMultiple ? 'lists' : 'list'
+							  }`
+							: `Add ${formatMediaTypeLabel({ type: 'single', mediaType })} to a list`
 					}
 					placement='top'
 					isOpen={!(isDisabled || !mediaItem) && isHovering}
@@ -47,8 +51,10 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 					<IconButton
 						aria-label={
 							isBookmarked
-								? `Remove "${title}" ${mediaType} from ${isBookmarkedMultiple ? 'lists' : 'list'}`
-								: `Add "${title}" ${mediaType} to a list`
+								? `Remove "${title}" ${formatMediaTypeLabel({ type: 'single', mediaType })} from ${
+										isBookmarkedMultiple ? 'lists' : 'list'
+								  }`
+								: `Add "${title}" ${formatMediaTypeLabel({ type: 'single', mediaType })} to a list`
 						}
 						color={
 							(isOpen && bookmarkModalMediaItem?.id === mediaItem.id) ||
