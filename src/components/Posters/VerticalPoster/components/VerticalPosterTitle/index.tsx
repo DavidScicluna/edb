@@ -4,11 +4,11 @@ import { useTheme, Skeleton, utils } from '@davidscicluna/component-library';
 
 import { Box, Text } from '@chakra-ui/react';
 
-import { useElementSize } from 'usehooks-ts';
-
 import { MediaType } from '../../../../../common/types';
 import { useUserTheme } from '../../../../../common/hooks';
 import { inView as defaultInView } from '../../../common/data/defaultPropValues';
+import { getFontSizeHeight } from '../../../../../common/utils';
+import { useDummyText } from '../../../common/hooks';
 
 import { VerticalPosterTitleProps } from './types';
 
@@ -18,21 +18,26 @@ const VerticalPosterTitle = <MT extends MediaType>(props: VerticalPosterTitlePro
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const [titleRef, { height: titleHeight }] = useElementSize();
-
 	const { title, inView = defaultInView } = props;
 
+	const dummy = useDummyText();
+
 	return (
-		<Box ref={titleRef} width='100%' maxWidth='100%' height={`${titleHeight}px`}>
-			<Skeleton isLoaded={inView} variant='text'>
+		<Box
+			width='100%'
+			maxWidth='100%'
+			height={`${getFontSizeHeight({ theme, fontSize: 'sm', lineHeight: 'normal' })}px`}
+		>
+			<Skeleton isLoaded={inView && !!title} variant='text' speed={-1}>
 				<Text
 					align='left'
 					fontSize='sm'
 					fontWeight='semibold'
 					color={getColor({ theme, colorMode, type: 'text.primary' })}
+					lineHeight='normal'
 					noOfLines={1}
 				>
-					{title || 'Poster Title'}
+					{title || dummy || 'Poster Title'}
 				</Text>
 			</Skeleton>
 		</Box>
