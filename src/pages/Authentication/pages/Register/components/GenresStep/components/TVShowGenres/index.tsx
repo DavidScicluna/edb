@@ -1,6 +1,15 @@
 import { FC, useState } from 'react';
 
-import { Card, CardHeader, CardBody, Badge, BadgeLabel, Button } from '@davidscicluna/component-library';
+import {
+	useTheme,
+	Card,
+	CardHeader,
+	CardBody,
+	Badge,
+	BadgeLabel,
+	Button,
+	Icon
+} from '@davidscicluna/component-library';
 
 import { Wrap, WrapItem, Text } from '@chakra-ui/react';
 
@@ -9,13 +18,20 @@ import { useIsFetching } from '@tanstack/react-query';
 import { Controller } from 'react-hook-form';
 import { range } from 'lodash';
 
-import QueryEmpty from '../../../../../../../../components/Empties/QueryEmpty';
-import QueryError from '../../../../../../../../components/Empties/QueryError';
+import {
+	QueryEmpty,
+	QueryEmptyStack,
+	QueryEmptyIcon,
+	QueryEmptyBody,
+	QueryEmptyTitle,
+	QueryEmptySubtitle,
+	QueryEmptyActions
+} from '../../../../../../../../components';
 import { useSelector } from '../../../../../../../../common/hooks';
 import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../../../../common/types';
 import { genresDefaultValues as defaultValues } from '../../../../defaults';
-import { tvShowGenresQueryKey } from '../../../../../../../../common/keys';
-import { useTVShowGenresQuery } from '../../../../../../../../common/queries';
+import { genresQueryKey } from '../../../../../../../../common/keys';
+import { useGenresQuery } from '../../../../../../../../common/queries';
 import {
 	color as defaultColor,
 	colorMode as defaultColorMode
@@ -24,12 +40,16 @@ import DummyGenre from '../DummyGenre';
 import Actions from '../Actions';
 import Genre from '../Genre';
 import { GenresStepProps as TVShowGenresProps } from '../../types';
+import { formatMediaTypeLabel } from '../../../../../../../../common/utils';
+import { getEmptySubtitle } from '../../../../../../../../components/QueryEmpty/common/utils';
 
 const TVShowGenres: FC<TVShowGenresProps> = (props) => {
+	const theme = useTheme();
+
 	const { color = defaultColor, colorMode = defaultColorMode, form } = props;
 	const { control, setValue } = form;
 
-	const isFetchingTVShowGenres = useIsFetching(tvShowGenresQueryKey);
+	const isFetchingTVShowGenres = useIsFetching(genresQueryKey({ mediaType: 'tv' }));
 
 	const stateGenres = useSelector((state) => state.options.data.genres.tv || []);
 
@@ -37,7 +57,8 @@ const TVShowGenres: FC<TVShowGenresProps> = (props) => {
 
 	const [error, setError] = useState<QueryErrorType>();
 
-	const { isFetching, isLoading, isError, isSuccess, refetch } = useTVShowGenresQuery({
+	const { isFetching, isLoading, isError, isSuccess, refetch } = useGenresQuery({
+		props: { mediaType: 'tv' },
 		options: {
 			enabled: !isFetchingTVShowGenres && allGenres.length === 0,
 			onSuccess: ({ genres = [] }) => setAllGenres([...genres]),
@@ -69,15 +90,73 @@ const TVShowGenres: FC<TVShowGenresProps> = (props) => {
 						}
 					/>
 					<CardBody>
-						{isFetching || isLoading ? (
-							<Wrap width='100%' spacing={1.5}>
-								{range(0, 15).map((_dummy, index) => (
-									<WrapItem key={index}>
-										<DummyGenre colorMode={colorMode} />
-									</WrapItem>
-								))}
-							</Wrap>
-						) : isSuccess && allGenres.length > 0 ? (
+						{!(isFetching || isLoading) && isError ? (
+							<QueryEmpty color={color} colorMode={colorMode}>
+								<QueryEmptyStack>
+									<QueryEmptyIcon
+										renderIcon={(props) => (
+											<Icon
+												{...props}
+												width={theme.fontSizes['4xl']}
+												height={theme.fontSizes['4xl']}
+												fontSize={theme.fontSizes['4xl']}
+												icon='error_outline'
+											/>
+										)}
+										p={3}
+									/>
+									<QueryEmptyBody>
+										<QueryEmptyTitle />
+										<QueryEmptySubtitle>
+											{getEmptySubtitle({
+												type: 'error',
+												label: `${formatMediaTypeLabel({
+													type: 'single',
+													mediaType: 'tv'
+												})} Genres`
+											})}
+										</QueryEmptySubtitle>
+									</QueryEmptyBody>
+
+									<Badge {...props} color={color}>
+										<BadgeLabel>{`(${error?.status_code}) ${error?.status_message}`}</BadgeLabel>
+									</Badge>
+
+									<QueryEmptyActions
+										renderActions={(props) => (
+											<Button {...props} onClick={() => refetch()}>
+												Try Again
+											</Button>
+										)}
+									/>
+								</QueryEmptyStack>
+							</QueryEmpty>
+						) : !(isFetching || isLoading) && isSuccess && allGenres && allGenres.length === 0 ? (
+							<QueryEmpty color={color} colorMode={colorMode}>
+								<QueryEmptyStack>
+									<QueryEmptyBody>
+										<QueryEmptyTitle />
+										<QueryEmptySubtitle>
+											{getEmptySubtitle({
+												type: 'empty',
+												label: `${formatMediaTypeLabel({
+													type: 'single',
+													mediaType: 'tv'
+												})} Genres`
+											})}
+										</QueryEmptySubtitle>
+									</QueryEmptyBody>
+
+									<QueryEmptyActions
+										renderActions={(props) => (
+											<Button {...props} onClick={() => refetch()}>
+												Try Again
+											</Button>
+										)}
+									/>
+								</QueryEmptyStack>
+							</QueryEmpty>
+						) : !(isFetching || isLoading) && isSuccess && allGenres && allGenres.length > 0 ? (
 							<Wrap width='100%' spacing={1.5}>
 								{allGenres.map(({ id, ...rest }) => (
 									<WrapItem key={id}>
@@ -100,37 +179,14 @@ const TVShowGenres: FC<TVShowGenresProps> = (props) => {
 									</WrapItem>
 								))}
 							</Wrap>
-						) : isError ? (
-							<QueryError
-								colorMode={colorMode}
-								type='TV Show Genres'
-								renderTitle={({ children, ...rest }) => <Text {...rest}>{children}</Text>}
-								renderDescription={({ children, ...rest }) => <Text {...rest}>{children}</Text>}
-								renderBadge={
-									error && error.status_code && error.status_message
-										? (props) => (
-												<Badge {...props} color={color}>
-													<BadgeLabel>{`(${error.status_code}) ${error.status_message}`}</BadgeLabel>
-												</Badge>
-										  )
-										: undefined
-								}
-								renderAction={({ children, ...rest }) => (
-									<Button {...rest} color={color} onClick={() => refetch()}>
-										{children}
-									</Button>
-								)}
-							/>
 						) : (
-							<QueryEmpty
-								colorMode={colorMode}
-								renderTitle={({ children, ...rest }) => <Text {...rest}>{children}</Text>}
-								renderDescription={(props) => (
-									<Text {...props}>
-										Unfortunately was unable to find any TV Show Genres. Please try again later!
-									</Text>
-								)}
-							/>
+							<Wrap width='100%' spacing={1.5}>
+								{range(0, 15).map((_dummy, index) => (
+									<WrapItem key={index}>
+										<DummyGenre colorMode={colorMode} />
+									</WrapItem>
+								))}
+							</Wrap>
 						)}
 					</CardBody>
 				</Card>

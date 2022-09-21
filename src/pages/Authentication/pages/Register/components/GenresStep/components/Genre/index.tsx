@@ -2,8 +2,6 @@ import { FC } from 'react';
 
 import { Button, Icon } from '@davidscicluna/component-library';
 
-import { omit } from 'lodash';
-
 import DummyGenre from '../DummyGenre';
 import {
 	color as defaultColor,

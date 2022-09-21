@@ -3,6 +3,8 @@ import { FC, ReactElement, useState, useCallback, useEffect } from 'react';
 import { useNavigate, useOutletContext } from 'react-router';
 
 import {
+	Undefinable,
+	Colors,
 	StepperOnChangeProps,
 	useTheme,
 	Step,
@@ -21,8 +23,7 @@ import {
 	IconButton,
 	IconButtonIcon,
 	Icon,
-	utils,
-	Undefinable
+	utils
 } from '@davidscicluna/component-library';
 
 import { useDisclosure } from '@chakra-ui/react';
@@ -33,7 +34,7 @@ import { useForm, useWatch, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import sha256 from 'crypto-js/sha256';
 import dayjs from 'dayjs';
-import { isEmpty, isNil } from 'lodash';
+import { isEmpty, isNil, omit } from 'lodash';
 import { v4 as uuid } from 'uuid';
 
 import { useSelector, useUserTheme } from '../../../../common/hooks';
@@ -150,14 +151,14 @@ const Register: FC = () => {
 			...profileDefaultValues,
 			avatar_path: getBoringAvatarSrc({
 				id,
-				colors: theme.colors,
+				colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
 				hue: getHue({ colorMode, type: 'color' }),
 				size: 500,
 				variant: 'beam'
 			}),
 			background_path: getBoringAvatarSrc({
 				id,
-				colors: theme.colors,
+				colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
 				hue: getHue({ colorMode, type: 'color' }),
 				size: 500,
 				variant: 'sunset'
@@ -372,14 +373,14 @@ const Register: FC = () => {
 						renderIcon={(props) => (
 							<Icon
 								{...props}
-								width={theme.fontSizes['4xl']}
-								height={theme.fontSizes['4xl']}
-								fontSize={theme.fontSizes['4xl']}
+								width={theme.fontSizes['6xl']}
+								height={theme.fontSizes['6xl']}
+								fontSize={theme.fontSizes['6xl']}
 								icon='help_outline'
 							/>
 						)}
 						color={watchColor}
-						p={3}
+						p={2}
 					/>
 
 					<ConfirmModalBody>
