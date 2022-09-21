@@ -163,14 +163,14 @@ const ForgotPassword: FC = () => {
 						renderIcon={(props) => (
 							<Icon
 								{...props}
-								width={theme.fontSizes['4xl']}
-								height={theme.fontSizes['4xl']}
-								fontSize={theme.fontSizes['4xl']}
+								width={theme.fontSizes['6xl']}
+								height={theme.fontSizes['6xl']}
+								fontSize={theme.fontSizes['6xl']}
 								icon='help_outline'
 							/>
 						)}
 						color={color}
-						p={3}
+						p={2}
 					/>
 
 					<ConfirmModalBody>

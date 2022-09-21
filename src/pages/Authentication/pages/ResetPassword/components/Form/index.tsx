@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 
 import {
-	useTheme,
 	Form as DSUIForm,
 	Card,
 	CardHeader,
@@ -13,7 +12,7 @@ import {
 	Button
 } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useBoolean, useConst, VStack, HStack, Text } from '@chakra-ui/react';
+import { useBoolean, useConst, VStack, HStack, Text } from '@chakra-ui/react';
 
 import { useWatch, useFormState, Controller } from 'react-hook-form';
 import { sample } from 'lodash';
@@ -25,9 +24,6 @@ import { PasswordIcon } from '../../../../components';
 import { FormProps } from './types';
 
 const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
-	const theme = useTheme();
-	const [isSm] = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
-
 	const { color, colorMode } = useUserTheme();
 
 	const users = useSelector((state) => state.users.data.users || []);
@@ -55,7 +51,10 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 	const placeholder = useConst<string>(sample(placeholders) || 'johnsmith');
 
 	useEffect(
-		() => setIsUserChecked[users.some((user) => user.data.credentials.username === watchUsername) ? 'on' : 'off'](),
+		() =>
+			setIsUserChecked[
+				!!watchUsername && users.some((user) => user.data.credentials.username === watchUsername) ? 'on' : 'off'
+			](),
 		[watchUsername]
 	);
 
@@ -236,7 +235,7 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 							</Button>
 
 							<Button color={color} colorMode={colorMode} isDisabled={!isDirty} type='submit'>
-								{isSm ? 'Change Password' : 'Change'}
+								Change Password
 							</Button>
 						</HStack>
 					</CardFooter>
