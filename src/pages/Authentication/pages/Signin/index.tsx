@@ -2,7 +2,7 @@ import { FC, useState, useCallback } from 'react';
 
 import { useNavigate, useOutletContext } from 'react-router';
 
-import { useTheme, utils } from '@davidscicluna/component-library';
+import { Colors, useTheme, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, HStack, VStack } from '@chakra-ui/react';
 
@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useElementSize, useUpdateEffect, useDebounce, useWindowSize } from 'usehooks-ts';
-import { debounce } from 'lodash';
+import { debounce, omit } from 'lodash';
 import sha256 from 'crypto-js/sha256';
 import { sort } from 'fast-sort';
 import dayjs from 'dayjs';
@@ -116,7 +116,7 @@ const SignIn: FC = () => {
 						...guest.data.info,
 						avatar_path: getBoringAvatarSrc({
 							id: guest.data.id,
-							colors: theme.colors,
+							colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
 							hue: getHue({ colorMode, type: 'color' }),
 							size: 500,
 							variant: 'beam'
