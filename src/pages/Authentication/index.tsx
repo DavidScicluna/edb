@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { Outlet } from 'react-router';
+import { useLocation, Navigate, Outlet } from 'react-router';
 
 import { useTheme, utils } from '@davidscicluna/component-library';
 
@@ -18,6 +18,8 @@ const Authentication: FC = () => {
 
 	const [isXl] = useMediaQuery(`(min-width: ${theme.breakpoints['2xl']})`);
 
+	const location = useLocation();
+
 	const [color, setColor] = useState<UserThemeColor>(userTheme.color || defaultColor);
 	const [colorMode, setColorMode] = useState<ColorMode>(userTheme.colorMode || defaultColorMode);
 
@@ -34,7 +36,11 @@ const Authentication: FC = () => {
 				borderColor={getColor({ theme, colorMode, type: 'divider' })}
 				p={0}
 			>
-				<Outlet context={{ color, colorMode, setColor, setColorMode }} />
+				{location.pathname === '/authentication' ? (
+					<Navigate to='/authentication/signin' />
+				) : (
+					<Outlet context={{ color, colorMode, setColor, setColorMode }} />
+				)}
 			</Container>
 		</Center>
 	);
