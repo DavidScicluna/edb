@@ -4,11 +4,11 @@ import { useTheme, Skeleton, utils } from '@davidscicluna/component-library';
 
 import { Box, Text } from '@chakra-ui/react';
 
-import { useElementSize } from 'usehooks-ts';
-
 import { MediaType } from '../../../../../common/types';
 import { useUserTheme } from '../../../../../common/hooks';
 import { inView as defaultInView } from '../../../common/data/defaultPropValues';
+import { getFontSizeHeight } from '../../../../../common/utils';
+import { useDummyText } from '../../../common/hooks';
 
 import { VerticalPosterSubtitleProps } from './types';
 
@@ -18,21 +18,26 @@ const VerticalPosterSubtitle = <MT extends MediaType>(props: VerticalPosterSubti
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const [subtitleRef, { height: subtitleHeight }] = useElementSize();
-
 	const { subtitle, inView = defaultInView } = props;
 
+	const dummy = useDummyText();
+
 	return (
-		<Box ref={subtitleRef} width='100%' maxWidth='100%' height={`${subtitleHeight}px`}>
-			<Skeleton isLoaded={inView} variant='text'>
+		<Box
+			width='100%'
+			maxWidth='100%'
+			height={`${getFontSizeHeight({ theme, fontSize: 'xs', lineHeight: 'normal' })}px`}
+		>
+			<Skeleton isLoaded={inView && !!subtitle} variant='text' speed={-1}>
 				<Text
 					align='left'
 					fontSize='xs'
 					fontWeight='normal'
 					color={getColor({ theme, colorMode, type: 'text.secondary' })}
+					lineHeight='normal'
 					noOfLines={1}
 				>
-					{subtitle || 'Poster Subtitle'}
+					{subtitle || dummy || 'Date • All Poster Genres • Subtitle'}
 				</Text>
 			</Skeleton>
 		</Box>
