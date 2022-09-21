@@ -7,25 +7,13 @@ import {
 	BoxShadow,
 	BoxFilter,
 	BoxPseudo,
-	BoxOther
+	BoxOther,
+	Undefinable
 } from '@davidscicluna/component-library';
 
 import { ImageProps as CUIImageProps } from '@chakra-ui/react';
 
-export type Image = {
-	alt: string;
-	src: string;
-	size: {
-		thumbnail: string;
-		full: string;
-	};
-};
-
-export type ImageSrc = {
-	boring?: string;
-	fallback?: string;
-	full: string;
-};
+export type ImageSrcMode = 'boring' | 'thumbnail' | 'full';
 
 type Omitted =
 	// CUI Box Props
@@ -54,6 +42,7 @@ type Omitted =
 	| 'src'
 	| 'srcSet';
 
-export type ImageProps = Omit<Image, 'size' | 'src'> & {
-	src: ImageSrc;
-} & Omit<CUIImageProps, Omitted>;
+export type ImageProps = Omit<CUIImageProps, Omitted> & {
+	alt: string;
+	src: Partial<Record<ImageSrcMode, Undefinable<string>>>;
+};

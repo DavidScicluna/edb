@@ -1,8 +1,8 @@
-import { FC, memo } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 
-import { Style } from '@davidscicluna/component-library';
+import { useTheme, Style, Fade } from '@davidscicluna/component-library';
 
-import { useBoolean, Center, Image as CUIImage, ImageProps as CUIImageProps, Fade } from '@chakra-ui/react';
+import { useBoolean, Center, Image as CUIImage, ImageProps as CUIImageProps } from '@chakra-ui/react';
 
 import * as fallback from '../../common/assets/fallback';
 import { useUserTheme } from '../../common/hooks';
@@ -16,91 +16,142 @@ const p: CUIImageProps = {
 };
 
 const Image: FC<ImageProps> = (props) => {
+	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
 	const { alt, borderRadius = 'base', fit = 'cover', onError, onLoad, src, ...rest } = props;
+	const { full, thumbnail, boring } = src;
 
-	const [isFullLoaded, setIsFullLoaded] = useBoolean();
-	const [isFullError, setIsFullError] = useBoolean();
-
-	const [isThumbnailError, setIsThumbnailError] = useBoolean();
+	const [isFullVisible, setIsFullVisible] = useBoolean();
+	const [isThumbnailVisible, setIsThumbnailVisible] = useBoolean();
+	const [isBoringVisible, setIsBoringVisible] = useBoolean();
 
 	const sx: Style = { width: '100%', height: '100%', position: 'absolute', borderRadius };
 
+	const handleCheckModeVisibility = useCallback((): void => {
+		if (thumbnail) {
+			setIsThumbnailVisible.on();
+		} else if (full) {
+			setIsFullVisible.on();
+		} else if (boring) {
+			setIsBoringVisible.on();
+		}
+	}, [full, thumbnail, boring]);
+
+	useEffect(() => handleCheckModeVisibility(), [full, thumbnail, boring]);
+
 	return (
 		<Center position='relative' sx={{ ...sx }}>
-			{/* Fallback & Boring image */}
-			<Center as={Fade} in={isFullError && isThumbnailError} unmountOnExit sx={{ ...sx }}>
+			{/* Fallback image */}
+			<Center as={Fade} in={!isFullVisible && !isThumbnailVisible && !isBoringVisible} sx={{ ...sx }}>
 				<CUIImage
 					{...rest}
 					{...p}
 					alt={`${alt} fallback image`}
 					objectFit={fit}
-					src={src.boring}
-					fallbackSrc={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
+					src={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
 					sx={{ ...sx }}
 				/>
 			</Center>
+
+			{/* Boring image */}
+			{!!boring && (
+				<Center as={Fade} in={isBoringVisible} sx={{ ...sx }}>
+					<CUIImage
+						{...rest}
+						{...p}
+						alt={`${alt} boring image`}
+						objectFit={fit}
+						onError={(error) => {
+							setIsBoringVisible.off();
+
+							if (onError) {
+								onError(error);
+							}
+						}}
+						onLoad={(event) => {
+							setIsFullVisible.off();
+							setIsThumbnailVisible.off();
+
+							if (onLoad) {
+								onLoad(event);
+							}
+						}}
+						src={boring}
+						sx={{ ...sx }}
+					/>
+				</Center>
+			)}
 
 			{/* Thumbnail image */}
-			<Center as={Fade} in={!(isThumbnailError || isFullLoaded)} unmountOnExit sx={{ ...sx }}>
-				<CUIImage
-					{...rest}
-					{...p}
-					alt={`${alt} thumbnail image`}
-					objectFit={fit}
-					onError={(error) => {
-						// setIsThumbnailLoaded.off();
-						setIsThumbnailError.on();
+			{!!thumbnail && (
+				<Center as={Fade} in={isThumbnailVisible} sx={{ ...sx }}>
+					<Center sx={{ ...sx, position: 'relative' }}>
+						<Center
+							sx={{
+								...sx,
+								zIndex: 1,
+								backdropFilter: `blur(${theme.space[0.5]})`,
+								WebkitBackdropFilter: `blur(${theme.space[0.5]})`
+							}}
+						/>
+						<CUIImage
+							{...rest}
+							{...p}
+							alt={`${alt} thumbnail image`}
+							objectFit={fit}
+							onError={(error) => {
+								setIsBoringVisible.on();
+								setIsThumbnailVisible.off();
 
-						if (onError) {
-							onError(error);
-						}
-					}}
-					onLoad={(event) => {
-						// setIsThumbnailLoaded.on();
-						setIsThumbnailError.off();
+								if (onError) {
+									onError(error);
+								}
+							}}
+							onLoad={(event) => {
+								setIsFullVisible.on();
 
-						setIsFullError.off();
+								if (onLoad) {
+									onLoad(event);
+								}
+							}}
+							src={thumbnail}
+							sx={{ ...sx }}
+						/>
+					</Center>
+				</Center>
+			)}
 
-						if (onLoad) {
-							onLoad(event);
-						}
-					}}
-					src={src.fallback}
-					sx={{ ...sx }}
-				/>
-			</Center>
+			{/* Full image */}
+			{!!full && (
+				<Center as={Fade} in={isFullVisible} sx={{ ...sx }}>
+					<CUIImage
+						{...rest}
+						{...p}
+						alt={alt}
+						objectFit={fit}
+						onError={(error) => {
+							setIsBoringVisible.on();
+							setIsFullVisible.off();
 
-			{/* Full size image */}
-			<Center as={Fade} in={!isFullError} unmountOnExit sx={{ ...sx }}>
-				<CUIImage
-					{...rest}
-					{...p}
-					alt={alt}
-					objectFit={fit}
-					onError={(error) => {
-						setIsFullLoaded.off();
-						setIsFullError.on();
+							if (onError) {
+								onError(error);
+							}
+						}}
+						onLoad={(event) => {
+							setIsThumbnailVisible.off();
 
-						if (onError) {
-							onError(error);
-						}
-					}}
-					onLoad={(event) => {
-						setIsFullLoaded.on();
-						setIsFullError.off();
-
-						if (onLoad) {
-							onLoad(event);
-						}
-					}}
-					src={src.full}
-					sx={{ ...sx }}
-				/>
-			</Center>
+							if (onLoad) {
+								onLoad(event);
+							}
+						}}
+						src={full}
+						sx={{ ...sx }}
+					/>
+				</Center>
+			)}
 		</Center>
 	);
 };
 
-export default memo(Image);
+export default Image;
