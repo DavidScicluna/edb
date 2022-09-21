@@ -15,7 +15,7 @@ import { useMediaQuery, useDisclosure, VStack, Text } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-import { includes } from 'lodash';
+import { includes, uniqBy } from 'lodash';
 import { sort } from 'fast-sort';
 
 import { CommonBookmarkModalProps as AddBookmarkProps } from '../../common/types';
@@ -66,25 +66,35 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 
 				switch (mediaType) {
 					case 'movie': {
-						mediaItems.movies = sort([
-							...mediaItems.movies,
-							{
-								mediaItem: { ...(mediaItem as FullMovie) },
-								mediaType: 'movie',
-								addedAt: dayjs(new Date()).toISOString()
-							} as MediaItem<'movie'>
-						]).by({ desc: (movie) => movie.addedAt });
+						mediaItems.movies = sort(
+							uniqBy(
+								[
+									...mediaItems.movies,
+									{
+										mediaItem: { ...(mediaItem as FullMovie) },
+										mediaType: 'movie',
+										addedAt: dayjs(new Date()).toISOString()
+									} as MediaItem<'movie'>
+								],
+								'mediaItem.id'
+							)
+						).by({ desc: (movie) => movie.addedAt });
 						break;
 					}
 					case 'tv': {
-						mediaItems.tv = sort([
-							...mediaItems.tv,
-							{
-								mediaItem: { ...(mediaItem as FullTV) },
-								mediaType: 'tv',
-								addedAt: dayjs(new Date()).toISOString()
-							} as MediaItem<'tv'>
-						]).by({ desc: (show) => show.addedAt });
+						mediaItems.tv = sort(
+							uniqBy(
+								[
+									...mediaItems.tv,
+									{
+										mediaItem: { ...(mediaItem as FullTV) },
+										mediaType: 'tv',
+										addedAt: dayjs(new Date()).toISOString()
+									} as MediaItem<'tv'>
+								],
+								'mediaItem.id'
+							)
+						).by({ desc: (show) => show.addedAt });
 						break;
 					}
 				}
