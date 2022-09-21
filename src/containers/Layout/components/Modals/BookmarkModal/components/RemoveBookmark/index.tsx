@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, useState, useCallback, useEffect } from 'react';
 
 import {
 	useTheme,
@@ -15,8 +15,10 @@ import {
 	Icon
 } from '@davidscicluna/component-library';
 
+import { useBoolean } from '@chakra-ui/react';
+
 import { useDispatch } from 'react-redux';
-import { compact } from 'lodash';
+import { uniqBy } from 'lodash';
 import dayjs from 'dayjs';
 import { sort } from 'fast-sort';
 
@@ -28,7 +30,7 @@ import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 
 const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 	const theme = useTheme();
-	const { color, colorMode } = useUserTheme();
+	const { colorMode } = useUserTheme();
 
 	const dispatch = useDispatch();
 	const {
@@ -36,6 +38,44 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 	} = useSelector((state) => state.users.data.activeUser);
 
 	const { mediaType, mediaItem, title, isOpen = false, onClose } = props;
+
+	const [isMultiple, setIsMultiple] = useBoolean();
+	const [description, setDescription] = useState<string>('');
+
+	const handleCheckBookmark = useCallback(() => {
+		if (isOpen) {
+			const selectedLists = lists.filter((list) => {
+				switch (mediaType) {
+					case 'movie':
+						return list.mediaItems.movies.some(
+							(listMediaItem) => listMediaItem.mediaItem.id === mediaItem?.id
+						);
+					case 'tv':
+						return list.mediaItems.tv.some((listMediaItem) => listMediaItem.mediaItem.id === mediaItem?.id);
+					default:
+						return false;
+				}
+			});
+			const selectedListsLabel =
+				selectedLists.length > 2
+					? [
+							selectedLists
+								.filter((_list, index) => index < selectedLists.length - 1)
+								.map((list) => `"${list.label}"`)
+								.join(', '),
+							selectedLists[selectedLists.length - 1]
+					  ].join(' & ')
+					: selectedLists.map((list) => `"${list.label}"`).join(' & ');
+
+			setIsMultiple[selectedLists.length > 1 ? 'on' : 'off']();
+			setDescription(
+				`Are you sure you want to remove "${title}" ${formatMediaTypeLabel({
+					type: 'single',
+					mediaType
+				})} from the ${selectedListsLabel} lists?`
+			);
+		}
+	}, [isOpen, lists, mediaType, mediaItem, title]);
 
 	const handleRemoveBookmark = useCallback((): void => {
 		const updatedLists: UserList[] = [];
@@ -46,9 +86,12 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 					if (list.mediaItems.movies.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
 						const mediaItems: UserListMediaItems = {
 							...list.mediaItems,
-							movies: sort([
-								...list.mediaItems.movies.filter((movie) => movie.mediaItem.id !== mediaItem?.id)
-							]).by({ desc: (movie) => movie.addedAt })
+							movies: sort(
+								uniqBy(
+									[...list.mediaItems.movies.filter((movie) => movie.mediaItem.id !== mediaItem?.id)],
+									'mediaItem.id'
+								)
+							).by({ desc: (movie) => movie.addedAt })
 						};
 
 						updatedLists.push({
@@ -65,9 +108,12 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 					if (list.mediaItems.tv.some((show) => show.mediaItem.id === mediaItem?.id)) {
 						const mediaItems: UserListMediaItems = {
 							...list.mediaItems,
-							tv: sort([...list.mediaItems.tv.filter((show) => show.mediaItem.id !== mediaItem?.id)]).by({
-								desc: (show) => show.addedAt
-							})
+							tv: sort(
+								uniqBy(
+									[...list.mediaItems.tv.filter((show) => show.mediaItem.id !== mediaItem?.id)],
+									'mediaItem.id'
+								)
+							).by({ desc: (show) => show.addedAt })
 						};
 
 						updatedLists.push({
@@ -84,7 +130,11 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 		});
 
 		dispatch(setUserLists({ id, data: sort([...updatedLists]).by({ desc: (list) => list.updatedAt }) }));
-	}, [id, lists, mediaType, mediaItem]);
+
+		onClose();
+	}, [id, lists, mediaType, mediaItem, onClose]);
+
+	useEffect(() => handleCheckBookmark(), [isOpen]);
 
 	return (
 		<ConfirmModal
@@ -102,25 +152,20 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 					renderIcon={(props) => (
 						<Icon
 							{...props}
-							width={theme.fontSizes['4xl']}
-							height={theme.fontSizes['4xl']}
-							fontSize={theme.fontSizes['4xl']}
-							icon='highlight_off'
+							width={theme.fontSizes['6xl']}
+							height={theme.fontSizes['6xl']}
+							fontSize={theme.fontSizes['6xl']}
+							icon='delete_forever'
 							category='outlined'
 						/>
 					)}
-					color={color}
-					p={3}
+					color='red'
+					p={2}
 				/>
 
 				<ConfirmModalBody>
-					<ConfirmModalTitle>Remove from lists?</ConfirmModalTitle>
-					<ConfirmModalSubtitle>
-						{`Are you sure you want to remove "${title}" ${formatMediaTypeLabel({
-							type: 'single',
-							mediaType
-						})} from ${compact(lists.map((list) => `"${list.label}"`)).join(', ')} lists?`}
-					</ConfirmModalSubtitle>
+					<ConfirmModalTitle>{`Remove from ${isMultiple ? 'Lists' : 'List'}?`}</ConfirmModalTitle>
+					<ConfirmModalSubtitle>{description}</ConfirmModalSubtitle>
 				</ConfirmModalBody>
 				<ConfirmModalFooter
 					renderCancel={(props) => <Button {...props}>Cancel</Button>}
