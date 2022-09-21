@@ -7,6 +7,7 @@ import { useBoolean } from '@chakra-ui/react';
 import { MediaType } from '../../../../common/types';
 import Like from '../../../Clickable/Like';
 import { useUserTheme } from '../../../../common/hooks';
+import { formatMediaTypeLabel } from '../../../../common/utils';
 
 import { PosterLikeProps } from './types';
 
@@ -25,16 +26,14 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 				<Tooltip
 					colorMode={colorMode}
 					aria-label={
-						isLiked ? `Dislike "${title}" ${mediaType} (tooltip)` : `Like "${title}" ${mediaType} (tooltip)`
+						isLiked
+							? `Dislike "${title}" ${formatMediaTypeLabel({ type: 'single', mediaType })} (tooltip)`
+							: `Like "${title}" ${formatMediaTypeLabel({ type: 'single', mediaType })} (tooltip)`
 					}
 					label={
 						isLiked
-							? title.length <= 15
-								? `Dislike "${title}"`
-								: 'Dislike'
-							: title.length <= 15
-							? `Like "${title}"`
-							: 'Like'
+							? `Dislike ${formatMediaTypeLabel({ type: 'single', mediaType })}`
+							: `Like ${formatMediaTypeLabel({ type: 'single', mediaType })}`
 					}
 					placement='top'
 					isOpen={!(isDisabled || !mediaItem) && isHovering}
@@ -42,7 +41,11 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 					gutter={2}
 				>
 					<IconButton
-						aria-label={isLiked ? `Dislike "${title}" ${mediaType}` : `Like "${title}" ${mediaType}`}
+						aria-label={
+							isLiked
+								? `Dislike "${title}" ${formatMediaTypeLabel({ type: 'single', mediaType })}`
+								: `Like "${title}" ${formatMediaTypeLabel({ type: 'single', mediaType })}`
+						}
 						color={isLiked ? 'red' : 'gray'}
 						isDisabled={isDisabled || !mediaItem}
 						onClick={(event) => {
