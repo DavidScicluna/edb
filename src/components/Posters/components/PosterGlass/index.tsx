@@ -5,6 +5,7 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 import { Center } from '@chakra-ui/react';
 
 import { merge } from 'lodash';
+import { transparentize } from 'color2k';
 
 import { useUserTheme } from '../../../../common/hooks';
 
@@ -21,16 +22,17 @@ const PosterGlass: FC<PosterGlassProps> = ({ children, sx, ...rest }) => {
 	return (
 		<Center
 			{...rest}
+			p={0.25}
 			sx={{
 				...merge(
 					{
-						'backdropFilter': `blur(${theme.space[2]}) saturate(100%)`,
-						'-webkit-backdrop-filter': `blur(${theme.space[2]}) saturate(100%)`,
-						'backgroundColor': getColor({ theme, colorMode, type: 'background' }),
-						'borderRadius': theme.radii.full,
-						'borderWidth': '2px',
-						'borderStyle': 'solid',
-						'borderColor': getColor({ theme, colorMode, type: 'divider' })
+						backdropFilter: `blur(${theme.space[2]})`,
+						WebkitBackdropFilter: `blur(${theme.space[2]})`,
+						backgroundColor: transparentize(
+							getColor({ theme, colorMode, type: colorMode === 'light' ? 'dark' : 'light' }),
+							0.5
+						),
+						borderRadius: theme.radii.full
 					},
 					sx
 				)
