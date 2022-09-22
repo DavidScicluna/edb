@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { StateProps, BookmarkModal, QuickViewModal } from './types';
+import { StateProps, BookmarkModal, QuickViewModal, AuthenticationConfirmModal } from './types';
 
 export const defaultBookmarkModal: BookmarkModal = {
 	mediaType: 'movie',
@@ -15,10 +15,17 @@ export const defaultQuickViewModal: QuickViewModal = {
 	mediaItem: null
 };
 
+export const defaultAuthenticationConfirmModal: AuthenticationConfirmModal = {
+	isOpen: false,
+	title: '',
+	description: ''
+};
+
 const initialState: StateProps = {
 	ui: {
 		bookmarkModal: { ...defaultBookmarkModal },
 		quickViewModal: { ...defaultQuickViewModal },
+		authenticationConfirmModal: { ...defaultAuthenticationConfirmModal },
 		isUserThemeModalOpen: false,
 		isInternationalizationModalOpen: false,
 		isSpinnerModalOpen: false
@@ -35,6 +42,9 @@ const modalsSlice = createSlice({
 		setQuickViewModal: (state: StateProps, action: PayloadAction<QuickViewModal>) => {
 			state.ui.quickViewModal = action.payload;
 		},
+		setAuthenticationConfirmModal: (state: StateProps, action: PayloadAction<AuthenticationConfirmModal>) => {
+			state.ui.authenticationConfirmModal = action.payload;
+		},
 		toggleUserThemeModal: (state: StateProps, action: PayloadAction<boolean>) => {
 			state.ui.isUserThemeModalOpen = action.payload;
 		},
@@ -50,6 +60,7 @@ const modalsSlice = createSlice({
 export const {
 	setBookmarkModal,
 	setQuickViewModal,
+	setAuthenticationConfirmModal,
 	toggleUserThemeModal,
 	toggleInternationalizationModal,
 	toggleSpinnerModal

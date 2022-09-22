@@ -14,10 +14,17 @@ export type QuickViewModal = {
 	mediaItem: { id: number; title: string } | null;
 };
 
+export type AuthenticationConfirmModal = {
+	isOpen: boolean;
+	title: string;
+	description: string | string[];
+};
+
 export type StateProps = {
 	ui: {
 		bookmarkModal: BookmarkModal;
 		quickViewModal: QuickViewModal;
+		authenticationConfirmModal: AuthenticationConfirmModal;
 		isUserThemeModalOpen: boolean;
 		isInternationalizationModalOpen: boolean;
 		isSpinnerModalOpen: boolean;
