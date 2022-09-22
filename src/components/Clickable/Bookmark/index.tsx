@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactElement, useContext, useCallback, useEffect } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -6,12 +6,18 @@ import { useDispatch } from 'react-redux';
 import { debounce } from 'lodash';
 
 import { useSelector } from '../../../common/hooks';
-import { setBookmarkModal } from '../../../store/slices/Modals';
+import { setAuthenticationConfirmModal, setBookmarkModal } from '../../../store/slices/Modals';
 import { MediaType } from '../../../common/types';
+import { isGuest as defaultIsGuest } from '../../../containers/Layout/common/data/defaultPropValues';
+import { LayoutContext } from '../../../containers/Layout';
+import { LayoutContext as LayoutContextType } from '../../../containers/Layout/types';
+import { formatMediaTypeLabel } from '../../../common/utils';
 
 import { BookmarkProps } from './types';
 
 const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement => {
+	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
+
 	const dispatch = useDispatch();
 	const activeUser = useSelector((state) => state.users.data.activeUser);
 
@@ -50,18 +56,34 @@ const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement 
 		setIsBookmarkedMultiple[inLists > 1 ? 'on' : 'off']();
 	}, [lists, mediaType, mediaItem, lists]);
 
-	const handleBookmarkClick = useCallback(
+	const handleClick = useCallback(
 		debounce((): void => {
-			dispatch(
-				setBookmarkModal({
-					mediaType,
-					mediaItem,
-					title,
-					isOpen: true
-				})
-			);
+			if (!isGuest) {
+				dispatch(
+					setBookmarkModal({
+						mediaType,
+						mediaItem,
+						title,
+						isOpen: true
+					})
+				);
+			} else {
+				dispatch(
+					setAuthenticationConfirmModal({
+						isOpen: true,
+						title: 'Bookmark Not-Allowed!',
+						description: [
+							`In order to be able to bookmark the "${title}" ${formatMediaTypeLabel({
+								type: 'single',
+								mediaType
+							})} to a list, you'll need to sign in to an account first!`,
+							'Click on the "SIGN IN" button to go to the sign-in page.'
+						]
+					})
+				);
+			}
 		}, 1000),
-		[mediaType, mediaItem, title]
+		[isGuest, mediaType, mediaItem, title]
 	);
 
 	useEffect(() => handleIsBookmarked(), [lists]);
@@ -80,7 +102,7 @@ const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement 
 		isDisabled: !activeUser,
 		isBookmarked: isBookmarked,
 		isBookmarkedMultiple: isBookmarkedMultiple,
-		onClick: () => handleBookmarkClick()
+		onClick: () => handleClick()
 	});
 };
 
