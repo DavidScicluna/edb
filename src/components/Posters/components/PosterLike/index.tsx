@@ -63,6 +63,7 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 					</IconButton>
 				</Tooltip>
 			)}
+			title={title}
 			mediaType={mediaType}
 			mediaItem={mediaItem}
 		/>
