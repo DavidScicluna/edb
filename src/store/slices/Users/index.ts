@@ -143,7 +143,7 @@ const initialState: StateProps = {
 };
 
 const getUser = memoize(({ users, user }: GetUserProps): User => {
-	return users.find((u) => u.data.id === user) || { ...guest };
+	return users.find((u) => u.data.id === user) || guest;
 });
 
 const updateUsers = memoize(({ users, user }: UpdateUsersProps): User[] => {
@@ -162,103 +162,118 @@ const usersSlice = createSlice({
 		},
 		setUserInfo: (state: StateProps, action: UserAction<Info>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
-			const updatedUser: User = {
-				...user,
-				data: {
-					...user.data,
-					info: { ...action.payload.data },
-					updatedAt: dayjs(new Date()).toISOString()
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						info: { ...action.payload.data },
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
 				}
-			};
-
-			state.data.users = updateUsers({
-				users: state.data.users,
-				user: { ...updatedUser }
-			});
-
-			if (state.data.activeUser.data.id === user.data.id) {
-				state.data.activeUser = { ...updatedUser };
 			}
 		},
 		setUserRecentSearches: (state: StateProps, action: UserAction<Search[]>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
-			const updatedUser: User = {
-				...user,
-				data: {
-					...user.data,
-					recentSearches: [...action.payload.data],
-					updatedAt: dayjs(new Date()).toISOString()
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						recentSearches: [...action.payload.data],
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
 				}
-			};
-
-			state.data.users = updateUsers({
-				users: state.data.users,
-				user: { ...updatedUser }
-			});
-
-			if (state.data.activeUser.data.id === user.data.id) {
-				state.data.activeUser = { ...updatedUser };
 			}
 		},
 		setUserRecentlyViewed: (state: StateProps, action: UserAction<Omit<MediaItems, 'companies'>>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
-			const updatedUser: User = {
-				...user,
-				data: {
-					...user.data,
-					recentlyViewed: { ...action.payload.data },
-					updatedAt: dayjs(new Date()).toISOString()
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						recentlyViewed: { ...action.payload.data },
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
 				}
-			};
-
-			state.data.users = updateUsers({
-				users: state.data.users,
-				user: { ...updatedUser }
-			});
-
-			if (state.data.activeUser.data.id === user.data.id) {
-				state.data.activeUser = { ...updatedUser };
 			}
 		},
 		setUserLiked: (state: StateProps, action: UserAction<MediaItems>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
-			const updatedUser: User = {
-				...user,
-				data: {
-					...user.data,
-					liked: { ...action.payload.data },
-					updatedAt: dayjs(new Date()).toISOString()
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						liked: { ...action.payload.data },
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
 				}
-			};
-
-			state.data.users = updateUsers({
-				users: state.data.users,
-				user: { ...updatedUser }
-			});
-
-			if (state.data.activeUser.data.id === user.data.id) {
-				state.data.activeUser = { ...updatedUser };
 			}
 		},
 		// TODO: Maybe add more reducers to update specific lists with utils like user
 		setUserLists: (state: StateProps, action: UserAction<UserList[]>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
-			const updatedUser: User = {
-				...user,
-				data: {
-					...user.data,
-					lists: [...action.payload.data],
-					updatedAt: dayjs(new Date()).toISOString()
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						lists: [...action.payload.data],
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
 				}
-			};
-
-			state.data.users = updateUsers({
-				users: state.data.users,
-				user: { ...updatedUser }
-			});
-
-			if (state.data.activeUser.data.id === user.data.id) {
-				state.data.activeUser = { ...updatedUser };
 			}
 		},
 		// setUserReviews: (state: StateProps, action: UserAction<UserReview[]>) => {
@@ -301,48 +316,54 @@ const usersSlice = createSlice({
 		// },
 		setUserLanguage: (state: StateProps, action: UserAction<UserLanguage>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
-			const updatedUser: User = {
-				...user,
-				data: {
-					...user.data,
-					updatedAt: dayjs(new Date()).toISOString()
-				},
-				ui: {
-					...user.ui,
-					language: action.payload.data
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						updatedAt: dayjs(new Date()).toISOString()
+					},
+					ui: {
+						...user.ui,
+						language: action.payload.data
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
 				}
-			};
-
-			state.data.users = updateUsers({
-				users: state.data.users,
-				user: { ...updatedUser }
-			});
-
-			if (state.data.activeUser.data.id === user.data.id) {
-				state.data.activeUser = { ...updatedUser };
 			}
 		},
 		setUserTheme: (state: StateProps, action: UserAction<UserTheme>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
-			const updatedUser: User = {
-				...user,
-				data: {
-					...user.data,
-					updatedAt: dayjs(new Date()).toISOString()
-				},
-				ui: {
-					...user.ui,
-					theme: { ...action.payload.data }
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						updatedAt: dayjs(new Date()).toISOString()
+					},
+					ui: {
+						...user.ui,
+						theme: { ...action.payload.data }
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
 				}
-			};
-
-			state.data.users = updateUsers({
-				users: state.data.users,
-				user: { ...updatedUser }
-			});
-
-			if (state.data.activeUser.data.id === user.data.id) {
-				state.data.activeUser = { ...updatedUser };
 			}
 		}
 	}
