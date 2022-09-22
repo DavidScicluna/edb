@@ -27,9 +27,9 @@ const ColorModeItem: FC<ColorModeItemProps> = (props) => {
 		...rest
 	} = props;
 
-	const [colorMode, setcolorMode] = useState(colorModeProp === 'system' ? getColorMode() : colorModeProp);
+	const [colorMode, setColorMode] = useState(colorModeProp === 'system' ? getColorMode() : colorModeProp);
 
-	useUpdateEffect(() => setcolorMode(colorModeProp === 'system' ? getColorMode() : colorModeProp), [colorModeProp]);
+	useUpdateEffect(() => setColorMode(colorModeProp === 'system' ? getColorMode() : colorModeProp), [colorModeProp]);
 
 	return (
 		<Card
