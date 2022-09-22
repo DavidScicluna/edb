@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactElement, useContext, useCallback, useEffect } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -7,6 +7,9 @@ import dayjs from 'dayjs';
 import { sort } from 'fast-sort';
 import { debounce, uniqBy } from 'lodash';
 
+import { isGuest as defaultIsGuest } from '../../../containers/Layout/common/data/defaultPropValues';
+import { LayoutContext } from '../../../containers/Layout';
+import { LayoutContext as LayoutContextType } from '../../../containers/Layout/types';
 import { useSelector } from '../../../common/hooks';
 import { setUserLiked } from '../../../store/slices/Users';
 import { FullCompany, MediaType } from '../../../common/types';
@@ -14,17 +17,20 @@ import { MediaItem, MediaItems } from '../../../store/slices/Users/types';
 import { Collection, FullMovie } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
 import { FullTV } from '../../../common/types/tv';
+import { setAuthenticationConfirmModal } from '../../../store/slices/Modals';
+import { formatMediaTypeLabel } from '../../../common/utils';
 
 import { LikeProps } from './types';
 
 const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
-	const dispatch = useDispatch();
+	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
 
+	const dispatch = useDispatch();
 	const activeUser = useSelector((state) => state.users.data.activeUser);
 
 	const { id, liked } = activeUser.data;
 
-	const { renderAction, mediaType, mediaItem } = props;
+	const { renderAction, mediaType, mediaItem, title } = props;
 
 	const [isLiked, setIsLiked] = useBoolean();
 
@@ -224,6 +230,33 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 		[mediaType, mediaItem, liked, id]
 	);
 
+	const handleClick = useCallback(
+		debounce((): void => {
+			if (!isGuest) {
+				if (isLiked) {
+					handleUnlike();
+				} else {
+					handleLike();
+				}
+			} else {
+				dispatch(
+					setAuthenticationConfirmModal({
+						isOpen: true,
+						title: 'Like Not-Allowed!',
+						description: [
+							`In order to be able to like the "${title}" ${formatMediaTypeLabel({
+								type: 'single',
+								mediaType
+							})}, you'll need to sign in to an account first!`,
+							'Click on the "SIGN IN" button to go to the sign-in page.'
+						]
+					})
+				);
+			}
+		}, 1000),
+		[isGuest, isLiked]
+	);
+
 	useEffect(() => handleIsLiked(), [liked]);
 
 	return renderAction({
@@ -231,7 +264,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 		iconCategory: 'filled',
 		isDisabled: !activeUser,
 		isLiked: isLiked,
-		onClick: isLiked ? () => handleUnlike() : () => handleLike()
+		onClick: () => handleClick()
 	});
 };
 

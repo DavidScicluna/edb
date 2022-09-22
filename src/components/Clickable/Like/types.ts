@@ -15,4 +15,5 @@ export type RenderActionProps = {
 
 export type LikeProps<MT extends MediaType> = Pick<MediaItem<MT>, 'mediaItem' | 'mediaType'> & {
 	renderAction: (props: RenderActionProps) => ReactElement;
+	title: string;
 };
