@@ -13,7 +13,8 @@ import { GradientProps } from './types';
 
 const { getColor } = utils;
 
-const Gradient: FC<GradientProps> = (props) => {
+// TODO: Maybe convert to Chakra ui gradient
+const Gradient: FC<GradientProps> = ({ deg = 0, ...rest }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -23,11 +24,14 @@ const Gradient: FC<GradientProps> = (props) => {
 
 	return (
 		<Center
-			{...props}
+			{...rest}
 			width='100%'
 			height={theme.space[4]}
 			sx={{
-				background: `linear-gradient(0deg, ${transparentize(color, 0)} 25%, ${transparentize(color, 1)} 100%)`
+				background: `linear-gradient(${deg}deg, ${transparentize(color, 0)} 0%, ${transparentize(
+					color,
+					1
+				)} 100%)`
 			}}
 		/>
 	);

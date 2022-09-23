@@ -1,3 +1,3 @@
 import { CenterProps } from '@chakra-ui/react';
 
-export type GradientProps = Omit<CenterProps, 'as' | 'children'>;
+export type GradientProps = Omit<CenterProps, 'as' | 'children'> & { deg?: number };
