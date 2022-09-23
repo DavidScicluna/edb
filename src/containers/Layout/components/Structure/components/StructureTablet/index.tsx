@@ -1,29 +1,45 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useContext } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { useTheme, InternalLink, Button, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
+import {
+	useTheme,
+	InternalLink,
+	Button,
+	IconButton,
+	IconButtonIcon,
+	Fade,
+	utils
+} from '@davidscicluna/component-library';
 
-import { useDisclosure, useBoolean, useConst, VStack, HStack, Center } from '@chakra-ui/react';
+import { useDisclosure, useConst, VStack, HStack, Center } from '@chakra-ui/react';
 
 import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 import { Transition } from 'framer-motion';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import Gradient from '../Gradient';
-import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
+import {
+	isGuest as defaultIsGuest,
+	isAuthenticationRoute as defaultIsAuthenticationRoute
+} from '../../../../common/data/defaultPropValues';
 import { StructureCommonProps as StructureTabletProps } from '../../common/types';
+import InternationalizationIconButton from '../InternationalizationIconButton';
+import { LayoutContext } from '../../../..';
+import { LayoutContext as LayoutContextType } from '../../../../types';
+import Footer from '../Footer';
 
 import Sidebar from './components/Sidebar';
 import User from './components/User';
 
 const { getColor, getTransitionDuration } = utils;
 
-const authPaths = ['/signin', '/register', '/forgot-password'];
-
-const StructureTablet: FC<StructureTabletProps> = ({ children, isGuest = defaultIsGuest }) => {
+const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
+
+	const { isGuest = defaultIsGuest, isAuthenticationRoute = defaultIsAuthenticationRoute } =
+		useContext<LayoutContextType>(LayoutContext);
 
 	const location = useLocation();
 
@@ -31,34 +47,25 @@ const StructureTablet: FC<StructureTabletProps> = ({ children, isGuest = default
 
 	const [headerRef, { height: headerHeight }] = useElementSize();
 
-	const [isAuthentication, setIsAuthentication] = useBoolean();
-
-	const [background, setBackground] = useState<string>(getColor({ theme, colorMode, type: 'background' }));
-
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
 
 	const config = useConst<Transition>({ duration });
 
-	useUpdateEffect(() => setBackground(getColor({ theme, colorMode, type: 'background' })), [colorMode]);
-
 	useUpdateEffect(() => onSidebarClose(), [location.pathname]);
-
-	useEffect(() => setIsAuthentication[authPaths.includes(location.pathname) ? 'on' : 'off'](), [location.pathname]);
 
 	return (
 		<>
 			<VStack width='100%' minHeight='100vh' position='relative' spacing={0}>
 				<Fade
-					in={!isAuthentication}
-					style={{ width: '100%', position: 'fixed', top: 0 }}
+					in={!isAuthenticationRoute}
 					transition={{ enter: { ...config }, exit: { ...config } }}
+					style={{ width: '100%', position: 'fixed', top: 0, zIndex: 1 }}
 				>
 					<HStack
 						ref={headerRef}
 						width='100%'
 						justifyContent='space-between'
-						background={background}
-						backgroundColor={background}
+						background={getColor({ theme, colorMode, type: 'background' })}
 						borderBottomWidth='2px'
 						borderBottomStyle='solid'
 						borderBottomColor={getColor({ theme, colorMode, type: 'divider' })}
@@ -70,22 +77,27 @@ const StructureTablet: FC<StructureTabletProps> = ({ children, isGuest = default
 							onClick={() => onSidebarOpen()}
 							variant='icon'
 						>
-							<Icon icon='menu' />
+							<IconButtonIcon icon='menu' />
 						</IconButton>
 
-						<HStack spacing={2}>
-							<Fade in={location.pathname !== '/search'} unmountOnExit>
+						<HStack spacing={1}>
+							<Fade in={location.pathname !== '/search'}>
 								<InternalLink to='/search'>
 									<IconButton aria-label='Search Button' colorMode={colorMode} variant='icon'>
-										<Icon icon='search' />
+										<IconButtonIcon icon='search' />
 									</IconButton>
 								</InternalLink>
 							</Fade>
 
+							<InternationalizationIconButton />
+
 							{!isGuest ? (
 								<User />
 							) : (
-								<InternalLink to='/signin'>
+								<InternalLink
+									to='/authentication/signin'
+									isDisabled={location.pathname === '/authentication/signin'}
+								>
 									<Button color={color}>Sign in</Button>
 								</InternalLink>
 							)}
@@ -94,21 +106,37 @@ const StructureTablet: FC<StructureTabletProps> = ({ children, isGuest = default
 				</Fade>
 
 				<Fade
-					in={!isAuthentication}
-					style={{ width: '100%', position: 'fixed', top: headerHeight }}
+					in={!isAuthenticationRoute}
 					transition={{ enter: { ...config }, exit: { ...config } }}
+					style={{ width: '100%', position: 'fixed', top: headerHeight, zIndex: 1 }}
 				>
-					<Gradient />
+					<Gradient deg={180} />
 				</Fade>
 
-				<Center
+				<VStack
 					width='100%'
-					minHeight={!isAuthentication ? `calc(100vh - ${headerHeight}px)` : '100vh'}
+					height='100%'
+					minHeight={!isAuthenticationRoute ? `calc(100vh - ${headerHeight}px)` : '100vh'}
 					position='relative'
-					top={headerHeight}
+					top={0}
+					zIndex={0}
+					alignItems='stretch'
+					justifyContent='stretch'
+					spacing={0}
+					pt={!isAuthenticationRoute ? `${headerHeight}px` : 0}
 				>
-					{children}
-				</Center>
+					<Center width='100%' height='100%' minHeight='100vh' alignItems='stretch' justifyContent='stretch'>
+						{children}
+					</Center>
+
+					<Fade
+						in={!isAuthenticationRoute}
+						transition={{ enter: { ...config }, exit: { ...config } }}
+						style={{ width: '100%' }}
+					>
+						<Footer />
+					</Fade>
+				</VStack>
 			</VStack>
 
 			<Sidebar isOpen={isSidebarOpen} onClose={onSidebarClose} />
