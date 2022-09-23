@@ -8,7 +8,11 @@ import useStyles from '../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../common/hooks';
 
 const navItems: NavItemType[] = [
-	{ title: 'Home', path: { pathname: '/' }, renderLeftIcon: (props) => <Icon {...props} icon='home' /> },
+	{
+		title: 'Home',
+		path: { pathname: '/' },
+		renderLeftIcon: (props) => <Icon {...props} icon='home' />
+	},
 	{
 		title: 'Search',
 		path: { pathname: '/search' },
