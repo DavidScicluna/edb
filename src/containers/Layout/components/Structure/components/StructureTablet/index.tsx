@@ -80,14 +80,14 @@ const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 							<IconButtonIcon icon='menu' />
 						</IconButton>
 
-						<HStack spacing={1}>
-							<Fade in={location.pathname !== '/search'}>
+						<HStack spacing={1.5}>
+							<Center as={Fade} in={location.pathname !== '/search'}>
 								<InternalLink to='/search'>
 									<IconButton aria-label='Search Button' colorMode={colorMode} variant='icon'>
 										<IconButtonIcon icon='search' />
 									</IconButton>
 								</InternalLink>
-							</Fade>
+							</Center>
 
 							<InternationalizationIconButton />
 
@@ -98,7 +98,9 @@ const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 									to='/authentication/signin'
 									isDisabled={location.pathname === '/authentication/signin'}
 								>
-									<Button color={color}>Sign in</Button>
+									<Button color={color} colorMode={colorMode}>
+										Sign in
+									</Button>
 								</InternalLink>
 							)}
 						</HStack>
@@ -108,7 +110,7 @@ const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 				<Fade
 					in={!isAuthenticationRoute}
 					transition={{ enter: { ...config }, exit: { ...config } }}
-					style={{ width: '100%', position: 'fixed', top: headerHeight, zIndex: 1 }}
+					style={{ width: '100%', position: 'fixed', top: `${headerHeight}px`, zIndex: 1 }}
 				>
 					<Gradient deg={180} />
 				</Fade>
