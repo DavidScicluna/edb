@@ -2,38 +2,12 @@ import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { NavItemType, useTheme, InternalLink } from '@davidscicluna/component-library';
+import { useTheme, InternalLink } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
-
-const navItems: NavItemType[] = [
-	{
-		title: 'Home',
-		path: { pathname: '/' }
-	},
-	{
-		title: 'Search',
-		path: { pathname: '/search' }
-	},
-	{
-		title: 'Trending',
-		path: { pathname: '/trending' }
-	},
-	{
-		title: 'Movies',
-		path: { pathname: '/movies' }
-	},
-	{
-		title: 'TV Shows',
-		path: { pathname: '/tvshows' }
-	},
-	{
-		title: 'People',
-		path: { pathname: '/people' }
-	}
-];
+import navItems from '../../common/data/navItems';
 
 const FooterNavigation: FC = () => {
 	const theme = useTheme();
