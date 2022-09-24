@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { useTheme, InternalLink, Divider, utils } from '@davidscicluna/component-library';
+import { useTheme, Skeleton, InternalLink, Divider, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Stack, Text } from '@chakra-ui/react';
 
@@ -14,10 +14,13 @@ import { Logo } from '../../../../../../components';
 import FooterNavigation from './components/FooterNavigation';
 import FooterExternalLink from './components/FooterExternalLink';
 import FooterDescription from './components/FooterDescription';
+import FooterDummyNavigation from './components/FooterDummyNavigation';
+import FooterDummyDescription from './components/FooterDummyDescription';
+import { FooterProps } from './types';
 
 const { getColor } = utils;
 
-const Footer: FC = () => {
+const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -36,32 +39,43 @@ const Footer: FC = () => {
 			p={4}
 		>
 			<VStack width='100%' alignItems='stretch' justifyContent='stretch' spacing={4}>
-				<InternalLink to='/' isDisabled={location.pathname === '/'}>
-					<Logo isClickable={false} isSquare size='md' />
-				</InternalLink>
+				<Skeleton isLoaded={!isDummy} variant='rectangle'>
+					<InternalLink to='/' isDisabled={location.pathname === '/'}>
+						<Logo isClickable={false} isSquare size='md' />
+					</InternalLink>
+				</Skeleton>
 
-				<FooterDescription />
+				{!isDummy ? <FooterDescription /> : <FooterDummyDescription />}
 			</VStack>
 
-			<FooterNavigation />
+			{!isDummy ? <FooterNavigation /> : <FooterDummyNavigation />}
 
 			<Stack width='100%' direction={isSm ? 'column' : 'row'} justifyContent='space-between' spacing={2}>
-				<FooterExternalLink href='https://www.themoviedb.org/' sx={{ fontSize: 'sm', fontWeight: 'medium' }}>
-					Powered by themoviedb
-				</FooterExternalLink>
+				<Skeleton isLoaded={!isDummy} variant='text'>
+					<FooterExternalLink
+						href='https://www.themoviedb.org/'
+						sx={{ fontSize: 'sm', fontWeight: 'medium' }}
+					>
+						Powered by themoviedb
+					</FooterExternalLink>
+				</Skeleton>
 
-				<Text
-					align='center'
-					color={getColor({ theme, colorMode, type: 'text.secondary' })}
-					fontSize='sm'
-					fontWeight='medium'
-				>
-					{`© ${dayjs(new Date()).format('YYYY')} EDB, All rights reserved.`}
-				</Text>
+				<Skeleton isLoaded={!isDummy} variant='text'>
+					<Text
+						align='center'
+						color={getColor({ theme, colorMode, type: 'text.secondary' })}
+						fontSize='sm'
+						fontWeight='medium'
+					>
+						{`© ${dayjs(new Date()).format('YYYY')} EDB, All rights reserved.`}
+					</Text>
+				</Skeleton>
 
-				<FooterExternalLink href='https://davidscicluna.com' sx={{ fontSize: 'sm', fontWeight: 'medium' }}>
-					Made by davidscicluna.com
-				</FooterExternalLink>
+				<Skeleton isLoaded={!isDummy} variant='text'>
+					<FooterExternalLink href='https://davidscicluna.com' sx={{ fontSize: 'sm', fontWeight: 'medium' }}>
+						Made by davidscicluna.com
+					</FooterExternalLink>
+				</Skeleton>
 			</Stack>
 		</VStack>
 	);
