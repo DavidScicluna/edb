@@ -44,7 +44,7 @@ const FooterDescription: FC = () => {
 				People
 			</FooterInternalLink>{' '}
 			that make it happen. EDB offers users the ability to view all the information,{' '}
-			<FooterInternalLink to='/likes' isDisabled={location.pathname === '/likes'} sx={{ fontWeight: 'medium' }}>
+			<FooterInternalLink to='/liked' isDisabled={location.pathname === '/liked'} sx={{ fontWeight: 'medium' }}>
 				like
 			</FooterInternalLink>
 			, and save it into a{' '}
