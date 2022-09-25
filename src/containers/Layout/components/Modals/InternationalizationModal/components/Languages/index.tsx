@@ -22,7 +22,7 @@ const Languages: FC<LanguagesProps> = ({ form }) => {
 			render={({ field: { value, name } }) => (
 				<SimpleGrid width='100%' columns={[1, 2, 3]} spacing={2}>
 					{sort(languages)
-						.by({ asc: 'english_name' })
+						.asc((language) => language.english_name)
 						.filter(
 							(language) =>
 								!!language.name &&

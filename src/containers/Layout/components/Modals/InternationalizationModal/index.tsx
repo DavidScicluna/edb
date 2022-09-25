@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import {
 	Modal,
@@ -12,6 +12,8 @@ import {
 } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import { useDispatch } from 'react-redux';
 import { useForm, useFormState } from 'react-hook-form';
@@ -30,14 +32,14 @@ const InternationalizationModal: FC = () => {
 	const activeUser = useSelector((state) => state.users.data.activeUser);
 	const isInternationalizationModalOpen = useSelector((state) => state.modals.ui.isInternationalizationModalOpen);
 
+	const client = useQueryClient();
+
 	const form = useForm<Form>({ defaultValues: { language: { ...activeUser.ui.language } } });
 	const { control, reset, handleSubmit } = form;
 
 	const { isDirty } = useFormState({ control });
 
 	const handleClose = (): void => {
-		reset({ language: { ...activeUser.ui.language } });
-
 		dispatch(toggleInternationalizationModal(false));
 	};
 
@@ -49,8 +51,15 @@ const InternationalizationModal: FC = () => {
 
 		handleClose();
 
+		setTimeout(() => {
+			client.removeQueries();
+			client.invalidateQueries();
+		}, 1000);
+
 		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
+
+	useEffect(() => reset({ language: { ...activeUser.ui.language } }), [isInternationalizationModalOpen]);
 
 	return (
 		<Modal colorMode={colorMode} isOpen={isInternationalizationModalOpen} onClose={handleClose} size='3xl'>
