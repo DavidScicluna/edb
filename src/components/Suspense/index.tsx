@@ -1,11 +1,8 @@
 import { Component, ErrorInfo, Suspense as RS, SuspenseProps } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import Error from '../../containers/Routes/components/Error';
 
-import { Show } from '@chakra-ui/react';
-
-import Error from '../Error';
-
+import SuspenseActions from './components/SuspenseActions';
 import { State } from './types';
 
 class Suspense extends Component<SuspenseProps, State> {
@@ -29,20 +26,7 @@ class Suspense extends Component<SuspenseProps, State> {
 					code={404}
 					title='Oh no! 😭'
 					subtitle='Unfortunately, something went wrong when trying to render the application. Please refresh to try again!'
-					renderActions={(props) => (
-						<>
-							<Show breakpoint='(max-width: 600px)'>
-								<Button {...props} isFullWidth onClick={() => window.location.reload()}>
-									Refresh
-								</Button>
-							</Show>
-							<Show breakpoint='(min-width: 600px)'>
-								<Button {...props} onClick={() => window.location.reload()}>
-									Refresh
-								</Button>
-							</Show>
-						</>
-					)}
+					renderActions={(props) => <SuspenseActions {...props} />}
 				/>
 			);
 		}
