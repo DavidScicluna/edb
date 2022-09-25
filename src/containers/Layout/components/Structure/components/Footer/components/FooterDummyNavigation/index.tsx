@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
 import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
@@ -8,6 +8,9 @@ import { range } from 'lodash';
 
 import navItems from '../../common/data/navItems';
 import { useUserTheme } from '../../../../../../../../common/hooks';
+import { LayoutContext } from '../../../../../..';
+import { LayoutContext as LayoutContextType } from '../../../../../../types';
+import { spacing as defaultSpacing } from '../../../../../../common/data/defaultPropValues';
 
 const FooterDummyNavigation: FC = () => {
 	const theme = useTheme();
@@ -15,13 +18,15 @@ const FooterDummyNavigation: FC = () => {
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
+	const { spacing = defaultSpacing } = useContext<LayoutContextType>(LayoutContext);
+
 	return (
 		<Stack
 			width='100%'
 			direction={isSm ? 'column' : 'row'}
 			alignItems='center'
-			justifyContent='space-between'
-			spacing={isSm ? 4 : 2}
+			justifyContent='space-around'
+			spacing={spacing}
 		>
 			{range(navItems.length - 1).map((_dummy, index) => (
 				<Skeleton key={index} colorMode={colorMode} width='100%' isLoaded={false} variant='text'>

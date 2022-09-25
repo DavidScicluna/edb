@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
 import { useLocation } from 'react-router';
 
@@ -10,6 +10,9 @@ import dayjs from 'dayjs';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import { Logo } from '../../../../../../components';
+import { LayoutContext } from '../../../..';
+import { spacing as defaultSpacing } from '../../../../common/data/defaultPropValues';
+import { LayoutContext as LayoutContextType } from '../../../../types';
 
 import FooterNavigation from './components/FooterNavigation';
 import FooterExternalLink from './components/FooterExternalLink';
@@ -26,6 +29,8 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
+	const { spacing = defaultSpacing } = useContext<LayoutContextType>(LayoutContext);
+
 	const location = useLocation();
 
 	return (
@@ -35,10 +40,10 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 			justifyContent='stretch'
 			divider={<Divider />}
 			background={getColor({ theme, colorMode, type: colorMode })}
-			spacing={4}
-			p={4}
+			spacing={spacing}
+			p={spacing}
 		>
-			<VStack width='100%' alignItems='stretch' justifyContent='stretch' spacing={4}>
+			<VStack width='100%' alignItems='stretch' justifyContent='stretch' spacing={spacing}>
 				<Skeleton colorMode={colorMode} isLoaded={!isDummy} variant='rectangle'>
 					<InternalLink to='/' isDisabled={location.pathname === '/'}>
 						<Logo isClickable={false} isSquare size='md' />
@@ -50,7 +55,13 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 
 			{!isDummy ? <FooterNavigation /> : <FooterDummyNavigation />}
 
-			<Stack width='100%' direction={isSm ? 'column' : 'row'} justifyContent='space-between' spacing={2}>
+			<Stack
+				width='100%'
+				direction={isSm ? 'column' : 'row'}
+				alignItems='center'
+				justifyContent='space-between'
+				spacing={2}
+			>
 				<Skeleton colorMode={colorMode} isLoaded={!isDummy} variant='text'>
 					<FooterExternalLink
 						href='https://www.themoviedb.org/'
