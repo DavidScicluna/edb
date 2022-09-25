@@ -7,7 +7,6 @@ import slices from './slices';
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: ['app', 'users'],
 	blacklist: ['modals', 'options']
 };
 
