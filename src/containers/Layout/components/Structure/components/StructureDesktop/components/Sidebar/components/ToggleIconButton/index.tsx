@@ -33,7 +33,7 @@ const ToggleIconButton: FC = () => {
 			position='absolute'
 			top={`${sidebarMode === 'expanded' ? logoXlSize / 2 + height / 2 + 12 : logoMdSize / 2 + height / 2 - 8}px`}
 			right={`-${width / 2}px`}
-			zIndex='banner'
+			zIndex={1}
 			background={getColor({ theme, colorMode, type: 'background' })}
 			borderWidth='2px'
 			borderStyle='solid'

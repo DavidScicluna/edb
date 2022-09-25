@@ -30,7 +30,7 @@ const DummyStructureDesktop: FC<DummyStructureDesktopProps> = ({ children }) => 
 	return (
 		<HStack width='100%' minHeight='100vh' position='relative' spacing={0}>
 			{!isAuthenticationRoute && (
-				<Center width={`${sidebarWidth}px`} position='fixed' top={0} zIndex={theme.zIndices.banner}>
+				<Center width={`${sidebarWidth}px`} position='fixed' top={0} zIndex={theme.zIndices.sticky}>
 					<DummySidebar />
 				</Center>
 			)}

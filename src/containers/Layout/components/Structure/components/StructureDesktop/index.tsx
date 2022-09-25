@@ -47,7 +47,7 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 		<HStack width='100%' minHeight='100vh' position='relative' spacing={0} sx={{ ...style }}>
 			<Fade
 				in={!isAuthenticationRoute}
-				style={{ width: `${sidebarWidth}px`, position: 'fixed', top: 0, zIndex: theme.zIndices.banner }}
+				style={{ width: `${sidebarWidth}px`, position: 'fixed', top: 0, zIndex: theme.zIndices.sticky }}
 				transition={{ enter: { ...config }, exit: { ...config } }}
 			>
 				<Center width={`${sidebarWidth}px`} sx={{ ...style }}>

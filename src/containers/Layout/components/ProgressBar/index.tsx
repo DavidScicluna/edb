@@ -1,50 +1,66 @@
-import { FC } from 'react';
+import { FC, useState, useCallback, useEffect } from 'react';
 
-import { ColorHues, useTheme, Collapse, utils } from '@davidscicluna/component-library';
+import { useLocation } from 'react-router';
+
+import { useTheme, Collapse, utils } from '@davidscicluna/component-library';
+
+import { useBoolean, useConst, Progress } from '@chakra-ui/react';
 
 import { useIsFetching, useIsMutating } from '@tanstack/react-query';
 
-import { Progress } from '@chakra-ui/react';
+import { toRgba } from 'color2k';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { useSelector, useUserTheme } from '../../../../common/hooks';
 
-const lightShades: ColorHues[] = [
-	50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 800, 700, 600, 500, 400, 300, 200, 100, 50
-];
-const darkShades: ColorHues[] = [
-	900, 800, 700, 600, 500, 400, 300, 200, 100, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900
-];
+import { ProgressBarProps } from './types';
 
-const { getColor } = utils;
+const { getColor, getTransitionDuration } = utils;
 
-const ProgressBar: FC = () => {
+const ProgressBar: FC<ProgressBarProps> = ({ maxWidth }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
+
+	const location = useLocation();
 
 	const isQuickViewOpen = useSelector((state) => state.modals.ui.quickViewModal.isOpen);
 
 	const isFetching = useIsFetching();
 	const isMutating = useIsMutating();
 
+	const [isRerouting, setIsReouting] = useBoolean();
+
+	const [dividerColor, setDividerColor] = useState(getColor({ theme, colorMode, type: 'divider' }));
+
+	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }) * 1000);
+
+	const handleIsReouting = useCallback((): void => {
+		setIsReouting.on();
+
+		setTimeout(() => setIsReouting.off(), duration);
+	}, []);
+
+	useEffect(() => handleIsReouting(), [location.key]);
+
+	useUpdateEffect(() => setDividerColor(getColor({ theme, colorMode, type: 'divider' })), [colorMode]);
+
 	return (
 		<Collapse
-			in={!isQuickViewOpen && (isFetching > 0 || isMutating) > 0}
-			unmountOnExit
-			style={{ position: 'fixed', top: 0, zIndex: 950, width: '100%' }}
+			in={!isQuickViewOpen && (isRerouting || isFetching > 0 || isMutating) > 0}
+			style={{ width: '100%', maxWidth, position: 'fixed', top: 0, zIndex: theme.zIndices.banner }}
 		>
 			<Progress
 				width='100%'
-				height={theme.space['0.5']}
-				background={getColor({ theme, colorMode, type: 'divider' })}
+				height={theme.space['0.75']}
+				background={dividerColor}
 				borderRadius='none'
 				isIndeterminate
-				hasStripe
 				variant='unstyled'
 				sx={{
 					'& div': {
-						bgGradient: `linear(to-r, ${(colorMode === 'light' ? lightShades : darkShades)
-							.map((shade) => `${color}.${shade}`)
-							.join(', ')})`
+						background: `linear-gradient(90deg, ${toRgba(dividerColor)} 0%, ${toRgba(
+							getColor({ theme, colorMode, color, type: 'color' })
+						)} 50%, ${toRgba(dividerColor)} 100%)`
 					}
 				}}
 			/>
