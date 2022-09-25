@@ -1,48 +1,47 @@
-import { FC, useState } from 'react';
+import { FC, useContext } from 'react';
 
-import { useTheme, Divider, InternalLink, IconButton, Icon, utils } from '@davidscicluna/component-library';
+import { useLocation } from 'react-router';
+
+import { useTheme, Divider, InternalLink, utils } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
-import { useDispatch } from 'react-redux';
 import { omit } from 'lodash';
-import { useUpdateEffect } from 'usehooks-ts';
 
-import { isGuest as defaultIsGuest } from '../../../../common/data/defaultPropValues';
+import { isGuest as defaultIsGuest } from '../../../../../../common/data/defaultPropValues';
 import Logo from '../../../../../../../../components/Logo';
 import useStyles from '../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
-import { toggleSidebarMode } from '../../../../../../../../store/slices/App';
 import Navigation from '../../../Navigation';
-import GuestColorModeSwitcher from '../../../GuestColorModeSwitcher';
+import { LayoutContext } from '../../../../../..';
+import { LayoutContext as LayoutContextType } from '../../../../../../types';
 
+import ToggleIconButton from './components/ToggleIconButton';
 import User from './components/User';
 import SignInButton from './components/SignInButton';
-import { SidebarProps } from './types';
 
 const { getColor } = utils;
 
-const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest }) => {
+const Sidebar: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const dispatch = useDispatch();
+	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
+
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
-	const [background, setBackground] = useState<string>(getColor({ theme, colorMode, type: 'background' }));
+	const location = useLocation();
 
 	const style = useStyles({ theme });
-
-	useUpdateEffect(() => setBackground(getColor({ theme, colorMode, type: 'background' })), [colorMode]);
 
 	return (
 		<VStack
 			width='100%'
 			height='100vh'
+			position='relative'
 			alignItems='stretch'
 			justifyContent='space-between'
-			background={background}
-			backgroundColor={background}
+			background={getColor({ theme, colorMode, type: 'background' })}
 			borderRightWidth='2px'
 			borderRightStyle='solid'
 			borderRightColor={getColor({ theme, colorMode, type: 'divider' })}
@@ -57,7 +56,7 @@ const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest }) => {
 				spacing={2}
 				sx={{ ...style }}
 			>
-				<InternalLink to='/'>
+				<InternalLink to='/' isDisabled={location.pathname === '/'} sx={{ ...style }}>
 					<Logo
 						isClickable={false}
 						isSquare
@@ -69,26 +68,9 @@ const Sidebar: FC<SidebarProps> = ({ isGuest = defaultIsGuest }) => {
 				<Navigation />
 			</VStack>
 
-			<VStack width='100%' spacing={1} sx={{ ...style }}>
-				{!isGuest ? (
-					<User />
-				) : (
-					<>
-						<GuestColorModeSwitcher />
+			{!isGuest ? <User /> : <SignInButton />}
 
-						<SignInButton />
-					</>
-				)}
-
-				<IconButton
-					aria-label={sidebarMode === 'expanded' ? 'Collapse navigation-bar' : 'Expand navigation-bar'}
-					colorMode={colorMode}
-					onClick={() => dispatch(toggleSidebarMode(sidebarMode === 'expanded' ? 'collapsed' : 'expanded'))}
-					variant='icon'
-				>
-					<Icon icon={sidebarMode === 'expanded' ? 'remove' : 'add'} />
-				</IconButton>
-			</VStack>
+			<ToggleIconButton />
 		</VStack>
 	);
 };
