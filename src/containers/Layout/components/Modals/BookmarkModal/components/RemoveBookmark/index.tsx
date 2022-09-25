@@ -91,7 +91,7 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 									[...list.mediaItems.movies.filter((movie) => movie.mediaItem.id !== mediaItem?.id)],
 									'mediaItem.id'
 								)
-							).by({ desc: (movie) => movie.addedAt })
+							).desc((movie) => movie.addedAt)
 						};
 
 						updatedLists.push({
@@ -113,7 +113,7 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 									[...list.mediaItems.tv.filter((show) => show.mediaItem.id !== mediaItem?.id)],
 									'mediaItem.id'
 								)
-							).by({ desc: (show) => show.addedAt })
+							).desc((show) => show.addedAt)
 						};
 
 						updatedLists.push({
@@ -129,7 +129,7 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 			}
 		});
 
-		dispatch(setUserLists({ id, data: sort([...updatedLists]).by({ desc: (list) => list.updatedAt }) }));
+		dispatch(setUserLists({ id, data: sort([...updatedLists]).desc((list) => list.updatedAt) }));
 
 		onClose();
 	}, [id, lists, mediaType, mediaItem, onClose]);
