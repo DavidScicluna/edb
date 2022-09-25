@@ -1,17 +1,19 @@
-import { FC, useCallback } from 'react';
+import { FC, useContext, useCallback } from 'react';
 
 import { Space, useTheme, Card, CardBody, Fade, utils } from '@davidscicluna/component-library';
 
-import { useBoolean, useConst, VStack, HStack, Text } from '@chakra-ui/react';
+import { useConst, VStack, HStack, Text } from '@chakra-ui/react';
 
 import { Transition } from 'framer-motion';
-import { useElementSize, useUpdateEffect } from 'usehooks-ts';
+import { useElementSize } from 'usehooks-ts';
 
 import useStyles from '../../../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
 import UserPopper from '../../../../../UserPopper';
 import Avatar from '../../../../../../../../../../components/Avatar';
-import { guest } from '../../../../../../../../../../store/slices/Users';
+import { LayoutContext } from '../../../../../../../..';
+import { LayoutContext as LayoutContextType } from '../../../../../../../../types';
+import { isGuest as defaultIsGuest } from '../../../../../../../../common/data/defaultPropValues';
 
 const { getTransitionDelay, convertREMToPixels, convertStringToNumber, getColor } = utils;
 
@@ -23,16 +25,19 @@ const User: FC = () => {
 
 	const [avatarRef, { width: avatarWidth }] = useElementSize();
 
-	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
-	const activeUser = useSelector((state) => state.users.data.activeUser);
-	const { name, avatar_path } = activeUser.data.info;
-	const { username } = activeUser.data.credentials;
+	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
 
-	const [isGuest, setIsGuest] = useBoolean(guest.data.id === activeUser.data.id);
+	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+	const {
+		data: {
+			info: { name, avatar_path },
+			credentials: { username }
+		}
+	} = useSelector((state) => state.users.data.activeUser);
 
 	const style = useStyles({ theme });
 
-	const delay = useConst<number>(getTransitionDelay({ theme, duration: 'ultra-slow' }));
+	const delay = useConst<number>(getTransitionDelay({ theme, duration: 'slow' }));
 	const config = useConst<Transition>({ delay });
 
 	const handleAvatarWidth = useCallback(() => {
@@ -40,8 +45,6 @@ const User: FC = () => {
 
 		return `calc(100% - ${avatarWidth + spacingWidth}px)`;
 	}, [theme, spacing, avatarWidth]);
-
-	useUpdateEffect(() => setIsGuest[guest.data.id === activeUser.data.id ? 'on' : 'off'](), [activeUser]);
 
 	return (
 		<UserPopper
@@ -51,8 +54,9 @@ const User: FC = () => {
 				<Card
 					color={isOpen ? color : 'gray'}
 					colorMode={colorMode}
-					isFullWidth
 					isClickable
+					isFullWidth
+					isLight={!isOpen}
 					p={sidebarMode === 'expanded' ? 2 : 1}
 					sx={{ ...style, '*, *::before, *::after': { ...style } }}
 				>
@@ -68,7 +72,6 @@ const User: FC = () => {
 
 							<Fade
 								in={sidebarMode === 'expanded'}
-								unmountOnExit
 								transition={{ enter: { ...config } }}
 								style={{ flex: 1 }}
 							>
