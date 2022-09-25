@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useLocation } from 'react-router';
 
@@ -11,9 +11,6 @@ import { useUpdateEffect } from 'usehooks-ts';
 import Logo from '../../../../../../../../components/Logo';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import Navigation from '../../../Navigation';
-import { isGuest as defaultIsGuest } from '../../../../../../common/data/defaultPropValues';
-import { LayoutContext } from '../../../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../../../types';
 
 import { SidebarProps } from './types';
 
@@ -22,8 +19,6 @@ const { getColor } = utils;
 const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
-
-	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
 
 	const location = useLocation();
 
@@ -51,7 +46,6 @@ const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 						width='100%'
 						height='100vh'
 						alignItems='flex-start'
-						justifyContent='space-between'
 						divider={<Divider colorMode={colorMode} />}
 						background={background}
 						spacing={2}

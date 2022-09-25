@@ -23,18 +23,18 @@ import {
 	isGuest as defaultIsGuest,
 	isAuthenticationRoute as defaultIsAuthenticationRoute
 } from '../../../../common/data/defaultPropValues';
-import { StructureCommonProps as StructureTabletProps } from '../../common/types';
-import InternationalizationIconButton from '../InternationalizationIconButton';
+import { StructureProps as StructureMobileTabletProps } from '../../types';
 import { LayoutContext } from '../../../..';
 import { LayoutContext as LayoutContextType } from '../../../../types';
 import Footer from '../Footer';
 
 import Sidebar from './components/Sidebar';
 import User from './components/User';
+import Internationalization from './components/Internationalization';
 
 const { getColor, getTransitionDuration } = utils;
 
-const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
+const StructureMobileTablet: FC<StructureMobileTabletProps> = ({ children, device }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -75,6 +75,7 @@ const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 							aria-label='SideBar Navigation Menu Button'
 							colorMode={colorMode}
 							onClick={() => onSidebarOpen()}
+							size={device === 'mobile' ? 'sm' : 'md'}
 							variant='icon'
 						>
 							<IconButtonIcon icon='menu' />
@@ -83,13 +84,18 @@ const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 						<HStack spacing={1.5}>
 							<Center as={Fade} in={location.pathname !== '/search'}>
 								<InternalLink to='/search'>
-									<IconButton aria-label='Search Button' colorMode={colorMode} variant='icon'>
+									<IconButton
+										aria-label='Search Button'
+										colorMode={colorMode}
+										size={device === 'mobile' ? 'sm' : 'md'}
+										variant='icon'
+									>
 										<IconButtonIcon icon='search' />
 									</IconButton>
 								</InternalLink>
 							</Center>
 
-							<InternationalizationIconButton />
+							<Internationalization size={device === 'mobile' ? 'sm' : 'md'} />
 
 							{!isGuest ? (
 								<User />
@@ -98,7 +104,11 @@ const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 									to='/authentication/signin'
 									isDisabled={location.pathname === '/authentication/signin'}
 								>
-									<Button color={color} colorMode={colorMode}>
+									<Button
+										color={color}
+										colorMode={colorMode}
+										size={device === 'mobile' ? 'sm' : 'md'}
+									>
 										Sign in
 									</Button>
 								</InternalLink>
@@ -152,4 +162,4 @@ const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 	);
 };
 
-export default StructureTablet;
+export default StructureMobileTablet;
