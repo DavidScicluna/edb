@@ -50,7 +50,7 @@ const ColorItem: FC<ColorItemProps> = (props) => {
 				<Center
 					width={theme.fontSizes['8xl']}
 					height={theme.fontSizes['8xl']}
-					backgroundColor={getColor({ theme, colorMode, color, type: 'color' })}
+					background={getColor({ theme, colorMode, color, type: 'color' })}
 					borderRadius='full'
 				/>
 			</CardBody>

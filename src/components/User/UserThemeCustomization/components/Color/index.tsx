@@ -48,7 +48,7 @@ const Color: FC<ColorProps> = (props) => {
 				>
 					<CardHeader renderTitle={(props) => <Text {...props}>Color</Text>} />
 					<CardBody>
-						<SimpleGrid width='100%' columns={[1, 3]} spacing={2}>
+						<SimpleGrid width='100%' columns={[1, 2, 3]} spacing={2}>
 							{colors.map((color) => (
 								<ColorItem
 									key={color}
