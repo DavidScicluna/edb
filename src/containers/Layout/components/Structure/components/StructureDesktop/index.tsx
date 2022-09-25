@@ -1,6 +1,4 @@
-import { FC, useState, useEffect } from 'react';
-
-import { useLocation } from 'react-router';
+import { FC, useContext, useState, useEffect } from 'react';
 
 import { useTheme, Fade, utils } from '@davidscicluna/component-library';
 
@@ -9,28 +7,28 @@ import { useBoolean, useConst, HStack, Center, VStack } from '@chakra-ui/react';
 import { useUpdateEffect } from 'usehooks-ts';
 import { Transition } from 'framer-motion';
 
-import { isGuest as defaultIsGuest } from '../../common/data/defaultPropValues';
+import { isAuthenticationRoute as defaultIsAuthenticationRoute } from '../../../../common/data/defaultPropValues';
 import { StructureCommonProps as StructureDesktopProps } from '../../common/types';
 import { useSelector } from '../../../../../../common/hooks';
 import useStyle from '../../../../common/styles';
 import { sidebar } from '../../../../common/data/sidebar';
+import { LayoutContext } from '../../../..';
+import { LayoutContext as LayoutContextType } from '../../../../types';
+import Footer from '../Footer';
 
 import Sidebar from './components/Sidebar';
 
 const { getTransitionDuration } = utils;
 
-const authPaths = ['/signin', '/register', '/reset-password'];
-
-const StructureDesktop: FC<StructureDesktopProps> = ({ children, isGuest = defaultIsGuest }) => {
+const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 	const theme = useTheme();
 
-	const location = useLocation();
+	const { isAuthenticationRoute = defaultIsAuthenticationRoute } = useContext<LayoutContextType>(LayoutContext);
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
 	const [sidebarWidth, setSidebarWidth] = useState<number>(sidebar[sidebarMode]);
 
-	const [isAuthentication, setIsAuthentication] = useBoolean();
 	const [isPositionDelayed, setIsPositionDelayed] = useBoolean();
 
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
@@ -41,49 +39,45 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children, isGuest = defau
 
 	useUpdateEffect(() => setSidebarWidth(sidebar[sidebarMode]), [sidebarMode]);
 
-	useEffect(() => setIsAuthentication[authPaths.includes(location.pathname) ? 'on' : 'off'](), [location.pathname]);
 	useEffect(() => {
-		setTimeout(() => setIsPositionDelayed[isAuthentication ? 'on' : 'off'](), 500);
-	}, [isAuthentication]);
+		setTimeout(() => setIsPositionDelayed[isAuthenticationRoute ? 'on' : 'off'](), 500);
+	}, [isAuthenticationRoute]);
 
 	return (
 		<HStack width='100%' minHeight='100vh' position='relative' spacing={0} sx={{ ...style }}>
 			<Fade
-				in={!isAuthentication}
-				style={{ width: sidebarWidth, position: 'fixed', left: 0 }}
+				in={!isAuthenticationRoute}
+				style={{ width: `${sidebarWidth}px`, position: 'fixed', top: 0, zIndex: theme.zIndices.banner }}
 				transition={{ enter: { ...config }, exit: { ...config } }}
 			>
-				<Center width={sidebarWidth} sx={{ ...style }}>
-					<Sidebar isGuest={isGuest} />
+				<Center width={`${sidebarWidth}px`} sx={{ ...style }}>
+					<Sidebar />
 				</Center>
 			</Fade>
 
 			<VStack
-				width={!isAuthentication ? `calc(100% - ${sidebarWidth}px)` : '100%'}
+				width={!isAuthenticationRoute ? `calc(100% - ${sidebarWidth}px)` : '100%'}
+				height='100%'
 				minHeight='100vh'
-				position='absolute'
+				position='relative'
 				top={0}
-				left={!isAuthentication ? `${sidebarWidth}px` : 0}
-				alignItems='center'
-				justifyContent='center'
-				spacing={0}
+				left={!isAuthenticationRoute ? `${sidebarWidth}px` : 0}
+				alignItems='stretch'
+				justifyContent='stretch'
+				spacing={4}
 				sx={!isPositionDelayed ? { ...style } : {}}
 			>
-				{children}
+				<Center width='100%' height='100%' minHeight='inherit' alignItems='stretch' justifyContent='stretch'>
+					{children}
+				</Center>
 
-				{/* <VStack width='100%' spacing={4} sx={{ ...style }}>
-					<Box
-						width='100%'
-						minHeight={`calc(100vh - ${
-							headerHeight + convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))
-						}px)`}
-						sx={{ ...style }}
-					>
-						<Outlet />
-					</Box>
-
-					{/* <Footer /> */}
-				{/* </VStack> */}
+				<Fade
+					in={!isAuthenticationRoute}
+					transition={{ enter: { ...config }, exit: { ...config } }}
+					style={{ width: '100%' }}
+				>
+					<Footer />
+				</Fade>
 			</VStack>
 		</HStack>
 	);
