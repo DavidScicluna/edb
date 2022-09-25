@@ -36,15 +36,11 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 
 	return (
 		<Modal isOpen={isOpen} closeOnEsc={false} closeOnOverlayClick={false} onClose={onClose} size='full' spacing={0}>
-			<ModalBody backgroundColor={getColor({ theme, colorMode, type: 'background' })} sx={{ transition: 'none' }}>
+			<ModalBody background={getColor({ theme, colorMode, type: 'background' })} sx={{ transition: 'none' }}>
 				<Center width='100%' height='100vh'>
 					{/* Top */}
 					<Center position='absolute' top={0} left='50%' transform='translateX(-50%)' p={2}>
-						<ScaleFade
-							in
-							transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}
-							unmountOnExit
-						>
+						<ScaleFade in transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}>
 							<SplashscreenLabel colorMode={colorMode} />
 						</ScaleFade>
 					</Center>
@@ -57,11 +53,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 						transform='translateX(-50%) rotate(-180deg)'
 						p={2}
 					>
-						<ScaleFade
-							in
-							transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}
-							unmountOnExit
-						>
+						<ScaleFade in transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}>
 							<SplashscreenLabel colorMode={colorMode} />
 						</ScaleFade>
 					</Center>
@@ -75,11 +67,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 							transform='translateY(-50%) rotate(-90deg)'
 							p={2}
 						>
-							<ScaleFade
-								in
-								transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}
-								unmountOnExit
-							>
+							<ScaleFade in transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}>
 								<SplashscreenLabel colorMode={colorMode} />
 							</ScaleFade>
 						</Center>
@@ -92,11 +80,7 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 							transform='translateY(-50%) rotate(-270deg)'
 							p={2}
 						>
-							<ScaleFade
-								in
-								transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}
-								unmountOnExit
-							>
+							<ScaleFade in transition={{ enter: { duration, delay: delayLabel }, exit: { duration } }}>
 								<SplashscreenLabel colorMode={colorMode} />
 							</ScaleFade>
 						</Center>
@@ -105,7 +89,6 @@ const Splashscreen: FC<SplashscreenProps> = ({ isOpen = false, onClose }) => {
 					<SlideFade
 						in
 						transition={{ enter: { duration, delay: delayLogo }, exit: { duration } }}
-						unmountOnExit
 						offsetY={logoOffsetY}
 					>
 						<SplashscreenLogo />
