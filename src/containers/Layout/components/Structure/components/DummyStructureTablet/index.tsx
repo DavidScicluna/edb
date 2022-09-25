@@ -6,7 +6,6 @@ import {
 	DummyButton,
 	DummyIconButton,
 	IconButtonIcon,
-	Fade,
 	utils
 } from '@davidscicluna/component-library';
 
@@ -62,11 +61,11 @@ const DummyStructureTablet: FC<DummyStructureTabletProps> = ({ children }) => {
 					</DummyIconButton>
 
 					<HStack spacing={1.5}>
-						<Center as={Fade} in={location.pathname !== '/search'}>
+						{location.pathname !== '/search' && (
 							<DummyIconButton aria-label='Search Dummy Button' colorMode={colorMode} variant='icon'>
 								<IconButtonIcon icon='search' />
 							</DummyIconButton>
-						</Center>
+						)}
 
 						<InternationalizationIconButton isDummy />
 
@@ -104,7 +103,7 @@ const DummyStructureTablet: FC<DummyStructureTabletProps> = ({ children }) => {
 				spacing={0}
 				pt={!isAuthenticationRoute ? `${headerHeight}px` : 0}
 			>
-				<Center width='100%' height='100%' minHeight='100vh' alignItems='stretch' justifyContent='stretch'>
+				<Center width='100%' height='100%' minHeight='inherit' alignItems='stretch' justifyContent='stretch'>
 					{children}
 				</Center>
 
