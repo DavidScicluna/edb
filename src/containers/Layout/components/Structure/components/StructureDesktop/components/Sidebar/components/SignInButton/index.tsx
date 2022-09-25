@@ -1,24 +1,16 @@
 import { FC } from 'react';
 
-import { Style, useTheme, InternalLink, Button, IconButton, Icon, Fade, utils } from '@davidscicluna/component-library';
+import { useTheme, InternalLink, Button, Icon, Fade, utils } from '@davidscicluna/component-library';
 
 import { useConst, Center } from '@chakra-ui/react';
 
-import { Transition } from 'framer-motion';
+import { AnimatePresence, Transition } from 'framer-motion';
 
 import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
 
 const { getTransitionDelay } = utils;
 
-const style: Style = {
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	position: 'absolute'
-	// left: '50%',
-	// top: '50%',
-	// transform: 'translate(-50%,-50%)'
-};
+// TODO: Replace all exitBeforeEnter with mode='wait'
 
 const SignInButton: FC = () => {
 	const theme = useTheme();
@@ -26,48 +18,32 @@ const SignInButton: FC = () => {
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
-	// const [isTooltipOpen, setIsTooltipOpen] = useBoolean();
-
-	const buttonDelay = useConst<number>(getTransitionDelay({ theme, duration: 'slow' }));
-
-	const buttonConfig = useConst<Transition>({ delay: buttonDelay });
+	const delay = useConst<number>(getTransitionDelay({ theme, duration: 'slow' }));
+	const config = useConst<Transition>({ delay });
 
 	return (
-		<Center width='100%' minHeight='42px' position='relative'>
-			<Center width='100%' sx={{ ...style }}>
-				<Fade
-					in={sidebarMode === 'expanded'}
-					unmountOnExit
-					transition={{ enter: { ...buttonConfig } }}
-					style={{ width: '100%' }}
-				>
-					<InternalLink to='/signin' isFullWidth>
-						<Button color={color} colorMode={colorMode} isFullWidth>
+		<InternalLink to='/authentication/signin' isFullWidth>
+			<Button color={color} colorMode={colorMode} isFullWidth>
+				<Center width='100%' position='relative'>
+					<AnimatePresence initial={false} exitBeforeEnter>
+						<Fade
+							in={sidebarMode === 'expanded'}
+							transition={{ enter: { ...config } }}
+							style={{ position: 'absolute' }}
+						>
 							Sign in
-						</Button>
-					</InternalLink>
-				</Fade>
-			</Center>
-
-			<Center sx={{ ...style }}>
-				<Fade in={sidebarMode === 'collapsed'} unmountOnExit>
-					{/* TODO: Check why tooltip keeps re rendering! */}
-					{/* <Tooltip aria-label='Sign in' isOpen={isTooltipOpen} placement='top' label='Sign in'> */}
-					<InternalLink to='/signin' isFullWidth>
-						<IconButton
-							aria-label='Sign-in Button'
-							color={color}
-							colorMode={colorMode}
-							// onMouseEnter={() => setIsTooltipOpen.on()}
-							// onMouseLeave={() => setIsTooltipOpen.off()}
+						</Fade>
+						<Fade
+							in={sidebarMode === 'collapsed'}
+							transition={{ enter: { ...config } }}
+							style={{ position: 'absolute' }}
 						>
 							<Icon icon='login' />
-						</IconButton>
-					</InternalLink>
-					{/* </Tooltip> */}
-				</Fade>
-			</Center>
-		</Center>
+						</Fade>
+					</AnimatePresence>
+				</Center>
+			</Button>
+		</InternalLink>
 	);
 };
 
