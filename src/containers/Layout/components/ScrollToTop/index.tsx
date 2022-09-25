@@ -1,6 +1,6 @@
 import { FC, useCallback } from 'react';
 
-import { useTheme, Tooltip, IconButton, IconButtonIcon, ScaleFade, utils } from '@davidscicluna/component-library';
+import { useTheme, Tooltip, IconButton, IconButtonIcon, ScaleFade } from '@davidscicluna/component-library';
 
 import { useBoolean, Center } from '@chakra-ui/react';
 
@@ -9,8 +9,6 @@ import { useWindowEventListener } from 'rooks';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../common/hooks';
-
-const { convertREMToPixels, convertStringToNumber } = utils;
 
 const ScrollToTop: FC = () => {
 	const theme = useTheme();
@@ -41,7 +39,7 @@ const ScrollToTop: FC = () => {
 	return (
 		<Center
 			position='fixed'
-			bottom={`${convertREMToPixels(convertStringToNumber(theme.space[2], 'rem')) + 88}px`}
+			bottom={theme.space[2]}
 			right={theme.space[2]}
 			zIndex={theme.zIndices.toast}
 			background='transparent'
