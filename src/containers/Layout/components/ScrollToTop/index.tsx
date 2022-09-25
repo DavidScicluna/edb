@@ -1,19 +1,22 @@
 import { FC, useCallback } from 'react';
 
-import { useTheme, Tooltip, IconButton, Icon, ScaleFade } from '@davidscicluna/component-library';
+import { useTheme, Tooltip, IconButton, IconButtonIcon, ScaleFade, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, Center } from '@chakra-ui/react';
 
 import { debounce } from 'lodash';
-import { useWindowEventListener, useWindowSize } from 'rooks';
+import { useWindowEventListener } from 'rooks';
+import { useWindowSize } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../common/hooks';
+
+const { convertREMToPixels, convertStringToNumber } = utils;
 
 const ScrollToTop: FC = () => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
-	const { height } = useWindowSize();
+	const { height = 0 } = useWindowSize();
 
 	const [isVisible, setIsVisible] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
@@ -27,9 +30,9 @@ const ScrollToTop: FC = () => {
 				setIsHovering.off();
 			} else {
 				setIsVisible.on();
-				setIsHovering.on();
+				setIsHovering.off();
 			}
-		}, 250),
+		}, 1000),
 		[document, height]
 	);
 
@@ -38,22 +41,18 @@ const ScrollToTop: FC = () => {
 	return (
 		<Center
 			position='fixed'
-			bottom={theme.space[2]}
+			bottom={`${convertREMToPixels(convertStringToNumber(theme.space[2], 'rem')) + 88}px`}
 			right={theme.space[2]}
 			zIndex={theme.zIndices.toast}
-			// borderRadius='lg'
-			// boxShadow='lg'
 			background='transparent'
-			backgroundColor='transparent'
 		>
-			<ScaleFade in={isVisible} unmountOnExit>
+			<ScaleFade in={isVisible}>
 				<Tooltip
 					colorMode={colorMode}
 					aria-label='Scroll to top'
 					label='Scroll to the top'
 					placement='left'
 					isOpen={isHovering}
-					// gutter={6}
 				>
 					<IconButton
 						aria-label='Scroll to top'
@@ -63,7 +62,7 @@ const ScrollToTop: FC = () => {
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 					>
-						<Icon colorMode={colorMode} icon='keyboard_double_arrow_up' category='outlined' />
+						<IconButtonIcon icon='keyboard_double_arrow_up' category='outlined' />
 					</IconButton>
 				</Tooltip>
 			</ScaleFade>
