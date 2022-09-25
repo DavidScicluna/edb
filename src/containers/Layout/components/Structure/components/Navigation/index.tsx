@@ -2,10 +2,12 @@ import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { NavItemType, useTheme, SideNavigation, NavItem, Icon } from '@davidscicluna/component-library';
+import { NavItemType, useTheme, SideNavigation, Skeleton, NavItem, Icon } from '@davidscicluna/component-library';
 
 import useStyles from '../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../common/hooks';
+
+import { NavigationProps } from './types';
 
 const navItems: NavItemType[] = [
 	{
@@ -40,7 +42,7 @@ const navItems: NavItemType[] = [
 	}
 ];
 
-const Navigation: FC = () => {
+const Navigation: FC<NavigationProps> = ({ isDummy = false }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -54,11 +56,13 @@ const Navigation: FC = () => {
 	return (
 		<SideNavigation color={color} colorMode={colorMode} mode={sidebarMode} spacing={1} sx={{ ...style }}>
 			{navItems.map((navItem) => (
-				<NavItem
-					key={navItem.title}
-					{...navItem}
-					isActive={!isUserThemeModalOpen && location.pathname === navItem.path.pathname}
-				/>
+				<Skeleton key={navItem.title} isLoaded={!isDummy} variant='rectangle'>
+					<NavItem
+						{...navItem}
+						isDisabled={isDummy}
+						isActive={!isDummy && !isUserThemeModalOpen && location.pathname === navItem.path.pathname}
+					/>
+				</Skeleton>
 			))}
 		</SideNavigation>
 	);
