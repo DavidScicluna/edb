@@ -19,15 +19,16 @@ import {
 	isGuest as defaultIsGuest,
 	isAuthenticationRoute as defaultIsAuthenticationRoute
 } from '../../../../common/data/defaultPropValues';
-import { StructureCommonProps as DummyStructureTabletProps } from '../../common/types';
-import InternationalizationIconButton from '../InternationalizationIconButton';
+import { StructureProps as DummyStructureMobileTabletProps } from '../../types';
 import { LayoutContext } from '../../../..';
 import { LayoutContext as LayoutContextType } from '../../../../types';
 import DummyFooter from '../Footer';
 
+import DummyInternationalization from './components/DummyInternationalization';
+
 const { getColor } = utils;
 
-const DummyStructureTablet: FC<DummyStructureTabletProps> = ({ children }) => {
+const DummyStructureMobileTablet: FC<DummyStructureMobileTabletProps> = ({ children, device }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -55,6 +56,7 @@ const DummyStructureTablet: FC<DummyStructureTabletProps> = ({ children }) => {
 					<DummyIconButton
 						aria-label='SideBar Navigation Menu Dummy Button'
 						colorMode={colorMode}
+						size={device === 'mobile' ? 'sm' : 'md'}
 						variant='icon'
 					>
 						<IconButtonIcon icon='menu' />
@@ -62,12 +64,17 @@ const DummyStructureTablet: FC<DummyStructureTabletProps> = ({ children }) => {
 
 					<HStack spacing={1.5}>
 						{location.pathname !== '/search' && (
-							<DummyIconButton aria-label='Search Dummy Button' colorMode={colorMode} variant='icon'>
+							<DummyIconButton
+								aria-label='Search Dummy Button'
+								colorMode={colorMode}
+								size={device === 'mobile' ? 'sm' : 'md'}
+								variant='icon'
+							>
 								<IconButtonIcon icon='search' />
 							</DummyIconButton>
 						)}
 
-						<InternationalizationIconButton isDummy />
+						<DummyInternationalization />
 
 						{!isGuest ? (
 							<Skeleton
@@ -77,7 +84,7 @@ const DummyStructureTablet: FC<DummyStructureTabletProps> = ({ children }) => {
 								variant='circle'
 							/>
 						) : (
-							<DummyButton color={color} colorMode={colorMode}>
+							<DummyButton color={color} colorMode={colorMode} size={device === 'mobile' ? 'sm' : 'md'}>
 								Sign in
 							</DummyButton>
 						)}
@@ -113,4 +120,4 @@ const DummyStructureTablet: FC<DummyStructureTabletProps> = ({ children }) => {
 	);
 };
 
-export default DummyStructureTablet;
+export default DummyStructureMobileTablet;
