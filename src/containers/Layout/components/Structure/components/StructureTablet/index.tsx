@@ -127,7 +127,13 @@ const StructureTablet: FC<StructureTabletProps> = ({ children }) => {
 					spacing={0}
 					pt={!isAuthenticationRoute ? `${headerHeight}px` : 0}
 				>
-					<Center width='100%' height='100%' minHeight='100vh' alignItems='stretch' justifyContent='stretch'>
+					<Center
+						width='100%'
+						height='100%'
+						minHeight='inherit'
+						alignItems='stretch'
+						justifyContent='stretch'
+					>
 						{children}
 					</Center>
 

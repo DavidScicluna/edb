@@ -11,7 +11,6 @@ import { useUpdateEffect } from 'usehooks-ts';
 import Logo from '../../../../../../../../components/Logo';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import Navigation from '../../../Navigation';
-import GuestColorModeSwitcher from '../../../GuestColorModeSwitcher';
 import { isGuest as defaultIsGuest } from '../../../../../../common/data/defaultPropValues';
 import { LayoutContext } from '../../../../../..';
 import { LayoutContext as LayoutContextType } from '../../../../../../types';
@@ -28,7 +27,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 
 	const location = useLocation();
 
-	const [background, setBackground] = useState<string>();
+	const [background, setBackground] = useState<string>(getColor({ theme, colorMode, type: 'background' }));
 
 	useUpdateEffect(() => setBackground(getColor({ theme, colorMode, type: 'background' })), [colorMode]);
 
@@ -51,25 +50,18 @@ const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 					<VStack
 						width='100%'
 						height='100vh'
+						alignItems='flex-start'
 						justifyContent='space-between'
+						divider={<Divider colorMode={colorMode} />}
 						background={background}
+						spacing={2}
 						p={2}
-						spacing={0}
 					>
-						<VStack
-							width='100%'
-							alignItems='flex-start'
-							divider={<Divider colorMode={colorMode} />}
-							spacing={2}
-						>
-							<InternalLink to='/' isDisabled={location.pathname === '/'}>
-								<Logo isClickable={false} isSquare size='xl' />
-							</InternalLink>
+						<InternalLink to='/' isDisabled={location.pathname === '/'}>
+							<Logo isClickable={false} isSquare size='xl' />
+						</InternalLink>
 
-							<Navigation />
-						</VStack>
-
-						{isGuest && <GuestColorModeSwitcher isFixed />}
+						<Navigation />
 					</VStack>
 				</DrawerBody>
 			</DrawerContent>
