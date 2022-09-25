@@ -39,7 +39,7 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 			p={4}
 		>
 			<VStack width='100%' alignItems='stretch' justifyContent='stretch' spacing={4}>
-				<Skeleton isLoaded={!isDummy} variant='rectangle'>
+				<Skeleton colorMode={colorMode} isLoaded={!isDummy} variant='rectangle'>
 					<InternalLink to='/' isDisabled={location.pathname === '/'}>
 						<Logo isClickable={false} isSquare size='md' />
 					</InternalLink>
@@ -51,7 +51,7 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 			{!isDummy ? <FooterNavigation /> : <FooterDummyNavigation />}
 
 			<Stack width='100%' direction={isSm ? 'column' : 'row'} justifyContent='space-between' spacing={2}>
-				<Skeleton isLoaded={!isDummy} variant='text'>
+				<Skeleton colorMode={colorMode} isLoaded={!isDummy} variant='text'>
 					<FooterExternalLink
 						href='https://www.themoviedb.org/'
 						sx={{ fontSize: 'sm', fontWeight: 'medium' }}
@@ -60,7 +60,7 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 					</FooterExternalLink>
 				</Skeleton>
 
-				<Skeleton isLoaded={!isDummy} variant='text'>
+				<Skeleton colorMode={colorMode} isLoaded={!isDummy} variant='text'>
 					<Text
 						align='center'
 						color={getColor({ theme, colorMode, type: 'text.secondary' })}
@@ -71,7 +71,7 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 					</Text>
 				</Skeleton>
 
-				<Skeleton isLoaded={!isDummy} variant='text'>
+				<Skeleton colorMode={colorMode} isLoaded={!isDummy} variant='text'>
 					<FooterExternalLink href='https://davidscicluna.com' sx={{ fontSize: 'sm', fontWeight: 'medium' }}>
 						Made by davidscicluna.com
 					</FooterExternalLink>
