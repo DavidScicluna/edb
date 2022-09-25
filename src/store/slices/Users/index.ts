@@ -38,7 +38,7 @@ const colors: UserThemeColor[] = [
 	'deep_orange'
 ];
 
-const color: UserThemeColor = sample(colors) || defaultColor;
+const guestColor: UserThemeColor = sample(colors) || defaultColor;
 
 export const defaultUser: User = {
 	data: {
@@ -101,7 +101,7 @@ export const defaultUser: User = {
 			name: 'English'
 		},
 		theme: {
-			color: color,
+			color: guestColor,
 			colorMode: 'system'
 		}
 	}
@@ -124,14 +124,6 @@ export const guest: User = {
 		// 	user: [],
 		// 	other: []
 		// },
-	},
-	ui: {
-		...defaultUser.ui,
-		theme: {
-			...defaultUser.ui.theme,
-			color: color,
-			colorMode: 'light'
-		}
 	}
 };
 
@@ -143,7 +135,7 @@ const initialState: StateProps = {
 };
 
 const getUser = memoize(({ users, user }: GetUserProps): User => {
-	return users.find((u) => u.data.id === user) || guest;
+	return users.find((u) => u.data.id === user) || { ...guest };
 });
 
 const updateUsers = memoize(({ users, user }: UpdateUsersProps): User[] => {
@@ -326,7 +318,7 @@ const usersSlice = createSlice({
 					},
 					ui: {
 						...user.ui,
-						language: action.payload.data
+						language: { ...action.payload.data }
 					}
 				};
 
@@ -338,6 +330,20 @@ const usersSlice = createSlice({
 				if (state.data.activeUser.data.id === user.data.id) {
 					state.data.activeUser = { ...updatedUser };
 				}
+			} else {
+				const updatedUser: User = {
+					...user,
+					ui: {
+						...user.ui,
+						language: { ...action.payload.data },
+						theme: {
+							...user.ui.theme,
+							color: user.ui.theme.color
+						}
+					}
+				};
+
+				state.data.activeUser = { ...updatedUser };
 			}
 		},
 		setUserTheme: (state: StateProps, action: UserAction<UserTheme>) => {
