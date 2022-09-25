@@ -1,18 +1,33 @@
-import { FC } from 'react';
+import { FC, lazy } from 'react';
 
+import { Suspense } from '../../../../components';
+
+const DummyStructureMobileTablet = lazy(() => import('./components/StructureMobileTablet'));
+const StructureDesktop = lazy(() => import('./components/StructureDesktop'));
+import DummyStructureDesktop from './components/DummyStructureDesktop';
+import DummyDummyStructureMobileTablet from './components/DummyStructureMobileTablet';
 import { StructureProps } from './types';
-import StructureTablet from './components/StructureTablet';
-import StructureMobile from './components/StructureMobile';
-import StructureDesktop from './components/StructureDesktop';
 
-const Structure: FC<StructureProps> = ({ children, device, isGuest }) => {
+const Structure: FC<StructureProps> = ({ children, device, ...rest }) => {
 	switch (device) {
-		case 'mobile':
-			return <StructureMobile isGuest={isGuest}>{children}</StructureMobile>;
-		case 'tablet':
-			return <StructureTablet isGuest={isGuest}>{children}</StructureTablet>;
+		case 'desktop':
+			return (
+				<Suspense fallback={<DummyStructureDesktop>{children}</DummyStructureDesktop>}>
+					<StructureDesktop {...rest}>{children}</StructureDesktop>
+				</Suspense>
+			);
 		default:
-			return <StructureDesktop isGuest={isGuest}>{children}</StructureDesktop>;
+			return (
+				<Suspense
+					fallback={
+						<DummyDummyStructureMobileTablet device={device}>{children}</DummyDummyStructureMobileTablet>
+					}
+				>
+					<DummyStructureMobileTablet {...rest} device={device}>
+						{children}
+					</DummyStructureMobileTablet>
+				</Suspense>
+			);
 	}
 };
 

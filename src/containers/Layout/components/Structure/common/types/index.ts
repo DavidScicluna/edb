@@ -1,3 +1,3 @@
 import { LayoutProps } from '../../../../types';
 
-export type StructureCommonProps = Pick<LayoutProps, 'children'> & { isGuest?: boolean };
+export type StructureCommonProps = Pick<LayoutProps, 'children'>;
