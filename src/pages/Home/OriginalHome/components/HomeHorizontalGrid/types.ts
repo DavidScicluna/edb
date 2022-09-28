@@ -1,9 +1,9 @@
 import { InternalLinkProps, TabsProps } from '@davidscicluna/component-library';
 
-import { MediaType } from '../../../../common/types';
-import { PartialMovie } from '../../../../common/types/movie';
-import { PartialPerson } from '../../../../common/types/person';
-import { PartialTV } from '../../../../common/types/tv';
+import { MediaType } from '../../../../../common/types';
+import { PartialMovie } from '../../../../../common/types/movie';
+import { PartialPerson } from '../../../../../common/types/person';
+import { PartialTV } from '../../../../../common/types/tv';
 
 type HomeHorizontalGridMediaType = Exclude<MediaType, 'company' | 'collection'>;
 

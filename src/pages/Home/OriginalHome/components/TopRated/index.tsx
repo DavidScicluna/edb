@@ -3,13 +3,14 @@ import { FC, useState } from 'react';
 import { useBoolean, Center } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
+import qs from 'query-string';
 import { useDebounce, useTimeout } from 'usehooks-ts';
 
-import { useTrendingQuery } from '../../../../common/queries';
+import { useTopRatedQuery } from '../../../../../common/queries';
 import HomeHorizontalGrid from '../HomeHorizontalGrid';
-import { formatMediaType } from '../../../../common/utils';
+import { formatMediaType } from '../../../../../common/utils';
 
-const Trending: FC = () => {
+const TopRated: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
 		threshold: [0.2, 0.4, 0.6, 0.8, 1],
 		unobserveOnEnter: true
@@ -20,77 +21,66 @@ const Trending: FC = () => {
 
 	const [isMoviesQueryEnabled, setIsMoviesQueryEnabled] = useBoolean();
 	const [isShowsQueryEnabled, setIsShowsQueryEnabled] = useBoolean();
-	const [isPeopleQueryEnabled, setIsPeopleQueryEnabled] = useBoolean();
 
-	// Fetching Trending Movies
+	// Fetching Top Rated Movies
 	const {
 		data: movies,
 		isFetching: isFetchingMovies = false,
 		isLoading: isMoviesLoading = false,
 		isError: isMoviesError = false,
 		isSuccess: isMoviesSuccess = false
-	} = useTrendingQuery({
-		props: { mediaType: 'movie', time: 'week' },
+	} = useTopRatedQuery({
+		props: { mediaType: 'movie' },
 		options: { enabled: isMoviesQueryEnabled }
 	});
 
-	// Fetching Trending TV Shows
+	// Fetching Top Rated TV Shows
 	const {
 		data: shows,
 		isFetching: isFetchingShows = false,
 		isLoading: isShowsLoading = false,
 		isError: isShowsError = false,
 		isSuccess: isShowsSuccess = false
-	} = useTrendingQuery({
-		props: { mediaType: 'tv', time: 'week' },
+	} = useTopRatedQuery({
+		props: { mediaType: 'tv' },
 		options: { enabled: isShowsQueryEnabled }
-	});
-
-	// Fetching Trending People
-	const {
-		data: people,
-		isFetching: isFetchingPeople = false,
-		isLoading: isPeopleLoading = false,
-		isError: isPeopleError = false,
-		isSuccess: isPeopleSuccess = false
-	} = useTrendingQuery({
-		props: { mediaType: 'person', time: 'week' },
-		options: { enabled: isPeopleQueryEnabled }
 	});
 
 	useTimeout(() => setIsMoviesQueryEnabled.on(), activeTabDebounced === 0 && inView ? 1000 : null);
 	useTimeout(() => setIsShowsQueryEnabled.on(), activeTabDebounced === 1 && inView ? 1000 : null);
-	useTimeout(() => setIsPeopleQueryEnabled.on(), activeTabDebounced === 2 && inView ? 1000 : null);
 
 	return (
 		<Center ref={ref} width='100%'>
 			<HomeHorizontalGrid
 				activeTab={activeTabDebounced}
-				title='Trending'
-				subtitle='A list containing the most popular Movies & TV Shows at the moment.'
+				title='Top Rated'
+				subtitle='A list containing the highest-rated Movies & TV Shows of all time.'
 				to={({ mediaType }) => {
-					return { pathname: `/trending/${formatMediaType({ mediaType })}` };
+					return {
+						pathname: formatMediaType({ mediaType }),
+						search: qs.stringify({ sort_by: 'vote_average.desc' })
+					};
 				}}
-				mediaTypes={['movie', 'tv', 'person']}
+				mediaTypes={['movie', 'tv']}
 				data={{
 					movie: movies?.results || [],
 					tv: shows?.results || [],
-					person: people?.results || []
+					person: []
 				}}
 				isLoading={{
 					movie: isFetchingMovies || isMoviesLoading,
 					tv: isFetchingShows || isShowsLoading,
-					person: isFetchingPeople || isPeopleLoading
+					person: false
 				}}
 				isError={{
 					movie: isMoviesError,
 					tv: isShowsError,
-					person: isPeopleError
+					person: false
 				}}
 				isSuccess={{
 					movie: isMoviesSuccess,
 					tv: isShowsSuccess,
-					person: isPeopleSuccess
+					person: false
 				}}
 				onChange={({ index }) => setActiveTab(index)}
 			/>
@@ -98,4 +88,4 @@ const Trending: FC = () => {
 	);
 };
 
-export default Trending;
+export default TopRated;

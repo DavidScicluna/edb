@@ -6,11 +6,11 @@ import { useInView } from 'react-cool-inview';
 import qs from 'query-string';
 import { useDebounce, useTimeout } from 'usehooks-ts';
 
-import { useTopRatedQuery } from '../../../../common/queries';
+import { usePopularQuery } from '../../../../../common/queries';
 import HomeHorizontalGrid from '../HomeHorizontalGrid';
-import { formatMediaType } from '../../../../common/utils';
+import { formatMediaType } from '../../../../../common/utils';
 
-const TopRated: FC = () => {
+const Popular: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
 		threshold: [0.2, 0.4, 0.6, 0.8, 1],
 		unobserveOnEnter: true
@@ -22,26 +22,26 @@ const TopRated: FC = () => {
 	const [isMoviesQueryEnabled, setIsMoviesQueryEnabled] = useBoolean();
 	const [isShowsQueryEnabled, setIsShowsQueryEnabled] = useBoolean();
 
-	// Fetching Top Rated Movies
+	// Fetching Popular Movies
 	const {
 		data: movies,
 		isFetching: isFetchingMovies = false,
 		isLoading: isMoviesLoading = false,
 		isError: isMoviesError = false,
 		isSuccess: isMoviesSuccess = false
-	} = useTopRatedQuery({
+	} = usePopularQuery({
 		props: { mediaType: 'movie' },
 		options: { enabled: isMoviesQueryEnabled }
 	});
 
-	// Fetching Top Rated TV Shows
+	// Fetching Popular TV Shows
 	const {
 		data: shows,
 		isFetching: isFetchingShows = false,
 		isLoading: isShowsLoading = false,
 		isError: isShowsError = false,
 		isSuccess: isShowsSuccess = false
-	} = useTopRatedQuery({
+	} = usePopularQuery({
 		props: { mediaType: 'tv' },
 		options: { enabled: isShowsQueryEnabled }
 	});
@@ -53,12 +53,12 @@ const TopRated: FC = () => {
 		<Center ref={ref} width='100%'>
 			<HomeHorizontalGrid
 				activeTab={activeTabDebounced}
-				title='Top Rated'
-				subtitle='A list containing the highest-rated Movies & TV Shows of all time.'
+				title='Popular'
+				subtitle='A list containing the most popular Movies & TV Shows at the moment.'
 				to={({ mediaType }) => {
 					return {
 						pathname: formatMediaType({ mediaType }),
-						search: qs.stringify({ sort_by: 'vote_average.desc' })
+						search: qs.stringify({ sort_by: 'popularity.desc' })
 					};
 				}}
 				mediaTypes={['movie', 'tv']}
@@ -88,4 +88,4 @@ const TopRated: FC = () => {
 	);
 };
 
-export default TopRated;
+export default Popular;

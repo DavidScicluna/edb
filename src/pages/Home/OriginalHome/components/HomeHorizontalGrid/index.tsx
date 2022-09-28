@@ -6,12 +6,12 @@ import { useMediaQuery, Text } from '@chakra-ui/react';
 
 import { compact, includes, range } from 'lodash';
 
-import { useUserTheme } from '../../../../common/hooks';
+import { useUserTheme } from '../../../../../common/hooks';
 import {
 	HorizontalGridTabbed,
 	HorizontalGridTabbedHeader,
 	HorizontalGridTabbedBody,
-	HorizontalGridFooter,
+	HorizontalGridTabbedFooter,
 	QueryEmpty,
 	QueryEmptyStack,
 	QueryEmptyIcon,
@@ -20,12 +20,12 @@ import {
 	QueryEmptySubtitle,
 	QueryEmptyActions,
 	DummyVerticalPoster
-} from '../../../../components';
-import { formatMediaTypeLabel } from '../../../../common/utils';
-import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
-import MovieVerticalPoster from '../../../Movies/components/Poster/MovieVerticalPoster';
-import TVShowVerticalPoster from '../../../TV/components/Poster/TVShowVerticalPoster';
-import PersonVerticalPoster from '../../../People/components/Poster/PersonVerticalPoster';
+} from '../../../../../components';
+import { formatMediaTypeLabel } from '../../../../../common/utils';
+import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
+import MovieVerticalPoster from '../../../../Movies/components/Poster/MovieVerticalPoster';
+import TVShowVerticalPoster from '../../../../TV/components/Poster/TVShowVerticalPoster';
+import PersonVerticalPoster from '../../../../People/components/Poster/PersonVerticalPoster';
 
 import { HomeHorizontalGridProps } from './types';
 
@@ -71,7 +71,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 					renderSubtitle: subtitle ? (props) => <Text {...props}>{subtitle}</Text> : undefined,
 					pb: 2
 				}}
-				iconButtonProps={{ variant: 'icon' }}
+				arrowProps={{ variant: 'icon' }}
 				tabListProps={{
 					tabs: compact([
 						includes(mediaTypes, 'movie')
@@ -271,7 +271,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 					)}
 				</Fragment>
 			</HorizontalGridTabbedBody>
-			<HorizontalGridFooter
+			<HorizontalGridTabbedFooter
 				borderTopWidth='2px'
 				borderTopStyle='solid'
 				borderTopColor={getColor({ theme, colorMode, type: 'divider' })}
@@ -292,7 +292,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 						})}`}
 					</Button>
 				</InternalLink>
-			</HorizontalGridFooter>
+			</HorizontalGridTabbedFooter>
 		</HorizontalGridTabbed>
 	);
 };
