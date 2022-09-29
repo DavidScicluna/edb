@@ -9,13 +9,13 @@ import { HorizontalGridContext } from '../..';
 
 import { HorizontalGridBodyProps } from './types';
 
-const HorizontalGridBody: FC<HorizontalGridBodyProps> = ({ children, ...rest }) => {
+const HorizontalGridBody: FC<HorizontalGridBodyProps> = ({ children, spacing = 2, ...rest }) => {
 	const { onSetScroll } = useContext<HorizontalGridContextType>(HorizontalGridContext);
 
 	return (
 		<CardBody {...rest}>
 			<HorizontalScroll
-				renderDivider={() => <Center mr={2} />}
+				renderDivider={() => <Center mr={spacing} />}
 				LeftArrow={<Center />}
 				RightArrow={<Center />}
 				onInit={onSetScroll}
