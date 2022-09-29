@@ -9,7 +9,7 @@ import { HorizontalGridTabbedContext } from '../..';
 
 import { HorizontalGridTabbedBodyProps } from './types';
 
-const HorizontalGridTabbedBody: FC<HorizontalGridTabbedBodyProps> = ({ children, ...rest }) => {
+const HorizontalGridTabbedBody: FC<HorizontalGridTabbedBodyProps> = ({ children, spacing = 2, ...rest }) => {
 	const { onSetScroll } = useContext<HorizontalGridTabbedContextType>(HorizontalGridTabbedContext);
 
 	return (
@@ -20,7 +20,7 @@ const HorizontalGridTabbedBody: FC<HorizontalGridTabbedBodyProps> = ({ children,
 						{panel.props.children && panel.props.children.length > 0 ? (
 							<HorizontalScroll
 								// colorMode={colorMode}
-								renderDivider={() => <Center mr={2} />}
+								renderDivider={() => <Center mr={spacing} />}
 								LeftArrow={<Center />}
 								RightArrow={<Center />}
 								onInit={(scroll) => onSetScroll(scroll)}
