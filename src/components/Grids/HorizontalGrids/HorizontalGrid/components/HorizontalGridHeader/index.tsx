@@ -15,7 +15,7 @@ import { HorizontalGridHeaderProps } from './types';
 
 const { convertStringToNumber } = utils;
 
-const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, iconButtonProps, ...rest }) => {
+const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, arrowProps, ...rest }) => {
 	const theme = useTheme();
 
 	const { scroll } = useContext<HorizontalGridContextType>(HorizontalGridContext);
@@ -64,11 +64,11 @@ const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, iconButt
 					{actions}
 
 					<Arrows
-						{...iconButtonProps}
 						isLeftDisabled={debouncedIsLeftArrowDisabled}
 						isRightDisabled={debouncedIsRightArrowDisabled}
 						onLeftClick={scrollPrev}
 						onRightClick={scrollNext}
+						arrowProps={arrowProps}
 					/>
 				</HStack>
 			}
