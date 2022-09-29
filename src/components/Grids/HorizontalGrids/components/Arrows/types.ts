@@ -1,9 +1,9 @@
-import { IconButtonProps } from '@davidscicluna/component-library';
+import { ArrowProps } from './components/Arrow/types';
 
 export type ArrowsProps = {
 	isLeftDisabled: boolean;
 	isRightDisabled: boolean;
 	onLeftClick: () => void;
 	onRightClick: () => void;
-	iconButtonProps?: Omit<IconButtonProps, 'children' | 'aria-label' | 'isDisabled'>;
+	arrowProps?: Omit<ArrowProps, 'direction'>;
 };
