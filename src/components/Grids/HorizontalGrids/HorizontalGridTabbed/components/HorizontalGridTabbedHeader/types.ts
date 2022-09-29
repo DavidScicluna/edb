@@ -45,4 +45,4 @@ type Omitted =
 export type HorizontalGridTabbedHeaderProps = Omit<StackProps, Omitted> & {
 	cardHeaderProps: CardHeaderProps;
 	tabListProps: TabListProps;
-} & Pick<ArrowsProps, 'iconButtonProps'>;
+} & Pick<ArrowsProps, 'arrowProps'>;

@@ -28,7 +28,7 @@ const HorizontalGridTabbedHeader: FC<HorizontalGridTabbedHeaderProps> = (props) 
 		scrollNext
 	} = scroll as ScrollContext;
 
-	const { cardHeaderProps, tabListProps, iconButtonProps, spacing = 2, ...rest } = props;
+	const { cardHeaderProps, tabListProps, arrowProps, spacing = 2, ...rest } = props;
 
 	const duration = useConst<number>(convertStringToNumber(theme.transition.duration.normal, 'ms'));
 
@@ -71,7 +71,7 @@ const HorizontalGridTabbedHeader: FC<HorizontalGridTabbedHeaderProps> = (props) 
 							isRightDisabled={debouncedIsRightArrowDisabled}
 							onLeftClick={() => scrollPrev()}
 							onRightClick={() => scrollNext()}
-							iconButtonProps={{ ...iconButtonProps }}
+							arrowProps={arrowProps}
 						/>
 					</HStack>
 				}
