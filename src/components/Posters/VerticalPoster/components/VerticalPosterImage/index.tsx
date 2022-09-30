@@ -88,9 +88,9 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 							  })
 							: undefined,
 						thumbnail: inView
-							? `${process.env.REACT_APP_IMAGE_URL}/${image.size.thumbnail}${image.src}`
+							? `${import.meta.env.VITE_IMAGE_URL}/${image.size.thumbnail}${image.src}`
 							: undefined,
-						full: inView ? `${process.env.REACT_APP_IMAGE_URL}/${image.size.full}${image.src}` : undefined
+						full: inView ? `${import.meta.env.VITE_IMAGE_URL}/${image.size.full}${image.src}` : undefined
 					}}
 				/>
 
