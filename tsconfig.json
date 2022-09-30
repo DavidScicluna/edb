@@ -1,28 +1,31 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
+		"allowJs": false,
 		"allowSyntheticDefaultImports": true,
 		"declaration": true,
 		"declarationDir": "build",
-		"esModuleInterop": true,
+		"esModuleInterop": false,
 		"forceConsistentCasingInFileNames": true,
 		"incremental": true,
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"module": "esnext",
+		"module": "ESNext",
 		"moduleResolution": "node",
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
+		// "noUnusedLocals": true,
+		// "noUnusedParameters": true,
 		"outDir": "build",
 		"resolveJsonModule": true,
-		"skipLibCheck": true,
+		"skipLibCheck": false,
 		"sourceMap": true,
 		"strict": true,
-		"target": "es5"
+		"target": "ESNext",
+		"types": ["vite/client", "vite-plugin-svgr/client"],
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "build"]
 }
+
+
