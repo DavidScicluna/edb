@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from 'react';
+import { ReactElement } from 'react';
 
 import { InternalLink, Card, CardBody } from '@davidscicluna/component-library';
 
@@ -6,12 +6,9 @@ import { useBoolean, VStack, HStack } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
 
-import { isGuest as defaultIsGuest } from '../../../containers/Layout/common/data/defaultPropValues';
 import { MediaType } from '../../../common/types';
 import { formatMediaType } from '../../../common/utils';
 import Rating from '../../Ratings/Rating';
-import { LayoutContext } from '../../../containers/Layout';
-import { LayoutContext as LayoutContextType } from '../../../containers/Layout/types';
 import {
 	inView as defaultInView,
 	isFocused as defaultIsFocused,
@@ -21,8 +18,7 @@ import {
 import PosterLike from '../components/PosterLike';
 import PosterBookmark from '../components/PosterBookmark';
 import PosterGlass from '../components/PosterGlass';
-import DummyPosterLike from '../components/DummyPosterLike';
-import DummyPosterBookmark from '../components/DummyPosterBookmark';
+import { useUserTheme } from '../../../common/hooks';
 
 import { VerticalPosterProps } from './types';
 import VerticalPosterImage from './components/VerticalPosterImage';
@@ -34,7 +30,7 @@ import VerticalPosterSubtitle from './components/VerticalPosterSubtitle';
 // const isTouchDevice: boolean = checkIsTouchDevice();
 
 const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): ReactElement => {
-	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
+	const { colorMode } = useUserTheme();
 
 	const { observe: posterRef, inView = defaultInView } = useInView<HTMLDivElement>({
 		threshold: [0.2, 0.4, 0.6, 0.8, 1],
@@ -72,6 +68,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 			<Card
 				{...rest}
 				ref={posterRef}
+				colorMode={colorMode}
 				isClickable={mediaType !== 'company'}
 				isDisabled={isDisabled}
 				isFullWidth={isFullWidth}
@@ -80,7 +77,6 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 			>
 				<CardBody>
 					<VStack width='100%' position='relative' overflow='hidden' spacing={0}>
-						{/* Image */}
 						<VerticalPosterImage<MT>
 							mediaItem={mediaItem}
 							mediaType={mediaType}
@@ -93,12 +89,10 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 						/>
 
 						<VStack width='100%' spacing={0.5} p={1}>
-							{/* Header */}
 							{(mediaType === 'movie' || mediaType === 'tv') && (
 								<HStack width='100%' justify='space-between' spacing={0}>
-									{/* Rating */}
 									{rating && (
-										<Rating rating={rating.rating} count={rating.count} inView={inView} size='md' />
+										<Rating rating={rating.rating} count={rating.count} inView={inView} size='sm' />
 									)}
 
 									<HStack
@@ -106,7 +100,6 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 										onMouseLeave={() => setIsFixed.off()}
 										spacing={0.5}
 									>
-										{/* Quick View */}
 										{/* {isTouchDevice && (
 											<Quickview<MT>
 												title={title}
@@ -116,7 +109,6 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 											/>
 										)} */}
 
-										{/* Like */}
 										<PosterLike<MT>
 											title={title}
 											mediaType={mediaType}
@@ -124,7 +116,6 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 											size='xs'
 										/>
 
-										{/* Bookmark */}
 										<PosterBookmark<MT>
 											title={title}
 											mediaType={mediaType}
@@ -135,7 +126,6 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 								</HStack>
 							)}
 
-							{/* Text */}
 							<VStack width='100%' alignItems='flex-start' spacing={0.5}>
 								<VerticalPosterTitle<MT> title={title} inView={inView} />
 
@@ -143,10 +133,8 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 							</VStack>
 						</VStack>
 
-						{/* Like / Quick View */}
 						{(mediaType === 'person' || mediaType === 'company' || mediaType === 'collection') && (
 							<>
-								{/* Quick View */}
 								{/* {isTouchDevice && mediaType !== 'company' && (
 									<PosterGlass
 										position='absolute'
@@ -154,12 +142,13 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 										left={1.5}
 										onMouseEnter={() => setIsFixed.on()}
 										onMouseLeave={() => setIsFixed.off()}
+										zIndex={1}
 									>
 										<Quickview<MT>
 											title={title}
 											mediaType={mediaType}
 											mediaItem={mediaItem}
-				size='xs'
+											size='xs'
 										/>
 									</PosterGlass>
 								)} */}
@@ -170,6 +159,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 									right={1.5}
 									onMouseEnter={() => setIsFixed.on()}
 									onMouseLeave={() => setIsFixed.off()}
+									zIndex={1}
 								>
 									<PosterLike<MT>
 										title={title}
