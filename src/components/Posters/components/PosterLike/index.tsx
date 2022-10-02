@@ -22,7 +22,7 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 
 	return (
 		<Like<MT>
-			renderAction={({ iconType, iconCategory, isDisabled, isLiked, onClick }) => (
+			renderAction={({ iconType, iconCategory, isDisabled, isLiked, onClick, sx }) => (
 				<Tooltip
 					colorMode={colorMode}
 					aria-label={
@@ -58,6 +58,7 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 						onMouseLeave={() => setIsHovering.off()}
 						size={size}
 						variant='icon'
+						sx={{ ...sx }}
 					>
 						<IconButtonIcon icon={iconType} category={iconCategory} />
 					</IconButton>
