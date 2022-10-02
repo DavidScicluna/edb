@@ -1,8 +1,8 @@
-import { FontSize, Nullable } from '@davidscicluna/component-library';
+import { Nullable } from '@davidscicluna/component-library';
 
 import { StackProps } from '@chakra-ui/react';
 
-type RatingSize = Exclude<FontSize, 'xs' | '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'> & string;
+import { RatingSize } from '../common/types';
 
 export type Rating = Nullable<number | string>;
 
