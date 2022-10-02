@@ -28,7 +28,7 @@ const VerticalPosterTitle = <MT extends MediaType>(props: VerticalPosterTitlePro
 			maxWidth='100%'
 			height={`${getFontSizeHeight({ theme, fontSize: 'sm', lineHeight: 'normal' })}px`}
 		>
-			<Skeleton isLoaded={inView && !!title} variant='text' speed={-1}>
+			<Skeleton colorMode={colorMode} isLoaded={inView && !!title} variant='text' speed={-1}>
 				<Text
 					align='left'
 					fontSize='sm'
