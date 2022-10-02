@@ -6,9 +6,11 @@ import { Box, Text } from '@chakra-ui/react';
 
 import { useDummyText } from '../../../common/hooks';
 import { getFontSizeHeight } from '../../../../../common/utils';
+import { useUserTheme } from '../../../../../common/hooks';
 
 const DummyVerticalPosterSubtitle: FC = () => {
 	const theme = useTheme();
+	const { colorMode } = useUserTheme();
 
 	const subtitle = useDummyText();
 
@@ -18,7 +20,7 @@ const DummyVerticalPosterSubtitle: FC = () => {
 			maxWidth='100%'
 			height={`${getFontSizeHeight({ theme, fontSize: 'xs', lineHeight: 'normal' })}px`}
 		>
-			<Skeleton isLoaded={false} variant='text'>
+			<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 				<Text align='left' fontSize='xs' fontWeight='normal' lineHeight='normal' noOfLines={1}>
 					{subtitle || 'Date • All Poster Genres • Subtitle'}
 				</Text>
