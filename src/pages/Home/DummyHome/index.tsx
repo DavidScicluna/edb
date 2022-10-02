@@ -1,4 +1,4 @@
-import { FC, useContext, Fragment } from 'react';
+import { FC, Fragment } from 'react';
 
 import { useTheme, Divider, DummyButton, utils } from '@davidscicluna/component-library';
 
@@ -15,11 +15,9 @@ import {
 } from '../../../components';
 import Page from '../../../containers/Page';
 import PageBody from '../../../containers/Page/components/PageBody';
-import { spacing as defaultSpacing } from '../../../containers/Layout/common/data/defaultPropValues';
-import { LayoutContext as LayoutContextType } from '../../../containers/Layout/types';
-import { LayoutContext } from '../../../containers/Layout';
 import { useUserTheme } from '../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../common/utils';
+import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 
 const { getColor } = utils;
 
@@ -32,7 +30,7 @@ const DummyHome: FC = () => {
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-	const { spacing = defaultSpacing } = useContext<LayoutContextType>(LayoutContext);
+	const { spacing } = useLayoutContext();
 
 	return (
 		<Page>
