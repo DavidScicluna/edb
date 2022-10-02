@@ -27,9 +27,9 @@ const DummyVerticalPosterImage: FC = () => {
 		>
 			<Skeleton
 				{...commonStyleProps}
+				colorMode={colorMode}
 				width='100%'
 				height='100%'
-				colorMode={colorMode}
 				borderRadius='none'
 				isLoaded={false}
 			/>
