@@ -1,35 +1,39 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { useTheme, Button, ScaleFade, utils } from '@davidscicluna/component-library';
 
-import { ColorMode, useColorMode, useMediaQuery, VStack, Text, Progress, ScaleFade } from '@chakra-ui/react';
+import { VStack, Text, Progress } from '@chakra-ui/react';
 
 import CountUp from 'react-countup';
+import { round } from 'lodash';
+
+import { useUserTheme } from '../../../common/hooks';
 
 import { LoadMoreProps } from './types';
 
-const LoadMore = (props: LoadMoreProps): ReactElement => {
-	const { colorMode: colorModeHook } = useColorMode();
-	const [isSm] = useMediaQuery('(max-width: 600px)');
+const { getColor } = utils;
+
+const LoadMore: FC<LoadMoreProps> = (props) => {
+	const theme = useTheme();
+	const { color, colorMode } = useUserTheme();
 
 	const {
 		amount = 0,
 		total = 0,
 		label,
-		color = 'gray',
+		isDisabled = false,
 		isLoading = false,
 		isButtonVisible = true,
 		onClick,
-		buttonProps
+		variant = 'outlined',
+		spacing = 2,
+		...rest
 	} = props;
-	const { colorMode: colorModeProp, isDisabled = false, variant = 'outlined', ...rest } = buttonProps || {};
-
-	const colorMode: ColorMode = colorModeProp || colorModeHook;
 
 	return (
-		<VStack width={isSm ? '100%' : 'auto'} spacing={3}>
-			<VStack width='100%'>
-				<Text align='center' fontSize='sm' color={`gray.${colorMode === 'light' ? 400 : 500}`}>
+		<VStack width='100%' spacing={spacing}>
+			<VStack width='100%' spacing={0.5}>
+				<Text align='center' fontSize='sm' color={getColor({ theme, colorMode, type: 'text.secondary' })}>
 					{amount >= total ? (
 						<CountUp duration={1} end={total} prefix={`You've viewed all `} suffix={` ${label}`} />
 					) : (
@@ -41,15 +45,21 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
 				</Text>
 				<Progress
 					width='100%'
-					background={`gray.${colorMode === 'light' ? 200 : 700}`}
+					height={theme.space[1]}
 					borderRadius='full'
-					size='sm'
-					value={Math.round((amount / total) * 100)}
-					sx={{ '& div': { backgroundColor: `${color}.${colorMode === 'light' ? 500 : 400}` } }}
+					background={getColor({ theme, colorMode, type: 'divider' })}
+					isIndeterminate={isLoading}
+					value={round((amount / total) * 100)}
+					sx={{
+						'& div': {
+							backgroundImage: 'none',
+							backgroundColor: getColor({ theme, colorMode, color, type: 'color' })
+						}
+					}}
 				/>
 			</VStack>
 
-			<ScaleFade in={isButtonVisible && amount < total} unmountOnExit style={{ width: '100%' }}>
+			<ScaleFade in={isButtonVisible && amount < total} style={{ width: '100%' }}>
 				<Button
 					{...rest}
 					color={color}
@@ -57,7 +67,7 @@ const LoadMore = (props: LoadMoreProps): ReactElement => {
 					isDisabled={isDisabled || amount >= total}
 					isLoading={isLoading}
 					isFullWidth
-					onClick={() => onClick()}
+					onClick={onClick ? () => onClick() : undefined}
 					variant={variant}
 				>
 					Load more

@@ -1,12 +1,10 @@
-import { ButtonProps } from '@davidscicluna/component-library';
+import { ButtonProps, Space } from '@davidscicluna/component-library';
 
-export type LoadMoreProps = {
+export type LoadMoreProps = Omit<ButtonProps, 'color' | 'colorMode' | 'isFullWidth' | 'onClick'> & {
 	amount: number;
 	total: number;
 	label: string;
-	color: ButtonProps['color'];
-	isLoading?: boolean;
 	isButtonVisible?: boolean;
-	onClick: () => void;
-	buttonProps?: Omit<ButtonProps, 'color' | 'isLoading' | 'isFullWidth' | 'onClick'>;
+	onClick?: () => void;
+	spacing?: Space;
 };
