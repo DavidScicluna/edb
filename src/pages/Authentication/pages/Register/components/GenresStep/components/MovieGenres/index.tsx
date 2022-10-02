@@ -97,13 +97,13 @@ const MovieGenres: FC<MovieGenresProps> = (props) => {
 										renderIcon={(props) => (
 											<Icon
 												{...props}
-												width={theme.fontSizes['4xl']}
-												height={theme.fontSizes['4xl']}
-												fontSize={theme.fontSizes['4xl']}
+												width={theme.fontSizes['6xl']}
+												height={theme.fontSizes['6xl']}
+												fontSize={theme.fontSizes['6xl']}
 												icon='error_outline'
 											/>
 										)}
-										p={3}
+										p={2}
 									/>
 									<QueryEmptyBody>
 										<QueryEmptyTitle />
