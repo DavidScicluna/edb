@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { useTheme, utils } from '@davidscicluna/component-library';
 
@@ -28,10 +28,7 @@ const PosterGlass: FC<PosterGlassProps> = ({ children, sx, ...rest }) => {
 					{
 						backdropFilter: `blur(${theme.space[2]})`,
 						WebkitBackdropFilter: `blur(${theme.space[2]})`,
-						backgroundColor: transparentize(
-							getColor({ theme, colorMode, type: colorMode === 'light' ? 'dark' : 'light' }),
-							0.5
-						),
+						backgroundColor: transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.25),
 						borderRadius: theme.radii.full
 					},
 					sx
