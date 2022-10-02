@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 
-import { useTheme, Skeleton, Icon, utils } from '@davidscicluna/component-library';
+import { FontSize, useTheme, Skeleton, Icon, utils } from '@davidscicluna/component-library';
 
 import { HStack, Text } from '@chakra-ui/react';
 
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../common/hooks';
-import { getFontSizeHeight } from '../../../common/utils';
+import { getIconSize, getCountSize } from '../common/utils';
 
 import { DummyRatingProps } from './types';
 
@@ -19,11 +19,12 @@ const DummyRating: FC<DummyRatingProps> = (props) => {
 
 	const { hasCount = false, spacing = 0.5, size = 'md', ...rest } = props;
 
-	const [iconSize, setIconSize] = useState<string>(
-		`${getFontSizeHeight({ theme, fontSize: size, lineHeight: 'base' })}px`
-	);
+	const [iconSize, setIconSize] = useState<string>(getIconSize({ theme, size }));
+	const [countSize, setCountSize] = useState<FontSize>(getCountSize({ size }));
 
-	useUpdateEffect(() => setIconSize(`${getFontSizeHeight({ theme, fontSize: size, lineHeight: 'base' })}px`), [size]);
+	useUpdateEffect(() => setIconSize(getIconSize({ theme, size })), [size]);
+
+	useUpdateEffect(() => setCountSize(getCountSize({ size })), [size]);
 
 	return (
 		<HStack {...rest} spacing={spacing}>
@@ -36,16 +37,16 @@ const DummyRating: FC<DummyRatingProps> = (props) => {
 				color={getColor({ theme, colorMode, color: 'yellow', type: 'color' })}
 			/>
 
-			<Skeleton isLoaded={false} variant='text'>
+			<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 				<HStack
 					divider={
 						hasCount ? (
 							<Text
 								align='left'
-								fontSize={size}
+								fontSize={countSize}
 								color={getColor({ theme, colorMode, type: 'text.secondary' })}
 								noOfLines={1}
-								mx={0.75}
+								mx={0.5}
 							>
 								|
 							</Text>
@@ -66,7 +67,7 @@ const DummyRating: FC<DummyRatingProps> = (props) => {
 					{hasCount && (
 						<Text
 							align='left'
-							fontSize='xs'
+							fontSize={countSize}
 							color={getColor({ theme, colorMode, type: 'text.secondary' })}
 							noOfLines={1}
 						>
