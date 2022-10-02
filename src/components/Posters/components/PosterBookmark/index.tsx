@@ -18,7 +18,6 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 
 	const { title, mediaType, mediaItem, size = 'md' } = props;
 
-	const [isFocused, setIsFocused] = useBoolean();
 	const [isHovering, setIsHovering] = useBoolean();
 
 	return (
@@ -71,8 +70,6 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 
 							onClick();
 						}}
-						onFocus={() => setIsFocused.on()}
-						onBlur={() => setIsFocused.off()}
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 						size={size}
@@ -85,7 +82,6 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 			title={title}
 			mediaType={mediaType}
 			mediaItem={mediaItem}
-			isFocused={isFocused}
 			isHovering={isHovering}
 		/>
 	);
