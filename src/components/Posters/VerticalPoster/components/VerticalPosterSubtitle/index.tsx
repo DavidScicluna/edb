@@ -28,7 +28,7 @@ const VerticalPosterSubtitle = <MT extends MediaType>(props: VerticalPosterSubti
 			maxWidth='100%'
 			height={`${getFontSizeHeight({ theme, fontSize: 'xs', lineHeight: 'normal' })}px`}
 		>
-			<Skeleton isLoaded={inView && !!subtitle} variant='text' speed={-1}>
+			<Skeleton colorMode={colorMode} isLoaded={inView && !!subtitle} variant='text' speed={-1}>
 				<Text
 					align='left'
 					fontSize='xs'
