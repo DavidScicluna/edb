@@ -1,4 +1,6 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
+
+import { Space } from '@davidscicluna/component-library';
 
 import { SimpleGridProps } from '@chakra-ui/react';
 
@@ -9,7 +11,8 @@ type ChildrenProps = {
 };
 
 export type VerticalGridProps = {
-	children: (props: ChildrenProps) => ReactElement[];
+	children: (props: ChildrenProps) => ReactNode[];
 	columns?: SimpleGridProps['columns'];
 	displayMode?: DisplayMode;
+	spacing?: Space;
 };
