@@ -12,11 +12,11 @@ import Image from '../../../../../../../../components/Image';
 import ClickableMedia from '../../../../../../../../components/Clickable/ClickableMedia';
 import { FileInputRef, ChangeEvent } from '../../types';
 
-import { AvatarProps } from './types';
+import { UserAvatarProps } from './types';
 
 const { getColor } = utils;
 
-const Avatar: FC<AvatarProps> = ({ color, colorMode, alt, form }) => {
+const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 	const theme = useTheme();
 	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
@@ -109,4 +109,4 @@ const Avatar: FC<AvatarProps> = ({ color, colorMode, alt, form }) => {
 	);
 };
 
-export default Avatar;
+export default UserAvatar;
