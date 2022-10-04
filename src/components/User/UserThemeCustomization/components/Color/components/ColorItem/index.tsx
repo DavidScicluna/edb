@@ -48,10 +48,10 @@ const ColorItem: FC<ColorItemProps> = (props) => {
 			/>
 			<CardBody>
 				<Center
-					width={theme.fontSizes['8xl']}
+					width='100%'
 					height={theme.fontSizes['8xl']}
 					background={getColor({ theme, colorMode, color, type: 'color' })}
-					borderRadius='full'
+					borderRadius='base'
 				/>
 			</CardBody>
 		</Card>
