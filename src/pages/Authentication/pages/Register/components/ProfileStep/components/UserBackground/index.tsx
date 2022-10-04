@@ -11,9 +11,9 @@ import Image from '../../../../../../../../components/Image';
 import ClickableImage from '../../../../../../../../components/Clickable/ClickableMedia';
 import { FileInputRef, ChangeEvent } from '../../types';
 
-import { BackgroundProps } from './types';
+import { UserBackgroundProps } from './types';
 
-const Background: FC<BackgroundProps> = ({ color, colorMode, alt, form }) => {
+const UserBackground: FC<UserBackgroundProps> = ({ color, colorMode, alt, form }) => {
 	const theme = useTheme();
 
 	const { isOpen: isCropperOpen, onOpen: onCropperOpen, onClose: onCropperClose } = useDisclosure();
@@ -97,4 +97,4 @@ const Background: FC<BackgroundProps> = ({ color, colorMode, alt, form }) => {
 	);
 };
 
-export default Background;
+export default UserBackground;
