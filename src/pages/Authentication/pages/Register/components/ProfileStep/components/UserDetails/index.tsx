@@ -7,11 +7,11 @@ import { useMediaQuery, Stack, VStack, Center, Text } from '@chakra-ui/react';
 import { compact, isEmpty, isNil } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import { DetailsProps } from './types';
+import { UserDetailsProps } from './types';
 
 const { getColor, convertREMToPixels, convertStringToNumber } = utils;
 
-const Details: FC<DetailsProps> = ({ color, colorMode, firstName, lastName, username }) => {
+const UserDetails: FC<UserDetailsProps> = ({ color, colorMode, firstName, lastName, username }) => {
 	const theme = useTheme();
 	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
@@ -46,7 +46,7 @@ const Details: FC<DetailsProps> = ({ color, colorMode, firstName, lastName, user
 						color={getColor({ theme, colorMode, type: 'text.primary' })}
 						fontSize='4xl'
 						fontWeight='semibold'
-						noOfLines={1}
+						noOfLines={0.5}
 					>
 						{!hasFirstName && !hasLastName
 							? 'User Full Name'
@@ -68,11 +68,11 @@ const Details: FC<DetailsProps> = ({ color, colorMode, firstName, lastName, user
 
 			<Center ref={buttonRef} width={!isMd ? '100%' : 'auto'}>
 				<DummyButton color={color} colorMode={colorMode} hasLeft isFullWidth variant='outlined' speed={-1}>
-					Edit User
+					Edit
 				</DummyButton>
 			</Center>
 		</Stack>
 	);
 };
 
-export default Details;
+export default UserDetails;
