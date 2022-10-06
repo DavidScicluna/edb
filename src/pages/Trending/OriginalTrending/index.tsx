@@ -1,29 +1,35 @@
-import { FC, useState, useCallback, lazy } from 'react';
+import { FC, useState, useCallback, useEffect, lazy } from 'react';
 
-import { Tabs, TabList, TabPanels } from '@davidscicluna/component-library';
+import { useLocation, useNavigate } from 'react-router';
+
+import { TabsOnChangeProps, IconType, Tabs, TabList, TabPanels, Icon } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
 
-import { MediaType } from '../../../common/types';
 import Page from '../../../containers/Page';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import PageBody from '../../../containers/Page/components/PageBody';
 import { useUserTheme } from '../../../common/hooks';
-import { formatMediaTypeLabel } from '../../../common/utils';
+import { formatMediaType, formatMediaTypeLabel } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import { DisplayMode, Suspense } from '../../../components';
 import TrendingDummyMovies from '../components/TrendingDummyMovies';
 import TrendingDummyPeople from '../components/TrendingDummyPeople';
 import TrendingDummyTV from '../components/TrendingDummyTV';
 
+import { TrendingMediaType, TrendingMediaTypes } from './types';
+
 const TrendingMovies = lazy(() => import('./components/TrendingMovies'));
 const TrendingPeople = lazy(() => import('./components/TrendingPeople'));
 const TrendingTV = lazy(() => import('./components/TrendingTV'));
 
-const mediaTypes: Exclude<MediaType, 'company' | 'collection'>[] = ['movie', 'tv', 'person'];
+const mediaTypes: TrendingMediaTypes = ['movie', 'tv', 'person'];
 
 const Trending: FC = () => {
 	const { color, colorMode } = useUserTheme();
+
+	const location = useLocation();
+	const navigate = useNavigate();
 
 	const { spacing } = useLayoutContext();
 
@@ -47,11 +53,53 @@ const Trending: FC = () => {
 		return `A list containing the most trending ${activeMediaType} this week.`;
 	}, [mediaTypes, activeTab]);
 
+	const handleGetMediaTypeIcon = useCallback(
+		(mediaType: TrendingMediaType): IconType => {
+			switch (mediaType) {
+				case 'movie':
+					return 'theaters';
+				case 'tv':
+					return 'live_tv';
+				case 'person':
+					return 'people_alt';
+			}
+		},
+		[mediaTypes, activeTab]
+	);
+
+	const handleTabChange = useCallback(
+		({ index }: TabsOnChangeProps): void => {
+			const activeMediaType = formatMediaType({ mediaType: mediaTypes[index] });
+
+			navigate({ ...location, hash: activeMediaType });
+		},
+		[mediaTypes, location]
+	);
+
+	const handleSetActiveTab = useCallback((): void => {
+		const hash = location.hash.replaceAll('#', '');
+
+		switch (hash) {
+			case formatMediaType({ mediaType: 'movie' }):
+				setActiveTab(0);
+				break;
+			case formatMediaType({ mediaType: 'tv' }):
+				setActiveTab(1);
+				break;
+			case formatMediaType({ mediaType: 'person' }):
+				setActiveTab(2);
+				break;
+		}
+	}, [location]);
+
+	useEffect(() => handleSetActiveTab(), [location.hash]);
+
 	return (
 		<Page>
 			<PageHeader
 				renderTitle={(props) => <Text {...props}>{handleTitle()}</Text>}
 				renderSubtitle={(props) => <Text {...props}>{handleSubtitle()}</Text>}
+				actions={<DisplayMode />}
 				p={spacing}
 			/>
 			<PageBody>
@@ -60,17 +108,29 @@ const Trending: FC = () => {
 					color={color}
 					colorMode={colorMode}
 					activeTab={activeTab}
-					onChange={({ index }) => setActiveTab(index)}
+					onChange={handleTabChange}
 					px={spacing}
 					pb={spacing}
-					size='xl'
+					size='lg'
 				>
 					<VStack width='100%' spacing={spacing}>
 						<TabList
-							tabs={mediaTypes.map((mediaType) => {
-								return { label: formatMediaTypeLabel({ type: 'multiple', mediaType }) };
+							tabs={mediaTypes.map((mediaType, index) => {
+								return {
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType }),
+									renderLeft: ({ color, colorMode, height }) => (
+										<Icon
+											width={`${height}px`}
+											height={`${height}px`}
+											fontSize={`${height}px`}
+											colorMode={colorMode}
+											icon={handleGetMediaTypeIcon(mediaType)}
+											category={activeTab === index ? 'filled' : 'outlined'}
+											skeletonColor={color}
+										/>
+									)
+								};
 							})}
-							renderRight={() => <DisplayMode />}
 						/>
 
 						<TabPanels>
