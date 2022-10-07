@@ -1,3 +1,3 @@
-import { DummyButtonProps } from '@davidscicluna/component-library';
+import { DummyIconButtonProps } from '@davidscicluna/component-library';
 
-export type DummyDisplayModeProps = Omit<DummyButtonProps, 'children' | 'color' | 'colorMode'>;
+export type DummyDisplayModeProps = Omit<DummyIconButtonProps, 'children' | 'color' | 'colorMode'>;
