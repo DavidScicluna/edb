@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
-import { useTheme, Skeleton, InternalLink, utils } from '@davidscicluna/component-library';
+import { useTheme, InternalLink, utils } from '@davidscicluna/component-library';
 
-import { useBreakpointValue, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
+import { useBreakpointValue, Center, Text } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
 
@@ -10,7 +10,7 @@ import { BreadcrumbProps } from './types';
 
 const { getColor } = utils;
 
-const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb: breadcrumbProp, isLoading = false, isCurrentPage = false }) => {
+const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb: breadcrumbProp, isCurrentPage = false }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -26,35 +26,28 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb: breadcrumbProp, isLoading
 	const { breadcrumb, match } = breadcrumbProp || {};
 
 	return (
-		<BreadcrumbItem
-			flex={1}
-			fontSize={breadcrumbFontSize}
-			fontWeight='medium'
-			isCurrentPage={!isLoading && isCurrentPage}
-		>
-			<Skeleton colorMode={colorMode} isLoaded={!isLoading} variant='text'>
-				{isLoading || isCurrentPage ? (
-					<Text
-						align='left'
-						color={getColor({ theme, colorMode, type: 'text.primary' })}
-						fontSize={breadcrumbFontSize}
-						fontWeight='medium'
-					>
-						{!isLoading ? breadcrumb : 'Dummy Breadcrumb'}
-					</Text>
-				) : (
-					<BreadcrumbLink
-						as={InternalLink}
-						to={{ pathname: match?.pathname }}
-						color={getColor({ theme, colorMode, type: 'text.secondary' })}
-						fontSize={breadcrumbFontSize}
-						fontWeight='medium'
-					>
-						{breadcrumb}
-					</BreadcrumbLink>
-				)}
-			</Skeleton>
-		</BreadcrumbItem>
+		<Center>
+			{isCurrentPage ? (
+				<Text
+					align='left'
+					color={getColor({ theme, colorMode, type: 'text.primary' })}
+					fontSize={breadcrumbFontSize}
+					fontWeight='medium'
+				>
+					{breadcrumb}
+				</Text>
+			) : (
+				<InternalLink
+					to={{ pathname: match?.pathname }}
+					color='gray'
+					fontSize={breadcrumbFontSize}
+					fontWeight='medium'
+					sx={{ color: getColor({ theme, colorMode, type: 'text.secondary' }) }}
+				>
+					{breadcrumb}
+				</InternalLink>
+			)}
+		</Center>
 	);
 };
 
