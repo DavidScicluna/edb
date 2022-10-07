@@ -1,3 +1,3 @@
-import { ButtonProps } from '@davidscicluna/component-library';
+import { IconButtonProps } from '@davidscicluna/component-library';
 
-export type DisplayModeProps = Omit<ButtonProps, 'children' | 'color' | 'colorMode'>;
+export type DisplayModeProps = Omit<IconButtonProps, 'children' | 'color' | 'colorMode'>;

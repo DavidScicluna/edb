@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useTheme, Tooltip, Button, Icon, utils } from '@davidscicluna/component-library';
+import { ButtonGroup, Tooltip, IconButton, IconButtonIcon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -11,66 +11,69 @@ import { toggleDisplayMode } from '../../../store/slices/App';
 
 import { DisplayModeProps } from './types';
 
-const { getColor } = utils;
-
 const DisplayMode: FC<DisplayModeProps> = ({ isDisabled, ...rest }) => {
-	const theme = useTheme();
-
-	const { colorMode } = useUserTheme();
+	const { color, colorMode } = useUserTheme();
 
 	const dispatch = useDispatch();
 	const displayMode = useSelector((state) => state.app.ui.displayMode);
 
-	const [isHovering, setIsHovering] = useBoolean();
+	const [isHoveringGrid, setIsHoveringGrid] = useBoolean();
+	const [isHoveringList, setIsHoveringList] = useBoolean();
 
 	return (
-		<Tooltip
-			aria-label={`Switch display-mode to ${displayMode === 'grid' ? 'List' : 'Grid'} mode (tooltip)`}
-			colorMode={colorMode}
-			isOpen={!isDisabled && isHovering}
-			isDisabled={isDisabled}
-			placement='top'
-			label={`Switch display-mode to ${displayMode === 'grid' ? 'List' : 'Grid'} mode`}
-		>
-			<Button
-				{...rest}
+		<ButtonGroup>
+			<Tooltip
+				aria-label={
+					displayMode === 'grid'
+						? 'Display-mode set to Grid mode (tooltip)'
+						: 'Switch display-mode to Grid mode (tooltip)'
+				}
 				colorMode={colorMode}
-				renderLeft={({ height }) => (
-					<Icon
-						width={`${height}px`}
-						height={`${height}px`}
-						fontSize={`${height}px`}
-						icon='grid_on'
-						category='outlined'
-						color={getColor({
-							theme,
-							colorMode,
-							type: `text.${displayMode === 'grid' ? 'primary' : 'secondary'}`
-						})}
-					/>
-				)}
-				renderRight={({ height }) => (
-					<Icon
-						width={`${height}px`}
-						height={`${height}px`}
-						fontSize={`${height}px`}
-						icon='view_agenda'
-						category='outlined'
-						color={getColor({
-							theme,
-							colorMode,
-							type: `text.${displayMode === 'list' ? 'primary' : 'secondary'}`
-						})}
-					/>
-				)}
-				onMouseEnter={() => setIsHovering.on()}
-				onMouseLeave={() => setIsHovering.off()}
-				onClick={() => dispatch(toggleDisplayMode(displayMode === 'grid' ? 'list' : 'grid'))}
-				variant='outlined'
+				isOpen={!isDisabled && isHoveringGrid}
+				isDisabled={isDisabled}
+				placement='top'
+				label={displayMode === 'grid' ? 'Display-mode set to Grid mode' : 'Switch display-mode to Grid mode'}
 			>
-				|
-			</Button>
-		</Tooltip>
+				<IconButton
+					{...rest}
+					color={displayMode === 'grid' ? color : 'gray'}
+					colorMode={colorMode}
+					isActive={displayMode === 'grid'}
+					onMouseEnter={() => setIsHoveringGrid.on()}
+					onMouseLeave={() => setIsHoveringGrid.off()}
+					onClick={displayMode === 'list' ? () => dispatch(toggleDisplayMode('grid')) : undefined}
+					variant='outlined'
+				>
+					<IconButtonIcon icon='grid_on' category='outlined' />
+				</IconButton>
+			</Tooltip>
+
+			<Tooltip
+				aria-label={
+					displayMode === 'list'
+						? 'Display-mode set to List mode (tooltip)'
+						: 'Switch display-mode to List mode (tooltip)'
+				}
+				colorMode={colorMode}
+				isOpen={!isDisabled && isHoveringList}
+				isDisabled={isDisabled}
+				placement='top'
+				label={displayMode === 'list' ? 'Display-mode set to List mode' : 'Switch display-mode to List mode'}
+			>
+				<IconButton
+					{...rest}
+					color={displayMode === 'list' ? color : 'gray'}
+					colorMode={colorMode}
+					isActive={displayMode === 'list'}
+					onMouseEnter={() => setIsHoveringList.on()}
+					onMouseLeave={() => setIsHoveringList.off()}
+					onClick={displayMode === 'grid' ? () => dispatch(toggleDisplayMode('list')) : undefined}
+					variant='outlined'
+				>
+					<IconButtonIcon icon='view_agenda' category='outlined' />
+				</IconButton>
+			</Tooltip>
+		</ButtonGroup>
 	);
 };
 
