@@ -27,3 +27,7 @@ export const topRatedQueryKey = memoize(({ mediaType }: UseTopRatedQueryProps): 
 export const trendingQueryKey = memoize(
 	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`${time}_${mediaType}_trending`]
 );
+
+export const trendingInfiniteQueryKey = memoize(
+	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`${time}_${mediaType}_trending_infinite`]
+);

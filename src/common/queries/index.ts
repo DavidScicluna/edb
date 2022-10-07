@@ -5,6 +5,7 @@ import useJobsQuery from './useJobsQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import usePopularQuery from './usePopularQuery';
 import useTopRatedQuery from './useTopRatedQuery';
+import useTrendingInfiniteQuery from './useTrendingInfiniteQuery';
 import useTrendingQuery from './useTrendingQuery';
 
 export {
@@ -15,5 +16,6 @@ export {
 	useLanguagesQuery,
 	usePopularQuery,
 	useTopRatedQuery,
+	useTrendingInfiniteQuery,
 	useTrendingQuery
 };
