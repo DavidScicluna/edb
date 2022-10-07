@@ -69,7 +69,7 @@ const Trending: FC = () => {
 				title='Trending'
 				subtitle='A list containing the most popular Movies & TV Shows at the moment.'
 				to={({ mediaType }) => {
-					return { pathname: `/trending/${formatMediaType({ mediaType })}` };
+					return { pathname: '/trending', hash: formatMediaType({ mediaType }) };
 				}}
 				mediaTypes={['movie', 'tv', 'person']}
 				data={{

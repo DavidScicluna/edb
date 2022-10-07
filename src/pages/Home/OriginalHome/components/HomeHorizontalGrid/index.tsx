@@ -23,9 +23,9 @@ import {
 } from '../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
-import MovieVerticalPoster from '../../../../Movies/components/Poster/MovieVerticalPoster';
-import TVShowVerticalPoster from '../../../../TV/components/Poster/TVShowVerticalPoster';
-import PersonVerticalPoster from '../../../../People/components/Poster/PersonVerticalPoster';
+import MovieVerticalPoster from '../../../../Movies/components/Posters/MovieVerticalPoster';
+import TVShowVerticalPoster from '../../../../TV/components/Posters/TVShowVerticalPoster';
+import PersonVerticalPoster from '../../../../People/components/Posters/PersonVerticalPoster';
 
 import { HomeHorizontalGridProps } from './types';
 
