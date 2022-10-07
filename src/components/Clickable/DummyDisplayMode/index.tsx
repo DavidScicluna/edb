@@ -15,6 +15,9 @@ const DummyDisplayMode: FC<DummyDisplayModeProps> = (props) => {
 		<ButtonGroup>
 			<DummyIconButton
 				{...props}
+				aria-label={
+					displayMode === 'grid' ? 'Display-mode set to Grid mode' : 'Switch display-mode to Grid mode'
+				}
 				color={displayMode === 'grid' ? color : 'gray'}
 				colorMode={colorMode}
 				variant='outlined'
@@ -24,6 +27,9 @@ const DummyDisplayMode: FC<DummyDisplayModeProps> = (props) => {
 
 			<DummyIconButton
 				{...props}
+				aria-label={
+					displayMode === 'list' ? 'Display-mode set to List mode' : 'Switch display-mode to List mode'
+				}
 				color={displayMode === 'list' ? color : 'gray'}
 				colorMode={colorMode}
 				variant='outlined'
