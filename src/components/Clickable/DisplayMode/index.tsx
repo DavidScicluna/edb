@@ -36,6 +36,9 @@ const DisplayMode: FC<DisplayModeProps> = ({ isDisabled, ...rest }) => {
 			>
 				<IconButton
 					{...rest}
+					aria-label={
+						displayMode === 'grid' ? 'Display-mode set to Grid mode' : 'Switch display-mode to Grid mode'
+					}
 					color={displayMode === 'grid' ? color : 'gray'}
 					colorMode={colorMode}
 					isActive={displayMode === 'grid'}
@@ -62,6 +65,9 @@ const DisplayMode: FC<DisplayModeProps> = ({ isDisabled, ...rest }) => {
 			>
 				<IconButton
 					{...rest}
+					aria-label={
+						displayMode === 'list' ? 'Display-mode set to List mode' : 'Switch display-mode to List mode'
+					}
 					color={displayMode === 'list' ? color : 'gray'}
 					colorMode={colorMode}
 					isActive={displayMode === 'list'}
