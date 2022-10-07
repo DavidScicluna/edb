@@ -93,6 +93,7 @@ const Trending: FC = () => {
 				renderTitle={(props) => <Text {...props}>{handleTitle()}</Text>}
 				renderSubtitle={(props) => <Text {...props}>{handleSubtitle()}</Text>}
 				actions={<DisplayMode />}
+				direction='row'
 				p={spacing}
 			/>
 			<PageBody>

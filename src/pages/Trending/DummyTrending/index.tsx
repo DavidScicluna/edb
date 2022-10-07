@@ -49,6 +49,7 @@ const DummyTrending: FC = () => {
 						<Text {...props}>A list containing the most trending media-type this week.</Text>
 					</Skeleton>
 				)}
+				direction='row'
 				p={spacing}
 			/>
 			<PageBody>
