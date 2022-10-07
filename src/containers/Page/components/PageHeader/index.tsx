@@ -73,7 +73,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 						renderTitle({
 							align: 'left',
 							color: getColor({ theme, colorMode, type: 'text.primary' }),
-							fontSize: 'xl',
+							fontSize: ['xl', '2xl', '3xl', '3xl', '4xl', '4xl'],
 							fontWeight: 'bold',
 							lineHeight: 'normal',
 							noOfLines: 1
@@ -84,7 +84,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 						renderSubtitle({
 							align: 'left',
 							color: getColor({ theme, colorMode, type: 'text.secondary' }),
-							fontSize: 'sm',
+							fontSize: ['xs', 'xs', 'sm', 'sm', 'sm', 'sm'],
 							lineHeight: 'normal',
 							noOfLines: 1
 						})}
