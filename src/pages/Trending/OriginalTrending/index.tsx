@@ -1,10 +1,12 @@
-import { FC, useState, useCallback, useEffect, lazy } from 'react';
+import { FC, useState, useCallback, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
 import { TabsOnChangeProps, IconType, Tabs, TabList, TabPanels, Icon } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
+
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Page from '../../../containers/Page';
 import PageHeader from '../../../containers/Page/components/PageHeader';
@@ -16,6 +18,7 @@ import { DisplayMode, Suspense } from '../../../components';
 import TrendingDummyMovies from '../components/TrendingDummyMovies';
 import TrendingDummyPeople from '../components/TrendingDummyPeople';
 import TrendingDummyTV from '../components/TrendingDummyTV';
+import { getActiveTabFromHash } from '../common/utils';
 
 import { TrendingMediaType, TrendingMediaTypes } from './types';
 
@@ -77,22 +80,12 @@ const Trending: FC = () => {
 	);
 
 	const handleSetActiveTab = useCallback((): void => {
-		const hash = location.hash.replaceAll('#', '');
-
-		switch (hash) {
-			case formatMediaType({ mediaType: 'movie' }):
-				setActiveTab(0);
-				break;
-			case formatMediaType({ mediaType: 'tv' }):
-				setActiveTab(1);
-				break;
-			case formatMediaType({ mediaType: 'person' }):
-				setActiveTab(2);
-				break;
-		}
+		setActiveTab(getActiveTabFromHash({ location }) || 0);
 	}, [location]);
 
-	useEffect(() => handleSetActiveTab(), [location.hash]);
+	useEffectOnce(() => (location.hash.length > 0 ? handleSetActiveTab() : handleTabChange({ index: 0 })));
+
+	useUpdateEffect(() => handleSetActiveTab(), [location.hash]);
 
 	return (
 		<Page>

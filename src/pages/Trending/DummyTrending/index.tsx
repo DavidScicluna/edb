@@ -1,4 +1,6 @@
-import { FC } from 'react';
+import { FC, useState, useCallback, useEffect } from 'react';
+
+import { useLocation } from 'react-router';
 
 import { Tabs, DummyTabList, TabPanels, Skeleton } from '@davidscicluna/component-library';
 
@@ -15,13 +17,24 @@ import { DummyDisplayMode } from '../../../components';
 import TrendingDummyMovies from '../components/TrendingDummyMovies';
 import TrendingDummyPeople from '../components/TrendingDummyPeople';
 import TrendingDummyTV from '../components/TrendingDummyTV';
+import { getActiveTabFromHash } from '../common/utils';
 
 const mediaTypes: Exclude<MediaType, 'company' | 'collection'>[] = ['movie', 'tv', 'person'];
 
 const DummyTrending: FC = () => {
 	const { color, colorMode } = useUserTheme();
 
+	const location = useLocation();
+
 	const { spacing } = useLayoutContext();
+
+	const [activeTab, setActiveTab] = useState<number>(0);
+
+	const handleSetActiveTab = useCallback((): void => {
+		setActiveTab(getActiveTabFromHash({ location }) || 0);
+	}, [location]);
+
+	useEffect(() => handleSetActiveTab(), [location.hash]);
 
 	return (
 		<Page>
@@ -39,7 +52,15 @@ const DummyTrending: FC = () => {
 				p={spacing}
 			/>
 			<PageBody>
-				<Tabs width='100%' color={color} colorMode={colorMode} px={spacing} pb={spacing} size='xl'>
+				<Tabs
+					width='100%'
+					activeTab={activeTab}
+					color={color}
+					colorMode={colorMode}
+					px={spacing}
+					pb={spacing}
+					size='xl'
+				>
 					<VStack width='100%' spacing={spacing}>
 						<DummyTabList
 							tabs={mediaTypes.map((mediaType) => {
