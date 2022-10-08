@@ -107,24 +107,24 @@ const SignIn: FC = () => {
 		dispatch(toggleSpinnerModal(true));
 
 		// TODO: Check if avatar is re generated
-		dispatch(
-			setUser({
-				...guest,
-				data: {
-					...guest.data,
-					info: {
-						...guest.data.info,
-						avatar_path: getBoringAvatarSrc({
-							id: guest.data.id,
-							colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
-							hue: getHue({ colorMode, type: 'color' }),
-							size: 500,
-							variant: 'beam'
-						})
-					}
+		const updatedGuest: User = {
+			...guest,
+			data: {
+				...guest.data,
+				info: {
+					...guest.data.info,
+					avatar_path: getBoringAvatarSrc({
+						id: guest.data.id,
+						colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
+						hue: getHue({ colorMode, type: 'color' }),
+						size: 500,
+						variant: 'beam'
+					})
 				}
-			})
-		);
+			}
+		};
+
+		dispatch(setUser({ ...updatedGuest }));
 
 		setTimeout(() => navigate('/'), 500);
 
