@@ -13,32 +13,32 @@ export type GetUserProps = { users: User[]; user: string };
 
 export type UpdateUsersProps = { users: User[]; user: User };
 
-export type Credentials = {
+export type UserCredentials = {
 	username: string;
 	password: string;
 	rememberMe: boolean;
 };
 
-export type InfoGenres = {
+export type UserInfoGenres = {
 	movie: Genre[];
 	tv: Genre[];
 };
 
-export type Info = {
+export type UserInfo = {
 	name: string;
 	bio: string;
 	avatar_path: string;
 	background_path: string;
-	prefers: InfoGenres;
+	prefers: UserInfoGenres;
 };
 
-export type SearchType = MediaType & string;
+export type UserSearchType = MediaType & string;
 
-export type Search = {
+export type UserSearch = {
 	id: string;
 	label: string;
-	date: string;
-	searchTypes: SearchType[];
+	searchedAt: string;
+	searchTypes: UserSearchType[];
 };
 
 export type GetMediaType<MT extends MediaType> = MT extends 'movie'
@@ -47,7 +47,7 @@ export type GetMediaType<MT extends MediaType> = MT extends 'movie'
 	? FullTV
 	: MT extends 'person'
 	? FullPerson
-	: MT extends 'person'
+	: MT extends 'company'
 	? FullCompany
 	: Collection;
 
@@ -104,9 +104,9 @@ export type UserTheme = {
 export type User = {
 	data: {
 		id: string;
-		credentials: Credentials;
-		info: Info;
-		recentSearches: Search[];
+		credentials: UserCredentials;
+		info: UserInfo;
+		recentSearches: UserSearch[];
 		recentlyViewed: Omit<MediaItems, 'companies'>;
 		liked: MediaItems;
 		lists: UserList[];

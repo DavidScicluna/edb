@@ -12,8 +12,8 @@ import {
 	StateProps,
 	UserAction,
 	User,
-	Info,
-	Search,
+	UserInfo,
+	UserSearch,
 	MediaItems,
 	UserList,
 	// UserReview,
@@ -152,7 +152,7 @@ const usersSlice = createSlice({
 		setUsers: (state: StateProps, action: PayloadAction<User[]>) => {
 			state.data.users = action.payload;
 		},
-		setUserInfo: (state: StateProps, action: UserAction<Info>) => {
+		setUserInfo: (state: StateProps, action: UserAction<UserInfo>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
 
 			if (user.data.id !== guest.data.id) {
@@ -175,7 +175,7 @@ const usersSlice = createSlice({
 				}
 			}
 		},
-		setUserRecentSearches: (state: StateProps, action: UserAction<Search[]>) => {
+		setUserRecentSearches: (state: StateProps, action: UserAction<UserSearch[]>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
 
 			if (user.data.id !== guest.data.id) {
