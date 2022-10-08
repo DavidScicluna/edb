@@ -39,7 +39,7 @@ import { v4 as uuid } from 'uuid';
 
 import { useSelector, useUserTheme } from '../../../../common/hooks';
 import { defaultUser, setUserInfo, setUserTheme, setUsers, setUser } from '../../../../store/slices/Users';
-import { User, Info, Credentials } from '../../../../store/slices/Users/types';
+import { User, UserInfo, UserCredentials } from '../../../../store/slices/Users/types';
 import { toggleSpinnerModal } from '../../../../store/slices/Modals';
 import { getBoringAvatarSrc } from '../../../../common/utils';
 import { colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
@@ -291,7 +291,7 @@ const Register: FC = () => {
 		const customization = getCustomizationFormValues();
 		const profile = getProfileFormValues();
 
-		const info: Info = {
+		const info: UserInfo = {
 			name: `${details.firstName} ${details.lastName}`,
 			bio: details.bio,
 			avatar_path: profile.avatar_path,
@@ -299,7 +299,7 @@ const Register: FC = () => {
 			prefers: { ...genres }
 		};
 
-		const credentials: Credentials = {
+		const credentials: UserCredentials = {
 			username: details.username,
 			password: sha256(details.password).toString(),
 			rememberMe: false

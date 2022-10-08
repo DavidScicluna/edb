@@ -26,7 +26,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 
 	const { control } = form;
 
-	const avatar_path = useWatch({ control, name: 'avatar_path' });
+	const watchAvatarPath = useWatch({ control, name: 'avatar_path' });
 
 	const [image, setImage] = useState<string>('');
 
@@ -91,7 +91,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 						width='inherit'
 						height='inherit'
 						borderRadius='none'
-						src={{ full: avatar_path }}
+						src={{ full: watchAvatarPath }}
 					/>
 				</ClickableMedia>
 			</Center>

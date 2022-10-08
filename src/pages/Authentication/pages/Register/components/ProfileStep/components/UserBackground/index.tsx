@@ -22,7 +22,7 @@ const UserBackground: FC<UserBackgroundProps> = ({ color, colorMode, alt, form }
 
 	const { control } = form;
 
-	const background_path = useWatch({ control, name: 'background_path' });
+	const watchBackgroundPath = useWatch({ control, name: 'background_path' });
 
 	const [image, setImage] = useState<string>('');
 
@@ -79,7 +79,7 @@ const UserBackground: FC<UserBackgroundProps> = ({ color, colorMode, alt, form }
 						width='inherit'
 						height='inherit'
 						borderRadius='none'
-						src={{ full: background_path }}
+						src={{ full: watchBackgroundPath }}
 					/>
 				</ClickableImage>
 			</Box>
