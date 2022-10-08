@@ -2,6 +2,7 @@ import useCertificationsQuery from './useCertificationsQuery';
 import useCountriesQuery from './useCountriesQuery';
 import useGenresQuery from './useGenresQuery';
 import useJobsQuery from './useJobsQuery';
+import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import usePopularQuery from './usePopularQuery';
 import useTopRatedQuery from './useTopRatedQuery';
@@ -13,6 +14,7 @@ export {
 	useCountriesQuery,
 	useGenresQuery,
 	useJobsQuery,
+	useKeywordsInfiniteQuery,
 	useLanguagesQuery,
 	usePopularQuery,
 	useTopRatedQuery,
