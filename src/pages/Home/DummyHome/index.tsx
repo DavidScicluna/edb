@@ -34,8 +34,8 @@ const DummyHome: FC = () => {
 
 	return (
 		<Page>
-			<PageBody>
-				<VStack width='100%' px={spacing} py={spacing} spacing={spacing}>
+			<PageBody p={spacing}>
+				<VStack width='100%' spacing={spacing}>
 					{range(3).map((_dummy, index) => (
 						<DummyHorizontalGridTabbed
 							key={index}

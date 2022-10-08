@@ -15,8 +15,8 @@ const Home: FC = () => {
 
 	return (
 		<Page>
-			<PageBody>
-				<VStack width='100%' p={spacing} spacing={spacing}>
+			<PageBody p={spacing}>
+				<VStack width='100%' spacing={spacing}>
 					<Popular />
 					<TopRated />
 					<Trending />
