@@ -46,7 +46,7 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 
 	const key = useConst<QueryKey>(trendingInfiniteQueryKey({ mediaType, time }));
 
-	const query = useInfiniteQuery<UseTrendingInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
+	const infiniteQuery = useInfiniteQuery<UseTrendingInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
 		async ({ pageParam = 1 }) => {
 			const { data } = await axiosInstance.get<UseTrendingInfiniteQueryResponse<MT>>(
@@ -83,7 +83,7 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 
 	useWillUnmount(() => controller.abort());
 
-	return query;
+	return infiniteQuery;
 };
 
 export default useTrendingInfiniteQuery;
