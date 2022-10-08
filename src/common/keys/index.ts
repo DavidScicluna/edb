@@ -6,6 +6,7 @@ import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
 import { UsePopularQueryProps } from '../queries/usePopularQuery';
+import { UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
 import { UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
 import { UseTrendingQueryProps } from '../queries/useTrendingQuery';
 
@@ -26,6 +27,10 @@ export const keywordsInfiniteQueryKey = memoize(
 export const languagesQueryKey: QueryKey = ['languages'];
 
 export const popularQueryKey = memoize(({ mediaType }: UsePopularQueryProps): QueryKey => [`popular_${mediaType}`]);
+
+export const searchInfiniteQueryKey = memoize(
+	({ mediaType, query }: UseSearchInfiniteQueryProps): QueryKey => [`${query}_${mediaType}_search_infinite`]
+);
 
 export const topRatedQueryKey = memoize(({ mediaType }: UseTopRatedQueryProps): QueryKey => [`top_rated_${mediaType}`]);
 
