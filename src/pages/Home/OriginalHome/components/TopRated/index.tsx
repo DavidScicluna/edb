@@ -29,7 +29,7 @@ const TopRated: FC = () => {
 		isLoading: isMoviesLoading = false,
 		isError: isMoviesError = false,
 		isSuccess: isMoviesSuccess = false
-	} = useTopRatedQuery({
+	} = useTopRatedQuery<'movie'>({
 		props: { mediaType: 'movie' },
 		options: { enabled: isMoviesQueryEnabled }
 	});
@@ -41,7 +41,7 @@ const TopRated: FC = () => {
 		isLoading: isShowsLoading = false,
 		isError: isShowsError = false,
 		isSuccess: isShowsSuccess = false
-	} = useTopRatedQuery({
+	} = useTopRatedQuery<'tv'>({
 		props: { mediaType: 'tv' },
 		options: { enabled: isShowsQueryEnabled }
 	});

@@ -29,7 +29,7 @@ const Trending: FC = () => {
 		isLoading: isMoviesLoading = false,
 		isError: isMoviesError = false,
 		isSuccess: isMoviesSuccess = false
-	} = useTrendingQuery({
+	} = useTrendingQuery<'movie'>({
 		props: { mediaType: 'movie', time: 'week' },
 		options: { enabled: isMoviesQueryEnabled }
 	});
@@ -41,7 +41,7 @@ const Trending: FC = () => {
 		isLoading: isShowsLoading = false,
 		isError: isShowsError = false,
 		isSuccess: isShowsSuccess = false
-	} = useTrendingQuery({
+	} = useTrendingQuery<'tv'>({
 		props: { mediaType: 'tv', time: 'week' },
 		options: { enabled: isShowsQueryEnabled }
 	});
@@ -53,7 +53,7 @@ const Trending: FC = () => {
 		isLoading: isPeopleLoading = false,
 		isError: isPeopleError = false,
 		isSuccess: isPeopleSuccess = false
-	} = useTrendingQuery({
+	} = useTrendingQuery<'person'>({
 		props: { mediaType: 'person', time: 'week' },
 		options: { enabled: isPeopleQueryEnabled }
 	});
@@ -67,7 +67,7 @@ const Trending: FC = () => {
 			<HomeHorizontalGrid
 				activeTab={activeTabDebounced}
 				title='Trending'
-				subtitle='A list containing the most popular Movies & TV Shows at the moment.'
+				subtitle='A list containing the most trending Movies, TV Shows & People at the moment.'
 				to={({ mediaType }) => {
 					return { pathname: '/trending', hash: formatMediaType({ mediaType }) };
 				}}
