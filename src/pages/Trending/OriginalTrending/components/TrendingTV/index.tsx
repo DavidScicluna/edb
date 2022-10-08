@@ -28,6 +28,7 @@ import { formatMediaTypeLabel } from '../../../../../common/utils';
 import TVShowVerticalPoster from '../../../../TV/components/Posters/TVShowVerticalPoster';
 import TVShowHorizontalPoster from '../../../../TV/components/Posters/TVShowHorizontalPoster';
 import { PartialTV } from '../../../../../common/types/tv';
+import { UseTrendingInfiniteQueryResponse } from '../../../../../common/queries/useTrendingInfiniteQuery';
 
 const TrendingTV: FC = () => {
 	const theme = useTheme();
@@ -37,10 +38,10 @@ const TrendingTV: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const [shows, setShows] = useState<Response<PartialTV[]>>();
+	const [shows, setShows] = useState<UseTrendingInfiniteQueryResponse<'tv'>>();
 
 	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } =
-		useTrendingInfiniteQuery({
+		useTrendingInfiniteQuery<'tv'>({
 			props: { mediaType: 'tv', time: 'week' },
 			options: {
 				onSuccess: (data) => {

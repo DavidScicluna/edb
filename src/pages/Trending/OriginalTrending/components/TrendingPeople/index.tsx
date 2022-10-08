@@ -28,6 +28,7 @@ import { formatMediaTypeLabel } from '../../../../../common/utils';
 import PersonVerticalPoster from '../../../../People/components/Posters/PersonVerticalPoster';
 import PersonHorizontalPoster from '../../../../People/components/Posters/PersonHorizontalPoster';
 import { PartialPerson } from '../../../../../common/types/person';
+import { UseTrendingInfiniteQueryResponse } from '../../../../../common/queries/useTrendingInfiniteQuery';
 
 const TrendingPeople: FC = () => {
 	const theme = useTheme();
@@ -37,10 +38,10 @@ const TrendingPeople: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const [people, setPeople] = useState<Response<PartialPerson[]>>();
+	const [people, setPeople] = useState<UseTrendingInfiniteQueryResponse<'person'>>();
 
 	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } =
-		useTrendingInfiniteQuery({
+		useTrendingInfiniteQuery<'person'>({
 			props: { mediaType: 'person', time: 'week' },
 			options: {
 				onSuccess: (data) => {

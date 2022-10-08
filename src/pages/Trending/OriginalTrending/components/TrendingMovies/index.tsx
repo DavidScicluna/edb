@@ -28,6 +28,7 @@ import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/ut
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import MovieVerticalPoster from '../../../../Movies/components/Posters/MovieVerticalPoster';
 import MovieHorizontalPoster from '../../../../Movies/components/Posters/MovieHorizontalPoster';
+import { UseTrendingInfiniteQueryResponse } from '../../../../../common/queries/useTrendingInfiniteQuery';
 
 const TrendingMovies: FC = () => {
 	const theme = useTheme();
@@ -37,10 +38,10 @@ const TrendingMovies: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const [movies, setMovies] = useState<Response<PartialMovie[]>>();
+	const [movies, setMovies] = useState<UseTrendingInfiniteQueryResponse<'movie'>>();
 
 	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } =
-		useTrendingInfiniteQuery({
+		useTrendingInfiniteQuery<'movie'>({
 			props: { mediaType: 'movie', time: 'week' },
 			options: {
 				onSuccess: (data) => {
