@@ -96,15 +96,13 @@ const Trending: FC = () => {
 				direction='row'
 				p={spacing}
 			/>
-			<PageBody>
+			<PageBody px={spacing} pb={spacing}>
 				<Tabs
 					width='100%'
 					color={color}
 					colorMode={colorMode}
 					activeTab={activeTab}
 					onChange={handleTabChange}
-					px={spacing}
-					pb={spacing}
 					size='lg'
 				>
 					<VStack width='100%' spacing={spacing}>

@@ -52,16 +52,8 @@ const DummyTrending: FC = () => {
 				direction='row'
 				p={spacing}
 			/>
-			<PageBody>
-				<Tabs
-					width='100%'
-					activeTab={activeTab}
-					color={color}
-					colorMode={colorMode}
-					px={spacing}
-					pb={spacing}
-					size='xl'
-				>
+			<PageBody px={spacing} pb={spacing}>
+				<Tabs width='100%' activeTab={activeTab} color={color} colorMode={colorMode} size='xl'>
 					<VStack width='100%' spacing={spacing}>
 						<DummyTabList
 							tabs={mediaTypes.map((mediaType) => {
