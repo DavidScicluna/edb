@@ -1,6 +1,5 @@
-export type ActionsProps = {
+export type SearchInputActionsProps = {
 	hasQuery: boolean;
 	isDisabled: boolean;
 	onClear: () => void;
-	onSubmit: () => void;
 };
