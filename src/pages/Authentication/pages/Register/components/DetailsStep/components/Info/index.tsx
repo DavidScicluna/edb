@@ -72,6 +72,7 @@ const Info: FC<InfoProps> = (props) => {
 								<Input
 									color={color}
 									colorMode={colorMode}
+									autoComplete='off'
 									label='First name'
 									name={name}
 									helper={error ? error.message : undefined}
@@ -93,6 +94,7 @@ const Info: FC<InfoProps> = (props) => {
 								<Input
 									color={color}
 									colorMode={colorMode}
+									autoComplete='off'
 									label='Last name'
 									name={name}
 									helper={error ? error.message : undefined}

@@ -111,7 +111,7 @@ const Credentials: FC<CredentialsProps> = (props) => {
 							<Input
 								color={color}
 								colorMode={colorMode}
-								autoComplete='password'
+								autoComplete='off'
 								label='Password'
 								name={name}
 								helper={error ? error.message : undefined}
