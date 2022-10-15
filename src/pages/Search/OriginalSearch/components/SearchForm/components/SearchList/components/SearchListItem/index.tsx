@@ -33,16 +33,16 @@ const SearchListItem: FC<SearchListItemProps> = (props) => {
 				spacing={0}
 			>
 				<HStack width='100%' alignItems='center' justifyContent='flex-start' spacing={renderBadge ? 0.5 : 0}>
-					{renderBadge && <Box ref={badgeRef}>{renderBadge({ size: 'md' })}</Box>}
-
-					<Box width={renderBadge ? `calc(100% - ${badgeWidth + 10}px)` : '100%'}>
+					<Box maxWidth={renderBadge ? `calc(100% - ${badgeWidth + 10}px)` : '100%'}>
 						{renderTitle({
 							align: 'left',
 							color: getColor({ theme, colorMode, type: 'text.primary' }),
-							fontSize: 'md',
+							fontSize: 'lg',
 							noOfLines: 1
 						})}
 					</Box>
+
+					{renderBadge && <Box ref={badgeRef}>{renderBadge({ size: 'xs' })}</Box>}
 				</HStack>
 
 				{renderSubtitle && (
