@@ -1,65 +1,56 @@
-import { FC, useCallback } from 'react';
+import { FC, useRef, useState, useEffect } from 'react';
+
+import { useLocation } from 'react-router';
 
 import { useTheme, Tooltip, utils } from '@davidscicluna/component-library';
 
-import { useColorMode, useConst, useBoolean, HStack, Text } from '@chakra-ui/react';
+import { useColorMode, useBoolean, HStack, Text } from '@chakra-ui/react';
 
-import CountUp from 'react-countup';
+import { useCountUp } from 'react-countup';
 import { truncate } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { Form } from '../../../../types';
+import { getQueryFromSearch, getSearchTypesFromSearch } from '../../../../common/utils';
+import { SearchForm } from '../../../../types';
 
 import { SearchInfoProps } from './types';
+import { getSuffix, getTotal } from './common/utils';
 
 const { getColor } = utils;
 
-const SearchInfo: FC<SearchInfoProps> = ({ watchQuery, watchSearchTypes, total }) => {
+const SearchInfo: FC<SearchInfoProps> = ({ total }) => {
 	const theme = useTheme();
 	const { colorMode } = useColorMode();
 
-	const { movie = 0, tv = 0, person = 0, collection = 0, company = 0 } = total;
+	const countUpRef = useRef(null);
 
-	const query = useConst<Form['query']>(watchQuery);
-	const searchTypes = useConst<Form['searchTypes']>(watchSearchTypes);
+	const location = useLocation();
+
+	const [query, setQuery] = useState<SearchForm['query']>(getQueryFromSearch({ location }));
+	const [searchTypes, setSearchTypes] = useState<SearchForm['searchTypes']>(getSearchTypesFromSearch({ location }));
 
 	const [isHovering, setIsHovering] = useBoolean();
 
-	const handleAllTotal = useCallback((): number => {
-		return movie + tv + person + collection + company;
-	}, [movie, tv, person, collection, company]);
+	const { update } = useCountUp({
+		ref: countUpRef,
+		start: 0,
+		end: getTotal({ total }),
+		duration: 2.5,
+		suffix: ` ${getSuffix({ searchTypes, total })} found!`
+	});
 
-	const handleReturnLabel = useCallback((): string => {
-		if (searchTypes.length === 1) {
-			const searchType = searchTypes[0];
-			const sum = searchTypes.reduce(
-				(value, searchType) => value + (total && total[searchType] ? total[searchType] : 0),
-				0
-			);
+	useUpdateEffect(() => update(getTotal({ total })), [total]);
 
-			switch (searchType) {
-				case 'collection':
-					return `Collection${sum === 1 ? '' : 's'}`;
-				case 'company':
-					return `${sum === 1 ? 'Companies' : 'company'}`;
-				case 'person':
-					return `${sum === 1 ? 'People' : 'Person'}`;
-				case 'tv':
-					return `TV Show${sum === 1 ? '' : 's'}`;
-				case 'movie':
-					return `Movie${sum === 1 ? '' : 's'}`;
-			}
-		} else {
-			const total = handleAllTotal();
-
-			return `result${total === 1 ? '' : 's'}`;
-		}
-	}, [searchTypes, total, handleAllTotal]);
+	useEffect(() => {
+		setQuery(getQueryFromSearch({ location }));
+		setSearchTypes(getSearchTypesFromSearch({ location }));
+	}, [location.search]);
 
 	return (
 		<HStack width='100%' justifyContent='space-between' spacing={0}>
 			<Tooltip
 				aria-label={`Query: "${query}" (tooltip)`}
-				label={`Query: "${query}" (tooltip)`}
+				label={`Query: "${query}"`}
 				placement='bottom'
 				isOpen={query.length >= 20 && isHovering}
 				isDisabled={query.length < 20}
@@ -75,9 +66,12 @@ const SearchInfo: FC<SearchInfoProps> = ({ watchQuery, watchSearchTypes, total }
 				</Text>
 			</Tooltip>
 
-			<Text align='right' color={getColor({ theme, colorMode, type: 'text.secondary' })} fontSize='sm'>
-				<CountUp duration={1} end={handleAllTotal()} suffix={` ${handleReturnLabel()} found!`} />
-			</Text>
+			<Text
+				ref={countUpRef}
+				align='right'
+				color={getColor({ theme, colorMode, type: 'text.secondary' })}
+				fontSize='sm'
+			/>
 		</HStack>
 	);
 };
