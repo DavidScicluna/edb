@@ -21,7 +21,7 @@ const Keywords: FC<KeywordsProps> = (props) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
-	const { query, keywords, onKeywordClick } = props;
+	const { query, keywords, onMouseEnter, onMouseLeave, onKeywordClick } = props;
 	const { isFetchingNextPage, isFetching, isLoading, hasNextPage, fetchNextPage } = query;
 	const { results = [] } = keywords || {};
 
@@ -36,7 +36,7 @@ const Keywords: FC<KeywordsProps> = (props) => {
 	});
 
 	return (
-		<SearchList>
+		<SearchList onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			{results.map((keyword, index) => (
 				<Box key={keyword.id} ref={index === results.length - 1 ? observe : null} width='100%'>
 					<SearchListItem
