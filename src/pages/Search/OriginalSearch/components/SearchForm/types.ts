@@ -8,4 +8,7 @@ type SearchFormChildren = {
 
 export type SearchFormProps = {
 	children: SearchFormChildren;
+	isFocused: boolean;
+	onFocus: () => void;
+	onBlur: () => void;
 };
