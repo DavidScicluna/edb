@@ -1,12 +1,18 @@
-import { FC } from 'react';
+import { FC, useRef, useMemo, useEffect } from 'react';
 
-import { useTheme, Form, Icon, Fade, utils } from '@davidscicluna/component-library';
+import { useLocation } from 'react-router';
 
-import { useMediaQuery, useConst, HStack, Input } from '@chakra-ui/react';
+import { useTheme, Form, Input, Icon, Fade, utils } from '@davidscicluna/component-library';
+
+import { useMediaQuery, useBoolean, useConst, HStack } from '@chakra-ui/react';
 
 import { Controller, useWatch } from 'react-hook-form';
+import { debounce } from 'lodash';
+import qs from 'query-string';
+import { useEffectOnce } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../../common/hooks';
+import { isFocused as defaultIsFocused } from '../../../../common/data/defaultPropValues';
 
 import SearchInputActions from './components/SearchInputActions';
 import SearchInputSearchTypes from './components/SearchInputSearchTypes';
@@ -17,17 +23,67 @@ const { getColor } = utils;
 
 const SearchInput: FC<SearchInputProps> = (props) => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
+	const { color, colorMode } = useUserTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-	const { form, isDisabled = false, onFocus, onBlur, onClearQuery, onSubmitQuery } = props;
+	const inputRef = useRef<HTMLInputElement | null>(null);
+
+	const location = useLocation();
+
+	const {
+		form,
+		isDisabled = false,
+		isFocused = defaultIsFocused,
+		onFocus,
+		onBlur,
+		onClearQuery,
+		onSubmitQuery
+	} = props;
 	const { control, setValue, handleSubmit } = form;
 
 	const watchQuery = useWatch({ control, name: 'query' });
 	const watchSearchTypes = useWatch({ control, name: 'searchTypes' });
 
+	const [isSubmitDisabled, setIsSubmitDisabled] = useBoolean(isDisabled);
+
 	const placeholder = useConst<string>(getPlaceholder({ searchTypes: watchSearchTypes }));
+
+	const handleActionsState = useMemo(
+		() =>
+			debounce((): void => {
+				const search = qs.parse(location.search);
+				const query = search && search.query && typeof search.query === 'string' ? search.query : '';
+
+				setIsSubmitDisabled[isDisabled || query === watchQuery ? 'on' : 'off']();
+			}, 500),
+		[location, watchQuery, isDisabled]
+	);
+
+	const handleInputIsFocused = useMemo(
+		() =>
+			debounce((): void => {
+				if (inputRef && inputRef.current) {
+					if (isFocused) {
+						inputRef.current.focus();
+					} else {
+						inputRef.current.blur();
+					}
+				}
+			}, 500),
+		[inputRef, isFocused]
+	);
+
+	useEffect(() => handleActionsState(), [location, watchQuery, isDisabled]);
+
+	useEffect(() => handleInputIsFocused(), [isFocused]);
+
+	useEffectOnce(() => {
+		return () => {
+			handleActionsState.cancel();
+			handleInputIsFocused.cancel();
+		};
+	});
 
 	return (
 		<Form onSubmit={handleSubmit((values) => onSubmitQuery({ ...values }))}>
@@ -37,7 +93,7 @@ const SearchInput: FC<SearchInputProps> = (props) => {
 				justifyContent='space-between'
 				spacing={0}
 			>
-				<HStack flex={1}>
+				<HStack flex={1} spacing={1}>
 					<Icon
 						width={theme.fontSizes['3xl']}
 						height={theme.fontSizes['3xl']}
@@ -65,31 +121,33 @@ const SearchInput: FC<SearchInputProps> = (props) => {
 					<Controller
 						control={control}
 						name='query'
-						render={({ field: { onChange, value, name, ref } }) => (
+						render={({ field: { onChange, value, name } }) => (
 							<Input
-								ref={ref}
+								color={color}
+								colorMode={colorMode}
 								autoComplete='off'
 								id={name}
 								name={name}
-								color={getColor({ theme, colorMode, type: 'text.primary' })}
-								borderRadius='none'
 								placeholder={`Try "${placeholder}"`}
 								isDisabled={isDisabled}
+								isFocused={isFocused}
 								onFocus={onFocus}
 								onBlur={onBlur}
 								onChange={onChange}
 								value={value}
-								variant='unstyled'
-								sx={{
-									'transition': 'none !important',
-									'*, *::before, *::after': { transition: 'none !important' }
-								}}
+								variant='transparent'
+								sx={{ group: { height: '100%', px: 0, py: 0 } }}
 							/>
 						)}
 					/>
 				</HStack>
 
-				<SearchInputActions hasQuery={watchQuery.length > 0} isDisabled={isDisabled} onClear={onClearQuery} />
+				<SearchInputActions
+					hasQuery={watchQuery.length > 0}
+					isDisabled={isDisabled}
+					isSubmitDisabled={isSubmitDisabled}
+					onClear={onClearQuery}
+				/>
 			</HStack>
 		</Form>
 	);

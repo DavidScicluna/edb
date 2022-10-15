@@ -1,9 +1,9 @@
 import { memoize, sample, shuffle } from 'lodash';
 
-import { Form } from '../../../../../../types';
+import { SearchForm } from '../../../../../../types';
 import { movie, tv, people, collections, companies, combined } from '../data/placeholders';
 
-type GetPlaceholderProps = { searchTypes: Form['searchTypes'] };
+type GetPlaceholderProps = { searchTypes: SearchForm['searchTypes'] };
 
 export const getPlaceholder = memoize(({ searchTypes = [] }: GetPlaceholderProps): string => {
 	let placeholders = [];

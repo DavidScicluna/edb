@@ -15,7 +15,7 @@ const SearchInputActions: FC<SearchInputActionsProps> = (props) => {
 
 	const [containerRef, { height: containerHeight }] = useElementSize();
 
-	const { hasQuery = false, isDisabled = false, onClear } = props;
+	const { hasQuery = false, isDisabled = false, isSubmitDisabled = false, onClear } = props;
 
 	return (
 		<HStack
@@ -40,7 +40,7 @@ const SearchInputActions: FC<SearchInputActionsProps> = (props) => {
 				aria-label='Submit Search'
 				color={color}
 				colorMode={colorMode}
-				isDisabled={isDisabled || !hasQuery}
+				isDisabled={isDisabled || isSubmitDisabled || !hasQuery}
 				type='submit'
 				size='sm'
 				variant='icon'

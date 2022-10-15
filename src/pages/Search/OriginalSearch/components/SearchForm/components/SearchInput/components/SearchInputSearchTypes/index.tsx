@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Tag, TagLabel, TagDeleteButton as TagDeleteIconButton } from '@davidscicluna/component-library';
+import { Tag, TagLabel, TagDeleteIconButton } from '@davidscicluna/component-library';
 
 import { useColorMode } from '@chakra-ui/react';
 
