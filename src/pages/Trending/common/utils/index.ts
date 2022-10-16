@@ -8,17 +8,17 @@ import { formatMediaType } from '../../../../common/utils';
 
 type GetActiveTabFromHashProps = { location: Location };
 
-type GetActiveTabFromHashReturn = Undefinable<0 | 1 | 2>;
+type GetActiveTabFromHashReturn = Undefinable<1 | 2 | 3>;
 
 export const getActiveTabFromHash = memoize(({ location }: GetActiveTabFromHashProps): GetActiveTabFromHashReturn => {
 	const hash = location.hash.replaceAll('#', '');
 
 	switch (hash) {
 		case formatMediaType({ mediaType: 'movie' }):
-			return 0;
-		case formatMediaType({ mediaType: 'tv' }):
 			return 1;
-		case formatMediaType({ mediaType: 'person' }):
+		case formatMediaType({ mediaType: 'tv' }):
 			return 2;
+		case formatMediaType({ mediaType: 'person' }):
+			return 3;
 	}
 });
