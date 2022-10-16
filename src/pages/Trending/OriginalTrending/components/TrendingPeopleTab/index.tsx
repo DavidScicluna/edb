@@ -1,14 +1,12 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
-import { range, uniqBy } from 'lodash';
+import { range } from 'lodash';
 
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-import { useTrendingInfiniteQuery } from '../../../../../common/queries';
-import { Response } from '../../../../../common/types';
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -28,9 +26,10 @@ import { formatMediaTypeLabel } from '../../../../../common/utils';
 import PersonVerticalPoster from '../../../../People/components/Posters/PersonVerticalPoster';
 import PersonHorizontalPoster from '../../../../People/components/Posters/PersonHorizontalPoster';
 import { PartialPerson } from '../../../../../common/types/person';
-import { UseTrendingInfiniteQueryResponse } from '../../../../../common/queries/useTrendingInfiniteQuery';
 
-const TrendingPeople: FC = () => {
+import { TrendingPeopleTabProps } from './types';
+
+const TrendingPeopleTab: FC<TrendingPeopleTabProps> = ({ query, people }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -38,28 +37,7 @@ const TrendingPeople: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const [people, setPeople] = useState<UseTrendingInfiniteQueryResponse<'person'>>();
-
-	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } =
-		useTrendingInfiniteQuery<'person'>({
-			props: { mediaType: 'person', time: 'week' },
-			options: {
-				onSuccess: (data) => {
-					let people: PartialPerson[] = [];
-
-					data.pages.forEach((page) => {
-						people = [...people, ...(page?.results || [])];
-					});
-
-					setPeople({
-						page: data.pages[data.pages.length - 1].page,
-						results: uniqBy([...people], 'id'),
-						total_pages: data.pages[data.pages.length - 1].total_pages,
-						total_results: data.pages[data.pages.length - 1].total_results
-					});
-				}
-			}
-		});
+	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
 		<QueryEmpty color={color} colorMode={colorMode}>
@@ -176,4 +154,4 @@ const TrendingPeople: FC = () => {
 	);
 };
 
-export default TrendingPeople;
+export default TrendingPeopleTab;
