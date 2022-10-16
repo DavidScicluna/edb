@@ -1,14 +1,12 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
-import { range, uniqBy } from 'lodash';
+import { range } from 'lodash';
 
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-import { useTrendingInfiniteQuery } from '../../../../../common/queries';
-import { Response } from '../../../../../common/types';
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -28,9 +26,10 @@ import { formatMediaTypeLabel } from '../../../../../common/utils';
 import TVShowVerticalPoster from '../../../../TV/components/Posters/TVShowVerticalPoster';
 import TVShowHorizontalPoster from '../../../../TV/components/Posters/TVShowHorizontalPoster';
 import { PartialTV } from '../../../../../common/types/tv';
-import { UseTrendingInfiniteQueryResponse } from '../../../../../common/queries/useTrendingInfiniteQuery';
 
-const TrendingTV: FC = () => {
+import { TrendingTVTabProps } from './types';
+
+const TrendingTVTab: FC<TrendingTVTabProps> = ({ query, shows }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -38,28 +37,7 @@ const TrendingTV: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const [shows, setShows] = useState<UseTrendingInfiniteQueryResponse<'tv'>>();
-
-	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } =
-		useTrendingInfiniteQuery<'tv'>({
-			props: { mediaType: 'tv', time: 'week' },
-			options: {
-				onSuccess: (data) => {
-					let tvShows: PartialTV[] = [];
-
-					data.pages.forEach((page) => {
-						tvShows = [...tvShows, ...(page.results || [])];
-					});
-
-					setShows({
-						page: data.pages[data.pages.length - 1].page,
-						results: uniqBy([...tvShows], 'id'),
-						total_pages: data.pages[data.pages.length - 1].total_pages,
-						total_results: data.pages[data.pages.length - 1].total_results
-					});
-				}
-			}
-		});
+	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
 		<QueryEmpty color={color} colorMode={colorMode}>
@@ -176,4 +154,4 @@ const TrendingTV: FC = () => {
 	);
 };
 
-export default TrendingTV;
+export default TrendingTVTab;
