@@ -2,31 +2,42 @@ import { FC, useState, useCallback, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { TabsOnChangeProps, IconType, Tabs, TabList, TabPanels, Icon } from '@davidscicluna/component-library';
+import { TabsOnChangeProps, Tabs, TabList, TabPanels, Undefinable } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
 
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useDebounce, useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { uniqBy } from 'lodash';
 
 import Page from '../../../containers/Page';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import PageBody from '../../../containers/Page/components/PageBody';
 import { useUserTheme } from '../../../common/hooks';
-import { formatMediaType, formatMediaTypeLabel } from '../../../common/utils';
+import { formatMediaType, formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import { DisplayMode, Suspense } from '../../../components';
-import TrendingDummyMovies from '../components/TrendingDummyMovies';
-import TrendingDummyPeople from '../components/TrendingDummyPeople';
-import TrendingDummyTV from '../components/TrendingDummyTV';
+import TrendingDummyMoviesTab from '../components/TrendingDummyMoviesTab';
+import TrendingDummyPeopleTab from '../components/TrendingDummyPeopleTab';
+import TrendingDummyTVTab from '../components/TrendingDummyTVTab';
 import { getActiveTabFromHash } from '../common/utils';
+import useTrendingInfiniteQuery, {
+	UseTrendingInfiniteQueryResponse
+} from '../../../common/queries/useTrendingInfiniteQuery';
+import { PartialMovie } from '../../../common/types/movie';
+import { PartialTV } from '../../../common/types/tv';
+import { PartialPerson } from '../../../common/types/person';
+import TrendingDummyAllTab from '../components/TrendingDummyAllTab';
+import TrendingTabIcon from '../components/TrendingTabIcon';
 
-import { TrendingMediaType, TrendingMediaTypes } from './types';
+import { TrendingMediaTypes } from './types';
+import { getMediaTypeIndex } from './common/utils';
 
-const TrendingMovies = lazy(() => import('./components/TrendingMovies'));
-const TrendingPeople = lazy(() => import('./components/TrendingPeople'));
-const TrendingTV = lazy(() => import('./components/TrendingTV'));
+const TrendingAllTab = lazy(() => import('./components/TrendingAllTab'));
+const TrendingMoviesTab = lazy(() => import('./components/TrendingMoviesTab'));
+const TrendingPeopleTab = lazy(() => import('./components/TrendingPeopleTab'));
+const TrendingTVTab = lazy(() => import('./components/TrendingTVTab'));
 
-const mediaTypes: TrendingMediaTypes = ['movie', 'tv', 'person'];
+export const trendingMediaTypes: TrendingMediaTypes = ['movie', 'tv', 'person'];
 
 const Trending: FC = () => {
 	const { color, colorMode } = useUserTheme();
@@ -37,53 +48,135 @@ const Trending: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	const [activeTab, setActiveTab] = useState<number>(0);
+	const activeTabDebounced = useDebounce<number>(activeTab, 250);
+
+	const [movies, setMovies] = useState<UseTrendingInfiniteQueryResponse<'movie'>>();
+	const moviesDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'movie'>>>(movies, 500);
+
+	const [shows, setShows] = useState<UseTrendingInfiniteQueryResponse<'tv'>>();
+	const showsDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'tv'>>>(shows, 500);
+
+	const [people, setPeople] = useState<UseTrendingInfiniteQueryResponse<'person'>>();
+	const peopleDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'person'>>>(people, 500);
+
+	const trendingMoviesInfiniteQuery = useTrendingInfiniteQuery<'movie'>({
+		props: { mediaType: 'movie', time: 'week' },
+		options: {
+			onSuccess: (data) => {
+				let movies: PartialMovie[] = [];
+
+				data.pages.forEach((page) => {
+					movies = [...movies, ...(page?.results || [])];
+				});
+
+				setMovies({
+					page: data.pages[data.pages.length - 1].page,
+					results: uniqBy([...movies], 'id'),
+					total_pages: data.pages[data.pages.length - 1].total_pages,
+					total_results: data.pages[data.pages.length - 1].total_results
+				});
+			}
+		}
+	});
+
+	const { isError: isTrendingMoviesError } = trendingMoviesInfiniteQuery;
+
+	const trendingTVShowsInfiniteQuery = useTrendingInfiniteQuery<'tv'>({
+		props: { mediaType: 'tv', time: 'week' },
+		options: {
+			onSuccess: (data) => {
+				let tvShows: PartialTV[] = [];
+
+				data.pages.forEach((page) => {
+					tvShows = [...tvShows, ...(page.results || [])];
+				});
+
+				setShows({
+					page: data.pages[data.pages.length - 1].page,
+					results: uniqBy([...tvShows], 'id'),
+					total_pages: data.pages[data.pages.length - 1].total_pages,
+					total_results: data.pages[data.pages.length - 1].total_results
+				});
+			}
+		}
+	});
+
+	const { isError: isTrendingTVShowsError } = trendingTVShowsInfiniteQuery;
+
+	const trendingPeopleInfiniteQuery = useTrendingInfiniteQuery<'person'>({
+		props: { mediaType: 'person', time: 'week' },
+		options: {
+			onSuccess: (data) => {
+				let people: PartialPerson[] = [];
+
+				data.pages.forEach((page) => {
+					people = [...people, ...(page?.results || [])];
+				});
+
+				setPeople({
+					page: data.pages[data.pages.length - 1].page,
+					results: uniqBy([...people], 'id'),
+					total_pages: data.pages[data.pages.length - 1].total_pages,
+					total_results: data.pages[data.pages.length - 1].total_results
+				});
+			}
+		}
+	});
+
+	const { isError: isTrendingPeopleError } = trendingPeopleInfiniteQuery;
 
 	const handleTitle = useCallback((): string => {
-		const activeMediaType = formatMediaTypeLabel({
-			type: 'multiple',
-			mediaType: mediaTypes[activeTab]
-		});
+		if (activeTab > 0) {
+			const activeMediaType = formatMediaTypeLabel({
+				type: 'multiple',
+				mediaType: trendingMediaTypes[activeTabDebounced - 1]
+			});
 
-		return `Trending ${activeMediaType}`;
-	}, [mediaTypes, activeTab]);
+			return `Trending ${activeMediaType}`;
+		} else {
+			return 'Trending';
+		}
+	}, [trendingMediaTypes, activeTabDebounced]);
 
 	const handleSubtitle = useCallback((): string => {
-		const activeMediaType = formatMediaTypeLabel({
-			type: 'multiple',
-			mediaType: mediaTypes[activeTab]
-		});
+		if (activeTab > 0) {
+			const activeMediaType = formatMediaTypeLabel({
+				type: 'multiple',
+				mediaType: trendingMediaTypes[activeTabDebounced - 1]
+			});
 
-		return `A list containing the most trending ${activeMediaType} this week.`;
-	}, [mediaTypes, activeTab]);
-
-	const handleGetMediaTypeIcon = useCallback(
-		(mediaType: TrendingMediaType): IconType => {
-			switch (mediaType) {
-				case 'movie':
-					return 'theaters';
-				case 'tv':
-					return 'live_tv';
-				case 'person':
-					return 'people_alt';
-			}
-		},
-		[mediaTypes, activeTab]
-	);
+			return `A list containing the most trending ${activeMediaType} this week.`;
+		} else {
+			return `A list containing the most trending ${formatMediaTypeLabel({
+				type: 'multiple',
+				mediaType: 'movie'
+			})}, ${formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })} & ${formatMediaTypeLabel({
+				type: 'multiple',
+				mediaType: 'person'
+			})} this week`;
+		}
+	}, [trendingMediaTypes, activeTabDebounced]);
 
 	const handleTabChange = useCallback(
 		({ index }: TabsOnChangeProps): void => {
-			const activeMediaType = formatMediaType({ mediaType: mediaTypes[index] });
+			window.scrollTo(0, 0);
 
-			navigate({ ...location, hash: activeMediaType });
+			if (index > 0) {
+				const activeMediaType = formatMediaType({ mediaType: trendingMediaTypes[index - 1] });
+
+				navigate({ ...location, hash: activeMediaType });
+			} else {
+				setActiveTab(0);
+			}
 		},
-		[mediaTypes, location]
+		[window, trendingMediaTypes, location]
 	);
 
 	const handleSetActiveTab = useCallback((): void => {
 		setActiveTab(getActiveTabFromHash({ location }) || 0);
 	}, [location]);
 
-	useEffectOnce(() => (location.hash.length > 0 ? handleSetActiveTab() : handleTabChange({ index: 0 })));
+	useEffectOnce(() => (location.hash.length > 0 ? handleSetActiveTab() : undefined));
 
 	useUpdateEffect(() => handleSetActiveTab(), [location.hash]);
 
@@ -92,7 +185,7 @@ const Trending: FC = () => {
 			<PageHeader
 				renderTitle={(props) => <Text {...props}>{handleTitle()}</Text>}
 				renderSubtitle={(props) => <Text {...props}>{handleSubtitle()}</Text>}
-				actions={<DisplayMode />}
+				actions={activeTabDebounced !== 0 ? <DisplayMode /> : undefined}
 				direction='row'
 				p={spacing}
 			/>
@@ -101,41 +194,90 @@ const Trending: FC = () => {
 					width='100%'
 					color={color}
 					colorMode={colorMode}
-					activeTab={activeTab}
+					activeTab={activeTabDebounced}
 					onChange={handleTabChange}
 					size='lg'
 				>
 					<VStack width='100%' spacing={spacing}>
 						<TabList
-							tabs={mediaTypes.map((mediaType, index) => {
-								return {
-									label: formatMediaTypeLabel({ type: 'multiple', mediaType }),
-									renderLeft: ({ color, colorMode, height }) => (
-										<Icon
-											width={`${height}px`}
-											height={`${height}px`}
-											fontSize={`${height}px`}
-											colorMode={colorMode}
-											icon={handleGetMediaTypeIcon(mediaType)}
-											category={activeTab === index ? 'filled' : 'outlined'}
-											skeletonColor={color}
+							tabs={[
+								{ label: 'All' },
+
+								{
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
+									isDisabled: isTrendingMoviesError || (movies?.total_results || 0) === 0,
+									renderLeft: (props) => (
+										<TrendingTabIcon
+											{...props}
+											icon={getMediaTypeIcon({ mediaType: 'movie' })}
+											category={
+												activeTabDebounced === getMediaTypeIndex({ mediaType: 'movie' })
+													? 'filled'
+													: 'outlined'
+											}
 										/>
 									)
-								};
-							})}
+								},
+
+								{
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
+									isDisabled: isTrendingTVShowsError || (shows?.total_results || 0) === 0,
+									renderLeft: (props) => (
+										<TrendingTabIcon
+											{...props}
+											icon={getMediaTypeIcon({ mediaType: 'tv' })}
+											category={
+												activeTabDebounced === getMediaTypeIndex({ mediaType: 'tv' })
+													? 'filled'
+													: 'outlined'
+											}
+										/>
+									)
+								},
+
+								{
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
+									isDisabled: isTrendingPeopleError || (people?.total_results || 0) === 0,
+									renderLeft: (props) => (
+										<TrendingTabIcon
+											{...props}
+											icon={getMediaTypeIcon({ mediaType: 'person' })}
+											category={
+												activeTabDebounced === getMediaTypeIndex({ mediaType: 'person' })
+													? 'filled'
+													: 'outlined'
+											}
+										/>
+									)
+								}
+							]}
 						/>
 
 						<TabPanels>
-							<Suspense fallback={<TrendingDummyMovies />}>
-								<TrendingMovies />
+							<Suspense fallback={<TrendingDummyAllTab />}>
+								<TrendingAllTab
+									moviesInfiniteQuery={trendingMoviesInfiniteQuery}
+									movies={moviesDebounced}
+									tvShowsInfiniteQuery={trendingTVShowsInfiniteQuery}
+									shows={showsDebounced}
+									peopleInfiniteQuery={trendingPeopleInfiniteQuery}
+									people={peopleDebounced}
+									onTabChange={({ mediaType }) =>
+										handleTabChange({ index: getMediaTypeIndex({ mediaType }) })
+									}
+								/>
 							</Suspense>
 
-							<Suspense fallback={<TrendingDummyTV />}>
-								<TrendingTV />
+							<Suspense fallback={<TrendingDummyMoviesTab />}>
+								<TrendingMoviesTab query={trendingMoviesInfiniteQuery} movies={moviesDebounced} />
 							</Suspense>
 
-							<Suspense fallback={<TrendingDummyPeople />}>
-								<TrendingPeople />
+							<Suspense fallback={<TrendingDummyPeopleTab />}>
+								<TrendingTVTab query={trendingTVShowsInfiniteQuery} shows={showsDebounced} />
+							</Suspense>
+
+							<Suspense fallback={<TrendingDummyTVTab />}>
+								<TrendingPeopleTab query={trendingPeopleInfiniteQuery} people={peopleDebounced} />
 							</Suspense>
 						</TabPanels>
 					</VStack>
