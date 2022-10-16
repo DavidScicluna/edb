@@ -1,5 +1,3 @@
-import { Space, CardBodyProps, HorizontalScrollProps } from '@davidscicluna/component-library';
+import { CardBodyProps } from '@davidscicluna/component-library';
 
-export type HorizontalGridBodyProps = Omit<CardBodyProps, 'children'> & {
-	spacing?: Space;
-} & Pick<HorizontalScrollProps, 'children'>;
+export type HorizontalGridBodyProps = CardBodyProps;
