@@ -1,14 +1,12 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
-import { range, uniqBy } from 'lodash';
+import { range } from 'lodash';
 
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-import { useTrendingInfiniteQuery } from '../../../../../common/queries';
-import { Response } from '../../../../../common/types';
 import { PartialMovie } from '../../../../../common/types/movie';
 import {
 	QueryEmpty,
@@ -28,9 +26,10 @@ import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/ut
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import MovieVerticalPoster from '../../../../Movies/components/Posters/MovieVerticalPoster';
 import MovieHorizontalPoster from '../../../../Movies/components/Posters/MovieHorizontalPoster';
-import { UseTrendingInfiniteQueryResponse } from '../../../../../common/queries/useTrendingInfiniteQuery';
 
-const TrendingMovies: FC = () => {
+import { TrendingMoviesTabProps } from './types';
+
+const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query, movies }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -38,28 +37,7 @@ const TrendingMovies: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const [movies, setMovies] = useState<UseTrendingInfiniteQueryResponse<'movie'>>();
-
-	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } =
-		useTrendingInfiniteQuery<'movie'>({
-			props: { mediaType: 'movie', time: 'week' },
-			options: {
-				onSuccess: (data) => {
-					let movies: PartialMovie[] = [];
-
-					data.pages.forEach((page) => {
-						movies = [...movies, ...(page?.results || [])];
-					});
-
-					setMovies({
-						page: data.pages[data.pages.length - 1].page,
-						results: uniqBy([...movies], 'id'),
-						total_pages: data.pages[data.pages.length - 1].total_pages,
-						total_results: data.pages[data.pages.length - 1].total_results
-					});
-				}
-			}
-		});
+	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
 		<QueryEmpty color={color} colorMode={colorMode}>
@@ -176,4 +154,4 @@ const TrendingMovies: FC = () => {
 	);
 };
 
-export default TrendingMovies;
+export default TrendingMoviesTab;
