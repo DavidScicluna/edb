@@ -39,9 +39,9 @@ const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, arrowPro
 	useEffect(() => {
 		if (visibleItemsWithoutSeparators.length) {
 			if (!initComplete || (initComplete && isFirstItemVisible)) {
-				setIsLeftArrowDisabled.off();
-			} else {
 				setIsLeftArrowDisabled.on();
+			} else {
+				setIsLeftArrowDisabled.off();
 			}
 		}
 	}, [initComplete, visibleItemsWithoutSeparators, isFirstItemVisible]);
@@ -49,9 +49,9 @@ const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, arrowPro
 	useEffect(() => {
 		if (visibleItemsWithoutSeparators.length) {
 			if (isLastItemVisible) {
-				setIsRightArrowDisabled.off();
-			} else {
 				setIsRightArrowDisabled.on();
+			} else {
+				setIsRightArrowDisabled.off();
 			}
 		}
 	}, [visibleItemsWithoutSeparators, isLastItemVisible]);
