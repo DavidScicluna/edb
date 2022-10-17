@@ -64,7 +64,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 				<VStack
 					width={isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + 48 : 0}px)`}
 					alignItems='flex-start'
-					spacing={0.5}
+					spacing={0}
 				>
 					<Breadcrumbs />
 
@@ -73,9 +73,8 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 						renderTitle({
 							align: 'left',
 							color: getColor({ theme, colorMode, type: 'text.primary' }),
-							fontSize: ['xl', '2xl', '3xl', '3xl', '4xl', '4xl'],
+							fontSize: ['3xl', '3xl', '4xl', '4xl', '5xl', '5xl'],
 							fontWeight: 'bold',
-							lineHeight: 'normal',
 							noOfLines: 1
 						})}
 
@@ -85,7 +84,6 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 							align: 'left',
 							color: getColor({ theme, colorMode, type: 'text.secondary' }),
 							fontSize: ['xs', 'xs', 'sm', 'sm', 'sm', 'sm'],
-							lineHeight: 'normal',
 							noOfLines: 1
 						})}
 				</VStack>

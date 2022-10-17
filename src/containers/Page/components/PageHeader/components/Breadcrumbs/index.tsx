@@ -20,7 +20,7 @@ const Breadcrumbs: FC = () => {
 	useTimeout(() => setBreadcrumbs(getBreadcrumbs), 2500);
 
 	return (
-		<CUIBreadcrumb separator={<Separator />} spacing={2}>
+		<CUIBreadcrumb separator={<Separator />} spacing={1}>
 			{debouncedBreadcrumbs && debouncedBreadcrumbs.length > 0
 				? debouncedBreadcrumbs.map((breadcrumb, index) => (
 						<BreadcrumbItem key={index} isCurrentPage={index === debouncedBreadcrumbs.length - 1}>
