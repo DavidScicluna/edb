@@ -26,6 +26,8 @@ export const keywordsInfiniteQueryKey = memoize(
 
 export const languagesQueryKey: QueryKey = ['languages'];
 
+export const peopleInfiniteQueryKey: QueryKey = ['people'];
+
 export const popularQueryKey = memoize(({ mediaType }: UsePopularQueryProps): QueryKey => [`popular_${mediaType}`]);
 
 export const searchInfiniteQueryKey = memoize(
