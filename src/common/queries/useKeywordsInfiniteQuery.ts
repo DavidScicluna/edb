@@ -1,6 +1,12 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseInfiniteQueryResult, UseInfiniteQueryOptions, QueryKey, useInfiniteQuery } from '@tanstack/react-query';
+import {
+	UseInfiniteQueryResult,
+	UseInfiniteQueryOptions,
+	QueryKey,
+	useQueryClient,
+	useInfiniteQuery
+} from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -9,9 +15,9 @@ import { keywordsInfiniteQueryKey } from '../keys';
 import axiosInstance from '../scripts/axios';
 import { AxiosConfig, Keyword, QueryError, Response } from '../types';
 
-export type UseKeywordsInfiniteQueryResponse = Response<Keyword[]>;
-
 export type UseKeywordsInfiniteQueryProps = { query: string };
+
+export type UseKeywordsInfiniteQueryResponse = Response<Keyword[]>;
 
 export type UseKeywordsInfiniteQueryOptions = Omit<
 	UseInfiniteQueryOptions<UseKeywordsInfiniteQueryResponse, AxiosError<QueryError>>,
@@ -34,19 +40,18 @@ const useKeywordsInfiniteQuery = ({
 	config = {},
 	options = {}
 }: UseKeywordsInfiniteQueryParams): UseKeywordsInfiniteQueryResult => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(keywordsInfiniteQueryKey({ query }));
 
+	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseKeywordsInfiniteQueryResponse, AxiosError<QueryError>>(
 		key,
-		async ({ pageParam = 1 }) => {
+		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UseKeywordsInfiniteQueryResponse>('/search/keyword', {
 				...config,
 				params: { ...config.params, query, page: pageParam || 1 },
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -72,7 +77,7 @@ const useKeywordsInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

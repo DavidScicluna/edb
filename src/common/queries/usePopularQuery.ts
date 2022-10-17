@@ -1,6 +1,6 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, QueryKey, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -13,11 +13,11 @@ import { PartialTV } from '../types/tv';
 
 export type UsePopularQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
+export type UsePopularQueryProps = { mediaType: UsePopularQueryMediaType };
+
 export type UsePopularQueryResponse<MT extends UsePopularQueryMediaType> = Response<
 	MT extends 'movie' ? PartialMovie[] : PartialTV[]
 >;
-
-export type UsePopularQueryProps = { mediaType: UsePopularQueryMediaType };
 
 export type UsePopularQueryOptions<MT extends UsePopularQueryMediaType> = UseQueryOptions<
 	UsePopularQueryResponse<MT>,
@@ -40,18 +40,17 @@ const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 	config = {},
 	options = {}
 }: UsePopularQueryParams<MT>): UsePopularQueryResult<MT> => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(popularQueryKey({ mediaType }));
 
+	const client = useQueryClient();
 	const query = useQuery<UsePopularQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
-		async () => {
+		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UsePopularQueryResponse<MT>>(`/${mediaType}/popular`, {
 				...config,
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -71,7 +70,7 @@ const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

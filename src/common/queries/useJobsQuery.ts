@@ -1,6 +1,8 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
-import { UseQueryResult, UseQueryOptions, useQuery } from '@tanstack/react-query';
+import { useConst } from '@chakra-ui/react';
+
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -9,9 +11,11 @@ import { jobsQueryKey } from '../keys';
 import axiosInstance from '../scripts/axios';
 import { AxiosConfig, Job, QueryError } from '../types';
 
-export type UseJobsQueryOptions = UseQueryOptions<Job[], AxiosError<QueryError>>;
+export type UseJobsQueryResponse = Job[];
 
-export type UseJobsQueryResult = UseQueryResult<Job[], AxiosError<QueryError>>;
+export type UseJobsQueryOptions = UseQueryOptions<UseJobsQueryResponse, AxiosError<QueryError>>;
+
+export type UseJobsQueryResult = UseQueryResult<UseJobsQueryResponse, AxiosError<QueryError>>;
 
 type UseJobsQueryParams = Undefinable<{
 	config?: AxiosConfig;
@@ -19,16 +23,17 @@ type UseJobsQueryParams = Undefinable<{
 }>;
 
 const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): UseJobsQueryResult => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
-	const query = useQuery<Job[], AxiosError<QueryError>>(
-		jobsQueryKey,
-		async () => {
-			const { data } = await axiosInstance.get<Job[]>('/configuration/jobs', {
+	const key = useConst<QueryKey>(jobsQueryKey);
+
+	const client = useQueryClient();
+	const query = useQuery<UseJobsQueryResponse, AxiosError<QueryError>>(
+		key,
+		async ({ signal }) => {
+			const { data } = await axiosInstance.get<UseJobsQueryResponse>('/configuration/jobs', {
 				...config,
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -47,7 +52,7 @@ const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): U
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

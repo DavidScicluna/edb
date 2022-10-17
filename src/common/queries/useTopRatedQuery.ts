@@ -1,6 +1,6 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, QueryKey, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -13,11 +13,11 @@ import { PartialTV } from '../types/tv';
 
 export type UseTopRatedQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
+export type UseTopRatedQueryProps = { mediaType: UseTopRatedQueryMediaType };
+
 export type UseTopRatedQueryResponse<MT extends UseTopRatedQueryMediaType> = Response<
 	MT extends 'movie' ? PartialMovie[] : PartialTV[]
 >;
-
-export type UseTopRatedQueryProps = { mediaType: UseTopRatedQueryMediaType };
 
 export type UseTopRatedQueryOptions<MT extends UseTopRatedQueryMediaType> = UseQueryOptions<
 	UseTopRatedQueryResponse<MT>,
@@ -40,18 +40,17 @@ const useTopRatedQuery = <MT extends UseTopRatedQueryMediaType>({
 	config = {},
 	options = {}
 }: UseTopRatedQueryParams<MT>): UseTopRatedQueryResult<MT> => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(topRatedQueryKey({ mediaType }));
 
+	const client = useQueryClient();
 	const query = useQuery<UseTopRatedQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
-		async () => {
+		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UseTopRatedQueryResponse<MT>>(`/${mediaType}/top_rated`, {
 				...config,
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -71,7 +70,7 @@ const useTopRatedQuery = <MT extends UseTopRatedQueryMediaType>({
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

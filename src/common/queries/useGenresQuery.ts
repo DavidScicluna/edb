@@ -1,6 +1,6 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, QueryKey, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -11,9 +11,11 @@ import { AxiosConfig, Genres, MediaType, QueryError } from '../types';
 
 export type UseGenresQueryProps = { mediaType: Exclude<MediaType, 'person' | 'company' | 'collection'> };
 
-export type UseGenresQueryOptions = UseQueryOptions<Genres, AxiosError<QueryError>>;
+export type UseGenresQueryResponse = Genres;
 
-export type UseGenresQueryResult = UseQueryResult<Genres, AxiosError<QueryError>>;
+export type UseGenresQueryOptions = UseQueryOptions<UseGenresQueryResponse, AxiosError<QueryError>>;
+
+export type UseGenresQueryResult = UseQueryResult<UseGenresQueryResponse, AxiosError<QueryError>>;
 
 type UseGenresQueryParams = {
 	props: UseGenresQueryProps;
@@ -26,18 +28,17 @@ const useGenresQuery = ({
 	config = {},
 	options = {}
 }: UseGenresQueryParams): UseGenresQueryResult => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(genresQueryKey({ mediaType }));
 
-	const query = useQuery<Genres, AxiosError<QueryError>>(
+	const client = useQueryClient();
+	const query = useQuery<UseGenresQueryResponse, AxiosError<QueryError>>(
 		key,
-		async () => {
-			const { data } = await axiosInstance.get<Genres>(`/genre/${mediaType}/list`, {
+		async ({ signal }) => {
+			const { data } = await axiosInstance.get<UseGenresQueryResponse>(`/genre/${mediaType}/list`, {
 				...config,
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -57,7 +58,7 @@ const useGenresQuery = ({
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

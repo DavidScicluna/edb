@@ -1,6 +1,12 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseInfiniteQueryResult, UseInfiniteQueryOptions, QueryKey, useInfiniteQuery } from '@tanstack/react-query';
+import {
+	UseInfiniteQueryResult,
+	UseInfiniteQueryOptions,
+	QueryKey,
+	useQueryClient,
+	useInfiniteQuery
+} from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -13,11 +19,11 @@ import { PartialTV } from '../types/tv';
 
 export type UseTrendingInfiniteQueryMediaType = Exclude<MediaType, 'company' | 'collection'>;
 
+export type UseTrendingInfiniteQueryProps = { mediaType: UseTrendingInfiniteQueryMediaType; time: 'day' | 'week' };
+
 export type UseTrendingInfiniteQueryResponse<MT extends UseTrendingInfiniteQueryMediaType> = Response<
 	MT extends 'movie' ? PartialMovie[] : PartialTV[]
 >;
-
-export type UseTrendingInfiniteQueryProps = { mediaType: UseTrendingInfiniteQueryMediaType; time: 'day' | 'week' };
 
 export type UseTrendingInfiniteQueryOptions<MT extends UseTrendingInfiniteQueryMediaType> = Omit<
 	UseInfiniteQueryOptions<UseTrendingInfiniteQueryResponse<MT>, AxiosError<QueryError>>,
@@ -40,21 +46,20 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 	config = {},
 	options = {}
 }: UseTrendingInfiniteQueryParams<MT>): UseTrendingInfiniteQueryResult<MT> => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(trendingInfiniteQueryKey({ mediaType, time }));
 
+	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseTrendingInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
-		async ({ pageParam = 1 }) => {
+		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UseTrendingInfiniteQueryResponse<MT>>(
 				`/trending/${mediaType}/${time}`,
 				{
 					...config,
 					params: { ...config.params, page: pageParam || 1 },
-					signal: controller.signal
+					signal
 				}
 			);
 			return data;
@@ -81,7 +86,7 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

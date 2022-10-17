@@ -1,6 +1,8 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
-import { UseQueryResult, UseQueryOptions, useQuery } from '@tanstack/react-query';
+import { useConst } from '@chakra-ui/react';
+
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -9,9 +11,11 @@ import { countriesQueryKey } from '../keys';
 import axiosInstance from '../scripts/axios';
 import { AxiosConfig, Country, QueryError } from '../types';
 
-export type UseCountriesQueryOptions = UseQueryOptions<Country[], AxiosError<QueryError>>;
+export type UseCountriesQueryResponse = Country[];
 
-export type UseCountriesQueryResult = UseQueryResult<Country[], AxiosError<QueryError>>;
+export type UseCountriesQueryOptions = UseQueryOptions<UseCountriesQueryResponse, AxiosError<QueryError>>;
+
+export type UseCountriesQueryResult = UseQueryResult<UseCountriesQueryResponse, AxiosError<QueryError>>;
 
 type UseCountriesQueryParams = Undefinable<{
 	config?: AxiosConfig;
@@ -19,16 +23,17 @@ type UseCountriesQueryParams = Undefinable<{
 }>;
 
 const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParams = {}): UseCountriesQueryResult => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
-	const query = useQuery<Country[], AxiosError<QueryError>>(
-		countriesQueryKey,
-		async () => {
-			const { data } = await axiosInstance.get<Country[]>('/configuration/countries', {
+	const key = useConst<QueryKey>(countriesQueryKey);
+
+	const client = useQueryClient();
+	const query = useQuery<UseCountriesQueryResponse, AxiosError<QueryError>>(
+		key,
+		async ({ signal }) => {
+			const { data } = await axiosInstance.get<UseCountriesQueryResponse>('/configuration/countries', {
 				...config,
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -47,7 +52,7 @@ const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParam
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

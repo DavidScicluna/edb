@@ -1,6 +1,12 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseInfiniteQueryResult, UseInfiniteQueryOptions, QueryKey, useInfiniteQuery } from '@tanstack/react-query';
+import {
+	UseInfiniteQueryResult,
+	UseInfiniteQueryOptions,
+	QueryKey,
+	useQueryClient,
+	useInfiniteQuery
+} from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -11,6 +17,8 @@ import { AxiosConfig, MediaType, PartialCompany, QueryError, Response } from '..
 import { Collection, PartialMovie } from '../types/movie';
 import { PartialPerson } from '../types/person';
 import { PartialTV } from '../types/tv';
+
+export type UseSearchInfiniteQueryProps = { mediaType: MediaType; query: string };
 
 export type UseSearchInfiniteQueryResponse<MT extends MediaType> = Response<
 	MT extends 'movie'
@@ -23,8 +31,6 @@ export type UseSearchInfiniteQueryResponse<MT extends MediaType> = Response<
 		? PartialCompany[]
 		: Collection[]
 >;
-
-export type UseSearchInfiniteQueryProps = { mediaType: MediaType; query: string };
 
 export type UseSearchInfiniteQueryOptions<MT extends MediaType> = Omit<
 	UseInfiniteQueryOptions<UseSearchInfiniteQueryResponse<MT>, AxiosError<QueryError>>,
@@ -47,19 +53,18 @@ const useSearchInfiniteQuery = <MT extends MediaType>({
 	config = {},
 	options = {}
 }: UseSearchInfiniteQueryParams<MT>): UseSearchInfiniteQueryResult<MT> => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(searchInfiniteQueryKey({ mediaType, query }));
 
+	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseSearchInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
-		async ({ pageParam = 1 }) => {
+		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UseSearchInfiniteQueryResponse<MT>>(`/search/${mediaType}`, {
 				...config,
 				params: { ...config.params, query, page: pageParam || 1 },
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -85,7 +90,7 @@ const useSearchInfiniteQuery = <MT extends MediaType>({
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

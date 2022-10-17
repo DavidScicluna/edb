@@ -1,6 +1,12 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseInfiniteQueryResult, UseInfiniteQueryOptions, QueryKey, useInfiniteQuery } from '@tanstack/react-query';
+import {
+	UseInfiniteQueryResult,
+	UseInfiniteQueryOptions,
+	QueryKey,
+	useQueryClient,
+	useInfiniteQuery
+} from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -31,19 +37,18 @@ const usePeopleInfiniteQuery = ({
 	config = {},
 	options = {}
 }: UsePeopleInfiniteQueryParams): UsePeopleInfiniteQueryResult => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(peopleInfiniteQueryKey);
 
+	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UsePeopleInfiniteQueryResponse, AxiosError<QueryError>>(
 		key,
-		async ({ pageParam = 1 }) => {
+		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UsePeopleInfiniteQueryResponse>('/person/popular', {
 				...config,
 				params: { ...config.params, page: pageParam || 1 },
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -69,7 +74,7 @@ const usePeopleInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

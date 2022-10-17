@@ -1,6 +1,6 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, QueryKey, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -11,9 +11,11 @@ import { AxiosConfig, Certifications, MediaType, QueryError } from '../types';
 
 export type UseCertificationsQueryProps = { mediaType: Exclude<MediaType, 'person' | 'company' | 'collection'> };
 
-export type UseCertificationsQueryOptions = UseQueryOptions<Certifications, AxiosError<QueryError>>;
+export type UseCertificationsQueryResponse = Certifications;
 
-export type UseCertificationsQueryResult = UseQueryResult<Certifications, AxiosError<QueryError>>;
+export type UseCertificationsQueryOptions = UseQueryOptions<UseCertificationsQueryResponse, AxiosError<QueryError>>;
+
+export type UseCertificationsQueryResult = UseQueryResult<UseCertificationsQueryResponse, AxiosError<QueryError>>;
 
 type UseCertificationsQueryParams = {
 	props: UseCertificationsQueryProps;
@@ -26,19 +28,21 @@ const useCertificationsQuery = ({
 	config = {},
 	options = {}
 }: UseCertificationsQueryParams): UseCertificationsQueryResult => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(certificationsQueryKey({ mediaType }));
 
-	const query = useQuery<Certifications, AxiosError<QueryError>>(
+	const client = useQueryClient();
+	const query = useQuery<UseCertificationsQueryResponse, AxiosError<QueryError>>(
 		key,
-		async () => {
-			const { data } = await axiosInstance.get<Certifications>(`/certification/${mediaType}/list`, {
-				...config,
-				signal: controller.signal
-			});
+		async ({ signal }) => {
+			const { data } = await axiosInstance.get<UseCertificationsQueryResponse>(
+				`/certification/${mediaType}/list`,
+				{
+					...config,
+					signal
+				}
+			);
 			return data;
 		},
 		{
@@ -57,7 +61,7 @@ const useCertificationsQuery = ({
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

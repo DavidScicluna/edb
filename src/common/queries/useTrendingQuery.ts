@@ -1,6 +1,6 @@
 import { useConst } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, QueryKey, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
@@ -13,11 +13,11 @@ import { PartialTV } from '../types/tv';
 
 export type UseTrendingQueryMediaType = Exclude<MediaType, 'company' | 'collection'>;
 
+export type UseTrendingQueryProps = { mediaType: UseTrendingQueryMediaType; time: 'day' | 'week' };
+
 export type UseTrendingQueryResponse<MT extends UseTrendingQueryMediaType> = Response<
 	MT extends 'movie' ? PartialMovie[] : PartialTV[]
 >;
-
-export type UseTrendingQueryProps = { mediaType: UseTrendingQueryMediaType; time: 'day' | 'week' };
 
 export type UseTrendingQueryOptions<MT extends UseTrendingQueryMediaType> = UseQueryOptions<
 	UseTrendingQueryResponse<MT>,
@@ -40,18 +40,17 @@ const useTrendingQuery = <MT extends UseTrendingQueryMediaType>({
 	config = {},
 	options = {}
 }: UseTrendingQueryParams<MT>): UseTrendingQueryResult<MT> => {
-	const controller = new AbortController();
-
 	// const toast = useToast();
 
 	const key = useConst<QueryKey>(trendingQueryKey({ mediaType, time }));
 
+	const client = useQueryClient();
 	const query = useQuery<UseTrendingQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
-		async () => {
+		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UseTrendingQueryResponse<MT>>(`/trending/${mediaType}/${time}`, {
 				...config,
-				signal: controller.signal
+				signal
 			});
 			return data;
 		},
@@ -71,7 +70,7 @@ const useTrendingQuery = <MT extends UseTrendingQueryMediaType>({
 		}
 	);
 
-	useWillUnmount(() => controller.abort());
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };
