@@ -6,6 +6,8 @@ import { Tabs, DummyTabList, TabPanels, Skeleton } from '@davidscicluna/componen
 
 import { VStack, Text } from '@chakra-ui/react';
 
+import { useDebounce } from 'usehooks-ts';
+
 import Page from '../../../containers/Page';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import PageBody from '../../../containers/Page/components/PageBody';
@@ -27,7 +29,8 @@ const DummyTrending: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const [activeTab, setActiveTab] = useState<number>(0);
+	const [activeTab, setActiveTab] = useState<number>(getActiveTabFromHash({ location }) || 0);
+	const activeTabDebounced = useDebounce<number>(activeTab, 250);
 
 	const handleSetActiveTab = useCallback((): void => {
 		setActiveTab(getActiveTabFromHash({ location }) || 0);
@@ -48,12 +51,12 @@ const DummyTrending: FC = () => {
 						<Text {...props}>A list containing the most trending media-type this week.</Text>
 					</Skeleton>
 				)}
-				actions={activeTab !== 0 ? <DummyDisplayMode /> : undefined}
+				actions={activeTabDebounced !== 0 ? <DummyDisplayMode /> : undefined}
 				direction='row'
 				p={spacing}
 			/>
 			<PageBody px={spacing} pb={spacing}>
-				<Tabs width='100%' activeTab={activeTab} color={color} colorMode={colorMode} size='xl'>
+				<Tabs width='100%' activeTab={activeTabDebounced} color={color} colorMode={colorMode} size='xl'>
 					<VStack width='100%' spacing={spacing}>
 						<DummyTabList
 							tabs={[
@@ -63,7 +66,7 @@ const DummyTrending: FC = () => {
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
 									renderLeft: (props) => (
 										<Skeleton
-											color={activeTab === 1 ? color : 'gray'}
+											color={activeTabDebounced === 1 ? color : 'gray'}
 											isLoaded={false}
 											variant='rectangle'
 										>
@@ -79,7 +82,7 @@ const DummyTrending: FC = () => {
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
 									renderLeft: (props) => (
 										<Skeleton
-											color={activeTab === 2 ? color : 'gray'}
+											color={activeTabDebounced === 2 ? color : 'gray'}
 											isLoaded={false}
 											variant='rectangle'
 										>
@@ -92,7 +95,7 @@ const DummyTrending: FC = () => {
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
 									renderLeft: (props) => (
 										<Skeleton
-											color={activeTab === 3 ? color : 'gray'}
+											color={activeTabDebounced === 3 ? color : 'gray'}
 											isLoaded={false}
 											variant='rectangle'
 										>

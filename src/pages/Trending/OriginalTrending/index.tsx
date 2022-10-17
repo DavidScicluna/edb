@@ -47,7 +47,7 @@ const Trending: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const [activeTab, setActiveTab] = useState<number>(0);
+	const [activeTab, setActiveTab] = useState<number>(getActiveTabFromHash({ location }) || 0);
 	const activeTabDebounced = useDebounce<number>(activeTab, 250);
 
 	const [movies, setMovies] = useState<UseTrendingInfiniteQueryResponse<'movie'>>();
