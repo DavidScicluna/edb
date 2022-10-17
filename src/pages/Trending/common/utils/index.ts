@@ -8,7 +8,7 @@ import { formatMediaType } from '../../../../common/utils';
 
 type GetActiveTabFromHashProps = { location: Location };
 
-type GetActiveTabFromHashReturn = Undefinable<1 | 2 | 3>;
+type GetActiveTabFromHashReturn = Undefinable<0 | 1 | 2 | 3>;
 
 export const getActiveTabFromHash = memoize(({ location }: GetActiveTabFromHashProps): GetActiveTabFromHashReturn => {
 	const hash = location.hash.replaceAll('#', '');
@@ -20,5 +20,7 @@ export const getActiveTabFromHash = memoize(({ location }: GetActiveTabFromHashP
 			return 2;
 		case formatMediaType({ mediaType: 'person' }):
 			return 3;
+		default:
+			return 0;
 	}
 });

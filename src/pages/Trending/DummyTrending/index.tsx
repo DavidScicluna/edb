@@ -62,7 +62,11 @@ const DummyTrending: FC = () => {
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
 									renderLeft: (props) => (
-										<Skeleton isLoaded={false} variant='rectangle'>
+										<Skeleton
+											color={activeTab === 1 ? color : 'gray'}
+											isLoaded={false}
+											variant='rectangle'
+										>
 											<TrendingTabIcon
 												{...props}
 												icon={getMediaTypeIcon({ mediaType: 'movie' })}
@@ -74,7 +78,11 @@ const DummyTrending: FC = () => {
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
 									renderLeft: (props) => (
-										<Skeleton isLoaded={false} variant='rectangle'>
+										<Skeleton
+											color={activeTab === 2 ? color : 'gray'}
+											isLoaded={false}
+											variant='rectangle'
+										>
 											<TrendingTabIcon {...props} icon={getMediaTypeIcon({ mediaType: 'tv' })} />
 										</Skeleton>
 									)
@@ -83,7 +91,11 @@ const DummyTrending: FC = () => {
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
 									renderLeft: (props) => (
-										<Skeleton isLoaded={false} variant='rectangle'>
+										<Skeleton
+											color={activeTab === 3 ? color : 'gray'}
+											isLoaded={false}
+											variant='rectangle'
+										>
 											<TrendingTabIcon
 												{...props}
 												icon={getMediaTypeIcon({ mediaType: 'person' })}

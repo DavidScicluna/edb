@@ -159,15 +159,15 @@ const Trending: FC = () => {
 
 	const handleTabChange = useCallback(
 		({ index }: TabsOnChangeProps): void => {
-			window.scrollTo(0, 0);
-
 			if (index > 0) {
 				const activeMediaType = formatMediaType({ mediaType: trendingMediaTypes[index - 1] });
 
 				navigate({ ...location, hash: activeMediaType });
 			} else {
-				setActiveTab(0);
+				navigate({ ...location, hash: '' });
 			}
+
+			setTimeout(() => window.scrollTo(0, 0), 1000);
 		},
 		[window, trendingMediaTypes, location]
 	);
@@ -272,11 +272,11 @@ const Trending: FC = () => {
 								<TrendingMoviesTab query={trendingMoviesInfiniteQuery} movies={moviesDebounced} />
 							</Suspense>
 
-							<Suspense fallback={<TrendingDummyPeopleTab />}>
+							<Suspense fallback={<TrendingDummyTVTab />}>
 								<TrendingTVTab query={trendingTVShowsInfiniteQuery} shows={showsDebounced} />
 							</Suspense>
 
-							<Suspense fallback={<TrendingDummyTVTab />}>
+							<Suspense fallback={<TrendingDummyPeopleTab />}>
 								<TrendingPeopleTab query={trendingPeopleInfiniteQuery} people={peopleDebounced} />
 							</Suspense>
 						</TabPanels>
