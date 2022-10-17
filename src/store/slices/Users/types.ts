@@ -32,7 +32,7 @@ export type UserInfo = {
 	prefers: UserInfoGenres;
 };
 
-export type UserSearchType = MediaType & string;
+export type UserSearchType = MediaType | string;
 
 export type UserSearch = {
 	id: string;

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { withReduxStateSync } from 'redux-state-sync';
 
 import app from './App';
 import modals from './Modals';
@@ -7,4 +8,4 @@ import users from './Users';
 
 const rootReducer = combineReducers({ app, modals, options, users });
 
-export default rootReducer;
+export default withReduxStateSync(rootReducer);
