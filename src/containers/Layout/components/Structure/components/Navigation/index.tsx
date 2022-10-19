@@ -2,43 +2,44 @@ import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { NavItemType, useTheme, SideNavigation, Skeleton, NavItem, Icon } from '@davidscicluna/component-library';
+import { useTheme, SideNavigation, Skeleton, NavItem, Icon } from '@davidscicluna/component-library';
 
 import useStyles from '../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../common/hooks';
+import { getMediaTypeIcon } from '../../../../../../common/utils';
 
-import { NavigationProps } from './types';
+import { NavItems, NavigationProps } from './types';
 
-const navItems: NavItemType[] = [
+const navItems: NavItems = [
 	{
 		title: 'Home',
 		path: { pathname: '/' },
-		renderLeftIcon: (props) => <Icon {...props} icon='home' />
+		icon: 'home'
 	},
 	{
 		title: 'Search',
 		path: { pathname: '/search' },
-		renderLeftIcon: (props) => <Icon {...props} icon='search' category='outlined' />
+		icon: 'search'
 	},
 	{
 		title: 'Trending',
 		path: { pathname: '/trending' },
-		renderLeftIcon: (props) => <Icon {...props} icon='whatshot' category='outlined' />
+		icon: 'whatshot'
 	},
 	{
 		title: 'Movies',
 		path: { pathname: '/movies' },
-		renderLeftIcon: (props) => <Icon {...props} icon='theaters' category='outlined' />
+		icon: getMediaTypeIcon({ mediaType: 'movie' })
 	},
 	{
 		title: 'TV Shows',
 		path: { pathname: '/tvshows' },
-		renderLeftIcon: (props) => <Icon {...props} icon='tv' category='outlined' />
+		icon: getMediaTypeIcon({ mediaType: 'tv' })
 	},
 	{
 		title: 'People',
 		path: { pathname: '/people' },
-		renderLeftIcon: (props) => <Icon {...props} icon='people_alt' category='outlined' />
+		icon: getMediaTypeIcon({ mediaType: 'person' })
 	}
 ];
 
@@ -61,6 +62,13 @@ const Navigation: FC<NavigationProps> = ({ isDummy = false }) => {
 						{...navItem}
 						isDisabled={isDummy}
 						isActive={!isDummy && !isUserThemeModalOpen && location.pathname === navItem.path.pathname}
+						renderLeftIcon={(props) => (
+							<Icon
+								{...props}
+								icon={navItem.icon}
+								category={location.pathname === navItem.path.pathname ? 'filled' : 'outlined'}
+							/>
+						)}
 					/>
 				</Skeleton>
 			))}
