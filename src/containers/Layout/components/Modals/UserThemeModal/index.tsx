@@ -21,6 +21,7 @@ import UserThemeCustomization from '../../../../../components/User/UserThemeCust
 import { useSelector, useUserTheme } from '../../../../../common/hooks';
 import { toggleSpinnerModal, toggleUserThemeModal } from '../../../../../store/slices/Modals';
 import { setUserTheme } from '../../../../../store/slices/Users';
+import { updateFavicon } from '../../../../../common/utils';
 
 import { Form } from './types';
 
@@ -55,6 +56,8 @@ const UserThemeModal: FC = () => {
 		dispatch(setUserTheme({ id, data: { color, colorMode } }));
 
 		reset({ color, colorMode });
+
+		updateFavicon({ color, colorMode: colorMode !== 'system' ? colorMode : getColorMode() });
 
 		if (dirtyFields.colorMode) {
 			if (colorMode !== 'system') {

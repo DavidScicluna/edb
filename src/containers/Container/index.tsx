@@ -15,12 +15,14 @@ import Splashscreen from '../Splashscreen';
 import Spinner from '../Spinner';
 import Router from '../Router';
 import { toggleSpinnerModal } from '../../store/slices/Modals';
+import { updateFavicon } from '../../common/utils';
 
 const Container: FC = () => {
-	const dispatch = useDispatch();
+	const { colorMode } = useUserTheme();
 
 	const isFirstRender = useIsFirstRender();
 
+	const dispatch = useDispatch();
 	const activeUser = useSelector((state) => state.users.data.activeUser);
 	const isSpinnerModalOpen = useSelector((state) => state.modals.ui.isSpinnerModalOpen);
 
@@ -30,7 +32,20 @@ const Container: FC = () => {
 
 	const handleCheckRememberMe = useCallback((): void => {
 		if (!activeUser.data.credentials.rememberMe) {
-			dispatch(setUser({ ...guest }));
+			dispatch(
+				setUser({
+					...guest,
+					ui: {
+						...guest.ui,
+						theme: {
+							...guest.ui.theme,
+							color: activeUser.ui.theme.color
+						}
+					}
+				})
+			);
+
+			updateFavicon({ color: activeUser.ui.theme.color, colorMode });
 		}
 	}, [activeUser, guest]);
 

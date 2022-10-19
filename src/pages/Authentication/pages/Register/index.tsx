@@ -41,7 +41,7 @@ import { useSelector, useUserTheme } from '../../../../common/hooks';
 import { defaultUser, setUserInfo, setUserTheme, setUsers, setUser } from '../../../../store/slices/Users';
 import { User, UserInfo, UserCredentials } from '../../../../store/slices/Users/types';
 import { toggleSpinnerModal } from '../../../../store/slices/Modals';
-import { getBoringAvatarSrc } from '../../../../common/utils';
+import { getBoringAvatarSrc, updateFavicon } from '../../../../common/utils';
 import { colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../types';
 
@@ -330,6 +330,8 @@ const Register: FC = () => {
 		dispatch(setUserInfo({ id, data: { ...info } }));
 		dispatch(setUserTheme({ id, data: { ...customization } }));
 		dispatch(setUsers([...updatedUsers]));
+
+		updateFavicon({ color: updatedUser.ui.theme.color, colorMode });
 
 		setTimeout(() => navigate('/'), 500);
 

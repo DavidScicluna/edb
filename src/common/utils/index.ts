@@ -7,6 +7,14 @@ import qs from 'query-string';
 import store from '../../store';
 import { Genre, BoringAvatarVariant, MediaType } from '../types';
 import { Image, Images } from '../types/images';
+type SetFaviconProps = { color: UserThemeColor; colorMode: ColorMode };
+
+export const updateFavicon = memoize(({ color, colorMode }: SetFaviconProps) => {
+	localStorage.setItem('user_theme_color', color);
+	localStorage.setItem('user_theme_colorMode', colorMode);
+	window.dispatchEvent(new Event('storage'));
+});
+
 
 export const handleReturnMediaTypeLabel = (mediaType: MediaType): string => {
 	switch (mediaType) {

@@ -21,7 +21,7 @@ import { User } from '../../../../store/slices/Users/types';
 import { guest, setUser, setUsers } from '../../../../store/slices/Users';
 import { toggleSpinnerModal } from '../../../../store/slices/Modals';
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
-import { getBoringAvatarSrc } from '../../../../common/utils';
+import { getBoringAvatarSrc, updateFavicon } from '../../../../common/utils';
 import { AuthenticationOutletContext } from '../../types';
 
 import Form from './components/Form';
@@ -126,6 +126,8 @@ const SignIn: FC = () => {
 
 		dispatch(setUser({ ...updatedGuest }));
 
+		updateFavicon({ color: updatedGuest.ui.theme.color, colorMode });
+
 		setTimeout(() => navigate('/'), 500);
 
 		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
@@ -157,6 +159,8 @@ const SignIn: FC = () => {
 
 			dispatch(setUser({ ...updatedUser }));
 			dispatch(setUsers([...updatedUsers]));
+
+			updateFavicon({ color: updatedUser.ui.theme.color, colorMode });
 
 			setTimeout(() => navigate('/'), 500);
 

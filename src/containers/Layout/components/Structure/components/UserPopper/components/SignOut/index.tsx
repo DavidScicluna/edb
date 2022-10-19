@@ -2,68 +2,61 @@ import { FC } from 'react';
 
 import { useNavigate } from 'react-router';
 
-import { useTheme, Button, Icon, utils } from '@davidscicluna/component-library';
+import { Button, Icon } from '@davidscicluna/component-library';
 
 import { useDispatch } from 'react-redux';
-import { merge } from 'lodash';
 
-import { useUserTheme } from '../../../../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import { sx } from '../../common/styles';
 import { guest, setUser } from '../../../../../../../../store/slices/Users';
-import { getBoringAvatarSrc } from '../../../../../../../../common/utils';
 import { toggleSpinnerModal } from '../../../../../../../../store/slices/Modals';
-
-const { getHue } = utils;
+import { updateFavicon } from '../../../../../../../../common/utils';
 
 const SignOut: FC = () => {
-	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
+	const activeUser = useSelector((state) => state.users.data.activeUser);
 
 	const handleSignOut = (): void => {
 		dispatch(toggleSpinnerModal(true));
 
-		setTimeout(
-			() =>
-				dispatch(
-					setUser(
-						merge(
-							{ ...guest },
-							{
-								...guest,
-								data: {
-									...guest.data,
-									info: {
-										...guest.data.info,
-										avatar_path: getBoringAvatarSrc({
-											id: guest.data.id,
-											colors: theme.colors,
-											hue: getHue({ colorMode, type: 'color' }),
-											size: 500,
-											variant: 'beam'
-										})
-									}
-								}
-							}
-						)
-					)
-				),
-			250
+		dispatch(
+			setUser({
+				...guest,
+				ui: {
+					...guest.ui,
+					theme: {
+						...guest.ui.theme,
+						color: activeUser.ui.theme.color
+					}
+				}
+			})
 		);
 
-		setTimeout(() => navigate('/signin'), 500);
+		updateFavicon({ color: activeUser.ui.theme.color, colorMode });
 
-		setTimeout(() => toggleSpinnerModal(false), 2500);
+		setTimeout(() => navigate('/authentication/signin'), 500);
+
+		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
 
 	return (
 		<Button
 			color='red'
 			colorMode={colorMode}
-			renderLeft={(props) => <Icon {...props} icon='logout' category='outlined' />}
+			renderLeft={({ colorMode, height }) => (
+				<Icon
+					colorMode={colorMode}
+					width={`${height}px`}
+					height={`${height}px`}
+					fontSize={`${height}px`}
+					icon='logout'
+					category='outlined'
+				/>
+			)}
 			isFullWidth
 			onClick={() => handleSignOut()}
 			size='lg'
