@@ -3,17 +3,41 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="theme-color" content="#000000" />
-		<meta name="description" content="Web site created using create-react-app" />
+		<meta
+			name="description"
+			content="The Entertainment Database (EDB) is a web application that offers information related to the entertainment industry powered by themoviedb. Such information can be anything from Movies, TV Shows, and the People that make it happen. EDB offers users the ability to view all the information, like, and save it into a list. Every piece of data found in EDB is the latest and most updated content in relation to the entertainment industry, ensuring users with trustworthy content."
+		/>
 
-		<link rel="icon" href="/favicon.ico" />
-		<link rel="apple-touch-icon" href="/logo192.png" />
-		<link rel="manifest" href="/manifest.json" />
+		<link rel="icon" id="favicon" href="" />
+		<link rel="apple-touch-icon" id="logo192" href="" />
+		<link rel="manifest" id="manifest" href="" />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
 
-		<title>Edb</title>
+		<title>edb</title>
+
+		<script>
+			const favicon = document.getElementById('favicon');
+			const logo192 = document.getElementById('logo192');
+			const manifest = document.getElementById('manifest');
+
+			const checkColorMode = () => {
+				const defaultColor = 'gray';
+				const defaultColorMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+				const color = localStorage.getItem('user_theme_color') || defaultColor;
+				const colorMode = localStorage.getItem('user_theme_colorMode') || defaultColorMode;
+
+				favicon.href = `/${colorMode}/${color}/favicon.ico`;
+				logo192.href = `/${colorMode}/${color}/logo192.png`;
+				manifest.href = `/${colorMode}/${color}/manifest.json`;
+			};
+
+			window.addEventListener('storage', () => checkColorMode());
+
+			checkColorMode();
+		</script>
 	</head>
 	<body>
 		<div id="root"></div>
