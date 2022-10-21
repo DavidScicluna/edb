@@ -17,12 +17,12 @@ export interface MemoizeDebouncedFunction<F extends AnyFunction> extends _.Debou
  * @param options Lodash debounce options object.
  * @param resolver The function to resolve the cache key.
  */
-export function memoizeDebounce<F extends AnyFunction>(
+const memoizeDebounce = <F extends AnyFunction>(
 	func: F,
 	wait = 0,
 	options: _.DebounceSettings = {},
 	resolver?: (...args: Parameters<F>) => unknown
-): MemoizeDebouncedFunction<F> {
+): MemoizeDebouncedFunction<F> => {
 	const debounceMemo = _.memoize<(...args: Parameters<F>) => _.DebouncedFunc<F>>(
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		(..._args: Parameters<F>) => _.debounce(func, wait, options),
@@ -45,4 +45,6 @@ export function memoizeDebounce<F extends AnyFunction>(
 	wrappedFunction.cancel = cancel;
 
 	return wrappedFunction;
-}
+};
+
+export default memoizeDebounce;
