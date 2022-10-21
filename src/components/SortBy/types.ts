@@ -1,27 +1,27 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import { Color } from '@davidscicluna/component-library';
+import { ButtonProps } from '@davidscicluna/component-library';
 
-export type SortBy = {
-	label: string;
-	value: string;
-};
+import { MediaType } from '../../common/types';
+
+export type SortByMediaType = Exclude<MediaType, 'person' | 'collection' | 'company'>;
+
+export type Sort = { label: string; value: string };
+export type SortBy = Sort[];
 
 export type SortDirection = 'asc' | 'desc';
 
-export type Form = {
-	sortBy: SortBy;
+export type SortByForm = {
+	sortBy: Sort;
 	direction: SortDirection;
 };
 
-export type RenderButtonProps = {
-	color: Color;
+export type RenderButtonProps = Pick<ButtonProps, 'color' | 'colorMode' | 'onClick'> & {
 	icon: ReactNode;
-	onClick: () => void;
 };
 
 export type SortByProps = {
-	renderButton: (props: RenderButtonProps) => ReactElement;
-	sortBy: SortBy[];
-	onSort: (form: Form) => void;
+	mediaType: SortByMediaType;
+	renderButton: (props: RenderButtonProps) => ReactNode;
+	onSort: (form: SortByForm) => void;
 };

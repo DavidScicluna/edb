@@ -1,104 +1,109 @@
-import { ReactElement } from 'react';
+import { FC, useCallback } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button, IconButton, Icon } from '@davidscicluna/component-library';
+import {
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Button,
+	IconButton,
+	IconButtonIcon,
+	Icon,
+	Fade
+} from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, HStack, VStack, Text, Fade } from '@chakra-ui/react';
+import { useDisclosure, HStack, VStack, Text } from '@chakra-ui/react';
 
 import { useForm, useFormState } from 'react-hook-form';
-import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
 import qs from 'query-string';
+import { isEqual } from 'lodash';
 
-import { useSelector } from '../../common/hooks';
-import { defaultUser, getUser } from '../../store/slices/Users';
+import { useUserTheme } from '../../common/hooks';
 
-import { SortByProps, Form } from './types';
-import Sort from './components/Sort';
-import Direction from './components/Direction';
+import { movieSortBy, tvSortBy } from './common/data';
+import { SortByProps, SortByForm, SortBy as SortByType } from './types';
+import SortBySort from './components/SortBySort';
+import SortByDirection from './components/SortByDirection';
 
-const defaultValues: Form = {
-	sortBy: {
-		label: 'Popularity',
-		value: 'popularity'
-	},
+export const sortByDefaultValues: SortByForm = {
+	sortBy: { label: 'Popularity', value: 'popularity' },
 	direction: 'desc'
 };
 
-const SortBy = (props: SortByProps): ReactElement => {
-	const [isMd] = useMediaQuery('(max-width: 960px)');
+const SortBy: FC<SortByProps> = ({ mediaType, renderButton, onSort }) => {
+	const { color, colorMode } = useUserTheme();
 
-	const { isOpen, onOpen, onClose } = useDisclosure();
-
-	const color = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
+	const { isOpen: isSortByOpen, onOpen: onSortByOpen, onClose: onSortByClose } = useDisclosure();
 
 	const location = useLocation();
 
-	const { sortBy, renderButton, onSort } = props;
+	const form = useForm<SortByForm>({ defaultValues: { ...sortByDefaultValues } });
 
-	const form = useForm<Form>({ defaultValues });
+	const { control, getValues, setValue, reset, handleSubmit } = form;
 
-	const { isDirty } = useFormState({ control: form.control });
+	const { isDirty } = useFormState({ control });
 
-	const handleReset = (): void => {
-		form.setValue('sortBy', defaultValues.sortBy, { shouldDirty: true });
-		form.setValue('direction', defaultValues.direction, { shouldDirty: true });
-	};
-
-	const handleSubmit = (values: Form): void => {
-		onSort({ ...values });
-
-		onClose();
-
-		setTimeout(() => form.reset({ ...values }), 250);
-	};
-
-	const handleOpen = (): void => {
+	const handleOpen = useCallback((): void => {
 		const search = qs.parse(location.search);
 
-		if (!isEmpty(search) && search && search['sort_by']) {
+		if (search && search['sort_by']) {
+			const sortBy: SortByType = mediaType === 'movie' ? [...movieSortBy] : [...tvSortBy];
 			const splitSort = String(search['sort_by']).split('.');
-			const sort = sortBy.find((sort) => sort.value === splitSort[0]);
+			const sort = sortBy.find(({ value }) => value === splitSort[0]);
 
-			form.reset({
+			reset({
 				sortBy: sort,
 				direction: splitSort[1] === 'asc' ? 'asc' : 'desc'
 			});
 		}
 
-		onOpen();
+		onSortByOpen();
+	}, [location, movieSortBy, tvSortBy]);
+
+	const handleReset = (): void => {
+		setValue('sortBy', sortByDefaultValues.sortBy, { shouldDirty: true });
+		setValue('direction', sortByDefaultValues.direction, { shouldDirty: true });
 	};
 
 	const handleClose = (): void => {
-		form.reset({ ...defaultValues });
+		reset({ ...sortByDefaultValues });
 
-		onClose();
+		onSortByClose();
+	};
+
+	const handleSubmitForm = (values: SortByForm): void => {
+		onSort({ ...values });
+		onSortByClose();
+
+		setTimeout(() => reset({ ...values }), 500);
 	};
 
 	return (
 		<>
 			{renderButton({
-				color: isOpen ? color : 'gray',
-				icon: <Icon icon='import_export' category='outlined' />,
+				color: isSortByOpen ? color : 'gray',
+				colorMode,
+				icon: (
+					<Icon colorMode={colorMode} icon='import_export' category={isSortByOpen ? 'filled' : 'outlined'} />
+				),
 				onClick: () => handleOpen()
 			})}
 
-			<Modal isOpen={isOpen} onClose={handleClose} size={isMd ? 'full' : '4xl'}>
+			<Modal colorMode={colorMode} isOpen={isSortByOpen} onClose={handleClose} size='4xl'>
 				<ModalHeader
 					renderTitle={(props) => <Text {...props}>Sort By</Text>}
 					renderCancel={({ icon, category, ...rest }) => (
 						<IconButton {...rest}>
-							<Icon icon={icon} category={category} />
+							<IconButtonIcon icon={icon} category={category} />
 						</IconButton>
 					)}
 				/>
 				<ModalBody>
 					<VStack width='100%' spacing={2} p={2}>
-						<Direction form={form} />
-						<Sort form={form} sortBy={sortBy} />
+						<SortBySort form={form} sortBy={mediaType === 'movie' ? [...movieSortBy] : [...tvSortBy]} />
+						<SortByDirection form={form} />
 					</VStack>
 				</ModalBody>
 				<ModalFooter
@@ -109,23 +114,16 @@ const SortBy = (props: SortByProps): ReactElement => {
 					)}
 					renderAction={(props) => (
 						<HStack spacing={2}>
-							<Fade in={isDirty || !isEqual(defaultValues, form.getValues())} unmountOnExit>
-								<Button
-									{...props}
-									// color={color}
-									color='blue'
-									onClick={handleReset}
-									variant='text'
-								>
+							<Fade in={isDirty || !isEqual(sortByDefaultValues, getValues())}>
+								<Button {...props} color={color} onClick={handleReset} variant='text'>
 									Reset
 								</Button>
 							</Fade>
 							<Button
 								{...props}
-								// color={color}
-								color='blue'
+								color={color}
 								isDisabled={!isDirty}
-								onClick={form.handleSubmit((values) => handleSubmit(values))}
+								onClick={handleSubmit(handleSubmitForm)}
 							>
 								Sort
 							</Button>

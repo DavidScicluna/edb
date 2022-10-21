@@ -1,6 +1,6 @@
 import { SortBy } from '../../types';
 
-const commonSortBy: SortBy[] = [
+const commonSortBy: SortBy = [
 	{
 		label: 'Popularity',
 		value: 'popularity'
@@ -11,7 +11,7 @@ const commonSortBy: SortBy[] = [
 	}
 ];
 
-const movieSortBy: SortBy[] = [
+const movieSortBy: SortBy = [
 	...commonSortBy,
 	{
 		label: 'Release Date',
@@ -31,7 +31,7 @@ const movieSortBy: SortBy[] = [
 	}
 ];
 
-const tvSortBy: SortBy[] = [
+const tvSortBy: SortBy = [
 	...commonSortBy,
 	{
 		label: 'Release Date',
