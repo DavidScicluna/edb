@@ -1,12 +1,10 @@
-import { useConst } from '@chakra-ui/react';
-
-import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { certificationsQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, Certifications, MediaType, QueryError } from '../types';
 
 export type UseCertificationsQueryProps = { mediaType: Exclude<MediaType, 'person' | 'company' | 'collection'> };
@@ -30,7 +28,7 @@ const useCertificationsQuery = ({
 }: UseCertificationsQueryParams): UseCertificationsQueryResult => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(certificationsQueryKey({ mediaType }));
+	const key = certificationsQueryKey({ mediaType }) || [`${mediaType}_certifications`];
 
 	const client = useQueryClient();
 	const query = useQuery<UseCertificationsQueryResponse, AxiosError<QueryError>>(

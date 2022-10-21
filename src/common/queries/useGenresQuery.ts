@@ -1,12 +1,10 @@
-import { useConst } from '@chakra-ui/react';
-
-import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { genresQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, Genres, MediaType, QueryError } from '../types';
 
 export type UseGenresQueryProps = { mediaType: Exclude<MediaType, 'person' | 'company' | 'collection'> };
@@ -30,7 +28,7 @@ const useGenresQuery = ({
 }: UseGenresQueryParams): UseGenresQueryResult => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(genresQueryKey({ mediaType }));
+	const key = genresQueryKey({ mediaType }) || [`${mediaType}_genres`];
 
 	const client = useQueryClient();
 	const query = useQuery<UseGenresQueryResponse, AxiosError<QueryError>>(

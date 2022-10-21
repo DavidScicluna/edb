@@ -1,12 +1,10 @@
-import { useConst } from '@chakra-ui/react';
-
-import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { topRatedQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
 import { PartialTV } from '../types/tv';
@@ -42,7 +40,7 @@ const useTopRatedQuery = <MT extends UseTopRatedQueryMediaType>({
 }: UseTopRatedQueryParams<MT>): UseTopRatedQueryResult<MT> => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(topRatedQueryKey({ mediaType }));
+	const key = topRatedQueryKey({ mediaType }) || [`top_rated_${mediaType}`];
 
 	const client = useQueryClient();
 	const query = useQuery<UseTopRatedQueryResponse<MT>, AxiosError<QueryError>>(

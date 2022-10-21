@@ -1,14 +1,12 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
-import { useConst } from '@chakra-ui/react';
-
-import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { countriesQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, Country, QueryError } from '../types';
 
 export type UseCountriesQueryResponse = Country[];
@@ -25,7 +23,7 @@ type UseCountriesQueryParams = Undefinable<{
 const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParams = {}): UseCountriesQueryResult => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(countriesQueryKey);
+	const key = countriesQueryKey() || ['countries'];
 
 	const client = useQueryClient();
 	const query = useQuery<UseCountriesQueryResponse, AxiosError<QueryError>>(

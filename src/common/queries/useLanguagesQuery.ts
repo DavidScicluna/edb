@@ -1,14 +1,12 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
-import { useConst } from '@chakra-ui/react';
-
-import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { languagesQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, Language, QueryError } from '../types';
 
 export type UseLanguagesQueryResponse = Language[];
@@ -25,7 +23,7 @@ type UseLanguagesQueryParams = Undefinable<{
 const useLanguagesQuery = ({ config = {}, options = {} }: UseLanguagesQueryParams = {}): UseLanguagesQueryResult => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(languagesQueryKey);
+	const key = languagesQueryKey() || ['languages'];
 
 	const client = useQueryClient();
 	const query = useQuery<UseLanguagesQueryResponse, AxiosError<QueryError>>(

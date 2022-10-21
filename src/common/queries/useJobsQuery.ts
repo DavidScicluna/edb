@@ -1,14 +1,12 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
-import { useConst } from '@chakra-ui/react';
-
-import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { jobsQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, Job, QueryError } from '../types';
 
 export type UseJobsQueryResponse = Job[];
@@ -25,7 +23,7 @@ type UseJobsQueryParams = Undefinable<{
 const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): UseJobsQueryResult => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(jobsQueryKey);
+	const key = jobsQueryKey() || ['jobs'];
 
 	const client = useQueryClient();
 	const query = useQuery<UseJobsQueryResponse, AxiosError<QueryError>>(

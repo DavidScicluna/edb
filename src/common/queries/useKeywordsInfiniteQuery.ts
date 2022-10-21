@@ -1,9 +1,6 @@
-import { useConst } from '@chakra-ui/react';
-
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
-	QueryKey,
 	useQueryClient,
 	useInfiniteQuery
 } from '@tanstack/react-query';
@@ -12,7 +9,7 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { keywordsInfiniteQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, Keyword, QueryError, Response } from '../types';
 
 export type UseKeywordsInfiniteQueryProps = { query: string };
@@ -42,7 +39,7 @@ const useKeywordsInfiniteQuery = ({
 }: UseKeywordsInfiniteQueryParams): UseKeywordsInfiniteQueryResult => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(keywordsInfiniteQueryKey({ query }));
+	const key = keywordsInfiniteQueryKey({ query }) || [`${query}_search_keywords_infinite`];
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseKeywordsInfiniteQueryResponse, AxiosError<QueryError>>(

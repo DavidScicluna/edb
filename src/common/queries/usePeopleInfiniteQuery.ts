@@ -1,9 +1,8 @@
-import { useConst } from '@chakra-ui/react';
+import { Undefinable } from '@davidscicluna/component-library';
 
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
-	QueryKey,
 	useQueryClient,
 	useInfiniteQuery
 } from '@tanstack/react-query';
@@ -12,7 +11,7 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { peopleInfiniteQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, QueryError, Response } from '../types';
 import { PartialPerson } from '../types/person';
 
@@ -28,18 +27,18 @@ export type UsePeopleInfiniteQueryResult = UseInfiniteQueryResult<
 	AxiosError<QueryError>
 >;
 
-type UsePeopleInfiniteQueryParams = {
+type UsePeopleInfiniteQueryParams = Undefinable<{
 	config?: AxiosConfig;
 	options?: UsePeopleInfiniteQueryOptions;
-};
+}>;
 
 const usePeopleInfiniteQuery = ({
 	config = {},
 	options = {}
-}: UsePeopleInfiniteQueryParams): UsePeopleInfiniteQueryResult => {
+}: UsePeopleInfiniteQueryParams = {}): UsePeopleInfiniteQueryResult => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(peopleInfiniteQueryKey);
+	const key = peopleInfiniteQueryKey({ params: config.params }) || ['people', config.params];
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UsePeopleInfiniteQueryResponse, AxiosError<QueryError>>(

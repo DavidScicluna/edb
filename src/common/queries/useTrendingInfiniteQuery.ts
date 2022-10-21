@@ -1,9 +1,6 @@
-import { useConst } from '@chakra-ui/react';
-
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
-	QueryKey,
 	useQueryClient,
 	useInfiniteQuery
 } from '@tanstack/react-query';
@@ -12,7 +9,7 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 
 import { trendingInfiniteQueryKey } from '../keys';
-import axiosInstance from '../scripts/axios';
+import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
 import { PartialTV } from '../types/tv';
@@ -48,7 +45,7 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 }: UseTrendingInfiniteQueryParams<MT>): UseTrendingInfiniteQueryResult<MT> => {
 	// const toast = useToast();
 
-	const key = useConst<QueryKey>(trendingInfiniteQueryKey({ mediaType, time }));
+	const key = trendingInfiniteQueryKey({ mediaType, time }) || [`${time}_${mediaType}_trending`];
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseTrendingInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
