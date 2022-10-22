@@ -17,20 +17,18 @@ import {
 import { useDisclosure, HStack, VStack, Text } from '@chakra-ui/react';
 
 import { useForm, useFormState } from 'react-hook-form';
-import qs from 'query-string';
 import { isEqual } from 'lodash';
 
 import { useUserTheme } from '../../common/hooks';
+import { formatMediaTypeLabel } from '../../common/utils';
 
 import { movieSortBy, tvSortBy } from './common/data';
-import { SortByProps, SortByForm, SortBy as SortByType } from './types';
+import { SortByProps, SortByForm } from './types';
 import SortBySort from './components/SortBySort';
 import SortByDirection from './components/SortByDirection';
+import { getSortByFormDefaultValues, getSortByForm } from './common/utils';
 
-export const sortByDefaultValues: SortByForm = {
-	sortBy: { label: 'Popularity', value: 'popularity' },
-	direction: 'desc'
-};
+export const defaultValues: SortByForm = getSortByFormDefaultValues();
 
 const SortBy: FC<SortByProps> = ({ mediaType, renderButton, onSort }) => {
 	const { color, colorMode } = useUserTheme();
@@ -39,46 +37,35 @@ const SortBy: FC<SortByProps> = ({ mediaType, renderButton, onSort }) => {
 
 	const location = useLocation();
 
-	const form = useForm<SortByForm>({ defaultValues: { ...sortByDefaultValues } });
+	const form = useForm<SortByForm>({ defaultValues });
 
 	const { control, getValues, setValue, reset, handleSubmit } = form;
 
 	const { isDirty } = useFormState({ control });
 
 	const handleOpen = useCallback((): void => {
-		const search = qs.parse(location.search);
-
-		if (search && search['sort_by']) {
-			const sortBy: SortByType = mediaType === 'movie' ? [...movieSortBy] : [...tvSortBy];
-			const splitSort = String(search['sort_by']).split('.');
-			const sort = sortBy.find(({ value }) => value === splitSort[0]);
-
-			reset({
-				sortBy: sort,
-				direction: splitSort[1] === 'asc' ? 'asc' : 'desc'
-			});
-		}
+		reset({ ...getSortByForm({ location, mediaType }) });
 
 		onSortByOpen();
-	}, [location, movieSortBy, tvSortBy]);
+	}, [location, mediaType, getSortByForm]);
 
 	const handleReset = (): void => {
-		setValue('sortBy', sortByDefaultValues.sortBy, { shouldDirty: true });
-		setValue('direction', sortByDefaultValues.direction, { shouldDirty: true });
+		setValue('sortBy', defaultValues.sortBy, { shouldDirty: true });
+		setValue('direction', defaultValues.direction, { shouldDirty: true });
 	};
 
 	const handleClose = (): void => {
-		reset({ ...sortByDefaultValues });
+		reset({ ...defaultValues });
 
 		onSortByClose();
 	};
 
-	const handleSubmitForm = (values: SortByForm): void => {
+	const handleSubmitForm = useCallback((values: SortByForm): void => {
 		onSort({ ...values });
 		onSortByClose();
 
 		setTimeout(() => reset({ ...values }), 500);
-	};
+	}, []);
 
 	return (
 		<>
@@ -93,7 +80,19 @@ const SortBy: FC<SortByProps> = ({ mediaType, renderButton, onSort }) => {
 
 			<Modal colorMode={colorMode} isOpen={isSortByOpen} onClose={handleClose} size='4xl'>
 				<ModalHeader
-					renderTitle={(props) => <Text {...props}>Sort By</Text>}
+					renderTitle={(props) => (
+						<Text {...props}>{`Sorting ${formatMediaTypeLabel({ type: 'multiple', mediaType })}`}</Text>
+					)}
+					renderSubtitle={(props) => (
+						<Text {...props}>
+							{`Sort ${formatMediaTypeLabel({
+								type: 'multiple',
+								mediaType
+							})} by ${[...(mediaType === 'movie' ? movieSortBy : tvSortBy)]
+								.map(({ label }) => label)
+								.join(', ')} & by either in Ascending or Descending order.`}
+						</Text>
+					)}
 					renderCancel={({ icon, category, ...rest }) => (
 						<IconButton {...rest}>
 							<IconButtonIcon icon={icon} category={category} />
@@ -101,7 +100,7 @@ const SortBy: FC<SortByProps> = ({ mediaType, renderButton, onSort }) => {
 					)}
 				/>
 				<ModalBody>
-					<VStack width='100%' spacing={2} p={2}>
+					<VStack width='100%' spacing={2}>
 						<SortBySort form={form} sortBy={mediaType === 'movie' ? [...movieSortBy] : [...tvSortBy]} />
 						<SortByDirection form={form} />
 					</VStack>
@@ -114,7 +113,7 @@ const SortBy: FC<SortByProps> = ({ mediaType, renderButton, onSort }) => {
 					)}
 					renderAction={(props) => (
 						<HStack spacing={2}>
-							<Fade in={isDirty || !isEqual(sortByDefaultValues, getValues())}>
+							<Fade in={isDirty || !isEqual(defaultValues, getValues())}>
 								<Button {...props} color={color} onClick={handleReset} variant='text'>
 									Reset
 								</Button>

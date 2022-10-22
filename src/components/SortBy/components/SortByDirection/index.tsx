@@ -59,7 +59,7 @@ const SortByDirection: FC<SortByDirectionProps> = ({ form }) => {
 											fontSize={`${height}px`}
 											colorMode={colorMode}
 											icon={direction.icon}
-											category={value === direction.value ? 'filled' : 'outlined'}
+											category='outlined'
 											skeletonColor={color}
 										/>
 									)}
