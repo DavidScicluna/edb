@@ -2,17 +2,18 @@ import { FC, useState, useEffect } from 'react';
 
 import {
 	Modal,
+	ModalStack,
 	ModalHeader,
 	ModalBody,
 	ModalFooter,
-	Divider,
+	Form,
 	Button,
 	IconButton,
 	IconButtonIcon,
 	utils
 } from '@davidscicluna/component-library';
 
-import { ColorMode, useColorMode, VStack, Text } from '@chakra-ui/react';
+import { ColorMode, useColorMode, Text } from '@chakra-ui/react';
 
 import { useForm, useWatch, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -23,7 +24,7 @@ import { toggleSpinnerModal, toggleUserThemeModal } from '../../../../../store/s
 import { setUserTheme } from '../../../../../store/slices/Users';
 import { updateFavicon } from '../../../../../common/utils';
 
-import { Form } from './types';
+import { UserThemeModalForm } from './types';
 
 const { getColorMode } = utils;
 
@@ -37,7 +38,7 @@ const UserThemeModal: FC = () => {
 
 	const [colorMode, setColorMode] = useState<ColorMode>(userTheme.colorMode);
 
-	const form = useForm<Form>({ defaultValues: { ...userTheme } });
+	const form = useForm<UserThemeModalForm>({ defaultValues: { ...userTheme } });
 	const { control, reset, handleSubmit } = form;
 
 	const watchColor = useWatch({ control, name: 'color' });
@@ -51,7 +52,7 @@ const UserThemeModal: FC = () => {
 		dispatch(toggleUserThemeModal(false));
 	};
 
-	const handleSubmitForm = ({ color, colorMode }: Form): void => {
+	const handleSubmitForm = ({ color, colorMode }: UserThemeModalForm): void => {
 		dispatch(toggleSpinnerModal(true));
 		dispatch(setUserTheme({ id, data: { color, colorMode } }));
 
@@ -76,15 +77,7 @@ const UserThemeModal: FC = () => {
 
 	return (
 		<Modal colorMode={colorMode} isOpen={isUserThemeModalOpen} onClose={handleClose} size='3xl'>
-			{/* TODO: Find a way to have form as parent in Modal to get form working properly */}
-			<VStack
-				as='form'
-				width='100%'
-				overflow='auto'
-				divider={<Divider colorMode={colorMode} />}
-				onSubmit={handleSubmit((theme) => handleSubmitForm({ ...theme }))}
-				spacing={2}
-			>
+			<ModalStack as={Form} onSubmit={handleSubmit(handleSubmitForm)}>
 				<ModalHeader
 					renderTitle={(props) => <Text {...props}>Edit Application Theme</Text>}
 					renderCancel={({ icon, category, ...rest }) => (
@@ -109,7 +102,7 @@ const UserThemeModal: FC = () => {
 						</Button>
 					)}
 				/>
-			</VStack>
+			</ModalStack>
 		</Modal>
 	);
 };
