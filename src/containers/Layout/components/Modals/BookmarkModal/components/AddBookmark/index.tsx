@@ -3,6 +3,7 @@ import { FC, useState, useCallback, useEffect } from 'react';
 import {
 	useTheme,
 	Modal,
+	ModalStack,
 	ModalHeader,
 	ModalBody,
 	ModalFooter,
@@ -123,51 +124,53 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 	return (
 		<>
 			<Modal colorMode={colorMode} isOpen={isOpen} onClose={onClose} size='2xl'>
-				<ModalHeader
-					renderTitle={(props) => (
-						<Text {...props}>{isSm || !!title ? 'Add to a list/s' : `Add "${title}" to a list/s`}</Text>
-					)}
-					renderSubtitle={(props) => (
-						<Text {...props}>{`Create a new list or add the ${formatMediaTypeLabel({
-							type: 'single',
-							mediaType
-						})} to an existing list by selecting a list below!`}</Text>
-					)}
-					renderCancel={({ icon, category, ...rest }) => (
-						<IconButton {...rest}>
-							<IconButtonIcon icon={icon} category={category} />
-						</IconButton>
-					)}
-				/>
-				<ModalBody>
-					<VStack spacing={2}>
-						{lists.map((list) => (
-							<List
-								key={list.id}
-								list={list}
-								isSelected={includes([...selected], list.id)}
-								onClick={handleOnListClick}
-							/>
-						))}
-					</VStack>
-				</ModalBody>
-				<ModalFooter
-					renderCancel={(props) => <Button {...props}>Cancel</Button>}
-					renderAction={(props) => (
-						<Button
-							{...props}
-							color={color}
-							isDisabled={!id}
-							onClick={selected.length > 0 ? () => handleSaveItem() : () => onCreateListOpen()}
-						>
-							{selected.length > 0
-								? `Save ${formatMediaTypeLabel({ type: 'single', mediaType })} to List${
-										selected.length === 1 ? '' : 's'
-								  }`
-								: 'Create a new List'}
-						</Button>
-					)}
-				/>
+				<ModalStack>
+					<ModalHeader
+						renderTitle={(props) => (
+							<Text {...props}>{isSm || !!title ? 'Add to a list/s' : `Add "${title}" to a list/s`}</Text>
+						)}
+						renderSubtitle={(props) => (
+							<Text {...props}>{`Create a new list or add the ${formatMediaTypeLabel({
+								type: 'single',
+								mediaType
+							})} to an existing list by selecting a list below!`}</Text>
+						)}
+						renderCancel={({ icon, category, ...rest }) => (
+							<IconButton {...rest}>
+								<IconButtonIcon icon={icon} category={category} />
+							</IconButton>
+						)}
+					/>
+					<ModalBody>
+						<VStack spacing={2}>
+							{lists.map((list) => (
+								<List
+									key={list.id}
+									list={list}
+									isSelected={includes([...selected], list.id)}
+									onClick={handleOnListClick}
+								/>
+							))}
+						</VStack>
+					</ModalBody>
+					<ModalFooter
+						renderCancel={(props) => <Button {...props}>Cancel</Button>}
+						renderAction={(props) => (
+							<Button
+								{...props}
+								color={color}
+								isDisabled={!id}
+								onClick={selected.length > 0 ? () => handleSaveItem() : () => onCreateListOpen()}
+							>
+								{selected.length > 0
+									? `Save ${formatMediaTypeLabel({ type: 'single', mediaType })} to List${
+											selected.length === 1 ? '' : 's'
+									  }`
+									: 'Create a new List'}
+							</Button>
+						)}
+					/>
+				</ModalStack>
 			</Modal>
 
 			<CreateList
