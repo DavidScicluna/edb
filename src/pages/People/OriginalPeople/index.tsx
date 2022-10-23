@@ -20,6 +20,7 @@ import { usePeopleInfiniteQuery } from '../../../common/queries';
 import { PartialPerson } from '../../../common/types/person';
 import { UsePeopleInfiniteQueryResponse } from '../../../common/queries/usePeopleInfiniteQuery';
 import VerticalDummyPeople from '../components/VerticalDummyPeople';
+import { formatMediaTypeLabel } from '../../../common/utils';
 
 const OriginalPeople: FC = () => {
 	const { spacing } = useLayoutContext();
@@ -57,9 +58,16 @@ const OriginalPeople: FC = () => {
 	return (
 		<Page>
 			<PageHeader
-				renderTitle={(props) => <Text {...props}>People</Text>}
+				renderTitle={(props) => (
+					<Text {...props}>{formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' })}</Text>
+				)}
 				renderSubtitle={(props) => (
-					<Text {...props}>A list containing the most popular People at the moment.</Text>
+					<Text {...props}>
+						{`A list containing the most popular ${formatMediaTypeLabel({
+							type: 'multiple',
+							mediaType: 'person'
+						})} at the moment.`}
+					</Text>
 				)}
 				actions={<DisplayMode />}
 				direction='row'
