@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { FontSize, useTheme, Skeleton, Icon, utils } from '@davidscicluna/component-library';
+import { FontSize, useTheme, Icon, utils } from '@davidscicluna/component-library';
 
 import { HStack, Text } from '@chakra-ui/react';
 
@@ -19,7 +19,7 @@ const Rating: FC<RatingProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { rating, count, inView = true, isLoading = false, spacing = 0.5, size = 'md', ...rest } = props;
+	const { rating, count, spacing = 0.5, size = 'md', ...rest } = props;
 
 	const [iconSize, setIconSize] = useState<string>(getIconSize({ theme, size }));
 	const [countSize, setCountSize] = useState<FontSize>(getCountSize({ size }));
@@ -39,45 +39,43 @@ const Rating: FC<RatingProps> = (props) => {
 				color={getColor({ theme, colorMode, color: 'yellow', type: 'color' })}
 			/>
 
-			<Skeleton colorMode={colorMode} isLoaded={inView && !isLoading} variant='text'>
-				<HStack
-					divider={
-						count ? (
-							<Text
-								align='left'
-								fontSize={countSize}
-								color={getColor({ theme, colorMode, type: 'text.secondary' })}
-								noOfLines={1}
-								mx={0.5}
-							>
-								|
-							</Text>
-						) : undefined
-					}
-					spacing={spacing}
-				>
-					<Text
-						align='left'
-						fontSize={size}
-						fontWeight='semibold'
-						color={getColor({ theme, colorMode, type: 'text.primary' })}
-						noOfLines={1}
-					>
-						{rating && !isLoading ? round(Number(rating), 1) : 'N/A'}
-					</Text>
-
-					{count && (
+			<HStack
+				divider={
+					count ? (
 						<Text
 							align='left'
 							fontSize={countSize}
 							color={getColor({ theme, colorMode, type: 'text.secondary' })}
 							noOfLines={1}
+							mx={0.5}
 						>
-							{numbro(count).format({ average: true })}
+							|
 						</Text>
-					)}
-				</HStack>
-			</Skeleton>
+					) : undefined
+				}
+				spacing={spacing}
+			>
+				<Text
+					align='left'
+					fontSize={size}
+					fontWeight='semibold'
+					color={getColor({ theme, colorMode, type: 'text.primary' })}
+					noOfLines={1}
+				>
+					{rating ? (typeof rating === 'number' ? round(rating, 1) : rating) : 'N/A'}
+				</Text>
+
+				{count && (
+					<Text
+						align='left'
+						fontSize={countSize}
+						color={getColor({ theme, colorMode, type: 'text.secondary' })}
+						noOfLines={1}
+					>
+						{numbro(count).format({ average: true })}
+					</Text>
+				)}
+			</HStack>
 		</HStack>
 	);
 };
