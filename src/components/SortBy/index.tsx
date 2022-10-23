@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import {
 	Modal,
+	ModalStack,
 	ModalHeader,
 	ModalBody,
 	ModalFooter,
@@ -21,21 +22,25 @@ import { isEqual } from 'lodash';
 
 import { useUserTheme } from '../../common/hooks';
 import { formatMediaTypeLabel } from '../../common/utils';
+import { useLayoutContext } from '../../containers/Layout/common/hooks';
 
 import { movieSortBy, tvSortBy } from './common/data';
 import { SortByProps, SortByForm } from './types';
 import SortBySort from './components/SortBySort';
 import SortByDirection from './components/SortByDirection';
-import { getSortByFormDefaultValues, getSortByForm } from './common/utils';
+import { getSortByForm } from './common/utils';
+import defaultValues from './common/data/defaults';
 
-export const defaultValues: SortByForm = getSortByFormDefaultValues();
-
-const SortBy: FC<SortByProps> = ({ mediaType, renderButton, onSort }) => {
+const SortBy: FC<SortByProps> = (props) => {
 	const { color, colorMode } = useUserTheme();
 
 	const { isOpen: isSortByOpen, onOpen: onSortByOpen, onClose: onSortByClose } = useDisclosure();
 
 	const location = useLocation();
+
+	const { spacing } = useLayoutContext();
+
+	const { mediaType, renderButton, onSort } = props;
 
 	const form = useForm<SortByForm>({ defaultValues });
 
@@ -78,57 +83,59 @@ const SortBy: FC<SortByProps> = ({ mediaType, renderButton, onSort }) => {
 				onClick: () => handleOpen()
 			})}
 
-			<Modal colorMode={colorMode} isOpen={isSortByOpen} onClose={handleClose} size='4xl'>
-				<ModalHeader
-					renderTitle={(props) => (
-						<Text {...props}>{`Sorting ${formatMediaTypeLabel({ type: 'multiple', mediaType })}`}</Text>
-					)}
-					renderSubtitle={(props) => (
-						<Text {...props}>
-							{`Sort ${formatMediaTypeLabel({
-								type: 'multiple',
-								mediaType
-							})} by ${[...(mediaType === 'movie' ? movieSortBy : tvSortBy)]
-								.map(({ label }) => label)
-								.join(', ')} & by either in Ascending or Descending order.`}
-						</Text>
-					)}
-					renderCancel={({ icon, category, ...rest }) => (
-						<IconButton {...rest}>
-							<IconButtonIcon icon={icon} category={category} />
-						</IconButton>
-					)}
-				/>
-				<ModalBody>
-					<VStack width='100%' spacing={2}>
-						<SortBySort form={form} sortBy={mediaType === 'movie' ? [...movieSortBy] : [...tvSortBy]} />
-						<SortByDirection form={form} />
-					</VStack>
-				</ModalBody>
-				<ModalFooter
-					renderCancel={(props) => (
-						<Button {...props} onClick={handleClose}>
-							Cancel
-						</Button>
-					)}
-					renderAction={(props) => (
-						<HStack spacing={2}>
-							<Fade in={isDirty || !isEqual(defaultValues, getValues())}>
-								<Button {...props} color={color} onClick={handleReset} variant='text'>
-									Reset
-								</Button>
-							</Fade>
-							<Button
-								{...props}
-								color={color}
-								isDisabled={!isDirty}
-								onClick={handleSubmit(handleSubmitForm)}
-							>
-								Sort
+			<Modal colorMode={colorMode} isOpen={isSortByOpen} onClose={handleClose} size='4xl' spacing={spacing}>
+				<ModalStack p={2}>
+					<ModalHeader
+						renderTitle={(props) => (
+							<Text {...props}>{`Sorting ${formatMediaTypeLabel({ type: 'multiple', mediaType })}`}</Text>
+						)}
+						renderSubtitle={(props) => (
+							<Text {...props}>
+								{`Sort ${formatMediaTypeLabel({
+									type: 'multiple',
+									mediaType
+								})} by ${[...(mediaType === 'movie' ? movieSortBy : tvSortBy)]
+									.map(({ label }) => label)
+									.join(', ')} & by either in Ascending or Descending order.`}
+							</Text>
+						)}
+						renderCancel={({ icon, category, ...rest }) => (
+							<IconButton {...rest}>
+								<IconButtonIcon icon={icon} category={category} />
+							</IconButton>
+						)}
+					/>
+					<ModalBody>
+						<VStack width='100%' spacing={spacing}>
+							<SortBySort form={form} sortBy={mediaType === 'movie' ? [...movieSortBy] : [...tvSortBy]} />
+							<SortByDirection form={form} />
+						</VStack>
+					</ModalBody>
+					<ModalFooter
+						renderCancel={(props) => (
+							<Button {...props} onClick={handleClose}>
+								Cancel
 							</Button>
-						</HStack>
-					)}
-				/>
+						)}
+						renderAction={(props) => (
+							<HStack spacing={spacing}>
+								<Fade in={isDirty || !isEqual(defaultValues, getValues())}>
+									<Button {...props} color={color} onClick={handleReset} variant='text'>
+										Reset
+									</Button>
+								</Fade>
+								<Button
+									{...props}
+									color={color}
+									isDisabled={!isDirty}
+									onClick={handleSubmit(handleSubmitForm)}
+								>
+									Sort
+								</Button>
+							</HStack>
+						)}
+					/>
+				</ModalStack>
 			</Modal>
 		</>
 	);
