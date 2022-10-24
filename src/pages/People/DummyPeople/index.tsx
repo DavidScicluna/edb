@@ -11,6 +11,7 @@ import PageHeader from '../../../containers/Page/components/PageHeader';
 import { DummyDisplayMode } from '../../../components';
 import VerticalDummyPeople from '../components/VerticalDummyPeople';
 import { useUserTheme } from '../../../common/hooks';
+import { formatMediaTypeLabel } from '../../../common/utils';
 
 const DummyPeople: FC = () => {
 	const { colorMode } = useUserTheme();
@@ -22,7 +23,7 @@ const DummyPeople: FC = () => {
 			<PageHeader
 				renderTitle={(props) => (
 					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-						<Text {...props}>People</Text>
+						<Text {...props}>{formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' })}</Text>
 					</Skeleton>
 				)}
 				renderSubtitle={(props) => (
