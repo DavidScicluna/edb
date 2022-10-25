@@ -29,12 +29,12 @@ import {
 	QueryEmptyTitle,
 	QueryEmptySubtitle,
 	QueryEmptyActions
-} from '../../../../../../../components';
+} from '../../../../../..';
 import Genre from '../Genre';
 import DummyGenre from '../DummyGenre';
 import GenresCardActions from '../GenresCardActions';
 import { genresQueryKey } from '../../../../../../../common/keys';
-import { getEmptySubtitle } from '../../../../../../../components/QueryEmpty/common/utils';
+import { getEmptySubtitle } from '../../../../../../QueryEmpty/common/utils';
 import defaultValues from '../../../../../common/data/defaults';
 
 import { MovieGenresProps } from './types';

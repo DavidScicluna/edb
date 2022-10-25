@@ -23,6 +23,7 @@ import { getFiltersForm } from '../common/utils';
 import { FiltersForm as FiltersFormType } from '../types';
 import { formatMediaTypeLabel } from '../../../common/utils';
 import defaultValues from '../common/data/defaults';
+import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 
 import Certifications from './components/Certifications';
 import CountRange from './components/CountRange';
@@ -31,7 +32,6 @@ import Genres from './components/Genres';
 import RatingRange from './components/RatingRange';
 import RuntimeRange from './components/RuntimeRange';
 import { FiltersFormProps } from './types';
-import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 
 const FiltersForm: FC<FiltersFormProps> = (props) => {
 	const { color, colorMode } = useUserTheme();

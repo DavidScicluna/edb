@@ -26,7 +26,7 @@ import {
 	QueryEmptyTitle,
 	QueryEmptySubtitle,
 	QueryEmptyActions
-} from '../../../../../../../components';
+} from '../../../../../..';
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../../../common/types';
 import { genresQueryKey } from '../../../../../../../common/keys';
@@ -34,7 +34,7 @@ import { useGenresQuery } from '../../../../../../../common/queries';
 import DummyGenre from '../DummyGenre';
 import GenresCardActions from '../GenresCardActions';
 import Genre from '../Genre';
-import { getEmptySubtitle } from '../../../../../../../components/QueryEmpty/common/utils';
+import { getEmptySubtitle } from '../../../../../../QueryEmpty/common/utils';
 import defaultValues from '../../../../../common/data/defaults';
 
 import { TVShowGenresProps } from './types';
