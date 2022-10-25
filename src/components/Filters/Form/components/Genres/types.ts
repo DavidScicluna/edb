@@ -1,9 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { CommonFiltersFormProps } from '../../common/types';
+import { FiltersFormProps } from '../../types';
 
-import { MediaType } from '../../../../../common/types';
-import { Filters } from '../../../types';
-
-export type GenresProps = {
-	form: UseFormReturn<Filters>;
-	mediaType: Omit<MediaType, 'person' | 'collection' | 'company'>;
-};
+export type GenresProps = CommonFiltersFormProps & Pick<FiltersFormProps, 'mediaType'>;
