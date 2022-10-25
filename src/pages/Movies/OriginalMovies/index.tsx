@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 import { Undefinable, useTheme } from '@davidscicluna/component-library';
 
-import { useMediaQuery, HStack, Text } from '@chakra-ui/react';
+import { useMediaQuery, VStack, HStack, Text } from '@chakra-ui/react';
 
 import { useDebounce, useEffectOnce } from 'usehooks-ts';
 import qs from 'query-string';
@@ -24,11 +24,13 @@ import VerticalDummyMovies from '../components/VerticalDummyMovies';
 import VerticalMovies from '../components/VerticalMovies';
 import { SortByForm } from '../../../components/SortBy/types';
 import { FiltersForm } from '../../../components/Filters/types';
+import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
 import { AxiosConfigParams } from '../../../common/types';
 
 import MoviesSortBy from './components/MoviesSortBy';
 import MoviesFiltersForm from './components/MoviesFiltersForm';
+import MoviesDisplayFilters from './components/MoviesDisplayFilters';
 
 const defaultSortBy = {
 	sort_by: `${sortByDefaultValues.sortBy.value}.${sortByDefaultValues.direction}`
@@ -171,9 +173,18 @@ const OriginalMovies: FC = () => {
 				p={spacing}
 			/>
 			<PageBody p={spacing}>
-				<Suspense fallback={<VerticalDummyMovies />}>
-					<VerticalMovies query={moviesInfiniteQuery} movies={moviesDebounced} />
-				</Suspense>
+				<VStack width='100%' spacing={spacing}>
+					<MoviesDisplayFilters
+						onTagDelete={({ filter, form }) =>
+							handleSetFilters({ ...form, [filter]: defaultFiltersFormValues[filter] })
+						}
+						onClear={(form) => handleSetFilters({ ...form })}
+					/>
+
+					<Suspense fallback={<VerticalDummyMovies />}>
+						<VerticalMovies query={moviesInfiniteQuery} movies={moviesDebounced} />
+					</Suspense>
+				</VStack>
 			</PageBody>
 		</Page>
 	);
