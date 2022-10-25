@@ -3,7 +3,7 @@ import {
 	UseTrendingInfiniteQueryResult
 } from '../../../../../common/queries/useTrendingInfiniteQuery';
 
-export type TrendingTVTabProps = {
+export type TrendingTVShowsTabProps = {
 	query: UseTrendingInfiniteQueryResult<'tv'>;
 	shows?: UseTrendingInfiniteQueryResponse<'tv'>;
 };

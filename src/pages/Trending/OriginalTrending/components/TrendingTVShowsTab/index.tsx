@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useTheme, Button, Icon } from '@davidscicluna/component-library';
+import { useTheme, Button, Icon, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
@@ -27,9 +27,11 @@ import TVShowVerticalPoster from '../../../../TV/components/Posters/TVShowVertic
 import TVShowHorizontalPoster from '../../../../TV/components/Posters/TVShowHorizontalPoster';
 import { PartialTV } from '../../../../../common/types/tv';
 
-import { TrendingTVTabProps } from './types';
+import { TrendingTVShowsTabProps } from './types';
 
-const TrendingTVTab: FC<TrendingTVTabProps> = ({ query, shows }) => {
+const { getColor } = utils;
+
+const TrendingTVShowsTab: FC<TrendingTVShowsTabProps> = ({ query, shows }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -40,7 +42,14 @@ const TrendingTVTab: FC<TrendingTVTabProps> = ({ query, shows }) => {
 	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
-		<QueryEmpty color={color} colorMode={colorMode}>
+		<QueryEmpty
+			color={color}
+			colorMode={colorMode}
+			borderWidth='2px'
+			borderStyle='dashed'
+			borderColor={getColor({ theme, colorMode, type: 'divider' })}
+			borderRadius='lg'
+		>
 			<QueryEmptyStack>
 				<QueryEmptyIcon
 					renderIcon={(props) => (
@@ -74,7 +83,14 @@ const TrendingTVTab: FC<TrendingTVTabProps> = ({ query, shows }) => {
 	  shows &&
 	  shows.results &&
 	  shows.results.length === 0 ? (
-		<QueryEmpty color={color} colorMode={colorMode}>
+		<QueryEmpty
+			color={color}
+			colorMode={colorMode}
+			borderWidth='2px'
+			borderStyle='dashed'
+			borderColor={getColor({ theme, colorMode, type: 'divider' })}
+			borderRadius='lg'
+		>
 			<QueryEmptyStack>
 				<QueryEmptyBody>
 					<QueryEmptyTitle />
@@ -154,4 +170,4 @@ const TrendingTVTab: FC<TrendingTVTabProps> = ({ query, shows }) => {
 	);
 };
 
-export default TrendingTVTab;
+export default TrendingTVShowsTab;
