@@ -45,7 +45,7 @@ const RatingRange: FC<RatingRangeProps> = ({ form }) => {
 					<FiltersFormCardHeader
 						title='Rating Range'
 						subtitle=''
-						renderMessage={({ fontSize, ...rest }) => (
+						renderMessage={({ fontSize }) => (
 							<SlideFade
 								in={value.length > 0}
 								offsetY={round(getFontSizeHeight({ theme, fontSize }) / 4)}
@@ -67,12 +67,12 @@ const RatingRange: FC<RatingRangeProps> = ({ form }) => {
 						<ButtonGroup sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
 							{ratings.map((rating, index) => (
 								<ButtonGroupItem
+									key={rating}
 									index={index}
 									total={ratings.length - 1}
 									sx={{ flex: isMd ? 1 : undefined, width: isMd ? `${100 / 6}%` : 'auto' }}
 								>
 									<Button
-										key={rating}
 										color={
 											getIsFiltersFormNumbersInList({ list: compact(value), number: rating })
 												? color

@@ -67,12 +67,12 @@ const CountRange: FC<CountRangeProps> = ({ form }) => {
 						<ButtonGroup sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
 							{counts.map((count, index) => (
 								<ButtonGroupItem
+									key={count}
 									index={index}
 									total={counts.length - 1}
 									sx={{ flex: isMd ? 1 : undefined, width: isMd ? `${100 / 6}%` : 'auto' }}
 								>
 									<Button
-										key={count}
 										color={
 											getIsFiltersFormNumbersInList({ list: compact(value), number: count })
 												? color

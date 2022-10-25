@@ -67,12 +67,12 @@ const RuntimeRange: FC<RuntimeRangeProps> = ({ form }) => {
 						<ButtonGroup sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
 							{runtimes.map((runtime, index) => (
 								<ButtonGroupItem
+									key={runtime}
 									index={index}
 									total={runtimes.length - 1}
 									sx={{ flex: isMd ? 1 : undefined, width: isMd ? `${100 / 6}%` : 'auto' }}
 								>
 									<Button
-										key={runtime}
 										color={
 											getIsFiltersFormNumbersInList({ list: compact(value), number: runtime })
 												? color
