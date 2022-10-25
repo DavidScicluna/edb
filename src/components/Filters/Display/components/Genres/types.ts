@@ -1,9 +1,7 @@
-import { MediaType } from '../../../../../common/types';
-import { Filters } from '../../../types';
+import { FiltersFormGenres } from '../../../types';
+import { CommonDisplayFiltersProps } from '../../common/types';
+import { DisplayFiltersProps } from '../../types';
 
-export type GenresProps = {
-	genres: Filters['genres'];
-	mediaType: Omit<MediaType, 'person' | 'collection' | 'company'>;
-	onClick?: () => void;
-	onDelete?: () => void;
-};
+export type GenresProps = CommonDisplayFiltersProps & {
+	genres: FiltersFormGenres;
+} & Pick<DisplayFiltersProps, 'mediaType'>;
