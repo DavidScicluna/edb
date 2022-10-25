@@ -1,17 +1,15 @@
 import { ReactElement, ReactNode } from 'react';
 
-import { Color } from '@davidscicluna/component-library';
+import { ButtonProps } from '@davidscicluna/component-library';
 
-import { Filters, FiltersMediaTypes } from '../types';
+import { FiltersForm, FiltersMediaType } from '../types';
 
-export type RenderButtonProps = {
-	color: Color;
+export type RenderButtonProps = Pick<ButtonProps, 'color' | 'colorMode' | 'onClick'> & {
 	icon: ReactNode;
-	onClick: () => void;
 };
 
 export type FiltersFormProps = {
+	mediaType: FiltersMediaType;
 	renderButton: (props: RenderButtonProps) => ReactElement;
-	mediaType: FiltersMediaTypes;
-	onFilter: (filters: Filters) => void;
+	onFilter: (filters: FiltersForm) => void;
 };
