@@ -33,6 +33,7 @@ import { useSelector } from '../../../../common/hooks';
 import { User } from '../../../../store/slices/Users/types';
 import { setUsers } from '../../../../store/slices/Users';
 import { AuthenticationOutletContext } from '../../types';
+import { useLayoutContext } from '../../../../containers/Layout/common/hooks';
 
 import { Form as FormType } from './types';
 import { schema } from './validation';
@@ -49,6 +50,8 @@ const ForgotPassword: FC = () => {
 	const theme = useTheme();
 	const [isLg] = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
 	const [isXl] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
+
+	const { spacing } = useLayoutContext();
 
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
@@ -158,7 +161,7 @@ const ForgotPassword: FC = () => {
 				isOpen={isConfirmOpen}
 				onClose={onConfirmClose}
 			>
-				<ConfirmModalStack spacing={4} p={4}>
+				<ConfirmModalStack spacing={spacing} p={spacing}>
 					<ConfirmModalIcon
 						renderIcon={(props) => (
 							<Icon

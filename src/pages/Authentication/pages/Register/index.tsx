@@ -44,6 +44,7 @@ import { toggleSpinnerModal } from '../../../../store/slices/Modals';
 import { getBoringAvatarSrc, updateFavicon } from '../../../../common/utils';
 import { colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../types';
+import { useLayoutContext } from '../../../../containers/Layout/common/hooks';
 
 import { detailsSchema } from './validation';
 import { DetailsForm, GenresForm, CustomizationForm, ProfileForm } from './types';
@@ -88,6 +89,8 @@ const { getHue, getColorMode } = utils;
 const Register: FC = () => {
 	const theme = useTheme();
 	const userTheme = useUserTheme();
+
+	const { spacing } = useLayoutContext();
 
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
@@ -370,7 +373,7 @@ const Register: FC = () => {
 				isOpen={isConfirmOpen}
 				onClose={onConfirmClose}
 			>
-				<ConfirmModalStack spacing={4} p={4}>
+				<ConfirmModalStack spacing={spacing} p={spacing}>
 					<ConfirmModalIcon
 						renderIcon={(props) => (
 							<Icon

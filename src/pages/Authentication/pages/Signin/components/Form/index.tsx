@@ -33,11 +33,14 @@ import { omit, sample } from 'lodash';
 import { usernames as placeholders } from '../../../../common/data/placeholders';
 import { PasswordIcon } from '../../../../components';
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
+import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
 import { FormProps } from './types';
 
 const Form: FC<FormProps> = (props) => {
 	const theme = useTheme();
+
+	const { spacing } = useLayoutContext();
 
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
@@ -213,7 +216,7 @@ const Form: FC<FormProps> = (props) => {
 					</IconButton>
 				)}
 			>
-				<ConfirmModalStack spacing={4} p={4}>
+				<ConfirmModalStack spacing={spacing} p={spacing}>
 					<ConfirmModalIcon
 						renderIcon={(props) => (
 							<Icon
