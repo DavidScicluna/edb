@@ -1,47 +1,37 @@
-import { FC, useRef, useState } from 'react';
-
-import { useLocation } from 'react-router';
+import { FC, useRef } from 'react';
 
 import { Nullable, useTheme, Button, Badge, BadgeLabel, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
 import { useCountUp } from 'react-countup';
-import { useDebounce, useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import { FiltersForm } from '../../../../../components';
-import { getTotalFilters } from '../../../../../components/Filters/common/utils';
 
 import { MoviesFiltersFormProps } from './types';
 
 const { convertStringToNumber } = utils;
 
-const MoviesFiltersForm: FC<MoviesFiltersFormProps> = ({ isDisabled = false, onFilter }) => {
+const MoviesFiltersForm: FC<MoviesFiltersFormProps> = ({ total, isDisabled = false, onFilter }) => {
 	const theme = useTheme();
 
 	const [isLg] = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
 
 	const countUpRef = useRef<Nullable<HTMLParagraphElement>>(null);
 
-	const location = useLocation();
-
-	const [total, setTotal] = useState<number>(getTotalFilters({ location, mediaType: 'movie' }) || 0);
-	const totalDebounced = useDebounce<number>(total, 500);
-
 	const { start, update } = useCountUp({
 		ref: countUpRef,
 		start: 0,
-		end: totalDebounced,
+		end: total,
 		delay: convertStringToNumber(theme.transition.duration.slower, 'ms') / 1000,
 		duration: convertStringToNumber(theme.transition.duration.slower, 'ms') / 1000,
 		startOnMount: false
 	});
 
-	useEffectOnce(() => (totalDebounced > 0 ? start() : undefined));
+	useEffectOnce(() => (total > 0 ? start() : undefined));
 
-	useUpdateEffect(() => (totalDebounced ? update(totalDebounced) : undefined), [totalDebounced]);
-
-	useUpdateEffect(() => setTotal(getTotalFilters({ location, mediaType: 'movie' }) || 0), [location.search]);
+	useUpdateEffect(() => (total ? update(total) : undefined), [total]);
 
 	return (
 		<FiltersForm
@@ -50,7 +40,7 @@ const MoviesFiltersForm: FC<MoviesFiltersFormProps> = ({ isDisabled = false, onF
 				<Button
 					{...props}
 					renderRight={
-						totalDebounced > 0
+						total > 0
 							? ({ color, colorMode }) => (
 									<Badge color={color} colorMode={colorMode} size='xs'>
 										<BadgeLabel>
