@@ -1,38 +1,42 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-import { Skeleton, Button, Icon } from '@davidscicluna/component-library';
+import { Button, Icon } from '@davidscicluna/component-library';
 
-import { useConst } from '@chakra-ui/react';
-
-import range from 'lodash/range';
-import sample from 'lodash/sample';
-
-import { useSelector } from '../../../../../../../common/hooks';
-import { defaultUser, getUser } from '../../../../../../../store/slices/Users';
+import DummyGenre from '../DummyGenre';
+import { useUserTheme } from '../../../../../../../common/hooks';
 
 import { GenreProps } from './types';
 
-const dummies = range(25, 200, 5);
+const Genre: FC<GenreProps> = (props) => {
+	const { color, colorMode } = useUserTheme();
 
-const Genre = ({ id, name, isActive = false, isLoading = true, onClick }: GenreProps): ReactElement => {
-	const color = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
+	const { id, name, isActive = false, onClick } = props;
 
-	const dummy = useConst<number>(sample(dummies) || 100);
-
-	return (
+	return id && name ? (
 		<Button
 			color={isActive ? color : 'gray'}
-			renderRight={isActive ? (props) => <Icon {...props} icon='check' category='outlined' /> : undefined}
-			onClick={onClick ? () => onClick({ id, name }) : undefined}
-			isDisabled={isLoading}
+			colorMode={colorMode}
+			renderRight={
+				isActive
+					? ({ colorMode, height }) => (
+							<Icon
+								colorMode={colorMode}
+								width={`${height}px`}
+								height={`${height}px`}
+								fontSize={`${height}px`}
+								icon='check'
+								category='outlined'
+							/>
+					  )
+					: undefined
+			}
+			onClick={() => onClick()}
 			variant='outlined'
 		>
-			<Skeleton width={isLoading ? `${dummy}px` : 'auto'} isLoaded={!isLoading} variant='text'>
-				{name || 'Genre'}
-			</Skeleton>
+			{name}
 		</Button>
+	) : (
+		<DummyGenre />
 	);
 };
 
