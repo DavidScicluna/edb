@@ -9,7 +9,7 @@ import { range } from 'lodash';
 import { useLayoutContext } from '../../../../containers/Layout/common/hooks';
 import { DummyLoadMore, DummyHorizontalPoster, DummyVerticalPoster, VerticalGrid } from '../../../../components';
 
-const TrendingDummyTVTab: FC = () => {
+const TrendingDummyTVShowsTab: FC = () => {
 	const theme = useTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -37,4 +37,4 @@ const TrendingDummyTVTab: FC = () => {
 	);
 };
 
-export default TrendingDummyTVTab;
+export default TrendingDummyTVShowsTab;
