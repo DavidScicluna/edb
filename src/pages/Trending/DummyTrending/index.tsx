@@ -17,7 +17,7 @@ import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import { DummyDisplayMode } from '../../../components';
 import TrendingDummyMoviesTab from '../components/TrendingDummyMoviesTab';
 import TrendingDummyPeopleTab from '../components/TrendingDummyPeopleTab';
-import TrendingDummyTVTab from '../components/TrendingDummyTVTab';
+import TrendingDummyTVShowsTab from '../components/TrendingDummyTVShowsTab';
 import { getActiveTabFromHash } from '../common/utils';
 import TrendingDummyAllTab from '../components/TrendingDummyAllTab';
 import TrendingTabIcon from '../components/TrendingTabIcon';
@@ -114,7 +114,7 @@ const DummyTrending: FC = () => {
 
 							<TrendingDummyMoviesTab />
 
-							<TrendingDummyTVTab />
+							<TrendingDummyTVShowsTab />
 
 							<TrendingDummyPeopleTab />
 						</TabPanels>
