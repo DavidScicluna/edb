@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useTheme, Button, Icon } from '@davidscicluna/component-library';
+import { useTheme, Button, Icon, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
@@ -29,6 +29,8 @@ import { PartialPerson } from '../../../../common/types/person';
 
 import { VerticalPeopleProps } from './types';
 
+const { getColor } = utils;
+
 const VerticalPeople: FC<VerticalPeopleProps> = ({ query, people }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
@@ -40,7 +42,14 @@ const VerticalPeople: FC<VerticalPeopleProps> = ({ query, people }) => {
 	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
-		<QueryEmpty color={color} colorMode={colorMode}>
+		<QueryEmpty
+			color={color}
+			colorMode={colorMode}
+			borderWidth='2px'
+			borderStyle='dashed'
+			borderColor={getColor({ theme, colorMode, type: 'divider' })}
+			borderRadius='lg'
+		>
 			<QueryEmptyStack>
 				<QueryEmptyIcon
 					renderIcon={(props) => (
@@ -71,7 +80,14 @@ const VerticalPeople: FC<VerticalPeopleProps> = ({ query, people }) => {
 	  people &&
 	  people.results &&
 	  people.results.length === 0 ? (
-		<QueryEmpty color={color} colorMode={colorMode}>
+		<QueryEmpty
+			color={color}
+			colorMode={colorMode}
+			borderWidth='2px'
+			borderStyle='dashed'
+			borderColor={getColor({ theme, colorMode, type: 'divider' })}
+			borderRadius='lg'
+		>
 			<QueryEmptyStack>
 				<QueryEmptyBody>
 					<QueryEmptyTitle />
