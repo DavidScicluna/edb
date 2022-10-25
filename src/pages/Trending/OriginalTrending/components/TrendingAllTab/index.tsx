@@ -9,7 +9,7 @@ import TrendingDummyAllTabPeople from '../../../components/TrendingDummyAllTab/c
 
 import TrendingAllTabMovies from './components/TrendingAllTabMovies';
 import TrendingAllTabPeople from './components/TrendingAllTabPeople';
-import TrendingAllTabShows from './components/TrendingAllTabShows';
+import TrendingAllTabTVShows from './components/TrendingAllTabTVShows';
 import { TrendingAllTabProps } from './types';
 
 const TrendingAllTab: FC<TrendingAllTabProps> = (props) => {
@@ -20,17 +20,14 @@ const TrendingAllTab: FC<TrendingAllTabProps> = (props) => {
 
 	return (
 		<VStack width='100%' spacing={spacing}>
-			{/* Movies */}
 			<Suspense fallback={<TrendingDummyAllTabMovies />}>
 				<TrendingAllTabMovies query={moviesInfiniteQuery} movies={movies} onTabChange={onTabChange} />
 			</Suspense>
 
-			{/* TV Shows */}
 			<Suspense fallback={<TrendingDummyAllTabPeople />}>
-				<TrendingAllTabShows query={tvShowsInfiniteQuery} shows={shows} onTabChange={onTabChange} />
+				<TrendingAllTabTVShows query={tvShowsInfiniteQuery} shows={shows} onTabChange={onTabChange} />
 			</Suspense>
 
-			{/* People */}
 			<Suspense fallback={<TrendingDummyAllTabPeople />}>
 				<TrendingAllTabPeople query={peopleInfiniteQuery} people={people} onTabChange={onTabChange} />
 			</Suspense>
