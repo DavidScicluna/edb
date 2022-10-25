@@ -1,8 +1,10 @@
-import { Filters, FiltersMediaTypes } from '../types';
+import { FiltersForm, FiltersMediaType } from '../types';
+
+type OnTagActionProps = { filter: keyof FiltersForm; form: FiltersForm };
 
 export type DisplayFiltersProps = {
-	mediaType: FiltersMediaTypes;
-	onTagClick?: (filter: keyof Filters, filters: Filters) => void;
-	onTagDelete?: (filter: keyof Filters, filters: Filters) => void;
-	onClear: (filters: Filters) => void;
+	mediaType: FiltersMediaType;
+	onTagClick?: (props: OnTagActionProps) => void;
+	onTagDelete?: (props: OnTagActionProps) => void;
+	onClear: (filters: FiltersForm) => void;
 };

@@ -1,120 +1,175 @@
-import { ReactElement, useState, useEffect } from 'react';
-
-import { HorizontalScroll, Button } from '@davidscicluna/component-library';
-
-import { useColorMode, useMediaQuery, Stack, Center } from '@chakra-ui/react';
+import { FC, useState, useEffect } from 'react';
 
 import { useLocation } from 'react-router';
-import compact from 'lodash/compact';
-import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
-import { useElementSize } from 'usehooks-ts';
 
-import Divider from '../../Divider';
-import { handleReturnDefaultValues, handlePopulateFilters } from '../common/utils';
-import { Filters } from '../types';
+import { Space, useTheme, HorizontalScroll, Divider, Button, utils } from '@davidscicluna/component-library';
+
+import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
+
+import { compact } from 'lodash';
+import { useDebounce, useElementSize } from 'usehooks-ts';
+
+import { getFiltersForm } from '../common/utils';
+import { FiltersForm } from '../types';
+import defaultValues from '../common/data/defaults';
+import { useUserTheme } from '../../../common/hooks';
 
 import Certifications from './components/Certifications';
-import Count from './components/Count';
-import Dates from './components/Dates';
+import Count from './components/CountRange';
+// import Dates from './components/Dates';
 import Genres from './components/Genres';
-import Rating from './components/Rating';
-import Runtime from './components/Runtime';
+import Rating from './components/RatingRange';
+import Runtime from './components/RuntimeRange';
 import { DisplayFiltersProps } from './types';
 
-export const defaultValues: Filters = handleReturnDefaultValues();
+const { convertREMToPixels, convertStringToNumber } = utils;
 
-const DisplayFilters = ({ mediaType, onTagClick, onTagDelete, onClear }: DisplayFiltersProps): ReactElement => {
-	const { colorMode } = useColorMode();
-	const [isSm] = useMediaQuery('(max-width: 600px)');
+const spacing: Space = 2;
+
+const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagDelete, onClear }) => {
+	const theme = useTheme();
+	const { colorMode } = useUserTheme();
+
+	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
 	const location = useLocation();
 
-	const [ref, { width, height }] = useElementSize();
+	const [buttonRef, { width: buttonWidth, height: buttonHeight }] = useElementSize();
 
-	const [filters, setFilters] = useState<Filters>(defaultValues);
+	const [filters, setFilters] = useState<FiltersForm>(defaultValues);
+	const filtersDebounced = useDebounce<FiltersForm>(filters, 500);
 
-	useEffect(() => {
+	const handleSetFilters = (): void => {
 		if (location.search && location.search.length > 0) {
-			setFilters(handlePopulateFilters(location.search, mediaType));
+			setFilters(getFiltersForm({ location, mediaType }));
 		}
-	}, [location.search]);
+	};
+
+	const handleContentWidth = (): string => {
+		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem')) * 2;
+
+		return `calc(100% - ${buttonWidth + spacingWidth}px)`;
+	};
+
+	useEffect(() => handleSetFilters(), [location.search]);
 
 	return (
 		<Stack
 			width='100%'
 			direction={isSm ? 'column' : 'row'}
-			borderBottomColor={`gray.${colorMode === 'light' ? 200 : 700}`}
-			borderBottomWidth='2px'
-			divider={!isSm ? <Divider orientation='vertical' height={`${height}px`} /> : undefined}
-			pb={2}
-			spacing={2}
+			divider={
+				!isSm ? (
+					<Divider colorMode={colorMode} orientation='vertical' height={`${buttonHeight}px`} />
+				) : undefined
+			}
+			spacing={spacing}
 		>
-			<Center width={`calc(100% - ${!isSm ? width + 34 : 0}px)`}>
-				<HorizontalScroll renderDivider={() => <Center mr={2} />}>
+			<Center width={handleContentWidth()}>
+				<HorizontalScroll colorMode={colorMode} renderDivider={({ padding }) => <Center p={padding} />}>
 					{compact([
-						!(isNil(filters.dates.gte) || isEmpty(filters.dates.gte)) ||
-						!(isNil(filters.dates.lte) || isEmpty(filters.dates.lte)) ? (
-							<Dates
-								key='display_filters_dates'
-								dates={filters.dates}
-								mediaType={mediaType}
-								onClick={onTagClick ? () => onTagClick('dates', filters) : undefined}
-								onDelete={onTagDelete ? () => onTagDelete('dates', filters) : undefined}
-							/>
-						) : null,
+						// filters.dates.gte !== defaultValues.dates.gte ||
+						// filters.dates.lte !== defaultValues.dates.lte ? (
+						// 	<Dates
+						// key='display_filters_dates'
+						// 		dates={filters.dates}
+						// 		mediaType={mediaType}
+						// 		onClick={onTagClick ? () => onTagClick('dates', filters) : undefined}
+						// 		onDelete={onTagDelete ? () => onTagDelete('dates', filters) : undefined}
+						// 	/>
+						// ) : null,
 
-						!(isNil(filters.genres) || isEmpty(filters.genres)) ? (
+						filtersDebounced.genres !== defaultValues.genres ? (
 							<Genres
-								key='display_filters_genres'
-								genres={filters.genres}
+								genres={filtersDebounced.genres}
 								mediaType={mediaType}
-								onClick={onTagClick ? () => onTagClick('genres', filters) : undefined}
-								onDelete={onTagDelete ? () => onTagDelete('genres', filters) : undefined}
+								onClick={
+									onTagClick
+										? () => onTagClick({ filter: 'genres', form: filtersDebounced })
+										: undefined
+								}
+								onDelete={
+									onTagDelete
+										? () => onTagDelete({ filter: 'genres', form: filtersDebounced })
+										: undefined
+								}
 							/>
 						) : null,
 
-						!(isNil(filters.certifications) || isEmpty(filters.certifications)) ? (
+						filtersDebounced.certifications !== defaultValues.certifications ? (
 							<Certifications
-								key='display_filters_certifications'
-								certifications={filters.certifications}
-								onClick={onTagClick ? () => onTagClick('certifications', filters) : undefined}
-								onDelete={onTagDelete ? () => onTagDelete('certifications', filters) : undefined}
+								certifications={filtersDebounced.certifications}
+								onClick={
+									onTagClick
+										? () => onTagClick({ filter: 'certifications', form: filtersDebounced })
+										: undefined
+								}
+								onDelete={
+									onTagDelete
+										? () => onTagDelete({ filter: 'certifications', form: filtersDebounced })
+										: undefined
+								}
 							/>
 						) : null,
 
-						!(isNil(filters.rating) || isEmpty(filters.rating)) ? (
+						filtersDebounced.rating !== defaultValues.rating ? (
 							<Rating
-								key='display_filters_rating'
-								ratings={filters.rating}
-								onClick={onTagClick ? () => onTagClick('rating', filters) : undefined}
-								onDelete={onTagDelete ? () => onTagDelete('rating', filters) : undefined}
+								ratings={filtersDebounced.rating}
+								onClick={
+									onTagClick
+										? () => onTagClick({ filter: 'rating', form: filtersDebounced })
+										: undefined
+								}
+								onDelete={
+									onTagDelete
+										? () => onTagDelete({ filter: 'rating', form: filtersDebounced })
+										: undefined
+								}
 							/>
 						) : null,
 
-						!(isNil(filters.count) || isEmpty(filters.count)) ? (
+						filtersDebounced.count !== defaultValues.count ? (
 							<Count
-								key='display_filters_count'
-								counts={filters.count}
-								onClick={onTagClick ? () => onTagClick('count', filters) : undefined}
-								onDelete={onTagDelete ? () => onTagDelete('count', filters) : undefined}
+								counts={filtersDebounced.count}
+								onClick={
+									onTagClick
+										? () => onTagClick({ filter: 'count', form: filtersDebounced })
+										: undefined
+								}
+								onDelete={
+									onTagDelete
+										? () => onTagDelete({ filter: 'count', form: filtersDebounced })
+										: undefined
+								}
 							/>
 						) : null,
 
-						!(isNil(filters.runtime) || isEmpty(filters.runtime)) ? (
+						filtersDebounced.runtime !== defaultValues.runtime ? (
 							<Runtime
-								key='display_filters_runtime'
-								runtimes={filters.runtime}
-								onClick={onTagClick ? () => onTagClick('runtime', filters) : undefined}
-								onDelete={onTagDelete ? () => onTagDelete('runtime', filters) : undefined}
+								runtimes={filtersDebounced.runtime}
+								onClick={
+									onTagClick
+										? () => onTagClick({ filter: 'runtime', form: filtersDebounced })
+										: undefined
+								}
+								onDelete={
+									onTagDelete
+										? () => onTagDelete({ filter: 'runtime', form: filtersDebounced })
+										: undefined
+								}
 							/>
 						) : null
 					])}
 				</HorizontalScroll>
 			</Center>
 
-			<Center ref={ref}>
-				<Button isFullWidth={isSm} onClick={() => onClear(filters)} variant='outlined'>
+			<Center ref={buttonRef}>
+				<Button
+					colorMode={colorMode}
+					isFullWidth={isSm}
+					onClick={() => onClear({ ...defaultValues })}
+					size='xs'
+					variant='outlined'
+				>
 					Clear Filters
 				</Button>
 			</Center>
