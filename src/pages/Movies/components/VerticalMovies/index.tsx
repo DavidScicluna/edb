@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useTheme, Button, Icon } from '@davidscicluna/component-library';
+import { useTheme, Button, Icon, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
@@ -29,6 +29,8 @@ import { PartialMovie } from '../../../../common/types/movie';
 
 import { VerticalMoviesProps } from './types';
 
+const { getColor } = utils;
+
 const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
@@ -40,7 +42,14 @@ const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies }) => {
 	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
-		<QueryEmpty color={color} colorMode={colorMode}>
+		<QueryEmpty
+			color={color}
+			colorMode={colorMode}
+			borderWidth='2px'
+			borderStyle='dashed'
+			borderColor={getColor({ theme, colorMode, type: 'divider' })}
+			borderRadius='lg'
+		>
 			<QueryEmptyStack>
 				<QueryEmptyIcon
 					renderIcon={(props) => (
@@ -71,7 +80,14 @@ const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies }) => {
 	  movies &&
 	  movies.results &&
 	  movies.results.length === 0 ? (
-		<QueryEmpty color={color} colorMode={colorMode}>
+		<QueryEmpty
+			color={color}
+			colorMode={colorMode}
+			borderWidth='2px'
+			borderStyle='dashed'
+			borderColor={getColor({ theme, colorMode, type: 'divider' })}
+			borderRadius='lg'
+		>
 			<QueryEmptyStack>
 				<QueryEmptyBody>
 					<QueryEmptyTitle />
