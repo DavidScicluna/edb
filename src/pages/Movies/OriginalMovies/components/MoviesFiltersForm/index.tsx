@@ -2,17 +2,19 @@ import { FC, useRef, useState } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { Nullable, useTheme, Button, Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { Nullable, useTheme, Button, Badge, BadgeLabel, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
 import { useCountUp } from 'react-countup';
 import { useDebounce, useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
-import FiltersForm from '../../../../../components/Filters/Form';
+import { FiltersForm } from '../../../../../components';
+import { getTotalFilters } from '../../../../../components/Filters/common/utils';
 
 import { MoviesFiltersFormProps } from './types';
-import { getTotalFilters } from './common/utils';
+
+const { convertStringToNumber } = utils;
 
 const MoviesFiltersForm: FC<MoviesFiltersFormProps> = ({ isDisabled = false, onFilter }) => {
 	const theme = useTheme();
@@ -23,15 +25,15 @@ const MoviesFiltersForm: FC<MoviesFiltersFormProps> = ({ isDisabled = false, onF
 
 	const location = useLocation();
 
-	const [total, setTotal] = useState<number>(getTotalFilters({ location }) || 0);
+	const [total, setTotal] = useState<number>(getTotalFilters({ location, mediaType: 'movie' }) || 0);
 	const totalDebounced = useDebounce<number>(total, 500);
 
 	const { start, update } = useCountUp({
 		ref: countUpRef,
 		start: 0,
 		end: totalDebounced,
-		delay: 2.5,
-		duration: 2.5,
+		delay: convertStringToNumber(theme.transition.duration.slower, 'ms') / 1000,
+		duration: convertStringToNumber(theme.transition.duration.slower, 'ms') / 1000,
 		startOnMount: false
 	});
 
@@ -39,7 +41,7 @@ const MoviesFiltersForm: FC<MoviesFiltersFormProps> = ({ isDisabled = false, onF
 
 	useUpdateEffect(() => (totalDebounced ? update(totalDebounced) : undefined), [totalDebounced]);
 
-	useUpdateEffect(() => setTotal(getTotalFilters({ location }) || 0), [location.search]);
+	useUpdateEffect(() => setTotal(getTotalFilters({ location, mediaType: 'movie' }) || 0), [location.search]);
 
 	return (
 		<FiltersForm
