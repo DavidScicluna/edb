@@ -1,128 +1,104 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-import { Card, CardBody, ButtonGroup, Button } from '@davidscicluna/component-library';
+import {
+	useTheme,
+	Card,
+	CardBody,
+	ButtonGroup,
+	ButtonGroupItem,
+	Button,
+	SlideFade
+} from '@davidscicluna/component-library';
 
-import { useTheme, useMediaQuery, useConst, Text, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, useConst, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
+import { round, toString } from 'lodash';
 
-import { defaultValues } from '../..';
-import { useSelector } from '../../../../../common/hooks';
-import { defaultUser, getUser } from '../../../../../store/slices/Users';
-import { Filters } from '../../../types';
-import { handleCheckIfInRange } from '../../common/utils';
-import Header from '../Header';
+import defaultValues from '../../../common/data/defaults';
+import { getIsFiltersFormNumbersInList, getFiltersFormNumbers } from '../../common/utils';
+import FiltersFormCardHeader from '../FiltersFormCardHeaders';
+import { CommonFiltersFormProps as CountRangeProps } from '../../common/types';
+import { useUserTheme } from '../../../../../common/hooks';
+import { getFontSizeHeight } from '../../../../../common/utils';
 
-import { CountRangeProps } from './types';
-
-const CountRange = ({ form }: CountRangeProps): ReactElement => {
+const CountRange: FC<CountRangeProps> = ({ form }) => {
 	const theme = useTheme();
-	const [isMd] = useMediaQuery('(max-width: 760px)');
+	const { color, colorMode } = useUserTheme();
 
-	const color = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
+	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
+
+	const { control, setValue } = form;
 
 	const counts = useConst(range(0, 550, 50));
 
-	const handleOnChange = (value: Filters['count'], number: number): void => {
-		const count = compact(value);
-
-		if (count.some((num) => num === number)) {
-			form.setValue(
-				'count',
-				[...count].filter((num) => num !== number).sort((a, b) => a - b),
-				{ shouldDirty: true }
-			);
-		} else {
-			form.setValue(
-				'count',
-				count.length > 1
-					? [...count, number].filter((_num, index) => index !== 0).sort((a, b) => a - b)
-					: [...count, number].sort((a, b) => a - b),
-				{
-					shouldDirty: true
-				}
-			);
-		}
-	};
-
 	return (
 		<Controller
-			control={form.control}
+			control={control}
 			name='count'
-			render={({ field }) => {
-				const value = compact(field.value);
-
-				return (
-					<Card isFullWidth>
-						<Header
-							label='Number of Ratings Range'
-							renderMessage={({ color, fontSize, fontWeight }) => (
-								<ScaleFade in={value.length > 0} unmountOnExit>
-									<Text color={color} fontSize={fontSize} fontWeight={fontWeight}>
-										{value.map((count) => `${count} ratings`).join(' -> ')}
-									</Text>
-								</ScaleFade>
-							)}
-							renderButton={({ color, size, variant }) => (
-								<Button
-									color={color}
-									isDisabled={value.length === 0}
-									onClick={() => form.setValue('count', defaultValues.count, { shouldDirty: true })}
-									size={size}
-									variant={variant}
+			render={({ field: { onBlur, value, name } }) => (
+				<Card colorMode={colorMode} isFullWidth onBlur={onBlur} p={2}>
+					<FiltersFormCardHeader
+						title='Number of Ratings Range'
+						subtitle=''
+						renderMessage={({ fontSize, ...rest }) => (
+							<SlideFade
+								in={value.length > 0}
+								offsetY={round(getFontSizeHeight({ theme, fontSize }) / 4)}
+							>
+								<Text {...rest} fontSize={fontSize}>
+									{value.map((count) => `${count} ratings`).join(' -> ')}
+								</Text>
+							</SlideFade>
+						)}
+						renderButton={(props) => (
+							<Button
+								{...props}
+								isDisabled={value.length === 0}
+								onClick={() => setValue('count', defaultValues.count, { shouldDirty: true })}
+							>
+								Clear
+							</Button>
+						)}
+					/>
+					<CardBody>
+						<ButtonGroup sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
+							{counts.map((count, index) => (
+								<ButtonGroupItem
+									index={index}
+									total={counts.length - 1}
+									sx={{ flex: isMd ? 1 : undefined, width: isMd ? `${100 / 6}%` : 'auto' }}
 								>
-									Clear
-								</Button>
-							)}
-						/>
-						<CardBody>
-							<ButtonGroup isAttached sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
-								{counts.map((number) => (
 									<Button
-										key={number}
+										key={count}
 										color={
-											value.some((count) => count === number) ||
-											handleCheckIfInRange(number, value)
+											getIsFiltersFormNumbersInList({ list: compact(value), number: count })
 												? color
 												: 'gray'
 										}
+										colorMode={colorMode}
 										isFullWidth
-										onClick={() => handleOnChange(value, number)}
-										variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
-										sx={{
-											back: {
-												flex: isMd ? 1 : '',
-												minWidth: isMd ? `${100 / 6}%` : 'auto',
-												borderRadius:
-													number === counts[0]
-														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === counts[counts.length - 1]
-														? `0 ${theme.radii.base} ${theme.radii.base} 0`
-														: 0
-											},
-											front: {
-												px: 0.5,
-												borderRadius:
-													number === counts[0]
-														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === counts[counts.length - 1]
-														? `0 ${theme.radii.base} ${theme.radii.base} 0`
-														: 0
-											}
-										}}
+										onClick={() =>
+											setValue(
+												name,
+												getFiltersFormNumbers({ list: compact(value), number: count }),
+												{
+													shouldDirty: true
+												}
+											)
+										}
+										variant={value.some((num) => num === count) ? 'contained' : 'outlined'}
 									>
-										{String(number)}
+										{toString(count)}
 									</Button>
-								))}
-							</ButtonGroup>
-						</CardBody>
-					</Card>
-				);
-			}}
+								</ButtonGroupItem>
+							))}
+						</ButtonGroup>
+					</CardBody>
+				</Card>
+			)}
 		/>
 	);
 };
