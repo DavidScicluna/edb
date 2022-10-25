@@ -1,12 +1,12 @@
-import { FC, useState, useCallback } from 'react';
+import { FC, useState } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { Undefinable, useTheme } from '@davidscicluna/component-library';
+import { Undefinable, useTheme, Divider } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, HStack, Text } from '@chakra-ui/react';
 
-import { useDebounce, useEffectOnce } from 'usehooks-ts';
+import { useDebounce, useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import qs from 'query-string';
 import { isEmpty, isNil, merge, omit, omitBy, pick, uniqBy } from 'lodash';
 import dayjs from 'dayjs';
@@ -27,6 +27,8 @@ import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
 import { AxiosConfigParams } from '../../../common/types';
+import { useUserTheme } from '../../../common/hooks';
+import { getTotalFilters } from '../../../components/Filters/common/utils';
 
 import MoviesSortBy from './components/MoviesSortBy';
 import MoviesFiltersForm from './components/MoviesFiltersForm';
@@ -40,11 +42,12 @@ const defaultFilters = {
 	'language': 'en-US', // TODO: Make this dynamic
 	'ott_region': 'US', // TODO: Make this dynamic
 	'certification_country': 'US', // TODO: Make this dynamic
-	'primary_release_date.lte': dayjs().format('YYYY-MM-DD')
+	'primary_release_date.lte': dayjs(new Date()).format('YYYY-MM-DD')
 };
 
 const OriginalMovies: FC = () => {
 	const theme = useTheme();
+	const { colorMode } = useUserTheme();
 
 	const [isLg] = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
 
@@ -58,6 +61,9 @@ const OriginalMovies: FC = () => {
 
 	const [params, setParams] = useState<AxiosConfigParams>();
 	const paramsDebounced = useDebounce<AxiosConfigParams>(params, 500);
+
+	const [totalFilters, setTotalFilters] = useState<number>(getTotalFilters({ location, mediaType: 'movie' }) || 0);
+	const totalFiltersDebounced = useDebounce<number>(totalFilters, 500);
 
 	const moviesInfiniteQuery = useMoviesInfiniteQuery({
 		config: { params: { ...paramsDebounced } },
@@ -82,60 +88,53 @@ const OriginalMovies: FC = () => {
 
 	const { isFetchingNextPage, isFetching, isLoading, isError } = moviesInfiniteQuery;
 
-	const handleSetSortBy = useCallback(
-		({ sortBy, direction }: SortByForm): void => {
-			const currentSearch = omit(qs.parse(location.search || ''), 'sort_by') || {};
-			const updatedSortBy = { sort_by: `${sortBy.value}.${direction}` };
+	const handleSetSortBy = ({ sortBy, direction }: SortByForm): void => {
+		const currentSearch = omit(qs.parse(location.search || ''), 'sort_by') || {};
+		const updatedSortBy = { sort_by: `${sortBy.value}.${direction}` };
 
-			const params = { ...currentSearch, ...updatedSortBy };
+		const params = { ...currentSearch, ...updatedSortBy };
 
-			setMovies(undefined);
-			setParams({ ...params });
+		setMovies(undefined);
+		setParams({ ...params });
 
-			navigate({ pathname: '.', search: qs.stringify({ ...params }) });
-		},
-		[location]
-	);
+		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
+	};
 
-	const handleSetFilters = useCallback(
-		({ certifications, dates, genres, rating, count, runtime }: FiltersForm): void => {
-			const currentSearch = pick(qs.parse(location.search || ''), 'sort_by') || {};
-			const updatedfilters = omitBy(
-				merge({
-					...defaultFilters,
-					'certification': certifications.length > 0 ? certifications.join('|') : undefined,
-					'primary_release_date.gte': dates.gte || undefined,
-					'primary_release_date.lte': dates.lte || undefined,
-					'with_genres': genres.length > 0 ? genres.join(',') : undefined,
-					'vote_average.gte': rating.length > 0 && rating[0] ? rating[0] : undefined,
-					'vote_average.lte': rating.length > 0 && rating[1] ? rating[1] : undefined,
-					'vote_count.gte': count.length > 0 && count[0] ? count[0] : undefined,
-					'vote_count.lte': count.length > 0 && count[1] ? count[1] : undefined,
-					'with_runtime.gte': runtime.length > 0 && runtime[0] ? runtime[0] : undefined,
-					'with_runtime.lte': runtime.length > 0 && runtime[1] ? runtime[1] : undefined
-				}),
-				isNil || isEmpty
-			);
+	const handleSetFilters = ({ certifications, dates, genres, rating, count, runtime }: FiltersForm): void => {
+		const currentSearch = pick(qs.parse(location.search || ''), 'sort_by') || {};
+		const updatedfilters = omitBy(
+			merge({
+				...defaultFilters,
+				'certification': certifications.length > 0 ? certifications.join('|') : undefined,
+				'primary_release_date.gte': dates.gte || undefined,
+				'primary_release_date.lte': dates.lte || undefined,
+				'with_genres': genres.length > 0 ? genres.join(',') : undefined,
+				'vote_average.gte': rating.length > 0 && rating[0] ? rating[0] : undefined,
+				'vote_average.lte': rating.length > 0 && rating[1] ? rating[1] : undefined,
+				'vote_count.gte': count.length > 0 && count[0] ? count[0] : undefined,
+				'vote_count.lte': count.length > 0 && count[1] ? count[1] : undefined,
+				'with_runtime.gte': runtime.length > 0 && runtime[0] ? runtime[0] : undefined,
+				'with_runtime.lte': runtime.length > 0 && runtime[1] ? runtime[1] : undefined
+			}),
+			isNil || isEmpty
+		);
 
-			const params = { ...currentSearch, ...updatedfilters };
+		const params = { ...currentSearch, ...updatedfilters };
 
-			setMovies(undefined);
-			setParams({ ...params });
+		setMovies(undefined);
+		setParams({ ...params });
 
-			navigate({ pathname: '.', search: qs.stringify({ ...params }) });
-		},
-		[location, defaultFilters]
-	);
+		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
+	};
 
-	// useUpdateEffect(() => {
-	// 	handleCheckFilters(handlePopulateFilters(location.search, 'movie'));
-	// }, [location.search]);
+	useUpdateEffect(() => setTotalFilters(getTotalFilters({ location, mediaType: 'movie' }) || 0), [location.search]);
 
 	useEffectOnce(() => {
 		const currentSearch = qs.parse(location.search);
-		const params = currentSearch
-			? merge({ ...defaultSortBy, ...defaultFilters, ...currentSearch })
-			: merge({ ...defaultSortBy, ...defaultFilters });
+		const params =
+			currentSearch && location.search.length > 0
+				? merge({ ...defaultSortBy, ...defaultFilters, ...currentSearch })
+				: merge({ ...defaultSortBy, ...defaultFilters });
 
 		setParams({ ...params });
 
@@ -163,6 +162,7 @@ const OriginalMovies: FC = () => {
 							onSort={handleSetSortBy}
 						/>
 						<MoviesFiltersForm
+							total={totalFiltersDebounced}
 							isDisabled={isFetchingNextPage || isFetching || isLoading || isError}
 							onFilter={handleSetFilters}
 						/>
@@ -173,8 +173,13 @@ const OriginalMovies: FC = () => {
 				p={spacing}
 			/>
 			<PageBody p={spacing}>
-				<VStack width='100%' spacing={spacing}>
+				<VStack
+					width='100%'
+					divider={totalFiltersDebounced > 0 ? <Divider colorMode={colorMode} /> : undefined}
+					spacing={spacing}
+				>
 					<MoviesDisplayFilters
+						total={totalFiltersDebounced}
 						onTagDelete={({ filter, form }) =>
 							handleSetFilters({ ...form, [filter]: defaultFiltersFormValues[filter] })
 						}
