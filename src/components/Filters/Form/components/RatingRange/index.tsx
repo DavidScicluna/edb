@@ -1,127 +1,102 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-import { Card, CardBody, ButtonGroup, Button } from '@davidscicluna/component-library';
+import {
+	useTheme,
+	Card,
+	CardBody,
+	ButtonGroup,
+	ButtonGroupItem,
+	Button,
+	SlideFade
+} from '@davidscicluna/component-library';
 
-import { useTheme, useMediaQuery, useConst, ScaleFade } from '@chakra-ui/react';
+import { useMediaQuery, useConst } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
+import { round, toString } from 'lodash';
 
-import { defaultValues } from '../..';
-import { useSelector } from '../../../../../common/hooks';
-import { defaultUser, getUser } from '../../../../../store/slices/Users';
-import Rating from '../../../../Rating';
-import { Filters } from '../../../types';
-import { handleCheckIfInRange } from '../../common/utils';
-import Header from '../Header';
+import defaultValues from '../../../common/data/defaults';
+import { useUserTheme } from '../../../../../common/hooks';
+import Rating from '../../../../Ratings/Rating';
+import { getIsFiltersFormNumbersInList, getFiltersFormNumbers } from '../../common/utils';
+import FiltersFormCardHeader from '../FiltersFormCardHeaders';
+import { CommonFiltersFormProps as RatingRangeProps } from '../../common/types';
+import { RatingSize } from '../../../../Ratings/common/types';
+import { getFontSizeHeight } from '../../../../../common/utils';
 
-import { RatingRangeProps } from './types';
-
-const RatingRange = ({ form }: RatingRangeProps): ReactElement => {
+const RatingRange: FC<RatingRangeProps> = ({ form }) => {
 	const theme = useTheme();
-	const [isMd] = useMediaQuery('(max-width: 760px)');
+	const { color, colorMode } = useUserTheme();
 
-	const color = useSelector(
-		(state) => getUser(state.users.data.users, state.app.data.user)?.ui.theme.color || defaultUser.ui.theme.color
-	);
+	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
+
+	const { control, setValue } = form;
 
 	const ratings = useConst(range(0, 11));
 
-	const handleOnChange = (value: Filters['rating'], number: number): void => {
-		const rating = compact(value);
-
-		if (rating.some((num) => num === number)) {
-			form.setValue(
-				'rating',
-				[...rating].filter((num) => num !== number).sort((a, b) => a - b),
-				{ shouldDirty: true }
-			);
-		} else {
-			form.setValue(
-				'rating',
-				rating.length > 1
-					? [...rating, number].filter((_num, index) => index !== 0).sort((a, b) => a - b)
-					: [...rating, number].sort((a, b) => a - b),
-				{
-					shouldDirty: true
-				}
-			);
-		}
-	};
-
 	return (
 		<Controller
-			control={form.control}
+			control={control}
 			name='rating'
-			render={({ field }) => {
-				const value = compact(field.value);
-
-				return (
-					<Card isFullWidth>
-						<Header
-							label='Rating Range'
-							renderMessage={() => (
-								<ScaleFade in={value.length > 0} unmountOnExit>
-									<Rating>{value.join(' -> ')}</Rating>
-								</ScaleFade>
-							)}
-							renderButton={({ color, size, variant }) => (
-								<Button
-									color={color}
-									isDisabled={value.length === 0}
-									onClick={() => form.setValue('rating', defaultValues.rating, { shouldDirty: true })}
-									size={size}
-									variant={variant}
+			render={({ field: { onBlur, value, name } }) => (
+				<Card colorMode={colorMode} isFullWidth onBlur={onBlur} p={2}>
+					<FiltersFormCardHeader
+						title='Rating Range'
+						subtitle=''
+						renderMessage={({ fontSize, ...rest }) => (
+							<SlideFade
+								in={value.length > 0}
+								offsetY={round(getFontSizeHeight({ theme, fontSize }) / 4)}
+							>
+								<Rating rating={value.join(' -> ')} size={fontSize as RatingSize} />
+							</SlideFade>
+						)}
+						renderButton={(props) => (
+							<Button
+								{...props}
+								isDisabled={value.length === 0}
+								onClick={() => setValue(name, defaultValues.rating, { shouldDirty: true })}
+							>
+								Clear
+							</Button>
+						)}
+					/>
+					<CardBody>
+						<ButtonGroup sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
+							{ratings.map((rating, index) => (
+								<ButtonGroupItem
+									index={index}
+									total={ratings.length - 1}
+									sx={{ flex: isMd ? 1 : undefined, width: isMd ? `${100 / 6}%` : 'auto' }}
 								>
-									Clear
-								</Button>
-							)}
-						/>
-						<CardBody>
-							<ButtonGroup isAttached sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
-								{ratings.map((number) => (
 									<Button
-										key={number}
+										key={rating}
 										color={
-											value.some((rating) => rating === number) ||
-											handleCheckIfInRange(number, value)
+											getIsFiltersFormNumbersInList({ list: compact(value), number: rating })
 												? color
 												: 'gray'
 										}
+										colorMode={colorMode}
 										isFullWidth
-										onClick={() => handleOnChange(value, number)}
-										variant={value.some((count) => count === number) ? 'contained' : 'outlined'}
-										sx={{
-											back: {
-												flex: isMd ? 1 : '',
-												minWidth: isMd ? `${100 / 6}%` : 'auto',
-												borderRadius:
-													number === ratings[0]
-														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === ratings[ratings.length - 1]
-														? `0 ${theme.radii.base} ${theme.radii.base} 0`
-														: 0
-											},
-											front: {
-												px: 0.5,
-												borderRadius:
-													number === ratings[0]
-														? `${theme.radii.base} 0 0 ${theme.radii.base}`
-														: number === ratings[ratings.length - 1]
-														? `0 ${theme.radii.base} ${theme.radii.base} 0`
-														: 0
-											}
-										}}
+										onClick={() =>
+											setValue(
+												name,
+												getFiltersFormNumbers({ list: compact(value), number: rating }),
+												{ shouldDirty: true }
+											)
+										}
+										variant={value.some((num) => num === rating) ? 'contained' : 'outlined'}
 									>
-										{String(number)}
+										{toString(rating)}
 									</Button>
-								))}
-							</ButtonGroup>
-						</CardBody>
-					</Card>
-				);
-			}}
+								</ButtonGroupItem>
+							))}
+						</ButtonGroup>
+					</CardBody>
+				</Card>
+			)}
 		/>
 	);
 };
