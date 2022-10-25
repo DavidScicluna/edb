@@ -6,20 +6,17 @@ import { useLayoutContext } from '../../../../containers/Layout/common/hooks';
 
 import TrendingDummyAllTabMovies from './components/TrendingDummyAllTabMovies';
 import TrendingDummyAllTabPeople from './components/TrendingDummyAllTabPeople';
-import TrendingDummyAllTabShows from './components/TrendingDummyAllTabShows';
+import TrendingDummyAllTabTVShows from './components/TrendingDummyAllTabTVShows';
 
 const TrendingDummyAllTab: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	return (
 		<VStack width='100%' spacing={spacing}>
-			{/* Movies */}
 			<TrendingDummyAllTabMovies />
 
-			{/* TV Shows */}
-			<TrendingDummyAllTabShows />
+			<TrendingDummyAllTabTVShows />
 
-			{/* People */}
 			<TrendingDummyAllTabPeople />
 		</VStack>
 	);

@@ -5,7 +5,7 @@ import { range } from 'lodash';
 import { DummyVerticalPoster } from '../../../../../../components';
 import TrendingDummyAllTabHorizontalGrid, { width } from '../TrendingDummyAllTabHorizontalGrid';
 
-const TrendingDummyAllTabShows: FC = () => {
+const TrendingDummyAllTabTVShows: FC = () => {
 	return (
 		<TrendingDummyAllTabHorizontalGrid>
 			{range(20).map((_dummy, index) => (
@@ -15,4 +15,4 @@ const TrendingDummyAllTabShows: FC = () => {
 	);
 };
 
-export default TrendingDummyAllTabShows;
+export default TrendingDummyAllTabTVShows;
