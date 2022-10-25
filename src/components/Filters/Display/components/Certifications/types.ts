@@ -1,7 +1,6 @@
-import { Filters } from '../../../types';
+import { FiltersFormCertifications } from '../../../types';
+import { CommonDisplayFiltersProps } from '../../common/types';
 
-export type CertificationsProps = {
-	certifications: Filters['certifications'];
-	onClick?: () => void;
-	onDelete?: () => void;
+export type CertificationsProps = CommonDisplayFiltersProps & {
+	certifications: FiltersFormCertifications;
 };
