@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useTheme, Button, Icon } from '@davidscicluna/component-library';
+import { useTheme, Button, Icon, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
@@ -29,7 +29,9 @@ import MovieHorizontalPoster from '../../../../Movies/components/Posters/MovieHo
 
 import { TrendingMoviesTabProps } from './types';
 
-const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query, movies }) => {
+const { getColor } = utils;
+
+const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -39,8 +41,20 @@ const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query, movies }) => {
 
 	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
 
+	const movies = {
+		results: [],
+		total_results: 0
+	};
+
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
-		<QueryEmpty color={color} colorMode={colorMode}>
+		<QueryEmpty
+			color={color}
+			colorMode={colorMode}
+			borderWidth='2px'
+			borderStyle='dashed'
+			borderColor={getColor({ theme, colorMode, type: 'divider' })}
+			borderRadius='lg'
+		>
 			<QueryEmptyStack>
 				<QueryEmptyIcon
 					renderIcon={(props) => (
@@ -74,7 +88,14 @@ const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query, movies }) => {
 	  movies &&
 	  movies.results &&
 	  movies.results.length === 0 ? (
-		<QueryEmpty color={color} colorMode={colorMode}>
+		<QueryEmpty
+			color={color}
+			colorMode={colorMode}
+			borderWidth='2px'
+			borderStyle='dashed'
+			borderColor={getColor({ theme, colorMode, type: 'divider' })}
+			borderRadius='lg'
+		>
 			<QueryEmptyStack>
 				<QueryEmptyBody>
 					<QueryEmptyTitle />
