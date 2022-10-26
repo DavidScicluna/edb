@@ -66,8 +66,8 @@ const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, arrowPro
 					<Arrows
 						isLeftDisabled={debouncedIsLeftArrowDisabled}
 						isRightDisabled={debouncedIsRightArrowDisabled}
-						onLeftClick={scrollPrev}
-						onRightClick={scrollNext}
+						onLeftClick={() => scrollPrev()}
+						onRightClick={() => scrollNext()}
 						arrowProps={arrowProps}
 					/>
 				</HStack>
