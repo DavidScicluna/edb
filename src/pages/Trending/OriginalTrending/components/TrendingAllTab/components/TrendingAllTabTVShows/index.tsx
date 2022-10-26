@@ -14,13 +14,13 @@ import {
 	QueryEmptySubtitle,
 	QueryEmptyActions,
 	DummyVerticalPoster,
-	HorizontalGridScroll
+	HorizontalGridScroll,
+	TVShowVerticalPoster
 } from '../../../../../../../components';
 import TrendingAllTabHorizontalGrid, { width } from '../TrendingAllTabHorizontalGrid';
 import { useUserTheme } from '../../../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
-import TVShowVerticalPoster from '../../../../../../TV/components/Posters/TVShowVerticalPoster';
 
 import { TrendingAllTabShowsProps } from './types';
 

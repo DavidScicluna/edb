@@ -1,5 +1,5 @@
-import { PartialTV } from '../../../../../common/types/tv';
-import { VerticalPosterProps } from '../../../../../components/Posters/VerticalPoster/types';
+import { PartialTV } from '../../../common/types/tv';
+import { VerticalPosterProps } from '../VerticalPoster/types';
 
 type Omitted = 'mediaItem' | 'mediaType' | 'image' | 'rating' | 'title' | 'subtitle' | 'isFullWidth' | 'isLight';
 

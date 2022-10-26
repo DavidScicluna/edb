@@ -18,13 +18,13 @@ import {
 	DummyHorizontalPoster,
 	DummyVerticalPoster,
 	VerticalGrid,
-	LoadMore
+	LoadMore,
+	TVShowHorizontalPoster,
+	TVShowVerticalPoster
 } from '../../../../../components';
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
-import TVShowVerticalPoster from '../../../../TV/components/Posters/TVShowVerticalPoster';
-import TVShowHorizontalPoster from '../../../../TV/components/Posters/TVShowHorizontalPoster';
 import { PartialTV } from '../../../../../common/types/tv';
 
 import { TrendingTVShowsTabProps } from './types';
