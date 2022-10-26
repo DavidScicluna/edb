@@ -20,13 +20,13 @@ import {
 	DummyHorizontalPoster,
 	DummyVerticalPoster,
 	VerticalGrid,
-	LoadMore
+	LoadMore,
+	MovieHorizontalPoster,
+	MovieVerticalPoster
 } from '../../../../../components';
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
-import MovieVerticalPoster from '../../../../Movies/components/Posters/MovieVerticalPoster';
-import MovieHorizontalPoster from '../../../../Movies/components/Posters/MovieHorizontalPoster';
 import { UseSearchInfiniteQueryResponse } from '../../../../../common/queries/useSearchInfiniteQuery';
 
 import { SearchMoviesProps } from './types';

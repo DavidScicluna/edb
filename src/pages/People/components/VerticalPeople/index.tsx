@@ -18,13 +18,13 @@ import {
 	DummyHorizontalPoster,
 	DummyVerticalPoster,
 	VerticalGrid,
-	LoadMore
+	LoadMore,
+	PersonVerticalPoster,
+	PersonHorizontalPoster
 } from '../../../../components';
 import { useUserTheme } from '../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../common/utils';
-import PersonVerticalPoster from '../Posters/PersonVerticalPoster';
-import PersonHorizontalPoster from '../../../../components/Posters/PersonHorizontalPoster';
 import { PartialPerson } from '../../../../common/types/person';
 
 import { VerticalPeopleProps } from './types';

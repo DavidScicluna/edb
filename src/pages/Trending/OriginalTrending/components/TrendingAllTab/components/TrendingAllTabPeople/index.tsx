@@ -14,13 +14,13 @@ import {
 	QueryEmptySubtitle,
 	QueryEmptyActions,
 	DummyVerticalPoster,
-	HorizontalGridScroll
+	HorizontalGridScroll,
+	PersonVerticalPoster
 } from '../../../../../../../components';
 import TrendingAllTabHorizontalGrid, { width } from '../TrendingAllTabHorizontalGrid';
 import { useUserTheme } from '../../../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
-import PersonVerticalPoster from '../../../../../../People/components/Posters/PersonVerticalPoster';
 
 import { TrendingAllTabPeopleProps } from './types';
 

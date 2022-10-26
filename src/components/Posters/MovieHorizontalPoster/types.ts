@@ -1,5 +1,5 @@
-import { PartialMovie } from '../../../../../common/types/movie';
-import { HorizontalPosterProps } from '../../../../../components/Posters/HorizontalPoster/types';
+import { PartialMovie } from '../../../common/types/movie';
+import { HorizontalPosterProps } from '../HorizontalPoster/types';
 
 type Omitted =
 	| 'mediaItem'

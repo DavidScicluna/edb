@@ -2,20 +2,20 @@ import { FC } from 'react';
 
 import { compact } from 'lodash';
 
-import { getImageSize, handleReturnDate, handleReturnGenresByID } from '../../../../../common/utils';
-import { VerticalPoster } from '../../../../../components';
+import { getImageSize, handleReturnDate, handleReturnGenresByID } from '../../../common/utils';
+import HorizontalPoster from '../HorizontalPoster';
 
-import { MovieVerticalPosterProps } from './types';
+import { MovieHorizontalPosterProps } from './types';
 
 const thumbnail = getImageSize({ type: 'poster', mode: 'thumbnail' });
 const full = getImageSize({ type: 'poster', mode: 'full' });
 
-const MovieVerticalPoster: FC<MovieVerticalPosterProps> = (props) => {
+const MovieHorizontalPoster: FC<MovieHorizontalPosterProps> = (props) => {
 	const { movie, ...rest } = props;
-	const { title, poster_path, vote_average, vote_count, release_date, genre_ids } = movie;
+	const { title, poster_path, vote_average, vote_count, release_date, genre_ids, overview } = movie;
 
 	return (
-		<VerticalPoster<'movie'>
+		<HorizontalPoster<'movie'>
 			{...rest}
 			mediaItem={{ ...movie }}
 			mediaType='movie'
@@ -34,8 +34,9 @@ const MovieVerticalPoster: FC<MovieVerticalPosterProps> = (props) => {
 					  ]).join(' • ')}`
 					: undefined
 			}
+			description={overview || ''}
 		/>
 	);
 };
 
-export default MovieVerticalPoster;
+export default MovieHorizontalPoster;
