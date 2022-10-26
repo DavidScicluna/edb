@@ -32,7 +32,10 @@ const DummyMovies: FC = () => {
 				renderSubtitle={(props) => (
 					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 						<Text {...props}>
-							A list containing all the MEDIATYPE that have been released or will be in the coming months.
+							{`A list containing all the ${formatMediaTypeLabel({
+								type: 'multiple',
+								mediaType: 'movie'
+							})} that have been released or will be in the coming months.`}
 						</Text>
 					</Skeleton>
 				)}
