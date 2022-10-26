@@ -1,5 +1,5 @@
-import { PartialPerson } from '../../../../../common/types/person';
-import { HorizontalPosterProps } from '../../../../../components/Posters/HorizontalPoster/types';
+import { PartialPerson } from '../../../common/types/person';
+import { HorizontalPosterProps } from '../HorizontalPoster/types';
 
 type Omitted =
 	| 'mediaItem'

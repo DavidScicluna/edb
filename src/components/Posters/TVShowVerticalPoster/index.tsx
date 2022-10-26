@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { compact } from 'lodash';
 
 import { getImageSize, handleReturnDate, handleReturnGenresByID } from '../../../common/utils';
-import { VerticalPoster } from '../..';
+import VerticalPoster from '../VerticalPoster';
 
 import { TVShowVerticalPosterProps } from './types';
 

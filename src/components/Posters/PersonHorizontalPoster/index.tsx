@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { compact } from 'lodash';
 import { sort } from 'fast-sort';
 
-import { getImageSize } from '../../../../../common/utils';
-import { HorizontalPoster } from '../../../../../components';
+import { getImageSize } from '../../../common/utils';
+import HorizontalPoster from '../HorizontalPoster';
 
 import { PersonHorizontalPosterProps } from './types';
 

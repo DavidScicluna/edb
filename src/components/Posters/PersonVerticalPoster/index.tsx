@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { getImageSize } from '../../../../../common/utils';
-import { VerticalPoster } from '../../../../../components';
+import { getImageSize } from '../../../common/utils';
+import VerticalPoster from '../VerticalPoster';
 
 import { PersonVerticalPosterProps } from './types';
 

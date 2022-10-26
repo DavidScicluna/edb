@@ -24,7 +24,7 @@ import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import PersonVerticalPoster from '../../../../People/components/Posters/PersonVerticalPoster';
-import PersonHorizontalPoster from '../../../../People/components/Posters/PersonHorizontalPoster';
+import PersonHorizontalPoster from '../../../../../components/Posters/PersonHorizontalPoster';
 import { PartialPerson } from '../../../../../common/types/person';
 
 import { TrendingPeopleTabProps } from './types';

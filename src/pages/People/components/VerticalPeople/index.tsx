@@ -24,7 +24,7 @@ import { useUserTheme } from '../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../common/utils';
 import PersonVerticalPoster from '../Posters/PersonVerticalPoster';
-import PersonHorizontalPoster from '../Posters/PersonHorizontalPoster';
+import PersonHorizontalPoster from '../../../../components/Posters/PersonHorizontalPoster';
 import { PartialPerson } from '../../../../common/types/person';
 
 import { VerticalPeopleProps } from './types';

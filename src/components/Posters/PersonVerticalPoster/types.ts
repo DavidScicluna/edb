@@ -1,5 +1,5 @@
-import { PartialPerson } from '../../../../../common/types/person';
-import { VerticalPosterProps } from '../../../../../components/Posters/VerticalPoster/types';
+import { PartialPerson } from '../../../common/types/person';
+import { VerticalPosterProps } from '../VerticalPoster/types';
 
 type Omitted = 'mediaItem' | 'mediaType' | 'image' | 'rating' | 'title' | 'subtitle' | 'isFullWidth' | 'isLight';
 
