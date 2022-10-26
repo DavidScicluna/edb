@@ -41,10 +41,10 @@ const DummyMovies: FC = () => {
 				)}
 				actions={
 					<HStack width={isLg ? '100%' : 'auto'} spacing={2}>
-						<DummyButton isFullWidth={isLg} variant='outlined'>
+						<DummyButton colorMode={colorMode} isFullWidth={isLg} variant='outlined'>
 							Filter
 						</DummyButton>
-						<DummyButton isFullWidth={isLg} variant='outlined'>
+						<DummyButton colorMode={colorMode} isFullWidth={isLg} variant='outlined'>
 							Sort By
 						</DummyButton>
 						<DummyDisplayMode />
