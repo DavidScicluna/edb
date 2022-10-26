@@ -85,15 +85,15 @@ const Trending: FC = () => {
 		props: { mediaType: 'tv', time: 'week' },
 		options: {
 			onSuccess: (data) => {
-				let tvShows: PartialTV[] = [];
+				let shows: PartialTV[] = [];
 
 				data.pages.forEach((page) => {
-					tvShows = [...tvShows, ...(page.results || [])];
+					shows = [...shows, ...(page.results || [])];
 				});
 
 				setShows({
 					page: data.pages[data.pages.length - 1].page,
-					results: uniqBy([...tvShows], 'id'),
+					results: uniqBy([...shows], 'id'),
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
 				});
