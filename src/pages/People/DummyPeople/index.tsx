@@ -28,7 +28,12 @@ const DummyPeople: FC = () => {
 				)}
 				renderSubtitle={(props) => (
 					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-						<Text {...props}>A list containing the most popular People at the moment.</Text>
+						<Text {...props}>
+							{`A list containing the most popular ${formatMediaTypeLabel({
+								type: 'multiple',
+								mediaType: 'person'
+							})} at the moment.`}
+						</Text>
 					</Skeleton>
 				)}
 				actions={<DummyDisplayMode />}
