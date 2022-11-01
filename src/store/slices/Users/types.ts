@@ -58,14 +58,14 @@ export type MediaItem<MT extends MediaType> = {
 };
 
 export type MediaItems = {
-	movies: MediaItem<'movie'>[];
+	movie: MediaItem<'movie'>[];
 	tv: MediaItem<'tv'>[];
-	people: MediaItem<'person'>[];
-	companies: MediaItem<'company'>[];
-	collections: MediaItem<'collection'>[];
+	person: MediaItem<'person'>[];
+	company: MediaItem<'company'>[];
+	collection: MediaItem<'collection'>[];
 };
 
-export type UserListMediaItems = Omit<MediaItems, 'people' | 'companies' | 'collections'>;
+export type UserListMediaItems = Omit<MediaItems, 'person' | 'company' | 'collection'>;
 
 export type UserList = {
 	id: string;

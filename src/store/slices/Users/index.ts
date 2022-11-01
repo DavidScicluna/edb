@@ -60,17 +60,18 @@ export const defaultUser: User = {
 		},
 		recentSearches: [],
 		recentlyViewed: {
-			movies: [],
+			movie: [],
 			tv: [],
-			people: [],
-			collections: []
+			person: [],
+			company: [],
+			collection: []
 		},
 		liked: {
-			movies: [],
+			movie: [],
 			tv: [],
-			people: [],
-			companies: [],
-			collections: []
+			person: [],
+			company: [],
+			collection: []
 		},
 		lists: [
 			{
@@ -81,7 +82,7 @@ export const defaultUser: User = {
 				updatedAt: dayjs(new Date()).toISOString(),
 				createdAt: dayjs(new Date()).toISOString(),
 				mediaItems: {
-					movies: [],
+					movie: [],
 					tv: []
 				}
 			}
