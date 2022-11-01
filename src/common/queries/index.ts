@@ -11,6 +11,7 @@ import useSearchInfiniteQuery from './useSearchInfiniteQuery';
 import useTopRatedQuery from './useTopRatedQuery';
 import useTrendingInfiniteQuery from './useTrendingInfiniteQuery';
 import useTrendingQuery from './useTrendingQuery';
+import useTVShowsInfiniteQuery from './useTVShowsInfiniteQuery';
 
 export {
 	useCertificationsQuery,
@@ -25,5 +26,6 @@ export {
 	useSearchInfiniteQuery,
 	useTopRatedQuery,
 	useTrendingInfiniteQuery,
-	useTrendingQuery
+	useTrendingQuery,
+	useTVShowsInfiniteQuery
 };

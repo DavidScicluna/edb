@@ -67,3 +67,8 @@ export const trendingInfiniteQueryKey = memoizeDebounce(
 	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`${time}_${mediaType}_trending_infinite`],
 	timeout
 );
+
+export const tvShowsInfiniteQueryKey = memoizeDebounce(
+	({ params }: AxiosConfigParams): QueryKey => ['tv_shows', params],
+	timeout
+);
