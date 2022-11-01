@@ -5,7 +5,7 @@ import { useBoolean } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import { sort } from 'fast-sort';
-import { debounce, uniqBy } from 'lodash';
+import { debounce, uniq } from 'lodash';
 
 import { isGuest as defaultIsGuest } from '../../../containers/Layout/common/data/defaultPropValues';
 import { LayoutContext } from '../../../containers/Layout';
@@ -39,7 +39,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 
 		switch (mediaType) {
 			case 'movie': {
-				isLiked = liked.movies.some((movie) => movie.mediaItem.id === mediaItem.id);
+				isLiked = liked.movie.some((movie) => movie.mediaItem.id === mediaItem.id);
 				break;
 			}
 			case 'tv': {
@@ -47,15 +47,15 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 				break;
 			}
 			case 'person': {
-				isLiked = liked.people.some((person) => person.mediaItem.id === mediaItem.id);
+				isLiked = liked.person.some((person) => person.mediaItem.id === mediaItem.id);
 				break;
 			}
 			case 'company': {
-				isLiked = liked.companies.some((company) => company.mediaItem.id === mediaItem.id);
+				isLiked = liked.company.some((company) => company.mediaItem.id === mediaItem.id);
 				break;
 			}
 			case 'collection': {
-				isLiked = liked.collections.some((collection) => collection.mediaItem.id === mediaItem.id);
+				isLiked = liked.collection.some((collection) => collection.mediaItem.id === mediaItem.id);
 				break;
 			}
 		}
@@ -63,172 +63,130 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 		setIsLiked[isLiked ? 'on' : 'off']();
 	}, [mediaType, mediaItem, liked]);
 
-	const handleUnlike = useCallback(
-		debounce((): void => {
-			const updatedLiked: MediaItems = {
-				movies: [...(liked.movies || [])],
-				tv: [...(liked.tv || [])],
-				people: [...(liked.people || [])],
-				companies: [...(liked.companies || [])],
-				collections: [...(liked.collections || [])]
-			};
+	const handleUnlike = useCallback((): void => {
+		const updatedLiked: MediaItems = {
+			movie: [...(liked.movie || [])],
+			tv: [...(liked.tv || [])],
+			person: [...(liked.person || [])],
+			company: [...(liked.company || [])],
+			collection: [...(liked.collection || [])]
+		};
 
-			switch (mediaType) {
-				case 'movie': {
-					updatedLiked.movies = sort(
-						uniqBy(
-							[...updatedLiked.movies.filter((movie) => movie.mediaItem.id !== mediaItem.id)],
-							'mediaItem.id'
-						)
-					).by({ desc: (movie) => movie.addedAt });
-					break;
-				}
-				case 'tv': {
-					updatedLiked.tv = sort(
-						uniqBy(
-							[...updatedLiked.tv.filter((show) => show.mediaItem.id !== mediaItem.id)],
-							'mediaItem.id'
-						)
-					).by({
-						desc: (show) => show.addedAt
-					});
-					break;
-				}
-				case 'person': {
-					updatedLiked.people = sort(
-						uniqBy(
-							[...updatedLiked.people.filter((person) => person.mediaItem.id !== mediaItem.id)],
-							'mediaItem.id'
-						)
-					).by({ desc: (person) => person.addedAt });
-					break;
-				}
-				case 'company': {
-					updatedLiked.companies = sort(
-						uniqBy(
-							[...updatedLiked.companies.filter((company) => company.mediaItem.id !== mediaItem.id)],
-							'mediaItem.id'
-						)
-					).by({ desc: (company) => company.addedAt });
-					break;
-				}
-				case 'collection': {
-					updatedLiked.collections = sort(
-						uniqBy(
-							[
-								...updatedLiked.collections.filter(
-									(collection) => collection.mediaItem.id !== mediaItem.id
-								)
-							],
-							'mediaItem.id'
-						)
-					).by({ desc: (collection) => collection.addedAt });
-					break;
-				}
+		switch (mediaType) {
+			case 'movie': {
+				updatedLiked.movie = sort(
+					uniq([...updatedLiked.movie.filter((movie) => movie.mediaItem.id !== mediaItem.id)])
+				).desc((movie) => movie.addedAt);
+				break;
 			}
-
-			dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
-		}, 1000),
-		[mediaType, mediaItem, liked, id]
-	);
-
-	const handleLike = useCallback(
-		debounce((): void => {
-			const updatedLiked: MediaItems = {
-				movies: [...(liked.movies || [])],
-				tv: [...(liked.tv || [])],
-				people: [...(liked.people || [])],
-				companies: [...(liked.companies || [])],
-				collections: [...(liked.collections || [])]
-			};
-
-			switch (mediaType) {
-				case 'movie': {
-					updatedLiked.movies = sort(
-						uniqBy(
-							[
-								...updatedLiked.movies,
-								{
-									mediaItem: { ...(mediaItem as FullMovie) },
-									mediaType: 'movie',
-									addedAt: dayjs(new Date()).toISOString()
-								} as MediaItem<'movie'>
-							],
-							'mediaItem.id'
-						)
-					).by({ desc: (movie) => movie.addedAt });
-					break;
-				}
-				case 'tv': {
-					updatedLiked.tv = sort(
-						uniqBy(
-							[
-								...updatedLiked.tv,
-								{
-									mediaItem: { ...(mediaItem as FullTV) },
-									mediaType: 'tv',
-									addedAt: dayjs(new Date()).toISOString()
-								} as MediaItem<'tv'>
-							],
-							'mediaItem.id'
-						)
-					).by({ desc: (show) => show.addedAt });
-					break;
-				}
-				case 'person': {
-					updatedLiked.people = sort(
-						uniqBy(
-							[
-								...updatedLiked.people,
-								{
-									mediaItem: { ...(mediaItem as FullPerson) },
-									mediaType: 'person',
-									addedAt: dayjs(new Date()).toISOString()
-								} as MediaItem<'person'>
-							],
-							'mediaItem.id'
-						)
-					).by({ desc: (person) => person.addedAt });
-					break;
-				}
-				case 'company': {
-					updatedLiked.companies = sort(
-						uniqBy(
-							[
-								...updatedLiked.companies,
-								{
-									mediaItem: { ...(mediaItem as FullCompany) },
-									mediaType: 'company',
-									addedAt: dayjs(new Date()).toISOString()
-								} as MediaItem<'company'>
-							],
-							'mediaItem.id'
-						)
-					).by({ desc: (company) => company.addedAt });
-					break;
-				}
-				case 'collection': {
-					updatedLiked.collections = sort(
-						uniqBy(
-							[
-								...updatedLiked.collections,
-								{
-									mediaItem: { ...(mediaItem as Collection) },
-									mediaType: 'collection',
-									addedAt: dayjs(new Date()).toISOString()
-								} as MediaItem<'collection'>
-							],
-							'mediaItem.id'
-						)
-					).by({ desc: (collection) => collection.addedAt });
-					break;
-				}
+			case 'tv': {
+				updatedLiked.tv = sort(
+					uniq([...updatedLiked.tv.filter((show) => show.mediaItem.id !== mediaItem.id)])
+				).desc((show) => show.addedAt);
+				break;
 			}
+			case 'person': {
+				updatedLiked.person = sort(
+					uniq([...updatedLiked.person.filter((person) => person.mediaItem.id !== mediaItem.id)])
+				).desc((person) => person.addedAt);
+				break;
+			}
+			case 'company': {
+				updatedLiked.company = sort(
+					uniq([...updatedLiked.company.filter((company) => company.mediaItem.id !== mediaItem.id)])
+				).desc((company) => company.addedAt);
+				break;
+			}
+			case 'collection': {
+				updatedLiked.collection = sort(
+					uniq([...updatedLiked.collection.filter((collection) => collection.mediaItem.id !== mediaItem.id)])
+				).desc((collection) => collection.addedAt);
+				break;
+			}
+		}
 
-			dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
-		}, 1000),
-		[mediaType, mediaItem, liked, id]
-	);
+		dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
+	}, [mediaType, mediaItem, liked, id]);
+
+	const handleLike = useCallback((): void => {
+		const updatedLiked: MediaItems = {
+			movie: [...(liked.movie || [])],
+			tv: [...(liked.tv || [])],
+			person: [...(liked.person || [])],
+			company: [...(liked.company || [])],
+			collection: [...(liked.collection || [])]
+		};
+
+		switch (mediaType) {
+			case 'movie': {
+				updatedLiked.movie = sort(
+					uniq([
+						...updatedLiked.movie,
+						{
+							mediaItem: { ...(mediaItem as FullMovie) },
+							mediaType: 'movie',
+							addedAt: dayjs(new Date()).toISOString()
+						} as MediaItem<'movie'>
+					])
+				).desc((movie) => movie.addedAt);
+				break;
+			}
+			case 'tv': {
+				updatedLiked.tv = sort(
+					uniq([
+						...updatedLiked.tv,
+						{
+							mediaItem: { ...(mediaItem as FullTV) },
+							mediaType: 'tv',
+							addedAt: dayjs(new Date()).toISOString()
+						} as MediaItem<'tv'>
+					])
+				).desc((show) => show.addedAt);
+				break;
+			}
+			case 'person': {
+				updatedLiked.person = sort(
+					uniq([
+						...updatedLiked.person,
+						{
+							mediaItem: { ...(mediaItem as FullPerson) },
+							mediaType: 'person',
+							addedAt: dayjs(new Date()).toISOString()
+						} as MediaItem<'person'>
+					])
+				).desc((person) => person.addedAt);
+				break;
+			}
+			case 'company': {
+				updatedLiked.company = sort(
+					uniq([
+						...updatedLiked.company,
+						{
+							mediaItem: { ...(mediaItem as FullCompany) },
+							mediaType: 'company',
+							addedAt: dayjs(new Date()).toISOString()
+						} as MediaItem<'company'>
+					])
+				).desc((company) => company.addedAt);
+				break;
+			}
+			case 'collection': {
+				updatedLiked.collection = sort(
+					uniq([
+						...updatedLiked.collection,
+						{
+							mediaItem: { ...(mediaItem as Collection) },
+							mediaType: 'collection',
+							addedAt: dayjs(new Date()).toISOString()
+						} as MediaItem<'collection'>
+					])
+				).desc((collection) => collection.addedAt);
+				break;
+			}
+		}
+
+		dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
+	}, [mediaType, mediaItem, liked, id]);
 
 	const handleClick = useCallback(
 		debounce((): void => {
@@ -254,7 +212,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 				);
 			}
 		}, 1000),
-		[isGuest, isLiked]
+		[isGuest, isLiked, handleUnlike, handleLike, title, mediaType]
 	);
 
 	useEffect(() => handleIsLiked(), [liked]);
@@ -264,7 +222,8 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 		iconCategory: 'filled',
 		isDisabled: !activeUser,
 		isLiked: isLiked,
-		onClick: () => handleClick()
+		onClick: () => handleClick(),
+		sx: { 'transform': 'scale(1)', '&:active': { transform: 'scale(0.9)' } }
 	});
 };
 
