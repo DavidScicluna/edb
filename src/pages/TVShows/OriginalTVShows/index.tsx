@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
@@ -19,7 +19,6 @@ import { formatMediaTypeLabel } from '../../../common/utils';
 import { DisplayMode, Suspense } from '../../../components';
 import { useTVShowsInfiniteQuery } from '../../../common/queries';
 import VerticalDummyTVShows from '../components/VerticalDummyTVShows';
-import VerticalTVShows from '../components/VerticalTVShows';
 import { SortByForm } from '../../../components/SortBy/types';
 import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
@@ -33,6 +32,8 @@ import { UseTVShowsInfiniteQueryResponse } from '../../../common/queries/useTVSh
 import TVShowsSortBy from './components/TVShowsSortBy';
 import TVShowsFiltersForm from './components/TVShowsFiltersForm';
 import TVShowsDisplayFilters from './components/TVShowsDisplayFilters';
+
+const VerticalTVShows = lazy(() => import('../components/VerticalTVShows'));
 
 const defaultSortBy = {
 	sort_by: `${sortByDefaultValues.sortBy.value}.${sortByDefaultValues.direction}`
