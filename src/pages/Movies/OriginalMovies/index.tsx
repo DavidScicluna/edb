@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
@@ -21,7 +21,6 @@ import { useMoviesInfiniteQuery } from '../../../common/queries';
 import { PartialMovie } from '../../../common/types/movie';
 import { UseMoviesInfiniteQueryResponse } from '../../../common/queries/useMoviesInfiniteQuery';
 import VerticalDummyMovies from '../components/VerticalDummyMovies';
-import VerticalMovies from '../components/VerticalMovies';
 import { SortByForm } from '../../../components/SortBy/types';
 import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
@@ -33,6 +32,8 @@ import { getTotalFilters } from '../../../components/Filters/common/utils';
 import MoviesSortBy from './components/MoviesSortBy';
 import MoviesFiltersForm from './components/MoviesFiltersForm';
 import MoviesDisplayFilters from './components/MoviesDisplayFilters';
+
+const VerticalMovies = lazy(() => import('../components/VerticalMovies'));
 
 const defaultSortBy = {
 	sort_by: `${sortByDefaultValues.sortBy.value}.${sortByDefaultValues.direction}`
