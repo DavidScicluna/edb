@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, lazy } from 'react';
 
 import { useLocation } from 'react-router';
 
@@ -10,7 +10,6 @@ import qs from 'query-string';
 import { useDebounce } from 'usehooks-ts';
 import { uniqBy } from 'lodash';
 
-import VerticalPeople from '../components/VerticalPeople';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import Page from '../../../containers/Page';
 import PageBody from '../../../containers/Page/components/PageBody';
@@ -21,6 +20,8 @@ import { PartialPerson } from '../../../common/types/person';
 import { UsePeopleInfiniteQueryResponse } from '../../../common/queries/usePeopleInfiniteQuery';
 import VerticalDummyPeople from '../components/VerticalDummyPeople';
 import { formatMediaTypeLabel } from '../../../common/utils';
+
+const VerticalPeople = lazy(() => import('../components/VerticalPeople'));
 
 const OriginalPeople: FC = () => {
 	const { spacing } = useLayoutContext();
