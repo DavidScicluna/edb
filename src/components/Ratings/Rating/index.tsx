@@ -44,9 +44,9 @@ const Rating: FC<RatingProps> = (props) => {
 					count ? (
 						<Text
 							align='left'
-							fontSize={countSize}
 							color={getColor({ theme, colorMode, type: 'text.secondary' })}
-							noOfLines={1}
+							fontSize={countSize}
+							whiteSpace='nowrap'
 							mx={0.5}
 						>
 							|
@@ -57,10 +57,10 @@ const Rating: FC<RatingProps> = (props) => {
 			>
 				<Text
 					align='left'
+					color={getColor({ theme, colorMode, type: 'text.primary' })}
 					fontSize={size}
 					fontWeight='semibold'
-					color={getColor({ theme, colorMode, type: 'text.primary' })}
-					noOfLines={1}
+					whiteSpace='nowrap'
 				>
 					{rating ? (typeof rating === 'number' ? round(rating, 1) : rating) : 'N/A'}
 				</Text>
@@ -68,9 +68,9 @@ const Rating: FC<RatingProps> = (props) => {
 				{count && (
 					<Text
 						align='left'
-						fontSize={countSize}
 						color={getColor({ theme, colorMode, type: 'text.secondary' })}
-						noOfLines={1}
+						fontSize={countSize}
+						whiteSpace='nowrap'
 					>
 						{numbro(count).format({ average: true })}
 					</Text>
