@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, lazy } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
@@ -6,11 +6,13 @@ import { useLayoutContext } from '../../../../../containers/Layout/common/hooks'
 import { Suspense } from '../../../../../components';
 import TrendingDummyAllTabMovies from '../../../components/TrendingDummyAllTab/components/TrendingDummyAllTabMovies';
 import TrendingDummyAllTabPeople from '../../../components/TrendingDummyAllTab/components/TrendingDummyAllTabPeople';
+import TrendingDummyAllTabTVShows from '../../../components/TrendingDummyAllTab/components/TrendingDummyAllTabTVShows';
 
-import TrendingAllTabMovies from './components/TrendingAllTabMovies';
-import TrendingAllTabPeople from './components/TrendingAllTabPeople';
-import TrendingAllTabTVShows from './components/TrendingAllTabTVShows';
 import { TrendingAllTabProps } from './types';
+
+const TrendingAllTabMovies = lazy(() => import('./components/TrendingAllTabMovies'));
+const TrendingAllTabPeople = lazy(() => import('./components/TrendingAllTabPeople'));
+const TrendingAllTabTVShows = lazy(() => import('./components/TrendingAllTabTVShows'));
 
 const TrendingAllTab: FC<TrendingAllTabProps> = (props) => {
 	const { spacing } = useLayoutContext();
@@ -24,7 +26,7 @@ const TrendingAllTab: FC<TrendingAllTabProps> = (props) => {
 				<TrendingAllTabMovies query={moviesInfiniteQuery} movies={movies} onTabChange={onTabChange} />
 			</Suspense>
 
-			<Suspense fallback={<TrendingDummyAllTabPeople />}>
+			<Suspense fallback={<TrendingDummyAllTabTVShows />}>
 				<TrendingAllTabTVShows query={tvShowsInfiniteQuery} shows={shows} onTabChange={onTabChange} />
 			</Suspense>
 
