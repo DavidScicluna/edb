@@ -1,4 +1,4 @@
-import { FC, useState, useCallback, lazy } from 'react';
+import { FC, useState, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
@@ -6,16 +6,16 @@ import { TabsOnChangeProps, Tabs, TabList, TabPanels, Icon } from '@davidsciclun
 
 import { VStack } from '@chakra-ui/react';
 
-import { compact, isString } from 'lodash';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 import { Suspense } from '../../../../../../components';
 
+import DummyMyLikesTab from './components/MyLikesTabs/DummyMyLikesTab';
 import { UserProfileTabs as UserProfileTabsType } from './types';
 
-const MyLikesTab = lazy(() => import('./components/MyLikesTab'));
+const MyLikesTab = lazy(() => import('./components/MyLikesTabs/OriginalMyLikesTab'));
 
 const tabs: UserProfileTabsType = [
 	{
@@ -107,7 +107,7 @@ const UserProfileTabs: FC = () => {
 				<TabPanels>
 					<div />
 
-					<Suspense>
+					<Suspense fallback={<DummyMyLikesTab />}>
 						<MyLikesTab />
 					</Suspense>
 
