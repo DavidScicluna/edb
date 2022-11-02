@@ -1,0 +1,121 @@
+import { FC, useState, useCallback, lazy } from 'react';
+
+import { useLocation, useNavigate } from 'react-router';
+
+import { TabsOnChangeProps, Tabs, TabList, TabPanels, Icon } from '@davidscicluna/component-library';
+
+import { VStack } from '@chakra-ui/react';
+
+import { compact, isString } from 'lodash';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+
+import { useUserTheme } from '../../../../../../common/hooks';
+import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
+import { Suspense } from '../../../../../../components';
+
+import { UserProfileTabs as UserProfileTabsType } from './types';
+
+const MyLikesTab = lazy(() => import('./components/MyLikesTab'));
+
+const tabs: UserProfileTabsType = [
+	{
+		path: { hash: 'overview' },
+		label: 'Overview'
+	},
+	{
+		path: { hash: 'likes' },
+		label: 'My Likes',
+		renderIcon: ({ color, colorMode, height = 0, isActive }) => (
+			<Icon
+				width={`${height}px`}
+				height={`${height}px`}
+				fontSize={`${height}px`}
+				colorMode={colorMode}
+				icon={isActive ? 'favorite' : 'favorite_border'}
+				skeletonColor={color}
+			/>
+		)
+	},
+	{
+		path: { hash: 'lists' },
+		label: 'My Lists',
+		renderIcon: ({ color, colorMode, height = 0, isActive }) => (
+			<Icon
+				width={`${height}px`}
+				height={`${height}px`}
+				fontSize={`${height}px`}
+				colorMode={colorMode}
+				icon={isActive ? 'bookmark' : 'bookmark_border'}
+				skeletonColor={color}
+			/>
+		)
+	}
+];
+
+const UserProfileTabs: FC = () => {
+	const { color, colorMode } = useUserTheme();
+
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const { spacing } = useLayoutContext();
+
+	const [activeTab, setActiveTab] = useState<number>(0);
+
+	const handleTabChange = ({ index }: TabsOnChangeProps): void => {
+		const tab = tabs.find((_tab, i) => index === i);
+
+		if (tab && tab.path) {
+			navigate({ ...location, ...tab.path });
+		}
+	};
+
+	const handleSetActiveTab = (): void => {
+		const hash = location.hash.replaceAll('#', '');
+		const index = tabs.findIndex((tab) => tab.path.hash === hash);
+
+		setActiveTab(index >= 0 ? index : 0);
+	};
+
+	useEffectOnce(() => handleTabChange({ index: 0 }));
+
+	useUpdateEffect(() => handleSetActiveTab(), [location.hash]);
+
+	return (
+		<Tabs
+			width='100%'
+			color={color}
+			colorMode={colorMode}
+			activeTab={activeTab}
+			onChange={handleTabChange}
+			size='xl'
+		>
+			<VStack width='100%' spacing={spacing}>
+				<TabList
+					tabs={tabs.map((tab, index) => {
+						return {
+							label: tab.label,
+							renderLeft: (props) => {
+								return tab.renderIcon
+									? tab.renderIcon({ ...props, isActive: activeTab === index })
+									: undefined;
+							}
+						};
+					})}
+				/>
+
+				<TabPanels>
+					<div />
+
+					<Suspense>
+						<MyLikesTab />
+					</Suspense>
+
+					<div />
+				</TabPanels>
+			</VStack>
+		</Tabs>
+	);
+};
+
+export default UserProfileTabs;
