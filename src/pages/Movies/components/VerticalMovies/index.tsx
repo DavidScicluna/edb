@@ -20,7 +20,8 @@ import {
 	VerticalGrid,
 	LoadMore,
 	MovieHorizontalPoster,
-	MovieVerticalPoster
+	MovieVerticalPoster,
+	DummyLoadMore
 } from '../../../../components';
 import { useUserTheme } from '../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
@@ -145,14 +146,7 @@ const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies }) => {
 			</VerticalGrid>
 
 			<Center width={isSm ? '100%' : 'auto'}>
-				<LoadMore
-					amount={movies?.results?.length || 0}
-					total={movies?.total_results || 0}
-					label={formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' })}
-					isDisabled
-					isLoading
-					isButtonVisible={hasNextPage && !isError}
-				/>
+				<DummyLoadMore isButtonVisible />
 			</Center>
 		</VStack>
 	);
