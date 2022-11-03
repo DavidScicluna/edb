@@ -4,7 +4,7 @@ import { TabListTab, Tabs, TabList, TabPanels } from '@davidscicluna/component-l
 
 import { VStack } from '@chakra-ui/react';
 
-import { compact, includes } from 'lodash';
+import { compact } from 'lodash';
 
 import { activeTab as defaultActiveTab } from '../../common/data/defaultPropValues';
 import { Suspense } from '../../../../../../../../../../../components';
@@ -35,6 +35,9 @@ const MyLikesTabTabs: FC<MyLikesTabTabsProps> = ({ activeTab = defaultActiveTab,
 	const liked = useSelector((state) => state.users.data.activeUser.data.liked);
 
 	const [mediaTypes, setMediaTypes] = useState<MediaType[]>([]);
+	const mediaTypesDebounced = useDebounce<MediaType[]>(mediaTypes);
+
+	console.log(mediaTypesDebounced);
 
 	const [total, setTotal] = useState<number>(0);
 	const totalDebounced = useDebounce<number>(total);
@@ -94,282 +97,279 @@ const MyLikesTabTabs: FC<MyLikesTabTabsProps> = ({ activeTab = defaultActiveTab,
 									: undefined
 						} as TabListTab,
 
-						includes(mediaTypes, 'movie')
-							? ({
-									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
-									renderLeft: (props) => (
-										<TabIcon
-											{...props}
-											icon={getMediaTypeIcon({ mediaType: 'movie' })}
-											category={
-												activeTab ===
-												getMediaTypeIndex({
-													mediaTypes,
-													mediaType: 'movie'
-												})
-													? 'filled'
-													: 'outlined'
-											}
-										/>
-									),
-									renderRight:
-										liked.movie.length > 0
-											? ({ color, ...rest }) => (
-													<TabBadge
-														{...rest}
-														color={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'movie'
-															})
-																? color
-																: 'gray'
-														}
-														total={liked.movie.length}
-														variant={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'movie'
-															})
-																? 'contained'
-																: 'outlined'
-														}
-													/>
-											  )
-											: undefined
-							  } as TabListTab)
-							: null,
+						mediaTypesDebounced.some((mediaType) => mediaType === 'movie') &&
+							({
+								label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
+								renderLeft: (props) => (
+									<TabIcon
+										{...props}
+										icon={getMediaTypeIcon({ mediaType: 'movie' })}
+										category={
+											activeTab ===
+											getMediaTypeIndex({
+												mediaTypes: mediaTypesDebounced,
+												mediaType: 'movie'
+											})
+												? 'filled'
+												: 'outlined'
+										}
+									/>
+								),
+								renderRight:
+									liked.movie.length > 0
+										? ({ color, ...rest }) => (
+												<TabBadge
+													{...rest}
+													color={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'movie'
+														})
+															? color
+															: 'gray'
+													}
+													total={liked.movie.length}
+													variant={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'movie'
+														})
+															? 'contained'
+															: 'outlined'
+													}
+												/>
+										  )
+										: undefined
+							} as TabListTab),
 
-						includes(mediaTypes, 'tv')
-							? ({
-									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
-									renderLeft: (props) => (
-										<TabIcon
-											{...props}
-											icon={getMediaTypeIcon({ mediaType: 'tv' })}
-											category={
-												activeTab ===
-												getMediaTypeIndex({
-													mediaTypes,
-													mediaType: 'tv'
-												})
-													? 'filled'
-													: 'outlined'
-											}
-										/>
-									),
-									renderRight:
-										liked.tv.length > 0
-											? ({ color, ...rest }) => (
-													<TabBadge
-														{...rest}
-														color={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'tv'
-															})
-																? color
-																: 'gray'
-														}
-														total={liked.tv.length}
-														variant={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'tv'
-															})
-																? 'contained'
-																: 'outlined'
-														}
-													/>
-											  )
-											: undefined
-							  } as TabListTab)
-							: null,
+						mediaTypesDebounced.some((mediaType) => mediaType === 'tv') &&
+							({
+								label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
+								renderLeft: (props) => (
+									<TabIcon
+										{...props}
+										icon={getMediaTypeIcon({ mediaType: 'tv' })}
+										category={
+											activeTab ===
+											getMediaTypeIndex({
+												mediaTypes: mediaTypesDebounced,
+												mediaType: 'tv'
+											})
+												? 'filled'
+												: 'outlined'
+										}
+									/>
+								),
+								renderRight:
+									liked.tv.length > 0
+										? ({ color, ...rest }) => (
+												<TabBadge
+													{...rest}
+													color={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'tv'
+														})
+															? color
+															: 'gray'
+													}
+													total={liked.tv.length}
+													variant={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'tv'
+														})
+															? 'contained'
+															: 'outlined'
+													}
+												/>
+										  )
+										: undefined
+							} as TabListTab),
 
-						includes(mediaTypes, 'person')
-							? ({
-									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
-									renderLeft: (props) => (
-										<TabIcon
-											{...props}
-											icon={getMediaTypeIcon({ mediaType: 'person' })}
-											category={
-												activeTab ===
-												getMediaTypeIndex({
-													mediaTypes,
-													mediaType: 'person'
-												})
-													? 'filled'
-													: 'outlined'
-											}
-										/>
-									),
-									renderRight:
-										liked.person.length > 0
-											? ({ color, ...rest }) => (
-													<TabBadge
-														{...rest}
-														color={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'person'
-															})
-																? color
-																: 'gray'
-														}
-														total={liked.person.length}
-														variant={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'person'
-															})
-																? 'contained'
-																: 'outlined'
-														}
-													/>
-											  )
-											: undefined
-							  } as TabListTab)
-							: null,
+						mediaTypesDebounced.some((mediaType) => mediaType === 'person') &&
+							({
+								label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
+								renderLeft: (props) => (
+									<TabIcon
+										{...props}
+										icon={getMediaTypeIcon({ mediaType: 'person' })}
+										category={
+											activeTab ===
+											getMediaTypeIndex({
+												mediaTypes: mediaTypesDebounced,
+												mediaType: 'person'
+											})
+												? 'filled'
+												: 'outlined'
+										}
+									/>
+								),
+								renderRight:
+									liked.person.length > 0
+										? ({ color, ...rest }) => (
+												<TabBadge
+													{...rest}
+													color={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'person'
+														})
+															? color
+															: 'gray'
+													}
+													total={liked.person.length}
+													variant={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'person'
+														})
+															? 'contained'
+															: 'outlined'
+													}
+												/>
+										  )
+										: undefined
+							} as TabListTab),
 
-						includes(mediaTypes, 'company')
-							? ({
-									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'company' }),
-									renderLeft: (props) => (
-										<TabIcon
-											{...props}
-											icon={getMediaTypeIcon({ mediaType: 'company' })}
-											category={
-												activeTab ===
-												getMediaTypeIndex({
-													mediaTypes,
-													mediaType: 'company'
-												})
-													? 'filled'
-													: 'outlined'
-											}
-										/>
-									),
-									renderRight:
-										liked.company.length > 0
-											? ({ color, ...rest }) => (
-													<TabBadge
-														{...rest}
-														color={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'company'
-															})
-																? color
-																: 'gray'
-														}
-														total={liked.company.length}
-														variant={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'company'
-															})
-																? 'contained'
-																: 'outlined'
-														}
-													/>
-											  )
-											: undefined
-							  } as TabListTab)
-							: null,
+						mediaTypesDebounced.some((mediaType) => mediaType === 'company') &&
+							({
+								label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'company' }),
+								renderLeft: (props) => (
+									<TabIcon
+										{...props}
+										icon={getMediaTypeIcon({ mediaType: 'company' })}
+										category={
+											activeTab ===
+											getMediaTypeIndex({
+												mediaTypes: mediaTypesDebounced,
+												mediaType: 'company'
+											})
+												? 'filled'
+												: 'outlined'
+										}
+									/>
+								),
+								renderRight:
+									liked.company.length > 0
+										? ({ color, ...rest }) => (
+												<TabBadge
+													{...rest}
+													color={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'company'
+														})
+															? color
+															: 'gray'
+													}
+													total={liked.company.length}
+													variant={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'company'
+														})
+															? 'contained'
+															: 'outlined'
+													}
+												/>
+										  )
+										: undefined
+							} as TabListTab),
 
-						includes(mediaTypes, 'collection')
-							? ({
-									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'collection' }),
-									renderLeft: (props) => (
-										<TabIcon
-											{...props}
-											icon={getMediaTypeIcon({ mediaType: 'collection' })}
-											category={
-												activeTab ===
-												getMediaTypeIndex({
-													mediaTypes,
-													mediaType: 'collection'
-												})
-													? 'filled'
-													: 'outlined'
-											}
-										/>
-									),
-									renderRight:
-										liked.collection.length > 0
-											? ({ color, ...rest }) => (
-													<TabBadge
-														{...rest}
-														color={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'collection'
-															})
-																? color
-																: 'gray'
-														}
-														total={liked.collection.length}
-														variant={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes,
-																mediaType: 'collection'
-															})
-																? 'contained'
-																: 'outlined'
-														}
-													/>
-											  )
-											: undefined
-							  } as TabListTab)
-							: null
+						mediaTypesDebounced.some((mediaType) => mediaType === 'collection') &&
+							({
+								label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'collection' }),
+								renderLeft: (props) => (
+									<TabIcon
+										{...props}
+										icon={getMediaTypeIcon({ mediaType: 'collection' })}
+										category={
+											activeTab ===
+											getMediaTypeIndex({
+												mediaTypes: mediaTypesDebounced,
+												mediaType: 'collection'
+											})
+												? 'filled'
+												: 'outlined'
+										}
+									/>
+								),
+								renderRight:
+									liked.collection.length > 0
+										? ({ color, ...rest }) => (
+												<TabBadge
+													{...rest}
+													color={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'collection'
+														})
+															? color
+															: 'gray'
+													}
+													total={liked.collection.length}
+													variant={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'collection'
+														})
+															? 'contained'
+															: 'outlined'
+													}
+												/>
+										  )
+										: undefined
+							} as TabListTab)
 					])}
 				/>
 
 				<TabPanels>
-					<Suspense fallback={<DummyAllTab />}>
-						<AllTab
-							onSetActiveTab={
-								onChange
-									? ({ mediaType }) =>
-											onChange({
-												index: getMediaTypeIndex({
-													mediaTypes,
-													mediaType
+					{compact([
+						<Suspense key='MyLikesTabTabs_AllTab' fallback={<DummyAllTab />}>
+							<AllTab
+								onSetActiveTab={
+									onChange
+										? ({ mediaType }) =>
+												onChange({
+													index: getMediaTypeIndex({
+														mediaTypes: mediaTypesDebounced,
+														mediaType
+													})
 												})
-											})
-									: undefined
-							}
-						/>
-					</Suspense>
+										: undefined
+								}
+							/>
+						</Suspense>,
 
-					{includes(mediaTypes, 'movie') && (
-						<Suspense fallback={<DummyMoviesTab />}>
-							<MoviesTab />
-						</Suspense>
-					)}
+						mediaTypesDebounced.some((mediaType) => mediaType === 'movie') && (
+							<Suspense key='MyLikesTabTabs_MoviesTab' fallback={<DummyMoviesTab />}>
+								<MoviesTab />
+							</Suspense>
+						),
 
-					{includes(mediaTypes, 'tv') && (
-						<Suspense fallback={<DummyTVShowsTab />}>
-							<TVShowsTab />
-						</Suspense>
-					)}
+						mediaTypesDebounced.some((mediaType) => mediaType === 'tv') && (
+							<Suspense key='MyLikesTabTabs_TVShowsTab' fallback={<DummyTVShowsTab />}>
+								<TVShowsTab />
+							</Suspense>
+						),
 
-					{includes(mediaTypes, 'person') && (
-						<Suspense fallback={<DummyPeopleTab />}>
-							<PeopleTab />
-						</Suspense>
-					)}
+						mediaTypesDebounced.some((mediaType) => mediaType === 'person') && (
+							<Suspense key='MyLikesTabTabs_PeopleTab' fallback={<DummyPeopleTab />}>
+								<PeopleTab />
+							</Suspense>
+						)
+					])}
 
 					{/* <Suspense fallback={<TrendingDummyTV />}>
 						<TrendingTV />
