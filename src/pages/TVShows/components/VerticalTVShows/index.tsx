@@ -20,8 +20,7 @@ import {
 	VerticalGrid,
 	LoadMore,
 	TVShowHorizontalPoster,
-	TVShowVerticalPoster,
-	DummyLoadMore
+	TVShowVerticalPoster
 } from '../../../../components';
 import { useUserTheme } from '../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
@@ -146,7 +145,14 @@ const VerticalTVShows: FC<VerticalTVShowsProps> = ({ query, shows }) => {
 			</VerticalGrid>
 
 			<Center width={isSm ? '100%' : 'auto'}>
-				<DummyLoadMore isButtonVisible />
+				<LoadMore
+					amount={shows?.results?.length || 0}
+					total={shows?.total_results || 0}
+					label={formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })}
+					isDisabled
+					isLoading
+					isButtonVisible={hasNextPage && !isError}
+				/>
 			</Center>
 		</VStack>
 	);
