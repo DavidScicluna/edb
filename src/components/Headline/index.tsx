@@ -20,7 +20,7 @@ const Headline: FC<HeadlineProps> = ({ renderCaption, renderTitle, renderSubtitl
 				renderCaption({
 					align: 'left',
 					color: getColor({ theme, colorMode, color, type: 'color' }),
-					fontSize: 'sm',
+					fontSize: ['xs', 'xs', 'sm', 'sm', 'sm', 'sm'],
 					lineHeight: 'shorter',
 					textTransform: 'uppercase'
 				})}
@@ -28,7 +28,7 @@ const Headline: FC<HeadlineProps> = ({ renderCaption, renderTitle, renderSubtitl
 			{renderTitle({
 				align: 'left',
 				color: getColor({ theme, colorMode, type: 'text.primary' }),
-				fontSize: '6xl',
+				fontSize: ['4xl', '4xl', '5xl', '5xl', '6xl', '6xl'],
 				fontWeight: 'bold',
 				lineHeight: 'shorter'
 			})}
@@ -38,7 +38,7 @@ const Headline: FC<HeadlineProps> = ({ renderCaption, renderTitle, renderSubtitl
 				renderSubtitle({
 					align: 'left',
 					color: getColor({ theme, colorMode, type: 'text.secondary' }),
-					fontSize: 'sm',
+					fontSize: ['xs', 'xs', 'sm', 'sm', 'sm', 'sm'],
 					lineHeight: 'shorter'
 				})}
 		</VStack>
