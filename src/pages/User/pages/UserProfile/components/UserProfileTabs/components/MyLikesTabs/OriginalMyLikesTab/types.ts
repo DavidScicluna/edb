@@ -1,1 +1,1 @@
-export type MyLikesTabStatus = 'empty' | 'multiple' | 'single' | 'hidden';
+export type MyLikesTabStatus = 'empty' | 'loading' | 'multiple' | 'single' | 'hidden';

@@ -4,12 +4,11 @@ import { useTheme, Divider, Undefinable } from '@davidscicluna/component-library
 
 import { VStack, Center } from '@chakra-ui/react';
 
-import { useDebounce } from 'usehooks-ts';
 import { debounce } from 'lodash';
 
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
 import { Suspense } from '../../../../../../../../../components';
-import { useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
+import { useDebounce, useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
 import { MediaItems } from '../../../../../../../../../store/slices/Users/types';
 import { MediaType } from '../../../../../../../../../common/types';
 import DummyTVShows from '../components/MyLikesTabDummyTVShows';
@@ -36,11 +35,12 @@ const MyLikesTab: FC = () => {
 	const liked = useSelector((state) => state.users.data.activeUser.data.liked);
 
 	const [status, setStatus] = useState<MyLikesTabStatus>(defaultStatus);
-	const statusDebounced = useDebounce<MyLikesTabStatus>(status, 500);
-
-	const [activeTab, setActiveTab] = useState<number>(defaultActiveTab);
+	const statusDebounced = useDebounce<MyLikesTabStatus>(status);
 
 	const [mediaType, setMediaType] = useState<Undefinable<MediaType>>();
+
+	const [activeTab, setActiveTab] = useState<number>(defaultActiveTab);
+	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const handleStatus = useCallback(
 		debounce((): void => {
@@ -65,26 +65,32 @@ const MyLikesTab: FC = () => {
 		[liked]
 	);
 
-	useEffect(() => handleStatus(), [liked]);
+	useEffect(() => {
+		setStatus('loading');
+
+		handleStatus();
+	}, [liked]);
 
 	return (
 		<VStack
 			width='100%'
 			divider={<Divider colorMode={colorMode} mt={`${theme.space[spacing]} !important`} />}
-			spacing={statusDebounced !== 'multiple' ? spacing : 0}
+			spacing={statusDebounced !== 'loading' && statusDebounced !== 'multiple' ? spacing : 0}
 		>
 			<Center width='100%' py={spacing * 2}>
 				<MyLikesTabHeadline mediaType={mediaType} />
 			</Center>
 
-			{statusDebounced === 'empty' ? (
+			{statusDebounced === 'loading' ? (
+				<DummyTabs />
+			) : statusDebounced === 'empty' ? (
 				<MyLikesTabEmpty />
 			) : (
 				(statusDebounced === 'single' || statusDebounced === 'multiple') && (
 					<Center width='100%'>
 						{statusDebounced === 'multiple' ? (
 							<Suspense fallback={<DummyTabs />}>
-								<Tabs activeTab={activeTab} onChange={({ index }) => setActiveTab(index)} />
+								<Tabs activeTab={activeTabDebounced} onChange={({ index }) => setActiveTab(index)} />
 							</Suspense>
 						) : (
 							<Fragment>
