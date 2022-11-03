@@ -36,13 +36,13 @@ const optionsSlice = createSlice({
 		setMovieGenres: (state: StateProps, action: PayloadAction<Genre[]>) => {
 			state.data.genres.movie = action.payload;
 		},
-		setTVGenres: (state: StateProps, action: PayloadAction<Genre[]>) => {
+		setTVShowGenres: (state: StateProps, action: PayloadAction<Genre[]>) => {
 			state.data.genres.tv = action.payload;
 		},
 		setMovieCertifications: (state: StateProps, action: PayloadAction<Certifications>) => {
 			state.data.certifications.movie = action.payload;
 		},
-		setTVCertifications: (state: StateProps, action: PayloadAction<Certifications>) => {
+		setTVShowCertifications: (state: StateProps, action: PayloadAction<Certifications>) => {
 			state.data.certifications.tv = action.payload;
 		}
 	}
@@ -53,9 +53,9 @@ export const {
 	setLanguages,
 	setJobs,
 	setMovieGenres,
-	setTVGenres,
+	setTVShowGenres: setTVShowGenres,
 	setMovieCertifications,
-	setTVCertifications
+	setTVShowCertifications
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

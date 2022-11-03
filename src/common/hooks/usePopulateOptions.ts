@@ -6,8 +6,8 @@ import {
 	setLanguages,
 	setMovieCertifications,
 	setMovieGenres,
-	setTVCertifications,
-	setTVGenres
+	setTVShowCertifications,
+	setTVShowGenres
 } from '../../store/slices/Options';
 import { useCertificationsQuery, useCountriesQuery, useGenresQuery, useJobsQuery, useLanguagesQuery } from '../queries';
 
@@ -38,12 +38,12 @@ const usePopulateOptions = (): void => {
 
 	useCertificationsQuery({
 		props: { mediaType: 'tv' },
-		options: { onSuccess: (certifications) => dispatch(setTVCertifications({ ...(certifications || {}) })) }
+		options: { onSuccess: (certifications) => dispatch(setTVShowCertifications({ ...(certifications || {}) })) }
 	});
 
 	useGenresQuery({
 		props: { mediaType: 'tv' },
-		options: { onSuccess: ({ genres = [] }) => dispatch(setTVGenres([...genres])) }
+		options: { onSuccess: ({ genres = [] }) => dispatch(setTVShowGenres([...genres])) }
 	});
 };
 
