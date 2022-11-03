@@ -22,8 +22,7 @@ import {
 	VerticalGrid,
 	LoadMore,
 	MovieHorizontalPoster,
-	MovieVerticalPoster,
-	DummyLoadMore
+	MovieVerticalPoster
 } from '../../../../../components';
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';

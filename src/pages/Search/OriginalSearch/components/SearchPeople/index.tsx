@@ -21,8 +21,7 @@ import {
 	VerticalGrid,
 	LoadMore,
 	PersonHorizontalPoster,
-	PersonVerticalPoster,
-	DummyLoadMore
+	PersonVerticalPoster
 } from '../../../../../components';
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
@@ -163,7 +162,17 @@ const SearchPeople: FC<SearchPeopleProps> = ({ query = '' }) => {
 			</VerticalGrid>
 
 			<Center width={isSm ? '100%' : 'auto'}>
-				<DummyLoadMore isButtonVisible />
+				<LoadMore
+					amount={people?.results?.length || 0}
+					total={people?.total_results || 0}
+					label={`${formatMediaTypeLabel({
+						type: (people?.total_results || 0) === 1 ? 'single' : 'multiple',
+						mediaType: 'person'
+					})} with query "${query}"`}
+					isDisabled
+					isLoading
+					isButtonVisible={hasNextPage && !isError}
+				/>
 			</Center>
 		</VStack>
 	);
