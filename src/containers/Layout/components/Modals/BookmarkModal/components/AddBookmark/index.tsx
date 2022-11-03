@@ -27,6 +27,7 @@ import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import { FullMovie } from '../../../../../../../common/types/movie';
 import { FullTV } from '../../../../../../../common/types/tv';
 import { UserList as UserList, UserListMediaItems, MediaItem } from '../../../../../../../store/slices/Users/types';
+import { useLayoutContext } from '../../../../../common/hooks';
 
 import { BookmarkListSelected } from './types';
 import List from './components/List';
@@ -37,6 +38,8 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 	const { color, colorMode } = useUserTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
+	const { spacing } = useLayoutContext();
 
 	const { isOpen: isCreateListOpen, onOpen: onCreateListOpen, onClose: onCreateListClose } = useDisclosure();
 
@@ -67,10 +70,10 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 
 				switch (mediaType) {
 					case 'movie': {
-						mediaItems.movies = sort(
+						mediaItems.movie = sort(
 							uniqBy(
 								[
-									...mediaItems.movies,
+									...mediaItems.movie,
 									{
 										mediaItem: { ...(mediaItem as FullMovie) },
 										mediaType: 'movie',
@@ -142,7 +145,7 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 						)}
 					/>
 					<ModalBody>
-						<VStack spacing={2}>
+						<VStack width='100%' spacing={spacing}>
 							{lists.map((list) => (
 								<List
 									key={list.id}

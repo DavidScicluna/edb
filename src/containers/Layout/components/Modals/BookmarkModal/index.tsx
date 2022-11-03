@@ -32,7 +32,7 @@ const BookmarkModal: FC = () => {
 			lists.forEach((list) => {
 				switch (mediaType) {
 					case 'movie': {
-						if (list.mediaItems.movies.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
+						if (list.mediaItems.movie.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
 							inLists = inLists + 1;
 						}
 						return;

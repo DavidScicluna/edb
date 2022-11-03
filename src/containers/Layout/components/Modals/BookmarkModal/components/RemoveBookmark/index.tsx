@@ -27,10 +27,13 @@ import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { setUserLists } from '../../../../../../../store/slices/Users';
 import { UserList, UserListMediaItems } from '../../../../../../../store/slices/Users/types';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
+import { useLayoutContext } from '../../../../../common/hooks';
 
 const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
+
+	const { spacing } = useLayoutContext();
 
 	const dispatch = useDispatch();
 	const {
@@ -47,7 +50,7 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 			const selectedLists = lists.filter((list) => {
 				switch (mediaType) {
 					case 'movie':
-						return list.mediaItems.movies.some(
+						return list.mediaItems.movie.some(
 							(listMediaItem) => listMediaItem.mediaItem.id === mediaItem?.id
 						);
 					case 'tv':
@@ -83,12 +86,12 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 		lists.forEach((list) => {
 			switch (mediaType) {
 				case 'movie': {
-					if (list.mediaItems.movies.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
+					if (list.mediaItems.movie.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
 						const mediaItems: UserListMediaItems = {
 							...list.mediaItems,
-							movies: sort(
+							movie: sort(
 								uniqBy(
-									[...list.mediaItems.movies.filter((movie) => movie.mediaItem.id !== mediaItem?.id)],
+									[...list.mediaItems.movie.filter((movie) => movie.mediaItem.id !== mediaItem?.id)],
 									'mediaItem.id'
 								)
 							).desc((movie) => movie.addedAt)
@@ -147,7 +150,7 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 			isOpen={isOpen}
 			onClose={onClose}
 		>
-			<ConfirmModalStack spacing={4} p={4}>
+			<ConfirmModalStack spacing={spacing} p={spacing}>
 				<ConfirmModalIcon
 					renderIcon={(props) => (
 						<Icon

@@ -74,16 +74,11 @@ const InternationalizationModal: FC = () => {
 						</IconButton>
 					)}
 				/>
-
 				<ModalBody>
 					<Languages form={form} />
 				</ModalBody>
 				<ModalFooter
-					renderCancel={(props) => (
-						<Button {...props} onClick={handleClose}>
-							Cancel
-						</Button>
-					)}
+					renderCancel={(props) => <Button {...props}>Cancel</Button>}
 					renderAction={(props) => (
 						<Button {...props} color={color} isDisabled={!isDirty} type='submit'>
 							Save

@@ -22,10 +22,13 @@ import { useDispatch } from 'react-redux';
 
 import { useSelector, useUserTheme } from '../../../../../common/hooks';
 import { defaultAuthenticationConfirmModal, setAuthenticationConfirmModal } from '../../../../../store/slices/Modals';
+import { useLayoutContext } from '../../../common/hooks';
 
 const AuthenticationConfirmModal: FC = () => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
+
+	const { spacing } = useLayoutContext();
 
 	const dispatch = useDispatch();
 	const { isOpen = false, title, description } = useSelector((state) => state.modals.ui.authenticationConfirmModal);
@@ -45,7 +48,7 @@ const AuthenticationConfirmModal: FC = () => {
 			isOpen={isOpen}
 			onClose={handleClose}
 		>
-			<ConfirmModalStack spacing={4} p={4}>
+			<ConfirmModalStack spacing={spacing} p={spacing}>
 				<ConfirmModalIcon
 					renderIcon={(props) => (
 						<Icon
