@@ -6,12 +6,10 @@ import { Tabs, DummyTabList, TabPanels, Skeleton } from '@davidscicluna/componen
 
 import { VStack, Text } from '@chakra-ui/react';
 
-import { useDebounce } from 'usehooks-ts';
-
 import Page from '../../../containers/Page';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import PageBody from '../../../containers/Page/components/PageBody';
-import { useUserTheme } from '../../../common/hooks';
+import { useDebounce, useUserTheme } from '../../../common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import { DummyDisplayMode } from '../../../components';
@@ -30,7 +28,7 @@ const DummyTrending: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	const [activeTab, setActiveTab] = useState<number>(getActiveTabFromHash({ location }) || 0);
-	const activeTabDebounced = useDebounce<number>(activeTab, 250);
+	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const handleSetActiveTab = useCallback((): void => {
 		setActiveTab(getActiveTabFromHash({ location }) || 0);

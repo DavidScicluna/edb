@@ -7,12 +7,12 @@ import { Space, useTheme, HorizontalScroll, Divider, Button, utils } from '@davi
 import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
 import { compact } from 'lodash';
-import { useDebounce, useElementSize } from 'usehooks-ts';
+import { useElementSize } from 'usehooks-ts';
 
 import { getFiltersForm } from '../common/utils';
 import { FiltersForm } from '../types';
 import defaultValues from '../common/data/defaults';
-import { useUserTheme } from '../../../common/hooks';
+import { useDebounce, useUserTheme } from '../../../common/hooks';
 
 import Certifications from './components/Certifications';
 import Count from './components/CountRange';
@@ -37,7 +37,7 @@ const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagD
 	const [buttonRef, { width: buttonWidth, height: buttonHeight }] = useElementSize();
 
 	const [filters, setFilters] = useState<FiltersForm>(defaultValues);
-	const filtersDebounced = useDebounce<FiltersForm>(filters, 500);
+	const filtersDebounced = useDebounce<FiltersForm>(filters, 'slow');
 
 	const handleSetFilters = (): void => {
 		if (location.search && location.search.length > 0) {

@@ -1,23 +1,18 @@
 import { FC, useContext, useEffect } from 'react';
 
-import { useTheme, CardHeader, utils } from '@davidscicluna/component-library';
+import { CardHeader } from '@davidscicluna/component-library';
 
-import { useBoolean, useConst, HStack } from '@chakra-ui/react';
-
-import { useDebounce } from 'usehooks-ts';
+import { useBoolean, HStack } from '@chakra-ui/react';
 
 import Arrows from '../../../components/Arrows';
 import { ScrollContext } from '../../../types';
 import { HorizontalGridContext as HorizontalGridContextType } from '../../types';
 import { HorizontalGridContext } from '../..';
+import { useDebounce } from '../../../../../../common/hooks';
 
 import { HorizontalGridHeaderProps } from './types';
 
-const { convertStringToNumber } = utils;
-
 const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, arrowProps, ...rest }) => {
-	const theme = useTheme();
-
 	const { scroll } = useContext<HorizontalGridContextType>(HorizontalGridContext);
 	const {
 		isFirstItemVisible = false,
@@ -28,13 +23,11 @@ const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, arrowPro
 		scrollNext
 	} = scroll as ScrollContext;
 
-	const duration = useConst<number>(convertStringToNumber(theme.transition.duration.normal, 'ms'));
-
 	const [isLeftArrowDisabled, setIsLeftArrowDisabled] = useBoolean();
-	const debouncedIsLeftArrowDisabled = useDebounce<boolean>(isLeftArrowDisabled, duration);
+	const debouncedIsLeftArrowDisabled = useDebounce<boolean>(isLeftArrowDisabled, 'ultra-fast');
 
 	const [isRightArrowDisabled, setIsRightArrowDisabled] = useBoolean();
-	const debouncedIsRightArrowDisabled = useDebounce<boolean>(isRightArrowDisabled, duration);
+	const debouncedIsRightArrowDisabled = useDebounce<boolean>(isRightArrowDisabled, 'ultra-fast');
 
 	useEffect(() => {
 		if (visibleItemsWithoutSeparators.length) {

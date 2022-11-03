@@ -4,11 +4,12 @@ import { useBoolean, Center } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
 import qs from 'query-string';
-import { useDebounce, useTimeout } from 'usehooks-ts';
+import { useTimeout } from 'usehooks-ts';
 
 import { usePopularQuery } from '../../../../../common/queries';
 import HomeHorizontalGrid from '../HomeHorizontalGrid';
 import { formatMediaType } from '../../../../../common/utils';
+import { useDebounce } from '../../../../../common/hooks';
 
 const Popular: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
@@ -16,8 +17,9 @@ const Popular: FC = () => {
 		unobserveOnEnter: true
 	});
 
+	// TODO: Go over all activeTabs and add debounce
 	const [activeTab, setActiveTab] = useState<number>(0);
-	const activeTabDebounced = useDebounce<number>(activeTab, 250);
+	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const [isMoviesQueryEnabled, setIsMoviesQueryEnabled] = useBoolean();
 	const [isShowsQueryEnabled, setIsShowsQueryEnabled] = useBoolean();

@@ -5,7 +5,6 @@ import { TabListTab, Tabs, TabList, TabPanels } from '@davidscicluna/component-l
 import { VStack } from '@chakra-ui/react';
 
 import { compact, includes } from 'lodash';
-import { useDebounce } from 'usehooks-ts';
 
 import { activeTab as defaultActiveTab } from '../../common/data/defaultPropValues';
 import { Suspense } from '../../../../../../../../../../../components';
@@ -13,7 +12,7 @@ import DummyMoviesTab from '../../../components/MyLikesTabDummyMovies';
 import DummyPeopleTab from '../../../components/MyLikesTabDummyPeople';
 import DummyTVShowsTab from '../../../components/MyLikesTabDummyTVShows';
 import DummyAllTab from '../../../components/MyLikesTabDummyTabs/components/DummyAllTab';
-import { useSelector, useUserTheme } from '../../../../../../../../../../../common/hooks';
+import { useDebounce, useSelector, useUserTheme } from '../../../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../../../../../../common/utils';
 import { MediaType } from '../../../../../../../../../../../common/types';
@@ -38,7 +37,7 @@ const MyLikesTabTabs: FC<MyLikesTabTabsProps> = ({ activeTab = defaultActiveTab,
 	const [mediaTypes, setMediaTypes] = useState<MediaType[]>([]);
 
 	const [total, setTotal] = useState<number>(0);
-	const totalDebounced = useDebounce<number>(total, 500);
+	const totalDebounced = useDebounce<number>(total);
 
 	const handleCheckLiked = () => {
 		const mediaTypes: MediaType[] = [];

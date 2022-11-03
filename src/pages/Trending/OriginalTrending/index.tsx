@@ -6,13 +6,13 @@ import { TabsOnChangeProps, Tabs, TabList, TabPanels, Undefinable } from '@david
 
 import { VStack, Text } from '@chakra-ui/react';
 
-import { useDebounce, useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { uniqBy } from 'lodash';
 
 import Page from '../../../containers/Page';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import PageBody from '../../../containers/Page/components/PageBody';
-import { useUserTheme } from '../../../common/hooks';
+import { useDebounce, useUserTheme } from '../../../common/hooks';
 import { formatMediaType, formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import { DisplayMode, Suspense } from '../../../components';
@@ -48,16 +48,16 @@ const Trending: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	const [activeTab, setActiveTab] = useState<number>(getActiveTabFromHash({ location }) || 0);
-	const activeTabDebounced = useDebounce<number>(activeTab, 250);
+	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const [movies, setMovies] = useState<UseTrendingInfiniteQueryResponse<'movie'>>();
-	const moviesDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'movie'>>>(movies, 500);
+	const moviesDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'movie'>>>(movies, 'slow');
 
 	const [shows, setShows] = useState<UseTrendingInfiniteQueryResponse<'tv'>>();
-	const showsDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'tv'>>>(shows, 500);
+	const showsDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'tv'>>>(shows, 'slow');
 
 	const [people, setPeople] = useState<UseTrendingInfiniteQueryResponse<'person'>>();
-	const peopleDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'person'>>>(people, 500);
+	const peopleDebounced = useDebounce<Undefinable<UseTrendingInfiniteQueryResponse<'person'>>>(people, 'slow');
 
 	const trendingMoviesInfiniteQuery = useTrendingInfiniteQuery<'movie'>({
 		props: { mediaType: 'movie', time: 'week' },

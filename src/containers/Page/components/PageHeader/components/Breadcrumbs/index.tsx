@@ -3,8 +3,10 @@ import { FC, useState } from 'react';
 import { Breadcrumb as CUIBreadcrumb, BreadcrumbItem } from '@chakra-ui/react';
 
 import useBreadcrumbs, { BreadcrumbData } from 'use-react-router-breadcrumbs';
-import { useDebounce, useTimeout } from 'usehooks-ts';
+import { useTimeout } from 'usehooks-ts';
 import { range } from 'lodash';
+
+import { useDebounce } from '../../../../../../common/hooks';
 
 import Breadcrumb from './components/Breadcrumb';
 import Separator from './components/Separator';
@@ -15,7 +17,7 @@ const Breadcrumbs: FC = () => {
 	// routes.map((route) => omit(route, 'element'))
 
 	const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbData<string>[]>([]);
-	const debouncedBreadcrumbs = useDebounce<BreadcrumbData<string>[]>(breadcrumbs, 500);
+	const debouncedBreadcrumbs = useDebounce<BreadcrumbData<string>[]>(breadcrumbs, 'slow');
 
 	useTimeout(() => setBreadcrumbs(getBreadcrumbs), 2500);
 

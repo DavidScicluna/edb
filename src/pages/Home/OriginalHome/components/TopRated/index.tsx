@@ -4,11 +4,12 @@ import { useBoolean, Center } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
 import qs from 'query-string';
-import { useDebounce, useTimeout } from 'usehooks-ts';
+import { useTimeout } from 'usehooks-ts';
 
 import { useTopRatedQuery } from '../../../../../common/queries';
 import HomeHorizontalGrid from '../HomeHorizontalGrid';
 import { formatMediaType } from '../../../../../common/utils';
+import { useDebounce } from '../../../../../common/hooks';
 
 const TopRated: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
@@ -17,7 +18,7 @@ const TopRated: FC = () => {
 	});
 
 	const [activeTab, setActiveTab] = useState<number>(0);
-	const activeTabDebounced = useDebounce<number>(activeTab, 250);
+	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const [isMoviesQueryEnabled, setIsMoviesQueryEnabled] = useBoolean();
 	const [isShowsQueryEnabled, setIsShowsQueryEnabled] = useBoolean();

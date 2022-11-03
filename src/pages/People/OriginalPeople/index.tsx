@@ -7,7 +7,6 @@ import { Undefinable } from '@davidscicluna/component-library';
 import { Text } from '@chakra-ui/react';
 
 import qs from 'query-string';
-import { useDebounce } from 'usehooks-ts';
 import { uniqBy } from 'lodash';
 
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
@@ -20,6 +19,7 @@ import { PartialPerson } from '../../../common/types/person';
 import { UsePeopleInfiniteQueryResponse } from '../../../common/queries/usePeopleInfiniteQuery';
 import VerticalDummyPeople from '../components/VerticalDummyPeople';
 import { formatMediaTypeLabel } from '../../../common/utils';
+import { useDebounce } from '../../../common/hooks';
 
 const VerticalPeople = lazy(() => import('../components/VerticalPeople'));
 
@@ -29,7 +29,7 @@ const OriginalPeople: FC = () => {
 	const location = useLocation();
 
 	const [people, setPeople] = useState<UsePeopleInfiniteQueryResponse>();
-	const peopleDebounced = useDebounce<Undefinable<UsePeopleInfiniteQueryResponse>>(people, 500);
+	const peopleDebounced = useDebounce<Undefinable<UsePeopleInfiniteQueryResponse>>(people, 'slow');
 
 	const peopleInfiniteQuery = usePeopleInfiniteQuery({
 		config: {

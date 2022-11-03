@@ -2,10 +2,9 @@ import { FC, createContext, useState, useCallback } from 'react';
 
 import { TabsOnChangeProps, Tabs, Card } from '@davidscicluna/component-library';
 
-import { useDebounce } from 'usehooks-ts';
-
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 import { ScrollContext } from '../types';
+import { useDebounce } from '../../../../common/hooks';
 
 import { HorizontalGridTabbedContext as HorizontalGridTabbedContextType, HorizontalGridTabbedProps } from './types';
 
@@ -18,7 +17,7 @@ const HorizontalGridTabbed: FC<HorizontalGridTabbedProps> = (props) => {
 	const { children, color = defaultColor, colorMode = defaultColorMode, onChange, cardProps, ...rest } = props;
 
 	const [scroll, setScroll] = useState<ScrollContext>({} as ScrollContext);
-	const scrollDebounced = useDebounce(scroll, 250);
+	const scrollDebounced = useDebounce(scroll, 'ultra-fast');
 
 	const handleOnChange = useCallback(
 		({ index }: TabsOnChangeProps): void => {

@@ -9,14 +9,14 @@ import { useMediaQuery, HStack, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useElementSize, useUpdateEffect, useDebounce, useWindowSize } from 'usehooks-ts';
+import { useElementSize, useUpdateEffect, useWindowSize } from 'usehooks-ts';
 import { debounce, omit } from 'lodash';
 import sha256 from 'crypto-js/sha256';
 import { sort } from 'fast-sort';
 import dayjs from 'dayjs';
 
 import Illustration from '../../components/Illustration';
-import { useSelector, useUserTheme } from '../../../../common/hooks';
+import { useDebounce, useSelector, useUserTheme } from '../../../../common/hooks';
 import { User } from '../../../../store/slices/Users/types';
 import { guest, setUser, setUsers } from '../../../../store/slices/Users';
 import { toggleSpinnerModal } from '../../../../store/slices/Modals';
@@ -60,7 +60,7 @@ const SignIn: FC = () => {
 	const { width: windowWidth } = useWindowSize();
 
 	const [containerRef, { width: containerWidth = 0 }] = useElementSize();
-	const debouncedContainerWidth = useDebounce<number>(containerWidth, 0);
+	const debouncedContainerWidth = useDebounce<number>(containerWidth);
 
 	const [selectedUserID, setSelectedUserID] = useState<string>('');
 

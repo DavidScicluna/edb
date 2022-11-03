@@ -1,23 +1,18 @@
 import { FC, useContext, useEffect } from 'react';
 
-import { useTheme, CardHeader, TabList, utils } from '@davidscicluna/component-library';
+import { CardHeader, TabList } from '@davidscicluna/component-library';
 
-import { useBoolean, useConst, VStack, HStack } from '@chakra-ui/react';
-
-import { useDebounce } from 'usehooks-ts';
+import { useBoolean, VStack, HStack } from '@chakra-ui/react';
 
 import Arrows from '../../../components/Arrows';
 import { ScrollContext } from '../../../types';
 import { HorizontalGridTabbedContext as HorizontalGridTabbedContextType } from '../../types';
 import { HorizontalGridTabbedContext } from '../..';
+import { useDebounce } from '../../../../../../common/hooks';
 
 import { HorizontalGridTabbedHeaderProps } from './types';
 
-const { convertStringToNumber } = utils;
-
 const HorizontalGridTabbedHeader: FC<HorizontalGridTabbedHeaderProps> = (props) => {
-	const theme = useTheme();
-
 	const { scroll } = useContext<HorizontalGridTabbedContextType>(HorizontalGridTabbedContext);
 	const {
 		isFirstItemVisible = false,
@@ -30,13 +25,11 @@ const HorizontalGridTabbedHeader: FC<HorizontalGridTabbedHeaderProps> = (props) 
 
 	const { cardHeaderProps, tabListProps, arrowProps, spacing = 2, ...rest } = props;
 
-	const duration = useConst<number>(convertStringToNumber(theme.transition.duration.normal, 'ms'));
-
 	const [isLeftArrowDisabled, setIsLeftArrowDisabled] = useBoolean();
-	const debouncedIsLeftArrowDisabled = useDebounce<boolean>(isLeftArrowDisabled, duration);
+	const debouncedIsLeftArrowDisabled = useDebounce<boolean>(isLeftArrowDisabled, 'ultra-fast');
 
 	const [isRightArrowDisabled, setIsRightArrowDisabled] = useBoolean();
-	const debouncedIsRightArrowDisabled = useDebounce<boolean>(isRightArrowDisabled, duration);
+	const debouncedIsRightArrowDisabled = useDebounce<boolean>(isRightArrowDisabled, 'ultra-fast');
 
 	useEffect(() => {
 		if (visibleItemsWithoutSeparators.length) {

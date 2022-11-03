@@ -6,7 +6,7 @@ import { Undefinable, useTheme, Divider } from '@davidscicluna/component-library
 
 import { useMediaQuery, VStack, HStack, Text } from '@chakra-ui/react';
 
-import { useDebounce, useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import qs from 'query-string';
 import { isEmpty, isNil, merge, omit, omitBy, pick, uniqBy } from 'lodash';
 import dayjs from 'dayjs';
@@ -24,7 +24,7 @@ import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
 import { AxiosConfigParams } from '../../../common/types';
-import { useUserTheme } from '../../../common/hooks';
+import { useDebounce, useUserTheme } from '../../../common/hooks';
 import { getTotalFilters } from '../../../components/Filters/common/utils';
 import { PartialTV } from '../../../common/types/tv';
 import { UseTVShowsInfiniteQueryResponse } from '../../../common/queries/useTVShowsInfiniteQuery';
@@ -58,13 +58,13 @@ const OriginalTVShows: FC = () => {
 	const navigate = useNavigate();
 
 	const [shows, setShows] = useState<UseTVShowsInfiniteQueryResponse>();
-	const showsDebounced = useDebounce<Undefinable<UseTVShowsInfiniteQueryResponse>>(shows, 500);
+	const showsDebounced = useDebounce<Undefinable<UseTVShowsInfiniteQueryResponse>>(shows, 'slow');
 
 	const [params, setParams] = useState<AxiosConfigParams>();
-	const paramsDebounced = useDebounce<AxiosConfigParams>(params, 500);
+	const paramsDebounced = useDebounce<AxiosConfigParams>(params);
 
 	const [totalFilters, setTotalFilters] = useState<number>(getTotalFilters({ location, mediaType: 'tv' }) || 0);
-	const totalFiltersDebounced = useDebounce<number>(totalFilters, 500);
+	const totalFiltersDebounced = useDebounce<number>(totalFilters);
 
 	const tvShowsInfiniteQuery = useTVShowsInfiniteQuery({
 		config: { params: { ...paramsDebounced } },

@@ -3,11 +3,12 @@ import { FC, useState } from 'react';
 import { useBoolean, Center } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
-import { useDebounce, useTimeout } from 'usehooks-ts';
+import { useTimeout } from 'usehooks-ts';
 
 import { useTrendingQuery } from '../../../../../common/queries';
 import HomeHorizontalGrid from '../HomeHorizontalGrid';
 import { formatMediaType } from '../../../../../common/utils';
+import { useDebounce } from '../../../../../common/hooks';
 
 const Trending: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({
@@ -16,7 +17,7 @@ const Trending: FC = () => {
 	});
 
 	const [activeTab, setActiveTab] = useState<number>(0);
-	const activeTabDebounced = useDebounce<number>(activeTab, 250);
+	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const [isMoviesQueryEnabled, setIsMoviesQueryEnabled] = useBoolean();
 	const [isShowsQueryEnabled, setIsShowsQueryEnabled] = useBoolean();

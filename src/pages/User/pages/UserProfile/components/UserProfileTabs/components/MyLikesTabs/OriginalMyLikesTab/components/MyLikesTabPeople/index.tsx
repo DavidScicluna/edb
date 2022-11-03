@@ -5,7 +5,6 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
-import { useDebounce } from 'usehooks-ts';
 
 import { useLayoutContext } from '../../../../../../../../../../../containers/Layout/common/hooks';
 import {
@@ -19,7 +18,7 @@ import {
 	PersonHorizontalPoster,
 	PersonVerticalPoster
 } from '../../../../../../../../../../../components';
-import { useUserTheme, useSelector } from '../../../../../../../../../../../common/hooks';
+import { useUserTheme, useSelector, useDebounce } from '../../../../../../../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../../../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
 
@@ -38,7 +37,7 @@ const MyLikesTabPeople: FC = () => {
 	const people = useSelector((state) => state.users.data.activeUser.data.liked.person || []);
 
 	const [visible, setVisible] = useState<number>(limit);
-	const visibleDebounced = useDebounce<number>(visible, 500);
+	const visibleDebounced = useDebounce<number>(visible, 'slow');
 
 	return people && people.length === 0 ? (
 		<QueryEmpty

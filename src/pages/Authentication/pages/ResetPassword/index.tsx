@@ -22,14 +22,14 @@ import { useMediaQuery, useDisclosure, HStack, Center } from '@chakra-ui/react';
 import qs from 'query-string';
 import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useElementSize, useDebounce, useWindowSize } from 'usehooks-ts';
+import { useElementSize, useWindowSize } from 'usehooks-ts';
 import { useDispatch } from 'react-redux';
 import sha256 from 'crypto-js/sha256';
 import { sort } from 'fast-sort';
 
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 import Illustration from '../../components/Illustration';
-import { useSelector } from '../../../../common/hooks';
+import { useDebounce, useSelector } from '../../../../common/hooks';
 import { User } from '../../../../store/slices/Users/types';
 import { setUsers } from '../../../../store/slices/Users';
 import { AuthenticationOutletContext } from '../../types';
@@ -65,7 +65,7 @@ const ForgotPassword: FC = () => {
 	const { width: windowWidth } = useWindowSize();
 
 	const [containerRef, { width: containerWidth = 0 }] = useElementSize();
-	const debouncedContainerWidth = useDebounce<number>(containerWidth, 0);
+	const debouncedContainerWidth = useDebounce<number>(containerWidth);
 
 	const form = useForm<FormType>({
 		defaultValues: { ...defaultValues, ...qs.parse(location.search) },

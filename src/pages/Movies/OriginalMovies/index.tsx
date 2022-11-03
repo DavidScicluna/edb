@@ -6,7 +6,7 @@ import { Undefinable, useTheme, Divider } from '@davidscicluna/component-library
 
 import { useMediaQuery, VStack, HStack, Text } from '@chakra-ui/react';
 
-import { useDebounce, useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import qs from 'query-string';
 import { isEmpty, isNil, merge, omit, omitBy, pick, uniqBy } from 'lodash';
 import dayjs from 'dayjs';
@@ -26,7 +26,7 @@ import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
 import { AxiosConfigParams } from '../../../common/types';
-import { useUserTheme } from '../../../common/hooks';
+import { useDebounce, useUserTheme } from '../../../common/hooks';
 import { getTotalFilters } from '../../../components/Filters/common/utils';
 
 import MoviesSortBy from './components/MoviesSortBy';
@@ -58,13 +58,13 @@ const OriginalMovies: FC = () => {
 	const navigate = useNavigate();
 
 	const [movies, setMovies] = useState<UseMoviesInfiniteQueryResponse>();
-	const moviesDebounced = useDebounce<Undefinable<UseMoviesInfiniteQueryResponse>>(movies, 500);
+	const moviesDebounced = useDebounce<Undefinable<UseMoviesInfiniteQueryResponse>>(movies, 'slow');
 
 	const [params, setParams] = useState<AxiosConfigParams>();
-	const paramsDebounced = useDebounce<AxiosConfigParams>(params, 500);
+	const paramsDebounced = useDebounce<AxiosConfigParams>(params);
 
 	const [totalFilters, setTotalFilters] = useState<number>(getTotalFilters({ location, mediaType: 'movie' }) || 0);
-	const totalFiltersDebounced = useDebounce<number>(totalFilters, 500);
+	const totalFiltersDebounced = useDebounce<number>(totalFilters);
 
 	const moviesInfiniteQuery = useMoviesInfiniteQuery({
 		config: { params: { ...paramsDebounced } },
