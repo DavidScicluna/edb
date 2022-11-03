@@ -184,7 +184,9 @@ const Trending: FC = () => {
 				renderSubtitle={(props) => <Text {...props}>{handleSubtitle()}</Text>}
 				actions={activeTabDebounced !== 0 ? <DisplayMode /> : undefined}
 				direction='row'
-				p={spacing}
+				spacing={spacing}
+				px={spacing}
+				py={spacing * 2}
 			/>
 			<PageBody px={spacing} pb={spacing}>
 				<Tabs

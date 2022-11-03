@@ -51,7 +51,9 @@ const DummyTVShows: FC = () => {
 					</HStack>
 				}
 				direction={isLg ? 'column' : 'row'}
-				p={spacing}
+				spacing={spacing}
+				px={spacing}
+				py={spacing * 2}
 			/>
 			<PageBody p={spacing}>
 				<VerticalDummyTVShows />

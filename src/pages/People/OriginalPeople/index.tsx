@@ -72,7 +72,9 @@ const OriginalPeople: FC = () => {
 				)}
 				actions={<DisplayMode />}
 				direction='row'
-				p={spacing}
+				spacing={spacing}
+				px={spacing}
+				py={spacing * 2}
 			/>
 			<PageBody p={spacing}>
 				<Suspense fallback={<VerticalDummyPeople />}>

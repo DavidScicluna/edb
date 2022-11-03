@@ -32,7 +32,6 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 		renderRightPanel,
 		actions,
 		direction,
-		p = 2,
 		spacing = 2,
 		...rest
 	} = props;
@@ -47,7 +46,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 	};
 
 	return (
-		<HStack {...rest} width='100%' p={p} spacing={spacing}>
+		<HStack {...rest} width='100%' spacing={spacing}>
 			{renderLeftPanel && !isMd && (
 				<Center ref={leftRef}>{renderLeftPanel({ width: containerWidth, height: containerHeight })}</Center>
 			)}
@@ -60,6 +59,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 				alignItems='center'
 				justifyContent='space-between'
 				spacing={spacing}
+				p={0}
 			>
 				<Headline
 					width={

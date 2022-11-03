@@ -38,7 +38,9 @@ const DummyPeople: FC = () => {
 				)}
 				actions={<DummyDisplayMode />}
 				direction='row'
-				p={spacing}
+				spacing={spacing}
+				px={spacing}
+				py={spacing * 2}
 			/>
 			<PageBody p={spacing}>
 				<VerticalDummyPeople />

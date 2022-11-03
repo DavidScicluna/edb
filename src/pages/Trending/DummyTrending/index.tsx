@@ -51,7 +51,9 @@ const DummyTrending: FC = () => {
 				)}
 				actions={activeTabDebounced !== 0 ? <DummyDisplayMode /> : undefined}
 				direction='row'
-				p={spacing}
+				spacing={spacing}
+				px={spacing}
+				py={spacing * 2}
 			/>
 			<PageBody px={spacing} pb={spacing}>
 				<Tabs width='100%' activeTab={activeTabDebounced} color={color} colorMode={colorMode} size='xl'>

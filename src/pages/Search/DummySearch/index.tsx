@@ -39,7 +39,9 @@ const DummySearch: FC = () => {
 					</Skeleton>
 				)}
 				direction='row'
-				p={spacing}
+				spacing={spacing}
+				px={spacing}
+				py={spacing * 2}
 			/>
 			<PageBody p={spacing}>
 				<DummyCard colorMode={colorMode} isFullWidth p={2}>
