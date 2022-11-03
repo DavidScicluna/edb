@@ -8,7 +8,7 @@ import { VStack } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
-import { useUserTheme } from '../../../../../../common/hooks';
+import { useDebounce, useUserTheme } from '../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 import { Suspense } from '../../../../../../components';
 
@@ -61,6 +61,7 @@ const UserProfileTabs: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	const [activeTab, setActiveTab] = useState<number>(0);
+	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const handleTabChange = ({ index }: TabsOnChangeProps): void => {
 		const tab = tabs.find((_tab, i) => index === i);
@@ -77,7 +78,7 @@ const UserProfileTabs: FC = () => {
 		setActiveTab(index >= 0 ? index : 0);
 	};
 
-	useEffectOnce(() => handleTabChange({ index: 0 }));
+	useEffectOnce(() => (location.hash.length > 0 ? handleSetActiveTab() : undefined));
 
 	useUpdateEffect(() => handleSetActiveTab(), [location.hash]);
 
@@ -86,7 +87,7 @@ const UserProfileTabs: FC = () => {
 			width='100%'
 			color={color}
 			colorMode={colorMode}
-			activeTab={activeTab}
+			activeTab={activeTabDebounced}
 			onChange={handleTabChange}
 			size='xl'
 		>
@@ -97,7 +98,7 @@ const UserProfileTabs: FC = () => {
 							label: tab.label,
 							renderLeft: (props) => {
 								return tab.renderIcon
-									? tab.renderIcon({ ...props, isActive: activeTab === index })
+									? tab.renderIcon({ ...props, isActive: activeTabDebounced === index })
 									: undefined;
 							}
 						};
