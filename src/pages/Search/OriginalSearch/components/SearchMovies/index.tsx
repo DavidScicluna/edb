@@ -162,17 +162,7 @@ const SearchMovies: FC<SearchMoviesProps> = ({ query = '' }) => {
 			</VerticalGrid>
 
 			<Center width={isSm ? '100%' : 'auto'}>
-				<LoadMore
-					amount={movies?.results?.length || 0}
-					total={movies?.total_results || 0}
-					label={`${formatMediaTypeLabel({
-						type: (movies?.total_results || 0) === 1 ? 'single' : 'multiple',
-						mediaType: 'movie'
-					})} with query "${query}"`}
-					isDisabled
-					isLoading
-					isButtonVisible={hasNextPage && !isError}
-				/>
+				<DummyLoadMore isButtonVisible />
 			</Center>
 		</VStack>
 	);

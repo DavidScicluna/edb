@@ -20,7 +20,8 @@ import {
 	VerticalGrid,
 	LoadMore,
 	PersonHorizontalPoster,
-	PersonVerticalPoster
+	PersonVerticalPoster,
+	DummyLoadMore
 } from '../../../../../components';
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
@@ -154,17 +155,7 @@ const TrendingPeopleTab: FC<TrendingPeopleTabProps> = ({ query, people }) => {
 			</VerticalGrid>
 
 			<Center width={isSm ? '100%' : 'auto'}>
-				<LoadMore
-					amount={people?.results?.length || 0}
-					total={people?.total_results || 0}
-					label={`Trending ${formatMediaTypeLabel({
-						type: 'multiple',
-						mediaType: 'person'
-					})}`}
-					isDisabled
-					isLoading
-					isButtonVisible={hasNextPage && !isError}
-				/>
+				<DummyLoadMore isButtonVisible />
 			</Center>
 		</VStack>
 	);
