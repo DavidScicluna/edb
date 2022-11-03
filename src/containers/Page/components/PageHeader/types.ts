@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 
-import { StackProps, TextProps } from '@chakra-ui/react';
+import { StackProps } from '@chakra-ui/react';
+
+import { HeadlineProps } from '../../../../components/Headline/types';
 
 export type RenderProps = {
 	width: number; // In Pixels
@@ -8,9 +10,7 @@ export type RenderProps = {
 };
 
 export type PageHeaderProps = Omit<StackProps, 'children'> & {
-	renderTitle?: (props: TextProps) => ReactNode;
-	renderSubtitle?: (props: TextProps) => ReactNode;
 	renderLeftPanel?: (props: RenderProps) => ReactNode;
 	renderRightPanel?: (props: RenderProps) => ReactNode;
 	actions?: ReactNode;
-};
+} & Pick<HeadlineProps, 'renderTitle' | 'renderSubtitle'>;

@@ -1,21 +1,20 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import { Space, useTheme, utils } from '@davidscicluna/component-library';
 
-import { useMediaQuery, VStack, Center, Stack, HStack } from '@chakra-ui/react';
+import { useMediaQuery, Center, Stack, HStack } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-import { useUserTheme } from '../../../../common/hooks';
+import { Headline } from '../../../../components';
 
 import Breadcrumbs from './components/Breadcrumbs';
 import { PageHeaderProps } from './types';
 
-const { convertREMToPixels, convertStringToNumber, getColor } = utils;
+const { convertREMToPixels, convertStringToNumber } = utils;
 
 const PageHeader: FC<PageHeaderProps> = (props) => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 	const [isMd] = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
@@ -38,13 +37,14 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 		...rest
 	} = props;
 
-	const handleStackWidth = useCallback(() => {
+	const handleStackWidth = (): string => {
 		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing as Space], 'rem'));
 
 		return `calc(100% - ${
-			(renderLeftPanel ? leftWidth + spacingWidth : 0) + (renderRightPanel ? rightWidth + spacingWidth : 0)
+			(renderLeftPanel && !isMd ? leftWidth + spacingWidth : 0) +
+			(renderRightPanel && !isMd ? rightWidth + spacingWidth : 0)
 		}px)`;
-	}, [theme, spacing, renderLeftPanel, leftWidth, renderRightPanel, rightWidth]);
+	};
 
 	return (
 		<HStack {...rest} width='100%' p={p} spacing={spacing}>
@@ -61,35 +61,18 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 				justifyContent='space-between'
 				spacing={spacing}
 			>
-				<VStack
-					width={isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + 48 : 0}px)`}
-					alignItems='flex-start'
-					spacing={0}
-				>
-					<Breadcrumbs />
-
-					{/* Title */}
-					{renderTitle &&
-						renderTitle({
-							align: 'left',
-							color: getColor({ theme, colorMode, type: 'text.primary' }),
-							fontSize: ['3xl', '3xl', '4xl', '4xl', '5xl', '5xl'],
-							fontWeight: 'bold',
-							noOfLines: 1
-						})}
-
-					{/* Subtitle */}
-					{renderSubtitle &&
-						renderSubtitle({
-							align: 'left',
-							color: getColor({ theme, colorMode, type: 'text.secondary' }),
-							fontSize: ['xs', 'xs', 'sm', 'sm', 'sm', 'sm'],
-							noOfLines: 1
-						})}
-				</VStack>
+				<Headline
+					width={
+						direction === 'column' || isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + 48 : 0}px)`
+					}
+					renderCaption={() => <Breadcrumbs />}
+					renderTitle={(props) => renderTitle({ ...props, noOfLines: 1 })}
+					renderSubtitle={renderSubtitle ? (props) => renderSubtitle({ ...props, noOfLines: 1 }) : undefined}
+					spacing={0.5}
+				/>
 
 				{actions && (
-					<Center ref={actionsRef} width={direction ? 'auto' : isSm ? '100%' : 'auto'} height='100%'>
+					<Center ref={actionsRef} width={direction === 'column' || isSm ? '100%' : 'auto'} height='100%'>
 						{actions}
 					</Center>
 				)}
