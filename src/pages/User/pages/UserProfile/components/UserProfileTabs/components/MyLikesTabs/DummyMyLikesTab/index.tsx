@@ -4,7 +4,7 @@ import { useTheme, Divider } from '@davidscicluna/component-library';
 
 import { VStack, Center } from '@chakra-ui/react';
 
-import DummyTabs from '../components/MyLikesTabDummyTabs';
+import DummyTabs from '../../UserProfileTabsDummyTabs';
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
 
@@ -26,7 +26,7 @@ const DummyMyLikesTab: FC = () => {
 				<DummyMyLikesTabHeadline />
 			</Center>
 
-			<DummyTabs />
+			<DummyTabs mediaTypes={['movie', 'tv', 'person', 'company', 'collection']} />
 		</VStack>
 	);
 };
