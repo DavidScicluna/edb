@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import { useTheme, InternalLink, Button, Icon, utils } from '@davidscicluna/component-library';
 
@@ -27,9 +27,9 @@ const UserDetails: FC<UserDetailsProps> = ({ color = defaultColor, colorMode = d
 
 	const [buttonRef, { width: buttonWidth }] = useElementSize();
 
-	const handleConvertSpacing = useCallback((spacing: string): number => {
+	const handleConvertSpacing = (spacing: string): number => {
 		return convertREMToPixels(convertStringToNumber(spacing, 'rem'));
-	}, []);
+	};
 
 	return (
 		<Stack
