@@ -17,6 +17,7 @@ import { useIsFetching } from '@tanstack/react-query';
 
 import { Controller } from 'react-hook-form';
 import { range } from 'lodash';
+import { sort } from 'fast-sort';
 
 import {
 	QueryEmpty,
@@ -165,25 +166,27 @@ const TVShowCertifications: FC<TVShowCertificationsProps> = ({ form }) => {
 						  allCertifications &&
 						  allCertifications.length > 0 ? (
 							<Wrap width='100%' spacing={1.5}>
-								{allCertifications.map(({ certification, meaning, ...rest }) => (
-									<WrapItem key={certification}>
-										<Certification
-											{...rest}
-											certification={certification}
-											meaning={meaning}
-											isActive={certifications.some((c) => c === certification)}
-											onClick={() =>
-												setValue(
-													name,
-													certifications.some((c) => c === certification)
-														? certifications.filter((c) => c !== certification)
-														: [...certifications, certification],
-													{ shouldDirty: true }
-												)
-											}
-										/>
-									</WrapItem>
-								))}
+								{sort(allCertifications)
+									.desc(({ order }) => order)
+									.map(({ certification, meaning, ...rest }) => (
+										<WrapItem key={certification}>
+											<Certification
+												{...rest}
+												certification={certification}
+												meaning={meaning}
+												isActive={certifications.some((c) => c === certification)}
+												onClick={() =>
+													setValue(
+														name,
+														certifications.some((c) => c === certification)
+															? certifications.filter((c) => c !== certification)
+															: [...certifications, certification],
+														{ shouldDirty: true }
+													)
+												}
+											/>
+										</WrapItem>
+									))}
 							</Wrap>
 						) : (
 							<Wrap width='100%' spacing={1.5}>
