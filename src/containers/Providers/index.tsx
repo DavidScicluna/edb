@@ -4,7 +4,6 @@ import { DSCLProvider } from '@davidscicluna/component-library';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider as ReduxProvider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -32,7 +31,6 @@ const Providers: FC = () => {
 				<DSCLProvider>
 					<QueryClientProvider client={queryClient}>
 						<Container />
-						{process.env.NODE_ENV !== 'production' && <ReactQueryDevtools initialIsOpen={false} />}
 					</QueryClientProvider>
 				</DSCLProvider>
 			</PersistGate>
