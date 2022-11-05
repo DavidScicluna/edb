@@ -15,7 +15,7 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import { useDebounce, useUserTheme } from '../../../common/hooks';
 import { formatMediaType, formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
-import { DisplayMode, Suspense } from '../../../components';
+import { DisplayMode, Suspense, TabIcon } from '../../../components';
 import TrendingDummyMoviesTab from '../components/TrendingDummyMoviesTab';
 import TrendingDummyPeopleTab from '../components/TrendingDummyPeopleTab';
 import TrendingDummyTVShowsTab from '../components/TrendingDummyTVShowsTab';
@@ -27,7 +27,6 @@ import { PartialMovie } from '../../../common/types/movie';
 import { PartialTV } from '../../../common/types/tv';
 import { PartialPerson } from '../../../common/types/person';
 import TrendingDummyAllTab from '../components/TrendingDummyAllTab';
-import TrendingTabIcon from '../components/TrendingTabIcon';
 
 import { TrendingMediaTypes } from './types';
 import { getMediaTypeIndex } from './common/utils';
@@ -206,7 +205,7 @@ const Trending: FC = () => {
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
 									isDisabled: isTrendingMoviesError || (movies?.total_results || 0) === 0,
 									renderLeft: (props) => (
-										<TrendingTabIcon
+										<TabIcon
 											{...props}
 											icon={getMediaTypeIcon({ mediaType: 'movie' })}
 											category={
@@ -222,7 +221,7 @@ const Trending: FC = () => {
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
 									isDisabled: isTrendingTVShowsError || (shows?.total_results || 0) === 0,
 									renderLeft: (props) => (
-										<TrendingTabIcon
+										<TabIcon
 											{...props}
 											icon={getMediaTypeIcon({ mediaType: 'tv' })}
 											category={
@@ -238,7 +237,7 @@ const Trending: FC = () => {
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
 									isDisabled: isTrendingPeopleError || (people?.total_results || 0) === 0,
 									renderLeft: (props) => (
-										<TrendingTabIcon
+										<TabIcon
 											{...props}
 											icon={getMediaTypeIcon({ mediaType: 'person' })}
 											category={

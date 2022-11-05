@@ -4,7 +4,7 @@ import {
 } from '../../../../../common/queries/useTrendingInfiniteQuery';
 import { TrendingMediaType } from '../../types';
 
-type OnSetActiveTabProps = { mediaType: TrendingMediaType };
+type OnTabChangeProps = { mediaType: TrendingMediaType };
 
 export type TrendingAllTabProps = {
 	moviesInfiniteQuery: UseTrendingInfiniteQueryResult<'movie'>;
@@ -13,5 +13,5 @@ export type TrendingAllTabProps = {
 	shows?: UseTrendingInfiniteQueryResponse<'tv'>;
 	peopleInfiniteQuery: UseTrendingInfiniteQueryResult<'person'>;
 	people?: UseTrendingInfiniteQueryResponse<'person'>;
-	onTabChange: (props: OnSetActiveTabProps) => void;
+	onTabChange: (props: OnTabChangeProps) => void;
 };

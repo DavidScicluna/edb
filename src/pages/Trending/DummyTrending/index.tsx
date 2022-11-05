@@ -12,13 +12,12 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import { useDebounce, useUserTheme } from '../../../common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
-import { DummyDisplayMode } from '../../../components';
+import { DummyDisplayMode, DummyTabIcon } from '../../../components';
 import TrendingDummyMoviesTab from '../components/TrendingDummyMoviesTab';
 import TrendingDummyPeopleTab from '../components/TrendingDummyPeopleTab';
 import TrendingDummyTVShowsTab from '../components/TrendingDummyTVShowsTab';
 import { getActiveTabFromHash } from '../common/utils';
 import TrendingDummyAllTab from '../components/TrendingDummyAllTab';
-import TrendingTabIcon from '../components/TrendingTabIcon';
 
 const DummyTrending: FC = () => {
 	const { color, colorMode } = useUserTheme();
@@ -65,45 +64,21 @@ const DummyTrending: FC = () => {
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
 									renderLeft: (props) => (
-										<Skeleton
-											color={activeTabDebounced === 1 ? color : 'gray'}
-											isLoaded={false}
-											variant='rectangle'
-										>
-											<TrendingTabIcon
-												{...props}
-												icon={getMediaTypeIcon({ mediaType: 'movie' })}
-											/>
-										</Skeleton>
+										<DummyTabIcon {...props} icon={getMediaTypeIcon({ mediaType: 'movie' })} />
 									)
 								},
 
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
 									renderLeft: (props) => (
-										<Skeleton
-											color={activeTabDebounced === 2 ? color : 'gray'}
-											isLoaded={false}
-											variant='rectangle'
-										>
-											<TrendingTabIcon {...props} icon={getMediaTypeIcon({ mediaType: 'tv' })} />
-										</Skeleton>
+										<DummyTabIcon {...props} icon={getMediaTypeIcon({ mediaType: 'tv' })} />
 									)
 								},
 
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
 									renderLeft: (props) => (
-										<Skeleton
-											color={activeTabDebounced === 3 ? color : 'gray'}
-											isLoaded={false}
-											variant='rectangle'
-										>
-											<TrendingTabIcon
-												{...props}
-												icon={getMediaTypeIcon({ mediaType: 'person' })}
-											/>
-										</Skeleton>
+										<DummyTabIcon {...props} icon={getMediaTypeIcon({ mediaType: 'person' })} />
 									)
 								}
 							]}
