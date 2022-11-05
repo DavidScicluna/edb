@@ -19,6 +19,7 @@ import { useDebounce, useSelector, useUserTheme } from '../../../../../../../../
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
 import DummyAllTab from '../DummyMyListsTab/components/DummyMyListsTabAllTab';
 import { Suspense, TabBadge } from '../../../../../../../../../components';
+import DummyListTab from '../DummyMyListsTab/components/DummyMyListsTabListTab';
 
 import { activeTab as defaultActiveTab } from './common/data/defaultPropValues';
 import { getListIndex, getListTotal } from './common/utils';
@@ -97,13 +98,13 @@ const MyListsTab: FC = () => {
 															<TabBadge
 																{...rest}
 																color={
-																	activeTab === getListIndex({ lists, list })
+																	activeTabDebounced === getListIndex({ lists, list })
 																		? color
 																		: 'gray'
 																}
 																total={getListTotal(list)}
 																variant={
-																	activeTab === getListIndex({ lists, list })
+																	activeTabDebounced === getListIndex({ lists, list })
 																		? 'contained'
 																		: 'outlined'
 																}
@@ -133,7 +134,7 @@ const MyListsTab: FC = () => {
 								...sort(lists)
 									.desc(({ updatedAt }) => updatedAt)
 									.map((list) => (
-										<Suspense key={`MyListsTabs_ListTab_${list.label}`}>
+										<Suspense key={`MyListsTabs_ListTab_${list.label}`} fallback={<DummyListTab />}>
 											<ListTab
 												list={list}
 												onEditList={onEditListOpen}
