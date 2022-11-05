@@ -86,16 +86,11 @@ const UserThemeModal: FC = () => {
 						</IconButton>
 					)}
 				/>
-
 				<ModalBody>
 					<UserThemeCustomization form={form} color={watchColor} colorMode={watchColorMode} />
 				</ModalBody>
 				<ModalFooter
-					renderCancel={(props) => (
-						<Button {...props} onClick={handleClose}>
-							Cancel
-						</Button>
-					)}
+					renderCancel={(props) => <Button {...props}>Cancel</Button>}
 					renderAction={(props) => (
 						<Button {...props} color={watchColor} isDisabled={!isDirty} type='submit'>
 							Save
