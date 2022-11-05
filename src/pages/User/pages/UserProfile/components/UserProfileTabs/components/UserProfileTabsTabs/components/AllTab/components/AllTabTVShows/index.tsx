@@ -6,7 +6,6 @@ import { sort } from 'fast-sort';
 import AllTabHorizontalGrid, { width } from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../../common/utils';
 import { TVShowVerticalPoster } from '../../../../../../../../../../../../components';
-import { useSelector } from '../../../../../../../../../../../../common/hooks';
 
 import { AllTabTVShowsProps } from './types';
 
@@ -18,10 +17,9 @@ const AllTabTVShows: FC<AllTabTVShowsProps> = ({ type, shows, onSetActiveTab }) 
 	return (
 		<AllTabHorizontalGrid
 			title={formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })}
-			subtitle={`Liked a total of ${numbro(total).format({ average: true })} ${formatMediaTypeLabel({
-				type: total === 1 ? 'single' : 'multiple',
-				mediaType: 'tv'
-			})}`}
+			subtitle={`${type === 'liked' ? 'Liked' : 'Bookmarked'} a total of ${numbro(total).format({
+				average: true
+			})} ${formatMediaTypeLabel({ type: total === 1 ? 'single' : 'multiple', mediaType: 'tv' })}`}
 			footerLabel={`View all ${numbro(total).format({ average: true })} ${formatMediaTypeLabel({
 				type: total === 1 ? 'single' : 'multiple',
 				mediaType: 'tv'

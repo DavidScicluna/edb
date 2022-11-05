@@ -6,7 +6,6 @@ import { sort } from 'fast-sort';
 import AllTabHorizontalGrid, { width } from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../../common/utils';
 import { PersonVerticalPoster } from '../../../../../../../../../../../../components';
-import { useSelector } from '../../../../../../../../../../../../common/hooks';
 
 import { AllTabPeopleProps } from './types';
 
@@ -18,10 +17,9 @@ const AllTabPeople: FC<AllTabPeopleProps> = ({ type, people, onSetActiveTab }) =
 	return (
 		<AllTabHorizontalGrid
 			title={formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' })}
-			subtitle={`Liked a total of ${numbro(total).format({ average: true })} ${formatMediaTypeLabel({
-				type: total === 1 ? 'single' : 'multiple',
-				mediaType: 'person'
-			})}`}
+			subtitle={`${type === 'liked' ? 'Liked' : 'Bookmarked'} a total of ${numbro(total).format({
+				average: true
+			})} ${formatMediaTypeLabel({ type: total === 1 ? 'single' : 'multiple', mediaType: 'person' })}`}
 			footerLabel={`View all ${numbro(total).format({ average: true })} ${formatMediaTypeLabel({
 				type: total === 1 ? 'single' : 'multiple',
 				mediaType: 'person'

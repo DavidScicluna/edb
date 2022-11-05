@@ -17,7 +17,7 @@ const AllTabMovies: FC<AllTabMoviesProps> = ({ type, movies, onSetActiveTab }) =
 	return (
 		<AllTabHorizontalGrid
 			title={formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' })}
-			subtitle={`${type === 'liked' ? 'Liked' : ''} a total of ${numbro(total).format({
+			subtitle={`${type === 'liked' ? 'Liked' : 'Bookmarked'} a total of ${numbro(total).format({
 				average: true
 			})} ${formatMediaTypeLabel({ type: total === 1 ? 'single' : 'multiple', mediaType: 'movie' })}`}
 			footerLabel={`View all ${numbro(total).format({ average: true })} ${formatMediaTypeLabel({
