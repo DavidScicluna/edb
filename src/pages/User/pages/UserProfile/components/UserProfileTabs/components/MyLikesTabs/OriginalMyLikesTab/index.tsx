@@ -11,20 +11,22 @@ import { Suspense } from '../../../../../../../../../components';
 import { useDebounce, useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
 import { MediaItems } from '../../../../../../../../../store/slices/Users/types';
 import { MediaType } from '../../../../../../../../../common/types';
-import DummyTVShows from '../components/MyLikesTabDummyTVShows';
-import DummyMovies from '../components/MyLikesTabDummyMovies';
-import DummyPeople from '../components/MyLikesTabDummyPeople';
-import DummyTabs from '../components/MyLikesTabDummyTabs';
+import DummyTVShows from '../../../../../../../../TVShows/components/VerticalDummyTVShows';
+import DummyMovies from '../../../../../../../../Movies/components/VerticalDummyMovies';
+import DummyPeople from '../../../../../../../../People/components/VerticalDummyPeople';
+import DummyTabs from '../../UserProfileTabsDummyTabs';
 
 import { activeTab as defaultActiveTab, status as defaultStatus } from './common/data/defaultPropValues';
 import MyLikesTabHeadline from './components/MyLikesTabHeadline';
 import { MyLikesTabStatus } from './types';
 import MyLikesTabEmpty from './components/MyLikesTabEmpty';
 
-const Tabs = lazy(() => import('./components/MyLikesTabTabs'));
-const Movies = lazy(() => import('./components/MyLikesTabMovies'));
-const People = lazy(() => import('./components/MyLikesTabPeople'));
-const TVShows = lazy(() => import('./components/MyLikesTabTVShows'));
+const Tabs = lazy(() => import('../../UserProfileTabsTabs'));
+const Movies = lazy(() => import('../../UserProfileTabsMovies'));
+const People = lazy(() => import('../../UserProfileTabsPeople'));
+const TVShows = lazy(() => import('../../UserProfileTabsTVShows'));
+
+const mediaTypes: MediaType[] = ['movie', 'tv', 'person', 'company', 'collection'];
 
 const MyLikesTab: FC = () => {
 	const theme = useTheme();
@@ -82,33 +84,38 @@ const MyLikesTab: FC = () => {
 			</Center>
 
 			{statusDebounced === 'loading' ? (
-				<DummyTabs />
+				<DummyTabs mediaTypes={mediaTypes} />
 			) : statusDebounced === 'empty' ? (
 				<MyLikesTabEmpty />
 			) : (
 				(statusDebounced === 'single' || statusDebounced === 'multiple') && (
 					<Center width='100%'>
 						{statusDebounced === 'multiple' ? (
-							<Suspense fallback={<DummyTabs />}>
-								<Tabs activeTab={activeTabDebounced} onChange={({ index }) => setActiveTab(index)} />
+							<Suspense fallback={<DummyTabs mediaTypes={mediaTypes} />}>
+								<Tabs
+									type='liked'
+									mediaItems={liked}
+									activeTab={activeTabDebounced}
+									onChange={({ index }) => setActiveTab(index)}
+								/>
 							</Suspense>
 						) : (
 							<Fragment>
 								{liked.movie.length > 0 && (
 									<Suspense fallback={<DummyMovies />}>
-										<Movies />
+										<Movies movies={liked.movie} />
 									</Suspense>
 								)}
 
 								{liked.tv.length > 0 && (
 									<Suspense fallback={<DummyTVShows />}>
-										<TVShows />
+										<TVShows shows={liked.tv} />
 									</Suspense>
 								)}
 
 								{liked.person.length > 0 && (
 									<Suspense fallback={<DummyPeople />}>
-										<People />
+										<People people={liked.person} />
 									</Suspense>
 								)}
 							</Fragment>
