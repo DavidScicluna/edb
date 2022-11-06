@@ -4,10 +4,10 @@ import { useTheme, Divider } from '@davidscicluna/component-library';
 
 import { VStack, Center } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../../../../../../common/hooks';
-import { useLayoutContext } from '../../../../../../../../../../../containers/Layout/common/hooks';
-import DummyTabs from '../../../../UserProfileTabsDummyTabs';
-import { MediaType } from '../../../../../../../../../../../common/types';
+import { useUserTheme } from '../../../../../../../../../../common/hooks';
+import { useLayoutContext } from '../../../../../../../../../../containers/Layout/common/hooks';
+import DummyTabs from '../../../DummyUserProfileTabsTabs';
+import { MediaType } from '../../../../../../../../../../common/types';
 
 import DummyMyListsTabListTabHeadline from './components/DummyMyListsTabListTabHeadline';
 

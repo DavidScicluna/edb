@@ -13,8 +13,8 @@ import { VStack, Center } from '@chakra-ui/react';
 
 import { compact, range } from 'lodash';
 
-import { useUserTheme } from '../../../../../../../../../common/hooks';
-import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
+import { useUserTheme } from '../../../../../../../../common/hooks';
+import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
 
 import DummyAllTab from './components/DummyMyListsTabAllTab';
 import DummyHeadline from './components/DummyMyListsTabHeadline';

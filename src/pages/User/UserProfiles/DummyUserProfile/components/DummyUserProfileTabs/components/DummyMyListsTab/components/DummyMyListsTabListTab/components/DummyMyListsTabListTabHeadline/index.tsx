@@ -6,9 +6,9 @@ import { useMediaQuery, Stack, HStack, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-import { useUserTheme } from '../../../../../../../../../../../../../common/hooks';
-import { useLayoutContext } from '../../../../../../../../../../../../../containers/Layout/common/hooks';
-import { Headline } from '../../../../../../../../../../../../../components';
+import { useUserTheme } from '../../../../../../../../../../../../common/hooks';
+import { useLayoutContext } from '../../../../../../../../../../../../containers/Layout/common/hooks';
+import { Headline } from '../../../../../../../../../../../../components';
 
 const { convertREMToPixels, convertStringToNumber } = utils;
 

@@ -6,7 +6,7 @@ import { VStack, Center, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
-import { useUserTheme } from '../../../../../../../../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../../../../../../../common/hooks';
 
 const DummyList: FC = () => {
 	const theme = useTheme();
