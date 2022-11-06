@@ -7,7 +7,7 @@ import DummyUserAvatar from './components/DummyUserAvatar';
 import DummyUserBackground from './components/DummyUserBackground';
 import DummyUserDetails from './components/DummyUserDetails';
 
-const UserProfileDummyHeader: FC = () => {
+const DummyUserProfileHeader: FC = () => {
 	const { color, colorMode } = useUserTheme();
 
 	return (
@@ -21,4 +21,4 @@ const UserProfileDummyHeader: FC = () => {
 	);
 };
 
-export default UserProfileDummyHeader;
+export default DummyUserProfileHeader;
