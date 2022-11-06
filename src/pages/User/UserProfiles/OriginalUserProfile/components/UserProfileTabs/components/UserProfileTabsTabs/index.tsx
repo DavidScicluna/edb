@@ -6,12 +6,12 @@ import { VStack } from '@chakra-ui/react';
 
 import { compact } from 'lodash';
 
-import { activeTab as defaultActiveTab } from '../MyLikesTabs/OriginalMyLikesTab/common/data/defaultPropValues';
+import { activeTab as defaultActiveTab } from '../MyLikesTab/common/data/defaultPropValues';
 import { Suspense, TabBadge, TabIcon } from '../../../../../../../../components';
 import DummyMoviesTab from '../../../../../../../Movies/components/VerticalDummyMovies';
 import DummyPeopleTab from '../../../../../../../People/components/VerticalDummyPeople';
 import DummyTVShowsTab from '../../../../../../../TVShows/components/VerticalDummyTVShows';
-import DummyAllTab from '../UserProfileTabsDummyTabs/components/DummyAllTab';
+import DummyAllTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab';
 import { useDebounce, useUserTheme } from '../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../../../common/utils';

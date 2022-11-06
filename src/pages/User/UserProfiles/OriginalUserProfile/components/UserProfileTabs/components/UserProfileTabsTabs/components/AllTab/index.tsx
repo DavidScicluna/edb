@@ -4,9 +4,9 @@ import { VStack } from '@chakra-ui/react';
 
 import { useLayoutContext } from '../../../../../../../../../../containers/Layout/common/hooks';
 import { Suspense } from '../../../../../../../../../../components';
-import AllTabDummyMovies from '../../../UserProfileTabsDummyTabs/components/DummyAllTab/components/DummyAllTabMovies';
-import AllTabDummyPeople from '../../../UserProfileTabsDummyTabs/components/DummyAllTab/components/DummyAllTabPeople';
-import AllTabDummyTVShows from '../../../UserProfileTabsDummyTabs/components/DummyAllTab/components/DummyAllTabTVShows';
+import AllTabDummyMovies from '../../../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab/components/DummyAllTabMovies';
+import AllTabDummyPeople from '../../../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab/components/DummyAllTabPeople';
+import AllTabDummyTVShows from '../../../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab/components/DummyAllTabTVShows';
 
 import { AllTabProps } from './types';
 

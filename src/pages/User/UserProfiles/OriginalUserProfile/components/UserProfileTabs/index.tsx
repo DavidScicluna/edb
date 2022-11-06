@@ -11,15 +11,15 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useDebounce, useUserTheme } from '../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 import { Suspense } from '../../../../../../components';
+import DummyMyLikesTab from '../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyMyLikesTab';
+import DummyOverviewTab from '../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyOverviewTab';
+import DummyMyListsTab from '../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyMyListsTab';
 
-import DummyMyLikesTab from './components/MyLikesTabs/DummyMyLikesTab';
-import DummyOverviewTab from './components/OverviewTabs/DummyOverviewTab';
-import DummyMyListsTab from './components/MyListsTabs/DummyMyListsTab';
 import { UserProfileTabs as UserProfileTabsType } from './types';
 
-const OverviewTab = lazy(() => import('./components/OverviewTabs/OriginalOverviewTab'));
-const MyLikesTab = lazy(() => import('./components/MyLikesTabs/OriginalMyLikesTab'));
-const MyListsTab = lazy(() => import('./components/MyListsTabs/OriginalMyListsTab'));
+const OverviewTab = lazy(() => import('./components/OverviewTab'));
+const MyLikesTab = lazy(() => import('./components/MyLikesTab'));
+const MyListsTab = lazy(() => import('./components/MyListsTab'));
 
 const tabs: UserProfileTabsType = [
 	{
