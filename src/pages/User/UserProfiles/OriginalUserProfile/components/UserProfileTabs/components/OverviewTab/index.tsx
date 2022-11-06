@@ -2,13 +2,13 @@ import { FC, lazy } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { useSelector } from '../../../../../../../../../common/hooks';
-import { Paragraph, Suspense } from '../../../../../../../../../components';
-import DummyMovies from '../../UserProfileTabsDummyTabs/components/DummyAllTab/components/DummyAllTabMovies';
-import DummyPeople from '../../UserProfileTabsDummyTabs/components/DummyAllTab/components/DummyAllTabPeople';
-import DummyTVShows from '../../UserProfileTabsDummyTabs/components/DummyAllTab/components/DummyAllTabTVShows';
-import DummyWatchlist from '../DummyOverviewTab/components/DummyOverviewTabWatchlist';
+import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
+import { useSelector } from '../../../../../../../../common/hooks';
+import { Paragraph, Suspense } from '../../../../../../../../components';
+import DummyMovies from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab/components/DummyAllTabMovies';
+import DummyPeople from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab/components/DummyAllTabPeople';
+import DummyTVShows from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab/components/DummyAllTabTVShows';
+import DummyWatchlist from '../../../../../../../User/UserProfiles/DummyUserProfile/components/DummyUserProfileTabs/components/DummyOverviewTab/components/DummyOverviewTabWatchlist';
 
 import { OverviewTabProps } from './types';
 

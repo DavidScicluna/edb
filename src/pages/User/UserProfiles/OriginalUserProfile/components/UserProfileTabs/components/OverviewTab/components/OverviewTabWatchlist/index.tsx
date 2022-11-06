@@ -7,7 +7,7 @@ import { useMediaQuery, Text } from '@chakra-ui/react';
 import { sort } from 'fast-sort';
 import numbro from 'numbro';
 
-import { useSelector, useUserTheme } from '../../../../../../../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
 import {
 	HorizontalGrid,
 	HorizontalGridHeader,
@@ -20,40 +20,42 @@ import {
 	QueryEmptyBody,
 	QueryEmptyTitle,
 	QueryEmptySubtitle,
+	MovieVerticalPoster,
 	TVShowVerticalPoster
-} from '../../../../../../../../../../../components';
-import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
+} from '../../../../../../../../../../components';
+import { formatMediaTypeLabel } from '../../../../../../../../../../common/utils';
 
-import { OverviewTabLikedTVShowsProps } from './types';
+import { OverviewTabWatchlistProps } from './types';
 
 // TODO: Extract vertical poster widths into method
 export const width = ['185px', '205px', '230px'];
 
 const limit = 20;
 
-const OverviewTabLikedTVShows: FC<OverviewTabLikedTVShowsProps> = ({ onTabChange }) => {
+const OverviewTabWatchlist: FC<OverviewTabWatchlistProps> = ({ onTabChange }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-	const shows = useSelector((state) => state.users.data.activeUser.data.liked.tv || []);
-	const total = shows.length;
+	const {
+		label,
+		mediaItems: { movie = [], tv = [] }
+	} = useSelector((state) => state.users.data.activeUser.data.lists[0]);
+	const total = movie.length + tv.length;
 
 	return (
 		<HorizontalGrid colorMode={colorMode} isFullWidth spacing={2} p={2}>
 			<HorizontalGridHeader
-				renderTitle={(props) => (
-					<Text {...props}>{`Liked ${formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })}`}</Text>
-				)}
-				renderSubtitle={(props) => (
-					<Text {...props}>
-						{`A list containing the most popular ${formatMediaTypeLabel({
-							type: total === 1 ? 'single' : 'multiple',
-							mediaType: 'tv'
-						})} that you have liked`}
-					</Text>
-				)}
+				renderTitle={(props) => <Text {...props}>{label}</Text>}
+				// renderSubtitle={(props) => (
+				// 	<Text {...props}>
+				// 		{`A list containing the most popular ${formatMediaTypeLabel({
+				// 			type: total === 1 ? 'single' : 'multiple',
+				// 			mediaType: 'movie'
+				// 		})} that you have liked`}
+				// 	</Text>
+				// )}
 				arrowProps={{ variant: 'icon' }}
 				spacing={0}
 			/>
@@ -69,7 +71,7 @@ const OverviewTabLikedTVShows: FC<OverviewTabLikedTVShowsProps> = ({ onTabChange
 										width={theme.fontSizes['6xl']}
 										height={theme.fontSizes['6xl']}
 										fontSize={theme.fontSizes['6xl']}
-										icon='favorite_border'
+										icon='bookmark_border'
 									/>
 								)}
 								p={2}
@@ -77,25 +79,28 @@ const OverviewTabLikedTVShows: FC<OverviewTabLikedTVShowsProps> = ({ onTabChange
 							<QueryEmptyBody>
 								<QueryEmptyTitle />
 								<QueryEmptySubtitle>
-									{`Unfortunately couldn't find any ${formatMediaTypeLabel({
-										type: 'multiple',
-										mediaType: 'tv'
-									})} in the liked list! Please like a ${formatMediaTypeLabel({
+									{`Unfortunately couldn't find anything in the ${label} list! Please add a ${formatMediaTypeLabel(
+										{ type: 'single', mediaType: 'movie' }
+									)} or ${formatMediaTypeLabel({
 										type: 'single',
 										mediaType: 'tv'
-									})} to be able to view it in the liked list.`}
+									})} to be able to view it in the list.`}
 								</QueryEmptySubtitle>
 							</QueryEmptyBody>
 						</QueryEmptyStack>
 					</QueryEmpty>
 				) : (
 					<HorizontalGridScroll>
-						{sort(shows)
+						{sort([...movie, ...tv])
 							.desc(({ mediaItem }) => mediaItem.popularity)
-							.filter((_show, index) => index <= limit)
-							.map((show) => (
-								<TVShowVerticalPoster key={show.mediaItem.id} show={show.mediaItem} sx={{ width }} />
-							))}
+							.filter((_mediaItem, index) => index <= limit)
+							.map(({ mediaType, mediaItem }) =>
+								mediaType === 'movie' ? (
+									<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={{ width }} />
+								) : (
+									<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={{ width }} />
+								)
+							)}
 					</HorizontalGridScroll>
 				)}
 			</HorizontalGridBody>
@@ -106,14 +111,11 @@ const OverviewTabLikedTVShows: FC<OverviewTabLikedTVShowsProps> = ({ onTabChange
 						color={color}
 						colorMode={colorMode}
 						isFullWidth
-						onClick={() => onTabChange({ index: 1 })}
+						onClick={() => onTabChange({ index: 2 })}
 						size={isSm ? 'xs' : 'sm'}
 						variant='text'
 					>
-						{`View all ${numbro(total).format({ average: true })} liked ${formatMediaTypeLabel({
-							type: total === 1 ? 'single' : 'multiple',
-							mediaType: 'tv'
-						})}`}
+						{`View all ${numbro(total).format({ average: true })} bookmarks in ${label}`}
 					</Button>
 				</HorizontalGridFooter>
 			)}
@@ -121,4 +123,4 @@ const OverviewTabLikedTVShows: FC<OverviewTabLikedTVShowsProps> = ({ onTabChange
 	);
 };
 
-export default OverviewTabLikedTVShows;
+export default OverviewTabWatchlist;

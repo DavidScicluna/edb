@@ -7,7 +7,7 @@ import { useMediaQuery, Text } from '@chakra-ui/react';
 import { sort } from 'fast-sort';
 import numbro from 'numbro';
 
-import { useSelector, useUserTheme } from '../../../../../../../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
 import {
 	HorizontalGrid,
 	HorizontalGridHeader,
@@ -20,37 +20,37 @@ import {
 	QueryEmptyBody,
 	QueryEmptyTitle,
 	QueryEmptySubtitle,
-	PersonVerticalPoster
-} from '../../../../../../../../../../../components';
-import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
+	TVShowVerticalPoster
+} from '../../../../../../../../../../components';
+import { formatMediaTypeLabel } from '../../../../../../../../../../common/utils';
 
-import { OverviewTabLikedPeopleProps } from './types';
+import { OverviewTabLikedTVShowsProps } from './types';
 
 // TODO: Extract vertical poster widths into method
 export const width = ['185px', '205px', '230px'];
 
 const limit = 20;
 
-const OverviewTabLikedPeople: FC<OverviewTabLikedPeopleProps> = ({ onTabChange }) => {
+const OverviewTabLikedTVShows: FC<OverviewTabLikedTVShowsProps> = ({ onTabChange }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-	const people = useSelector((state) => state.users.data.activeUser.data.liked.person || []);
-	const total = people.length;
+	const shows = useSelector((state) => state.users.data.activeUser.data.liked.tv || []);
+	const total = shows.length;
 
 	return (
 		<HorizontalGrid colorMode={colorMode} isFullWidth spacing={2} p={2}>
 			<HorizontalGridHeader
 				renderTitle={(props) => (
-					<Text {...props}>{`Liked ${formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' })}`}</Text>
+					<Text {...props}>{`Liked ${formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })}`}</Text>
 				)}
 				renderSubtitle={(props) => (
 					<Text {...props}>
 						{`A list containing the most popular ${formatMediaTypeLabel({
 							type: total === 1 ? 'single' : 'multiple',
-							mediaType: 'person'
+							mediaType: 'tv'
 						})} that you have liked`}
 					</Text>
 				)}
@@ -79,10 +79,10 @@ const OverviewTabLikedPeople: FC<OverviewTabLikedPeopleProps> = ({ onTabChange }
 								<QueryEmptySubtitle>
 									{`Unfortunately couldn't find any ${formatMediaTypeLabel({
 										type: 'multiple',
-										mediaType: 'person'
+										mediaType: 'tv'
 									})} in the liked list! Please like a ${formatMediaTypeLabel({
 										type: 'single',
-										mediaType: 'person'
+										mediaType: 'tv'
 									})} to be able to view it in the liked list.`}
 								</QueryEmptySubtitle>
 							</QueryEmptyBody>
@@ -90,15 +90,11 @@ const OverviewTabLikedPeople: FC<OverviewTabLikedPeopleProps> = ({ onTabChange }
 					</QueryEmpty>
 				) : (
 					<HorizontalGridScroll>
-						{sort(people)
+						{sort(shows)
 							.desc(({ mediaItem }) => mediaItem.popularity)
-							.filter((_person, index) => index <= limit)
-							.map((person) => (
-								<PersonVerticalPoster
-									key={person.mediaItem.id}
-									person={person.mediaItem}
-									sx={{ width }}
-								/>
+							.filter((_show, index) => index <= limit)
+							.map((show) => (
+								<TVShowVerticalPoster key={show.mediaItem.id} show={show.mediaItem} sx={{ width }} />
 							))}
 					</HorizontalGridScroll>
 				)}
@@ -116,7 +112,7 @@ const OverviewTabLikedPeople: FC<OverviewTabLikedPeopleProps> = ({ onTabChange }
 					>
 						{`View all ${numbro(total).format({ average: true })} liked ${formatMediaTypeLabel({
 							type: total === 1 ? 'single' : 'multiple',
-							mediaType: 'person'
+							mediaType: 'tv'
 						})}`}
 					</Button>
 				</HorizontalGridFooter>
@@ -125,4 +121,4 @@ const OverviewTabLikedPeople: FC<OverviewTabLikedPeopleProps> = ({ onTabChange }
 	);
 };
 
-export default OverviewTabLikedPeople;
+export default OverviewTabLikedTVShows;

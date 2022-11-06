@@ -7,7 +7,7 @@ import { useMediaQuery, Text } from '@chakra-ui/react';
 import { sort } from 'fast-sort';
 import numbro from 'numbro';
 
-import { useSelector, useUserTheme } from '../../../../../../../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
 import {
 	HorizontalGrid,
 	HorizontalGridHeader,
@@ -21,8 +21,8 @@ import {
 	QueryEmptyTitle,
 	QueryEmptySubtitle,
 	MovieVerticalPoster
-} from '../../../../../../../../../../../components';
-import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
+} from '../../../../../../../../../../components';
+import { formatMediaTypeLabel } from '../../../../../../../../../../common/utils';
 
 import { OverviewTabLikedMoviesProps } from './types';
 
