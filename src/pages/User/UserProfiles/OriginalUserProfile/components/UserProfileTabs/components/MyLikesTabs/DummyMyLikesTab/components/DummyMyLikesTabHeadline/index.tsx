@@ -1,73 +1,40 @@
 import { FC } from 'react';
 
-import { useTheme, Skeleton, DummyButton, Badge, BadgeLabel, utils } from '@davidscicluna/component-library';
+import { Skeleton, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
-import { useMediaQuery, Stack, Center, Text } from '@chakra-ui/react';
-
-import { useElementSize } from 'usehooks-ts';
+import { Text } from '@chakra-ui/react';
 
 import { Headline } from '../../../../../../../../../../../components';
 import { useUserTheme } from '../../../../../../../../../../../common/hooks';
-import { useLayoutContext } from '../../../../../../../../../../../containers/Layout/common/hooks';
-
-const { convertREMToPixels, convertStringToNumber } = utils;
 
 const DummyMyLikesTabHeadline: FC = () => {
-	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
-	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-
-	const { spacing } = useLayoutContext();
-
-	const [actionsRef, { width: actionsWidth }] = useElementSize();
-
-	const handleHeadlineWidth = (): string => {
-		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem'));
-
-		return isSm ? '100%' : `calc(100% - ${actionsWidth + spacingWidth}px)`;
-	};
-
 	return (
-		<Stack
+		<Headline
 			width='100%'
-			direction={isSm ? 'column' : 'row'}
-			alignItems='center'
-			justifyContent='space-between'
-			spacing={spacing * 2}
-			p={0}
-		>
-			<Headline
-				width={handleHeadlineWidth()}
-				renderCaption={() => (
-					// TODO: Replace with DummyBadge
-					<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
-						<Badge color={color} colorMode={colorMode} size='xs'>
-							<BadgeLabel>Total of # likes</BadgeLabel>
-						</Badge>
-					</Skeleton>
-				)}
-				renderTitle={(props) => (
-					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-						<Text {...props}>My Likes</Text>
-					</Skeleton>
-				)}
-				renderSubtitle={(props) => (
-					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-						<Text {...props}>
-							This Tab contains all likes that have been added to the likes list and all likes are
-							separated into tabs depending on the media type.
-						</Text>
-					</Skeleton>
-				)}
-			/>
-
-			<Center ref={actionsRef} width={isSm ? '100%' : 'auto'} height='100%'>
-				<DummyButton colorMode={colorMode} hasLeft isFullWidth variant='outlined'>
-					Clear
-				</DummyButton>
-			</Center>
-		</Stack>
+			renderCaption={() => (
+				// TODO: Replace with DummyBadge
+				<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
+					<Badge color={color} colorMode={colorMode} size='xs'>
+						<BadgeLabel>Total of # likes</BadgeLabel>
+					</Badge>
+				</Skeleton>
+			)}
+			renderTitle={(props) => (
+				<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+					<Text {...props}>My Likes</Text>
+				</Skeleton>
+			)}
+			renderSubtitle={(props) => (
+				<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+					<Text {...props}>
+						This Tab contains all likes that have been added to the likes list and all likes are separated
+						into tabs depending on the media type.
+					</Text>
+				</Skeleton>
+			)}
+		/>
 	);
 };
 
