@@ -1,5 +1,5 @@
 import { MediaType } from '../../../../../../../../common/types';
 
-export type UserProfileTabsDummyTabsProps = {
+export type DummyUserProfileTabsTabsProps = {
 	mediaTypes: MediaType[];
 };

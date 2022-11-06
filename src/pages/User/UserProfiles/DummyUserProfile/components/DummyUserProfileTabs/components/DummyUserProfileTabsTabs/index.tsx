@@ -13,9 +13,9 @@ import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../../../
 import { DummyTabIcon } from '../../../../../../../../components';
 
 import DummyAllTab from './components/DummyAllTab';
-import { UserProfileTabsDummyTabsProps } from './types';
+import { DummyUserProfileTabsTabsProps } from './types';
 
-const UserProfileTabsDummyTabs: FC<UserProfileTabsDummyTabsProps> = ({ mediaTypes }) => {
+const DummyUserProfileTabsTabs: FC<DummyUserProfileTabsTabsProps> = ({ mediaTypes }) => {
 	const { color, colorMode } = useUserTheme();
 
 	const { spacing } = useLayoutContext();
@@ -46,10 +46,12 @@ const UserProfileTabsDummyTabs: FC<UserProfileTabsDummyTabsProps> = ({ mediaType
 					{mediaTypes.some((mediaType) => mediaType === 'tv') && <DummyTVShowsTab />}
 
 					{mediaTypes.some((mediaType) => mediaType === 'person') && <DummyPeopleTab />}
+
+					{/* TODO: Add company & collection */}
 				</TabPanels>
 			</VStack>
 		</Tabs>
 	);
 };
 
-export default UserProfileTabsDummyTabs;
+export default DummyUserProfileTabsTabs;
