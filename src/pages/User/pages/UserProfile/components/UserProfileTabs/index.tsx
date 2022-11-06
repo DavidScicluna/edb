@@ -13,9 +13,13 @@ import { useLayoutContext } from '../../../../../../containers/Layout/common/hoo
 import { Suspense } from '../../../../../../components';
 
 import DummyMyLikesTab from './components/MyLikesTabs/DummyMyLikesTab';
+import DummyOverviewTab from './components/OverviewTabs/DummyOverviewTab';
+import DummyMyListsTab from './components/MyListsTabs/DummyMyListsTab';
 import { UserProfileTabs as UserProfileTabsType } from './types';
 
+const OverviewTab = lazy(() => import('./components/OverviewTabs/OriginalOverviewTab'));
 const MyLikesTab = lazy(() => import('./components/MyLikesTabs/OriginalMyLikesTab'));
+const MyListsTab = lazy(() => import('./components/MyListsTabs/OriginalMyListsTab'));
 
 const tabs: UserProfileTabsType = [
 	{
@@ -23,7 +27,7 @@ const tabs: UserProfileTabsType = [
 		label: 'Overview'
 	},
 	{
-		path: { hash: 'likes' },
+		path: { hash: 'mylikes' },
 		label: 'My Likes',
 		renderIcon: ({ color, colorMode, height = 0, isActive }) => (
 			<Icon
@@ -37,7 +41,7 @@ const tabs: UserProfileTabsType = [
 		)
 	},
 	{
-		path: { hash: 'lists' },
+		path: { hash: 'mylists' },
 		label: 'My Lists',
 		renderIcon: ({ color, colorMode, height = 0, isActive }) => (
 			<Icon
@@ -106,13 +110,17 @@ const UserProfileTabs: FC = () => {
 				/>
 
 				<TabPanels>
-					<div />
+					<Suspense fallback={<DummyOverviewTab />}>
+						<OverviewTab onTabChange={handleTabChange} />
+					</Suspense>
 
 					<Suspense fallback={<DummyMyLikesTab />}>
 						<MyLikesTab />
 					</Suspense>
 
-					<div />
+					<Suspense fallback={<DummyMyListsTab />}>
+						<MyListsTab />
+					</Suspense>
 				</TabPanels>
 			</VStack>
 		</Tabs>
