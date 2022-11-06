@@ -6,14 +6,14 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 import { rangeRight } from 'lodash';
 
-import { useUserTheme } from '../../../../../../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../../../../../common/hooks';
 import {
 	DummyHorizontalGrid,
 	DummyHorizontalGridHeader,
 	DummyHorizontalGridBody,
 	DummyHorizontalGridFooter,
 	DummyVerticalPoster
-} from '../../../../../../../../../../../components';
+} from '../../../../../../../../../../components';
 
 // TODO: Extract vertical poster widths into method
 export const width = ['185px', '205px', '230px'];
