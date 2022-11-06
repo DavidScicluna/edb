@@ -1,5 +1,5 @@
 export type ParagraphProps = {
+	children: string;
 	title: string;
-	paragraphs?: string;
-	isLoading?: boolean;
+	keepFooter?: boolean;
 };
