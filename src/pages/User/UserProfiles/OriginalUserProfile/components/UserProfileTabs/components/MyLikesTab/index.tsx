@@ -6,25 +6,25 @@ import { VStack, Center } from '@chakra-ui/react';
 
 import { debounce } from 'lodash';
 
-import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { Suspense } from '../../../../../../../../../components';
-import { useDebounce, useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
-import { MediaItems } from '../../../../../../../../../store/slices/Users/types';
-import { MediaType } from '../../../../../../../../../common/types';
-import DummyTVShows from '../../../../../../../../TVShows/components/VerticalDummyTVShows';
-import DummyMovies from '../../../../../../../../Movies/components/VerticalDummyMovies';
-import DummyPeople from '../../../../../../../../People/components/VerticalDummyPeople';
-import DummyTabs from '../../UserProfileTabsDummyTabs';
+import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
+import { Suspense } from '../../../../../../../../components';
+import { useDebounce, useSelector, useUserTheme } from '../../../../../../../../common/hooks';
+import { MediaItems } from '../../../../../../../../store/slices/Users/types';
+import { MediaType } from '../../../../../../../../common/types';
+import DummyTVShows from '../../../../../../../TVShows/components/VerticalDummyTVShows';
+import DummyMovies from '../../../../../../../Movies/components/VerticalDummyMovies';
+import DummyPeople from '../../../../../../../People/components/VerticalDummyPeople';
+import DummyTabs from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs';
 
 import { activeTab as defaultActiveTab, status as defaultStatus } from './common/data/defaultPropValues';
 import MyLikesTabHeadline from './components/MyLikesTabHeadline';
 import { MyLikesTabStatus } from './types';
 import MyLikesTabEmpty from './components/MyLikesTabEmpty';
 
-const Tabs = lazy(() => import('../../UserProfileTabsTabs'));
-const Movies = lazy(() => import('../../UserProfileTabsMovies'));
-const People = lazy(() => import('../../UserProfileTabsPeople'));
-const TVShows = lazy(() => import('../../UserProfileTabsTVShows'));
+const Tabs = lazy(() => import('../UserProfileTabsTabs'));
+const Movies = lazy(() => import('../UserProfileTabsMovies'));
+const People = lazy(() => import('../UserProfileTabsPeople'));
+const TVShows = lazy(() => import('../UserProfileTabsTVShows'));
 
 const mediaTypes: MediaType[] = ['movie', 'tv', 'person', 'company', 'collection'];
 

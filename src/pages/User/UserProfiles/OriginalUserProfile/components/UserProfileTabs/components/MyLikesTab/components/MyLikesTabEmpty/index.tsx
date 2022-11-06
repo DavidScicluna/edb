@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useTheme, Icon, utils } from '@davidscicluna/component-library';
 
-import { useUserTheme } from '../../../../../../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../../../../../common/hooks';
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -10,9 +10,9 @@ import {
 	QueryEmptyBody,
 	QueryEmptyTitle,
 	QueryEmptySubtitle
-} from '../../../../../../../../../../../components';
-import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
-import { MediaType } from '../../../../../../../../../../../common/types';
+} from '../../../../../../../../../../components';
+import { formatMediaTypeLabel } from '../../../../../../../../../../common/utils';
+import { MediaType } from '../../../../../../../../../../common/types';
 
 const { getColor } = utils;
 

@@ -9,9 +9,9 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { memoize } from 'lodash';
 import numbro from 'numbro';
 
-import { Headline } from '../../../../../../../../../../../components';
-import { useSelector, useUserTheme } from '../../../../../../../../../../../common/hooks';
-import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
+import { Headline } from '../../../../../../../../../../components';
+import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
+import { formatMediaTypeLabel } from '../../../../../../../../../../common/utils';
 
 import { MyLikesTabHeadlineProps } from './types';
 
