@@ -31,7 +31,7 @@ const MyListsTabListTabHeadline: FC<MyListsTabListTabHeadlineProps> = (props) =>
 	const [actionsRef, { width: actionsWidth }] = useElementSize();
 
 	const { list, mediaType, onEditList, onDeleteList } = props;
-	const { label = '', description, mediaItems } = list || {};
+	const { id, label = '', description, mediaItems } = list || {};
 
 	const total = (mediaItems?.movie.length || 0) + (mediaItems?.tv.length || 0);
 
@@ -84,47 +84,49 @@ const MyListsTabListTabHeadline: FC<MyListsTabListTabHeadlineProps> = (props) =>
 				renderSubtitle={description ? (props) => <Text {...props}>{description}</Text> : undefined}
 			/>
 
-			<HStack ref={actionsRef} width={isSm ? '100%' : 'auto'} height='100%' spacing={spacing / 2}>
-				<Button
-					color={color}
-					colorMode={colorMode}
-					renderLeft={({ color, colorMode, height }) => (
-						<Icon
-							width={`${height}px`}
-							height={`${height}px`}
-							fontSize={`${height}px`}
-							colorMode={colorMode}
-							icon='edit'
-							category='outlined'
-							skeletonColor={color}
-						/>
-					)}
-					onClick={() => onEditList()}
-					variant='outlined'
-				>
-					Edit
-				</Button>
+			{id !== 'ds-edb-user-lists-watchlist' && (
+				<HStack ref={actionsRef} width={isSm ? '100%' : 'auto'} height='100%' spacing={spacing / 2}>
+					<Button
+						color={color}
+						colorMode={colorMode}
+						renderLeft={({ color, colorMode, height }) => (
+							<Icon
+								width={`${height}px`}
+								height={`${height}px`}
+								fontSize={`${height}px`}
+								colorMode={colorMode}
+								icon='edit'
+								category='outlined'
+								skeletonColor={color}
+							/>
+						)}
+						onClick={() => onEditList()}
+						variant='outlined'
+					>
+						Edit
+					</Button>
 
-				<Button
-					color='red'
-					colorMode={colorMode}
-					renderLeft={({ color, colorMode, height }) => (
-						<Icon
-							width={`${height}px`}
-							height={`${height}px`}
-							fontSize={`${height}px`}
-							colorMode={colorMode}
-							icon='delete_outline'
-							category='outlined'
-							skeletonColor={color}
-						/>
-					)}
-					onClick={() => onDeleteList()}
-					variant='outlined'
-				>
-					Delete
-				</Button>
-			</HStack>
+					<Button
+						color='red'
+						colorMode={colorMode}
+						renderLeft={({ color, colorMode, height }) => (
+							<Icon
+								width={`${height}px`}
+								height={`${height}px`}
+								fontSize={`${height}px`}
+								colorMode={colorMode}
+								icon='delete_outline'
+								category='outlined'
+								skeletonColor={color}
+							/>
+						)}
+						onClick={() => onDeleteList()}
+						variant='outlined'
+					>
+						Delete
+					</Button>
+				</HStack>
+			)}
 		</Stack>
 	);
 };

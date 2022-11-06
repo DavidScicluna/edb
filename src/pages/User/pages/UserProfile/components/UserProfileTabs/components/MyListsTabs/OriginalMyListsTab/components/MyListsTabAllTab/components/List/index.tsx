@@ -20,6 +20,7 @@ const List: FC<ListProps> = (props) => {
 
 	const { list, isDisabled = false, isSelected = false, onSelectList, onListClick } = props;
 	const {
+		id,
 		label,
 		mediaItems: { movie = [], tv = [] }
 	} = list;
@@ -45,25 +46,27 @@ const List: FC<ListProps> = (props) => {
 					justifyContent='center'
 					spacing={0.5}
 				>
-					<Center
-						position='absolute'
-						top={theme.space[1]}
-						left={theme.space[1]}
-						onMouseEnter={() => setIsHovering.on()}
-						onMouseLeave={() => setIsHovering.off()}
-					>
-						<Radio
-							aria-label='Select list'
-							color={color}
-							colorMode={colorMode}
-							id={label}
-							name={label}
-							isChecked={isSelected}
-							onChange={() => onSelectList()}
-							size='xs'
-							variant='transparent'
-						/>
-					</Center>
+					{id !== 'ds-edb-user-lists-watchlist' && (
+						<Center
+							position='absolute'
+							top={theme.space[1]}
+							left={theme.space[1]}
+							onMouseEnter={() => setIsHovering.on()}
+							onMouseLeave={() => setIsHovering.off()}
+						>
+							<Radio
+								aria-label='Select list'
+								color={color}
+								colorMode={colorMode}
+								id={label}
+								name={label}
+								isChecked={isSelected}
+								onChange={() => onSelectList()}
+								size='xs'
+								variant='transparent'
+							/>
+						</Center>
+					)}
 
 					<Text
 						align='center'

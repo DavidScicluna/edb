@@ -65,6 +65,8 @@ export type MediaItems = {
 	collection: MediaItem<'collection'>[];
 };
 
+export type UserListMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
+
 export type UserListMediaItems = Omit<MediaItems, 'person' | 'company' | 'collection'>;
 
 export type UserList = {
