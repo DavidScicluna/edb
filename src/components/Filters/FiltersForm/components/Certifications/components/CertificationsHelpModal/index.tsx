@@ -16,12 +16,13 @@ import {
 import { useDisclosure, useBoolean, VStack, Text } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
+import { upperCase } from 'lodash';
 
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
+import Paragraph from '../../../../../../Paragraphs/Paragraph';
 
 import { CertificationsHelpModalProps } from './types';
-import CertificationMeaning from './components/CertificationMeaning';
 
 const CertificationsHelpModal: FC<CertificationsHelpModalProps> = ({ mediaType }) => {
 	const { color, colorMode } = useUserTheme();
@@ -86,8 +87,10 @@ const CertificationsHelpModal: FC<CertificationsHelpModalProps> = ({ mediaType }
 						<VStack width='100%' spacing={spacing}>
 							{sort(certifications)
 								.desc(({ order }) => order)
-								.map((certification) => (
-									<CertificationMeaning key={certification.certification} {...certification} />
+								.map(({ certification, meaning = '' }) => (
+									<Paragraph key={certification} title={upperCase(certification)}>
+										{meaning}
+									</Paragraph>
 								))}
 						</VStack>
 					</ModalBody>
