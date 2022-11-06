@@ -4,9 +4,9 @@ import { useTheme, Divider } from '@davidscicluna/component-library';
 
 import { VStack, Center } from '@chakra-ui/react';
 
-import DummyTabs from '../../UserProfileTabsDummyTabs';
-import { useUserTheme } from '../../../../../../../../../common/hooks';
-import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
+import DummyTabs from '../DummyUserProfileTabsTabs';
+import { useUserTheme } from '../../../../../../../../common/hooks';
+import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
 
 import DummyMyLikesTabHeadline from './components/DummyMyLikesTabHeadline';
 

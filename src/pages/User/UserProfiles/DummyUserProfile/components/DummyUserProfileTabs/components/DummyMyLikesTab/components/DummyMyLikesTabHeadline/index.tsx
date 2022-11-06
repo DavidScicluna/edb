@@ -4,8 +4,8 @@ import { Skeleton, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { Text } from '@chakra-ui/react';
 
-import { Headline } from '../../../../../../../../../../../components';
-import { useUserTheme } from '../../../../../../../../../../../common/hooks';
+import { Headline } from '../../../../../../../../../../components';
+import { useUserTheme } from '../../../../../../../../../../common/hooks';
 
 const DummyMyLikesTabHeadline: FC = () => {
 	const { color, colorMode } = useUserTheme();
