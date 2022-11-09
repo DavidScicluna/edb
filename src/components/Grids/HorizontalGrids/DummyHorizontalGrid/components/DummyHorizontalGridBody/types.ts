@@ -1,5 +1,3 @@
-import { CardBodyProps, Space } from '@davidscicluna/component-library';
+import { CardBodyProps } from '@davidscicluna/component-library';
 
-export type DummyHorizontalGridBodyProps = CardBodyProps & {
-	spacing?: Space;
-};
+export type DummyHorizontalGridBodyProps = CardBodyProps;

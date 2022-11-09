@@ -2,14 +2,16 @@ import { FC } from 'react';
 
 import { CardBody } from '@davidscicluna/component-library';
 
-import { HStack } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
 import { DummyHorizontalGridBodyProps } from './types';
 
-const DummyHorizontalGridBody: FC<DummyHorizontalGridBodyProps> = ({ children, spacing = 2, ...rest }) => {
+const DummyHorizontalGridBody: FC<DummyHorizontalGridBodyProps> = ({ children, ...rest }) => {
 	return (
 		<CardBody {...rest}>
-			<HStack spacing={spacing}>{children}</HStack>
+			<Box alignItems='stretch' justifyContent='stretch'>
+				{children}
+			</Box>
 		</CardBody>
 	);
 };
