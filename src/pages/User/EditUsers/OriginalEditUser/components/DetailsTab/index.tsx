@@ -61,7 +61,7 @@ const DetailsTab: FC<DetailsTabProps> = (props) => {
 			colorMode={colorMode}
 			title='Details'
 			subtitle='Edit your basic information.'
-			isUpdateDisabled={!isDirty}
+			isSubmitDisabled={!isDirty}
 			onReset={
 				userFirstName !== watchFirstName || userLastName !== watchLastName || bio !== watchBio
 					? handleClear

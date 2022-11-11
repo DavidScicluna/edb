@@ -33,7 +33,7 @@ const AssetsTab: FC<AssetsTabProps> = (props) => {
 			colorMode={colorMode}
 			title='Avatar & Background'
 			subtitle='Upload an avatar & background of your choice!'
-			isUpdateDisabled={!isDirty}
+			isSubmitDisabled={!isDirty}
 			onReset={
 				avatar_path !== watchAvatarPath || background_path !== watchBackgroundPath ? handleClear : undefined
 			}

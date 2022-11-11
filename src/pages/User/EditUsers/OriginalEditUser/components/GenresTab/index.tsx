@@ -33,7 +33,7 @@ const GenresTab: FC<GenresTabProps> = (props) => {
 			colorMode={colorMode}
 			title='Favored Genres'
 			subtitle='Select your most favorite Movie & TV Show genres.'
-			isUpdateDisabled={!isDirty}
+			isSubmitDisabled={!isDirty}
 			onReset={
 				!isEqual(watchMovieGenres, prefers.movie) || !isEqual(watchTVShowGenres, prefers.tv)
 					? handleClear

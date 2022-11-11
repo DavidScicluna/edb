@@ -27,7 +27,7 @@ const CustomizationTab: FC<CustomizationTabProps> = (props) => {
 			colorMode={colorMode}
 			title='Customization'
 			subtitle='Pick your favorite color and mode.'
-			isUpdateDisabled={!isDirty}
+			isSubmitDisabled={!isDirty}
 			onReset={
 				defaultUserTheme.color !== watchColor || defaultUserTheme.colorMode !== watchColorMode
 					? handleClear
