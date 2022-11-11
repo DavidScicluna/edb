@@ -34,7 +34,7 @@ const AssetsTab: FC<AssetsTabProps> = (props) => {
 			title='Avatar & Background'
 			subtitle='Upload an avatar & background of your choice!'
 			isUpdateDisabled={!isDirty}
-			onClear={
+			onReset={
 				avatar_path !== watchAvatarPath || background_path !== watchBackgroundPath ? handleClear : undefined
 			}
 			onSubmit={handleSubmit(onSubmit)}
