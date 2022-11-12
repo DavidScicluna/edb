@@ -27,7 +27,7 @@ import { FullMovie } from '../../../../../../../common/types/movie';
 import { FullTV } from '../../../../../../../common/types/tv';
 import { UserList as UserList, UserListMediaItems, MediaItem } from '../../../../../../../store/slices/Users/types';
 import { useLayoutContext } from '../../../../../common/hooks';
-import CreateList from '../../../../../../../pages/User/UserProfiles/OriginalUserProfile/components/UserProfileTabs/components/MyListsTab/components/CreateList';
+import CreateList from '../../../../../../../pages/User/pages/UserProfiles/OriginalUserProfile/components/UserProfileTabs/components/MyListsTab/components/CreateList';
 
 import { BookmarkListSelected } from './types';
 import List from './components/List';
