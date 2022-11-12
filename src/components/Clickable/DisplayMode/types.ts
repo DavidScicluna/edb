@@ -1,3 +1,17 @@
+import { ReactNode } from 'react';
+
 import { IconButtonProps } from '@davidscicluna/component-library';
 
-export type DisplayModeProps = Omit<IconButtonProps, 'aria-label' | 'children' | 'color' | 'colorMode'>;
+type Omitted =
+	| 'aria-label'
+	| 'children'
+	| 'color'
+	| 'colorMode'
+	| 'isActive'
+	| 'onMouseEnter'
+	| 'onMouseLeave'
+	| 'onClick';
+
+export type DisplayModeProps = Omit<IconButtonProps, Omitted> & {
+	separator?: ReactNode;
+};
