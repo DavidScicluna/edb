@@ -6,5 +6,5 @@ import svgrPlugin from 'vite-plugin-svgr';
 export default defineConfig({
 	plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
 	build: { outDir: 'build' },
-	server: { open: false, port: 3000 }
+	server: { open: false, port: 3000, watch: { usePolling: true } }
 });
