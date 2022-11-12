@@ -1,22 +1,22 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { useTheme, Fade, utils } from '@davidscicluna/component-library';
+import { useTheme, ScaleFade, utils } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, Center, AspectRatio } from '@chakra-ui/react';
 
 import { transparentize } from 'color2k';
-import { useUpdateEffect } from 'usehooks-ts';
 
-import { colorMode as defaultColorMode } from '../../../common/data/defaultPropValues';
 import { getRatio } from '../../../common/utils';
 
 import { ClickableMediaProps } from './types';
 
 const { getColor } = utils;
 
+// TODO: Maybe move to component-lib
+
 const ClickableMedia: FC<ClickableMediaProps> = (props) => {
 	const theme = useTheme();
-	const { colorMode: colorModeHook = defaultColorMode } = useColorMode();
+	const { colorMode: colorModeHook = 'light' } = useColorMode();
 
 	const {
 		children,
@@ -30,16 +30,7 @@ const ClickableMedia: FC<ClickableMediaProps> = (props) => {
 		...rest
 	} = props;
 
-	const [background, setBackground] = useState<string>(
-		transparentize(getColor({ theme, colorMode, type: 'background' }), 0.8)
-	);
-
 	const [isHovering, setIsHovering] = useBoolean();
-
-	useUpdateEffect(
-		() => setBackground(transparentize(getColor({ theme, colorMode, type: 'background' }), 0.8)),
-		[colorMode]
-	);
 
 	return (
 		<AspectRatio {...rest} ratio={ratio}>
@@ -59,14 +50,26 @@ const ClickableMedia: FC<ClickableMediaProps> = (props) => {
 						height='100%'
 						position='absolute'
 						zIndex={1}
-						sx={{
-							background: isHovering || isActive ? background : theme.colors.transparent,
-							backgroundColor: isHovering || isActive ? background : theme.colors.transparent
-						}}
+						background={
+							isHovering || isActive
+								? transparentize(getColor({ theme, colorMode, type: 'background' }), 0.75)
+								: theme.colors.transparent
+						}
 					>
-						<Fade in={isHovering || isActive}>
-							{renderIcon({ color: getColor({ theme, colorMode, color, type: 'background' }) })}
-						</Fade>
+						<ScaleFade in={isHovering || isActive} unmountOnExit={false}>
+							<Center
+								p={2}
+								sx={{
+									backdropFilter: `blur(${theme.space[2]})`,
+									WebkitBackdropFilter: `blur(${theme.space[2]})`,
+									backgroundColor: transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5),
+									borderRadius: theme.radii.full,
+									transitionProperty: 'all'
+								}}
+							>
+								{renderIcon({ color: getColor({ theme, colorMode, color, type: 'light' }) })}
+							</Center>
+						</ScaleFade>
 					</Center>
 				)}
 
