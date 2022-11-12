@@ -27,7 +27,7 @@ const DummyParagraph: FC = () => {
 			<CardBody>
 				<VStack width='100%' alignItems='flex-start' spacing={2}>
 					{range(lines).map((_dummy, index) => (
-						<Skeleton key={index} colorMode={colorMode} isLoaded={false} variant='text'>
+						<Skeleton key={index} width='100%' colorMode={colorMode} isLoaded={false} variant='text'>
 							<Text width='100%' align='left' fontSize='md' fontWeight='normal' lineHeight='shorter'>
 								Paragraph
 							</Text>
