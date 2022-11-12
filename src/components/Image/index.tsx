@@ -1,13 +1,14 @@
 import { FC, useCallback, useEffect } from 'react';
 
-import { useTheme, Style, Fade } from '@davidscicluna/component-library';
+import { useTheme, Style, Fade, assets } from '@davidscicluna/component-library';
 
 import { useBoolean, Center, Image as CUIImage, ImageProps as CUIImageProps } from '@chakra-ui/react';
 
-import * as fallback from '../../common/assets/fallback';
 import { useUserTheme } from '../../common/hooks';
 
 import { ImageProps } from './types';
+
+const { fallback } = assets;
 
 const p: CUIImageProps = {
 	align: 'center',
@@ -49,7 +50,7 @@ const Image: FC<ImageProps> = (props) => {
 					{...p}
 					alt={`${alt} fallback image`}
 					objectFit={fit}
-					src={colorMode === 'light' ? fallback.default.light : fallback.default.dark}
+					src={colorMode === 'light' ? fallback.light : fallback.dark}
 					sx={{ ...sx }}
 				/>
 			</Center>
