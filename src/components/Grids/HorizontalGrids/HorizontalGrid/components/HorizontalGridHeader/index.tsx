@@ -8,11 +8,12 @@ import Arrows from '../../../components/Arrows';
 import { ScrollContext } from '../../../types';
 import { HorizontalGridContext as HorizontalGridContextType } from '../../types';
 import { HorizontalGridContext } from '../..';
+import { isDisabled as defaultIsDisabled } from '../../common/data/defaultPropValues';
 
 import { HorizontalGridHeaderProps } from './types';
 
 const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, arrowProps, ...rest }) => {
-	const { scroll } = useContext<HorizontalGridContextType>(HorizontalGridContext);
+	const { isDisabled = defaultIsDisabled, scroll } = useContext<HorizontalGridContextType>(HorizontalGridContext);
 	const {
 		isFirstItemVisible = false,
 		isLastItemVisible = false,
@@ -56,8 +57,8 @@ const HorizontalGridHeader: FC<HorizontalGridHeaderProps> = ({ actions, arrowPro
 					{actions}
 
 					<Arrows
-						isLeftDisabled={debouncedIsLeftArrowDisabled}
-						isRightDisabled={debouncedIsRightArrowDisabled}
+						isLeftDisabled={isDisabled || debouncedIsLeftArrowDisabled}
+						isRightDisabled={isDisabled || debouncedIsRightArrowDisabled}
 						onLeftClick={() => scrollPrev()}
 						onRightClick={() => scrollNext()}
 						arrowProps={arrowProps}

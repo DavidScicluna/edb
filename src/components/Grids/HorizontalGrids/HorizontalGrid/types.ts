@@ -1,3 +1,10 @@
+import { CardProps } from '@davidscicluna/component-library';
+
 import { ScrollContext } from '../types';
 
-export type HorizontalGridContext = { scroll: ScrollContext; onSetScroll: (scroll: ScrollContext) => void };
+export type HorizontalGridProps = CardProps;
+
+export type HorizontalGridContext = Pick<HorizontalGridProps, 'isDisabled'> & {
+	scroll: ScrollContext;
+	onSetScroll: (scroll: ScrollContext) => void;
+};
