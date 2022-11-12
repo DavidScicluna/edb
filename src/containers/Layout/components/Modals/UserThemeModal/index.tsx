@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 
 import {
 	Modal,
@@ -17,9 +17,10 @@ import { ColorMode, useColorMode, Text } from '@chakra-ui/react';
 
 import { useForm, useWatch, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import UserThemeCustomization from '../../../../../components/User/UserThemeCustomization';
-import { useSelector, useUserTheme } from '../../../../../common/hooks';
+import { useSelector } from '../../../../../common/hooks';
 import { toggleSpinnerModal, toggleUserThemeModal } from '../../../../../store/slices/Modals';
 import { setUserTheme } from '../../../../../store/slices/Users';
 import { updateFavicon } from '../../../../../common/utils';
@@ -29,14 +30,18 @@ import { UserThemeModalForm } from './types';
 const { getColorMode } = utils;
 
 const UserThemeModal: FC = () => {
-	const userTheme = useUserTheme();
 	const { setColorMode: setCUIColorMode } = useColorMode();
 
 	const dispatch = useDispatch();
-	const id = useSelector((state) => state.users.data.activeUser.data.id);
+	const {
+		data: { id },
+		ui: { theme: userTheme }
+	} = useSelector((state) => state.users.data.activeUser);
 	const isUserThemeModalOpen = useSelector((state) => state.modals.ui.isUserThemeModalOpen);
 
-	const [colorMode, setColorMode] = useState<ColorMode>(userTheme.colorMode);
+	const [colorMode, setColorMode] = useState<ColorMode>(
+		userTheme.colorMode === 'system' ? getColorMode() : userTheme.colorMode
+	);
 
 	const form = useForm<UserThemeModalForm>({ defaultValues: { ...userTheme } });
 	const { control, reset, handleSubmit } = form;
@@ -73,7 +78,10 @@ const UserThemeModal: FC = () => {
 		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
 
-	useEffect(() => setColorMode(watchColorMode === 'system' ? getColorMode() : watchColorMode), [watchColorMode]);
+	useUpdateEffect(
+		() => setColorMode(watchColorMode === 'system' ? getColorMode() : watchColorMode),
+		[watchColorMode]
+	);
 
 	return (
 		<Modal colorMode={colorMode} isOpen={isUserThemeModalOpen} onClose={handleClose} size='3xl'>
