@@ -41,7 +41,7 @@ const OverviewTabLikedPeople: FC<OverviewTabLikedPeopleProps> = ({ onTabChange }
 	const total = people.length;
 
 	return (
-		<HorizontalGrid colorMode={colorMode} isFullWidth spacing={2} p={2}>
+		<HorizontalGrid colorMode={colorMode} isDisabled={total === 0} isFullWidth spacing={2} p={2}>
 			<HorizontalGridHeader
 				renderTitle={(props) => (
 					<Text {...props}>{`Liked ${formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' })}`}</Text>

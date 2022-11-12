@@ -24,10 +24,10 @@ const AllTabHorizontalGrid: FC<AllTabHorizontalGridProps> = (props) => {
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-	const { children, title, subtitle, footerLabel, onFooterClick } = props;
+	const { children, title, subtitle, footerLabel, isDisabled, onFooterClick } = props;
 
 	return (
-		<HorizontalGrid colorMode={colorMode} isFullWidth spacing={2} p={2}>
+		<HorizontalGrid colorMode={colorMode} isDisabled={isDisabled} isFullWidth spacing={2} p={2}>
 			<HorizontalGridHeader
 				renderTitle={(props) => <Text {...props}>{title}</Text>}
 				renderSubtitle={subtitle ? (props) => <Text {...props}>{subtitle}</Text> : undefined}

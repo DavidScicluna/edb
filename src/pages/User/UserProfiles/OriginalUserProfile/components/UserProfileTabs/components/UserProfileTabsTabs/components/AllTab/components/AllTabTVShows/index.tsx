@@ -24,6 +24,7 @@ const AllTabTVShows: FC<AllTabTVShowsProps> = ({ type, shows, onSetActiveTab }) 
 				type: total === 1 ? 'single' : 'multiple',
 				mediaType: 'tv'
 			})}`}
+			isDisabled={total === 0}
 			onFooterClick={onSetActiveTab ? () => onSetActiveTab({ mediaType: 'tv' }) : undefined}
 		>
 			{sort(shows)

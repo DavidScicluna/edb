@@ -24,6 +24,7 @@ const AllTabPeople: FC<AllTabPeopleProps> = ({ type, people, onSetActiveTab }) =
 				type: total === 1 ? 'single' : 'multiple',
 				mediaType: 'person'
 			})}`}
+			isDisabled={total === 0}
 			onFooterClick={onSetActiveTab ? () => onSetActiveTab({ mediaType: 'person' }) : undefined}
 		>
 			{sort(people)
