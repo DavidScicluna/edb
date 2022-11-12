@@ -6,7 +6,7 @@ import { DummyHorizontalGridScrollProps } from './types';
 
 const DummyHorizontalGridScroll: FC<DummyHorizontalGridScrollProps> = ({ children, spacing = 2 }) => {
 	return (
-		<HStack width='100%' alignItems='stretch' justifyContent='stretch' spacing={spacing}>
+		<HStack width='fit-content' alignItems='stretch' justifyContent='stretch' spacing={spacing}>
 			{children}
 		</HStack>
 	);
