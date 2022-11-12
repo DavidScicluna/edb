@@ -4,7 +4,7 @@ import { BrowserRouter, BrowserRouterProps as RouterProps } from 'react-router-d
 
 import { useEffectOnce } from 'usehooks-ts';
 
-const basename = import.meta.env.PUBLIC_URL;
+const basename = import.meta.env.BASE_URL;
 
 const Router: FC<RouterProps> = ({ children }) => {
 	const handleRedirectToBasename = useCallback(() => {
