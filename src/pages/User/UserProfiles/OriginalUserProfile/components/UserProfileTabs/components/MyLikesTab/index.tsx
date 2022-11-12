@@ -1,6 +1,6 @@
 import { FC, useState, useCallback, useEffect, Fragment, lazy } from 'react';
 
-import { useTheme, Divider, Undefinable } from '@davidscicluna/component-library';
+import { useTheme, useDebounce, Divider, Undefinable } from '@davidscicluna/component-library';
 
 import { VStack, Center } from '@chakra-ui/react';
 
@@ -8,7 +8,7 @@ import { debounce } from 'lodash';
 
 import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
 import { Suspense } from '../../../../../../../../components';
-import { useDebounce, useSelector, useUserTheme } from '../../../../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import { MediaItems } from '../../../../../../../../store/slices/Users/types';
 import { MediaType } from '../../../../../../../../common/types';
 import DummyTVShows from '../../../../../../../TVShows/components/VerticalDummyTVShows';

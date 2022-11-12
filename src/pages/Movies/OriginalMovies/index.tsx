@@ -2,7 +2,7 @@ import { FC, useState, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { Undefinable, useTheme, Divider } from '@davidscicluna/component-library';
+import { Undefinable, useTheme, useDebounce, Divider } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, HStack, Text } from '@chakra-ui/react';
 
@@ -26,7 +26,7 @@ import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
 import { AxiosConfigParams } from '../../../common/types';
-import { useDebounce, useUserTheme } from '../../../common/hooks';
+import { useUserTheme } from '../../../common/hooks';
 import { getTotalFilters } from '../../../components/Filters/common/utils';
 
 import MoviesSortBy from './components/MoviesSortBy';

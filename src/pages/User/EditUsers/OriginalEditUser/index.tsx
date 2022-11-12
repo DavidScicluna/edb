@@ -2,7 +2,7 @@ import { FC, useRef, useState, useCallback, useEffect } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { TabsOnChangeProps, Tabs, TabList, TabPanels, utils } from '@davidscicluna/component-library';
+import { TabsOnChangeProps, useDebounce, Tabs, TabList, TabPanels, utils } from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, useConst, VStack, Text } from '@chakra-ui/react';
 
@@ -14,7 +14,7 @@ import { useWillUnmount } from 'rooks';
 import { SHA256 } from 'crypto-js';
 import { sort } from 'fast-sort';
 
-import { useDebounce, useSelector } from '../../../../common/hooks';
+import { useSelector } from '../../../../common/hooks';
 import Page from '../../../../containers/Page';
 import PageBody from '../../../../containers/Page/components/PageBody';
 import { useLayoutContext } from '../../../../containers/Layout/common/hooks';

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { useTheme, utils } from '@davidscicluna/component-library';
+import { useTheme, useDebounce, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
@@ -18,7 +18,7 @@ import {
 	PersonHorizontalPoster,
 	PersonVerticalPoster
 } from '../../../../../../../../components';
-import { useUserTheme, useDebounce } from '../../../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../../../../common/utils';
 
@@ -36,6 +36,7 @@ const UserProfileTabsPeople: FC<UserProfileTabsPeopleProps> = ({ people }) => {
 
 	const { spacing } = useLayoutContext();
 
+	// TODO: Go over all useDebounce and check if debounced value is being used
 	const [visible, setVisible] = useState<number>(limit);
 	const visibleDebounced = useDebounce<number>(visible, 'slow');
 

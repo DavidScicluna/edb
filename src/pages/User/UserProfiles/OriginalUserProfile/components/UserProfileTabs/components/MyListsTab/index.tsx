@@ -4,6 +4,7 @@ import {
 	TabsOnChangeProps,
 	TabListTab,
 	useTheme,
+	useDebounce,
 	Tabs,
 	TabList,
 	TabPanels,
@@ -17,7 +18,7 @@ import { compact } from 'lodash';
 
 import DummyAllTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyMyListsTab/components/DummyMyListsTabAllTab';
 import DummyListTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyMyListsTab/components/DummyMyListsTabListTab';
-import { useDebounce, useSelector, useUserTheme } from '../../../../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
 import { Suspense, TabBadge } from '../../../../../../../../components';
 

@@ -2,13 +2,13 @@ import { FC, useState, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { TabsOnChangeProps, Tabs, TabList, TabPanels, Icon } from '@davidscicluna/component-library';
+import { TabsOnChangeProps, useDebounce, Tabs, TabList, TabPanels, Icon } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
-import { useDebounce, useUserTheme } from '../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 import { Suspense } from '../../../../../../components';
 import DummyMyLikesTab from '../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyMyLikesTab';

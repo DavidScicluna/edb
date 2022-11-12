@@ -2,7 +2,7 @@ import { FC, useState, lazy } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, useDebounce } from '@davidscicluna/component-library';
 
 import { Text } from '@chakra-ui/react';
 
@@ -19,7 +19,6 @@ import { PartialPerson } from '../../../common/types/person';
 import { UsePeopleInfiniteQueryResponse } from '../../../common/queries/usePeopleInfiniteQuery';
 import VerticalDummyPeople from '../components/VerticalDummyPeople';
 import { formatMediaTypeLabel } from '../../../common/utils';
-import { useDebounce } from '../../../common/hooks';
 
 const VerticalPeople = lazy(() => import('../components/VerticalPeople'));
 

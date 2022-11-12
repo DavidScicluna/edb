@@ -1,6 +1,6 @@
 import { FC, useState, useEffect, lazy } from 'react';
 
-import { TabListTab, Tabs, TabList, TabPanels } from '@davidscicluna/component-library';
+import { TabListTab, useDebounce, Tabs, TabList, TabPanels } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
@@ -12,7 +12,7 @@ import DummyMoviesTab from '../../../../../../../Movies/components/VerticalDummy
 import DummyPeopleTab from '../../../../../../../People/components/VerticalDummyPeople';
 import DummyTVShowsTab from '../../../../../../../TVShows/components/VerticalDummyTVShows';
 import DummyAllTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab';
-import { useDebounce, useUserTheme } from '../../../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../../../common/utils';
 import { MediaType } from '../../../../../../../../common/types';

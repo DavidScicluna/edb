@@ -1,10 +1,9 @@
 import { FC, createContext, useState, useCallback } from 'react';
 
-import { TabsOnChangeProps, Tabs, Card } from '@davidscicluna/component-library';
+import { TabsOnChangeProps, useDebounce, Tabs, Card } from '@davidscicluna/component-library';
 
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 import { ScrollContext } from '../types';
-import { useDebounce } from '../../../../common/hooks';
 
 import { HorizontalGridTabbedContext as HorizontalGridTabbedContextType, HorizontalGridTabbedProps } from './types';
 

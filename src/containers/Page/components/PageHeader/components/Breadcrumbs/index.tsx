@@ -1,12 +1,12 @@
 import { FC, useState } from 'react';
 
+import { useDebounce } from '@davidscicluna/component-library';
+
 import { Breadcrumb as CUIBreadcrumb, BreadcrumbItem } from '@chakra-ui/react';
 
 import useBreadcrumbs, { BreadcrumbData } from 'use-react-router-breadcrumbs';
 import { useTimeout } from 'usehooks-ts';
 import { range } from 'lodash';
-
-import { useDebounce } from '../../../../../../common/hooks';
 
 import Breadcrumb from './components/Breadcrumb';
 import Separator from './components/Separator';

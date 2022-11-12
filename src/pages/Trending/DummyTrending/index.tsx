@@ -2,14 +2,14 @@ import { FC, useState, useCallback, useEffect } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { Tabs, DummyTabList, TabPanels, Skeleton } from '@davidscicluna/component-library';
+import { useDebounce, Tabs, DummyTabList, TabPanels, Skeleton } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
 
 import Page from '../../../containers/Page';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import PageBody from '../../../containers/Page/components/PageBody';
-import { useDebounce, useUserTheme } from '../../../common/hooks';
+import { useUserTheme } from '../../../common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import { DummyTabIcon } from '../../../components';

@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect } from 'react';
 
-import { CardHeader } from '@davidscicluna/component-library';
+import { useDebounce, CardHeader } from '@davidscicluna/component-library';
 
 import { useBoolean, HStack } from '@chakra-ui/react';
 
@@ -8,7 +8,6 @@ import Arrows from '../../../components/Arrows';
 import { ScrollContext } from '../../../types';
 import { HorizontalGridContext as HorizontalGridContextType } from '../../types';
 import { HorizontalGridContext } from '../..';
-import { useDebounce } from '../../../../../../common/hooks';
 
 import { HorizontalGridHeaderProps } from './types';
 

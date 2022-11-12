@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 
+import { useDebounce } from '@davidscicluna/component-library';
+
 import { useBoolean, Center } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
@@ -8,7 +10,6 @@ import { useTimeout } from 'usehooks-ts';
 import { useTrendingQuery } from '../../../../../common/queries';
 import HomeHorizontalGrid from '../HomeHorizontalGrid';
 import { formatMediaType } from '../../../../../common/utils';
-import { useDebounce } from '../../../../../common/hooks';
 
 const Trending: FC = () => {
 	const { observe: ref, inView } = useInView<HTMLDivElement>({

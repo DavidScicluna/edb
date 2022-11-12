@@ -2,7 +2,7 @@ import { FC, useState, useCallback } from 'react';
 
 import { useNavigate, useOutletContext } from 'react-router';
 
-import { Colors, useTheme, utils } from '@davidscicluna/component-library';
+import { Colors, useTheme, useDebounce, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, HStack, VStack } from '@chakra-ui/react';
 
@@ -16,7 +16,7 @@ import { sort } from 'fast-sort';
 import dayjs from 'dayjs';
 
 import Illustration from '../../components/Illustration';
-import { useDebounce, useSelector, useUserTheme } from '../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../common/hooks';
 import { User } from '../../../../store/slices/Users/types';
 import { guest, setUser, setUsers } from '../../../../store/slices/Users';
 import { toggleSpinnerModal } from '../../../../store/slices/Modals';

@@ -2,7 +2,14 @@ import { FC, useState, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { Undefinable, TabsOnChangeProps, Tabs, TabList, TabPanels } from '@davidscicluna/component-library';
+import {
+	Undefinable,
+	TabsOnChangeProps,
+	useDebounce,
+	Tabs,
+	TabList,
+	TabPanels
+} from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
 
@@ -12,7 +19,7 @@ import { uniqBy } from 'lodash';
 import Page from '../../../containers/Page';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import PageBody from '../../../containers/Page/components/PageBody';
-import { useDebounce, useUserTheme } from '../../../common/hooks';
+import { useUserTheme } from '../../../common/hooks';
 import { formatMediaType, formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import { Suspense, TabIcon } from '../../../components';

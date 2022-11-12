@@ -1,9 +1,8 @@
 import { FC, createContext, useState } from 'react';
 
-import { Card, CardProps as HorizontalGridProps } from '@davidscicluna/component-library';
+import { useDebounce, Card, CardProps as HorizontalGridProps } from '@davidscicluna/component-library';
 
 import { ScrollContext } from '../types';
-import { useDebounce } from '../../../../common/hooks';
 
 import { HorizontalGridContext as HorizontalGridContextType } from './types';
 

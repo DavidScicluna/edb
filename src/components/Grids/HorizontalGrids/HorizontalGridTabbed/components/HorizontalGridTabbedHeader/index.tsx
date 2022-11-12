@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect } from 'react';
 
-import { CardHeader, TabList } from '@davidscicluna/component-library';
+import { useDebounce, CardHeader, TabList } from '@davidscicluna/component-library';
 
 import { useBoolean, VStack, HStack } from '@chakra-ui/react';
 
@@ -8,7 +8,6 @@ import Arrows from '../../../components/Arrows';
 import { ScrollContext } from '../../../types';
 import { HorizontalGridTabbedContext as HorizontalGridTabbedContextType } from '../../types';
 import { HorizontalGridTabbedContext } from '../..';
-import { useDebounce } from '../../../../../../common/hooks';
 
 import { HorizontalGridTabbedHeaderProps } from './types';
 

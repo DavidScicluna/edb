@@ -2,7 +2,15 @@ import { FC, useState, useEffect } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { Space, useTheme, HorizontalScroll, Divider, Button, utils } from '@davidscicluna/component-library';
+import {
+	Space,
+	useTheme,
+	useDebounce,
+	HorizontalScroll,
+	Divider,
+	Button,
+	utils
+} from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
@@ -12,7 +20,7 @@ import { useElementSize } from 'usehooks-ts';
 import { getFiltersForm } from '../common/utils';
 import { FiltersForm } from '../types';
 import defaultValues from '../common/data/defaults';
-import { useDebounce, useUserTheme } from '../../../common/hooks';
+import { useUserTheme } from '../../../common/hooks';
 
 import Certifications from './components/Certifications';
 import Count from './components/CountRange';

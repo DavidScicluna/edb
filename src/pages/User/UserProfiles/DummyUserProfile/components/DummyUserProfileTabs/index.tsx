@@ -2,13 +2,13 @@ import { FC, useState } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { Tabs, DummyTabList, TabPanels, Skeleton, Icon } from '@davidscicluna/component-library';
+import { useDebounce, Tabs, DummyTabList, TabPanels, Skeleton, Icon } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
-import { useDebounce, useUserTheme } from '../../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
 import DummyMyLikesTab from './components/DummyMyLikesTab';
