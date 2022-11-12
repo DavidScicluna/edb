@@ -34,11 +34,11 @@ import defaultValues from './common/data/defaults';
 const SortBy: FC<SortByProps> = (props) => {
 	const { color, colorMode } = useUserTheme();
 
+	const { spacing } = useLayoutContext();
+
 	const { isOpen: isSortByOpen, onOpen: onSortByOpen, onClose: onSortByClose } = useDisclosure();
 
 	const location = useLocation();
-
-	const { spacing } = useLayoutContext();
 
 	const { mediaType, renderButton, onSort } = props;
 
@@ -83,8 +83,8 @@ const SortBy: FC<SortByProps> = (props) => {
 				onClick: () => handleOpen()
 			})}
 
-			<Modal colorMode={colorMode} isOpen={isSortByOpen} onClose={handleClose} size='4xl' spacing={spacing}>
-				<ModalStack p={2}>
+			<Modal colorMode={colorMode} isOpen={isSortByOpen} onClose={handleClose} size='4xl'>
+				<ModalStack>
 					<ModalHeader
 						renderTitle={(props) => (
 							<Text {...props}>{`Sorting ${formatMediaTypeLabel({ type: 'multiple', mediaType })}`}</Text>
@@ -112,13 +112,9 @@ const SortBy: FC<SortByProps> = (props) => {
 						</VStack>
 					</ModalBody>
 					<ModalFooter
-						renderCancel={(props) => (
-							<Button {...props} onClick={handleClose}>
-								Cancel
-							</Button>
-						)}
+						renderCancel={(props) => <Button {...props}>Cancel</Button>}
 						renderAction={(props) => (
-							<HStack spacing={spacing}>
+							<HStack>
 								<Fade in={isDirty || !isEqual(defaultValues, getValues())}>
 									<Button {...props} color={color} onClick={handleReset} variant='text'>
 										Reset
