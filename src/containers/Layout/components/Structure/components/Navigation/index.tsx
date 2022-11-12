@@ -6,7 +6,7 @@ import { useTheme, SideNavigation, Skeleton, NavItem, Icon } from '@davidsciclun
 
 import useStyles from '../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../common/hooks';
-import { getMediaTypeIcon } from '../../../../../../common/utils';
+import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../common/utils';
 
 import { NavItems, NavigationProps } from './types';
 
@@ -27,23 +27,23 @@ const navItems: NavItems = [
 		icon: 'whatshot'
 	},
 	{
-		title: 'Movies',
+		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
 		path: { pathname: '/movies' },
 		icon: getMediaTypeIcon({ mediaType: 'movie' })
 	},
 	{
-		title: 'TV Shows',
+		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
 		path: { pathname: '/tvshows' },
 		icon: getMediaTypeIcon({ mediaType: 'tv' })
 	},
 	{
-		title: 'People',
+		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
 		path: { pathname: '/people' },
 		icon: getMediaTypeIcon({ mediaType: 'person' })
 	}
 ];
 
-const Navigation: FC<NavigationProps> = ({ isDummy = false }) => {
+const Navigation: FC<NavigationProps> = ({ isDrawer = false, isDummy = false }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -55,7 +55,14 @@ const Navigation: FC<NavigationProps> = ({ isDummy = false }) => {
 	const style = useStyles({ theme });
 
 	return (
-		<SideNavigation color={color} colorMode={colorMode} mode={sidebarMode} spacing={1} sx={{ ...style }}>
+		<SideNavigation
+			color={color}
+			colorMode={colorMode}
+			isDrawer={isDrawer}
+			mode={sidebarMode}
+			spacing={1}
+			sx={{ ...style }}
+		>
 			{navItems.map((navItem) => (
 				<Skeleton key={navItem.title} isLoaded={!isDummy} variant='rectangle'>
 					<NavItem

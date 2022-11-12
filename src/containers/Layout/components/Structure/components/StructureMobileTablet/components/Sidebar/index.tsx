@@ -55,7 +55,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 							<Logo isClickable={false} isSquare size='xl' />
 						</InternalLink>
 
-						<Navigation />
+						<Navigation isDrawer />
 					</VStack>
 				</DrawerBody>
 			</DrawerContent>
