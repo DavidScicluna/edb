@@ -45,6 +45,12 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 		}px)`;
 	};
 
+	const handleHeadlineWidth = (): string => {
+		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing as Space], 'rem'));
+
+		return direction === 'column' || isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + spacingWidth : 0}px)`;
+	};
+
 	return (
 		<HStack {...rest} width='100%' spacing={spacing}>
 			{renderLeftPanel && !isMd && (
@@ -62,9 +68,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 				p={0}
 			>
 				<Headline
-					width={
-						direction === 'column' || isSm ? '100%' : `calc(100% - ${actions ? actionsWidth + 48 : 0}px)`
-					}
+					width={handleHeadlineWidth()}
 					renderCaption={() => <Breadcrumbs />}
 					renderTitle={(props) => renderTitle({ ...props, noOfLines: 1 })}
 					renderSubtitle={renderSubtitle ? (props) => renderSubtitle({ ...props, noOfLines: 1 }) : undefined}
