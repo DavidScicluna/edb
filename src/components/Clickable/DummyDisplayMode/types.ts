@@ -1,3 +1,17 @@
+import { ReactNode } from 'react';
+
 import { DummyIconButtonProps } from '@davidscicluna/component-library';
 
-export type DummyDisplayModeProps = Omit<DummyIconButtonProps, 'aria-label' | 'children' | 'color' | 'colorMode'>;
+type Omitted =
+	| 'aria-label'
+	| 'children'
+	| 'color'
+	| 'colorMode'
+	| 'isActive'
+	| 'onMouseEnter'
+	| 'onMouseLeave'
+	| 'onClick';
+
+export type DummyDisplayModeProps = Omit<DummyIconButtonProps, Omitted> & {
+	separator?: ReactNode;
+};
