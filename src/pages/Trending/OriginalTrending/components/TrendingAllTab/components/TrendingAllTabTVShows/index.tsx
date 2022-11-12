@@ -42,6 +42,7 @@ const TrendingAllTabShows: FC<TrendingAllTabShowsProps> = ({ query, shows, onTab
 				type: 'multiple',
 				mediaType: 'tv'
 			})}`}
+			isDisabled={total === 0}
 			onFooterClick={total > 0 && onTabChange ? () => onTabChange({ mediaType: 'tv' }) : undefined}
 		>
 			{!(isFetching || isLoading) && isError ? (

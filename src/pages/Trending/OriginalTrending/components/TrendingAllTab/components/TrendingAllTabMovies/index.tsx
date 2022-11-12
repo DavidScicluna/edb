@@ -42,6 +42,7 @@ const TrendingAllTabMovies: FC<TrendingAllTabMoviesProps> = ({ query, movies, on
 				type: 'multiple',
 				mediaType: 'movie'
 			})}`}
+			isDisabled={total === 0}
 			onFooterClick={total > 0 && onTabChange ? () => onTabChange({ mediaType: 'movie' }) : undefined}
 		>
 			{!(isFetching || isLoading) && isError ? (
