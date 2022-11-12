@@ -56,7 +56,6 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 								fontSize={fontSize}
 								fontWeight='normal'
 								lineHeight={lineHeight}
-								// noOfLines={isExpanded ? 0 : lines}
 							>
 								{paragraph}
 							</Text>
@@ -64,7 +63,7 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 					</VStack>
 				</Collapse>
 			</CardBody>
-			{(keepFooter || !isExpanded) && (
+			{(stackHeight || limit) > limit && (keepFooter || !isExpanded) && (
 				<CardFooter>
 					<Button
 						color={color}
