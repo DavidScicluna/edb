@@ -31,7 +31,7 @@ import { TrendingMoviesTabProps } from './types';
 
 const { getColor } = utils;
 
-const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query }) => {
+const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query, movies }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -40,11 +40,6 @@ const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query }) => {
 	const { spacing } = useLayoutContext();
 
 	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
-
-	const movies = {
-		results: [],
-		total_results: 0
-	};
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
 		<QueryEmpty

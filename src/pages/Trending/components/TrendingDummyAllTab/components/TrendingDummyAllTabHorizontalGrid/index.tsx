@@ -8,6 +8,7 @@ import {
 	DummyHorizontalGrid,
 	DummyHorizontalGridHeader,
 	DummyHorizontalGridBody,
+	DummyHorizontalGridScroll,
 	DummyHorizontalGridFooter
 } from '../../../../../../components';
 import { useUserTheme } from '../../../../../../common/hooks';
@@ -26,7 +27,9 @@ const TrendingDummyAllTabHorizontalGrid: FC<TrendingDummyAllTabHorizontalGridPro
 	return (
 		<DummyHorizontalGrid colorMode={colorMode} isFullWidth spacing={2} p={2}>
 			<DummyHorizontalGridHeader hasTitle hasSubtitle spacing={0} />
-			<DummyHorizontalGridBody>{children}</DummyHorizontalGridBody>
+			<DummyHorizontalGridBody>
+				<DummyHorizontalGridScroll>{children}</DummyHorizontalGridScroll>
+			</DummyHorizontalGridBody>
 			<DummyHorizontalGridFooter>
 				<DummyButton color={color} colorMode={colorMode} isFullWidth size={isSm ? 'xs' : 'sm'} variant='text'>
 					View all TOTAL Trending MEDIA-TYPE

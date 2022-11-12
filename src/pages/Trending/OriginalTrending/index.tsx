@@ -124,19 +124,6 @@ const Trending: FC = () => {
 
 	const { isError: isTrendingPeopleError } = trendingPeopleInfiniteQuery;
 
-	const handleTitle = (): string => {
-		if (activeTab > 0) {
-			const activeMediaType = formatMediaTypeLabel({
-				type: 'multiple',
-				mediaType: trendingMediaTypes[activeTabDebounced - 1]
-			});
-
-			return `Trending ${activeMediaType}`;
-		} else {
-			return 'Trending';
-		}
-	};
-
 	const handleSubtitle = (): string => {
 		if (activeTab > 0) {
 			const activeMediaType = formatMediaTypeLabel({
@@ -179,7 +166,7 @@ const Trending: FC = () => {
 	return (
 		<Page>
 			<PageHeader
-				renderTitle={(props) => <Text {...props}>{handleTitle()}</Text>}
+				renderTitle={(props) => <Text {...props}>Trending</Text>}
 				renderSubtitle={(props) => <Text {...props}>{handleSubtitle()}</Text>}
 				actions={activeTabDebounced !== 0 ? <DisplayMode /> : undefined}
 				direction='row'
