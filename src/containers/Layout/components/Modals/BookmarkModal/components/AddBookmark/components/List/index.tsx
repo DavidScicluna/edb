@@ -78,11 +78,11 @@ const List: FC<ListProps> = (props) => {
 
 						<Text align='left' fontSize='xs' fontWeight='normal' textTransform='capitalize' noOfLines={1}>
 							{compact([
-								mediaItems.movies.length + mediaItems.tv.length > 0
-									? `Total of ${mediaItems.movies.length + mediaItems.tv.length} items`
+								mediaItems.movie.length + mediaItems.tv.length > 0
+									? `Total of ${mediaItems.movie.length + mediaItems.tv.length} items`
 									: null,
 								createdAt ? `Created ${dayjs(createdAt).fromNow()}` : null,
-								mediaItems.movies.length + mediaItems.tv.length > 0 && updatedAt
+								mediaItems.movie.length + mediaItems.tv.length > 0 && updatedAt
 									? `Updated ${dayjs(updatedAt).fromNow()}`
 									: null
 							]).join(' • ')}

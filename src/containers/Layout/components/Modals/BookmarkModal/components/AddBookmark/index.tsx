@@ -21,13 +21,13 @@ import { sort } from 'fast-sort';
 
 import { CommonBookmarkModalProps as AddBookmarkProps } from '../../common/types';
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
-import CreateList from '../../../../../../../pages/User/pages/Lists/components/CreateList';
 import { setUserLists } from '../../../../../../../store/slices/Users';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import { FullMovie } from '../../../../../../../common/types/movie';
 import { FullTV } from '../../../../../../../common/types/tv';
 import { UserList as UserList, UserListMediaItems, MediaItem } from '../../../../../../../store/slices/Users/types';
 import { useLayoutContext } from '../../../../../common/hooks';
+import CreateList from '../../../../../../../pages/User/UserProfiles/OriginalUserProfile/components/UserProfileTabs/components/MyListsTab/components/CreateList';
 
 import { BookmarkListSelected } from './types';
 import List from './components/List';
@@ -118,6 +118,7 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 		onClose();
 	}, [id, lists, selected, mediaType, mediaItem, onClose]);
 
+	// TODO: Go over all useCallback and remove unnecessary ones ... only leave ones that contain debounce or ref
 	const handleResetModal = useCallback((): void => {
 		setSelected([]);
 	}, []);
