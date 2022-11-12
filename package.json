@@ -188,5 +188,5 @@
     "@chakra-ui/visually-hidden": "2.0.4"
   },
   "license": "MIT",
-  "packageManager": "yarn@3.2.3"
+  "packageManager": "yarn@3.2.4"
 }
