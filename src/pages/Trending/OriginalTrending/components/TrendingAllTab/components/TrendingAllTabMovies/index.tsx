@@ -42,7 +42,7 @@ const TrendingAllTabMovies: FC<TrendingAllTabMoviesProps> = ({ query, movies, on
 				type: 'multiple',
 				mediaType: 'movie'
 			})}`}
-			onFooterClick={onTabChange ? () => onTabChange({ mediaType: 'movie' }) : undefined}
+			onFooterClick={total > 0 && onTabChange ? () => onTabChange({ mediaType: 'movie' }) : undefined}
 		>
 			{!(isFetching || isLoading) && isError ? (
 				<QueryEmpty color={color} colorMode={colorMode}>

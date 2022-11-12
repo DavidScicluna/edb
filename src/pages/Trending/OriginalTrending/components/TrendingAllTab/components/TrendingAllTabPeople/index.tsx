@@ -42,7 +42,7 @@ const TrendingAllTabPeople: FC<TrendingAllTabPeopleProps> = ({ query, people, on
 				type: 'multiple',
 				mediaType: 'person'
 			})}`}
-			onFooterClick={onTabChange ? () => onTabChange({ mediaType: 'person' }) : undefined}
+			onFooterClick={total > 0 && onTabChange ? () => onTabChange({ mediaType: 'person' }) : undefined}
 		>
 			{!(isFetching || isLoading) && isError ? (
 				<QueryEmpty color={color} colorMode={colorMode}>
