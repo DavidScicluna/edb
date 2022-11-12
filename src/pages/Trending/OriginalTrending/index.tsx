@@ -2,7 +2,7 @@ import { FC, useState, lazy } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { TabsOnChangeProps, Tabs, TabList, TabPanels, Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, TabsOnChangeProps, Tabs, TabList, TabPanels } from '@davidscicluna/component-library';
 
 import { VStack, Text } from '@chakra-ui/react';
 
@@ -15,7 +15,7 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import { useDebounce, useUserTheme } from '../../../common/hooks';
 import { formatMediaType, formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
-import { DisplayMode, Suspense, TabIcon } from '../../../components';
+import { Suspense, TabIcon } from '../../../components';
 import TrendingDummyMoviesTab from '../components/TrendingDummyMoviesTab';
 import TrendingDummyPeopleTab from '../components/TrendingDummyPeopleTab';
 import TrendingDummyTVShowsTab from '../components/TrendingDummyTVShowsTab';
@@ -30,6 +30,7 @@ import TrendingDummyAllTab from '../components/TrendingDummyAllTab';
 
 import { TrendingMediaTypes } from './types';
 import { getMediaTypeIndex } from './common/utils';
+import TrendingDisplayMode from './components/TrendingDisplayMode';
 
 const TrendingAllTab = lazy(() => import('./components/TrendingAllTab'));
 const TrendingMoviesTab = lazy(() => import('./components/TrendingMoviesTab'));
@@ -168,7 +169,6 @@ const Trending: FC = () => {
 			<PageHeader
 				renderTitle={(props) => <Text {...props}>Trending</Text>}
 				renderSubtitle={(props) => <Text {...props}>{handleSubtitle()}</Text>}
-				actions={activeTabDebounced !== 0 ? <DisplayMode /> : undefined}
 				direction='row'
 				spacing={spacing}
 				px={spacing}
@@ -236,6 +236,7 @@ const Trending: FC = () => {
 									)
 								}
 							]}
+							renderRight={activeTabDebounced !== 0 ? () => <TrendingDisplayMode /> : undefined}
 						/>
 
 						<TabPanels>
