@@ -11,7 +11,13 @@ const DummyHorizontalGridTabbedBody: FC<DummyHorizontalGridTabbedBodyProps> = ({
 		<CardBody {...rest}>
 			<TabPanels>
 				{children.map((panel, index) => (
-					<HStack key={index} spacing={spacing}>
+					<HStack
+						key={index}
+						width='fit-content'
+						alignItems='stretch'
+						justifyContent='stretch'
+						spacing={spacing}
+					>
 						{panel}
 					</HStack>
 				))}
