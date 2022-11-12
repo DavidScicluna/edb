@@ -12,7 +12,7 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import { useDebounce, useUserTheme } from '../../../common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
-import { DummyDisplayMode, DummyTabIcon } from '../../../components';
+import { DummyTabIcon } from '../../../components';
 import TrendingDummyMoviesTab from '../components/TrendingDummyMoviesTab';
 import TrendingDummyPeopleTab from '../components/TrendingDummyPeopleTab';
 import TrendingDummyTVShowsTab from '../components/TrendingDummyTVShowsTab';
@@ -48,7 +48,6 @@ const DummyTrending: FC = () => {
 						<Text {...props}>A list containing the most trending media-type this week.</Text>
 					</Skeleton>
 				)}
-				actions={activeTabDebounced !== 0 ? <DummyDisplayMode /> : undefined}
 				direction='row'
 				spacing={spacing}
 				px={spacing}
