@@ -36,7 +36,7 @@ const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement 
 		lists.forEach((list) => {
 			switch (mediaType) {
 				case 'movie': {
-					if (list.mediaItems.movies.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
+					if (list.mediaItems.movie.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
 						isBookmarked = true;
 						inLists = inLists + 1;
 					}
