@@ -38,7 +38,7 @@ const DummyUserDetails: FC<DummyUserDetailsProps> = ({ color = defaultColor, col
 			<VStack
 				width={['100%', '100%', `calc(100% - ${buttonWidth + handleConvertSpacing(theme.space[6])}px)`]}
 				alignItems='flex-start'
-				spacing={0}
+				spacing={0.5}
 			>
 				<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 					<Text align='left' fontSize='4xl' fontWeight='semibold' noOfLines={1}>

@@ -15,4 +15,5 @@ export type UserProfileTab = Pick<TabListTab, 'label'> & {
 	renderIcon?: (props: RenderIconProps) => ReactNode;
 	path: Partial<Location>;
 };
+
 export type UserProfileTabs = UserProfileTab[];

@@ -11,6 +11,7 @@ import {
 	DummyHorizontalGrid,
 	DummyHorizontalGridHeader,
 	DummyHorizontalGridBody,
+	DummyHorizontalGridScroll,
 	DummyHorizontalGridFooter,
 	DummyVerticalPoster
 } from '../../../../../../../../../../components';
@@ -29,14 +30,16 @@ const OverviewTabWatchlist: FC = () => {
 			<DummyHorizontalGridHeader hasTitle hasSubtitle spacing={0} />
 
 			<DummyHorizontalGridBody>
-				{rangeRight(20).map((_dummy, index) => (
-					<DummyVerticalPoster
-						key={index}
-						mediaType={index % 2 ? 'tv' : 'movie'}
-						hasSubtitle
-						sx={{ width }}
-					/>
-				))}
+				<DummyHorizontalGridScroll>
+					{rangeRight(20).map((_dummy, index) => (
+						<DummyVerticalPoster
+							key={index}
+							mediaType={index % 2 ? 'tv' : 'movie'}
+							hasSubtitle
+							sx={{ width }}
+						/>
+					))}
+				</DummyHorizontalGridScroll>
 			</DummyHorizontalGridBody>
 
 			<DummyHorizontalGridFooter>
