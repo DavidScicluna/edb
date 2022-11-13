@@ -4,7 +4,7 @@ import { Tooltip, Icon } from '@davidscicluna/component-library';
 
 import { Center } from '@chakra-ui/react';
 
-import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
+import { colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 
 import { PasswordIconProps } from './types';
 
