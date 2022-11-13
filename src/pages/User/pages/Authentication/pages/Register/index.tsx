@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState, useCallback, useEffect } from 'react';
+import { FC, ReactElement, useState, useCallback } from 'react';
 
 import { useNavigate, useOutletContext } from 'react-router';
 
@@ -26,7 +26,7 @@ import {
 	utils
 } from '@davidscicluna/component-library';
 
-import { useDisclosure } from '@chakra-ui/react';
+import { ColorMode, useDisclosure } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
 import { useDispatch } from 'react-redux';
@@ -36,8 +36,9 @@ import sha256 from 'crypto-js/sha256';
 import dayjs from 'dayjs';
 import { isEmpty, isNil, omit } from 'lodash';
 import { v4 as uuid } from 'uuid';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { useSelector, useUserTheme } from '../../../../../../common/hooks';
+import { useSelector } from '../../../../../../common/hooks';
 import { defaultUser, setUserInfo, setUserTheme, setUsers, setUser } from '../../../../../../store/slices/Users';
 import { User, UserInfo, UserCredentials } from '../../../../../../store/slices/Users/types';
 import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
@@ -83,7 +84,6 @@ const { getHue, getColorMode } = utils;
 
 const Register: FC = () => {
 	const theme = useTheme();
-	const userTheme = useUserTheme();
 
 	const { spacing } = useLayoutContext();
 
@@ -93,6 +93,7 @@ const Register: FC = () => {
 	const { colorMode = defaultColorMode, setColor, setColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const dispatch = useDispatch();
+	const guest = useSelector((state) => state.users.data.activeUser);
 	const users = useSelector((state) => state.users.data.users || []);
 
 	const [steps, setSteps] = useState<Step[]>([...defaultSteps]);
@@ -130,7 +131,7 @@ const Register: FC = () => {
 	const customizationForm = useForm<RegisterCustomizationForm>({
 		mode: 'onTouched',
 		reValidateMode: 'onChange',
-		defaultValues: { ...customizationDefaultValues, ...userTheme }
+		defaultValues: { ...customizationDefaultValues, ...guest.ui.theme }
 	});
 
 	const { control: controlCustomizationForm, getValues: getCustomizationFormValues } = customizationForm;
@@ -297,7 +298,7 @@ const Register: FC = () => {
 
 		const credentials: UserCredentials = {
 			username: details.username,
-			password: sha256(details.password).toString(),
+			password: sha256(details.newPassword).toString(),
 			rememberMe: false
 		};
 
@@ -334,8 +335,16 @@ const Register: FC = () => {
 		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
 
-	useEffect(() => setColor(watchColor), [watchColor]);
-	useEffect(() => setColorMode(watchColorMode === 'system' ? getColorMode() : watchColorMode), [watchColorMode]);
+	const handleSetUserTheme = (): void => {
+		const colorMode: ColorMode = watchColorMode === 'system' ? getColorMode() : watchColorMode;
+
+		updateFavicon({ color: watchColor, colorMode });
+
+		setColor(watchColor);
+		setColorMode(colorMode);
+	};
+
+	useUpdateEffect(() => handleSetUserTheme(), [watchColor, watchColorMode]);
 
 	return (
 		<>

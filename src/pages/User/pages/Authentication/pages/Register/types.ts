@@ -1,10 +1,12 @@
 import { UserCredentials, UserInfo, UserInfoGenres, UserTheme } from '../../../../../../store/slices/Users/types';
 
-export type RegisterDetailsForm = {
+export type RegisterDetailsForm = Pick<UserCredentials, 'username'> & {
+	newPassword: string;
+	confirmNewPassword: string;
 	firstName: UserInfo['name'];
 	lastName: UserInfo['name'];
 	bio: UserInfo['bio'];
-} & Omit<UserCredentials, 'rememberMe'>;
+};
 
 export type RegisterGenresForm = UserInfoGenres;
 

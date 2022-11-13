@@ -4,7 +4,8 @@ import { RegisterDetailsForm, RegisterGenresForm, RegisterCustomizationForm, Reg
 
 export const detailsDefaultValues: RegisterDetailsForm = {
 	username: '',
-	password: '',
+	newPassword: '',
+	confirmNewPassword: '',
 	firstName: '',
 	lastName: '',
 	bio: ''
