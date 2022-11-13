@@ -3,6 +3,7 @@ import { FC, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 
 import {
+	Space,
 	Form as DSUIForm,
 	Card,
 	CardHeader,
@@ -19,9 +20,9 @@ import { useBoolean, useConst, VStack, HStack, Text } from '@chakra-ui/react';
 import { useWatch, useFormState, Controller } from 'react-hook-form';
 import { sample } from 'lodash';
 
-import { usernames as placeholders } from '../../../../common/data/placeholders';
+import { usernames as placeholders } from '../../../../../../common/data/placeholders';
 import { useSelector } from '../../../../../../../../common/hooks';
-import { PasswordIcon } from '../../../../components';
+import PasswordIcon from '../../../../../../components/PasswordIcon';
 import {
 	color as defaultColor,
 	colorMode as defaultColorMode
@@ -29,6 +30,8 @@ import {
 import { AuthenticationOutletContext } from '../../../../types';
 
 import { FormProps } from './types';
+
+const spacing: Space[] = [2, 2, 3, 3];
 
 const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
@@ -38,6 +41,7 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 	const { control, handleSubmit } = form;
 
 	const watchUsername = useWatch({ control, name: 'username' });
+	const watchPassword = useWatch({ control, name: 'password' });
 
 	const { isDirty } = useFormState({ control });
 
@@ -67,8 +71,8 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 
 	return (
 		<DSUIForm width='100%' onSubmit={handleSubmit((values) => onSubmit({ ...values }))}>
-			<Card colorMode={colorMode} isFullWidth p={[2, 2, 3, 3]} spacing={0}>
-				<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={[2, 2, 3, 3]}>
+			<Card colorMode={colorMode} isFullWidth p={spacing} spacing={0}>
+				<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={spacing}>
 					<CardHeader
 						renderTitle={(props) => (
 							<Text {...props} fontSize='2xl'>
@@ -83,7 +87,7 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 						)}
 					/>
 					<CardBody>
-						<VStack width='100%' divider={<Divider />} spacing={[2, 2, 3, 3]}>
+						<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={spacing}>
 							<Controller
 								control={control}
 								name='username'
@@ -127,7 +131,7 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 								)}
 							/>
 
-							<VStack width='100%' spacing={2}>
+							<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={spacing}>
 								<Controller
 									control={control}
 									name='password'
@@ -163,75 +167,83 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 									)}
 								/>
 
-								<Controller
-									control={control}
-									name='newPassword'
-									render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
-										<Input
-											color={color}
-											colorMode={colorMode}
-											autoComplete='off'
-											label='New Password'
-											name={name}
-											helper={error ? error.message : undefined}
-											placeholder={isNewPassVisible ? 'password' : '••••••••'}
-											onBlur={onBlur}
-											onChange={onChange}
-											isDisabled={!isUserChecked}
-											isError={!!error}
-											isFullWidth
-											isRequired
-											renderRightPanel={({ color, ...rest }) => (
-												<PasswordIcon
-													{...rest}
-													label='New Password'
-													isVisible={isNewPassVisible}
-													isHovering={isHoveringNewPass}
-													setIsVisible={setIsNewPassVisible}
-													setIsHovering={setIsHoveringNewPass}
-													iconProps={{ ...rest, skeletonColor: color }}
-												/>
-											)}
-											type={isNewPassVisible ? 'text' : 'password'}
-											value={value}
-										/>
-									)}
-								/>
+								<VStack width='100%' spacing={spacing}>
+									<Controller
+										control={control}
+										name='newPassword'
+										render={({
+											field: { onChange, onBlur, value, name },
+											fieldState: { error }
+										}) => (
+											<Input
+												color={color}
+												colorMode={colorMode}
+												autoComplete='off'
+												label='New Password'
+												name={name}
+												helper={error ? error.message : undefined}
+												placeholder={isNewPassVisible ? 'password' : '••••••••'}
+												onBlur={onBlur}
+												onChange={onChange}
+												isDisabled={!isUserChecked && !watchPassword}
+												isError={!!error}
+												isFullWidth
+												isRequired
+												renderRightPanel={({ color, ...rest }) => (
+													<PasswordIcon
+														{...rest}
+														label='New Password'
+														isVisible={isNewPassVisible}
+														isHovering={isHoveringNewPass}
+														setIsVisible={setIsNewPassVisible}
+														setIsHovering={setIsHoveringNewPass}
+														iconProps={{ ...rest, skeletonColor: color }}
+													/>
+												)}
+												type={isNewPassVisible ? 'text' : 'password'}
+												value={value}
+											/>
+										)}
+									/>
 
-								<Controller
-									control={control}
-									name='confirmNewPassword'
-									render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
-										<Input
-											color={color}
-											colorMode={colorMode}
-											autoComplete='off'
-											label='Confirm Password'
-											name={name}
-											helper={error ? error.message : undefined}
-											placeholder={isConfirmPassVisible ? 'password' : '••••••••'}
-											onBlur={onBlur}
-											onChange={onChange}
-											isDisabled={!isUserChecked}
-											isError={!!error}
-											isFullWidth
-											isRequired
-											renderRightPanel={({ color, ...rest }) => (
-												<PasswordIcon
-													{...rest}
-													label='Confirm Password'
-													isVisible={isConfirmPassVisible}
-													isHovering={isHoveringConfirmPass}
-													setIsVisible={setIsConfirmPassVisible}
-													setIsHovering={setIsHoveringConfirmPass}
-													iconProps={{ ...rest, skeletonColor: color }}
-												/>
-											)}
-											type={isConfirmPassVisible ? 'text' : 'password'}
-											value={value}
-										/>
-									)}
-								/>
+									<Controller
+										control={control}
+										name='confirmNewPassword'
+										render={({
+											field: { onChange, onBlur, value, name },
+											fieldState: { error }
+										}) => (
+											<Input
+												color={color}
+												colorMode={colorMode}
+												autoComplete='off'
+												label='Confirm Password'
+												name={name}
+												helper={error ? error.message : undefined}
+												placeholder={isConfirmPassVisible ? 'password' : '••••••••'}
+												onBlur={onBlur}
+												onChange={onChange}
+												isDisabled={!isUserChecked && !watchPassword}
+												isError={!!error}
+												isFullWidth
+												isRequired
+												renderRightPanel={({ color, ...rest }) => (
+													<PasswordIcon
+														{...rest}
+														label='Confirm Password'
+														isVisible={isConfirmPassVisible}
+														isHovering={isHoveringConfirmPass}
+														setIsVisible={setIsConfirmPassVisible}
+														setIsHovering={setIsHoveringConfirmPass}
+														iconProps={{ ...rest, skeletonColor: color }}
+													/>
+												)}
+												type={isConfirmPassVisible ? 'text' : 'password'}
+												value={value}
+											/>
+										)}
+									/>
+								</VStack>
 							</VStack>
 						</VStack>
 					</CardBody>

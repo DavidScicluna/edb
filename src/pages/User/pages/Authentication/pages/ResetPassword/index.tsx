@@ -58,6 +58,7 @@ const ForgotPassword: FC = () => {
 
 	const location = useLocation();
 	const navigate = useNavigate();
+
 	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const dispatch = useDispatch();
@@ -146,7 +147,6 @@ const ForgotPassword: FC = () => {
 						height='100vh'
 						position='fixed'
 						right={`${isXl ? (windowWidth - containerWidth) / 2 : 0}px`}
-						colorMode={colorMode}
 					/>
 				)}
 			</HStack>

@@ -20,9 +20,9 @@ export const schema = yup.object().shape({
 		)
 		.max(30, 'Cannot exceed 30 chars!')
 		.notOneOf([yup.ref('password')], 'New password must not be equal to Password!')
-		.label('Password'),
+		.label('New Password'),
 	confirmNewPassword: yup
 		.string()
 		.oneOf([yup.ref('newPassword')], 'Confirm Password must be equal to New Password!')
-		.label('Password')
+		.label('Confirm Password')
 });
