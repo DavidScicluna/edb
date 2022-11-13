@@ -1,44 +1,29 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { useUpdateEffect } from 'usehooks-ts';
+import { useOutletContext } from 'react-router';
 
 import {
 	color as defaultColor,
 	colorMode as defaultColorMode
 } from '../../../../../../../../common/data/defaultPropValues';
-import UserProfileStructure from '../../../../../../../../components/User/UserProfileStructure';
+import UserProfileUpdateAssets from '../../../../../../components/UserProfileUpdateAssets';
+import { AuthenticationOutletContext } from '../../../../types';
 
-import UserAvatar from './components/UserAvatar';
-import UserBackground from './components/UserBackground';
-import UserDetails from './components/UserDetails';
 import { ProfileProps } from './types';
 
 const Profile: FC<ProfileProps> = (props) => {
-	const { color, colorMode, form, firstName, lastName, username } = props;
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
-	const [alt, setAlt] = useState<string>(`${firstName} ${lastName} (@${username})`);
-
-	useUpdateEffect(() => setAlt(`${firstName} ${lastName} (@${username})`), [firstName, lastName, username]);
+	const { form, firstName, lastName, username } = props;
 
 	return (
-		<UserProfileStructure
+		<UserProfileUpdateAssets
 			color={color}
 			colorMode={colorMode}
-			renderUserAvatar={({ color = defaultColor, colorMode = defaultColorMode }) => (
-				<UserAvatar color={color} colorMode={colorMode} form={form} alt={alt} />
-			)}
-			renderUserBackground={({ color = defaultColor, colorMode = defaultColorMode }) => (
-				<UserBackground color={color} colorMode={colorMode} form={form} alt={alt} />
-			)}
-			renderUserDetails={({ color = defaultColor, colorMode = defaultColorMode }) => (
-				<UserDetails
-					color={color}
-					colorMode={colorMode}
-					firstName={firstName}
-					lastName={lastName}
-					username={username}
-				/>
-			)}
+			form={form}
+			firstName={firstName}
+			lastName={lastName}
+			username={username}
 		/>
 	);
 };
