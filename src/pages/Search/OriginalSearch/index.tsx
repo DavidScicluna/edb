@@ -101,7 +101,6 @@ const OriginalSearch: FC = () => {
 	const [activeTab, setActiveTab] = useState<number>(defaultActiveTab);
 
 	const [keywords, setKeywords] = useState<UseKeywordsInfiniteQueryResponse>();
-	const keywordsDebounced = useDebounce<Undefinable<UseKeywordsInfiniteQueryResponse>>(keywords, 'ultra-fast');
 
 	const [movies, setMovies] = useState<UseSearchInfiniteQueryResponse<'movie'>>();
 	const moviesDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'movie'>>>(movies, 'slow');
@@ -131,7 +130,7 @@ const OriginalSearch: FC = () => {
 
 	// Query Keywords
 	const keywordsInfiniteQuery = useKeywordsInfiniteQuery({
-		props: { query: watchQuery },
+		props: { query: watchQueryDebounced },
 		options: {
 			enabled: false,
 			onSuccess: (data) => {
@@ -155,7 +154,7 @@ const OriginalSearch: FC = () => {
 
 	// Searching Movies
 	useSearchInfiniteQuery<'movie'>({
-		props: { mediaType: 'movie', query: watchQuery },
+		props: { mediaType: 'movie', query: watchQueryDebounced },
 		options: {
 			enabled:
 				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'movie')) &&
@@ -181,7 +180,7 @@ const OriginalSearch: FC = () => {
 
 	// Searching TV Shows
 	useSearchInfiniteQuery<'tv'>({
-		props: { mediaType: 'tv', query: watchQuery },
+		props: { mediaType: 'tv', query: watchQueryDebounced },
 		options: {
 			enabled:
 				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'tv')) &&
@@ -207,7 +206,7 @@ const OriginalSearch: FC = () => {
 
 	// Searching People
 	useSearchInfiniteQuery<'person'>({
-		props: { mediaType: 'person', query: watchQuery },
+		props: { mediaType: 'person', query: watchQueryDebounced },
 		options: {
 			enabled:
 				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'person')) &&
@@ -233,7 +232,7 @@ const OriginalSearch: FC = () => {
 
 	// Searching Companies
 	useSearchInfiniteQuery<'company'>({
-		props: { mediaType: 'company', query: watchQuery },
+		props: { mediaType: 'company', query: watchQueryDebounced },
 		options: {
 			enabled:
 				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'company')) &&
@@ -259,7 +258,7 @@ const OriginalSearch: FC = () => {
 
 	// Searching Collections
 	useSearchInfiniteQuery<'collection'>({
-		props: { mediaType: 'collection', query: watchQuery },
+		props: { mediaType: 'collection', query: watchQueryDebounced },
 		options: {
 			enabled:
 				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'collection')) &&
@@ -288,7 +287,7 @@ const OriginalSearch: FC = () => {
 			location,
 			watchQuery: watchQueryDebounced,
 			isSearchInputFocused,
-			total: keywordsDebounced?.total_results
+			total: keywords?.total_results
 		});
 
 		setIsKeywordsVisible[isVisible ? 'on' : 'off']();
@@ -326,7 +325,7 @@ const OriginalSearch: FC = () => {
 					collections: collectionsDebounced?.total_results
 				})
 			);
-		}, 500),
+		}, 250),
 		[moviesDebounced, showsDebounced, peopleDebounced, companiesDebounced, collectionsDebounced, getQueryDataStatus]
 	);
 
@@ -361,7 +360,7 @@ const OriginalSearch: FC = () => {
 			navigate({ ...location, search: qs.stringify({ query, searchTypes }) });
 
 			setTimeout(() => setIsSubmitQuerySuccessful.on(), 250);
-		}, 500),
+		}, 250),
 		[location, id, recentSearches]
 	);
 
@@ -393,9 +392,11 @@ const OriginalSearch: FC = () => {
 
 	useUpdateEffect(() => {
 		handleKeywordsVisibility();
-	}, [location.search, watchQueryDebounced, isSearchInputFocused, keywordsDebounced]);
+	}, [location.search, watchQueryDebounced, isSearchInputFocused, keywords]);
 
 	useUpdateEffect(() => handleGetKeywords(), [watchQueryDebounced]);
+
+	useUpdateEffect(() => setIsSubmitQuerySuccessful.off(), [watchQueryDebounced]);
 
 	useUpdateEffect(() => {
 		handleQueryData();
@@ -458,7 +459,7 @@ const OriginalSearch: FC = () => {
 										>
 											<Keywords
 												query={keywordsInfiniteQuery}
-												keywords={keywordsDebounced}
+												keywords={keywords}
 												onKeywordClick={({ name = '' }) =>
 													handleSubmitQuery({
 														query: name,
@@ -552,7 +553,7 @@ const OriginalSearch: FC = () => {
 						</QueryEmpty>
 					) : (
 						(queryDataStatusDebounced === 'single' || queryDataStatusDebounced === 'multiple') && (
-							<Center width='100%'>
+							<Center width='100%' pt={queryDataStatusDebounced === 'single' ? spacing : 0}>
 								{queryDataStatusDebounced === 'multiple' ? (
 									<Suspense fallback={<SearchDummyTabs />}>
 										<SearchTabs
