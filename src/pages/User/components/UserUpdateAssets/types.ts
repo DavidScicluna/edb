@@ -10,12 +10,12 @@ export type FileInputRef = HTMLInputElement | null;
 
 export type ChangeEvent = CE<HTMLInputElement>;
 
-export type UserProfileUpdateAssetsForm = Pick<UserInfo, 'avatar_path' | 'background_path'>;
+export type UserUpdateAssetsForm = Pick<UserInfo, 'avatar_path' | 'background_path'>;
 
-export type UserProfileUpdateAssetsProps = {
+export type UserUpdateAssetsProps = {
 	color: UserThemeColor;
 	colorMode: ColorMode;
-	form: UseFormReturn<UserProfileUpdateAssetsForm>;
+	form: UseFormReturn<UserUpdateAssetsForm>;
 	username: string;
 	firstName: string;
 	lastName: string;
