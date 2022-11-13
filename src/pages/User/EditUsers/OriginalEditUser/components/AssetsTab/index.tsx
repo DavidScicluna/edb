@@ -5,7 +5,7 @@ import { useFormState, useWatch } from 'react-hook-form';
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { useSelector } from '../../../../../../common/hooks';
 import EditUserStructure from '../EditUserStructure';
-import UpdateUserAssets from '../../../../components/UpdateUserAssets';
+import UserUpdateAssets from '../../../../components/UserUpdateAssets';
 
 import { AssetsTabProps } from './types';
 
@@ -23,6 +23,13 @@ const AssetsTab: FC<AssetsTabProps> = (props) => {
 
 	const { isDirty } = useFormState({ control });
 
+	// usePrompt({
+	// 	title: 'Unsubmitted Changes!',
+	// 	subtitle:
+	// 'Are you sure you want to cancel editing the Avatar & Background? Once you close the page you will not be able to retrieve the changed data!',
+	// 	when: isDirty
+	// });
+
 	const handleClear = (): void => {
 		reset({ avatar_path, background_path });
 	};
@@ -39,7 +46,7 @@ const AssetsTab: FC<AssetsTabProps> = (props) => {
 			}
 			onSubmit={handleSubmit(onSubmit)}
 		>
-			<UpdateUserAssets
+			<UserUpdateAssets
 				color={color}
 				colorMode={colorMode}
 				form={form}

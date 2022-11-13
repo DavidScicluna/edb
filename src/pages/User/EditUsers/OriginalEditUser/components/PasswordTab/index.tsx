@@ -7,7 +7,7 @@ import { useBoolean, VStack } from '@chakra-ui/react';
 import { Controller, useWatch } from 'react-hook-form';
 
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
-import { PasswordIcon } from '../../../../../Authentication/components';
+import PasswordIcon from '../../../../components/PasswordIcon';
 import EditUserStructure from '../EditUserStructure';
 
 import { PasswordTabProps } from './types';
@@ -21,6 +21,15 @@ const PasswordTab: FC<PasswordTabProps> = (props) => {
 	const watchPassword = useWatch({ control, name: 'password' });
 	const watchNewPassword = useWatch({ control, name: 'newPassword' });
 	const watchConfirmNewPassword = useWatch({ control, name: 'confirmNewPassword' });
+
+	// const { isDirty } = useFormState({ control });
+
+	// usePrompt({
+	// 	title: 'Unsubmitted Changes!',
+	// 	subtitle:
+	// 		'Are you sure you want to cancel editing the Password? Once you close the page you will not be able to retrieve the changed data!',
+	// 	when: isDirty
+	// });
 
 	// Current Password
 	const [isCurrentPassVisible, setIsCurrentPassVisible] = useBoolean();

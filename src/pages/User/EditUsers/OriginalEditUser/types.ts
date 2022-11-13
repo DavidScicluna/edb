@@ -1,7 +1,3 @@
-import { Location } from 'react-router';
-
-import { TabListTab } from '@davidscicluna/component-library';
-
 import { UserCredentials, UserInfo, UserInfoGenres, UserTheme } from '../../../../store/slices/Users/types';
 
 export type EditUserDetailsForm = Pick<UserInfo, 'bio'> & {
@@ -19,9 +15,3 @@ export type EditUserGenresForm = UserInfoGenres;
 export type EditUserCustomizationForm = UserTheme;
 
 export type EditUserAssetsForm = Pick<UserInfo, 'avatar_path' | 'background_path'>;
-
-export type EditUserTab = Pick<TabListTab, 'label'> & {
-	path: Partial<Location>;
-};
-
-export type EditUserTabs = EditUserTab[];

@@ -11,7 +11,7 @@ import { Headline } from '../../../../../../components';
 
 import { EditUserStructureProps } from './types';
 
-const EditUserForm: FC<EditUserStructureProps> = (props) => {
+const EditUserStructure: FC<EditUserStructureProps> = (props) => {
 	const { spacing } = useLayoutContext();
 
 	const { id } = useSelector((state) => state.users.data.activeUser.data);
@@ -71,4 +71,4 @@ const EditUserForm: FC<EditUserStructureProps> = (props) => {
 	);
 };
 
-export default EditUserForm;
+export default EditUserStructure;

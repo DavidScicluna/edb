@@ -14,6 +14,11 @@ import { useWillUnmount } from 'rooks';
 import { SHA256 } from 'crypto-js';
 import { sort } from 'fast-sort';
 
+import DummyPasswordTab from '../components/EditUsersDummyPasswordTab';
+import DummyDetailsTab from '../components/EditUsersDummyDetailsTab';
+import DummyGenresTab from '../components/EditUsersDummyGenresTab';
+import DummyAssetsTab from '../components/EditUsersDummyAssetsTab';
+import DummyCustomizationTab from '../components/EditUsersDummyCustomizationTab';
 import { useSelector } from '../../../../common/hooks';
 import Page from '../../../../containers/Page';
 import PageBody from '../../../../containers/Page/components/PageBody';
@@ -23,6 +28,7 @@ import { Suspense } from '../../../../components';
 import PageHeader from '../../../../containers/Page/components/PageHeader';
 import { setUser, setUserInfo, setUsers, setUserTheme } from '../../../../store/slices/Users';
 import { updateFavicon } from '../../../../common/utils';
+import tabs from '../common/data/tabs';
 
 import GenresTab from './components/GenresTab';
 import DetailsTab from './components/DetailsTab';
@@ -30,7 +36,6 @@ import PasswordTab from './components/PasswordTab';
 import CustomizationTab from './components/CustomizationTab';
 import AssetsTab from './components/AssetsTab';
 import {
-	EditUserTabs,
 	EditUserDetailsForm,
 	EditUserPasswordForm,
 	EditUserGenresForm,
@@ -47,29 +52,6 @@ import {
 import { detailsSchema, passwordSchema } from './validation';
 
 const { getColorMode } = utils;
-
-const tabs: EditUserTabs = [
-	{
-		path: { hash: 'details' },
-		label: 'Details'
-	},
-	{
-		path: { hash: 'password' },
-		label: 'Password'
-	},
-	{
-		path: { hash: 'genres' },
-		label: 'Favored Genres'
-	},
-	{
-		path: { hash: 'customization' },
-		label: 'Customization'
-	},
-	{
-		path: { hash: 'assets' },
-		label: 'Avatar & Background'
-	}
-];
 
 const EditUser: FC = () => {
 	const { setColorMode: setCUIColorMode } = useColorMode();
@@ -365,7 +347,7 @@ const EditUser: FC = () => {
 						<TabList tabs={tabs} />
 
 						<TabPanels>
-							<Suspense>
+							<Suspense fallback={<DummyDetailsTab />}>
 								<DetailsTab
 									form={detailsForm}
 									color={watchColor}
@@ -374,7 +356,7 @@ const EditUser: FC = () => {
 								/>
 							</Suspense>
 
-							<Suspense>
+							<Suspense fallback={<DummyPasswordTab />}>
 								<PasswordTab
 									form={passwordForm}
 									color={watchColor}
@@ -383,7 +365,7 @@ const EditUser: FC = () => {
 								/>
 							</Suspense>
 
-							<Suspense>
+							<Suspense fallback={<DummyGenresTab />}>
 								<GenresTab
 									form={genresForm}
 									color={watchColor}
@@ -392,7 +374,7 @@ const EditUser: FC = () => {
 								/>
 							</Suspense>
 
-							<Suspense>
+							<Suspense fallback={<DummyCustomizationTab />}>
 								<CustomizationTab
 									defaultUserTheme={defaultUserTheme}
 									form={customizationForm}
@@ -402,7 +384,7 @@ const EditUser: FC = () => {
 								/>
 							</Suspense>
 
-							<Suspense>
+							<Suspense fallback={<DummyAssetsTab />}>
 								<AssetsTab
 									form={assetsForm}
 									color={watchColor}

@@ -2,8 +2,8 @@ import { FC } from 'react';
 
 import { useFormState, useWatch } from 'react-hook-form';
 
-import UserThemeCustomization from '../../../../../../components/User/UserThemeCustomization';
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
+import UserThemeCustomization from '../../../../components/UserThemeCustomization';
 import EditUserStructure from '../EditUserStructure';
 
 import { CustomizationTabProps } from './types';
@@ -16,6 +16,13 @@ const CustomizationTab: FC<CustomizationTabProps> = (props) => {
 	const watchColorMode = useWatch({ control, name: 'colorMode' });
 
 	const { isDirty } = useFormState({ control });
+
+	// usePrompt({
+	// 	title: 'Unsubmitted Changes!',
+	// 	subtitle:
+	// 		'Are you sure you want to cancel editing the Color & Mode? Once you close the page you will not be able to retrieve the changed data!',
+	// 	when: isDirty
+	// });
 
 	const handleClear = (): void => {
 		reset({ ...defaultUserTheme });

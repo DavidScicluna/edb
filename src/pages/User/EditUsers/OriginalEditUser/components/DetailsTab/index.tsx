@@ -5,14 +5,14 @@ import { useTheme, Card, CardBody, Input, Textarea, Icon } from '@davidscicluna/
 import { useMediaQuery, useConst, VStack, SimpleGrid } from '@chakra-ui/react';
 
 import { range, sample } from 'lodash';
-import { useWatch, Controller, useFormState } from 'react-hook-form';
+import { Controller, useWatch, useFormState } from 'react-hook-form';
 
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import {
 	usernames as usernamePlaceholders,
 	firstNames as firstNamePlaceholders,
 	lastNames as lastNamePlaceholders
-} from '../../../../../Authentication/common/data/placeholders';
+} from '../../../../common/data/placeholders';
 import { useSelector } from '../../../../../../common/hooks';
 import EditUserStructure from '../EditUserStructure';
 
@@ -49,7 +49,12 @@ const DetailsTab: FC<DetailsTabProps> = (props) => {
 	const userFirstName = userName && userName[0] ? userName[0] : '';
 	const userLastName = userName && userName[1] ? userName[1] : '';
 
-	const isFooterVisible = !(!watchFirstName && !watchLastName && !watchBio);
+	// usePrompt({
+	// 	title: 'Unsubmitted Changes!',
+	// 	subtitle:
+	// 		'Are you sure you want to cancel editing the Details? Once you close the page you will not be able to retrieve the changed data!',
+	// 	when: isDirty
+	// });
 
 	const handleClear = (): void => {
 		reset({ firstName: userFirstName, lastName: userLastName, bio });
@@ -69,7 +74,7 @@ const DetailsTab: FC<DetailsTabProps> = (props) => {
 			}
 			onSubmit={handleSubmit(onSubmit)}
 		>
-			<Card colorMode={colorMode} isDivisible={isFooterVisible} isFullWidth variant='outlined' p={2}>
+			<Card colorMode={colorMode} isFullWidth variant='outlined' p={2}>
 				<CardBody>
 					<VStack width='100%' spacing={2}>
 						<Input
