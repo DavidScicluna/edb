@@ -119,7 +119,7 @@ const MyListsTab: FC = () => {
 
 						<TabPanels>
 							{compact([
-								<Suspense key='MyListsTabs_AllTab' fallback={<DummyAllTab />}>
+								<Suspense key='ds-edb-MyListsTabs-AllTab' fallback={<DummyAllTab />}>
 									<AllTab
 										selectedList={selectedListDebounced}
 										isListActionsOpen={isListActionsOpen}
@@ -135,7 +135,10 @@ const MyListsTab: FC = () => {
 								...sort(lists)
 									.desc(({ updatedAt }) => updatedAt)
 									.map((list) => (
-										<Suspense key={`MyListsTabs_ListTab_${list.label}`} fallback={<DummyListTab />}>
+										<Suspense
+											key={`ds-edb-MyListsTabs-ListTab-${list.label}`}
+											fallback={<DummyListTab />}
+										>
 											<ListTab
 												list={list}
 												onEditList={onEditListOpen}

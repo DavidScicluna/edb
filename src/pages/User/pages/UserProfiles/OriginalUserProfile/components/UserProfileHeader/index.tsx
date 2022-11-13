@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useConst } from '@chakra-ui/react';
 
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
-import UserProfileStructure from '../../../../../components/UserProfileStructure';
+import UserAssetsStructure from '../../../../../components/UserAssetsStructure';
 
 import UserAvatar from './components/UserAvatar';
 import UserBackground from './components/UserBackground';
@@ -20,7 +20,7 @@ const UserProfileHeader: FC = () => {
 	const alt = useConst<string>(`${name} (@${username})`);
 
 	return (
-		<UserProfileStructure
+		<UserAssetsStructure
 			color={color}
 			colorMode={colorMode}
 			renderUserAvatar={(props) => <UserAvatar {...props} alt={alt} />}

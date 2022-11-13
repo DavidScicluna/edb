@@ -334,7 +334,7 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 				<TabPanels>
 					{compact([
 						<Suspense
-							key='UserProfileTabsTabs_AllTab'
+							key='ds-edb-UserProfileTabsTabs-AllTab'
 							fallback={
 								<DummyAllTab
 									mediaTypes={compact([
@@ -365,19 +365,19 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 						</Suspense>,
 
 						mediaTypesDebounced.some((mediaType) => mediaType === 'movie') && (
-							<Suspense key='UserProfileTabsTabs_MoviesTab' fallback={<DummyMoviesTab />}>
+							<Suspense key='ds-edb-UserProfileTabsTabs-MoviesTab' fallback={<DummyMoviesTab />}>
 								<MoviesTab movies={movie} />
 							</Suspense>
 						),
 
 						mediaTypesDebounced.some((mediaType) => mediaType === 'tv') && (
-							<Suspense key='UserProfileTabsTabs_TVShowsTab' fallback={<DummyTVShowsTab />}>
+							<Suspense key='ds-edb-UserProfileTabsTabs-TVShowsTab' fallback={<DummyTVShowsTab />}>
 								<TVShowsTab shows={tv} />
 							</Suspense>
 						),
 
 						mediaTypesDebounced.some((mediaType) => mediaType === 'person') && (
-							<Suspense key='UserProfileTabsTabs_PeopleTab' fallback={<DummyPeopleTab />}>
+							<Suspense key='ds-edb-UserProfileTabsTabs-PeopleTab' fallback={<DummyPeopleTab />}>
 								<PeopleTab people={person} />
 							</Suspense>
 						)
