@@ -9,6 +9,7 @@ import {
 	DummyHorizontalGrid,
 	DummyHorizontalGridHeader,
 	DummyHorizontalGridBody,
+	DummyHorizontalGridScroll,
 	DummyHorizontalGridFooter
 } from '../../../../../../../../../components';
 
@@ -26,7 +27,9 @@ const DummyAllTabHorizontalGrid: FC<DummyAllTabHorizontalGridProps> = ({ childre
 	return (
 		<DummyHorizontalGrid colorMode={colorMode} isFullWidth spacing={2} p={2}>
 			<DummyHorizontalGridHeader hasTitle hasSubtitle spacing={0} />
-			<DummyHorizontalGridBody>{children}</DummyHorizontalGridBody>
+			<DummyHorizontalGridBody>
+				<DummyHorizontalGridScroll>{children}</DummyHorizontalGridScroll>
+			</DummyHorizontalGridBody>
 			<DummyHorizontalGridFooter>
 				<DummyButton color={color} colorMode={colorMode} isFullWidth size={isSm ? 'xs' : 'sm'} variant='text'>
 					View all TOTAL MEDIA-TYPE in Tab

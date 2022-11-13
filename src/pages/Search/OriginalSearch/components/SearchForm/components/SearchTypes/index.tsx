@@ -19,6 +19,7 @@ import { Controller } from 'react-hook-form';
 import { useUserTheme } from '../../../../../../../common/hooks';
 import { getMediaTypeIcon } from '../../../../../../../common/utils';
 import allSearchTypes from '../../common/data/searchTypes';
+import { MediaType } from '../../../../../../../common/types';
 
 import { SearchTypesProps } from './types';
 
@@ -98,7 +99,7 @@ const SearchTypes: FC<SearchTypesProps> = ({ form }) => {
 												height={`${height}px`}
 												fontSize={`${height}px`}
 												colorMode={colorMode}
-												icon={getMediaTypeIcon({ mediaType: value })}
+												icon={getMediaTypeIcon({ mediaType: value as MediaType })}
 												category={isActive ? 'filled' : 'outlined'}
 												skeletonColor={color}
 											/>

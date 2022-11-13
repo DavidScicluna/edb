@@ -15,7 +15,7 @@ import { SearchForm } from '../../../../../types';
 import { SearchInfosCommonProps as SearchInfoXlProps } from '../common/types';
 import { getLabel, getTotal } from '../common/utils';
 
-const { getColor } = utils;
+const { convertStringToNumber, getColor } = utils;
 
 const SearchInfoXl: FC<SearchInfoXlProps> = ({ total }) => {
 	const theme = useTheme();
@@ -34,8 +34,8 @@ const SearchInfoXl: FC<SearchInfoXlProps> = ({ total }) => {
 		ref: countUpRef,
 		start: 0,
 		end: getTotal({ total }),
-		delay: 2.5,
-		duration: 2.5,
+		delay: convertStringToNumber(theme.transition.duration['ultra-slow'], 'ms') / 1000,
+		duration: convertStringToNumber(theme.transition.duration['ultra-slow'], 'ms') / 1000,
 		formattingFn: memoize((end): string => getLabel({ searchTypes, end })),
 		startOnMount: false
 	});

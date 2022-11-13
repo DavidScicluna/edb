@@ -4,7 +4,7 @@ import numbro from 'numbro';
 
 import AllTabHorizontalGrid, { width } from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
-import PersonVerticalPoster from '../../../../../../../../People/components/Posters/PersonVerticalPoster';
+import { PersonVerticalPoster } from '../../../../../../../../../components';
 
 import { AllTabPeopleProps } from './types';
 
@@ -21,8 +21,9 @@ const AllTabPeople: FC<AllTabPeopleProps> = ({ query, people, onSetActiveTab }) 
 			footerLabel={`View all ${numbro(total).format({ average: true })} ${formatMediaTypeLabel({
 				type: total === 1 ? 'single' : 'multiple',
 				mediaType: 'person'
-			})} in Tab`}
-			onFooterClick={onSetActiveTab ? () => onSetActiveTab({ mediaType: 'person' }) : undefined}
+			})}`}
+			isDisabled={total === 0}
+			onFooterClick={total > 0 && onSetActiveTab ? () => onSetActiveTab({ mediaType: 'person' }) : undefined}
 		>
 			{results.map((person) => (
 				<PersonVerticalPoster key={person.id} person={person} sx={{ width }} />

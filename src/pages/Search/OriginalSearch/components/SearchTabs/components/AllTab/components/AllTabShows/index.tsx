@@ -4,7 +4,7 @@ import numbro from 'numbro';
 
 import AllTabHorizontalGrid, { width } from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
-import TVShowVerticalPoster from '../../../../../../../../TV/components/Posters/TVShowVerticalPoster';
+import { TVShowVerticalPoster } from '../../../../../../../../../components';
 
 import { AllTabShowsProps } from './types';
 
@@ -21,8 +21,9 @@ const AllTabShows: FC<AllTabShowsProps> = ({ query, shows, onSetActiveTab }) => 
 			footerLabel={`View all ${numbro(total).format({ average: true })} ${formatMediaTypeLabel({
 				type: total === 1 ? 'single' : 'multiple',
 				mediaType: 'tv'
-			})} in Tab`}
-			onFooterClick={onSetActiveTab ? () => onSetActiveTab({ mediaType: 'tv' }) : undefined}
+			})}`}
+			isDisabled={total === 0}
+			onFooterClick={total > 0 && onSetActiveTab ? () => onSetActiveTab({ mediaType: 'tv' }) : undefined}
 		>
 			{results.map((show) => (
 				<TVShowVerticalPoster key={show.id} show={show} sx={{ width }} />

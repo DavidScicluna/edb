@@ -3,8 +3,8 @@ import { FC } from 'react';
 import numbro from 'numbro';
 
 import AllTabHorizontalGrid, { width } from '../AllTabHorizontalGrid';
-import MovieVerticalPoster from '../../../../../../../../Movies/components/Posters/MovieVerticalPoster';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
+import { MovieVerticalPoster } from '../../../../../../../../../components';
 
 import { AllTabMoviesProps } from './types';
 
@@ -21,8 +21,9 @@ const AllTabMovies: FC<AllTabMoviesProps> = ({ query, movies, onSetActiveTab }) 
 			footerLabel={`View all ${numbro(total).format({ average: true })} ${formatMediaTypeLabel({
 				type: total === 1 ? 'single' : 'multiple',
 				mediaType: 'movie'
-			})} in Tab`}
-			onFooterClick={onSetActiveTab ? () => onSetActiveTab({ mediaType: 'movie' }) : undefined}
+			})}`}
+			isDisabled={total === 0}
+			onFooterClick={total > 0 && onSetActiveTab ? () => onSetActiveTab({ mediaType: 'movie' }) : undefined}
 		>
 			{results.map((movie) => (
 				<MovieVerticalPoster key={movie.id} movie={movie} sx={{ width }} />

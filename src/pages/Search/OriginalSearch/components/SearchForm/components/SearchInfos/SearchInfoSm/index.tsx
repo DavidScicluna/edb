@@ -42,6 +42,7 @@ const SearchInfoSm: FC<SearchInfoSmProps> = ({ total }) => {
 					(_color, index) => index < 3
 				) as [number, number, number]
 			}
+			style={{ gap: theme.space['0.5'] }}
 		>
 			<Text
 				width='100%'
