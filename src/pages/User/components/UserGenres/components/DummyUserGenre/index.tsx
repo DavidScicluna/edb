@@ -6,8 +6,6 @@ import { colorMode as defaultColorMode } from '../../../../../../common/data/def
 
 import { DummyUserGenreProps } from './types';
 
-// TODO: Create DummyUserGenres & move component there
-
 const DummyUserGenre: FC<DummyUserGenreProps> = ({ colorMode = defaultColorMode }) => {
 	return (
 		<DummyButton color='gray' colorMode={colorMode} variant='outlined'>
