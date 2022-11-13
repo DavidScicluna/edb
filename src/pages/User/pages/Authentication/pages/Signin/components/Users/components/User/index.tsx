@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { useOutletContext } from 'react-router';
+
 import { useTheme, Card, CardBody, CardFooter, Icon, Fade, utils } from '@davidscicluna/component-library';
 
 import { Center, Text } from '@chakra-ui/react';
@@ -11,6 +13,7 @@ import {
 	color as defaultColor,
 	colorMode as defaultColorMode
 } from '../../../../../../../../../../common/data/defaultPropValues';
+import { AuthenticationOutletContext } from '../../../../../../types';
 
 import { UserProps } from './types';
 
@@ -19,7 +22,9 @@ const { getColor } = utils;
 const User: FC<UserProps> = (props) => {
 	const theme = useTheme();
 
-	const { color = defaultColor, colorMode = defaultColorMode, user, isSelected = false, onClick } = props;
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
+
+	const { user, isSelected = false, onClick } = props;
 	const { name, avatar_path } = user.data.info;
 
 	return (

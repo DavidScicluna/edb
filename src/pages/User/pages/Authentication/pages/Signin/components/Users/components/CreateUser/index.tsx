@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { useOutletContext } from 'react-router';
+
 import { useTheme, InternalLink, Card, CardBody, CardFooter, Icon, utils } from '@davidscicluna/component-library';
 
 import { Center, Text } from '@chakra-ui/react';
@@ -8,13 +10,14 @@ import {
 	color as defaultColor,
 	colorMode as defaultColorMode
 } from '../../../../../../../../../../common/data/defaultPropValues';
-
-import { CreateUserProps } from './types';
+import { AuthenticationOutletContext } from '../../../../../../types';
 
 const { getColor } = utils;
 
-const CreateUser: FC<CreateUserProps> = ({ color = defaultColor, colorMode = defaultColorMode }) => {
+const CreateUser: FC = () => {
 	const theme = useTheme();
+
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	return (
 		<InternalLink to='/authentication/register' isFullWidth sx={{ height: '100%' }}>

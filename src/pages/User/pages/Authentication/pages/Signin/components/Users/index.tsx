@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { useOutletContext } from 'react-router';
+
 import {
 	CollapsibleCard,
 	CollapsibleCardHeader,
@@ -12,20 +14,17 @@ import { useBoolean, Box, Text } from '@chakra-ui/react';
 import { sort } from 'fast-sort';
 
 import { useSelector } from '../../../../../../../../common/hooks';
-import {
-	color as defaultColor,
-	colorMode as defaultColorMode
-} from '../../../../../../../../common/data/defaultPropValues';
+import { colorMode as defaultColorMode } from '../../../../../../../../common/data/defaultPropValues';
+import { AuthenticationOutletContext } from '../../../../types';
 
 import { UsersProps } from './types';
 import User from './components/User';
 import CreateUser from './components/CreateUser';
 
-// TODO: Refactor to be a collapsible Card & to HorizontalGrid with arrows in Header action
-const Users: FC<UsersProps> = (props) => {
-	const users = useSelector((state) => state.users.data.users || []);
+const Users: FC<UsersProps> = ({ selectedUserID, onUserClick }) => {
+	const { colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
-	const { color = defaultColor, colorMode = defaultColorMode, selectedUserID, onUserClick } = props;
+	const users = useSelector((state) => state.users.data.users || []);
 
 	const [isOpen, setIsOpen] = useBoolean();
 
@@ -50,15 +49,13 @@ const Users: FC<UsersProps> = (props) => {
 								.map((user) => (
 									<User
 										key={user.data.id}
-										color={color}
-										colorMode={colorMode}
 										user={{ ...user }}
 										isSelected={selectedUserID === user.data.id}
 										onClick={() => onUserClick({ ...user })}
 									/>
 								)),
 
-							<CreateUser key='ds-edb-signin-create-user' color={color} colorMode={colorMode} />
+							<CreateUser key='ds-edb-signin-create-user' />
 						].map((user) => user)}
 					</HorizontalScroll>
 				</CollapsibleCardBody>

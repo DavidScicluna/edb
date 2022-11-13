@@ -1,7 +1,6 @@
 import { User } from '../../../../../../../../store/slices/Users/types';
-import { SignInCommonProps } from '../../common/types';
 
-export type UsersProps = SignInCommonProps & {
+export type UsersProps = {
 	selectedUserID?: User['data']['id'];
 	onUserClick: (user: User) => void;
 };
