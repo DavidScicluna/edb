@@ -2,15 +2,15 @@ import { FC, useState } from 'react';
 
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { UserProfileStructure } from '../../../../components';
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
+import UserProfileStructure from '../UserProfileStructure';
 
 import UserAvatar from './components/UserAvatar';
 import UserBackground from './components/UserBackground';
 import UserDetails from './components/UserDetails';
-import { UpdateUserAssetsProps } from './types';
+import { UserProfileUpdateAssetsProps } from './types';
 
-const UpdateUserAssets: FC<UpdateUserAssetsProps> = (props) => {
+const UserProfileUpdateAssets: FC<UserProfileUpdateAssetsProps> = (props) => {
 	const { color = defaultColor, colorMode = defaultColorMode, form, firstName, lastName, username } = props;
 
 	const [alt, setAlt] = useState<string>(`${firstName} ${lastName} (@${username})`);
@@ -40,4 +40,4 @@ const UpdateUserAssets: FC<UpdateUserAssetsProps> = (props) => {
 	);
 };
 
-export default UpdateUserAssets;
+export default UserProfileUpdateAssets;
