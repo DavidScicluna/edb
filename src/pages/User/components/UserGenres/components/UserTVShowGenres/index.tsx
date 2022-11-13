@@ -26,19 +26,19 @@ import {
 	QueryEmptyTitle,
 	QueryEmptySubtitle,
 	QueryEmptyActions
-} from '../../../../../components';
-import { useSelector } from '../../../../../common/hooks';
-import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../common/types';
+} from '../../../../../../components';
+import { useSelector } from '../../../../../../common/hooks';
+import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../../common/types';
 import { userGenresDefaultValues as defaultValues } from '../../defaults';
-import { genresQueryKey } from '../../../../../common/keys';
-import { useGenresQuery } from '../../../../../common/queries';
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../common/data/defaultPropValues';
+import { genresQueryKey } from '../../../../../../common/keys';
+import { useGenresQuery } from '../../../../../../common/queries';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import DummyGenre from '../DummyUserGenre';
 import Actions from '../UserGenresActions';
 import Genre from '../UserGenre';
 import { UserGenresProps as UserTVShowGenresProps } from '../../types';
-import { formatMediaTypeLabel } from '../../../../../common/utils';
-import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
+import { formatMediaTypeLabel } from '../../../../../../common/utils';
+import { getEmptySubtitle } from '../../../../../../components/QueryEmpty/common/utils';
 
 const UserTVShowGenres: FC<UserTVShowGenresProps> = (props) => {
 	const theme = useTheme();

@@ -18,10 +18,10 @@ import { useIsFetching } from '@tanstack/react-query';
 import { Controller } from 'react-hook-form';
 import { range } from 'lodash';
 
-import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../common/types';
-import { useSelector } from '../../../../../common/hooks';
+import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../../common/types';
+import { useSelector } from '../../../../../../common/hooks';
 import { userGenresDefaultValues as defaultValues } from '../../defaults';
-import { useGenresQuery } from '../../../../../common/queries';
+import { useGenresQuery } from '../../../../../../common/queries';
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -30,15 +30,15 @@ import {
 	QueryEmptyTitle,
 	QueryEmptySubtitle,
 	QueryEmptyActions
-} from '../../../../../components';
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../common/data/defaultPropValues';
+} from '../../../../../../components';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { UserGenresProps as UserMovieGenresProps } from '../../types';
 import Genre from '../UserGenre';
 import DummyGenre from '../DummyUserGenre';
 import Actions from '../UserGenresActions';
-import { genresQueryKey } from '../../../../../common/keys';
-import { formatMediaTypeLabel } from '../../../../../common/utils';
-import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
+import { genresQueryKey } from '../../../../../../common/keys';
+import { formatMediaTypeLabel } from '../../../../../../common/utils';
+import { getEmptySubtitle } from '../../../../../../components/QueryEmpty/common/utils';
 
 const UserMovieGenres: FC<UserMovieGenresProps> = (props) => {
 	const theme = useTheme();

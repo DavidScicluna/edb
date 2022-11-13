@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { DummyButton } from '@davidscicluna/component-library';
 
-import { colorMode as defaultColorMode } from '../../../../../common/data/defaultPropValues';
+import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 
 import { DummyUserGenreProps } from './types';
 

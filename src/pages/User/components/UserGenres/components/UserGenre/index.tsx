@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Button, Icon } from '@davidscicluna/component-library';
 
 import DummyUserGenre from '../DummyUserGenre';
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../common/data/defaultPropValues';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 
 import { UserGenreProps } from './types';
 

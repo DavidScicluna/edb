@@ -4,7 +4,7 @@ import { Button } from '@davidscicluna/component-library';
 
 import { HStack } from '@chakra-ui/react';
 
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../common/data/defaultPropValues';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 
 import { UserGenresActionsProps } from './types';
 

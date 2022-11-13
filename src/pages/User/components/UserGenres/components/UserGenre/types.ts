@@ -1,4 +1,4 @@
-import { Genre } from '../../../../../common/types';
+import { Genre } from '../../../../../../common/types';
 import { UserGenresProps } from '../../types';
 
 export type UserGenreProps = Pick<UserGenresProps, 'color' | 'colorMode'> & {

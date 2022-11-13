@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import { useLayoutContext } from '../../../containers/Layout/common/hooks';
+import { useLayoutContext } from '../../../../containers/Layout/common/hooks';
 
 import TVShowGenres from './components/UserTVShowGenres';
 import MovieGenres from './components/UserMovieGenres';
