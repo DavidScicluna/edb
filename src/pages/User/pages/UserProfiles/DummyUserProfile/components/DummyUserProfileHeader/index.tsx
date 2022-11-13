@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { useUserTheme } from '../../../../../../../common/hooks';
-import UserProfileStructure from '../../../../../../../components/User/UserProfileStructure';
+import UserProfileStructure from '../../../../../components/UserProfileStructure';
 
 import DummyUserAvatar from './components/DummyUserAvatar';
 import DummyUserBackground from './components/DummyUserBackground';

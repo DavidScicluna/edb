@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useConst } from '@chakra-ui/react';
 
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
-import UserProfileStructure from '../../../../../../../components/User/UserProfileStructure';
+import UserProfileStructure from '../../../../../components/UserProfileStructure';
 
 import UserAvatar from './components/UserAvatar';
 import UserBackground from './components/UserBackground';
