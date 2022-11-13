@@ -8,11 +8,11 @@ import { useElementSize } from 'usehooks-ts';
 
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 
-import { UserProfileStructureProps } from './types';
+import { UserAssetsStructureProps } from './types';
 
 const { convertREMToPixels, convertStringToNumber, getColor } = utils;
 
-const UserProfileStructure: FC<UserProfileStructureProps> = (props) => {
+const UserAssetsStructure: FC<UserAssetsStructureProps> = (props) => {
 	const theme = useTheme();
 	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
@@ -76,4 +76,4 @@ const UserProfileStructure: FC<UserProfileStructureProps> = (props) => {
 	);
 };
 
-export default UserProfileStructure;
+export default UserAssetsStructure;

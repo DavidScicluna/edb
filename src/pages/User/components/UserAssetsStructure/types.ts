@@ -4,9 +4,9 @@ import { ColorMode } from '@chakra-ui/react';
 
 import { UserThemeColor } from '../../../../store/slices/Users/types';
 
-type RenderProps = Pick<UserProfileStructureProps, 'color' | 'colorMode'>;
+type RenderProps = Pick<UserAssetsStructureProps, 'color' | 'colorMode'>;
 
-export type UserProfileStructureProps = {
+export type UserAssetsStructureProps = {
 	color?: UserThemeColor;
 	colorMode?: ColorMode;
 	renderUserAvatar: (props: RenderProps) => ReactNode;
