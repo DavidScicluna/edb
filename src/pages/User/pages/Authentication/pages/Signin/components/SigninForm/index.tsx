@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { useOutletContext } from 'react-router';
+
 import {
 	useTheme,
 	ConfirmModal,
@@ -9,7 +11,7 @@ import {
 	ConfirmModalTitle,
 	ConfirmModalSubtitle,
 	ConfirmModalFooter,
-	Form as DSUIForm,
+	Form,
 	Card,
 	CardBody,
 	CardFooter,
@@ -30,24 +32,27 @@ import { useWatch, useFormState, Controller } from 'react-hook-form';
 import qs from 'query-string';
 import { omit, sample } from 'lodash';
 
-import { usernames as placeholders } from '../../../../common/data/placeholders';
-import { PasswordIcon } from '../../../../components';
+import { usernames as placeholders } from '../../../../../../common/data/placeholders';
+import PasswordIcon from '../../../../../../components/PasswordIcon';
 import {
 	color as defaultColor,
 	colorMode as defaultColorMode
 } from '../../../../../../../../common/data/defaultPropValues';
 import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
+import { AuthenticationOutletContext } from '../../../../types';
 
-import { FormProps } from './types';
+import { SigninFormProps } from './types';
 
-const Form: FC<FormProps> = (props) => {
+const SigninForm: FC<SigninFormProps> = (props) => {
 	const theme = useTheme();
+
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const { spacing } = useLayoutContext();
 
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
-	const { color = defaultColor, colorMode = defaultColorMode, form, onSubmitAsGuest, onSubmit } = props;
+	const { form, onSubmitAsGuest, onSubmit } = props;
 	const { control, setValue, handleSubmit: handleSubmitForm } = form;
 
 	const watchUsername = useWatch({ control, name: 'username' });
@@ -66,7 +71,7 @@ const Form: FC<FormProps> = (props) => {
 
 	return (
 		<>
-			<DSUIForm width='100%' onSubmit={handleSubmitForm((values) => onSubmit({ ...values }))}>
+			<Form width='100%' onSubmit={handleSubmitForm((values) => onSubmit({ ...values }))}>
 				<Card colorMode={colorMode} isFullWidth p={[2, 2, 3, 3]}>
 					<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={[2, 2, 3, 3]}>
 						<CardBody>
@@ -207,7 +212,7 @@ const Form: FC<FormProps> = (props) => {
 						</CardFooter>
 					</VStack>
 				</Card>
-			</DSUIForm>
+			</Form>
 
 			<ConfirmModal
 				colorMode={colorMode}
@@ -256,4 +261,4 @@ const Form: FC<FormProps> = (props) => {
 	);
 };
 
-export default Form;
+export default SigninForm;
