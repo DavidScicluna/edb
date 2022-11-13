@@ -4,10 +4,9 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
-import { round } from 'lodash';
 import { useElementSize } from 'usehooks-ts';
 
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../common/data/defaultPropValues';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 
 import { UserProfileStructureProps } from './types';
 
@@ -17,9 +16,7 @@ const UserProfileStructure: FC<UserProfileStructureProps> = (props) => {
 	const theme = useTheme();
 	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
-	const [backgroundRef, { height: backgroundHeight }] = useElementSize();
-	const [avatarRef, { width: avatarWidth, height: avatarHeight }] = useElementSize();
-	const [detailsRef, { height: detailsHeight }] = useElementSize();
+	const [avatarRef, { width: avatarWidth }] = useElementSize();
 
 	const {
 		color = defaultColor,
@@ -33,7 +30,7 @@ const UserProfileStructure: FC<UserProfileStructureProps> = (props) => {
 		<VStack
 			width='100%'
 			height='auto'
-			minHeight={`${round((backgroundHeight + avatarHeight + detailsHeight) / 1.75)}px`}
+			// minHeight={`${round((backgroundHeight + avatarHeight + detailsHeight) / 1.75)}px`}
 			alignItems='stretch'
 			justifyContent='stretch'
 			position='relative'
@@ -57,14 +54,9 @@ const UserProfileStructure: FC<UserProfileStructureProps> = (props) => {
 			</Center>
 
 			<VStack width='100%' alignItems='stretch' justifyContent='stretch' spacing={0}>
-				{isMd && (
-					<Center ref={backgroundRef} width='100%'>
-						{renderUserBackground({ color, colorMode })}
-					</Center>
-				)}
+				{isMd && <Center width='100%'>{renderUserBackground({ color, colorMode })}</Center>}
 
 				<Center
-					ref={detailsRef}
 					width={[
 						'100%',
 						'100%',
