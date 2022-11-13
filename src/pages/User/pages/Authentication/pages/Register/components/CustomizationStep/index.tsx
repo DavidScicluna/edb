@@ -1,11 +1,20 @@
 import { FC } from 'react';
 
-import UserThemeCustomization from '../../../../../../../../components/User/UserThemeCustomization';
+import { useOutletContext } from 'react-router';
+
+import UserThemeCustomization from '../../../../../../components/UserThemeCustomization';
+import { AuthenticationOutletContext } from '../../../../types';
+import {
+	color as defaultColor,
+	colorMode as defaultColorMode
+} from '../../../../../../../../common/data/defaultPropValues';
 
 import { CustomizationStepProps } from './types';
 
 const CustomizationStep: FC<CustomizationStepProps> = (props) => {
-	return <UserThemeCustomization {...props} />;
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
+
+	return <UserThemeCustomization {...props} color={color} colorMode={colorMode} />;
 };
 
 export default CustomizationStep;
