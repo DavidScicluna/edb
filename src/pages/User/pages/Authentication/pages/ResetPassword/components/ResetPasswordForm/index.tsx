@@ -4,7 +4,7 @@ import { useOutletContext } from 'react-router';
 
 import {
 	Space,
-	Form as DSUIForm,
+	Form,
 	Card,
 	CardHeader,
 	CardBody,
@@ -29,11 +29,11 @@ import {
 } from '../../../../../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../../../types';
 
-import { FormProps } from './types';
+import { ResetPasswordFormProps } from './types';
 
 const spacing: Space[] = [2, 2, 3, 3];
 
-const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
+const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ form, onSubmit, onBack }) => {
 	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const users = useSelector((state) => state.users.data.users || []);
@@ -70,7 +70,7 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 	);
 
 	return (
-		<DSUIForm width='100%' onSubmit={handleSubmit((values) => onSubmit({ ...values }))}>
+		<Form width='100%' onSubmit={handleSubmit((values) => onSubmit({ ...values }))}>
 			<Card colorMode={colorMode} isFullWidth p={spacing} spacing={0}>
 				<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={spacing}>
 					<CardHeader
@@ -260,8 +260,8 @@ const Form: FC<FormProps> = ({ form, onSubmit, onBack }) => {
 					</CardFooter>
 				</VStack>
 			</Card>
-		</DSUIForm>
+		</Form>
 	);
 };
 
-export default Form;
+export default ResetPasswordForm;

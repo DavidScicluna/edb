@@ -36,11 +36,11 @@ import { setUsers } from '../../../../../../store/slices/Users';
 import { AuthenticationOutletContext } from '../../types';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
-import { Form as FormType } from './types';
+import { ResetPasswordForm as ResetPasswordFormType } from './types';
 import { schema } from './validation';
-import Form from './components/Form';
+import ResetPasswordForm from './components/ResetPasswordForm';
 
-export const defaultValues: FormType = {
+export const defaultValues: ResetPasswordFormType = {
 	username: '',
 	password: '',
 	newPassword: '',
@@ -69,7 +69,7 @@ const ForgotPassword: FC = () => {
 	const [containerRef, { width: containerWidth = 0 }] = useElementSize();
 	const debouncedContainerWidth = useDebounce<number>(containerWidth);
 
-	const form = useForm<FormType>({
+	const form = useForm<ResetPasswordFormType>({
 		defaultValues: { ...defaultValues, ...qs.parse(location.search) },
 		resolver: yupResolver(schema)
 	});
@@ -95,7 +95,7 @@ const ForgotPassword: FC = () => {
 		}
 	};
 
-	const handleChangePassword = (values: FormType): void => {
+	const handleChangePassword = (values: ResetPasswordFormType): void => {
 		const { username, password, newPassword } = values;
 		const user = users.find((user) => user.data.credentials.username === username);
 
@@ -138,7 +138,7 @@ const ForgotPassword: FC = () => {
 					px={[2, 2, 3, 3]}
 					py={[3, 3, 4, 4]}
 				>
-					<Form form={form} onSubmit={handleChangePassword} onBack={handleCheckBack} />
+					<ResetPasswordForm form={form} onSubmit={handleChangePassword} onBack={handleCheckBack} />
 				</Center>
 
 				{isLg && (

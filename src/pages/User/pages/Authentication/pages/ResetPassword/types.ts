@@ -1,6 +1,6 @@
 import { AuthenticationForm } from '../../common/types';
 
-export type Form = AuthenticationForm & {
+export type ResetPasswordForm = AuthenticationForm & {
 	newPassword: string;
 	confirmNewPassword: string;
 };
