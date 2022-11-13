@@ -23,7 +23,7 @@ const SearchDummyTabs: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	return (
-		<Tabs width='100%' color={color} colorMode={colorMode} size='xl'>
+		<Tabs width='100%' color={color} colorMode={colorMode} isDisabled size='xl'>
 			<VStack width='100%' spacing={spacing}>
 				<DummyTabList
 					tabs={[

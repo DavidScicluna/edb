@@ -77,7 +77,7 @@ const DummyUserProfileTabs: FC = () => {
 	useUpdateEffect(() => handleSetActiveTab(), [location.hash]);
 
 	return (
-		<Tabs width='100%' color={color} colorMode={colorMode} activeTab={activeTabDebounced} size='xl'>
+		<Tabs width='100%' activeTab={activeTabDebounced} color={color} colorMode={colorMode} isDisabled size='xl'>
 			<VStack width='100%' spacing={spacing}>
 				<DummyTabList
 					tabs={tabs.map((tab, index) => {

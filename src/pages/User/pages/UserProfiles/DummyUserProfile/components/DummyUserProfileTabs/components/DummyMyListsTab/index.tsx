@@ -11,7 +11,7 @@ import {
 
 import { VStack, Center } from '@chakra-ui/react';
 
-import { compact, range } from 'lodash';
+import { range } from 'lodash';
 
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
@@ -36,7 +36,7 @@ const DummyMyListsTab: FC = () => {
 				<DummyHeadline />
 			</Center>
 
-			<Tabs width='100%' activeTab={0} color={color} colorMode={colorMode} size='lg'>
+			<Tabs width='100%' color={color} colorMode={colorMode} isDisabled size='lg'>
 				<VStack width='100%' spacing={spacing}>
 					<DummyTabList
 						tabs={[
@@ -49,13 +49,11 @@ const DummyMyListsTab: FC = () => {
 					/>
 
 					<TabPanels>
-						{compact([
-							<DummyAllTab key='DummyMyListsTab_DummyAllTab' />,
+						<DummyAllTab />
 
-							...range(5).map((_dummy, index) => (
-								<DummyListTab key={`DummyMyListsTab_DummyListTab_${index + 1}`} />
-							))
-						])}
+						{range(5).map((_dummy, index) => (
+							<DummyListTab key={index} />
+						))}
 					</TabPanels>
 				</VStack>
 			</Tabs>

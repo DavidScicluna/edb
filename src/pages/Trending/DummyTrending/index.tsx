@@ -54,7 +54,14 @@ const DummyTrending: FC = () => {
 				py={spacing * 2}
 			/>
 			<PageBody px={spacing} pb={spacing}>
-				<Tabs width='100%' activeTab={activeTabDebounced} color={color} colorMode={colorMode} size='xl'>
+				<Tabs
+					width='100%'
+					activeTab={activeTabDebounced}
+					color={color}
+					colorMode={colorMode}
+					isDisabled
+					size='xl'
+				>
 					<VStack width='100%' spacing={spacing}>
 						<DummyTabList
 							tabs={[
