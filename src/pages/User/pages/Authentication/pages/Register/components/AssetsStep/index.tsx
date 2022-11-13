@@ -9,9 +9,9 @@ import {
 import UserProfileUpdateAssets from '../../../../../../components/UserProfileUpdateAssets';
 import { AuthenticationOutletContext } from '../../../../types';
 
-import { ProfileProps } from './types';
+import { AssetsStepProps } from './types';
 
-const Profile: FC<ProfileProps> = (props) => {
+const AssetsStep: FC<AssetsStepProps> = (props) => {
 	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const { form, firstName, lastName, username } = props;
@@ -28,4 +28,4 @@ const Profile: FC<ProfileProps> = (props) => {
 	);
 };
 
-export default Profile;
+export default AssetsStep;
