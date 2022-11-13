@@ -1,7 +1,7 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import { GenresForm } from '../../types';
+import { RegisterGenresForm } from '../../types';
 
 export type GenresStepProps = {
-	form: UseFormReturn<GenresForm>;
+	form: UseFormReturn<RegisterGenresForm>;
 };

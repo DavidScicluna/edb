@@ -1,16 +1,16 @@
 import { UserCredentials, UserInfo, UserInfoGenres, UserTheme } from '../../../../../../store/slices/Users/types';
 
-export type DetailsForm = {
+export type RegisterDetailsForm = {
 	firstName: UserInfo['name'];
 	lastName: UserInfo['name'];
 	bio: UserInfo['bio'];
 } & Omit<UserCredentials, 'rememberMe'>;
 
-export type GenresForm = UserInfoGenres;
+export type RegisterGenresForm = UserInfoGenres;
 
-export type CustomizationForm = UserTheme;
+export type RegisterCustomizationForm = UserTheme;
 
-export type ProfileForm = {
+export type RegisterAssetsForm = {
 	avatar_path: UserInfo['avatar_path'];
 	background_path: UserInfo['background_path'];
 };

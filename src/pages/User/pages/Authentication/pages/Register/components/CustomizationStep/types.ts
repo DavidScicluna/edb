@@ -1,7 +1,7 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import { CustomizationForm } from '../../types';
+import { RegisterCustomizationForm } from '../../types';
 
 export type CustomizationStepProps = {
-	form: UseFormReturn<CustomizationForm>;
+	form: UseFormReturn<RegisterCustomizationForm>;
 };

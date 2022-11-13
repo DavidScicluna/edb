@@ -1,7 +1,7 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import { DetailsForm } from '../../types';
+import { RegisterDetailsForm } from '../../types';
 
 export type DetailsStepProps = {
-	form: UseFormReturn<DetailsForm>;
+	form: UseFormReturn<RegisterDetailsForm>;
 };

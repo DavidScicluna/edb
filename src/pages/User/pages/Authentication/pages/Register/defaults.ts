@@ -1,8 +1,8 @@
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 
-import { DetailsForm, GenresForm, CustomizationForm, ProfileForm } from './types';
+import { RegisterDetailsForm, RegisterGenresForm, RegisterCustomizationForm, RegisterAssetsForm } from './types';
 
-export const detailsDefaultValues: DetailsForm = {
+export const detailsDefaultValues: RegisterDetailsForm = {
 	username: '',
 	password: '',
 	firstName: '',
@@ -10,17 +10,17 @@ export const detailsDefaultValues: DetailsForm = {
 	bio: ''
 };
 
-export const genresDefaultValues: GenresForm = {
+export const genresDefaultValues: RegisterGenresForm = {
 	movie: [],
 	tv: []
 };
 
-export const customizationDefaultValues: CustomizationForm = {
+export const customizationDefaultValues: RegisterCustomizationForm = {
 	color: defaultColor,
 	colorMode: defaultColorMode
 };
 
-export const profileDefaultValues: ProfileForm = {
+export const assetsDefaultValues: RegisterAssetsForm = {
 	avatar_path: '',
 	background_path: ''
 };

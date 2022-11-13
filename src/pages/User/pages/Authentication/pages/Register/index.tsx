@@ -47,14 +47,9 @@ import { AuthenticationOutletContext } from '../../types';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
 import { detailsSchema } from './validation';
-import { DetailsForm, GenresForm, CustomizationForm, ProfileForm } from './types';
-import {
-	detailsDefaultValues,
-	genresDefaultValues,
-	customizationDefaultValues,
-	profileDefaultValues
-} from './defaults';
-import ProfileStep from './components/ProfileStep';
+import { RegisterDetailsForm, RegisterGenresForm, RegisterCustomizationForm, RegisterAssetsForm } from './types';
+import { detailsDefaultValues, genresDefaultValues, customizationDefaultValues, assetsDefaultValues } from './defaults';
+import AssetsStep from './components/AssetsStep';
 import GenresStep from './components/GenresStep';
 import DetailsStep from './components/DetailsStep';
 import CustomizationStep from './components/CustomizationStep';
@@ -95,7 +90,7 @@ const Register: FC = () => {
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
 	const navigate = useNavigate();
-	const { colorMode = defaultColorMode, setColorMode } = useOutletContext<AuthenticationOutletContext>();
+	const { colorMode = defaultColorMode, setColor, setColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const dispatch = useDispatch();
 	const users = useSelector((state) => state.users.data.users || []);
@@ -103,7 +98,7 @@ const Register: FC = () => {
 	const [steps, setSteps] = useState<Step[]>([...defaultSteps]);
 	const [activeStep, setActiveStep] = useState<number>(0);
 
-	const detailsForm = useForm<DetailsForm>({
+	const detailsForm = useForm<RegisterDetailsForm>({
 		mode: 'onTouched',
 		reValidateMode: 'onChange',
 		defaultValues: detailsDefaultValues,
@@ -122,7 +117,7 @@ const Register: FC = () => {
 		isDirty: isDetailsFormDirty
 	} = useFormState({ control: controlDetailsForm });
 
-	const genresForm = useForm<GenresForm>({
+	const genresForm = useForm<RegisterGenresForm>({
 		mode: 'onTouched',
 		reValidateMode: 'onChange',
 		defaultValues: genresDefaultValues
@@ -132,7 +127,7 @@ const Register: FC = () => {
 
 	const { isValid: isGenresFormValid, isDirty: isGenresFormDirty } = useFormState({ control: controlGenresForm });
 
-	const customizationForm = useForm<CustomizationForm>({
+	const customizationForm = useForm<RegisterCustomizationForm>({
 		mode: 'onTouched',
 		reValidateMode: 'onChange',
 		defaultValues: { ...customizationDefaultValues, ...userTheme }
@@ -147,11 +142,11 @@ const Register: FC = () => {
 		control: controlCustomizationForm
 	});
 
-	const profileForm = useForm<ProfileForm>({
+	const assetsForm = useForm<RegisterAssetsForm>({
 		mode: 'onTouched',
 		reValidateMode: 'onChange',
 		defaultValues: {
-			...profileDefaultValues,
+			...assetsDefaultValues,
 			avatar_path: getBoringAvatarSrc({
 				id,
 				colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
@@ -169,9 +164,9 @@ const Register: FC = () => {
 		}
 	});
 
-	const { control: controlProfileForm, getValues: getProfileFormValues } = profileForm;
+	const { control: controlAssetsForm, getValues: getAssetsFormValues } = assetsForm;
 
-	const { isValid: isProfileFormValid, isDirty: isProfileFormDirty } = useFormState({ control: controlProfileForm });
+	const { isValid: isAssetsFormValid, isDirty: isAssetsFormDirty } = useFormState({ control: controlAssetsForm });
 
 	const handleStepStatus = useCallback(
 		(index: number): Step['status'] => {
@@ -210,7 +205,7 @@ const Register: FC = () => {
 				case 3: {
 					let status: Step['status'] = 'idle';
 
-					if (isProfileFormValid) {
+					if (isAssetsFormValid) {
 						status = 'success';
 					}
 
@@ -226,7 +221,7 @@ const Register: FC = () => {
 			isDetailsFormDirty,
 			isGenresFormValid,
 			isCustomizationFormValid,
-			isProfileFormValid
+			isAssetsFormValid
 		]
 	);
 
@@ -234,20 +229,18 @@ const Register: FC = () => {
 		(index: number): Undefinable<ReactElement> => {
 			switch (index) {
 				case 0:
-					return <DetailsStep form={detailsForm} color={watchColor} colorMode={colorMode} />;
+					return <DetailsStep form={detailsForm} />;
 				case 1:
-					return <GenresStep form={genresForm} color={watchColor} colorMode={colorMode} />;
+					return <GenresStep form={genresForm} />;
 				case 2:
-					return <CustomizationStep form={customizationForm} color={watchColor} colorMode={colorMode} />;
+					return <CustomizationStep form={customizationForm} />;
 				case 3:
 					return (
-						<ProfileStep
-							form={profileForm}
+						<AssetsStep
+							form={assetsForm}
 							firstName={watchFirstName}
 							lastName={watchLastName}
 							username={watchUsername}
-							color={watchColor}
-							colorMode={colorMode}
 						/>
 					);
 			}
@@ -277,7 +270,7 @@ const Register: FC = () => {
 	};
 
 	const handleCheckCancel = (): void => {
-		if (!(isDetailsFormDirty || isGenresFormDirty || isCustomizationFormDirty || isProfileFormDirty)) {
+		if (!(isDetailsFormDirty || isGenresFormDirty || isCustomizationFormDirty || isAssetsFormDirty)) {
 			handleClose();
 		} else {
 			onConfirmOpen();
@@ -292,7 +285,7 @@ const Register: FC = () => {
 		const details = getDetailsFormValues();
 		const genres = getGenresFormValues();
 		const customization = getCustomizationFormValues();
-		const profile = getProfileFormValues();
+		const profile = getAssetsFormValues();
 
 		const info: UserInfo = {
 			name: `${details.firstName} ${details.lastName}`,
@@ -341,6 +334,7 @@ const Register: FC = () => {
 		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
 
+	useEffect(() => setColor(watchColor), [watchColor]);
 	useEffect(() => setColorMode(watchColorMode === 'system' ? getColorMode() : watchColorMode), [watchColorMode]);
 
 	return (
