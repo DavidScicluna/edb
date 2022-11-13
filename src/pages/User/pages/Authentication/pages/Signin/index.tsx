@@ -2,7 +2,7 @@ import { FC, useState, useCallback } from 'react';
 
 import { useNavigate, useOutletContext } from 'react-router';
 
-import { Colors, useTheme, useDebounce, utils } from '@davidscicluna/component-library';
+import { Colors, useTheme, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, HStack, VStack } from '@chakra-ui/react';
 
@@ -20,20 +20,20 @@ import { useSelector, useUserTheme } from '../../../../../../common/hooks';
 import { User } from '../../../../../../store/slices/Users/types';
 import { guest, setUser, setUsers } from '../../../../../../store/slices/Users';
 import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
+import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { getBoringAvatarSrc, updateFavicon } from '../../../../../../common/utils';
 import { AuthenticationOutletContext } from '../../types';
 
-import Form from './components/Form';
-import Header from './components/Header';
-import { Form as FormType } from './types';
+import SigninForm from './components/SigninForm';
+import SigninHeader from './components/SigninHeader';
+import { SigninForm as SigninFormType } from './types';
 import { schema } from './validation';
-import Footer from './components/Footer';
+import SigninFooter from './components/SigninFooter';
 import Users from './components/Users';
 
 const { getHue, getColorMode } = utils;
 
-export const defaultValues: FormType = {
+export const defaultValues: SigninFormType = {
 	username: '',
 	password: '',
 	rememberMe: false
@@ -47,24 +47,18 @@ const SignIn: FC = () => {
 	const userTheme = useUserTheme();
 
 	const navigate = useNavigate();
-	const {
-		color = defaultColor,
-		colorMode = defaultColorMode,
-		setColor,
-		setColorMode
-	} = useOutletContext<AuthenticationOutletContext>();
+	const { colorMode = defaultColorMode, setColor, setColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const dispatch = useDispatch();
 	const users = useSelector((state) => state.users.data.users);
 
 	const { width: windowWidth } = useWindowSize();
 
-	const [containerRef, { width: containerWidth = 0 }] = useElementSize();
-	const debouncedContainerWidth = useDebounce<number>(containerWidth);
+	const [containerRef, { width: containerWidth }] = useElementSize();
 
 	const [selectedUserID, setSelectedUserID] = useState<string>('');
 
-	const form = useForm<FormType>({
+	const form = useForm<SigninFormType>({
 		defaultValues,
 		resolver: yupResolver(schema)
 	});
@@ -133,7 +127,7 @@ const SignIn: FC = () => {
 		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
 
-	const handleSubmitForm = (credentials: FormType): void => {
+	const handleSubmitForm = (credentials: SigninFormType): void => {
 		const user = users.find((user) => user.data.id === selectedUserID);
 
 		// TODO: Implement global toast system and add success alert
@@ -184,17 +178,16 @@ const SignIn: FC = () => {
 		>
 			{isLg && (
 				<Illustration
-					width={`${debouncedContainerWidth / 2}px`}
+					width={`${containerWidth / 2}px`}
 					height='100vh'
 					position='fixed'
 					top={0}
 					left={`${isXl ? (windowWidth - containerWidth) / 2 : 0}px`}
-					colorMode={colorMode}
 				/>
 			)}
 
 			<VStack
-				width={isLg ? `${debouncedContainerWidth / 2}px` : '100%'}
+				width={isLg ? `${containerWidth / 2}px` : '100%'}
 				minHeight='100vh'
 				alignItems='stretch'
 				justifyContent='space-between'
@@ -202,26 +195,13 @@ const SignIn: FC = () => {
 				px={[2, 2, 3, 3]}
 				py={[3, 3, 4, 4]}
 			>
-				<Header colorMode={colorMode} />
+				<SigninHeader />
 
-				{users.length > 0 && (
-					<Users
-						color={color}
-						colorMode={colorMode}
-						selectedUserID={selectedUserID}
-						onUserClick={handleUserClick}
-					/>
-				)}
+				{users.length > 0 && <Users selectedUserID={selectedUserID} onUserClick={handleUserClick} />}
 
-				<Form
-					color={color}
-					colorMode={colorMode}
-					form={form}
-					onSubmitAsGuest={handleSubmitAsGuest}
-					onSubmit={handleSubmitForm}
-				/>
+				<SigninForm form={form} onSubmitAsGuest={handleSubmitAsGuest} onSubmit={handleSubmitForm} />
 
-				<Footer color={color} colorMode={colorMode} />
+				<SigninFooter />
 			</VStack>
 		</HStack>
 	);

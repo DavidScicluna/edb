@@ -1,5 +1,5 @@
 import { AuthenticationForm } from '../../common/types';
 
-export type Form = AuthenticationForm & {
+export type SigninForm = AuthenticationForm & {
 	rememberMe: boolean;
 };
