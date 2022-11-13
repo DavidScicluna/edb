@@ -1,24 +1,9 @@
 import { FC } from 'react';
 
-import { useUserTheme } from '../../../../../../../common/hooks';
-import UserProfileStructure from '../../../../../components/UserProfileStructure';
-
-import DummyUserAvatar from './components/DummyUserAvatar';
-import DummyUserBackground from './components/DummyUserBackground';
-import DummyUserDetails from './components/DummyUserDetails';
+import UserProfileDummyAssets from '../../../../../components/UserDummyAssets';
 
 const DummyUserProfileHeader: FC = () => {
-	const { color, colorMode } = useUserTheme();
-
-	return (
-		<UserProfileStructure
-			color={color}
-			colorMode={colorMode}
-			renderUserAvatar={(props) => <DummyUserAvatar {...props} />}
-			renderUserBackground={(props) => <DummyUserBackground {...props} />}
-			renderUserDetails={(props) => <DummyUserDetails {...props} />}
-		/>
-	);
+	return <UserProfileDummyAssets />;
 };
 
 export default DummyUserProfileHeader;
