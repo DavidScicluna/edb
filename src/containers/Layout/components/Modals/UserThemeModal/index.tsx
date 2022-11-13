@@ -19,11 +19,11 @@ import { useForm, useWatch, useFormState } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import UserThemeCustomization from '../../../../../components/User/UserThemeCustomization';
 import { useSelector } from '../../../../../common/hooks';
 import { toggleSpinnerModal, toggleUserThemeModal } from '../../../../../store/slices/Modals';
 import { setUserTheme } from '../../../../../store/slices/Users';
 import { updateFavicon } from '../../../../../common/utils';
+import UserThemeCustomization from '../../../../../pages/User/components/UserThemeCustomization';
 
 import { UserThemeModalForm } from './types';
 
