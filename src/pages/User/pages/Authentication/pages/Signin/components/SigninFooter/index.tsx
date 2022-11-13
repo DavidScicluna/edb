@@ -1,19 +1,25 @@
 import { FC } from 'react';
 
-import { InternalLink, Button } from '@davidscicluna/component-library';
+import { useOutletContext } from 'react-router';
+
+import { useTheme, InternalLink, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
 import { compact } from 'lodash';
 
-import { SignInCommonProps as FooterProps } from '../../common/types';
 import {
 	color as defaultColor,
 	colorMode as defaultColorMode
 } from '../../../../../../../../common/data/defaultPropValues';
+import { AuthenticationOutletContext } from '../../../../types';
 
-const Footer: FC<FooterProps> = ({ color = defaultColor, colorMode = defaultColorMode }) => {
-	const [isSm] = useMediaQuery('(max-width: 600px)');
+const SigninFooter: FC = () => {
+	const theme = useTheme();
+
+	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	return (
 		<InternalLink to='/authentication/register' isFullWidth>
@@ -24,4 +30,4 @@ const Footer: FC<FooterProps> = ({ color = defaultColor, colorMode = defaultColo
 	);
 };
 
-export default Footer;
+export default SigninFooter;
