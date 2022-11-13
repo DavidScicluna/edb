@@ -8,13 +8,13 @@ import {
 	usernames as usernamePlaceholders,
 	firstNames as firstNamePlaceholders,
 	lastNames as lastNamePlaceholders
-} from '../../../../common/data/placeholders';
+} from '../../../../../../common/data/placeholders';
 
 import Credentials from './components/Credentials';
 import Info from './components/Info';
 import { DetailsStepProps } from './types';
 
-const DetailsStep: FC<DetailsStepProps> = ({ ...rest }) => {
+const DetailsStep: FC<DetailsStepProps> = (props) => {
 	const placeholderIndex = useConst<number | undefined>(sample(range(usernamePlaceholders.length)));
 
 	const usernamePlaceholder = useConst<string>(
@@ -26,8 +26,8 @@ const DetailsStep: FC<DetailsStepProps> = ({ ...rest }) => {
 
 	return (
 		<VStack width='100%' spacing={4}>
-			<Credentials {...rest} placeholder={usernamePlaceholder} />
-			<Info {...rest} placeholder={{ firstName: firstNamePlaceholder, lastName: lastNamePlaceholder }} />
+			<Credentials {...props} placeholder={usernamePlaceholder} />
+			<Info {...props} placeholder={{ firstName: firstNamePlaceholder, lastName: lastNamePlaceholder }} />
 		</VStack>
 	);
 };

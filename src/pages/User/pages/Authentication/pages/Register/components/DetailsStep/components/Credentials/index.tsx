@@ -1,5 +1,7 @@
 import { FC, useCallback } from 'react';
 
+import { useOutletContext } from 'react-router';
+
 import { Card, CardHeader, CardBody, Button, Input, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, VStack, Text } from '@chakra-ui/react';
@@ -11,15 +13,18 @@ import {
 	colorMode as defaultColorMode
 } from '../../../../../../../../../../common/data/defaultPropValues';
 import { detailsDefaultValues as defaultValues } from '../../../../defaults';
-import { PasswordIcon } from '../../../../../../components';
+import PasswordIcon from '../../../../../../../../components/PasswordIcon';
 import { useSelector } from '../../../../../../../../../../common/hooks';
+import { AuthenticationOutletContext } from '../../../../../../types';
 
 import { CredentialsProps } from './types';
 
 const Credentials: FC<CredentialsProps> = (props) => {
 	const users = useSelector((state) => state.users.data.users || []);
 
-	const { form, color = defaultColor, colorMode = defaultColorMode, placeholder } = props;
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
+
+	const { form, placeholder } = props;
 	const { control, getValues, clearErrors, setValue, setError, reset } = form;
 
 	const watchUsername = useWatch({ control, name: 'username' });

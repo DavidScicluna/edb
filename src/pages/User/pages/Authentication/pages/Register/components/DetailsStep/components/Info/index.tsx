@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { useOutletContext } from 'react-router';
+
 import { useTheme, Card, CardHeader, CardBody, Button, Input, Textarea } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Text, SimpleGrid } from '@chakra-ui/react';
@@ -11,6 +13,7 @@ import {
 	colorMode as defaultColorMode
 } from '../../../../../../../../../../common/data/defaultPropValues';
 import { detailsDefaultValues as defaultValues } from '../../../../defaults';
+import { AuthenticationOutletContext } from '../../../../../../types';
 
 import { InfoProps } from './types';
 
@@ -18,7 +21,9 @@ const Info: FC<InfoProps> = (props) => {
 	const theme = useTheme();
 	const [isSm] = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
 
-	const { form, color = defaultColor, colorMode = defaultColorMode, placeholder } = props;
+	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
+
+	const { form, placeholder } = props;
 	const { control, getValues, reset } = form;
 
 	const watchFirstName = useWatch({ control, name: 'firstName' });
