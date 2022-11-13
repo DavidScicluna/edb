@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { ColorMode } from '@chakra-ui/react';
 
-import { UserThemeColor } from '../../../store/slices/Users/types';
+import { UserThemeColor } from '../../../../store/slices/Users/types';
 
 type RenderProps = Pick<UserProfileStructureProps, 'color' | 'colorMode'>;
 

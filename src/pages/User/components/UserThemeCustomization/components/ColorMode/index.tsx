@@ -6,7 +6,7 @@ import { useMediaQuery, Stack, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../common/data/defaultPropValues';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { UserThemeCustomizationProps as ColorModeProps } from '../../types';
 
 import ColorModeItem from './components/ColorModeItem';

@@ -9,7 +9,7 @@ import { useUpdateEffect } from 'usehooks-ts';
 import {
 	color as defaultColor,
 	colorMode as defaultColorMode
-} from '../../../../../../../common/data/defaultPropValues';
+} from '../../../../../../../../common/data/defaultPropValues';
 
 import { ColorModeItemProps } from './types';
 

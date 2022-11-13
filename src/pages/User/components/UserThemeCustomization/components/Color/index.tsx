@@ -8,8 +8,8 @@ import { Controller } from 'react-hook-form';
 import { capitalize, startCase } from 'lodash';
 
 import { UserThemeCustomizationProps as ColorProps } from '../../types';
-import { UserThemeColor } from '../../../../../store/slices/Users/types';
-import { colorMode as defaultColorMode } from '../../../../../common/data/defaultPropValues';
+import { UserThemeColor } from '../../../../../../store/slices/Users/types';
+import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 
 import ColorItem from './components/ColorItem';
 

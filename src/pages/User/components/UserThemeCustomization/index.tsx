@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import { color as defaultColor, colorMode as defaultColorMode } from '../../../common/data/defaultPropValues';
+import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 
 import Color from './components/Color';
 import ColorMode from './components/ColorMode';
