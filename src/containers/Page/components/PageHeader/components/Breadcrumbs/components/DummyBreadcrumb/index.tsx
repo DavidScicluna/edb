@@ -29,7 +29,7 @@ const DummyBreadcrumb: FC = () => {
 				fontSize={breadcrumbFontSize}
 				fontWeight='medium'
 			>
-				Dummy Breadcrumb
+				Dummy Path
 			</Text>
 		</Skeleton>
 	);
