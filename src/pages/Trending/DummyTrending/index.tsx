@@ -40,7 +40,7 @@ const DummyTrending: FC = () => {
 			<PageHeader
 				renderTitle={(props) => (
 					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-						<Text {...props}>Trending Media-Type</Text>
+						<Text {...props}>Trending</Text>
 					</Skeleton>
 				)}
 				renderSubtitle={(props) => (
