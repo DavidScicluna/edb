@@ -5,8 +5,7 @@ import { useTheme, Tooltip, IconButton, IconButtonIcon, ScaleFade } from '@david
 import { useBoolean, Center } from '@chakra-ui/react';
 
 import { debounce } from 'lodash';
-import { useWindowEventListener } from 'rooks';
-import { useWindowSize } from 'usehooks-ts';
+import { useWindowSize, useEventListener } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../common/hooks';
 
@@ -34,7 +33,7 @@ const ScrollToTop: FC = () => {
 		[document, height]
 	);
 
-	useWindowEventListener('scroll', () => handleScroll());
+	useEventListener('scroll', () => handleScroll());
 
 	return (
 		<Center
