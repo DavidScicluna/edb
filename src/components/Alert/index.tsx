@@ -34,7 +34,7 @@ const Alert: FC<AlertProps> = (props) => {
 	const [contentRef, { height: contentHeight }] = useElementSize();
 	const [closeRef, { width: closeWidth }] = useElementSize();
 
-	const { duration, title, description, onClose, status } = props;
+	const { duration = defaultDuration, title, description, onClose, status } = props;
 
 	const sampledTitle = useConst<Undefinable<string>>(
 		status === 'error'
@@ -91,7 +91,9 @@ const Alert: FC<AlertProps> = (props) => {
 	}, [status, colorMode]);
 
 	useEffect(() => {
-		startCountdown();
+		if (duration) {
+			startCountdown();
+		}
 
 		return () => {
 			setTimeout(() => resetCountdown(), 0);
