@@ -1,3 +1,5 @@
+import { useToast } from '@chakra-ui/react';
+
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
@@ -6,8 +8,11 @@ import {
 } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
+import { compact } from 'lodash';
 import { useWillUnmount } from 'rooks';
 
+import { Alert } from '../../components';
+import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { keywordsInfiniteQueryKey } from '../keys';
 import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, Keyword, QueryError, Response } from '../types';
@@ -32,12 +37,14 @@ type UseKeywordsInfiniteQueryParams = {
 	options?: UseKeywordsInfiniteQueryOptions;
 };
 
+const toastID = 'ds-edb-use-keywords-infinite-query-toast';
+
 const useKeywordsInfiniteQuery = ({
 	props: { query },
 	config = {},
 	options = {}
 }: UseKeywordsInfiniteQueryParams): UseKeywordsInfiniteQueryResult => {
-	// const toast = useToast();
+	const toast = useToast();
 
 	const key = keywordsInfiniteQueryKey({ query }) || [`${query}_search_keywords_infinite`];
 
@@ -63,9 +70,26 @@ const useKeywordsInfiniteQuery = ({
 			onError: (error) => {
 				console.error(error.toJSON());
 
-				// TODO: ADD Toast | Set Toast with action to refetch & add progress bar
-				// & time label to show when notification will close
-				// const {} = error.response?.data || {};
+				const { status_code, status_message } = error.response?.data || {};
+
+				if (!toast.isActive(toastID)) {
+					toast({
+						id: toastID,
+						duration: convertDurationToMS(),
+						position: 'bottom-left',
+						render: () => (
+							<Alert
+								description={compact([
+									status_code ? `${status_code}.` : null,
+									`Unfortunately, something went wrong when trying to fetch "${query}" keywords.`,
+									status_message ? `(${status_message})` : null
+								]).join(' ')}
+								status='error'
+								onClose={() => toast.close(toastID)}
+							/>
+						)
+					});
+				}
 
 				if (options.onError) {
 					options.onError(error);
