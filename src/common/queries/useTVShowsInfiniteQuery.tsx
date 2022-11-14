@@ -1,5 +1,7 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
+import { useToast } from '@chakra-ui/react';
+
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
@@ -8,12 +10,16 @@ import {
 } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
+import { compact } from 'lodash';
 import { useWillUnmount } from 'rooks';
 
+import { Alert } from '../../components';
+import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { tvShowsInfiniteQueryKey } from '../keys';
 import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, QueryError, Response } from '../types';
 import { PartialTV } from '../types/tv';
+import { formatMediaTypeLabel } from '../utils';
 
 export type UseTVShowsInfiniteQueryResponse = Response<PartialTV[]>;
 
@@ -32,11 +38,13 @@ type UseTVShowsInfiniteQueryParams = Undefinable<{
 	options?: UseTVShowsInfiniteQueryOptions;
 }>;
 
+const toastID = 'ds-edb-use-tv-shows-infinite-query-toast';
+
 const useTVShowsInfiniteQuery = ({
 	config = {},
 	options = {}
 }: UseTVShowsInfiniteQueryParams = {}): UseTVShowsInfiniteQueryResult => {
-	// const toast = useToast();
+	const toast = useToast();
 
 	const key = tvShowsInfiniteQueryKey({ params: config.params }) || ['tv_shows', config.params];
 
@@ -62,9 +70,29 @@ const useTVShowsInfiniteQuery = ({
 			onError: (error) => {
 				console.error(error.toJSON());
 
-				// TODO: ADD Toast | Set Toast with action to refetch & add progress bar
-				// & time label to show when notification will close
-				// const {} = error.response?.data || {};
+				const { status_code, status_message } = error.response?.data || {};
+
+				if (!toast.isActive(toastID)) {
+					toast({
+						id: toastID,
+						duration: convertDurationToMS(),
+						position: 'bottom-left',
+						render: () => (
+							<Alert
+								description={compact([
+									status_code ? `${status_code}.` : null,
+									`Unfortunately, something went wrong when trying to fetch ${formatMediaTypeLabel({
+										type: 'multiple',
+										mediaType: 'tv'
+									})}.`,
+									status_message ? `(${status_message})` : null
+								]).join(' ')}
+								status='error'
+								onClose={() => toast.close(toastID)}
+							/>
+						)
+					});
+				}
 
 				if (options.onError) {
 					options.onError(error);
