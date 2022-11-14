@@ -1,13 +1,19 @@
+import { useToast } from '@chakra-ui/react';
+
 import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
+import { compact } from 'lodash';
 import { useWillUnmount } from 'rooks';
 
+import { Alert } from '../../components';
+import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { popularQueryKey } from '../keys';
 import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
 import { PartialTV } from '../types/tv';
+import { formatMediaTypeLabel } from '../utils';
 
 export type UsePopularQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
@@ -33,12 +39,14 @@ type UsePopularQueryParams<MT extends UsePopularQueryMediaType> = {
 	options?: UsePopularQueryOptions<MT>;
 };
 
+const toastID = 'ds-edb-use-popular-query-toast';
+
 const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 	props: { mediaType },
 	config = {},
 	options = {}
 }: UsePopularQueryParams<MT>): UsePopularQueryResult<MT> => {
-	// const toast = useToast();
+	const toast = useToast();
 
 	const key = popularQueryKey({ mediaType }) || [`popular_${mediaType}`];
 
@@ -57,9 +65,28 @@ const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 			onError: (error) => {
 				console.error(error.toJSON());
 
-				// TODO: ADD Toast | Set Toast with action to refetch & add progress bar
-				// & time label to show when notification will close
-				// const {} = error.response?.data || {};
+				const { status_code, status_message } = error.response?.data || {};
+
+				if (!toast.isActive(toastID)) {
+					toast({
+						id: toastID,
+						duration: convertDurationToMS(),
+						position: 'bottom-left',
+						render: () => (
+							<Alert
+								description={compact([
+									status_code ? `${status_code}.` : null,
+									`Unfortunately, something went wrong when trying to fetch popular ${formatMediaTypeLabel(
+										{ type: 'multiple', mediaType }
+									)}.`,
+									status_message ? `(${status_message})` : null
+								]).join(' ')}
+								status='error'
+								onClose={() => toast.close(toastID)}
+							/>
+						)
+					});
+				}
 
 				if (options.onError) {
 					options.onError(error);
