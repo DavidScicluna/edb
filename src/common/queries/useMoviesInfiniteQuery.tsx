@@ -1,5 +1,7 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
+import { useToast } from '@chakra-ui/react';
+
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
@@ -9,11 +11,15 @@ import {
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
+import { compact } from 'lodash';
 
 import { moviesInfiniteQueryKey } from '../keys';
 import { axios as axiosInstance } from '../scripts';
 import { AxiosConfig, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
+import { convertDurationToMS } from '../../components/Alert/common/utils';
+import { Alert } from '../../components';
+import { formatMediaTypeLabel } from '../utils';
 
 export type UseMoviesInfiniteQueryResponse = Response<PartialMovie[]>;
 
@@ -32,11 +38,13 @@ type UseMoviesInfiniteQueryParams = Undefinable<{
 	options?: UseMoviesInfiniteQueryOptions;
 }>;
 
+const toastID = 'ds-edb-use-movies-infinite-query-toast';
+
 const useMoviesInfiniteQuery = ({
 	config = {},
 	options = {}
 }: UseMoviesInfiniteQueryParams = {}): UseMoviesInfiniteQueryResult => {
-	// const toast = useToast();
+	const toast = useToast();
 
 	const key = moviesInfiniteQueryKey({ params: config.params }) || ['movies', config.params];
 
@@ -62,9 +70,29 @@ const useMoviesInfiniteQuery = ({
 			onError: (error) => {
 				console.error(error.toJSON());
 
-				// TODO: ADD Toast | Set Toast with action to refetch & add progress bar
-				// & time label to show when notification will close
-				// const {} = error.response?.data || {};
+				const { status_code, status_message } = error.response?.data || {};
+
+				if (!toast.isActive(toastID)) {
+					toast({
+						id: toastID,
+						duration: convertDurationToMS(),
+						position: 'bottom-left',
+						render: () => (
+							<Alert
+								description={compact([
+									status_code ? `${status_code}.` : null,
+									`Unfortunately, something went wrong when trying to fetch ${formatMediaTypeLabel({
+										type: 'multiple',
+										mediaType: 'movie'
+									})}.`,
+									status_message ? `(${status_message})` : null
+								]).join(' ')}
+								status='error'
+								onClose={() => toast.close(toastID)}
+							/>
+						)
+					});
+				}
 
 				if (options.onError) {
 					options.onError(error);
