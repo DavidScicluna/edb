@@ -3,6 +3,7 @@ import { IconType } from '@davidscicluna/component-library';
 import { memoize } from 'lodash';
 
 import { AlertColor, AlertDuration, AlertStatus } from '../../types';
+import { duration as defaultDuration } from '../data/defaultPropValues';
 
 type GetStatusProps = { status: AlertStatus };
 
@@ -22,7 +23,7 @@ export const getStatusColor = memoize(({ status }: GetStatusProps): AlertColor =
 export const getStatusIcon = memoize(({ status }: GetStatusProps): IconType => {
 	switch (status) {
 		case 'success':
-			return 'check';
+			return 'check_circle';
 		case 'info':
 			return 'info';
 		case 'error':
@@ -32,9 +33,9 @@ export const getStatusIcon = memoize(({ status }: GetStatusProps): IconType => {
 	}
 });
 
-type ConvertDurationToMSProps = { duration: AlertDuration };
+type ConvertDurationToMSProps = { duration?: AlertDuration };
 
-export const convertDurationToMS = memoize(({ duration }: ConvertDurationToMSProps) => {
+export const convertDurationToMS = memoize(({ duration = defaultDuration }: ConvertDurationToMSProps = {}) => {
 	switch (duration) {
 		case 5.5:
 			return 5500;

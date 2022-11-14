@@ -1,6 +1,14 @@
 import { FC, useState, useCallback, useEffect } from 'react';
 
-import { Space, useTheme, IconButton, IconButtonIcon, Icon, utils } from '@davidscicluna/component-library';
+import {
+	Space,
+	useTheme,
+	IconButton,
+	IconButtonIcon,
+	Icon,
+	utils,
+	Undefinable
+} from '@davidscicluna/component-library';
 
 import { useConst, HStack, VStack, Center, Progress, Text } from '@chakra-ui/react';
 
@@ -8,9 +16,10 @@ import { useCountdown, useElementSize, useUpdateEffect } from 'usehooks-ts';
 import { round, sample } from 'lodash';
 import { transparentize } from 'color2k';
 
-import { titles, emojis } from '../../common/data/strings';
+import { errorTitles, errorEmojis, successTitles, successEmojis } from '../../common/data/strings';
 import { useUserTheme } from '../../common/hooks';
 
+import { duration as defaultDuration } from './common/data/defaultPropValues';
 import { AlertProps } from './types';
 import { getStatusColor, getStatusIcon } from './common/utils';
 
@@ -25,19 +34,33 @@ const Alert: FC<AlertProps> = (props) => {
 	const [contentRef, { height: contentHeight }] = useElementSize();
 	const [closeRef, { width: closeWidth }] = useElementSize();
 
-	const sampledTitle = useConst<string>(sample(titles) || titles[0]);
-	const sampledEmoji = useConst<string>(sample(emojis) || emojis[0]);
+	const { duration, title, description, onClose, status } = props;
 
-	const {
-		duration,
-		title = `${sampledTitle}, something went wrong! ${sampledEmoji}`,
-		description,
-		onClose,
-		status
-	} = props;
+	const sampledTitle = useConst<Undefinable<string>>(
+		status === 'error'
+			? sample(errorTitles) || errorTitles[0]
+			: status === 'success'
+			? sample(successTitles) || successTitles[0]
+			: undefined
+	);
+	const sampledEmoji = useConst<Undefinable<string>>(
+		status === 'error'
+			? sample(errorEmojis) || errorEmojis[0]
+			: status === 'success'
+			? sample(successEmojis) || successEmojis[0]
+			: undefined
+	);
+
+	const defaultTitle = useConst<Undefinable<string>>(
+		status === 'error'
+			? `${sampledTitle}, something went wrong! ${sampledEmoji}`
+			: status === 'success'
+			? `${sampledTitle}! ${sampledEmoji}`
+			: undefined
+	);
 
 	const [count, { startCountdown, resetCountdown }] = useCountdown({
-		countStart: duration || 5,
+		countStart: duration || defaultDuration,
 		intervalMs: 1000
 	});
 
@@ -122,7 +145,7 @@ const Alert: FC<AlertProps> = (props) => {
 						lineHeight='shorter'
 						whiteSpace='nowrap'
 					>
-						{title}
+						{title || defaultTitle}
 					</Text>
 
 					<Text
@@ -144,7 +167,7 @@ const Alert: FC<AlertProps> = (props) => {
 						onClick={() => onClose()}
 						variant='icon'
 					>
-						<IconButtonIcon icon='menu' />
+						<IconButtonIcon icon='close' />
 					</IconButton>
 				</Center>
 			)}
