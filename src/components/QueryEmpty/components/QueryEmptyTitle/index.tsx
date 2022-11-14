@@ -9,7 +9,7 @@ import { sample } from 'lodash';
 import { QueryEmptyContext } from '../..';
 import { colorMode as defaultColorMode } from '../../common/data/defaultPropValues';
 import { QueryEmptyContext as QueryEmptyContextType } from '../../types';
-import { titles, emojis } from '../../../../common/data/strings';
+import { errorTitles, errorEmojis } from '../../../../common/data/strings';
 
 import { QueryEmptyTitleProps } from './types';
 
@@ -20,10 +20,12 @@ const QueryEmptyTitle: FC<QueryEmptyTitleProps> = (props) => {
 
 	const { colorMode = defaultColorMode } = useContext<QueryEmptyContextType>(QueryEmptyContext);
 
-	const sampledTitle = useConst<string>(sample(titles) || titles[0]);
-	const sampledEmoji = useConst<string>(sample(emojis) || emojis[0]);
+	const sampledTitle = useConst<string>(sample(errorTitles) || errorTitles[0]);
+	const sampledEmoji = useConst<string>(sample(errorEmojis) || errorEmojis[0]);
 
-	const { children = `${sampledTitle}, something went wrong! ${sampledEmoji}`, ...rest } = props;
+	const defaultTitle = useConst<string>(`${sampledTitle}, something went wrong! ${sampledEmoji}`);
+
+	const { children = defaultTitle, ...rest } = props;
 
 	return (
 		<Text
