@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useOutletContext } from 'react-router';
 
-import { useTheme, Card, CardBody, CardFooter, Icon, Fade, utils } from '@davidscicluna/component-library';
+import { useTheme, Card, CardBody, CardFooter, Icon, ScaleFade, utils } from '@davidscicluna/component-library';
 
 import { Center, Text } from '@chakra-ui/react';
 
@@ -53,16 +53,27 @@ const User: FC<UserProps> = (props) => {
 								: theme.colors.transparent
 						}}
 					>
-						<Fade in={isSelected}>
-							<Icon
-								color={getColor({ theme, colorMode, type: 'text.primary' })}
-								colorMode={colorMode}
-								width={theme.fontSizes['4xl']}
-								height={theme.fontSizes['4xl']}
-								fontSize={theme.fontSizes['4xl']}
-								icon='check'
-							/>
-						</Fade>
+						<ScaleFade in={isSelected}>
+							<Center
+								p={0.5}
+								sx={{
+									backdropFilter: `blur(${theme.space[2]})`,
+									WebkitBackdropFilter: `blur(${theme.space[2]})`,
+									backgroundColor: transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5),
+									borderRadius: theme.radii.full,
+									transitionProperty: 'all'
+								}}
+							>
+								<Icon
+									color={getColor({ theme, colorMode, type: 'light' })}
+									colorMode={colorMode}
+									width={theme.fontSizes['3xl']}
+									height={theme.fontSizes['3xl']}
+									fontSize={theme.fontSizes['3xl']}
+									icon='check'
+								/>
+							</Center>
+						</ScaleFade>
 					</Center>
 
 					<Avatar alt={name} borderRadius='base' src={{ full: avatar_path }} size={theme.space[8]} />

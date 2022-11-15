@@ -4,7 +4,7 @@ import { useNavigate, useOutletContext } from 'react-router';
 
 import { Colors, useTheme, utils } from '@davidscicluna/component-library';
 
-import { useMediaQuery, HStack, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useToast, HStack, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useWatch } from 'react-hook-form';
@@ -23,6 +23,8 @@ import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
 import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { getBoringAvatarSrc, updateFavicon } from '../../../../../../common/utils';
 import { AuthenticationOutletContext } from '../../types';
+import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
+import { Alert } from '../../../../../../components';
 
 import SigninForm from './components/SigninForm';
 import SigninHeader from './components/SigninHeader';
@@ -32,6 +34,9 @@ import SigninFooter from './components/SigninFooter';
 import Users from './components/Users';
 
 const { getHue, getColorMode } = utils;
+
+const successToastID = 'ds-edb-authentication-sign-in-success-toast';
+const errorToastID = 'ds-edb-authentication-sign-in-error-toast';
 
 export const defaultValues: SigninFormType = {
 	username: '',
@@ -51,6 +56,8 @@ const SignIn: FC = () => {
 
 	const dispatch = useDispatch();
 	const users = useSelector((state) => state.users.data.users);
+
+	const toast = useToast();
 
 	const { width: windowWidth } = useWindowSize();
 
@@ -100,7 +107,6 @@ const SignIn: FC = () => {
 	const handleSubmitAsGuest = (): void => {
 		dispatch(toggleSpinnerModal(true));
 
-		// TODO: Check if avatar is re generated
 		const updatedGuest: User = {
 			...guest,
 			data: {
@@ -130,10 +136,25 @@ const SignIn: FC = () => {
 	const handleSubmitForm = (credentials: SigninFormType): void => {
 		const user = users.find((user) => user.data.id === selectedUserID);
 
-		// TODO: Implement global toast system and add success alert
-
 		if (user && sha256(credentials.password).toString() === user.data.credentials.password) {
 			dispatch(toggleSpinnerModal(true));
+
+			if (!toast.isActive(successToastID)) {
+				toast.close(errorToastID);
+				toast({
+					id: successToastID,
+					duration: convertDurationToMS({ duration: 15 }),
+					position: 'bottom-left',
+					render: () => (
+						<Alert
+							duration={15}
+							description={`Successfully signed in as ${user.data.info.name}!`}
+							status='success'
+							onClose={() => toast.close(successToastID)}
+						/>
+					)
+				});
+			}
 
 			const { rememberMe } = getValues();
 
@@ -145,7 +166,6 @@ const SignIn: FC = () => {
 					signedInAt: dayjs().toISOString()
 				}
 			};
-
 			const updatedUsers: User[] = sort([
 				...users.filter((u) => u.data.id !== updatedUser.data.id),
 				updatedUser
@@ -159,8 +179,21 @@ const SignIn: FC = () => {
 			setTimeout(() => navigate('/'), 500);
 
 			setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
-		} else {
-			// TODO: Implement global toast system and add error alert
+		} else if (!toast.isActive(errorToastID)) {
+			toast.close(successToastID);
+			toast({
+				id: errorToastID,
+				duration: convertDurationToMS({ duration: 15 }),
+				position: 'bottom-left',
+				render: () => (
+					<Alert
+						duration={15}
+						description='Incorrect username or password! Please try again.'
+						status='error'
+						onClose={() => toast.close(errorToastID)}
+					/>
+				)
+			});
 		}
 	};
 
