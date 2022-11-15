@@ -99,6 +99,7 @@ const OriginalSearch: FC = () => {
 	const queryDataStatusDebounced = useDebounce<SearchQueryDataStatus>(queryDataStatus);
 
 	const [activeTab, setActiveTab] = useState<number>(defaultActiveTab);
+	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const [keywords, setKeywords] = useState<UseKeywordsInfiniteQueryResponse>();
 
@@ -343,7 +344,7 @@ const OriginalSearch: FC = () => {
 
 			reset({ query, searchTypes });
 
-			setActiveTab(0);
+			setActiveTab(defaultActiveTab);
 
 			if (!isGuest) {
 				const newRecentSearches: UserSearch = {
@@ -371,7 +372,7 @@ const OriginalSearch: FC = () => {
 	const handleClearAllQuery = (): void => {
 		setQueryDataStatus('hidden');
 
-		setActiveTab(0);
+		setActiveTab(defaultActiveTab);
 
 		setKeywords(undefined);
 
@@ -557,7 +558,7 @@ const OriginalSearch: FC = () => {
 								{queryDataStatusDebounced === 'multiple' ? (
 									<Suspense fallback={<SearchDummyTabs />}>
 										<SearchTabs
-											activeTab={activeTab}
+											activeTab={activeTabDebounced}
 											movies={moviesDebounced}
 											shows={showsDebounced}
 											people={peopleDebounced}

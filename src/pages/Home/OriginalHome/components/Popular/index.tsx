@@ -18,7 +18,6 @@ const Popular: FC = () => {
 		unobserveOnEnter: true
 	});
 
-	// TODO: Go over all activeTabs and add debounce
 	const [activeTab, setActiveTab] = useState<number>(0);
 	const activeTabDebounced = useDebounce<number>(activeTab);
 
