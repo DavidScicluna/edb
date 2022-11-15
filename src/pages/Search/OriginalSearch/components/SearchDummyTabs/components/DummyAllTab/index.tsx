@@ -2,52 +2,28 @@ import { FC } from 'react';
 
 import { VStack } from '@chakra-ui/react';
 
-import { range } from 'lodash';
-
 import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
-import { DummyVerticalPoster } from '../../../../../../../components';
 
-import DummyAllTabHorizontalGrid, { width } from './components/DummyAllTabHorizontalGrid';
+import DummyAllTabMovies from './components/DummyAllTabMovies';
+import DummyAllTabPeople from './components/DummyAllTabPeople';
+import DummyAllTabTVShows from './components/DummyAllTabTVShows';
+import DummyAllTabCollections from './components/DummyAllTabCollections';
+import DummyAllTabCompanies from './components/DummyAllTabCompanies';
 
 const DummyAllTab: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	return (
 		<VStack width='100%' spacing={spacing}>
-			{/* Movies */}
-			<DummyAllTabHorizontalGrid>
-				{range(20).map((_dummy, index) => (
-					<DummyVerticalPoster key={index} mediaType='movie' hasSubtitle sx={{ width }} />
-				))}
-			</DummyAllTabHorizontalGrid>
+			<DummyAllTabMovies />
 
-			{/* TV Shows */}
-			<DummyAllTabHorizontalGrid>
-				{range(20).map((_dummy, index) => (
-					<DummyVerticalPoster key={index} mediaType='tv' hasSubtitle sx={{ width }} />
-				))}
-			</DummyAllTabHorizontalGrid>
+			<DummyAllTabTVShows />
 
-			{/* People */}
-			<DummyAllTabHorizontalGrid>
-				{range(20).map((_dummy, index) => (
-					<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={{ width }} />
-				))}
-			</DummyAllTabHorizontalGrid>
+			<DummyAllTabPeople />
 
-			{/* Companies */}
-			<DummyAllTabHorizontalGrid>
-				{range(20).map((_dummy, index) => (
-					<DummyVerticalPoster key={index} mediaType='company' hasSubtitle sx={{ width }} />
-				))}
-			</DummyAllTabHorizontalGrid>
+			<DummyAllTabCompanies />
 
-			{/* Collections */}
-			<DummyAllTabHorizontalGrid>
-				{range(20).map((_dummy, index) => (
-					<DummyVerticalPoster key={index} mediaType='collection' hasSubtitle sx={{ width }} />
-				))}
-			</DummyAllTabHorizontalGrid>
+			<DummyAllTabCollections />
 		</VStack>
 	);
 };
