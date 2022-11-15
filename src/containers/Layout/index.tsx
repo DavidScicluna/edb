@@ -93,18 +93,22 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 					duration: null,
 					position: 'bottom-left',
 					render: () => (
-						<Alert description='You are currently offline! Please connect to view data.' status='error' />
+						<Alert
+							duration={null}
+							description='You are currently offline! Please connect to view data.'
+							status='error'
+						/>
 					)
 				});
 			} else if (!isFirstRender) {
 				toast.close(offlineToastID);
 				toast({
 					id: onlineToastID,
-					duration: convertDurationToMS({ duration: 10 }),
+					duration: convertDurationToMS(),
 					position: 'bottom-left',
 					render: () => (
 						<Alert
-							duration={10}
+							duration={12.5}
 							description='You have successfully reconnected to the app!'
 							status='success'
 							onClose={() => toast.close(onlineToastID)}

@@ -65,6 +65,7 @@ const useCertificationsQuery = ({
 						position: 'bottom-left',
 						render: () => (
 							<Alert
+								duration={12.5}
 								description={compact([
 									status_code ? `${status_code}.` : null,
 									`Unfortunately, something went wrong when trying to fetch ${formatMediaTypeLabel({

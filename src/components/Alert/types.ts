@@ -55,7 +55,7 @@ export type AlertDuration =
 export type AlertStatus = 'info' | 'warning' | 'success' | 'error';
 
 export type AlertProps = {
-	duration?: Nullable<AlertDuration>;
+	duration: Nullable<AlertDuration>;
 	title?: string;
 	description: string;
 	onClose?: () => void;

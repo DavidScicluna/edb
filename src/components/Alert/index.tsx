@@ -34,7 +34,7 @@ const Alert: FC<AlertProps> = (props) => {
 	const [contentRef, { height: contentHeight }] = useElementSize();
 	const [closeRef, { width: closeWidth }] = useElementSize();
 
-	const { duration = defaultDuration, title, description, onClose, status } = props;
+	const { duration, title, description, onClose, status } = props;
 
 	const sampledTitle = useConst<Undefinable<string>>(
 		status === 'error'
@@ -161,7 +161,7 @@ const Alert: FC<AlertProps> = (props) => {
 				</VStack>
 			</HStack>
 
-			{!!duration && onClose && (
+			{duration && onClose && (
 				<Center ref={closeRef}>
 					<IconButton
 						aria-label='Alert Close Button'
