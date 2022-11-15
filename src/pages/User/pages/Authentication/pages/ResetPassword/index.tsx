@@ -26,12 +26,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useElementSize, useWindowSize } from 'usehooks-ts';
 import { useDispatch } from 'react-redux';
 import sha256 from 'crypto-js/sha256';
-import dayjs from 'dayjs';
 
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import Illustration from '../../components/Illustration';
 import { useSelector } from '../../../../../../common/hooks';
-import { User } from '../../../../../../store/slices/Users/types';
+import { UserCredentials } from '../../../../../../store/slices/Users/types';
 import { setUserCredentials } from '../../../../../../store/slices/Users';
 import { AuthenticationOutletContext } from '../../types';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
@@ -124,16 +123,12 @@ const ForgotPassword: FC = () => {
 				});
 			}
 
-			const updatedUser: User = {
-				...user,
-				data: {
-					...user.data,
-					credentials: { ...user.data.credentials, password: sha256(newPassword).toString() },
-					updatedAt: dayjs().toISOString()
-				}
+			const credentials: UserCredentials = {
+				...user.data.credentials,
+				password: sha256(newPassword).toString()
 			};
 
-			dispatch(setUserCredentials({ id: updatedUser.data.id, data: { ...updatedUser.data.credentials } }));
+			dispatch(setUserCredentials({ id: user.data.id, data: { ...credentials } }));
 		} else if (!toast.isActive(errorToastID)) {
 			toast.close(successToastID);
 			toast({
