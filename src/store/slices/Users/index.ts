@@ -20,7 +20,8 @@ import {
 	// OtherReview,
 	UserLanguage,
 	UserThemeColor,
-	UserTheme
+	UserTheme,
+	UserCredentials
 } from './types';
 
 const colors: UserThemeColor[] = [
@@ -152,6 +153,29 @@ const usersSlice = createSlice({
 		},
 		setUsers: (state: StateProps, action: PayloadAction<User[]>) => {
 			state.data.users = action.payload;
+		},
+		setUserCredentials: (state: StateProps, action: UserAction<UserCredentials>) => {
+			const user = getUser({ users: state.data.users, user: action.payload.id });
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						credentials: { ...action.payload.data },
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
+				}
+			}
 		},
 		setUserInfo: (state: StateProps, action: UserAction<UserInfo>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
@@ -379,6 +403,7 @@ const usersSlice = createSlice({
 export const {
 	setUser,
 	setUsers,
+	setUserCredentials,
 	setUserInfo,
 	setUserRecentSearches,
 	setUserRecentlyViewed,
