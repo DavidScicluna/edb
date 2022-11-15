@@ -4,15 +4,15 @@ import { useLocation, useNavigate } from 'react-router';
 
 import { TabsOnChangeProps, useDebounce, Tabs, TabList, TabPanels, utils } from '@davidscicluna/component-library';
 
-import { ColorMode, useColorMode, useConst, VStack, Text } from '@chakra-ui/react';
+import { ColorMode, useColorMode, useToast, useConst, VStack, Text } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useForm, useFormState, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { useWillUnmount } from 'rooks';
-import { SHA256 } from 'crypto-js';
-import { sort } from 'fast-sort';
+import sha256 from 'crypto-js/sha256';
+import { lowerCase } from 'lodash';
 
 import DummyPasswordTab from '../components/EditUsersDummyPasswordTab';
 import DummyDetailsTab from '../components/EditUsersDummyDetailsTab';
@@ -23,12 +23,13 @@ import { useSelector } from '../../../../../common/hooks';
 import Page from '../../../../../containers/Page';
 import PageBody from '../../../../../containers/Page/components/PageBody';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-import { User, UserInfo, UserTheme } from '../../../../../store/slices/Users/types';
-import { Suspense } from '../../../../../components';
+import { UserTheme } from '../../../../../store/slices/Users/types';
+import { Alert, Suspense } from '../../../../../components';
 import PageHeader from '../../../../../containers/Page/components/PageHeader';
-import { setUser, setUserInfo, setUsers, setUserTheme } from '../../../../../store/slices/Users';
+import { setUserCredentials, setUserInfo, setUserTheme } from '../../../../../store/slices/Users';
 import { updateFavicon } from '../../../../../common/utils';
 import tabs from '../common/data/tabs';
+import { convertDurationToMS } from '../../../../../components/Alert/common/utils';
 
 import GenresTab from './components/GenresTab';
 import DetailsTab from './components/DetailsTab';
@@ -53,8 +54,18 @@ import { detailsSchema, passwordSchema } from './validation';
 
 const { getColorMode } = utils;
 
+const detailsFormToastID = 'ds-edb-edit-user-details-form-toast';
+
+const successPasswordFormToastID = 'ds-edb-edit-user-password-form-success-toast';
+const errorPasswordFormToastID = 'ds-edb-edit-user-password-form-error-toast';
+const genresFormToastID = 'ds-edb-edit-user-genres-form-toast';
+const customizationFormToastID = 'ds-edb-edit-user-customization-form-toast';
+const assetsFormToastID = 'ds-edb-edit-user-assets-form-toast';
+
 const EditUser: FC = () => {
 	const { setColorMode: setCUIColorMode } = useColorMode();
+
+	const isCustomizationFormDirtyRef = useRef<boolean>();
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -62,19 +73,21 @@ const EditUser: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	const dispatch = useDispatch();
-	const activeUser = useSelector((state) => state.users.data.activeUser);
-	const users = useSelector((state) => state.users.data.users || []);
+	const {
+		data: { id, info, credentials },
+		ui: { theme }
+	} = useSelector((state) => state.users.data.activeUser);
 
-	const isCustomizationFormDirtyRef = useRef<boolean>();
+	const toast = useToast();
 
 	const [colorMode, setColorMode] = useState<ColorMode>(
-		activeUser.ui.theme.colorMode === 'system' ? getColorMode() : activeUser.ui.theme.colorMode
+		theme.colorMode === 'system' ? getColorMode() : theme.colorMode
 	);
 
 	const [activeTab, setActiveTab] = useState<number>(0);
 	const activeTabDebounced = useDebounce<number>(activeTab);
 
-	const defaultUserTheme = useConst<UserTheme>(activeUser.ui.theme);
+	const defaultUserTheme = useConst<UserTheme>(theme);
 
 	const detailsForm = useForm<EditUserDetailsForm>({
 		defaultValues: detailsDefaultValues,
@@ -125,146 +138,147 @@ const EditUser: FC = () => {
 	};
 
 	const handleSubmitDetailsForm = (values: EditUserDetailsForm): void => {
-		// TODO: Add toast
-
 		const { firstName, lastName, bio } = values;
 
-		const info: UserInfo = {
-			...activeUser.data.info,
-			name: `${firstName} ${lastName}`,
-			bio
-		};
-		const updatedUser: User = {
-			...activeUser,
-			data: {
-				...activeUser.data,
-				info: { ...activeUser.data.info, ...info }
-			}
-		};
+		if (!toast.isActive(detailsFormToastID)) {
+			toast({
+				id: detailsFormToastID,
+				duration: convertDurationToMS({ duration: 15 }),
+				position: 'bottom-left',
+				render: () => (
+					<Alert
+						duration={15}
+						description={`Successfully updated ${firstName} ${lastName}'s ${lowerCase(tabs[0].label)}!`}
+						status='success'
+						onClose={() => toast.close(detailsFormToastID)}
+					/>
+				)
+			});
+		}
 
-		const updatedUsers: User[] = sort([
-			...users.filter((u) => u.data.id !== updatedUser.data.id),
-			updatedUser
-		]).desc((u) => u.data.updatedAt);
-
-		dispatch(setUser({ ...updatedUser }));
-		dispatch(setUsers([...updatedUsers]));
-		dispatch(setUserInfo({ id: activeUser.data.id, data: { ...info } }));
+		dispatch(setUserInfo({ id: id, data: { ...info, name: `${firstName} ${lastName}`, bio } }));
 
 		resetDetailsForm({ ...values });
 	};
 
-	const handleSubmitPasswordForm = ({ password, newPassword, confirmNewPassword }: EditUserPasswordForm): void => {
-		if (SHA256(password).toString() === activeUser.data.credentials.password) {
-			// TODO: Implement global toast system and add success alert
+	const handleSubmitPasswordForm = (values: EditUserPasswordForm): void => {
+		const { password, newPassword } = values;
 
-			const updatedUser: User = {
-				...activeUser,
-				data: {
-					...activeUser.data,
-					credentials: { ...activeUser.data.credentials, password: SHA256(newPassword).toString() }
-				}
-			};
-			const updatedUsers: User[] = sort([
-				...users.filter((u) => u.data.id !== updatedUser.data.id),
-				updatedUser
-			]).desc((u) => u.data.updatedAt);
+		if (sha256(password).toString() === credentials.password) {
+			if (!toast.isActive(successPasswordFormToastID)) {
+				toast.close(errorPasswordFormToastID);
+				toast({
+					id: successPasswordFormToastID,
+					duration: convertDurationToMS({ duration: 15 }),
+					position: 'bottom-left',
+					render: () => (
+						<Alert
+							duration={15}
+							description={`Successfully updated ${info.name}'s ${lowerCase(tabs[1].label)}!`}
+							status='success'
+							onClose={() => toast.close(successPasswordFormToastID)}
+						/>
+					)
+				});
+			}
 
-			dispatch(setUser({ ...updatedUser }));
-			dispatch(setUsers([...updatedUsers]));
+			dispatch(
+				setUserCredentials({ id: id, data: { ...credentials, password: sha256(newPassword).toString() } })
+			);
 
-			resetPasswordForm({ password, newPassword, confirmNewPassword });
-		} else {
-			// TODO: Implement global toast system and add error alert
+			resetPasswordForm({ ...values });
+		} else if (!toast.isActive(errorPasswordFormToastID)) {
+			toast.close(successPasswordFormToastID);
+			toast({
+				id: errorPasswordFormToastID,
+				duration: convertDurationToMS({ duration: 15 }),
+				position: 'bottom-left',
+				render: () => (
+					<Alert
+						duration={15}
+						description='Incorrect username or password! Please try again.'
+						status='error'
+						onClose={() => toast.close(errorPasswordFormToastID)}
+					/>
+				)
+			});
 		}
 	};
 
 	const handleSubmitGenresForm = (values: EditUserGenresForm): void => {
-		// TODO: Add toast
-
 		const { movie, tv } = values;
 
-		const info: UserInfo = {
-			...activeUser.data.info,
-			prefers: { movie, tv }
-		};
+		if (!toast.isActive(genresFormToastID)) {
+			toast({
+				id: genresFormToastID,
+				duration: convertDurationToMS({ duration: 15 }),
+				position: 'bottom-left',
+				render: () => (
+					<Alert
+						duration={15}
+						description={`Successfully updated ${info.name}'s ${lowerCase(tabs[2].label)}!`}
+						status='success'
+						onClose={() => toast.close(genresFormToastID)}
+					/>
+				)
+			});
+		}
 
-		const updatedUser: User = {
-			...activeUser,
-			data: {
-				...activeUser.data,
-				info: { ...activeUser.data.info, ...info }
-			}
-		};
-		const updatedUsers: User[] = sort([
-			...users.filter((u) => u.data.id !== updatedUser.data.id),
-			updatedUser
-		]).desc((u) => u.data.updatedAt);
-
-		dispatch(setUser({ ...updatedUser }));
-		dispatch(setUsers([...updatedUsers]));
-		dispatch(setUserInfo({ id: activeUser.data.id, data: { ...info } }));
+		dispatch(setUserInfo({ id: id, data: { ...info, prefers: { movie, tv } } }));
 
 		resetGenresForm({ ...values });
 	};
 
 	const handleSubmitCustomizationForm = (values: EditUserCustomizationForm): void => {
-		// TODO: Add toast
-
 		const { color, colorMode } = values;
 
-		resetCustomizationForm({ ...values });
-
-		const updatedUser: User = {
-			...activeUser,
-			ui: {
-				...activeUser.ui,
-				theme: { ...activeUser.ui.theme, ...values }
-			}
-		};
-		const updatedUsers: User[] = sort([
-			...users.filter((u) => u.data.id !== updatedUser.data.id),
-			updatedUser
-		]).desc((u) => u.data.updatedAt);
-
-		dispatch(setUser({ ...updatedUser }));
-		dispatch(setUsers([...updatedUsers]));
-		dispatch(setUserTheme({ id: activeUser.data.id, data: { ...values } }));
+		if (!toast.isActive(customizationFormToastID)) {
+			toast({
+				id: customizationFormToastID,
+				duration: convertDurationToMS({ duration: 15 }),
+				position: 'bottom-left',
+				render: () => (
+					<Alert
+						duration={15}
+						description={`Successfully updated ${info.name}'s ${lowerCase(tabs[3].label)}!`}
+						status='success'
+						onClose={() => toast.close(customizationFormToastID)}
+					/>
+				)
+			});
+		}
 
 		updateFavicon({ color: color, colorMode: colorMode === 'system' ? getColorMode() : colorMode });
+
+		dispatch(setUserTheme({ id: id, data: { ...theme, ...values } }));
+
+		resetCustomizationForm({ ...values });
 	};
 
 	const handleSubmitAssetsForm = (values: EditUserAssetsForm): void => {
-		// TODO: Add toast
+		if (!toast.isActive(assetsFormToastID)) {
+			toast({
+				id: assetsFormToastID,
+				duration: convertDurationToMS({ duration: 15 }),
+				position: 'bottom-left',
+				render: () => (
+					<Alert
+						duration={15}
+						description={`Successfully updated ${info.name}'s ${lowerCase(tabs[4].label)}!`}
+						status='success'
+						onClose={() => toast.close(assetsFormToastID)}
+					/>
+				)
+			});
+		}
 
-		const info: UserInfo = { ...activeUser.data.info, ...values };
-
-		const updatedUser: User = {
-			...activeUser,
-			data: {
-				...activeUser.data,
-				info: { ...activeUser.data.info, ...info }
-			}
-		};
-		const updatedUsers: User[] = sort([
-			...users.filter((u) => u.data.id !== updatedUser.data.id),
-			updatedUser
-		]).desc((u) => u.data.updatedAt);
-
-		dispatch(setUser({ ...updatedUser }));
-		dispatch(setUsers([...updatedUsers]));
-		dispatch(setUserInfo({ id: activeUser.data.id, data: { ...info } }));
+		dispatch(setUserInfo({ id: id, data: { ...info, ...values } }));
 
 		resetAssetsForm({ ...values });
 	};
 
 	const handleResetForms = () => {
-		const {
-			data: {
-				info: { name, bio, prefers, avatar_path, background_path }
-			},
-			ui: { theme }
-		} = activeUser;
+		const { name, bio, prefers, avatar_path, background_path } = info;
 
 		const splitName = name.split(' ');
 		const firstName = splitName && splitName[0] ? splitName[0] : '';
@@ -287,7 +301,7 @@ const EditUser: FC = () => {
 	};
 
 	const handleSetUserTheme = ({ color, colorMode }: UserTheme): void => {
-		dispatch(setUserTheme({ id: activeUser.data.id, data: { color, colorMode } }));
+		dispatch(setUserTheme({ id: id, data: { color, colorMode } }));
 
 		updateFavicon({ color, colorMode: colorMode === 'system' ? getColorMode() : colorMode });
 
