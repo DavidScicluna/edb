@@ -5,6 +5,7 @@ import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 import { range } from 'lodash';
 import numbro from 'numbro';
 
+import width from '../../../../../../../components/Posters/common/data/width';
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -17,7 +18,7 @@ import {
 	HorizontalGridScroll,
 	TVShowVerticalPoster
 } from '../../../../../../../components';
-import TrendingAllTabHorizontalGrid, { width } from '../TrendingAllTabHorizontalGrid';
+import TrendingAllTabHorizontalGrid from '../TrendingAllTabHorizontalGrid';
 import { useUserTheme } from '../../../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';

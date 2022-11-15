@@ -2,9 +2,10 @@ import { FC } from 'react';
 
 import numbro from 'numbro';
 
-import AllTabHorizontalGrid, { width } from '../AllTabHorizontalGrid';
+import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { PersonVerticalPoster } from '../../../../../../../../../components';
+import width from '../../../../../../../../../components/Posters/common/data/width';
 
 import { AllTabPeopleProps } from './types';
 

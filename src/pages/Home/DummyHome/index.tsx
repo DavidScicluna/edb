@@ -18,11 +18,9 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import { useUserTheme } from '../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
+import width from '../../../components/Posters/common/data/width';
 
 const { getColor } = utils;
-
-// TODO: Extract vertical poster widths into method
-export const width = ['185px', '205px', '230px'];
 
 const DummyHome: FC = () => {
 	const theme = useTheme();

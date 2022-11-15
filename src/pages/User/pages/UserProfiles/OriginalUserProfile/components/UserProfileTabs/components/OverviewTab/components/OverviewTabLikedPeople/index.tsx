@@ -23,11 +23,9 @@ import {
 	PersonVerticalPoster
 } from '../../../../../../../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
+import width from '../../../../../../../../../../../components/Posters/common/data/width';
 
 import { OverviewTabLikedPeopleProps } from './types';
-
-// TODO: Extract vertical poster widths into method
-export const width = ['185px', '205px', '230px'];
 
 const limit = 20;
 

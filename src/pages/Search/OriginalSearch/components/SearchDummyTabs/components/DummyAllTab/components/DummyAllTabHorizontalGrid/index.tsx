@@ -4,7 +4,6 @@ import { useTheme, DummyButton } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../../../../common/hooks';
 import {
 	DummyHorizontalGrid,
 	DummyHorizontalGridHeader,
@@ -12,11 +11,9 @@ import {
 	DummyHorizontalGridScroll,
 	DummyHorizontalGridFooter
 } from '../../../../../../../../../components';
+import { useUserTheme } from '../../../../../../../../../common/hooks';
 
 import { DummyAllTabHorizontalGridProps } from './types';
-
-// TODO: Extract vertical poster widths into method
-export const width = ['185px', '205px', '230px'];
 
 const DummyAllTabHorizontalGrid: FC<DummyAllTabHorizontalGridProps> = ({ children }) => {
 	const theme = useTheme();

@@ -2,7 +2,8 @@ import { FC } from 'react';
 
 import { range } from 'lodash';
 
-import AllTabDummyHorizontalGrid, { width } from '../DummyAllTabHorizontalGrid';
+import width from '../../../../../../../../../../../../../components/Posters/common/data/width';
+import AllTabDummyHorizontalGrid from '../DummyAllTabHorizontalGrid';
 import { DummyVerticalPoster } from '../../../../../../../../../../../../../components';
 
 const AllTabDummyTVShows: FC = () => {

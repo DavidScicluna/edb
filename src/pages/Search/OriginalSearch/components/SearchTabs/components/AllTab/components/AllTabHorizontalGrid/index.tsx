@@ -15,11 +15,6 @@ import {
 
 import { AllTabHorizontalGridProps } from './types';
 
-// TODO: Extract vertical poster widths into method
-export const width = ['185px', '205px', '230px'];
-
-// TODO: Add HorizontalGridStack to all dummy HorizontalGrid
-
 const AllTabHorizontalGrid: FC<AllTabHorizontalGridProps> = (props) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
