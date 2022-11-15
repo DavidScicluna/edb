@@ -2,18 +2,21 @@ import { FC, useRef, useState } from 'react';
 
 import { useTheme, ImageEditor, Icon, utils } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, Center } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, useToast, Center } from '@chakra-ui/react';
 
 import Compressor from 'compressorjs';
 import { useWatch } from 'react-hook-form';
 
 import { getRatio } from '../../../../../../common/utils';
-import { ClickableMedia, Image } from '../../../../../../components';
+import { Alert, ClickableMedia, Image } from '../../../../../../components';
 import { FileInputRef, ChangeEvent } from '../../types';
+import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
 
 import { UserAvatarProps } from './types';
 
 const { getColor } = utils;
+
+const toastID = 'ds-edb-user-avatar-toast';
 
 const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 	const theme = useTheme();
@@ -23,6 +26,8 @@ const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 
 	const fileInputRef = useRef<FileInputRef>(null);
 
+	const toast = useToast();
+
 	const { control } = form;
 
 	const watchAvatarPath = useWatch({ control, name: 'avatar_path' });
@@ -30,7 +35,6 @@ const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 	const [image, setImage] = useState<string>('');
 
 	const handleChange = (event: ChangeEvent) => {
-		// TODO: Add error toast if not successful to convert to blob
 		if (event.target.files) {
 			new Compressor(event.target.files[0], {
 				strict: true,
@@ -42,6 +46,25 @@ const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 
 					setImage(URL.createObjectURL(blob));
 					onCropperOpen();
+				},
+				error: (error) => {
+					console.error(error);
+
+					if (!toast.isActive(toastID)) {
+						toast({
+							id: toastID,
+							duration: convertDurationToMS(),
+							position: 'bottom-left',
+							render: () => (
+								<Alert
+									duration={12.5}
+									description={`Unfortunately, wasn't able to upload the image! Please try again.`}
+									status='error'
+									onClose={() => toast.close(toastID)}
+								/>
+							)
+						});
+					}
 				}
 			});
 		}
