@@ -18,7 +18,7 @@ import {
 	Icon
 } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useDisclosure, HStack, Center } from '@chakra-ui/react';
+import { useMediaQuery, useDisclosure, useToast, HStack, Center } from '@chakra-ui/react';
 
 import qs from 'query-string';
 import { useForm, useFormState } from 'react-hook-form';
@@ -26,19 +26,24 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useElementSize, useWindowSize } from 'usehooks-ts';
 import { useDispatch } from 'react-redux';
 import sha256 from 'crypto-js/sha256';
-import { sort } from 'fast-sort';
+import dayjs from 'dayjs';
 
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import Illustration from '../../components/Illustration';
 import { useSelector } from '../../../../../../common/hooks';
 import { User } from '../../../../../../store/slices/Users/types';
-import { setUsers } from '../../../../../../store/slices/Users';
+import { setUserCredentials } from '../../../../../../store/slices/Users';
 import { AuthenticationOutletContext } from '../../types';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
+import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
+import { Alert } from '../../../../../../components';
 
 import { ResetPasswordForm as ResetPasswordFormType } from './types';
 import { schema } from './validation';
 import ResetPasswordForm from './components/ResetPasswordForm';
+
+const successToastID = 'ds-edb-authentication-reset-password-success-toast';
+const errorToastID = 'ds-edb-authentication-reset-password-error-toast';
 
 export const defaultValues: ResetPasswordFormType = {
 	username: '',
@@ -63,6 +68,8 @@ const ForgotPassword: FC = () => {
 
 	const dispatch = useDispatch();
 	const users = useSelector((state) => state.users.data.users);
+
+	const toast = useToast();
 
 	const { width: windowWidth } = useWindowSize();
 
@@ -100,24 +107,48 @@ const ForgotPassword: FC = () => {
 		const user = users.find((user) => user.data.credentials.username === username);
 
 		if (user && sha256(password).toString() === user.data.credentials.password) {
-			// TODO: Implement global toast system and add success alert
+			if (!toast.isActive(successToastID)) {
+				toast.close(errorToastID);
+				toast({
+					id: successToastID,
+					duration: convertDurationToMS({ duration: 15 }),
+					position: 'bottom-left',
+					render: () => (
+						<Alert
+							duration={15}
+							description={`Successfully updated ${user.data.info.name}'s password!`}
+							status='success'
+							onClose={() => toast.close(successToastID)}
+						/>
+					)
+				});
+			}
 
 			const updatedUser: User = {
 				...user,
 				data: {
 					...user.data,
-					credentials: { ...user.data.credentials, password: sha256(newPassword).toString() }
+					credentials: { ...user.data.credentials, password: sha256(newPassword).toString() },
+					updatedAt: dayjs().toISOString()
 				}
 			};
 
-			const updatedUsers: User[] = sort([
-				...users.filter((u) => u.data.id !== updatedUser.data.id),
-				updatedUser
-			]).desc((u) => u.data.updatedAt);
-
-			dispatch(setUsers([...updatedUsers]));
-		} else {
-			// TODO: Implement global toast system and add error alert
+			dispatch(setUserCredentials({ id: updatedUser.data.id, data: { ...updatedUser.data.credentials } }));
+		} else if (!toast.isActive(errorToastID)) {
+			toast.close(successToastID);
+			toast({
+				id: errorToastID,
+				duration: convertDurationToMS({ duration: 15 }),
+				position: 'bottom-left',
+				render: () => (
+					<Alert
+						duration={15}
+						description='Incorrect username or password! Please try again.'
+						status='error'
+						onClose={() => toast.close(errorToastID)}
+					/>
+				)
+			});
 		}
 	};
 

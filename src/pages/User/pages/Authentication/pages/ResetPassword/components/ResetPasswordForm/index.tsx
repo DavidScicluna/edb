@@ -185,7 +185,7 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ form, onSubmit, onBack 
 												placeholder={isNewPassVisible ? 'password' : '••••••••'}
 												onBlur={onBlur}
 												onChange={onChange}
-												isDisabled={!isUserChecked && !watchPassword}
+												isDisabled={!isUserChecked || !watchPassword}
 												isError={!!error}
 												isFullWidth
 												isRequired
@@ -223,7 +223,7 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ form, onSubmit, onBack 
 												placeholder={isConfirmPassVisible ? 'password' : '••••••••'}
 												onBlur={onBlur}
 												onChange={onChange}
-												isDisabled={!isUserChecked && !watchPassword}
+												isDisabled={!isUserChecked || !watchPassword}
 												isError={!!error}
 												isFullWidth
 												isRequired
