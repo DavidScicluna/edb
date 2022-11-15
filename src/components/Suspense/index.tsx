@@ -15,7 +15,6 @@ class Suspense extends Component<SuspenseProps, State> {
 	}
 
 	public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-		// TODO: Show Toast Alert!
 		console.error('Uncaught error:', error, errorInfo);
 	}
 

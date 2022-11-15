@@ -10,8 +10,6 @@ import { useSelector, useUserTheme } from '../../../../../../../../../../common/
 
 const { getTransitionDelay } = utils;
 
-// TODO: Replace all exitBeforeEnter with mode='wait'
-
 const SignInButton: FC = () => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
@@ -25,7 +23,7 @@ const SignInButton: FC = () => {
 		<InternalLink to='/authentication/signin' isFullWidth>
 			<Button color={color} colorMode={colorMode} isFullWidth>
 				<Center width='100%' position='relative'>
-					<AnimatePresence initial={false} exitBeforeEnter>
+					<AnimatePresence initial={false} mode='wait'>
 						<Fade
 							in={sidebarMode === 'expanded'}
 							transition={{ enter: { ...config } }}

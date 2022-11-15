@@ -450,7 +450,7 @@ const OriginalSearch: FC = () => {
 								/>
 							),
 							collapsible: (
-								<AnimatePresence exitBeforeEnter initial={false}>
+								<AnimatePresence mode='wait' initial={false}>
 									{isKeywordsVisible ? (
 										<Fade
 											key='ds-edb-search-form-collapsible-content-1'

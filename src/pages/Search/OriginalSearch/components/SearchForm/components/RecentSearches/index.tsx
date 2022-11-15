@@ -38,7 +38,7 @@ const RecentSearches: FC<RecentSearchesProps> = (props) => {
 				</Button>
 			}
 		>
-			<AnimatePresence exitBeforeEnter initial={false}>
+			<AnimatePresence mode='wait' initial={false}>
 				{sort([...allRecentSearches])
 					.desc(({ searchedAt }) => searchedAt)
 					.map((search) => (

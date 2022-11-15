@@ -11,8 +11,6 @@ import { formatMediaTypeLabel } from '../../../../common/utils';
 
 import { PosterLikeProps } from './types';
 
-// TODO: Maybe add Heart animation like insta on like
-
 const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElement => {
 	const { colorMode } = useUserTheme();
 
