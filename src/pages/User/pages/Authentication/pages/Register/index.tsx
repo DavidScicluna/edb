@@ -26,7 +26,7 @@ import {
 	utils
 } from '@davidscicluna/component-library';
 
-import { ColorMode, useDisclosure } from '@chakra-ui/react';
+import { ColorMode, useDisclosure, useToast } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
 import { useDispatch } from 'react-redux';
@@ -39,13 +39,15 @@ import { v4 as uuid } from 'uuid';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { useSelector } from '../../../../../../common/hooks';
-import { defaultUser, setUserInfo, setUserTheme, setUsers, setUser } from '../../../../../../store/slices/Users';
+import { defaultUser, setUsers, setUser } from '../../../../../../store/slices/Users';
 import { User, UserInfo, UserCredentials } from '../../../../../../store/slices/Users/types';
 import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
 import { getBoringAvatarSrc, updateFavicon } from '../../../../../../common/utils';
 import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../types';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
+import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
+import { Alert } from '../../../../../../components';
 
 import { detailsSchema } from './validation';
 import { RegisterDetailsForm, RegisterGenresForm, RegisterCustomizationForm, RegisterAssetsForm } from './types';
@@ -55,7 +57,10 @@ import GenresStep from './components/GenresStep';
 import DetailsStep from './components/DetailsStep';
 import CustomizationStep from './components/CustomizationStep';
 
-const id = uuid();
+const { getHue, getColorMode } = utils;
+
+const toastID = 'ds-edb-authentication-register-toast';
+const defaultID = uuid();
 
 const defaultSteps: Step[] = [
 	{
@@ -80,8 +85,6 @@ const defaultSteps: Step[] = [
 	}
 ];
 
-const { getHue, getColorMode } = utils;
-
 const Register: FC = () => {
 	const theme = useTheme();
 
@@ -95,6 +98,8 @@ const Register: FC = () => {
 	const dispatch = useDispatch();
 	const guest = useSelector((state) => state.users.data.activeUser);
 	const users = useSelector((state) => state.users.data.users || []);
+
+	const toast = useToast();
 
 	const [steps, setSteps] = useState<Step[]>([...defaultSteps]);
 	const [activeStep, setActiveStep] = useState<number>(0);
@@ -149,14 +154,14 @@ const Register: FC = () => {
 		defaultValues: {
 			...assetsDefaultValues,
 			avatar_path: getBoringAvatarSrc({
-				id,
+				id: defaultID,
 				colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
 				hue: getHue({ colorMode, type: 'color' }),
 				size: 500,
 				variant: 'beam'
 			}),
 			background_path: getBoringAvatarSrc({
-				id,
+				id: defaultID,
 				colors: omit({ ...theme.colors }, ['transparent', 'black', 'white']) as Colors,
 				hue: getHue({ colorMode, type: 'color' }),
 				size: 500,
@@ -281,7 +286,21 @@ const Register: FC = () => {
 	const handleSubmit = (): void => {
 		dispatch(toggleSpinnerModal(true));
 
-		// TODO: Implement global toast system and add success alert
+		if (!toast.isActive(toastID)) {
+			toast({
+				id: toastID,
+				duration: convertDurationToMS({ duration: 15 }),
+				position: 'bottom-left',
+				render: () => (
+					<Alert
+						duration={15}
+						description={`${details.firstName} ${details.lastName} was successfully created!`}
+						status='success'
+						onClose={() => toast.close(toastID)}
+					/>
+				)
+			});
+		}
 
 		const details = getDetailsFormValues();
 		const genres = getGenresFormValues();
@@ -306,7 +325,7 @@ const Register: FC = () => {
 			...defaultUser,
 			data: {
 				...defaultUser.data,
-				id,
+				id: defaultID,
 				credentials: { ...defaultUser.data.credentials, ...credentials },
 				info: { ...defaultUser.data.info, ...info },
 				signedInAt: dayjs().toISOString(),
@@ -324,8 +343,6 @@ const Register: FC = () => {
 		]).desc((u) => u.data.signedInAt);
 
 		dispatch(setUser({ ...updatedUser }));
-		dispatch(setUserInfo({ id, data: { ...info } }));
-		dispatch(setUserTheme({ id, data: { ...customization } }));
 		dispatch(setUsers([...updatedUsers]));
 
 		updateFavicon({ color: updatedUser.ui.theme.color, colorMode });

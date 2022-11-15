@@ -6,7 +6,7 @@ import {
 	color as defaultColor,
 	colorMode as defaultColorMode
 } from '../../../../../../../../common/data/defaultPropValues';
-import UserProfileUpdateAssets from '../../../../../../components/UserProfileUpdateAssets';
+import UserUpdateAssets from '../../../../../../components/UserUpdateAssets';
 import { AuthenticationOutletContext } from '../../../../types';
 
 import { AssetsStepProps } from './types';
@@ -17,7 +17,7 @@ const AssetsStep: FC<AssetsStepProps> = (props) => {
 	const { form, firstName, lastName, username } = props;
 
 	return (
-		<UserProfileUpdateAssets
+		<UserUpdateAssets
 			color={color}
 			colorMode={colorMode}
 			form={form}

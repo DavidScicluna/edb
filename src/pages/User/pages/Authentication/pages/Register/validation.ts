@@ -19,7 +19,7 @@ export const detailsSchema = yup.object().shape({
 		.label('Password'),
 	confirmNewPassword: yup
 		.string()
-		.oneOf([yup.ref('newPassword')], 'Confirm Password must be equal to New Password!')
+		.oneOf([yup.ref('newPassword')], 'Confirm Password must be equal to Password!')
 		.label('Confirm Password'),
 	firstName: yup.string().required().max(30, 'The first name cannot exceed 30 characters!').label('First name'),
 	lastName: yup.string().required().max(30, 'The last name cannot exceed 30 characters!').label('Last name'),
