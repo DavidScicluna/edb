@@ -20,11 +20,19 @@ export type AuthenticationConfirmModal = {
 	description: string | string[];
 };
 
+export type PromptConfirmModal = {
+	isOpen: boolean;
+	title: string;
+	subtitle: string;
+	onConfirm: () => void;
+};
+
 export type StateProps = {
 	ui: {
 		bookmarkModal: BookmarkModal;
 		quickViewModal: QuickViewModal;
 		authenticationConfirmModal: AuthenticationConfirmModal;
+		promptConfirmModal: PromptConfirmModal;
 		isUserThemeModalOpen: boolean;
 		isInternationalizationModalOpen: boolean;
 		isSpinnerModalOpen: boolean;
