@@ -49,7 +49,7 @@ const PromptConfirmModal: FC = () => {
 							width={theme.fontSizes['6xl']}
 							height={theme.fontSizes['6xl']}
 							fontSize={theme.fontSizes['6xl']}
-							icon='question_mark'
+							icon='warning'
 						/>
 					)}
 					color={color}
