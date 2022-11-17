@@ -26,15 +26,21 @@ const usePrompt = ({ title, subtitle, when = true }: UsePromptProps): void => {
 			return;
 		}
 
-		navigator.push = (to: To) => {
-			dispatch(
-				setPromptConfirmModal({
-					isOpen: true,
-					title,
-					subtitle,
-					onConfirm: () => handleOnConfirm(to)
-				})
-			);
+		navigator.push = (to: To, _state, options = {}) => {
+			const { relative } = options;
+
+			if (!relative) {
+				dispatch(
+					setPromptConfirmModal({
+						isOpen: true,
+						title,
+						subtitle,
+						onConfirm: () => handleOnConfirm(to)
+					})
+				);
+			} else {
+				push(to);
+			}
 		};
 
 		return () => {
