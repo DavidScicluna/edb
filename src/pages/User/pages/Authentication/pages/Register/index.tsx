@@ -12,21 +12,10 @@ import {
 	StepPanels,
 	StepPanel,
 	StepList,
-	ConfirmModal,
-	ConfirmModalStack,
-	ConfirmModalIcon,
-	ConfirmModalBody,
-	ConfirmModalTitle,
-	ConfirmModalSubtitle,
-	ConfirmModalFooter,
-	Button,
-	IconButton,
-	IconButtonIcon,
-	Icon,
 	utils
 } from '@davidscicluna/component-library';
 
-import { ColorMode, useDisclosure, useToast } from '@chakra-ui/react';
+import { ColorMode, useToast } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
 import { useDispatch } from 'react-redux';
@@ -38,14 +27,13 @@ import { isEmpty, isNil, omit } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { useSelector } from '../../../../../../common/hooks';
+import { usePrompt, useSelector } from '../../../../../../common/hooks';
 import { defaultUser, setUsers, setUser } from '../../../../../../store/slices/Users';
 import { User, UserInfo, UserCredentials } from '../../../../../../store/slices/Users/types';
 import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
 import { getBoringAvatarSrc, updateFavicon } from '../../../../../../common/utils';
 import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../types';
-import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
 import { Alert } from '../../../../../../components';
 
@@ -87,10 +75,6 @@ const defaultSteps: Step[] = [
 
 const Register: FC = () => {
 	const theme = useTheme();
-
-	const { spacing } = useLayoutContext();
-
-	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
 	const navigate = useNavigate();
 	const { colorMode = defaultColorMode, setColor, setColorMode } = useOutletContext<AuthenticationOutletContext>();
@@ -173,6 +157,13 @@ const Register: FC = () => {
 	const { control: controlAssetsForm, getValues: getAssetsFormValues } = assetsForm;
 
 	const { isValid: isAssetsFormValid, isDirty: isAssetsFormDirty } = useFormState({ control: controlAssetsForm });
+
+	usePrompt({
+		title: 'Unsubmitted Changes!',
+		subtitle:
+			'Are you sure you want to cancel registration? Once you close the page you will not be able to retrieve the changed data!',
+		when: isDetailsFormDirty || isGenresFormDirty || isCustomizationFormDirty || isAssetsFormDirty
+	});
 
 	const handleStepStatus = useCallback(
 		(index: number): Step['status'] => {
@@ -266,23 +257,6 @@ const Register: FC = () => {
 		[steps, activeStep, handleStepStatus]
 	);
 
-	const handleClose = (): void => {
-		navigate('/authentication/signin');
-	};
-
-	const handleCloseConfirm = (): void => {
-		onConfirmClose();
-		handleClose();
-	};
-
-	const handleCheckCancel = (): void => {
-		if (!(isDetailsFormDirty || isGenresFormDirty || isCustomizationFormDirty || isAssetsFormDirty)) {
-			handleClose();
-		} else {
-			onConfirmOpen();
-		}
-	};
-
 	const handleSubmit = (): void => {
 		dispatch(toggleSpinnerModal(true));
 
@@ -364,68 +338,23 @@ const Register: FC = () => {
 	useUpdateEffect(() => handleSetUserTheme(), [watchColor, watchColorMode]);
 
 	return (
-		<>
-			<Stepper
-				activeStep={activeStep}
-				color={watchColor}
-				colorMode={colorMode}
-				onChange={handleChange}
-				onCancel={handleCheckCancel}
-				onSubmit={handleSubmit}
-			>
-				<StepList>{[...steps]}</StepList>
-				<StepPanels>
-					{steps.map((step, index) => (
-						<StepPanel key={step.title} {...step} index={index} total={steps.length} p={3}>
-							{handleReturnElement(index)}
-						</StepPanel>
-					))}
-				</StepPanels>
-			</Stepper>
-
-			<ConfirmModal
-				colorMode={colorMode}
-				renderCancel={({ icon, category, ...rest }) => (
-					<IconButton {...rest}>
-						<IconButtonIcon icon={icon} category={category} />
-					</IconButton>
-				)}
-				isOpen={isConfirmOpen}
-				onClose={onConfirmClose}
-			>
-				<ConfirmModalStack spacing={spacing} p={spacing}>
-					<ConfirmModalIcon
-						renderIcon={(props) => (
-							<Icon
-								{...props}
-								width={theme.fontSizes['6xl']}
-								height={theme.fontSizes['6xl']}
-								fontSize={theme.fontSizes['6xl']}
-								icon='help_outline'
-							/>
-						)}
-						color={watchColor}
-						p={2}
-					/>
-
-					<ConfirmModalBody>
-						<ConfirmModalTitle>Cancel User Creation?</ConfirmModalTitle>
-						<ConfirmModalSubtitle>
-							Are you sure you want to cancel creating a new user? Once you close the page you will not be
-							able to retrieve the data!
-						</ConfirmModalSubtitle>
-					</ConfirmModalBody>
-					<ConfirmModalFooter
-						renderCancel={(props) => <Button {...props}>Cancel</Button>}
-						renderAction={(props) => (
-							<Button {...props} color={watchColor} onClick={handleCloseConfirm}>
-								Go Back
-							</Button>
-						)}
-					/>
-				</ConfirmModalStack>
-			</ConfirmModal>
-		</>
+		<Stepper
+			activeStep={activeStep}
+			color={watchColor}
+			colorMode={colorMode}
+			onChange={handleChange}
+			onCancel={() => navigate('/authentication/signin')}
+			onSubmit={handleSubmit}
+		>
+			<StepList>{[...steps]}</StepList>
+			<StepPanels>
+				{steps.map((step, index) => (
+					<StepPanel key={step.title} {...step} index={index} total={steps.length} p={3}>
+						{handleReturnElement(index)}
+					</StepPanel>
+				))}
+			</StepPanels>
+		</Stepper>
 	);
 };
 
