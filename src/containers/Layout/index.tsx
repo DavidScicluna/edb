@@ -24,6 +24,7 @@ import InternationalizationModal from './components/Modals/InternationalizationM
 import AuthenticationConfirmModal from './components/Modals/AuthenticationConfirmModal';
 import UserThemeModal from './components/Modals/UserThemeModal';
 import BookmarkModal from './components/Modals/BookmarkModal';
+import PromptConfirmModal from './components/Modals/PromptConfirmModal';
 // import QuickViewModal from './components/Modals/QuickView';
 // import ProgressBar from './components/ProgressBar';
 import Structure from './components/Structure';
@@ -100,7 +101,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 						/>
 					)
 				});
-			} else if (!isFirstRender) {
+			} else if (!isFirstRender && !toast.isActive(onlineToastID)) {
 				toast.close(offlineToastID);
 				toast({
 					id: onlineToastID,
@@ -154,6 +155,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 			{/* <QuickViewModal /> */}
 
 			<InternationalizationModal />
+
+			<PromptConfirmModal />
 
 			{!isGuest && <UserThemeModal />}
 
