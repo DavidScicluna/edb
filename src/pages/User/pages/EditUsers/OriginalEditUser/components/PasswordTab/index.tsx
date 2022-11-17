@@ -25,15 +25,6 @@ const PasswordTab: FC<PasswordTabProps> = (props) => {
 	const watchNewPassword = useWatch({ control, name: 'newPassword' });
 	const watchConfirmNewPassword = useWatch({ control, name: 'confirmNewPassword' });
 
-	// const { isDirty } = useFormState({ control });
-
-	// usePrompt({
-	// 	title: 'Unsubmitted Changes!',
-	// 	subtitle:
-	// 		'Are you sure you want to cancel editing the Password? Once you close the page you will not be able to retrieve the changed data!',
-	// 	when: isDirty
-	// });
-
 	// Current Password
 	const [isCurrentPassVisible, setIsCurrentPassVisible] = useBoolean();
 	const [isHoveringCurrentPass, setIsHoveringCurrentPass] = useBoolean();

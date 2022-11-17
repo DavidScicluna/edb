@@ -26,13 +26,6 @@ const AssetsTab: FC<AssetsTabProps> = (props) => {
 
 	const { isDirty } = useFormState({ control });
 
-	// usePrompt({
-	// 	title: 'Unsubmitted Changes!',
-	// 	subtitle:
-	// 'Are you sure you want to cancel editing the Avatar & Background? Once you close the page you will not be able to retrieve the changed data!',
-	// 	when: isDirty
-	// });
-
 	const handleClear = (): void => {
 		reset({ avatar_path, background_path });
 	};

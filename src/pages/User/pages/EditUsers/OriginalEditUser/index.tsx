@@ -2,7 +2,15 @@ import { FC, useRef, useState, useCallback, useEffect } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { TabsOnChangeProps, useDebounce, Tabs, TabList, TabPanels, utils } from '@davidscicluna/component-library';
+import {
+	TabsOnChangeProps,
+	useTheme,
+	useDebounce,
+	Tabs,
+	TabList,
+	TabPanels,
+	utils
+} from '@davidscicluna/component-library';
 
 import { ColorMode, useColorMode, useToast, useConst, VStack, Text } from '@chakra-ui/react';
 
@@ -19,7 +27,7 @@ import DummyDetailsTab from '../components/EditUsersDummyDetailsTab';
 import DummyGenresTab from '../components/EditUsersDummyGenresTab';
 import DummyAssetsTab from '../components/EditUsersDummyAssetsTab';
 import DummyCustomizationTab from '../components/EditUsersDummyCustomizationTab';
-import { useSelector } from '../../../../../common/hooks';
+import { usePrompt, useSelector } from '../../../../../common/hooks';
 import Page from '../../../../../containers/Page';
 import PageBody from '../../../../../containers/Page/components/PageBody';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
@@ -51,6 +59,7 @@ import {
 	assetsDefaultValues
 } from './defaults';
 import { detailsSchema, passwordSchema } from './validation';
+import EditUserErrorTabIcon from './components/EditUserErrorTabIcon';
 
 const { getColorMode } = utils;
 
@@ -63,6 +72,7 @@ const customizationFormToastID = 'ds-edb-edit-user-customization-form-toast';
 const assetsFormToastID = 'ds-edb-edit-user-assets-form-toast';
 
 const EditUser: FC = () => {
+	const theme = useTheme();
 	const { setColorMode: setCUIColorMode } = useColorMode();
 
 	const isCustomizationFormDirtyRef = useRef<boolean>();
@@ -75,19 +85,19 @@ const EditUser: FC = () => {
 	const dispatch = useDispatch();
 	const {
 		data: { id, info, credentials },
-		ui: { theme }
+		ui: { theme: userTheme }
 	} = useSelector((state) => state.users.data.activeUser);
 
 	const toast = useToast();
 
 	const [colorMode, setColorMode] = useState<ColorMode>(
-		theme.colorMode === 'system' ? getColorMode() : theme.colorMode
+		userTheme.colorMode === 'system' ? getColorMode() : userTheme.colorMode
 	);
 
 	const [activeTab, setActiveTab] = useState<number>(0);
 	const activeTabDebounced = useDebounce<number>(activeTab);
 
-	const defaultUserTheme = useConst<UserTheme>(theme);
+	const defaultUserTheme = useConst<UserTheme>({ ...userTheme });
 
 	const detailsForm = useForm<EditUserDetailsForm>({
 		defaultValues: detailsDefaultValues,
@@ -99,18 +109,24 @@ const EditUser: FC = () => {
 	const watchFirstName = useWatch({ control: controlDetailsForm, name: 'firstName' });
 	const watchLastName = useWatch({ control: controlDetailsForm, name: 'lastName' });
 
+	const { isDirty: isDetailsFormDirty } = useFormState({ control: controlDetailsForm });
+
 	const passwordForm = useForm<EditUserPasswordForm>({
 		defaultValues: passwordDefaultValues,
 		resolver: yupResolver(passwordSchema)
 	});
 
-	const { reset: resetPasswordForm } = passwordForm;
+	const { control: controlPasswordForm, reset: resetPasswordForm } = passwordForm;
+
+	const { isDirty: isPasswordFormDirty } = useFormState({ control: controlPasswordForm });
 
 	const genresForm = useForm<EditUserGenresForm>({
 		defaultValues: genresDefaultValues
 	});
 
-	const { reset: resetGenresForm } = genresForm;
+	const { control: controlGenresForm, reset: resetGenresForm } = genresForm;
+
+	const { isDirty: isGenresFormDirty } = useFormState({ control: controlGenresForm });
 
 	const customizationForm = useForm<EditUserCustomizationForm>({
 		defaultValues: customizationDefaultValues
@@ -127,13 +143,27 @@ const EditUser: FC = () => {
 		defaultValues: { ...assetsDefaultValues }
 	});
 
-	const { reset: resetAssetsForm } = assetsForm;
+	const { control: controlAssetsForm, reset: resetAssetsForm } = assetsForm;
+
+	const { isDirty: isAssetsFormDirty } = useFormState({ control: controlAssetsForm });
+
+	usePrompt({
+		title: 'Unsubmitted Changes!',
+		subtitle:
+			'Are you sure you want to cancel editing? Once you close the page you will not be able to retrieve the changed data!',
+		when:
+			isDetailsFormDirty ||
+			isPasswordFormDirty ||
+			isGenresFormDirty ||
+			isCustomizationFormDirty ||
+			isAssetsFormDirty
+	});
 
 	const handleTabChange = ({ index }: TabsOnChangeProps): void => {
 		const tab = tabs.find((_tab, i) => index === i);
 
 		if (tab && tab.path) {
-			navigate({ ...location, ...tab.path });
+			navigate({ pathname: '.', ...tab.path }, { relative: 'route' });
 		}
 	};
 
@@ -288,7 +318,7 @@ const EditUser: FC = () => {
 
 		resetGenresForm({ ...prefers });
 
-		resetCustomizationForm({ ...theme });
+		resetCustomizationForm({ ...userTheme });
 
 		resetAssetsForm({ avatar_path, background_path });
 	};
@@ -358,7 +388,21 @@ const EditUser: FC = () => {
 					size='lg'
 				>
 					<VStack width='100%' spacing={spacing}>
-						<TabList tabs={tabs} />
+						<TabList
+							tabs={tabs.map(({ label }, index) => {
+								return {
+									label,
+									renderLeft:
+										(index === 0 && isDetailsFormDirty) ||
+										(index === 1 && isPasswordFormDirty) ||
+										(index === 2 && isGenresFormDirty) ||
+										(index === 3 && isCustomizationFormDirty) ||
+										(index === 4 && isAssetsFormDirty)
+											? (props) => <EditUserErrorTabIcon {...props} />
+											: undefined
+								};
+							})}
+						/>
 
 						<TabPanels>
 							<Suspense fallback={<DummyDetailsTab />}>

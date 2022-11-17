@@ -52,13 +52,6 @@ const DetailsTab: FC<DetailsTabProps> = (props) => {
 	const userFirstName = userName && userName[0] ? userName[0] : '';
 	const userLastName = userName && userName[1] ? userName[1] : '';
 
-	// usePrompt({
-	// 	title: 'Unsubmitted Changes!',
-	// 	subtitle:
-	// 		'Are you sure you want to cancel editing the Details? Once you close the page you will not be able to retrieve the changed data!',
-	// 	when: isDirty
-	// });
-
 	const handleClear = (): void => {
 		reset({ firstName: userFirstName, lastName: userLastName, bio });
 	};
