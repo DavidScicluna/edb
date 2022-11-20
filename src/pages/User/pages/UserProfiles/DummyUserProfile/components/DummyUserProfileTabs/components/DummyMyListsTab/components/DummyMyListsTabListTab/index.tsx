@@ -23,7 +23,7 @@ const DummyMyListsTabListTab: FC = () => {
 		<VStack
 			width='100%'
 			divider={<Divider colorMode={colorMode} mt={`${theme.space[spacing]} !important`} />}
-			spacing={0}
+			spacing={spacing}
 		>
 			<Center width='100%' py={spacing * 2}>
 				<DummyMyListsTabListTabHeadline />

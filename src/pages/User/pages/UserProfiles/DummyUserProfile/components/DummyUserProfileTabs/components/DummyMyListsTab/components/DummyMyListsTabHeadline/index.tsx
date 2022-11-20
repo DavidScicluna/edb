@@ -29,44 +29,29 @@ const DummyMyListsTabHeadline: FC = () => {
 	};
 
 	return (
-		<Stack
-			width='100%'
-			direction={isSm ? 'column' : 'row'}
-			alignItems='center'
-			justifyContent='space-between'
-			spacing={spacing * 2}
-			p={0}
-		>
-			<Headline
-				width={handleHeadlineWidth()}
-				renderCaption={() => (
-					// TODO: Replace with DummyBadge
-					<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
-						<Badge color={color} colorMode={colorMode} size='xs'>
-							<BadgeLabel>Total of # lists</BadgeLabel>
-						</Badge>
-					</Skeleton>
-				)}
-				renderTitle={(props) => (
-					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-						<Text {...props}>My Lists</Text>
-					</Skeleton>
-				)}
-				renderSubtitle={(props) => (
-					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-						<Text {...props}>
-							This Tab contains all the lists that have been created and all the bookmarks in each list.
-						</Text>
-					</Skeleton>
-				)}
-			/>
-
-			<Center ref={actionsRef} width={isSm ? '100%' : 'auto'} height='100%'>
-				<DummyButton colorMode={colorMode} hasLeft isFullWidth variant='outlined'>
-					Create New List
-				</DummyButton>
-			</Center>
-		</Stack>
+		<Headline
+			width={handleHeadlineWidth()}
+			renderCaption={() => (
+				// TODO: Replace with DummyBadge
+				<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
+					<Badge color={color} colorMode={colorMode} size='xs'>
+						<BadgeLabel>Total of # lists</BadgeLabel>
+					</Badge>
+				</Skeleton>
+			)}
+			renderTitle={(props) => (
+				<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+					<Text {...props}>My Lists</Text>
+				</Skeleton>
+			)}
+			renderSubtitle={(props) => (
+				<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+					<Text {...props}>
+						This Tab contains all the lists that have been created and all the bookmarks in each list.
+					</Text>
+				</Skeleton>
+			)}
+		/>
 	);
 };
 
