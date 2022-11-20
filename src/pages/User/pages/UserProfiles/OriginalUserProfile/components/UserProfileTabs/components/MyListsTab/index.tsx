@@ -29,6 +29,7 @@ import CreateList from './components/CreateList';
 import DeleteList from './components/DeleteList';
 import { SelectedList } from './types';
 import EditList from './components/EditList';
+import MyListsTabCreateListButton from './components/MyListsTabCreateListButton';
 
 const AllTab = lazy(() => import('./components/MyListsTabAllTab'));
 const ListTab = lazy(() => import('./components/MyListsTabListTab'));
@@ -71,7 +72,7 @@ const MyListsTab: FC = () => {
 				spacing={0}
 			>
 				<Center width='100%' py={spacing * 2}>
-					<MyListsTabHeadline onCreateListOpen={onCreateListOpen} />
+					<MyListsTabHeadline />
 				</Center>
 
 				<Tabs
@@ -115,6 +116,7 @@ const MyListsTab: FC = () => {
 										} as TabListTab;
 									})
 							]}
+							renderRight={() => <MyListsTabCreateListButton onCreateListOpen={onCreateListOpen} />}
 						/>
 
 						<TabPanels>
