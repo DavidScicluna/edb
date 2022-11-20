@@ -4,8 +4,6 @@ import { useTheme, Divider, utils } from '@davidscicluna/component-library';
 
 import { HStack, Center, Text } from '@chakra-ui/react';
 
-import { useElementSize } from 'usehooks-ts';
-
 import { useUserTheme } from '../../../../../common/hooks';
 import { DisplayMode } from '../../../../../components';
 
@@ -15,29 +13,25 @@ const TrendingDisplayMode: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const [displayModeRef, { height: displayModeHeight }] = useElementSize();
-
 	return (
-		<HStack spacing={0}>
-			<Divider height={`${displayModeHeight / 1.5}px`} colorMode={colorMode} orientation='vertical' mx={1.5} />
+		<HStack alignItems='stretch' justifyContent='stretch' spacing={1} ml={1}>
+			<Divider colorMode={colorMode} orientation='vertical' my={0.5} />
 
-			<Center ref={displayModeRef}>
-				<DisplayMode
-					separator={
-						<Center height='100%'>
-							<Text
-								align='center'
-								color={getColor({ theme, colorMode, type: 'text.secondary' })}
-								fontSize='lg'
-							>
-								/
-							</Text>
-						</Center>
-					}
-					size='sm'
-					variant='icon'
-				/>
-			</Center>
+			<DisplayMode
+				separator={
+					<Center height='100%'>
+						<Text
+							align='center'
+							color={getColor({ theme, colorMode, type: 'text.secondary' })}
+							fontSize='lg'
+						>
+							/
+						</Text>
+					</Center>
+				}
+				size='sm'
+				variant='icon'
+			/>
 		</HStack>
 	);
 };

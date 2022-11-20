@@ -42,7 +42,7 @@ const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagD
 
 	const location = useLocation();
 
-	const [buttonRef, { width: buttonWidth, height: buttonHeight }] = useElementSize();
+	const [buttonRef, { width: buttonWidth }] = useElementSize();
 
 	const [filters, setFilters] = useState<FiltersForm>(defaultValues);
 	const filtersDebounced = useDebounce<FiltersForm>(filters, 'slow');
@@ -65,11 +65,9 @@ const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagD
 		<Stack
 			width='100%'
 			direction={isSm ? 'column' : 'row'}
-			divider={
-				!isSm ? (
-					<Divider colorMode={colorMode} orientation='vertical' height={`${buttonHeight}px`} />
-				) : undefined
-			}
+			alignItems='stretch'
+			justifyContent='stretch'
+			divider={!isSm ? <Divider colorMode={colorMode} orientation='vertical' /> : undefined}
 			spacing={spacing}
 		>
 			<Center width={handleContentWidth()}>

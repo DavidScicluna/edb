@@ -4,8 +4,6 @@ import { Divider, IconButton, IconButtonIcon, Fade } from '@davidscicluna/compon
 
 import { HStack } from '@chakra-ui/react';
 
-import { useElementSize } from 'usehooks-ts';
-
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 
 import { SearchInputActionsProps } from './types';
@@ -13,14 +11,13 @@ import { SearchInputActionsProps } from './types';
 const SearchInputActions: FC<SearchInputActionsProps> = (props) => {
 	const { color, colorMode } = useUserTheme();
 
-	const [containerRef, { height: containerHeight }] = useElementSize();
-
 	const { hasQuery = false, isDisabled = false, isSubmitDisabled = false, onClear } = props;
 
 	return (
 		<HStack
-			ref={containerRef}
-			divider={<Divider colorMode={colorMode} orientation='vertical' height={`${containerHeight}px`} />}
+			alignItems='stretch'
+			justifyContent='stretch'
+			divider={<Divider colorMode={colorMode} orientation='vertical' />}
 			spacing={1}
 		>
 			<Fade in={hasQuery}>

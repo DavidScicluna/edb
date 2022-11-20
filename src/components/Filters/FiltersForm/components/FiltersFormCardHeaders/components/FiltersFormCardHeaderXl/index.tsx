@@ -24,7 +24,7 @@ const FiltersFormCardHeaderXl: FC<FiltersFormCardHeaderXlProps> = (props) => {
 	const { renderButtonProps, renderMessageProps } =
 		useContext<FiltersFormCardHeadersContextType>(FiltersFormCardHeadersContext);
 
-	const [actionsRef, { width: actionsWidth, height: actionsHeight }] = useElementSize();
+	const [actionsRef, { width: actionsWidth }] = useElementSize();
 
 	const { title, subtitle, renderButton, renderMessage } = props;
 
@@ -65,7 +65,9 @@ const FiltersFormCardHeaderXl: FC<FiltersFormCardHeaderXlProps> = (props) => {
 
 			<HStack
 				ref={actionsRef}
-				divider={<Divider colorMode={colorMode} orientation='vertical' height={`${actionsHeight}px`} />}
+				alignItems='stretch'
+				justifyContent='stretch'
+				divider={<Divider colorMode={colorMode} orientation='vertical' />}
 				spacing={2}
 			>
 				{renderMessage && renderMessage({ ...renderMessageProps })}
