@@ -87,17 +87,7 @@ const MyListsTabListTab: FC<MyListsTabListTabProps> = ({ list, onEditList, onDel
 			</Center>
 
 			{statusDebounced === 'loading' ? (
-				<Center width='100%'>
-					{(list?.mediaItems.movie.length || 0) > 0 && (list?.mediaItems.tv.length || 0) > 0 ? (
-						<DummyTabs mediaTypes={mediaTypes} />
-					) : (
-						<Fragment>
-							{(list?.mediaItems.movie.length || 0) > 0 && <DummyMovies />}
-
-							{(list?.mediaItems.tv.length || 0) > 0 && <DummyTVShows />}
-						</Fragment>
-					)}
-				</Center>
+				<DummyTabs mediaTypes={mediaTypes} />
 			) : statusDebounced === 'empty' ? (
 				<MyListsTabListTabEmpty />
 			) : (
