@@ -27,7 +27,7 @@ import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 
 import Certifications from './components/Certifications';
 import CountRange from './components/CountRange';
-// import Dates from './components/Dates';
+import Dates from './components/Dates';
 import Genres from './components/Genres';
 import RatingRange from './components/RatingRange';
 import RuntimeRange from './components/RuntimeRange';
@@ -117,7 +117,7 @@ const FiltersForm: FC<FiltersFormProps> = (props) => {
 					/>
 					<ModalBody>
 						<VStack width='100%' spacing={spacing}>
-							{/* <Dates form={form} mediaType={mediaType} /> */}
+							<Dates form={form} mediaType={mediaType} />
 							<Genres form={form} mediaType={mediaType} />
 							<Certifications form={form} mediaType={mediaType} />
 							<RatingRange form={form} />
