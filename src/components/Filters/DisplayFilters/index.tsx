@@ -24,7 +24,7 @@ import { useUserTheme } from '../../../common/hooks';
 
 import Certifications from './components/Certifications';
 import Count from './components/CountRange';
-// import Dates from './components/Dates';
+import Dates from './components/Dates';
 import Genres from './components/Genres';
 import Rating from './components/RatingRange';
 import Runtime from './components/RuntimeRange';
@@ -75,16 +75,23 @@ const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagD
 			<Center width={handleContentWidth()}>
 				<HorizontalScroll colorMode={colorMode} renderDivider={({ padding }) => <Center p={padding} />}>
 					{compact([
-						// filters.dates.gte !== defaultValues.dates.gte ||
-						// filters.dates.lte !== defaultValues.dates.lte ? (
-						// 	<Dates
-						// key='display_filters_dates'
-						// 		dates={filters.dates}
-						// 		mediaType={mediaType}
-						// 		onClick={onTagClick ? () => onTagClick('dates', filters) : undefined}
-						// 		onDelete={onTagDelete ? () => onTagDelete('dates', filters) : undefined}
-						// 	/>
-						// ) : null,
+						filtersDebounced.dates.gte !== defaultValues.dates.gte ||
+						filtersDebounced.dates.lte !== defaultValues.dates.lte ? (
+							<Dates
+								dates={filtersDebounced.dates}
+								mediaType={mediaType}
+								onClick={
+									onTagClick
+										? () => onTagClick({ filter: 'genres', form: filtersDebounced })
+										: undefined
+								}
+								onDelete={
+									onTagDelete
+										? () => onTagDelete({ filter: 'genres', form: filtersDebounced })
+										: undefined
+								}
+							/>
+						) : null,
 
 						filtersDebounced.genres !== defaultValues.genres ? (
 							<Genres
