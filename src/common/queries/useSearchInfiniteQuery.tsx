@@ -1,3 +1,5 @@
+import { useDebounce } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import {
@@ -60,11 +62,12 @@ const useSearchInfiniteQuery = <MT extends MediaType>({
 }: UseSearchInfiniteQueryParams<MT>): UseSearchInfiniteQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = searchInfiniteQueryKey({ mediaType, query }) || [`${query}_${mediaType}_search_infinite`];
+	const key = searchInfiniteQueryKey({ mediaType, query });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseSearchInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UseSearchInfiniteQueryResponse<MT>>(`/search/${mediaType}`, {
 				...config,
@@ -115,7 +118,7 @@ const useSearchInfiniteQuery = <MT extends MediaType>({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return infiniteQuery;
 };

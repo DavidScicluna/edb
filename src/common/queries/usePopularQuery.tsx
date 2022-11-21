@@ -1,3 +1,5 @@
+import { useDebounce } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -48,11 +50,12 @@ const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 }: UsePopularQueryParams<MT>): UsePopularQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = popularQueryKey({ mediaType }) || [`popular_${mediaType}`];
+	const key = popularQueryKey({ mediaType });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UsePopularQueryResponse<MT>, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UsePopularQueryResponse<MT>>(`/${mediaType}/popular`, {
 				...config,
@@ -96,7 +99,7 @@ const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return query;
 };

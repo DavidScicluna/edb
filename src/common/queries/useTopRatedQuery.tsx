@@ -1,3 +1,5 @@
+import { useDebounce } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -48,11 +50,12 @@ const useTopRatedQuery = <MT extends UseTopRatedQueryMediaType>({
 }: UseTopRatedQueryParams<MT>): UseTopRatedQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = topRatedQueryKey({ mediaType }) || [`top_rated_${mediaType}`];
+	const key = topRatedQueryKey({ mediaType });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseTopRatedQueryResponse<MT>, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UseTopRatedQueryResponse<MT>>(`/${mediaType}/top_rated`, {
 				...config,
@@ -96,7 +99,7 @@ const useTopRatedQuery = <MT extends UseTopRatedQueryMediaType>({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return query;
 };

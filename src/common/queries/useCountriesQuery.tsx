@@ -1,4 +1,4 @@
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, useDebounce } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -30,11 +30,12 @@ const toastID = 'ds-edb-use-countries-query-toast';
 const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParams = {}): UseCountriesQueryResult => {
 	const toast = useToast();
 
-	const key = countriesQueryKey() || ['countries'];
+	const key = countriesQueryKey();
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseCountriesQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UseCountriesQueryResponse>('/configuration/countries', {
 				...config,
@@ -76,7 +77,7 @@ const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParam
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return query;
 };

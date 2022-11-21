@@ -1,4 +1,4 @@
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, useDebounce } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -30,11 +30,12 @@ const toastID = 'ds-edb-use-languages-query-toast';
 const useLanguagesQuery = ({ config = {}, options = {} }: UseLanguagesQueryParams = {}): UseLanguagesQueryResult => {
 	const toast = useToast();
 
-	const key = languagesQueryKey() || ['languages'];
+	const key = languagesQueryKey();
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseLanguagesQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UseLanguagesQueryResponse>('/configuration/languages', {
 				...config,
@@ -76,7 +77,7 @@ const useLanguagesQuery = ({ config = {}, options = {} }: UseLanguagesQueryParam
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return query;
 };

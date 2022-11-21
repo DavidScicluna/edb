@@ -1,4 +1,4 @@
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, useDebounce } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -30,11 +30,12 @@ const toastID = 'ds-edb-use-jobs-query-toast';
 const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): UseJobsQueryResult => {
 	const toast = useToast();
 
-	const key = jobsQueryKey() || ['jobs'];
+	const key = jobsQueryKey();
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseJobsQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UseJobsQueryResponse>('/configuration/jobs', {
 				...config,
@@ -76,7 +77,7 @@ const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): U
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return query;
 };

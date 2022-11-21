@@ -1,3 +1,5 @@
+import { useDebounce } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -36,11 +38,12 @@ const useGenresQuery = ({
 }: UseGenresQueryParams): UseGenresQueryResult => {
 	const toast = useToast();
 
-	const key = genresQueryKey({ mediaType }) || [`${mediaType}_genres`];
+	const key = genresQueryKey({ mediaType });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseGenresQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UseGenresQueryResponse>(`/genre/${mediaType}/list`, {
 				...config,
@@ -85,7 +88,7 @@ const useGenresQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return query;
 };

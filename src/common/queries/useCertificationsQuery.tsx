@@ -1,3 +1,5 @@
+import { useDebounce } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -36,11 +38,12 @@ const useCertificationsQuery = ({
 }: UseCertificationsQueryParams): UseCertificationsQueryResult => {
 	const toast = useToast();
 
-	const key = certificationsQueryKey({ mediaType }) || [`${mediaType}_certifications`];
+	const key = certificationsQueryKey({ mediaType });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseCertificationsQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ signal }) => {
 			const { data } = await axiosInstance.get<UseCertificationsQueryResponse>(
 				`/certification/${mediaType}/list`,
@@ -88,7 +91,7 @@ const useCertificationsQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return query;
 };

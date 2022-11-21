@@ -1,3 +1,5 @@
+import { useDebounce } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import {
@@ -46,11 +48,12 @@ const useKeywordsInfiniteQuery = ({
 }: UseKeywordsInfiniteQueryParams): UseKeywordsInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = keywordsInfiniteQueryKey({ query }) || [`${query}_search_keywords_infinite`];
+	const key = keywordsInfiniteQueryKey({ query });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseKeywordsInfiniteQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UseKeywordsInfiniteQueryResponse>('/search/keyword', {
 				...config,
@@ -99,7 +102,7 @@ const useKeywordsInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return infiniteQuery;
 };

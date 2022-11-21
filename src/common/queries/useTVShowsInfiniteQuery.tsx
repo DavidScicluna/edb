@@ -1,4 +1,4 @@
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, useDebounce } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -46,11 +46,12 @@ const useTVShowsInfiniteQuery = ({
 }: UseTVShowsInfiniteQueryParams = {}): UseTVShowsInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = tvShowsInfiniteQueryKey({ params: config.params }) || ['tv_shows', config.params];
+	const key = tvShowsInfiniteQueryKey({ params: config.params });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseTVShowsInfiniteQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UseTVShowsInfiniteQueryResponse>('/discover/tv', {
 				...config,
@@ -102,7 +103,7 @@ const useTVShowsInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return infiniteQuery;
 };

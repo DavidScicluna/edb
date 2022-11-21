@@ -1,4 +1,4 @@
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, useDebounce } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -46,11 +46,12 @@ const useMoviesInfiniteQuery = ({
 }: UseMoviesInfiniteQueryParams = {}): UseMoviesInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = moviesInfiniteQueryKey({ params: config.params }) || ['movies', config.params];
+	const key = moviesInfiniteQueryKey({ params: config.params });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseMoviesInfiniteQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UseMoviesInfiniteQueryResponse>('/discover/movie', {
 				...config,
@@ -102,7 +103,7 @@ const useMoviesInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return infiniteQuery;
 };

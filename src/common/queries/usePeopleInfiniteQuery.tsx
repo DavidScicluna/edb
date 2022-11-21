@@ -1,4 +1,4 @@
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, useDebounce } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -46,11 +46,12 @@ const usePeopleInfiniteQuery = ({
 }: UsePeopleInfiniteQueryParams = {}): UsePeopleInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = peopleInfiniteQueryKey({ params: config.params }) || ['people', config.params];
+	const key = peopleInfiniteQueryKey({ params: config.params });
+	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UsePeopleInfiniteQueryResponse, AxiosError<QueryError>>(
-		key,
+		keyDebounced,
 		async ({ pageParam = 1, signal }) => {
 			const { data } = await axiosInstance.get<UsePeopleInfiniteQueryResponse>('/person/popular', {
 				...config,
@@ -102,7 +103,7 @@ const usePeopleInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(key));
+	useWillUnmount(() => client.cancelQueries(keyDebounced));
 
 	return infiniteQuery;
 };
