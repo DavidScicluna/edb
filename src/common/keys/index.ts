@@ -1,5 +1,7 @@
 import { QueryKey } from '@tanstack/react-query';
 
+import { memoize } from 'lodash';
+
 import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
@@ -8,67 +10,55 @@ import { UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
 import { UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
 import { UseTrendingQueryProps } from '../queries/useTrendingQuery';
 import { AxiosConfigParams } from '../types';
-import { memoizeDebounce } from '../scripts';
 
-const timeout = 500;
-
-export const certificationsQueryKey = memoizeDebounce(
-	({ mediaType }: UseCertificationsQueryProps): QueryKey => [`${mediaType}_certifications`],
-	timeout
+export const certificationsQueryKey = memoize(
+	({ mediaType }: UseCertificationsQueryProps): QueryKey => [`${mediaType}_certifications`, mediaType]
 );
 
-export const countriesQueryKey = memoizeDebounce((): QueryKey => ['countries'], timeout);
+export const countriesQueryKey = memoize((): QueryKey => ['countries']);
 
-export const genresQueryKey = memoizeDebounce(
-	({ mediaType }: UseGenresQueryProps): QueryKey => [`${mediaType}_genres`],
-	timeout
+export const genresQueryKey = memoize(
+	({ mediaType }: UseGenresQueryProps): QueryKey => [`${mediaType}_genres`, mediaType]
 );
 
-export const jobsQueryKey = memoizeDebounce((): QueryKey => ['jobs'], timeout);
+export const jobsQueryKey = memoize((): QueryKey => ['jobs']);
 
-export const keywordsInfiniteQueryKey = memoizeDebounce(
-	({ query }: UseKeywordsInfiniteQueryProps): QueryKey => [`${query}_search_keywords_infinite`],
-	timeout
+export const keywordsInfiniteQueryKey = memoize(
+	({ query }: UseKeywordsInfiniteQueryProps): QueryKey => [`${query}_search_keywords_infinite`, query]
 );
 
-export const languagesQueryKey = memoizeDebounce((): QueryKey => ['languages'], timeout);
+export const languagesQueryKey = memoize((): QueryKey => ['languages']);
 
-export const moviesInfiniteQueryKey = memoizeDebounce(
-	({ params }: AxiosConfigParams): QueryKey => ['movies', params],
-	timeout
+export const moviesInfiniteQueryKey = memoize(({ params }: AxiosConfigParams): QueryKey => ['movies', params]);
+
+export const peopleInfiniteQueryKey = memoize(({ params }: AxiosConfigParams): QueryKey => ['people', params]);
+
+export const popularQueryKey = memoize(
+	({ mediaType }: UsePopularQueryProps): QueryKey => [`popular_${mediaType}`, mediaType]
 );
 
-export const peopleInfiniteQueryKey = memoizeDebounce(
-	({ params }: AxiosConfigParams): QueryKey => ['people', params],
-	timeout
+export const searchInfiniteQueryKey = memoize(
+	({ mediaType, query }: UseSearchInfiniteQueryProps): QueryKey => [
+		`${query}_${mediaType}_search_infinite`,
+		mediaType,
+		query
+	]
 );
 
-export const popularQueryKey = memoizeDebounce(
-	({ mediaType }: UsePopularQueryProps): QueryKey => [`popular_${mediaType}`],
-	timeout
+export const topRatedQueryKey = memoize(
+	({ mediaType }: UseTopRatedQueryProps): QueryKey => [`top_rated_${mediaType}`, mediaType]
 );
 
-export const searchInfiniteQueryKey = memoizeDebounce(
-	({ mediaType, query }: UseSearchInfiniteQueryProps): QueryKey => [`${query}_${mediaType}_search_infinite`],
-	timeout
+export const trendingQueryKey = memoize(
+	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`${time}_${mediaType}_trending`, mediaType, time]
 );
 
-export const topRatedQueryKey = memoizeDebounce(
-	({ mediaType }: UseTopRatedQueryProps): QueryKey => [`top_rated_${mediaType}`],
-	timeout
+export const trendingInfiniteQueryKey = memoize(
+	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [
+		`${time}_${mediaType}_trending_infinite`,
+		mediaType,
+		time
+	]
 );
 
-export const trendingQueryKey = memoizeDebounce(
-	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`${time}_${mediaType}_trending`],
-	timeout
-);
-
-export const trendingInfiniteQueryKey = memoizeDebounce(
-	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`${time}_${mediaType}_trending_infinite`],
-	timeout
-);
-
-export const tvShowsInfiniteQueryKey = memoizeDebounce(
-	({ params }: AxiosConfigParams): QueryKey => ['tv_shows', params],
-	timeout
-);
+export const tvShowsInfiniteQueryKey = memoize(({ params }: AxiosConfigParams): QueryKey => ['tv_shows', params]);
