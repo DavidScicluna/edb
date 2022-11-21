@@ -11,8 +11,9 @@ export type RenderButtonProps = Pick<ButtonProps, 'color' | 'colorMode' | 'size'
 export type CommonFiltersFormCardHeadersProps = {
 	title: string;
 	subtitle?: string;
-	renderMessage?: (props: RenderMessageProps) => ReactNode;
+	renderMessage: (props: RenderMessageProps) => ReactNode;
 	renderButton: (props: RenderButtonProps) => ReactNode;
+	isMessageVisible?: boolean;
 };
 
 export type FiltersFormCardHeadersContext = {
