@@ -1,28 +1,19 @@
 import { FC } from 'react';
 
-import {
-	useTheme,
-	Card,
-	CardBody,
-	ButtonGroup,
-	ButtonGroupItem,
-	Button,
-	SlideFade
-} from '@davidscicluna/component-library';
+import { useTheme, Card, CardBody, ButtonGroup, ButtonGroupItem, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useConst, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
-import { round, toString } from 'lodash';
+import { toString } from 'lodash';
 
 import { useUserTheme } from '../../../../../common/hooks';
 import { getIsFiltersFormNumbersInList, getFiltersFormNumbers } from '../../common/utils';
 import FiltersFormCardHeader from '../FiltersFormCardHeaders';
 import defaultValues from '../../../common/data/defaults';
 import { CommonFiltersFormProps as RuntimeRangeProps } from '../../common/types';
-import { getFontSizeHeight } from '../../../../../common/utils';
 
 const RuntimeRange: FC<RuntimeRangeProps> = ({ form }) => {
 	const theme = useTheme();
@@ -43,15 +34,8 @@ const RuntimeRange: FC<RuntimeRangeProps> = ({ form }) => {
 					<FiltersFormCardHeader
 						title='Runtime Range'
 						subtitle=''
-						renderMessage={({ fontSize, ...rest }) => (
-							<SlideFade
-								in={value.length > 0}
-								offsetY={round(getFontSizeHeight({ theme, fontSize }) / 4)}
-							>
-								<Text {...rest} fontSize={fontSize}>
-									{value.map((runtime) => `${runtime} minutes`).join(' -> ')}
-								</Text>
-							</SlideFade>
+						renderMessage={(props) => (
+							<Text {...props}>{value.map((runtime) => `${runtime} minutes`).join(' -> ')}</Text>
 						)}
 						renderButton={(props) => (
 							<Button
@@ -62,6 +46,7 @@ const RuntimeRange: FC<RuntimeRangeProps> = ({ form }) => {
 								Clear
 							</Button>
 						)}
+						isMessageVisible={value.length > 0}
 					/>
 					<CardBody>
 						<ButtonGroup sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
