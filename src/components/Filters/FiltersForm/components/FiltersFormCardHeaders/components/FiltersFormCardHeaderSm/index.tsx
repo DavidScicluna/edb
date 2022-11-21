@@ -1,6 +1,6 @@
 import { FC, useContext, useCallback } from 'react';
 
-import { Space, useTheme, utils } from '@davidscicluna/component-library';
+import { Divider, Space, useTheme, ScaleFade, utils } from '@davidscicluna/component-library';
 
 import { VStack, HStack, Center, Text } from '@chakra-ui/react';
 
@@ -26,7 +26,7 @@ const FiltersFormCardHeaderSm: FC<FiltersFormCardHeaderSmProps> = (props) => {
 
 	const [buttonRef, { width: buttonWidth }] = useElementSize();
 
-	const { title, subtitle, renderButton, renderMessage } = props;
+	const { title, subtitle, renderButton, renderMessage, isMessageVisible = false } = props;
 
 	const handleCalculateTextWidth = useCallback((): string => {
 		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem'));
@@ -35,7 +35,13 @@ const FiltersFormCardHeaderSm: FC<FiltersFormCardHeaderSmProps> = (props) => {
 	}, [theme, spacing, buttonWidth]);
 
 	return (
-		<VStack width='100%' alignItems='flex-start' justifyContent='center' spacing={spacing}>
+		<VStack
+			width='100%'
+			alignItems='flex-start'
+			justifyContent='center'
+			divider={isMessageVisible ? <Divider colorMode={colorMode} /> : undefined}
+			spacing={spacing}
+		>
 			<HStack width='100%' alignItems='center' justifyContent='space-between' spacing={spacing}>
 				<VStack width={handleCalculateTextWidth()} alignItems='flex-start' spacing={0.5}>
 					{/* Title */}
@@ -67,7 +73,11 @@ const FiltersFormCardHeaderSm: FC<FiltersFormCardHeaderSmProps> = (props) => {
 				<Center ref={buttonRef}>{renderButton({ ...renderButtonProps })}</Center>
 			</HStack>
 
-			{renderMessage && renderMessage({ ...renderMessageProps })}
+			<ScaleFade in={isMessageVisible}>
+				<Center width='100%' height='100%'>
+					{renderMessage({ ...renderMessageProps })}
+				</Center>
+			</ScaleFade>
 		</VStack>
 	);
 };
