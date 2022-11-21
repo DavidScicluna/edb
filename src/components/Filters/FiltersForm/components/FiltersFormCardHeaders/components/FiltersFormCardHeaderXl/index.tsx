@@ -1,8 +1,8 @@
 import { FC, useContext, useCallback } from 'react';
 
-import { Space, useTheme, Divider, utils } from '@davidscicluna/component-library';
+import { Space, useTheme, Divider, ScaleFade, utils } from '@davidscicluna/component-library';
 
-import { VStack, HStack, Text } from '@chakra-ui/react';
+import { VStack, HStack, Center, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
@@ -26,7 +26,7 @@ const FiltersFormCardHeaderXl: FC<FiltersFormCardHeaderXlProps> = (props) => {
 
 	const [actionsRef, { width: actionsWidth }] = useElementSize();
 
-	const { title, subtitle, renderButton, renderMessage } = props;
+	const { title, subtitle, renderButton, renderMessage, isMessageVisible = false } = props;
 
 	const handleCalculateTextWidth = useCallback((): string => {
 		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem'));
@@ -67,10 +67,14 @@ const FiltersFormCardHeaderXl: FC<FiltersFormCardHeaderXlProps> = (props) => {
 				ref={actionsRef}
 				alignItems='stretch'
 				justifyContent='stretch'
-				divider={<Divider colorMode={colorMode} orientation='vertical' />}
+				divider={isMessageVisible ? <Divider colorMode={colorMode} orientation='vertical' /> : undefined}
 				spacing={2}
 			>
-				{renderMessage && renderMessage({ ...renderMessageProps })}
+				<ScaleFade in={isMessageVisible}>
+					<Center width='100%' height='100%'>
+						{renderMessage({ ...renderMessageProps })}
+					</Center>
+				</ScaleFade>
 				{renderButton({ ...renderButtonProps })}
 			</HStack>
 		</HStack>
