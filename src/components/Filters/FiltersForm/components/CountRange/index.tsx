@@ -1,28 +1,19 @@
 import { FC } from 'react';
 
-import {
-	useTheme,
-	Card,
-	CardBody,
-	ButtonGroup,
-	ButtonGroupItem,
-	Button,
-	SlideFade
-} from '@davidscicluna/component-library';
+import { useTheme, Card, CardBody, ButtonGroup, ButtonGroupItem, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useConst, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
 import range from 'lodash/range';
-import { round, toString } from 'lodash';
+import { toString } from 'lodash';
 
 import defaultValues from '../../../common/data/defaults';
 import { getIsFiltersFormNumbersInList, getFiltersFormNumbers } from '../../common/utils';
 import FiltersFormCardHeader from '../FiltersFormCardHeaders';
 import { CommonFiltersFormProps as CountRangeProps } from '../../common/types';
 import { useUserTheme } from '../../../../../common/hooks';
-import { getFontSizeHeight } from '../../../../../common/utils';
 
 const CountRange: FC<CountRangeProps> = ({ form }) => {
 	const theme = useTheme();
@@ -43,15 +34,8 @@ const CountRange: FC<CountRangeProps> = ({ form }) => {
 					<FiltersFormCardHeader
 						title='Number of Ratings Range'
 						subtitle=''
-						renderMessage={({ fontSize, ...rest }) => (
-							<SlideFade
-								in={value.length > 0}
-								offsetY={round(getFontSizeHeight({ theme, fontSize }) / 4)}
-							>
-								<Text {...rest} fontSize={fontSize}>
-									{value.map((count) => `${count} ratings`).join(' -> ')}
-								</Text>
-							</SlideFade>
+						renderMessage={(props) => (
+							<Text {...props}>{value.map((count) => `${count} ratings`).join(' -> ')}</Text>
 						)}
 						renderButton={(props) => (
 							<Button
@@ -62,6 +46,7 @@ const CountRange: FC<CountRangeProps> = ({ form }) => {
 								Clear
 							</Button>
 						)}
+						isMessageVisible={value.length > 0}
 					/>
 					<CardBody>
 						<ButtonGroup sx={{ width: '100%', flexWrap: isMd ? 'wrap' : 'nowrap' }}>
