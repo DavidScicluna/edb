@@ -19,20 +19,18 @@ import {
 	QueryEmptyTitle,
 	QueryEmptySubtitle,
 	QueryEmptyActions,
-	DummyVerticalPoster
+	DummyVerticalPoster,
+	MovieVerticalPoster,
+	PersonVerticalPoster,
+	TVShowVerticalPoster
 } from '../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
-import MovieVerticalPoster from '../../../../Movies/components/Posters/MovieVerticalPoster';
-import TVShowVerticalPoster from '../../../../TV/components/Posters/TVShowVerticalPoster';
-import PersonVerticalPoster from '../../../../People/components/Posters/PersonVerticalPoster';
+import width from '../../../../../components/Posters/common/data/width';
 
 import { HomeHorizontalGridProps } from './types';
 
 const { getColor } = utils;
-
-// TODO: Extract vertical poster widths into method
-export const width = ['185px', '205px', '230px'];
 
 const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 	const theme = useTheme();
@@ -234,7 +232,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 											type: 'error',
 											label: `${title} ${formatMediaTypeLabel({
 												type: 'multiple',
-												mediaType: 'tv'
+												mediaType: 'person'
 											})}`
 										})}
 									</QueryEmptySubtitle>
@@ -252,7 +250,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 											type: 'empty',
 											label: `${title} ${formatMediaTypeLabel({
 												type: 'multiple',
-												mediaType: 'tv'
+												mediaType: 'person'
 											})}`
 										})}
 									</QueryEmptySubtitle>

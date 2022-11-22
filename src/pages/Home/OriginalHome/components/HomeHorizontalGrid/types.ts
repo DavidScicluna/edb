@@ -7,9 +7,7 @@ import { PartialTV } from '../../../../../common/types/tv';
 
 type HomeHorizontalGridMediaType = Exclude<MediaType, 'company' | 'collection'>;
 
-type MediaTypeBooleans = {
-	[key in HomeHorizontalGridMediaType]: boolean;
-};
+type MediaTypeBooleans = Record<HomeHorizontalGridMediaType, boolean>;
 
 type ToProps = { mediaType: HomeHorizontalGridMediaType };
 
