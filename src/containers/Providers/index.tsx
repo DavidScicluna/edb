@@ -11,16 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import store from '../../store';
 import Container from '../Container';
 
-// TODO: Maybe clear defaultOptions
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-			refetchOnReconnect: false,
-			retry: false
-		}
-	}
-});
+const queryClient = new QueryClient();
 
 const persistor = persistStore(store);
 
