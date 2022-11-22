@@ -1,6 +1,6 @@
 import { FC, useState, lazy } from 'react';
 
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Undefinable, useTheme, useDebounce, Divider } from '@davidscicluna/component-library';
 
@@ -23,7 +23,6 @@ import { SortByForm } from '../../../components/SortBy/types';
 import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
-import { AxiosConfigParams } from '../../../common/types';
 import { useUserTheme } from '../../../common/hooks';
 import { getTotalFilters } from '../../../components/Filters/common/utils';
 import { PartialTV } from '../../../common/types/tv';
@@ -35,9 +34,11 @@ import TVShowsDisplayFilters from './components/TVShowsDisplayFilters';
 
 const VerticalTVShows = lazy(() => import('../components/VerticalTVShows'));
 
-const defaultSortBy = {
-	sort_by: `${sortByDefaultValues.sortBy.value}.${sortByDefaultValues.direction}`
-};
+const timeout = 500;
+
+const defaultPagination = { page: 1 };
+
+const defaultSortBy = { sort_by: `${sortByDefaultValues.sortBy.value}.${sortByDefaultValues.direction}` };
 
 const defaultFilters = {
 	'language': 'en-US', // TODO: Make this dynamic
@@ -54,22 +55,18 @@ const OriginalTVShows: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const location = useLocation();
 	const navigate = useNavigate();
 
 	const [shows, setShows] = useState<UseTVShowsInfiniteQueryResponse>();
 	const showsDebounced = useDebounce<Undefinable<UseTVShowsInfiniteQueryResponse>>(shows, 'slow');
 
-	const [params, setParams] = useState<AxiosConfigParams>();
-	const paramsDebounced = useDebounce<AxiosConfigParams>(params);
-
 	const [totalFilters, setTotalFilters] = useState<number>(getTotalFilters({ location, mediaType: 'tv' }) || 0);
 	const totalFiltersDebounced = useDebounce<number>(totalFilters);
 
 	const tvShowsInfiniteQuery = useTVShowsInfiniteQuery({
-		config: { params: { ...paramsDebounced } },
+		config: { params: { ...qs.parse(location.search) } },
 		options: {
-			enabled: !!paramsDebounced,
+			enabled: false,
 			onSuccess: (data) => {
 				let shows: PartialTV[] = [];
 
@@ -87,23 +84,35 @@ const OriginalTVShows: FC = () => {
 		}
 	});
 
-	const { isFetchingNextPage, isFetching, isLoading, isError } = tvShowsInfiniteQuery;
+	const { isFetchingNextPage, isFetching, isLoading, isError, refetch, fetchNextPage } = tvShowsInfiniteQuery;
 
-	const handleSetSortBy = ({ sortBy, direction }: SortByForm): void => {
-		const currentSearch = omit(qs.parse(location.search || ''), 'sort_by') || {};
-		const updatedSortBy = { sort_by: `${sortBy.value}.${direction}` };
-
-		const params = { ...currentSearch, ...updatedSortBy };
-
+	const handleFetch = (params: Record<string, string | number>): void => {
 		setShows(undefined);
-		setParams({ ...params });
 
 		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
+
+		setTimeout(() => refetch(), timeout);
+	};
+
+	const handleLoadMore = (): void => {
+		const currentParams = omit({ ...qs.parse(location.search) }, 'page');
+		const updatedParams = merge({ ...currentParams, page: (shows?.page || 1) + 1 });
+
+		navigate({ pathname: '.', search: qs.stringify({ ...updatedParams }) });
+
+		setTimeout(() => fetchNextPage(), timeout);
+	};
+
+	const handleSetSortBy = ({ sortBy, direction }: SortByForm): void => {
+		const currentParams = omit({ ...qs.parse(location.search) }, 'sort_by');
+		const updatedSortBy = { sort_by: `${sortBy.value}.${direction}` };
+
+		handleFetch(merge({ ...currentParams, ...updatedSortBy }));
 	};
 
 	const handleSetFilters = ({ certifications, dates, genres, rating, count, runtime }: FiltersForm): void => {
-		const currentSearch = pick(qs.parse(location.search || ''), 'sort_by') || {};
-		const updatedfilters = omitBy(
+		const currentParams = pick({ ...qs.parse(location.search) }, 'sort_by');
+		const updatedFilters = omitBy(
 			merge({
 				...defaultFilters,
 				'certification': certifications.length > 0 ? certifications.join('|') : undefined,
@@ -120,26 +129,19 @@ const OriginalTVShows: FC = () => {
 			isNil || isEmpty
 		);
 
-		const params = { ...currentSearch, ...updatedfilters };
-
-		setShows(undefined);
-		setParams({ ...params });
-
-		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
+		handleFetch(merge({ ...currentParams, ...updatedFilters }));
 	};
 
 	useUpdateEffect(() => setTotalFilters(getTotalFilters({ location, mediaType: 'tv' }) || 0), [location.search]);
 
 	useEffectOnce(() => {
-		const currentSearch = qs.parse(location.search);
-		const params =
-			currentSearch && location.search.length > 0
-				? merge({ ...defaultSortBy, ...defaultFilters, ...currentSearch })
-				: merge({ ...defaultSortBy, ...defaultFilters });
+		const params = qs.parse(location.search);
+		const updatedParams =
+			location.search.length > 0
+				? { ...defaultPagination, ...defaultSortBy, ...defaultFilters, ...params }
+				: { ...defaultPagination, ...defaultSortBy, ...defaultFilters };
 
-		setParams({ ...params });
-
-		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
+		handleFetch(merge({ ...updatedParams }));
 	});
 
 	return (
@@ -188,9 +190,12 @@ const OriginalTVShows: FC = () => {
 						}
 						onClear={(form) => handleSetFilters({ ...form })}
 					/>
-
 					<Suspense fallback={<VerticalDummyTVShows />}>
-						<VerticalTVShows query={tvShowsInfiniteQuery} shows={showsDebounced} />
+						<VerticalTVShows
+							query={tvShowsInfiniteQuery}
+							shows={showsDebounced}
+							onLoadMore={handleLoadMore}
+						/>
 					</Suspense>
 				</VStack>
 			</PageBody>
