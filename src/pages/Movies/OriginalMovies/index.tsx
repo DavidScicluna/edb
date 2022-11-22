@@ -1,15 +1,15 @@
 import { FC, useState, lazy } from 'react';
 
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Undefinable, useTheme, useDebounce, Divider } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, HStack, Text } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
-import qs from 'query-string';
 import { isEmpty, isNil, merge, omit, omitBy, pick, uniqBy } from 'lodash';
 import dayjs from 'dayjs';
+import qs from 'query-string';
 
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import Page from '../../../containers/Page';
@@ -25,7 +25,6 @@ import { SortByForm } from '../../../components/SortBy/types';
 import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
-import { AxiosConfigParams } from '../../../common/types';
 import { useUserTheme } from '../../../common/hooks';
 import { getTotalFilters } from '../../../components/Filters/common/utils';
 
@@ -35,9 +34,11 @@ import MoviesDisplayFilters from './components/MoviesDisplayFilters';
 
 const VerticalMovies = lazy(() => import('../components/VerticalMovies'));
 
-const defaultSortBy = {
-	sort_by: `${sortByDefaultValues.sortBy.value}.${sortByDefaultValues.direction}`
-};
+const timeout = 500;
+
+const defaultPagination = { page: 1 };
+
+const defaultSortBy = { sort_by: `${sortByDefaultValues.sortBy.value}.${sortByDefaultValues.direction}` };
 
 const defaultFilters = {
 	'language': 'en-US', // TODO: Make this dynamic
@@ -54,22 +55,18 @@ const OriginalMovies: FC = () => {
 
 	const { spacing } = useLayoutContext();
 
-	const location = useLocation();
 	const navigate = useNavigate();
 
 	const [movies, setMovies] = useState<UseMoviesInfiniteQueryResponse>();
 	const moviesDebounced = useDebounce<Undefinable<UseMoviesInfiniteQueryResponse>>(movies, 'slow');
 
-	const [params, setParams] = useState<AxiosConfigParams>();
-	const paramsDebounced = useDebounce<AxiosConfigParams>(params);
-
 	const [totalFilters, setTotalFilters] = useState<number>(getTotalFilters({ location, mediaType: 'movie' }) || 0);
 	const totalFiltersDebounced = useDebounce<number>(totalFilters);
 
 	const moviesInfiniteQuery = useMoviesInfiniteQuery({
-		config: { params: { ...paramsDebounced } },
+		config: { params: { ...qs.parse(location.search) } },
 		options: {
-			enabled: !!paramsDebounced,
+			enabled: false,
 			onSuccess: (data) => {
 				let movies: PartialMovie[] = [];
 
@@ -78,7 +75,7 @@ const OriginalMovies: FC = () => {
 				});
 
 				setMovies({
-					page: data.pages[data.pages.length - 1].page,
+					page: data.pages[data.pages.length - 1].page || 1,
 					results: uniqBy([...movies], 'id'),
 					total_pages: data.pages[data.pages.length - 1].total_pages,
 					total_results: data.pages[data.pages.length - 1].total_results
@@ -87,23 +84,35 @@ const OriginalMovies: FC = () => {
 		}
 	});
 
-	const { isFetchingNextPage, isFetching, isLoading, isError } = moviesInfiniteQuery;
+	const { isFetchingNextPage, isFetching, isLoading, isError, refetch, fetchNextPage } = moviesInfiniteQuery;
 
-	const handleSetSortBy = ({ sortBy, direction }: SortByForm): void => {
-		const currentSearch = omit(qs.parse(location.search || ''), 'sort_by') || {};
-		const updatedSortBy = { sort_by: `${sortBy.value}.${direction}` };
-
-		const params = { ...currentSearch, ...updatedSortBy };
-
+	const handleFetch = (params: Record<string, string | number>): void => {
 		setMovies(undefined);
-		setParams({ ...params });
 
 		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
+
+		setTimeout(() => refetch(), timeout);
+	};
+
+	const handleLoadMore = (): void => {
+		const currentParams = omit({ ...qs.parse(location.search) }, 'page');
+		const updatedParams = merge({ ...currentParams, page: (movies?.page || 1) + 1 });
+
+		navigate({ pathname: '.', search: qs.stringify({ ...updatedParams }) });
+
+		setTimeout(() => fetchNextPage(), timeout);
+	};
+
+	const handleSetSortBy = ({ sortBy, direction }: SortByForm): void => {
+		const currentParams = omit({ ...qs.parse(location.search) }, 'sort_by');
+		const updatedSortBy = { sort_by: `${sortBy.value}.${direction}` };
+
+		handleFetch(merge({ ...currentParams, ...updatedSortBy }));
 	};
 
 	const handleSetFilters = ({ certifications, dates, genres, rating, count, runtime }: FiltersForm): void => {
-		const currentSearch = pick(qs.parse(location.search || ''), 'sort_by') || {};
-		const updatedfilters = omitBy(
+		const currentParams = pick({ ...qs.parse(location.search) }, 'sort_by');
+		const updatedFilters = omitBy(
 			merge({
 				...defaultFilters,
 				'certification': certifications.length > 0 ? certifications.join('|') : undefined,
@@ -120,26 +129,19 @@ const OriginalMovies: FC = () => {
 			isNil || isEmpty
 		);
 
-		const params = { ...currentSearch, ...updatedfilters };
-
-		setMovies(undefined);
-		setParams({ ...params });
-
-		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
+		handleFetch(merge({ ...currentParams, ...updatedFilters }));
 	};
 
 	useUpdateEffect(() => setTotalFilters(getTotalFilters({ location, mediaType: 'movie' }) || 0), [location.search]);
 
 	useEffectOnce(() => {
-		const currentSearch = qs.parse(location.search);
-		const params =
-			currentSearch && location.search.length > 0
-				? merge({ ...defaultSortBy, ...defaultFilters, ...currentSearch })
-				: merge({ ...defaultSortBy, ...defaultFilters });
+		const params = qs.parse(location.search);
+		const updatedParams =
+			location.search.length > 0
+				? { ...defaultPagination, ...defaultSortBy, ...defaultFilters, ...params }
+				: { ...defaultPagination, ...defaultSortBy, ...defaultFilters };
 
-		setParams({ ...params });
-
-		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
+		handleFetch(merge({ ...updatedParams }));
 	});
 
 	return (
@@ -188,9 +190,12 @@ const OriginalMovies: FC = () => {
 						}
 						onClear={(form) => handleSetFilters({ ...form })}
 					/>
-
 					<Suspense fallback={<VerticalDummyMovies />}>
-						<VerticalMovies query={moviesInfiniteQuery} movies={moviesDebounced} />
+						<VerticalMovies
+							query={moviesInfiniteQuery}
+							movies={moviesDebounced}
+							onLoadMore={handleLoadMore}
+						/>
 					</Suspense>
 				</VStack>
 			</PageBody>
