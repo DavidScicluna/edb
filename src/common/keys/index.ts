@@ -9,56 +9,49 @@ import { UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
 import { UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
 import { UseTrendingQueryProps } from '../queries/useTrendingQuery';
-import { AxiosConfigParams } from '../types';
 
 export const certificationsQueryKey = memoize(
-	({ mediaType }: UseCertificationsQueryProps): QueryKey => [`${mediaType}_certifications`, mediaType]
+	({ mediaType }: UseCertificationsQueryProps): QueryKey => [`ds-edb-${mediaType}-certifications-query`]
 );
 
-export const countriesQueryKey = memoize((): QueryKey => ['countries']);
+export const countriesQueryKey = memoize((): QueryKey => ['ds-edb-countries-query']);
 
 export const genresQueryKey = memoize(
-	({ mediaType }: UseGenresQueryProps): QueryKey => [`${mediaType}_genres`, mediaType]
+	({ mediaType }: UseGenresQueryProps): QueryKey => [`ds-edb-${mediaType}-genres-query`]
 );
 
-export const jobsQueryKey = memoize((): QueryKey => ['jobs']);
+export const jobsQueryKey = memoize((): QueryKey => ['ds-edb-jobs-query']);
 
 export const keywordsInfiniteQueryKey = memoize(
-	({ query }: UseKeywordsInfiniteQueryProps): QueryKey => [`${query}_search_keywords_infinite`, query]
+	({ query }: UseKeywordsInfiniteQueryProps): QueryKey => [`ds-edb-search-${query}-keywords-infinite-query`]
 );
 
-export const languagesQueryKey = memoize((): QueryKey => ['languages']);
+export const languagesQueryKey = memoize((): QueryKey => ['ds-edb-languages-query']);
 
-export const moviesInfiniteQueryKey = memoize(({ params }: AxiosConfigParams): QueryKey => ['movies', params]);
+export const moviesInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-movies-infinite-query']);
 
-export const peopleInfiniteQueryKey = memoize(({ params }: AxiosConfigParams): QueryKey => ['people', params]);
+export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
 
 export const popularQueryKey = memoize(
-	({ mediaType }: UsePopularQueryProps): QueryKey => [`popular_${mediaType}`, mediaType]
+	({ mediaType }: UsePopularQueryProps): QueryKey => [`ds-edb-popular-${mediaType}-query`]
 );
 
 export const searchInfiniteQueryKey = memoize(
 	({ mediaType, query }: UseSearchInfiniteQueryProps): QueryKey => [
-		`${query}_${mediaType}_search_infinite`,
-		mediaType,
-		query
+		`ds-edb-search-${query}-${mediaType}-infinite-query`
 	]
 );
 
 export const topRatedQueryKey = memoize(
-	({ mediaType }: UseTopRatedQueryProps): QueryKey => [`top_rated_${mediaType}`, mediaType]
+	({ mediaType }: UseTopRatedQueryProps): QueryKey => [`ds-edb-top-rated-${mediaType}-query`]
 );
 
 export const trendingQueryKey = memoize(
-	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`${time}_${mediaType}_trending`, mediaType, time]
+	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`ds-edb-${time}-${mediaType}-trending-query`]
 );
 
 export const trendingInfiniteQueryKey = memoize(
-	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [
-		`${time}_${mediaType}_trending_infinite`,
-		mediaType,
-		time
-	]
+	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`ds-edb-${time}-${mediaType}-trending-infinite-query`]
 );
 
-export const tvShowsInfiniteQueryKey = memoize(({ params }: AxiosConfigParams): QueryKey => ['tv_shows', params]);
+export const tvShowsInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-tv-shows-infinite-query']);
