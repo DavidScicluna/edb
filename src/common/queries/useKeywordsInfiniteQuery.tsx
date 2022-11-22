@@ -1,5 +1,3 @@
-import { useDebounce } from '@davidscicluna/component-library';
-
 import { useToast } from '@chakra-ui/react';
 
 import {
@@ -16,7 +14,7 @@ import { useWillUnmount } from 'rooks';
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { keywordsInfiniteQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, Keyword, QueryError, Response } from '../types';
 
 export type UseKeywordsInfiniteQueryProps = { query: string };
@@ -49,13 +47,12 @@ const useKeywordsInfiniteQuery = ({
 	const toast = useToast();
 
 	const key = keywordsInfiniteQueryKey({ query });
-	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseKeywordsInfiniteQueryResponse, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ pageParam = 1, signal }) => {
-			const { data } = await axiosInstance.get<UseKeywordsInfiniteQueryResponse>('/search/keyword', {
+			const { data } = await axios.get<UseKeywordsInfiniteQueryResponse>('/search/keyword', {
 				...config,
 				params: { ...config.params, query, page: pageParam || 1 },
 				signal
@@ -102,7 +99,7 @@ const useKeywordsInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

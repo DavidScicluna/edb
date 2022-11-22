@@ -1,5 +1,3 @@
-import { useDebounce } from '@davidscicluna/component-library';
-
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -11,7 +9,7 @@ import { useWillUnmount } from 'rooks';
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { trendingQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
 import { PartialTV } from '../types/tv';
@@ -51,13 +49,12 @@ const useTrendingQuery = <MT extends UseTrendingQueryMediaType>({
 	const toast = useToast();
 
 	const key = trendingQueryKey({ mediaType, time });
-	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseTrendingQueryResponse<MT>, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ signal }) => {
-			const { data } = await axiosInstance.get<UseTrendingQueryResponse<MT>>(`/trending/${mediaType}/${time}`, {
+			const { data } = await axios.get<UseTrendingQueryResponse<MT>>(`/trending/${mediaType}/${time}`, {
 				...config,
 				signal
 			});
@@ -99,7 +96,7 @@ const useTrendingQuery = <MT extends UseTrendingQueryMediaType>({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

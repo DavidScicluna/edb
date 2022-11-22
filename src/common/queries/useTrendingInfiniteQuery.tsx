@@ -1,5 +1,3 @@
-import { useDebounce } from '@davidscicluna/component-library';
-
 import { useToast } from '@chakra-ui/react';
 
 import {
@@ -16,7 +14,7 @@ import { useWillUnmount } from 'rooks';
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { trendingInfiniteQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
 import { PartialTV } from '../types/tv';
@@ -56,20 +54,16 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 	const toast = useToast();
 
 	const key = trendingInfiniteQueryKey({ mediaType, time });
-	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseTrendingInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ pageParam = 1, signal }) => {
-			const { data } = await axiosInstance.get<UseTrendingInfiniteQueryResponse<MT>>(
-				`/trending/${mediaType}/${time}`,
-				{
-					...config,
-					params: { ...config.params, page: pageParam || 1 },
-					signal
-				}
-			);
+			const { data } = await axios.get<UseTrendingInfiniteQueryResponse<MT>>(`/trending/${mediaType}/${time}`, {
+				...config,
+				params: { ...config.params, page: pageParam || 1 },
+				signal
+			});
 			return data;
 		},
 		{
@@ -114,7 +108,7 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

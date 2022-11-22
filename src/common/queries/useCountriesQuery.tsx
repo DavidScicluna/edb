@@ -1,4 +1,4 @@
-import { Undefinable, useDebounce } from '@davidscicluna/component-library';
+import { Undefinable } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -11,7 +11,7 @@ import { compact } from 'lodash';
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { countriesQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, Country, QueryError } from '../types';
 
 export type UseCountriesQueryResponse = Country[];
@@ -31,13 +31,12 @@ const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParam
 	const toast = useToast();
 
 	const key = countriesQueryKey();
-	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseCountriesQueryResponse, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ signal }) => {
-			const { data } = await axiosInstance.get<UseCountriesQueryResponse>('/configuration/countries', {
+			const { data } = await axios.get<UseCountriesQueryResponse>('/configuration/countries', {
 				...config,
 				signal
 			});
@@ -77,7 +76,7 @@ const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParam
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

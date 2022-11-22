@@ -1,4 +1,4 @@
-import { Undefinable, useDebounce } from '@davidscicluna/component-library';
+import { Undefinable } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -9,7 +9,7 @@ import { useWillUnmount } from 'rooks';
 import { compact } from 'lodash';
 
 import { jobsQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, Job, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
@@ -31,13 +31,12 @@ const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): U
 	const toast = useToast();
 
 	const key = jobsQueryKey();
-	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseJobsQueryResponse, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ signal }) => {
-			const { data } = await axiosInstance.get<UseJobsQueryResponse>('/configuration/jobs', {
+			const { data } = await axios.get<UseJobsQueryResponse>('/configuration/jobs', {
 				...config,
 				signal
 			});
@@ -77,7 +76,7 @@ const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): U
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };

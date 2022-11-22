@@ -1,4 +1,4 @@
-import { Undefinable, useDebounce } from '@davidscicluna/component-library';
+import { Undefinable } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -14,7 +14,7 @@ import { useWillUnmount } from 'rooks';
 import { compact } from 'lodash';
 
 import { peopleInfiniteQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, QueryError, Response } from '../types';
 import { PartialPerson } from '../types/person';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -46,14 +46,13 @@ const usePeopleInfiniteQuery = ({
 }: UsePeopleInfiniteQueryParams = {}): UsePeopleInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = peopleInfiniteQueryKey({ params: config.params });
-	const keyDebounced = useDebounce(key, 'slow');
+	const key = peopleInfiniteQueryKey();
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UsePeopleInfiniteQueryResponse, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ pageParam = 1, signal }) => {
-			const { data } = await axiosInstance.get<UsePeopleInfiniteQueryResponse>('/person/popular', {
+			const { data } = await axios.get<UsePeopleInfiniteQueryResponse>('/person/popular', {
 				...config,
 				params: { ...config.params, page: pageParam || 1 },
 				signal
@@ -103,7 +102,7 @@ const usePeopleInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

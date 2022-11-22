@@ -1,5 +1,3 @@
-import { useDebounce } from '@davidscicluna/component-library';
-
 import { useToast } from '@chakra-ui/react';
 
 import {
@@ -16,7 +14,7 @@ import { useWillUnmount } from 'rooks';
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { searchInfiniteQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, MediaType, PartialCompany, QueryError, Response } from '../types';
 import { Collection, PartialMovie } from '../types/movie';
 import { PartialPerson } from '../types/person';
@@ -63,13 +61,12 @@ const useSearchInfiniteQuery = <MT extends MediaType>({
 	const toast = useToast();
 
 	const key = searchInfiniteQueryKey({ mediaType, query });
-	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseSearchInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ pageParam = 1, signal }) => {
-			const { data } = await axiosInstance.get<UseSearchInfiniteQueryResponse<MT>>(`/search/${mediaType}`, {
+			const { data } = await axios.get<UseSearchInfiniteQueryResponse<MT>>(`/search/${mediaType}`, {
 				...config,
 				params: { ...config.params, query, page: pageParam || 1 },
 				signal
@@ -118,7 +115,7 @@ const useSearchInfiniteQuery = <MT extends MediaType>({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

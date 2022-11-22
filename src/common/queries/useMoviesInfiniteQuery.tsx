@@ -1,4 +1,4 @@
-import { Undefinable, useDebounce } from '@davidscicluna/component-library';
+import { Undefinable } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -11,10 +11,10 @@ import {
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, merge } from 'lodash';
 
 import { moviesInfiniteQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -46,22 +46,22 @@ const useMoviesInfiniteQuery = ({
 }: UseMoviesInfiniteQueryParams = {}): UseMoviesInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = moviesInfiniteQueryKey({ params: config.params });
-	const keyDebounced = useDebounce(key, 'slow');
+	const key = moviesInfiniteQueryKey();
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseMoviesInfiniteQueryResponse, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ pageParam = 1, signal }) => {
-			const { data } = await axiosInstance.get<UseMoviesInfiniteQueryResponse>('/discover/movie', {
+			const { data } = await axios.get<UseMoviesInfiniteQueryResponse>('/discover/movie', {
 				...config,
-				params: { ...config.params, page: pageParam || 1 },
+				params: merge({ ...config.params, page: pageParam }),
 				signal
 			});
 			return data;
 		},
 		{
 			...options,
+			keepPreviousData: options.keepPreviousData || true,
 			getPreviousPageParam: (firstPage) => {
 				return firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false;
 			},
@@ -103,7 +103,7 @@ const useMoviesInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

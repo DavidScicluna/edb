@@ -1,4 +1,4 @@
-import { Undefinable, useDebounce } from '@davidscicluna/component-library';
+import { Undefinable } from '@davidscicluna/component-library';
 
 import { useToast } from '@chakra-ui/react';
 
@@ -16,7 +16,7 @@ import { useWillUnmount } from 'rooks';
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { tvShowsInfiniteQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, QueryError, Response } from '../types';
 import { PartialTV } from '../types/tv';
 import { formatMediaTypeLabel } from '../utils';
@@ -46,14 +46,13 @@ const useTVShowsInfiniteQuery = ({
 }: UseTVShowsInfiniteQueryParams = {}): UseTVShowsInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = tvShowsInfiniteQueryKey({ params: config.params });
-	const keyDebounced = useDebounce(key, 'slow');
+	const key = tvShowsInfiniteQueryKey();
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseTVShowsInfiniteQueryResponse, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ pageParam = 1, signal }) => {
-			const { data } = await axiosInstance.get<UseTVShowsInfiniteQueryResponse>('/discover/tv', {
+			const { data } = await axios.get<UseTVShowsInfiniteQueryResponse>('/discover/tv', {
 				...config,
 				params: { ...config.params, page: pageParam || 1 },
 				signal
@@ -103,7 +102,7 @@ const useTVShowsInfiniteQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return infiniteQuery;
 };

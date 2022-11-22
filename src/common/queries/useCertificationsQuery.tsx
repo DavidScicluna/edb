@@ -1,5 +1,3 @@
-import { useDebounce } from '@davidscicluna/component-library';
-
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -11,7 +9,7 @@ import { useWillUnmount } from 'rooks';
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { certificationsQueryKey } from '../keys';
-import { axios as axiosInstance } from '../scripts';
+import { axios } from '../scripts';
 import { AxiosConfig, Certifications, MediaType, QueryError } from '../types';
 import { formatMediaTypeLabel } from '../utils';
 
@@ -39,19 +37,15 @@ const useCertificationsQuery = ({
 	const toast = useToast();
 
 	const key = certificationsQueryKey({ mediaType });
-	const keyDebounced = useDebounce(key, 'slow');
 
 	const client = useQueryClient();
 	const query = useQuery<UseCertificationsQueryResponse, AxiosError<QueryError>>(
-		keyDebounced,
+		key,
 		async ({ signal }) => {
-			const { data } = await axiosInstance.get<UseCertificationsQueryResponse>(
-				`/certification/${mediaType}/list`,
-				{
-					...config,
-					signal
-				}
-			);
+			const { data } = await axios.get<UseCertificationsQueryResponse>(`/certification/${mediaType}/list`, {
+				...config,
+				signal
+			});
 			return data;
 		},
 		{
@@ -91,7 +85,7 @@ const useCertificationsQuery = ({
 		}
 	);
 
-	useWillUnmount(() => client.cancelQueries(keyDebounced));
+	useWillUnmount(() => client.cancelQueries(key));
 
 	return query;
 };
