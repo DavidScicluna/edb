@@ -32,7 +32,7 @@ import Sidebar from './components/Sidebar';
 import User from './components/User';
 import Internationalization from './components/Internationalization';
 
-const { getColor, getTransitionDuration } = utils;
+const { getTransitionConfig, getTransitionDuration, getColor } = utils;
 
 const StructureMobileTablet: FC<StructureMobileTabletProps> = ({ children, device }) => {
 	const theme = useTheme();
@@ -48,8 +48,7 @@ const StructureMobileTablet: FC<StructureMobileTabletProps> = ({ children, devic
 	const [headerRef, { height: headerHeight }] = useElementSize();
 
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
-
-	const config = useConst<Transition>({ duration });
+	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
 
 	useUpdateEffect(() => onSidebarClose(), [location.pathname]);
 

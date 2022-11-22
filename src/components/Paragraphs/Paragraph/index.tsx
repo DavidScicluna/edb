@@ -9,12 +9,14 @@ import {
 	CardBody,
 	CardFooter,
 	Button,
+	Collapse,
 	utils
 } from '@davidscicluna/component-library';
 
-import { useBoolean, useConst, VStack, Text, Collapse } from '@chakra-ui/react';
+import { useBoolean, useConst, VStack, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
+import { Transition } from 'framer-motion';
 
 import { useUserTheme } from '../../../common/hooks';
 import { getFontSizeHeight } from '../../../common/utils';
@@ -24,7 +26,7 @@ import { formatStringToParagraphs } from './common/utils';
 
 const lines = 5;
 
-const { getColor } = utils;
+const { getTransitionConfig, getTransitionDuration, getColor } = utils;
 
 const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) => {
 	const theme = useTheme();
@@ -39,6 +41,9 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 
 	const limit = useConst<number>(getFontSizeHeight({ theme, fontSize, lineHeight }) * lines);
 
+	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'ultra-slow' }) * 2);
+	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
+
 	return (
 		<Card colorMode={colorMode} isFullWidth p={2}>
 			<CardHeader renderTitle={(props) => <Text {...props}>{title}</Text>} />
@@ -46,6 +51,7 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 				<Collapse
 					in={isExpanded}
 					startingHeight={(stackHeight || limit) >= limit ? limit : stackHeight || limit}
+					transition={{ enter: { ...config }, exit: { ...config } }}
 				>
 					<VStack ref={stackRef} width='100%' alignItems='flex-start' spacing={2}>
 						{formatStringToParagraphs({ string: children }).map((paragraph, index) => (

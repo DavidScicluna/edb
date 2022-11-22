@@ -4,7 +4,7 @@ import { useLocation } from 'react-router';
 
 import { useTheme, Collapse, utils } from '@davidscicluna/component-library';
 
-import { useBoolean, useConst, Progress } from '@chakra-ui/react';
+import { useBoolean, Progress } from '@chakra-ui/react';
 
 import { useIsFetching, useIsMutating } from '@tanstack/react-query';
 
@@ -15,7 +15,7 @@ import { useSelector, useUserTheme } from '../../../../common/hooks';
 
 import { ProgressBarProps } from './types';
 
-const { getColor, getTransitionDuration } = utils;
+const { getColor } = utils;
 
 const ProgressBar: FC<ProgressBarProps> = ({ maxWidth }) => {
 	const theme = useTheme();
@@ -32,12 +32,10 @@ const ProgressBar: FC<ProgressBarProps> = ({ maxWidth }) => {
 
 	const [dividerColor, setDividerColor] = useState(getColor({ theme, colorMode, type: 'divider' }));
 
-	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }) * 1000);
-
 	const handleIsReouting = useCallback((): void => {
 		setIsReouting.on();
 
-		setTimeout(() => setIsReouting.off(), duration);
+		setTimeout(() => setIsReouting.off(), 2500);
 	}, []);
 
 	useEffect(() => handleIsReouting(), [location.key]);
