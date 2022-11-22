@@ -31,7 +31,7 @@ import { VerticalTVShowsProps } from './types';
 
 const { getColor } = utils;
 
-const VerticalTVShows: FC<VerticalTVShowsProps> = ({ query, shows }) => {
+const VerticalTVShows: FC<VerticalTVShowsProps> = ({ query, shows, onLoadMore }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -126,7 +126,7 @@ const VerticalTVShows: FC<VerticalTVShowsProps> = ({ query, shows }) => {
 					label={formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })}
 					isLoading={false}
 					isButtonVisible={hasNextPage && !isError}
-					onClick={fetchNextPage}
+					onClick={onLoadMore || fetchNextPage}
 				/>
 			</Center>
 		</VStack>

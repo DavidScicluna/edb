@@ -6,4 +6,5 @@ import {
 export type VerticalTVShowsProps = {
 	query: UseTVShowsInfiniteQueryResult;
 	shows?: UseTVShowsInfiniteQueryResponse;
+	onLoadMore?: () => void;
 };
