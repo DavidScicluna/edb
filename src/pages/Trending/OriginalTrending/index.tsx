@@ -22,7 +22,7 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import { useUserTheme } from '../../../common/hooks';
 import { formatMediaType, formatMediaTypeLabel, getMediaTypeIcon } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
-import { Suspense, TabIcon } from '../../../components';
+import { Suspense, TabDisplayMode, TabIcon } from '../../../components';
 import TrendingDummyMoviesTab from '../components/TrendingDummyMoviesTab';
 import TrendingDummyPeopleTab from '../components/TrendingDummyPeopleTab';
 import TrendingDummyTVShowsTab from '../components/TrendingDummyTVShowsTab';
@@ -37,7 +37,6 @@ import TrendingDummyAllTab from '../components/TrendingDummyAllTab';
 
 import { TrendingMediaTypes } from './types';
 import { getMediaTypeIndex } from './common/utils';
-import TrendingDisplayMode from './components/TrendingDisplayMode';
 
 const TrendingAllTab = lazy(() => import('./components/TrendingAllTab'));
 const TrendingMoviesTab = lazy(() => import('./components/TrendingMoviesTab'));
@@ -243,7 +242,7 @@ const Trending: FC = () => {
 									)
 								}
 							]}
-							renderRight={activeTabDebounced !== 0 ? () => <TrendingDisplayMode /> : undefined}
+							renderRight={activeTabDebounced !== 0 ? () => <TabDisplayMode /> : undefined}
 						/>
 
 						<TabPanels>

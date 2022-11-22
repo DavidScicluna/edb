@@ -14,7 +14,7 @@ import { useUserTheme } from '../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../common/utils';
 import { SearchForm } from '../../types';
-import { Suspense, TabBadge, TabIcon } from '../../../../../components';
+import { Suspense, TabBadge, TabDisplayMode, TabIcon } from '../../../../../components';
 import { getQueryFromSearch } from '../../common/utils';
 import SearchDummyMoviesTab from '../SearchDummyMovies';
 import SearchDummyPeopleTab from '../SearchDummyPeople';
@@ -360,6 +360,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 							  } as TabListTab)
 							: null
 					])}
+					renderRight={activeTab !== 0 ? () => <TabDisplayMode /> : undefined}
 				/>
 
 				<TabPanels>

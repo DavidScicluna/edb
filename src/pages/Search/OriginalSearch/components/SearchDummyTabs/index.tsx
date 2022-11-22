@@ -37,7 +37,6 @@ const SearchDummyTabs: FC = () => {
 							};
 						}) as TabListTab[])
 					]}
-					// renderRight={() => <DummyDisplayMode />}
 				/>
 
 				<TabPanels>

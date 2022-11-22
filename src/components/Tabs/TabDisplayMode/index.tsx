@@ -4,12 +4,12 @@ import { useTheme, Divider, utils } from '@davidscicluna/component-library';
 
 import { HStack, Center, Text } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../common/hooks';
-import { DisplayMode } from '../../../../../components';
+import { useUserTheme } from '../../../common/hooks';
+import { DisplayMode } from '../..';
 
 const { getColor } = utils;
 
-const TrendingDisplayMode: FC = () => {
+const TabDisplayMode: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -36,4 +36,4 @@ const TrendingDisplayMode: FC = () => {
 	);
 };
 
-export default TrendingDisplayMode;
+export default TabDisplayMode;

@@ -7,7 +7,7 @@ import { VStack } from '@chakra-ui/react';
 import { compact } from 'lodash';
 
 import { activeTab as defaultActiveTab } from '../MyLikesTab/common/data/defaultPropValues';
-import { Suspense, TabBadge, TabIcon } from '../../../../../../../../../components';
+import { Suspense, TabBadge, TabDisplayMode, TabIcon } from '../../../../../../../../../components';
 import DummyMoviesTab from '../../../../../../../../Movies/components/VerticalDummyMovies';
 import DummyPeopleTab from '../../../../../../../../People/components/VerticalDummyPeople';
 import DummyTVShowsTab from '../../../../../../../../TVShows/components/VerticalDummyTVShows';
@@ -329,6 +329,7 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 										: undefined
 							} as TabListTab)
 					])}
+					renderRight={activeTab !== 0 ? () => <TabDisplayMode /> : undefined}
 				/>
 
 				<TabPanels>
