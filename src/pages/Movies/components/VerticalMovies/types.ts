@@ -6,4 +6,5 @@ import {
 export type VerticalMoviesProps = {
 	query: UseMoviesInfiniteQueryResult;
 	movies?: UseMoviesInfiniteQueryResponse;
+	onLoadMore?: () => void;
 };

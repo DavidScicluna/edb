@@ -31,7 +31,7 @@ import { VerticalMoviesProps } from './types';
 
 const { getColor } = utils;
 
-const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies }) => {
+const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies, onLoadMore }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -126,7 +126,7 @@ const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies }) => {
 					label={formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' })}
 					isLoading={false}
 					isButtonVisible={hasNextPage && !isError}
-					onClick={fetchNextPage}
+					onClick={onLoadMore || fetchNextPage}
 				/>
 			</Center>
 		</VStack>
