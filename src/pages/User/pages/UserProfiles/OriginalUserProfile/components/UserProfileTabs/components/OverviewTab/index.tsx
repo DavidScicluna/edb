@@ -24,7 +24,11 @@ const OverviewTab: FC<OverviewTabProps> = ({ onTabChange }) => {
 
 	return (
 		<VStack width='100%' spacing={spacing}>
-			{bio && <Paragraph title='Biography'>{bio}</Paragraph>}
+			{bio && (
+				<Paragraph title='Biography' keepFooter>
+					{bio}
+				</Paragraph>
+			)}
 
 			<Suspense fallback={<DummyWatchlist />}>
 				<Watchlist onTabChange={onTabChange} />

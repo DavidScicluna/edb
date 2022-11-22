@@ -41,7 +41,7 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 
 	const limit = useConst<number>(getFontSizeHeight({ theme, fontSize, lineHeight }) * lines);
 
-	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'ultra-slow' }) * 2);
+	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slower' }));
 	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
 
 	return (
@@ -51,6 +51,7 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 				<Collapse
 					in={isExpanded}
 					startingHeight={(stackHeight || limit) >= limit ? limit : stackHeight || limit}
+					unmountOnExit={false}
 					transition={{ enter: { ...config }, exit: { ...config } }}
 				>
 					<VStack ref={stackRef} width='100%' alignItems='flex-start' spacing={2}>

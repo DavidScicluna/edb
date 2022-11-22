@@ -3,13 +3,13 @@ import { FC } from 'react';
 import { useFormState, useWatch } from 'react-hook-form';
 import { isEqual } from 'lodash';
 
-import { UserGenres } from '../../../../../../../components';
 import EditUserStructure from '../EditUserStructure';
 import {
 	color as defaultColor,
 	colorMode as defaultColorMode
 } from '../../../../../../../common/data/defaultPropValues';
 import { useSelector } from '../../../../../../../common/hooks';
+import UserGenres from '../../../../../components/UserGenres';
 
 import { GenresTabProps } from './types';
 
