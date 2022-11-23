@@ -11,7 +11,15 @@ import { PersistGate } from 'redux-persist/integration/react';
 import store from '../../store';
 import Container from '../Container';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: import.meta.env.PROD,
+			refetchOnReconnect: import.meta.env.PROD,
+			refetchOnMount: import.meta.env.PROD
+		}
+	}
+});
 
 const persistor = persistStore(store);
 
