@@ -36,6 +36,10 @@ export const personCreditsQueryKey = memoize(
 	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-credits-query`]
 );
 
+export const personExternalIDsQueryKey = memoize(
+	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-external-ids-query`]
+);
+
 export const popularQueryKey = memoize(
 	({ mediaType }: UsePopularQueryProps): QueryKey => [`ds-edb-popular-${mediaType}-query`]
 );

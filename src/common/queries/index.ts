@@ -7,6 +7,7 @@ import useLanguagesQuery from './useLanguagesQuery';
 import useMoviesInfiniteQuery from './useMoviesInfiniteQuery';
 import usePeopleInfiniteQuery from './usePeopleInfiniteQuery';
 import usePersonCreditsQuery from './usePersonCreditsQuery';
+import usePersonExternalIDsQuery from './usePersonExternalIDsQuery';
 import usePopularQuery from './usePopularQuery';
 import useSearchInfiniteQuery from './useSearchInfiniteQuery';
 import useTopRatedQuery from './useTopRatedQuery';
@@ -24,6 +25,7 @@ export {
 	useMoviesInfiniteQuery,
 	usePeopleInfiniteQuery,
 	usePersonCreditsQuery,
+	usePersonExternalIDsQuery,
 	usePopularQuery,
 	useSearchInfiniteQuery,
 	useTopRatedQuery,
