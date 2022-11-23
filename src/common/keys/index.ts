@@ -32,6 +32,10 @@ export const moviesInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-movies-in
 
 export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
 
+export const personCreditsQueryKey = memoize(
+	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-credits-query`]
+);
+
 export const popularQueryKey = memoize(
 	({ mediaType }: UsePopularQueryProps): QueryKey => [`ds-edb-popular-${mediaType}-query`]
 );
