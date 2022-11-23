@@ -78,6 +78,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lodash", "npm:4.17.21"],\
             ["numbro", "npm:2.3.6"],\
             ["prettier", "npm:2.7.1"],\
+            ["prop-types", "npm:15.8.1"],\
             ["query-string", "npm:7.1.1"],\
             ["react", "npm:18.2.0"],\
             ["react-cool-inview", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.0.1"],\
@@ -7127,6 +7128,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lodash", "npm:4.17.21"],\
             ["numbro", "npm:2.3.6"],\
             ["prettier", "npm:2.7.1"],\
+            ["prop-types", "npm:15.8.1"],\
             ["query-string", "npm:7.1.1"],\
             ["react", "npm:18.2.0"],\
             ["react-cool-inview", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.0.1"],\
