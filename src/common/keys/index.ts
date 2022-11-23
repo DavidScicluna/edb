@@ -48,6 +48,10 @@ export const personMovieCreditsQueryKey = memoize(
 	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-movie-credits-query`]
 );
 
+export const personTVShowCreditsQueryKey = memoize(
+	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-tv-show-credits-query`]
+);
+
 export const popularQueryKey = memoize(
 	({ mediaType }: UsePopularQueryProps): QueryKey => [`ds-edb-popular-${mediaType}-query`]
 );
