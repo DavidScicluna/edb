@@ -9,6 +9,7 @@ import usePeopleInfiniteQuery from './usePeopleInfiniteQuery';
 import usePersonCreditsQuery from './usePersonCreditsQuery';
 import usePersonExternalIDsQuery from './usePersonExternalIDsQuery';
 import usePersonImagesQuery from './usePersonImagesQuery';
+import usePersonMovieCreditsQuery from './usePersonMovieCreditsQuery';
 import usePopularQuery from './usePopularQuery';
 import useSearchInfiniteQuery from './useSearchInfiniteQuery';
 import useTopRatedQuery from './useTopRatedQuery';
@@ -28,6 +29,7 @@ export {
 	usePersonCreditsQuery,
 	usePersonExternalIDsQuery,
 	usePersonImagesQuery,
+	usePersonMovieCreditsQuery,
 	usePopularQuery,
 	useSearchInfiniteQuery,
 	useTopRatedQuery,
