@@ -5,6 +5,12 @@ import { memoize } from 'lodash';
 import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
+import { UsePersonCreditsQueryProps } from '../queries/usePersonCreditsQuery';
+import { UsePersonExternalIDsQueryProps } from '../queries/usePersonExternalIDsQuery';
+import { UsePersonImagesQueryProps } from '../queries/usePersonImagesQuery';
+import { UsePersonMovieCreditsQueryProps } from '../queries/usePersonMovieCreditsQuery';
+import { UsePersonQueryProps } from '../queries/usePersonQuery';
+import { UsePersonTVShowCreditsQueryProps } from '../queries/usePersonTVShowCreditsQuery';
 import { UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
 import { UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
@@ -33,23 +39,25 @@ export const moviesInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-movies-in
 export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
 
 export const personCreditsQueryKey = memoize(
-	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-credits-query`]
+	({ id }: UsePersonCreditsQueryProps): QueryKey => [`ds-edb-person-${id}-credits-query`]
 );
 
 export const personExternalIDsQueryKey = memoize(
-	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-external-ids-query`]
+	({ id }: UsePersonExternalIDsQueryProps): QueryKey => [`ds-edb-person-${id}-external-ids-query`]
 );
 
 export const personImagesQueryKey = memoize(
-	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-images-query`]
+	({ id }: UsePersonImagesQueryProps): QueryKey => [`ds-edb-person-${id}-images-query`]
 );
 
 export const personMovieCreditsQueryKey = memoize(
-	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-movie-credits-query`]
+	({ id }: UsePersonMovieCreditsQueryProps): QueryKey => [`ds-edb-person-${id}-movie-credits-query`]
 );
 
+export const personQueryKey = memoize(({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-query`]);
+
 export const personTVShowCreditsQueryKey = memoize(
-	({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-tv-show-credits-query`]
+	({ id }: UsePersonTVShowCreditsQueryProps): QueryKey => [`ds-edb-person-${id}-tv-show-credits-query`]
 );
 
 export const popularQueryKey = memoize(

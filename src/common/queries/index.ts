@@ -10,6 +10,7 @@ import usePersonCreditsQuery from './usePersonCreditsQuery';
 import usePersonExternalIDsQuery from './usePersonExternalIDsQuery';
 import usePersonImagesQuery from './usePersonImagesQuery';
 import usePersonMovieCreditsQuery from './usePersonMovieCreditsQuery';
+import usePersonQuery from './usePersonQuery';
 import usePersonTVShowCreditsQuery from './usePersonTVShowCreditsQuery';
 import usePopularQuery from './usePopularQuery';
 import useSearchInfiniteQuery from './useSearchInfiniteQuery';
@@ -31,6 +32,7 @@ export {
 	usePersonExternalIDsQuery,
 	usePersonImagesQuery,
 	usePersonMovieCreditsQuery,
+	usePersonQuery,
 	usePersonTVShowCreditsQuery,
 	usePopularQuery,
 	useSearchInfiniteQuery,
