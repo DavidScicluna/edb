@@ -77,6 +77,7 @@ const UserBackground: FC<UserBackgroundProps> = ({ color, colorMode, alt, form }
 					value=''
 				/>
 				<ClickableMedia
+					colorMode={colorMode}
 					borderRadius='none'
 					ratio={20 / 5}
 					renderIcon={(props) => (

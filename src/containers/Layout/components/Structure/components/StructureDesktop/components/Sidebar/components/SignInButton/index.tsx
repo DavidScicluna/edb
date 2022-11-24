@@ -25,6 +25,7 @@ const SignInButton: FC = () => {
 				<Center width='100%' position='relative'>
 					<AnimatePresence initial={false} mode='wait'>
 						<Fade
+							key='ds-edb-structure-desktop-sidebar-sign-in-button-text'
 							in={sidebarMode === 'expanded'}
 							transition={{ enter: { ...config } }}
 							style={{ position: 'absolute' }}
@@ -32,6 +33,7 @@ const SignInButton: FC = () => {
 							Sign in
 						</Fade>
 						<Fade
+							key='ds-edb-structure-desktop-sidebar-sign-in-button-icon'
 							in={sidebarMode === 'collapsed'}
 							transition={{ enter: { ...config } }}
 							style={{ position: 'absolute' }}

@@ -89,6 +89,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 					value=''
 				/>
 				<ClickableMedia
+					colorMode={colorMode}
 					width={['100%', '100%', '200px', '250px']}
 					ratio={getRatio({ orientation: isMd ? 'portrait' : 'square' })}
 					renderIcon={(props) => (

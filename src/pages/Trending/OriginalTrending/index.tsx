@@ -187,7 +187,7 @@ const Trending: FC = () => {
 					colorMode={colorMode}
 					activeTab={activeTabDebounced}
 					onChange={handleTabChange}
-					size='lg'
+					size='xl'
 				>
 					<VStack width='100%' spacing={spacing}>
 						<TabList

@@ -21,7 +21,7 @@ const DummyUserProfileTabsTabs: FC<DummyUserProfileTabsTabsProps> = ({ mediaType
 	const { spacing } = useLayoutContext();
 
 	return (
-		<Tabs width='100%' color={color} colorMode={colorMode} isDisabled size='xl'>
+		<Tabs width='100%' color={color} colorMode={colorMode} isDisabled size='lg'>
 			<VStack width='100%' spacing={spacing}>
 				<DummyTabList
 					tabs={[

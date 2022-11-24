@@ -100,7 +100,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 			colorMode={colorMode}
 			activeTab={activeTab}
 			onChange={handleTabChange}
-			size='lg'
+			size='xl'
 		>
 			<VStack width='100%' spacing={spacing}>
 				<TabList

@@ -25,7 +25,7 @@ const PageTransition: FC<PageTransitionProps> = ({ children }) => {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ ...config }}
-			style={{ width: '100%', height: '100%' }}
+			style={{ width: '100%', height: '100%', minHeight: 'inherit' }}
 		>
 			{children}
 		</motion.div>
