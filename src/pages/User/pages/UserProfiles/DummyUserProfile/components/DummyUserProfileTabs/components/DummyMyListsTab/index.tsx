@@ -6,18 +6,21 @@ import {
 	Tabs,
 	DummyTabList,
 	TabPanels,
-	Divider
+	Skeleton,
+	Divider,
+	Badge,
+	BadgeLabel
 } from '@davidscicluna/component-library';
 
-import { VStack, Center } from '@chakra-ui/react';
+import { VStack, Center, Text } from '@chakra-ui/react';
 
 import { range } from 'lodash';
 
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
+import { Headline } from '../../../../../../../../../components';
 
 import DummyAllTab from './components/DummyMyListsTabAllTab';
-import DummyHeadline from './components/DummyMyListsTabHeadline';
 import DummyListTab from './components/DummyMyListsTabListTab';
 
 const DummyMyListsTab: FC = () => {
@@ -33,7 +36,30 @@ const DummyMyListsTab: FC = () => {
 			spacing={0}
 		>
 			<Center width='100%' py={spacing * 2}>
-				<DummyHeadline />
+				<Headline
+					width='100%'
+					renderCaption={() => (
+						// TODO: Replace with DummyBadge
+						<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
+							<Badge color={color} colorMode={colorMode} size='xs'>
+								<BadgeLabel>Total of # lists</BadgeLabel>
+							</Badge>
+						</Skeleton>
+					)}
+					renderTitle={(props) => (
+						<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+							<Text {...props}>My Lists</Text>
+						</Skeleton>
+					)}
+					renderSubtitle={(props) => (
+						<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+							<Text {...props}>
+								This Tab contains all the lists that have been created and all the bookmarks in each
+								list.
+							</Text>
+						</Skeleton>
+					)}
+				/>
 			</Center>
 
 			<Tabs width='100%' color={color} colorMode={colorMode} isDisabled size='lg'>
