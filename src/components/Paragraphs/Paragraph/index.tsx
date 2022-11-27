@@ -54,7 +54,12 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 					unmountOnExit={false}
 					transition={{ enter: { ...config }, exit: { ...config } }}
 				>
-					<VStack ref={stackRef} width='100%' alignItems='flex-start' spacing={2}>
+					<VStack
+						ref={stackRef}
+						width='100%'
+						alignItems='flex-start'
+						spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
+					>
 						{formatStringToParagraphs({ string: children }).map((paragraph, index) => (
 							<Text
 								key={index}
