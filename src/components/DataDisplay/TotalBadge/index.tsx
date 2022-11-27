@@ -5,13 +5,13 @@ import { useTheme, Badge, BadgeLabel, Nullable, utils } from '@davidscicluna/com
 import numbro from 'numbro';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useCountUp } from 'react-countup';
-import { memoize } from 'lodash';
+import { compact, memoize } from 'lodash';
 
-import { TabBadgeProps } from './types';
+import { TotalBadgeProps } from './types';
 
 const { convertStringToNumber } = utils;
 
-const TabBadge: FC<TabBadgeProps> = ({ color, colorMode, total = 0, variant }) => {
+const TotalBadge: FC<TotalBadgeProps> = ({ color, colorMode, prefix, suffix, total = 0, size = 'xs', variant }) => {
 	const theme = useTheme();
 
 	const countUpRef = useRef<Nullable<HTMLParagraphElement>>(null);
@@ -22,7 +22,9 @@ const TabBadge: FC<TabBadgeProps> = ({ color, colorMode, total = 0, variant }) =
 		end: total,
 		delay: convertStringToNumber(theme.transition.duration['ultra-slow'], 'ms') / 1000,
 		duration: convertStringToNumber(theme.transition.duration['ultra-slow'], 'ms') / 1000,
-		formattingFn: memoize((end): string => numbro(end).format({ average: true })),
+		formattingFn: memoize((end): string =>
+			compact([prefix, numbro(end).format({ average: true }), suffix]).join(' ')
+		),
 		startOnMount: false
 	});
 
@@ -31,7 +33,7 @@ const TabBadge: FC<TabBadgeProps> = ({ color, colorMode, total = 0, variant }) =
 	useUpdateEffect(() => update(total), [total]);
 
 	return (
-		<Badge color={color} colorMode={colorMode} size='xs' variant={variant}>
+		<Badge color={color} colorMode={colorMode} size={size} variant={variant}>
 			<BadgeLabel>
 				<p ref={countUpRef} />
 			</BadgeLabel>
@@ -39,4 +41,4 @@ const TabBadge: FC<TabBadgeProps> = ({ color, colorMode, total = 0, variant }) =
 	);
 };
 
-export default TabBadge;
+export default TotalBadge;

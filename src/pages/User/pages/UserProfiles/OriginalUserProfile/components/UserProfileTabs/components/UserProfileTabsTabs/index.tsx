@@ -7,7 +7,7 @@ import { VStack } from '@chakra-ui/react';
 import { compact } from 'lodash';
 
 import { activeTab as defaultActiveTab } from '../MyLikesTab/common/data/defaultPropValues';
-import { Suspense, TabBadge, TabDisplayMode, TabIcon } from '../../../../../../../../../components';
+import { Suspense, TabDisplayMode, TabIcon, TotalBadge } from '../../../../../../../../../components';
 import DummyMoviesTab from '../../../../../../../../Movies/components/VerticalDummyMovies';
 import DummyPeopleTab from '../../../../../../../../People/components/VerticalDummyPeople';
 import DummyTVShowsTab from '../../../../../../../../TVShows/components/VerticalDummyTVShows';
@@ -84,7 +84,7 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 							renderRight:
 								totalDebounced > 0
 									? ({ color, ...rest }) => (
-											<TabBadge
+											<TotalBadge
 												{...rest}
 												color={activeTab === 0 ? color : 'gray'}
 												total={totalDebounced}
@@ -115,7 +115,7 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 								renderRight:
 									movie.length > 0
 										? ({ color, ...rest }) => (
-												<TabBadge
+												<TotalBadge
 													{...rest}
 													color={
 														activeTab ===
@@ -162,7 +162,7 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 								renderRight:
 									tv.length > 0
 										? ({ color, ...rest }) => (
-												<TabBadge
+												<TotalBadge
 													{...rest}
 													color={
 														activeTab ===
@@ -209,7 +209,7 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 								renderRight:
 									person.length > 0
 										? ({ color, ...rest }) => (
-												<TabBadge
+												<TotalBadge
 													{...rest}
 													color={
 														activeTab ===
@@ -256,7 +256,7 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 								renderRight:
 									company.length > 0
 										? ({ color, ...rest }) => (
-												<TabBadge
+												<TotalBadge
 													{...rest}
 													color={
 														activeTab ===
@@ -303,7 +303,7 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 								renderRight:
 									collection.length > 0
 										? ({ color, ...rest }) => (
-												<TabBadge
+												<TotalBadge
 													{...rest}
 													color={
 														activeTab ===

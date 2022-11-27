@@ -20,7 +20,7 @@ import DummyAllTab from '../../../../../DummyUserProfile/components/DummyUserPro
 import DummyListTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyMyListsTab/components/DummyMyListsTabListTab';
 import { useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { Suspense, TabBadge } from '../../../../../../../../../components';
+import { Suspense, TotalBadge } from '../../../../../../../../../components';
 
 import { activeTab as defaultActiveTab } from './common/data/defaultPropValues';
 import { getListIndex, getListTotal } from './common/utils';
@@ -97,7 +97,7 @@ const MyListsTab: FC = () => {
 											renderRight:
 												getListTotal(list) > 0
 													? ({ color, ...rest }) => (
-															<TabBadge
+															<TotalBadge
 																{...rest}
 																color={
 																	activeTabDebounced === getListIndex({ lists, list })
