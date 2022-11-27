@@ -31,7 +31,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
 	const { observe: posterRef, inView = defaultInView } = useInView<HTMLDivElement>({
-		threshold: [0.2, 0.4, 0.6, 0.8, 1],
+		// threshold: [0.2, 0.4, 0.6, 0.8, 1],
 		unobserveOnEnter: true
 	});
 
