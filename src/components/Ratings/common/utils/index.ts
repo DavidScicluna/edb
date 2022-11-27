@@ -18,16 +18,16 @@ export const getCountSize = memoize(({ size }: GetCountSizeProps): FontSize => {
 		case 'sm':
 			return 'xs';
 		case 'lg':
-			return 'xs';
+			return 'md';
 		case 'xl':
-			return 'sm';
+			return 'lg';
 		case '2xl':
-			return 'sm';
+			return 'xl';
 		case '3xl':
-			return 'md';
+			return '2xl';
 		case '4xl':
-			return 'md';
+			return '3xl';
 		default:
-			return 'xs';
+			return 'sm';
 	}
 });

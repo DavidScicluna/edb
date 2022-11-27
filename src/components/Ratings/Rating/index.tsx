@@ -70,6 +70,7 @@ const Rating: FC<RatingProps> = (props) => {
 						align='left'
 						color={getColor({ theme, colorMode, type: 'text.secondary' })}
 						fontSize={countSize}
+						textTransform='uppercase'
 						whiteSpace='nowrap'
 					>
 						{numbro(count).format({ average: true })}
