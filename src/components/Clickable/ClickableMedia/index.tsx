@@ -56,9 +56,15 @@ const ClickableMedia: FC<ClickableMediaProps> = (props) => {
 								: theme.colors.transparent
 						}
 					>
-						<ScaleFade in={isHovering || isActive} unmountOnExit={false}>
+						<ScaleFade
+							in={isHovering || isActive}
+							unmountOnExit={false}
+							style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+						>
 							<Center
-								p={2}
+								p={1.5}
+								width='auto !important'
+								height='auto !important'
 								sx={{
 									backdropFilter: `blur(${theme.space[2]})`,
 									WebkitBackdropFilter: `blur(${theme.space[2]})`,
