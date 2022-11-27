@@ -1,14 +1,13 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
 import { useBreakpointValue } from '@chakra-ui/react';
 
-import { inView as defaultInView } from '../../../common/data/defaultPropValues';
 import Rating from '../../../../Ratings/Rating';
 import { RatingSize } from '../../../../Ratings/common/types';
 
 import { HorizontalPosterRatingProps } from './types';
 
-const HorizontalPosterRating = (props: HorizontalPosterRatingProps): ReactElement => {
+const HorizontalPosterRating: FC<HorizontalPosterRatingProps> = (props) => {
 	const fontSize = useBreakpointValue<RatingSize>({
 		'base': 'md',
 		'sm': 'lg',
@@ -18,9 +17,9 @@ const HorizontalPosterRating = (props: HorizontalPosterRatingProps): ReactElemen
 		'2xl': '4xl'
 	});
 
-	const { rating, count, inView = defaultInView } = props;
+	const { rating, count } = props;
 
-	return <Rating rating={rating} count={count} inView={inView} size={fontSize} />;
+	return <Rating rating={rating} count={count} size={fontSize} />;
 };
 
 export default HorizontalPosterRating;

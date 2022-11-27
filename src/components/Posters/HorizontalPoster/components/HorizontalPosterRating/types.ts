@@ -1,5 +1,3 @@
 import { HorizontalPosterRating } from '../../types';
 
-export type HorizontalPosterRatingProps = Pick<HorizontalPosterRating, 'rating' | 'count'> & {
-	inView: boolean;
-};
+export type HorizontalPosterRatingProps = Pick<HorizontalPosterRating, 'rating' | 'count'>;
