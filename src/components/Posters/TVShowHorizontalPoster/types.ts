@@ -1,17 +1,8 @@
 import { PartialTV } from '../../../common/types/tv';
-import { VerticalPosterProps } from '../VerticalPoster/types';
+import { HorizontalPosterProps } from '../HorizontalPoster/types';
 
-type Omitted =
-	| 'mediaItem'
-	| 'mediaType'
-	| 'image'
-	| 'rating'
-	| 'title'
-	| 'subtitle'
-	| 'description'
-	| 'isFullWidth'
-	| 'isLight';
+type Omitted = 'mediaItem' | 'mediaType' | 'image' | 'rating' | 'title' | 'isFullWidth' | 'isLight';
 
-export type TVShowHorizontalPosterProps = Omit<VerticalPosterProps<'tv'>, Omitted> & {
+export type TVShowHorizontalPosterProps = Omit<HorizontalPosterProps<'tv'>, Omitted> & {
 	show: PartialTV;
 };
