@@ -11,7 +11,7 @@ import {
 	Divider
 } from '@davidscicluna/component-library';
 
-import { useDisclosure, VStack, Center } from '@chakra-ui/react';
+import { useDisclosure, VStack, Center, Text } from '@chakra-ui/react';
 
 import { sort } from 'fast-sort';
 import { compact } from 'lodash';
@@ -20,11 +20,10 @@ import DummyAllTab from '../../../../../DummyUserProfile/components/DummyUserPro
 import DummyListTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyMyListsTab/components/DummyMyListsTabListTab';
 import { useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { Suspense, TotalBadge } from '../../../../../../../../../components';
+import { Headline, Suspense, TotalBadge } from '../../../../../../../../../components';
 
 import { activeTab as defaultActiveTab } from './common/data/defaultPropValues';
 import { getListIndex, getListTotal } from './common/utils';
-import MyListsTabHeadline from './components/MyListsTabHeadline';
 import CreateList from './components/CreateList';
 import DeleteList from './components/DeleteList';
 import { SelectedList } from './types';
@@ -72,7 +71,27 @@ const MyListsTab: FC = () => {
 				spacing={0}
 			>
 				<Center width='100%' py={spacing * 2}>
-					<MyListsTabHeadline />
+					<Headline
+						width='100%'
+						renderCaption={() => (
+							<TotalBadge
+								color={color}
+								colorMode={colorMode}
+								prefix='Total of'
+								suffix={lists.length === 1 ? 'list' : 'lists'}
+								total={lists.length}
+								variant='contained'
+							/>
+						)}
+						renderTitle={(props) => <Text {...props}>My Lists</Text>}
+						renderSubtitle={(props) => (
+							<Text {...props}>
+								This Tab contains all the lists that you have created and all the bookmarks that have
+								been added to the list and all are separated into their respective tab depending on the
+								media type.
+							</Text>
+						)}
+					/>
 				</Center>
 
 				<Tabs
