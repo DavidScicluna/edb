@@ -33,7 +33,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 	const { colorMode } = useUserTheme();
 
 	const { observe: posterRef, inView = defaultInView } = useInView<HTMLDivElement>({
-		threshold: [0.2, 0.4, 0.6, 0.8, 1],
+		// threshold: [0.2, 0.4, 0.6, 0.8, 1],
 		unobserveOnEnter: true
 	});
 
@@ -91,9 +91,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 						<VStack width='100%' spacing={0.5} p={1}>
 							{(mediaType === 'movie' || mediaType === 'tv') && (
 								<HStack width='100%' justify='space-between' spacing={0}>
-									{rating && (
-										<Rating rating={rating.rating} count={rating.count} inView={inView} size='sm' />
-									)}
+									{rating && <Rating rating={rating.rating} count={rating.count} size='sm' />}
 
 									<HStack
 										onMouseEnter={() => setIsFixed.on()}
