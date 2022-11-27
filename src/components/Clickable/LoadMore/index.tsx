@@ -4,14 +4,16 @@ import { useTheme, Button, ScaleFade, utils } from '@davidscicluna/component-lib
 
 import { VStack, Text, Progress } from '@chakra-ui/react';
 
-import CountUp from 'react-countup';
 import { round } from 'lodash';
+import numbro from 'numbro';
 
 import { useUserTheme } from '../../../common/hooks';
 
 import { LoadMoreProps } from './types';
 
 const { getColor } = utils;
+
+// TODO: Go over all numbers and see what can be formatted with numbro
 
 const LoadMore: FC<LoadMoreProps> = (props) => {
 	const theme = useTheme();
@@ -30,18 +32,17 @@ const LoadMore: FC<LoadMoreProps> = (props) => {
 		...rest
 	} = props;
 
+	const handleFormatNumber = (num: number): string => {
+		return numbro(num).format({ thousandSeparated: true });
+	};
+
 	return (
 		<VStack width='100%' spacing={spacing}>
 			<VStack width='100%' spacing={0.5}>
 				<Text align='center' fontSize='sm' color={getColor({ theme, colorMode, type: 'text.secondary' })}>
-					{amount >= total ? (
-						<CountUp duration={1} end={total} prefix={`You've viewed all `} suffix={` ${label}`} />
-					) : (
-						<>
-							<CountUp duration={1} end={amount} prefix={`You've viewed `} suffix=' of ' />
-							<CountUp duration={1} end={total} suffix={` ${label}`} />
-						</>
-					)}
+					{amount >= total
+						? `You've viewed all ${handleFormatNumber(total)} ${label}`
+						: `You've viewed ${handleFormatNumber(amount)} of ${handleFormatNumber(total)} ${label}`}
 				</Text>
 				<Progress
 					width='100%'
