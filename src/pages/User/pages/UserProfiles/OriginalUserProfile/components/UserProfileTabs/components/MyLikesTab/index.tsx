@@ -2,12 +2,12 @@ import { FC, useState, useCallback, useEffect, Fragment, lazy } from 'react';
 
 import { useTheme, useDebounce, Divider, Undefinable } from '@davidscicluna/component-library';
 
-import { VStack, Center } from '@chakra-ui/react';
+import { VStack, Center, Text } from '@chakra-ui/react';
 
 import { debounce } from 'lodash';
 
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { Suspense } from '../../../../../../../../../components';
+import { Headline, Suspense, TotalBadge } from '../../../../../../../../../components';
 import { useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
 import { MediaItems } from '../../../../../../../../../store/slices/Users/types';
 import { MediaType } from '../../../../../../../../../common/types';
@@ -15,9 +15,9 @@ import DummyTVShows from '../../../../../../../../TVShows/components/VerticalDum
 import DummyMovies from '../../../../../../../../Movies/components/VerticalDummyMovies';
 import DummyPeople from '../../../../../../../../People/components/VerticalDummyPeople';
 import DummyTabs from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs';
+import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 
 import { activeTab as defaultActiveTab, status as defaultStatus } from './common/data/defaultPropValues';
-import MyLikesTabHeadline from './components/MyLikesTabHeadline';
 import { MyLikesTabStatus } from './types';
 import MyLikesTabEmpty from './components/MyLikesTabEmpty';
 
@@ -30,7 +30,7 @@ const mediaTypes: MediaType[] = ['movie', 'tv', 'person', 'company', 'collection
 
 const MyLikesTab: FC = () => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
+	const { color, colorMode } = useUserTheme();
 
 	const { spacing } = useLayoutContext();
 
@@ -43,6 +43,9 @@ const MyLikesTab: FC = () => {
 
 	const [activeTab, setActiveTab] = useState<number>(defaultActiveTab);
 	const activeTabDebounced = useDebounce<number>(activeTab);
+
+	const total =
+		liked.movie.length + liked.tv.length + liked.person.length + liked.company.length + liked.collection.length;
 
 	const handleStatus = useCallback(
 		debounce((): void => {
@@ -80,7 +83,33 @@ const MyLikesTab: FC = () => {
 			spacing={statusDebounced !== 'loading' && statusDebounced !== 'multiple' ? spacing : 0}
 		>
 			<Center width='100%' py={spacing * 2}>
-				<MyLikesTabHeadline mediaType={mediaType} />
+				<Headline
+					width='100%'
+					renderCaption={() => (
+						<TotalBadge
+							color={color}
+							colorMode={colorMode}
+							prefix='Total of'
+							suffix={
+								mediaType
+									? `${formatMediaTypeLabel({
+											type: total === 1 ? 'single' : 'multiple',
+											mediaType
+									  })} liked`
+									: 'likes'
+							}
+							total={total}
+							size='xs'
+						/>
+					)}
+					renderTitle={(props) => <Text {...props}>My Likes</Text>}
+					renderSubtitle={(props) => (
+						<Text {...props}>
+							This Tab contains all likes that have been added to the likes list and all are separated
+							into their respective tab depending on the media type.
+						</Text>
+					)}
+				/>
 			</Center>
 
 			{statusDebounced === 'loading' ? (
