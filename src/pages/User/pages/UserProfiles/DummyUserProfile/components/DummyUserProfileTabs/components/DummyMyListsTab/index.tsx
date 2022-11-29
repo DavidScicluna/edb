@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
 	DummyTabListDummyTab,
 	useTheme,
+	Headline,
 	Tabs,
 	DummyTabList,
 	TabPanels,
@@ -18,7 +19,6 @@ import { range } from 'lodash';
 
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { Headline } from '../../../../../../../../../components';
 
 import DummyAllTab from './components/DummyMyListsTabAllTab';
 import DummyListTab from './components/DummyMyListsTabListTab';

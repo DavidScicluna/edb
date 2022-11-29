@@ -1,13 +1,12 @@
 import { FC } from 'react';
 
-import { useTheme, Divider, Skeleton, Badge, BadgeLabel } from '@davidscicluna/component-library';
+import { useTheme, Headline, Divider, Skeleton, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
 import { VStack, Center, Text } from '@chakra-ui/react';
 
 import DummyTabs from '../DummyUserProfileTabsTabs';
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { Headline } from '../../../../../../../../../components';
 
 const DummyMyLikesTab: FC = () => {
 	const theme = useTheme();

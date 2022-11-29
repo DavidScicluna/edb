@@ -1,12 +1,10 @@
 import { FC } from 'react';
 
-import { Space, useTheme, utils } from '@davidscicluna/component-library';
+import { Space, useTheme, Headline, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Center, Stack, HStack } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
-
-import { Headline } from '../../../../components';
 
 import Breadcrumbs from './components/Breadcrumbs';
 import { PageHeaderProps } from './types';

@@ -5,6 +5,7 @@ import {
 	TabListTab,
 	useTheme,
 	useDebounce,
+	Headline,
 	Tabs,
 	TabList,
 	TabPanels,
@@ -20,7 +21,7 @@ import DummyAllTab from '../../../../../DummyUserProfile/components/DummyUserPro
 import DummyListTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyMyListsTab/components/DummyMyListsTabListTab';
 import { useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { Headline, Suspense, TotalBadge } from '../../../../../../../../../components';
+import { Suspense, TotalBadge } from '../../../../../../../../../components';
 
 import { activeTab as defaultActiveTab } from './common/data/defaultPropValues';
 import { getListIndex, getListTotal } from './common/utils';

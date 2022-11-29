@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 
-import { Nullable, useTheme, Button, Badge, BadgeLabel, Icon, utils } from '@davidscicluna/component-library';
+import { Nullable, useTheme, Headline, Button, Badge, BadgeLabel, Icon, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, HStack, Text } from '@chakra-ui/react';
 
@@ -12,7 +12,6 @@ import numbro from 'numbro';
 import { useUserTheme } from '../../../../../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../../../common/utils';
-import { Headline } from '../../../../../../../../../../../../../components';
 
 import { MyListsTabListTabHeadlineProps } from './types';
 

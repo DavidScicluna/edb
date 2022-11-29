@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useTheme, Skeleton, DummyButton, Badge, BadgeLabel, utils } from '@davidscicluna/component-library';
+import { useTheme, Headline, Skeleton, DummyButton, Badge, BadgeLabel, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, HStack, Text } from '@chakra-ui/react';
 
@@ -8,7 +8,6 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../../../../../containers/Layout/common/hooks';
-import { Headline } from '../../../../../../../../../../../../../components';
 
 const { convertREMToPixels, convertStringToNumber } = utils;
 

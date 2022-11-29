@@ -1,13 +1,13 @@
 import { FC, useState, useCallback, useEffect, Fragment, lazy } from 'react';
 
-import { useTheme, useDebounce, Divider, Undefinable } from '@davidscicluna/component-library';
+import { useTheme, useDebounce, Headline, Divider, Undefinable } from '@davidscicluna/component-library';
 
 import { VStack, Center, Text } from '@chakra-ui/react';
 
 import { debounce } from 'lodash';
 
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
-import { Headline, Suspense, TotalBadge } from '../../../../../../../../../components';
+import { Suspense, TotalBadge } from '../../../../../../../../../components';
 import { useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
 import { MediaItems } from '../../../../../../../../../store/slices/Users/types';
 import { MediaType } from '../../../../../../../../../common/types';

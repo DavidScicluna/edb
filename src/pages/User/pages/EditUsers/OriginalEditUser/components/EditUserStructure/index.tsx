@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Form, InternalLink, Button, Divider } from '@davidscicluna/component-library';
+import { Form, Headline, InternalLink, Button, Divider } from '@davidscicluna/component-library';
 
 import { VStack, HStack, Center, Text } from '@chakra-ui/react';
 
@@ -10,7 +10,6 @@ import {
 } from '../../../../../../../common/data/defaultPropValues';
 import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
 import { useSelector } from '../../../../../../../common/hooks';
-import { Headline } from '../../../../../../../components';
 
 import { EditUserStructureProps } from './types';
 

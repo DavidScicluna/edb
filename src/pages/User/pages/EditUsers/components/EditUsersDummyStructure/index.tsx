@@ -1,11 +1,10 @@
 import { FC } from 'react';
 
-import { Skeleton, DummyButton, Divider } from '@davidscicluna/component-library';
+import { Headline, Skeleton, DummyButton, Divider } from '@davidscicluna/component-library';
 
 import { VStack, HStack, Center, Text } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../../../../../common/hooks';
-import { Headline } from '../../../../../../components';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
 import { EditUsersDummyStructureProps } from './types';
