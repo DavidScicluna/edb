@@ -1,10 +1,9 @@
 import { FC } from 'react';
 
-import { Button } from '@davidscicluna/component-library';
+import { Button, AnimatePresence } from '@davidscicluna/component-library';
 
 import { useDispatch } from 'react-redux';
 import { sort } from 'fast-sort';
-import { AnimatePresence } from 'framer-motion';
 
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { setUserRecentSearches } from '../../../../../../../store/slices/Users';
@@ -38,7 +37,7 @@ const RecentSearches: FC<RecentSearchesProps> = (props) => {
 				</Button>
 			}
 		>
-			<AnimatePresence mode='wait' initial={false}>
+			<AnimatePresence>
 				{sort([...allRecentSearches])
 					.desc(({ searchedAt }) => searchedAt)
 					.map((search) => (

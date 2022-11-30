@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { useTheme, InternalLink, Button, Icon, Fade, utils } from '@davidscicluna/component-library';
+import { useTheme, InternalLink, Button, Icon, AnimatePresence, Fade, utils } from '@davidscicluna/component-library';
 
 import { useConst, Center } from '@chakra-ui/react';
 
-import { AnimatePresence, Transition } from 'framer-motion';
+import { Transition } from 'framer-motion';
 
 import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
 
@@ -23,7 +23,7 @@ const SignInButton: FC = () => {
 		<InternalLink to='/authentication/signin' isFullWidth>
 			<Button color={color} colorMode={colorMode} isFullWidth>
 				<Center width='100%' position='relative'>
-					<AnimatePresence initial={false} mode='wait'>
+					<AnimatePresence>
 						<Fade
 							key='ds-edb-structure-desktop-sidebar-sign-in-button-text'
 							in={sidebarMode === 'expanded'}
