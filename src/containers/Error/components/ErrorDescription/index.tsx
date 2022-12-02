@@ -2,18 +2,20 @@ import { FC } from 'react';
 
 import { useTheme, utils } from '@davidscicluna/component-library';
 
-import { useColorMode, VStack, Text } from '@chakra-ui/react';
+import { VStack, Text } from '@chakra-ui/react';
 
-import { DescriptionProps } from './types';
+import { useUserTheme } from '../../../../common/hooks';
+
+import { ErrorDescriptionProps } from './types';
 
 const { getColor } = utils;
 
-const Description: FC<DescriptionProps> = ({ title, subtitle }) => {
+const ErrorDescription: FC<ErrorDescriptionProps> = ({ title, subtitle }) => {
 	const theme = useTheme();
-	const { colorMode } = useColorMode();
+	const { colorMode } = useUserTheme();
 
 	return (
-		<VStack alignItems='flex-start' spacing={0.5}>
+		<VStack alignItems='flex-start' justifyContent='center' spacing={0.5}>
 			<Text
 				align='left'
 				color={getColor({ theme, colorMode, type: 'text.primary' })}
@@ -29,4 +31,4 @@ const Description: FC<DescriptionProps> = ({ title, subtitle }) => {
 	);
 };
 
-export default Description;
+export default ErrorDescription;

@@ -2,18 +2,17 @@ import { FC } from 'react';
 
 import { useTheme, utils } from '@davidscicluna/component-library';
 
-import { useColorMode, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
-import { useGetUserTheme } from '../../../../../../common/hooks';
+import { useUserTheme } from '../../../../common/hooks';
 
-import { CodeProps } from './types';
+import { ErrorCodeProps } from './types';
 
 const { getColor } = utils;
 
-const Code: FC<CodeProps> = ({ code }) => {
+const ErrorCode: FC<ErrorCodeProps> = ({ code }) => {
 	const theme = useTheme();
-	const { colorMode } = useColorMode();
-	const { color } = useGetUserTheme();
+	const { color, colorMode } = useUserTheme();
 
 	return (
 		<Text
@@ -28,4 +27,4 @@ const Code: FC<CodeProps> = ({ code }) => {
 	);
 };
 
-export default Code;
+export default ErrorCode;
