@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useTheme, Button, ScaleFade, utils } from '@davidscicluna/component-library';
+import { useTheme, Button, Skeleton, ScaleFade, utils } from '@davidscicluna/component-library';
 
 import { VStack, Text, Progress } from '@chakra-ui/react';
 
@@ -39,11 +39,13 @@ const LoadMore: FC<LoadMoreProps> = (props) => {
 	return (
 		<VStack width='100%' spacing={spacing}>
 			<VStack width='100%' spacing={0.5}>
-				<Text align='center' fontSize='sm' color={getColor({ theme, colorMode, type: 'text.secondary' })}>
-					{amount >= total
-						? `You've viewed all ${handleFormatNumber(total)} ${label}`
-						: `You've viewed ${handleFormatNumber(amount)} of ${handleFormatNumber(total)} ${label}`}
-				</Text>
+				<Skeleton colorMode={colorMode} isLoaded={!isLoading} variant='text'>
+					<Text align='center' fontSize='sm' color={getColor({ theme, colorMode, type: 'text.secondary' })}>
+						{amount >= total
+							? `You've viewed all ${handleFormatNumber(total)} ${label}`
+							: `You've viewed ${handleFormatNumber(amount)} of ${handleFormatNumber(total)} ${label}`}
+					</Text>
+				</Skeleton>
 				<Progress
 					width='100%'
 					height={theme.space[1]}
