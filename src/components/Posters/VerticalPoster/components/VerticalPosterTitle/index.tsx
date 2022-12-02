@@ -20,7 +20,7 @@ const VerticalPosterTitle = <MT extends MediaType>(props: VerticalPosterTitlePro
 
 	const { title, inView = defaultInView } = props;
 
-	const dummy = useDummyText();
+	const dummy = useDummyText({ orientation: 'vertical' });
 
 	return (
 		<Box

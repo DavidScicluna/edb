@@ -74,8 +74,9 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 				isFullWidth={isFullWidth}
 				isFixed={isFixed}
 				isLight={isLight}
+				sx={{ alignItems: 'flex-start' }}
 			>
-				<CardBody>
+				<CardBody width='100%'>
 					<VStack width='100%' position='relative' overflow='hidden' spacing={0}>
 						<VerticalPosterImage<MT>
 							mediaItem={mediaItem}

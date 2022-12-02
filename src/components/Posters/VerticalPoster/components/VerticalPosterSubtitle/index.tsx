@@ -20,7 +20,7 @@ const VerticalPosterSubtitle = <MT extends MediaType>(props: VerticalPosterSubti
 
 	const { subtitle, inView = defaultInView } = props;
 
-	const dummy = useDummyText();
+	const dummy = useDummyText({ orientation: 'vertical' });
 
 	return (
 		<Box
