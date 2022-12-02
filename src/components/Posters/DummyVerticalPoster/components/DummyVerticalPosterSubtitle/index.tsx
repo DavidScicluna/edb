@@ -1,31 +1,23 @@
 import { FC } from 'react';
 
-import { useTheme, Skeleton } from '@davidscicluna/component-library';
+import { Skeleton } from '@davidscicluna/component-library';
 
-import { Box, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
 import { useDummyText } from '../../../common/hooks';
-import { getFontSizeHeight } from '../../../../../common/utils';
 import { useUserTheme } from '../../../../../common/hooks';
 
 const DummyVerticalPosterSubtitle: FC = () => {
-	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const subtitle = useDummyText();
+	const subtitle = useDummyText({ orientation: 'vertical' });
 
 	return (
-		<Box
-			width='100%'
-			maxWidth='100%'
-			height={`${getFontSizeHeight({ theme, fontSize: 'xs', lineHeight: 'normal' })}px`}
-		>
-			<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-				<Text align='left' fontSize='xs' fontWeight='normal' lineHeight='normal' noOfLines={1}>
-					{subtitle || 'Date • All Poster Genres • Subtitle'}
-				</Text>
-			</Skeleton>
-		</Box>
+		<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+			<Text align='left' fontSize='xs' fontWeight='normal' lineHeight='normal' noOfLines={1}>
+				{subtitle || 'Date • All Poster Genres • Subtitle'}
+			</Text>
+		</Skeleton>
 	);
 };
 

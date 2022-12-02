@@ -22,7 +22,13 @@ const DummyVerticalPoster = <MT extends MediaType>(props: DummyVerticalPosterPro
 	const { mediaType, hasSubtitle = false, isFullWidth = true, isLight = true, ...rest } = props;
 
 	return (
-		<DummyCard {...rest} colorMode={colorMode} isFullWidth={isFullWidth} isLight={isLight}>
+		<DummyCard
+			{...rest}
+			colorMode={colorMode}
+			isFullWidth={isFullWidth}
+			isLight={isLight}
+			sx={{ alignItems: 'flex-start' }}
+		>
 			<CardBody>
 				<VStack width='100%' position='relative' overflow='hidden' spacing={0}>
 					<DummyVerticalPosterImage />
