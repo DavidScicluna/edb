@@ -4,10 +4,12 @@ import { range, sample } from 'lodash';
 
 import placeholders from '../data/placeholders';
 
-const indexes = range(1, 16);
+type UseDummyTextProps = { orientation: 'vertical' | 'horizontal' };
 
-const useDummyText = (): string => {
-	const randomIndex = useConst<number>(sample(indexes) || 8);
+const useDummyText = ({ orientation }: UseDummyTextProps): string => {
+	const numbers = useConst<number[]>(range(orientation === 'vertical' ? 2 : 5, orientation === 'vertical' ? 6 : 15));
+
+	const randomIndex = useConst<number>(sample(numbers) || orientation === 'vertical' ? 3 : 7);
 	const randomTitle = useConst<string>(placeholders.filter((_placeholder, index) => index <= randomIndex).join(' '));
 
 	return randomTitle;
