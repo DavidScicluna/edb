@@ -31,7 +31,7 @@ const HorizontalPosterDescription = <MT extends MediaType>(
 
 	const { description, inView = defaultInView } = props;
 
-	const dummy = useDummyText();
+	const dummy = useDummyText({ orientation: 'horizontal' });
 
 	return (
 		<Box width='100%' maxWidth='100%' height={`${getFontSizeHeight({ theme, fontSize, lineHeight: 'normal' })}px`}>
