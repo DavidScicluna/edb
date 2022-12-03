@@ -5,7 +5,6 @@ import { memoize } from 'lodash';
 import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
-import { UsePersonCreditsQueryProps } from '../queries/usePersonCreditsQuery';
 import { UsePersonExternalIDsQueryProps } from '../queries/usePersonExternalIDsQuery';
 import { UsePersonImagesQueryProps } from '../queries/usePersonImagesQuery';
 import { UsePersonMovieCreditsQueryProps } from '../queries/usePersonMovieCreditsQuery';
@@ -37,10 +36,6 @@ export const languagesQueryKey = memoize((): QueryKey => ['ds-edb-languages-quer
 export const moviesInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-movies-infinite-query']);
 
 export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
-
-export const personCreditsQueryKey = memoize(
-	({ id }: UsePersonCreditsQueryProps): QueryKey => [`ds-edb-person-${id}-credits-query`]
-);
 
 export const personExternalIDsQueryKey = memoize(
 	({ id }: UsePersonExternalIDsQueryProps): QueryKey => [`ds-edb-person-${id}-external-ids-query`]

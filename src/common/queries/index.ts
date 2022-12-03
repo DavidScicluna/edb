@@ -6,7 +6,6 @@ import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import useMoviesInfiniteQuery from './useMoviesInfiniteQuery';
 import usePeopleInfiniteQuery from './usePeopleInfiniteQuery';
-import usePersonCreditsQuery from './usePersonCreditsQuery';
 import usePersonExternalIDsQuery from './usePersonExternalIDsQuery';
 import usePersonImagesQuery from './usePersonImagesQuery';
 import usePersonMovieCreditsQuery from './usePersonMovieCreditsQuery';
@@ -28,7 +27,6 @@ export {
 	useLanguagesQuery,
 	useMoviesInfiniteQuery,
 	usePeopleInfiniteQuery,
-	usePersonCreditsQuery,
 	usePersonExternalIDsQuery,
 	usePersonImagesQuery,
 	usePersonMovieCreditsQuery,
