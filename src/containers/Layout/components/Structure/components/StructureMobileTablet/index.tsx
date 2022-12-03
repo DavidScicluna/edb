@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
@@ -17,16 +17,11 @@ import { useDisclosure, useConst, VStack, HStack, Center } from '@chakra-ui/reac
 import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 import { Transition } from 'framer-motion';
 
+import { StructureProps as StructureMobileTabletProps } from '../../types';
 import { useUserTheme } from '../../../../../../common/hooks';
 import Gradient from '../Gradient';
-import {
-	isGuest as defaultIsGuest,
-	isAuthenticationRoute as defaultIsAuthenticationRoute
-} from '../../../../common/data/defaultPropValues';
-import { StructureProps as StructureMobileTabletProps } from '../../types';
-import { LayoutContext } from '../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../types';
 import Footer from '../Footer';
+import { useLayoutContext } from '../../../../common/hooks';
 
 import Sidebar from './components/Sidebar';
 import User from './components/User';
@@ -38,8 +33,7 @@ const StructureMobileTablet: FC<StructureMobileTabletProps> = ({ children, devic
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
-	const { isGuest = defaultIsGuest, isAuthenticationRoute = defaultIsAuthenticationRoute } =
-		useContext<LayoutContextType>(LayoutContext);
+	const { isGuest, isAuthenticationRoute } = useLayoutContext();
 
 	const location = useLocation();
 

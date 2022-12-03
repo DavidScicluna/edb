@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
@@ -8,9 +8,7 @@ import { range } from 'lodash';
 
 import navItems from '../../common/data/navItems';
 import { useUserTheme } from '../../../../../../../../common/hooks';
-import { LayoutContext } from '../../../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../../../types';
-import { spacing as defaultSpacing } from '../../../../../../common/data/defaultPropValues';
+import { useLayoutContext } from '../../../../../../common/hooks';
 
 const FooterDummyNavigation: FC = () => {
 	const theme = useTheme();
@@ -18,7 +16,7 @@ const FooterDummyNavigation: FC = () => {
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-	const { spacing = defaultSpacing } = useContext<LayoutContextType>(LayoutContext);
+	const { spacing } = useLayoutContext();
 
 	return (
 		<Stack

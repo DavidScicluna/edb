@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useTheme } from '@davidscicluna/component-library';
 
@@ -6,20 +6,18 @@ import { HStack, Center, VStack } from '@chakra-ui/react';
 
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { isAuthenticationRoute as defaultIsAuthenticationRoute } from '../../../../common/data/defaultPropValues';
 import { StructureCommonProps as DummyStructureDesktopProps } from '../../common/types';
 import { useSelector } from '../../../../../../common/hooks';
 import { sidebar } from '../../../../common/data/sidebar';
-import { LayoutContext } from '../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../types';
 import DummyFooter from '../Footer';
+import { useLayoutContext } from '../../../../common/hooks';
 
 import DummySidebar from './components/DummySidebar';
 
 const DummyStructureDesktop: FC<DummyStructureDesktopProps> = ({ children }) => {
 	const theme = useTheme();
 
-	const { isAuthenticationRoute = defaultIsAuthenticationRoute } = useContext<LayoutContextType>(LayoutContext);
+	const { isAuthenticationRoute } = useLayoutContext();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 

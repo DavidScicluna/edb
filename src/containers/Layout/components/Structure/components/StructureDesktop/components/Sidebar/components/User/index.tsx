@@ -1,4 +1,4 @@
-import { FC, useContext, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 
 import { Space, useTheme, Card, CardBody, Fade, utils } from '@davidscicluna/component-library';
 
@@ -11,9 +11,7 @@ import useStyles from '../../../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
 import UserPopper from '../../../../../UserPopper';
 import Avatar from '../../../../../../../../../../components/Avatar';
-import { LayoutContext } from '../../../../../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../../../../../types';
-import { isGuest as defaultIsGuest } from '../../../../../../../../common/data/defaultPropValues';
+import { useLayoutContext } from '../../../../../../../../common/hooks';
 
 const { getTransitionDelay, convertREMToPixels, convertStringToNumber, getColor } = utils;
 
@@ -25,7 +23,7 @@ const User: FC = () => {
 
 	const [avatarRef, { width: avatarWidth }] = useElementSize();
 
-	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
+	const { isGuest } = useLayoutContext();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 	const {

@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
@@ -10,9 +10,7 @@ import dayjs from 'dayjs';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import { Logo } from '../../../../../../components';
-import { LayoutContext } from '../../../..';
-import { spacing as defaultSpacing } from '../../../../common/data/defaultPropValues';
-import { LayoutContext as LayoutContextType } from '../../../../types';
+import { useLayoutContext } from '../../../../common/hooks';
 
 import FooterNavigation from './components/FooterNavigation';
 import FooterExternalLink from './components/FooterExternalLink';
@@ -29,7 +27,7 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-	const { spacing = defaultSpacing } = useContext<LayoutContextType>(LayoutContext);
+	const { spacing } = useLayoutContext();
 
 	const location = useLocation();
 

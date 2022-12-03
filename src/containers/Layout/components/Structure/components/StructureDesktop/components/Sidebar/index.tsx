@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
@@ -8,13 +8,11 @@ import { VStack } from '@chakra-ui/react';
 
 import { omit } from 'lodash';
 
-import { isGuest as defaultIsGuest } from '../../../../../../common/data/defaultPropValues';
 import Logo from '../../../../../../../../components/Logo';
 import useStyles from '../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import Navigation from '../../../Navigation';
-import { LayoutContext } from '../../../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../../../types';
+import { useLayoutContext } from '../../../../../../common/hooks';
 
 import ToggleIconButton from './components/ToggleIconButton';
 import User from './components/User';
@@ -26,7 +24,7 @@ const Sidebar: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
+	const { isGuest } = useLayoutContext();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 

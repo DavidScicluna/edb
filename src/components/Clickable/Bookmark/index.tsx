@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useCallback, useEffect } from 'react';
+import { ReactElement, useCallback, useEffect } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -8,15 +8,13 @@ import { debounce } from 'lodash';
 import { useSelector } from '../../../common/hooks';
 import { setAuthenticationConfirmModal, setBookmarkModal } from '../../../store/slices/Modals';
 import { MediaType } from '../../../common/types';
-import { isGuest as defaultIsGuest } from '../../../containers/Layout/common/data/defaultPropValues';
-import { LayoutContext } from '../../../containers/Layout';
-import { LayoutContext as LayoutContextType } from '../../../containers/Layout/types';
 import { formatMediaTypeLabel } from '../../../common/utils';
+import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 
 import { BookmarkProps } from './types';
 
 const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement => {
-	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
+	const { isGuest } = useLayoutContext();
 
 	const dispatch = useDispatch();
 	const activeUser = useSelector((state) => state.users.data.activeUser);

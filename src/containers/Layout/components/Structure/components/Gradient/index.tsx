@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useTheme, utils } from '@davidscicluna/component-library';
 
@@ -8,9 +8,7 @@ import { transparentize } from 'color2k';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../common/hooks';
-import { LayoutContext } from '../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../types';
-import { spacing as defaultSpacing } from '../../../../common/data/defaultPropValues';
+import { useLayoutContext } from '../../../../common/hooks';
 
 import { GradientProps } from './types';
 
@@ -20,7 +18,7 @@ const Gradient: FC<GradientProps> = ({ deg = 0, ...rest }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { spacing = defaultSpacing } = useContext<LayoutContextType>(LayoutContext);
+	const { spacing } = useLayoutContext();
 
 	const [color, setColor] = useState<string>(getColor({ theme, colorMode, type: 'background' }));
 

@@ -1,15 +1,13 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { useTheme, Divider, Skeleton, utils } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
-import { isGuest as defaultIsGuest } from '../../../../../../common/data/defaultPropValues';
 import Logo from '../../../../../../../../components/Logo';
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
 import Navigation from '../../../Navigation';
-import { LayoutContext } from '../../../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../../../types';
+import { useLayoutContext } from '../../../../../../common/hooks';
 
 import DummyUser from './components/DummyUser';
 import DummySignInButton from './components/DummySignInButton';
@@ -20,7 +18,7 @@ const DummySidebar: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
+	const { isGuest } = useLayoutContext();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 

@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import {
 	useTheme,
@@ -15,14 +15,9 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import Gradient from '../Gradient';
-import {
-	isGuest as defaultIsGuest,
-	isAuthenticationRoute as defaultIsAuthenticationRoute
-} from '../../../../common/data/defaultPropValues';
 import { StructureProps as DummyStructureMobileTabletProps } from '../../types';
-import { LayoutContext } from '../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../types';
 import DummyFooter from '../Footer';
+import { useLayoutContext } from '../../../../common/hooks';
 
 import DummyInternationalization from './components/DummyInternationalization';
 
@@ -32,8 +27,7 @@ const DummyStructureMobileTablet: FC<DummyStructureMobileTabletProps> = ({ child
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
-	const { isGuest = defaultIsGuest, isAuthenticationRoute = defaultIsAuthenticationRoute } =
-		useContext<LayoutContextType>(LayoutContext);
+	const { isGuest, isAuthenticationRoute } = useLayoutContext();
 
 	const [headerRef, { height: headerHeight }] = useElementSize();
 

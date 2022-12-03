@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
@@ -8,9 +8,7 @@ import { useMediaQuery, Stack } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import navItems from '../../common/data/navItems';
-import { LayoutContext } from '../../../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../../../types';
-import { spacing as defaultSpacing } from '../../../../../../common/data/defaultPropValues';
+import { useLayoutContext } from '../../../../../../common/hooks';
 
 const FooterNavigation: FC = () => {
 	const theme = useTheme();
@@ -20,7 +18,7 @@ const FooterNavigation: FC = () => {
 
 	const location = useLocation();
 
-	const { spacing = defaultSpacing } = useContext<LayoutContextType>(LayoutContext);
+	const { spacing } = useLayoutContext();
 
 	return (
 		<Stack

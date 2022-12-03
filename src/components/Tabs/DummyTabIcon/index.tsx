@@ -6,10 +6,10 @@ import TabIcon from '../TabIcon';
 
 import { DummyTabIconProps } from './types';
 
-const DummyTabIcon: FC<DummyTabIconProps> = (props) => {
+const DummyTabIcon: FC<DummyTabIconProps> = ({ color, colorMode, ...rest }) => {
 	return (
-		<Skeleton isLoaded={false} variant='rectangle'>
-			<TabIcon {...props} />
+		<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='rectangle'>
+			<TabIcon {...rest} color={color} colorMode={colorMode} />
 		</Skeleton>
 	);
 };

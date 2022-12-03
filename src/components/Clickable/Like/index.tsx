@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useCallback, useEffect } from 'react';
+import { ReactElement, useCallback, useEffect } from 'react';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -7,9 +7,6 @@ import dayjs from 'dayjs';
 import { sort } from 'fast-sort';
 import { debounce, uniq } from 'lodash';
 
-import { isGuest as defaultIsGuest } from '../../../containers/Layout/common/data/defaultPropValues';
-import { LayoutContext } from '../../../containers/Layout';
-import { LayoutContext as LayoutContextType } from '../../../containers/Layout/types';
 import { useSelector } from '../../../common/hooks';
 import { setUserLiked } from '../../../store/slices/Users';
 import { FullCompany, MediaType } from '../../../common/types';
@@ -19,11 +16,12 @@ import { FullPerson } from '../../../common/types/person';
 import { FullTV } from '../../../common/types/tv';
 import { setAuthenticationConfirmModal } from '../../../store/slices/Modals';
 import { formatMediaTypeLabel } from '../../../common/utils';
+import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 
 import { LikeProps } from './types';
 
 const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
-	const { isGuest = defaultIsGuest } = useContext<LayoutContextType>(LayoutContext);
+	const { isGuest } = useLayoutContext();
 
 	const dispatch = useDispatch();
 	const activeUser = useSelector((state) => state.users.data.activeUser);
