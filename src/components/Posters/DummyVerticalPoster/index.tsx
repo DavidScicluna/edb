@@ -4,6 +4,8 @@ import { DummyCard, CardBody } from '@davidscicluna/component-library';
 
 import { VStack, HStack } from '@chakra-ui/react';
 
+import { merge } from 'lodash';
+
 import { MediaType } from '../../../common/types';
 import DummyRating from '../../Ratings/DummyRating';
 import DummyPosterLike from '../components/DummyPosterLike';
@@ -19,7 +21,7 @@ import DummyVerticalPosterSubtitle from './components/DummyVerticalPosterSubtitl
 const DummyVerticalPoster = <MT extends MediaType>(props: DummyVerticalPosterProps<MT>): ReactElement => {
 	const { colorMode } = useUserTheme();
 
-	const { mediaType, hasSubtitle = false, isFullWidth = true, isLight = true, ...rest } = props;
+	const { mediaType, hasSubtitle = false, isFullWidth = true, isLight = true, sx, ...rest } = props;
 
 	return (
 		<DummyCard
@@ -27,7 +29,7 @@ const DummyVerticalPoster = <MT extends MediaType>(props: DummyVerticalPosterPro
 			colorMode={colorMode}
 			isFullWidth={isFullWidth}
 			isLight={isLight}
-			sx={{ alignItems: 'flex-start' }}
+			sx={merge({ alignItems: 'flex-start' }, sx)}
 		>
 			<CardBody>
 				<VStack width='100%' position='relative' overflow='hidden' spacing={0}>

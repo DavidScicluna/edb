@@ -5,6 +5,7 @@ import { InternalLink, Card, CardBody } from '@davidscicluna/component-library';
 import { useBoolean, VStack, HStack } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
+import { merge } from 'lodash';
 
 import { MediaType } from '../../../common/types';
 import { formatMediaType } from '../../../common/utils';
@@ -47,6 +48,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 		isDisabled = false,
 		isFullWidth = true,
 		isLight = true,
+		sx,
 		...rest
 	} = props;
 
@@ -74,7 +76,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 				isFullWidth={isFullWidth}
 				isFixed={isFixed}
 				isLight={isLight}
-				sx={{ alignItems: 'flex-start' }}
+				sx={merge({ alignItems: 'flex-start' }, sx)}
 			>
 				<CardBody width='100%'>
 					<VStack width='100%' position='relative' overflow='hidden' spacing={0}>
