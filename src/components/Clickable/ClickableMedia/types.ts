@@ -1,6 +1,6 @@
 import { ReactNode, MouseEvent as ME } from 'react';
 
-import { Color } from '@davidscicluna/component-library';
+import { Color, Nullable } from '@davidscicluna/component-library';
 
 import { AspectRatioProps, ColorMode } from '@chakra-ui/react';
 
@@ -18,3 +18,6 @@ export type ClickableMediaProps = Omit<AspectRatioProps, 'onClick'> & {
 	onClick?: (event: MouseEvent) => void;
 	renderIcon: (props: RenderIconProps) => ReactNode;
 };
+
+// TODO: GO over all Ref types and place them at the bottom with Nullable
+export type ClickableMediaRef = Nullable<HTMLDivElement>;

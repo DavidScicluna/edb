@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ReactElement, forwardRef } from 'react';
 
 import { useTheme, ScaleFade, utils } from '@davidscicluna/component-library';
 
@@ -8,13 +8,15 @@ import { transparentize } from 'color2k';
 
 import { getRatio } from '../../../common/utils';
 
-import { ClickableMediaProps } from './types';
+import { ClickableMediaRef, ClickableMediaProps } from './types';
 
 const { getColor } = utils;
 
 // TODO: Maybe move to component-lib
-
-const ClickableMedia: FC<ClickableMediaProps> = (props) => {
+const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(function ClickableMedia(
+	props,
+	ref
+): ReactElement {
 	const theme = useTheme();
 	const { colorMode: colorModeHook = 'light' } = useColorMode();
 
@@ -33,7 +35,7 @@ const ClickableMedia: FC<ClickableMediaProps> = (props) => {
 	const [isHovering, setIsHovering] = useBoolean();
 
 	return (
-		<AspectRatio {...rest} ratio={ratio}>
+		<AspectRatio {...rest} ref={ref} ratio={ratio}>
 			<Center
 				width='100%'
 				height='100%'
@@ -83,6 +85,6 @@ const ClickableMedia: FC<ClickableMediaProps> = (props) => {
 			</Center>
 		</AspectRatio>
 	);
-};
+});
 
 export default ClickableMedia;
