@@ -47,7 +47,7 @@ const ViewInfoItem: FC<ViewInfoItemProps> = ({ renderIcon, renderLabel, ...rest 
 					color: getColor({ theme, colorMode, type: 'text.secondary' }),
 					fontSize: ['xs', 'xs', 'sm', 'sm', 'sm', 'sm'],
 					lineHeight: 'shorter',
-					noOfLines: 1
+					whiteSpace: 'nowrap'
 				})}
 			</Center>
 		</HStack>

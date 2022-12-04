@@ -1,3 +1,5 @@
-import { StackProps } from '@chakra-ui/react';
+import { BoxMargin, BoxPadding, BoxLayout, BoxPosition, HorizontalScrollProps } from '@davidscicluna/component-library';
 
-export type ViewInfoProps = Omit<StackProps, 'direction' | 'spacing'>;
+type Omitted = BoxMargin | BoxPadding | BoxLayout | BoxPosition | 'maxWidth' | 'colorMode' | 'renderDivider';
+
+export type ViewInfoProps = Omit<HorizontalScrollProps, Omitted>;

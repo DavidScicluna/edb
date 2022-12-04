@@ -1,14 +1,25 @@
 import { FC } from 'react';
 
-import { HStack } from '@chakra-ui/react';
+import { HorizontalScroll } from '@davidscicluna/component-library';
+
+import { Center } from '@chakra-ui/react';
+
+import { useUserTheme } from '../../../../common/hooks';
 
 import { ViewInfoProps } from './types';
 
 const ViewInfo: FC<ViewInfoProps> = ({ children, ...rest }) => {
+	const { colorMode } = useUserTheme();
+
 	return (
-		<HStack {...rest} maxWidth='100%' spacing={2}>
+		<HorizontalScroll
+			{...rest}
+			maxWidth='100%'
+			colorMode={colorMode}
+			renderDivider={({ padding }) => <Center p={padding} />}
+		>
 			{children}
-		</HStack>
+		</HorizontalScroll>
 	);
 };
 
