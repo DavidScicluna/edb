@@ -17,6 +17,7 @@ import { useBoolean, useConst, VStack, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 import { Transition } from 'framer-motion';
+import { compact } from 'lodash';
 
 import { useUserTheme } from '../../../common/hooks';
 import { getFontSizeHeight } from '../../../common/utils';
@@ -60,7 +61,7 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 						alignItems='flex-start'
 						spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
 					>
-						{formatStringToParagraphs({ string: children }).map((paragraph, index) => (
+						{compact(formatStringToParagraphs({ string: children })).map((paragraph, index) => (
 							<Text
 								key={index}
 								align='left'
