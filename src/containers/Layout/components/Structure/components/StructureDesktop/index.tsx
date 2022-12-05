@@ -1,4 +1,4 @@
-import { FC, useContext, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 
 import { useTheme, Fade, utils } from '@davidscicluna/component-library';
 
@@ -7,23 +7,21 @@ import { useBoolean, useConst, HStack, Center, VStack } from '@chakra-ui/react';
 import { useUpdateEffect } from 'usehooks-ts';
 import { Transition } from 'framer-motion';
 
-import { isAuthenticationRoute as defaultIsAuthenticationRoute } from '../../../../common/data/defaultPropValues';
 import { StructureCommonProps as StructureDesktopProps } from '../../common/types';
 import { useSelector } from '../../../../../../common/hooks';
 import useStyle from '../../../../common/styles';
 import { sidebar } from '../../../../common/data/sidebar';
-import { LayoutContext } from '../../../..';
-import { LayoutContext as LayoutContextType } from '../../../../types';
 import Footer from '../Footer';
+import { useLayoutContext } from '../../../../common/hooks';
 
 import Sidebar from './components/Sidebar';
 
-const { getTransitionDuration } = utils;
+const { getTransitionConfig, getTransitionDuration } = utils;
 
 const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 	const theme = useTheme();
 
-	const { isAuthenticationRoute = defaultIsAuthenticationRoute } = useContext<LayoutContextType>(LayoutContext);
+	const { isAuthenticationRoute } = useLayoutContext();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
@@ -32,8 +30,7 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 	const [isPositionDelayed, setIsPositionDelayed] = useBoolean();
 
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
-
-	const config = useConst<Transition>({ duration });
+	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
 
 	const style = useStyle({ theme });
 
@@ -64,7 +61,7 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 				left={!isAuthenticationRoute ? `${sidebarWidth}px` : 0}
 				alignItems='stretch'
 				justifyContent='stretch'
-				spacing={4}
+				spacing={0}
 				sx={!isPositionDelayed ? { ...style } : {}}
 			>
 				<Center width='100%' height='100%' minHeight='inherit' alignItems='stretch' justifyContent='stretch'>
