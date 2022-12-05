@@ -2,11 +2,12 @@ import { FC, lazy } from 'react';
 
 import { Suspense } from '../../../../components';
 
-const DummyStructureMobileTablet = lazy(() => import('./components/StructureMobileTablet'));
-const StructureDesktop = lazy(() => import('./components/StructureDesktop'));
 import DummyStructureDesktop from './components/DummyStructureDesktop';
-import DummyDummyStructureMobileTablet from './components/DummyStructureMobileTablet';
+import DummyStructureMobileTablet from './components/DummyStructureMobileTablet';
 import { StructureProps } from './types';
+
+const StructureMobileTablet = lazy(() => import('./components/StructureMobileTablet'));
+const StructureDesktop = lazy(() => import('./components/StructureDesktop'));
 
 const Structure: FC<StructureProps> = ({ children, device, ...rest }) => {
 	switch (device) {
@@ -19,13 +20,11 @@ const Structure: FC<StructureProps> = ({ children, device, ...rest }) => {
 		default:
 			return (
 				<Suspense
-					fallback={
-						<DummyDummyStructureMobileTablet device={device}>{children}</DummyDummyStructureMobileTablet>
-					}
+					fallback={<DummyStructureMobileTablet device={device}>{children}</DummyStructureMobileTablet>}
 				>
-					<DummyStructureMobileTablet {...rest} device={device}>
+					<StructureMobileTablet {...rest} device={device}>
 						{children}
-					</DummyStructureMobileTablet>
+					</StructureMobileTablet>
 				</Suspense>
 			);
 	}
