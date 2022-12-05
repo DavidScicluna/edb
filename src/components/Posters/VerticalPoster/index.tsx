@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { InternalLink, Card, CardBody } from '@davidscicluna/component-library';
+import { InternalLink, Card, CardBody, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, VStack, HStack } from '@chakra-ui/react';
 
@@ -20,15 +20,16 @@ import PosterLike from '../components/PosterLike';
 import PosterBookmark from '../components/PosterBookmark';
 import PosterGlass from '../components/PosterGlass';
 import { useUserTheme } from '../../../common/hooks';
+import PosterQuickview from '../components/PosterQuickview';
 
 import { VerticalPosterProps } from './types';
 import VerticalPosterImage from './components/VerticalPosterImage';
 import VerticalPosterTitle from './components/VerticalPosterTitle';
 import VerticalPosterSubtitle from './components/VerticalPosterSubtitle';
 
-// const { checkIsTouchDevice } = utils;
+const { checkIsTouchDevice } = utils;
 
-// const isTouchDevice: boolean = checkIsTouchDevice();
+const isTouchDevice: boolean = checkIsTouchDevice();
 
 const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): ReactElement => {
 	const { colorMode } = useUserTheme();
@@ -84,7 +85,6 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 							mediaItem={mediaItem}
 							mediaType={mediaType}
 							image={image}
-							title={title}
 							isFocused={isFocused}
 							isHovering={isHovering}
 							inView={inView}
@@ -101,14 +101,14 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 										onMouseLeave={() => setIsFixed.off()}
 										spacing={0.5}
 									>
-										{/* {isTouchDevice && (
-											<Quickview<MT>
+										{isTouchDevice && (
+											<PosterQuickview<MT>
 												title={title}
 												mediaType={mediaType}
 												mediaItem={mediaItem}
-					size='xs'
+												size='xs'
 											/>
-										)} */}
+										)}
 
 										<PosterLike<MT>
 											title={title}
@@ -136,7 +136,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
 						{(mediaType === 'person' || mediaType === 'company' || mediaType === 'collection') && (
 							<>
-								{/* {isTouchDevice && mediaType !== 'company' && (
+								{isTouchDevice && mediaType !== 'company' && (
 									<PosterGlass
 										position='absolute'
 										top={1.5}
@@ -145,14 +145,14 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 										onMouseLeave={() => setIsFixed.off()}
 										zIndex={1}
 									>
-										<Quickview<MT>
+										<PosterQuickview<MT>
 											title={title}
 											mediaType={mediaType}
 											mediaItem={mediaItem}
 											size='xs'
 										/>
 									</PosterGlass>
-								)} */}
+								)}
 
 								<PosterGlass
 									position='absolute'
