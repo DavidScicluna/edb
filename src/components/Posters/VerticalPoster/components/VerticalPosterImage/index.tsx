@@ -18,6 +18,7 @@ import {
 	isHovering as defaultIsHovering
 } from '../../../common/data/defaultPropValues';
 import { setQuickViewModal } from '../../../../../store/slices/Modals';
+import { PosterMouseEvent } from '../../../common/types';
 
 import { VerticalPosterImageProps } from './types';
 
@@ -42,7 +43,6 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 	const {
 		mediaItem,
 		mediaType,
-		title,
 		image,
 		inView = defaultInView,
 		isFocused = defaultIsFocused,
@@ -95,7 +95,7 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 				/>
 
 				{/* Quick View component */}
-				{/* {!!mediaItem && !isTouchDevice && mediaType !== 'company' && (
+				{!!mediaItem && !isTouchDevice && mediaType !== 'company' && (
 					<Box
 						as={ScaleFade}
 						width='100%'
@@ -110,24 +110,18 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 							color={color}
 							colorMode={colorMode}
 							isFullWidth
-							onClick={(event) => {
+							onClick={(event: PosterMouseEvent) => {
 								event.preventDefault();
 								event.stopPropagation();
 
-								dispatch(
-									setQuickViewModal({
-										isOpen: true,
-										mediaType,
-										mediaItem: mediaItem.id ? { id: mediaItem.id, title } : null
-									})
-								);
+								dispatch(setQuickViewModal({ isOpen: true, mediaType, mediaItem }));
 							}}
 							size='xs'
 						>
 							Quick view
 						</Button>
 					</Box>
-				)} */}
+				)}
 			</Box>
 		</AspectRatio>
 	);
