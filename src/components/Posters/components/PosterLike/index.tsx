@@ -8,6 +8,7 @@ import { MediaType } from '../../../../common/types';
 import Like from '../../../Clickable/Like';
 import { useUserTheme } from '../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../common/utils';
+import { PosterMouseEvent } from '../../common/types';
 
 import { PosterLikeProps } from './types';
 
@@ -46,7 +47,7 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 						}
 						color={isLiked ? 'red' : 'gray'}
 						isDisabled={isDisabled || !mediaItem}
-						onClick={(event) => {
+						onClick={(event: PosterMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 

@@ -8,6 +8,7 @@ import { useSelector, useUserTheme } from '../../../../common/hooks';
 import Bookmark from '../../../Clickable/Bookmark';
 import { MediaType } from '../../../../common/types';
 import { formatMediaTypeLabel } from '../../../../common/utils';
+import { PosterMouseEvent } from '../../common/types';
 
 import { PosterBookmarkProps } from './types';
 
@@ -64,7 +65,7 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 						}
 						colorMode={colorMode}
 						isDisabled={isDisabled}
-						onClick={(event) => {
+						onClick={(event: PosterMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 
