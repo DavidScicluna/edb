@@ -7,6 +7,7 @@ import { useColorMode, useBoolean, Center, AspectRatio } from '@chakra-ui/react'
 import { transparentize } from 'color2k';
 
 import { getRatio } from '../../../common/utils';
+import Glass from '../../Glass';
 
 import { ClickableMediaRef, ClickableMediaProps } from './types';
 
@@ -63,20 +64,15 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 							unmountOnExit={false}
 							style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
 						>
-							<Center
-								p={1.5}
+							<Glass
 								width='auto !important'
 								height='auto !important'
-								sx={{
-									backdropFilter: `blur(${theme.space[2]})`,
-									WebkitBackdropFilter: `blur(${theme.space[2]})`,
-									backgroundColor: transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5),
-									borderRadius: theme.radii.full,
-									transitionProperty: 'all'
-								}}
+								backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5)}
+								borderRadius='full'
+								p={1.5}
 							>
 								{renderIcon({ color: getColor({ theme, colorMode, color, type: 'light' }) })}
-							</Center>
+							</Glass>
 						</ScaleFade>
 					</Center>
 				)}

@@ -1,10 +1,11 @@
 import { FC, useCallback, useEffect } from 'react';
 
-import { useTheme, Style, Fade, assets } from '@davidscicluna/component-library';
+import { Style, Fade, assets } from '@davidscicluna/component-library';
 
 import { useBoolean, Center, Image as CUIImage, ImageProps as CUIImageProps } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../common/hooks';
+import Glass from '../Glass';
 
 import { ImageProps } from './types';
 
@@ -17,7 +18,6 @@ const p: CUIImageProps = {
 };
 
 const Image: FC<ImageProps> = (props) => {
-	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
 	const { alt, borderRadius = 'base', fit = 'cover', onError, onLoad, src, ...rest } = props;
@@ -88,14 +88,7 @@ const Image: FC<ImageProps> = (props) => {
 			{!!thumbnail && (
 				<Center as={Fade} in={isThumbnailVisible} sx={{ ...sx }}>
 					<Center sx={{ ...sx, position: 'relative' }}>
-						<Center
-							sx={{
-								...sx,
-								zIndex: 1,
-								backdropFilter: `blur(${theme.space[0.5]})`,
-								WebkitBackdropFilter: `blur(${theme.space[0.5]})`
-							}}
-						/>
+						<Glass zIndex={1} sx={{ ...sx }} />
 						<CUIImage
 							{...rest}
 							{...p}

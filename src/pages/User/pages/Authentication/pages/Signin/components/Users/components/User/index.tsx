@@ -14,6 +14,7 @@ import {
 	colorMode as defaultColorMode
 } from '../../../../../../../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../../../../../types';
+import { Glass } from '../../../../../../../../../../components';
 
 import { UserProps } from './types';
 
@@ -54,15 +55,10 @@ const User: FC<UserProps> = (props) => {
 						}}
 					>
 						<ScaleFade in={isSelected}>
-							<Center
+							<Glass
+								backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5)}
+								borderRadius='full'
 								p={0.5}
-								sx={{
-									backdropFilter: `blur(${theme.space[2]})`,
-									WebkitBackdropFilter: `blur(${theme.space[2]})`,
-									backgroundColor: transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5),
-									borderRadius: theme.radii.full,
-									transitionProperty: 'all'
-								}}
 							>
 								<Icon
 									color={getColor({ theme, colorMode, type: 'light' })}
@@ -72,7 +68,7 @@ const User: FC<UserProps> = (props) => {
 									fontSize={theme.fontSizes['3xl']}
 									icon='check'
 								/>
-							</Center>
+							</Glass>
 						</ScaleFade>
 					</Center>
 
