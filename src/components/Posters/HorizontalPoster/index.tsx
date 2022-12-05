@@ -12,6 +12,7 @@ import { formatMediaType } from '../../../common/utils';
 import { inView as defaultInView, isFixed as defaultIsFixed } from '../common/data/defaultPropValues';
 import PosterLike from '../components/PosterLike';
 import PosterBookmark from '../components/PosterBookmark';
+import PosterQuickview from '../components/PosterQuickview';
 
 import { HorizontalPosterProps } from './types';
 import HorizontalPosterDescription from './components/HorizontalPosterDescription';
@@ -110,14 +111,14 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 							onMouseLeave={() => setIsFixed.off()}
 							spacing={0.5}
 						>
-							{/* {mediaType !== 'company' && (
-								<Quickview<MT>
+							{mediaType !== 'company' && (
+								<PosterQuickview<MT>
 									title={title}
 									mediaType={mediaType}
 									mediaItem={mediaItem}
 									size={isSm ? 'md' : 'lg'}
 								/>
-							)} */}
+							)}
 
 							<PosterLike<MT>
 								title={title}
