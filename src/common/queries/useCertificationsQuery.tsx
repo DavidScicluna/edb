@@ -13,7 +13,9 @@ import { axios } from '../scripts';
 import { AxiosConfig, Certifications, MediaType, QueryError } from '../types';
 import { formatMediaTypeLabel } from '../utils';
 
-export type UseCertificationsQueryProps = { mediaType: Exclude<MediaType, 'person' | 'company' | 'collection'> };
+export type UseCertificationsQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
+
+export type UseCertificationsQueryProps = { mediaType: UseCertificationsQueryMediaType };
 
 export type UseCertificationsQueryResponse = Certifications;
 
