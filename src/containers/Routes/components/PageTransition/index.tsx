@@ -8,24 +8,38 @@ import { Transition, motion } from 'framer-motion';
 
 import { PageTransitionProps } from './types';
 
-const { getTransitionDuration, getTransitionEasings } = utils;
+const { convertREMToPixels, convertStringToNumber, getTransitionConfig, getTransitionDuration } = utils;
 
-// TODO: Maybe convert PageTransition to SlideFade/Slide
 const PageTransition: FC<PageTransitionProps> = ({ children }) => {
 	const theme = useTheme();
 
-	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
-	const easing = useConst<number[]>(getTransitionEasings({ theme }));
+	const duration = useConst(getTransitionDuration({ theme, duration: 'ultra-slow' }));
+	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
 
-	const config = useConst<Transition>({ duration, easing });
+	const blur = useConst<number>(convertREMToPixels(convertStringToNumber(theme.space[2], 'rem')));
 
 	return (
 		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
+			// ref={ref}
+			initial={{
+				width: '100%',
+				transform: 'scale(1.025)',
+				filter: `blur(${blur}px)`,
+				opacity: 0
+			}}
+			animate={{
+				width: '100%',
+				transform: 'scale(1)',
+				filter: 'blur(0px)',
+				opacity: 1
+			}}
+			exit={{
+				width: '100%',
+				transform: 'scale(1.025)',
+				filter: `blur(${blur}px)`,
+				opacity: 0
+			}}
 			transition={{ ...config }}
-			style={{ width: '100%', height: '100%', minHeight: 'inherit' }}
 		>
 			{children}
 		</motion.div>
