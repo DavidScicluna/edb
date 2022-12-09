@@ -53,13 +53,13 @@ export const keywordsInfiniteQueryKey = memoize(
 
 export const languagesQueryKey = memoize((): QueryKey => ['ds-edb-languages-query']);
 
-export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
 export const mediaTypeQueryKey = memoize(
 	<MT extends UseMediaTypeQueryMediaType>({ mediaType, id }: UseMediaTypeQueryProps<MT>): QueryKey => [
 		`ds-edb-${mediaType}-${id}-query`
 	]
 );
 
+export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
 
 export const personMovieCreditsQueryKey = memoize(
 	({ id }: UsePersonMovieCreditsQueryProps): QueryKey => [`ds-edb-person-${id}-movie-credits-query`]
