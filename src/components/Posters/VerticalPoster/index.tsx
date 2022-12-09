@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { InternalLink, Card, CardBody, utils } from '@davidscicluna/component-library';
+import { useTheme, InternalLink, Card, CardBody, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, VStack, HStack } from '@chakra-ui/react';
 
@@ -11,7 +11,6 @@ import { MediaType } from '../../../common/types';
 import { formatMediaType } from '../../../common/utils';
 import Rating from '../../Ratings/Rating';
 import {
-	inView as defaultInView,
 	isFocused as defaultIsFocused,
 	isHovering as defaultIsHovering,
 	isFixed as defaultIsFixed
@@ -27,16 +26,17 @@ import VerticalPosterImage from './components/VerticalPosterImage';
 import VerticalPosterTitle from './components/VerticalPosterTitle';
 import VerticalPosterSubtitle from './components/VerticalPosterSubtitle';
 
-const { checkIsTouchDevice } = utils;
+const { checkIsTouchDevice, convertREMToPixels, convertStringToNumber } = utils;
 
 const isTouchDevice: boolean = checkIsTouchDevice();
 
 const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): ReactElement => {
+	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { observe: posterRef, inView = defaultInView } = useInView<HTMLDivElement>({
-		// threshold: [0.2, 0.4, 0.6, 0.8, 1],
-		unobserveOnEnter: true
+	const { observe: posterRef, inView } = useInView<HTMLDivElement>({
+		unobserveOnEnter: true,
+		rootMargin: `${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px`
 	});
 
 	const {

@@ -6,7 +6,6 @@ import { Box, Text } from '@chakra-ui/react';
 
 import { MediaType } from '../../../../../common/types';
 import { useUserTheme } from '../../../../../common/hooks';
-import { inView as defaultInView } from '../../../common/data/defaultPropValues';
 import { getFontSizeHeight } from '../../../../../common/utils';
 import { useDummyText } from '../../../common/hooks';
 
@@ -18,7 +17,7 @@ const VerticalPosterTitle = <MT extends MediaType>(props: VerticalPosterTitlePro
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { title, inView = defaultInView } = props;
+	const { title, inView } = props;
 
 	const dummy = useDummyText({ orientation: 'vertical' });
 

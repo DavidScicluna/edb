@@ -12,11 +12,7 @@ import { useUserTheme } from '../../../../../common/hooks';
 import { MediaType } from '../../../../../common/types';
 import { getRatio, getBoringAvatarSrc, getBoringAvatarVariantByMediaType } from '../../../../../common/utils';
 import Image from '../../../../Image';
-import {
-	inView as defaultInView,
-	isFocused as defaultIsFocused,
-	isHovering as defaultIsHovering
-} from '../../../common/data/defaultPropValues';
+import { isFocused as defaultIsFocused, isHovering as defaultIsHovering } from '../../../common/data/defaultPropValues';
 import { setQuickViewModal } from '../../../../../store/slices/Modals';
 import { PosterMouseEvent } from '../../../common/types';
 
@@ -44,7 +40,7 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 		mediaItem,
 		mediaType,
 		image,
-		inView = defaultInView,
+		inView,
 		isFocused = defaultIsFocused,
 		isHovering = defaultIsHovering,
 		onSetIsFixed
