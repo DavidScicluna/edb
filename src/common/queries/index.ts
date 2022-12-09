@@ -1,6 +1,7 @@
 import useCertificationsQuery from './useCertificationsQuery';
 import useCountriesQuery from './useCountriesQuery';
 import useDiscoverMediaTypeInfiniteQuery from './useDiscoverMediaTypeInfiniteQuery';
+import useExternalIDsQuery from './useExternalIDsQuery';
 import useGenresQuery from './useGenresQuery';
 import useImagesQuery from './useImagesQuery';
 import useJobsQuery from './useJobsQuery';
@@ -8,7 +9,6 @@ import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import useMediaTypeQuery from './useMediaTypeQuery';
 import usePeopleInfiniteQuery from './usePeopleInfiniteQuery';
-import usePersonExternalIDsQuery from './usePersonExternalIDsQuery';
 import usePersonMovieCreditsQuery from './usePersonMovieCreditsQuery';
 import usePersonTVShowCreditsQuery from './usePersonTVShowCreditsQuery';
 import usePopularQuery from './usePopularQuery';
@@ -22,6 +22,7 @@ export {
 	useCertificationsQuery,
 	useCountriesQuery,
 	useDiscoverMediaTypeInfiniteQuery,
+	useExternalIDsQuery,
 	useGenresQuery,
 	useImagesQuery,
 	useJobsQuery,
@@ -29,7 +30,6 @@ export {
 	useLanguagesQuery,
 	useMediaTypeQuery,
 	usePeopleInfiniteQuery,
-	usePersonExternalIDsQuery,
 	usePersonMovieCreditsQuery,
 	usePersonTVShowCreditsQuery,
 	usePopularQuery,

@@ -7,9 +7,9 @@ import {
 	UseDiscoverMediaTypeInfiniteQueryMediaType,
 	UseDiscoverMediaTypeInfiniteQueryProps
 } from '../queries/useDiscoverMediaTypeInfiniteQuery';
+import { UseExternalIDsQueryProps } from '../queries/useExternalIDsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
-import { UsePersonExternalIDsQueryProps } from '../queries/usePersonExternalIDsQuery';
 import { UseImagesQueryProps } from '../queries/useImagesQuery';
 import { UseMediaTypeQueryMediaType, UseMediaTypeQueryProps } from '../queries/useMediaTypeQuery';
 import { UsePersonMovieCreditsQueryProps } from '../queries/usePersonMovieCreditsQuery';
@@ -32,6 +32,10 @@ export const discoverMediaTypeInfiniteQueryKey = memoize(
 	}: UseDiscoverMediaTypeInfiniteQueryProps<MT>): QueryKey => [`ds-edb-discover-${mediaType}-infinite-query`]
 );
 
+export const externalIDsQueryKey = memoize(
+	({ mediaType, id }: UseExternalIDsQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-external-ids-query`]
+);
+
 export const genresQueryKey = memoize(
 	({ mediaType }: UseGenresQueryProps): QueryKey => [`ds-edb-${mediaType}-genres-query`]
 );
@@ -49,9 +53,6 @@ export const keywordsInfiniteQueryKey = memoize(
 export const languagesQueryKey = memoize((): QueryKey => ['ds-edb-languages-query']);
 
 export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
-
-export const personExternalIDsQueryKey = memoize(
-	({ id }: UsePersonExternalIDsQueryProps): QueryKey => [`ds-edb-person-${id}-external-ids-query`]
 export const mediaTypeQueryKey = memoize(
 	<MT extends UseMediaTypeQueryMediaType>({ mediaType, id }: UseMediaTypeQueryProps<MT>): QueryKey => [
 		`ds-edb-${mediaType}-${id}-query`

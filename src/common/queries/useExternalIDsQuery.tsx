@@ -6,47 +6,45 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 import { compact } from 'lodash';
 
-import { personExternalIDsQueryKey } from '../keys';
+import { externalIDsQueryKey } from '../keys';
 import { axios } from '../scripts';
-import { AxiosConfig, ExternalIDs, QueryError } from '../types';
+import { AxiosConfig, ExternalIDs, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
-import { FullPerson } from '../types/person';
 import { formatMediaTypeLabel } from '../utils';
 
-export type UsePersonExternalIDsQueryProps = Pick<FullPerson, 'id'>;
+export type UseExternalIDsQueryMediaType = Exclude<MediaType, 'company' | 'collection'>;
 
-export type UsePersonExternalIDsQueryResponse = ExternalIDs;
+export type UseExternalIDsQueryProps = { mediaType: UseExternalIDsQueryMediaType; id: number };
 
-export type UsePersonExternalIDsQueryOptions = UseQueryOptions<
-	UsePersonExternalIDsQueryResponse,
-	AxiosError<QueryError>
->;
+export type UseExternalIDsQueryResponse = ExternalIDs;
 
-export type UsePersonExternalIDsQueryResult = UseQueryResult<UsePersonExternalIDsQueryResponse, AxiosError<QueryError>>;
+export type UseExternalIDsQueryOptions = UseQueryOptions<UseExternalIDsQueryResponse, AxiosError<QueryError>>;
 
-type UsePersonExternalIDsQueryParams = {
-	props: UsePersonExternalIDsQueryProps;
+export type UseExternalIDsQueryResult = UseQueryResult<UseExternalIDsQueryResponse, AxiosError<QueryError>>;
+
+type UseExternalIDsQueryParams = {
+	props: UseExternalIDsQueryProps;
 	config?: AxiosConfig;
-	options?: UsePersonExternalIDsQueryOptions;
+	options?: UseExternalIDsQueryOptions;
 };
 
-const toastID = 'ds-edb-use-person-external-ids-query-toast';
+const toastID = 'ds-edb-use-external-ids-query-toast';
 
-const usePersonExternalIDsQuery = ({
-	props: { id },
+const useExternalIDsQuery = ({
+	props: { mediaType, id },
 	config = {},
 	options = {}
-}: UsePersonExternalIDsQueryParams): UsePersonExternalIDsQueryResult => {
+}: UseExternalIDsQueryParams): UseExternalIDsQueryResult => {
 	const toast = useToast();
 
-	const key = personExternalIDsQueryKey({ id });
+	const key = externalIDsQueryKey({ mediaType, id });
 
 	const client = useQueryClient();
-	const query = useQuery<UsePersonExternalIDsQueryResponse, AxiosError<QueryError>>(
+	const query = useQuery<UseExternalIDsQueryResponse, AxiosError<QueryError>>(
 		key,
 		async ({ signal }) => {
-			const { data } = await axios.get<UsePersonExternalIDsQueryResponse>(`/person/${id}/external_ids`, {
+			const { data } = await axios.get<UseExternalIDsQueryResponse>(`/${mediaType}/${id}/external_ids`, {
 				...config,
 				signal
 			});
@@ -54,6 +52,7 @@ const usePersonExternalIDsQuery = ({
 		},
 		{
 			...options,
+			enabled: options.enabled || !!id,
 			onError: (error) => {
 				console.error(error.toJSON());
 
@@ -71,7 +70,7 @@ const usePersonExternalIDsQuery = ({
 									status_code ? `${status_code}.` : null,
 									`Unfortunately, something went wrong when trying to fetch ${formatMediaTypeLabel({
 										type: 'single',
-										mediaType: 'person'
+										mediaType
 									})} social media links.`,
 									status_message ? `(${status_message})` : null
 								]).join(' ')}
@@ -94,4 +93,4 @@ const usePersonExternalIDsQuery = ({
 	return query;
 };
 
-export default usePersonExternalIDsQuery;
+export default useExternalIDsQuery;
