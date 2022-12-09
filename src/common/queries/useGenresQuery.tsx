@@ -13,7 +13,9 @@ import { axios } from '../scripts';
 import { AxiosConfig, Genres, MediaType, QueryError } from '../types';
 import { formatMediaTypeLabel } from '../utils';
 
-export type UseGenresQueryProps = { mediaType: Exclude<MediaType, 'person' | 'company' | 'collection'> };
+export type UseGenresQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
+
+export type UseGenresQueryProps = { mediaType: UseGenresQueryMediaType };
 
 export type UseGenresQueryResponse = Genres;
 
