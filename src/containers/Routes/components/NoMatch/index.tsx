@@ -4,7 +4,7 @@ import { InternalLink, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import Error from '../Error';
+import Error from '../../../Error';
 
 const NoMatch: FC = () => {
 	const [isSm] = useMediaQuery('(max-width: 600px)');
