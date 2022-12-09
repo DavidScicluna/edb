@@ -17,7 +17,10 @@ import { formatMediaTypeLabel } from '../utils';
 
 export type UseTrendingQueryMediaType = Exclude<MediaType, 'company' | 'collection'>;
 
-export type UseTrendingQueryProps = { mediaType: UseTrendingQueryMediaType; time: 'day' | 'week' };
+export type UseTrendingQueryProps<MT extends UseTrendingQueryMediaType> = {
+	mediaType: MT;
+	time: 'day' | 'week';
+};
 
 export type UseTrendingQueryResponse<MT extends UseTrendingQueryMediaType> = Response<
 	MT extends 'movie' ? PartialMovie[] : PartialTV[]
@@ -34,7 +37,7 @@ export type UseTrendingQueryResult<MT extends UseTrendingQueryMediaType> = UseQu
 >;
 
 type UseTrendingQueryParams<MT extends UseTrendingQueryMediaType> = {
-	props: UseTrendingQueryProps;
+	props: UseTrendingQueryProps<MT>;
 	config?: AxiosConfig;
 	options?: UseTrendingQueryOptions<MT>;
 };

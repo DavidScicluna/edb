@@ -17,7 +17,7 @@ import { UsePersonTVShowCreditsQueryProps } from '../queries/usePersonTVShowCred
 import { UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
 import { UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
-import { UseTrendingQueryProps } from '../queries/useTrendingQuery';
+import { UseTrendingQueryMediaType, UseTrendingQueryProps } from '../queries/useTrendingQuery';
 import { UseVideosQueryProps } from '../queries/useVideosQuery';
 
 export const certificationsQueryKey = memoize(
@@ -82,12 +82,14 @@ export const topRatedQueryKey = memoize(
 	({ mediaType }: UseTopRatedQueryProps): QueryKey => [`ds-edb-top-rated-${mediaType}-query`]
 );
 
-export const trendingQueryKey = memoize(
-	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`ds-edb-${time}-${mediaType}-trending-query`]
 );
 
 export const trendingInfiniteQueryKey = memoize(
 	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`ds-edb-${time}-${mediaType}-trending-infinite-query`]
+export const trendingQueryKey = memoize(
+	<MT extends UseTrendingQueryMediaType>({ mediaType, time }: UseTrendingQueryProps<MT>): QueryKey => [
+		`ds-edb-${time}-${mediaType}-trending-query`
+	]
 );
 
 export const videosQueryKey = memoize(
