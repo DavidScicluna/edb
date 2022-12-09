@@ -6,6 +6,4 @@ export const color: UserThemeColor = 'blue';
 
 export const colorMode: ColorMode = 'light';
 
-export const inView = false;
-
 export const method = () => undefined;
