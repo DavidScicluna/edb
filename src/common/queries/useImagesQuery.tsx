@@ -6,44 +6,45 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 import { compact } from 'lodash';
 
-import { personImagesQueryKey } from '../keys';
+import { imagesQueryKey } from '../keys';
 import { axios } from '../scripts';
-import { AxiosConfig, Images, QueryError } from '../types';
+import { AxiosConfig, Images, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
-import { FullPerson } from '../types/person';
 import { formatMediaTypeLabel } from '../utils';
 
-export type UsePersonImagesQueryProps = Pick<FullPerson, 'id'>;
+export type UseImagesQueryMediaType = Exclude<MediaType, 'company'>;
 
-export type UsePersonImagesQueryResponse = Images;
+export type UseImagesQueryProps = { mediaType: UseImagesQueryMediaType; id: number };
 
-export type UsePersonImagesQueryOptions = UseQueryOptions<UsePersonImagesQueryResponse, AxiosError<QueryError>>;
+export type UseImagesQueryResponse = Images;
 
-export type UsePersonImagesQueryResult = UseQueryResult<UsePersonImagesQueryResponse, AxiosError<QueryError>>;
+export type UseImagesQueryOptions = UseQueryOptions<UseImagesQueryResponse, AxiosError<QueryError>>;
 
-type UsePersonImagesQueryParams = {
-	props: UsePersonImagesQueryProps;
+export type UseImagesQueryResult = UseQueryResult<UseImagesQueryResponse, AxiosError<QueryError>>;
+
+type UseImagesQueryParams = {
+	props: UseImagesQueryProps;
 	config?: AxiosConfig;
-	options?: UsePersonImagesQueryOptions;
+	options?: UseImagesQueryOptions;
 };
 
-const toastID = 'ds-edb-use-person-images-query-toast';
+const toastID = 'ds-edb-use-images-query-toast';
 
-const usePersonImagesQuery = ({
-	props: { id },
+const useImagesQuery = ({
+	props: { mediaType, id },
 	config = {},
 	options = {}
-}: UsePersonImagesQueryParams): UsePersonImagesQueryResult => {
+}: UseImagesQueryParams): UseImagesQueryResult => {
 	const toast = useToast();
 
-	const key = personImagesQueryKey({ id });
+	const key = imagesQueryKey({ mediaType, id });
 
 	const client = useQueryClient();
-	const query = useQuery<UsePersonImagesQueryResponse, AxiosError<QueryError>>(
+	const query = useQuery<UseImagesQueryResponse, AxiosError<QueryError>>(
 		key,
 		async ({ signal }) => {
-			const { data } = await axios.get<UsePersonImagesQueryResponse>(`/person/${id}/images`, {
+			const { data } = await axios.get<UseImagesQueryResponse>(`/${mediaType}/${id}/images`, {
 				...config,
 				signal
 			});
@@ -51,6 +52,7 @@ const usePersonImagesQuery = ({
 		},
 		{
 			...options,
+			enabled: options.enabled || !!id,
 			onError: (error) => {
 				console.error(error.toJSON());
 
@@ -68,7 +70,7 @@ const usePersonImagesQuery = ({
 									status_code ? `${status_code}.` : null,
 									`Unfortunately, something went wrong when trying to fetch ${formatMediaTypeLabel({
 										type: 'single',
-										mediaType: 'person'
+										mediaType
 									})} photos.`,
 									status_message ? `(${status_message})` : null
 								]).join(' ')}
@@ -91,4 +93,4 @@ const usePersonImagesQuery = ({
 	return query;
 };
 
-export default usePersonImagesQuery;
+export default useImagesQuery;
