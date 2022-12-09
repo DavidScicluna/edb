@@ -9,7 +9,7 @@ import { useInView } from 'react-cool-inview';
 import { useUserTheme } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
 import { formatMediaType } from '../../../common/utils';
-import { inView as defaultInView, isFixed as defaultIsFixed } from '../common/data/defaultPropValues';
+import { isFixed as defaultIsFixed } from '../common/data/defaultPropValues';
 import PosterLike from '../components/PosterLike';
 import PosterBookmark from '../components/PosterBookmark';
 import PosterQuickview from '../components/PosterQuickview';
@@ -31,9 +31,9 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-	const { observe: posterRef, inView = defaultInView } = useInView<HTMLDivElement>({
-		// threshold: [0.2, 0.4, 0.6, 0.8, 1],
-		unobserveOnEnter: true
+	const { observe: posterRef, inView } = useInView<HTMLDivElement>({
+		unobserveOnEnter: true,
+		rootMargin: `${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px`
 	});
 
 	const breakpointIndex = useBreakpointValue<number>({ 'base': 0, 'sm': 1, 'md': 2, 'lg': 3, 'xl': 4, '2xl': 5 });

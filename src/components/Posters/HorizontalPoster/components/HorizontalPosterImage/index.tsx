@@ -11,7 +11,6 @@ import { useUserTheme } from '../../../../../common/hooks';
 import { MediaType } from '../../../../../common/types';
 import { getRatio, getBoringAvatarSrc, getBoringAvatarVariantByMediaType } from '../../../../../common/utils';
 import Image from '../../../../Image';
-import { inView as defaultInView } from '../../../common/data/defaultPropValues';
 
 import { HorizontalPosterImageProps } from './types';
 
@@ -29,7 +28,7 @@ const HorizontalPosterImage = <MT extends MediaType>(props: HorizontalPosterImag
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { mediaItem, mediaType, image, inView = defaultInView } = props;
+	const { mediaItem, mediaType, image, inView } = props;
 
 	const randomID = useConst<string>(uuid());
 

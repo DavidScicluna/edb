@@ -6,7 +6,6 @@ import { useBreakpointValue, Box, Text } from '@chakra-ui/react';
 
 import { MediaType } from '../../../../../common/types';
 import { useUserTheme } from '../../../../../common/hooks';
-import { inView as defaultInView } from '../../../common/data/defaultPropValues';
 import { getFontSizeHeight } from '../../../../../common/utils';
 import { useDummyText } from '../../../common/hooks';
 
@@ -29,7 +28,7 @@ const HorizontalPosterDescription = <MT extends MediaType>(
 		'2xl': 'xl'
 	});
 
-	const { description, inView = defaultInView } = props;
+	const { description, inView } = props;
 
 	const dummy = useDummyText({ orientation: 'horizontal' });
 
