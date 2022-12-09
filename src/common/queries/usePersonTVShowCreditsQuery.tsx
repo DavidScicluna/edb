@@ -57,6 +57,7 @@ const usePersonTVShowCreditsQuery = ({
 		},
 		{
 			...options,
+			enabled: options.enabled || !!id,
 			onError: (error) => {
 				console.error(error.toJSON());
 
