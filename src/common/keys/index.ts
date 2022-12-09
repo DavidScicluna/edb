@@ -14,7 +14,7 @@ import { UseImagesQueryProps } from '../queries/useImagesQuery';
 import { UseMediaTypeQueryMediaType, UseMediaTypeQueryProps } from '../queries/useMediaTypeQuery';
 import { UsePersonMovieCreditsQueryProps } from '../queries/usePersonMovieCreditsQuery';
 import { UsePersonTVShowCreditsQueryProps } from '../queries/usePersonTVShowCreditsQuery';
-import { UsePopularQueryProps } from '../queries/usePopularQuery';
+import { UsePopularQueryMediaType, UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseSearchInfiniteQueryMediaType, UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
 import { UseTopRatedQueryMediaType, UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
 import { UseTrendingInfiniteQueryMediaType, UseTrendingInfiniteQueryProps } from '../queries/useTrendingInfiniteQuery';
@@ -70,7 +70,9 @@ export const personTVShowCreditsQueryKey = memoize(
 );
 
 export const popularQueryKey = memoize(
-	({ mediaType }: UsePopularQueryProps): QueryKey => [`ds-edb-popular-${mediaType}-query`]
+	<MT extends UsePopularQueryMediaType>({ mediaType }: UsePopularQueryProps<MT>): QueryKey => [
+		`ds-edb-popular-${mediaType}-query`
+	]
 );
 
 export const searchInfiniteQueryKey = memoize(

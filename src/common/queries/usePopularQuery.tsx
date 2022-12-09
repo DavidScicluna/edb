@@ -17,7 +17,7 @@ import { formatMediaTypeLabel } from '../utils';
 
 export type UsePopularQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-export type UsePopularQueryProps = { mediaType: UsePopularQueryMediaType };
+export type UsePopularQueryProps<MT extends UsePopularQueryMediaType> = { mediaType: MT };
 
 export type UsePopularQueryResponse<MT extends UsePopularQueryMediaType> = Response<
 	MT extends 'movie' ? PartialMovie[] : PartialTV[]
@@ -34,7 +34,7 @@ export type UsePopularQueryResult<MT extends UsePopularQueryMediaType> = UseQuer
 >;
 
 type UsePopularQueryParams<MT extends UsePopularQueryMediaType> = {
-	props: UsePopularQueryProps;
+	props: UsePopularQueryProps<MT>;
 	config?: AxiosConfig;
 	options?: UsePopularQueryOptions<MT>;
 };
