@@ -69,22 +69,31 @@ const DummyTrending: FC = () => {
 
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
-									renderLeft: (props) => (
-										<DummyTabIcon {...props} icon={getMediaTypeIcon({ mediaType: 'movie' })} />
+									renderLeft: ({ colorMode }) => (
+										<DummyTabIcon
+											colorMode={colorMode}
+											icon={getMediaTypeIcon({ mediaType: 'movie' })}
+										/>
 									)
 								},
 
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
-									renderLeft: (props) => (
-										<DummyTabIcon {...props} icon={getMediaTypeIcon({ mediaType: 'tv' })} />
+									renderLeft: ({ colorMode }) => (
+										<DummyTabIcon
+											colorMode={colorMode}
+											icon={getMediaTypeIcon({ mediaType: 'tv' })}
+										/>
 									)
 								},
 
 								{
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
-									renderLeft: (props) => (
-										<DummyTabIcon {...props} icon={getMediaTypeIcon({ mediaType: 'person' })} />
+									renderLeft: ({ colorMode }) => (
+										<DummyTabIcon
+											colorMode={colorMode}
+											icon={getMediaTypeIcon({ mediaType: 'person' })}
+										/>
 									)
 								}
 							]}

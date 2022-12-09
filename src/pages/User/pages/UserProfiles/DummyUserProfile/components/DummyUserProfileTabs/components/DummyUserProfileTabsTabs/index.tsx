@@ -30,8 +30,8 @@ const DummyUserProfileTabsTabs: FC<DummyUserProfileTabsTabsProps> = ({ mediaType
 						...(mediaTypes.map((mediaType) => {
 							return {
 								label: formatMediaTypeLabel({ type: 'multiple', mediaType }),
-								renderLeft: (props) => (
-									<DummyTabIcon {...props} icon={getMediaTypeIcon({ mediaType })} />
+								renderLeft: ({ colorMode }) => (
+									<DummyTabIcon colorMode={colorMode} icon={getMediaTypeIcon({ mediaType })} />
 								)
 							};
 						}) as TabListTab[])
