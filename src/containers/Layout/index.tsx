@@ -30,6 +30,7 @@ import PromptConfirmModal from './components/Modals/PromptConfirmModal';
 import Structure from './components/Structure';
 import ProgressBar from './components/ProgressBar';
 import {
+	device as defaultDevice,
 	isGuest as defaultIsGuest,
 	isAuthenticationRoute as defaultIsAuthenticationRoute,
 	spacing as defaultSpacing
@@ -40,6 +41,7 @@ import ScrollToTop from './components/ScrollToTop';
 const { convertREMToPixels, convertStringToNumber, getColor } = utils;
 
 export const LayoutContext = createContext<LayoutContextType>({
+	device: defaultDevice,
 	isGuest: defaultIsGuest,
 	isAuthenticationRoute: defaultIsAuthenticationRoute,
 	spacing: defaultSpacing
@@ -149,9 +151,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 				<ScrollToTop />
 
 				<LayoutContext.Provider
-					value={{ isGuest, isAuthenticationRoute, spacing: isXl ? 5 : isMd ? 4 : isSm ? 3 : 2 }}
+					value={{
+						device: isXl ? 'desktop' : isSm ? 'tablet' : 'mobile',
+						isGuest,
+						isAuthenticationRoute,
+						spacing: isXl ? 5 : isMd ? 4 : isSm ? 3 : 2
+					}}
 				>
-					<Structure device={isXl ? 'desktop' : isSm ? 'tablet' : 'mobile'}>{children}</Structure>
+					<Structure>{children}</Structure>
 				</LayoutContext.Provider>
 			</Container>
 

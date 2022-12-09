@@ -15,11 +15,11 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import Gradient from '../Gradient';
-import { StructureProps as DummyStructureMobileTabletProps } from '../../types';
 import DummyFooter from '../Footer';
 import { useLayoutContext } from '../../../../common/hooks';
 
 import DummyInternationalization from './components/DummyInternationalization';
+import { DummyStructureMobileTabletProps } from './types';
 
 const { getColor } = utils;
 

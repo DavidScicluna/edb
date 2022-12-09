@@ -17,7 +17,6 @@ import { useDisclosure, useConst, VStack, HStack, Center } from '@chakra-ui/reac
 import { useElementSize, useUpdateEffect } from 'usehooks-ts';
 import { Transition } from 'framer-motion';
 
-import { StructureProps as StructureMobileTabletProps } from '../../types';
 import { useUserTheme } from '../../../../../../common/hooks';
 import Gradient from '../Gradient';
 import Footer from '../Footer';
@@ -26,6 +25,7 @@ import { useLayoutContext } from '../../../../common/hooks';
 import Sidebar from './components/Sidebar';
 import User from './components/User';
 import Internationalization from './components/Internationalization';
+import { StructureMobileTabletProps } from './types';
 
 const { getTransitionConfig, getTransitionDuration, getColor } = utils;
 
