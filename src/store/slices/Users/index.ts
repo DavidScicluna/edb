@@ -16,6 +16,7 @@ import {
 	UserSearch,
 	MediaItems,
 	UserList,
+	UserRecentlyViewed,
 	// UserReview,
 	// OtherReview,
 	UserLanguage,
@@ -64,7 +65,6 @@ export const defaultUser: User = {
 			movie: [],
 			tv: [],
 			person: [],
-			company: [],
 			collection: []
 		},
 		liked: {
@@ -109,7 +109,6 @@ export const defaultUser: User = {
 	}
 };
 
-// TODO: Set User Boring Avatar src on render if user is not logged in
 export const guest: User = {
 	...defaultUser,
 	data: {
@@ -223,7 +222,7 @@ const usersSlice = createSlice({
 				}
 			}
 		},
-		setUserRecentlyViewed: (state: StateProps, action: UserAction<Omit<MediaItems, 'companies'>>) => {
+		setUserRecentlyViewed: (state: StateProps, action: UserAction<UserRecentlyViewed>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
 
 			if (user.data.id !== guest.data.id) {

@@ -65,6 +65,10 @@ export type MediaItems = {
 	collection: MediaItem<'collection'>[];
 };
 
+export type UserRecentlyViewed = Omit<MediaItems, 'company'>;
+
+export type UserRecentlyViewedMediaType = Exclude<MediaType, 'company'>;
+
 export type UserListMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
 export type UserListMediaItems = Omit<MediaItems, 'person' | 'company' | 'collection'>;
@@ -109,7 +113,7 @@ export type User = {
 		credentials: UserCredentials;
 		info: UserInfo;
 		recentSearches: UserSearch[];
-		recentlyViewed: Omit<MediaItems, 'companies'>;
+		recentlyViewed: UserRecentlyViewed;
 		liked: MediaItems;
 		lists: UserList[];
 		// reviews: UserReviews;
