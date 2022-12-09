@@ -21,9 +21,11 @@ import { PartialPerson } from '../types/person';
 import { PartialTV } from '../types/tv';
 import { formatMediaTypeLabel } from '../utils';
 
-export type UseSearchInfiniteQueryProps = { mediaType: MediaType; query: string };
+export type UseSearchInfiniteQueryMediaType = MediaType;
 
-export type UseSearchInfiniteQueryResponse<MT extends MediaType> = Response<
+export type UseSearchInfiniteQueryProps<MT extends UseSearchInfiniteQueryMediaType> = { mediaType: MT; query: string };
+
+export type UseSearchInfiniteQueryResponse<MT extends UseSearchInfiniteQueryMediaType> = Response<
 	MT extends 'movie'
 		? PartialMovie[]
 		: MT extends 'tv'
@@ -35,25 +37,25 @@ export type UseSearchInfiniteQueryResponse<MT extends MediaType> = Response<
 		: Collection[]
 >;
 
-export type UseSearchInfiniteQueryOptions<MT extends MediaType> = Omit<
+export type UseSearchInfiniteQueryOptions<MT extends UseSearchInfiniteQueryMediaType> = Omit<
 	UseInfiniteQueryOptions<UseSearchInfiniteQueryResponse<MT>, AxiosError<QueryError>>,
 	'getPreviousPageParam' | 'getNextPageParam'
 >;
 
-export type UseSearchInfiniteQueryResult<MT extends MediaType> = UseInfiniteQueryResult<
+export type UseSearchInfiniteQueryResult<MT extends UseSearchInfiniteQueryMediaType> = UseInfiniteQueryResult<
 	UseSearchInfiniteQueryResponse<MT>,
 	AxiosError<QueryError>
 >;
 
-type UseSearchInfiniteQueryParams<MT extends MediaType> = {
-	props: UseSearchInfiniteQueryProps;
+type UseSearchInfiniteQueryParams<MT extends UseSearchInfiniteQueryMediaType> = {
+	props: UseSearchInfiniteQueryProps<MT>;
 	config?: AxiosConfig;
 	options?: UseSearchInfiniteQueryOptions<MT>;
 };
 
 const toastID = 'ds-edb-use-search-infinite-query-toast';
 
-const useSearchInfiniteQuery = <MT extends MediaType>({
+const useSearchInfiniteQuery = <MT extends UseSearchInfiniteQueryMediaType>({
 	props: { mediaType, query },
 	config = {},
 	options = {}
@@ -75,6 +77,7 @@ const useSearchInfiniteQuery = <MT extends MediaType>({
 		},
 		{
 			...options,
+			enabled: options.enabled || !!query,
 			getPreviousPageParam: (firstPage) => {
 				return firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false;
 			},
