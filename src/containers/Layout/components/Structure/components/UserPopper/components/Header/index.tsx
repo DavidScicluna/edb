@@ -2,7 +2,7 @@ import { FC, useCallback } from 'react';
 
 import { Space, useTheme, utils } from '@davidscicluna/component-library';
 
-import { HStack, VStack, Text } from '@chakra-ui/react';
+import { HStack, VStack, Center, Text } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
@@ -17,9 +17,10 @@ const Header: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const activeUser = useSelector((state) => state.users.data.activeUser);
-	const { name, avatar_path } = activeUser.data.info;
-	const { username } = activeUser.data.credentials;
+	const {
+		info: { name, avatar_path },
+		credentials: { username }
+	} = useSelector((state) => state.users.data.activeUser.data);
 
 	const [avatarRef, { width: avatarWidth }] = useElementSize();
 
@@ -31,13 +32,9 @@ const Header: FC = () => {
 
 	return (
 		<HStack width='100%' spacing={spacing}>
-			<Avatar
-				ref={avatarRef}
-				alt={name}
-				borderRadius='base'
-				src={{ full: avatar_path }}
-				size={theme.fontSizes['7xl']}
-			/>
+			<Center ref={avatarRef}>
+				<Avatar alt={name} borderRadius='base' src={{ full: avatar_path }} size={theme.fontSizes['7xl']} />
+			</Center>
 
 			<VStack width={handleContentWidth()} alignItems='flex-start' spacing={0.5}>
 				<Text
@@ -53,7 +50,7 @@ const Header: FC = () => {
 				<Text
 					align='left'
 					color={getColor({ theme, colorMode, type: 'text.secondary' })}
-					fontSize='sm'
+					fontSize='md'
 					lineHeight='normal'
 					noOfLines={1}
 				>

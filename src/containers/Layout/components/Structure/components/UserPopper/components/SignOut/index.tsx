@@ -23,20 +23,24 @@ const SignOut: FC = () => {
 	const handleSignOut = (): void => {
 		dispatch(toggleSpinnerModal(true));
 
-		dispatch(
-			setUser({
-				...guest,
-				ui: {
-					...guest.ui,
-					theme: {
-						...guest.ui.theme,
-						color: activeUser.ui.theme.color
-					}
-				}
-			})
-		);
-
 		updateFavicon({ color: activeUser.ui.theme.color, colorMode });
+
+		setTimeout(
+			() =>
+				dispatch(
+					setUser({
+						...guest,
+						ui: {
+							...guest.ui,
+							theme: {
+								...guest.ui.theme,
+								color: activeUser.ui.theme.color
+							}
+						}
+					})
+				),
+			250
+		);
 
 		setTimeout(() => navigate('/authentication/signin'), 500);
 

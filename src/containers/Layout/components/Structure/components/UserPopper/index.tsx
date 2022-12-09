@@ -59,6 +59,7 @@ const UserPopper: FC<UserPopperProps> = (props) => {
 				<PopoverContent
 					width='auto'
 					minWidth='275px'
+					maxWidth='350px'
 					borderRadius='lg'
 					borderWidth='2px'
 					borderStyle='solid'
@@ -68,7 +69,6 @@ const UserPopper: FC<UserPopperProps> = (props) => {
 				>
 					<PopoverArrow
 						background={`${background} !important`}
-						backgroundColor={`${background} !important`}
 						borderWidth='2px'
 						borderStyle='solid'
 						borderColor={border}
@@ -78,7 +78,6 @@ const UserPopper: FC<UserPopperProps> = (props) => {
 					<VStack
 						width='100%'
 						background={background}
-						backgroundColor={background}
 						borderRadius='inherit'
 						divider={<Divider colorMode={colorMode} />}
 						spacing={2}

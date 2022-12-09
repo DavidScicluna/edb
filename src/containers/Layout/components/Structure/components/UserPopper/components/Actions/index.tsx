@@ -2,39 +2,50 @@ import { FC } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { InternalLink, Button, Icon } from '@davidscicluna/component-library';
+import { useTheme, InternalLink, Button, Icon } from '@davidscicluna/component-library';
 
-import { VStack } from '@chakra-ui/react';
+import { useMediaQuery, VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
 
 import { useSelector, useUserTheme } from '../../../../../../../../common/hooks';
-import { toggleUserSwitcherModal, toggleUserThemeModal } from '../../../../../../../../store/slices/Modals';
+import { toggleInternationalizationModal, toggleUserThemeModal } from '../../../../../../../../store/slices/Modals';
 import { sx } from '../../common/styles';
 
 const Actions: FC = () => {
+	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
+
+	const [isXl] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
 	const location = useLocation();
 
 	const dispatch = useDispatch();
-	const activeUser = useSelector((state) => state.users.data.activeUser);
-	const users = useSelector((state) => state.users.data.users.filter((user) => user.data.id !== activeUser.data.id));
 
+	const isInternationalizationModalOpen = useSelector((state) => state.modals.ui.isInternationalizationModalOpen);
 	const isUserThemeModalOpen = useSelector((state) => state.modals.ui.isUserThemeModalOpen);
-	const isUserSwitcherModalOpen = useSelector((state) => state.modals.ui.isUserSwitcherModalOpen);
 
 	return (
 		<VStack width='100%' spacing={0}>
-			<InternalLink to='/profile' isDisabled={location.pathname === '/profile'} isFullWidth>
+			<InternalLink
+				to='/profile'
+				isDisabled={location.pathname === '/profile' && location.hash.length === 0}
+				isFullWidth
+			>
 				<Button
-					color={location.pathname === '/profile' ? color : 'gray'}
+					color={location.pathname === '/profile' && location.hash.length === 0 ? color : 'gray'}
 					colorMode={colorMode}
-					renderLeft={(props) => (
+					renderLeft={({ color, colorMode, height }) => (
 						<Icon
-							{...props}
+							colorMode={colorMode}
+							width={`${height}px`}
+							height={`${height}px`}
+							fontSize={`${height}px`}
 							icon='person'
-							category={location.pathname === '/profile' ? 'filled' : 'outlined'}
+							category={
+								location.pathname === '/profile' && location.hash.length === 0 ? 'filled' : 'outlined'
+							}
+							skeletonColor={color}
 						/>
 					)}
 					isFullWidth
@@ -46,15 +57,27 @@ const Actions: FC = () => {
 				</Button>
 			</InternalLink>
 
-			<InternalLink to='/liked' isDisabled={location.pathname === '/liked'} isFullWidth>
+			<InternalLink
+				to={{ pathname: '/profile', hash: 'mylikes' }}
+				isDisabled={location.pathname === '/profile' && location.hash === '#mylikes'}
+				isFullWidth
+			>
 				<Button
-					color={location.pathname === '/liked' ? color : 'gray'}
+					color={location.pathname === '/profile' && location.hash === '#mylikes' ? color : 'gray'}
 					colorMode={colorMode}
-					renderLeft={(props) => (
+					renderLeft={({ color, colorMode, height }) => (
 						<Icon
-							{...props}
-							icon={location.pathname === '/liked' ? 'favorite' : 'favorite_border'}
+							colorMode={colorMode}
+							width={`${height}px`}
+							height={`${height}px`}
+							fontSize={`${height}px`}
+							icon={
+								location.pathname === '/profile' && location.hash === '#mylikes'
+									? 'favorite'
+									: 'favorite_border'
+							}
 							category='outlined'
+							skeletonColor={color}
 						/>
 					)}
 					isFullWidth
@@ -66,15 +89,27 @@ const Actions: FC = () => {
 				</Button>
 			</InternalLink>
 
-			<InternalLink to='/lists' isDisabled={location.pathname === '/lists'} isFullWidth>
+			<InternalLink
+				to={{ pathname: '/profile', hash: 'mylists' }}
+				isDisabled={location.pathname === '/profile' && location.hash === '#mylists'}
+				isFullWidth
+			>
 				<Button
-					color={location.pathname === '/lists' ? color : 'gray'}
+					color={location.pathname === '/profile' && location.hash === '#mylists' ? color : 'gray'}
 					colorMode={colorMode}
-					renderLeft={(props) => (
+					renderLeft={({ color, colorMode, height }) => (
 						<Icon
-							{...props}
-							icon={location.pathname === '/lists' ? 'bookmark' : 'bookmark_border'}
+							colorMode={colorMode}
+							width={`${height}px`}
+							height={`${height}px`}
+							fontSize={`${height}px`}
+							icon={
+								location.pathname === '/profile' && location.hash === '#mylists'
+									? 'bookmark'
+									: 'bookmark_border'
+							}
 							category='outlined'
+							skeletonColor={color}
 						/>
 					)}
 					isFullWidth
@@ -86,26 +121,44 @@ const Actions: FC = () => {
 				</Button>
 			</InternalLink>
 
-			{users.length > 0 && (
+			{isXl && (
 				<Button
-					color={isUserSwitcherModalOpen ? color : 'gray'}
+					color={isInternationalizationModalOpen ? color : 'gray'}
 					colorMode={colorMode}
-					renderLeft={(props) => <Icon {...props} icon='sync' category='outlined' />}
+					renderLeft={({ color, colorMode, height }) => (
+						<Icon
+							colorMode={colorMode}
+							width={`${height}px`}
+							height={`${height}px`}
+							fontSize={`${height}px`}
+							icon='language'
+							category={isInternationalizationModalOpen ? 'filled' : 'outlined'}
+							skeletonColor={color}
+						/>
+					)}
 					isFullWidth
-					onClick={() => dispatch(toggleUserSwitcherModal(true))}
+					onClick={() => dispatch(toggleInternationalizationModal(true))}
 					size='lg'
 					variant='text'
 					sx={{ ...sx }}
 				>
-					Switch User
+					Language
 				</Button>
 			)}
 
 			<Button
 				color={isUserThemeModalOpen ? color : 'gray'}
 				colorMode={colorMode}
-				renderLeft={(props) => (
-					<Icon {...props} icon='palette' category={isUserThemeModalOpen ? 'filled' : 'outlined'} />
+				renderLeft={({ color, colorMode, height }) => (
+					<Icon
+						colorMode={colorMode}
+						width={`${height}px`}
+						height={`${height}px`}
+						fontSize={`${height}px`}
+						icon='palette'
+						category={isUserThemeModalOpen ? 'filled' : 'outlined'}
+						skeletonColor={color}
+					/>
 				)}
 				isFullWidth
 				onClick={() => dispatch(toggleUserThemeModal(true))}
