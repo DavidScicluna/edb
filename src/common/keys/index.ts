@@ -16,7 +16,7 @@ import { UsePersonMovieCreditsQueryProps } from '../queries/usePersonMovieCredit
 import { UsePersonTVShowCreditsQueryProps } from '../queries/usePersonTVShowCreditsQuery';
 import { UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
-import { UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
+import { UseTopRatedQueryMediaType, UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
 import { UseTrendingInfiniteQueryMediaType, UseTrendingInfiniteQueryProps } from '../queries/useTrendingInfiniteQuery';
 import { UseTrendingQueryMediaType, UseTrendingQueryProps } from '../queries/useTrendingQuery';
 import { UseVideosQueryProps } from '../queries/useVideosQuery';
@@ -80,7 +80,9 @@ export const searchInfiniteQueryKey = memoize(
 );
 
 export const topRatedQueryKey = memoize(
-	({ mediaType }: UseTopRatedQueryProps): QueryKey => [`ds-edb-top-rated-${mediaType}-query`]
+	<MT extends UseTopRatedQueryMediaType>({ mediaType }: UseTopRatedQueryProps<MT>): QueryKey => [
+		`ds-edb-top-rated-${mediaType}-query`
+	]
 );
 
 export const trendingInfiniteQueryKey = memoize(

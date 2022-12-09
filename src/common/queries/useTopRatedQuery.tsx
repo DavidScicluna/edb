@@ -17,7 +17,7 @@ import { formatMediaTypeLabel } from '../utils';
 
 export type UseTopRatedQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-export type UseTopRatedQueryProps = { mediaType: UseTopRatedQueryMediaType };
+export type UseTopRatedQueryProps<MT extends UseTopRatedQueryMediaType> = { mediaType: MT };
 
 export type UseTopRatedQueryResponse<MT extends UseTopRatedQueryMediaType> = Response<
 	MT extends 'movie' ? PartialMovie[] : PartialTV[]
@@ -34,7 +34,7 @@ export type UseTopRatedQueryResult<MT extends UseTopRatedQueryMediaType> = UseQu
 >;
 
 type UseTopRatedQueryParams<MT extends UseTopRatedQueryMediaType> = {
-	props: UseTopRatedQueryProps;
+	props: UseTopRatedQueryProps<MT>;
 	config?: AxiosConfig;
 	options?: UseTopRatedQueryOptions<MT>;
 };
