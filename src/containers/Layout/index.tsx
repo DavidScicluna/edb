@@ -53,6 +53,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	const { colorMode } = useUserTheme();
 
 	const [isSm] = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
+	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 	const [isXl] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
 	const location = useLocation();
@@ -147,24 +148,24 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
 				<ScrollToTop />
 
-				<LayoutContext.Provider value={{ isGuest, isAuthenticationRoute, spacing: isXl ? 4 : isSm ? 3 : 2 }}>
+				<LayoutContext.Provider
+					value={{ isGuest, isAuthenticationRoute, spacing: isXl ? 5 : isMd ? 4 : isSm ? 3 : 2 }}
+				>
 					<Structure device={isXl ? 'desktop' : isSm ? 'tablet' : 'mobile'}>{children}</Structure>
 				</LayoutContext.Provider>
 			</Container>
 
-			{/* <QuickViewModal /> */}
+			<PromptConfirmModal />
 
 			<InternationalizationModal />
 
-			<PromptConfirmModal />
+			{/* <QuickViewModal /> */}
 
 			{!isGuest && <UserThemeModal />}
 
 			{!isGuest && <BookmarkModal />}
 
 			{isGuest && <AuthenticationConfirmModal />}
-
-			{/* !isGuest && <ListsModal /> */}
 		</>
 	);
 };
