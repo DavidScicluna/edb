@@ -72,12 +72,12 @@ const OverviewTabKnownFor: FC = () => {
 						return { ...movie, media_type: 'movie' };
 					}),
 					...tvShowCastCredits.map((movie) => {
-						return { ...movie, media_type: 'movie' };
+						return { ...movie, media_type: 'tv' };
 					})
 				] as NonNullable<Credits['cast']>,
 				crew: [
 					...movieCrewCredits.map((show) => {
-						return { ...show, media_type: 'tv' };
+						return { ...show, media_type: 'movie' };
 					}),
 					...tvShowCrewCredits.map((show) => {
 						return { ...show, media_type: 'tv' };

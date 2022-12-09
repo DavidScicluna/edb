@@ -19,7 +19,7 @@ import { useUserTheme } from '../../../../../../../../../common/hooks';
 
 import { PhotosTabPhotoProps } from './types';
 
-const { getHue } = utils;
+const { convertREMToPixels, convertStringToNumber, getHue } = utils;
 
 const thumbnail = getImageSize({ type: 'profile', mode: 'thumbnail' });
 const full = getImageSize({ type: 'profile', mode: 'full' });
@@ -28,9 +28,9 @@ const PhotosTabPhoto: FC<PhotosTabPhotoProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { observe: photorRef, inView = true } = useInView<HTMLDivElement>({
-		// threshold: [0.2, 0.4, 0.6, 0.8, 1],
-		unobserveOnEnter: true
+	const { observe: photorRef, inView } = useInView<HTMLDivElement>({
+		unobserveOnEnter: true,
+		rootMargin: `${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px`
 	});
 
 	const { index, name, file_path } = props;
