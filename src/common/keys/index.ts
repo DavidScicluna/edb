@@ -11,8 +11,8 @@ import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
 import { UsePersonExternalIDsQueryProps } from '../queries/usePersonExternalIDsQuery';
 import { UsePersonImagesQueryProps } from '../queries/usePersonImagesQuery';
+import { UseMediaTypeQueryMediaType, UseMediaTypeQueryProps } from '../queries/useMediaTypeQuery';
 import { UsePersonMovieCreditsQueryProps } from '../queries/usePersonMovieCreditsQuery';
-import { UsePersonQueryProps } from '../queries/usePersonQuery';
 import { UsePersonTVShowCreditsQueryProps } from '../queries/usePersonTVShowCreditsQuery';
 import { UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
@@ -48,6 +48,10 @@ export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-in
 
 export const personExternalIDsQueryKey = memoize(
 	({ id }: UsePersonExternalIDsQueryProps): QueryKey => [`ds-edb-person-${id}-external-ids-query`]
+export const mediaTypeQueryKey = memoize(
+	<MT extends UseMediaTypeQueryMediaType>({ mediaType, id }: UseMediaTypeQueryProps<MT>): QueryKey => [
+		`ds-edb-${mediaType}-${id}-query`
+	]
 );
 
 export const personImagesQueryKey = memoize(
@@ -57,8 +61,6 @@ export const personImagesQueryKey = memoize(
 export const personMovieCreditsQueryKey = memoize(
 	({ id }: UsePersonMovieCreditsQueryProps): QueryKey => [`ds-edb-person-${id}-movie-credits-query`]
 );
-
-export const personQueryKey = memoize(({ id }: UsePersonQueryProps): QueryKey => [`ds-edb-person-${id}-query`]);
 
 export const personTVShowCreditsQueryKey = memoize(
 	({ id }: UsePersonTVShowCreditsQueryProps): QueryKey => [`ds-edb-person-${id}-tv-show-credits-query`]

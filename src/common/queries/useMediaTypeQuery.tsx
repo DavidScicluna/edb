@@ -7,9 +7,9 @@ import { useWillUnmount } from 'rooks';
 import { compact } from 'lodash';
 import { useDispatch } from 'react-redux';
 
-import { personQueryKey } from '../keys';
+import { mediaTypeQueryKey } from '../keys';
 import { axios } from '../scripts';
-import { AxiosConfig, QueryError } from '../types';
+import { AxiosConfig, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { FullPerson } from '../types/person';
@@ -17,36 +17,56 @@ import { formatMediaTypeLabel } from '../utils';
 import { useSelector } from '../hooks';
 import { setUserRecentlyViewed, guest } from '../../store/slices/Users';
 import { getUpdatedRecentlyViewedList } from '../utils/user';
+import { Collection, FullMovie } from '../types/movie';
+import { FullTV } from '../types/tv';
 
-export type UsePersonQueryProps = Pick<FullPerson, 'id'>;
+export type UseMediaTypeQueryMediaType = Exclude<MediaType, 'company'>;
 
-export type UsePersonQueryResponse = FullPerson;
+export type UseMediaTypeQueryProps<MT extends UseMediaTypeQueryMediaType> = { mediaType: MT; id: number };
 
-export type UsePersonQueryOptions = UseQueryOptions<UsePersonQueryResponse, AxiosError<QueryError>>;
+export type UseMediaTypeQueryResponse<MT extends UseMediaTypeQueryMediaType> = MT extends 'movie'
+	? FullMovie
+	: MT extends 'tv'
+	? FullTV
+	: MT extends 'person'
+	? FullPerson
+	: Collection;
 
-export type UsePersonQueryResult = UseQueryResult<UsePersonQueryResponse, AxiosError<QueryError>>;
+export type UseMediaTypeQueryOptions<MT extends UseMediaTypeQueryMediaType> = UseQueryOptions<
+	UseMediaTypeQueryResponse<MT>,
+	AxiosError<QueryError>
+>;
 
-type UsePersonQueryParams = {
-	props: UsePersonQueryProps;
+export type UseMediaTypeQueryResult<MT extends UseMediaTypeQueryMediaType> = UseQueryResult<
+	UseMediaTypeQueryResponse<MT>,
+	AxiosError<QueryError>
+>;
+
+type UseMediaTypeQueryParams<MT extends UseMediaTypeQueryMediaType> = {
+	props: UseMediaTypeQueryProps<MT>;
 	config?: AxiosConfig;
-	options?: UsePersonQueryOptions;
+	options?: UseMediaTypeQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-person-query-toast';
+const toastID = 'ds-edb-use-media-type-query-toast';
 
-const usePersonQuery = ({ props: { id }, config = {}, options = {} }: UsePersonQueryParams): UsePersonQueryResult => {
+const useMediaTypeQuery = <MT extends UseMediaTypeQueryMediaType>({
+	props: { mediaType, id },
+	config = {},
+	options = {}
+}: UseMediaTypeQueryParams<MT>): UseMediaTypeQueryResult<MT> => {
 	const toast = useToast();
 
 	const dispatch = useDispatch();
 	const { id: userID, recentlyViewed } = useSelector((state) => state.users.data.activeUser.data);
 
-	const key = personQueryKey({ id });
+	const key = mediaTypeQueryKey({ mediaType, id });
 
 	const client = useQueryClient();
-	const query = useQuery<UsePersonQueryResponse, AxiosError<QueryError>>(
+	const query = useQuery<UseMediaTypeQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
 		async ({ signal }) => {
-			const { data } = await axios.get<UsePersonQueryResponse>(`/person/${id}`, {
+			const { data } = await axios.get<UseMediaTypeQueryResponse<MT>>(`/${mediaType}/${id}`, {
 				...config,
 				signal
 			});
@@ -54,12 +74,13 @@ const usePersonQuery = ({ props: { id }, config = {}, options = {} }: UsePersonQ
 		},
 		{
 			...options,
+			enabled: options.enabled || !!id,
 			onSuccess: (data) => {
 				if (userID !== guest.data.id) {
 					dispatch(
 						setUserRecentlyViewed({
 							id: userID,
-							data: getUpdatedRecentlyViewedList({ recentlyViewed, mediaType: 'person', mediaItem: data })
+							data: getUpdatedRecentlyViewedList({ recentlyViewed, mediaType, mediaItem: data })
 						})
 					);
 				}
@@ -85,7 +106,7 @@ const usePersonQuery = ({ props: { id }, config = {}, options = {} }: UsePersonQ
 									status_code ? `${status_code}.` : null,
 									`Unfortunately, something went wrong when trying to fetch ${formatMediaTypeLabel({
 										type: 'single',
-										mediaType: 'person'
+										mediaType
 									})}.`,
 									status_message ? `(${status_message})` : null
 								]).join(' ')}
@@ -108,4 +129,4 @@ const usePersonQuery = ({ props: { id }, config = {}, options = {} }: UsePersonQ
 	return query;
 };
 
-export default usePersonQuery;
+export default useMediaTypeQuery;
