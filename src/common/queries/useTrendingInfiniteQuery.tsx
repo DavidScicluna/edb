@@ -22,7 +22,10 @@ import { formatMediaTypeLabel } from '../utils';
 
 export type UseTrendingInfiniteQueryMediaType = Exclude<MediaType, 'company' | 'collection'>;
 
-export type UseTrendingInfiniteQueryProps = { mediaType: UseTrendingInfiniteQueryMediaType; time: 'day' | 'week' };
+export type UseTrendingInfiniteQueryProps<MT extends UseTrendingInfiniteQueryMediaType> = {
+	mediaType: MT;
+	time: 'day' | 'week';
+};
 
 export type UseTrendingInfiniteQueryResponse<MT extends UseTrendingInfiniteQueryMediaType> = Response<
 	MT extends 'movie' ? PartialMovie[] : PartialTV[]
@@ -39,7 +42,7 @@ export type UseTrendingInfiniteQueryResult<MT extends UseTrendingInfiniteQueryMe
 >;
 
 type UseTrendingInfiniteQueryParams<MT extends UseTrendingInfiniteQueryMediaType> = {
-	props: UseTrendingInfiniteQueryProps;
+	props: UseTrendingInfiniteQueryProps<MT>;
 	config?: AxiosConfig;
 	options?: UseTrendingInfiniteQueryOptions<MT>;
 };
