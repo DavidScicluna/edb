@@ -3,6 +3,10 @@ import { QueryKey } from '@tanstack/react-query';
 import { memoize } from 'lodash';
 
 import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
+import {
+	UseDiscoverMediaTypeInfiniteQueryMediaType,
+	UseDiscoverMediaTypeInfiniteQueryProps
+} from '../queries/useDiscoverMediaTypeInfiniteQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
 import { UsePersonExternalIDsQueryProps } from '../queries/usePersonExternalIDsQuery';
@@ -21,6 +25,12 @@ export const certificationsQueryKey = memoize(
 
 export const countriesQueryKey = memoize((): QueryKey => ['ds-edb-countries-query']);
 
+export const discoverMediaTypeInfiniteQueryKey = memoize(
+	<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType>({
+		mediaType
+	}: UseDiscoverMediaTypeInfiniteQueryProps<MT>): QueryKey => [`ds-edb-discover-${mediaType}-infinite-query`]
+);
+
 export const genresQueryKey = memoize(
 	({ mediaType }: UseGenresQueryProps): QueryKey => [`ds-edb-${mediaType}-genres-query`]
 );
@@ -32,8 +42,6 @@ export const keywordsInfiniteQueryKey = memoize(
 );
 
 export const languagesQueryKey = memoize((): QueryKey => ['ds-edb-languages-query']);
-
-export const moviesInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-movies-infinite-query']);
 
 export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
 
@@ -77,4 +85,3 @@ export const trendingInfiniteQueryKey = memoize(
 	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`ds-edb-${time}-${mediaType}-trending-infinite-query`]
 );
 
-export const tvShowsInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-tv-shows-infinite-query']);

@@ -1,5 +1,3 @@
-import { Undefinable } from '@davidscicluna/component-library';
-
 import { useToast } from '@chakra-ui/react';
 
 import {
@@ -15,44 +13,53 @@ import { useWillUnmount } from 'rooks';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { tvShowsInfiniteQueryKey } from '../keys';
+import { discoverMediaTypeInfiniteQueryKey } from '../keys';
 import { axios } from '../scripts';
-import { AxiosConfig, QueryError, Response } from '../types';
+import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialTV } from '../types/tv';
 import { formatMediaTypeLabel } from '../utils';
+import { PartialMovie } from '../types/movie';
 
-export type UseTVShowsInfiniteQueryResponse = Response<PartialTV[]>;
+export type UseDiscoverMediaTypeInfiniteQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-export type UseTVShowsInfiniteQueryOptions = Omit<
-	UseInfiniteQueryOptions<UseTVShowsInfiniteQueryResponse, AxiosError<QueryError>>,
+export type UseDiscoverMediaTypeInfiniteQueryProps<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> = {
+	mediaType: MT;
+};
+
+export type UseDiscoverMediaTypeInfiniteQueryResponse<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> = Response<
+	MT extends 'movie' ? PartialMovie[] : PartialTV[]
+>;
+
+export type UseDiscoverMediaTypeInfiniteQueryOptions<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> = Omit<
+	UseInfiniteQueryOptions<UseDiscoverMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>,
 	'getPreviousPageParam' | 'getNextPageParam'
 >;
 
-export type UseTVShowsInfiniteQueryResult = UseInfiniteQueryResult<
-	UseTVShowsInfiniteQueryResponse,
-	AxiosError<QueryError>
->;
+export type UseDiscoverMediaTypeInfiniteQueryResult<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> =
+	UseInfiniteQueryResult<UseDiscoverMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>;
 
-type UseTVShowsInfiniteQueryParams = Undefinable<{
+type UseDiscoverMediaTypeInfiniteQueryParams<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> = {
+	props: UseDiscoverMediaTypeInfiniteQueryProps<MT>;
 	config?: AxiosConfig;
-	options?: UseTVShowsInfiniteQueryOptions;
-}>;
+	options?: UseDiscoverMediaTypeInfiniteQueryOptions<MT>;
+};
 
-const toastID = 'ds-edb-use-tv-shows-infinite-query-toast';
+const toastID = 'ds-edb-use-discover-media-type-infinite-query-toast';
 
-const useTVShowsInfiniteQuery = ({
+const useDiscoverMediaTypeInfiniteQuery = <MT extends UseDiscoverMediaTypeInfiniteQueryMediaType>({
+	props: { mediaType },
 	config = {},
 	options = {}
-}: UseTVShowsInfiniteQueryParams = {}): UseTVShowsInfiniteQueryResult => {
+}: UseDiscoverMediaTypeInfiniteQueryParams<MT>): UseDiscoverMediaTypeInfiniteQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = tvShowsInfiniteQueryKey();
+	const key = discoverMediaTypeInfiniteQueryKey({ mediaType });
 
 	const client = useQueryClient();
-	const infiniteQuery = useInfiniteQuery<UseTVShowsInfiniteQueryResponse, AxiosError<QueryError>>(
+	const infiniteQuery = useInfiniteQuery<UseDiscoverMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
 		async ({ pageParam = 1, signal }) => {
-			const { data } = await axios.get<UseTVShowsInfiniteQueryResponse>('/discover/tv', {
+			const { data } = await axios.get<UseDiscoverMediaTypeInfiniteQueryResponse<MT>>('/discover/tv', {
 				...config,
 				params: { ...config.params, page: pageParam || 1 },
 				signal
@@ -84,7 +91,7 @@ const useTVShowsInfiniteQuery = ({
 									status_code ? `${status_code}.` : null,
 									`Unfortunately, something went wrong when trying to fetch ${formatMediaTypeLabel({
 										type: 'multiple',
-										mediaType: 'tv'
+										mediaType
 									})}.`,
 									status_message ? `(${status_message})` : null
 								]).join(' ')}
@@ -107,4 +114,4 @@ const useTVShowsInfiniteQuery = ({
 	return infiniteQuery;
 };
 
-export default useTVShowsInfiniteQuery;
+export default useDiscoverMediaTypeInfiniteQuery;
