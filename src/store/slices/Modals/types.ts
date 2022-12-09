@@ -1,18 +1,20 @@
+import { Nullable } from '@davidscicluna/component-library';
+
 import { MediaType } from '../../../common/types';
 import { GetMediaType } from '../Users/types';
 
 export interface BookmarkModal {
-	mediaType: MediaType;
-	mediaItem: GetMediaType<this['mediaType']> | null;
 	isOpen: boolean;
+	mediaType: MediaType;
+	mediaItem: Nullable<GetMediaType<this['mediaType']>>;
 	title: string;
 }
 
-export type QuickViewModal = {
+export interface QuickViewModal {
 	isOpen: boolean;
 	mediaType: MediaType;
-	mediaItem: { id: number; title: string } | null;
-};
+	mediaItem: Nullable<GetMediaType<this['mediaType']>>;
+}
 
 export type AuthenticationConfirmModal = {
 	isOpen: boolean;
