@@ -18,6 +18,7 @@ import { UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
 import { UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
 import { UseTrendingQueryProps } from '../queries/useTrendingQuery';
+import { UseVideosQueryProps } from '../queries/useVideosQuery';
 
 export const certificationsQueryKey = memoize(
 	({ mediaType }: UseCertificationsQueryProps): QueryKey => [`ds-edb-${mediaType}-certifications-query`]
@@ -85,3 +86,6 @@ export const trendingInfiniteQueryKey = memoize(
 	({ mediaType, time }: UseTrendingQueryProps): QueryKey => [`ds-edb-${time}-${mediaType}-trending-infinite-query`]
 );
 
+export const videosQueryKey = memoize(
+	({ mediaType, id }: UseVideosQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-videos-query`]
+);
