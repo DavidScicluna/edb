@@ -47,7 +47,7 @@ const DummyUser: FC = () => {
 								</Text>
 							</Skeleton>
 							<Skeleton colorMode={colorMode} variant='text'>
-								<Text align='left' fontSize='sm' lineHeight='normal' noOfLines={1}>
+								<Text align='left' fontSize='md' lineHeight='normal' noOfLines={1}>
 									@Dummy User Name
 								</Text>
 							</Skeleton>
