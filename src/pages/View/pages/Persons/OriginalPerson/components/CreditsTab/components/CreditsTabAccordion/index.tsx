@@ -36,9 +36,8 @@ import { getDepartmentTotal } from '../../../../common/utils';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
 import { formatDate, formatMediaTypeLabel, getGenreLabelsByIDs } from '../../../../../../../../../common/utils';
 import { usePersonContext } from '../../../../common/hooks';
-import { PersonMediaType } from '../../../../../types';
 
-import { CreditsTabAccordionProps } from './types';
+import { CreditsTabAccordionProps, CreditsTabMediaType } from './types';
 
 const limit = 5;
 
@@ -61,7 +60,7 @@ const CreditsTabAccordion = <Cast extends PersonCredit, Crew extends PersonCredi
 
 	const { mediaType, id, title, credits, isOpen = false } = props;
 
-	const genres = useSelector((state) => state.options.data.genres[mediaType as PersonMediaType]);
+	const genres = useSelector((state) => state.options.data.genres[mediaType as CreditsTabMediaType]);
 
 	const [total, setTotal] = useState<number>(getDepartmentTotal({ credits }));
 	const totalDebounced = useDebounce<number>(total);
