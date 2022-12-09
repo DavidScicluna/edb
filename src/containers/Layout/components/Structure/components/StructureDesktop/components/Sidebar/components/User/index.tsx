@@ -1,11 +1,10 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import { Space, useTheme, Card, CardBody, Fade, utils } from '@davidscicluna/component-library';
 
 import { useConst, VStack, HStack, Text } from '@chakra-ui/react';
 
 import { Transition } from 'framer-motion';
-import { useElementSize } from 'usehooks-ts';
 
 import useStyles from '../../../../../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
@@ -13,15 +12,13 @@ import UserPopper from '../../../../../UserPopper';
 import Avatar from '../../../../../../../../../../components/Avatar';
 import { useLayoutContext } from '../../../../../../../../common/hooks';
 
-const { getTransitionDelay, convertREMToPixels, convertStringToNumber, getColor } = utils;
+const { getTransitionConfig, getTransitionDelay, getColor } = utils;
 
 const spacing: Space = 2;
 
 const User: FC = () => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
-
-	const [avatarRef, { width: avatarWidth }] = useElementSize();
 
 	const { isGuest } = useLayoutContext();
 
@@ -36,13 +33,7 @@ const User: FC = () => {
 	const style = useStyles({ theme });
 
 	const delay = useConst<number>(getTransitionDelay({ theme, duration: 'slow' }));
-	const config = useConst<Transition>({ delay });
-
-	const handleAvatarWidth = useCallback(() => {
-		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem'));
-
-		return `calc(100% - ${avatarWidth + spacingWidth}px)`;
-	}, [theme, spacing, avatarWidth]);
+	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), delay });
 
 	return (
 		<UserPopper
@@ -61,7 +52,6 @@ const User: FC = () => {
 					<CardBody>
 						<HStack width='100%' alignItems='center' justifyContent='stretch' spacing={spacing}>
 							<Avatar
-								ref={avatarRef}
 								alt={name}
 								borderRadius='base'
 								src={{ full: avatar_path }}
@@ -73,7 +63,7 @@ const User: FC = () => {
 								transition={{ enter: { ...config } }}
 								style={{ flex: 1 }}
 							>
-								<VStack width={handleAvatarWidth()} alignItems='flex-start' spacing={0.5}>
+								<VStack alignItems='flex-start' spacing={0.5}>
 									<Text
 										align='left'
 										color={getColor({ theme, colorMode, type: 'text.primary' })}
@@ -87,7 +77,7 @@ const User: FC = () => {
 									<Text
 										align='left'
 										color={getColor({ theme, colorMode, type: 'text.secondary' })}
-										fontSize='sm'
+										fontSize='md'
 										lineHeight='normal'
 										noOfLines={1}
 									>

@@ -8,7 +8,7 @@ import { Transition } from 'framer-motion';
 
 import { useSelector, useUserTheme } from '../../../../../../../../../../common/hooks';
 
-const { getTransitionDelay } = utils;
+const { getTransitionConfig, getTransitionDelay } = utils;
 
 const SignInButton: FC = () => {
 	const theme = useTheme();
@@ -17,7 +17,7 @@ const SignInButton: FC = () => {
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
 	const delay = useConst<number>(getTransitionDelay({ theme, duration: 'slow' }));
-	const config = useConst<Transition>({ delay });
+	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), delay });
 
 	return (
 		<InternalLink to='/authentication/signin' isFullWidth>
