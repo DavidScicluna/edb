@@ -6,7 +6,7 @@ import { useTheme, SideNavigation, Skeleton, NavItem, Icon } from '@davidsciclun
 
 import useStyles from '../../../../common/styles';
 import { useSelector, useUserTheme } from '../../../../../../common/hooks';
-import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../common/utils';
+import { formatMediaType, formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../common/utils';
 
 import { NavItems, NavigationProps } from './types';
 
@@ -28,17 +28,20 @@ const navItems: NavItems = [
 	},
 	{
 		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
-		path: { pathname: '/movies' },
+		path: { pathname: `/${formatMediaType({ mediaType: 'movie' })}` },
+		handleIsChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'movie' })),
 		icon: getMediaTypeIcon({ mediaType: 'movie' })
 	},
 	{
 		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
-		path: { pathname: '/tvshows' },
+		path: { pathname: `/${formatMediaType({ mediaType: 'tv' })}` },
+		handleIsChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'tv' })),
 		icon: getMediaTypeIcon({ mediaType: 'tv' })
 	},
 	{
 		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
-		path: { pathname: '/people' },
+		path: { pathname: `/${formatMediaType({ mediaType: 'person' })}` },
+		handleIsChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'person' })),
 		icon: getMediaTypeIcon({ mediaType: 'person' })
 	}
 ];
@@ -69,6 +72,7 @@ const Navigation: FC<NavigationProps> = ({ isDrawer = false, isDummy = false }) 
 						{...navItem}
 						isDisabled={isDummy}
 						isActive={!isDummy && !isUserThemeModalOpen && location.pathname === navItem.path.pathname}
+						isChildActive={!isDummy && navItem.handleIsChildActive && navItem.handleIsChildActive(location)}
 						renderLeftIcon={(props) => (
 							<Icon
 								{...props}
