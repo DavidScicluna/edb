@@ -17,12 +17,13 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import { formatMediaTypeLabel } from '../../../common/utils';
 import { DisplayMode, Suspense } from '../../../components';
-import { useMoviesInfiniteQuery } from '../../../common/queries';
+import { useMediaTypeInfiniteQuery } from '../../../common/queries';
 import { PartialMovie } from '../../../common/types/movie';
-import { UseMoviesInfiniteQueryResponse } from '../../../common/queries/useMoviesInfiniteQuery';
+import { UseMediaTypeInfiniteQueryResponse } from '../../../common/queries/useMediaTypeInfiniteQuery';
 import VerticalDummyMovies from '../components/VerticalDummyMovies';
 import { SortByForm } from '../../../components/SortBy/types';
 import { FiltersForm } from '../../../components/Filters/types';
+import { data as dataFormat } from '../../../components/Filters/common/data/formats';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
 import { useUserTheme } from '../../../common/hooks';
@@ -44,7 +45,7 @@ const defaultFilters = {
 	'language': 'en-US', // TODO: Make this dynamic
 	'ott_region': 'US', // TODO: Make this dynamic
 	'certification_country': 'US', // TODO: Make this dynamic
-	'primary_release_date.lte': dayjs(new Date()).format('YYYY-MM-DD')
+	'primary_release_date.lte': dayjs(new Date()).format(dataFormat)
 };
 
 const OriginalMovies: FC = () => {
@@ -57,13 +58,14 @@ const OriginalMovies: FC = () => {
 
 	const navigate = useNavigate();
 
-	const [movies, setMovies] = useState<UseMoviesInfiniteQueryResponse>();
-	const moviesDebounced = useDebounce<Undefinable<UseMoviesInfiniteQueryResponse>>(movies, 'slow');
+	const [movies, setMovies] = useState<UseMediaTypeInfiniteQueryResponse<'movie'>>();
+	const moviesDebounced = useDebounce<Undefinable<UseMediaTypeInfiniteQueryResponse<'movie'>>>(movies, 'slow');
 
 	const [totalFilters, setTotalFilters] = useState<number>(getTotalFilters({ location, mediaType: 'movie' }) || 0);
 	const totalFiltersDebounced = useDebounce<number>(totalFilters);
 
-	const moviesInfiniteQuery = useMoviesInfiniteQuery({
+	const moviesInfiniteQuery = useMediaTypeInfiniteQuery<'movie'>({
+		props: { mediaType: 'movie' },
 		config: { params: { ...qs.parse(location.search) } },
 		options: {
 			enabled: false,

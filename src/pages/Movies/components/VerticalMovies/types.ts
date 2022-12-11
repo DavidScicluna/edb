@@ -1,10 +1,10 @@
 import {
-	UseMoviesInfiniteQueryResponse,
-	UseMoviesInfiniteQueryResult
-} from '../../../../common/queries/useMoviesInfiniteQuery';
+	UseMediaTypeInfiniteQueryResponse,
+	UseMediaTypeInfiniteQueryResult
+} from '../../../../common/queries/useMediaTypeInfiniteQuery';
 
 export type VerticalMoviesProps = {
-	query: UseMoviesInfiniteQueryResult;
-	movies?: UseMoviesInfiniteQueryResponse;
+	query: UseMediaTypeInfiniteQueryResult<'movie'>;
+	movies?: UseMediaTypeInfiniteQueryResponse<'movie'>;
 	onLoadMore?: () => void;
 };
