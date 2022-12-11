@@ -10,8 +10,8 @@ import HorizontalPoster from '../HorizontalPoster';
 
 import { PersonHorizontalPosterProps } from './types';
 
-const thumbnail = getImageSize({ type: 'poster', mode: 'thumbnail' });
-const full = getImageSize({ type: 'poster', mode: 'full' });
+const thumbnail = getImageSize({ type: 'profile', mode: 'thumbnail' });
+const full = getImageSize({ type: 'profile', mode: 'full' });
 
 const PersonHorizontalPoster: FC<PersonHorizontalPosterProps> = (props) => {
 	const { person, subtitle, description, ...rest } = props;
@@ -19,8 +19,8 @@ const PersonHorizontalPoster: FC<PersonHorizontalPosterProps> = (props) => {
 
 	const alt = useConst<string>(
 		name
-			? `${name} ${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} poster`
-			: `${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} poster`
+			? `${name} ${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} avatar`
+			: `${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} avatar`
 	);
 
 	const defaultSubtitle = known_for_department;

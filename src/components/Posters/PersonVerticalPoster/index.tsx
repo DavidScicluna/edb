@@ -7,8 +7,8 @@ import VerticalPoster from '../VerticalPoster';
 
 import { PersonVerticalPosterProps } from './types';
 
-const thumbnail = getImageSize({ type: 'poster', mode: 'thumbnail' });
-const full = getImageSize({ type: 'poster', mode: 'full' });
+const thumbnail = getImageSize({ type: 'profile', mode: 'thumbnail' });
+const full = getImageSize({ type: 'profile', mode: 'full' });
 
 const PersonVerticalPoster: FC<PersonVerticalPosterProps> = (props) => {
 	const { person, subtitle, ...rest } = props;
@@ -16,8 +16,8 @@ const PersonVerticalPoster: FC<PersonVerticalPosterProps> = (props) => {
 
 	const alt = useConst<string>(
 		name
-			? `${name} ${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} poster`
-			: `${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} poster`
+			? `${name} ${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} avatar`
+			: `${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} avatar`
 	);
 
 	const defaultSubtitle = known_for_department;
