@@ -7,6 +7,7 @@ import { UseExternalIDsQueryProps } from '../queries/useExternalIDsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
 import { UseImagesQueryProps } from '../queries/useImagesQuery';
+import { UseMediaTypeCreditsQueryMediaType, UseMediaTypeCreditsQueryProps } from '../queries/useMediaTypeCreditsQuery';
 import {
 	UseMediaTypeInfiniteQueryMediaType,
 	UseMediaTypeInfiniteQueryProps
@@ -52,6 +53,12 @@ export const keywordsInfiniteQueryKey = memoize(
 
 export const languagesQueryKey = memoize((): QueryKey => ['ds-edb-languages-query']);
 
+export const mediaTypeCreditsQueryKey = memoize(
+	<MT extends UseMediaTypeCreditsQueryMediaType>({ mediaType, id }: UseMediaTypeCreditsQueryProps<MT>): QueryKey => [
+		`ds-edb-${mediaType}-${id}-credits-query`
+	]
+);
+
 export const mediaTypeInfiniteQueryKey = memoize(
 	<MT extends UseMediaTypeInfiniteQueryMediaType>({ mediaType }: UseMediaTypeInfiniteQueryProps<MT>): QueryKey => [
 		`ds-edb-${mediaType}-infinite-query`
@@ -64,7 +71,6 @@ export const mediaTypeQueryKey = memoize(
 	]
 );
 
-export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
 export const mediaTypeRecommendationsQueryKey = memoize(
 	<MT extends UseMediaTypeRecommendationsQueryMediaType>({
 		mediaType,

@@ -6,6 +6,7 @@ import useImagesQuery from './useImagesQuery';
 import useJobsQuery from './useJobsQuery';
 import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
 import useLanguagesQuery from './useLanguagesQuery';
+import useMediaTypeCreditsQuery from './useMediaTypeCreditsQuery';
 import useMediaTypeInfiniteQuery from './useMediaTypeInfiniteQuery';
 import useMediaTypeQuery from './useMediaTypeQuery';
 import useMediaTypeRecommendationsQuery from './useMediaTypeRecommendationsQuery';
@@ -28,6 +29,7 @@ export {
 	useJobsQuery,
 	useKeywordsInfiniteQuery,
 	useLanguagesQuery,
+	useMediaTypeCreditsQuery,
 	useMediaTypeInfiniteQuery,
 	useMediaTypeQuery,
 	useMediaTypeRecommendationsQuery,
