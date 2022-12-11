@@ -1,16 +1,26 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 
 import { useTheme, InternalLink, utils } from '@davidscicluna/component-library';
 
-import { useBreakpointValue, Center, Text } from '@chakra-ui/react';
+import { useBreakpointValue, useBoolean, Center, Text } from '@chakra-ui/react';
+
+import { useQueryClient } from '@tanstack/react-query';
+
+import { compact, lowerCase } from 'lodash';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
+import DummyBreadcrumb from '../DummyBreadcrumb';
+import { formatMediaTypeLabel } from '../../../../../../../../common/utils';
+import { mediaTypeQueryKey } from '../../../../../../../../common/keys';
+import { FullPerson } from '../../../../../../../../common/types/person';
+import { Collection, FullMovie } from '../../../../../../../../common/types/movie';
+import { FullTV } from '../../../../../../../../common/types/tv';
 
-import { BreadcrumbProps } from './types';
+import { BreadcrumbProps, BreadcrumbLabel } from './types';
 
 const { getColor } = utils;
 
-const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb: breadcrumbProp, isCurrentPage = false }) => {
+const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb, location, match, isCurrentPage = false }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -23,9 +33,61 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb: breadcrumbProp, isCurrent
 		'2xl': theme.fontSizes.md
 	});
 
-	const { breadcrumb, match } = breadcrumbProp || {};
+	const [isLoaded, setIsLoaded] = useBoolean();
+	const [label, setLabel] = useState<BreadcrumbLabel>();
 
-	return (
+	const client = useQueryClient();
+
+	const handleCheckCache = (): void => {
+		const splitLocation = compact(location.pathname.split('/'));
+
+		if (splitLocation.length > 1) {
+			const type = splitLocation[0];
+			const id = splitLocation[1];
+
+			let label: BreadcrumbLabel;
+
+			switch (type) {
+				case lowerCase(formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' })): {
+					const movie = client.getQueryData<FullMovie>(
+						mediaTypeQueryKey({ mediaType: 'movie', id: Number(id) })
+					);
+					label = movie?.title;
+					break;
+				}
+				case lowerCase(formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })): {
+					const show = client.getQueryData<FullTV>(mediaTypeQueryKey({ mediaType: 'tv', id: Number(id) }));
+					label = show?.name;
+					break;
+				}
+				case lowerCase(formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' })): {
+					const person = client.getQueryData<FullPerson>(
+						mediaTypeQueryKey({ mediaType: 'person', id: Number(id) })
+					);
+					label = person?.name;
+					break;
+				}
+				case lowerCase(formatMediaTypeLabel({ type: 'multiple', mediaType: 'collection' })): {
+					const collection = client.getQueryData<Collection>(
+						mediaTypeQueryKey({ mediaType: 'collection', id: Number(id) })
+					);
+					label = collection?.name;
+					break;
+				}
+			}
+
+			if (label) {
+				setLabel(label);
+				setIsLoaded.on();
+			}
+		} else {
+			setIsLoaded.on();
+		}
+	};
+
+	useEffect(() => handleCheckCache(), [location]);
+
+	return isLoaded ? (
 		<Center>
 			{isCurrentPage ? (
 				<Text
@@ -34,7 +96,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb: breadcrumbProp, isCurrent
 					fontSize={breadcrumbFontSize}
 					fontWeight='medium'
 				>
-					{breadcrumb}
+					{label || breadcrumb}
 				</Text>
 			) : (
 				<InternalLink
@@ -48,6 +110,8 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb: breadcrumbProp, isCurrent
 				</InternalLink>
 			)}
 		</Center>
+	) : (
+		<DummyBreadcrumb />
 	);
 };
 
