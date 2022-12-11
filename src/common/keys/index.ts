@@ -12,6 +12,10 @@ import {
 	UseMediaTypeInfiniteQueryProps
 } from '../queries/useMediaTypeInfiniteQuery';
 import { UseMediaTypeQueryMediaType, UseMediaTypeQueryProps } from '../queries/useMediaTypeQuery';
+import {
+	UseMediaTypeRecommendationsQueryMediaType,
+	UseMediaTypeRecommendationsQueryProps
+} from '../queries/useMediaTypeRecommendationsQuery';
 import { UseMediaTypeReviewsInfiniteQueryProps } from '../queries/useMediaTypeReviewsInfiniteQuery';
 import { UseMediaTypeSimilarQueryMediaType, UseMediaTypeSimilarQueryProps } from '../queries/useMediaTypeSimilarQuery';
 import { UsePersonCreditsQueryMediaType, UsePersonCreditsQueryProps } from '../queries/usePersonCreditsQuery';
@@ -61,6 +65,13 @@ export const mediaTypeQueryKey = memoize(
 );
 
 export const peopleInfiniteQueryKey = memoize((): QueryKey => ['ds-edb-people-infinite-query']);
+export const mediaTypeRecommendationsQueryKey = memoize(
+	<MT extends UseMediaTypeRecommendationsQueryMediaType>({
+		mediaType,
+		id
+	}: UseMediaTypeRecommendationsQueryProps<MT>): QueryKey => [`ds-edb-${mediaType}-${id}-recommendations-query`]
+);
+
 export const mediaTypeReviewsInfiniteQueryKey = memoize(
 	({ mediaType, id }: UseMediaTypeReviewsInfiniteQueryProps): QueryKey => [
 		`ds-edb-${mediaType}-${id}-reviews-infinite-query`
