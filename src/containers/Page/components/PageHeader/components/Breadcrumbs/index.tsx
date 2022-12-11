@@ -14,7 +14,6 @@ import DummyBreadcrumb from './components/DummyBreadcrumb';
 
 const Breadcrumbs: FC = () => {
 	const getBreadcrumbs = useBreadcrumbs();
-	// routes.map((route) => omit(route, 'element'))
 
 	const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbData<string>[]>([]);
 	const debouncedBreadcrumbs = useDebounce<BreadcrumbData<string>[]>(breadcrumbs, 'slow');
@@ -26,10 +25,7 @@ const Breadcrumbs: FC = () => {
 			{debouncedBreadcrumbs && debouncedBreadcrumbs.length > 0
 				? debouncedBreadcrumbs.map((breadcrumb, index) => (
 						<BreadcrumbItem key={index} isCurrentPage={index === debouncedBreadcrumbs.length - 1}>
-							<Breadcrumb
-								breadcrumb={breadcrumb}
-								isCurrentPage={index === debouncedBreadcrumbs.length - 1}
-							/>
+							<Breadcrumb {...breadcrumb} isCurrentPage={index === debouncedBreadcrumbs.length - 1} />
 						</BreadcrumbItem>
 				  ))
 				: range(0, 3).map((_dummy, index) => (
