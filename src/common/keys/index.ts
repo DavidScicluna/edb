@@ -3,14 +3,14 @@ import { QueryKey } from '@tanstack/react-query';
 import { memoize } from 'lodash';
 
 import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
-import {
-	UseDiscoverMediaTypeInfiniteQueryMediaType,
-	UseDiscoverMediaTypeInfiniteQueryProps
-} from '../queries/useDiscoverMediaTypeInfiniteQuery';
 import { UseExternalIDsQueryProps } from '../queries/useExternalIDsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
 import { UseImagesQueryProps } from '../queries/useImagesQuery';
+import {
+	UseMediaTypeInfiniteQueryMediaType,
+	UseMediaTypeInfiniteQueryProps
+} from '../queries/useMediaTypeInfiniteQuery';
 import { UseMediaTypeQueryMediaType, UseMediaTypeQueryProps } from '../queries/useMediaTypeQuery';
 import { UsePersonCreditsQueryMediaType, UsePersonCreditsQueryProps } from '../queries/usePersonCreditsQuery';
 import { UsePopularQueryMediaType, UsePopularQueryProps } from '../queries/usePopularQuery';
@@ -25,12 +25,6 @@ export const certificationsQueryKey = memoize(
 );
 
 export const countriesQueryKey = memoize((): QueryKey => ['ds-edb-countries-query']);
-
-export const discoverMediaTypeInfiniteQueryKey = memoize(
-	<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType>({
-		mediaType
-	}: UseDiscoverMediaTypeInfiniteQueryProps<MT>): QueryKey => [`ds-edb-discover-${mediaType}-infinite-query`]
-);
 
 export const externalIDsQueryKey = memoize(
 	({ mediaType, id }: UseExternalIDsQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-external-ids-query`]
@@ -51,6 +45,12 @@ export const keywordsInfiniteQueryKey = memoize(
 );
 
 export const languagesQueryKey = memoize((): QueryKey => ['ds-edb-languages-query']);
+
+export const mediaTypeInfiniteQueryKey = memoize(
+	<MT extends UseMediaTypeInfiniteQueryMediaType>({ mediaType }: UseMediaTypeInfiniteQueryProps<MT>): QueryKey => [
+		`ds-edb-${mediaType}-infinite-query`
+	]
+);
 
 export const mediaTypeQueryKey = memoize(
 	<MT extends UseMediaTypeQueryMediaType>({ mediaType, id }: UseMediaTypeQueryProps<MT>): QueryKey => [

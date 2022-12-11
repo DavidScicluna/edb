@@ -13,57 +13,63 @@ import { useWillUnmount } from 'rooks';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { discoverMediaTypeInfiniteQueryKey } from '../keys';
+import { mediaTypeInfiniteQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialTV } from '../types/tv';
 import { formatMediaTypeLabel } from '../utils';
 import { PartialMovie } from '../types/movie';
+import { PartialPerson } from '../types/person';
 
-export type UseDiscoverMediaTypeInfiniteQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
+export type UseMediaTypeInfiniteQueryMediaType = Exclude<MediaType, 'company' | 'collection'>;
 
-export type UseDiscoverMediaTypeInfiniteQueryProps<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> = {
+export type UseMediaTypeInfiniteQueryProps<MT extends UseMediaTypeInfiniteQueryMediaType> = {
 	mediaType: MT;
 };
 
-export type UseDiscoverMediaTypeInfiniteQueryResponse<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> = Response<
-	MT extends 'movie' ? PartialMovie[] : PartialTV[]
+export type UseMediaTypeInfiniteQueryResponse<MT extends UseMediaTypeInfiniteQueryMediaType> = Response<
+	MT extends 'movie' ? PartialMovie[] : MT extends 'tv' ? PartialTV[] : PartialPerson[]
 >;
 
-export type UseDiscoverMediaTypeInfiniteQueryOptions<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> = Omit<
-	UseInfiniteQueryOptions<UseDiscoverMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>,
+export type UseMediaTypeInfiniteQueryOptions<MT extends UseMediaTypeInfiniteQueryMediaType> = Omit<
+	UseInfiniteQueryOptions<UseMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>,
 	'getPreviousPageParam' | 'getNextPageParam'
 >;
 
-export type UseDiscoverMediaTypeInfiniteQueryResult<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> =
-	UseInfiniteQueryResult<UseDiscoverMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>;
+export type UseMediaTypeInfiniteQueryResult<MT extends UseMediaTypeInfiniteQueryMediaType> = UseInfiniteQueryResult<
+	UseMediaTypeInfiniteQueryResponse<MT>,
+	AxiosError<QueryError>
+>;
 
-type UseDiscoverMediaTypeInfiniteQueryParams<MT extends UseDiscoverMediaTypeInfiniteQueryMediaType> = {
-	props: UseDiscoverMediaTypeInfiniteQueryProps<MT>;
+type UseMediaTypeInfiniteQueryParams<MT extends UseMediaTypeInfiniteQueryMediaType> = {
+	props: UseMediaTypeInfiniteQueryProps<MT>;
 	config?: AxiosConfig;
-	options?: UseDiscoverMediaTypeInfiniteQueryOptions<MT>;
+	options?: UseMediaTypeInfiniteQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-discover-media-type-infinite-query-toast';
+const toastID = 'ds-edb-use-media-type-infinite-query-toast';
 
-const useDiscoverMediaTypeInfiniteQuery = <MT extends UseDiscoverMediaTypeInfiniteQueryMediaType>({
+const useMediaTypeInfiniteQuery = <MT extends UseMediaTypeInfiniteQueryMediaType>({
 	props: { mediaType },
 	config = {},
 	options = {}
-}: UseDiscoverMediaTypeInfiniteQueryParams<MT>): UseDiscoverMediaTypeInfiniteQueryResult<MT> => {
+}: UseMediaTypeInfiniteQueryParams<MT>): UseMediaTypeInfiniteQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = discoverMediaTypeInfiniteQueryKey({ mediaType });
+	const key = mediaTypeInfiniteQueryKey({ mediaType });
 
 	const client = useQueryClient();
-	const infiniteQuery = useInfiniteQuery<UseDiscoverMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
+	const infiniteQuery = useInfiniteQuery<UseMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
 		async ({ pageParam = 1, signal }) => {
-			const { data } = await axios.get<UseDiscoverMediaTypeInfiniteQueryResponse<MT>>('/discover/tv', {
-				...config,
-				params: { ...config.params, page: pageParam || 1 },
-				signal
-			});
+			const { data } = await axios.get<UseMediaTypeInfiniteQueryResponse<MT>>(
+				mediaType === 'person' ? '/person/popular' : `/discover/${mediaType}`,
+				{
+					...config,
+					params: { ...config.params, page: pageParam || 1 },
+					signal
+				}
+			);
 			return data;
 		},
 		{
@@ -114,4 +120,4 @@ const useDiscoverMediaTypeInfiniteQuery = <MT extends UseDiscoverMediaTypeInfini
 	return infiniteQuery;
 };
 
-export default useDiscoverMediaTypeInfiniteQuery;
+export default useMediaTypeInfiniteQuery;
