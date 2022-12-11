@@ -6,50 +6,56 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 import { compact } from 'lodash';
 
-import { personMovieCreditsQueryKey } from '../keys';
+import { personCreditsQueryKey } from '../keys';
 import { axios } from '../scripts';
-import { AxiosConfig, QueryError } from '../types';
+import { AxiosConfig, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
-import { FullPerson, MovieCredits } from '../types/person';
+import { FullPerson, MovieCredits, TVCredits } from '../types/person';
 import { formatMediaTypeLabel } from '../utils';
 
-export type UsePersonMovieCreditsQueryProps = Pick<FullPerson, 'id'>;
+export type UsePersonCreditsQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-export type UsePersonMovieCreditsQueryResponse = MovieCredits;
-
-export type UsePersonMovieCreditsQueryOptions = UseQueryOptions<
-	UsePersonMovieCreditsQueryResponse,
-	AxiosError<QueryError>
->;
-
-export type UsePersonMovieCreditsQueryResult = UseQueryResult<
-	UsePersonMovieCreditsQueryResponse,
-	AxiosError<QueryError>
->;
-
-type UsePersonMovieCreditsQueryParams = {
-	props: UsePersonMovieCreditsQueryProps;
-	config?: AxiosConfig;
-	options?: UsePersonMovieCreditsQueryOptions;
+export type UsePersonCreditsQueryProps<MT extends UsePersonCreditsQueryMediaType> = Pick<FullPerson, 'id'> & {
+	mediaType: MT;
 };
 
-const toastID = 'ds-edb-use-person-movie-credits-query-toast';
+export type UsePersonCreditsQueryResponse<MT extends UsePersonCreditsQueryMediaType> = MT extends 'movie'
+	? MovieCredits
+	: TVCredits;
 
-const usePersonMovieCreditsQuery = ({
-	props: { id },
+export type UsePersonCreditsQueryOptions<MT extends UsePersonCreditsQueryMediaType> = UseQueryOptions<
+	UsePersonCreditsQueryResponse<MT>,
+	AxiosError<QueryError>
+>;
+
+export type UsePersonCreditsQueryResult<MT extends UsePersonCreditsQueryMediaType> = UseQueryResult<
+	UsePersonCreditsQueryResponse<MT>,
+	AxiosError<QueryError>
+>;
+
+type UsePersonCreditsQueryParams<MT extends UsePersonCreditsQueryMediaType> = {
+	props: UsePersonCreditsQueryProps<MT>;
+	config?: AxiosConfig;
+	options?: UsePersonCreditsQueryOptions<MT>;
+};
+
+const toastID = 'ds-edb-use-person-credits-query-toast';
+
+const usePersonCreditsQuery = <MT extends UsePersonCreditsQueryMediaType>({
+	props: { mediaType, id },
 	config = {},
 	options = {}
-}: UsePersonMovieCreditsQueryParams): UsePersonMovieCreditsQueryResult => {
+}: UsePersonCreditsQueryParams<MT>): UsePersonCreditsQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = personMovieCreditsQueryKey({ id });
+	const key = personCreditsQueryKey({ mediaType, id });
 
 	const client = useQueryClient();
-	const query = useQuery<UsePersonMovieCreditsQueryResponse, AxiosError<QueryError>>(
+	const query = useQuery<UsePersonCreditsQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
 		async ({ signal }) => {
-			const { data } = await axios.get<UsePersonMovieCreditsQueryResponse>(`/person/${id}/movie_credits`, {
+			const { data } = await axios.get<UsePersonCreditsQueryResponse<MT>>(`/person/${id}/${mediaType}_credits`, {
 				...config,
 				signal
 			});
@@ -76,7 +82,7 @@ const usePersonMovieCreditsQuery = ({
 									`Unfortunately, something went wrong when trying to fetch ${formatMediaTypeLabel({
 										type: 'single',
 										mediaType: 'person'
-									})} ${formatMediaTypeLabel({ type: 'single', mediaType: 'movie' })} credits.`,
+									})} ${formatMediaTypeLabel({ type: 'single', mediaType })} credits.`,
 									status_message ? `(${status_message})` : null
 								]).join(' ')}
 								status='error'
@@ -98,4 +104,4 @@ const usePersonMovieCreditsQuery = ({
 	return query;
 };
 
-export default usePersonMovieCreditsQuery;
+export default usePersonCreditsQuery;

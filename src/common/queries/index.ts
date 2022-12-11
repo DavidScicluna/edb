@@ -9,8 +9,7 @@ import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import useMediaTypeQuery from './useMediaTypeQuery';
 import usePeopleInfiniteQuery from './usePeopleInfiniteQuery';
-import usePersonMovieCreditsQuery from './usePersonMovieCreditsQuery';
-import usePersonTVShowCreditsQuery from './usePersonTVShowCreditsQuery';
+import usePersonCreditsQuery from './usePersonCreditsQuery';
 import usePopularQuery from './usePopularQuery';
 import useSearchInfiniteQuery from './useSearchInfiniteQuery';
 import useTopRatedQuery from './useTopRatedQuery';
@@ -30,8 +29,7 @@ export {
 	useLanguagesQuery,
 	useMediaTypeQuery,
 	usePeopleInfiniteQuery,
-	usePersonMovieCreditsQuery,
-	usePersonTVShowCreditsQuery,
+	usePersonCreditsQuery,
 	usePopularQuery,
 	useSearchInfiniteQuery,
 	useTopRatedQuery,
