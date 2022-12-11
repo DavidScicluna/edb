@@ -1,10 +1,10 @@
 import {
-	UseTVShowsInfiniteQueryResponse,
-	UseTVShowsInfiniteQueryResult
-} from '../../../../common/queries/useTVShowsInfiniteQuery';
+	UseMediaTypeInfiniteQueryResponse,
+	UseMediaTypeInfiniteQueryResult
+} from '../../../../common/queries/useMediaTypeInfiniteQuery';
 
 export type VerticalTVShowsProps = {
-	query: UseTVShowsInfiniteQueryResult;
-	shows?: UseTVShowsInfiniteQueryResponse;
+	query: UseMediaTypeInfiniteQueryResult<'tv'>;
+	shows?: UseMediaTypeInfiniteQueryResponse<'tv'>;
 	onLoadMore?: () => void;
 };

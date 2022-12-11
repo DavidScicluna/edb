@@ -17,7 +17,7 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import { formatMediaTypeLabel } from '../../../common/utils';
 import { DisplayMode, Suspense } from '../../../components';
-import { useTVShowsInfiniteQuery } from '../../../common/queries';
+import { useMediaTypeInfiniteQuery } from '../../../common/queries';
 import VerticalDummyTVShows from '../components/VerticalDummyTVShows';
 import { SortByForm } from '../../../components/SortBy/types';
 import { FiltersForm } from '../../../components/Filters/types';
@@ -26,7 +26,8 @@ import sortByDefaultValues from '../../../components/SortBy/common/data/defaults
 import { useUserTheme } from '../../../common/hooks';
 import { getTotalFilters } from '../../../components/Filters/common/utils';
 import { PartialTV } from '../../../common/types/tv';
-import { UseTVShowsInfiniteQueryResponse } from '../../../common/queries/useTVShowsInfiniteQuery';
+import { UseMediaTypeInfiniteQueryResponse } from '../../../common/queries/useMediaTypeInfiniteQuery';
+import { data as dataFormat } from '../../../components/Filters/common/data/formats';
 
 import TVShowsSortBy from './components/TVShowsSortBy';
 import TVShowsFiltersForm from './components/TVShowsFiltersForm';
@@ -44,7 +45,7 @@ const defaultFilters = {
 	'language': 'en-US', // TODO: Make this dynamic
 	'ott_region': 'US', // TODO: Make this dynamic
 	'certification_country': 'US', // TODO: Make this dynamic
-	'first_air_date.lte': dayjs(new Date()).format('YYYY-MM-DD') // TODO: Make a date format util to have a single point of reference
+	'first_air_date.lte': dayjs(new Date()).format(dataFormat) // TODO: Make a date format util to have a single point of reference
 };
 
 const OriginalTVShows: FC = () => {
@@ -57,13 +58,14 @@ const OriginalTVShows: FC = () => {
 
 	const navigate = useNavigate();
 
-	const [shows, setShows] = useState<UseTVShowsInfiniteQueryResponse>();
-	const showsDebounced = useDebounce<Undefinable<UseTVShowsInfiniteQueryResponse>>(shows, 'slow');
+	const [shows, setShows] = useState<UseMediaTypeInfiniteQueryResponse<'tv'>>();
+	const showsDebounced = useDebounce<Undefinable<UseMediaTypeInfiniteQueryResponse<'tv'>>>(shows, 'slow');
 
 	const [totalFilters, setTotalFilters] = useState<number>(getTotalFilters({ location, mediaType: 'tv' }) || 0);
 	const totalFiltersDebounced = useDebounce<number>(totalFilters);
 
-	const tvShowsInfiniteQuery = useTVShowsInfiniteQuery({
+	const tvShowsInfiniteQuery = useMediaTypeInfiniteQuery<'tv'>({
+		props: { mediaType: 'tv' },
 		config: { params: { ...qs.parse(location.search) } },
 		options: {
 			enabled: false,
