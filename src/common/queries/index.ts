@@ -8,6 +8,7 @@ import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import useMediaTypeInfiniteQuery from './useMediaTypeInfiniteQuery';
 import useMediaTypeQuery from './useMediaTypeQuery';
+import useMediaTypeSimilarQuery from './useMediaTypeSimilarQuery';
 import usePersonCreditsQuery from './usePersonCreditsQuery';
 import usePopularQuery from './usePopularQuery';
 import useSearchInfiniteQuery from './useSearchInfiniteQuery';
@@ -27,6 +28,7 @@ export {
 	useLanguagesQuery,
 	useMediaTypeInfiniteQuery,
 	useMediaTypeQuery,
+	useMediaTypeSimilarQuery,
 	usePersonCreditsQuery,
 	usePopularQuery,
 	useSearchInfiniteQuery,
