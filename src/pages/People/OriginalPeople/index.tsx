@@ -14,9 +14,9 @@ import Page from '../../../containers/Page';
 import PageBody from '../../../containers/Page/components/PageBody';
 import PageHeader from '../../../containers/Page/components/PageHeader';
 import { DisplayMode, Suspense } from '../../../components';
-import { usePeopleInfiniteQuery } from '../../../common/queries';
+import { useMediaTypeInfiniteQuery } from '../../../common/queries';
 import { PartialPerson } from '../../../common/types/person';
-import { UsePeopleInfiniteQueryResponse } from '../../../common/queries/usePeopleInfiniteQuery';
+import { UseMediaTypeInfiniteQueryResponse } from '../../../common/queries/useMediaTypeInfiniteQuery';
 import VerticalDummyPeople from '../components/VerticalDummyPeople';
 import { formatMediaTypeLabel } from '../../../common/utils';
 
@@ -27,10 +27,11 @@ const OriginalPeople: FC = () => {
 
 	const location = useLocation();
 
-	const [people, setPeople] = useState<UsePeopleInfiniteQueryResponse>();
-	const peopleDebounced = useDebounce<Undefinable<UsePeopleInfiniteQueryResponse>>(people, 'slow');
+	const [people, setPeople] = useState<UseMediaTypeInfiniteQueryResponse<'person'>>();
+	const peopleDebounced = useDebounce<Undefinable<UseMediaTypeInfiniteQueryResponse<'person'>>>(people, 'slow');
 
-	const peopleInfiniteQuery = usePeopleInfiniteQuery({
+	const peopleInfiniteQuery = useMediaTypeInfiniteQuery<'person'>({
+		props: { mediaType: 'person' },
 		config: {
 			params: {
 				...(qs.parse(location.search || '') || {}),

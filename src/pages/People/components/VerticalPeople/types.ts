@@ -1,9 +1,9 @@
 import {
-	UsePeopleInfiniteQueryResponse,
-	UsePeopleInfiniteQueryResult
-} from '../../../../common/queries/usePeopleInfiniteQuery';
+	UseMediaTypeInfiniteQueryResponse,
+	UseMediaTypeInfiniteQueryResult
+} from '../../../../common/queries/useMediaTypeInfiniteQuery';
 
 export type VerticalPeopleProps = {
-	query: UsePeopleInfiniteQueryResult;
-	people?: UsePeopleInfiniteQueryResponse;
+	query: UseMediaTypeInfiniteQueryResult<'person'>;
+	people?: UseMediaTypeInfiniteQueryResponse<'person'>;
 };
