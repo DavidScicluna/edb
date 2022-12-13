@@ -7,7 +7,7 @@ import { AspectRatio } from '@chakra-ui/react';
 import { getRatio } from '../../../../common/utils';
 import { useUserTheme } from '../../../../common/hooks';
 
-const ViewDummyAvatar: FC = () => {
+const ViewDummyPoster: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -19,4 +19,4 @@ const ViewDummyAvatar: FC = () => {
 	);
 };
 
-export default ViewDummyAvatar;
+export default ViewDummyPoster;
