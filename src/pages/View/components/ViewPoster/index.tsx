@@ -8,13 +8,13 @@ import { ClickableMedia, Image } from '../../../../components';
 import { getRatio } from '../../../../common/utils';
 import { useUserTheme } from '../../../../common/hooks';
 
-import { ViewAvatarProps } from './types';
+import { ViewPosterProps } from './types';
 
-const ViewAvatar: FC<ViewAvatarProps> = (props) => {
+const ViewPoster: FC<ViewPosterProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { alt, onClick, src } = props;
+	const { onClick, ...rest } = props;
 
 	const [isImageError, setIsImageError] = useBoolean();
 
@@ -38,16 +38,15 @@ const ViewAvatar: FC<ViewAvatarProps> = (props) => {
 			onClick={onClick}
 		>
 			<Image
-				alt={alt}
+				{...rest}
 				width='inherit'
 				height='inherit'
 				borderRadius='base'
 				onError={() => setIsImageError.on()}
 				onLoad={() => setIsImageError.off()}
-				src={src}
 			/>
 		</ClickableMedia>
 	);
 };
 
-export default ViewAvatar;
+export default ViewPoster;
