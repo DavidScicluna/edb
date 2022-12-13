@@ -27,15 +27,15 @@ const ViewSocials: FC<ViewSocialsProps> = ({ socials }) => {
 
 			<HStack spacing={0}>
 				{compact([
-					facebook_id ? <FacebookIconButton id={facebook_id} /> : null,
+					facebook_id ? <FacebookIconButton key='ds-edb-view-facebook-social' id={facebook_id} /> : null,
 
-					twitter_id ? <TwitterIconButton id={twitter_id} /> : null,
+					twitter_id ? <TwitterIconButton key='ds-edb-view-twitter-social' id={twitter_id} /> : null,
 
-					instagram_id ? <InstagramIconButton id={instagram_id} /> : null,
+					instagram_id ? <InstagramIconButton key='ds-edb-view-instagram-social' id={instagram_id} /> : null,
 
-					imdb_id ? <IMDBIconButton id={imdb_id} /> : null,
+					imdb_id ? <IMDBIconButton key='ds-edb-view-imdb-social' id={imdb_id} /> : null,
 
-					homepage_id ? <HomepageIconButton id={homepage_id} /> : null
+					homepage_id ? <HomepageIconButton key='ds-edb-view-homepage-social' id={homepage_id} /> : null
 				])}
 			</HStack>
 		</HStack>
