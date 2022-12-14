@@ -2,11 +2,11 @@ import useCertificationsQuery from './useCertificationsQuery';
 import useCountriesQuery from './useCountriesQuery';
 import useExternalIDsQuery from './useExternalIDsQuery';
 import useGenresQuery from './useGenresQuery';
-import useImagesQuery from './useImagesQuery';
 import useJobsQuery from './useJobsQuery';
 import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import useMediaTypeCreditsQuery from './useMediaTypeCreditsQuery';
+import useMediaTypeImagesQuery from './useMediaTypeImagesQuery';
 import useMediaTypeInfiniteQuery from './useMediaTypeInfiniteQuery';
 import useMediaTypeQuery from './useMediaTypeQuery';
 import useMediaTypeRecommendationsQuery from './useMediaTypeRecommendationsQuery';
@@ -25,11 +25,11 @@ export {
 	useCountriesQuery,
 	useExternalIDsQuery,
 	useGenresQuery,
-	useImagesQuery,
 	useJobsQuery,
 	useKeywordsInfiniteQuery,
 	useLanguagesQuery,
 	useMediaTypeCreditsQuery,
+	useMediaTypeImagesQuery,
 	useMediaTypeInfiniteQuery,
 	useMediaTypeQuery,
 	useMediaTypeRecommendationsQuery,

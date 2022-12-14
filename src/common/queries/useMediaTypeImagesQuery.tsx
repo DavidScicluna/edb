@@ -6,45 +6,45 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 import { compact } from 'lodash';
 
-import { imagesQueryKey } from '../keys';
+import { mediaTypeImagesQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, Images, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
 
-export type UseImagesQueryMediaType = Exclude<MediaType, 'company'>;
+export type UseMediaTypeImagesQueryMediaType = Exclude<MediaType, 'company'>;
 
-export type UseImagesQueryProps = { mediaType: UseImagesQueryMediaType; id: number };
+export type UseMediaTypeImagesQueryProps = { mediaType: UseMediaTypeImagesQueryMediaType; id: number };
 
-export type UseImagesQueryResponse = Images;
+export type UseMediaTypeImagesQueryResponse = Images;
 
-export type UseImagesQueryOptions = UseQueryOptions<UseImagesQueryResponse, AxiosError<QueryError>>;
+export type UseMediaTypeImagesQueryOptions = UseQueryOptions<UseMediaTypeImagesQueryResponse, AxiosError<QueryError>>;
 
-export type UseImagesQueryResult = UseQueryResult<UseImagesQueryResponse, AxiosError<QueryError>>;
+export type UseMediaTypeImagesQueryResult = UseQueryResult<UseMediaTypeImagesQueryResponse, AxiosError<QueryError>>;
 
-type UseImagesQueryParams = {
-	props: UseImagesQueryProps;
+type UseMediaTypeImagesQueryParams = {
+	props: UseMediaTypeImagesQueryProps;
 	config?: AxiosConfig;
-	options?: UseImagesQueryOptions;
+	options?: UseMediaTypeImagesQueryOptions;
 };
 
-const toastID = 'ds-edb-use-images-query-toast';
+const toastID = 'ds-edb-use-media-type-images-query-toast';
 
-const useImagesQuery = ({
+const useMediaTypeImagesQuery = ({
 	props: { mediaType, id },
 	config = {},
 	options = {}
-}: UseImagesQueryParams): UseImagesQueryResult => {
+}: UseMediaTypeImagesQueryParams): UseMediaTypeImagesQueryResult => {
 	const toast = useToast();
 
-	const key = imagesQueryKey({ mediaType, id });
+	const key = mediaTypeImagesQueryKey({ mediaType, id });
 
 	const client = useQueryClient();
-	const query = useQuery<UseImagesQueryResponse, AxiosError<QueryError>>(
+	const query = useQuery<UseMediaTypeImagesQueryResponse, AxiosError<QueryError>>(
 		key,
 		async ({ signal }) => {
-			const { data } = await axios.get<UseImagesQueryResponse>(`/${mediaType}/${id}/images`, {
+			const { data } = await axios.get<UseMediaTypeImagesQueryResponse>(`/${mediaType}/${id}/images`, {
 				...config,
 				signal
 			});
@@ -93,4 +93,4 @@ const useImagesQuery = ({
 	return query;
 };
 
-export default useImagesQuery;
+export default useMediaTypeImagesQuery;

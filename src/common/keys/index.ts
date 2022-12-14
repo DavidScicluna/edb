@@ -6,8 +6,8 @@ import { UseCertificationsQueryProps } from '../queries/useCertificationsQuery';
 import { UseExternalIDsQueryProps } from '../queries/useExternalIDsQuery';
 import { UseGenresQueryProps } from '../queries/useGenresQuery';
 import { UseKeywordsInfiniteQueryProps } from '../queries/useKeywordsInfiniteQuery';
-import { UseImagesQueryProps } from '../queries/useImagesQuery';
 import { UseMediaTypeCreditsQueryMediaType, UseMediaTypeCreditsQueryProps } from '../queries/useMediaTypeCreditsQuery';
+import { UseMediaTypeImagesQueryProps } from '../queries/useMediaTypeImagesQuery';
 import {
 	UseMediaTypeInfiniteQueryMediaType,
 	UseMediaTypeInfiniteQueryProps
@@ -41,10 +41,6 @@ export const genresQueryKey = memoize(
 	({ mediaType }: UseGenresQueryProps): QueryKey => [`ds-edb-${mediaType}-genres-query`]
 );
 
-export const imagesQueryKey = memoize(
-	({ mediaType, id }: UseImagesQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-images-query`]
-);
-
 export const jobsQueryKey = memoize((): QueryKey => ['ds-edb-jobs-query']);
 
 export const keywordsInfiniteQueryKey = memoize(
@@ -57,6 +53,10 @@ export const mediaTypeCreditsQueryKey = memoize(
 	<MT extends UseMediaTypeCreditsQueryMediaType>({ mediaType, id }: UseMediaTypeCreditsQueryProps<MT>): QueryKey => [
 		`ds-edb-${mediaType}-${id}-credits-query`
 	]
+);
+
+export const mediaTypeImagesQueryKey = memoize(
+	({ mediaType, id }: UseMediaTypeImagesQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-images-query`]
 );
 
 export const mediaTypeInfiniteQueryKey = memoize(
