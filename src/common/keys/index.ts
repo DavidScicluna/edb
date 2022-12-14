@@ -19,13 +19,13 @@ import {
 } from '../queries/useMediaTypeRecommendationsQuery';
 import { UseMediaTypeReviewsInfiniteQueryProps } from '../queries/useMediaTypeReviewsInfiniteQuery';
 import { UseMediaTypeSimilarQueryMediaType, UseMediaTypeSimilarQueryProps } from '../queries/useMediaTypeSimilarQuery';
+import { UseMediaTypeVideosQueryProps } from '../queries/useMediaTypeVideosQuery';
 import { UsePersonCreditsQueryMediaType, UsePersonCreditsQueryProps } from '../queries/usePersonCreditsQuery';
 import { UsePopularQueryMediaType, UsePopularQueryProps } from '../queries/usePopularQuery';
 import { UseSearchInfiniteQueryMediaType, UseSearchInfiniteQueryProps } from '../queries/useSearchInfiniteQuery';
 import { UseTopRatedQueryMediaType, UseTopRatedQueryProps } from '../queries/useTopRatedQuery';
 import { UseTrendingInfiniteQueryMediaType, UseTrendingInfiniteQueryProps } from '../queries/useTrendingInfiniteQuery';
 import { UseTrendingQueryMediaType, UseTrendingQueryProps } from '../queries/useTrendingQuery';
-import { UseVideosQueryProps } from '../queries/useVideosQuery';
 
 export const certificationsQueryKey = memoize(
 	({ mediaType }: UseCertificationsQueryProps): QueryKey => [`ds-edb-${mediaType}-certifications-query`]
@@ -90,6 +90,10 @@ export const mediaTypeSimilarQueryKey = memoize(
 	]
 );
 
+export const mediaTypeVideosQueryKey = memoize(
+	({ mediaType, id }: UseMediaTypeVideosQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-videos-query`]
+);
+
 export const personCreditsQueryKey = memoize(
 	<MT extends UsePersonCreditsQueryMediaType>({ mediaType, id }: UsePersonCreditsQueryProps<MT>): QueryKey => [
 		`ds-edb-person-${id}-${mediaType}-credits-query`
@@ -125,8 +129,4 @@ export const trendingQueryKey = memoize(
 	<MT extends UseTrendingQueryMediaType>({ mediaType, time }: UseTrendingQueryProps<MT>): QueryKey => [
 		`ds-edb-${time}-${mediaType}-trending-query`
 	]
-);
-
-export const videosQueryKey = memoize(
-	({ mediaType, id }: UseVideosQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-videos-query`]
 );

@@ -6,45 +6,45 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 import { compact } from 'lodash';
 
-import { videosQueryKey } from '../keys';
+import { mediaTypeVideosQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Videos } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
 
-export type UseVideosQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
+export type UseMediaTypeVideosQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-export type UseVideosQueryProps = { mediaType: UseVideosQueryMediaType; id: number };
+export type UseMediaTypeVideosQueryProps = { mediaType: UseMediaTypeVideosQueryMediaType; id: number };
 
-export type UseVideosQueryResponse = Videos;
+export type UseMediaTypeVideosQueryResponse = Videos;
 
-export type UseVideosQueryOptions = UseQueryOptions<UseVideosQueryResponse, AxiosError<QueryError>>;
+export type UseMediaTypeVideosQueryOptions = UseQueryOptions<UseMediaTypeVideosQueryResponse, AxiosError<QueryError>>;
 
-export type UseVideosQueryResult = UseQueryResult<UseVideosQueryResponse, AxiosError<QueryError>>;
+export type UseMediaTypeVideosQueryResult = UseQueryResult<UseMediaTypeVideosQueryResponse, AxiosError<QueryError>>;
 
-type UseVideosQueryParams = {
-	props: UseVideosQueryProps;
+type UseMediaTypeVideosQueryParams = {
+	props: UseMediaTypeVideosQueryProps;
 	config?: AxiosConfig;
-	options?: UseVideosQueryOptions;
+	options?: UseMediaTypeVideosQueryOptions;
 };
 
-const toastID = 'ds-edb-use-videos-query-toast';
+const toastID = 'ds-edb-use-media-type-videos-query-toast';
 
-const useVideosQuery = ({
+const useMediaTypeVideosQuery = ({
 	props: { mediaType, id },
 	config = {},
 	options = {}
-}: UseVideosQueryParams): UseVideosQueryResult => {
+}: UseMediaTypeVideosQueryParams): UseMediaTypeVideosQueryResult => {
 	const toast = useToast();
 
-	const key = videosQueryKey({ mediaType, id });
+	const key = mediaTypeVideosQueryKey({ mediaType, id });
 
 	const client = useQueryClient();
-	const query = useQuery<UseVideosQueryResponse, AxiosError<QueryError>>(
+	const query = useQuery<UseMediaTypeVideosQueryResponse, AxiosError<QueryError>>(
 		key,
 		async ({ signal }) => {
-			const { data } = await axios.get<UseVideosQueryResponse>(`/${mediaType}/${id}/videos`, {
+			const { data } = await axios.get<UseMediaTypeVideosQueryResponse>(`/${mediaType}/${id}/videos`, {
 				...config,
 				signal
 			});
@@ -93,4 +93,4 @@ const useVideosQuery = ({
 	return query;
 };
 
-export default useVideosQuery;
+export default useMediaTypeVideosQuery;
