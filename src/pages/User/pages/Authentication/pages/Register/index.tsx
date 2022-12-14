@@ -95,7 +95,7 @@ const Register: FC = () => {
 		resolver: yupResolver(detailsSchema)
 	});
 
-	const { control: controlDetailsForm, getValues: getDetailsFormValues } = detailsForm;
+	const { control: controlDetailsForm, getValues: getDetailsFormValues, reset: resetDetailsForm } = detailsForm;
 
 	const watchFirstName = useWatch({ control: controlDetailsForm, name: 'firstName' });
 	const watchLastName = useWatch({ control: controlDetailsForm, name: 'lastName' });
@@ -113,7 +113,7 @@ const Register: FC = () => {
 		defaultValues: genresDefaultValues
 	});
 
-	const { control: controlGenresForm, getValues: getGenresFormValues } = genresForm;
+	const { control: controlGenresForm, getValues: getGenresFormValues, reset: resetGenresForm } = genresForm;
 
 	const { isValid: isGenresFormValid, isDirty: isGenresFormDirty } = useFormState({ control: controlGenresForm });
 
@@ -123,7 +123,11 @@ const Register: FC = () => {
 		defaultValues: { ...customizationDefaultValues, ...guest.ui.theme }
 	});
 
-	const { control: controlCustomizationForm, getValues: getCustomizationFormValues } = customizationForm;
+	const {
+		control: controlCustomizationForm,
+		getValues: getCustomizationFormValues,
+		reset: resetCustomizationForm
+	} = customizationForm;
 
 	const watchColor = useWatch({ control: controlCustomizationForm, name: 'color' });
 	const watchColorMode = useWatch({ control: controlCustomizationForm, name: 'colorMode' });
@@ -154,7 +158,7 @@ const Register: FC = () => {
 		}
 	});
 
-	const { control: controlAssetsForm, getValues: getAssetsFormValues } = assetsForm;
+	const { control: controlAssetsForm, getValues: getAssetsFormValues, reset: resetAssetsForm } = assetsForm;
 
 	const { isValid: isAssetsFormValid, isDirty: isAssetsFormDirty } = useFormState({ control: controlAssetsForm });
 
@@ -279,13 +283,13 @@ const Register: FC = () => {
 		const details = getDetailsFormValues();
 		const genres = getGenresFormValues();
 		const customization = getCustomizationFormValues();
-		const profile = getAssetsFormValues();
+		const assets = getAssetsFormValues();
 
 		const info: UserInfo = {
 			name: `${details.firstName} ${details.lastName}`,
 			bio: details.bio,
-			avatar_path: profile.avatar_path,
-			background_path: profile.background_path,
+			avatar_path: assets.avatar_path,
+			background_path: assets.background_path,
 			prefers: { ...genres }
 		};
 
@@ -320,6 +324,11 @@ const Register: FC = () => {
 		dispatch(setUsers([...updatedUsers]));
 
 		updateFavicon({ color: updatedUser.ui.theme.color, colorMode });
+
+		resetDetailsForm({ ...details });
+		resetGenresForm({ ...genres });
+		resetCustomizationForm({ ...customization });
+		resetAssetsForm({ ...assets });
 
 		setTimeout(() => navigate('/'), 500);
 
