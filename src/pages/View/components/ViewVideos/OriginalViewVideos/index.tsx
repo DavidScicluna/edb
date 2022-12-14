@@ -81,7 +81,7 @@ const ViewVideos: FC<ViewVideosProps> = (props) => {
 							<QueryEmptyBody>
 								<QueryEmptyTitle />
 								<QueryEmptySubtitle>
-									{getEmptySubtitle({ type: 'empty', label: emptyLabel })}
+									{getEmptySubtitle({ type: 'error', label: emptyLabel })}
 								</QueryEmptySubtitle>
 							</QueryEmptyBody>
 						</QueryEmptyStack>
@@ -118,7 +118,7 @@ const ViewVideos: FC<ViewVideosProps> = (props) => {
 					color={color}
 					colorMode={colorMode}
 					isFullWidth
-					onClick={() => onFooterClick()}
+					onClick={onFooterClick}
 					size={isSm ? 'xs' : 'sm'}
 					variant='text'
 				>
