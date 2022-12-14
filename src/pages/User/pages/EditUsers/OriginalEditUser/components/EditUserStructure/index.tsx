@@ -30,7 +30,7 @@ const EditUserStructure: FC<EditUserStructureProps> = (props) => {
 	} = props;
 
 	return (
-		<Form onSubmit={onSubmit}>
+		<Form width='100%' onSubmit={onSubmit}>
 			<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={spacing}>
 				<Headline
 					width='100%'
