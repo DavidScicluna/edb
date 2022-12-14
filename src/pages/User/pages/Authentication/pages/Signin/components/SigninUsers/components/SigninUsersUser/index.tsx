@@ -16,11 +16,11 @@ import {
 import { AuthenticationOutletContext } from '../../../../../../types';
 import { Glass } from '../../../../../../../../../../components';
 
-import { UserProps } from './types';
+import { SigninUsersUserProps } from './types';
 
 const { getColor } = utils;
 
-const User: FC<UserProps> = (props) => {
+const SigninUsersUser: FC<SigninUsersUserProps> = (props) => {
 	const theme = useTheme();
 
 	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
@@ -90,4 +90,4 @@ const User: FC<UserProps> = (props) => {
 	);
 };
 
-export default User;
+export default SigninUsersUser;

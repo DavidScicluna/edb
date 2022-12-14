@@ -17,11 +17,11 @@ import { useSelector } from '../../../../../../../../common/hooks';
 import { colorMode as defaultColorMode } from '../../../../../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../../../types';
 
-import { UsersProps } from './types';
-import User from './components/User';
-import CreateUser from './components/CreateUser';
+import { SigninUsersProps } from './types';
+import SigninUsersUser from './components/SigninUsersUser';
+import SigninUsersCreateUser from './components/SigninUsersCreateUser';
 
-const Users: FC<UsersProps> = ({ selectedUserID, onUserClick }) => {
+const SigninUsers: FC<SigninUsersProps> = ({ selectedUserID, onUserClick }) => {
 	const { colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
 
 	const users = useSelector((state) => state.users.data.users || []);
@@ -47,7 +47,7 @@ const Users: FC<UsersProps> = ({ selectedUserID, onUserClick }) => {
 							...sort([...users])
 								.desc((u) => u.data.signedInAt)
 								.map((user) => (
-									<User
+									<SigninUsersUser
 										key={user.data.id}
 										user={{ ...user }}
 										isSelected={selectedUserID === user.data.id}
@@ -55,7 +55,7 @@ const Users: FC<UsersProps> = ({ selectedUserID, onUserClick }) => {
 									/>
 								)),
 
-							<CreateUser key='ds-edb-signin-create-user' />
+							<SigninUsersCreateUser key='ds-edb-signin-create-user' />
 						].map((user) => user)}
 					</HorizontalScroll>
 				</CollapsibleCardBody>
@@ -69,4 +69,4 @@ const Users: FC<UsersProps> = ({ selectedUserID, onUserClick }) => {
 	);
 };
 
-export default Users;
+export default SigninUsers;

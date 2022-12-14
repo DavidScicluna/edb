@@ -14,7 +14,7 @@ import { AuthenticationOutletContext } from '../../../../../../types';
 
 const { getColor } = utils;
 
-const CreateUser: FC = () => {
+const SigninUsersCreateUser: FC = () => {
 	const theme = useTheme();
 
 	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
@@ -59,4 +59,4 @@ const CreateUser: FC = () => {
 	);
 };
 
-export default CreateUser;
+export default SigninUsersCreateUser;
