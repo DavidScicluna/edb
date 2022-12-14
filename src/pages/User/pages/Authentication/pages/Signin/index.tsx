@@ -31,7 +31,7 @@ import SigninHeader from './components/SigninHeader';
 import { SigninForm as SigninFormType } from './types';
 import { schema } from './validation';
 import SigninFooter from './components/SigninFooter';
-import Users from './components/Users';
+import SigninUsers from './components/SigninUsers';
 
 const { getHue, getColorMode } = utils;
 
@@ -69,7 +69,7 @@ const SignIn: FC = () => {
 		defaultValues,
 		resolver: yupResolver(schema)
 	});
-	const { control, setValue, getValues } = form;
+	const { control, setValue, reset } = form;
 
 	const watchUsername = useWatch({ control, name: 'username' });
 	const watchPassword = useWatch({ control, name: 'password' });
@@ -133,10 +133,12 @@ const SignIn: FC = () => {
 		setTimeout(() => dispatch(toggleSpinnerModal(false)), 2500);
 	};
 
-	const handleSubmitForm = (credentials: SigninFormType): void => {
+	const handleSubmitForm = (values: SigninFormType): void => {
+		const { password, rememberMe } = values;
+
 		const user = users.find((user) => user.data.id === selectedUserID);
 
-		if (user && sha256(credentials.password).toString() === user.data.credentials.password) {
+		if (user && sha256(password).toString() === user.data.credentials.password) {
 			dispatch(toggleSpinnerModal(true));
 
 			if (!toast.isActive(successToastID)) {
@@ -156,8 +158,6 @@ const SignIn: FC = () => {
 				});
 			}
 
-			const { rememberMe } = getValues();
-
 			const updatedUser: User = {
 				...user,
 				data: {
@@ -175,6 +175,8 @@ const SignIn: FC = () => {
 			dispatch(setUsers([...updatedUsers]));
 
 			updateFavicon({ color: updatedUser.ui.theme.color, colorMode });
+
+			reset({ ...values });
 
 			setTimeout(() => navigate('/'), 500);
 
@@ -230,7 +232,7 @@ const SignIn: FC = () => {
 			>
 				<SigninHeader />
 
-				{users.length > 0 && <Users selectedUserID={selectedUserID} onUserClick={handleUserClick} />}
+				{users.length > 0 && <SigninUsers selectedUserID={selectedUserID} onUserClick={handleUserClick} />}
 
 				<SigninForm form={form} onSubmitAsGuest={handleSubmitAsGuest} onSubmit={handleSubmitForm} />
 

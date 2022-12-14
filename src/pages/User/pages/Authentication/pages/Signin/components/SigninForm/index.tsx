@@ -71,7 +71,7 @@ const SigninForm: FC<SigninFormProps> = (props) => {
 
 	return (
 		<>
-			<Form width='100%' onSubmit={handleSubmitForm((values) => onSubmit({ ...values }))}>
+			<Form width='100%' onSubmit={handleSubmitForm(onSubmit)}>
 				<Card colorMode={colorMode} isFullWidth p={[2, 2, 3, 3]}>
 					<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={[2, 2, 3, 3]}>
 						<CardBody>
