@@ -25,7 +25,7 @@ const OverviewTabWatchlist: FC = () => {
 
 	return (
 		<DummyHorizontalGrid colorMode={colorMode} isFullWidth spacing={2} p={2}>
-			<DummyHorizontalGridHeader hasTitle hasSubtitle spacing={0} />
+			<DummyHorizontalGridHeader hasTitle hasSubtitle dummyArrowProps={{ variant: 'icon' }} spacing={0} />
 
 			<DummyHorizontalGridBody>
 				<DummyHorizontalGridScroll>

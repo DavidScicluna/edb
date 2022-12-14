@@ -76,7 +76,9 @@ const CreateList: FC<CreateListProps> = ({ isOpen, onClose, onSubmit }) => {
 		}
 	};
 
-	const handleSubmitForm = ({ label, description }: CreateListForm): void => {
+	const handleSubmitForm = (values: CreateListForm): void => {
+		const { label, description } = values;
+
 		const listID = uuid();
 
 		const list = {
@@ -94,6 +96,8 @@ const CreateList: FC<CreateListProps> = ({ isOpen, onClose, onSubmit }) => {
 		if (onSubmit) {
 			onSubmit({ id: listID });
 		}
+
+		reset({ ...values });
 
 		onClose();
 	};

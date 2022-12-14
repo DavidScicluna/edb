@@ -75,7 +75,9 @@ const EditList: FC<EditListProps> = ({ list, isOpen, onClose }) => {
 		}
 	};
 
-	const handleSubmitForm = ({ label, description }: EditListForm): void => {
+	const handleSubmitForm = (values: EditListForm): void => {
+		const { label, description } = values;
+
 		const updatedlist = {
 			...list,
 			label,
@@ -86,6 +88,8 @@ const EditList: FC<EditListProps> = ({ list, isOpen, onClose }) => {
 		const updatedLists: UserList[] = [...filteredList, updatedlist];
 
 		dispatch(setUserLists({ id, data: sort([...updatedLists]).desc(({ createdAt }) => createdAt) }));
+
+		reset({ ...values });
 
 		onClose();
 	};
