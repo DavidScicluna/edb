@@ -1,3 +1,3 @@
-const width = ['185px', '205px', '230px', '260px'];
+const width = [150, 180, 210, 240, 270].map((num) => `${num}px`);
 
 export default width;
