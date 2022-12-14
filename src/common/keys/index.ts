@@ -12,6 +12,7 @@ import {
 	UseMediaTypeInfiniteQueryMediaType,
 	UseMediaTypeInfiniteQueryProps
 } from '../queries/useMediaTypeInfiniteQuery';
+import { UseMediaTypeKeywordsQueryProps } from '../queries/useMediaTypeKeywordsQuery';
 import { UseMediaTypeQueryMediaType, UseMediaTypeQueryProps } from '../queries/useMediaTypeQuery';
 import {
 	UseMediaTypeRecommendationsQueryMediaType,
@@ -63,6 +64,10 @@ export const mediaTypeInfiniteQueryKey = memoize(
 	<MT extends UseMediaTypeInfiniteQueryMediaType>({ mediaType }: UseMediaTypeInfiniteQueryProps<MT>): QueryKey => [
 		`ds-edb-${mediaType}-infinite-query`
 	]
+);
+
+export const mediaTypeKeywordsQueryKey = memoize(
+	({ mediaType, id }: UseMediaTypeKeywordsQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-keywords-query`]
 );
 
 export const mediaTypeQueryKey = memoize(
