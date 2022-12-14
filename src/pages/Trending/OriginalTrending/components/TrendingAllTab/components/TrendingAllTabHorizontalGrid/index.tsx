@@ -37,7 +37,7 @@ const TrendingAllTabHorizontalGrid: FC<TrendingAllTabHorizontalGridProps> = (pro
 						color={color}
 						colorMode={colorMode}
 						isFullWidth
-						onClick={() => onFooterClick()}
+						onClick={onFooterClick}
 						size={isSm ? 'xs' : 'sm'}
 						variant='text'
 					>
