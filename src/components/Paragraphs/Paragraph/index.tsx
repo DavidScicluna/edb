@@ -59,6 +59,7 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 						ref={stackRef}
 						width='100%'
 						alignItems='flex-start'
+						justifyContent='center'
 						spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
 					>
 						{compact(formatStringToParagraphs({ string: children })).map((paragraph, index) => (

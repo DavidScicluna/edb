@@ -1,6 +1,9 @@
 import { FC } from 'react';
 
 import {
+	FontSize,
+	LineHeight,
+	useTheme,
 	DummyCard,
 	DummyCardHeader,
 	CardBody,
@@ -9,26 +12,36 @@ import {
 	DummyButton
 } from '@davidscicluna/component-library';
 
-import { VStack, Text } from '@chakra-ui/react';
+import { useConst, VStack, Text } from '@chakra-ui/react';
 
 import { range } from 'lodash';
 
 import { useUserTheme } from '../../../common/hooks';
+import { getFontSizeHeight } from '../../../common/utils';
 
 const lines = 5;
 
 const DummyParagraph: FC = () => {
+	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
+
+	const fontSize = useConst<FontSize>('md');
+	const lineHeight = useConst<LineHeight>('shorter');
 
 	return (
 		<DummyCard colorMode={colorMode} isFullWidth p={2}>
 			<DummyCardHeader />
 
 			<CardBody>
-				<VStack width='100%' alignItems='flex-start' spacing={2}>
+				<VStack
+					width='100%'
+					alignItems='flex-start'
+					justifyContent='center'
+					spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
+				>
 					{range(lines).map((_dummy, index) => (
 						<Skeleton key={index} width='100%' colorMode={colorMode} isLoaded={false} variant='text'>
-							<Text width='100%' align='left' fontSize='md' fontWeight='normal' lineHeight='shorter'>
+							<Text align='left' fontSize={fontSize} fontWeight='normal' lineHeight={lineHeight}>
 								Paragraph
 							</Text>
 						</Skeleton>
