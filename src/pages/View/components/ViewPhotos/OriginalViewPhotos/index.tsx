@@ -81,7 +81,7 @@ const ViewPhotos: FC<ViewPhotosProps> = (props) => {
 							<QueryEmptyBody>
 								<QueryEmptyTitle />
 								<QueryEmptySubtitle>
-									{getEmptySubtitle({ type: 'empty', label: emptyLabel })}
+									{getEmptySubtitle({ type: 'error', label: emptyLabel })}
 								</QueryEmptySubtitle>
 							</QueryEmptyBody>
 						</QueryEmptyStack>
@@ -120,7 +120,7 @@ const ViewPhotos: FC<ViewPhotosProps> = (props) => {
 					color={color}
 					colorMode={colorMode}
 					isFullWidth
-					onClick={() => onFooterClick()}
+					onClick={onFooterClick}
 					size={isSm ? 'xs' : 'sm'}
 					variant='text'
 				>
