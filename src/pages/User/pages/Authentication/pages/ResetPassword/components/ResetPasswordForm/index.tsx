@@ -70,7 +70,7 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ form, onSubmit, onBack 
 	);
 
 	return (
-		<Form width='100%' onSubmit={handleSubmit((values) => onSubmit({ ...values }))}>
+		<Form width='100%' onSubmit={handleSubmit(onSubmit)}>
 			<Card colorMode={colorMode} isFullWidth p={spacing} spacing={0}>
 				<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={spacing}>
 					<CardHeader

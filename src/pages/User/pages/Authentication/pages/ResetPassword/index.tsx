@@ -57,7 +57,7 @@ const ForgotPassword: FC = () => {
 		resolver: yupResolver(schema)
 	});
 
-	const { control } = form;
+	const { control, reset } = form;
 
 	const { isDirty } = useFormState({ control });
 
@@ -96,6 +96,8 @@ const ForgotPassword: FC = () => {
 			};
 
 			dispatch(setUserCredentials({ id: user.data.id, data: { ...credentials } }));
+
+			reset({ ...values });
 		} else if (!toast.isActive(errorToastID)) {
 			toast.close(successToastID);
 			toast({
