@@ -26,6 +26,7 @@ import Certifications from './components/Certifications';
 import Count from './components/CountRange';
 import Dates from './components/Dates';
 import Genres from './components/Genres';
+import Keywords from './components/Keywords';
 import Rating from './components/RatingRange';
 import Runtime from './components/RuntimeRange';
 import { DisplayFiltersProps } from './types';
@@ -167,6 +168,22 @@ const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagD
 								onDelete={
 									onTagDelete
 										? () => onTagDelete({ filter: 'runtime', form: filtersDebounced })
+										: undefined
+								}
+							/>
+						) : null,
+
+						filtersDebounced.keywords !== defaultValues.keywords ? (
+							<Keywords
+								keywords={filtersDebounced.keywords}
+								onClick={
+									onTagClick
+										? () => onTagClick({ filter: 'keywords', form: filtersDebounced })
+										: undefined
+								}
+								onDelete={
+									onTagDelete
+										? () => onTagDelete({ filter: 'keywords', form: filtersDebounced })
 										: undefined
 								}
 							/>
