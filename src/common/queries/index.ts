@@ -5,6 +5,7 @@ import useGenresQuery from './useGenresQuery';
 import useJobsQuery from './useJobsQuery';
 import useKeywordQuery from './useKeywordQuery';
 import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
+import useKeywordsQueries from './useKeywordsQueries';
 import useLanguagesQuery from './useLanguagesQuery';
 import useMediaTypeCreditsQuery from './useMediaTypeCreditsQuery';
 import useMediaTypeImagesQuery from './useMediaTypeImagesQuery';
@@ -30,6 +31,7 @@ export {
 	useJobsQuery,
 	useKeywordQuery,
 	useKeywordsInfiniteQuery,
+	useKeywordsQueries,
 	useLanguagesQuery,
 	useMediaTypeCreditsQuery,
 	useMediaTypeImagesQuery,
