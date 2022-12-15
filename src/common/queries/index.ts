@@ -3,6 +3,7 @@ import useCountriesQuery from './useCountriesQuery';
 import useExternalIDsQuery from './useExternalIDsQuery';
 import useGenresQuery from './useGenresQuery';
 import useJobsQuery from './useJobsQuery';
+import useKeywordQuery from './useKeywordQuery';
 import useKeywordsInfiniteQuery from './useKeywordsInfiniteQuery';
 import useLanguagesQuery from './useLanguagesQuery';
 import useMediaTypeCreditsQuery from './useMediaTypeCreditsQuery';
@@ -27,6 +28,7 @@ export {
 	useExternalIDsQuery,
 	useGenresQuery,
 	useJobsQuery,
+	useKeywordQuery,
 	useKeywordsInfiniteQuery,
 	useLanguagesQuery,
 	useMediaTypeCreditsQuery,
