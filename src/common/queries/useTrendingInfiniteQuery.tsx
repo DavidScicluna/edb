@@ -1,19 +1,22 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
+	QueryKey,
 	useQueryClient,
 	useInfiniteQuery
 } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { trendingInfiniteQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
@@ -47,7 +50,16 @@ type UseTrendingInfiniteQueryParams<MT extends UseTrendingInfiniteQueryMediaType
 	options?: UseTrendingInfiniteQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-trending-infinite-query-toast';
+export const trendingInfiniteQueryToastID = memoize(
+	<MT extends UseTrendingInfiniteQueryMediaType>({ mediaType, time }: UseTrendingInfiniteQueryProps<MT>): string =>
+		`ds-edb-trending-${time}-${mediaType}-infinite-query-toast`
+);
+export const trendingInfiniteQueryKey = memoize(
+	<MT extends UseTrendingInfiniteQueryMediaType>({
+		mediaType,
+		time
+	}: UseTrendingInfiniteQueryProps<MT>): QueryKey => [`ds-edb-trending-${time}-${mediaType}-infinite-query`]
+);
 
 const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>({
 	props: { mediaType, time },
@@ -56,7 +68,8 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 }: UseTrendingInfiniteQueryParams<MT>): UseTrendingInfiniteQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = trendingInfiniteQueryKey({ mediaType, time });
+	const [toastID, setToastID] = useState<string>(trendingInfiniteQueryToastID({ mediaType, time }));
+	const [key, setKey] = useState<QueryKey>(trendingInfiniteQueryKey({ mediaType, time }));
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseTrendingInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
@@ -110,6 +123,19 @@ const useTrendingInfiniteQuery = <MT extends UseTrendingInfiniteQueryMediaType>(
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = trendingInfiniteQueryToastID({ mediaType, time });
+		const newKey = trendingInfiniteQueryKey({ mediaType, time });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, time]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

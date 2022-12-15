@@ -1,19 +1,22 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
+	QueryKey,
 	useQueryClient,
 	useInfiniteQuery
 } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { mediaTypeInfiniteQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialTV } from '../types/tv';
@@ -47,7 +50,15 @@ type UseMediaTypeInfiniteQueryParams<MT extends UseMediaTypeInfiniteQueryMediaTy
 	options?: UseMediaTypeInfiniteQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-media-type-infinite-query-toast';
+export const mediaTypeInfiniteQueryToastID = memoize(
+	<MT extends UseMediaTypeInfiniteQueryMediaType>({ mediaType }: UseMediaTypeInfiniteQueryProps<MT>): string =>
+		`ds-edb-${mediaType}-infinite-query-toast`
+);
+export const mediaTypeInfiniteQueryKey = memoize(
+	<MT extends UseMediaTypeInfiniteQueryMediaType>({ mediaType }: UseMediaTypeInfiniteQueryProps<MT>): QueryKey => [
+		`ds-edb-${mediaType}-infinite-query`
+	]
+);
 
 const useMediaTypeInfiniteQuery = <MT extends UseMediaTypeInfiniteQueryMediaType>({
 	props: { mediaType },
@@ -56,7 +67,8 @@ const useMediaTypeInfiniteQuery = <MT extends UseMediaTypeInfiniteQueryMediaType
 }: UseMediaTypeInfiniteQueryParams<MT>): UseMediaTypeInfiniteQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = mediaTypeInfiniteQueryKey({ mediaType });
+	const [toastID, setToastID] = useState<string>(mediaTypeInfiniteQueryToastID({ mediaType }));
+	const [key, setKey] = useState<QueryKey>(mediaTypeInfiniteQueryKey({ mediaType }));
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseMediaTypeInfiniteQueryResponse<MT>, AxiosError<QueryError>>(
@@ -114,6 +126,19 @@ const useMediaTypeInfiniteQuery = <MT extends UseMediaTypeInfiniteQueryMediaType
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = mediaTypeInfiniteQueryToastID({ mediaType });
+		const newKey = mediaTypeInfiniteQueryKey({ mediaType });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

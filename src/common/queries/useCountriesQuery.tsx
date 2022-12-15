@@ -1,16 +1,15 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
-import { useToast } from '@chakra-ui/react';
+import { useToast, useConst } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { countriesQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, Country, QueryError } from '../types';
 
@@ -25,12 +24,14 @@ type UseCountriesQueryParams = Undefinable<{
 	options?: UseCountriesQueryOptions;
 }>;
 
-const toastID = 'ds-edb-use-countries-query-toast';
+export const countriesQueryToastID = memoize((): string => 'ds-edb-countries-query-toast');
+export const countriesQueryKey = memoize((): QueryKey => ['ds-edb-countries-query']);
 
 const useCountriesQuery = ({ config = {}, options = {} }: UseCountriesQueryParams = {}): UseCountriesQueryResult => {
 	const toast = useToast();
 
-	const key = countriesQueryKey();
+	const toastID = useConst<string>(countriesQueryToastID());
+	const key = useConst<QueryKey>(countriesQueryKey());
 
 	const client = useQueryClient();
 	const query = useQuery<UseCountriesQueryResponse, AxiosError<QueryError>>(

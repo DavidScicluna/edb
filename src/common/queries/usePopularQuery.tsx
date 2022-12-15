@@ -1,14 +1,16 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { popularQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
@@ -39,7 +41,15 @@ type UsePopularQueryParams<MT extends UsePopularQueryMediaType> = {
 	options?: UsePopularQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-popular-query-toast';
+export const popularQueryToastID = memoize(
+	<MT extends UsePopularQueryMediaType>({ mediaType }: UsePopularQueryProps<MT>): string =>
+		`ds-edb-popular-${mediaType}-query-toast`
+);
+export const popularQueryKey = memoize(
+	<MT extends UsePopularQueryMediaType>({ mediaType }: UsePopularQueryProps<MT>): QueryKey => [
+		`ds-edb-popular-${mediaType}-query`
+	]
+);
 
 const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 	props: { mediaType },
@@ -48,7 +58,8 @@ const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 }: UsePopularQueryParams<MT>): UsePopularQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = popularQueryKey({ mediaType });
+	const [toastID, setToastID] = useState<string>(popularQueryToastID({ mediaType }));
+	const [key, setKey] = useState<QueryKey>(popularQueryKey({ mediaType }));
 
 	const client = useQueryClient();
 	const query = useQuery<UsePopularQueryResponse<MT>, AxiosError<QueryError>>(
@@ -95,6 +106,19 @@ const usePopularQuery = <MT extends UsePopularQueryMediaType>({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = popularQueryToastID({ mediaType });
+		const newKey = popularQueryKey({ mediaType });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

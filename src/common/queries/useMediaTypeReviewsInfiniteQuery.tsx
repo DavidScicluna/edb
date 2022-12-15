@@ -1,17 +1,20 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
+	QueryKey,
 	useQueryClient,
 	useInfiniteQuery
 } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { mediaTypeReviewsInfiniteQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response, Review } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -43,7 +46,15 @@ type UseMediaTypeReviewsInfiniteQueryParams = {
 	options?: UseMediaTypeReviewsInfiniteQueryOptions;
 };
 
-const toastID = 'ds-edb-use-media-type-reviews-infinite-query-toast';
+export const mediaTypeReviewsInfiniteQueryToastID = memoize(
+	({ mediaType, id }: UseMediaTypeReviewsInfiniteQueryProps): string =>
+		`ds-edb-${mediaType}-${id}-reviews-infinite-query-toast`
+);
+export const mediaTypeReviewsInfiniteQueryKey = memoize(
+	({ mediaType, id }: UseMediaTypeReviewsInfiniteQueryProps): QueryKey => [
+		`ds-edb-${mediaType}-${id}-reviews-infinite-query`
+	]
+);
 
 const useMediaTypeReviewsInfiniteQuery = ({
 	props: { mediaType, id },
@@ -52,7 +63,8 @@ const useMediaTypeReviewsInfiniteQuery = ({
 }: UseMediaTypeReviewsInfiniteQueryParams): UseMediaTypeReviewsInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = mediaTypeReviewsInfiniteQueryKey({ mediaType, id });
+	const [toastID, setToastID] = useState<string>(mediaTypeReviewsInfiniteQueryToastID({ mediaType, id }));
+	const [key, setKey] = useState<QueryKey>(mediaTypeReviewsInfiniteQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseMediaTypeReviewsInfiniteQueryResponse, AxiosError<QueryError>>(
@@ -108,6 +120,19 @@ const useMediaTypeReviewsInfiniteQuery = ({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = mediaTypeReviewsInfiniteQueryToastID({ mediaType, id });
+		const newKey = mediaTypeReviewsInfiniteQueryKey({ mediaType, id });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, id]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

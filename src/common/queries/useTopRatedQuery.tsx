@@ -1,14 +1,16 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { topRatedQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
@@ -39,7 +41,15 @@ type UseTopRatedQueryParams<MT extends UseTopRatedQueryMediaType> = {
 	options?: UseTopRatedQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-top-rated-query-toast';
+export const topRatedQueryToastID = memoize(
+	<MT extends UseTopRatedQueryMediaType>({ mediaType }: UseTopRatedQueryProps<MT>): string =>
+		`ds-edb-top-rated-${mediaType}-query-toast`
+);
+export const topRatedQueryKey = memoize(
+	<MT extends UseTopRatedQueryMediaType>({ mediaType }: UseTopRatedQueryProps<MT>): QueryKey => [
+		`ds-edb-top-rated-${mediaType}-query`
+	]
+);
 
 const useTopRatedQuery = <MT extends UseTopRatedQueryMediaType>({
 	props: { mediaType },
@@ -48,7 +58,8 @@ const useTopRatedQuery = <MT extends UseTopRatedQueryMediaType>({
 }: UseTopRatedQueryParams<MT>): UseTopRatedQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = topRatedQueryKey({ mediaType });
+	const [toastID, setToastID] = useState<string>(topRatedQueryToastID({ mediaType }));
+	const [key, setKey] = useState<QueryKey>(topRatedQueryKey({ mediaType }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseTopRatedQueryResponse<MT>, AxiosError<QueryError>>(
@@ -95,6 +106,19 @@ const useTopRatedQuery = <MT extends UseTopRatedQueryMediaType>({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = topRatedQueryToastID({ mediaType });
+		const newKey = topRatedQueryKey({ mediaType });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

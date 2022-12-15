@@ -1,19 +1,22 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
 import {
 	UseInfiniteQueryResult,
 	UseInfiniteQueryOptions,
+	QueryKey,
 	useQueryClient,
 	useInfiniteQuery
 } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { keywordsInfiniteQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, Keyword, QueryError, Response } from '../types';
 
@@ -37,7 +40,12 @@ type UseKeywordsInfiniteQueryParams = {
 	options?: UseKeywordsInfiniteQueryOptions;
 };
 
-const toastID = 'ds-edb-use-keywords-infinite-query-toast';
+export const keywordsInfiniteQueryToastID = memoize(
+	({ query }: UseKeywordsInfiniteQueryProps): string => `ds-edb-search-${query}-keywords-infinite-query-toast`
+);
+export const keywordsInfiniteQueryKey = memoize(
+	({ query }: UseKeywordsInfiniteQueryProps): QueryKey => [`ds-edb-search-${query}-keywords-infinite-query`]
+);
 
 const useKeywordsInfiniteQuery = ({
 	props: { query },
@@ -46,7 +54,8 @@ const useKeywordsInfiniteQuery = ({
 }: UseKeywordsInfiniteQueryParams): UseKeywordsInfiniteQueryResult => {
 	const toast = useToast();
 
-	const key = keywordsInfiniteQueryKey({ query });
+	const [toastID, setToastID] = useState<string>(keywordsInfiniteQueryToastID({ query }));
+	const [key, setKey] = useState<QueryKey>(keywordsInfiniteQueryKey({ query }));
 
 	const client = useQueryClient();
 	const infiniteQuery = useInfiniteQuery<UseKeywordsInfiniteQueryResponse, AxiosError<QueryError>>(
@@ -99,6 +108,19 @@ const useKeywordsInfiniteQuery = ({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = keywordsInfiniteQueryToastID({ query });
+		const newKey = keywordsInfiniteQueryKey({ query });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [query]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

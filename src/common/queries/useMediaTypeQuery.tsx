@@ -1,13 +1,15 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useDispatch } from 'react-redux';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { mediaTypeQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -48,7 +50,15 @@ type UseMediaTypeQueryParams<MT extends UseMediaTypeQueryMediaType> = {
 	options?: UseMediaTypeQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-media-type-query-toast';
+export const mediaTypeQueryToastID = memoize(
+	<MT extends UseMediaTypeQueryMediaType>({ mediaType, id }: UseMediaTypeQueryProps<MT>): string =>
+		`ds-edb-${mediaType}-${id}-query-toast`
+);
+export const mediaTypeQueryKey = memoize(
+	<MT extends UseMediaTypeQueryMediaType>({ mediaType, id }: UseMediaTypeQueryProps<MT>): QueryKey => [
+		`ds-edb-${mediaType}-${id}-query`
+	]
+);
 
 const useMediaTypeQuery = <MT extends UseMediaTypeQueryMediaType>({
 	props: { mediaType, id },
@@ -60,7 +70,8 @@ const useMediaTypeQuery = <MT extends UseMediaTypeQueryMediaType>({
 	const dispatch = useDispatch();
 	const { id: userID, recentlyViewed } = useSelector((state) => state.users.data.activeUser.data);
 
-	const key = mediaTypeQueryKey({ mediaType, id });
+	const [toastID, setToastID] = useState<string>(mediaTypeQueryToastID({ mediaType, id }));
+	const [key, setKey] = useState<QueryKey>(mediaTypeQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseMediaTypeQueryResponse<MT>, AxiosError<QueryError>>(
@@ -123,6 +134,19 @@ const useMediaTypeQuery = <MT extends UseMediaTypeQueryMediaType>({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = mediaTypeQueryToastID({ mediaType, id });
+		const newKey = mediaTypeQueryKey({ mediaType, id });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, id]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

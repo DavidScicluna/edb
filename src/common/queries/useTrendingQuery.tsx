@@ -1,14 +1,16 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { trendingQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
@@ -42,7 +44,15 @@ type UseTrendingQueryParams<MT extends UseTrendingQueryMediaType> = {
 	options?: UseTrendingQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-trending-query-toast';
+export const trendingQueryToastID = memoize(
+	<MT extends UseTrendingQueryMediaType>({ mediaType, time }: UseTrendingQueryProps<MT>): string =>
+		`ds-edb-trending-${time}-${mediaType}-query-toast`
+);
+export const trendingQueryKey = memoize(
+	<MT extends UseTrendingQueryMediaType>({ mediaType, time }: UseTrendingQueryProps<MT>): QueryKey => [
+		`ds-edb-trending-${time}-${mediaType}-query`
+	]
+);
 
 const useTrendingQuery = <MT extends UseTrendingQueryMediaType>({
 	props: { mediaType, time },
@@ -51,7 +61,8 @@ const useTrendingQuery = <MT extends UseTrendingQueryMediaType>({
 }: UseTrendingQueryParams<MT>): UseTrendingQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = trendingQueryKey({ mediaType, time });
+	const [toastID, setToastID] = useState<string>(trendingQueryToastID({ mediaType, time }));
+	const [key, setKey] = useState<QueryKey>(trendingQueryKey({ mediaType, time }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseTrendingQueryResponse<MT>, AxiosError<QueryError>>(
@@ -98,6 +109,19 @@ const useTrendingQuery = <MT extends UseTrendingQueryMediaType>({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = trendingQueryToastID({ mediaType, time });
+		const newKey = trendingQueryKey({ mediaType, time });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, time]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

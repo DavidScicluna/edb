@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { mediaTypeSimilarQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -42,7 +44,15 @@ type UseMediaTypeSimilarQueryParams<MT extends UseMediaTypeSimilarQueryMediaType
 	options?: UseMediaTypeSimilarQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-media-type-similar-query-toast';
+export const mediaTypeSimilarQueryToastID = memoize(
+	<MT extends UseMediaTypeSimilarQueryMediaType>({ mediaType, id }: UseMediaTypeSimilarQueryProps<MT>): string =>
+		`ds-edb-${mediaType}-${id}-similar-query-toast`
+);
+export const mediaTypeSimilarQueryKey = memoize(
+	<MT extends UseMediaTypeSimilarQueryMediaType>({ mediaType, id }: UseMediaTypeSimilarQueryProps<MT>): QueryKey => [
+		`ds-edb-${mediaType}-${id}-similar-query`
+	]
+);
 
 const useMediaTypeSimilarQuery = <MT extends UseMediaTypeSimilarQueryMediaType>({
 	props: { mediaType, id },
@@ -51,7 +61,8 @@ const useMediaTypeSimilarQuery = <MT extends UseMediaTypeSimilarQueryMediaType>(
 }: UseMediaTypeSimilarQueryParams<MT>): UseMediaTypeSimilarQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = mediaTypeSimilarQueryKey({ mediaType, id });
+	const [toastID, setToastID] = useState<string>(mediaTypeSimilarQueryToastID({ mediaType, id }));
+	const [key, setKey] = useState<QueryKey>(mediaTypeSimilarQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseMediaTypeSimilarQueryResponse<MT>, AxiosError<QueryError>>(
@@ -102,6 +113,19 @@ const useMediaTypeSimilarQuery = <MT extends UseMediaTypeSimilarQueryMediaType>(
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = mediaTypeSimilarQueryToastID({ mediaType, id });
+		const newKey = mediaTypeSimilarQueryKey({ mediaType, id });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, id]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

@@ -1,14 +1,13 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
-import { useToast } from '@chakra-ui/react';
+import { useToast, useConst } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 
-import { languagesQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, Language, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -25,12 +24,14 @@ type UseLanguagesQueryParams = Undefinable<{
 	options?: UseLanguagesQueryOptions;
 }>;
 
-const toastID = 'ds-edb-use-languages-query-toast';
+export const languagesQueryToastID = memoize((): string => 'ds-edb-languages-query-toast');
+export const languagesQueryKey = memoize((): QueryKey => ['ds-edb-languages-query']);
 
 const useLanguagesQuery = ({ config = {}, options = {} }: UseLanguagesQueryParams = {}): UseLanguagesQueryResult => {
 	const toast = useToast();
 
-	const key = languagesQueryKey();
+	const toastID = useConst<string>(languagesQueryToastID());
+	const key = useConst<QueryKey>(languagesQueryKey());
 
 	const client = useQueryClient();
 	const query = useQuery<UseLanguagesQueryResponse, AxiosError<QueryError>>(

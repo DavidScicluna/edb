@@ -1,14 +1,16 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { genresQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, Genres, MediaType, QueryError } from '../types';
 import { formatMediaTypeLabel } from '../utils';
@@ -29,7 +31,12 @@ type UseGenresQueryParams = {
 	options?: UseGenresQueryOptions;
 };
 
-const toastID = 'ds-edb-use-genres-query-toast';
+export const genresQueryToastID = memoize(
+	({ mediaType }: UseGenresQueryProps): string => `ds-edb-${mediaType}-genres-query-toast`
+);
+export const genresQueryKey = memoize(
+	({ mediaType }: UseGenresQueryProps): QueryKey => [`ds-edb-${mediaType}-genres-query`]
+);
 
 const useGenresQuery = ({
 	props: { mediaType },
@@ -38,7 +45,8 @@ const useGenresQuery = ({
 }: UseGenresQueryParams): UseGenresQueryResult => {
 	const toast = useToast();
 
-	const key = genresQueryKey({ mediaType });
+	const [toastID, setToastID] = useState<string>(genresQueryToastID({ mediaType }));
+	const [key, setKey] = useState<QueryKey>(genresQueryKey({ mediaType }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseGenresQueryResponse, AxiosError<QueryError>>(
@@ -86,6 +94,19 @@ const useGenresQuery = ({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = genresQueryToastID({ mediaType });
+		const newKey = genresQueryKey({ mediaType });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

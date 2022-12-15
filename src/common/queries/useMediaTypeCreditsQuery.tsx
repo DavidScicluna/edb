@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { mediaTypeCreditsQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -14,6 +16,8 @@ import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
 import { Credits as MovieCredits } from '../types/movie';
 import { Credits as TVShowCredits } from '../types/tv';
+
+// TODO: GO over all QueryEmpty Try again and check if they are working
 
 export type UseMediaTypeCreditsQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
@@ -39,7 +43,15 @@ type UseMediaTypeCreditsQueryParams<MT extends UseMediaTypeCreditsQueryMediaType
 	options?: UseMediaTypeCreditsQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-media-type-credits-query-toast';
+export const mediaTypeCreditsQueryToastID = memoize(
+	<MT extends UseMediaTypeCreditsQueryMediaType>({ mediaType, id }: UseMediaTypeCreditsQueryProps<MT>): string =>
+		`ds-edb-${mediaType}-${id}-credits-query-toast`
+);
+export const mediaTypeCreditsQueryKey = memoize(
+	<MT extends UseMediaTypeCreditsQueryMediaType>({ mediaType, id }: UseMediaTypeCreditsQueryProps<MT>): QueryKey => [
+		`ds-edb-${mediaType}-${id}-credits-query`
+	]
+);
 
 const useMediaTypeCreditsQuery = <MT extends UseMediaTypeCreditsQueryMediaType>({
 	props: { mediaType, id },
@@ -48,7 +60,8 @@ const useMediaTypeCreditsQuery = <MT extends UseMediaTypeCreditsQueryMediaType>(
 }: UseMediaTypeCreditsQueryParams<MT>): UseMediaTypeCreditsQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = mediaTypeCreditsQueryKey({ mediaType, id });
+	const [toastID, setToastID] = useState<string>(mediaTypeCreditsQueryToastID({ mediaType, id }));
+	const [key, setKey] = useState<QueryKey>(mediaTypeCreditsQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseMediaTypeCreditsQueryResponse<MT>, AxiosError<QueryError>>(
@@ -97,6 +110,19 @@ const useMediaTypeCreditsQuery = <MT extends UseMediaTypeCreditsQueryMediaType>(
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = mediaTypeCreditsQueryToastID({ mediaType, id });
+		const newKey = mediaTypeCreditsQueryKey({ mediaType, id });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, id]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

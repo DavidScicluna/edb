@@ -1,14 +1,13 @@
 import { Undefinable } from '@davidscicluna/component-library';
 
-import { useToast } from '@chakra-ui/react';
+import { useToast, useConst } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 
-import { jobsQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, Job, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -25,12 +24,14 @@ type UseJobsQueryParams = Undefinable<{
 	options?: UseJobsQueryOptions;
 }>;
 
-const toastID = 'ds-edb-use-jobs-query-toast';
+export const jobsQueryToastID = memoize((): string => 'ds-edb-jobs-query-toast');
+export const jobsQueryKey = memoize((): QueryKey => ['ds-edb-jobs-query']);
 
 const useJobsQuery = ({ config = {}, options = {} }: UseJobsQueryParams = {}): UseJobsQueryResult => {
 	const toast = useToast();
 
-	const key = jobsQueryKey();
+	const toastID = useConst<string>(jobsQueryToastID());
+	const key = useConst<QueryKey>(jobsQueryKey());
 
 	const client = useQueryClient();
 	const query = useQuery<UseJobsQueryResponse, AxiosError<QueryError>>(

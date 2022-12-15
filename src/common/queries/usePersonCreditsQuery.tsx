@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { personCreditsQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -40,7 +42,15 @@ type UsePersonCreditsQueryParams<MT extends UsePersonCreditsQueryMediaType> = {
 	options?: UsePersonCreditsQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-person-credits-query-toast';
+export const personCreditsQueryToastID = memoize(
+	<MT extends UsePersonCreditsQueryMediaType>({ mediaType, id }: UsePersonCreditsQueryProps<MT>): string =>
+		`ds-edb-person-${id}-${mediaType}-credits-query-toast`
+);
+export const personCreditsQueryKey = memoize(
+	<MT extends UsePersonCreditsQueryMediaType>({ mediaType, id }: UsePersonCreditsQueryProps<MT>): QueryKey => [
+		`ds-edb-person-${id}-${mediaType}-credits-query`
+	]
+);
 
 const usePersonCreditsQuery = <MT extends UsePersonCreditsQueryMediaType>({
 	props: { mediaType, id },
@@ -49,7 +59,8 @@ const usePersonCreditsQuery = <MT extends UsePersonCreditsQueryMediaType>({
 }: UsePersonCreditsQueryParams<MT>): UsePersonCreditsQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = personCreditsQueryKey({ mediaType, id });
+	const [toastID, setToastID] = useState<string>(personCreditsQueryToastID({ mediaType, id }));
+	const [key, setKey] = useState<QueryKey>(personCreditsQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
 	const query = useQuery<UsePersonCreditsQueryResponse<MT>, AxiosError<QueryError>>(
@@ -98,6 +109,19 @@ const usePersonCreditsQuery = <MT extends UsePersonCreditsQueryMediaType>({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = personCreditsQueryToastID({ mediaType, id });
+		const newKey = personCreditsQueryKey({ mediaType, id });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, id]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { mediaTypeVideosQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Videos } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -29,7 +31,12 @@ type UseMediaTypeVideosQueryParams = {
 	options?: UseMediaTypeVideosQueryOptions;
 };
 
-const toastID = 'ds-edb-use-media-type-videos-query-toast';
+export const mediaTypeVideosQueryToastID = memoize(
+	({ mediaType, id }: UseMediaTypeVideosQueryProps): string => `ds-edb-${mediaType}-${id}-videos-query-toast`
+);
+export const mediaTypeVideosQueryKey = memoize(
+	({ mediaType, id }: UseMediaTypeVideosQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-videos-query`]
+);
 
 const useMediaTypeVideosQuery = ({
 	props: { mediaType, id },
@@ -38,7 +45,8 @@ const useMediaTypeVideosQuery = ({
 }: UseMediaTypeVideosQueryParams): UseMediaTypeVideosQueryResult => {
 	const toast = useToast();
 
-	const key = mediaTypeVideosQueryKey({ mediaType, id });
+	const [toastID, setToastID] = useState<string>(mediaTypeVideosQueryToastID({ mediaType, id }));
+	const [key, setKey] = useState<QueryKey>(mediaTypeVideosQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseMediaTypeVideosQueryResponse, AxiosError<QueryError>>(
@@ -87,6 +95,19 @@ const useMediaTypeVideosQuery = ({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = mediaTypeVideosQueryToastID({ mediaType, id });
+		const newKey = mediaTypeVideosQueryKey({ mediaType, id });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, id]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

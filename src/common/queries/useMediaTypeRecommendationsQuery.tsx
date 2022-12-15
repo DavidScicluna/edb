@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { mediaTypeRecommendationsQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -38,7 +40,18 @@ type UseMediaTypeRecommendationsQueryParams<MT extends UseMediaTypeRecommendatio
 	options?: UseMediaTypeRecommendationsQueryOptions<MT>;
 };
 
-const toastID = 'ds-edb-use-media-type-recommendations-query-toast';
+export const mediaTypeRecommendationsQueryToastID = memoize(
+	<MT extends UseMediaTypeRecommendationsQueryMediaType>({
+		mediaType,
+		id
+	}: UseMediaTypeRecommendationsQueryProps<MT>): string => `ds-edb-${mediaType}-${id}-recommendations-query-toast`
+);
+export const mediaTypeRecommendationsQueryKey = memoize(
+	<MT extends UseMediaTypeRecommendationsQueryMediaType>({
+		mediaType,
+		id
+	}: UseMediaTypeRecommendationsQueryProps<MT>): QueryKey => [`ds-edb-${mediaType}-${id}-recommendations-query`]
+);
 
 const useMediaTypeRecommendationsQuery = <MT extends UseMediaTypeRecommendationsQueryMediaType>({
 	props: { mediaType, id },
@@ -47,7 +60,8 @@ const useMediaTypeRecommendationsQuery = <MT extends UseMediaTypeRecommendations
 }: UseMediaTypeRecommendationsQueryParams<MT>): UseMediaTypeRecommendationsQueryResult<MT> => {
 	const toast = useToast();
 
-	const key = mediaTypeRecommendationsQueryKey({ mediaType, id });
+	const [toastID, setToastID] = useState<string>(mediaTypeRecommendationsQueryToastID({ mediaType, id }));
+	const [key, setKey] = useState<QueryKey>(mediaTypeRecommendationsQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseMediaTypeRecommendationsQueryResponse<MT>, AxiosError<QueryError>>(
@@ -99,6 +113,19 @@ const useMediaTypeRecommendationsQuery = <MT extends UseMediaTypeRecommendations
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = mediaTypeRecommendationsQueryToastID({ mediaType, id });
+		const newKey = mediaTypeRecommendationsQueryKey({ mediaType, id });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, id]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

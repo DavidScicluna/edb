@@ -1,14 +1,16 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { Alert } from '../../components';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { certificationsQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, Certifications, MediaType, QueryError } from '../types';
 import { formatMediaTypeLabel } from '../utils';
@@ -29,7 +31,12 @@ type UseCertificationsQueryParams = {
 	options?: UseCertificationsQueryOptions;
 };
 
-const toastID = 'ds-edb-use-certifications-query-toast';
+export const certificationsQueryToastID = memoize(
+	({ mediaType }: UseCertificationsQueryProps): string => `ds-edb-${mediaType}-certifications-query-toast`
+);
+export const certificationsQueryKey = memoize(
+	({ mediaType }: UseCertificationsQueryProps): QueryKey => [`ds-edb-${mediaType}-certifications-query`]
+);
 
 const useCertificationsQuery = ({
 	props: { mediaType },
@@ -38,7 +45,8 @@ const useCertificationsQuery = ({
 }: UseCertificationsQueryParams): UseCertificationsQueryResult => {
 	const toast = useToast();
 
-	const key = certificationsQueryKey({ mediaType });
+	const [toastID, setToastID] = useState<string>(certificationsQueryToastID({ mediaType }));
+	const [key, setKey] = useState<QueryKey>(certificationsQueryKey({ mediaType }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseCertificationsQueryResponse, AxiosError<QueryError>>(
@@ -86,6 +94,19 @@ const useCertificationsQuery = ({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = certificationsQueryToastID({ mediaType });
+		const newKey = certificationsQueryKey({ mediaType });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 

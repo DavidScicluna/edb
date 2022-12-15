@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 
-import { UseQueryResult, UseQueryOptions, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
-import { compact } from 'lodash';
+import { compact, memoize } from 'lodash';
+import { useUpdateEffect } from 'usehooks-ts';
 
-import { externalIDsQueryKey } from '../keys';
 import { axios } from '../scripts';
 import { AxiosConfig, ExternalIDs, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
@@ -29,7 +31,12 @@ type UseExternalIDsQueryParams = {
 	options?: UseExternalIDsQueryOptions;
 };
 
-const toastID = 'ds-edb-use-external-ids-query-toast';
+export const externalIDsQueryToastID = memoize(
+	({ mediaType, id }: UseExternalIDsQueryProps): string => `ds-edb-${mediaType}-external-ids-${id}-query-toast`
+);
+export const externalIDsQueryKey = memoize(
+	({ mediaType, id }: UseExternalIDsQueryProps): QueryKey => [`ds-edb-${mediaType}-external-ids-${id}-query`]
+);
 
 const useExternalIDsQuery = ({
 	props: { mediaType, id },
@@ -38,7 +45,8 @@ const useExternalIDsQuery = ({
 }: UseExternalIDsQueryParams): UseExternalIDsQueryResult => {
 	const toast = useToast();
 
-	const key = externalIDsQueryKey({ mediaType, id });
+	const [toastID, setToastID] = useState<string>(externalIDsQueryToastID({ mediaType, id }));
+	const [key, setKey] = useState<QueryKey>(externalIDsQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
 	const query = useQuery<UseExternalIDsQueryResponse, AxiosError<QueryError>>(
@@ -87,6 +95,19 @@ const useExternalIDsQuery = ({
 			}
 		}
 	);
+
+	useUpdateEffect(() => {
+		const newToastID = externalIDsQueryToastID({ mediaType, id });
+		const newKey = externalIDsQueryKey({ mediaType, id });
+
+		if (newToastID !== toastID) {
+			setToastID(newToastID);
+		}
+
+		if (newKey !== key) {
+			setKey(newKey);
+		}
+	}, [mediaType, id]);
 
 	useWillUnmount(() => client.cancelQueries(key));
 
