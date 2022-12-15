@@ -29,8 +29,8 @@ import {
 } from '../../../../../..';
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../../../common/types';
-import { genresQueryKey } from '../../../../../../../common/keys';
 import { useGenresQuery } from '../../../../../../../common/queries';
+import { genresQueryKey } from '../../../../../../../common/queries/useGenresQuery';
 import DummyGenre from '../DummyGenre';
 import GenresCardActions from '../GenresCardActions';
 import Genre from '../Genre';

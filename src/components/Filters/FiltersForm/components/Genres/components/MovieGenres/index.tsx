@@ -33,7 +33,7 @@ import {
 import Genre from '../Genre';
 import DummyGenre from '../DummyGenre';
 import GenresCardActions from '../GenresCardActions';
-import { genresQueryKey } from '../../../../../../../common/keys';
+import { genresQueryKey } from '../../../../../../../common/queries/useGenresQuery';
 import { getEmptySubtitle } from '../../../../../../QueryEmpty/common/utils';
 import defaultValues from '../../../../../common/data/defaults';
 
