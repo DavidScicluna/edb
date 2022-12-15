@@ -36,7 +36,7 @@ import { UserGenresProps as UserMovieGenresProps } from '../../types';
 import Genre from '../UserGenre';
 import DummyGenre from '../DummyUserGenre';
 import Actions from '../UserGenresActions';
-import { genresQueryKey } from '../../../../../../common/keys';
+import { genresQueryKey } from '../../../../../../common/queries/useGenresQuery';
 import { formatMediaTypeLabel } from '../../../../../../common/utils';
 import { getEmptySubtitle } from '../../../../../../components/QueryEmpty/common/utils';
 

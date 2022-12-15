@@ -30,7 +30,7 @@ import {
 import { useSelector } from '../../../../../../common/hooks';
 import { Genre as GenreType, QueryError as QueryErrorType } from '../../../../../../common/types';
 import { userGenresDefaultValues as defaultValues } from '../../defaults';
-import { genresQueryKey } from '../../../../../../common/keys';
+import { genresQueryKey } from '../../../../../../common/queries/useGenresQuery';
 import { useGenresQuery } from '../../../../../../common/queries';
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import DummyGenre from '../DummyUserGenre';
