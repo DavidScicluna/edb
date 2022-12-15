@@ -35,7 +35,7 @@ import {
 import Certification from '../Certification';
 import DummyCertification from '../DummyCertification';
 import CertificationsCardActions from '../CertificationsCardActions';
-import { certificationsQueryKey } from '../../../../../../../common/keys';
+import { certificationsQueryKey } from '../../../../../../../common/queries/useCertificationsQuery';
 import { getEmptySubtitle } from '../../../../../../QueryEmpty/common/utils';
 import defaultValues from '../../../../../common/data/defaults';
 
@@ -153,6 +153,7 @@ const MovieCertifications: FC<MovieCertificationsProps> = ({ form }) => {
 										</QueryEmptySubtitle>
 									</QueryEmptyBody>
 
+									{/* TODO: Remove all QueryEmptyActions for Empty, leave only Error */}
 									<QueryEmptyActions
 										renderActions={(props) => (
 											<Button {...props} onClick={() => refetch()}>

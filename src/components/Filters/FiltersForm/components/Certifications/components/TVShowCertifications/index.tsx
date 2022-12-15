@@ -30,8 +30,8 @@ import {
 } from '../../../../../..';
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { Certification as CertificationType, QueryError as QueryErrorType } from '../../../../../../../common/types';
-import { certificationsQueryKey } from '../../../../../../../common/keys';
 import { useCertificationsQuery } from '../../../../../../../common/queries';
+import { certificationsQueryKey } from '../../../../../../../common/queries/useCertificationsQuery';
 import DummyCertification from '../DummyCertification';
 import CertificationsCardActions from '../CertificationsCardActions';
 import Certification from '../Certification';
