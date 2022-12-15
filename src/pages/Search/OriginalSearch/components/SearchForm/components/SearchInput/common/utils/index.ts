@@ -1,7 +1,14 @@
-import { memoize, sample, shuffle } from 'lodash';
+import { memoize, shuffle } from 'lodash';
 
+import {
+	movie,
+	tv,
+	people,
+	collections,
+	companies,
+	combined
+} from '../../../../../../../../../common/data/placeholders/search';
 import { SearchForm } from '../../../../../../types';
-import { movie, tv, people, collections, companies, combined } from '../data/placeholders';
 
 type GetPlaceholderProps = { searchTypes: SearchForm['searchTypes'] };
 
@@ -35,5 +42,5 @@ export const getPlaceholder = memoize(({ searchTypes = [] }: GetPlaceholderProps
 		placeholders = [...combined];
 	}
 
-	return sample(placeholders) || shuffle(placeholders)[0];
+	return shuffle(placeholders)[0];
 });
