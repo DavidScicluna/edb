@@ -112,7 +112,9 @@ const OriginalTVShows: FC = () => {
 		handleFetch(merge({ ...currentParams, ...updatedSortBy }));
 	};
 
-	const handleSetFilters = ({ certifications, dates, genres, rating, count, runtime }: FiltersForm): void => {
+	const handleSetFilters = (values: FiltersForm): void => {
+		const { certifications, dates, genres, keywords, rating, count, runtime } = values;
+
 		const currentParams = pick({ ...qs.parse(location.search) }, 'sort_by');
 		const updatedFilters = omitBy(
 			merge({
@@ -121,6 +123,7 @@ const OriginalTVShows: FC = () => {
 				'first_air_date.gte': dates.gte || undefined,
 				'first_air_date.lte': dates.lte || undefined,
 				'with_genres': genres.length > 0 ? genres.join(',') : undefined,
+				'with_keywords': keywords.length > 0 ? keywords.join(',') : undefined,
 				'vote_average.gte': rating.length > 0 && rating[0] ? rating[0] : undefined,
 				'vote_average.lte': rating.length > 0 && rating[1] ? rating[1] : undefined,
 				'vote_count.gte': count.length > 0 && count[0] ? count[0] : undefined,
