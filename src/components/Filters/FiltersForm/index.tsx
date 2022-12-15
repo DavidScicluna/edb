@@ -29,6 +29,7 @@ import Certifications from './components/Certifications';
 import CountRange from './components/CountRange';
 import Dates from './components/Dates';
 import Genres from './components/Genres';
+import Keywords from './components/Keywords';
 import RatingRange from './components/RatingRange';
 import RuntimeRange from './components/RuntimeRange';
 import { FiltersFormProps } from './types';
@@ -65,6 +66,7 @@ const FiltersForm: FC<FiltersFormProps> = (props) => {
 		setValue('rating', defaultValues.rating, { shouldDirty: true });
 		setValue('count', defaultValues.count, { shouldDirty: true });
 		setValue('runtime', defaultValues.runtime, { shouldDirty: true });
+		setValue('keywords', defaultValues.keywords, { shouldDirty: true });
 	};
 
 	const handleClose = (): void => {
@@ -106,7 +108,7 @@ const FiltersForm: FC<FiltersFormProps> = (props) => {
 								{`Filter ${formatMediaTypeLabel({
 									type: 'multiple',
 									mediaType
-								})} by Release Date, Genres, Certifications, Rating, Number of Ratings & Runtime.`}
+								})} by Release Date, Genres, Certifications, Rating, Number of Ratings, Runtime & by Keywords.`}
 							</Text>
 						)}
 						renderCancel={({ icon, category, ...rest }) => (
@@ -123,6 +125,7 @@ const FiltersForm: FC<FiltersFormProps> = (props) => {
 							<RatingRange form={form} />
 							<CountRange form={form} />
 							<RuntimeRange form={form} />
+							<Keywords form={form} />
 						</VStack>
 					</ModalBody>
 					<ModalFooter

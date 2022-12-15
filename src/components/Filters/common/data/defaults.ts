@@ -6,5 +6,6 @@ export default {
 	certifications: [],
 	rating: [],
 	count: [],
-	runtime: []
+	runtime: [],
+	keywords: []
 } as FiltersForm;

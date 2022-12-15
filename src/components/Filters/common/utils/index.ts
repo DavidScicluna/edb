@@ -91,6 +91,10 @@ export const getFiltersForm = memoize(({ location, mediaType }: GetProps): Filte
 		]);
 	}
 
+	if (search && search['with_keywords'] && typeof search['with_keywords'] === 'string') {
+		filters.keywords = search['with_keywords'].split(',').map((keyword) => Number(keyword));
+	}
+
 	return filters;
 });
 
