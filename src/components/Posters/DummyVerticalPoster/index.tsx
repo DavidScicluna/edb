@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { DummyCard, CardBody } from '@davidscicluna/component-library';
+import { DummyCard, CardBody, utils } from '@davidscicluna/component-library';
 
 import { VStack, HStack } from '@chakra-ui/react';
 
@@ -8,8 +8,9 @@ import { merge } from 'lodash';
 
 import { MediaType } from '../../../common/types';
 import DummyRating from '../../Ratings/DummyRating';
-import DummyPosterLike from '../components/DummyPosterLike';
 import DummyPosterBookmark from '../components/DummyPosterBookmark';
+import DummyPosterLike from '../components/DummyPosterLike';
+import DummyPosterQuickview from '../components/DummyPosterQuickview';
 import PosterGlass from '../components/PosterGlass';
 import { useUserTheme } from '../../../common/hooks';
 
@@ -17,6 +18,10 @@ import { DummyVerticalPosterProps } from './types';
 import DummyVerticalPosterImage from './components/DummyVerticalPosterImage';
 import DummyVerticalPosterTitle from './components/DummyVerticalPosterTitle';
 import DummyVerticalPosterSubtitle from './components/DummyVerticalPosterSubtitle';
+
+const { checkIsTouchDevice } = utils;
+
+const isTouchDevice: boolean = checkIsTouchDevice();
 
 const DummyVerticalPoster = <MT extends MediaType>(props: DummyVerticalPosterProps<MT>): ReactElement => {
 	const { colorMode } = useUserTheme();
@@ -41,14 +46,7 @@ const DummyVerticalPoster = <MT extends MediaType>(props: DummyVerticalPosterPro
 								<DummyRating size='sm' />
 
 								<HStack spacing={0.5}>
-									{/* {isTouchDevice && (
-											<Quickview
-												title={title}
-												mediaType={mediaType}
-												mediaItem={mediaItem}
-												size='sm'
-											/>
-										)} */}
+									{isTouchDevice && <DummyPosterQuickview size='xs' />}
 
 									<DummyPosterLike size='xs' />
 
@@ -66,20 +64,11 @@ const DummyVerticalPoster = <MT extends MediaType>(props: DummyVerticalPosterPro
 
 					{(mediaType === 'person' || mediaType === 'company' || mediaType === 'collection') && (
 						<>
-							{/* {isTouchDevice && mediaType !== 'company' && (
-									<PosterGlass
-										position='absolute'
-										top={1.5}
-										left={1.5}
-									>
-										<Quickview
-											title={title}
-											mediaType={mediaType}
-											mediaItem={mediaItem}
-											size='sm'
-										/>
-									</PosterGlass>
-								)} */}
+							{isTouchDevice && mediaType !== 'company' && (
+								<PosterGlass position='absolute' top={1.5} left={1.5}>
+									<DummyPosterQuickview size='xs' />
+								</PosterGlass>
+							)}
 
 							<PosterGlass position='absolute' top={1.5} right={1.5}>
 								<DummyPosterLike size='xs' />

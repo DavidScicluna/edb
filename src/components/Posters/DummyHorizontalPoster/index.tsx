@@ -8,6 +8,7 @@ import { useUserTheme } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
 import DummyPosterBookmark from '../components/DummyPosterBookmark';
 import DummyPosterLike from '../components/DummyPosterLike';
+import DummyPosterQuickview from '../components/DummyPosterQuickview';
 
 import { DummyHorizontalPosterProps } from './types';
 import DummyHorizontalPosterDescription from './components/DummyHorizontalPosterDescription';
@@ -66,14 +67,7 @@ const DummyHorizontalPoster = <MT extends MediaType>(props: DummyHorizontalPoste
 					</VStack>
 
 					<HStack position='absolute' top={spacing} right={spacing} spacing={0.5}>
-						{/* {mediaType !== 'company' && (
-								<Quickview
-									title={title}
-									mediaType={mediaType}
-									mediaItem={mediaItem}
-									size={isSm ? 'md' : 'lg'}
-								/>
-							)} */}
+						{mediaType !== 'company' && <DummyPosterQuickview size={isSm ? 'md' : 'lg'} />}
 
 						<DummyPosterLike size={isSm ? 'md' : 'lg'} />
 
