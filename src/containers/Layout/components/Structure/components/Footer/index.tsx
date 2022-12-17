@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import { useUserTheme } from '../../../../../../common/hooks';
 import { Logo } from '../../../../../../components';
 import { useLayoutContext } from '../../../../common/hooks';
+import { formatDate } from '../../../../../../common/utils';
 
 import FooterNavigation from './components/FooterNavigation';
 import FooterExternalLink from './components/FooterExternalLink';
@@ -76,7 +77,10 @@ const Footer: FC<FooterProps> = ({ isDummy = false }) => {
 						fontSize='sm'
 						fontWeight='medium'
 					>
-						{`© ${dayjs(new Date()).format('YYYY')} EDB, All rights reserved.`}
+						{`© ${formatDate({
+							date: dayjs(new Date()).toISOString(),
+							section: 'year'
+						})} EDB, All rights reserved.`}
 					</Text>
 				</Skeleton>
 
