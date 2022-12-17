@@ -37,6 +37,7 @@ const PosterQuickview = <MT extends MediaType>(props: PosterQuickviewProps<MT>):
 			<IconButton
 				aria-label={`Quick view ${title} ${mediaType}`}
 				color={isQuickViewModalOpen && quickViewModalMediaItem?.id === mediaItem?.id ? color : 'gray'}
+				colorMode={colorMode}
 				onClick={(event: PosterMouseEvent) => {
 					event.preventDefault();
 					event.stopPropagation();

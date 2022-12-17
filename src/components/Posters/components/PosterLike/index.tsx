@@ -46,6 +46,7 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 								: `Like "${title}" ${formatMediaTypeLabel({ type: 'single', mediaType })}`
 						}
 						color={isLiked ? 'red' : 'gray'}
+						colorMode={colorMode}
 						isDisabled={isDisabled || !mediaItem}
 						onClick={(event: PosterMouseEvent) => {
 							event.preventDefault();
