@@ -27,32 +27,35 @@ const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement 
 
 	const [isBookmarkedMultiple, setIsBookmarkedMultiple] = useBoolean();
 
-	const handleIsBookmarked = useCallback((): void => {
-		let isBookmarked = false;
-		let inLists = 0;
+	const handleIsBookmarked = useCallback(
+		debounce((): void => {
+			let isBookmarked = false;
+			let inLists = 0;
 
-		lists.forEach((list) => {
-			switch (mediaType) {
-				case 'movie': {
-					if (list.mediaItems.movie.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
-						isBookmarked = true;
-						inLists = inLists + 1;
+			lists.forEach((list) => {
+				switch (mediaType) {
+					case 'movie': {
+						if (list.mediaItems.movie.some((movie) => movie.mediaItem.id === mediaItem?.id)) {
+							isBookmarked = true;
+							inLists = inLists + 1;
+						}
+						return;
 					}
-					return;
-				}
-				case 'tv': {
-					if (list.mediaItems.tv.some((show) => show.mediaItem.id === mediaItem?.id)) {
-						isBookmarked = true;
-						inLists = inLists + 1;
+					case 'tv': {
+						if (list.mediaItems.tv.some((show) => show.mediaItem.id === mediaItem?.id)) {
+							isBookmarked = true;
+							inLists = inLists + 1;
+						}
+						return;
 					}
-					return;
 				}
-			}
-		});
+			});
 
-		setIsBookmarked[isBookmarked ? 'on' : 'off']();
-		setIsBookmarkedMultiple[inLists > 1 ? 'on' : 'off']();
-	}, [lists, mediaType, mediaItem, lists]);
+			setIsBookmarked[isBookmarked ? 'on' : 'off']();
+			setIsBookmarkedMultiple[inLists > 1 ? 'on' : 'off']();
+		}, 100),
+		[lists, mediaType, mediaItem, lists]
+	);
 
 	const handleClick = useCallback(
 		debounce((): void => {
@@ -80,7 +83,7 @@ const Bookmark = <MT extends MediaType>(props: BookmarkProps<MT>): ReactElement 
 					})
 				);
 			}
-		}, 1000),
+		}, 100),
 		[isGuest, mediaType, mediaItem, title]
 	);
 
