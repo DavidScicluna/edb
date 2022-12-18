@@ -67,7 +67,7 @@ const UserProfileTabsPeople: FC<UserProfileTabsPeopleProps> = ({ people }) => {
 				{({ displayMode }) =>
 					sort(people)
 						.desc((person) => person.addedAt)
-						.filter((_person, index) => index <= visibleDebounced)
+						.filter((_person, index) => index < visibleDebounced)
 						.map((person) =>
 							displayMode === 'list' ? (
 								<PersonHorizontalPoster key={person.mediaItem.id} person={person.mediaItem} />

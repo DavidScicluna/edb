@@ -66,7 +66,7 @@ const UserProfileTabsMovies: FC<UserProfileTabsMoviesProps> = ({ movies }) => {
 				{({ displayMode }) =>
 					sort(movies)
 						.desc((movie) => movie.addedAt)
-						.filter((_movie, index) => index <= visibleDebounced)
+						.filter((_movie, index) => index < visibleDebounced)
 						.map((movie) =>
 							displayMode === 'list' ? (
 								<MovieHorizontalPoster key={movie.mediaItem.id} movie={movie.mediaItem} />

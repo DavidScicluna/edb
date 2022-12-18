@@ -66,7 +66,7 @@ const UserProfileTabsTVShows: FC<UserProfileTabsTVShowsProps> = ({ shows }) => {
 				{({ displayMode }) =>
 					sort(shows)
 						.desc((show) => show.addedAt)
-						.filter((_show, index) => index <= visibleDebounced)
+						.filter((_show, index) => index < visibleDebounced)
 						.map((show) =>
 							displayMode === 'list' ? (
 								<TVShowHorizontalPoster key={show.mediaItem.id} show={show.mediaItem} />
