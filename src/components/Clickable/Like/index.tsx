@@ -32,36 +32,39 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 
 	const [isLiked, setIsLiked] = useBoolean();
 
-	const handleIsLiked = useCallback((): void => {
-		let isLiked = false;
+	const handleIsLiked = useCallback(
+		debounce((): void => {
+			let isLiked = false;
 
-		switch (mediaType) {
-			case 'movie': {
-				isLiked = liked.movie.some((movie) => movie.mediaItem.id === mediaItem.id);
-				break;
+			switch (mediaType) {
+				case 'movie': {
+					isLiked = liked.movie.some((movie) => movie.mediaItem.id === mediaItem.id);
+					break;
+				}
+				case 'tv': {
+					isLiked = liked.tv.some((show) => show.mediaItem.id === mediaItem.id);
+					break;
+				}
+				case 'person': {
+					isLiked = liked.person.some((person) => person.mediaItem.id === mediaItem.id);
+					break;
+				}
+				case 'company': {
+					isLiked = liked.company.some((company) => company.mediaItem.id === mediaItem.id);
+					break;
+				}
+				case 'collection': {
+					isLiked = liked.collection.some((collection) => collection.mediaItem.id === mediaItem.id);
+					break;
+				}
 			}
-			case 'tv': {
-				isLiked = liked.tv.some((show) => show.mediaItem.id === mediaItem.id);
-				break;
-			}
-			case 'person': {
-				isLiked = liked.person.some((person) => person.mediaItem.id === mediaItem.id);
-				break;
-			}
-			case 'company': {
-				isLiked = liked.company.some((company) => company.mediaItem.id === mediaItem.id);
-				break;
-			}
-			case 'collection': {
-				isLiked = liked.collection.some((collection) => collection.mediaItem.id === mediaItem.id);
-				break;
-			}
-		}
 
-		setIsLiked[isLiked ? 'on' : 'off']();
-	}, [mediaType, mediaItem, liked]);
+			setIsLiked[isLiked ? 'on' : 'off']();
+		}, 100),
+		[mediaType, mediaItem, liked]
+	);
 
-	const handleUnlike = useCallback((): void => {
+	const handleUnlike = (): void => {
 		const updatedLiked: MediaItems = {
 			movie: [...(liked.movie || [])],
 			tv: [...(liked.tv || [])],
@@ -104,9 +107,9 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 		}
 
 		dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
-	}, [mediaType, mediaItem, liked, id]);
+	};
 
-	const handleLike = useCallback((): void => {
+	const handleLike = (): void => {
 		const updatedLiked: MediaItems = {
 			movie: [...(liked.movie || [])],
 			tv: [...(liked.tv || [])],
@@ -184,8 +187,9 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 		}
 
 		dispatch(setUserLiked({ id, data: { ...updatedLiked } }));
-	}, [mediaType, mediaItem, liked, id]);
+	};
 
+	// TODO: Create a debounce util where we can pass them duration
 	const handleClick = useCallback(
 		debounce((): void => {
 			if (!isGuest) {
@@ -209,7 +213,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 					})
 				);
 			}
-		}, 1000),
+		}, 100),
 		[isGuest, isLiked, handleUnlike, handleLike, title, mediaType]
 	);
 
