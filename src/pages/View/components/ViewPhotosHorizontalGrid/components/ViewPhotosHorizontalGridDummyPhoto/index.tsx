@@ -8,9 +8,9 @@ import { useUserTheme } from '../../../../../../common/hooks';
 import { getRatio } from '../../../../../../common/utils';
 import { getDimensions } from '../../common/utils';
 
-import { ViewPhotosDummyPhotoProps } from './types';
+import { ViewPhotosHorizontalGridDummyPhotoProps } from './types';
 
-const ViewPhotosDummyPhoto: FC<ViewPhotosDummyPhotoProps> = ({ orientation }) => {
+const ViewPhotosHorizontalGridDummyPhoto: FC<ViewPhotosHorizontalGridDummyPhotoProps> = ({ orientation }) => {
 	const { colorMode } = useUserTheme();
 
 	return (
@@ -25,4 +25,4 @@ const ViewPhotosDummyPhoto: FC<ViewPhotosDummyPhotoProps> = ({ orientation }) =>
 	);
 };
 
-export default ViewPhotosDummyPhoto;
+export default ViewPhotosHorizontalGridDummyPhoto;

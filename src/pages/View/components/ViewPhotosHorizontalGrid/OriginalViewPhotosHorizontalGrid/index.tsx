@@ -22,12 +22,12 @@ import {
 	QueryEmptySubtitle
 } from '../../../../../components';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
-import DummyPhoto from '../components/ViewPhotosDummyPhoto';
+import DummyPhoto from '../components/ViewPhotosHorizontalGridDummyPhoto';
 
-import Photo from './components/ViewPhotosPhoto';
-import { ViewPhotosProps } from './types';
+import Photo from './components/ViewPhotosHorizontalGridPhoto';
+import { ViewPhotosHorizontalGridProps } from './types';
 
-const ViewPhotos: FC<ViewPhotosProps> = (props) => {
+const ViewPhotosHorizontalGrid: FC<ViewPhotosHorizontalGridProps> = (props) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -131,4 +131,4 @@ const ViewPhotos: FC<ViewPhotosProps> = (props) => {
 	);
 };
 
-export default ViewPhotos;
+export default ViewPhotosHorizontalGrid;

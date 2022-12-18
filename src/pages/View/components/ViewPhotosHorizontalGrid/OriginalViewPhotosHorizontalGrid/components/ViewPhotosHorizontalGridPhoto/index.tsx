@@ -19,11 +19,11 @@ import {
 import { useUserTheme } from '../../../../../../../common/hooks';
 import { getDimensions } from '../../../common/utils';
 
-import { ViewPhotosPhotoProps } from './types';
+import { ViewPhotosHorizontalGridPhotoProps } from './types';
 
 const { convertREMToPixels, convertStringToNumber, getHue } = utils;
 
-const ViewPhotosPhoto: FC<ViewPhotosPhotoProps> = (props) => {
+const ViewPhotosHorizontalGridPhoto: FC<ViewPhotosHorizontalGridPhotoProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -100,4 +100,4 @@ const ViewPhotosPhoto: FC<ViewPhotosPhotoProps> = (props) => {
 	);
 };
 
-export default ViewPhotosPhoto;
+export default ViewPhotosHorizontalGridPhoto;

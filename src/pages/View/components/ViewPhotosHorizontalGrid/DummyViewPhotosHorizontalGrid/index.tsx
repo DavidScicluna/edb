@@ -12,11 +12,11 @@ import {
 	DummyHorizontalGridScroll,
 	DummyHorizontalGridFooter
 } from '../../../../../components';
-import DummyPhoto from '../components/ViewPhotosDummyPhoto';
+import DummyPhoto from '../components/ViewPhotosHorizontalGridDummyPhoto';
 
-import { DummyViewPhotosProps } from './types';
+import { DummyViewPhotosHorizontalGridProps } from './types';
 
-const DummyViewPhotos: FC<DummyViewPhotosProps> = ({ photos = [] }) => {
+const DummyViewPhotosHorizontalGrid: FC<DummyViewPhotosHorizontalGridProps> = ({ photos = [] }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -44,4 +44,4 @@ const DummyViewPhotos: FC<DummyViewPhotosProps> = ({ photos = [] }) => {
 	);
 };
 
-export default DummyViewPhotos;
+export default DummyViewPhotosHorizontalGrid;
