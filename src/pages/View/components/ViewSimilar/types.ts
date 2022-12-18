@@ -4,7 +4,7 @@ import { FullTV } from '../../../../common/types/tv';
 
 export type ViewSimilarMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-export type ViewSimilarGetMediaItemType<MT extends MediaType> = MT extends 'movie' ? FullMovie : FullTV;
+export type ViewSimilarGetMediaItemType<MT extends ViewSimilarMediaType> = MT extends 'movie' ? FullMovie : FullTV;
 
 export type ViewSimilarProps<MT extends ViewSimilarMediaType> = {
 	mediaType: MT;
