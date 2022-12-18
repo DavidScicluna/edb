@@ -129,7 +129,7 @@ const TVShowCertifications: FC<TVShowCertificationsProps> = ({ form }) => {
 
 									<QueryEmptyActions
 										renderActions={(props) => (
-											<Button {...props} onClick={() => refetch()}>
+											<Button {...props} onClick={refetch}>
 												Try Again
 											</Button>
 										)}
@@ -154,7 +154,7 @@ const TVShowCertifications: FC<TVShowCertificationsProps> = ({ form }) => {
 
 									<QueryEmptyActions
 										renderActions={(props) => (
-											<Button {...props} onClick={() => refetch()}>
+											<Button {...props} onClick={refetch}>
 												Try Again
 											</Button>
 										)}

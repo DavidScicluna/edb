@@ -119,7 +119,7 @@ const MovieGenres: FC<MovieGenresProps> = ({ form }) => {
 
 									<QueryEmptyActions
 										renderActions={(props) => (
-											<Button {...props} onClick={() => refetch()}>
+											<Button {...props} onClick={refetch}>
 												Try Again
 											</Button>
 										)}
@@ -141,7 +141,7 @@ const MovieGenres: FC<MovieGenresProps> = ({ form }) => {
 
 									<QueryEmptyActions
 										renderActions={(props) => (
-											<Button {...props} onClick={() => refetch()}>
+											<Button {...props} onClick={refetch}>
 												Try Again
 											</Button>
 										)}

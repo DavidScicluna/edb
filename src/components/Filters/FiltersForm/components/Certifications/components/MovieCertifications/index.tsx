@@ -130,7 +130,7 @@ const MovieCertifications: FC<MovieCertificationsProps> = ({ form }) => {
 
 									<QueryEmptyActions
 										renderActions={(props) => (
-											<Button {...props} onClick={() => refetch()}>
+											<Button {...props} onClick={refetch}>
 												Try Again
 											</Button>
 										)}
@@ -156,7 +156,7 @@ const MovieCertifications: FC<MovieCertificationsProps> = ({ form }) => {
 									{/* TODO: Remove all QueryEmptyActions for Empty, leave only Error */}
 									<QueryEmptyActions
 										renderActions={(props) => (
-											<Button {...props} onClick={() => refetch()}>
+											<Button {...props} onClick={refetch}>
 												Try Again
 											</Button>
 										)}

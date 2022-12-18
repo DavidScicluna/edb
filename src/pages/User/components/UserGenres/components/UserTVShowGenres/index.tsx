@@ -125,7 +125,7 @@ const UserTVShowGenres: FC<UserTVShowGenresProps> = (props) => {
 
 									<QueryEmptyActions
 										renderActions={(props) => (
-											<Button {...props} onClick={() => refetch()}>
+											<Button {...props} onClick={refetch}>
 												Try Again
 											</Button>
 										)}
@@ -150,7 +150,7 @@ const UserTVShowGenres: FC<UserTVShowGenresProps> = (props) => {
 
 									<QueryEmptyActions
 										renderActions={(props) => (
-											<Button {...props} onClick={() => refetch()}>
+											<Button {...props} onClick={refetch}>
 												Try Again
 											</Button>
 										)}

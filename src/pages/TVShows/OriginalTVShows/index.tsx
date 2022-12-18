@@ -93,7 +93,7 @@ const OriginalTVShows: FC = () => {
 
 		navigate({ pathname: '.', search: qs.stringify({ ...params }) });
 
-		setTimeout(() => refetch(), timeout);
+		setTimeout(refetch, timeout);
 	};
 
 	const handleLoadMore = (): void => {
