@@ -8,7 +8,7 @@ import { useUserTheme } from '../../../../../../common/hooks';
 import { getRatio } from '../../../../../../common/utils';
 import widths from '../../common/data/widths';
 
-const ViewVideosDummyVideo: FC = () => {
+const ViewVideosHorizontalGridDummyVideo: FC = () => {
 	const { colorMode } = useUserTheme();
 
 	return (
@@ -18,4 +18,4 @@ const ViewVideosDummyVideo: FC = () => {
 	);
 };
 
-export default ViewVideosDummyVideo;
+export default ViewVideosHorizontalGridDummyVideo;

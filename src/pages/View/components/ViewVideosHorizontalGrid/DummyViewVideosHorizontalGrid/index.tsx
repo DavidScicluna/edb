@@ -14,9 +14,9 @@ import {
 	DummyHorizontalGridScroll,
 	DummyHorizontalGridFooter
 } from '../../../../../components';
-import DummyVideo from '../components/ViewVideosDummyVideo';
+import DummyVideo from '../components/ViewVideosHorizontalGridDummyVideo';
 
-const ViewVideos: FC = () => {
+const DummyViewVideosHorizontalGrid: FC = () => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -41,4 +41,4 @@ const ViewVideos: FC = () => {
 	);
 };
 
-export default ViewVideos;
+export default DummyViewVideosHorizontalGrid;

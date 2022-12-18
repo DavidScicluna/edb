@@ -11,11 +11,11 @@ import { formatMediaTypeLabel, getRatio } from '../../../../../../../common/util
 import { useUserTheme } from '../../../../../../../common/hooks';
 import widths from '../../../common/data/widths';
 
-import { ViewVideosVideoProps } from './types';
+import { ViewVideosHorizontalGridVideoProps } from './types';
 
 const { convertREMToPixels, convertStringToNumber } = utils;
 
-const ViewVideosVideo: FC<ViewVideosVideoProps> = (props) => {
+const ViewVideosHorizontalGridVideo: FC<ViewVideosHorizontalGridVideoProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -109,4 +109,4 @@ const ViewVideosVideo: FC<ViewVideosVideoProps> = (props) => {
 	);
 };
 
-export default ViewVideosVideo;
+export default ViewVideosHorizontalGridVideo;

@@ -22,12 +22,12 @@ import {
 	QueryEmptySubtitle
 } from '../../../../../components';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
-import DummyVideo from '../components/ViewVideosDummyVideo';
+import DummyVideo from '../components/ViewVideosHorizontalGridDummyVideo';
 
-import { ViewVideosProps } from './types';
-import Video from './components/ViewVideosVideo';
+import { ViewVideosHorizontalGridProps } from './types';
+import Video from './components/ViewVideosHorizontalGridVideo';
 
-const ViewVideos: FC<ViewVideosProps> = (props) => {
+const ViewVideosHorizontalGrid: FC<ViewVideosHorizontalGridProps> = (props) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -129,4 +129,4 @@ const ViewVideos: FC<ViewVideosProps> = (props) => {
 	);
 };
 
-export default ViewVideos;
+export default ViewVideosHorizontalGrid;
