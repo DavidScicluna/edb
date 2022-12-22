@@ -21,9 +21,9 @@ const ViewMasonry: FC<ViewMasonryProps> = ({ children }) => {
 				breakpoints={[
 					{ size: 480, columns: 1 },
 					{ size: 768, columns: 2 },
-					{ size: 992, columns: 4 },
+					{ size: 992, columns: 2 },
 					{ size: 1280, columns: 4 },
-					{ size: 1536, columns: 6 }
+					{ size: 1536, columns: 4 }
 				]}
 				gap={theme.space[spacing as Space]}
 				debounce={500}
