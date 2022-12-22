@@ -194,7 +194,7 @@ const Keywords: FC<KeywordsProps> = ({ form }) => {
 
 												<QueryEmptyActions
 													renderActions={(props) => (
-														<Button {...props} onClick={() => refetch()}>
+														<Button {...props} onClick={refetch}>
 															Try Again
 														</Button>
 													)}

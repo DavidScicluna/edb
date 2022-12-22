@@ -2,11 +2,10 @@ import { FC } from 'react';
 
 import { useTheme, Card, CardBody, ButtonGroup, ButtonGroupItem, Button } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useConst } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
-import range from 'lodash/range';
 import { toString } from 'lodash';
 
 import defaultValues from '../../../common/data/defaults';
@@ -16,6 +15,7 @@ import { getIsFiltersFormNumbersInList, getFiltersFormNumbers } from '../../comm
 import FiltersFormCardHeader from '../FiltersFormCardHeaders';
 import { CommonFiltersFormProps as RatingRangeProps } from '../../common/types';
 import { RatingSize } from '../../../../Ratings/common/types';
+import { ratings } from '../../../common/data/arrays';
 
 const RatingRange: FC<RatingRangeProps> = ({ form }) => {
 	const theme = useTheme();
@@ -24,8 +24,6 @@ const RatingRange: FC<RatingRangeProps> = ({ form }) => {
 	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
 	const { control, setValue } = form;
-
-	const ratings = useConst(range(0, 11));
 
 	return (
 		<Controller

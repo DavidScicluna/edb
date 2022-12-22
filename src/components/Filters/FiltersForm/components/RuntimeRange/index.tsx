@@ -2,11 +2,10 @@ import { FC } from 'react';
 
 import { useTheme, Card, CardBody, ButtonGroup, ButtonGroupItem, Button } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useConst, Text } from '@chakra-ui/react';
+import { useMediaQuery, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
 import compact from 'lodash/compact';
-import range from 'lodash/range';
 import { toString } from 'lodash';
 
 import { useUserTheme } from '../../../../../common/hooks';
@@ -14,6 +13,7 @@ import { getIsFiltersFormNumbersInList, getFiltersFormNumbers } from '../../comm
 import FiltersFormCardHeader from '../FiltersFormCardHeaders';
 import defaultValues from '../../../common/data/defaults';
 import { CommonFiltersFormProps as RuntimeRangeProps } from '../../common/types';
+import { runtimes } from '../../../common/data/arrays';
 
 const RuntimeRange: FC<RuntimeRangeProps> = ({ form }) => {
 	const theme = useTheme();
@@ -22,8 +22,6 @@ const RuntimeRange: FC<RuntimeRangeProps> = ({ form }) => {
 	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
 	const { control, setValue } = form;
-
-	const runtimes = useConst(range(0, 475, 45));
 
 	return (
 		<Controller

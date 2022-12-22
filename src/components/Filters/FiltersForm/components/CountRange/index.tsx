@@ -2,18 +2,17 @@ import { FC } from 'react';
 
 import { useTheme, Card, CardBody, ButtonGroup, ButtonGroupItem, Button } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useConst, Text } from '@chakra-ui/react';
+import { useMediaQuery, Text } from '@chakra-ui/react';
 
 import { Controller } from 'react-hook-form';
-import compact from 'lodash/compact';
-import range from 'lodash/range';
-import { toString } from 'lodash';
+import { compact, toString } from 'lodash';
 
 import defaultValues from '../../../common/data/defaults';
 import { getIsFiltersFormNumbersInList, getFiltersFormNumbers } from '../../common/utils';
 import FiltersFormCardHeader from '../FiltersFormCardHeaders';
 import { CommonFiltersFormProps as CountRangeProps } from '../../common/types';
 import { useUserTheme } from '../../../../../common/hooks';
+import { counts } from '../../../common/data/arrays';
 
 const CountRange: FC<CountRangeProps> = ({ form }) => {
 	const theme = useTheme();
@@ -22,8 +21,6 @@ const CountRange: FC<CountRangeProps> = ({ form }) => {
 	const [isMd] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
 	const { control, setValue } = form;
-
-	const counts = useConst(range(0, 550, 50));
 
 	return (
 		<Controller

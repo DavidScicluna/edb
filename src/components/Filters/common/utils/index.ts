@@ -1,5 +1,4 @@
-import { isEmpty, isNil, memoize } from 'lodash';
-import compact from 'lodash/compact';
+import { compact, isEmpty, isNil, memoize } from 'lodash';
 import qs from 'query-string';
 
 import { FiltersForm, FiltersMediaType } from '../../types';

@@ -16,7 +16,7 @@ import {
 import { useDisclosure, VStack, HStack, Text, Fade } from '@chakra-ui/react';
 
 import { useForm, useFormState, useWatch } from 'react-hook-form';
-import isEqual from 'lodash/isEqual';
+import { isEqual } from 'lodash';
 
 import { useUserTheme } from '../../../common/hooks';
 import { getFiltersForm } from '../common/utils';
