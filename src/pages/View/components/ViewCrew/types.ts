@@ -1,0 +1,22 @@
+import { AccordionType } from '@davidscicluna/component-library';
+
+import { MediaType } from '../../../../common/types';
+import { Crew as MovieCrew } from '../../../../common/types/movie';
+import { Crew as TVShowCrew } from '../../../../common/types/tv';
+
+export type ViewCrewMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
+
+export type ViewCrewGetDepartmentType<MT extends ViewCrewMediaType> = MT extends 'movie' ? MovieCrew : TVShowCrew;
+
+export type ViewCrewDepartment<MT extends ViewCrewMediaType> = AccordionType<ViewCrewGetDepartmentType<MT>[]>;
+export type ViewCrewDepartments<MT extends ViewCrewMediaType> = ViewCrewDepartment<MT>[];
+
+export type ViewCrewProps<MT extends ViewCrewMediaType> = {
+	mediaType: MT;
+	departments?: ViewCrewDepartments<MT>;
+	name?: string;
+	isLoading?: boolean;
+	isError?: boolean;
+	isSuccess?: boolean;
+	refetch?: () => void;
+};
