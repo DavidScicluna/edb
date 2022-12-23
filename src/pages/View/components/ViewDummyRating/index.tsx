@@ -32,12 +32,36 @@ const ViewDummyRating: FC = () => {
 				skeletonColor='yellow'
 			/>
 
-			<VStack alignItems='flex-start' justifyContent='center' flex={1} spacing={0}>
-				<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-					<Text align='left' fontSize='xl' fontWeight='semibold' lineHeight='normal' whiteSpace='nowrap'>
-						## / 10
+			<VStack alignItems='flex-start' justifyContent='center' flex={1} spacing={0.5}>
+				<HStack spacing={0.5}>
+					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+						<Text align='left' fontSize='xl' fontWeight='semibold' lineHeight='normal' whiteSpace='nowrap'>
+							##
+						</Text>
+					</Skeleton>
+
+					<Text
+						align='left'
+						color={getColor({ theme, colorMode, type: 'text.secondary' })}
+						fontSize='xl'
+						lineHeight='normal'
+						textTransform='uppercase'
+						whiteSpace='nowrap'
+					>
+						/
 					</Text>
-				</Skeleton>
+
+					<Text
+						align='left'
+						color={getColor({ theme, colorMode, type: 'text.secondary' })}
+						fontSize='xl'
+						lineHeight='normal'
+						textTransform='uppercase'
+						whiteSpace='nowrap'
+					>
+						10
+					</Text>
+				</HStack>
 
 				<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 					<Text align='left' fontSize='md' lineHeight='normal' textTransform='uppercase' whiteSpace='nowrap'>
