@@ -40,12 +40,21 @@ const ViewCast = <MT extends ViewCastMediaType>(props: ViewCastProps<MT>): React
 
 	const { spacing } = useLayoutContext();
 
-	const { mediaType, cast = [], name, isLoading = false, isError = false, isSuccess = false, refetch } = props;
+	const {
+		mediaType,
+		cast = [],
+		name,
+		isFetching = false,
+		isLoading = false,
+		isError = false,
+		isSuccess = false,
+		refetch
+	} = props;
 
 	const [visible, setVisible] = useState<number>(limit);
 	const visibleDebounced = useDebounce<number>(visible, 'slow');
 
-	return !isLoading && isError ? (
+	return !(isFetching || isLoading) && isError ? (
 		<QueryEmpty
 			color={color}
 			colorMode={colorMode}
@@ -90,7 +99,7 @@ const ViewCast = <MT extends ViewCastMediaType>(props: ViewCastProps<MT>): React
 				)}
 			</QueryEmptyStack>
 		</QueryEmpty>
-	) : !isLoading && isSuccess && cast.length === 0 ? (
+	) : !(isFetching || isLoading) && isSuccess && cast.length === 0 ? (
 		<QueryEmpty
 			color={color}
 			colorMode={colorMode}
@@ -113,7 +122,7 @@ const ViewCast = <MT extends ViewCastMediaType>(props: ViewCastProps<MT>): React
 				</QueryEmptyBody>
 			</QueryEmptyStack>
 		</QueryEmpty>
-	) : !isLoading && isSuccess && cast.length > 0 ? (
+	) : !(isFetching || isLoading) && isSuccess && cast.length > 0 ? (
 		<VStack width='100%' spacing={spacing}>
 			<VerticalGrid spacing={spacing}>
 				{({ displayMode }) =>
