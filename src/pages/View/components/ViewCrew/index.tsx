@@ -46,9 +46,18 @@ const ViewCrew = <MT extends ViewCrewMediaType>(props: ViewCrewProps<MT>): React
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
-	const { mediaType, departments = [], name, isLoading = false, isError = false, isSuccess = false, refetch } = props;
+	const {
+		mediaType,
+		departments = [],
+		name,
+		isFetching = false,
+		isLoading = false,
+		isError = false,
+		isSuccess = false,
+		refetch
+	} = props;
 
-	return !isLoading && isError ? (
+	return !(isFetching || isLoading) && isError ? (
 		<QueryEmpty
 			color={color}
 			colorMode={colorMode}
@@ -93,7 +102,7 @@ const ViewCrew = <MT extends ViewCrewMediaType>(props: ViewCrewProps<MT>): React
 				)}
 			</QueryEmptyStack>
 		</QueryEmpty>
-	) : !isLoading && isSuccess && departments.length === 0 ? (
+	) : !(isFetching || isLoading) && isSuccess && departments.length === 0 ? (
 		<QueryEmpty
 			color={color}
 			colorMode={colorMode}
@@ -116,7 +125,7 @@ const ViewCrew = <MT extends ViewCrewMediaType>(props: ViewCrewProps<MT>): React
 				</QueryEmptyBody>
 			</QueryEmptyStack>
 		</QueryEmpty>
-	) : !isLoading && isSuccess && departments.length > 0 ? (
+	) : !(isFetching || isLoading) && isSuccess && departments.length > 0 ? (
 		<Accordions<ViewCrewGetDepartmentType<MT>[]>
 			color='gray'
 			colorMode={colorMode}

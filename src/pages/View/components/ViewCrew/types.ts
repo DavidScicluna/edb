@@ -1,5 +1,6 @@
 import { AccordionType } from '@davidscicluna/component-library';
 
+import { UseMediaTypeCreditsQueryResult } from '../../../../common/queries/useMediaTypeCreditsQuery';
 import { MediaType } from '../../../../common/types';
 import { Crew as MovieCrew } from '../../../../common/types/movie';
 import { Crew as TVShowCrew } from '../../../../common/types/tv';
@@ -11,7 +12,9 @@ export type ViewCrewGetDepartmentType<MT extends ViewCrewMediaType> = MT extends
 export type ViewCrewDepartment<MT extends ViewCrewMediaType> = AccordionType<ViewCrewGetDepartmentType<MT>[]>;
 export type ViewCrewDepartments<MT extends ViewCrewMediaType> = ViewCrewDepartment<MT>[];
 
-export type ViewCrewProps<MT extends ViewCrewMediaType> = {
+type Picked = 'isFetching' | 'isLoading' | 'isError' | 'isSuccess' | 'refetch';
+
+export type ViewCrewProps<MT extends ViewCrewMediaType> = Pick<UseMediaTypeCreditsQueryResult<MT>, Picked> & {
 	mediaType: MT;
 	departments?: ViewCrewDepartments<MT>;
 	name?: string;
