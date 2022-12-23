@@ -44,6 +44,7 @@ const ViewKnownFor: FC<ViewKnownForProps> = (props) => {
 		subtitle,
 		emptyLabel,
 		total = 0,
+		isFetching = false,
 		isLoading = false,
 		isError = false,
 		isSuccess = false,
@@ -74,7 +75,7 @@ const ViewKnownFor: FC<ViewKnownForProps> = (props) => {
 				spacing={0}
 			/>
 			<HorizontalGridBody>
-				{!isLoading && isError ? (
+				{!(isFetching || isLoading) && isError ? (
 					<QueryEmpty color={color} colorMode={colorMode}>
 						<QueryEmptyStack>
 							<QueryEmptyIcon
@@ -97,7 +98,7 @@ const ViewKnownFor: FC<ViewKnownForProps> = (props) => {
 							</QueryEmptyBody>
 						</QueryEmptyStack>
 					</QueryEmpty>
-				) : !isLoading && isSuccess && knownForDebounced && knownForDebounced.length === 0 ? (
+				) : !(isFetching || isLoading) && isSuccess && knownForDebounced && knownForDebounced.length === 0 ? (
 					<QueryEmpty color={color} colorMode={colorMode}>
 						<QueryEmptyStack>
 							<QueryEmptyBody>
@@ -108,7 +109,7 @@ const ViewKnownFor: FC<ViewKnownForProps> = (props) => {
 							</QueryEmptyBody>
 						</QueryEmptyStack>
 					</QueryEmpty>
-				) : !isLoading && isSuccess && knownForDebounced && knownForDebounced.length > 0 ? (
+				) : !(isFetching || isLoading) && isSuccess && knownForDebounced && knownForDebounced.length > 0 ? (
 					<HorizontalGridScroll>
 						{compact(
 							knownForDebounced.map((mediaItem) =>

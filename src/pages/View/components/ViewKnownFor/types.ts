@@ -10,6 +10,7 @@ export type ViewKnownForProps = {
 	subtitle?: string;
 	emptyLabel: string;
 	total?: number;
+	isFetching?: boolean;
 	isLoading?: boolean;
 	isError?: boolean;
 	isSuccess?: boolean;
