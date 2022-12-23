@@ -1,37 +1,47 @@
-import { FC } from 'react';
+import { ReactElement, useState } from 'react';
 
-import { Space, useTheme } from '@davidscicluna/component-library';
+import { Space, useTheme, utils } from '@davidscicluna/component-library';
 
-import { Center } from '@chakra-ui/react';
-
-import { Plock } from 'react-plock';
+import { Masonry } from 'masonic';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
+import { useSelector } from '../../../../../../common/hooks';
 
 import { ViewPhotosMasonryProps } from './types';
 
-const ViewPhotosMasonry: FC<ViewPhotosMasonryProps> = ({ children }) => {
+const { convertREMToPixels, convertStringToNumber } = utils;
+
+const ViewPhotosMasonry = <M,>(props: ViewPhotosMasonryProps<M>): ReactElement => {
 	const theme = useTheme();
 
 	const { spacing } = useLayoutContext();
 
-	return (
-		<Center width='100%' alignItems='stretch' justifyContent='stretch' sx={{ '& div': { width: '100%' } }}>
-			<Plock
-				breakpoints={[
-					{ size: 480, columns: 1 },
-					{ size: 768, columns: 2 },
-					{ size: 992, columns: 2 },
-					{ size: 1280, columns: 4 },
-					{ size: 1536, columns: 4 }
-				]}
-				gap={theme.space[spacing as Space]}
-				debounce={500}
-			>
-				{children}
-			</Plock>
-		</Center>
+	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
+
+	const [show, setShow] = useState<0 | 1>(0);
+	const [gutter, setGutter] = useState(
+		convertREMToPixels(convertStringToNumber(theme.space[spacing as Space], 'rem'))
 	);
+
+	useUpdateEffect(() => {
+		setGutter(convertREMToPixels(convertStringToNumber(theme.space[spacing as Space], 'rem')));
+	}, [spacing]);
+
+	useUpdateEffect(() => {
+		setTimeout(() => setShow(show === 0 ? 1 : 0), 1000);
+	}, [sidebarMode]);
+
+	switch (show) {
+		case 0:
+			return (
+				<Masonry<M> key='ds-edb-view-photos-masonry-0' {...props} rowGutter={gutter} columnGutter={gutter} />
+			);
+		case 1:
+			return (
+				<Masonry<M> key='ds-edb-view-photos-masonry-1' {...props} rowGutter={gutter} columnGutter={gutter} />
+			);
+	}
 };
 
 export default ViewPhotosMasonry;

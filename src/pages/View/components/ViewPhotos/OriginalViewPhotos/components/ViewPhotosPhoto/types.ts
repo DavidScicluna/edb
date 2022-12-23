@@ -1,8 +1,5 @@
-import { Image } from '../../../../../../../common/types';
-import { ViewPhotosOrientation } from '../../../common/types';
-import { ViewPhotosProps } from '../../types';
+import { RenderComponentProps } from 'masonic';
 
-export type PhotosTabPhotoProps = Image & {
-	index: number;
-	orientation: ViewPhotosOrientation;
-} & Pick<ViewPhotosProps, 'mediaType' | 'name'>;
+import { ViewPhotosPhoto, ViewPhotosProps } from '../../types';
+
+export type PhotosTabPhotoProps = RenderComponentProps<ViewPhotosPhoto & Pick<ViewPhotosProps, 'mediaType' | 'name'>>;

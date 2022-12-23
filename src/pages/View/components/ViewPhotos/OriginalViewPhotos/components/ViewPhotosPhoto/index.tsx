@@ -5,17 +5,9 @@ import { Colors, useTheme, Icon, utils } from '@davidscicluna/component-library'
 import { useBoolean, useConst } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
-import { omit, sample } from 'lodash';
+import { omit } from 'lodash';
 import { v4 as uuid } from 'uuid';
 
-import {
-	landscapeDefaultHeight,
-	landscapeHeights,
-	portraitDefaultHeight,
-	portraitHeights,
-	squareDefaultHeight,
-	squareHeights
-} from '../../../common/data/heights';
 import { ClickableMedia, Image } from '../../../../../../../components';
 import {
 	formatMediaTypeLabel,
@@ -39,7 +31,9 @@ const PhotosTabPhoto: FC<PhotosTabPhotoProps> = (props) => {
 		rootMargin: `${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px`
 	});
 
-	const { mediaType, index, name, file_path, orientation } = props;
+	const { index, data } = props;
+	const { height, mediaType, name, image, orientation } = data;
+	const { file_path } = image;
 
 	const [isImageError, setIsImageError] = useBoolean();
 
@@ -54,13 +48,6 @@ const PhotosTabPhoto: FC<PhotosTabPhotoProps> = (props) => {
 
 	const randomID = useConst<string>(uuid());
 
-	const height = useConst<number>(
-		orientation === 'landscape'
-			? sample(landscapeHeights) || landscapeDefaultHeight
-			: orientation === 'portrait'
-			? sample(portraitHeights) || portraitDefaultHeight
-			: sample(squareHeights) || squareDefaultHeight
-	);
 	return (
 		<ClickableMedia
 			ref={photorRef}

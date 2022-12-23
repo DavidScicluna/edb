@@ -4,7 +4,9 @@ import { ViewPhotosDummyPhotos, ViewPhotosOrientation } from '../common/types';
 
 export type ViewPhotosMediaType = Exclude<MediaType, 'company' | 'collection'>;
 
-export type ViewPhotosPhoto = { image: Image; orientation: ViewPhotosOrientation };
+export type ViewPhotosPhotoImage = Omit<Image, 'width' | 'height'>;
+
+export type ViewPhotosPhoto = { height: number; image: ViewPhotosPhotoImage; orientation: ViewPhotosOrientation };
 export type ViewPhotosPhotos = ViewPhotosPhoto[];
 
 type Picked = 'isFetching' | 'isLoading' | 'isError' | 'isSuccess' | 'error' | 'refetch';

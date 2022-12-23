@@ -1,3 +1,3 @@
-import { CenterProps } from '@chakra-ui/react';
+import { MasonryProps } from 'masonic';
 
-export type ViewPhotosMasonryProps = Pick<CenterProps, 'children'>;
+export type ViewPhotosMasonryProps<M> = Pick<MasonryProps<M>, 'items' | 'render'>;

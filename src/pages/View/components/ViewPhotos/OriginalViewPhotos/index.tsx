@@ -13,7 +13,7 @@ import {
 } from '../../../../../components';
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
-import ViewMasonry from '../components/ViewPhotosMasonry';
+import Masonry from '../components/ViewPhotosMasonry';
 import DummyPhoto from '../components/ViewPhotosDummyPhoto';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 
@@ -117,24 +117,14 @@ const ViewPhotos: FC<ViewPhotosProps> = (props) => {
 			</QueryEmptyStack>
 		</QueryEmpty>
 	) : !(isFetching || isLoading) && isSuccess && photos.length > 0 ? (
-		<ViewMasonry>
-			{photos.map(({ image, orientation }, index) => (
-				<Photo
-					{...image}
-					key={image.file_path}
-					mediaType={mediaType}
-					name={name}
-					index={index}
-					orientation={orientation}
-				/>
-			))}
-		</ViewMasonry>
+		<Masonry
+			items={photos.map((photo) => {
+				return { ...photo, mediaType, name };
+			})}
+			render={Photo}
+		/>
 	) : (
-		<ViewMasonry>
-			{dummyPhotos.map(({ orientation }, index) => (
-				<DummyPhoto key={index} orientation={orientation} />
-			))}
-		</ViewMasonry>
+		<Masonry items={dummyPhotos} render={DummyPhoto} />
 	);
 };
 
