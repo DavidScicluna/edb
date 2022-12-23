@@ -38,7 +38,7 @@ const ViewHeroCoverPoster: FC<ViewHeroCoverPosterProps> = ({ onClick, ...rest })
 				{...rest}
 				width='inherit'
 				height='inherit'
-				borderWidth={['0px', '0px', '2px', '4px']}
+				borderWidth={['0px', '0px', '4px', '4px']}
 				borderStyle='solid'
 				borderColor={getColor({ theme, colorMode, type: 'divider' })}
 				borderRadius='base'
