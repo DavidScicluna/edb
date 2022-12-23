@@ -6,11 +6,11 @@ import { Center } from '@chakra-ui/react';
 
 import { Plock } from 'react-plock';
 
-import { useLayoutContext } from '../../../../containers/Layout/common/hooks';
+import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
-import { ViewMasonryProps } from './types';
+import { ViewPhotosMasonryProps } from './types';
 
-const ViewMasonry: FC<ViewMasonryProps> = ({ children }) => {
+const ViewPhotosMasonry: FC<ViewPhotosMasonryProps> = ({ children }) => {
 	const theme = useTheme();
 
 	const { spacing } = useLayoutContext();
@@ -34,4 +34,4 @@ const ViewMasonry: FC<ViewMasonryProps> = ({ children }) => {
 	);
 };
 
-export default ViewMasonry;
+export default ViewPhotosMasonry;
