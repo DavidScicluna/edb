@@ -2,19 +2,20 @@ import { FC } from 'react';
 
 import { useTheme, DummyButton } from '@davidscicluna/component-library';
 
-import { useMediaQuery } from '@chakra-ui/react';
+import { useMediaQuery, Center } from '@chakra-ui/react';
 
 import { range } from 'lodash';
 
-import { useUserTheme } from '../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../common/hooks';
 import {
 	DummyHorizontalGrid,
 	DummyHorizontalGridHeader,
 	DummyHorizontalGridBody,
 	DummyHorizontalGridScroll,
 	DummyHorizontalGridFooter
-} from '../../../../../components';
-import DummyVideo from '../components/ViewVideosHorizontalGridDummyVideo';
+} from '../../../../../../components';
+import DummyVideo from '../../components/ViewVideosDummyVideo';
+import widths from '../common/data/widths';
 
 const DummyViewVideosHorizontalGrid: FC = () => {
 	const theme = useTheme();
@@ -28,7 +29,9 @@ const DummyViewVideosHorizontalGrid: FC = () => {
 			<DummyHorizontalGridBody>
 				<DummyHorizontalGridScroll>
 					{range(5).map((_dummy, index) => (
-						<DummyVideo key={index} />
+						<Center key={index} width={widths}>
+							<DummyVideo />
+						</Center>
 					))}
 				</DummyHorizontalGridScroll>
 			</DummyHorizontalGridBody>

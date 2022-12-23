@@ -2,12 +2,12 @@ import { FC } from 'react';
 
 import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 
-import { useMediaQuery, Text } from '@chakra-ui/react';
+import { useMediaQuery, Center, Text } from '@chakra-ui/react';
 
 import { lowerCase, range } from 'lodash';
 import numbro from 'numbro';
 
-import { useUserTheme } from '../../../../../common/hooks';
+import { useUserTheme } from '../../../../../../common/hooks';
 import {
 	HorizontalGrid,
 	HorizontalGridHeader,
@@ -20,12 +20,13 @@ import {
 	QueryEmptyBody,
 	QueryEmptyTitle,
 	QueryEmptySubtitle
-} from '../../../../../components';
-import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
-import DummyVideo from '../components/ViewVideosHorizontalGridDummyVideo';
+} from '../../../../../../components';
+import { getEmptySubtitle } from '../../../../../../components/QueryEmpty/common/utils';
+import DummyVideo from '../../components/ViewVideosDummyVideo';
+import Video from '../../components/ViewVideosVideo';
+import widths from '../common/data/widths';
 
 import { ViewVideosHorizontalGridProps } from './types';
-import Video from './components/ViewVideosHorizontalGridVideo';
 
 const ViewVideosHorizontalGrid: FC<ViewVideosHorizontalGridProps> = (props) => {
 	const theme = useTheme();
@@ -36,11 +37,11 @@ const ViewVideosHorizontalGrid: FC<ViewVideosHorizontalGridProps> = (props) => {
 	const {
 		mediaType,
 		videos = [],
-		// dummyvideos = [],
 		title = 'Videos',
 		subtitle,
 		emptyLabel,
 		total = 0,
+		isFetching = false,
 		isLoading = false,
 		isError = false,
 		isSuccess = false,
@@ -63,7 +64,7 @@ const ViewVideosHorizontalGrid: FC<ViewVideosHorizontalGridProps> = (props) => {
 				spacing={0}
 			/>
 			<HorizontalGridBody>
-				{!isLoading && isError ? (
+				{!(isFetching || isLoading) && isError ? (
 					<QueryEmpty color={color} colorMode={colorMode}>
 						<QueryEmptyStack>
 							<QueryEmptyIcon
@@ -86,7 +87,7 @@ const ViewVideosHorizontalGrid: FC<ViewVideosHorizontalGridProps> = (props) => {
 							</QueryEmptyBody>
 						</QueryEmptyStack>
 					</QueryEmpty>
-				) : !isLoading && isSuccess && videos && videos.length === 0 ? (
+				) : !(isFetching || isLoading) && isSuccess && videos && videos.length === 0 ? (
 					<QueryEmpty color={color} colorMode={colorMode}>
 						<QueryEmptyStack>
 							<QueryEmptyBody>
@@ -97,18 +98,22 @@ const ViewVideosHorizontalGrid: FC<ViewVideosHorizontalGridProps> = (props) => {
 							</QueryEmptyBody>
 						</QueryEmptyStack>
 					</QueryEmpty>
-				) : !isLoading && isSuccess && videos && videos.length > 0 ? (
+				) : !(isFetching || isLoading) && isSuccess && videos && videos.length > 0 ? (
 					<HorizontalGridScroll>
 						{videos
 							.filter((_video, index) => index < 5)
 							.map((video, index) => (
-								<Video key={index} mediaType={mediaType} index={index} video={video} />
+								<Center key={video.key} width={widths}>
+									<Video mediaType={mediaType} index={index} video={video} />
+								</Center>
 							))}
 					</HorizontalGridScroll>
 				) : (
 					<HorizontalGridScroll>
 						{range(5).map((_dummy, index) => (
-							<DummyVideo key={index} />
+							<Center key={index} width={widths}>
+								<DummyVideo />
+							</Center>
 						))}
 					</HorizontalGridScroll>
 				)}
