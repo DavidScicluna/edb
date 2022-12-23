@@ -41,6 +41,7 @@ const ViewPhotosHorizontalGrid: FC<ViewPhotosHorizontalGridProps> = (props) => {
 		subtitle,
 		emptyLabel,
 		total = 0,
+		isFetching = false,
 		isLoading = false,
 		isError = false,
 		isSuccess = false,
@@ -63,7 +64,7 @@ const ViewPhotosHorizontalGrid: FC<ViewPhotosHorizontalGridProps> = (props) => {
 				spacing={0}
 			/>
 			<HorizontalGridBody>
-				{!isLoading && isError ? (
+				{!(isFetching || isLoading) && isError ? (
 					<QueryEmpty color={color} colorMode={colorMode}>
 						<QueryEmptyStack>
 							<QueryEmptyIcon
@@ -86,7 +87,7 @@ const ViewPhotosHorizontalGrid: FC<ViewPhotosHorizontalGridProps> = (props) => {
 							</QueryEmptyBody>
 						</QueryEmptyStack>
 					</QueryEmpty>
-				) : !isLoading && isSuccess && photos && photos.length === 0 ? (
+				) : !(isFetching || isLoading) && isSuccess && photos && photos.length === 0 ? (
 					<QueryEmpty color={color} colorMode={colorMode}>
 						<QueryEmptyStack>
 							<QueryEmptyBody>
@@ -97,7 +98,7 @@ const ViewPhotosHorizontalGrid: FC<ViewPhotosHorizontalGridProps> = (props) => {
 							</QueryEmptyBody>
 						</QueryEmptyStack>
 					</QueryEmpty>
-				) : !isLoading && isSuccess && photos && photos.length > 0 ? (
+				) : !(isFetching || isLoading) && isSuccess && photos && photos.length > 0 ? (
 					<HorizontalGridScroll>
 						{photos
 							.filter((_photo, index) => index < 10)
