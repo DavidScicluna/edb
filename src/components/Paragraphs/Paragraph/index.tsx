@@ -29,7 +29,7 @@ const lines = 5;
 
 const { getTransitionConfig, getTransitionDuration, getColor } = utils;
 
-const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) => {
+const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false, ...rest }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -46,20 +46,21 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false }) 
 	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
 
 	return (
-		<Card colorMode={colorMode} isFullWidth p={2}>
-			<CardHeader renderTitle={(props) => <Text {...props}>{title}</Text>} />
+		<Card {...rest} colorMode={colorMode} isFullWidth p={2}>
+			{!!title && <CardHeader renderTitle={(props) => <Text {...props}>{title}</Text>} />}
 			<CardBody>
 				<Collapse
 					in={isExpanded}
 					startingHeight={(stackHeight || limit) >= limit ? limit : stackHeight || limit}
 					unmountOnExit={false}
 					transition={{ enter: { ...config }, exit: { ...config } }}
+					style={{ width: '100%' }}
 				>
 					<VStack
 						ref={stackRef}
 						width='100%'
-						alignItems='flex-start'
-						justifyContent='center'
+						alignItems='stretch'
+						justifyContent='stretch'
 						spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
 					>
 						{compact(formatStringToParagraphs({ string: children })).map((paragraph, index) => (

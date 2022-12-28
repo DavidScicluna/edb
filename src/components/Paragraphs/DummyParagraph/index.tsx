@@ -19,9 +19,11 @@ import { range } from 'lodash';
 import { useUserTheme } from '../../../common/hooks';
 import { getFontSizeHeight } from '../../../common/utils';
 
+import { DummyParagraphProps } from './types';
+
 const lines = 5;
 
-const DummyParagraph: FC = () => {
+const DummyParagraph: FC<DummyParagraphProps> = (props) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -29,14 +31,14 @@ const DummyParagraph: FC = () => {
 	const lineHeight = useConst<LineHeight>('shorter');
 
 	return (
-		<DummyCard colorMode={colorMode} isFullWidth p={2}>
+		<DummyCard {...props} colorMode={colorMode} isFullWidth p={2}>
 			<DummyCardHeader />
 
 			<CardBody>
 				<VStack
 					width='100%'
-					alignItems='flex-start'
-					justifyContent='center'
+					alignItems='stretch'
+					justifyContent='stretch'
 					spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
 				>
 					{range(lines).map((_dummy, index) => (
