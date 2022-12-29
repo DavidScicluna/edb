@@ -6,7 +6,7 @@ import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
 import { range } from 'lodash';
 
-import { useUserTheme } from '../../../../common/hooks';
+import { useUserTheme } from '../../../../../common/hooks';
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -21,10 +21,10 @@ import {
 	DummyVerticalPoster,
 	PersonHorizontalPoster,
 	PersonVerticalPoster
-} from '../../../../components';
-import { formatMediaTypeLabel } from '../../../../common/utils';
-import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
-import { useLayoutContext } from '../../../../containers/Layout/common/hooks';
+} from '../../../../../components';
+import { formatMediaTypeLabel } from '../../../../../common/utils';
+import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
+import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 
 import { ViewCastMediaType, ViewCastProps } from './types';
 
