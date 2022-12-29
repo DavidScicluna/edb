@@ -1,9 +1,9 @@
 import { AccordionType } from '@davidscicluna/component-library';
 
-import { UseMediaTypeCreditsQueryResult } from '../../../../common/queries/useMediaTypeCreditsQuery';
-import { MediaType } from '../../../../common/types';
-import { Crew as MovieCrew } from '../../../../common/types/movie';
-import { Crew as TVShowCrew } from '../../../../common/types/tv';
+import { UseMediaTypeCreditsQueryResult } from '../../../../../common/queries/useMediaTypeCreditsQuery';
+import { MediaType } from '../../../../../common/types';
+import { Crew as MovieCrew } from '../../../../../common/types/movie';
+import { Crew as TVShowCrew } from '../../../../../common/types/tv';
 
 export type ViewCrewMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
@@ -14,7 +14,7 @@ export type ViewCrewDepartments<MT extends ViewCrewMediaType> = ViewCrewDepartme
 
 type Picked = 'isFetching' | 'isLoading' | 'isError' | 'isSuccess' | 'refetch';
 
-export type ViewCrewProps<MT extends ViewCrewMediaType> = Pick<UseMediaTypeCreditsQueryResult<MT>, Picked> & {
+export type ViewCrewProps<MT extends ViewCrewMediaType> = Partial<Pick<UseMediaTypeCreditsQueryResult<MT>, Picked>> & {
 	mediaType: MT;
 	departments?: ViewCrewDepartments<MT>;
 	name?: string;

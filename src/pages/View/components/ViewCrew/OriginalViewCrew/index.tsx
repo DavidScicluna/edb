@@ -21,7 +21,7 @@ import { Text } from '@chakra-ui/react';
 
 import { range } from 'lodash';
 
-import { useUserTheme } from '../../../../common/hooks';
+import { useUserTheme } from '../../../../../common/hooks';
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -34,9 +34,9 @@ import {
 	VerticalGrid,
 	PersonHorizontalPoster,
 	PersonVerticalPoster
-} from '../../../../components';
-import { formatMediaTypeLabel } from '../../../../common/utils';
-import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
+} from '../../../../../components';
+import { formatMediaTypeLabel } from '../../../../../common/utils';
+import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 
 import { ViewCrewMediaType, ViewCrewProps, ViewCrewGetDepartmentType } from './types';
 
