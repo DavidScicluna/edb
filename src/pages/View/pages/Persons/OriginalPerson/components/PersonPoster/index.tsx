@@ -7,29 +7,40 @@ import { useConst } from '@chakra-ui/react';
 import { v4 as uuid } from 'uuid';
 import { omit } from 'lodash';
 
-import ViewAvatar from '../../../../../components/ViewAvatar';
-import { getBoringAvatarSrc, getBoringAvatarVariantByMediaType, getImageSize } from '../../../../../../../common/utils';
+import ViewPoster from '../../../../../components/ViewPoster';
+import {
+	formatMediaTypeLabel,
+	getBoringAvatarSrc,
+	getBoringAvatarVariantByMediaType,
+	getImageSize
+} from '../../../../../../../common/utils';
 import { useUserTheme } from '../../../../../../../common/hooks';
 
-import { PersonAvatarProps } from './types';
+import { PersonPosterProps } from './types';
 
 const { getHue } = utils;
 
-const thumbnail = getImageSize({ type: 'poster', mode: 'thumbnail' });
-const full = getImageSize({ type: 'poster', mode: 'full' });
+const thumbnail = getImageSize({ type: 'profile', mode: 'thumbnail' });
+const full = getImageSize({ type: 'profile', mode: 'full' });
 
-const PersonAvatar: FC<PersonAvatarProps> = ({ person, onClick, ...rest }) => {
+const PersonPoster: FC<PersonPosterProps> = ({ person, onClick, ...rest }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
 	const { id, name, profile_path } = person;
 
+	const alt = useConst<string>(
+		name
+			? `${name} ${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} avatar`
+			: `${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })} avatar`
+	);
+
 	const randomID = useConst<string>(uuid());
 
 	return (
-		<ViewAvatar
+		<ViewPoster
 			{...rest}
-			alt={name ? `${name || ''} person poster` : 'Person poster'}
+			alt={alt}
 			onClick={onClick}
 			src={{
 				boring: getBoringAvatarSrc({
@@ -46,4 +57,4 @@ const PersonAvatar: FC<PersonAvatarProps> = ({ person, onClick, ...rest }) => {
 	);
 };
 
-export default PersonAvatar;
+export default PersonPoster;
