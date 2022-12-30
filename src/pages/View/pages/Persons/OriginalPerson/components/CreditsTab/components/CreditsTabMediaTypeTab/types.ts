@@ -1,20 +1,14 @@
-import { UsePersonMovieCreditsQueryResult } from '../../../../../../../../../common/queries/usePersonMovieCreditsQuery';
-import { UsePersonTVShowCreditsQueryResult } from '../../../../../../../../../common/queries/usePersonTVShowCreditsQuery';
-import { PersonCredit, PersonDepartments, PersonMediaType } from '../../../../types';
+import { UsePersonCreditsQueryResult } from '../../../../../../../../../common/queries/usePersonCreditsQuery';
+import { PersonCredit, PersonDepartments } from '../../../../types';
 
-export type CreditsTabMediaTypeTabQuery = UsePersonMovieCreditsQueryResult | UsePersonTVShowCreditsQueryResult;
+export type CreditsTabMediaTypeTabQuery = UsePersonCreditsQueryResult<'movie'> & UsePersonCreditsQueryResult<'tv'>;
 
 export type CreditsTabMediaTypeTabProps<
 	Cast extends PersonCredit,
 	Crew extends PersonCredit,
 	Query extends CreditsTabMediaTypeTabQuery
 > = {
-	mediaType: PersonMediaType;
+	mediaType: CreditsTabMediaTypeTabQuery;
 	departments: PersonDepartments<Cast, Crew>;
 	query?: Query;
-	// isLoading?: boolean;
-	// isError?: boolean;
-	// isSuccess?: boolean;
-	// error: QueryError;
-	// refetch: () => void;
 };

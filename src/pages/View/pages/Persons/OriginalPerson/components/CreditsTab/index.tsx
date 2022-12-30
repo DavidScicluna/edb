@@ -71,7 +71,9 @@ const CreditsTab: FC<CreditsTabProps> = ({ movieDepartments = [], tvShowDepartme
 						<TotalBadge
 							color={color}
 							colorMode={colorMode}
-							prefix={`${name ? name : 'Person'} has a total of`}
+							prefix={`${
+								name ? name : formatMediaTypeLabel({ type: 'single', mediaType: 'person' })
+							} has a total of`}
 							suffix='Credits'
 							total={total}
 						/>
@@ -85,7 +87,9 @@ const CreditsTab: FC<CreditsTabProps> = ({ movieDepartments = [], tvShowDepartme
 							})} & ${formatMediaTypeLabel({
 								type: 'multiple',
 								mediaType: 'tv'
-							})} that ${name ? name : 'the person'} was part of during ${
+							})} that ${
+								name ? name : `the ${formatMediaTypeLabel({ type: 'single', mediaType: 'person' })}`
+							} was part of during ${
 								gender === 1 ? 'her' : gender === 2 ? 'his' : 'their'
 							} career and also contains ${
 								gender === 1 ? 'her' : gender === 2 ? 'his' : 'their'

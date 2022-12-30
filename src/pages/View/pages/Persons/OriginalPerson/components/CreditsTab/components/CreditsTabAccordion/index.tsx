@@ -41,7 +41,7 @@ import { CreditsTabAccordionProps, CreditsTabMediaType } from './types';
 
 const limit = 5;
 
-const today = String(dayjs(new Date()).year());
+const today = formatDate({ date: dayjs(new Date()).toISOString(), section: 'year' });
 
 const CreditsTabAccordion = <Cast extends PersonCredit, Crew extends PersonCredit>(
 	props: CreditsTabAccordionProps<Cast, Crew>
@@ -109,7 +109,7 @@ const CreditsTabAccordion = <Cast extends PersonCredit, Crew extends PersonCredi
 						spacing={0}
 					>
 						{years
-							.filter((_movie, index) => index <= visibleDebounced)
+							.filter((_movie, index) => index < visibleDebounced)
 							.map((year) => {
 								const mediaItems = uniqBy(
 									[...(credits.cast[year] || []), ...(credits.crew[year] || [])],
