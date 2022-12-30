@@ -2,9 +2,9 @@ import { FC, useState } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { useDebounce, Tabs, DummyTabList, TabPanels, Skeleton } from '@davidscicluna/component-library';
+import { useTheme, useDebounce, Tabs, DummyTabList, TabPanels, Skeleton } from '@davidscicluna/component-library';
 
-import { VStack, Text } from '@chakra-ui/react';
+import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
@@ -13,11 +13,13 @@ import Page from '../../../../../containers/Page';
 import PageBody from '../../../../../containers/Page/components/PageBody';
 import PageHeader from '../../../../../containers/Page/components/PageHeader';
 import { useUserTheme } from '../../../../../common/hooks';
-import PersonDummyAvatar from '../../../components/ViewDummyAvatar';
+import ViewDummyAvatar from '../../../components/ViewDummyPoster';
 import ViewDummySocials from '../../../components/ViewDummySocials';
 import DummyOverviewTab from '../components/DummyOverviewTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyCreditsTab from '../components/DummyCreditsTab';
+import PersonsDummyInfo from '../components/PersonsDummyInfo';
+import PersonsDummyActions from '../components/PersonsDummyActions';
 
 import { PersonTabs } from './types';
 
@@ -28,7 +30,10 @@ export const tabs: PersonTabs = [
 ];
 
 const DummyPerson: FC = () => {
+	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
+
+	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
 	const { spacing } = useLayoutContext();
 
@@ -51,27 +56,18 @@ const DummyPerson: FC = () => {
 	return (
 		<Page>
 			<PageHeader
-				renderLeftPanel={() => <PersonDummyAvatar />}
+				renderLeftPanel={() => <ViewDummyAvatar />}
 				renderTitle={(props) => (
 					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 						<Text {...props}>Person Name</Text>
 					</Skeleton>
 				)}
-				// renderSubtitle={
-				// 	person
-				// 		? () => (
-				// 				<PersonInfo
-				// 					person={person}
-				// 					movieDepartments={movieDepartmentsDebounced}
-				// 					tvShowDepartments={tvShowDepartmentsDebounced}
-				// 				/>
-				// 		  )
-				// 		: undefined
-				// }
+				renderSubtitle={() => <PersonsDummyInfo />}
 				direction='row'
 				spacing={spacing}
 				p={spacing}
 			/>
+			<PersonsDummyActions p={spacing} />
 			<PageBody px={spacing} pb={spacing}>
 				<Tabs width='100%' color={color} colorMode={colorMode} activeTab={activeTabDebounced} size='xl'>
 					<VStack width='100%' spacing={spacing}>
@@ -79,7 +75,7 @@ const DummyPerson: FC = () => {
 							tabs={tabs.map(({ label }) => {
 								return { label };
 							})}
-							renderRight={() => <ViewDummySocials />}
+							renderRight={!isSm ? () => <ViewDummySocials /> : undefined}
 						/>
 
 						<TabPanels>
