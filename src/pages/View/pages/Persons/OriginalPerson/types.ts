@@ -2,19 +2,12 @@ import { ReactNode } from 'react';
 
 import { Location } from 'react-router';
 
-import { TabsOnChangeProps, TabListTab, TabsProps } from '@davidscicluna/component-library';
+import { TabListTab, TabsOnChangeProps, TabsProps } from '@davidscicluna/component-library';
 
-import {
-	CastMovieCredit,
-	CastTVCredit,
-	Credits,
-	CrewMovieCredit,
-	CrewTVCredit
-} from '../../../../../common/types/person';
-import { UsePersonQueryResult } from '../../../../../common/queries/usePersonQuery';
-import { UsePersonMovieCreditsQueryResult } from '../../../../../common/queries/usePersonMovieCreditsQuery';
-import { UsePersonTVShowCreditsQueryResult } from '../../../../../common/queries/usePersonTVShowCreditsQuery';
-import { UsePersonImagesQueryResult } from '../../../../../common/queries/usePersonImagesQuery';
+import { CastMovieCredit, CastTVCredit, CrewMovieCredit, CrewTVCredit } from '../../../../../common/types/person';
+import { UseMediaTypeQueryResult } from '../../../../../common/queries/useMediaTypeQuery';
+import { UsePersonCreditsQueryResult } from '../../../../../common/queries/usePersonCreditsQuery';
+import { UseMediaTypeImagesQueryResult } from '../../../../../common/queries/useMediaTypeImagesQuery';
 
 // TODO: Use TabListTabRenderProps type once exported
 type RenderBadgeProps = Pick<TabsProps, 'color' | 'colorMode' | 'size'> & {
@@ -33,8 +26,6 @@ export type PersonParams = { id: string };
 type PersonDepartmentID = 'acting' | string;
 
 type PersonDepartmentLabel = 'Acting' | string;
-
-export type PersonKnownForCredits = NonNullable<Credits['cast'] | Credits['crew']>;
 
 export type PersonCredit = CastMovieCredit & CastTVCredit & CrewMovieCredit & CrewTVCredit;
 export type PersonCredits<C> = Record<string, C[]>;
@@ -56,9 +47,9 @@ export type PersonTVShowDepartment = PersonDepartment<CastTVCredit, CrewTVCredit
 export type PersonTVShowDepartments = PersonTVShowDepartment[];
 
 export type PersonContext = {
-	personQuery?: UsePersonQueryResult;
-	movieCreditsQuery?: UsePersonMovieCreditsQueryResult;
-	tvShowCreditsQuery?: UsePersonTVShowCreditsQueryResult;
-	imagesQuery?: UsePersonImagesQueryResult;
+	personQuery?: UseMediaTypeQueryResult<'person'>;
+	movieCreditsQuery?: UsePersonCreditsQueryResult<'movie'>;
+	tvShowCreditsQuery?: UsePersonCreditsQueryResult<'tv'>;
+	imagesQuery?: UseMediaTypeImagesQueryResult;
 	onSetActiveTab: (props: TabsOnChangeProps) => void;
 };

@@ -2,19 +2,26 @@ import { FC, createContext, useState, lazy } from 'react';
 
 import { useLocation, useNavigate, useParams } from 'react-router';
 
-import { TabsOnChangeProps, useDebounce, Tabs, TabList, TabPanels, Skeleton } from '@davidscicluna/component-library';
+import {
+	TabsOnChangeProps,
+	useTheme,
+	useDebounce,
+	Tabs,
+	TabList,
+	TabPanels,
+	Skeleton
+} from '@davidscicluna/component-library';
 
-import { VStack, Text } from '@chakra-ui/react';
+import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { keys, pick } from 'lodash';
 
 import {
-	usePersonExternalIDsQuery,
-	usePersonImagesQuery,
-	usePersonMovieCreditsQuery,
-	usePersonQuery,
-	usePersonTVShowCreditsQuery
+	useExternalIDsQuery,
+	useMediaTypeImagesQuery,
+	useMediaTypeQuery,
+	usePersonCreditsQuery
 } from '../../../../../common/queries';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import Page from '../../../../../containers/Page';
@@ -22,7 +29,7 @@ import PageBody from '../../../../../containers/Page/components/PageBody';
 import PageHeader from '../../../../../containers/Page/components/PageHeader';
 import { useUserTheme } from '../../../../../common/hooks';
 import { Suspense, TotalBadge } from '../../../../../components';
-import PersonDummyAvatar from '../../../components/ViewDummyAvatar';
+import ViewDummyPoster from '../../../components/ViewDummyPoster';
 import ViewSocials from '../../../components/ViewSocials';
 import ViewDummySocials from '../../../components/ViewDummySocials';
 import { CastMovieCredit, CastTVCredit, CrewMovieCredit, CrewTVCredit } from '../../../../../common/types/person';
@@ -30,8 +37,11 @@ import { method as defaultOnSetActiveTab } from '../../../../../common/data/defa
 import DummyOverviewTab from '../components/DummyOverviewTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyCreditsTab from '../components/DummyCreditsTab';
+import PersonsDummyInfo from '../components/PersonsDummyInfo';
 
-import PersonAvatar from './components/PersonAvatar';
+import PersonActions from './components/PersonActions';
+import PersonInfo from './components/PersonInfo';
+import PersonPoster from './components/PersonPoster';
 import {
 	PersonContext as PersonContextType,
 	PersonTabs,
@@ -40,7 +50,6 @@ import {
 	PersonTVShowDepartments
 } from './types';
 import { getDepartments } from './common/utils';
-import PersonInfo from './components/PersonInfo';
 
 const OverviewTab = lazy(() => import('./components/OverviewTab'));
 const CreditsTab = lazy(() => import('./components/CreditsTab'));
@@ -48,7 +57,7 @@ const PhotosTab = lazy(() => import('./components/PhotosTab'));
 
 export const PersonContext = createContext<PersonContextType>({ onSetActiveTab: defaultOnSetActiveTab });
 
-export const tabs: PersonTabs = [
+export const personTabs: PersonTabs = [
 	{
 		path: { hash: 'overview' },
 		label: 'Overview'
@@ -70,7 +79,10 @@ export const tabs: PersonTabs = [
 ];
 
 const Person: FC = () => {
+	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
+
+	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
 	const { spacing } = useLayoutContext();
 
@@ -86,13 +98,14 @@ const Person: FC = () => {
 	const [tvShowDepartments, setTVShowDepartments] = useState<PersonTVShowDepartments>([]);
 	const tvShowDepartmentsDebounced = useDebounce<PersonTVShowDepartments>(tvShowDepartments);
 
-	const personQuery = usePersonQuery({ props: { id: Number(id) } });
+	const personQuery = useMediaTypeQuery<'person'>({ props: { mediaType: 'person', id: Number(id) } });
 
 	const { data: person, isFetching: isPersonFetching, isLoading: isPersonLoading } = personQuery;
 
-	const movieCreditsQuery = usePersonMovieCreditsQuery({
-		props: { id: Number(id) },
+	const movieCreditsQuery = usePersonCreditsQuery<'movie'>({
+		props: { mediaType: 'movie', id: Number(id) },
 		options: {
+			enabled: !!person?.id,
 			onSuccess: (credits) => {
 				setMovieDepartments([...getDepartments<CastMovieCredit, CrewMovieCredit>({ credits })]);
 			}
@@ -102,9 +115,10 @@ const Person: FC = () => {
 	const { data: movieCredits } = movieCreditsQuery;
 	const { cast: movieCastCredits = [], crew: movieCrewCredits = [] } = movieCredits || {};
 
-	const tvShowCreditsQuery = usePersonTVShowCreditsQuery({
-		props: { id: Number(id) },
+	const tvShowCreditsQuery = usePersonCreditsQuery<'tv'>({
+		props: { mediaType: 'tv', id: Number(id) },
 		options: {
+			enabled: !!person?.id,
 			onSuccess: (credits) => {
 				setTVShowDepartments([...getDepartments<CastTVCredit, CrewTVCredit>({ credits })]);
 			}
@@ -118,14 +132,20 @@ const Person: FC = () => {
 		data: externalIDs,
 		isFetching: isExternalIDsFetching,
 		isLoading: isExternalIDsLoading
-	} = usePersonExternalIDsQuery({ props: { id: Number(id) } });
+	} = useExternalIDsQuery({
+		props: { mediaType: 'person', id: Number(id) },
+		options: { enabled: !!person?.id }
+	});
 
-	const imagesQuery = usePersonImagesQuery({ props: { id: Number(id) } });
+	const imagesQuery = useMediaTypeImagesQuery({
+		props: { mediaType: 'person', id: Number(id) },
+		options: { enabled: !!person?.id }
+	});
 
 	const { data: images } = imagesQuery;
 
 	const handleTabChange = ({ index }: TabsOnChangeProps): void => {
-		const tab = tabs.find((_tab, i) => index === i);
+		const tab = personTabs.find((_tab, i) => index === i);
 
 		if (tab && tab.path) {
 			navigate({ ...location, ...tab.path });
@@ -134,7 +154,7 @@ const Person: FC = () => {
 
 	const handleSetActiveTab = (): void => {
 		const hash = location.hash.replaceAll('#', '');
-		const index = tabs.findIndex((tab) => tab.path.hash === hash);
+		const index = personTabs.findIndex((tab) => tab.path.hash === hash);
 
 		setActiveTab(index >= 0 ? index : 0);
 	};
@@ -150,16 +170,16 @@ const Person: FC = () => {
 				movieCreditsQuery,
 				tvShowCreditsQuery,
 				imagesQuery,
-				onSetActiveTab: ({ index }) => setActiveTab(index)
+				onSetActiveTab: handleTabChange
 			}}
 		>
 			<Page>
 				<PageHeader
 					renderLeftPanel={
 						isPersonFetching || isPersonLoading
-							? () => <PersonDummyAvatar />
+							? () => <ViewDummyPoster />
 							: person
-							? () => <PersonAvatar person={person} />
+							? () => <PersonPoster person={person} />
 							: undefined
 					}
 					renderTitle={(props) => (
@@ -172,7 +192,9 @@ const Person: FC = () => {
 						</Skeleton>
 					)}
 					renderSubtitle={
-						person
+						isPersonFetching || isPersonLoading
+							? () => <PersonsDummyInfo />
+							: person
 							? () => (
 									<PersonInfo
 										person={person}
@@ -186,6 +208,7 @@ const Person: FC = () => {
 					spacing={spacing}
 					p={spacing}
 				/>
+				{person ? <PersonActions person={person} p={spacing} /> : null}
 				<PageBody px={spacing} pb={spacing}>
 					<Tabs
 						width='100%'
@@ -197,7 +220,7 @@ const Person: FC = () => {
 					>
 						<VStack width='100%' spacing={spacing}>
 							<TabList
-								tabs={tabs.map((tab, index) => {
+								tabs={personTabs.map((tab, index) => {
 									return {
 										label: tab.label,
 										renderRight: (props) => {
@@ -220,18 +243,22 @@ const Person: FC = () => {
 									};
 								})}
 								renderRight={
-									keys(
-										pick(externalIDs, [
-											'facebook_id',
-											'twitter_id',
-											'instagram_id',
-											'imdb_id',
-											'homepage_id'
-										])
-									).length > 0
-										? () => <ViewSocials socials={{ ...externalIDs }} />
-										: isExternalIDsFetching || isExternalIDsLoading
+									!isSm && (isExternalIDsFetching || isExternalIDsLoading)
 										? () => <ViewDummySocials />
+										: !isSm &&
+										  keys(
+												pick(externalIDs, [
+													'facebook_id',
+													'twitter_id',
+													'instagram_id',
+													'imdb_id'
+												])
+										  ).length > 0
+										? () => (
+												<ViewSocials
+													socials={{ ...externalIDs, homepage_id: person?.homepage }}
+												/>
+										  )
 										: undefined
 								}
 							/>

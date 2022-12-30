@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
 import { sort } from 'fast-sort';
-import { compact, keys, lowerCase, memoize, toString, uniq, uniqBy } from 'lodash';
+import { compact, keys, lowerCase, memoize, toString, uniq } from 'lodash';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import { Credits, FullPerson } from '../../../../../../../common/types/person';
-import { PersonCredit, PersonCredits, PersonDepartment, PersonDepartments, PersonKnownForCredits } from '../../types';
+import { PersonCredit, PersonCredits, PersonDepartment, PersonDepartments } from '../../types';
+import { formatDate } from '../../../../../../../common/utils';
 
 dayjs.extend(localizedFormat);
 
@@ -15,7 +16,13 @@ const splitCreditsByYear = memoize(
 		const formattedCredits: PersonCredits<C> = {};
 
 		credits.forEach((credit) => {
-			const year = String(dayjs(credit.release_date || credit.first_air_date).year() || 'Announced');
+			const year =
+				credit.release_date || credit.first_air_date
+					? formatDate({
+							date: credit.release_date || credit.first_air_date || '',
+							section: 'year'
+					  })
+					: 'Announced';
 
 			if (formattedCredits && formattedCredits[year]) {
 				formattedCredits[year] = uniq(
@@ -58,9 +65,13 @@ export const getDepartments = memoize(
 			if (departments.some(({ id: departmentID }) => departmentID === id)) {
 				departments = departments.map((department) => {
 					if (department.id === id) {
-						const year = String(
-							dayjs(mediaItem.release_date || mediaItem.first_air_date).year() || 'Announced'
-						);
+						const year =
+							mediaItem.release_date || mediaItem.first_air_date
+								? formatDate({
+										date: mediaItem.release_date || mediaItem.first_air_date || '',
+										section: 'year'
+								  })
+								: 'Announced';
 						return {
 							...department,
 							credits: {
@@ -118,9 +129,9 @@ type GetDatesProps = Pick<FullPerson, 'birthday' | 'deathday' | 'place_of_birth'
 
 export const getDates = memoize(({ birthday, deathday, place_of_birth }: GetDatesProps): string => {
 	return compact([
-		birthday ? `Born on ${dayjs(birthday || '', 'YYYY-MM-DD').format('LL')}` : null,
+		birthday ? `Born on ${formatDate({ date: birthday || '' })}` : null,
 		place_of_birth ? `in ${place_of_birth}` : null,
-		deathday ? `and died on ${dayjs(deathday || '', 'YYYY-MM-DD').format('LL')}` : null,
+		deathday ? `and died on ${formatDate({ date: deathday || '' })}` : null,
 		birthday || deathday
 			? `(${toString(dayjs(birthday || new Date()).diff(deathday || new Date(), 'years')).replaceAll(
 					'-',
@@ -128,19 +139,4 @@ export const getDates = memoize(({ birthday, deathday, place_of_birth }: GetDate
 			  )} years old)`
 			: null
 	]).join(' ');
-});
-
-type GetKnownForProps = { credits: Credits };
-
-export const getKnownFor = memoize(({ credits }: GetKnownForProps): PersonKnownForCredits => {
-	const { cast = [], crew = [] } = credits;
-
-	return uniqBy(
-		sort([...cast, ...crew]).by([
-			{ desc: ({ vote_count }) => vote_count },
-			{ desc: ({ vote_average }) => vote_average },
-			{ desc: ({ popularity }) => popularity }
-		]),
-		'id'
-	).filter((_mediaItem, index) => index < 20);
 });
