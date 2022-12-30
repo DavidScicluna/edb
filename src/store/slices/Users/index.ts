@@ -12,20 +12,22 @@ import {
 	StateProps,
 	UserAction,
 	User,
+	Users,
 	UserInfo,
-	UserSearch,
+	UserSearches,
 	MediaItems,
-	UserList,
+	UserLists,
 	UserRecentlyViewed,
-	// UserReview,
-	// OtherReview,
+	UserReviewsMediaItems,
+	OtherReviews,
 	UserLanguage,
 	UserThemeColor,
+	UserThemeColors,
 	UserTheme,
 	UserCredentials
 } from './types';
 
-const colors: UserThemeColor[] = [
+const colors: UserThemeColors = [
 	'pink',
 	'purple',
 	'deep_purple',
@@ -88,10 +90,10 @@ export const defaultUser: User = {
 				}
 			}
 		],
-		// reviews: {
-		// 	user: [],
-		// 	other: []
-		// },
+		reviews: {
+			user: { movie: [], tv: [] },
+			other: []
+		},
 		signedInAt: dayjs(new Date()).toISOString(),
 		updatedAt: dayjs(new Date()).toISOString(),
 		createdAt: dayjs(new Date()).toISOString()
@@ -121,10 +123,6 @@ export const guest: User = {
 				'https://source.boringavatars.com/beam/500/ds-edb-guest-user?colors=%23ef5350%2C%23ec407a%2C%23ab47bc%2C%237e57c2%2C%235c6bc0%2C%2342a5f5%2C%2329b6f6%2C%2326c6da%2C%2326a69a%2C%2366bb6a%2C%239ccc65%2C%23d4e157%2C%23ffca28%2C%23ffa726%2C%23ff7043&square=true'
 		},
 		lists: []
-		// reviews: {
-		// 	user: [],
-		// 	other: []
-		// },
 	}
 };
 
@@ -139,7 +137,7 @@ const getUser = memoize(({ users, user }: GetUserProps): User => {
 	return users.find((u) => u.data.id === user) || { ...guest };
 });
 
-const updateUsers = memoize(({ users, user }: UpdateUsersProps): User[] => {
+const updateUsers = memoize(({ users, user }: UpdateUsersProps): Users => {
 	return sort([...users.filter((u) => u.data.id !== user.data.id), user]).desc((u) => u.data.updatedAt);
 });
 
@@ -150,7 +148,7 @@ const usersSlice = createSlice({
 		setUser: (state: StateProps, action: PayloadAction<User>) => {
 			state.data.activeUser = action.payload;
 		},
-		setUsers: (state: StateProps, action: PayloadAction<User[]>) => {
+		setUsers: (state: StateProps, action: PayloadAction<Users>) => {
 			state.data.users = action.payload;
 		},
 		setUserCredentials: (state: StateProps, action: UserAction<UserCredentials>) => {
@@ -199,7 +197,7 @@ const usersSlice = createSlice({
 				}
 			}
 		},
-		setUserRecentSearches: (state: StateProps, action: UserAction<UserSearch[]>) => {
+		setUserRecentSearches: (state: StateProps, action: UserAction<UserSearches>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
 
 			if (user.data.id !== guest.data.id) {
@@ -268,8 +266,7 @@ const usersSlice = createSlice({
 				}
 			}
 		},
-		// TODO: Maybe add more reducers to update specific lists with utils like user
-		setUserLists: (state: StateProps, action: UserAction<UserList[]>) => {
+		setUserLists: (state: StateProps, action: UserAction<UserLists>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
 
 			if (user.data.id !== guest.data.id) {
@@ -292,44 +289,87 @@ const usersSlice = createSlice({
 				}
 			}
 		},
-		// setUserReviews: (state: StateProps, action: UserAction<UserReview[]>) => {
-		// const user = getUser({ users: state.data.users, user: action.payload.id });
-		//
-		// 	state.data.users = state.data.users.map((user) =>
-		// 		user.data.id === action.payload.id
-		// 			? {
-		// 					...user,
-		// 					data: {
-		// 						...user.data,
-		// 						reviews: {
-		// 							...(user.data.reviews || {}),
-		// 							user: [...action.payload.data],
-		// 							other: [...(user.data.reviews?.other || [])]
-		// 						}
-		// 					}
-		// 			  }
-		// 			: { ...user }
-		// 	);
-		// },
-		// setUserOtherReviews: (state: StateProps, action: UserAction<OtherReview[]>) => {
-		// const user = getUser({ users: state.data.users, user: action.payload.id });
-		//
-		// 	state.data.users = state.data.users.map((user) =>
-		// 		user.data.id === action.payload.id
-		// 			? {
-		// 					...user,
-		// 					data: {
-		// 						...user.data,
-		// 						reviews: {
-		// 							...(user.data.reviews || {}),
-		// 							user: [...(user.data.reviews?.user || [])],
-		// 							other: [...action.payload.data]
-		// 						}
-		// 					}
-		// 			  }
-		// 			: { ...user }
-		// 	);
-		// },
+		setMovieUserReviews: (state: StateProps, action: UserAction<UserReviewsMediaItems<'movie'>>) => {
+			const user = getUser({ users: state.data.users, user: action.payload.id });
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						reviews: {
+							...user.data.reviews,
+							user: {
+								...user.data.reviews.user,
+								movie: [...action.payload.data]
+							}
+						},
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
+				}
+			}
+		},
+		setTVShowUserReviews: (state: StateProps, action: UserAction<UserReviewsMediaItems<'tv'>>) => {
+			const user = getUser({ users: state.data.users, user: action.payload.id });
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						reviews: {
+							...user.data.reviews,
+							user: {
+								...user.data.reviews.user,
+								tv: [...action.payload.data]
+							}
+						},
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
+				}
+			}
+		},
+		setUserOtherReviews: (state: StateProps, action: UserAction<OtherReviews>) => {
+			const user = getUser({ users: state.data.users, user: action.payload.id });
+
+			if (user.data.id !== guest.data.id) {
+				const updatedUser: User = {
+					...user,
+					data: {
+						...user.data,
+						reviews: { ...user.data.reviews, other: [...action.payload.data] },
+						updatedAt: dayjs(new Date()).toISOString()
+					}
+				};
+
+				state.data.users = updateUsers({
+					users: state.data.users,
+					user: { ...updatedUser }
+				});
+
+				if (state.data.activeUser.data.id === user.data.id) {
+					state.data.activeUser = { ...updatedUser };
+				}
+			}
+		},
 		setUserLanguage: (state: StateProps, action: UserAction<UserLanguage>) => {
 			const user = getUser({ users: state.data.users, user: action.payload.id });
 
@@ -408,8 +448,9 @@ export const {
 	setUserRecentlyViewed,
 	setUserLiked,
 	setUserLists,
-	// setUserReviews,
-	// setUserOtherReviews,
+	setMovieUserReviews,
+	setTVShowUserReviews,
+	setUserOtherReviews,
 	setUserLanguage,
 	setUserTheme
 } = usersSlice.actions;

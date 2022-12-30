@@ -1,17 +1,17 @@
-import { Color } from '@davidscicluna/component-library';
+import { Color, Nullable } from '@davidscicluna/component-library';
 
 import { ColorMode } from '@chakra-ui/react';
 
 import { PayloadAction } from '@reduxjs/toolkit';
 
-import { MediaType, FullCompany, Genre, Language } from '../../../common/types';
+import { MediaType, FullCompany, Genre, Language, Review, ReviewAuthor } from '../../../common/types';
 import { FullMovie, Collection } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
 import { FullTV } from '../../../common/types/tv';
 
-export type GetUserProps = { users: User[]; user: string };
+export type GetUserProps = { users: Users; user: string };
 
-export type UpdateUsersProps = { users: User[]; user: User };
+export type UpdateUsersProps = { users: Users; user: User };
 
 export type UserCredentials = {
 	username: string;
@@ -40,6 +40,7 @@ export type UserSearch = {
 	searchedAt: string;
 	searchTypes: UserSearchType[];
 };
+export type UserSearches = UserSearch[];
 
 export type GetMediaType<MT extends MediaType> = MT extends 'movie'
 	? FullMovie
@@ -81,23 +82,46 @@ export type UserList = {
 	createdAt: string;
 	mediaItems: UserListMediaItems;
 };
+export type UserLists = UserList[];
 
-// export type ReviewState = 'isLiked' | 'isDisliked';
+export type UserReviewMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-// export type UserReview = {
-// 	mediaItem: { mediaType: Omit<MediaType, 'person' | 'company' | 'collection'> } & (FullMovie | FullTV);
-// } & Omit<Review, 'media_id' | 'media_title' | 'media_type'>;
+export type UserReview = Pick<Review, 'id' | 'content'> & {
+	updatedAt: string;
+	createdAt: string;
+} & Pick<ReviewAuthor, 'rating'>;
+export type UserReviews = UserReview[];
 
-// export type OtherReview = {
-// 	state?: ReviewState;
-// } & Omit<Review, 'media_id' | 'media_title' | 'media_type'>;
+export type UserReviewsMediaItem<MT extends UserReviewMediaType> = {
+	mediaItem: GetMediaType<MT>;
+	mediaType: MT;
+	reviews: UserReviews;
+};
+export type UserReviewsMediaItems<MT extends UserReviewMediaType> = UserReviewsMediaItem<MT>[];
 
-// export type UserReviews = {
-// 	user: UserReview[];
-// 	other: OtherReview[];
-// };
+export type UserReviewsAllMediaItems = {
+	movie: UserReviewsMediaItems<'movie'>;
+	tv: UserReviewsMediaItems<'tv'>;
+};
+
+export type OtherReviewState = Nullable<'isLiked' | 'isDisliked'>;
+
+export type OtherReview = {
+	state: OtherReviewState;
+	review: Review;
+	updatedAt: string;
+	addedAt: string;
+};
+export type OtherReviews = OtherReview[];
+
+export type UserAllReviews = {
+	user: UserReviewsAllMediaItems;
+	other: OtherReviews;
+};
 
 export type UserThemeColor = Exclude<Color, 'transparent' | 'black' | 'white' | 'gray' | 'red' | 'green' | 'yellow'>;
+export type UserThemeColors = UserThemeColor[];
+
 export type UserThemeColorMode = ColorMode | 'system';
 
 export type UserLanguage = Language; // TODO: Replace type with language iso codes
@@ -112,11 +136,11 @@ export type User = {
 		id: string;
 		credentials: UserCredentials;
 		info: UserInfo;
-		recentSearches: UserSearch[];
+		recentSearches: UserSearches;
 		recentlyViewed: UserRecentlyViewed;
 		liked: MediaItems;
-		lists: UserList[];
-		// reviews: UserReviews;
+		lists: UserLists;
+		reviews: UserAllReviews;
 		signedInAt: string;
 		updatedAt: string;
 		createdAt: string;
@@ -126,12 +150,13 @@ export type User = {
 		theme: UserTheme;
 	};
 };
+export type Users = User[];
 
 export type UserAction<P> = PayloadAction<{ id: string; data: P }>;
 
 export type StateProps = {
 	data: {
 		activeUser: User;
-		users: User[];
+		users: Users;
 	};
 };
