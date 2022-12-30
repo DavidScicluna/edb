@@ -4,8 +4,8 @@ import { Divider } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../common/hooks';
-import { useLayoutContext } from '../../../../containers/Layout/common/hooks';
+import { useUserTheme } from '../../../../../common/hooks';
+import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 
 import MyReviews from './components/ViewReviewsMyReviews';
 import OtherReviews from './components/ViewReviewsOtherReviews';
