@@ -2,20 +2,25 @@ import { FC } from 'react';
 
 import { Headline, Skeleton, Divider, Badge, BadgeLabel } from '@davidscicluna/component-library';
 
-import { VStack, Text } from '@chakra-ui/react';
+import { useConst, VStack, Text } from '@chakra-ui/react';
 
 import { range } from 'lodash';
 
-import Masonry from '../PersonsMasonry';
+import DummyViewPhotos from '../../../../components/ViewPhotos/DummyViewPhotos';
 import { useUserTheme } from '../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
-
-import DummyPhoto from './components/DummyPhotosTabPhoto';
+import { ViewPhotosDummyPhoto, ViewPhotosDummyPhotos } from '../../../../components/ViewPhotos/common/types';
 
 const DummyPhotosTab: FC = () => {
 	const { color, colorMode } = useUserTheme();
 
 	const { spacing } = useLayoutContext();
+
+	const dummyPhotos = useConst<ViewPhotosDummyPhotos>(
+		range(20).map(() => {
+			return { orientation: 'portrait' } as ViewPhotosDummyPhoto;
+		})
+	);
 
 	return (
 		<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={spacing}>
@@ -44,13 +49,7 @@ const DummyPhotosTab: FC = () => {
 				py={spacing * 2}
 			/>
 
-			<VStack width='100%'>
-				<Masonry>
-					{range(12).map((_dummy, index) => (
-						<DummyPhoto key={index} />
-					))}
-				</Masonry>
-			</VStack>
+			<DummyViewPhotos dummyPhotos={dummyPhotos} />
 		</VStack>
 	);
 };
