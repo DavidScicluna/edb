@@ -7,8 +7,8 @@ import { Text } from '@chakra-ui/react';
 import { compact, range, uniqBy } from 'lodash';
 import { sort } from 'fast-sort';
 
-import width from '../../../../components/Posters/common/data/width';
-import { useUserTheme } from '../../../../common/hooks';
+import width from '../../../../../components/Posters/common/data/width';
+import { useUserTheme } from '../../../../../common/hooks';
 import {
 	HorizontalGrid,
 	HorizontalGridHeader,
@@ -24,12 +24,13 @@ import {
 	DummyVerticalPoster,
 	MovieVerticalPoster,
 	TVShowVerticalPoster
-} from '../../../../components';
-import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
-import { formatMediaTypeLabel } from '../../../../common/utils';
-import { useMediaTypeRecommendationsQuery } from '../../../../common/queries';
+} from '../../../../../components';
+import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
+import { formatMediaTypeLabel } from '../../../../../common/utils';
+import { useMediaTypeRecommendationsQuery } from '../../../../../common/queries';
+import { ViewRecommendationsMediaType } from '../common/types';
 
-import { ViewRecommendationsMediaType, ViewRecommendationsProps, ViewRecommendationsGetMediaItemType } from './types';
+import { ViewRecommendationsProps, ViewRecommendationsGetMediaItemType } from './types';
 
 const ViewRecommendations = <MT extends ViewRecommendationsMediaType>(
 	props: ViewRecommendationsProps<MT>
