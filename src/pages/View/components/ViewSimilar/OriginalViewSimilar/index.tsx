@@ -7,8 +7,8 @@ import { Text } from '@chakra-ui/react';
 import { compact, range, uniqBy } from 'lodash';
 import { sort } from 'fast-sort';
 
-import width from '../../../../components/Posters/common/data/width';
-import { useUserTheme } from '../../../../common/hooks';
+import width from '../../../../../components/Posters/common/data/width';
+import { useUserTheme } from '../../../../../common/hooks';
 import {
 	HorizontalGrid,
 	HorizontalGridHeader,
@@ -24,12 +24,13 @@ import {
 	DummyVerticalPoster,
 	MovieVerticalPoster,
 	TVShowVerticalPoster
-} from '../../../../components';
-import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
-import { formatMediaTypeLabel } from '../../../../common/utils';
-import { useMediaTypeSimilarQuery } from '../../../../common/queries';
+} from '../../../../../components';
+import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
+import { formatMediaTypeLabel } from '../../../../../common/utils';
+import { useMediaTypeSimilarQuery } from '../../../../../common/queries';
+import { ViewSimilarMediaType } from '../common/types';
 
-import { ViewSimilarMediaType, ViewSimilarProps, ViewSimilarGetMediaItemType } from './types';
+import { ViewSimilarProps, ViewSimilarGetMediaItemType } from './types';
 
 const ViewSimilar = <MT extends ViewSimilarMediaType>(props: ViewSimilarProps<MT>): ReactElement => {
 	const theme = useTheme();
