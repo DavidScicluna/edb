@@ -8,11 +8,11 @@ const ViewHeroDummyGenresGenre: FC = () => {
 	const { colorMode } = useUserTheme();
 
 	return (
-		<Badge colorMode={colorMode} size='xs'>
-			<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+		<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
+			<Badge colorMode={colorMode} size='xs'>
 				<BadgeLabel textTransform='capitalize'>Genre</BadgeLabel>
-			</Skeleton>
-		</Badge>
+			</Badge>
+		</Skeleton>
 	);
 };
 

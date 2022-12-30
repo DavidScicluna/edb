@@ -10,7 +10,7 @@ const ViewHeroDummyCrewPerson: FC = () => {
 
 	return (
 		<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-			<ViewHeroText textTransform='capitalize'>Person Name</ViewHeroText>
+			<ViewHeroText textTransform='capitalize'>Person</ViewHeroText>
 		</Skeleton>
 	);
 };
