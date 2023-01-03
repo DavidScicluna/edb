@@ -48,17 +48,26 @@ const OverviewTabHero: FC = () => {
 	return (
 		<Hero>
 			<ViewHeroVStack>
-				{isFetchingMovie || isMovieLoading ? (
-					<ViewHeroCover
-						renderPoster={() => <ViewHeroCoverDummyPoster />}
-						renderBackdrop={() => <ViewHeroCoverDummyBackdrop />}
-					/>
-				) : movie ? (
-					<ViewHeroCover
-						renderPoster={() => <OverviewTabHeroPoster movie={movie} />}
-						renderBackdrop={() => <OverviewTabHeroBackdrop movie={movie} />}
-					/>
-				) : null}
+				<ViewHeroCover
+					renderPoster={() =>
+						isFetchingMovie || isMovieLoading ? (
+							<ViewHeroCoverDummyPoster />
+						) : movie ? (
+							<OverviewTabHeroPoster movie={movie} />
+						) : (
+							<div />
+						)
+					}
+					renderBackdrop={() =>
+						isFetchingMovie || isMovieLoading ? (
+							<ViewHeroCoverDummyBackdrop />
+						) : movie ? (
+							<OverviewTabHeroBackdrop movie={movie} />
+						) : (
+							<div />
+						)
+					}
+				/>
 
 				<ViewHeroVStack px={2} pb={2}>
 					{isFetchingMovie || isMovieLoading ? (
