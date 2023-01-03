@@ -1,13 +1,13 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
-import { Collapse } from '@davidscicluna/component-library';
+import { useTheme, utils } from '@davidscicluna/component-library';
 
-import { useBoolean } from '@chakra-ui/react';
+import { useMediaQuery, useBoolean } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
-import { useEventListener, useIsFirstRender, useTimeout } from 'usehooks-ts';
+import { useEventListener, useIsFirstRender, useTimeout, useUpdateEffect } from 'usehooks-ts';
 
-import { usePopulateOptions, useSelector } from '../../common/hooks';
+import { usePopulateOptions, useSelector, useUserTheme } from '../../common/hooks';
 import Layout from '../Layout';
 import Routes from '../Routes';
 import { guest, setUser } from '../../store/slices/Users';
@@ -17,8 +17,15 @@ import Router from '../Router';
 import { toggleSpinnerModal } from '../../store/slices/Modals';
 import { updateFavicon } from '../../common/utils';
 
+const { checkIsTouchDevice } = utils;
+
+const isTouchDevice = checkIsTouchDevice();
+
 const Container: FC = () => {
+	const theme = useTheme();
 	const { colorMode } = useUserTheme();
+
+	const [isLg] = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
 
 	const isFirstRender = useIsFirstRender();
 
@@ -30,7 +37,7 @@ const Container: FC = () => {
 	const [isSpinnerVisible, setSetIsSpinnerVisible] = useBoolean();
 	const [isRoutesVisible, setSetIsRoutesVisible] = useBoolean();
 
-	const handleCheckRememberMe = useCallback((): void => {
+	const handleCheckRememberMe = (): void => {
 		if (!activeUser.data.credentials.rememberMe) {
 			dispatch(
 				setUser({
@@ -47,29 +54,33 @@ const Container: FC = () => {
 
 			updateFavicon({ color: activeUser.ui.theme.color, colorMode });
 		}
-	}, [activeUser, guest]);
+	};
 
 	usePopulateOptions();
 
-	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 6000 : null);
-	useTimeout(() => setSetIsSpinnerVisible.on(), isSplashscreenOpen ? 8000 : null);
-	useTimeout(() => setSetIsRoutesVisible.on(), isSplashscreenOpen ? 3000 : null);
+	useTimeout(() => setSetIsSplashscreenOpen.off(), isSplashscreenOpen ? 10000 : null);
+	useTimeout(() => setSetIsRoutesVisible.on(), isLg && isTouchDevice ? (isSplashscreenOpen ? 5000 : null) : 0);
+	useTimeout(() => setSetIsSpinnerVisible.on(), isRoutesVisible ? 7500 : null);
 
 	useEventListener('beforeunload', () => handleCheckRememberMe());
 
+	useUpdateEffect(() => updateFavicon({ color: activeUser.ui.theme.color, colorMode }), [colorMode]);
+
 	return (
 		<Router>
-			<Splashscreen isOpen={isSplashscreenOpen} onClose={() => setSetIsSplashscreenOpen.off()} />
+			{isLg && isTouchDevice && (
+				<Splashscreen isOpen={isSplashscreenOpen} onClose={() => setSetIsSplashscreenOpen.off()} />
+			)}
 
 			{isSpinnerVisible && (
 				<Spinner isOpen={isSpinnerModalOpen} onClose={() => dispatch(toggleSpinnerModal(false))} />
 			)}
 
-			<Collapse in={isRoutesVisible} unmountOnExit>
+			{isRoutesVisible && (
 				<Layout>
 					<Routes />
 				</Layout>
-			</Collapse>
+			)}
 		</Router>
 	);
 };
