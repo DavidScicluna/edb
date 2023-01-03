@@ -1,122 +1,47 @@
-import { FC, useState, useCallback } from 'react';
+import { FC } from 'react';
 
-import { useTheme, utils } from '@davidscicluna/component-library';
+import { useTheme, ScaleFade, utils } from '@davidscicluna/component-library';
 
-import { useBreakpointValue, useBoolean, useConst, AspectRatio, Center } from '@chakra-ui/react';
+import { useBreakpointValue, useConst, Center } from '@chakra-ui/react';
 
-import { includes, merge, round, sample, uniq } from 'lodash';
-import { useElementSize, useInterval, useTimeout } from 'usehooks-ts';
+import { shuffle } from 'lodash';
+import { Transition } from 'framer-motion';
 
-import { color as defaultColor } from '../../../../common/data/defaultPropValues';
 import { useUserTheme } from '../../../../common/hooks';
 
+import { colors as defaultColors, size as defaultSize } from './common/data/defaultPropValues';
 import useStyles from './common/styles';
-import { SplashscreenLogoColor } from './types';
+import { SplashscreenLogoColors } from './types';
 
-const colors: SplashscreenLogoColor[] = [
-	'red',
-	'pink',
-	'purple',
-	'deep_purple',
-	'indigo',
-	'blue',
-	'light_blue',
-	'cyan',
-	'teal',
-	'green',
-	'light_green',
-	'lime',
-	'yellow',
-	'orange',
-	'deep_orange'
-];
-
-const { getColor } = utils;
+const { getTransitionConfig, getTransitionDuration } = utils;
 
 const SplashscreenLogo: FC = () => {
 	const theme = useTheme();
-	const { colorMode } = useUserTheme();
+	const { color, colorMode } = useUserTheme();
 
-	const logoMaxWidth = useBreakpointValue({
-		'base': '50vw',
-		'sm': '40vw',
-		'md': '30vw',
-		'lg': '25vw',
-		'xl': '25vw',
-		'2xl': '20vw'
-	});
+	const size =
+		useBreakpointValue({
+			'base': 240,
+			'sm': 384,
+			'md': 496,
+			'lg': 640,
+			'xl': 768,
+			'2xl': 912
+		}) || defaultSize;
 
-	const [ref, { width: logoWidth }] = useElementSize();
+	const colors = useConst<SplashscreenLogoColors>(
+		shuffle(defaultColors.filter((c) => c !== color)).filter((_color, index) => index < 10)
+	);
 
-	const [isAnimatingMiddle, setIsAnimatingMiddle] = useBoolean();
-	const [isAnimatingEnd, setIsAnimatingEnd] = useBoolean();
+	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'ultra-slow' }));
+	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
 
-	const sampledColor = useConst<SplashscreenLogoColor>(sample(colors) || defaultColor);
-
-	const [color, setColor] = useState<SplashscreenLogoColor>(sampledColor);
-	const [usedColors, setUsedColors] = useState<SplashscreenLogoColor[]>([sampledColor]);
-
-	const style = useStyles({ theme });
-
-	const handlePickColor = useCallback(() => {
-		if (usedColors.length === colors.length) {
-			setColor(sampledColor);
-			setUsedColors(uniq([sampledColor]));
-		} else {
-			const newColor = sample(colors.filter((c) => c !== color && includes(usedColors, color))) || color;
-
-			setColor(newColor);
-			setUsedColors((usedColors) => uniq([...usedColors, newColor]));
-		}
-	}, [colors, color, usedColors, sampledColor]);
-
-	useTimeout(() => setIsAnimatingMiddle.on(), 1000);
-	useTimeout(() => {
-		setIsAnimatingMiddle.off();
-		setIsAnimatingEnd.on();
-	}, 2000);
-
-	useInterval(() => handlePickColor(), isAnimatingEnd ? 750 : null);
+	const style = useStyles({ theme, color, colors, colorMode, size });
 
 	return (
-		<AspectRatio ref={ref} width={logoMaxWidth} ratio={1 / 1}>
-			<Center
-				sx={{
-					...merge(style.logo, {
-						color:
-							isAnimatingMiddle || isAnimatingEnd
-								? getColor({
-										theme,
-										colorMode,
-										type:
-											isAnimatingEnd || isAnimatingMiddle
-												? 'background'
-												: colorMode === 'light'
-												? 'darkest'
-												: 'lightest'
-								  })
-								: 'transparent',
-						backgroundColor:
-							isAnimatingMiddle || isAnimatingEnd
-								? getColor({
-										theme,
-										colorMode,
-										color: isAnimatingEnd ? color : 'gray',
-										type: isAnimatingEnd ? 'color' : colorMode === 'light' ? 'darkest' : 'lightest'
-								  })
-								: 'transparent',
-						fontSize:
-							isAnimatingMiddle || isAnimatingEnd
-								? logoWidth
-									? `${round(logoWidth / 2.5)}px`
-									: '500%'
-								: '5000%'
-					})
-				}}
-			>
-				edb
-			</Center>
-		</AspectRatio>
+		<ScaleFade in transition={{ enter: { ...config }, exit: { ...config } }}>
+			<Center sx={style.logo}>edb</Center>
+		</ScaleFade>
 	);
 };
 
