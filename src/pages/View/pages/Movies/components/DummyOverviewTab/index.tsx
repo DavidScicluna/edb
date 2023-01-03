@@ -4,6 +4,7 @@ import { VStack } from '@chakra-ui/react';
 
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
+import DummyOverviewTabCollection from './components/DummyOverviewTabCollection';
 import DummyOverviewTabHero from './components/DummyOverviewTabHero';
 import DummyOverviewTabPhotos from './components/DummyOverviewTabPhotos';
 import DummyOverviewTabVideos from './components/DummyOverviewTabVideos';
@@ -26,6 +27,8 @@ const DummyOverviewTab: FC = () => {
 			<DummyOverviewTabVideos />
 
 			<DummyOverviewTabReview />
+
+			<DummyOverviewTabCollection />
 
 			<DummyOverviewTabSimilar />
 
