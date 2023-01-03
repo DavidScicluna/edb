@@ -1,14 +1,19 @@
 import { Style } from '@davidscicluna/component-library';
 
+import { size as defaultSize } from '../../data/defaultPropValues';
+
 import { SplashscreenLogoStyleProps } from './types';
 
-export default ({ theme }: SplashscreenLogoStyleProps): Style => {
-	const transition = `${theme.transition.duration.slow} ${theme.transition.easing['ease-in-out']}`;
+export default ({ theme, size = defaultSize }: SplashscreenLogoStyleProps): Style => {
+	const transition = 'none !important';
 
 	return {
 		'cursor': 'default',
 
 		'pointerEvents': 'none',
+
+		'width': `${size}px`,
+		'height': `${size}px`,
 
 		'minWidth': 'auto',
 		'minHeight': 'auto',
@@ -27,6 +32,7 @@ export default ({ theme }: SplashscreenLogoStyleProps): Style => {
 
 		'fontFamily': '"Pacifico", cursive',
 		'fontWeight': theme.fontWeights.normal,
+		'fontSize': ['100px', '150px', '200px', '250px', '250px', '300px'],
 		'textTransform': 'lowercase',
 		'whiteSpace': 'nowrap',
 		'lineHeight': theme.lineHeights.base,
@@ -35,7 +41,15 @@ export default ({ theme }: SplashscreenLogoStyleProps): Style => {
 		'p': 6,
 
 		'transition': transition,
+		'transitionProperty': transition,
+		'transitionDuration': transition,
+		'transitionTimingFunction': transition,
 
-		'*, *::before, *::after': { transition }
+		'*, *::before, *::after': {
+			transition: transition,
+			transitionProperty: transition,
+			transitionDuration: transition,
+			transitionTimingFunction: transition
+		}
 	};
 };
