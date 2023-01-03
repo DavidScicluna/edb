@@ -164,11 +164,6 @@ const Movie: FC = () => {
 
 	const { results: videos = [] } = videosQuery.data || {};
 
-	const collectionQuery = useMediaTypeQuery<'collection'>({
-		props: { mediaType: 'collection', id: Number(movie?.belongs_to_collection?.id) },
-		options: { enabled: !!movie?.belongs_to_collection?.id }
-	});
-
 	const reviewsQuery = useMediaTypeReviewsInfiniteQuery({
 		props: { mediaType: 'movie', id: Number(id) },
 		options: { enabled: !!movie?.id }
