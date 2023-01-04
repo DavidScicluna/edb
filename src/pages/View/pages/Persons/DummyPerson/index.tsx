@@ -13,7 +13,7 @@ import Page from '../../../../../containers/Page';
 import PageBody from '../../../../../containers/Page/components/PageBody';
 import PageHeader from '../../../../../containers/Page/components/PageHeader';
 import { useUserTheme } from '../../../../../common/hooks';
-import ViewDummyAvatar from '../../../components/ViewDummyPoster';
+import ViewDummyPoster from '../../../components/ViewDummyPoster';
 import ViewDummySocials from '../../../components/ViewDummySocials';
 import DummyOverviewTab from '../components/DummyOverviewTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
@@ -56,7 +56,7 @@ const DummyPerson: FC = () => {
 	return (
 		<Page>
 			<PageHeader
-				renderLeftPanel={() => <ViewDummyAvatar />}
+				renderLeftPanel={!isSm ? () => <ViewDummyPoster /> : undefined}
 				renderTitle={(props) => (
 					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 						<Text {...props}>Person Name</Text>
@@ -67,6 +67,7 @@ const DummyPerson: FC = () => {
 				spacing={spacing}
 				p={spacing}
 			/>
+			{isSm ? <ViewDummyPoster isFullWidth p={spacing} /> : null}
 			<PersonsDummyActions p={spacing} />
 			<PageBody px={spacing} pb={spacing}>
 				<Tabs width='100%' color={color} colorMode={colorMode} activeTab={activeTabDebounced} size='xl'>
