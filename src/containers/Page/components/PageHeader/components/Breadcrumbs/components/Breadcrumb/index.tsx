@@ -11,7 +11,7 @@ import { compact, lowerCase } from 'lodash';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import DummyBreadcrumb from '../DummyBreadcrumb';
 import { formatMediaTypeLabel } from '../../../../../../../../common/utils';
-import { mediaTypeQueryKey } from '../../../../../../../../common/keys';
+import { mediaTypeQueryKey } from '../../../../../../../../common/queries/useMediaTypeQuery';
 import { FullPerson } from '../../../../../../../../common/types/person';
 import { Collection, FullMovie } from '../../../../../../../../common/types/movie';
 import { FullTV } from '../../../../../../../../common/types/tv';

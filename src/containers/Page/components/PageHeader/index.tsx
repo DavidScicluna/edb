@@ -15,7 +15,6 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 	const theme = useTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-	const [isMd] = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
 
 	const [leftRef, { width: leftWidth }] = useElementSize();
 	const [rightRef, { width: rightWidth }] = useElementSize();
@@ -38,8 +37,8 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing as Space], 'rem'));
 
 		return `calc(100% - ${
-			(renderLeftPanel && !isMd ? leftWidth + spacingWidth : 0) +
-			(renderRightPanel && !isMd ? rightWidth + spacingWidth : 0)
+			(renderLeftPanel && !isSm ? leftWidth + spacingWidth : 0) +
+			(renderRightPanel && !isSm ? rightWidth + spacingWidth : 0)
 		}px)`;
 	};
 
@@ -51,7 +50,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 
 	return (
 		<HStack {...rest} width='100%' spacing={spacing}>
-			{renderLeftPanel && !isMd && (
+			{renderLeftPanel && !isSm && (
 				<Center ref={leftRef}>{renderLeftPanel({ width: containerWidth, height: containerHeight })}</Center>
 			)}
 
@@ -68,7 +67,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 				<Headline
 					width={handleHeadlineWidth()}
 					renderCaption={() => <Breadcrumbs />}
-					renderTitle={(props) => renderTitle({ ...props, noOfLines: 1 })}
+					renderTitle={(props) => renderTitle({ ...props, noOfLines: 0 })}
 					renderSubtitle={renderSubtitle ? (props) => renderSubtitle({ ...props, noOfLines: 1 }) : undefined}
 					spacing={0.5}
 				/>
@@ -80,7 +79,7 @@ const PageHeader: FC<PageHeaderProps> = (props) => {
 				)}
 			</Stack>
 
-			{renderRightPanel && !isMd && (
+			{renderRightPanel && !isSm && (
 				<Center ref={rightRef}>{renderRightPanel({ width: containerWidth, height: containerHeight })}</Center>
 			)}
 		</HStack>
