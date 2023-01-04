@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useTheme, Icon } from '@davidscicluna/component-library';
 
-import { useBoolean } from '@chakra-ui/react';
+import { useBoolean, Center } from '@chakra-ui/react';
 
 import { ClickableMedia, Image } from '../../../../components';
 import { getRatio } from '../../../../common/utils';
@@ -14,38 +14,34 @@ const ViewPoster: FC<ViewPosterProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { onClick, ...rest } = props;
+	const { alt, src, isFullWidth = false, onClick, ...rest } = props;
 
 	const [isImageError, setIsImageError] = useBoolean();
 
 	return (
-		<ClickableMedia
-			colorMode={colorMode}
-			width={theme.fontSizes['9xl']}
-			borderRadius='base'
-			renderIcon={(props) => (
-				<Icon
-					{...props}
-					width={theme.fontSizes['4xl']}
-					height={theme.fontSizes['4xl']}
-					fontSize={theme.fontSizes['4xl']}
-					icon='search'
-					category='outlined'
-				/>
-			)}
-			isDisabled={isImageError}
-			ratio={getRatio({ orientation: 'portrait' })}
-			onClick={onClick}
-		>
-			<Image
+		<Center {...rest} width={isFullWidth ? '100%' : theme.fontSizes['9xl']} height='auto'>
+			<ClickableMedia
 				{...rest}
-				width='inherit'
-				height='inherit'
+				colorMode={colorMode}
+				width={isFullWidth ? '100%' : theme.fontSizes['9xl']}
+				height='auto'
 				borderRadius='base'
-				onError={() => setIsImageError.on()}
-				onLoad={() => setIsImageError.off()}
-			/>
-		</ClickableMedia>
+				renderIcon={(props) => <Icon {...props} icon='search' category='outlined' />}
+				isDisabled={isImageError}
+				ratio={getRatio({ orientation: 'portrait' })}
+				onClick={onClick}
+			>
+				<Image
+					alt={alt}
+					width='inherit'
+					height='inherit'
+					borderRadius='base'
+					onError={() => setIsImageError.on()}
+					onLoad={() => setIsImageError.off()}
+					src={src}
+				/>
+			</ClickableMedia>
+		</Center>
 	);
 };
 
