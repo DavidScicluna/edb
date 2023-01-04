@@ -5,8 +5,8 @@ import { useTheme, ScaleFade, utils } from '@davidscicluna/component-library';
 import { useColorMode, useBoolean, Center, AspectRatio } from '@chakra-ui/react';
 
 import { transparentize } from 'color2k';
+import { useElementSize } from 'usehooks-ts';
 
-import { getRatio } from '../../../common/utils';
 import Glass from '../../Glass';
 
 import { ClickableMediaRef, ClickableMediaProps } from './types';
@@ -21,11 +21,13 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 	const theme = useTheme();
 	const { colorMode: colorModeHook = 'light' } = useColorMode();
 
+	const [iconRef, { width: iconWidth }] = useElementSize();
+
 	const {
 		children,
 		color = 'gray',
 		colorMode = colorModeHook,
-		ratio = getRatio({ orientation: 'portrait' }),
+		ratio,
 		isActive = false,
 		isDisabled = false,
 		onClick,
@@ -49,6 +51,7 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 			>
 				{!isDisabled && (
 					<Center
+						ref={iconRef}
 						width='100%'
 						height='100%'
 						position='absolute'
@@ -59,21 +62,23 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 								: theme.colors.transparent
 						}
 					>
-						<ScaleFade
-							in={isHovering || isActive}
-							unmountOnExit={false}
-							style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-						>
+						<Center as={ScaleFade} in={isHovering || isActive} unmountOnExit={false}>
 							<Glass
 								width='auto !important'
 								height='auto !important'
 								backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5)}
 								borderRadius='full'
-								p={1.5}
+								p={2}
 							>
-								{renderIcon({ color: getColor({ theme, colorMode, color, type: 'light' }) })}
+								{renderIcon({
+									width: `${iconWidth / 4}px`,
+									height: `${iconWidth / 4}px`,
+									fontSize: `${iconWidth / 4}px`,
+									color: getColor({ theme, colorMode, color, type: 'light' }),
+									colorMode
+								})}
 							</Glass>
-						</ScaleFade>
+						</Center>
 					</Center>
 				)}
 
