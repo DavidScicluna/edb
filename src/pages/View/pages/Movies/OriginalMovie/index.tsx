@@ -47,9 +47,11 @@ import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyVideosTab from '../components/DummyVideosTab';
 import DummyMovieActions from '../components/DummyMovieActions';
 import DummyMovieInfo from '../components/DummyMovieInfo';
+import { ViewParams as MovieParams } from '../../../common/types';
+import movieTabs from '../common/data/tabs';
 
 import MovieActions from './components/MovieActions';
-import { MovieContext as MovieContextType, MovieTabs, MovieParams } from './types';
+import { MovieContext as MovieContextType } from './types';
 import MovieInfo from './components/MovieInfo';
 import MoviePoster from './components/MoviePoster';
 
@@ -61,48 +63,6 @@ const PhotosTab = lazy(() => import('./components/PhotosTab'));
 const VideosTab = lazy(() => import('./components/VideosTab'));
 
 export const MovieContext = createContext<MovieContextType>({ onSetActiveTab: defaultOnSetActiveTab });
-
-export const movieTabs: MovieTabs = [
-	{
-		path: { hash: 'overview' },
-		label: 'Overview'
-	},
-	{
-		path: { hash: 'cast' },
-		label: 'Cast',
-		renderBadge: ({ color, isActive, ...rest }) => (
-			<TotalBadge {...rest} color={isActive ? color : 'gray'} variant={isActive ? 'contained' : 'outlined'} />
-		)
-	},
-	{
-		path: { hash: 'crew' },
-		label: 'Crew',
-		renderBadge: ({ color, isActive, ...rest }) => (
-			<TotalBadge {...rest} color={isActive ? color : 'gray'} variant={isActive ? 'contained' : 'outlined'} />
-		)
-	},
-	{
-		path: { hash: 'reviews' },
-		label: 'Reviews',
-		renderBadge: ({ color, isActive, ...rest }) => (
-			<TotalBadge {...rest} color={isActive ? color : 'gray'} variant={isActive ? 'contained' : 'outlined'} />
-		)
-	},
-	{
-		path: { hash: 'photos' },
-		label: 'Photos',
-		renderBadge: ({ color, isActive, ...rest }) => (
-			<TotalBadge {...rest} color={isActive ? color : 'gray'} variant={isActive ? 'contained' : 'outlined'} />
-		)
-	},
-	{
-		path: { hash: 'videos' },
-		label: 'Videos',
-		renderBadge: ({ color, isActive, ...rest }) => (
-			<TotalBadge {...rest} color={isActive ? color : 'gray'} variant={isActive ? 'contained' : 'outlined'} />
-		)
-	}
-];
 
 const Movie: FC = () => {
 	const theme = useTheme();
@@ -183,7 +143,7 @@ const Movie: FC = () => {
 
 	const handleSetActiveTab = (): void => {
 		const hash = location.hash.replaceAll('#', '');
-		const index = movieTabs.findIndex((tab) => tab.path.hash === hash);
+		const index = movieTabs.findIndex(({ path }) => path.hash === hash);
 
 		setActiveTab(index >= 0 ? index : 0);
 	};
@@ -271,8 +231,9 @@ const Movie: FC = () => {
 										label: tab.label,
 										// isDisabled:
 										renderRight: (props) => {
-											return tab.renderBadge
-												? tab.renderBadge({
+											return tab.getTotalBadgeProps ? (
+												<TotalBadge
+													{...tab.getTotalBadgeProps({
 														...props,
 														total:
 															index === 1
@@ -287,8 +248,9 @@ const Movie: FC = () => {
 																? videos.length
 																: 0,
 														isActive: activeTabDebounced === index
-												  })
-												: undefined;
+													})}
+												/>
+											) : undefined;
 										}
 									};
 								})}

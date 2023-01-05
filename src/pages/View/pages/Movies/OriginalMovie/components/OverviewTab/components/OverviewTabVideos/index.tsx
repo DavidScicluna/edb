@@ -5,10 +5,10 @@ import { useDebounce } from '@davidscicluna/component-library';
 import { shuffle } from 'lodash';
 
 import { useMovieContext } from '../../../../common/hooks';
-import { movieTabs } from '../../../..';
 import ViewVideos from '../../../../../../../components/ViewVideos/ViewVideosHorizontalGrid/OriginalViewVideosHorizontalGrid';
 import { ViewVideosVideos } from '../../../../../../../components/ViewVideos/common/types';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
+import { getMovieTabIndex } from '../../../../../common/utils';
 
 const OverviewTabVideos: FC = () => {
 	const { movieQuery, videosQuery, onSetActiveTab } = useMovieContext();
@@ -37,9 +37,7 @@ const OverviewTabVideos: FC = () => {
 			isLoading={isFetching || isLoading}
 			isError={isError}
 			isSuccess={isSuccess}
-			onFooterClick={() =>
-				onSetActiveTab({ index: movieTabs.findIndex(({ path }) => path.hash === 'videos') || 5 })
-			}
+			onFooterClick={() => onSetActiveTab({ index: getMovieTabIndex('videos') })}
 		/>
 	);
 };

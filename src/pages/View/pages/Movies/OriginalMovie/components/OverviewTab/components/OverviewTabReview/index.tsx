@@ -10,10 +10,10 @@ import { sort } from 'fast-sort';
 import { useMovieContext } from '../../../../common/hooks';
 import { useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
 import { TotalBadge } from '../../../../../../../../../components';
-import { movieTabs } from '../../../..';
 import ViewReviewsMyReviewsQueryEmpty from '../../../../../../../components/ViewReviews/OriginalViewReviews/components/ViewReviewsMyReviewsQueryEmpty';
 import ViewReviewsOtherReview from '../../../../../../../components/ViewReviews/OriginalViewReviews/components/ViewReviewsOtherReview';
 import MyReview from '../../../../../../../components/ViewReviews/OriginalViewReviews/components/ViewReviewsMyReview';
+import { getMovieTabIndex } from '../../../../../common/utils';
 
 const OverviewTabReview: FC = () => {
 	const theme = useTheme();
@@ -83,9 +83,7 @@ const OverviewTabReview: FC = () => {
 					color={color}
 					colorMode={colorMode}
 					isFullWidth
-					onClick={() =>
-						onSetActiveTab({ index: movieTabs.findIndex(({ path }) => path.hash === 'reviews') || 3 })
-					}
+					onClick={() => onSetActiveTab({ index: getMovieTabIndex('reviews') })}
 					size={isSm ? 'xs' : 'sm'}
 					variant='text'
 				>

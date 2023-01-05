@@ -26,10 +26,10 @@ import {
 } from '../../../../../../../../../components';
 import { getEmptySubtitle } from '../../../../../../../../../components/QueryEmpty/common/utils';
 import { useMovieContext } from '../../../../common/hooks';
-import { movieTabs } from '../../../..';
 import { Cast } from '../../../../../../../../../common/types/movie';
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
+import { getMovieTabIndex } from '../../../../../common/utils';
 
 const OverviewTabTopCast: FC = () => {
 	const theme = useTheme();
@@ -157,9 +157,7 @@ const OverviewTabTopCast: FC = () => {
 					colorMode={colorMode}
 					isDisabled={cast.length + crew.length === 0}
 					isFullWidth
-					onClick={() =>
-						onSetActiveTab({ index: movieTabs.findIndex(({ path }) => path.hash === 'cast') || 1 })
-					}
+					onClick={() => onSetActiveTab({ index: getMovieTabIndex('cast') })}
 					size={isSm ? 'xs' : 'sm'}
 					variant='text'
 				>

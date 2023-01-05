@@ -7,7 +7,6 @@ import { useConst } from '@chakra-ui/react';
 import { range, sample, shuffle } from 'lodash';
 
 import { useMovieContext } from '../../../../common/hooks';
-import { movieTabs } from '../../../..';
 import ViewPhotosHorizontalGrid from '../../../../../../../components/ViewPhotosHorizontalGrid/OriginalViewPhotosHorizontalGrid';
 import {
 	ViewPhotosHorizontalGridDummyPhotos,
@@ -18,6 +17,7 @@ import {
 	ViewPhotosHorizontalGridPhoto
 } from '../../../../../../../components/ViewPhotosHorizontalGrid/OriginalViewPhotosHorizontalGrid/types';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
+import { getMovieTabIndex } from '../../../../../common/utils';
 
 const OverviewTabPhotos: FC = () => {
 	const { movieQuery, imagesQuery, onSetActiveTab } = useMovieContext();
@@ -68,9 +68,7 @@ const OverviewTabPhotos: FC = () => {
 			isLoading={isFetching || isLoading}
 			isError={isError}
 			isSuccess={isSuccess}
-			onFooterClick={() =>
-				onSetActiveTab({ index: movieTabs.findIndex(({ path }) => path.hash === 'photos') || 4 })
-			}
+			onFooterClick={() => onSetActiveTab({ index: getMovieTabIndex('photos') })}
 		/>
 	);
 };

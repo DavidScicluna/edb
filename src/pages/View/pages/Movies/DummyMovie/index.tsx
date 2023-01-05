@@ -24,17 +24,7 @@ import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyVideosTab from '../components/DummyVideosTab';
 import DummyMovieActions from '../components/DummyMovieActions';
 import DummyMovieInfo from '../components/DummyMovieInfo';
-
-import { DummyMovieTabs } from './types';
-
-export const movieTabs: DummyMovieTabs = [
-	{ path: { hash: 'overview' }, label: 'Overview' },
-	{ path: { hash: 'cast' }, label: 'Cast' },
-	{ path: { hash: 'crew' }, label: 'Crew' },
-	{ path: { hash: 'reviews' }, label: 'Reviews' },
-	{ path: { hash: 'photos' }, label: 'Photos' },
-	{ path: { hash: 'videos' }, label: 'Videos' }
-];
+import dummyMovieTabs from '../common/data/tabs';
 
 const Movie: FC = () => {
 	const theme = useTheme();
@@ -52,7 +42,7 @@ const Movie: FC = () => {
 
 	const handleSetActiveTab = (): void => {
 		const hash = location.hash.replaceAll('#', '');
-		const index = movieTabs.findIndex((tab) => tab.path.hash === hash);
+		const index = dummyMovieTabs.findIndex(({ path }) => path.hash === hash);
 
 		setActiveTab(index >= 0 ? index : 0);
 	};
@@ -88,7 +78,7 @@ const Movie: FC = () => {
 				>
 					<VStack width='100%' height='100%' spacing={spacing}>
 						<DummyTabList
-							tabs={movieTabs.map(({ label }) => {
+							tabs={dummyMovieTabs.map(({ label }) => {
 								return { label };
 							})}
 							renderRight={!isSm ? () => <ViewDummySocials /> : undefined}
