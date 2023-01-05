@@ -1,3 +1,3 @@
 import { ViewActionsProps } from '../../../../components/ViewActions/types';
 
-export type DummyMovieActionsProps = Omit<ViewActionsProps, 'children'>;
+export type MoviesDummyActionsProps = Omit<ViewActionsProps, 'children'>;

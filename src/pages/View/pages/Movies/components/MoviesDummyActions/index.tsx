@@ -6,9 +6,9 @@ import { useUserTheme } from '../../../../../../common/hooks';
 import { DummyBookmark, DummyLike } from '../../../../../../components';
 import ViewActions from '../../../../components/ViewActions';
 
-import { DummyMovieActionsProps } from './types';
+import { MoviesDummyActionsProps } from './types';
 
-const DummyMovieActions: FC<DummyMovieActionsProps> = (props) => {
+const MoviesDummyActions: FC<MoviesDummyActionsProps> = (props) => {
 	const { colorMode } = useUserTheme();
 
 	return (
@@ -31,4 +31,4 @@ const DummyMovieActions: FC<DummyMovieActionsProps> = (props) => {
 	);
 };
 
-export default DummyMovieActions;
+export default MoviesDummyActions;

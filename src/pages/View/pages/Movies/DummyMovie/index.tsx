@@ -22,8 +22,8 @@ import DummyCastTab from '../components/DummyCastTab';
 import DummyCrewTab from '../components/DummyCrewTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyVideosTab from '../components/DummyVideosTab';
-import DummyMovieActions from '../components/DummyMovieActions';
 import DummyMovieInfo from '../components/DummyMovieInfo';
+import MoviesDummyActions from '../components/MoviesDummyActions';
 import dummyMovieTabs from '../common/data/tabs';
 
 const Movie: FC = () => {
@@ -66,7 +66,7 @@ const Movie: FC = () => {
 				spacing={spacing}
 				p={spacing}
 			/>
-			{!isGuest && <DummyMovieActions p={spacing} />}
+			{!isGuest && <MoviesDummyActions p={spacing} />}
 			<PageBody px={spacing} pb={spacing}>
 				<Tabs
 					width='100%'
