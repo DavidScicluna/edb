@@ -36,7 +36,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
 	const { observe: posterRef, inView } = useInView<HTMLDivElement>({
 		unobserveOnEnter: true,
-		rootMargin: `${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px`
+		rootMargin: `-${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px 0px`
 	});
 
 	const {

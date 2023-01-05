@@ -29,7 +29,7 @@ const ViewPhotosHorizontalGridPhoto: FC<ViewPhotosHorizontalGridPhotoProps> = (p
 
 	const { observe: photorRef, inView } = useInView<HTMLDivElement>({
 		unobserveOnEnter: true,
-		rootMargin: `${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px`
+		rootMargin: `-${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px 0px`
 	});
 
 	const { mediaType, index, image, orientation } = props;

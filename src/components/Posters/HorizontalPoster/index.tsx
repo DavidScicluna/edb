@@ -33,7 +33,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 
 	const { observe: posterRef, inView } = useInView<HTMLDivElement>({
 		unobserveOnEnter: true,
-		rootMargin: `${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px`
+		rootMargin: `-${convertREMToPixels(convertStringToNumber(theme.space[4], 'rem'))}px 0px`
 	});
 
 	const breakpointIndex = useBreakpointValue<number>({ 'base': 0, 'sm': 1, 'md': 2, 'lg': 3, 'xl': 4, '2xl': 5 });
