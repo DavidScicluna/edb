@@ -92,16 +92,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ color, colorMode, alt, form }) => {
 					colorMode={colorMode}
 					width={['100%', '100%', '200px', '250px']}
 					ratio={getRatio({ orientation: isMd ? 'portrait' : 'square' })}
-					renderIcon={(props) => (
-						<Icon
-							{...props}
-							width={theme.fontSizes['5xl']}
-							height={theme.fontSizes['5xl']}
-							fontSize={theme.fontSizes['5xl']}
-							icon='upload_file'
-							category='outlined'
-						/>
-					)}
+					renderIcon={(props) => <Icon {...props} icon='upload_file' category='outlined' />}
 					onClick={(event) => {
 						event.preventDefault();
 						event.stopPropagation();

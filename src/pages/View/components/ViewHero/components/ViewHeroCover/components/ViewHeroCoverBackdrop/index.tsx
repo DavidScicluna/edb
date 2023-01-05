@@ -16,7 +16,6 @@ const ViewHeroCoverBackdrop: FC<ViewHeroCoverBackdropProps> = ({ hasVideo = fals
 
 	const [isImageError, setIsImageError] = useBoolean();
 
-	const sizes = useConst<string[]>(['4xl', '4xl', '5xl', '5xl'].map((size) => theme.fontSizes[size as FontSize]));
 
 	return (
 		<ClickableMedia
@@ -25,18 +24,9 @@ const ViewHeroCoverBackdrop: FC<ViewHeroCoverBackdropProps> = ({ hasVideo = fals
 			height='100%'
 			maxHeight='75vh'
 			borderRadius='none'
-			renderIcon={(props) => (
-				<Icon
-					{...props}
-					width={sizes}
-					height={sizes}
-					fontSize={sizes}
-					icon={hasVideo ? 'play_arrow' : 'search'}
-					category='outlined'
-				/>
-			)}
-			isDisabled={isImageError}
 			ratio={getRatio({ orientation: 'landscape' })}
+			renderIcon={(props) => <Icon {...props} icon={hasVideo ? 'play_arrow' : 'search'} category='outlined' />}
+			isDisabled={isImageError}
 			onClick={onClick}
 		>
 			<Center width='inherit' height='inherit' position='relative'>

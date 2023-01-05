@@ -8,6 +8,8 @@ import { transparentize } from 'color2k';
 import { useElementSize } from 'usehooks-ts';
 
 import Glass from '../../Glass';
+import { getOrientationByRatio } from '../../../common/utils';
+import { RatioOrientation } from '../../../common/types';
 
 import { ClickableMediaRef, ClickableMediaProps } from './types';
 
@@ -21,7 +23,7 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 	const theme = useTheme();
 	const { colorMode: colorModeHook = 'light' } = useColorMode();
 
-	const [iconRef, { width: iconWidth }] = useElementSize();
+	const [iconRef, { width: iconWidth, height: iconHeight }] = useElementSize();
 
 	const {
 		children,
@@ -36,6 +38,8 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 	} = props;
 
 	const [isHovering, setIsHovering] = useBoolean();
+
+	const orientation: RatioOrientation = getOrientationByRatio({ width: iconWidth, height: iconHeight });
 
 	return (
 		<AspectRatio {...rest} ref={ref} ratio={ratio}>
@@ -71,9 +75,9 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 								p={2}
 							>
 								{renderIcon({
-									width: `${iconWidth / 4}px`,
-									height: `${iconWidth / 4}px`,
-									fontSize: `${iconWidth / 4}px`,
+									width: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
+									height: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
+									fontSize: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
 									color: getColor({ theme, colorMode, color, type: 'light' }),
 									colorMode
 								})}

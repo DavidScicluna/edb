@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from 'react';
 
-import { useTheme, ImageEditor, Icon } from '@davidscicluna/component-library';
+import { ImageEditor, Icon } from '@davidscicluna/component-library';
 
 import { useDisclosure, useToast, Box } from '@chakra-ui/react';
 
@@ -16,8 +16,6 @@ import { UserBackgroundProps } from './types';
 const toastID = 'ds-edb-user-background-toast';
 
 const UserBackground: FC<UserBackgroundProps> = ({ color, colorMode, alt, form }) => {
-	const theme = useTheme();
-
 	const { isOpen: isCropperOpen, onOpen: onCropperOpen, onClose: onCropperClose } = useDisclosure();
 
 	const fileInputRef = useRef<FileInputRef>(null);
@@ -80,16 +78,7 @@ const UserBackground: FC<UserBackgroundProps> = ({ color, colorMode, alt, form }
 					colorMode={colorMode}
 					borderRadius='none'
 					ratio={20 / 5}
-					renderIcon={(props) => (
-						<Icon
-							{...props}
-							width={theme.fontSizes['5xl']}
-							height={theme.fontSizes['5xl']}
-							fontSize={theme.fontSizes['5xl']}
-							icon='upload_file'
-							category='outlined'
-						/>
-					)}
+					renderIcon={(props) => <Icon {...props} icon='upload_file' category='outlined' />}
 					onClick={(event) => {
 						event.preventDefault();
 						event.stopPropagation();

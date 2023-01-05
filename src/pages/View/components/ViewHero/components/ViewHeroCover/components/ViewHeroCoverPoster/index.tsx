@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { FontSize, useTheme, Icon, utils } from '@davidscicluna/component-library';
+import { useTheme, Icon, utils } from '@davidscicluna/component-library';
 
-import { useBoolean, useConst } from '@chakra-ui/react';
+import { useBoolean } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import { ClickableMedia, Image } from '../../../../../../../../components';
@@ -18,8 +18,6 @@ const ViewHeroCoverPoster: FC<ViewHeroCoverPosterProps> = ({ onClick, ...rest })
 
 	const [isImageError, setIsImageError] = useBoolean();
 
-	const sizes = useConst<string[]>(['4xl', '4xl', '5xl', '5xl'].map((size) => theme.fontSizes[size as FontSize]));
-
 	return (
 		<ClickableMedia
 			colorMode={colorMode}
@@ -27,11 +25,9 @@ const ViewHeroCoverPoster: FC<ViewHeroCoverPosterProps> = ({ onClick, ...rest })
 			borderRadius='base'
 			overflowX='hidden'
 			overflowY='hidden'
-			renderIcon={(props) => (
-				<Icon {...props} width={sizes} height={sizes} fontSize={sizes} icon='search' category='outlined' />
-			)}
-			isDisabled={isImageError}
 			ratio={getRatio({ orientation: 'portrait' })}
+			renderIcon={(props) => <Icon {...props} icon='search' category='outlined' />}
+			isDisabled={isImageError}
 			onClick={onClick}
 		>
 			<Image

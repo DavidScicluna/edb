@@ -56,18 +56,9 @@ const PhotosTabPhoto: FC<PhotosTabPhotoProps> = (props) => {
 			height={`${height}px`}
 			overflow='hidden'
 			borderRadius='lg'
-			renderIcon={(props) => (
-				<Icon
-					{...props}
-					width={theme.fontSizes['4xl']}
-					height={theme.fontSizes['4xl']}
-					fontSize={theme.fontSizes['4xl']}
-					icon='search'
-					category='outlined'
-				/>
-			)}
-			isDisabled={isImageError}
 			ratio={getRatio({ orientation })}
+			renderIcon={(props) => <Icon {...props} icon='search' category='outlined' />}
+			isDisabled={isImageError}
 			// onClick={onClick}
 		>
 			<Image

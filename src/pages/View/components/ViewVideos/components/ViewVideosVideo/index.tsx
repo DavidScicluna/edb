@@ -64,18 +64,9 @@ const ViewVideosVideo: FC<ViewVideosVideoProps> = (props) => {
 			height='100%'
 			overflow='hidden'
 			borderRadius='lg'
-			renderIcon={(props) => (
-				<Icon
-					{...props}
-					width={theme.fontSizes['4xl']}
-					height={theme.fontSizes['4xl']}
-					fontSize={theme.fontSizes['4xl']}
-					icon='play_arrow'
-					category='outlined'
-				/>
-			)}
-			isDisabled={isImageError}
 			ratio={getRatio({ orientation: 'square' })}
+			renderIcon={(props) => <Icon {...props} icon='play_arrow' category='outlined' />}
+			isDisabled={isImageError}
 			// onClick={onClick}
 		>
 			<Center width='inherit' height='inherit' position='relative'>

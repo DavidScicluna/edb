@@ -26,9 +26,9 @@ const ViewPoster: FC<ViewPosterProps> = (props) => {
 				width={isFullWidth ? '100%' : theme.fontSizes['9xl']}
 				height='auto'
 				borderRadius='base'
+				ratio={getRatio({ orientation: 'portrait' })}
 				renderIcon={(props) => <Icon {...props} icon='search' category='outlined' />}
 				isDisabled={isImageError}
-				ratio={getRatio({ orientation: 'portrait' })}
 				onClick={onClick}
 			>
 				<Image
