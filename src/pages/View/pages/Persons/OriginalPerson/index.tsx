@@ -39,7 +39,7 @@ import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyCreditsTab from '../components/DummyCreditsTab';
 import PersonsDummyInfo from '../components/PersonsDummyInfo';
 import { ViewParams as PersonParams } from '../../../common/types';
-import personTabs from '../common/data/tabs';
+import personTabs, { creditsTabIndex, photosTabIndex } from '../common/data/tabs';
 
 import PersonActions from './components/PersonActions';
 import PersonInfo from './components/PersonInfo';
@@ -117,7 +117,7 @@ const Person: FC = () => {
 		options: { enabled: !!person?.id }
 	});
 
-	const { data: images } = imagesQuery;
+	const { profiles = [] } = imagesQuery.data || {};
 
 	const handleTabChange = ({ index }: TabsOnChangeProps): void => {
 		const tab = personTabs.find((_tab, i) => index === i);
@@ -209,13 +209,13 @@ const Person: FC = () => {
 													{...tab.getTotalBadgeProps({
 														...props,
 														total:
-															index === 1
+															index === creditsTabIndex
 																? movieCastCredits.length +
 																  movieCrewCredits.length +
 																  tvShowCastCredits.length +
 																  tvShowCrewCredits.length
-																: index === 2
-																? images?.profiles?.length || 0
+																: index === photosTabIndex
+																? profiles.length
 																: 0,
 														isActive: activeTabDebounced === index
 													})}
