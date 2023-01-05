@@ -38,17 +38,13 @@ import DummyOverviewTab from '../components/DummyOverviewTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyCreditsTab from '../components/DummyCreditsTab';
 import PersonsDummyInfo from '../components/PersonsDummyInfo';
+import { ViewParams as PersonParams } from '../../../common/types';
+import personTabs from '../common/data/tabs';
 
 import PersonActions from './components/PersonActions';
 import PersonInfo from './components/PersonInfo';
 import PersonPoster from './components/PersonPoster';
-import {
-	PersonContext as PersonContextType,
-	PersonTabs,
-	PersonParams,
-	PersonMovieDepartments,
-	PersonTVShowDepartments
-} from './types';
+import { PersonContext as PersonContextType, PersonMovieDepartments, PersonTVShowDepartments } from './types';
 import { getDepartments } from './common/utils';
 
 const OverviewTab = lazy(() => import('./components/OverviewTab'));
@@ -56,27 +52,6 @@ const CreditsTab = lazy(() => import('./components/CreditsTab'));
 const PhotosTab = lazy(() => import('./components/PhotosTab'));
 
 export const PersonContext = createContext<PersonContextType>({ onSetActiveTab: defaultOnSetActiveTab });
-
-export const personTabs: PersonTabs = [
-	{
-		path: { hash: 'overview' },
-		label: 'Overview'
-	},
-	{
-		path: { hash: 'credits' },
-		label: 'Credits',
-		renderBadge: ({ color, isActive, ...rest }) => (
-			<TotalBadge {...rest} color={isActive ? color : 'gray'} variant={isActive ? 'contained' : 'outlined'} />
-		)
-	},
-	{
-		path: { hash: 'photos' },
-		label: 'Photos',
-		renderBadge: ({ color, isActive, ...rest }) => (
-			<TotalBadge {...rest} color={isActive ? color : 'gray'} variant={isActive ? 'contained' : 'outlined'} />
-		)
-	}
-];
 
 const Person: FC = () => {
 	const theme = useTheme();
@@ -154,7 +129,7 @@ const Person: FC = () => {
 
 	const handleSetActiveTab = (): void => {
 		const hash = location.hash.replaceAll('#', '');
-		const index = personTabs.findIndex((tab) => tab.path.hash === hash);
+		const index = personTabs.findIndex(({ path }) => path.hash === hash);
 
 		setActiveTab(index >= 0 ? index : 0);
 	};
@@ -229,8 +204,9 @@ const Person: FC = () => {
 									return {
 										label: tab.label,
 										renderRight: (props) => {
-											return tab.renderBadge
-												? tab.renderBadge({
+											return tab.getTotalBadgeProps ? (
+												<TotalBadge
+													{...tab.getTotalBadgeProps({
 														...props,
 														total:
 															index === 1
@@ -242,8 +218,9 @@ const Person: FC = () => {
 																? images?.profiles?.length || 0
 																: 0,
 														isActive: activeTabDebounced === index
-												  })
-												: undefined;
+													})}
+												/>
+											) : undefined;
 										}
 									};
 								})}

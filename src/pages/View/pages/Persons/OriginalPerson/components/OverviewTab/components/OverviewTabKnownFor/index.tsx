@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
 import { usePersonContext } from '../../../../common/hooks';
-import { personTabs } from '../../../..';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { Credits } from '../../../../../../../../../common/types/person';
 import ViewKnownFor from '../../../../../../../components/ViewKnownFor';
+import { getPersonTabIndex } from '../../../../../common/utils';
 
 const OverviewTabKnownFor: FC = () => {
 	const { personQuery, movieCreditsQuery, tvShowCreditsQuery, onSetActiveTab } = usePersonContext();
@@ -68,9 +68,7 @@ const OverviewTabKnownFor: FC = () => {
 			isLoading={isMovieCreditsLoading || isTVShowCreditsLoading}
 			isError={isMovieCreditsError && isTVShowCreditsError}
 			isSuccess={isMovieCreditsSuccess && isTVShowCreditsSuccess}
-			onFooterClick={() =>
-				onSetActiveTab({ index: personTabs.findIndex(({ path }) => path.hash === 'credits') || 1 })
-			}
+			onFooterClick={() => onSetActiveTab({ index: getPersonTabIndex('credits') })}
 		/>
 	);
 };

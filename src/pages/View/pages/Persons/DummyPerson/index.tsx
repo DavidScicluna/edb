@@ -8,6 +8,7 @@ import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
+import dummyPersonTabs from '../common/data/tabs';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import Page from '../../../../../containers/Page';
 import PageBody from '../../../../../containers/Page/components/PageBody';
@@ -20,14 +21,6 @@ import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyCreditsTab from '../components/DummyCreditsTab';
 import PersonsDummyInfo from '../components/PersonsDummyInfo';
 import PersonsDummyActions from '../components/PersonsDummyActions';
-
-import { PersonTabs } from './types';
-
-export const tabs: PersonTabs = [
-	{ path: { hash: 'overview' }, label: 'Overview' },
-	{ path: { hash: 'credits' }, label: 'Credits' },
-	{ path: { hash: 'photos' }, label: 'Photos' }
-];
 
 const DummyPerson: FC = () => {
 	const theme = useTheme();
@@ -44,7 +37,7 @@ const DummyPerson: FC = () => {
 
 	const handleSetActiveTab = (): void => {
 		const hash = location.hash.replaceAll('#', '');
-		const index = tabs.findIndex((tab) => tab.path.hash === hash);
+		const index = dummyPersonTabs.findIndex(({ path }) => path.hash === hash);
 
 		setActiveTab(index >= 0 ? index : 0);
 	};
@@ -73,7 +66,7 @@ const DummyPerson: FC = () => {
 				<Tabs width='100%' color={color} colorMode={colorMode} activeTab={activeTabDebounced} size='xl'>
 					<VStack width='100%' spacing={spacing}>
 						<DummyTabList
-							tabs={tabs.map(({ label }) => {
+							tabs={dummyPersonTabs.map(({ label }) => {
 								return { label };
 							})}
 							renderRight={!isSm ? () => <ViewDummySocials /> : undefined}

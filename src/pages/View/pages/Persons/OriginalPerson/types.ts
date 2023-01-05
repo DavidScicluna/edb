@@ -1,27 +1,9 @@
-import { ReactNode } from 'react';
-
-import { Location } from 'react-router';
-
-import { TabListTab, TabsOnChangeProps, TabsProps } from '@davidscicluna/component-library';
+import { TabsOnChangeProps } from '@davidscicluna/component-library';
 
 import { CastMovieCredit, CastTVCredit, CrewMovieCredit, CrewTVCredit } from '../../../../../common/types/person';
 import { UseMediaTypeQueryResult } from '../../../../../common/queries/useMediaTypeQuery';
 import { UsePersonCreditsQueryResult } from '../../../../../common/queries/usePersonCreditsQuery';
 import { UseMediaTypeImagesQueryResult } from '../../../../../common/queries/useMediaTypeImagesQuery';
-
-// TODO: Use TabListTabRenderProps type once exported
-type RenderBadgeProps = Pick<TabsProps, 'color' | 'colorMode' | 'size'> & {
-	isActive: boolean;
-	total: number;
-};
-
-export type PersonTab = Pick<TabListTab, 'label'> & {
-	path: Partial<Location>;
-	renderBadge?: (props: RenderBadgeProps) => ReactNode;
-};
-export type PersonTabs = PersonTab[];
-
-export type PersonParams = { id: string };
 
 type PersonDepartmentID = 'acting' | string;
 

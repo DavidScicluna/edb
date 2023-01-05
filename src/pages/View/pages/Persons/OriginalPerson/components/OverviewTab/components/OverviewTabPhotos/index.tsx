@@ -7,7 +7,6 @@ import { useConst } from '@chakra-ui/react';
 import { range, shuffle } from 'lodash';
 
 import { usePersonContext } from '../../../../common/hooks';
-import { personTabs } from '../../../..';
 import ViewPhotosHorizontalGrid from '../../../../../../../components/ViewPhotosHorizontalGrid/OriginalViewPhotosHorizontalGrid';
 import {
 	ViewPhotosHorizontalGridDummyPhotos,
@@ -18,6 +17,7 @@ import {
 	ViewPhotosHorizontalGridPhoto
 } from '../../../../../../../components/ViewPhotosHorizontalGrid/OriginalViewPhotosHorizontalGrid/types';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
+import { getPersonTabIndex } from '../../../../../common/utils';
 
 const OverviewTabPhotos: FC = () => {
 	const { personQuery, imagesQuery, onSetActiveTab } = usePersonContext();
@@ -63,9 +63,7 @@ const OverviewTabPhotos: FC = () => {
 			isLoading={isFetching || isLoading}
 			isError={isError}
 			isSuccess={isSuccess}
-			onFooterClick={() =>
-				onSetActiveTab({ index: personTabs.findIndex(({ path }) => path.hash === 'photos') || 2 })
-			}
+			onFooterClick={() => onSetActiveTab({ index: getPersonTabIndex('photos') })}
 		/>
 	);
 };
