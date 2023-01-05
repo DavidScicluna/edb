@@ -7,7 +7,7 @@ import { Text } from '@chakra-ui/react';
 import ViewInfoItem from '../../../../../../components/ViewInfo/components/ViewInfoItem';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 
-const DummyMovieInfoRuntime: FC = () => {
+const MoviesDummyInfoRuntime: FC = () => {
 	const { colorMode } = useUserTheme();
 
 	return (
@@ -22,4 +22,4 @@ const DummyMovieInfoRuntime: FC = () => {
 	);
 };
 
-export default DummyMovieInfoRuntime;
+export default MoviesDummyInfoRuntime;

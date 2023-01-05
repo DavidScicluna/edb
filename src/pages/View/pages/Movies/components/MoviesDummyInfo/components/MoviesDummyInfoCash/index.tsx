@@ -7,9 +7,9 @@ import { Text } from '@chakra-ui/react';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import ViewInfoItem from '../../../../../../components/ViewInfo/components/ViewInfoItem';
 
-import { DummyMovieInfoCashProps } from './types';
+import { MoviesDummyInfoCashProps } from './types';
 
-const DummyMovieInfoCash: FC<DummyMovieInfoCashProps> = ({ type }) => {
+const MoviesDummyInfoCash: FC<MoviesDummyInfoCashProps> = ({ type }) => {
 	const { colorMode } = useUserTheme();
 
 	return (
@@ -28,4 +28,4 @@ const DummyMovieInfoCash: FC<DummyMovieInfoCashProps> = ({ type }) => {
 	);
 };
 
-export default DummyMovieInfoCash;
+export default MoviesDummyInfoCash;

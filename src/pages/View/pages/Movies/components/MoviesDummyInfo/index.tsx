@@ -6,10 +6,10 @@ import ViewInfoDummyDateItem from '../../../../components/ViewInfo/components/Vi
 import ViewInfoDummyLanguagesItem from '../../../../components/ViewInfo/components/ViewInfoDummyLanguagesItem';
 import ViewInfoDummyPopularityItem from '../../../../components/ViewInfo/components/ViewInfoDummyPopularityItem';
 
-import DummyMovieInfoRuntime from './components/DummyMovieInfoRuntime';
-import DummyMovieInfoCash from './components/DummyMovieInfoCash';
+import MoviesDummyInfoRuntime from './components/MoviesDummyInfoRuntime';
+import MoviesDummyInfoCash from './components/MoviesDummyInfoCash';
 
-const DummyMovieInfo: FC = () => {
+const MoviesDummyInfo: FC = () => {
 	return (
 		<ViewInfo>
 			<ViewInfoDummyCertificationItem />
@@ -18,15 +18,15 @@ const DummyMovieInfo: FC = () => {
 
 			<ViewInfoDummyDateItem />
 
-			<DummyMovieInfoRuntime />
+			<MoviesDummyInfoRuntime />
 
-			<DummyMovieInfoCash type='budget' />
+			<MoviesDummyInfoCash type='budget' />
 
-			<DummyMovieInfoCash type='revenue' />
+			<MoviesDummyInfoCash type='revenue' />
 
 			<ViewInfoDummyLanguagesItem />
 		</ViewInfo>
 	);
 };
 
-export default DummyMovieInfo;
+export default MoviesDummyInfo;

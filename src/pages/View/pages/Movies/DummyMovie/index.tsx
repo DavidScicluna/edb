@@ -22,8 +22,8 @@ import DummyCastTab from '../components/DummyCastTab';
 import DummyCrewTab from '../components/DummyCrewTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyVideosTab from '../components/DummyVideosTab';
-import DummyMovieInfo from '../components/DummyMovieInfo';
 import MoviesDummyActions from '../components/MoviesDummyActions';
+import MoviesDummyInfo from '../components/MoviesDummyInfo';
 import dummyMovieTabs from '../common/data/tabs';
 
 const Movie: FC = () => {
@@ -60,7 +60,7 @@ const Movie: FC = () => {
 						<Text {...props}>Movie Title</Text>
 					</Skeleton>
 				)}
-				renderSubtitle={() => <DummyMovieInfo />}
+				renderSubtitle={() => <MoviesDummyInfo />}
 				actions={<ViewDummyRating />}
 				direction='row'
 				spacing={spacing}
