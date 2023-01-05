@@ -45,10 +45,16 @@ import DummyCastTab from '../components/DummyCastTab';
 import DummyCrewTab from '../components/DummyCrewTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
 import DummyVideosTab from '../components/DummyVideosTab';
-import DummyMovieActions from '../components/DummyMovieActions';
-import DummyMovieInfo from '../components/DummyMovieInfo';
+import MoviesDummyActions from '../components/MoviesDummyActions';
+import MoviesDummyInfo from '../components/MoviesDummyInfo';
 import { ViewParams as MovieParams } from '../../../common/types';
-import movieTabs from '../common/data/tabs';
+import movieTabs, {
+	castTabIndex,
+	crewTabIndex,
+	reviewsTabIndex,
+	photosTabIndex,
+	videosTabIndex
+} from '../common/data/tabs';
 
 import MovieActions from './components/MovieActions';
 import { MovieContext as MovieContextType } from './types';
@@ -193,7 +199,7 @@ const Movie: FC = () => {
 					)}
 					renderSubtitle={
 						isMovieFetching || isMovieLoading
-							? () => <DummyMovieInfo />
+							? () => <MoviesDummyInfo />
 							: movie
 							? () => <MovieInfo movie={movie} />
 							: undefined
@@ -210,7 +216,7 @@ const Movie: FC = () => {
 					p={spacing}
 				/>
 				{!isGuest && (isMovieFetching || isMovieLoading) ? (
-					<DummyMovieActions p={spacing} />
+					<MoviesDummyActions p={spacing} />
 				) : !isGuest && movie ? (
 					<MovieActions movie={movie} p={spacing} />
 				) : null}
@@ -236,15 +242,15 @@ const Movie: FC = () => {
 													{...tab.getTotalBadgeProps({
 														...props,
 														total:
-															index === 1
+															index === castTabIndex
 																? castCredits.length
-																: index === 2
+																: index === crewTabIndex
 																? crewCredits.length
-																: index === 3
+																: index === reviewsTabIndex
 																? totalReviews
-																: index === 4
+																: index === photosTabIndex
 																? posters.length + backdrops.length
-																: index === 5
+																: index === videosTabIndex
 																? videos.length
 																: 0,
 														isActive: activeTabDebounced === index
