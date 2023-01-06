@@ -16,17 +16,10 @@ const ViewInfoDummyLanguagesItem: FC = () => {
 		<ViewInfoItem
 			renderIcon={(props) => <Icon {...props} icon='language' category='outlined' />}
 			renderLabel={(props) => (
-				<HStack
-					divider={
-						<Text {...props} mr={0.75}>
-							,
-						</Text>
-					}
-					spacing={0}
-				>
+				<HStack spacing={0.75}>
 					{range(2).map((_dummy, index) => (
 						<Skeleton key={index} colorMode={colorMode} isLoaded={false} variant='text'>
-							<Text {...props}>Language Name</Text>
+							<Text {...props}>Language</Text>
 						</Skeleton>
 					))}
 				</HStack>

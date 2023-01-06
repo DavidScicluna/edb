@@ -10,7 +10,7 @@ import { useUpdateEffect } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import ViewInfoItem from '../ViewInfoItem';
-import { formatDate, formatMediaType } from '../../../../../../common/utils';
+import { formatDate, formatMediaType, formatMediaTypeLabel } from '../../../../../../common/utils';
 import { data as dataFormat } from '../../../../../../components/Filters/common/data/formats';
 
 import { ViewInfoDateItemProps } from './types';
@@ -49,7 +49,9 @@ const ViewInfoDateItem: FC<ViewInfoDateItemProps> = ({ mediaType, date }) => {
 			colorMode={colorMode}
 			isOpen={isHovering}
 			placement='bottom-start'
-			label={formatDate({ date })}
+			label={`${formatMediaTypeLabel({ type: 'single', mediaType })} ${
+				mediaType === 'movie' ? 'released' : 'first airdate was'
+			} on ${formatDate({ date })}`}
 			shouldWrapChildren
 		>
 			<Center>

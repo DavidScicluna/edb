@@ -14,7 +14,7 @@ const ViewInfoDummyCertificationItem: FC = () => {
 		<ViewInfoItem
 			renderLabel={(props) => (
 				<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-					<Text {...props}>##</Text>
+					<Text {...props}>####</Text>
 				</Skeleton>
 			)}
 		/>
