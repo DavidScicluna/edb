@@ -33,7 +33,7 @@ const ViewHeroCover: FC<ViewHeroCoverProps> = ({ renderPoster, renderBackdrop })
 				{renderPoster()}
 			</Center>
 
-			{isMd && <Center width='100%'>{renderBackdrop()}</Center>}
+			{isMd && renderBackdrop()}
 		</VStack>
 	);
 };
