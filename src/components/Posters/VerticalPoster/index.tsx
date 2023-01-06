@@ -93,8 +93,8 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
 						<VStack width='100%' spacing={0.5} p={1}>
 							{(mediaType === 'movie' || mediaType === 'tv') && (
-								<HStack width='100%' justify='space-between' spacing={0}>
-									{rating && <Rating rating={rating.rating} count={rating.count} size='sm' />}
+								<HStack width='100%' alignItems='center' justifyContent='space-between' spacing={0}>
+									{rating && <Rating {...rating} size='sm' />}
 
 									<HStack
 										onMouseEnter={() => setIsFixed.on()}

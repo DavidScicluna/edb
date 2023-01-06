@@ -88,7 +88,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 
 						<VStack width={handleContentWidth()} alignItems='flex-start' spacing={spacing}>
 							{/* Rating */}
-							{(mediaType === 'movie' || mediaType === 'tv') && rating && (
+							{(mediaType === 'movie' || mediaType === 'tv') && rating && rating.rating && (
 								<HorizontalPosterRating {...rating} />
 							)}
 
