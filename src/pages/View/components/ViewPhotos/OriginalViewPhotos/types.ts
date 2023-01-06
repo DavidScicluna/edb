@@ -2,7 +2,7 @@ import { UseMediaTypeImagesQueryResult } from '../../../../../common/queries/use
 import { Image, MediaType } from '../../../../../common/types';
 import { ViewPhotosDummyPhotos, ViewPhotosOrientation } from '../common/types';
 
-export type ViewPhotosMediaType = Exclude<MediaType, 'company' | 'collection'>;
+export type ViewPhotosMediaType = Exclude<MediaType, 'company'>;
 
 export type ViewPhotosPhotoImage = Omit<Image, 'width' | 'height'>;
 

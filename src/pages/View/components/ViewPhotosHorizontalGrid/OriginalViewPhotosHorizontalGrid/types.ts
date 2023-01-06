@@ -2,7 +2,7 @@ import { UseMediaTypeImagesQueryResult } from '../../../../../common/queries/use
 import { Image, MediaType } from '../../../../../common/types';
 import { ViewPhotosHorizontalGridDummyPhotos, ViewPhotosHorizontalGridOrientation } from '../common/types';
 
-export type ViewPhotosHorizontalGridMediaType = Exclude<MediaType, 'company' | 'collection'>;
+export type ViewPhotosHorizontalGridMediaType = Exclude<MediaType, 'company'>;
 
 export type ViewPhotosHorizontalGridPhoto = { image: Image; orientation: ViewPhotosHorizontalGridOrientation };
 export type ViewPhotosHorizontalGridPhotos = ViewPhotosHorizontalGridPhoto[];
