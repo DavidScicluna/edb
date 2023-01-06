@@ -62,7 +62,7 @@ const Rating: FC<RatingProps> = (props) => {
 					fontWeight='semibold'
 					whiteSpace='nowrap'
 				>
-					{rating ? (typeof rating === 'number' ? round(rating, 1) : rating) : 'N/A'}
+					{rating ? (typeof rating === 'number' ? round(rating, 1) : rating) : ''}
 				</Text>
 
 				{count && (
