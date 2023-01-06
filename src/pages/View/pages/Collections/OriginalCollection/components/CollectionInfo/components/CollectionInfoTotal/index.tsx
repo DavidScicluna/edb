@@ -8,7 +8,7 @@ import numbro from 'numbro';
 
 import ViewInfoItem from '../../../../../../../components/ViewInfo/components/ViewInfoItem';
 import { useUserTheme } from '../../../../../../../../../common/hooks';
-import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
+import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../../../../common/utils';
 
 import { CollectionInfoTotalProps } from './types';
 
@@ -30,15 +30,10 @@ const CollectionInfoTotal: FC<CollectionInfoTotalProps> = ({ parts = [] }) => {
 			shouldWrapChildren
 		>
 			<ViewInfoItem
-				renderIcon={(props) => <Icon {...props} icon='tag' category='outlined' />}
-				renderLabel={(props) => (
-					<Text {...props}>
-						{`${numbro(parts.length).format({ average: true })} ${formatMediaTypeLabel({
-							type: parts.length === 1 ? 'single' : 'multiple',
-							mediaType: 'movie'
-						})}`}
-					</Text>
+				renderIcon={(props) => (
+					<Icon {...props} icon={getMediaTypeIcon({ mediaType: 'movie' })} category='outlined' />
 				)}
+				renderLabel={(props) => <Text {...props}>{numbro(parts.length).format({ average: true })}</Text>}
 				onMouseEnter={() => setIsHovering.on()}
 				onMouseLeave={() => setIsHovering.off()}
 			/>
