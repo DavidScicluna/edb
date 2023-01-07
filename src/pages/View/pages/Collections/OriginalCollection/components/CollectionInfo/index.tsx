@@ -34,8 +34,8 @@ const CollectionInfo: FC<CollectionInfoProps> = ({ collection }) => {
 	return (
 		<ViewInfo>
 			{compact([
-				first ? <CollectionInfoDates first={first} last={last} /> : null,
-				parts.length > 0 ? <CollectionInfoTotal parts={parts} /> : null
+				first ? <CollectionInfoDates key='ds-edb-collection-info-dates' first={first} last={last} /> : null,
+				parts.length > 0 ? <CollectionInfoTotal key='ds-edb-collection-info-total' parts={parts} /> : null
 			])}
 		</ViewInfo>
 	);

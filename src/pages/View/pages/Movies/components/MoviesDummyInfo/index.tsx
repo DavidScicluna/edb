@@ -12,19 +12,19 @@ import MoviesDummyInfoCash from './components/MoviesDummyInfoCash';
 const MoviesDummyInfo: FC = () => {
 	return (
 		<ViewInfo>
-			<ViewInfoDummyCertificationItem />
+			<ViewInfoDummyCertificationItem key='ds-edb-movie-dummy-info-certification' />
 
-			<ViewInfoDummyPopularityItem />
+			<ViewInfoDummyPopularityItem key='ds-edb-movie-dummy-info-popularity' />
 
-			<ViewInfoDummyDateItem />
+			<ViewInfoDummyDateItem key='ds-edb-movie-dummy-info-date' />
 
-			<MoviesDummyInfoRuntime />
+			<MoviesDummyInfoRuntime key='ds-edb-movie-dummy-info-runtime' />
 
-			<MoviesDummyInfoCash type='budget' />
+			<MoviesDummyInfoCash key='ds-edb-movie-dummy-info-cash-budget' type='budget' />
 
-			<MoviesDummyInfoCash type='revenue' />
+			<MoviesDummyInfoCash key='ds-edb-movie-dummy-info-cash-revenue' type='revenue' />
 
-			<ViewInfoDummyLanguagesItem />
+			<ViewInfoDummyLanguagesItem key='ds-edb-movie-dummy-info-languages' />
 		</ViewInfo>
 	);
 };

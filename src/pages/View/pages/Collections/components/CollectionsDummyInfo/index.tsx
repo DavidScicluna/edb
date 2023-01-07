@@ -8,8 +8,8 @@ import CollectionsDummyInfoTotal from './components/CollectionsDummyInfoTotal';
 const CollectionsDummyInfo: FC = () => {
 	return (
 		<ViewInfo>
-			<CollectionsDummyInfoDates />
-			<CollectionsDummyInfoTotal />
+			<CollectionsDummyInfoDates key='ds-edb-collection-dummy-info-dates' />
+			<CollectionsDummyInfoTotal key='ds-edb-collection-dummy-info-total' />
 		</ViewInfo>
 	);
 };

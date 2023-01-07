@@ -28,19 +28,31 @@ const MovieInfo: FC<MovieInfoProps> = ({ movie }) => {
 	return (
 		<ViewInfo>
 			{compact([
-				certification ? <ViewInfoCertificationItem {...certification} mediaType='movie' /> : null,
+				certification ? (
+					<ViewInfoCertificationItem
+						{...certification}
+						key='ds-edb-movie-info-certification'
+						mediaType='movie'
+					/>
+				) : null,
 
-				popularity ? <ViewInfoPopularityItem popularity={popularity} /> : null,
+				popularity ? (
+					<ViewInfoPopularityItem key='ds-edb-movie-info-popularity' popularity={popularity} />
+				) : null,
 
-				release_date ? <ViewInfoDateItem mediaType='movie' date={release_date} /> : null,
+				release_date ? (
+					<ViewInfoDateItem key='ds-edb-movie-info-date' mediaType='movie' date={release_date} />
+				) : null,
 
-				runtime ? <MovieInfoRuntime runtime={runtime} /> : null,
+				runtime ? <MovieInfoRuntime key='ds-edb-movie-info-runtime' runtime={runtime} /> : null,
 
-				budget ? <MovieInfoCash type='budget' cash={budget} /> : null,
+				budget ? <MovieInfoCash key='ds-edb-movie-info-cash-budget' type='budget' cash={budget} /> : null,
 
-				revenue ? <MovieInfoCash type='revenue' cash={revenue} /> : null,
+				revenue ? <MovieInfoCash key='ds-edb-movie-info-cash-revenue' type='revenue' cash={revenue} /> : null,
 
-				spoken_languages.length > 0 ? <ViewInfoLanguagesItem languages={spoken_languages} /> : null
+				spoken_languages.length > 0 ? (
+					<ViewInfoLanguagesItem key='ds-edb-movie-info-languages' languages={spoken_languages} />
+				) : null
 			])}
 		</ViewInfo>
 	);
