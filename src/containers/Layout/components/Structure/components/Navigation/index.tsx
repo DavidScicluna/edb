@@ -29,19 +29,19 @@ const navItems: NavItems = [
 	{
 		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
 		path: { pathname: `/${formatMediaType({ mediaType: 'movie' })}` },
-		handleIsChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'movie' })),
+		isChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'movie' })),
 		icon: getMediaTypeIcon({ mediaType: 'movie' })
 	},
 	{
 		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
 		path: { pathname: `/${formatMediaType({ mediaType: 'tv' })}` },
-		handleIsChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'tv' })),
+		isChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'tv' })),
 		icon: getMediaTypeIcon({ mediaType: 'tv' })
 	},
 	{
 		title: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
 		path: { pathname: `/${formatMediaType({ mediaType: 'person' })}` },
-		handleIsChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'person' })),
+		isChildActive: ({ pathname }) => pathname.includes(formatMediaType({ mediaType: 'person' })),
 		icon: getMediaTypeIcon({ mediaType: 'person' })
 	}
 ];
@@ -72,7 +72,7 @@ const Navigation: FC<NavigationProps> = ({ isDrawer = false, isDummy = false }) 
 						{...navItem}
 						isDisabled={isDummy}
 						isActive={!isDummy && !isUserThemeModalOpen && location.pathname === navItem.path.pathname}
-						isChildActive={!isDummy && navItem.handleIsChildActive && navItem.handleIsChildActive(location)}
+						isChildActive={!isDummy && navItem.isChildActive && navItem.isChildActive(location)}
 						renderLeftIcon={(props) => (
 							<Icon
 								{...props}

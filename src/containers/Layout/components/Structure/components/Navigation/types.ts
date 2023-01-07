@@ -4,7 +4,7 @@ import { NavItemType, IconType, SideNavigationProps } from '@davidscicluna/compo
 
 export type NavItem = Omit<NavItemType, 'renderLeftIcon' | 'renderRightIcon'> & {
 	icon: IconType;
-	handleIsChildActive?: (location: Location) => boolean;
+	isChildActive?: (location: Location) => boolean;
 };
 export type NavItems = NavItem[];
 
