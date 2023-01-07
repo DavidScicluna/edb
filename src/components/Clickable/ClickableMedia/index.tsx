@@ -1,6 +1,6 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, ScaleFade, utils } from '@davidscicluna/component-library';
+import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, Center, AspectRatio } from '@chakra-ui/react';
 
@@ -38,7 +38,7 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 
 	const [isHovering, setIsHovering] = useBoolean();
 
-	const orientation: RatioOrientation = getOrientationByRatio({ width: iconWidth, height: iconHeight });
+	const orientation: Orientation = getOrientationByRatio({ width: iconWidth, height: iconHeight });
 
 	return (
 		<AspectRatio {...rest} ref={ref} ratio={ratio}>
@@ -59,29 +59,29 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 						height='100%'
 						position='absolute'
 						zIndex={1}
-						background={
-							isHovering || isActive
-								? transparentize(getColor({ theme, colorMode, type: 'background' }), 0.75)
-								: theme.colors.transparent
-						}
+						sx={{
+							opacity: isHovering || isActive ? 1 : 0,
+							background: transparentize(getColor({ theme, colorMode, type: 'background' }), 0.75),
+
+							transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
+						}}
 					>
-						<Center as={ScaleFade} in={isHovering || isActive} unmountOnExit={false}>
-							<Glass
-								width='auto !important'
-								height='auto !important'
-								backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5)}
-								borderRadius='full'
-								p={2}
-							>
-								{renderIcon({
-									width: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
-									height: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
-									fontSize: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
-									color: getColor({ theme, colorMode, color, type: 'light' }),
-									colorMode
-								})}
-							</Glass>
-						</Center>
+						<Glass
+							width='auto !important'
+							height='auto !important'
+							backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5)}
+							borderRadius='full'
+							size={1}
+							p={2}
+						>
+							{renderIcon({
+								width: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
+								height: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
+								fontSize: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
+								color: getColor({ theme, colorMode, color, type: 'light' }),
+								colorMode
+							})}
+						</Glass>
 					</Center>
 				)}
 
