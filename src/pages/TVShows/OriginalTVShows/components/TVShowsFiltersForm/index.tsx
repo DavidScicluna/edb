@@ -4,9 +4,8 @@ import { useTheme, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { FiltersForm } from '../../../../../components';
+import { FiltersForm, TotalBadge } from '../../../../../components';
 
-import TVShowsFiltersFormBadge from './components/TVShowsFiltersFormBadge';
 import { TVShowsFiltersFormProps } from './types';
 
 const TVShowsFiltersForm: FC<TVShowsFiltersFormProps> = ({ total, isDisabled = false, onFilter }) => {
@@ -22,9 +21,7 @@ const TVShowsFiltersForm: FC<TVShowsFiltersFormProps> = ({ total, isDisabled = f
 					{...props}
 					renderRight={
 						total > 0
-							? ({ color, colorMode }) => (
-									<TVShowsFiltersFormBadge color={color} colorMode={colorMode} total={total} />
-							  )
+							? ({ color, colorMode }) => <TotalBadge color={color} colorMode={colorMode} total={total} />
 							: undefined
 					}
 					isFullWidth={isLg}
