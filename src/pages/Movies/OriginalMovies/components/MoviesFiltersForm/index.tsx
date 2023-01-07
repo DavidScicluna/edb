@@ -4,10 +4,9 @@ import { useTheme, Button } from '@davidscicluna/component-library';
 
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { FiltersForm } from '../../../../../components';
+import { FiltersForm, TotalBadge } from '../../../../../components';
 
 import { MoviesFiltersFormProps } from './types';
-import MoviesFiltersFormBadge from './components/MoviesFiltersFormBadge';
 
 const MoviesFiltersForm: FC<MoviesFiltersFormProps> = ({ total, isDisabled = false, onFilter }) => {
 	const theme = useTheme();
@@ -22,9 +21,7 @@ const MoviesFiltersForm: FC<MoviesFiltersFormProps> = ({ total, isDisabled = fal
 					{...props}
 					renderRight={
 						total > 0
-							? ({ color, colorMode }) => (
-									<MoviesFiltersFormBadge color={color} colorMode={colorMode} total={total} />
-							  )
+							? ({ color, colorMode }) => <TotalBadge color={color} colorMode={colorMode} total={total} />
 							: undefined
 					}
 					isFullWidth={isLg}
