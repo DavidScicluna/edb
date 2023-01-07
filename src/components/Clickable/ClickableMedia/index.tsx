@@ -59,12 +59,8 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 						height='100%'
 						position='absolute'
 						zIndex={1}
-						sx={{
-							opacity: isHovering || isActive ? 1 : 0,
-							background: transparentize(getColor({ theme, colorMode, type: 'background' }), 0.75),
-
-							transition: `${theme.transition.duration.normal} ${theme.transition.easing['ease-in-out']}`
-						}}
+						opacity={isHovering || isActive ? 1 : 0}
+						background={transparentize(getColor({ theme, colorMode, type: 'background' }), 0.75)}
 					>
 						<Glass
 							width='auto !important'
