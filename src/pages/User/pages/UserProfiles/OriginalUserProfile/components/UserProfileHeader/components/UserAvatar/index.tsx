@@ -4,7 +4,7 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, AspectRatio } from '@chakra-ui/react';
 
-import { getRatio } from '../../../../../../../../../common/utils';
+import { getRatio } from '../../../../../../../../../common/utils/ratio';
 import Image from '../../../../../../../../../components/Image';
 import { colorMode as defaultColorMode } from '../../../../../../../../../common/data/defaultPropValues';
 import { useSelector } from '../../../../../../../../../common/hooks';

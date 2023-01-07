@@ -9,7 +9,8 @@ import { omit } from 'lodash';
 
 import { useUserTheme } from '../../../../../common/hooks';
 import { MediaType } from '../../../../../common/types';
-import { getRatio, getBoringAvatarSrc, getBoringAvatarVariantByMediaType } from '../../../../../common/utils';
+import { getBoringAvatarSrc, getBoringAvatarVariantByMediaType } from '../../../../../common/utils';
+import { getRatio } from '../../../../../common/utils/ratio';
 import Image from '../../../../Image';
 
 import { HorizontalPosterImageProps } from './types';

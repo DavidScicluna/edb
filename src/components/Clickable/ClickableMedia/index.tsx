@@ -8,8 +8,7 @@ import { transparentize } from 'color2k';
 import { useElementSize } from 'usehooks-ts';
 
 import Glass from '../../Glass';
-import { getOrientationByRatio } from '../../../common/utils';
-import { RatioOrientation } from '../../../common/types';
+import { Orientation, getOrientationByRatio } from '../../../common/utils/ratio';
 
 import { ClickableMediaRef, ClickableMediaProps } from './types';
 

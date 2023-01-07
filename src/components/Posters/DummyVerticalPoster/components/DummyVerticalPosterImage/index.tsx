@@ -5,7 +5,7 @@ import { useTheme, Skeleton } from '@davidscicluna/component-library';
 import { AspectRatio } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../../../../common/hooks';
-import { getRatio } from '../../../../../common/utils';
+import { getRatio } from '../../../../../common/utils/ratio';
 
 const commonStyleProps = {
 	width: 'inherit',

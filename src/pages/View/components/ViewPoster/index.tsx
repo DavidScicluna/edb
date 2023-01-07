@@ -5,7 +5,7 @@ import { useTheme, Icon } from '@davidscicluna/component-library';
 import { useBoolean, Center } from '@chakra-ui/react';
 
 import { ClickableMedia, Image } from '../../../../components';
-import { getRatio } from '../../../../common/utils';
+import { getRatio } from '../../../../common/utils/ratio';
 import { useUserTheme } from '../../../../common/hooks';
 
 import { ViewPosterProps } from './types';

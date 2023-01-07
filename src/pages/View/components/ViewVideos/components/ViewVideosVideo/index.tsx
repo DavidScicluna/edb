@@ -7,7 +7,8 @@ import { useBoolean, useConst, Center } from '@chakra-ui/react';
 import { useInView } from 'react-cool-inview';
 
 import { ClickableMedia, Image } from '../../../../../../components';
-import { formatMediaTypeLabel, getRatio } from '../../../../../../common/utils';
+import { formatMediaTypeLabel } from '../../../../../../common/utils';
+import { getRatio } from '../../../../../../common/utils/ratio';
 import { useUserTheme } from '../../../../../../common/hooks';
 
 import { ViewVideosVideoProps } from './types';

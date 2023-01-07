@@ -13,9 +13,9 @@ import {
 	formatDate,
 	formatMediaTypeLabel,
 	getBoringAvatarSrc,
-	getBoringAvatarVariantByMediaType,
-	getRatio
+	getBoringAvatarVariantByMediaType
 } from '../../../../../../../common/utils';
+import { getRatio } from '../../../../../../../common/utils/ratio';
 
 import { ViewReviewsReviewProps } from './types';
 import ViewReviewsReviewUsername from './components/ViewReviewsReviewUsername';

@@ -4,7 +4,7 @@ import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
 import { Center, AspectRatio } from '@chakra-ui/react';
 
-import { getRatio } from '../../../../common/utils';
+import { getRatio } from '../../../../common/utils/ratio';
 import { useUserTheme } from '../../../../common/hooks';
 
 import { ViewDummyPosterProps } from './types';

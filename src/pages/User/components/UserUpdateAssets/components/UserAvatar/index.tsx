@@ -7,7 +7,7 @@ import { useMediaQuery, useDisclosure, useToast, Center } from '@chakra-ui/react
 import Compressor from 'compressorjs';
 import { useWatch } from 'react-hook-form';
 
-import { getRatio } from '../../../../../../common/utils';
+import { getRatio } from '../../../../../../common/utils/ratio';
 import { Alert, ClickableMedia, Image } from '../../../../../../components';
 import { FileInputRef, ChangeEvent } from '../../types';
 import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';

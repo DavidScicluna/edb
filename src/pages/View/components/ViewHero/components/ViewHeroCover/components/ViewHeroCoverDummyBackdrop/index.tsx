@@ -7,7 +7,7 @@ import { AspectRatio } from '@chakra-ui/react';
 import { useElementSize } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
-import { getRatio, getRatioDimensions } from '../../../../../../../../common/utils';
+import { getRatio, getRatioDimensions } from '../../../../../../../../common/utils/ratio';
 
 const ViewHeroCoverDummyBackdrop: FC = () => {
 	const { colorMode } = useUserTheme();

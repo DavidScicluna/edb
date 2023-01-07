@@ -4,7 +4,7 @@ import { useTheme, Skeleton } from '@davidscicluna/component-library';
 
 import { AspectRatio, Center } from '@chakra-ui/react';
 
-import { getRatio } from '../../common/utils';
+import { getRatio } from '../../common/utils/ratio';
 import Image from '../Image';
 
 import { AvatarRef, AvatarProps } from './types';

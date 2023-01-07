@@ -6,7 +6,7 @@ import { useBoolean } from '@chakra-ui/react';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import { ClickableMedia, Image } from '../../../../../../../../components';
-import { getRatio } from '../../../../../../../../common/utils';
+import { getRatio } from '../../../../../../../../common/utils/ratio';
 
 import { ViewHeroCoverPosterProps } from './types';
 

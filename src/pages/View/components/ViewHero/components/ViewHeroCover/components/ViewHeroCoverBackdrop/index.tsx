@@ -8,7 +8,7 @@ import { useElementSize } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import { ClickableMedia, Image } from '../../../../../../../../components';
-import { getRatio, getRatioDimensions } from '../../../../../../../../common/utils';
+import { getRatio, getRatioDimensions } from '../../../../../../../../common/utils/ratio';
 
 import { ViewHeroCoverBackdropProps } from './types';
 

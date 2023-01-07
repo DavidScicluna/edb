@@ -1,4 +1,4 @@
-import { getRatioDimensions } from '../../../../../../common/utils';
+import { getRatioDimensions } from '../../../../../../common/utils/ratio';
 import { ViewPhotosHorizontalGridOrientation } from '../types';
 
 type GetDimensionsProps = { orientation: ViewPhotosHorizontalGridOrientation };

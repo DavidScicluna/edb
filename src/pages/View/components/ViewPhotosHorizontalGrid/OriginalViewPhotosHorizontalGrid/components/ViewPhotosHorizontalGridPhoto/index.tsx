@@ -13,9 +13,9 @@ import {
 	formatMediaTypeLabel,
 	getBoringAvatarSrc,
 	getBoringAvatarVariantByMediaType,
-	getImageSize,
-	getRatio
+	getImageSize
 } from '../../../../../../../common/utils';
+import { getRatio } from '../../../../../../../common/utils/ratio';
 import { useUserTheme } from '../../../../../../../common/hooks';
 import { getDimensions } from '../../../common/utils';
 

@@ -16,7 +16,8 @@ import dayjs from 'dayjs';
 
 import { DummyParagraph, DummyRating } from '../../../../../../components';
 import { useUserTheme } from '../../../../../../common/hooks';
-import { formatDate, getRatio } from '../../../../../../common/utils';
+import { formatDate } from '../../../../../../common/utils';
+import { getRatio } from '../../../../../../common/utils/ratio';
 
 const { getColor } = utils;
 
