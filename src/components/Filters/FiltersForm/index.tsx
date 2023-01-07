@@ -3,6 +3,7 @@ import { FC, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import {
+	Form,
 	Modal,
 	ModalHeader,
 	ModalStack,
@@ -10,6 +11,7 @@ import {
 	ModalFooter,
 	Button,
 	IconButton,
+	IconButtonIcon,
 	Icon
 } from '@davidscicluna/component-library';
 
@@ -98,7 +100,7 @@ const FiltersForm: FC<FiltersFormProps> = (props) => {
 			})}
 
 			<Modal colorMode={colorMode} isOpen={isFiltersFormOpen} onClose={handleClose} size='5xl'>
-				<ModalStack>
+				<ModalStack as={Form} onSubmit={handleSubmit(handleSubmitForm)}>
 					<ModalHeader
 						renderTitle={(props) => (
 							<Text {...props}>{`Filter ${formatMediaTypeLabel({ type: 'multiple', mediaType })}`}</Text>
@@ -112,8 +114,9 @@ const FiltersForm: FC<FiltersFormProps> = (props) => {
 							</Text>
 						)}
 						renderCancel={({ icon, category, ...rest }) => (
+							// TODO: Go over all IconButton and check Icon is IconButtonIcon
 							<IconButton {...rest}>
-								<Icon icon={icon} category={category} />
+								<IconButtonIcon icon={icon} category={category} />
 							</IconButton>
 						)}
 					/>
@@ -137,12 +140,7 @@ const FiltersForm: FC<FiltersFormProps> = (props) => {
 										Reset
 									</Button>
 								</Fade>
-								<Button
-									{...props}
-									color={color}
-									isDisabled={!isDirty}
-									onClick={handleSubmit(handleSubmitForm)}
-								>
+								<Button {...props} color={color} isDisabled={!isDirty} type='submit'>
 									Filter
 								</Button>
 							</HStack>

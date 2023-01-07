@@ -96,7 +96,13 @@ const CertificationsHelpModal: FC<CertificationsHelpModalProps> = ({ mediaType }
 					</ModalBody>
 					<ModalFooter
 						renderAction={(props) => (
-							<Button {...props} isFullWidth onClick={onCertificationsHelpModalClose} variant='outlined'>
+							<Button
+								{...props}
+								color='gray'
+								isFullWidth
+								onClick={onCertificationsHelpModalClose}
+								variant='outlined'
+							>
 								Cancel
 							</Button>
 						)}
