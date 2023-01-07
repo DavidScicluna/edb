@@ -34,6 +34,7 @@ const MyListsTabListTabHeadline: FC<MyListsTabListTabHeadlineProps> = (props) =>
 
 	const total = (mediaItems?.movie.length || 0) + (mediaItems?.tv.length || 0);
 
+	// TODO: Maybe replace this logic with TotalBadge
 	const { start, update } = useCountUp({
 		ref: countUpRef,
 		start: 0,

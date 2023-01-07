@@ -21,7 +21,7 @@ const DummyCreditsTab: FC = () => {
 					width='100%'
 					renderCaption={() => (
 						// TODO: Replace with DummyBadge
-						<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
+						<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='rectangle'>
 							<Badge color={color} colorMode={colorMode} size='xs'>
 								<BadgeLabel>Person has a total of # Credits</BadgeLabel>
 							</Badge>

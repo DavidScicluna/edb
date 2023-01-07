@@ -40,7 +40,7 @@ const DummyMyListsTabListTabHeadline: FC = () => {
 				width={handleHeadlineWidth()}
 				renderCaption={() => (
 					// TODO: Replace with DummyBadge
-					<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
+					<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='rectangle'>
 						<Badge color={color} colorMode={colorMode} size='xs'>
 							<BadgeLabel>Total of # bookmarks in list</BadgeLabel>
 						</Badge>

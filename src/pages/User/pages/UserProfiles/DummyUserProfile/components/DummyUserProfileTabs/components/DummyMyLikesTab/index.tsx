@@ -25,7 +25,7 @@ const DummyMyLikesTab: FC = () => {
 					width='100%'
 					renderCaption={() => (
 						// TODO: Replace with DummyBadge
-						<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
+						<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='rectangle'>
 							<Badge color={color} colorMode={colorMode} size='xs'>
 								<BadgeLabel>Total of # likes</BadgeLabel>
 							</Badge>
