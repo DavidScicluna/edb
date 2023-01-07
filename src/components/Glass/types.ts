@@ -1,4 +1,6 @@
 import {
+	Nullable,
+	Space,
 	BoxColor,
 	BoxGradient,
 	BoxTypography,
@@ -9,8 +11,7 @@ import {
 	BoxShadow,
 	BoxFilter,
 	BoxPseudo,
-	BoxOther,
-	Nullable
+	BoxOther
 } from '@davidscicluna/component-library';
 
 import { CenterProps } from '@chakra-ui/react';
@@ -26,8 +27,11 @@ type Omitted =
 	| BoxShadow
 	| BoxFilter
 	| BoxPseudo
-	| BoxOther;
+	| BoxOther
+	| 'backdropFilter';
 
-export type GlassProps = Omit<CenterProps, Omitted>;
+export type GlassProps = Omit<CenterProps, Omitted> & {
+	size?: Space;
+};
 
 export type GlassRef = Nullable<HTMLDivElement>;

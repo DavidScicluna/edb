@@ -19,6 +19,7 @@ const PosterGlass: FC<PosterGlassProps> = ({ children, ...rest }) => {
 			{...rest}
 			backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.25)}
 			borderRadius='full'
+			size={1}
 			p={0.25}
 		>
 			{children}

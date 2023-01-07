@@ -58,6 +58,7 @@ const SigninUsersUser: FC<SigninUsersUserProps> = (props) => {
 							<Glass
 								backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5)}
 								borderRadius='full'
+								size={1}
 								p={0.5}
 							>
 								<Icon

@@ -4,31 +4,16 @@ import { useTheme } from '@davidscicluna/component-library';
 
 import { Center } from '@chakra-ui/react';
 
-import { merge } from 'lodash';
-
 import { GlassRef, GlassProps } from './types';
 
 // TODO: Maybe move component to component-library
-
 const Glass = forwardRef<GlassRef, GlassProps>(function Glass(props, ref): ReactElement {
 	const theme = useTheme();
 
-	const { children, sx, ...rest } = props;
+	const { children, size = 2, ...rest } = props;
 
 	return (
-		<Center
-			{...rest}
-			ref={ref}
-			sx={{
-				...merge(
-					{
-						backdropFilter: `blur(${theme.space[2]})`,
-						WebkitBackdropFilter: `blur(${theme.space[2]})`
-					},
-					sx
-				)
-			}}
-		>
+		<Center {...rest} ref={ref} backdropFilter={`blur(${theme.space[size]})`}>
 			{children}
 		</Center>
 	);
