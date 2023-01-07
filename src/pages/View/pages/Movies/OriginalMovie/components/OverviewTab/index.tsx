@@ -5,6 +5,7 @@ import { VStack } from '@chakra-ui/react';
 import { compact } from 'lodash';
 
 import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
+import { useMovieContext } from '../../common/hooks';
 
 import OverviewTabHero from './components/OverviewTabHero';
 import OverviewTabCollection from './components/OverviewTabCollection';
@@ -21,6 +22,11 @@ import OverviewTabReview from './components/OverviewTabReview';
 const OverviewTab: FC = () => {
 	const { spacing } = useLayoutContext();
 
+	const { movieQuery } = useMovieContext();
+
+	const { data: movie } = movieQuery || {};
+	const { belongs_to_collection: collection } = movie || {};
+
 	return (
 		<VStack width='100%' spacing={spacing}>
 			{compact([
@@ -34,7 +40,9 @@ const OverviewTab: FC = () => {
 
 				<OverviewTabReview key='ds-edb-movie-overview-tab-review' />,
 
-				<OverviewTabCollection key='ds-edb-movie-overview-tab-collection' />,
+				collection && collection.id ? (
+					<OverviewTabCollection key='ds-edb-movie-overview-tab-collection' id={collection.id} />
+				) : null,
 
 				<OverviewTabDirector key='ds-edb-movie-overview-tab-director' />,
 
