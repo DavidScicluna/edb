@@ -19,7 +19,6 @@ const ViewReviewsReviewSubtitle: FC<ViewReviewsReviewSubtitleProps> = (props) =>
 	const { colorMode } = useUserTheme();
 
 	const [iconRef, { width: iconWidth }] = useElementSize();
-	const [labelRef, { height: labelHeight }] = useElementSize();
 
 	const { renderIcon, renderLabel, ...rest } = props;
 
@@ -33,15 +32,15 @@ const ViewReviewsReviewSubtitle: FC<ViewReviewsReviewSubtitleProps> = (props) =>
 		<HStack {...rest} spacing={spacing}>
 			<Center ref={iconRef}>
 				{renderIcon({
-					width: `${labelHeight}px`,
-					height: `${labelHeight}px`,
-					fontSize: `${labelHeight}px`,
+					width: theme.fontSizes.sm,
+					height: theme.fontSizes.sm,
+					fontSize: theme.fontSizes.sm,
 					colorMode,
 					color: getColor({ theme, colorMode, type: 'text.secondary' })
 				})}
 			</Center>
 
-			<Center ref={labelRef} maxWidth={handleLabelMaxWidth()} alignItems='center' justifyContent='flex-start'>
+			<Center maxWidth={handleLabelMaxWidth()} alignItems='center' justifyContent='flex-start'>
 				{renderLabel({
 					align: 'left',
 					color: getColor({ theme, colorMode, type: 'text.secondary' }),
