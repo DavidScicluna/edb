@@ -41,14 +41,14 @@ const DummyPhotosTab: FC = () => {
 					</Skeleton>
 				)}
 				renderTitle={(props) => (
-					<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
+					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 						<Text {...props}>Photos</Text>
 					</Skeleton>
 				)}
 				renderSubtitle={(props) => (
-					<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='text'>
+					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
 						<Text {...props}>
-							This Tab contains all the photos & backdrops that were used for the movie
+							This Tab contains all the posters & backdrops that were used for the movie
 						</Text>
 					</Skeleton>
 				)}

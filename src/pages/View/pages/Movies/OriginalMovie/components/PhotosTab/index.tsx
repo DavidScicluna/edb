@@ -84,7 +84,7 @@ const PhotosTab: FC = () => {
 				renderTitle={(props) => <Text {...props}>Photos</Text>}
 				renderSubtitle={(props) => (
 					<Text {...props}>
-						{`This Tab contains all the photos & backdrops that were used for ${
+						{`This Tab contains all the posters & backdrops that were used for ${
 							title ? title : `the ${formatMediaTypeLabel({ type: 'single', mediaType: 'movie' })}`
 						}`}
 					</Text>
