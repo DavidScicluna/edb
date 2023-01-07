@@ -236,28 +236,30 @@ const Movie: FC = () => {
 									return {
 										label: tab.label,
 										// isDisabled:
-										renderRight: (props) => {
-											return tab.getTotalBadgeProps ? (
-												<TotalBadge
-													{...tab.getTotalBadgeProps({
-														...props,
-														total:
-															index === castTabIndex
-																? castCredits.length
-																: index === crewTabIndex
-																? crewCredits.length
-																: index === reviewsTabIndex
-																? totalReviews
-																: index === photosTabIndex
-																? posters.length + backdrops.length
-																: index === videosTabIndex
-																? videos.length
-																: 0,
-														isActive: activeTabDebounced === index
-													})}
-												/>
-											) : undefined;
-										}
+										renderRight: tab.getTotalBadgeProps
+											? (props) => {
+													return tab.getTotalBadgeProps ? (
+														<TotalBadge
+															{...tab.getTotalBadgeProps({
+																...props,
+																total:
+																	index === castTabIndex
+																		? castCredits.length
+																		: index === crewTabIndex
+																		? crewCredits.length
+																		: index === reviewsTabIndex
+																		? totalReviews
+																		: index === photosTabIndex
+																		? posters.length + backdrops.length
+																		: index === videosTabIndex
+																		? videos.length
+																		: 0,
+																isActive: activeTabDebounced === index
+															})}
+														/>
+													) : undefined;
+											  }
+											: undefined
 									};
 								})}
 								renderRight={

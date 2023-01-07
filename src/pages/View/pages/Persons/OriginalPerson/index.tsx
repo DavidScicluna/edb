@@ -203,25 +203,27 @@ const Person: FC = () => {
 								tabs={personTabs.map((tab, index) => {
 									return {
 										label: tab.label,
-										renderRight: (props) => {
-											return tab.getTotalBadgeProps ? (
-												<TotalBadge
-													{...tab.getTotalBadgeProps({
-														...props,
-														total:
-															index === creditsTabIndex
-																? movieCastCredits.length +
-																  movieCrewCredits.length +
-																  tvShowCastCredits.length +
-																  tvShowCrewCredits.length
-																: index === photosTabIndex
-																? profiles.length
-																: 0,
-														isActive: activeTabDebounced === index
-													})}
-												/>
-											) : undefined;
-										}
+										renderRight: tab.getTotalBadgeProps
+											? (props) => {
+													return tab.getTotalBadgeProps ? (
+														<TotalBadge
+															{...tab.getTotalBadgeProps({
+																...props,
+																total:
+																	index === creditsTabIndex
+																		? movieCastCredits.length +
+																		  movieCrewCredits.length +
+																		  tvShowCastCredits.length +
+																		  tvShowCrewCredits.length
+																		: index === photosTabIndex
+																		? profiles.length
+																		: 0,
+																isActive: activeTabDebounced === index
+															})}
+														/>
+													) : undefined;
+											  }
+											: undefined
 									};
 								})}
 								renderRight={
