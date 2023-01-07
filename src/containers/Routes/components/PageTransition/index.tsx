@@ -23,19 +23,16 @@ const PageTransition: FC<PageTransitionProps> = ({ children }) => {
 			// ref={ref}
 			initial={{
 				width: '100%',
-				transform: 'scale(1.025)',
 				filter: `blur(${blur}px)`,
 				opacity: 0
 			}}
 			animate={{
 				width: '100%',
-				transform: 'scale(1)',
 				filter: 'blur(0px)',
 				opacity: 1
 			}}
 			exit={{
 				width: '100%',
-				transform: 'scale(1.025)',
 				filter: `blur(${blur}px)`,
 				opacity: 0
 			}}
