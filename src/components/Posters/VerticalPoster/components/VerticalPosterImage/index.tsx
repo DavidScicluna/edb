@@ -99,6 +99,7 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 						position='absolute'
 						bottom={theme.space[1]}
 						in={isHovering || isFocused}
+						unmountOnExit={false}
 						onMouseEnter={() => onSetIsFixed.on()}
 						onMouseLeave={() => onSetIsFixed.off()}
 						px={1}
