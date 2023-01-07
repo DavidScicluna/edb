@@ -11,10 +11,12 @@ import { TotalBadgeProps } from './types';
 
 const { convertStringToNumber } = utils;
 
-const TotalBadge: FC<TotalBadgeProps> = ({ color, colorMode, prefix, suffix, total = 0, size = 'xs', variant }) => {
+const TotalBadge: FC<TotalBadgeProps> = (props) => {
 	const theme = useTheme();
 
 	const countUpRef = useRef<Nullable<HTMLParagraphElement>>(null);
+
+	const { color, colorMode, prefix, suffix, total = 0, size = 'xs', variant = 'contained' } = props;
 
 	const { start, update } = useCountUp({
 		ref: countUpRef,
