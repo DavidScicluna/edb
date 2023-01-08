@@ -31,7 +31,7 @@ import { AuthenticationOutletContext } from '../../../../types';
 
 import { ResetPasswordFormProps } from './types';
 
-const spacing: Space[] = [2, 2, 3, 3];
+const spacing: Space = 2;
 
 const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ form, onSubmit, onBack }) => {
 	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();

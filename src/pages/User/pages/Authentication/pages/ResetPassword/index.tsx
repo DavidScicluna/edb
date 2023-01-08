@@ -2,14 +2,13 @@ import { FC } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { useTheme, useDebounce } from '@davidscicluna/component-library';
+import { useTheme } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useToast, HStack, Center } from '@chakra-ui/react';
+import { useMediaQuery, useToast, Grid, GridItem, Center } from '@chakra-ui/react';
 
 import qs from 'query-string';
 import { useForm, useFormState } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useElementSize, useWindowSize } from 'usehooks-ts';
 import { useDispatch } from 'react-redux';
 import sha256 from 'crypto-js/sha256';
 
@@ -19,6 +18,8 @@ import { UserCredentials } from '../../../../../../store/slices/Users/types';
 import { setUserCredentials } from '../../../../../../store/slices/Users';
 import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
 import { Alert } from '../../../../../../components';
+import { resetPasswordIllustration } from '../..';
+import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
 import { ResetPasswordForm as ResetPasswordFormType } from './types';
 import { schema } from './validation';
@@ -36,8 +37,10 @@ export const defaultValues: ResetPasswordFormType = {
 
 const ForgotPassword: FC = () => {
 	const theme = useTheme();
+
 	const [isLg] = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
-	const [isXl] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
+
+	const { spacing } = useLayoutContext();
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -46,11 +49,6 @@ const ForgotPassword: FC = () => {
 	const users = useSelector((state) => state.users.data.users);
 
 	const toast = useToast();
-
-	const { width: windowWidth } = useWindowSize();
-
-	const [containerRef, { width: containerWidth = 0 }] = useElementSize();
-	const debouncedContainerWidth = useDebounce<number>(containerWidth);
 
 	const form = useForm<ResetPasswordFormType>({
 		defaultValues: { ...defaultValues, ...qs.parse(location.search) },
@@ -117,37 +115,30 @@ const ForgotPassword: FC = () => {
 	};
 
 	return (
-		<HStack
-			ref={containerRef}
+		<Grid
 			width='100%'
-			minHeight='100vh'
-			position='relative'
-			alignItems='center'
-			justifyContent='flex-start'
-			spacing={0}
+			height='100vh'
+			templateRows='repeat(1, 1fr)'
+			templateColumns={`repeat(${isLg ? 2 : 1}, 1fr)`}
+			overflowX='hidden'
+			overflowY='hidden'
+			gap={0}
 		>
-			<Center
-				width={isLg ? `${debouncedContainerWidth / 2}px` : '100%'}
-				minHeight='100vh'
-				px={[2, 2, 3, 3]}
-				py={[3, 3, 4, 4]}
-			>
-				<ResetPasswordForm
-					form={form}
-					onSubmit={handleChangePassword}
-					onBack={() => navigate('/authentication/signin')}
-				/>
-			</Center>
-
+			<GridItem overflowX='hidden' overflowY='auto'>
+				<Center width='100%' minHeight='100vh' p={spacing}>
+					<ResetPasswordForm
+						form={form}
+						onSubmit={handleChangePassword}
+						onBack={() => navigate('/authentication/signin')}
+					/>
+				</Center>
+			</GridItem>
 			{isLg && (
-				<Illustration
-					width={`${debouncedContainerWidth / 2}px`}
-					height='100vh'
-					position='fixed'
-					right={`${isXl ? (windowWidth - containerWidth) / 2 : 0}px`}
-				/>
+				<GridItem overflowX='hidden' overflowY='hidden'>
+					<Illustration width='100%' height='100vh' illustration={resetPasswordIllustration} />
+				</GridItem>
 			)}
-		</HStack>
+		</Grid>
 	);
 };
 
