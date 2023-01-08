@@ -2,14 +2,14 @@ import { FC, useState, useCallback } from 'react';
 
 import { useNavigate, useOutletContext } from 'react-router';
 
-import { Colors, useTheme, utils } from '@davidscicluna/component-library';
+import { Colors, Undefinable, useTheme, utils } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useToast, HStack, VStack } from '@chakra-ui/react';
+import { useMediaQuery, useToast, Grid, GridItem, VStack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useElementSize, useUpdateEffect, useWindowSize } from 'usehooks-ts';
+import { useUpdateEffect } from 'usehooks-ts';
 import { debounce, omit } from 'lodash';
 import sha256 from 'crypto-js/sha256';
 import { sort } from 'fast-sort';
@@ -25,6 +25,8 @@ import { getBoringAvatarSrc, updateFavicon } from '../../../../../../common/util
 import { AuthenticationOutletContext } from '../../types';
 import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
 import { Alert } from '../../../../../../components';
+import { signinIllustration } from '../..';
+import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
 import SigninForm from './components/SigninForm';
 import SigninHeader from './components/SigninHeader';
@@ -46,10 +48,12 @@ export const defaultValues: SigninFormType = {
 
 const SignIn: FC = () => {
 	const theme = useTheme();
+
 	const [isLg] = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
-	const [isXl] = useMediaQuery(`(min-width: ${theme.breakpoints.xl})`);
 
 	const userTheme = useUserTheme();
+
+	const { spacing } = useLayoutContext();
 
 	const navigate = useNavigate();
 	const { colorMode = defaultColorMode, setColor, setColorMode } = useOutletContext<AuthenticationOutletContext>();
@@ -59,11 +63,7 @@ const SignIn: FC = () => {
 
 	const toast = useToast();
 
-	const { width: windowWidth } = useWindowSize();
-
-	const [containerRef, { width: containerWidth }] = useElementSize();
-
-	const [selectedUserID, setSelectedUserID] = useState<string>('');
+	const [selectedUserID, setSelectedUserID] = useState<Undefinable<string>>();
 
 	const form = useForm<SigninFormType>({
 		defaultValues,
@@ -74,16 +74,23 @@ const SignIn: FC = () => {
 	const watchUsername = useWatch({ control, name: 'username' });
 	const watchPassword = useWatch({ control, name: 'password' });
 
-	const handleUserClick = (user: User): void => {
-		const { color, colorMode } = user.ui.theme;
+	const handleUserClick = (user?: User): void => {
+		if (user) {
+			const { color, colorMode } = user.ui.theme;
 
-		setSelectedUserID(user.data.id);
+			setSelectedUserID(user.data.id);
 
-		setColor(color);
-		setColorMode(colorMode === 'system' ? getColorMode() : colorMode);
+			setColor(color);
+			setColorMode(colorMode === 'system' ? getColorMode() : colorMode);
 
-		setValue('username', user.data.credentials.username, { shouldDirty: true });
-		setValue('rememberMe', user.data.credentials.rememberMe, { shouldDirty: true });
+			setValue('username', user.data.credentials.username, { shouldDirty: true });
+			setValue('rememberMe', user.data.credentials.rememberMe, { shouldDirty: true });
+		} else {
+			setSelectedUserID(undefined);
+
+			setValue('username', '', { shouldDirty: true });
+			setValue('rememberMe', false, { shouldDirty: true });
+		}
 	};
 
 	const handleCheckForm = useCallback(
@@ -202,43 +209,39 @@ const SignIn: FC = () => {
 	useUpdateEffect(() => handleCheckForm(), [watchUsername, watchPassword]);
 
 	return (
-		<HStack
-			ref={containerRef}
+		<Grid
 			width='100%'
-			minHeight='100vh'
-			position='relative'
-			alignItems='center'
-			justifyContent='flex-end'
-			spacing={0}
+			height='100vh'
+			templateRows='repeat(1, 1fr)'
+			templateColumns={`repeat(${isLg ? 2 : 1}, 1fr)`}
+			overflowX='hidden'
+			overflowY='hidden'
+			gap={0}
 		>
 			{isLg && (
-				<Illustration
-					width={`${containerWidth / 2}px`}
-					height='100vh'
-					position='fixed'
-					top={0}
-					left={`${isXl ? (windowWidth - containerWidth) / 2 : 0}px`}
-				/>
+				<GridItem overflowX='hidden' overflowY='hidden'>
+					<Illustration width='100%' height='100vh' illustration={signinIllustration} />
+				</GridItem>
 			)}
+			<GridItem overflowX='hidden' overflowY='auto'>
+				<VStack
+					width='100%'
+					minHeight='100vh'
+					alignItems='stretch'
+					justifyContent='space-between'
+					spacing={spacing}
+					p={spacing}
+				>
+					<SigninHeader />
 
-			<VStack
-				width={isLg ? `${containerWidth / 2}px` : '100%'}
-				minHeight='100vh'
-				alignItems='stretch'
-				justifyContent='space-between'
-				spacing={[3, 3, 4, 4]}
-				px={[2, 2, 3, 3]}
-				py={[3, 3, 4, 4]}
-			>
-				<SigninHeader />
+					{users.length > 0 && <SigninUsers selectedUserID={selectedUserID} onUserClick={handleUserClick} />}
 
-				{users.length > 0 && <SigninUsers selectedUserID={selectedUserID} onUserClick={handleUserClick} />}
+					<SigninForm form={form} onSubmitAsGuest={handleSubmitAsGuest} onSubmit={handleSubmitForm} />
 
-				<SigninForm form={form} onSubmitAsGuest={handleSubmitAsGuest} onSubmit={handleSubmitForm} />
-
-				<SigninFooter />
-			</VStack>
-		</HStack>
+					<SigninFooter />
+				</VStack>
+			</GridItem>
+		</Grid>
 	);
 };
 

@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useOutletContext } from 'react-router';
 
 import {
+	Space,
 	useTheme,
 	ConfirmModal,
 	ConfirmModalStack,
@@ -38,17 +39,16 @@ import {
 	color as defaultColor,
 	colorMode as defaultColorMode
 } from '../../../../../../../../common/data/defaultPropValues';
-import { useLayoutContext } from '../../../../../../../../containers/Layout/common/hooks';
 import { AuthenticationOutletContext } from '../../../../types';
 
 import { SigninFormProps } from './types';
+
+const spacing: Space = 2;
 
 const SigninForm: FC<SigninFormProps> = (props) => {
 	const theme = useTheme();
 
 	const { color = defaultColor, colorMode = defaultColorMode } = useOutletContext<AuthenticationOutletContext>();
-
-	const { spacing } = useLayoutContext();
 
 	const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
 
@@ -72,10 +72,10 @@ const SigninForm: FC<SigninFormProps> = (props) => {
 	return (
 		<>
 			<Form width='100%' onSubmit={handleSubmitForm(onSubmit)}>
-				<Card colorMode={colorMode} isFullWidth p={[2, 2, 3, 3]}>
-					<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={[2, 2, 3, 3]}>
+				<Card colorMode={colorMode} isFullWidth p={spacing}>
+					<VStack width='100%' divider={<Divider colorMode={colorMode} />} spacing={spacing}>
 						<CardBody>
-							<VStack width='100%' spacing={2}>
+							<VStack width='100%' spacing={spacing}>
 								<Controller
 									control={control}
 									name='username'
@@ -188,7 +188,7 @@ const SigninForm: FC<SigninFormProps> = (props) => {
 							</VStack>
 						</CardBody>
 						<CardFooter>
-							<VStack width='100%' spacing={1}>
+							<VStack width='100%' spacing={spacing}>
 								<Button
 									color={color}
 									colorMode={colorMode}
@@ -214,6 +214,7 @@ const SigninForm: FC<SigninFormProps> = (props) => {
 				</Card>
 			</Form>
 
+			{/* TODO: Check maybe use usePrompt instead for all ConfirmModals */}
 			<ConfirmModal
 				colorMode={colorMode}
 				isOpen={isConfirmOpen}
