@@ -171,7 +171,7 @@ const MovieGenres: FC<MovieGenresProps> = ({ form }) => {
 							</Wrap>
 						) : (
 							<Wrap width='100%' spacing={1.5}>
-								{range(0, 15).map((_dummy, index) => (
+								{range(15).map((_dummy, index) => (
 									<WrapItem key={index}>
 										<DummyGenre />
 									</WrapItem>
