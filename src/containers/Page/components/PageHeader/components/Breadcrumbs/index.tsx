@@ -28,7 +28,7 @@ const Breadcrumbs: FC = () => {
 							<Breadcrumb {...breadcrumb} isCurrentPage={index === debouncedBreadcrumbs.length - 1} />
 						</BreadcrumbItem>
 				  ))
-				: range(0, 3).map((_dummy, index) => (
+				: range(3).map((_dummy, index) => (
 						<BreadcrumbItem key={index} isCurrentPage>
 							<DummyBreadcrumb />
 						</BreadcrumbItem>
