@@ -42,7 +42,7 @@ const SigninUsers: FC<SigninUsersProps> = ({ selectedUserID, onUserClick }) => {
 			}
 			body={
 				<CollapsibleCardBody>
-					<HorizontalScroll colorMode={colorMode} renderDivider={() => <Box padding={1} />}>
+					<HorizontalScroll colorMode={colorMode} renderDivider={({ padding }) => <Box padding={padding} />}>
 						{[
 							...sort([...users])
 								.desc((u) => u.data.signedInAt)
@@ -51,7 +51,9 @@ const SigninUsers: FC<SigninUsersProps> = ({ selectedUserID, onUserClick }) => {
 										key={user.data.id}
 										user={{ ...user }}
 										isSelected={selectedUserID === user.data.id}
-										onClick={() => onUserClick({ ...user })}
+										onClick={() =>
+											onUserClick(selectedUserID !== user.data.id ? { ...user } : undefined)
+										}
 									/>
 								)),
 

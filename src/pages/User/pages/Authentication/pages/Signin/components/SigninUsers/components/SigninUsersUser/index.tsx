@@ -2,11 +2,9 @@ import { FC } from 'react';
 
 import { useOutletContext } from 'react-router';
 
-import { useTheme, Card, CardBody, CardFooter, Icon, ScaleFade, utils } from '@davidscicluna/component-library';
+import { useTheme, Card, CardBody, CardFooter, Icon, utils } from '@davidscicluna/component-library';
 
-import { Center, Text } from '@chakra-ui/react';
-
-import { transparentize } from 'color2k';
+import { Text } from '@chakra-ui/react';
 
 import Avatar from '../../../../../../../../../../components/Avatar';
 import {
@@ -14,7 +12,8 @@ import {
 	colorMode as defaultColorMode
 } from '../../../../../../../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../../../../../types';
-import { Glass } from '../../../../../../../../../../components';
+import { ClickableMedia } from '../../../../../../../../../../components';
+import { getRatio } from '../../../../../../../../../../common/utils/ratio';
 
 import { SigninUsersUserProps } from './types';
 
@@ -36,45 +35,22 @@ const SigninUsersUser: FC<SigninUsersUserProps> = (props) => {
 			isDivisible={false}
 			isClickable
 			isFullWidth={false}
-			onClick={!isSelected ? () => onClick() : undefined}
+			onClick={() => onClick()}
 			p={2}
 			sx={{ height: '100%' }}
 		>
 			<CardBody>
-				<Center width={theme.space[8]} height={theme.space[8]} position='relative'>
-					<Center
-						width='100%'
-						height='100%'
-						position='absolute'
-						zIndex={1}
-						borderRadius='base'
-						sx={{
-							background: isSelected
-								? transparentize(getColor({ theme, colorMode, type: 'divider' }), 0.5)
-								: theme.colors.transparent
-						}}
-					>
-						<ScaleFade in={isSelected}>
-							<Glass
-								backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5)}
-								borderRadius='full'
-								size={1}
-								p={0.5}
-							>
-								<Icon
-									color={getColor({ theme, colorMode, type: 'light' })}
-									colorMode={colorMode}
-									width={theme.fontSizes['3xl']}
-									height={theme.fontSizes['3xl']}
-									fontSize={theme.fontSizes['3xl']}
-									icon='check'
-								/>
-							</Glass>
-						</ScaleFade>
-					</Center>
-
+				<ClickableMedia
+					colorMode={colorMode}
+					width={theme.space[8]}
+					height={theme.space[8]}
+					borderRadius='base'
+					ratio={getRatio({ orientation: 'square' })}
+					renderIcon={(props) => <Icon {...props} icon='check' category='outlined' />}
+					isActive={isSelected}
+				>
 					<Avatar alt={name} borderRadius='base' src={{ full: avatar_path }} size={theme.space[8]} />
-				</Center>
+				</ClickableMedia>
 			</CardBody>
 			<CardFooter>
 				<Text
