@@ -6,11 +6,20 @@ import { useTheme, utils } from '@davidscicluna/component-library';
 
 import { ColorMode, useMediaQuery, Center, Container } from '@chakra-ui/react';
 
+import { shuffle } from 'lodash';
+
 import { color as defaultColor, colorMode as defaultColorMode } from '../../../../common/data/defaultPropValues';
 import { useUserTheme } from '../../../../common/hooks';
 import { UserThemeColor } from '../../../../store/slices/Users/types';
 
+import { AuthenticationIllustrationIndex, AuthenticationIllustrationIndexes } from './types';
+
 const { getColor } = utils;
+
+const illustrations: AuthenticationIllustrationIndexes = shuffle([1, 2, 3, 4, 5, 6]);
+
+export const signinIllustration: AuthenticationIllustrationIndex = illustrations[3];
+export const resetPasswordIllustration: AuthenticationIllustrationIndex = illustrations[4];
 
 const Authentication: FC = () => {
 	const theme = useTheme();

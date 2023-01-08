@@ -17,8 +17,7 @@ import {
 
 import { BoxProps } from '@chakra-ui/react';
 
-export type IllustrationIndex = 1 | 2 | 3 | 4 | 5 | 6;
-export type IllustrationIndexes = IllustrationIndex[];
+import { AuthenticationIllustrationIndex } from '../../types';
 
 type Omitted =
 	| BoxMargin
@@ -38,4 +37,4 @@ type Omitted =
 	| 'as'
 	| 'children';
 
-export type IllustrationProps = Omit<BoxProps, Omitted>;
+export type IllustrationProps = Omit<BoxProps, Omitted> & { illustration: AuthenticationIllustrationIndex };
