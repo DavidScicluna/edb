@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
 import ViewInfo from '../../../../components/ViewInfo';
+import ViewInfoDummyRuntimeItem from '../../../../components/ViewInfo/components/ViewInfoDummyRuntimeItem';
 import ViewInfoDummyCertificationItem from '../../../../components/ViewInfo/components/ViewInfoDummyCertificationItem';
 import ViewInfoDummyDateItem from '../../../../components/ViewInfo/components/ViewInfoDummyDateItem';
 import ViewInfoDummyLanguagesItem from '../../../../components/ViewInfo/components/ViewInfoDummyLanguagesItem';
 import ViewInfoDummyPopularityItem from '../../../../components/ViewInfo/components/ViewInfoDummyPopularityItem';
 
-import MoviesDummyInfoRuntime from './components/MoviesDummyInfoRuntime';
 import MoviesDummyInfoCash from './components/MoviesDummyInfoCash';
 
 const MoviesDummyInfo: FC = () => {
@@ -18,7 +18,7 @@ const MoviesDummyInfo: FC = () => {
 
 			<ViewInfoDummyDateItem key='ds-edb-movie-dummy-info-date' />
 
-			<MoviesDummyInfoRuntime key='ds-edb-movie-dummy-info-runtime' />
+			<ViewInfoDummyRuntimeItem key='ds-edb-movie-dummy-info-runtime' />
 
 			<MoviesDummyInfoCash key='ds-edb-movie-dummy-info-cash-budget' type='budget' />
 
