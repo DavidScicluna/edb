@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useCallback, useEffect } from 'react';
 
 import { useTheme, Card, CardHeader, CardBody, CardFooter, Button } from '@davidscicluna/component-library';
 
@@ -6,6 +6,7 @@ import { useMediaQuery, Text } from '@chakra-ui/react';
 
 import numbro from 'numbro';
 import { sort } from 'fast-sort';
+import { debounce } from 'lodash';
 
 import { useMovieContext } from '../../../../common/hooks';
 import { useSelector, useUserTheme } from '../../../../../../../../../common/hooks';
@@ -37,12 +38,17 @@ const OverviewTabReview: FC = () => {
 
 	const [totalReviews, setTotalReviews] = useState<number>(0);
 
-	useEffect(() => {
-		setTotalReviews(
-			userReviews.length +
-				otherReviewsPages.reduce((total: number, { results = [] }) => total + results.length, 0)
-		);
-	}, [userReviews, otherReviewsPages]);
+	const handleGetTotalReviews = useCallback(
+		debounce((): void => {
+			setTotalReviews(
+				userReviews.length +
+					otherReviewsPages.reduce((total: number, { results = [] }) => total + results.length, 0)
+			);
+		}, 500),
+		[userReviews, otherReviewsPages]
+	);
+
+	useEffect(() => handleGetTotalReviews(), [userReviews, otherReviewsPages]);
 
 	return movie ? (
 		<Card colorMode={colorMode} isFullWidth p={2}>
@@ -78,6 +84,7 @@ const OverviewTabReview: FC = () => {
 					<ViewReviewsMyReviewsQueryEmpty<'movie'> mediaType='movie' mediaItem={movie} name={title} />
 				)}
 			</CardBody>
+
 			<CardFooter>
 				<Button
 					color={color}
@@ -87,7 +94,9 @@ const OverviewTabReview: FC = () => {
 					size={isSm ? 'xs' : 'sm'}
 					variant='text'
 				>
-					{`View all ${numbro(totalReviews).format({ average: true })} Reviews`}
+					{totalReviews > 0
+						? `View all ${numbro(totalReviews).format({ average: true })} Reviews`
+						: 'Go to Reviews Tab'}
 				</Button>
 			</CardFooter>
 		</Card>
