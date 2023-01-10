@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
 
-import { useTheme, useDebounce, Button, Icon, utils } from '@davidscicluna/component-library';
+import { useTheme, useDebounce, Button, Icon, utils, Undefinable } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
@@ -25,8 +25,9 @@ import {
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
+import { ViewCastMediaType } from '../common/types';
 
-import { ViewCastMediaType, ViewCastProps } from './types';
+import { ViewCastGetType, ViewCastProps } from './types';
 
 const { getColor } = utils;
 
@@ -53,6 +54,29 @@ const ViewCast = <MT extends ViewCastMediaType>(props: ViewCastProps<MT>): React
 
 	const [visible, setVisible] = useState<number>(limit);
 	const visibleDebounced = useDebounce<number>(visible, 'slow');
+
+	const handleGetSubtitle = (person: ViewCastGetType<MT>): Undefinable<string> => {
+		switch (mediaType) {
+			case 'movie': {
+				const { character } = person as ViewCastGetType<'movie'>;
+				return character ? `As ${character}` : undefined;
+			}
+			case 'tv': {
+				const { roles = [] } = person as ViewCastGetType<'tv'>;
+				return roles.length > 0
+					? roles
+							.map(({ episode_count = 0, character }) =>
+								episode_count > 0
+									? `${episode_count} episode${episode_count === 1 ? '' : 's'} as ${character}`
+									: `As ${character}`
+							)
+							.join(', ')
+					: undefined;
+			}
+			default:
+				break;
+		}
+	};
 
 	return !(isFetching || isLoading) && isError ? (
 		<QueryEmpty
@@ -133,13 +157,13 @@ const ViewCast = <MT extends ViewCastMediaType>(props: ViewCastProps<MT>): React
 								<PersonHorizontalPoster
 									key={person.id}
 									person={person}
-									subtitle={person.character ? `As ${person.character}` : undefined}
+									subtitle={handleGetSubtitle(person)}
 								/>
 							) : (
 								<PersonVerticalPoster
 									key={person.id}
 									person={person}
-									subtitle={person.character ? `As ${person.character}` : undefined}
+									subtitle={handleGetSubtitle(person)}
 								/>
 							)
 						)
@@ -167,7 +191,7 @@ const ViewCast = <MT extends ViewCastMediaType>(props: ViewCastProps<MT>): React
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (
-							<DummyHorizontalPoster key={index} mediaType='person' hasSubtitle hasDescription />
+							<DummyHorizontalPoster key={index} mediaType='person' hasSubtitle />
 						) : (
 							<DummyVerticalPoster key={index} mediaType='person' hasSubtitle />
 						)

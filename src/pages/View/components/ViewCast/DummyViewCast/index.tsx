@@ -26,7 +26,7 @@ const DummyViewCast = <MT extends ViewCastMediaType>({ mediaType }: DummyViewCas
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (
-							<DummyHorizontalPoster key={index} mediaType='person' hasSubtitle hasDescription />
+							<DummyHorizontalPoster key={index} mediaType='person' hasSubtitle />
 						) : (
 							<DummyVerticalPoster key={index} mediaType='person' hasSubtitle />
 						)
