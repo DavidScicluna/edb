@@ -1,15 +1,17 @@
-import { FC, useState } from 'react';
+import { FC, useState, useCallback } from 'react';
 
-import { compact } from 'lodash';
+import { Undefinable } from '@davidscicluna/component-library';
+
+import { compact, debounce } from 'lodash';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import ViewInfo from '../../../../../components/ViewInfo';
-import { getCertification } from '../../../../../common/utils';
 import ViewInfoRuntimeItem from '../../../../../components/ViewInfo/components/ViewInfoRuntimeItem';
 import ViewInfoPopularityItem from '../../../../../components/ViewInfo/components/ViewInfoPopularityItem';
 import ViewInfoDateItem from '../../../../../components/ViewInfo/components/ViewInfoDateItem';
 import ViewInfoLanguagesItem from '../../../../../components/ViewInfo/components/ViewInfoLanguagesItem';
 import ViewInfoCertificationItem from '../../../../../components/ViewInfo/components/ViewInfoCertificationItem';
+import { Certification } from '../../../../../../../common/types';
 
 import { MovieInfoProps } from './types';
 import MovieInfoCash from './components/MovieInfoCash';
@@ -17,13 +19,20 @@ import MovieInfoCash from './components/MovieInfoCash';
 const MovieInfo: FC<MovieInfoProps> = ({ movie }) => {
 	const { popularity, release_date, release_dates, runtime, budget, revenue, spoken_languages = [] } = movie;
 
-	const [certification, setCertification] = useState(
-		getCertification({ certifications: release_dates?.results || [] })
+	const [certification, setCertification] = useState<Undefinable<Certification>>();
+
+	const handleGetCertification = useCallback(
+		debounce((): void => {
+			const certification = (release_dates?.results || []).find(({ iso_3166_1 }) => iso_3166_1 === 'US');
+
+			if (certification && certification?.release_dates && certification?.release_dates[0]) {
+				return setCertification(certification?.release_dates[0]);
+			}
+		}, 250),
+		[release_dates]
 	);
 
-	useUpdateEffect(() => {
-		setCertification(getCertification({ certifications: release_dates?.results || [] }));
-	}, [release_dates]);
+	useUpdateEffect(() => handleGetCertification(), [release_dates]);
 
 	return (
 		<ViewInfo>
@@ -41,7 +50,7 @@ const MovieInfo: FC<MovieInfoProps> = ({ movie }) => {
 				) : null,
 
 				release_date ? (
-					<ViewInfoDateItem key='ds-edb-movie-info-date' mediaType='movie' date={release_date} />
+					<ViewInfoDateItem key='ds-edb-movie-info-date' mediaType='movie' startDate={release_date} />
 				) : null,
 
 				runtime ? (
