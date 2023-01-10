@@ -24,7 +24,7 @@ const ViewInfoCertificationItem: FC<ViewInfoCertificationItemProps> = ({ mediaTy
 		<Tooltip
 			aria-label='Show certification meaning (tooltip)'
 			colorMode={colorMode}
-			isOpen={isHovering}
+			isOpen={!!meaning && isHovering}
 			placement='bottom-start'
 			label={meaning}
 			shouldWrapChildren
