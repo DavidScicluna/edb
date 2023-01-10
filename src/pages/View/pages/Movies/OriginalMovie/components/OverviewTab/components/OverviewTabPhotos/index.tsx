@@ -21,8 +21,10 @@ import { getMovieTabIndex } from '../../../../../common/utils';
 
 const OverviewTabPhotos: FC = () => {
 	const { movieQuery, imagesQuery, onSetActiveTab } = useMovieContext();
+
 	const { data: movie } = movieQuery || {};
 	const { title } = movie || {};
+
 	const { data: images, isFetching, isLoading, isError, isSuccess } = imagesQuery || {};
 	const { posters = [], backdrops = [] } = images || {};
 
