@@ -13,7 +13,7 @@ import { DisplayMode, TotalBadge } from '../../../../../../../components';
 import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
 import ViewCrew from '../../../../../components/ViewCrew/OriginalViewCrew';
 import { ViewCrewDepartments } from '../../../../../components/ViewCrew/OriginalViewCrew/types';
-import { getCrewDepartments } from '../../../../../components/ViewCrew/OriginalViewCrew/common/utils';
+import { getMovieCrewDepartments } from '../../../../../components/ViewCrew/OriginalViewCrew/common/utils';
 
 const CrewTab: FC = () => {
 	const theme = useTheme();
@@ -36,10 +36,10 @@ const CrewTab: FC = () => {
 	} = creditsQuery || {};
 	const { crew = [] } = credits || {};
 
-	const [departments, setDepartments] = useState<ViewCrewDepartments<'movie'>>(getCrewDepartments({ crew }));
+	const [departments, setDepartments] = useState<ViewCrewDepartments<'movie'>>(getMovieCrewDepartments({ crew }));
 	const departmentsDebounced = useDebounce<ViewCrewDepartments<'movie'>>(departments, 'slow');
 
-	useUpdateEffect(() => setDepartments(getCrewDepartments({ crew })), [crew]);
+	useUpdateEffect(() => setDepartments(getMovieCrewDepartments({ crew })), [crew]);
 
 	return (
 		<VStack
