@@ -17,11 +17,16 @@ import { formatMediaTypeLabel } from '../utils';
 import { Credits as MovieCredits } from '../types/movie';
 import { Credits as TVShowCredits } from '../types/tv';
 
-// TODO: GO over all QueryEmpty Try again and check if they are working
+const defaultIsAggregated = false;
 
+// TODO: GO over all QueryEmpty Try again and check if they are working
 export type UseMediaTypeCreditsQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-export type UseMediaTypeCreditsQueryProps<MT extends UseMediaTypeCreditsQueryMediaType> = { mediaType: MT; id: number };
+export type UseMediaTypeCreditsQueryProps<MT extends UseMediaTypeCreditsQueryMediaType> = {
+	mediaType: MT;
+	id: number;
+	isAggregated?: boolean;
+};
 
 export type UseMediaTypeCreditsQueryResponse<MT extends UseMediaTypeCreditsQueryMediaType> = MT extends 'movie'
 	? MovieCredits
@@ -43,18 +48,30 @@ type UseMediaTypeCreditsQueryParams<MT extends UseMediaTypeCreditsQueryMediaType
 	options?: UseMediaTypeCreditsQueryOptions<MT>;
 };
 
+const handleCheckIsAggregated = memoize(
+	<MT extends UseMediaTypeCreditsQueryMediaType>(
+		props: Pick<UseMediaTypeCreditsQueryProps<MT>, 'mediaType' | 'isAggregated'>
+	): string => {
+		const { mediaType, isAggregated = defaultIsAggregated } = props;
+		return mediaType === 'tv' && isAggregated ? 'aggregate_credits' : 'credits';
+	}
+);
+
 export const mediaTypeCreditsQueryToastID = memoize(
-	<MT extends UseMediaTypeCreditsQueryMediaType>({ mediaType, id }: UseMediaTypeCreditsQueryProps<MT>): string =>
-		`ds-edb-${mediaType}-${id}-credits-query-toast`
+	<MT extends UseMediaTypeCreditsQueryMediaType>(props: UseMediaTypeCreditsQueryProps<MT>): string => {
+		const { mediaType, id, isAggregated = defaultIsAggregated } = props;
+		return `ds-edb-${mediaType}-${id}-${handleCheckIsAggregated({ mediaType, isAggregated })}-query-toast`;
+	}
 );
 export const mediaTypeCreditsQueryKey = memoize(
-	<MT extends UseMediaTypeCreditsQueryMediaType>({ mediaType, id }: UseMediaTypeCreditsQueryProps<MT>): QueryKey => [
-		`ds-edb-${mediaType}-${id}-credits-query`
-	]
+	<MT extends UseMediaTypeCreditsQueryMediaType>(props: UseMediaTypeCreditsQueryProps<MT>): QueryKey => {
+		const { mediaType, id, isAggregated = defaultIsAggregated } = props;
+		return [`ds-edb-${mediaType}-${id}-${handleCheckIsAggregated({ mediaType, isAggregated })}-query`];
+	}
 );
 
 const useMediaTypeCreditsQuery = <MT extends UseMediaTypeCreditsQueryMediaType>({
-	props: { mediaType, id },
+	props: { mediaType, id, isAggregated = defaultIsAggregated },
 	config = {},
 	options = {}
 }: UseMediaTypeCreditsQueryParams<MT>): UseMediaTypeCreditsQueryResult<MT> => {
@@ -67,10 +84,13 @@ const useMediaTypeCreditsQuery = <MT extends UseMediaTypeCreditsQueryMediaType>(
 	const query = useQuery<UseMediaTypeCreditsQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
 		async ({ signal }) => {
-			const { data } = await axios.get<UseMediaTypeCreditsQueryResponse<MT>>(`/${mediaType}/${id}/credits`, {
-				...config,
-				signal
-			});
+			const { data } = await axios.get<UseMediaTypeCreditsQueryResponse<MT>>(
+				`/${mediaType}/${id}/${handleCheckIsAggregated({ mediaType, isAggregated })}`,
+				{
+					...config,
+					signal
+				}
+			);
 			return data;
 		},
 		{
