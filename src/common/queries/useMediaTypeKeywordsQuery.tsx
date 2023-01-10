@@ -10,7 +10,7 @@ import { compact, memoize } from 'lodash';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { axios } from '../scripts';
-import { AxiosConfig, Keywords, MediaType, QueryError } from '../types';
+import { AxiosConfig, Keyword, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
@@ -19,19 +19,24 @@ export type UseMediaTypeKeywordsQueryMediaType = Exclude<MediaType, 'person' | '
 
 export type UseMediaTypeKeywordsQueryProps = { mediaType: UseMediaTypeKeywordsQueryMediaType; id: number };
 
-export type UseMediaTypeKeywordsQueryResponse = Keywords;
+export type UseMediaTypeKeywordsQueryResponse<MT extends UseMediaTypeKeywordsQueryMediaType> = MT extends 'movie'
+	? { id?: number; keywords?: Keyword[] }
+	: { id?: number; results?: Keyword[] };
 
-export type UseMediaTypeKeywordsQueryOptions = UseQueryOptions<
-	UseMediaTypeKeywordsQueryResponse,
+export type UseMediaTypeKeywordsQueryOptions<MT extends UseMediaTypeKeywordsQueryMediaType> = UseQueryOptions<
+	UseMediaTypeKeywordsQueryResponse<MT>,
 	AxiosError<QueryError>
 >;
 
-export type UseMediaTypeKeywordsQueryResult = UseQueryResult<UseMediaTypeKeywordsQueryResponse, AxiosError<QueryError>>;
+export type UseMediaTypeKeywordsQueryResult<MT extends UseMediaTypeKeywordsQueryMediaType> = UseQueryResult<
+	UseMediaTypeKeywordsQueryResponse<MT>,
+	AxiosError<QueryError>
+>;
 
-type UseMediaTypeKeywordsQueryParams = {
+type UseMediaTypeKeywordsQueryParams<MT extends UseMediaTypeKeywordsQueryMediaType> = {
 	props: UseMediaTypeKeywordsQueryProps;
 	config?: AxiosConfig;
-	options?: UseMediaTypeKeywordsQueryOptions;
+	options?: UseMediaTypeKeywordsQueryOptions<MT>;
 };
 
 export const mediaTypeKeywordsQueryToastID = memoize(
@@ -41,21 +46,21 @@ export const mediaTypeKeywordsQueryKey = memoize(
 	({ mediaType, id }: UseMediaTypeKeywordsQueryProps): QueryKey => [`ds-edb-${mediaType}-${id}-keywords-query`]
 );
 
-const useMediaTypeKeywordsQuery = ({
+const useMediaTypeKeywordsQuery = <MT extends UseMediaTypeKeywordsQueryMediaType>({
 	props: { mediaType, id },
 	config = {},
 	options = {}
-}: UseMediaTypeKeywordsQueryParams): UseMediaTypeKeywordsQueryResult => {
+}: UseMediaTypeKeywordsQueryParams<MT>): UseMediaTypeKeywordsQueryResult<MT> => {
 	const toast = useToast();
 
 	const [toastID, setToastID] = useState<string>(mediaTypeKeywordsQueryToastID({ mediaType, id }));
 	const [key, setKey] = useState<QueryKey>(mediaTypeKeywordsQueryKey({ mediaType, id }));
 
 	const client = useQueryClient();
-	const query = useQuery<UseMediaTypeKeywordsQueryResponse, AxiosError<QueryError>>(
+	const query = useQuery<UseMediaTypeKeywordsQueryResponse<MT>, AxiosError<QueryError>>(
 		key,
 		async ({ signal }) => {
-			const { data } = await axios.get<UseMediaTypeKeywordsQueryResponse>(`/${mediaType}/${id}/keywords`, {
+			const { data } = await axios.get<UseMediaTypeKeywordsQueryResponse<MT>>(`/${mediaType}/${id}/keywords`, {
 				...config,
 				signal
 			});
