@@ -6,8 +6,8 @@ import { ViewHeroLabelProps } from '../ViewHeroLabel/types';
 export type ViewHeroCrewMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
 export type ViewHeroCrewGetMediaItemType<MT extends ViewHeroCrewMediaType> = MT extends 'movie'
-	? MovieCrew
-	: TVShowCrew;
+	? Pick<MovieCrew, 'id' | 'name'>
+	: Pick<TVShowCrew, 'id' | 'name'>;
 
 export type ViewHeroCrewProps<MT extends ViewHeroCrewMediaType> = Pick<ViewHeroLabelProps, 'label'> & {
 	crew?: ViewHeroCrewGetMediaItemType<MT>[];
