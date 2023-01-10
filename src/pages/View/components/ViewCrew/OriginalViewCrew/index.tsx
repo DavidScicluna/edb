@@ -19,7 +19,7 @@ import {
 
 import { Text } from '@chakra-ui/react';
 
-import { range } from 'lodash';
+import { compact, range } from 'lodash';
 
 import { useUserTheme } from '../../../../../common/hooks';
 import {
@@ -56,6 +56,25 @@ const ViewCrew = <MT extends ViewCrewMediaType>(props: ViewCrewProps<MT>): React
 		isSuccess = false,
 		refetch
 	} = props;
+
+	const handleGetSubtitle = (person: ViewCrewGetDepartmentType<MT>): string => {
+		switch (mediaType) {
+			case 'tv': {
+				const { jobs = [] } = person as ViewCrewGetDepartmentType<'tv'>;
+				return jobs.length > 0
+					? compact(
+							jobs.map(({ episode_count = 0, job }) =>
+								episode_count > 0
+									? `${job} (${episode_count} episode${episode_count === 1 ? '' : 's'})`
+									: job
+							)
+					  ).join(', ')
+					: ' ';
+			}
+			default:
+				return ' ';
+		}
+	};
 
 	return !(isFetching || isLoading) && isError ? (
 		<QueryEmpty
@@ -163,13 +182,13 @@ const ViewCrew = <MT extends ViewCrewMediaType>(props: ViewCrewProps<MT>): React
 													<PersonHorizontalPoster
 														key={person.id}
 														person={person}
-														subtitle=' '
+														subtitle={handleGetSubtitle(person)}
 													/>
 												) : (
 													<PersonVerticalPoster
 														key={person.id}
 														person={person}
-														subtitle=' '
+														subtitle={handleGetSubtitle(person)}
 													/>
 												)
 											)
