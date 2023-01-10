@@ -31,14 +31,14 @@ const OverviewTabHero: FC = () => {
 	const { crew: crewCredits = [] } = credits || {};
 
 	const {
-		data,
+		data: keywordsPayload,
 		isFetching: isFetchingKeywords,
 		isLoading: isKeywordsLoading
-	} = useMediaTypeKeywordsQuery({
+	} = useMediaTypeKeywordsQuery<'movie'>({
 		props: { mediaType: 'movie', id: Number(id) },
-		options: { enabled: !!movie?.id }
+		options: { enabled: !!id }
 	});
-	const { keywords = [] } = data || {};
+	const { keywords = [] } = keywordsPayload || {};
 
 	const directors = crewCredits.filter(({ job }) => job === 'Director');
 	const executiveProducers = crewCredits.filter(({ job }) => job === 'Executive Producer');
