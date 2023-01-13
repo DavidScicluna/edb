@@ -131,25 +131,6 @@ const Trending: FC = () => {
 
 	const { isError: isTrendingPeopleError } = trendingPeopleInfiniteQuery;
 
-	const handleSubtitle = (): string => {
-		if (activeTab > 0) {
-			const activeMediaType = formatMediaTypeLabel({
-				type: 'multiple',
-				mediaType: trendingMediaTypes[activeTabDebounced - 1]
-			});
-
-			return `A list containing the most trending ${activeMediaType} this week.`;
-		} else {
-			return `A list containing the most trending ${formatMediaTypeLabel({
-				type: 'multiple',
-				mediaType: 'movie'
-			})}, ${formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })} & ${formatMediaTypeLabel({
-				type: 'multiple',
-				mediaType: 'person'
-			})} this week`;
-		}
-	};
-
 	const handleTabChange = ({ index }: TabsOnChangeProps): void => {
 		if (index > 0) {
 			const activeMediaType = formatMediaType({ mediaType: trendingMediaTypes[index - 1] });
@@ -174,7 +155,17 @@ const Trending: FC = () => {
 		<Page>
 			<PageHeader
 				renderTitle={(props) => <Text {...props}>Trending</Text>}
-				renderSubtitle={(props) => <Text {...props}>{handleSubtitle()}</Text>}
+				renderSubtitle={(props) => (
+					<Text {...props}>
+						{`A list containing the most trending ${formatMediaTypeLabel({
+							type: 'multiple',
+							mediaType: 'movie'
+						})}, ${formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' })} & ${formatMediaTypeLabel({
+							type: 'multiple',
+							mediaType: 'person'
+						})} this week`}
+					</Text>
+				)}
 				direction='row'
 				spacing={spacing}
 				px={spacing}

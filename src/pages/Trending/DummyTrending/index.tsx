@@ -45,7 +45,7 @@ const DummyTrending: FC = () => {
 				)}
 				renderSubtitle={(props) => (
 					<Skeleton colorMode={colorMode} isLoaded={false} variant='text'>
-						<Text {...props}>A list containing the most trending media-type this week.</Text>
+						<Text {...props}>A list containing the most trending Movies, TV Shows & People this week</Text>
 					</Skeleton>
 				)}
 				direction='row'
