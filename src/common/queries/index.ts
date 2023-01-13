@@ -22,6 +22,7 @@ import useSearchInfiniteQuery from './useSearchInfiniteQuery';
 import useTopRatedQuery from './useTopRatedQuery';
 import useTrendingInfiniteQuery from './useTrendingInfiniteQuery';
 import useTrendingQuery from './useTrendingQuery';
+import useTVShowEpisodeQuery from './useTVShowEpisodeQuery';
 import useTVShowSeasonQuery from './useTVShowSeasonQuery';
 
 export {
@@ -48,6 +49,7 @@ export {
 	useSearchInfiniteQuery,
 	useTopRatedQuery,
 	useTrendingInfiniteQuery,
-	useTrendingQuery
+	useTrendingQuery,
+	useTVShowEpisodeQuery,
 	useTVShowSeasonQuery
 };
