@@ -56,7 +56,7 @@ const TVShowsDummyEpisode: FC<TVShowsDummyEpisodeProps> = (props) => {
 
 					<Center position='absolute' top={spacing} right={spacing}>
 						<Skeleton color={color} colorMode={colorMode} isLoaded={false} variant='rectangle'>
-							<Badge colorMode={colorMode} size={isSm ? 'md' : 'lg'} variant='contained'>
+							<Badge colorMode={colorMode} size={isSm ? 'xs' : 'sm'} variant='contained'>
 								<BadgeLabel>## • ##</BadgeLabel>
 							</Badge>
 						</Skeleton>
