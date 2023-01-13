@@ -22,6 +22,7 @@ import useSearchInfiniteQuery from './useSearchInfiniteQuery';
 import useTopRatedQuery from './useTopRatedQuery';
 import useTrendingInfiniteQuery from './useTrendingInfiniteQuery';
 import useTrendingQuery from './useTrendingQuery';
+import useTVShowSeasonQuery from './useTVShowSeasonQuery';
 
 export {
 	useCertificationsQuery,
@@ -48,4 +49,5 @@ export {
 	useTopRatedQuery,
 	useTrendingInfiniteQuery,
 	useTrendingQuery
+	useTVShowSeasonQuery
 };
