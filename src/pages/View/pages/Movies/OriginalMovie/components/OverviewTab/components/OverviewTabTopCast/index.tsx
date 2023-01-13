@@ -49,7 +49,7 @@ const OverviewTabTopCast: FC = () => {
 		isError: isCreditsError,
 		isSuccess: isCreditsSuccess
 	} = creditsQuery || {};
-	const { cast = [], crew = [] } = credits || {};
+	const { cast = [] } = credits || {};
 
 	const [topCast, setTopCast] = useState<Cast[]>(uniqBy([...cast], 'id').filter((_mediaItem, index) => index < 20));
 	const topCastDebounced = useDebounce<Cast[]>(topCast, 'slow');
@@ -155,13 +155,13 @@ const OverviewTabTopCast: FC = () => {
 				<Button
 					color={color}
 					colorMode={colorMode}
-					isDisabled={cast.length + crew.length === 0}
+					isDisabled={cast.length === 0}
 					isFullWidth
 					onClick={() => onSetActiveTab({ index: getMovieTabIndex('cast') })}
 					size={isSm ? 'xs' : 'sm'}
 					variant='text'
 				>
-					{`View all ${numbro(cast.length + crew.length).format({ average: true })} Cast`}
+					{`View all ${numbro(cast.length).format({ average: true })} Cast`}
 				</Button>
 			</HorizontalGridFooter>
 		</HorizontalGrid>
