@@ -33,7 +33,7 @@ const OverviewTabHeroBackdrop: FC<OverviewTabHeroBackdropProps> = ({ movie }) =>
 	const { data: videos } = videosQuery || {};
 	const { results = [] } = videos || {};
 
-	const { id, title, backdrop_path, video = false } = movie;
+	const { id, title, backdrop_path, video = false } = movie || {};
 
 	const alt = useConst<string>(
 		title

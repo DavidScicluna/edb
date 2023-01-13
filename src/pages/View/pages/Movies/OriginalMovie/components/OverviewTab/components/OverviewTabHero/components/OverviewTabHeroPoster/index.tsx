@@ -27,7 +27,7 @@ const OverviewTabHeroPoster: FC<OverviewTabHeroPosterProps> = ({ movie }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { id, title, poster_path } = movie;
+	const { id, title, poster_path } = movie || {};
 
 	const alt = useConst<string>(
 		title

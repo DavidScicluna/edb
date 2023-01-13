@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { useMovieContext } from '../../../../common/hooks';
-import Hero from '../../../../../../../components/ViewHero';
+import ViewHero from '../../../../../../../components/ViewHero';
 import ViewHeroCover from '../../../../../../../components/ViewHero/components/ViewHeroCover';
 import ViewHeroCoverDummyBackdrop from '../../../../../../../components/ViewHero/components/ViewHeroCover/components/ViewHeroCoverDummyBackdrop';
 import ViewHeroCoverDummyPoster from '../../../../../../../components/ViewHero/components/ViewHeroCover/components/ViewHeroCoverDummyPoster';
@@ -46,25 +46,21 @@ const OverviewTabHero: FC = () => {
 	const writers = crewCredits.filter(({ job }) => job === 'Writer');
 
 	return (
-		<Hero>
+		<ViewHero>
 			<ViewHeroVStack>
 				<ViewHeroCover
 					renderPoster={() =>
 						isFetchingMovie || isMovieLoading ? (
 							<ViewHeroCoverDummyPoster />
-						) : movie ? (
-							<OverviewTabHeroPoster movie={movie} />
 						) : (
-							<div />
+							<OverviewTabHeroPoster movie={movie} />
 						)
 					}
 					renderBackdrop={() =>
 						isFetchingMovie || isMovieLoading ? (
 							<ViewHeroCoverDummyBackdrop />
-						) : movie ? (
-							<OverviewTabHeroBackdrop movie={movie} />
 						) : (
-							<div />
+							<OverviewTabHeroBackdrop movie={movie} />
 						)
 					}
 				/>
@@ -128,7 +124,7 @@ const OverviewTabHero: FC = () => {
 					) : null}
 				</ViewHeroVStack>
 			</ViewHeroVStack>
-		</Hero>
+		</ViewHero>
 	);
 };
 
