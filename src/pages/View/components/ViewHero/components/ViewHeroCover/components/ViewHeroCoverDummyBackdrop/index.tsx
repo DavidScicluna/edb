@@ -19,7 +19,7 @@ const ViewHeroCoverDummyBackdrop: FC = () => {
 			ref={aspectRatioRef}
 			width='100%'
 			height='100%'
-			minHeight={getRatioDimensions({ width: aspectRatioWidth, orientation: 'landscape' })}
+			minHeight={getRatioDimensions({ width: aspectRatioWidth, orientation: 'landscape' }) * 1.15}
 			maxHeight='75vh'
 			borderRadius='none'
 			ratio={getRatio({ orientation: 'landscape' })}

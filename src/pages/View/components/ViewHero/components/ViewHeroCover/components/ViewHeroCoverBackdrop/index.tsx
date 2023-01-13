@@ -25,7 +25,7 @@ const ViewHeroCoverBackdrop: FC<ViewHeroCoverBackdropProps> = ({ hasVideo = fals
 			colorMode={colorMode}
 			width='100%'
 			height='100%'
-			minHeight={getRatioDimensions({ width: clickableMediaWidth, orientation: 'landscape' })}
+			minHeight={getRatioDimensions({ width: clickableMediaWidth, orientation: 'landscape' }) * 1.15}
 			maxHeight='75vh'
 			borderRadius='none'
 			ratio={getRatio({ orientation: 'landscape' })}
