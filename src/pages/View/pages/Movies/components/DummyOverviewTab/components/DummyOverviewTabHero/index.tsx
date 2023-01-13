@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import Hero from '../../../../../../components/ViewHero';
+import ViewHero from '../../../../../../components/ViewHero';
 import ViewHeroCover from '../../../../../../components/ViewHero/components/ViewHeroCover';
 import ViewHeroCoverDummyBackdrop from '../../../../../../components/ViewHero/components/ViewHeroCover/components/ViewHeroCoverDummyBackdrop';
 import ViewHeroCoverDummyPoster from '../../../../../../components/ViewHero/components/ViewHeroCover/components/ViewHeroCoverDummyPoster';
@@ -13,7 +13,7 @@ import ViewHeroVStack from '../../../../../../components/ViewHero/components/Vie
 
 const DummyOverviewTabHero: FC = () => {
 	return (
-		<Hero>
+		<ViewHero>
 			<ViewHeroVStack>
 				<ViewHeroCover
 					renderPoster={() => <ViewHeroCoverDummyPoster />}
@@ -38,7 +38,7 @@ const DummyOverviewTabHero: FC = () => {
 					<ViewHeroDummyKeywords />
 				</ViewHeroVStack>
 			</ViewHeroVStack>
-		</Hero>
+		</ViewHero>
 	);
 };
 
