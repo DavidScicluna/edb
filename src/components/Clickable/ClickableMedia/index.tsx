@@ -68,7 +68,15 @@ const ClickableMedia = forwardRef<ClickableMediaRef, ClickableMediaProps>(functi
 							backgroundColor={transparentize(getColor({ theme, colorMode, type: 'dark' }), 0.5)}
 							borderRadius='full'
 							size={1}
-							p={2}
+							p={
+								orientation === 'landscape'
+									? iconWidth / 16 > 2
+										? 2
+										: `${iconWidth / 16}px`
+									: iconWidth / 8 > 2
+									? 2
+									: `${iconWidth / 8}px`
+							}
 						>
 							{renderIcon({
 								width: `${orientation === 'landscape' ? iconWidth / 8 : iconWidth / 4}px`,
