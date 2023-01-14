@@ -20,6 +20,7 @@ import PosterBookmark from '../components/PosterBookmark';
 import PosterGlass from '../components/PosterGlass';
 import { useUserTheme } from '../../../common/hooks';
 import PosterQuickview from '../components/PosterQuickview';
+import { QuickViewModalMediaType } from '../../../store/slices/Modals/types';
 
 import { VerticalPosterProps } from './types';
 import VerticalPosterImage from './components/VerticalPosterImage';
@@ -60,7 +61,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 
 	return (
 		<InternalLink
-			to={mediaType !== 'company' ? { pathname: `/${formatMediaType({ mediaType })}/${mediaItem.id || ''}` } : {}}
+			to={{ pathname: `/${formatMediaType({ mediaType })}/${mediaItem.id || ''}` }}
 			isDisabled={isDisabled || isFixed || mediaType === 'company'}
 			isFullWidth={isFullWidth}
 			onFocus={() => setIsFocused.on()}
@@ -82,6 +83,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 				<CardBody width='100%'>
 					<VStack width='100%' position='relative' overflow='hidden' spacing={0}>
 						<VerticalPosterImage<MT>
+							title={title}
 							mediaItem={mediaItem}
 							mediaType={mediaType}
 							image={image}
@@ -102,7 +104,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 										spacing={0.5}
 									>
 										{isTouchDevice && (
-											<PosterQuickview<MT>
+											<PosterQuickview<QuickViewModalMediaType>
 												title={title}
 												mediaType={mediaType}
 												mediaItem={mediaItem}
@@ -145,7 +147,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 										onMouseLeave={() => setIsFixed.off()}
 										zIndex={1}
 									>
-										<PosterQuickview<MT>
+										<PosterQuickview<QuickViewModalMediaType>
 											title={title}
 											mediaType={mediaType}
 											mediaItem={mediaItem}
