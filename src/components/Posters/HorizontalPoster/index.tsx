@@ -13,6 +13,7 @@ import { isFixed as defaultIsFixed } from '../common/data/defaultPropValues';
 import PosterLike from '../components/PosterLike';
 import PosterBookmark from '../components/PosterBookmark';
 import PosterQuickview from '../components/PosterQuickview';
+import { QuickViewModalMediaType } from '../../../store/slices/Modals/types';
 
 import { HorizontalPosterProps } from './types';
 import HorizontalPosterDescription from './components/HorizontalPosterDescription';
@@ -63,7 +64,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 
 	return (
 		<InternalLink
-			to={mediaType !== 'company' ? { pathname: `/${formatMediaType({ mediaType })}/${mediaItem.id || ''}` } : {}}
+			to={{ pathname: `/${formatMediaType({ mediaType })}/${mediaItem.id || ''}` }}
 			isDisabled={isDisabled || isFixed || mediaType === 'company'}
 			isFullWidth={isFullWidth}
 		>
@@ -87,7 +88,6 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 						/>
 
 						<VStack width={handleContentWidth()} alignItems='flex-start' spacing={spacing}>
-							{/* Rating */}
 							{(mediaType === 'movie' || mediaType === 'tv') && rating && rating.rating && (
 								<HorizontalPosterRating {...rating} />
 							)}
@@ -112,7 +112,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 							spacing={0.5}
 						>
 							{mediaType !== 'company' && (
-								<PosterQuickview<MT>
+								<PosterQuickview<QuickViewModalMediaType>
 									title={title}
 									mediaType={mediaType}
 									mediaItem={mediaItem}
