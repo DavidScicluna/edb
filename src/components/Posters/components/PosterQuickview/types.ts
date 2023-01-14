@@ -1,9 +1,11 @@
 import { IconButtonSize } from '@davidscicluna/component-library';
 
-import { MediaType } from '../../../../common/types';
+import { QuickViewModalMediaType } from '../../../../store/slices/Modals/types';
 import { MediaItem } from '../../../../store/slices/Users/types';
 
-export type PosterQuickviewProps<MT extends MediaType> = Pick<MediaItem<MT>, 'mediaItem' | 'mediaType'> & {
+type Picked = 'mediaItem' | 'mediaType';
+
+export type PosterQuickviewProps<MT extends QuickViewModalMediaType> = Pick<MediaItem<MT>, Picked> & {
 	title: string;
 	size: IconButtonSize;
 };

@@ -7,13 +7,13 @@ import { useBoolean } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { useSelector, useUserTheme } from '../../../../common/hooks';
-import { MediaType } from '../../../../common/types';
 import { setQuickViewModal } from '../../../../store/slices/Modals';
 import { PosterMouseEvent } from '../../common/types';
+import { QuickViewModalMediaType } from '../../../../store/slices/Modals/types';
 
 import { PosterQuickviewProps } from './types';
 
-const PosterQuickview = <MT extends MediaType>(props: PosterQuickviewProps<MT>): ReactElement => {
+const PosterQuickview = <MT extends QuickViewModalMediaType>(props: PosterQuickviewProps<MT>): ReactElement => {
 	const { color, colorMode } = useUserTheme();
 
 	const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const PosterQuickview = <MT extends MediaType>(props: PosterQuickviewProps<MT>):
 					event.preventDefault();
 					event.stopPropagation();
 
-					dispatch(setQuickViewModal({ isOpen: true, mediaType, mediaItem }));
+					dispatch(setQuickViewModal({ isOpen: true, mediaType, mediaItem, title }));
 				}}
 				onMouseEnter={() => setIsHovering.on()}
 				onMouseLeave={() => setIsHovering.off()}
