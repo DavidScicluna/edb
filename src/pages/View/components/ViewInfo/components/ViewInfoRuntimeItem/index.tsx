@@ -10,8 +10,7 @@ import { useUpdateEffect } from 'usehooks-ts';
 import { runtimes } from '../../../../../../components/Filters/common/data/arrays';
 import { useUserTheme } from '../../../../../../common/hooks';
 import ViewInfoItem from '../ViewInfoItem';
-import { formatMediaType } from '../../../../../../common/utils';
-import { formatRuntime } from '../../../../common/utils';
+import { formatMediaType, formatRuntime } from '../../../../../../common/utils';
 
 import { ViewInfoRuntimeItemProps } from './types';
 
