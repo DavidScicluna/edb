@@ -93,13 +93,17 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb, match, isCurrentPage = fa
 					}
 				}
 
-				setLabel(label || 'N/A');
+				if (label) {
+					setLabel(label);
+					setTimeout(() => setIsLoaded.on(), 250);
+				} else {
+					setLabel('N/A');
+				}
 			} else {
 				const type = splitLocation[0];
 				setLabel(handleFormatBreadcrumb(type));
+				setTimeout(() => setIsLoaded.on(), 250);
 			}
-
-			setTimeout(() => setIsLoaded.on(), 250);
 		}, 250),
 		[location, client]
 	);
