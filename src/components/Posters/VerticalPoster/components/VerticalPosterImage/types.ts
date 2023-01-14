@@ -6,4 +6,4 @@ export type VerticalPosterImageProps<MT extends MediaType> = {
 	isHovering: boolean;
 	inView: boolean;
 	onSetIsFixed: { on: () => void; off: () => void; toggle: () => void };
-} & Pick<VerticalPosterProps<MT>, 'mediaItem' | 'mediaType' | 'image'>;
+} & Pick<VerticalPosterProps<MT>, 'title' | 'mediaItem' | 'mediaType' | 'image'>;

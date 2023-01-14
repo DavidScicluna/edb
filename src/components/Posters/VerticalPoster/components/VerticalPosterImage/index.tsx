@@ -38,6 +38,7 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 	const dispatch = useDispatch();
 
 	const {
+		title,
 		mediaItem,
 		mediaType,
 		image,
@@ -112,7 +113,7 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 								event.preventDefault();
 								event.stopPropagation();
 
-								dispatch(setQuickViewModal({ isOpen: true, mediaType, mediaItem }));
+								dispatch(setQuickViewModal({ isOpen: true, mediaType, mediaItem, title }));
 							}}
 							size='xs'
 						>
