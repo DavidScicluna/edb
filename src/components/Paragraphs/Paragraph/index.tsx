@@ -61,7 +61,7 @@ const Paragraph: FC<ParagraphProps> = ({ children, title, keepFooter = false, ..
 						width='100%'
 						alignItems='stretch'
 						justifyContent='stretch'
-						spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
+						spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight }) / 2}px`}
 					>
 						{compact(formatStringToParagraphs({ string: children })).map((paragraph, index) => (
 							<Text

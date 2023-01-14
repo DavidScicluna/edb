@@ -39,7 +39,7 @@ const DummyParagraph: FC<DummyParagraphProps> = (props) => {
 					width='100%'
 					alignItems='stretch'
 					justifyContent='stretch'
-					spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
+					spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight }) / 2}px`}
 				>
 					{range(lines).map((_dummy, index) => (
 						<Skeleton key={index} width='100%' colorMode={colorMode} isLoaded={false} variant='text'>
