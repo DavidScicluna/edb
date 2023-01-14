@@ -8,7 +8,9 @@ import { ViewHeroTaglineProps } from './types';
 const ViewHeroTagline: FC<ViewHeroTaglineProps> = ({ tagline, ...rest }) => {
 	return (
 		<ViewHeroLabel {...rest} label='Tagline'>
-			<ViewHeroText whiteSpace='normal'>{tagline}</ViewHeroText>
+			<ViewHeroText fontStyle='italic' whiteSpace='normal'>
+				{tagline}
+			</ViewHeroText>
 		</ViewHeroLabel>
 	);
 };
