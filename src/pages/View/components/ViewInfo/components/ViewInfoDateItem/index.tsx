@@ -18,8 +18,6 @@ import { ViewInfoDateItemProps } from './types';
 
 const { getColor } = utils;
 
-const today = formatDate({ date: dayjs(new Date()).toISOString(), section: 'year' });
-
 const ViewInfoDateItem: FC<ViewInfoDateItemProps> = ({ mediaType, startDate, endDate }) => {
 	const theme = useTheme();
 	const { color: themeColor, colorMode } = useUserTheme();
@@ -35,7 +33,7 @@ const ViewInfoDateItem: FC<ViewInfoDateItemProps> = ({ mediaType, startDate, end
 		})
 	);
 
-	const isOngoing = endDate ? formatDate({ date: endDate, section: 'year' }) === today : false;
+	const isOngoing = endDate ? dayjs(endDate).isAfter(new Date()) : false;
 
 	useUpdateEffect(() => {
 		setColor(
@@ -56,7 +54,9 @@ const ViewInfoDateItem: FC<ViewInfoDateItemProps> = ({ mediaType, startDate, end
 			placement='bottom-start'
 			label={compact([
 				`${formatMediaTypeLabel({ type: 'single', mediaType })} ${
-					mediaType === 'movie' ? 'released' : 'first air-date was'
+					mediaType === 'movie'
+						? `${dayjs(startDate).isBefore(new Date()) ? 'was' : 'will be'} released`
+						: `first air-date ${dayjs(startDate).isBefore(new Date()) ? 'was' : 'will be'}`
 				} on ${formatDate({ date: startDate })}`,
 				endDate
 					? isOngoing
@@ -94,9 +94,7 @@ const ViewInfoDateItem: FC<ViewInfoDateItemProps> = ({ mediaType, startDate, end
 										? formatDate({ date: startDate, section: 'year' })
 										: compact([
 												formatDate({ date: startDate, section: 'year' }),
-												formatDate({ date: endDate, section: 'year' }) === today
-													? 'present'
-													: formatDate({ date: endDate, section: 'year' })
+												isOngoing ? 'present' : formatDate({ date: endDate, section: 'year' })
 										  ]).join(' - ')
 									: formatDate({ date: startDate })}
 							</Text>
