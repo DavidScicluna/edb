@@ -28,7 +28,7 @@ const ViewHeroDummyPlot: FC<ViewHeroDummyPlotProps> = (props) => {
 				width='100%'
 				alignItems='flex-start'
 				justifyContent='center'
-				spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight })}px`}
+				spacing={`${getFontSizeHeight({ theme, fontSize, lineHeight }) / 2}px`}
 			>
 				{range(lines).map((_dummy, index) => (
 					<Skeleton key={index} width='100%' colorMode={colorMode} isLoaded={false} variant='text'>
