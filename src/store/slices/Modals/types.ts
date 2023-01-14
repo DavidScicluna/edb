@@ -3,18 +3,23 @@ import { Nullable } from '@davidscicluna/component-library';
 import { MediaType } from '../../../common/types';
 import { GetMediaType } from '../Users/types';
 
-export interface BookmarkModal {
-	isOpen: boolean;
-	mediaType: MediaType;
-	mediaItem: Nullable<GetMediaType<this['mediaType']>>;
-	title: string;
-}
+export type BookmarkModalMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
-export interface QuickViewModal {
+export type BookmarkModal<MT extends BookmarkModalMediaType> = {
 	isOpen: boolean;
-	mediaType: MediaType;
-	mediaItem: Nullable<GetMediaType<this['mediaType']>>;
-}
+	mediaType: MT;
+	mediaItem: Nullable<GetMediaType<MT>>;
+	title: string;
+};
+
+export type QuickViewModalMediaType = Exclude<MediaType, 'company'>;
+
+export type QuickViewModal<MT extends QuickViewModalMediaType> = {
+	isOpen: boolean;
+	mediaType: MT;
+	mediaItem: Nullable<GetMediaType<MT>>;
+	title: string;
+};
 
 export type AuthenticationConfirmModal = {
 	isOpen: boolean;
@@ -31,8 +36,8 @@ export type PromptConfirmModal = {
 
 export type StateProps = {
 	ui: {
-		bookmarkModal: BookmarkModal;
-		quickViewModal: QuickViewModal;
+		bookmarkModal: BookmarkModal<BookmarkModalMediaType>;
+		quickViewModal: QuickViewModal<QuickViewModalMediaType>;
 		authenticationConfirmModal: AuthenticationConfirmModal;
 		promptConfirmModal: PromptConfirmModal;
 		isUserThemeModalOpen: boolean;

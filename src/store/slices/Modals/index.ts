@@ -1,18 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { StateProps, BookmarkModal, QuickViewModal, AuthenticationConfirmModal, PromptConfirmModal } from './types';
+import {
+	StateProps,
+	BookmarkModalMediaType,
+	BookmarkModal,
+	QuickViewModal,
+	QuickViewModalMediaType,
+	AuthenticationConfirmModal,
+	PromptConfirmModal
+} from './types';
 
-export const defaultBookmarkModal: BookmarkModal = {
+export const defaultBookmarkModal: BookmarkModal<BookmarkModalMediaType> = {
+	isOpen: false,
 	mediaType: 'movie',
 	mediaItem: null,
-	isOpen: false,
 	title: ''
 };
 
-export const defaultQuickViewModal: QuickViewModal = {
+export const defaultQuickViewModal: QuickViewModal<QuickViewModalMediaType> = {
 	isOpen: false,
 	mediaType: 'movie',
-	mediaItem: null
+	mediaItem: null,
+	title: ''
 };
 
 export const defaultAuthenticationConfirmModal: AuthenticationConfirmModal = {
@@ -44,10 +53,16 @@ const modalsSlice = createSlice({
 	name: 'modals',
 	initialState: { ...initialState },
 	reducers: {
-		setBookmarkModal: (state: StateProps, action: PayloadAction<BookmarkModal>) => {
+		setBookmarkModal: <MT extends BookmarkModalMediaType>(
+			state: StateProps,
+			action: PayloadAction<BookmarkModal<MT>>
+		) => {
 			state.ui.bookmarkModal = action.payload;
 		},
-		setQuickViewModal: (state: StateProps, action: PayloadAction<QuickViewModal>) => {
+		setQuickViewModal: <MT extends QuickViewModalMediaType>(
+			state: StateProps,
+			action: PayloadAction<QuickViewModal<MT>>
+		) => {
 			state.ui.quickViewModal = action.payload;
 		},
 		setAuthenticationConfirmModal: (state: StateProps, action: PayloadAction<AuthenticationConfirmModal>) => {
