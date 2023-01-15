@@ -18,15 +18,12 @@ import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { LayoutContext as LayoutContextType, LayoutProps } from './types';
 import { sidebar } from './common/data/sidebar';
 import useStyles from './common/styles';
-// import Footer from './components/Footer';
-// import Header from './components/Header';
 import InternationalizationModal from './components/Modals/InternationalizationModal';
 import AuthenticationConfirmModal from './components/Modals/AuthenticationConfirmModal';
 import UserThemeModal from './components/Modals/UserThemeModal';
 import BookmarkModal from './components/Modals/BookmarkModal';
 import PromptConfirmModal from './components/Modals/PromptConfirmModal';
-// import QuickViewModal from './components/Modals/QuickView';
-// import ProgressBar from './components/ProgressBar';
+import QuickViewModal from './components/Modals/QuickViewModal';
 import Structure from './components/Structure';
 import ProgressBar from './components/ProgressBar';
 import {
@@ -36,7 +33,6 @@ import {
 	spacing as defaultSpacing
 } from './common/data/defaultPropValues';
 import ScrollToTop from './components/ScrollToTop';
-// import Sidebar from './components/Sidebar';
 
 const { convertREMToPixels, convertStringToNumber, getColor } = utils;
 
@@ -47,8 +43,8 @@ export const LayoutContext = createContext<LayoutContextType>({
 	spacing: defaultSpacing
 });
 
-const onlineToastID = 'ds-edb-is-online-toast';
-const offlineToastID = 'ds-edb-is-offline-toast';
+const onlineToastID = 'ds-edb-layout-is-online-toast';
+const offlineToastID = 'ds-edb-layout-is-offline-toast';
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 	const theme = useTheme();
@@ -69,18 +65,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	const isOnline = useOnline();
 	const isFirstRender = useIsFirstRender();
 
-	useCheckColorMode();
-
-	// const users = useSelector((state) => state.users.data.users);
-	// const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
-
-	// const isQuickViewOpen = useSelector((state) => state.modals.ui.quickViewModal.open);
-
 	const [isGuest, setIsGuest] = useBoolean(guest.data.id === activeUser.data.id);
 	const [isAuthenticationRoute, setIsAuthenticationRoute] = useBoolean();
-
-	// const isFetching = useIsFetching();
-	// const isMutating = useIsMutating();
 
 	const style = useStyles({ theme });
 
@@ -132,8 +118,17 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
 	useUpdateEffect(() => setIsGuest[guest.data.id === activeUser.data.id ? 'on' : 'off'](), [activeUser]);
 
+	useCheckColorMode();
+
 	return (
-		<>
+		<LayoutContext.Provider
+			value={{
+				device: isXl ? 'desktop' : isSm ? 'tablet' : 'mobile',
+				isGuest,
+				isAuthenticationRoute,
+				spacing: isXl ? 5 : isMd ? 4 : isSm ? 3 : 2
+			}}
+		>
 			<Container
 				width='100%'
 				maxWidth={!isAuthenticationRoute ? `${containerMaxWidth}px` : '100%'}
@@ -150,30 +145,21 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
 				<ScrollToTop />
 
-				<LayoutContext.Provider
-					value={{
-						device: isXl ? 'desktop' : isSm ? 'tablet' : 'mobile',
-						isGuest,
-						isAuthenticationRoute,
-						spacing: isXl ? 5 : isMd ? 4 : isSm ? 3 : 2
-					}}
-				>
-					<Structure>{children}</Structure>
-				</LayoutContext.Provider>
+				<Structure>{children}</Structure>
 			</Container>
 
 			<PromptConfirmModal />
 
 			<InternationalizationModal />
 
-			{/* <QuickViewModal /> */}
+			<QuickViewModal />
 
 			{!isGuest && <UserThemeModal />}
 
 			{!isGuest && <BookmarkModal />}
 
 			{isGuest && <AuthenticationConfirmModal />}
-		</>
+		</LayoutContext.Provider>
 	);
 };
 
