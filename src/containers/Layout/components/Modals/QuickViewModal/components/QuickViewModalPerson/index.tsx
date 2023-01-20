@@ -26,8 +26,6 @@ const QuickViewModalPerson: FC<QuickViewModalPersonProps> = ({ id }) => {
 	const [tvShowDepartments, setTVShowDepartments] = useState<PersonTVShowDepartments>([]);
 	const tvShowDepartmentsDebounced = useDebounce<PersonTVShowDepartments>(tvShowDepartments);
 
-	const personQuery = useMediaTypeQuery<'person'>({ props: { mediaType: 'person', id: Number(id) } });
-
 	const {
 		data: person,
 		isFetching: isPersonFetching,
@@ -36,7 +34,7 @@ const QuickViewModalPerson: FC<QuickViewModalPersonProps> = ({ id }) => {
 		isSuccess: isPersonSuccess,
 		error: personError,
 		refetch: refetchPerson
-	} = personQuery;
+	} = useMediaTypeQuery<'person'>({ props: { mediaType: 'person', id: Number(id) } });
 
 	const { name } = person || {};
 
