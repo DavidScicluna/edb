@@ -17,11 +17,6 @@ import { QuickViewModalTVShowProps } from './types';
 import QuickViewModalTVShowDummyContent from './components/QuickViewModalTVShowDummyContent';
 
 const QuickViewModalTVShow: FC<QuickViewModalTVShowProps> = ({ id }) => {
-	const showQuery = useMediaTypeQuery<'tv'>({
-		props: { mediaType: 'tv', id: Number(id) },
-		config: { params: { append_to_response: 'release_dates' } }
-	});
-
 	const {
 		data: show,
 		isFetching: isTVShowFetching,
@@ -30,7 +25,7 @@ const QuickViewModalTVShow: FC<QuickViewModalTVShowProps> = ({ id }) => {
 		isSuccess: isTVShowSuccess,
 		error: showError,
 		refetch: refetchTVShow
-	} = showQuery;
+	} = useMediaTypeQuery<'tv'>({ props: { mediaType: 'tv', id: Number(id) } });
 
 	const { name } = show || {};
 
