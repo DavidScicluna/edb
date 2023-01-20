@@ -17,11 +17,6 @@ import { QuickViewModalMovieProps } from './types';
 import QuickViewModalMovieDummyContent from './components/QuickViewModalMovieDummyContent';
 
 const QuickViewModalMovie: FC<QuickViewModalMovieProps> = ({ id }) => {
-	const movieQuery = useMediaTypeQuery<'movie'>({
-		props: { mediaType: 'movie', id: Number(id) },
-		config: { params: { append_to_response: 'release_dates' } }
-	});
-
 	const {
 		data: movie,
 		isFetching: isMovieFetching,
@@ -30,7 +25,10 @@ const QuickViewModalMovie: FC<QuickViewModalMovieProps> = ({ id }) => {
 		isSuccess: isMovieSuccess,
 		error: movieError,
 		refetch: refetchMovie
-	} = movieQuery;
+	} = useMediaTypeQuery<'movie'>({
+		props: { mediaType: 'movie', id: Number(id) },
+		config: { params: { append_to_response: 'release_dates' } }
+	});
 
 	const { title } = movie || {};
 
