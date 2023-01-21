@@ -86,7 +86,7 @@ const PartsTab: FC = () => {
 				py={spacing * 2}
 			/>
 
-			<Center>
+			<Center width='100%'>
 				{!(isFetching || isLoading) && isError ? (
 					<QueryEmpty
 						color={color}
