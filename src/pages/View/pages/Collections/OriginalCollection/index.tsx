@@ -106,7 +106,7 @@ const Collection: FC = () => {
 					renderLeftPanel={
 						!isSm && (isCollectionFetching || isCollectionLoading)
 							? () => <ViewDummyPoster />
-							: !isSm && collection
+							: !isSm
 							? () => <CollectionPoster collection={collection} />
 							: undefined
 					}
@@ -132,7 +132,7 @@ const Collection: FC = () => {
 				/>
 				{isSm && (isCollectionFetching || isCollectionLoading) ? (
 					<ViewDummyPoster isFullWidth p={spacing} />
-				) : isSm && collection ? (
+				) : isSm ? (
 					<CollectionPoster collection={collection} isFullWidth p={spacing} />
 				) : null}
 				{!isGuest && (isCollectionFetching || isCollectionLoading) ? (

@@ -27,7 +27,7 @@ const CollectionPoster: FC<CollectionPosterProps> = ({ collection, onClick, ...r
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { id, name, poster_path } = collection;
+	const { id, name, poster_path } = collection || {};
 
 	const alt = useConst<string>(
 		name
