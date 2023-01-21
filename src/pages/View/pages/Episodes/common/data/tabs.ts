@@ -1,0 +1,44 @@
+import { ViewTabs } from '../../../../common/types';
+
+export const overviewTabIndex = 0;
+export const castTabIndex = 1;
+export const guestStarsTabIndex = 2;
+export const crewTabIndex = 3;
+export const photosTabIndex = 4;
+
+const tabs: ViewTabs = [
+	{
+		path: { hash: 'overview' },
+		label: 'Overview'
+	},
+	{
+		path: { hash: 'cast' },
+		label: 'Cast',
+		getTotalBadgeProps: ({ color, isActive, ...rest }) => {
+			return { ...rest, color: isActive ? color : 'gray', variant: isActive ? 'contained' : 'outlined' };
+		}
+	},
+	{
+		path: { hash: 'guest_stars' },
+		label: 'Guest Stars',
+		getTotalBadgeProps: ({ color, isActive, ...rest }) => {
+			return { ...rest, color: isActive ? color : 'gray', variant: isActive ? 'contained' : 'outlined' };
+		}
+	},
+	{
+		path: { hash: 'crew' },
+		label: 'Crew',
+		getTotalBadgeProps: ({ color, isActive, ...rest }) => {
+			return { ...rest, color: isActive ? color : 'gray', variant: isActive ? 'contained' : 'outlined' };
+		}
+	},
+	{
+		path: { hash: 'photos' },
+		label: 'Photos',
+		getTotalBadgeProps: ({ color, isActive, ...rest }) => {
+			return { ...rest, color: isActive ? color : 'gray', variant: isActive ? 'contained' : 'outlined' };
+		}
+	}
+];
+
+export default tabs;
