@@ -19,11 +19,14 @@ import useMediaTypeVideosQuery from './useMediaTypeVideosQuery';
 import usePersonCreditsQuery from './usePersonCreditsQuery';
 import usePopularQuery from './usePopularQuery';
 import useSearchInfiniteQuery from './useSearchInfiniteQuery';
+import useTVShowEpisodeCreditsQuery from './useTVShowEpisodeCreditsQuery';
+import useTVShowEpisodeExternalIDsQuery from './useTVShowEpisodeExternalIDsQuery';
+import useTVShowEpisodeImagesQuery from './useTVShowEpisodeImagesQuery';
+import useTVShowEpisodeQuery from './useTVShowEpisodeQuery';
+import useTVShowSeasonQuery from './useTVShowSeasonQuery';
 import useTopRatedQuery from './useTopRatedQuery';
 import useTrendingInfiniteQuery from './useTrendingInfiniteQuery';
 import useTrendingQuery from './useTrendingQuery';
-import useTVShowEpisodeQuery from './useTVShowEpisodeQuery';
-import useTVShowSeasonQuery from './useTVShowSeasonQuery';
 
 export {
 	useCertificationsQuery,
@@ -47,9 +50,12 @@ export {
 	usePersonCreditsQuery,
 	usePopularQuery,
 	useSearchInfiniteQuery,
+	useTVShowEpisodeCreditsQuery,
+	useTVShowEpisodeExternalIDsQuery,
+	useTVShowEpisodeImagesQuery,
+	useTVShowEpisodeQuery,
+	useTVShowSeasonQuery,
 	useTopRatedQuery,
 	useTrendingInfiniteQuery,
-	useTrendingQuery,
-	useTVShowEpisodeQuery,
-	useTVShowSeasonQuery
+	useTrendingQuery
 };
