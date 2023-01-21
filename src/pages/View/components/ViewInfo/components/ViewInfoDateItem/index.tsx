@@ -96,7 +96,7 @@ const ViewInfoDateItem: FC<ViewInfoDateItemProps> = ({ mediaType, startDate, end
 												formatDate({ date: startDate, section: 'year' }),
 												isOngoing ? 'present' : formatDate({ date: endDate, section: 'year' })
 										  ]).join(' - ')
-									: formatDate({ date: startDate })}
+									: formatDate({ date: startDate, section: 'year' })}
 							</Text>
 						)}
 						onMouseEnter={() => setIsHovering.on()}
