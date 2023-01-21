@@ -196,7 +196,7 @@ const TVShow: FC = () => {
 					renderLeftPanel={
 						activeTabDebounced !== 0 && (isTVShowFetching || isTVShowLoading)
 							? () => <ViewDummyPoster />
-							: activeTabDebounced !== 0 && show
+							: activeTabDebounced !== 0
 							? () => <TVShowPoster show={show} />
 							: undefined
 					}

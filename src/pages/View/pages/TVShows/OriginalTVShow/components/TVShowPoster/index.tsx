@@ -27,7 +27,7 @@ const TVShowPoster: FC<TVShowPosterProps> = ({ show, onClick, ...rest }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { id, name, poster_path } = show;
+	const { id, name, poster_path } = show || {};
 
 	const alt = useConst<string>(
 		name
