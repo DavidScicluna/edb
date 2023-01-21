@@ -184,7 +184,7 @@ const Movie: FC = () => {
 					renderLeftPanel={
 						activeTabDebounced !== 0 && (isMovieFetching || isMovieLoading)
 							? () => <ViewDummyPoster />
-							: activeTabDebounced !== 0 && movie
+							: activeTabDebounced !== 0
 							? () => <MoviePoster movie={movie} />
 							: undefined
 					}
