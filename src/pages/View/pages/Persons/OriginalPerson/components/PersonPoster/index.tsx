@@ -27,7 +27,7 @@ const PersonPoster: FC<PersonPosterProps> = ({ person, onClick, ...rest }) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
-	const { id, name, profile_path } = person;
+	const { id, name, profile_path } = person || {};
 
 	const alt = useConst<string>(
 		name

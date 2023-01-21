@@ -153,7 +153,7 @@ const Person: FC = () => {
 					renderLeftPanel={
 						!isSm && (isPersonFetching || isPersonLoading)
 							? () => <ViewDummyPoster />
-							: !isSm && person
+							: !isSm
 							? () => <PersonPoster person={person} />
 							: undefined
 					}
@@ -185,7 +185,7 @@ const Person: FC = () => {
 				/>
 				{isSm && (isPersonFetching || isPersonLoading) ? (
 					<ViewDummyPoster isFullWidth p={spacing} />
-				) : isSm && person ? (
+				) : isSm ? (
 					<PersonPoster person={person} isFullWidth p={spacing} />
 				) : null}
 				{person ? <PersonActions person={person} p={spacing} /> : null}
