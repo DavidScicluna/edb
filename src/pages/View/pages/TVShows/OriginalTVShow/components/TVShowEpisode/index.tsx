@@ -40,7 +40,8 @@ const TVShowEpisode: FC<TVShowEpisodeProps> = (props) => {
 	const {
 		show_id: showID,
 		id: episodeID,
-		season_number: season,
+		season_number: seasonNumber,
+		episode_number: episodeNumber,
 		still_path,
 		air_date,
 		name,
@@ -61,9 +62,9 @@ const TVShowEpisode: FC<TVShowEpisodeProps> = (props) => {
 	return (
 		<InternalLink
 			to={{
-				pathname: `${formatMediaType({
+				pathname: `/${formatMediaType({
 					mediaType: 'tv'
-				})}/${showID}/seasons/${season}/episodes/${episodeID}`
+				})}/${showID}/seasons/${seasonNumber}/episodes/${episodeNumber}`
 			}}
 			isDisabled={isDisabled || isFuture}
 			isFullWidth={isFullWidth}
