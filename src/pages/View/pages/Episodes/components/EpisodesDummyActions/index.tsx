@@ -12,8 +12,14 @@ const EpisodesDummyActions: FC<EpisodesDummyActionsProps> = (props) => {
 
 	return (
 		<ViewActions {...props}>
-			<DummyButton colorMode={colorMode} hasLeft isFullWidth size='lg' variant='outlined'>
+			<DummyButton colorMode={colorMode} hasLeft size='lg' variant='outlined'>
+				S# • E#
+			</DummyButton>
+			<DummyButton colorMode={colorMode} isFullWidth size='lg' variant='outlined'>
 				Go back to TV Show seasons
+			</DummyButton>
+			<DummyButton colorMode={colorMode} hasRight size='lg' variant='outlined'>
+				S# • E#
 			</DummyButton>
 		</ViewActions>
 	);
