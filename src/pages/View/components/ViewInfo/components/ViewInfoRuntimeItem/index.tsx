@@ -52,7 +52,7 @@ const ViewInfoRuntimeItem: FC<ViewInfoRuntimeItemProps> = ({ mediaType, runtime 
 			colorMode={colorMode}
 			isOpen={isHovering}
 			placement='bottom-start'
-			label={`${mediaType === 'movie' ? 'Runtime' : 'Episode Average Runtime'}: ${formatRuntime({
+			label={`${mediaType === 'movie' ? 'Runtime' : 'Episode Runtime'}: ${formatRuntime({
 				runtime,
 				type: 'full'
 			})}`}
