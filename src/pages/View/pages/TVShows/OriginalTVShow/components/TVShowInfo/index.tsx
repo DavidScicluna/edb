@@ -1,9 +1,8 @@
-import { FC, useState, useCallback } from 'react';
+import { FC, useState, useCallback, useEffect } from 'react';
 
 import { Undefinable } from '@davidscicluna/component-library';
 
 import { compact, debounce } from 'lodash';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import ViewInfo from '../../../../../components/ViewInfo';
 import ViewInfoRuntimeItem from '../../../../../components/ViewInfo/components/ViewInfoRuntimeItem';
@@ -38,7 +37,7 @@ const TVShowInfo: FC<TVShowInfoProps> = ({ show }) => {
 		[content_ratings]
 	);
 
-	useUpdateEffect(() => handleGetCertification(), [content_ratings]);
+	useEffect(() => handleGetCertification(), [content_ratings]);
 
 	return (
 		<ViewInfo>
