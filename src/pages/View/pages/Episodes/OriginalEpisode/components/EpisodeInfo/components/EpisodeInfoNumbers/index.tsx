@@ -20,7 +20,7 @@ const EpisodeInfoNumbers: FC<EpisodeInfoNumbersProps> = ({ season_number: season
 			colorMode={colorMode}
 			isOpen={isHovering}
 			placement='bottom-start'
-			label={`Season ${season} • episode ${episode}`}
+			label={`Season ${season} • Episode ${episode}`}
 			shouldWrapChildren
 		>
 			<ViewInfoItem
