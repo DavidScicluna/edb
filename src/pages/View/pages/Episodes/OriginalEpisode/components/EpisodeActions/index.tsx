@@ -1,22 +1,23 @@
 import { FC } from 'react';
 
-import { useParams } from 'react-router';
+import { useDebounce, useTheme } from '@davidscicluna/component-library';
 
-import { useDebounce, InternalLink, Button, Icon } from '@davidscicluna/component-library';
+import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../../common/hooks';
-import { formatMediaType, formatMediaTypeLabel } from '../../../../../../../common/utils';
-import ViewActions from '../../../../../components/ViewActions';
-import { EpisodeParams } from '../../types';
 import { useEpisodeContext } from '../../common/hooks';
+import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
 
 import { EpisodeActionsProps } from './types';
-import { getAdjacentEpisode } from './utils';
+import { getAdjacentEpisode } from './common/utils';
+import EpisodeActionsBack from './components/EpisodeActionsBack';
+import EpisodeActionsPrevNext from './components/EpisodeActionsPrevNext';
 
 const EpisodeActions: FC<EpisodeActionsProps> = (props) => {
-	const { colorMode } = useUserTheme();
+	const theme = useTheme();
 
-	const { id } = useParams<EpisodeParams>();
+	const [isMd] = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
+
+	const { spacing } = useLayoutContext();
 
 	const { showQuery, episodeQuery } = useEpisodeContext();
 
@@ -30,58 +31,48 @@ const EpisodeActions: FC<EpisodeActionsProps> = (props) => {
 	const next = getAdjacentEpisode({ direction: 'next', seasons, episode });
 	const nextDebounced = useDebounce(next);
 
-	return (
-		<ViewActions {...props}>
+	return isMd ? (
+		<VStack {...props} width='100%' spacing={spacing}>
+			<EpisodeActionsBack name={name} />
+
+			<HStack width='100%' spacing={spacing}>
+				{prevDebounced && prevDebounced.season && prevDebounced.episode && (
+					<EpisodeActionsPrevNext
+						type='prev'
+						season_number={prevDebounced.season}
+						episode_number={prevDebounced.episode}
+					/>
+				)}
+
+				{nextDebounced && nextDebounced.season && nextDebounced.episode && (
+					<EpisodeActionsPrevNext
+						type='next'
+						season_number={nextDebounced.season}
+						episode_number={nextDebounced.episode}
+					/>
+				)}
+			</HStack>
+		</VStack>
+	) : (
+		<HStack {...props} width='100%' spacing={spacing}>
 			{prevDebounced && prevDebounced.season && prevDebounced.episode && (
-				<InternalLink
-					colorMode={colorMode}
-					to={{
-						pathname: `/${formatMediaType({ mediaType: 'tv' })}/${id}/seasons/${
-							prevDebounced.season
-						}/episodes/${prevDebounced.episode}`
-					}}
-				>
-					<Button
-						colorMode={colorMode}
-						renderLeft={() => <Icon icon='arrow_back' category='outlined' />}
-						size='lg'
-						variant='outlined'
-					>
-						{[`S${prevDebounced.season}`, `E${prevDebounced.episode}`].join(' • ')}
-					</Button>
-				</InternalLink>
+				<EpisodeActionsPrevNext
+					type='prev'
+					season_number={prevDebounced.season}
+					episode_number={prevDebounced.episode}
+				/>
 			)}
-			{/* // TODO: Go over all InternalLink and pass colorMode={colorMode} */}
-			{/* // TODO: Go over all InternalLink and if child button is isFullWidth if so pass isFullWidth */}
-			<InternalLink
-				colorMode={colorMode}
-				isFullWidth
-				to={{ pathname: `/${formatMediaType({ mediaType: 'tv' })}/${id}`, hash: 'seasons' }}
-			>
-				<Button colorMode={colorMode} isFullWidth size='lg' variant='outlined'>
-					{`Go back to ${name || formatMediaTypeLabel({ type: 'single', mediaType: 'tv' })} seasons`}
-				</Button>
-			</InternalLink>
+
+			<EpisodeActionsBack name={name} />
+
 			{nextDebounced && nextDebounced.season && nextDebounced.episode && (
-				<InternalLink
-					colorMode={colorMode}
-					to={{
-						pathname: `/${formatMediaType({ mediaType: 'tv' })}/${id}/seasons/${
-							nextDebounced.season
-						}/episodes/${nextDebounced.episode}`
-					}}
-				>
-					<Button
-						colorMode={colorMode}
-						renderRight={() => <Icon icon='arrow_forward' category='outlined' />}
-						size='lg'
-						variant='outlined'
-					>
-						{[`S${nextDebounced.season}`, `E${nextDebounced.episode}`].join(' • ')}
-					</Button>
-				</InternalLink>
+				<EpisodeActionsPrevNext
+					type='next'
+					season_number={nextDebounced.season}
+					episode_number={nextDebounced.episode}
+				/>
 			)}
-		</ViewActions>
+		</HStack>
 	);
 };
 
