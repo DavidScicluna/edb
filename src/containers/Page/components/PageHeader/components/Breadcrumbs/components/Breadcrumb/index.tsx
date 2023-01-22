@@ -6,7 +6,7 @@ import { useBreakpointValue, useBoolean, Center, Text } from '@chakra-ui/react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { compact, debounce } from 'lodash';
+import { capitalize, compact, debounce } from 'lodash';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import DummyBreadcrumb from '../DummyBreadcrumb';
@@ -33,10 +33,12 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb, match, isCurrentPage = fa
 		'2xl': theme.fontSizes.md
 	});
 
-	const [isLoaded, setIsLoaded] = useBoolean();
-	const [label, setLabel] = useState<BreadcrumbLabel>();
-
 	const client = useQueryClient();
+
+	const [isLoaded, setIsLoaded] = useBoolean();
+	const [isText, setIsText] = useBoolean();
+
+	const [label, setLabel] = useState<BreadcrumbLabel>();
 
 	// TODO: Check if we should remove ... this is only a temporary solution
 	const handleFormatBreadcrumb = (type: string): Undefinable<string> => {
@@ -71,10 +73,15 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb, match, isCurrentPage = fa
 						break;
 					}
 					case formatMediaType({ mediaType: 'tv' }): {
-						const show = client.getQueryData<FullTV>(
-							mediaTypeQueryKey({ mediaType: 'tv', id: Number(id) })
-						);
-						label = show?.name;
+						if (splitLocation.length > 2) {
+							label = capitalize(splitLocation[splitLocation.length - 1]);
+							setIsText.on();
+						} else {
+							const show = client.getQueryData<FullTV>(
+								mediaTypeQueryKey({ mediaType: 'tv', id: Number(id) })
+							);
+							label = show?.name;
+						}
 						break;
 					}
 					case formatMediaType({ mediaType: 'person' }): {
@@ -112,10 +119,10 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb, match, isCurrentPage = fa
 
 	return isLoaded ? (
 		<Center>
-			{isCurrentPage ? (
+			{isText || isCurrentPage ? (
 				<Text
 					align='left'
-					color={getColor({ theme, colorMode, type: 'text.primary' })}
+					color={getColor({ theme, colorMode, type: `text.${isCurrentPage ? 'primary' : 'secondary'}` })}
 					fontSize={breadcrumbFontSize}
 					fontWeight='medium'
 				>
