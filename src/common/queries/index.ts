@@ -23,6 +23,7 @@ import useTVShowEpisodeCreditsQuery from './useTVShowEpisodeCreditsQuery';
 import useTVShowEpisodeExternalIDsQuery from './useTVShowEpisodeExternalIDsQuery';
 import useTVShowEpisodeImagesQuery from './useTVShowEpisodeImagesQuery';
 import useTVShowEpisodeQuery from './useTVShowEpisodeQuery';
+import useTVShowEpisodeVideosQuery from './useTVShowEpisodeVideosQuery';
 import useTVShowSeasonQuery from './useTVShowSeasonQuery';
 import useTopRatedQuery from './useTopRatedQuery';
 import useTrendingInfiniteQuery from './useTrendingInfiniteQuery';
@@ -54,6 +55,7 @@ export {
 	useTVShowEpisodeExternalIDsQuery,
 	useTVShowEpisodeImagesQuery,
 	useTVShowEpisodeQuery,
+	useTVShowEpisodeVideosQuery,
 	useTVShowSeasonQuery,
 	useTopRatedQuery,
 	useTrendingInfiniteQuery,
