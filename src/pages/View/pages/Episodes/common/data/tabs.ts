@@ -5,6 +5,7 @@ export const castTabIndex = 1;
 export const guestStarsTabIndex = 2;
 export const crewTabIndex = 3;
 export const photosTabIndex = 4;
+export const videosTabIndex = 5;
 
 const tabs: ViewTabs = [
 	{
@@ -35,6 +36,13 @@ const tabs: ViewTabs = [
 	{
 		path: { hash: 'photos' },
 		label: 'Photos',
+		getTotalBadgeProps: ({ color, isActive, ...rest }) => {
+			return { ...rest, color: isActive ? color : 'gray', variant: isActive ? 'contained' : 'outlined' };
+		}
+	},
+	{
+		path: { hash: 'videos' },
+		label: 'Videos',
 		getTotalBadgeProps: ({ color, isActive, ...rest }) => {
 			return { ...rest, color: isActive ? color : 'gray', variant: isActive ? 'contained' : 'outlined' };
 		}

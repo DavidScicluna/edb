@@ -1,8 +1,15 @@
 import { memoize } from 'lodash';
 
-import { overviewTabIndex, castTabIndex, guestStarsTabIndex, crewTabIndex, photosTabIndex } from '../data/tabs';
+import {
+	overviewTabIndex,
+	castTabIndex,
+	guestStarsTabIndex,
+	crewTabIndex,
+	photosTabIndex,
+	videosTabIndex
+} from '../data/tabs';
 
-type GetTabIndexHash = 'overview' | 'cast' | 'guest_stars' | 'crew' | 'photos';
+type GetTabIndexHash = 'overview' | 'cast' | 'guest_stars' | 'crew' | 'photos' | 'videos';
 
 export const getCollectionTabIndex = memoize((hash: GetTabIndexHash): number => {
 	switch (hash) {
@@ -14,6 +21,8 @@ export const getCollectionTabIndex = memoize((hash: GetTabIndexHash): number => 
 			return crewTabIndex;
 		case 'photos':
 			return photosTabIndex;
+		case 'videos':
+			return videosTabIndex;
 		case 'overview':
 		default:
 			return overviewTabIndex;
