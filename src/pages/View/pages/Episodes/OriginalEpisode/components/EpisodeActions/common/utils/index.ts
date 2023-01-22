@@ -12,13 +12,15 @@ export const getAdjacentEpisode = memoize(
 		const { season_number: episodeSeason, episode_number: episodeNumber } = episode || {};
 
 		if (episodeSeason && episodeNumber) {
-			const currentSeason = seasons.find((_season, index) => episodeSeason === index + 1);
+			const currentSeason = seasons.find(({ season_number: season }) => season === episodeSeason);
 
 			if (currentSeason) {
 				switch (direction) {
 					case 'prev': {
-						const prevSeason = seasons.find((_season, index) => episodeSeason - 1 === index + 1);
-						const prevSeasonIndex = seasons.findIndex((_season, index) => episodeSeason - 1 === index + 1);
+						const prevSeason = seasons.find(({ season_number: season }) => season === episodeSeason - 1);
+						const prevSeasonIndex = seasons.findIndex(
+							({ season_number: season }) => season === episodeSeason - 1
+						);
 
 						return prevSeason && prevSeason.episode_count && prevSeasonIndex && episodeNumber === 1
 							? { season: prevSeasonIndex, episode: prevSeason.episode_count }
@@ -27,13 +29,15 @@ export const getAdjacentEpisode = memoize(
 							: undefined;
 					}
 					case 'next': {
-						const nextSeason = seasons.find((_season, index) => episodeSeason + 1 === index + 1);
-						const nextSeasonIndex = seasons.findIndex((_season, index) => episodeSeason + 1 === index + 1);
+						const nextSeason = seasons.find(({ season_number: season }) => season === episodeSeason + 1);
+						const nextSeasonIndex = seasons.findIndex(
+							({ season_number: season }) => season === episodeSeason + 1
+						);
 
-						return nextSeason && nextSeason.episode_count && nextSeasonIndex && episodeNumber === 1
-							? { season: nextSeasonIndex, episode: nextSeason.episode_count }
-							: currentSeason.episode_count && episodeNumber + 1 <= currentSeason.episode_count
+						return currentSeason.episode_count && episodeNumber < currentSeason.episode_count
 							? { season: episodeSeason, episode: episodeNumber + 1 }
+							: nextSeason && nextSeason.episode_count && nextSeasonIndex
+							? { season: nextSeasonIndex, episode: 1 }
 							: undefined;
 					}
 					default:
