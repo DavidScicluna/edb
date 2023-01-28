@@ -122,7 +122,7 @@ const OriginalMovies: FC = () => {
 				'certification': certifications.length > 0 ? certifications.join('|') : undefined,
 				'primary_release_date.gte': dates.gte || undefined,
 				'primary_release_date.lte': dates.lte || undefined,
-				'without_genres': genres.length > 0 ? getGenres({ mediaType: 'movie', genres }) : undefined,
+				'without_genres': genres.length > 0 ? getGenres({ mediaType: 'movie', genres }).join(',') : undefined,
 				'with_keywords': keywords.length > 0 ? keywords.join(',') : undefined,
 				'vote_average.gte': rating.length > 0 && rating[0] ? rating[0] : undefined,
 				'vote_average.lte': rating.length > 0 && rating[1] ? rating[1] : undefined,
