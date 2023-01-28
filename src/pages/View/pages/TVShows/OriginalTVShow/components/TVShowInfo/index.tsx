@@ -3,6 +3,7 @@ import { FC, useState, useCallback, useEffect } from 'react';
 import { Undefinable } from '@davidscicluna/component-library';
 
 import { compact, debounce } from 'lodash';
+import dayjs from 'dayjs';
 
 import ViewInfo from '../../../../../components/ViewInfo';
 import ViewInfoRuntimeItem from '../../../../../components/ViewInfo/components/ViewInfoRuntimeItem';
@@ -16,6 +17,7 @@ import { TVShowInfoProps } from './types';
 
 const TVShowInfo: FC<TVShowInfoProps> = ({ show }) => {
 	const {
+		status,
 		popularity,
 		first_air_date,
 		last_air_date,
@@ -59,7 +61,9 @@ const TVShowInfo: FC<TVShowInfoProps> = ({ show }) => {
 						key='ds-edb-tv-show-info-date'
 						mediaType='tv'
 						startDate={first_air_date}
-						endDate={last_air_date}
+						endDate={
+							status !== 'Returning Series' ? last_air_date : dayjs(new Date()).add(1, 'y').toISOString()
+						}
 					/>
 				) : null,
 
