@@ -4,10 +4,10 @@ import { FontSize, useTheme, Skeleton } from '@davidscicluna/component-library';
 
 import { useBreakpointValue, Box, Text } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../../../common/hooks';
-import { getFontSizeHeight } from '../../../../../../../../common/utils';
+import { useUserTheme } from '../../../../../../common/hooks';
+import { getFontSizeHeight } from '../../../../../../common/utils';
 
-const TVShowsDummyEpisodeName: FC = () => {
+const ViewDummyEpisodeName: FC = () => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -31,4 +31,4 @@ const TVShowsDummyEpisodeName: FC = () => {
 	);
 };
 
-export default TVShowsDummyEpisodeName;
+export default ViewDummyEpisodeName;

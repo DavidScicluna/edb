@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import { useBreakpointValue } from '@chakra-ui/react';
 
-import { RatingSize } from '../../../../../../../../components/Ratings/common/types';
-import { DummyRating } from '../../../../../../../../components';
+import { RatingSize } from '../../../../../../components/Ratings/common/types';
+import { DummyRating } from '../../../../../../components';
 
-const TVShowsDummyEpisodeRating: FC = () => {
+const ViewDummyEpisodeRating: FC = () => {
 	const fontSize = useBreakpointValue<RatingSize>({
 		'base': 'md',
 		'sm': 'lg',
@@ -18,4 +18,4 @@ const TVShowsDummyEpisodeRating: FC = () => {
 	return <DummyRating size={fontSize} />;
 };
 
-export default TVShowsDummyEpisodeRating;
+export default ViewDummyEpisodeRating;

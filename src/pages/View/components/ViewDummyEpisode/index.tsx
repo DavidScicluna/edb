@@ -4,22 +4,20 @@ import { useTheme, DummyCard, CardBody, Skeleton, Badge, BadgeLabel, utils } fro
 
 import { useMediaQuery, useBreakpointValue, HStack, VStack, Center } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../common/hooks';
+import { useUserTheme } from '../../../../common/hooks';
 
-import { TVShowsDummyEpisodeProps } from './types';
-import TVShowsDummyEpisodeOverview from './components/TVShowsDummyEpisodeOverview';
-import TVShowsDummyEpisodeRating from './components/TVShowsDummyEpisodeRating';
-import TVShowsDummyEpisodeDate from './components/TVShowsDummyEpisodeDate';
-import TVShowsDummyEpisodeName from './components/TVShowsDummyEpisodeName';
-import TVShowsDummyEpisodeImage, {
-	width as TVShowsDummyEpisodeImageWidth
-} from './components/TVShowsDummyEpisodeImage';
+import { ViewDummyEpisodeProps } from './types';
+import ViewDummyEpisodeOverview from './components/ViewDummyEpisodeOverview';
+import ViewDummyEpisodeRating from './components/ViewDummyEpisodeRating';
+import ViewDummyEpisodeDate from './components/ViewDummyEpisodeDate';
+import ViewDummyEpisodeName from './components/ViewDummyEpisodeName';
+import ViewDummyEpisodeImage, { width as ViewDummyEpisodeImageWidth } from './components/ViewDummyEpisodeImage';
 
 const { convertREMToPixels, convertStringToNumber } = utils;
 
 const spacing = 2;
 
-const TVShowsDummyEpisode: FC<TVShowsDummyEpisodeProps> = (props) => {
+const ViewDummyEpisode: FC<ViewDummyEpisodeProps> = (props) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -30,28 +28,28 @@ const TVShowsDummyEpisode: FC<TVShowsDummyEpisodeProps> = (props) => {
 	const { hasDate = false, hasOverview = false, isFullWidth = true, isLight = true, ...rest } = props;
 
 	const handleContentWidth = useCallback(() => {
-		const imageWidth = convertStringToNumber(TVShowsDummyEpisodeImageWidth[breakpointIndex || 0], 'px');
+		const imageWidth = convertStringToNumber(ViewDummyEpisodeImageWidth[breakpointIndex || 0], 'px');
 		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem'));
 
 		return `calc(100% - ${imageWidth + spacingWidth}px)`;
-	}, [TVShowsDummyEpisodeImageWidth, spacing]);
+	}, [ViewDummyEpisodeImageWidth, spacing]);
 
 	return (
 		<DummyCard {...rest} colorMode={colorMode} isFullWidth={isFullWidth} isLight={isLight}>
 			<CardBody>
 				<HStack width='100%' position='relative' overflow='hidden' spacing={spacing} p={spacing}>
-					<TVShowsDummyEpisodeImage />
+					<ViewDummyEpisodeImage />
 
 					<VStack width={handleContentWidth()} alignItems='flex-start' spacing={spacing}>
-						<TVShowsDummyEpisodeRating />
+						<ViewDummyEpisodeRating />
 
 						<VStack width='100%' alignItems='flex-start' spacing={0.5}>
-							<TVShowsDummyEpisodeName />
+							<ViewDummyEpisodeName />
 
-							{hasDate && <TVShowsDummyEpisodeDate />}
+							{hasDate && <ViewDummyEpisodeDate />}
 						</VStack>
 
-						{hasOverview && <TVShowsDummyEpisodeOverview />}
+						{hasOverview && <ViewDummyEpisodeOverview />}
 					</VStack>
 
 					<Center position='absolute' top={spacing} right={spacing}>
@@ -67,4 +65,4 @@ const TVShowsDummyEpisode: FC<TVShowsDummyEpisodeProps> = (props) => {
 	);
 };
 
-export default TVShowsDummyEpisode;
+export default ViewDummyEpisode;

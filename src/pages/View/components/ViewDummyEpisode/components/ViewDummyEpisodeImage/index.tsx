@@ -4,8 +4,8 @@ import { Skeleton } from '@davidscicluna/component-library';
 
 import { AspectRatio } from '@chakra-ui/react';
 
-import { getRatio } from '../../../../../../../../common/utils/ratio';
-import { useUserTheme } from '../../../../../../../../common/hooks';
+import { getRatio } from '../../../../../../common/utils/ratio';
+import { useUserTheme } from '../../../../../../common/hooks';
 
 export const width = ['100px', '132px', '164px', '196px', '228px', '260px'];
 
@@ -15,7 +15,7 @@ const commonStyleProps = {
 	borderRadius: 'inherit'
 };
 
-const TVShowsDummyEpisodeImage: FC = () => {
+const ViewDummyEpisodeImage: FC = () => {
 	const { colorMode } = useUserTheme();
 
 	return (
@@ -38,4 +38,4 @@ const TVShowsDummyEpisodeImage: FC = () => {
 	);
 };
 
-export default TVShowsDummyEpisodeImage;
+export default ViewDummyEpisodeImage;
