@@ -1,4 +1,4 @@
-import { ReactElement, useCallback } from 'react';
+import { ReactElement, useCallback, memo } from 'react';
 
 import { useTheme, DummyCard, CardBody, utils } from '@davidscicluna/component-library';
 
@@ -80,4 +80,4 @@ const DummyHorizontalPoster = <MT extends MediaType>(props: DummyHorizontalPoste
 	);
 };
 
-export default DummyHorizontalPoster;
+export default memo(DummyHorizontalPoster);

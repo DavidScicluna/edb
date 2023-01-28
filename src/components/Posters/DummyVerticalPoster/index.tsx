@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 import { DummyCard, CardBody, utils } from '@davidscicluna/component-library';
 
@@ -81,4 +81,4 @@ const DummyVerticalPoster = <MT extends MediaType>(props: DummyVerticalPosterPro
 	);
 };
 
-export default DummyVerticalPoster;
+export default memo(DummyVerticalPoster);
