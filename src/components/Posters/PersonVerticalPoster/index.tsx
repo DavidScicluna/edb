@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { useConst } from '@chakra-ui/react';
 
@@ -38,4 +38,4 @@ const PersonVerticalPoster: FC<PersonVerticalPosterProps> = (props) => {
 	);
 };
 
-export default PersonVerticalPoster;
+export default memo(PersonVerticalPoster);

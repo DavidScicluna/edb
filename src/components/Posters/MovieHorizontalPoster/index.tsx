@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { useConst } from '@chakra-ui/react';
 
@@ -52,4 +52,4 @@ const MovieHorizontalPoster: FC<MovieHorizontalPosterProps> = (props) => {
 	);
 };
 
-export default MovieHorizontalPoster;
+export default memo(MovieHorizontalPoster);

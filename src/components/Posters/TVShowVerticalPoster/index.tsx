@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { useConst } from '@chakra-ui/react';
 
@@ -50,4 +50,4 @@ const TVShowVerticalPoster: FC<TVShowVerticalPosterProps> = (props) => {
 	);
 };
 
-export default TVShowVerticalPoster;
+export default memo(TVShowVerticalPoster);
