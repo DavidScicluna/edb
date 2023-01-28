@@ -8,7 +8,13 @@ import store from '../../../../store';
 type GetGenresProps = { mediaType: FiltersMediaType; genres: FiltersFormGenres };
 
 export const getGenres = memoize(({ mediaType, genres }: GetGenresProps): FiltersFormGenres => {
-	const allGenres = store.getState().options.data.genres[mediaType] || [];
+	const state = store.getState();
+	const allGenres =
+		mediaType === 'movie'
+			? state.options.data.genres.movie
+			: mediaType === 'tv'
+			? state.options.data.genres.tv
+			: [];
 
 	return allGenres.filter(({ id }) => !!id && !genres.includes(id)).map(({ id }) => id);
 });
