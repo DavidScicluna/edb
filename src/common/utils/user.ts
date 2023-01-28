@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { sort } from 'fast-sort';
-import { memoize, uniq } from 'lodash';
+import { memoize, uniqBy } from 'lodash';
 
 import { MediaItem, UserRecentlyViewed, UserRecentlyViewedMediaType } from '../../store/slices/Users/types';
 import { Collection, FullMovie } from '../types/movie';
@@ -25,54 +25,66 @@ export const getUpdatedRecentlyViewedList = memoize(
 		switch (mediaType) {
 			case 'movie': {
 				updatedRecentlyViewed.movie = sort(
-					uniq([
-						...updatedRecentlyViewed.movie,
-						{
-							mediaItem: { ...(mediaItem as FullMovie) },
-							mediaType: 'movie',
-							addedAt: dayjs(new Date()).toISOString()
-						} as MediaItem<'movie'>
-					])
-				).desc((movie) => movie.addedAt);
+					uniqBy(
+						[
+							...updatedRecentlyViewed.movie,
+							{
+								mediaItem: { ...(mediaItem as FullMovie) },
+								mediaType: 'movie',
+								addedAt: dayjs(new Date()).toISOString()
+							} as MediaItem<'movie'>
+						],
+						'mediaItem.id'
+					)
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'tv': {
 				updatedRecentlyViewed.tv = sort(
-					uniq([
-						...updatedRecentlyViewed.tv,
-						{
-							mediaItem: { ...(mediaItem as FullTV) },
-							mediaType: 'tv',
-							addedAt: dayjs(new Date()).toISOString()
-						} as MediaItem<'tv'>
-					])
-				).desc((show) => show.addedAt);
+					uniqBy(
+						[
+							...updatedRecentlyViewed.tv,
+							{
+								mediaItem: { ...(mediaItem as FullTV) },
+								mediaType: 'tv',
+								addedAt: dayjs(new Date()).toISOString()
+							} as MediaItem<'tv'>
+						],
+						'mediaItem.id'
+					)
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'person': {
 				updatedRecentlyViewed.person = sort(
-					uniq([
-						...updatedRecentlyViewed.person,
-						{
-							mediaItem: { ...(mediaItem as FullPerson) },
-							mediaType: 'person',
-							addedAt: dayjs(new Date()).toISOString()
-						} as MediaItem<'person'>
-					])
-				).desc((person) => person.addedAt);
+					uniqBy(
+						[
+							...updatedRecentlyViewed.person,
+							{
+								mediaItem: { ...(mediaItem as FullPerson) },
+								mediaType: 'person',
+								addedAt: dayjs(new Date()).toISOString()
+							} as MediaItem<'person'>
+						],
+						'mediaItem.id'
+					)
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'collection': {
 				updatedRecentlyViewed.collection = sort(
-					uniq([
-						...updatedRecentlyViewed.collection,
-						{
-							mediaItem: { ...(mediaItem as Collection) },
-							mediaType: 'collection',
-							addedAt: dayjs(new Date()).toISOString()
-						} as MediaItem<'collection'>
-					])
-				).desc((collection) => collection.addedAt);
+					uniqBy(
+						[
+							...updatedRecentlyViewed.collection,
+							{
+								mediaItem: { ...(mediaItem as Collection) },
+								mediaType: 'collection',
+								addedAt: dayjs(new Date()).toISOString()
+							} as MediaItem<'collection'>
+						],
+						'mediaItem.id'
+					)
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 		}
