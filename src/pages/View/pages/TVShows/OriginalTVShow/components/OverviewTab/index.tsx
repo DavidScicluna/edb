@@ -7,6 +7,7 @@ import { compact } from 'lodash';
 import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
 
 import OverviewTabHero from './components/OverviewTabHero';
+import OverviewTabLastEpisode from './components/OverviewTabLastEpisode';
 import OverviewTabCreators from './components/OverviewTabCreators';
 import OverviewTabTopActor from './components/OverviewTabTopActor';
 import OverviewTabRecommendations from './components/OverviewTabRecommendations';
@@ -25,6 +26,8 @@ const OverviewTab: FC = () => {
 				<OverviewTabHero key='ds-edb-tv-show-overview-tab-hero' />,
 
 				<OverviewTabTopCast key='ds-edb-tv-show-overview-tab-top-cast' />,
+
+				<OverviewTabLastEpisode key='ds-edb-tv-show-overview-tab-last-episode' />,
 
 				<OverviewTabPhotos key='ds-edb-tv-show-overview-tab-photos' />,
 
