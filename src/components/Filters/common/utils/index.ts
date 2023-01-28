@@ -1,8 +1,17 @@
 import { compact, isEmpty, isNil, memoize } from 'lodash';
 import qs from 'query-string';
 
-import { FiltersForm, FiltersMediaType } from '../../types';
+import { FiltersForm, FiltersFormGenres, FiltersMediaType } from '../../types';
 import defaultValues from '../data/defaults';
+import store from '../../../../store';
+
+type GetGenresProps = { mediaType: FiltersMediaType; genres: FiltersFormGenres };
+
+export const getGenres = memoize(({ mediaType, genres }: GetGenresProps): FiltersFormGenres => {
+	const allGenres = store.getState().options.data.genres[mediaType] || [];
+
+	return allGenres.filter(({ id }) => !!id && !genres.includes(id)).map(({ id }) => id);
+});
 
 type GetProps = { location: Partial<Location>; mediaType: FiltersMediaType };
 
@@ -40,8 +49,11 @@ export const getFiltersForm = memoize(({ location, mediaType }: GetProps): Filte
 		}
 	}
 
-	if (search && search['with_genres'] && typeof search['with_genres'] === 'string') {
-		filters.genres = search['with_genres'].split(',').map((genre) => Number(genre));
+	if (search && search['without_genres'] && typeof search['without_genres'] === 'string') {
+		filters.genres = getGenres({
+			mediaType,
+			genres: search['without_genres'].split(',').map((genre) => Number(genre))
+		});
 	}
 
 	if (search && search['certification'] && typeof search['certification'] === 'string') {

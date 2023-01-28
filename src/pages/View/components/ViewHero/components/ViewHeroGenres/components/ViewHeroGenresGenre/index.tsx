@@ -8,6 +8,7 @@ import qs from 'query-string';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import { formatMediaType } from '../../../../../../../../common/utils';
+import { getGenres } from '../../../../../../../../components/Filters/common/utils';
 
 import { ViewHeroGenresGenreProps } from './types';
 
@@ -19,7 +20,10 @@ const ViewHeroGenresGenre: FC<ViewHeroGenresGenreProps> = ({ mediaType, id, name
 	return (
 		<InternalLink
 			colorMode={colorMode}
-			to={{ pathname: `/${formatMediaType({ mediaType })}`, search: qs.stringify({ with_genres: id }) }}
+			to={{
+				pathname: `/${formatMediaType({ mediaType })}`,
+				search: qs.stringify({ without_genres: getGenres({ mediaType, genres: [id] }) })
+			}}
 			onMouseEnter={() => setIsHovering.on()}
 			onMouseLeave={() => setIsHovering.off()}
 		>

@@ -24,7 +24,7 @@ import { FiltersForm } from '../../../components/Filters/types';
 import defaultFiltersFormValues from '../../../components/Filters/common/data/defaults';
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
 import { useUserTheme } from '../../../common/hooks';
-import { getTotalFilters } from '../../../components/Filters/common/utils';
+import { getGenres, getTotalFilters } from '../../../components/Filters/common/utils';
 import { PartialTV } from '../../../common/types/tv';
 import { UseMediaTypeInfiniteQueryResponse } from '../../../common/queries/useMediaTypeInfiniteQuery';
 import { data as dataFormat } from '../../../components/Filters/common/data/formats';
@@ -122,7 +122,7 @@ const OriginalTVShows: FC = () => {
 				'certification': certifications.length > 0 ? certifications.join('|') : undefined,
 				'first_air_date.gte': dates.gte || undefined,
 				'first_air_date.lte': dates.lte || undefined,
-				'with_genres': genres.length > 0 ? genres.join(',') : undefined,
+				'without_genres': genres.length > 0 ? getGenres({ mediaType: 'tv', genres }) : undefined,
 				'with_keywords': keywords.length > 0 ? keywords.join(',') : undefined,
 				'vote_average.gte': rating.length > 0 && rating[0] ? rating[0] : undefined,
 				'vote_average.lte': rating.length > 0 && rating[1] ? rating[1] : undefined,
