@@ -66,8 +66,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 			<HorizontalGridTabbedHeader
 				cardHeaderProps={{
 					renderTitle: (props) => <Text {...props}>{title}</Text>,
-					renderSubtitle: subtitle ? (props) => <Text {...props}>{subtitle}</Text> : undefined,
-					pb: 2
+					renderSubtitle: subtitle ? (props) => <Text {...props}>{subtitle}</Text> : undefined
 				}}
 				arrowProps={{ variant: 'icon' }}
 				tabListProps={{
@@ -89,7 +88,7 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 							: null
 					])
 				}}
-				divider={<Divider colorMode={colorMode} />}
+				divider={<Divider colorMode={colorMode} sx={{ mt: `${theme.space[2]} !important` }} />}
 				spacing={0}
 			/>
 			<HorizontalGridTabbedBody>
