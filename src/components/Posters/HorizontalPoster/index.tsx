@@ -5,6 +5,7 @@ import { useTheme, InternalLink, Card, CardBody, utils } from '@davidscicluna/co
 import { useMediaQuery, useBreakpointValue, useBoolean, HStack, VStack } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
+import { merge } from 'lodash';
 
 import { useUserTheme } from '../../../common/hooks';
 import { MediaType } from '../../../common/types';
@@ -50,6 +51,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 		isDisabled = false,
 		isFullWidth = true,
 		isLight = true,
+		sx,
 		...rest
 	} = props;
 
@@ -67,6 +69,7 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 			to={{ pathname: `/${formatMediaType({ mediaType })}/${mediaItem.id || ''}` }}
 			isDisabled={isDisabled || isFixed || mediaType === 'company'}
 			isFullWidth={isFullWidth}
+			sx={merge({ width: '100%', height: '100%' }, sx)}
 		>
 			<Card
 				{...rest}
@@ -77,9 +80,17 @@ const HorizontalPoster = <MT extends MediaType>(props: HorizontalPosterProps<MT>
 				isFullWidth={isFullWidth}
 				isFixed={isFixed}
 				isLight={isLight}
+				sx={merge({ width: '100%', height: '100%' }, sx)}
 			>
-				<CardBody>
-					<HStack width='100%' position='relative' overflow='hidden' spacing={spacing} p={spacing}>
+				<CardBody width='100%' height='100%'>
+					<HStack
+						width='100%'
+						height='100%'
+						position='relative'
+						overflow='hidden'
+						spacing={spacing}
+						p={spacing}
+					>
 						<HorizontalPosterImage<MT>
 							mediaItem={mediaItem}
 							mediaType={mediaType}

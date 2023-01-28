@@ -68,6 +68,7 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 			onBlur={() => setIsFocused.off()}
 			onMouseEnter={() => setIsHovering.on()}
 			onMouseLeave={() => setIsHovering.off()}
+			sx={merge({ width: '100%', height: '100%' }, sx)}
 		>
 			<Card
 				{...rest}
@@ -78,10 +79,10 @@ const VerticalPoster = <MT extends MediaType>(props: VerticalPosterProps<MT>): R
 				isFullWidth={isFullWidth}
 				isFixed={isFixed}
 				isLight={isLight}
-				sx={merge({ alignItems: 'flex-start' }, sx)}
+				sx={merge({ width: '100%', height: '100%', alignItems: 'flex-start' }, sx)}
 			>
-				<CardBody width='100%'>
-					<VStack width='100%' position='relative' overflow='hidden' spacing={0}>
+				<CardBody width='100%' height='100%'>
+					<VStack width='100%' height='100%' position='relative' overflow='hidden' spacing={0}>
 						<VerticalPosterImage<MT>
 							title={title}
 							mediaItem={mediaItem}
