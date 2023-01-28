@@ -26,7 +26,7 @@ const ViewHeroCoverBackdrop: FC<ViewHeroCoverBackdropProps> = ({ hasVideo = fals
 			width='100%'
 			height='100%'
 			minHeight={getRatioDimensions({ width: clickableMediaWidth, orientation: 'landscape' }) * 1.15}
-			maxHeight='75vh'
+			maxHeight={getRatioDimensions({ width: clickableMediaWidth, orientation: 'landscape' }) * 1.15}
 			borderRadius='none'
 			ratio={getRatio({ orientation: 'landscape' })}
 			renderIcon={(props) => <Icon {...props} icon={hasVideo ? 'play_arrow' : 'search'} category='outlined' />}
