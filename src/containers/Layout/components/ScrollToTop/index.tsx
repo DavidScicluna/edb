@@ -20,9 +20,9 @@ const ScrollToTop: FC = () => {
 
 	const handleScroll = useCallback(
 		debounce(() => {
-			const scroll = document?.scrollingElement?.scrollTop || 0;
+			const scroll = window.scrollY;
 
-			if (scroll <= height) {
+			if (scroll < height) {
 				setIsVisible.off();
 				setIsHovering.off();
 			} else {
@@ -30,7 +30,7 @@ const ScrollToTop: FC = () => {
 				setIsHovering.off();
 			}
 		}, 1000),
-		[document, height]
+		[window, height]
 	);
 
 	useEventListener('scroll', () => handleScroll());
@@ -55,7 +55,7 @@ const ScrollToTop: FC = () => {
 						aria-label='Scroll to top'
 						color={color}
 						colorMode={colorMode}
-						onClick={() => document.scrollingElement?.scrollTo(0, 0)}
+						onClick={() => window.scrollTo(0, 0)}
 						onMouseEnter={() => setIsHovering.on()}
 						onMouseLeave={() => setIsHovering.off()}
 					>
