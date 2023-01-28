@@ -11,7 +11,7 @@ import {
 
 type GetTabIndexHash = 'overview' | 'cast' | 'guest_stars' | 'crew' | 'photos' | 'videos';
 
-export const getCollectionTabIndex = memoize((hash: GetTabIndexHash): number => {
+export const getEpisodeTabIndex = memoize((hash: GetTabIndexHash): number => {
 	switch (hash) {
 		case 'cast':
 			return castTabIndex;
