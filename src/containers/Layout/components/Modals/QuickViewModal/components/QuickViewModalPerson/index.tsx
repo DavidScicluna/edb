@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { useDebounce } from '@davidscicluna/component-library';
 
 import { CastMovieCredit, CastTVCredit, CrewMovieCredit, CrewTVCredit } from '../../../../../../../common/types/person';
-import { useMediaTypeImagesQuery, useMediaTypeQuery, usePersonCreditsQuery } from '../../../../../../../common/queries';
+import { useMediaTypeQuery, usePersonCreditsQuery } from '../../../../../../../common/queries';
 import QuickViewModalDummyPoster from '../QuickViewModalDummyPoster';
 import QuickViewModalStructure from '../QuickViewModalStructure';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
@@ -62,12 +62,12 @@ const QuickViewModalPerson: FC<QuickViewModalPersonProps> = ({ id }) => {
 
 	const { data: tvShowCredits } = tvShowCreditsQuery;
 
-	const imagesQuery = useMediaTypeImagesQuery({
-		props: { mediaType: 'person', id: Number(id) },
-		options: { enabled: !!person?.id }
-	});
+	// const imagesQuery = useMediaTypeImagesQuery({
+	// 	props: { mediaType: 'person', id: Number(id) },
+	// 	options: { enabled: !!person?.id }
+	// });
 
-	const { profiles = [] } = imagesQuery.data || {};
+	// const { profiles = [] } = imagesQuery.data || {};
 
 	return !(isPersonFetching || isPersonLoading) && isPersonError ? (
 		<QuickViewModalError

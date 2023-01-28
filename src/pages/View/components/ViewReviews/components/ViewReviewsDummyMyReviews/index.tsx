@@ -7,7 +7,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 import { range } from 'lodash';
 
 import { useUserTheme } from '../../../../../../common/hooks';
-import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 import DummyReview from '../ViewReviewsDummyReview';
 import DummyReviews from '../ViewReviewsDummyReviews';
 import { VerticalGrid } from '../../../../../../components';
@@ -17,8 +16,6 @@ const ViewReviewsDummyMyReviews: FC = () => {
 	const { color, colorMode } = useUserTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-
-	const { spacing } = useLayoutContext();
 
 	return (
 		<DummyReviews

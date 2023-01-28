@@ -12,7 +12,6 @@ import MyReview from '../ViewReviewsMyReview';
 import Reviews from '../ViewReviewsReviews';
 import { VerticalGrid } from '../../../../../../../components';
 import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
-import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
 import { ViewReviewsMediaType } from '../../types';
 import CreateMyReview from '../ViewReviewsCreateEditMyReview';
 import ViewReviewsMyReviewsQueryEmpty from '../ViewReviewsMyReviewsQueryEmpty';
@@ -26,8 +25,6 @@ const ViewReviewsMyReviews = <MT extends ViewReviewsMediaType>(props: ViewReview
 	const { color, colorMode } = useUserTheme();
 
 	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-
-	const { spacing } = useLayoutContext();
 
 	const { mediaType, mediaItem, name: mediaItemName } = props;
 	const { id } = mediaItem;

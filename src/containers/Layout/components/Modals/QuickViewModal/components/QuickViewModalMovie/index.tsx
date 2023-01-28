@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
 import {
-	useMediaTypeImagesQuery,
-	useMediaTypeQuery,
-	useMediaTypeVideosQuery
+	// useMediaTypeImagesQuery,
+	useMediaTypeQuery
+	// useMediaTypeVideosQuery
 } from '../../../../../../../common/queries';
 import QuickViewModalDummyPoster from '../QuickViewModalDummyPoster';
 import QuickViewModalStructure from '../QuickViewModalStructure';
@@ -32,19 +32,19 @@ const QuickViewModalMovie: FC<QuickViewModalMovieProps> = ({ id }) => {
 
 	const { title } = movie || {};
 
-	const imagesQuery = useMediaTypeImagesQuery({
-		props: { mediaType: 'movie', id: Number(id) },
-		options: { enabled: !!movie?.id }
-	});
+	// const imagesQuery = useMediaTypeImagesQuery({
+	// 	props: { mediaType: 'movie', id: Number(id) },
+	// 	options: { enabled: !!movie?.id }
+	// });
 
-	const { posters = [], backdrops = [] } = imagesQuery.data || {};
+	// const { posters = [], backdrops = [] } = imagesQuery.data || {};
 
-	const videosQuery = useMediaTypeVideosQuery({
-		props: { mediaType: 'movie', id: Number(id) },
-		options: { enabled: !!movie?.id }
-	});
+	// const videosQuery = useMediaTypeVideosQuery({
+	// 	props: { mediaType: 'movie', id: Number(id) },
+	// 	options: { enabled: !!movie?.id }
+	// });
 
-	const { results: videos = [] } = videosQuery.data || {};
+	// const { results: videos = [] } = videosQuery.data || {};
 
 	return !(isMovieFetching || isMovieLoading) && isMovieError ? (
 		<QuickViewModalError

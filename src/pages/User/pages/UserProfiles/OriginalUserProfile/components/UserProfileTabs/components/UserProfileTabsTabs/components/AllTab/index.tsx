@@ -15,6 +15,7 @@ const AllTabPeople = lazy(() => import('./components/AllTabPeople'));
 const AllTabTVShows = lazy(() => import('./components/AllTabTVShows'));
 
 const AllTab: FC<AllTabProps> = ({ type, mediaItems, onSetActiveTab }) => {
+	// TODO: Add Sections for Collectios & Companies
 	const { movie = [], tv = [], person = [], company = [], collection = [] } = mediaItems;
 
 	const { spacing } = useLayoutContext();

@@ -6,13 +6,10 @@ import { useTVShowSeasonQuery } from '../../../../../../../../../common/queries'
 import ViewDummyEpisode from '../../../../../../../components/ViewDummyEpisode';
 import ViewEpisode from '../../../../../../../components/ViewEpisode';
 import { VerticalGrid } from '../../../../../../../../../components';
-import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
 
 import { EpisodesTabSeasonProps } from './types';
 
 const EpisodesTabSeason: FC<EpisodesTabSeasonProps> = ({ id, season: seasonNumber }) => {
-	const { spacing } = useLayoutContext();
-
 	const {
 		data: season,
 		isFetching,

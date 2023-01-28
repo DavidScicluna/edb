@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useMediaTypeImagesQuery, useMediaTypeQuery } from '../../../../../../../common/queries';
+import { useMediaTypeQuery } from '../../../../../../../common/queries';
 import QuickViewModalDummyPoster from '../QuickViewModalDummyPoster';
 import QuickViewModalStructure from '../QuickViewModalStructure';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
@@ -25,12 +25,12 @@ const QuickViewModalCollection: FC<QuickViewModalCollectionProps> = ({ id }) => 
 
 	const { name } = collection || {};
 
-	const imagesQuery = useMediaTypeImagesQuery({
-		props: { mediaType: 'collection', id: Number(id) },
-		options: { enabled: !!collection?.id }
-	});
+	// const imagesQuery = useMediaTypeImagesQuery({
+	// 	props: { mediaType: 'collection', id: Number(id) },
+	// 	options: { enabled: !!collection?.id }
+	// });
 
-	const { posters = [], backdrops = [] } = imagesQuery.data || {};
+	// const { posters = [], backdrops = [] } = imagesQuery.data || {};
 
 	return !(isCollectionFetching || isCollectionLoading) && isCollectionError ? (
 		<QuickViewModalError
