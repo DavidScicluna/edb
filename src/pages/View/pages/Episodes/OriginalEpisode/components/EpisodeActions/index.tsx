@@ -6,9 +6,9 @@ import { useMediaQuery, VStack, HStack } from '@chakra-ui/react';
 
 import { useEpisodeContext } from '../../common/hooks';
 import { useLayoutContext } from '../../../../../../../containers/Layout/common/hooks';
+import { getAdjacentEpisode } from '../../common/utils';
 
 import { EpisodeActionsProps } from './types';
-import { getAdjacentEpisode } from './common/utils';
 import EpisodeActionsBack from './components/EpisodeActionsBack';
 import EpisodeActionsPrevNext from './components/EpisodeActionsPrevNext';
 

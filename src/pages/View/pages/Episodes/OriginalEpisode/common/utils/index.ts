@@ -2,7 +2,7 @@ import { Undefinable } from '@davidscicluna/component-library';
 
 import { memoize } from 'lodash';
 
-import { Episode, PartialSeason } from '../../../../../../../../../common/types/tv';
+import { Episode, PartialSeason } from '../../../../../../../common/types/tv';
 
 type GetAdjacentEpisodeProps = { direction: 'prev' | 'next'; seasons: PartialSeason[]; episode?: Episode };
 type GetAdjacentEpisodeReturn = Undefinable<{ season: number; episode: number }>;
