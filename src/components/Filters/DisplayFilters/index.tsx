@@ -1,16 +1,8 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useCallback, useEffect } from 'react';
 
 import { useLocation } from 'react-router';
 
-import {
-	Space,
-	useTheme,
-	useDebounce,
-	HorizontalScroll,
-	Divider,
-	Button,
-	utils
-} from '@davidscicluna/component-library';
+import { Space, useTheme, useDebounce, HorizontalScroll, Divider, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, Stack, Center } from '@chakra-ui/react';
 
@@ -30,6 +22,7 @@ import Keywords from './components/Keywords';
 import Rating from './components/RatingRange';
 import Runtime from './components/RuntimeRange';
 import { DisplayFiltersProps } from './types';
+import ClearFilters from './components/ClearFilters';
 
 const { convertREMToPixels, convertStringToNumber } = utils;
 
@@ -43,7 +36,7 @@ const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagD
 
 	const location = useLocation();
 
-	const [buttonRef, { width: buttonWidth }] = useElementSize();
+	const [clearRef, { width: clearWidth }] = useElementSize();
 
 	const [filters, setFilters] = useState<FiltersForm>(defaultValues);
 	const filtersDebounced = useDebounce<FiltersForm>(filters, 'slow');
@@ -54,11 +47,12 @@ const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagD
 		}
 	};
 
-	const handleContentWidth = (): string => {
+	const handleContentWidth = useCallback((): string => {
+		const borderWidth = 2;
 		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem')) * 2;
 
-		return `calc(100% - ${buttonWidth + spacingWidth}px)`;
-	};
+		return `calc(100% - ${clearWidth + borderWidth + spacingWidth}px)`;
+	}, [theme, spacing, clearWidth]);
 
 	useEffect(() => handleSetFilters(), [location.search]);
 
@@ -192,16 +186,8 @@ const DisplayFilters: FC<DisplayFiltersProps> = ({ mediaType, onTagClick, onTagD
 				</HorizontalScroll>
 			</Center>
 
-			<Center ref={buttonRef}>
-				<Button
-					colorMode={colorMode}
-					isFullWidth={isSm}
-					onClick={() => onClear({ ...defaultValues })}
-					size='xs'
-					variant='outlined'
-				>
-					Clear Filters
-				</Button>
+			<Center ref={clearRef}>
+				<ClearFilters onClear={onClear} />
 			</Center>
 		</Stack>
 	);
