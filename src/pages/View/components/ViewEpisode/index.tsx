@@ -7,15 +7,15 @@ import { useMediaQuery, useBreakpointValue, HStack, VStack, Center } from '@chak
 import { useInView } from 'react-cool-inview';
 import dayjs from 'dayjs';
 
-import { useUserTheme } from '../../../../../../../common/hooks';
-import { formatDate, formatMediaType } from '../../../../../../../common/utils';
+import { useUserTheme } from '../../../../common/hooks';
+import { formatDate, formatMediaType } from '../../../../common/utils';
 
-import { TVShowEpisodeProps } from './types';
-import TVShowEpisodeOverview from './components/TVShowEpisodeOverview';
-import TVShowEpisodeRating from './components/TVShowEpisodeRating';
-import TVShowEpisodeDate from './components/TVShowEpisodeDate';
-import TVShowEpisodeName from './components/TVShowEpisodeName';
-import TVShowEpisodeImage, { width as TVShowEpisodeImageWidth } from './components/TVShowEpisodeImage';
+import { ViewEpisodeProps } from './types';
+import ViewEpisodeOverview from './components/ViewEpisodeOverview';
+import ViewEpisodeRating from './components/ViewEpisodeRating';
+import ViewEpisodeDate from './components/ViewEpisodeDate';
+import ViewEpisodeName from './components/ViewEpisodeName';
+import ViewEpisodeImage, { width as ViewEpisodeImageWidth } from './components/ViewEpisodeImage';
 
 const { convertREMToPixels, convertStringToNumber } = utils;
 
@@ -23,7 +23,7 @@ const spacing = 2;
 
 const today = formatDate({ date: dayjs(new Date()).toISOString() });
 
-const TVShowEpisode: FC<TVShowEpisodeProps> = (props) => {
+const ViewEpisode: FC<ViewEpisodeProps> = (props) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -53,11 +53,11 @@ const TVShowEpisode: FC<TVShowEpisodeProps> = (props) => {
 	const isFuture = dayjs(air_date).isAfter(today);
 
 	const handleContentWidth = useCallback(() => {
-		const imageWidth = convertStringToNumber(TVShowEpisodeImageWidth[breakpointIndex || 0], 'px');
+		const imageWidth = convertStringToNumber(ViewEpisodeImageWidth[breakpointIndex || 0], 'px');
 		const spacingWidth = convertREMToPixels(convertStringToNumber(theme.space[spacing], 'rem'));
 
 		return `calc(100% - ${imageWidth + spacingWidth}px)`;
-	}, [TVShowEpisodeImageWidth, spacing]);
+	}, [ViewEpisodeImageWidth, spacing]);
 
 	return (
 		<InternalLink
@@ -80,20 +80,18 @@ const TVShowEpisode: FC<TVShowEpisodeProps> = (props) => {
 			>
 				<CardBody>
 					<HStack width='100%' position='relative' overflow='hidden' spacing={spacing} p={spacing}>
-						<TVShowEpisodeImage id={episodeID} still_path={still_path} name={name} inView={inView} />
+						<ViewEpisodeImage id={episodeID} still_path={still_path} name={name} inView={inView} />
 
 						<VStack width={handleContentWidth()} alignItems='flex-start' spacing={spacing}>
-							{vote_average && (
-								<TVShowEpisodeRating vote_average={vote_average} vote_count={vote_count} />
-							)}
+							{vote_average && <ViewEpisodeRating vote_average={vote_average} vote_count={vote_count} />}
 
 							<VStack width='100%' alignItems='flex-start' spacing={0.5}>
-								<TVShowEpisodeName name={name} inView={inView} />
+								<ViewEpisodeName name={name} inView={inView} />
 
-								{!!air_date && <TVShowEpisodeDate air_date={air_date} inView={inView} />}
+								{!!air_date && <ViewEpisodeDate air_date={air_date} inView={inView} />}
 							</VStack>
 
-							{!!overview && <TVShowEpisodeOverview overview={overview} inView={inView} />}
+							{!!overview && <ViewEpisodeOverview overview={overview} inView={inView} />}
 						</VStack>
 
 						{badgeLabel && (
@@ -115,4 +113,4 @@ const TVShowEpisode: FC<TVShowEpisodeProps> = (props) => {
 	);
 };
 
-export default TVShowEpisode;
+export default ViewEpisode;

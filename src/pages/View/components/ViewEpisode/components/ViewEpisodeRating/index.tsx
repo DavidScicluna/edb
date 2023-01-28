@@ -2,12 +2,12 @@ import { FC } from 'react';
 
 import { useBreakpointValue } from '@chakra-ui/react';
 
-import { Rating } from '../../../../../../../../../components';
-import { RatingSize } from '../../../../../../../../../components/Ratings/common/types';
+import { Rating } from '../../../../../../components';
+import { RatingSize } from '../../../../../../components/Ratings/common/types';
 
-import { TVShowEpisodeRatingProps } from './types';
+import { ViewEpisodeRatingProps } from './types';
 
-const TVShowEpisodeRating: FC<TVShowEpisodeRatingProps> = (props) => {
+const ViewEpisodeRating: FC<ViewEpisodeRatingProps> = (props) => {
 	const fontSize = useBreakpointValue<RatingSize>({
 		'base': 'md',
 		'sm': 'lg',
@@ -22,4 +22,4 @@ const TVShowEpisodeRating: FC<TVShowEpisodeRatingProps> = (props) => {
 	return <Rating rating={vote_average} count={vote_count} size={fontSize} />;
 };
 
-export default TVShowEpisodeRating;
+export default ViewEpisodeRating;

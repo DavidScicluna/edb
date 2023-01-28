@@ -6,14 +6,14 @@ import { useBreakpointValue, Box, Text } from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 
-import { useUserTheme } from '../../../../../../../../../common/hooks';
-import { formatDate, getFontSizeHeight } from '../../../../../../../../../common/utils';
+import { useUserTheme } from '../../../../../../common/hooks';
+import { formatDate, getFontSizeHeight } from '../../../../../../common/utils';
 
-import { TVShowEpisodeDateProps } from './types';
+import { ViewEpisodeDateProps } from './types';
 
 const { getColor } = utils;
 
-const TVShowEpisodeDate: FC<TVShowEpisodeDateProps> = (props) => {
+const ViewEpisodeDate: FC<ViewEpisodeDateProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -46,4 +46,4 @@ const TVShowEpisodeDate: FC<TVShowEpisodeDateProps> = (props) => {
 	);
 };
 
-export default TVShowEpisodeDate;
+export default ViewEpisodeDate;

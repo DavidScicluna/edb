@@ -7,16 +7,12 @@ import { useConst, AspectRatio } from '@chakra-ui/react';
 import { v4 as uuid } from 'uuid';
 import { omit } from 'lodash';
 
-import { useUserTheme } from '../../../../../../../../../common/hooks';
-import { getRatio } from '../../../../../../../../../common/utils/ratio';
-import { Image } from '../../../../../../../../../components';
-import {
-	getBoringAvatarSrc,
-	getBoringAvatarVariantByMediaType,
-	getImageSize
-} from '../../../../../../../../../common/utils';
+import { useUserTheme } from '../../../../../../common/hooks';
+import { getRatio } from '../../../../../../common/utils/ratio';
+import { Image } from '../../../../../../components';
+import { getBoringAvatarSrc, getBoringAvatarVariantByMediaType, getImageSize } from '../../../../../../common/utils';
 
-import { TVShowEpisodeImageProps } from './types';
+import { ViewEpisodeImageProps } from './types';
 
 const { getHue } = utils;
 
@@ -31,7 +27,7 @@ const commonStyleProps = {
 const thumbnail = getImageSize({ type: 'still', mode: 'thumbnail' });
 const full = getImageSize({ type: 'still', mode: 'full' });
 
-const TVShowEpisodeImage: FC<TVShowEpisodeImageProps> = (props) => {
+const ViewEpisodeImage: FC<ViewEpisodeImageProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -70,4 +66,4 @@ const TVShowEpisodeImage: FC<TVShowEpisodeImageProps> = (props) => {
 	);
 };
 
-export default TVShowEpisodeImage;
+export default ViewEpisodeImage;

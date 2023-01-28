@@ -4,14 +4,14 @@ import { FontSize, useTheme, Skeleton, utils } from '@davidscicluna/component-li
 
 import { useBreakpointValue, Box, Text } from '@chakra-ui/react';
 
-import { useUserTheme } from '../../../../../../../../../common/hooks';
-import { getFontSizeHeight } from '../../../../../../../../../common/utils';
+import { useUserTheme } from '../../../../../../common/hooks';
+import { getFontSizeHeight } from '../../../../../../common/utils';
 
-import { TVShowEpisodeNameProps } from './types';
+import { ViewEpisodeNameProps } from './types';
 
 const { getColor } = utils;
 
-const TVShowEpisodeName: FC<TVShowEpisodeNameProps> = (props) => {
+const ViewEpisodeName: FC<ViewEpisodeNameProps> = (props) => {
 	const theme = useTheme();
 	const { colorMode } = useUserTheme();
 
@@ -44,4 +44,4 @@ const TVShowEpisodeName: FC<TVShowEpisodeNameProps> = (props) => {
 	);
 };
 
-export default TVShowEpisodeName;
+export default ViewEpisodeName;
