@@ -123,7 +123,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	return (
 		<LayoutContext.Provider
 			value={{
-				device: isXl ? 'desktop' : isSm ? 'tablet' : 'mobile',
+				device: isXl ? 'desktop' : isMd ? 'tablet' : 'mobile',
 				isGuest,
 				isAuthenticationRoute,
 				spacing: isXl ? 5 : isMd ? 4 : isSm ? 3 : 2
