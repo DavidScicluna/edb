@@ -1,190 +1,263 @@
-import { ReactElement, lazy, useEffect } from 'react';
+import { FC, useEffect, lazy } from 'react';
 
-import { useConst } from '@chakra-ui/react';
-import { useLocation, Routes as RRDRoutes, Route } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-import { compact } from 'lodash';
-import omit from 'lodash/omit';
+import { useLocation, Routes as RRRoutes, Route } from 'react-router';
 
-import { guest } from '../../store/slices/Users';
-import Layout from '../Layout';
+import { AnimatePresence } from '@davidscicluna/component-library';
 
-import Animation from './components/Animation';
-import Breadcrumb from './components/Breadcrumb';
+import Authentication from '../../pages/User/pages/Authentication';
+import { Suspense } from '../../components';
+import DummySearch from '../../pages/Search/DummySearch';
+import DummyPerson from '../../pages/View/pages/Persons/DummyPerson';
+import DummyHome from '../../pages/Home/DummyHome';
+import DummyTrending from '../../pages/Trending/DummyTrending';
+import DummyTVShows from '../../pages/TVShows/DummyTVShows';
+import DummyTVShow from '../../pages/View/pages/TVShows/DummyTVShow';
+import DummyEpisode from '../../pages/View/pages/Episodes/DummyEpisode';
+import DummyUserProfile from '../../pages/User/pages/UserProfiles/DummyUserProfile';
+import DummyMovies from '../../pages/Movies/DummyMovies';
+import DummyMovie from '../../pages/View/pages/Movies/DummyMovie';
+import DummyCollection from '../../pages/View/pages/Collections/DummyCollection';
+import DummyEditUser from '../../pages/User/pages/EditUsers/DummyEditUser';
+import DummyPeople from '../../pages/People/DummyPeople';
+import { formatMediaType } from '../../common/utils';
+import { useLayoutContext } from '../Layout/common/hooks';
+
+import PageTransition from './components/PageTransition';
 import NoMatch from './components/NoMatch';
-import Private from './components/Private';
-import Public from './components/Public';
-import Suspense from './components/Suspense';
-import { Route as RouteType } from './types';
 
+const Home = lazy(() => import('../../pages/Home/OriginalHome'));
+const Movies = lazy(() => import('../../pages/Movies/OriginalMovies'));
+const Trending = lazy(() => import('../../pages/Trending/OriginalTrending'));
+const UserProfile = lazy(() => import('../../pages/User/pages/UserProfiles/OriginalUserProfile'));
+const EditUser = lazy(() => import('../../pages/User/pages/EditUsers/OriginalEditUser'));
+const Search = lazy(() => import('../../pages/Search/OriginalSearch'));
+const TVShows = lazy(() => import('../../pages/TVShows/OriginalTVShows'));
+const People = lazy(() => import('../../pages/People/OriginalPeople'));
+const Person = lazy(() => import('../../pages/View/pages/Persons/OriginalPerson'));
+const ResetPassword = lazy(() => import('../../pages/User/pages/Authentication/pages/ResetPassword'));
+const Collection = lazy(() => import('../../pages/View/pages/Collections/OriginalCollection'));
+const Episode = lazy(() => import('../../pages/View/pages/Episodes/OriginalEpisode'));
+const Signin = lazy(() => import('../../pages/User/pages/Authentication/pages/Signin'));
+const Register = lazy(() => import('../../pages/User/pages/Authentication/pages/Register'));
+const Movie = lazy(() => import('../../pages/View/pages/Movies/OriginalMovie'));
+const TVShow = lazy(() => import('../../pages/View/pages/TVShows/OriginalTVShow'));
 
-const Home = lazy(() => import('../../pages/Home'));
-const Movies = lazy(() => import('../../pages/Movies'));
-const People = lazy(() => import('../../pages/People'));
-const Search = lazy(() => import('../../pages/Search'));
-const Trending = lazy(() => import('../../pages/Trending'));
-const ForgotPassword = lazy(() => import('../../pages/Authentication/ForgotPassword'));
-const TV = lazy(() => import('../../pages/TV'));
-const Liked = lazy(() => import('../../pages/User/pages/Liked'));
-const Lists = lazy(() => import('../../pages/User/pages/Lists'));
-const Collection = lazy(() => import('../../pages/View/pages/Collection'));
-const Episode = lazy(() => import('../../pages/View/pages/Episode'));
-const Signin = lazy(() => import('../../pages/Authentication/Signin'));
-const Register = lazy(() => import('../../pages/Authentication/Register'));
-const Movie = lazy(() => import('../../pages/View/pages/Movie'));
-const Person = lazy(() => import('../../pages/View/pages/Person'));
-const Show = lazy(() => import('../../pages/View/pages/Show'));
-
-export const handleReturnRoutes = (user?: string): RouteType[] => {
-	return [
-		// Private Routes
-		{
-			path: '/',
-			children: [
-				{
-					path: '/',
-					children: compact([
-						{
-							index: true,
-							breadcrumb: 'Home',
-							element: <Home />
-						},
-						{
-							path: '/search',
-							breadcrumb: 'Search',
-							element: <Search />
-						},
-						{
-							path: '/trending',
-							breadcrumb: 'Trending',
-							element: <Trending />
-						},
-						{
-							path: '/movies',
-							breadcrumb: 'Movies',
-							element: <Movies />
-						},
-						{
-							path: '/movies/:id',
-							breadcrumb: (props) => <Breadcrumb {...props} mediaType='movie' />,
-							element: <Movie />
-						},
-						{
-							path: '/tvshows',
-							breadcrumb: 'TV Shows',
-							element: <TV />
-						},
-						{
-							path: '/tvshows/:id',
-							breadcrumb: (props) => <Breadcrumb {...props} mediaType='tv' />,
-							element: <Show />
-						},
-						{
-							path: '/tvshows/:id/season/:season/episode/:episode',
-							breadcrumb: (props) => <Breadcrumb {...props} mediaType='episode' />,
-							element: <Episode />
-						},
-						{
-							path: '/people',
-							breadcrumb: 'People',
-							element: <People />
-						},
-						{
-							path: '/people/:id',
-							breadcrumb: (props) => <Breadcrumb {...props} mediaType='person' />,
-							element: <Person />
-						},
-						user !== guest.data.id
-							? {
-									path: '/liked',
-									breadcrumb: 'Liked',
-									element: <Liked />
-							  }
-							: null,
-						user !== guest.data.id
-							? {
-									path: '/lists',
-									breadcrumb: 'Lists',
-									element: <Lists />
-							  }
-							: null,
-						{
-							path: '/collections/:id',
-							breadcrumb: (props) => <Breadcrumb {...props} mediaType='collection' />,
-							element: <Collection />
-						},
-						{
-							path: '*',
-							element: <NoMatch />
-						}
-					]),
-					element: <Layout />
-				}
-			],
-			element: <Private />
-		},
-
-		// Public Routes
-		{
-			path: '/',
-			children: [
-				{
-					path: '/signin',
-					element: <Signin />
-				},
-				{
-					path: '/register',
-					element: <Register />
-				},
-				{
-					path: '/forgot-password',
-					element: <ForgotPassword />
-				},
-				{
-					path: '*',
-					element: <NoMatch />
-				}
-			],
-			element: <Public />
-		}
-	];
-};
-
-const handleReturnRoute = (route: Omit<RouteType, 'index' | 'breadcrumb'>, index: string): ReactElement => {
-	const { path, element, children = [] } = route;
-
-	return (
-		<Route
-			{...route}
-			key={index}
-			path={path}
-			element={
-				<Suspense>
-					<Animation>{element}</Animation>
-				</Suspense>
-			}
-		>
-			{children.map((child, childIndex) => handleReturnRoute(child, `${index}${childIndex}`))}
-		</Route>
-	);
-};
-
-export const allRoutes: RouteType[] = handleReturnRoutes();
-
-const Routes = (): ReactElement => {
+const Routes: FC = () => {
 	const location = useLocation();
 
-	const routes = useConst<Omit<RouteType, 'breadcrumb'>[]>(allRoutes.map((route) => omit(route, 'breadcrumb')));
+	const { isGuest } = useLayoutContext();
 
 	useEffect(() => {
-		document.scrollingElement?.scrollTo(0, 0);
+		setTimeout(() => window.scrollTo(0, 0), 1000);
 	}, [location.pathname]);
 
 	return (
-		<AnimatePresence exitBeforeEnter initial={false}>
-			<RRDRoutes key={location.pathname} location={location}>
-				{routes.map((route, index) => handleReturnRoute(route, `${index}`))}
-			</RRDRoutes>
+		<AnimatePresence>
+			<RRRoutes key={location.pathname} location={location}>
+				<Route
+					path='/'
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyHome />}>
+								<Home />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path='/profile'
+					element={
+						<PageTransition>
+							{!isGuest ? (
+								<Suspense fallback={<DummyUserProfile />}>
+									<UserProfile />
+								</Suspense>
+							) : (
+								<NoMatch />
+							)}
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path='/profile/edit'
+					element={
+						<PageTransition>
+							{!isGuest ? (
+								<Suspense fallback={<DummyEditUser />}>
+									<EditUser />
+								</Suspense>
+							) : (
+								<NoMatch />
+							)}
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path='/search'
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummySearch />}>
+								<Search />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path='/trending'
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyTrending />}>
+								<Trending />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path={formatMediaType({ mediaType: 'movie' })}
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyMovies />}>
+								<Movies />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path={`${formatMediaType({ mediaType: 'movie' })}/:id`}
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyMovie />}>
+								<Movie />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path={`collections/:id`}
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyCollection />}>
+								<Collection />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path={formatMediaType({ mediaType: 'tv' })}
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyTVShows />}>
+								<TVShows />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path={`${formatMediaType({ mediaType: 'tv' })}/:id`}
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyTVShow />}>
+								<TVShow />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path={`${formatMediaType({ mediaType: 'tv' })}/:id/seasons/:season/episodes/:episode`}
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyEpisode />}>
+								<Episode />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path={formatMediaType({ mediaType: 'person' })}
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyPeople />}>
+								<People />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path={`${formatMediaType({ mediaType: 'person' })}/:id`}
+					element={
+						<PageTransition>
+							<Suspense fallback={<DummyPerson />}>
+								<Person />
+							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path='/authentication'
+					element={
+						<PageTransition>
+							<Suspense>
+								<Authentication />
+							</Suspense>
+						</PageTransition>
+					}
+				>
+					<Route
+						path='/authentication/signin'
+						element={
+							<PageTransition>
+								<Suspense>
+									<Signin />
+								</Suspense>
+							</PageTransition>
+						}
+					/>
+
+					<Route
+						path='/authentication/register'
+						element={
+							<PageTransition>
+								<Suspense>
+									<Register />
+								</Suspense>
+							</PageTransition>
+						}
+					/>
+
+					<Route
+						path='/authentication/reset-password'
+						element={
+							<PageTransition>
+								<Suspense>
+									<ResetPassword />
+								</Suspense>
+							</PageTransition>
+						}
+					/>
+				</Route>
+
+				<Route
+					path='*'
+					element={
+						<PageTransition>
+							<NoMatch />
+						</PageTransition>
+					}
+				/>
+			</RRRoutes>
 		</AnimatePresence>
 	);
 };
