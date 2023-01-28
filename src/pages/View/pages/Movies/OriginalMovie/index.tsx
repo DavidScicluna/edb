@@ -17,6 +17,7 @@ import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { keys, pick } from 'lodash';
 import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
 
 import ViewDummyPoster from '../../../components/ViewDummyPoster';
 import { method as defaultOnSetActiveTab } from '../../../../../common/data/defaultPropValues';
@@ -55,6 +56,8 @@ import movieTabs, {
 	photosTabIndex,
 	videosTabIndex
 } from '../common/data/tabs';
+import { guest, setUserRecentlyViewed } from '../../../../../store/slices/Users';
+import { getUpdatedRecentlyViewedList } from '../../../../../common/utils/user';
 
 import MovieActions from './components/MovieActions';
 import { MovieContext as MovieContextType } from './types';
@@ -82,6 +85,9 @@ const Movie: FC = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const dispatch = useDispatch();
+	const { id: userID, recentlyViewed } = useSelector((state) => state.users.data.activeUser.data);
+
 	const userReviews = useSelector(
 		(state) =>
 			state.users.data.activeUser.data.reviews.user.movie.find(({ mediaItem }) => mediaItem?.id === id)?.reviews
@@ -94,7 +100,23 @@ const Movie: FC = () => {
 
 	const movieQuery = useMediaTypeQuery<'movie'>({
 		props: { mediaType: 'movie', id: Number(id) },
-		config: { params: { append_to_response: 'release_dates' } }
+		config: { params: { append_to_response: 'release_dates' } },
+		options: {
+			onSuccess: (movie) => {
+				if (userID !== guest.data.id) {
+					dispatch(
+						setUserRecentlyViewed({
+							id: userID,
+							data: getUpdatedRecentlyViewedList({
+								recentlyViewed,
+								mediaType: 'movie',
+								mediaItem: movie
+							})
+						})
+					);
+				}
+			}
+		}
 	});
 
 	const { data: movie, isFetching: isMovieFetching, isLoading: isMovieLoading } = movieQuery;

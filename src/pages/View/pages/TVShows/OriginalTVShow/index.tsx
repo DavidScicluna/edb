@@ -17,6 +17,7 @@ import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { keys, pick } from 'lodash';
 import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
 
 import ViewDummyPoster from '../../../components/ViewDummyPoster';
 import { method as defaultOnSetActiveTab } from '../../../../../common/data/defaultPropValues';
@@ -59,6 +60,8 @@ import showTabs, {
 	videosTabIndex
 } from '../common/data/tabs';
 import ViewAlert from '../../../components/ViewAlert';
+import { guest, setUserRecentlyViewed } from '../../../../../store/slices/Users';
+import { getUpdatedRecentlyViewedList } from '../../../../../common/utils/user';
 
 import TVShowActions from './components/TVShowActions';
 import { TVShowContext as TVShowContextType } from './types';
@@ -88,6 +91,9 @@ const TVShow: FC = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const dispatch = useDispatch();
+	const { id: userID, recentlyViewed } = useSelector((state) => state.users.data.activeUser.data);
+
 	const userReviews = useSelector(
 		(state) =>
 			state.users.data.activeUser.data.reviews.user.tv.find(({ mediaItem }) => mediaItem?.id === id)?.reviews
@@ -100,7 +106,23 @@ const TVShow: FC = () => {
 
 	const showQuery = useMediaTypeQuery<'tv'>({
 		props: { mediaType: 'tv', id: Number(id) },
-		config: { params: { append_to_response: 'content_ratings' } }
+		config: { params: { append_to_response: 'content_ratings' } },
+		options: {
+			onSuccess: (show) => {
+				if (userID !== guest.data.id) {
+					dispatch(
+						setUserRecentlyViewed({
+							id: userID,
+							data: getUpdatedRecentlyViewedList({
+								recentlyViewed,
+								mediaType: 'tv',
+								mediaItem: show
+							})
+						})
+					);
+				}
+			}
+		}
 	});
 
 	const { data: show, isFetching: isTVShowFetching, isLoading: isTVShowLoading } = showQuery;

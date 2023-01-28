@@ -16,6 +16,7 @@ import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { keys, pick } from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import {
 	useExternalIDsQuery,
@@ -27,7 +28,7 @@ import { useLayoutContext } from '../../../../../containers/Layout/common/hooks'
 import Page from '../../../../../containers/Page';
 import PageBody from '../../../../../containers/Page/components/PageBody';
 import PageHeader from '../../../../../containers/Page/components/PageHeader';
-import { useUserTheme } from '../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../common/hooks';
 import { Suspense, TotalBadge } from '../../../../../components';
 import ViewDummyPoster from '../../../components/ViewDummyPoster';
 import ViewSocials from '../../../components/ViewSocials';
@@ -40,6 +41,8 @@ import DummyCreditsTab from '../components/DummyCreditsTab';
 import PersonsDummyInfo from '../components/PersonsDummyInfo';
 import { ViewParams as PersonParams } from '../../../common/types';
 import personTabs, { creditsTabIndex, photosTabIndex } from '../common/data/tabs';
+import { guest, setUserRecentlyViewed } from '../../../../../store/slices/Users';
+import { getUpdatedRecentlyViewedList } from '../../../../../common/utils/user';
 
 import PersonActions from './components/PersonActions';
 import PersonInfo from './components/PersonInfo';
@@ -65,6 +68,9 @@ const Person: FC = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const dispatch = useDispatch();
+	const { id: userID, recentlyViewed } = useSelector((state) => state.users.data.activeUser.data);
+
 	const [activeTab, setActiveTab] = useState<number>(0);
 	const activeTabDebounced = useDebounce<number>(activeTab);
 
@@ -73,7 +79,25 @@ const Person: FC = () => {
 	const [tvShowDepartments, setTVShowDepartments] = useState<PersonTVShowDepartments>([]);
 	const tvShowDepartmentsDebounced = useDebounce<PersonTVShowDepartments>(tvShowDepartments);
 
-	const personQuery = useMediaTypeQuery<'person'>({ props: { mediaType: 'person', id: Number(id) } });
+	const personQuery = useMediaTypeQuery<'person'>({
+		props: { mediaType: 'person', id: Number(id) },
+		options: {
+			onSuccess: (person) => {
+				if (userID !== guest.data.id) {
+					dispatch(
+						setUserRecentlyViewed({
+							id: userID,
+							data: getUpdatedRecentlyViewedList({
+								recentlyViewed,
+								mediaType: 'person',
+								mediaItem: person
+							})
+						})
+					);
+				}
+			}
+		}
+	});
 
 	const { data: person, isFetching: isPersonFetching, isLoading: isPersonLoading } = personQuery;
 

@@ -7,7 +7,6 @@ import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } f
 import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 import { compact, memoize } from 'lodash';
-import { useDispatch } from 'react-redux';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { axios } from '../scripts';
@@ -16,9 +15,6 @@ import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { FullPerson } from '../types/person';
 import { formatMediaTypeLabel } from '../utils';
-import { useSelector } from '../hooks';
-import { setUserRecentlyViewed, guest } from '../../store/slices/Users';
-import { getUpdatedRecentlyViewedList } from '../utils/user';
 import { Collection, FullMovie } from '../types/movie';
 import { FullTV } from '../types/tv';
 
@@ -67,9 +63,6 @@ const useMediaTypeQuery = <MT extends UseMediaTypeQueryMediaType>({
 }: UseMediaTypeQueryParams<MT>): UseMediaTypeQueryResult<MT> => {
 	const toast = useToast();
 
-	const dispatch = useDispatch();
-	const { id: userID, recentlyViewed } = useSelector((state) => state.users.data.activeUser.data);
-
 	const [toastID, setToastID] = useState<string>(mediaTypeQueryToastID({ mediaType, id }));
 	const [key, setKey] = useState<QueryKey>(mediaTypeQueryKey({ mediaType, id }));
 
@@ -86,20 +79,6 @@ const useMediaTypeQuery = <MT extends UseMediaTypeQueryMediaType>({
 		{
 			...options,
 			enabled: options.enabled || !!id,
-			onSuccess: (data) => {
-				if (userID !== guest.data.id) {
-					dispatch(
-						setUserRecentlyViewed({
-							id: userID,
-							data: getUpdatedRecentlyViewedList({ recentlyViewed, mediaType, mediaItem: data })
-						})
-					);
-				}
-
-				if (options.onSuccess) {
-					options.onSuccess(data);
-				}
-			},
 			onError: (error) => {
 				console.error(error.toJSON());
 

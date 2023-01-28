@@ -15,11 +15,12 @@ import {
 import { useMediaQuery, VStack, Text } from '@chakra-ui/react';
 
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useDispatch } from 'react-redux';
 
 import collectionTabs, { moviesTabIndex, photosTabIndex } from '../common/data/tabs';
 import ViewDummyPoster from '../../../components/ViewDummyPoster';
 import { method as defaultOnSetActiveTab } from '../../../../../common/data/defaultPropValues';
-import { useUserTheme } from '../../../../../common/hooks';
+import { useSelector, useUserTheme } from '../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import { useMediaTypeImagesQuery, useMediaTypeQuery } from '../../../../../common/queries';
 import Page from '../../../../../containers/Page';
@@ -32,6 +33,8 @@ import DummyPartsTab from '../components/DummyPartsTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
 import CollectionsDummyActions from '../components/CollectionsDummyActions';
 import CollectionsDummyInfo from '../components/CollectionsDummyInfo';
+import { guest, setUserRecentlyViewed } from '../../../../../store/slices/Users';
+import { getUpdatedRecentlyViewedList } from '../../../../../common/utils/user';
 
 import CollectionActions from './components/CollectionActions';
 import { CollectionContext as CollectionContextType } from './types';
@@ -56,12 +59,31 @@ const Collection: FC = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const dispatch = useDispatch();
+	const { id: userID, recentlyViewed } = useSelector((state) => state.users.data.activeUser.data);
+
 	// TODO: Go over all useDebounce and check that we are actually using the debounced value not the state!
 	const [activeTab, setActiveTab] = useState<number>(0);
 	const activeTabDebounced = useDebounce<number>(activeTab);
 
 	const collectionQuery = useMediaTypeQuery<'collection'>({
-		props: { mediaType: 'collection', id: Number(id) }
+		props: { mediaType: 'collection', id: Number(id) },
+		options: {
+			onSuccess: (collection) => {
+				if (userID !== guest.data.id) {
+					dispatch(
+						setUserRecentlyViewed({
+							id: userID,
+							data: getUpdatedRecentlyViewedList({
+								recentlyViewed,
+								mediaType: 'collection',
+								mediaItem: collection
+							})
+						})
+					);
+				}
+			}
+		}
 	});
 
 	const { data: collection, isFetching: isCollectionFetching, isLoading: isCollectionLoading } = collectionQuery;
