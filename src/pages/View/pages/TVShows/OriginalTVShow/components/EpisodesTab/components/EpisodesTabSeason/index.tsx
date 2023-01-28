@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { compact, range } from 'lodash';
 
 import { useTVShowSeasonQuery } from '../../../../../../../../../common/queries';
-import TVShowsDummyEpisode from '../../../../../components/TVShowsDummyEpisode';
-import TVShowEpisode from '../../../TVShowEpisode';
+import ViewDummyEpisode from '../../../../../../../components/ViewDummyEpisode';
+import ViewEpisode from '../../../../../../../components/ViewEpisode';
 import { VerticalGrid } from '../../../../../../../../../components';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
 
@@ -27,13 +27,13 @@ const EpisodesTabSeason: FC<EpisodesTabSeasonProps> = ({ id, season: seasonNumbe
 
 	return !isError && (isFetching || isLoading) ? (
 		<VerticalGrid displayMode='list' spacing={spacing}>
-			{() => range(20).map((_dummy, index) => <TVShowsDummyEpisode key={index} hasDate hasOverview />)}
+			{() => range(20).map((_dummy, index) => <ViewDummyEpisode key={index} hasDate hasOverview />)}
 		</VerticalGrid>
 	) : !isError && isSuccess && !!season ? (
 		<VerticalGrid displayMode='list' spacing={spacing}>
 			{() =>
 				episodes.map((episode) => (
-					<TVShowEpisode
+					<ViewEpisode
 						key={episode.id}
 						episode={episode}
 						badgeLabel={compact([

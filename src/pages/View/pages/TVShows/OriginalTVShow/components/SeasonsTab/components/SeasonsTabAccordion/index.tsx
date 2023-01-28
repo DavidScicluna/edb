@@ -31,8 +31,8 @@ import { useTVShowSeasonQuery } from '../../../../../../../../../common/queries'
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../../../../../components/QueryEmpty/common/utils';
 import { formatDate, formatMediaTypeLabel } from '../../../../../../../../../common/utils';
-import TVShowEpisode from '../../../TVShowEpisode';
-import TVShowsDummyEpisode from '../../../../../components/TVShowsDummyEpisode';
+import ViewEpisode from '../../../../../../../components/ViewEpisode';
+import ViewDummyEpisode from '../../../../../../../components/ViewDummyEpisode';
 import { useTVShowContext } from '../../../../common/hooks';
 
 import { SeasonsTabAccordionProps } from './types';
@@ -156,7 +156,7 @@ const SeasonsTabAccordion: FC<SeasonsTabAccordionProps> = (props) => {
 							<VerticalGrid displayMode='list' spacing={spacing}>
 								{() =>
 									episodes.map((episode) => (
-										<TVShowEpisode
+										<ViewEpisode
 											key={episode.id}
 											episode={episode}
 											badgeLabel={
@@ -174,7 +174,7 @@ const SeasonsTabAccordion: FC<SeasonsTabAccordionProps> = (props) => {
 							<VerticalGrid displayMode='list' spacing={spacing}>
 								{() =>
 									range(20).map((_dummy, index) => (
-										<TVShowsDummyEpisode key={index} hasDate hasOverview />
+										<ViewDummyEpisode key={index} hasDate hasOverview />
 									))
 								}
 							</VerticalGrid>
