@@ -21,6 +21,7 @@ import { useUserTheme } from '../../../../../../common/hooks';
 import Gradient from '../Gradient';
 import Footer from '../Footer';
 import { useLayoutContext } from '../../../../common/hooks';
+import RecentlyViewed from '../RecentlyViewed';
 
 import Sidebar from './components/Sidebar';
 import User from './components/User';
@@ -139,6 +140,16 @@ const StructureMobileTablet: FC<StructureMobileTabletProps> = ({ children, devic
 					>
 						{children}
 					</Center>
+
+					{!isGuest && (
+						<Fade
+							in={!isAuthenticationRoute}
+							transition={{ enter: { ...config }, exit: { ...config } }}
+							style={{ width: '100%' }}
+						>
+							<RecentlyViewed />
+						</Fade>
+					)}
 
 					<Fade
 						in={!isAuthenticationRoute}

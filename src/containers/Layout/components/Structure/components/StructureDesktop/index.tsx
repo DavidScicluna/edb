@@ -13,6 +13,7 @@ import useStyle from '../../../../common/styles';
 import { sidebar } from '../../../../common/data/sidebar';
 import Footer from '../Footer';
 import { useLayoutContext } from '../../../../common/hooks';
+import RecentlyViewed from '../RecentlyViewed';
 
 import Sidebar from './components/Sidebar';
 
@@ -21,7 +22,7 @@ const { getTransitionConfig, getTransitionDuration } = utils;
 const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 	const theme = useTheme();
 
-	const { isAuthenticationRoute } = useLayoutContext();
+	const { isAuthenticationRoute, isGuest } = useLayoutContext();
 
 	const sidebarMode = useSelector((state) => state.app.ui.sidebarMode);
 
@@ -67,6 +68,16 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 				<Center width='100%' height='100%' minHeight='inherit' alignItems='stretch' justifyContent='stretch'>
 					{children}
 				</Center>
+
+				{!isGuest && (
+					<Fade
+						in={!isAuthenticationRoute}
+						transition={{ enter: { ...config }, exit: { ...config } }}
+						style={{ width: '100%' }}
+					>
+						<RecentlyViewed />
+					</Fade>
+				)}
 
 				<Fade
 					in={!isAuthenticationRoute}
