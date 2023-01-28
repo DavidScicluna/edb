@@ -161,7 +161,7 @@ const PartsTab: FC = () => {
 					</QueryEmpty>
 				) : !(isFetching || isLoading) && isSuccess && parts.length > 0 ? (
 					<VStack width='100%' spacing={spacing}>
-						<VerticalGrid spacing={spacing}>
+						<VerticalGrid>
 							{({ displayMode }) =>
 								sort([...parts])
 									.desc(({ release_date }) => release_date)
@@ -199,7 +199,7 @@ const PartsTab: FC = () => {
 					</VStack>
 				) : (
 					<VStack width='100%' spacing={spacing}>
-						<VerticalGrid spacing={spacing}>
+						<VerticalGrid>
 							{({ displayMode }) =>
 								range(20).map((_dummy, index) =>
 									displayMode === 'list' ? (

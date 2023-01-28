@@ -36,7 +36,7 @@ const ViewReviewsDummyMyReviews: FC = () => {
 				</DummyButton>
 			)}
 		>
-			<VerticalGrid displayMode='list' spacing={spacing}>
+			<VerticalGrid displayMode='list'>
 				{() => range(2).map((_dummy, index) => <DummyReview key={index} />)}
 			</VerticalGrid>
 		</DummyReviews>

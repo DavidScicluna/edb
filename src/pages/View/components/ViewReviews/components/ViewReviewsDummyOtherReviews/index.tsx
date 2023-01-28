@@ -21,7 +21,7 @@ const ViewReviewsDummyOtherReviews: FC = () => {
 	return (
 		<DummyReviews title='Other Reviews' hasHeader={!isGuest}>
 			<VStack width='100%' spacing={spacing}>
-				<VerticalGrid displayMode='list' spacing={spacing}>
+				<VerticalGrid displayMode='list'>
 					{() => range(5).map((_dummy, index) => <DummyReview key={index} />)}
 				</VerticalGrid>
 

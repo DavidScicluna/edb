@@ -175,7 +175,7 @@ const ViewCrew = <MT extends ViewCrewMediaType>(props: ViewCrewProps<MT>): React
 							}
 							body={
 								<AccordionBody>
-									<VerticalGrid spacing={2}>
+									<VerticalGrid>
 										{({ displayMode }) =>
 											department.map((person) =>
 												displayMode === 'list' ? (

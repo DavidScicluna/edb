@@ -26,11 +26,11 @@ const EpisodesTabSeason: FC<EpisodesTabSeasonProps> = ({ id, season: seasonNumbe
 	const { episodes = [] } = season || {};
 
 	return !isError && (isFetching || isLoading) ? (
-		<VerticalGrid displayMode='list' spacing={spacing}>
+		<VerticalGrid displayMode='list'>
 			{() => range(20).map((_dummy, index) => <ViewDummyEpisode key={index} hasDate hasOverview />)}
 		</VerticalGrid>
 	) : !isError && isSuccess && !!season ? (
-		<VerticalGrid displayMode='list' spacing={spacing}>
+		<VerticalGrid displayMode='list'>
 			{() =>
 				episodes.map((episode) => (
 					<ViewEpisode

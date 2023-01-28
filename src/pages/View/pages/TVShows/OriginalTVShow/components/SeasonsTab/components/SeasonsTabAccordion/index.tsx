@@ -153,7 +153,7 @@ const SeasonsTabAccordion: FC<SeasonsTabAccordionProps> = (props) => {
 								</Paragraph>
 							) : null}
 
-							<VerticalGrid displayMode='list' spacing={spacing}>
+							<VerticalGrid displayMode='list'>
 								{() =>
 									episodes.map((episode) => (
 										<ViewEpisode
@@ -171,7 +171,7 @@ const SeasonsTabAccordion: FC<SeasonsTabAccordionProps> = (props) => {
 						<VStack width='100%' spacing={spacing}>
 							<DummyParagraph />
 
-							<VerticalGrid displayMode='list' spacing={spacing}>
+							<VerticalGrid displayMode='list'>
 								{() =>
 									range(20).map((_dummy, index) => (
 										<ViewDummyEpisode key={index} hasDate hasOverview />

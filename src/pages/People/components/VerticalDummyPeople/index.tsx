@@ -18,7 +18,7 @@ const VerticalDummyPeople: FC = () => {
 
 	return (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (

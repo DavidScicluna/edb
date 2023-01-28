@@ -148,7 +148,7 @@ const ViewCast = <MT extends ViewCastMediaType>(props: ViewCastProps<MT>): React
 		</QueryEmpty>
 	) : !(isFetching || isLoading) && isSuccess && cast.length > 0 ? (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					cast
 						.filter((_person, index) => index < visibleDebounced)
@@ -187,7 +187,7 @@ const ViewCast = <MT extends ViewCastMediaType>(props: ViewCastProps<MT>): React
 		</VStack>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (

@@ -113,7 +113,7 @@ const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query, movies }) => {
 	  movies.results &&
 	  movies.results.length > 0 ? (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					(movies.results || []).map((movie: PartialMovie) =>
 						displayMode === 'list' ? (
@@ -141,7 +141,7 @@ const TrendingMoviesTab: FC<TrendingMoviesTabProps> = ({ query, movies }) => {
 		</VStack>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (

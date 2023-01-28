@@ -146,7 +146,7 @@ const CreditsTabAccordion = <Cast extends PersonCredit, Crew extends PersonCredi
 												}
 											/>
 											<CardBody>
-												<VerticalGrid spacing={2}>
+												<VerticalGrid>
 													{({ displayMode }) =>
 														mediaItems.map((mediaItem) =>
 															displayMode === 'list' && mediaType === 'movie' ? (

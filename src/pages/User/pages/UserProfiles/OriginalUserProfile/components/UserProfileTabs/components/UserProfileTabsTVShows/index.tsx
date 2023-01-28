@@ -62,7 +62,7 @@ const UserProfileTabsTVShows: FC<UserProfileTabsTVShowsProps> = ({ shows }) => {
 		</QueryEmpty>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					sort(shows)
 						.desc((show) => show.addedAt)

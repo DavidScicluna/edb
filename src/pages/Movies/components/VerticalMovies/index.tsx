@@ -107,7 +107,7 @@ const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies, onLoadMore }) 
 	  movies.results &&
 	  movies.results.length > 0 ? (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					(movies.results || []).map((movie: PartialMovie) =>
 						displayMode === 'list' ? (
@@ -132,7 +132,7 @@ const VerticalMovies: FC<VerticalMoviesProps> = ({ query, movies, onLoadMore }) 
 		</VStack>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (

@@ -95,7 +95,7 @@ const ViewReviewsMyReviews = <MT extends ViewReviewsMediaType>(props: ViewReview
 					borderRadius='lg'
 				/>
 			) : reviews.length > 0 ? (
-				<VerticalGrid displayMode='list' spacing={spacing}>
+				<VerticalGrid displayMode='list'>
 					{() =>
 						compact(
 							sort([...reviews])
@@ -114,7 +114,7 @@ const ViewReviewsMyReviews = <MT extends ViewReviewsMediaType>(props: ViewReview
 					}
 				</VerticalGrid>
 			) : (
-				<VerticalGrid displayMode='list' spacing={spacing}>
+				<VerticalGrid displayMode='list'>
 					{() => range(2).map((_dummy, index) => <DummyReview key={index} />)}
 				</VerticalGrid>
 			)}

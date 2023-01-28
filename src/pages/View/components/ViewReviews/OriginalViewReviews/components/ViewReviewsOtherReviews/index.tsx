@@ -175,7 +175,7 @@ const ViewReviewsOtherReviews = <MT extends ViewReviewsMediaType>(
 			  reviewsDebounced.results &&
 			  reviewsDebounced.results.length > 0 ? (
 				<VStack width='100%' spacing={spacing}>
-					<VerticalGrid displayMode='list' spacing={spacing}>
+					<VerticalGrid displayMode='list'>
 						{() =>
 							compact(
 								sort(reviewsDebounced.results || [])
@@ -200,7 +200,7 @@ const ViewReviewsOtherReviews = <MT extends ViewReviewsMediaType>(
 				</VStack>
 			) : (
 				<VStack width='100%' spacing={spacing}>
-					<VerticalGrid displayMode='list' spacing={spacing}>
+					<VerticalGrid displayMode='list'>
 						{() => range(5).map((_dummy, index) => <DummyReview key={index} />)}
 					</VerticalGrid>
 

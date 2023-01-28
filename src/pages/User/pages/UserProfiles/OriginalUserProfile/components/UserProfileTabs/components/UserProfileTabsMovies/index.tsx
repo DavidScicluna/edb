@@ -62,7 +62,7 @@ const UserProfileTabsMovies: FC<UserProfileTabsMoviesProps> = ({ movies }) => {
 		</QueryEmpty>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					sort(movies)
 						.desc((movie) => movie.addedAt)

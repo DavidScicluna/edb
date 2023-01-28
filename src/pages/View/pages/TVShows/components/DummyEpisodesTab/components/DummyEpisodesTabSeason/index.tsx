@@ -10,7 +10,7 @@ const DummyEpisodesTabSeason: FC = () => {
 	const { spacing } = useLayoutContext();
 
 	return (
-		<VerticalGrid displayMode='list' spacing={spacing}>
+		<VerticalGrid displayMode='list'>
 			{() => range(20).map((_dummy, index) => <ViewDummyEpisode key={index} hasDate hasOverview />)}
 		</VerticalGrid>
 	);

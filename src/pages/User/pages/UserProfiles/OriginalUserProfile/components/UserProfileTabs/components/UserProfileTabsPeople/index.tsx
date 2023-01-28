@@ -63,7 +63,7 @@ const UserProfileTabsPeople: FC<UserProfileTabsPeopleProps> = ({ people }) => {
 		</QueryEmpty>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					sort(people)
 						.desc((person) => person.addedAt)

@@ -104,7 +104,7 @@ const GuestStarsTab: FC = () => {
 					/>
 				) : !(isFetching || isLoading) && isSuccess && guests.length > 0 ? (
 					<VStack width='100%' spacing={spacing}>
-						<VerticalGrid spacing={spacing}>
+						<VerticalGrid>
 							{({ displayMode }) =>
 								guests
 									.filter((_person, index) => index < visibleDebounced)
@@ -146,7 +146,7 @@ const GuestStarsTab: FC = () => {
 					</VStack>
 				) : (
 					<VStack width='100%' spacing={spacing}>
-						<VerticalGrid spacing={spacing}>
+						<VerticalGrid>
 							{({ displayMode }) =>
 								range(20).map((_dummy, index) =>
 									displayMode === 'list' ? (

@@ -113,7 +113,7 @@ const TrendingTVShowsTab: FC<TrendingTVShowsTabProps> = ({ query, shows }) => {
 	  shows.results &&
 	  shows.results.length > 0 ? (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					(shows.results || []).map((show: PartialTV) =>
 						displayMode === 'list' ? (
@@ -141,7 +141,7 @@ const TrendingTVShowsTab: FC<TrendingTVShowsTabProps> = ({ query, shows }) => {
 		</VStack>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (
