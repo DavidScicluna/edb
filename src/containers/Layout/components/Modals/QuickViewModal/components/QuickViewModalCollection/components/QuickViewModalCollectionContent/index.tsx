@@ -11,7 +11,7 @@ import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { formatDate, formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import QuickViewModalCollectionActions from '../QuickViewModalCollectionActions';
 import spacing from '../../../../common/data/spacing';
-import { getCollectionFirstLastParts } from '../../../../../../../../../pages/View/pages/Collections/OriginalCollection/common/utils';
+import { getCollectionFirstLastParts } from '../../../../../../../../../pages/View/pages/Collection/OriginalCollection/common/utils';
 import ViewHeroLabel from '../../../../../../../../../pages/View/components/ViewHero/components/ViewHeroLabel';
 import ViewHeroText from '../../../../../../../../../pages/View/components/ViewHero/components/ViewHeroText';
 
