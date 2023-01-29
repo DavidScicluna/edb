@@ -1,13 +1,13 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
-import { range, uniqBy } from 'lodash';
+import { range } from 'lodash';
 
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-import { useSearchInfiniteQuery } from '../../../../../common/queries';
+
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -26,12 +26,12 @@ import {
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
-import { UseSearchInfiniteQueryResponse } from '../../../../../common/queries/useSearchInfiniteQuery';
 import { PartialPerson } from '../../../../../common/types/person';
 
 import { SearchPeopleProps } from './types';
+import { useSearchContext } from '../../common/hooks';
 
-const SearchPeople: FC<SearchPeopleProps> = ({ query = '' }) => {
+const SearchPeople: FC<SearchPeopleProps> = ({ query, data }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -39,29 +39,10 @@ const SearchPeople: FC<SearchPeopleProps> = ({ query = '' }) => {
 
 	const { spacing } = useLayoutContext();
 
-	const [people, setPeople] = useState<UseSearchInfiniteQueryResponse<'person'>>();
+	const { query: search } = useSearchContext();
 
-	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } =
-		useSearchInfiniteQuery<'person'>({
-			props: { mediaType: 'person', query },
-			options: {
-				enabled: !!query,
-				onSuccess: (data) => {
-					let people: PartialPerson[] = [];
-
-					data.pages.forEach((page) => {
-						people = [...people, ...(page?.results || [])];
-					});
-
-					setPeople({
-						page: data.pages[data.pages.length - 1].page,
-						results: uniqBy([...people], 'id'),
-						total_pages: data.pages[data.pages.length - 1].total_pages,
-						total_results: data.pages[data.pages.length - 1].total_results
-					});
-				}
-			}
-		});
+	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
+	const { results = [], total_results = 0 } = data || {};
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
 		<QueryEmpty color={color} colorMode={colorMode}>
@@ -84,20 +65,16 @@ const SearchPeople: FC<SearchPeopleProps> = ({ query = '' }) => {
 						{getEmptySubtitle({
 							type: 'error',
 							label: `${formatMediaTypeLabel({
-								type: (people?.total_results || 0) === 1 ? 'single' : 'multiple',
+								type: total_results === 1 ? 'single' : 'multiple',
 								mediaType: 'person'
-							})} with query "${query}"`
+							})} with query "${search}"`
 						})}
 					</QueryEmptySubtitle>
 				</QueryEmptyBody>
 				<QueryEmptyActions renderActions={(props) => <Button {...props}>Try Again</Button>} />
 			</QueryEmptyStack>
 		</QueryEmpty>
-	) : !(isFetchingNextPage || isFetching || isLoading) &&
-	  isSuccess &&
-	  people &&
-	  people.results &&
-	  people.results.length === 0 ? (
+	) : !(isFetchingNextPage || isFetching || isLoading) && isSuccess && results && results.length === 0 ? (
 		<QueryEmpty color={color} colorMode={colorMode}>
 			<QueryEmptyStack>
 				<QueryEmptyBody>
@@ -106,24 +83,20 @@ const SearchPeople: FC<SearchPeopleProps> = ({ query = '' }) => {
 						{getEmptySubtitle({
 							type: 'empty',
 							label: `${formatMediaTypeLabel({
-								type: (people?.total_results || 0) === 1 ? 'single' : 'multiple',
+								type: total_results === 1 ? 'single' : 'multiple',
 								mediaType: 'person'
-							})} with query "${query}"`
+							})} with query "${search}"`
 						})}
 					</QueryEmptySubtitle>
 				</QueryEmptyBody>
 				<QueryEmptyActions renderActions={(props) => <Button {...props}>Try Again</Button>} />
 			</QueryEmptyStack>
 		</QueryEmpty>
-	) : !(isFetchingNextPage || isFetching || isLoading) &&
-	  isSuccess &&
-	  people &&
-	  people.results &&
-	  people.results.length > 0 ? (
+	) : !(isFetchingNextPage || isFetching || isLoading) && isSuccess && results && results.length > 0 ? (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
-					(people.results || []).map((person: PartialPerson) =>
+					results.map((person: PartialPerson) =>
 						displayMode === 'list' ? (
 							<PersonHorizontalPoster key={person.id} person={person} />
 						) : (
@@ -135,12 +108,12 @@ const SearchPeople: FC<SearchPeopleProps> = ({ query = '' }) => {
 
 			<Center width={isSm ? '100%' : 'auto'}>
 				<LoadMore
-					amount={people?.results?.length || 0}
-					total={people?.total_results || 0}
+					amount={results.length}
+					total={total_results}
 					label={`${formatMediaTypeLabel({
-						type: (people?.total_results || 0) === 1 ? 'single' : 'multiple',
+						type: total_results === 1 ? 'single' : 'multiple',
 						mediaType: 'person'
-					})} with query "${query}"`}
+					})} with query "${search}"`}
 					isLoading={false}
 					isButtonVisible={hasNextPage && !isError}
 					onClick={fetchNextPage}
@@ -149,7 +122,7 @@ const SearchPeople: FC<SearchPeopleProps> = ({ query = '' }) => {
 		</VStack>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (
@@ -163,12 +136,12 @@ const SearchPeople: FC<SearchPeopleProps> = ({ query = '' }) => {
 
 			<Center width={isSm ? '100%' : 'auto'}>
 				<LoadMore
-					amount={people?.results?.length || 0}
-					total={people?.total_results || 0}
+					amount={results.length}
+					total={total_results}
 					label={`${formatMediaTypeLabel({
-						type: (people?.total_results || 0) === 1 ? 'single' : 'multiple',
+						type: total_results === 1 ? 'single' : 'multiple',
 						mediaType: 'person'
-					})} with query "${query}"`}
+					})} with query "${search}"`}
 					isDisabled
 					isLoading
 					isButtonVisible={hasNextPage && !isError}
