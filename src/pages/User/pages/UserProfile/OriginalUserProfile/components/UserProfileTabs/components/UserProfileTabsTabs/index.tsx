@@ -12,6 +12,8 @@ import DummyMoviesTab from '../../../../../../../../Movies/components/VerticalDu
 import DummyPeopleTab from '../../../../../../../../People/components/VerticalDummyPeople';
 import DummyTVShowsTab from '../../../../../../../../TVShows/components/VerticalDummyTVShows';
 import DummyAllTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs/components/DummyAllTab';
+import DummyCollectionsTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsCollections';
+import DummyCompaniesTab from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsCompanies';
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../../../../../common/utils';
@@ -21,6 +23,8 @@ import { UserProfileTabsTabsProps } from './types';
 import { getMediaTypeIndex } from './common/utils';
 
 const AllTab = lazy(() => import('./components/AllTab'));
+const CollectionsTab = lazy(() => import('../UserProfileTabsCollections'));
+const CompaniesTab = lazy(() => import('../UserProfileTabsCompanies'));
 const MoviesTab = lazy(() => import('../UserProfileTabsMovies'));
 const PeopleTab = lazy(() => import('../UserProfileTabsPeople'));
 const TVShowsTab = lazy(() => import('../UserProfileTabsTVShows'));
@@ -235,53 +239,6 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 										: undefined
 							} as TabListTab),
 
-						mediaTypesDebounced.some((mediaType) => mediaType === 'company') &&
-							({
-								label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'company' }),
-								renderLeft: (props) => (
-									<TabIcon
-										{...props}
-										icon={getMediaTypeIcon({ mediaType: 'company' })}
-										category={
-											activeTab ===
-											getMediaTypeIndex({
-												mediaTypes: mediaTypesDebounced,
-												mediaType: 'company'
-											})
-												? 'filled'
-												: 'outlined'
-										}
-									/>
-								),
-								renderRight:
-									company.length > 0
-										? ({ color, ...rest }) => (
-												<TotalBadge
-													{...rest}
-													color={
-														activeTab ===
-														getMediaTypeIndex({
-															mediaTypes: mediaTypesDebounced,
-															mediaType: 'company'
-														})
-															? color
-															: 'gray'
-													}
-													total={company.length}
-													variant={
-														activeTab ===
-														getMediaTypeIndex({
-															mediaTypes: mediaTypesDebounced,
-															mediaType: 'company'
-														})
-															? 'contained'
-															: 'outlined'
-													}
-												/>
-										  )
-										: undefined
-							} as TabListTab),
-
 						mediaTypesDebounced.some((mediaType) => mediaType === 'collection') &&
 							({
 								label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'collection' }),
@@ -320,6 +277,53 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 														getMediaTypeIndex({
 															mediaTypes: mediaTypesDebounced,
 															mediaType: 'collection'
+														})
+															? 'contained'
+															: 'outlined'
+													}
+												/>
+										  )
+										: undefined
+							} as TabListTab),
+
+						mediaTypesDebounced.some((mediaType) => mediaType === 'company') &&
+							({
+								label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'company' }),
+								renderLeft: (props) => (
+									<TabIcon
+										{...props}
+										icon={getMediaTypeIcon({ mediaType: 'company' })}
+										category={
+											activeTab ===
+											getMediaTypeIndex({
+												mediaTypes: mediaTypesDebounced,
+												mediaType: 'company'
+											})
+												? 'filled'
+												: 'outlined'
+										}
+									/>
+								),
+								renderRight:
+									company.length > 0
+										? ({ color, ...rest }) => (
+												<TotalBadge
+													{...rest}
+													color={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'company'
+														})
+															? color
+															: 'gray'
+													}
+													total={company.length}
+													variant={
+														activeTab ===
+														getMediaTypeIndex({
+															mediaTypes: mediaTypesDebounced,
+															mediaType: 'company'
 														})
 															? 'contained'
 															: 'outlined'
@@ -381,16 +385,23 @@ const UserProfileTabsTabs: FC<UserProfileTabsTabsProps> = (props) => {
 							<Suspense key='ds-edb-UserProfileTabsTabs-PeopleTab' fallback={<DummyPeopleTab />}>
 								<PeopleTab people={person} />
 							</Suspense>
+						),
+
+						mediaTypesDebounced.some((mediaType) => mediaType === 'collection') && (
+							<Suspense
+								key='ds-edb-UserProfileTabsTabs-CollectionsTab'
+								fallback={<DummyCollectionsTab />}
+							>
+								<CollectionsTab collections={collection} />
+							</Suspense>
+						),
+
+						mediaTypesDebounced.some((mediaType) => mediaType === 'company') && (
+							<Suspense key='ds-edb-UserProfileTabsTabs-CompaniesTab' fallback={<DummyCompaniesTab />}>
+								<CompaniesTab companies={company} />
+							</Suspense>
 						)
 					])}
-
-					{/* <Suspense fallback={<TrendingDummyTV />}>
-						<TrendingTV />
-					</Suspense>
-
-					<Suspense fallback={<TrendingDummyPeople />}>
-						<TrendingPeople />
-					</Suspense> */}
 				</TabPanels>
 			</VStack>
 		</Tabs>
