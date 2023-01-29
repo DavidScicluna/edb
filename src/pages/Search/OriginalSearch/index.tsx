@@ -1,29 +1,30 @@
-import { FC, useState, useCallback, Fragment, lazy } from 'react';
+import { FC, useState, useCallback, Fragment, lazy, createContext } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
 import {
 	Undefinable,
+	TabsOnChangeProps,
 	useTheme,
 	useDebounce,
 	Button,
 	Divider,
+	AnimatePresence,
 	Fade,
 	Collapse,
 	utils
 } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useBoolean, VStack, Text, Center } from '@chakra-ui/react';
+import { useBoolean, VStack, Text, Center } from '@chakra-ui/react';
 
 import { v4 as uuid } from 'uuid';
-import { AnimatePresence } from 'framer-motion';
 import { useForm, useWatch } from 'react-hook-form';
 import qs from 'query-string';
 import { compact, debounce, uniqBy } from 'lodash';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-
+import { method as defaultOnSetActiveTab } from '../../../common/data/defaultPropValues';
 import Page from '../../../containers/Page';
 import PageBody from '../../../containers/Page/components/PageBody';
 import PageHeader from '../../../containers/Page/components/PageHeader';
@@ -48,6 +49,8 @@ import {
 	Suspense
 } from '../../../components';
 
+import SearchDummyCollections from './components/SearchDummyCollections';
+import SearchDummyCompanies from './components/SearchDummyCompanies';
 import SearchDummyMovies from './components/SearchDummyMovies';
 import SearchDummyTVShows from './components/SearchDummyTVShows';
 import SearchDummyPeople from './components/SearchDummyPeople';
@@ -58,29 +61,36 @@ import {
 	queryDataStatus as defaultQueryDataStatus
 } from './common/data/defaultPropValues';
 import SearchForm from './components/SearchForm';
-import SearchInfoXl from './components/SearchForm/components/SearchInfos/SearchInfoXl';
-import SearchInfoSm from './components/SearchForm/components/SearchInfos/SearchInfoSm';
 import SearchInput from './components/SearchForm/components/SearchInput';
-import { SearchForm as SearchFormType, SearchQueryDataStatus } from './types';
+import { SearchContext as SearchContextType, SearchForm as SearchFormType, SearchQueryDataStatus } from './types';
 import Keywords from './components/SearchForm/components/Keywords';
 import SearchTypes from './components/SearchForm/components/SearchTypes';
 import RecentSearches from './components/SearchForm/components/RecentSearches';
 import { getKeywordsVisibility, getQueryDataStatus } from './common/utils';
 
+import { sort } from 'fast-sort';
+import SearchInfo from './components/SearchForm/components/SearchInfo';
+import { OnKeywordClickProps } from './components/SearchForm/components/Keywords/types';
+
 const SearchTabs = lazy(() => import('./components/SearchTabs'));
 const SearchMovies = lazy(() => import('./components/SearchMovies'));
 const SearchPeople = lazy(() => import('./components/SearchPeople'));
 const SearchTVShows = lazy(() => import('./components/SearchTVShows'));
+const SearchCollections = lazy(() => import('./components/SearchCollections'));
+const SearchCompanies = lazy(() => import('./components/SearchCompanies'));
 
 const { getColor } = utils;
 
 const defaultValues: SearchFormType = { query: '', searchTypes: [] };
 
+export const SearchContext = createContext<SearchContextType>({
+	...defaultValues,
+	onSetActiveTab: defaultOnSetActiveTab
+});
+
 const OriginalSearch: FC = () => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
-
-	const [isSm] = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
 	const { isGuest, spacing } = useLayoutContext();
 
@@ -91,9 +101,8 @@ const OriginalSearch: FC = () => {
 	const id = useSelector((state) => state.users.data.activeUser.data.id);
 	const recentSearches = useSelector((state) => state.users.data.activeUser.data.recentSearches || []);
 
-	const [isKeywordsVisible, setIsKeywordsVisible] = useBoolean();
 	const [isSearchInputFocused, setIsSearchInputFocused] = useBoolean(defaultIsFocused);
-	const [isSubmitQuerySuccessful, setIsSubmitQuerySuccessful] = useBoolean();
+	const [isKeywordsVisible, setIsKeywordsVisible] = useBoolean();
 
 	const [queryDataStatus, setQueryDataStatus] = useState<SearchQueryDataStatus>(defaultQueryDataStatus);
 	const queryDataStatusDebounced = useDebounce<SearchQueryDataStatus>(queryDataStatus);
@@ -104,22 +113,19 @@ const OriginalSearch: FC = () => {
 	const [keywords, setKeywords] = useState<UseKeywordsInfiniteQueryResponse>();
 
 	const [movies, setMovies] = useState<UseSearchInfiniteQueryResponse<'movie'>>();
-	const moviesDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'movie'>>>(movies, 'slow');
+	const moviesDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'movie'>>>(movies);
 
 	const [shows, setShows] = useState<UseSearchInfiniteQueryResponse<'tv'>>();
-	const showsDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'tv'>>>(shows, 'slow');
+	const showsDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'tv'>>>(shows);
 
 	const [people, setPeople] = useState<UseSearchInfiniteQueryResponse<'person'>>();
-	const peopleDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'person'>>>(people, 'slow');
-
-	const [companies, setCompanies] = useState<UseSearchInfiniteQueryResponse<'company'>>();
-	const companiesDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'company'>>>(companies, 'slow');
+	const peopleDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'person'>>>(people);
 
 	const [collections, setCollections] = useState<UseSearchInfiniteQueryResponse<'collection'>>();
-	const collectionsDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'collection'>>>(
-		collections,
-		'slow'
-	);
+	const collectionsDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'collection'>>>(collections);
+
+	const [companies, setCompanies] = useState<UseSearchInfiniteQueryResponse<'company'>>();
+	const companiesDebounced = useDebounce<Undefinable<UseSearchInfiniteQueryResponse<'company'>>>(companies);
 
 	const form = useForm<SearchFormType>({ defaultValues, mode: 'all' });
 
@@ -127,9 +133,10 @@ const OriginalSearch: FC = () => {
 
 	const watchQuery = useWatch({ control, name: 'query' });
 	const watchQueryDebounced = useDebounce(watchQuery);
-	const watchSearchTypes = useWatch({ control, name: 'searchTypes' });
 
-	// Query Keywords
+	const watchSearchTypes = useWatch({ control, name: 'searchTypes' });
+	const watchSearchTypesDebounced = useDebounce(watchSearchTypes);
+
 	const keywordsInfiniteQuery = useKeywordsInfiniteQuery({
 		props: { query: watchQueryDebounced },
 		options: {
@@ -151,19 +158,14 @@ const OriginalSearch: FC = () => {
 		}
 	});
 
-	const { refetch: refetchKeywordsInfiniteQuery, remove: removeKeywordsInfiniteQuery } = keywordsInfiniteQuery;
+	const { refetch: refetchKeywordsInfiniteQuery } = keywordsInfiniteQuery;
 
-	// Searching Movies
-	useSearchInfiniteQuery<'movie'>({
+	const searchMoviesInfiniteQuery = useSearchInfiniteQuery<'movie'>({
 		props: { mediaType: 'movie', query: watchQueryDebounced },
 		options: {
-			enabled:
-				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'movie')) &&
-				isSubmitQuerySuccessful,
+			enabled: false,
 			onSuccess: (data) => {
 				let movies: PartialMovie[] = [];
-
-				setIsSubmitQuerySuccessful.off();
 
 				data.pages.forEach((page) => {
 					movies = [...movies, ...(page?.results || [])];
@@ -179,17 +181,14 @@ const OriginalSearch: FC = () => {
 		}
 	});
 
-	// Searching TV Shows
-	useSearchInfiniteQuery<'tv'>({
+	const { refetch: refetchSearchMoviesInfiniteQuery } = searchMoviesInfiniteQuery;
+
+	const searchShowsInfiniteQuery = useSearchInfiniteQuery<'tv'>({
 		props: { mediaType: 'tv', query: watchQueryDebounced },
 		options: {
-			enabled:
-				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'tv')) &&
-				isSubmitQuerySuccessful,
+			enabled: false,
 			onSuccess: (data) => {
 				let shows: PartialTV[] = [];
-
-				setIsSubmitQuerySuccessful.off();
 
 				data.pages.forEach((page) => {
 					shows = [...shows, ...(page?.results || [])];
@@ -205,17 +204,14 @@ const OriginalSearch: FC = () => {
 		}
 	});
 
-	// Searching People
-	useSearchInfiniteQuery<'person'>({
+	const { refetch: refetchSearchShowsInfiniteQuery } = searchShowsInfiniteQuery;
+
+	const searchPeopleInfiniteQuery = useSearchInfiniteQuery<'person'>({
 		props: { mediaType: 'person', query: watchQueryDebounced },
 		options: {
-			enabled:
-				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'person')) &&
-				isSubmitQuerySuccessful,
+			enabled: false,
 			onSuccess: (data) => {
 				let people: PartialPerson[] = [];
-
-				setIsSubmitQuerySuccessful.off();
 
 				data.pages.forEach((page) => {
 					people = [...people, ...(page?.results || [])];
@@ -231,43 +227,14 @@ const OriginalSearch: FC = () => {
 		}
 	});
 
-	// Searching Companies
-	useSearchInfiniteQuery<'company'>({
-		props: { mediaType: 'company', query: watchQueryDebounced },
-		options: {
-			enabled:
-				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'company')) &&
-				isSubmitQuerySuccessful,
-			onSuccess: (data) => {
-				let companies: PartialCompany[] = [];
+	const { refetch: refetchSearchPeopleInfiniteQuery } = searchPeopleInfiniteQuery;
 
-				setIsSubmitQuerySuccessful.off();
-
-				data.pages.forEach((page) => {
-					companies = [...companies, ...(page?.results || [])];
-				});
-
-				setCompanies({
-					page: data.pages[data.pages.length - 1].page,
-					results: uniqBy([...companies], 'id'),
-					total_pages: data.pages[data.pages.length - 1].total_pages,
-					total_results: data.pages[data.pages.length - 1].total_results
-				});
-			}
-		}
-	});
-
-	// Searching Collections
-	useSearchInfiniteQuery<'collection'>({
+	const searchCollectionsInfiniteQuery = useSearchInfiniteQuery<'collection'>({
 		props: { mediaType: 'collection', query: watchQueryDebounced },
 		options: {
-			enabled:
-				(watchSearchTypes.length === 0 || watchSearchTypes.some((type) => type === 'collection')) &&
-				isSubmitQuerySuccessful,
+			enabled: false,
 			onSuccess: (data) => {
 				let collections: Collection[] = [];
-
-				setIsSubmitQuerySuccessful.off();
 
 				data.pages.forEach((page) => {
 					collections = [...collections, ...(page?.results || [])];
@@ -283,6 +250,36 @@ const OriginalSearch: FC = () => {
 		}
 	});
 
+	const { refetch: refetchSearchCollectionsInfiniteQuery } = searchCollectionsInfiniteQuery;
+
+	const searchCompaniesInfiniteQuery = useSearchInfiniteQuery<'company'>({
+		props: { mediaType: 'company', query: watchQueryDebounced },
+		options: {
+			enabled: false,
+			onSuccess: (data) => {
+				let companies: PartialCompany[] = [];
+
+				data.pages.forEach((page) => {
+					companies = [...companies, ...(page?.results || [])];
+				});
+
+				setCompanies({
+					page: data.pages[data.pages.length - 1].page,
+					results: uniqBy([...companies], 'id'),
+					total_pages: data.pages[data.pages.length - 1].total_pages,
+					total_results: data.pages[data.pages.length - 1].total_results
+				});
+			}
+		}
+	});
+
+	const { refetch: refetchSearchCompaniesInfiniteQuery } = searchCompaniesInfiniteQuery;
+
+	const handleTabChange = ({ index }: TabsOnChangeProps): void => {
+		document.scrollingElement?.scrollTo(0, 0);
+		setTimeout(() => setActiveTab(index), 500);
+	};
+
 	const handleKeywordsVisibility = (): void => {
 		const isVisible = getKeywordsVisibility({
 			location,
@@ -294,13 +291,12 @@ const OriginalSearch: FC = () => {
 		setIsKeywordsVisible[isVisible ? 'on' : 'off']();
 	};
 
-	const handleGetKeywords = (): void => {
-		if (!isSubmitQuerySuccessful) {
-			removeKeywordsInfiniteQuery();
-
-			if (watchQueryDebounced.length > 0) {
-				refetchKeywordsInfiniteQuery();
-			}
+	const handleKeywordClick = ({ name }: OnKeywordClickProps): void => {
+		if (!!name) {
+			handleSubmitQuery({
+				query: name,
+				searchTypes: watchSearchTypesDebounced
+			});
 		}
 	};
 
@@ -310,8 +306,10 @@ const OriginalSearch: FC = () => {
 		const searchTypes =
 			search && search.searchTypes && Array.isArray(search.searchTypes) ? compact(search.searchTypes) : [];
 
+		reset({ query, searchTypes });
+
 		if (query) {
-			setTimeout(() => handleSubmitQuery({ query, searchTypes }), 250);
+			handleSubmitQuery({ query, searchTypes });
 		}
 	};
 
@@ -322,12 +320,12 @@ const OriginalSearch: FC = () => {
 					movies: moviesDebounced?.total_results,
 					shows: showsDebounced?.total_results,
 					people: peopleDebounced?.total_results,
-					companies: companiesDebounced?.total_results,
-					collections: collectionsDebounced?.total_results
+					collections: collectionsDebounced?.total_results,
+					companies: companiesDebounced?.total_results
 				})
 			);
 		}, 250),
-		[moviesDebounced, showsDebounced, peopleDebounced, companiesDebounced, collectionsDebounced, getQueryDataStatus]
+		[moviesDebounced, showsDebounced, peopleDebounced, collectionsDebounced, companiesDebounced]
 	);
 
 	const handleSubmitQuery = useCallback(
@@ -339,35 +337,49 @@ const OriginalSearch: FC = () => {
 			setMovies(undefined);
 			setShows(undefined);
 			setPeople(undefined);
-			setCollections(undefined);
 			setCompanies(undefined);
+			setCollections(undefined);
 
-			reset({ query, searchTypes });
+			reset({ query: query.trim(), searchTypes });
 
 			setActiveTab(defaultActiveTab);
 
 			if (!isGuest) {
 				const newRecentSearches: UserSearch = {
 					id: uuid(),
-					label: query,
+					label: query.trim(),
 					searchedAt: dayjs(new Date()).toISOString(),
 					searchTypes
 				};
-				const updatedRecentSearches: UserSearch[] = uniqBy([...recentSearches, newRecentSearches], 'id');
+				const updatedRecentSearches: UserSearch[] = sort(
+					uniqBy([...recentSearches, newRecentSearches], 'id')
+				).desc(({ searchedAt }) => searchedAt);
 
 				dispatch(setUserRecentSearches({ id, data: [...updatedRecentSearches] }));
 			}
 
-			navigate({ ...location, search: qs.stringify({ query, searchTypes }) });
+			setTimeout(() => {
+				if (searchTypes.length === 0 || searchTypes.some((type) => type === 'movie')) {
+					refetchSearchMoviesInfiniteQuery();
+				}
+				if (searchTypes.length === 0 || searchTypes.some((type) => type === 'tv')) {
+					refetchSearchShowsInfiniteQuery();
+				}
+				if (searchTypes.length === 0 || searchTypes.some((type) => type === 'person')) {
+					refetchSearchPeopleInfiniteQuery();
+				}
+				if (searchTypes.length === 0 || searchTypes.some((type) => type === 'collection')) {
+					refetchSearchCollectionsInfiniteQuery();
+				}
+				if (searchTypes.length === 0 || searchTypes.some((type) => type === 'company')) {
+					refetchSearchCompaniesInfiniteQuery();
+				}
+			}, 250);
 
-			setTimeout(() => setIsSubmitQuerySuccessful.on(), 250);
+			navigate({ ...location, search: qs.stringify({ query: query.trim(), searchTypes }) }, { replace: false });
 		}, 250),
-		[location, id, recentSearches]
+		[defaultActiveTab, isGuest, recentSearches, id, location]
 	);
-
-	const handleClearQuery = (): void => {
-		reset({ ...defaultValues });
-	};
 
 	const handleClearAllQuery = (): void => {
 		setQueryDataStatus('hidden');
@@ -379,29 +391,30 @@ const OriginalSearch: FC = () => {
 		setMovies(undefined);
 		setShows(undefined);
 		setPeople(undefined);
-		setCompanies(undefined);
 		setCollections(undefined);
+		setCompanies(undefined);
 
 		setIsKeywordsVisible.off();
 		setIsSearchInputFocused.on();
-		setIsSubmitQuerySuccessful.off();
 
-		handleClearQuery();
+		reset({ ...defaultValues });
 
-		navigate({ ...location, search: '' });
+		navigate({ ...location, search: '' }, { replace: true });
 	};
 
 	useUpdateEffect(() => {
 		handleKeywordsVisibility();
 	}, [location.search, watchQueryDebounced, isSearchInputFocused, keywords]);
 
-	useUpdateEffect(() => handleGetKeywords(), [watchQueryDebounced]);
-
-	useUpdateEffect(() => setIsSubmitQuerySuccessful.off(), [watchQueryDebounced]);
+	useUpdateEffect(() => {
+		if (watchQueryDebounced.length > 0) {
+			refetchKeywordsInfiniteQuery();
+		}
+	}, [watchQueryDebounced]);
 
 	useUpdateEffect(() => {
 		handleQueryData();
-	}, [moviesDebounced, showsDebounced, peopleDebounced, companiesDebounced, collectionsDebounced]);
+	}, [moviesDebounced, showsDebounced, peopleDebounced, collectionsDebounced, companiesDebounced]);
 
 	useEffectOnce(() => {
 		if (location.search.length > 0) {
@@ -412,188 +425,200 @@ const OriginalSearch: FC = () => {
 	});
 
 	return (
-		<Page>
-			<PageHeader
-				renderTitle={(props) => <Text {...props}>Search</Text>}
-				renderSubtitle={(props) => (
-					<Text {...props}>Search anything from Movies, TV Shows, People, Collections or Companies</Text>
-				)}
-				direction='row'
-				spacing={spacing}
-				px={spacing}
-				py={spacing * 2}
-			/>
-			<PageBody p={spacing}>
-				<VStack
-					width='100%'
-					divider={
-						<Divider
-							colorMode={colorMode}
-							mb={queryDataStatusDebounced !== 'empty' ? '0px !important' : undefined}
-						/>
-					}
-					spacing={spacing}
-				>
-					<SearchForm
-						isFocused={isSearchInputFocused}
-						onFocus={() => setIsSearchInputFocused.on()}
-						onBlur={() => setIsSearchInputFocused.off()}
-					>
-						{{
-							input: (
-								<SearchInput
-									form={form}
-									isFocused={isSearchInputFocused}
-									onFocus={() => setIsSearchInputFocused.on()}
-									onBlur={() => setIsSearchInputFocused.off()}
-									onClearQuery={handleClearQuery}
-									onSubmitQuery={handleSubmitQuery}
-								/>
-							),
-							collapsible: (
-								<AnimatePresence mode='wait' initial={false}>
-									{isKeywordsVisible ? (
-										<Fade
-											key='ds-edb-search-form-collapsible-content-1'
-											in
-											style={{ width: '100%' }}
-										>
-											<Keywords
-												query={keywordsInfiniteQuery}
-												keywords={keywords}
-												onKeywordClick={({ name = '' }) =>
-													handleSubmitQuery({
-														query: name,
-														searchTypes: watchSearchTypes
-													})
-												}
-											/>
-										</Fade>
-									) : (
-										<Fade
-											key='ds-edb-search-form-collapsible-content-2'
-											in
-											style={{ width: '100%' }}
-										>
-											<VStack
-												width='100%'
-												divider={<Divider colorMode={colorMode} />}
-												spacing={2}
-											>
-												<SearchTypes form={form} />
-
-												{!isGuest && recentSearches.length > 0 && (
-													<RecentSearches
-														onSearchClick={({ label, searchTypes = [] }) =>
-															handleSubmitQuery({ query: label, searchTypes })
-														}
-													/>
-												)}
-											</VStack>
-										</Fade>
-									)}
-								</AnimatePresence>
-							),
-							info: (
-								<Collapse
-									in={
-										queryDataStatusDebounced === 'single' || queryDataStatusDebounced === 'multiple'
-									}
-									style={{ width: '100%' }}
-								>
-									{isSm ? (
-										<SearchInfoSm
-											total={{
-												movie: moviesDebounced?.total_results || 0,
-												tv: showsDebounced?.total_results || 0,
-												person: peopleDebounced?.total_results || 0,
-												company: companiesDebounced?.total_results || 0,
-												collection: collectionsDebounced?.total_results || 0
-											}}
-										/>
-									) : (
-										<SearchInfoXl
-											total={{
-												movie: moviesDebounced?.total_results || 0,
-												tv: showsDebounced?.total_results || 0,
-												person: peopleDebounced?.total_results || 0,
-												company: companiesDebounced?.total_results || 0,
-												collection: collectionsDebounced?.total_results || 0
-											}}
-										/>
-									)}
-								</Collapse>
-							)
-						}}
-					</SearchForm>
-
-					{queryDataStatusDebounced === 'empty' ? (
-						<QueryEmpty
-							color={color}
-							colorMode={colorMode}
-							borderWidth='2px'
-							borderStyle='dashed'
-							borderColor={getColor({ theme, colorMode, type: 'divider' })}
-							borderRadius='lg'
-						>
-							<QueryEmptyStack>
-								<QueryEmptyBody>
-									<QueryEmptyTitle />
-									<QueryEmptySubtitle>
-										{`Unfortunately couldn't find anything that match with the query "${watchQueryDebounced}"`}
-									</QueryEmptySubtitle>
-								</QueryEmptyBody>
-								<QueryEmptyActions
-									renderActions={(props) => (
-										<Button {...props} onClick={() => handleClearAllQuery()}>
-											Clear Search
-										</Button>
-									)}
-								/>
-							</QueryEmptyStack>
-						</QueryEmpty>
-					) : (
-						(queryDataStatusDebounced === 'single' || queryDataStatusDebounced === 'multiple') && (
-							<Center width='100%' pt={queryDataStatusDebounced === 'single' ? spacing : 0}>
-								{queryDataStatusDebounced === 'multiple' ? (
-									<Suspense fallback={<SearchDummyTabs />}>
-										<SearchTabs
-											activeTab={activeTabDebounced}
-											movies={moviesDebounced}
-											shows={showsDebounced}
-											people={peopleDebounced}
-											companies={companiesDebounced}
-											collections={collectionsDebounced}
-											onChange={({ index }) => setActiveTab(index)}
-										/>
-									</Suspense>
-								) : (
-									<Fragment>
-										{(moviesDebounced?.total_results || 0) > 0 && (
-											<Suspense fallback={<SearchDummyMovies />}>
-												<SearchMovies query={watchQueryDebounced} />
-											</Suspense>
-										)}
-
-										{(showsDebounced?.total_results || 0) > 0 && (
-											<Suspense fallback={<SearchDummyTVShows />}>
-												<SearchTVShows query={watchQueryDebounced} />
-											</Suspense>
-										)}
-
-										{(peopleDebounced?.total_results || 0) > 0 && (
-											<Suspense fallback={<SearchDummyPeople />}>
-												<SearchPeople query={watchQueryDebounced} />
-											</Suspense>
-										)}
-									</Fragment>
-								)}
-							</Center>
-						)
+		<SearchContext.Provider
+			value={{
+				query: watchQueryDebounced,
+				searchTypes: watchSearchTypesDebounced,
+				onSetActiveTab: handleTabChange
+			}}
+		>
+			<Page>
+				<PageHeader
+					renderTitle={(props) => <Text {...props}>Search</Text>}
+					renderSubtitle={(props) => (
+						<Text {...props}>Search anything from Movies, TV Shows, People, Collections or Companies</Text>
 					)}
-				</VStack>
-			</PageBody>
-		</Page>
+					direction='row'
+					spacing={spacing}
+					px={spacing}
+					py={spacing * 2}
+				/>
+				<PageBody p={spacing}>
+					<VStack
+						width='100%'
+						divider={
+							<Divider
+								colorMode={colorMode}
+								mb={queryDataStatusDebounced !== 'empty' ? '0px !important' : undefined}
+							/>
+						}
+						spacing={spacing}
+					>
+						<SearchForm
+							isFocused={isSearchInputFocused}
+							onFocus={() => setIsSearchInputFocused.on()}
+							onBlur={() => setIsSearchInputFocused.off()}
+						>
+							{{
+								input: (
+									<SearchInput
+										form={form}
+										isFocused={isSearchInputFocused}
+										onFocus={() => setIsSearchInputFocused.on()}
+										onBlur={() => setIsSearchInputFocused.off()}
+										onClearQuery={() => reset({ ...defaultValues })}
+										onSubmitQuery={handleSubmitQuery}
+									/>
+								),
+								collapsible: (
+									<AnimatePresence>
+										{isKeywordsVisible ? (
+											<Fade
+												key='ds-edb-search-form-collapsible-content-1'
+												in
+												style={{ width: '100%' }}
+											>
+												<Keywords
+													query={keywordsInfiniteQuery}
+													keywords={keywords}
+													onKeywordClick={handleKeywordClick}
+												/>
+											</Fade>
+										) : (
+											<Fade
+												key='ds-edb-search-form-collapsible-content-2'
+												in
+												style={{ width: '100%' }}
+											>
+												<VStack
+													width='100%'
+													divider={<Divider colorMode={colorMode} />}
+													spacing={2}
+												>
+													<SearchTypes form={form} />
+
+													{!isGuest && recentSearches.length > 0 && (
+														<RecentSearches
+															onSearchClick={({ label, searchTypes = [] }) =>
+																handleSubmitQuery({ query: label, searchTypes })
+															}
+														/>
+													)}
+												</VStack>
+											</Fade>
+										)}
+									</AnimatePresence>
+								),
+								info: (
+									<Collapse
+										in={
+											queryDataStatusDebounced === 'single' ||
+											queryDataStatusDebounced === 'multiple'
+										}
+										style={{ width: '100%' }}
+									>
+										<SearchInfo
+											total={{
+												movie: moviesDebounced?.total_results || 0,
+												tv: showsDebounced?.total_results || 0,
+												person: peopleDebounced?.total_results || 0,
+												company: companiesDebounced?.total_results || 0,
+												collection: collectionsDebounced?.total_results || 0
+											}}
+										/>
+									</Collapse>
+								)
+							}}
+						</SearchForm>
+
+						{queryDataStatusDebounced === 'empty' ? (
+							<QueryEmpty
+								color={color}
+								colorMode={colorMode}
+								borderWidth='2px'
+								borderStyle='dashed'
+								borderColor={getColor({ theme, colorMode, type: 'divider' })}
+								borderRadius='lg'
+							>
+								<QueryEmptyStack>
+									<QueryEmptyBody>
+										<QueryEmptyTitle />
+										<QueryEmptySubtitle>
+											{`Unfortunately couldn't find anything that match with the query "${watchQueryDebounced}"`}
+										</QueryEmptySubtitle>
+									</QueryEmptyBody>
+									<QueryEmptyActions
+										renderActions={(props) => (
+											<Button {...props} onClick={() => handleClearAllQuery()}>
+												Clear Search
+											</Button>
+										)}
+									/>
+								</QueryEmptyStack>
+							</QueryEmpty>
+						) : (
+							(queryDataStatusDebounced === 'single' || queryDataStatusDebounced === 'multiple') && (
+								<Center width='100%' pt={queryDataStatusDebounced === 'single' ? spacing : 0}>
+									{queryDataStatusDebounced === 'multiple' ? (
+										<Suspense fallback={<SearchDummyTabs />}>
+											<SearchTabs
+												activeTab={activeTabDebounced}
+												movie={{ query: searchMoviesInfiniteQuery, data: movies }}
+												tv={{ query: searchShowsInfiniteQuery, data: shows }}
+												person={{ query: searchPeopleInfiniteQuery, data: people }}
+												collection={{
+													query: searchCollectionsInfiniteQuery,
+													data: collections
+												}}
+												company={{ query: searchCompaniesInfiniteQuery, data: companies }}
+											/>
+										</Suspense>
+									) : (
+										<Fragment>
+											{(moviesDebounced?.total_results || 0) > 0 && (
+												<Suspense fallback={<SearchDummyMovies />}>
+													<SearchMovies query={searchMoviesInfiniteQuery} data={movies} />
+												</Suspense>
+											)}
+
+											{(showsDebounced?.total_results || 0) > 0 && (
+												<Suspense fallback={<SearchDummyTVShows />}>
+													<SearchTVShows query={searchShowsInfiniteQuery} data={shows} />
+												</Suspense>
+											)}
+
+											{(peopleDebounced?.total_results || 0) > 0 && (
+												<Suspense fallback={<SearchDummyPeople />}>
+													<SearchPeople query={searchPeopleInfiniteQuery} data={people} />
+												</Suspense>
+											)}
+
+											{(collectionsDebounced?.total_results || 0) > 0 && (
+												<Suspense fallback={<SearchDummyCollections />}>
+													<SearchCollections
+														query={searchCollectionsInfiniteQuery}
+														data={collections}
+													/>
+												</Suspense>
+											)}
+
+											{(companiesDebounced?.total_results || 0) > 0 && (
+												<Suspense fallback={<SearchDummyCompanies />}>
+													<SearchCompanies
+														query={searchCompaniesInfiniteQuery}
+														data={companies}
+													/>
+												</Suspense>
+											)}
+										</Fragment>
+									)}
+								</Center>
+							)
+						)}
+					</VStack>
+				</PageBody>
+			</Page>
+		</SearchContext.Provider>
 	);
 };
 
