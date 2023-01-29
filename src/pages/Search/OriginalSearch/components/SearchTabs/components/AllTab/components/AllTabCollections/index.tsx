@@ -6,10 +6,10 @@ import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { CollectionVerticalPoster } from '../../../../../../../../../components';
 import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
-
-import { AllTabCollectionsProps } from './types';
 import { useSearchContext } from '../../../../../../common/hooks';
 import { getMediaTypeIndex } from '../../../../common/utils';
+
+import { AllTabCollectionsProps } from './types';
 
 const AllTabCollections: FC<AllTabCollectionsProps> = ({ mediaTypes, collections }) => {
 	const { query, onSetActiveTab } = useSearchContext();

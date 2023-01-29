@@ -7,7 +7,6 @@ import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 import { range } from 'lodash';
 
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -26,10 +25,10 @@ import {
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
-
 import { Collection } from '../../../../../common/types/movie';
-import { SearchCollectionsProps } from './types';
 import { useSearchContext } from '../../common/hooks';
+
+import { SearchCollectionsProps } from './types';
 
 const SearchCollections: FC<SearchCollectionsProps> = ({ query, data }) => {
 	const theme = useTheme();

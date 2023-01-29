@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 
 import { useSelector, useUserTheme } from '../../../../common/hooks';
 import { setQuickViewModal } from '../../../../store/slices/Modals';
-
 import { QuickViewModalMediaType } from '../../../../store/slices/Modals/types';
 
 import { PosterQuickviewProps } from './types';

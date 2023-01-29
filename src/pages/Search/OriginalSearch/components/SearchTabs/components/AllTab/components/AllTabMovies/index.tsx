@@ -6,10 +6,10 @@ import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { MovieVerticalPoster } from '../../../../../../../../../components';
 import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
-
-import { AllTabMoviesProps } from './types';
 import { useSearchContext } from '../../../../../../common/hooks';
 import { getMediaTypeIndex } from '../../../../common/utils';
+
+import { AllTabMoviesProps } from './types';
 
 const AllTabMovies: FC<AllTabMoviesProps> = ({ mediaTypes, movies }) => {
 	const { query, onSetActiveTab } = useSearchContext();

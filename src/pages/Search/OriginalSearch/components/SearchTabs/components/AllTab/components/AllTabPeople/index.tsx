@@ -6,10 +6,10 @@ import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { PersonVerticalPoster } from '../../../../../../../../../components';
 import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
-
-import { AllTabPeopleProps } from './types';
 import { getMediaTypeIndex } from '../../../../common/utils';
 import { useSearchContext } from '../../../../../../common/hooks';
+
+import { AllTabPeopleProps } from './types';
 
 const AllTabPeople: FC<AllTabPeopleProps> = ({ mediaTypes, people }) => {
 	const { query, onSetActiveTab } = useSearchContext();

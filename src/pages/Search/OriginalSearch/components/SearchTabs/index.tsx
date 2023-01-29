@@ -11,7 +11,6 @@ import { activeTab as defaultActiveTab } from '../../common/data/defaultPropValu
 import { useUserTheme } from '../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../common/utils';
-
 import { Suspense, TabDisplayMode, TabIcon, TotalBadge } from '../../../../../components';
 import DummyMoviesTab from '../SearchDummyMovies';
 import DummyPeopleTab from '../SearchDummyPeople';
@@ -20,11 +19,11 @@ import DummyCollectionsTab from '../SearchDummyCollections';
 import DummyCompaniesTab from '../SearchDummyCompanies';
 import DummyAllTab from '../SearchDummyTabs/components/DummyAllTab';
 import { MediaType } from '../../../../../common/types';
+import { useSearchContext } from '../../common/hooks';
 
 import { SearchTabsProps } from './types';
 import { getMediaTypeIndex } from './common/utils';
 
-import { useSearchContext } from '../../common/hooks';
 
 const AllTab = lazy(() => import('./components/AllTab'));
 const MoviesTab = lazy(() => import('../SearchMovies'));

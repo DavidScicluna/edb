@@ -1,4 +1,5 @@
 import { TabsOnChangeProps } from '@davidscicluna/component-library';
+
 import { UserSearchType } from '../../../store/slices/Users/types';
 
 export type SearchForm = { query: string; searchTypes: UserSearchType[] };

@@ -24,6 +24,8 @@ import { compact, debounce, uniqBy } from 'lodash';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
+import { sort } from 'fast-sort';
+
 import { method as defaultOnSetActiveTab } from '../../../common/data/defaultPropValues';
 import Page from '../../../containers/Page';
 import PageBody from '../../../containers/Page/components/PageBody';
@@ -67,8 +69,6 @@ import Keywords from './components/SearchForm/components/Keywords';
 import SearchTypes from './components/SearchForm/components/SearchTypes';
 import RecentSearches from './components/SearchForm/components/RecentSearches';
 import { getKeywordsVisibility, getQueryDataStatus } from './common/utils';
-
-import { sort } from 'fast-sort';
 import SearchInfo from './components/SearchForm/components/SearchInfo';
 import { OnKeywordClickProps } from './components/SearchForm/components/Keywords/types';
 
@@ -292,7 +292,7 @@ const OriginalSearch: FC = () => {
 	};
 
 	const handleKeywordClick = ({ name }: OnKeywordClickProps): void => {
-		if (!!name) {
+		if (name) {
 			handleSubmitQuery({
 				query: name,
 				searchTypes: watchSearchTypesDebounced

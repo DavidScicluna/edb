@@ -7,7 +7,6 @@ import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 import { range } from 'lodash';
 
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -27,9 +26,9 @@ import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import { PartialTV } from '../../../../../common/types/tv';
+import { useSearchContext } from '../../common/hooks';
 
 import { SearchTVShowsProps } from './types';
-import { useSearchContext } from '../../common/hooks';
 
 const SearchTVShows: FC<SearchTVShowsProps> = ({ query, data }) => {
 	const theme = useTheme();

@@ -7,7 +7,6 @@ import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 import { range } from 'lodash';
 
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -27,9 +26,9 @@ import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import { PartialPerson } from '../../../../../common/types/person';
+import { useSearchContext } from '../../common/hooks';
 
 import { SearchPeopleProps } from './types';
-import { useSearchContext } from '../../common/hooks';
 
 const SearchPeople: FC<SearchPeopleProps> = ({ query, data }) => {
 	const theme = useTheme();
