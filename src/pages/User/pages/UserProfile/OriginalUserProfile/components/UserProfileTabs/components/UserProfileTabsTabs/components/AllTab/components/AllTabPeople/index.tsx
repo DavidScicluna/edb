@@ -29,10 +29,10 @@ const AllTabPeople: FC<AllTabPeopleProps> = ({ type, people, onSetActiveTab }) =
 			onFooterClick={onSetActiveTab ? () => onSetActiveTab({ mediaType: 'person' }) : undefined}
 		>
 			{sort(people)
-				.desc((person) => person.addedAt)
+				.desc(({ addedAt }) => addedAt)
 				.filter((_person, index) => index <= limit)
-				.map((person) => (
-					<PersonVerticalPoster key={person.mediaItem.id} person={person.mediaItem} sx={dimensions} />
+				.map(({ mediaItem }) => (
+					<PersonVerticalPoster key={mediaItem.id} person={mediaItem} sx={dimensions} />
 				))}
 		</AllTabHorizontalGrid>
 	);
