@@ -17,7 +17,7 @@ import DummyUserProfile from '../../pages/User/pages/UserProfile/DummyUserProfil
 import DummyMovies from '../../pages/Movies/DummyMovies';
 import DummyMovie from '../../pages/View/pages/Movie/DummyMovie';
 import DummyCollection from '../../pages/View/pages/Collection/DummyCollection';
-import DummyEditUser from '../../pages/User/pages/EditUsers/DummyEditUser';
+import DummyEditUser from '../../pages/User/pages/EditUser/DummyEditUser';
 import DummyPeople from '../../pages/People/DummyPeople';
 import { formatMediaType } from '../../common/utils';
 import { useLayoutContext } from '../Layout/common/hooks';
@@ -29,7 +29,7 @@ const Home = lazy(() => import('../../pages/Home/OriginalHome'));
 const Movies = lazy(() => import('../../pages/Movies/OriginalMovies'));
 const Trending = lazy(() => import('../../pages/Trending/OriginalTrending'));
 const UserProfile = lazy(() => import('../../pages/User/pages/UserProfile/OriginalUserProfile'));
-const EditUser = lazy(() => import('../../pages/User/pages/EditUsers/OriginalEditUser'));
+const EditUser = lazy(() => import('../../pages/User/pages/EditUser/OriginalEditUser'));
 const Search = lazy(() => import('../../pages/Search/OriginalSearch'));
 const TVShows = lazy(() => import('../../pages/TVShows/OriginalTVShows'));
 const People = lazy(() => import('../../pages/People/OriginalPeople'));
