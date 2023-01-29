@@ -8,8 +8,12 @@ import { MovieVerticalPoster } from '../../../../../../../../../components';
 import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { AllTabMoviesProps } from './types';
+import { useSearchContext } from '../../../../../../common/hooks';
+import { getMediaTypeIndex } from '../../../../common/utils';
 
-const AllTabMovies: FC<AllTabMoviesProps> = ({ query, movies, onSetActiveTab }) => {
+const AllTabMovies: FC<AllTabMoviesProps> = ({ mediaTypes, movies }) => {
+	const { query, onSetActiveTab } = useSearchContext();
+
 	const { total_results: total = 0, results = [] } = movies || {};
 
 	return (
@@ -24,7 +28,11 @@ const AllTabMovies: FC<AllTabMoviesProps> = ({ query, movies, onSetActiveTab }) 
 				mediaType: 'movie'
 			})}`}
 			isDisabled={total === 0}
-			onFooterClick={total > 0 && onSetActiveTab ? () => onSetActiveTab({ mediaType: 'movie' }) : undefined}
+			onFooterClick={
+				total > 0 && onSetActiveTab
+					? () => onSetActiveTab({ index: getMediaTypeIndex({ mediaTypes, mediaType: 'movie' }) })
+					: undefined
+			}
 		>
 			{results.map((movie) => (
 				<MovieVerticalPoster key={movie.id} movie={movie} sx={dimensions} />
