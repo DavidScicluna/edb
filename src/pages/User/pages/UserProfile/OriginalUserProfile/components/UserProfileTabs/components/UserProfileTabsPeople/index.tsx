@@ -66,13 +66,13 @@ const UserProfileTabsPeople: FC<UserProfileTabsPeopleProps> = ({ people }) => {
 			<VerticalGrid>
 				{({ displayMode }) =>
 					sort(people)
-						.desc((person) => person.addedAt)
+						.desc(({ addedAt }) => addedAt)
 						.filter((_person, index) => index < visibleDebounced)
-						.map((person) =>
+						.map(({ mediaItem }) =>
 							displayMode === 'list' ? (
-								<PersonHorizontalPoster key={person.mediaItem.id} person={person.mediaItem} />
+								<PersonHorizontalPoster key={mediaItem.id} person={mediaItem} />
 							) : (
-								<PersonVerticalPoster key={person.mediaItem.id} person={person.mediaItem} />
+								<PersonVerticalPoster key={mediaItem.id} person={mediaItem} />
 							)
 						)
 				}
