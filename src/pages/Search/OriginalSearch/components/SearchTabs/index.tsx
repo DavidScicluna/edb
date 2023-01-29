@@ -1,8 +1,6 @@
-import { FC, useState, useCallback, useEffect, lazy } from 'react';
+import { FC, useState, lazy } from 'react';
 
-import { useLocation } from 'react-router';
-
-import { TabsOnChangeProps, TabListTab, Tabs, TabList, TabPanels } from '@davidscicluna/component-library';
+import { TabListTab, Tabs, TabList, TabPanels } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
 
@@ -13,50 +11,47 @@ import { activeTab as defaultActiveTab } from '../../common/data/defaultPropValu
 import { useUserTheme } from '../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../common/utils';
-import { SearchForm } from '../../types';
-import { Suspense, TabBadge, TabDisplayMode, TabIcon } from '../../../../../components';
-import { getQueryFromSearch } from '../../common/utils';
-import SearchDummyMoviesTab from '../SearchDummyMovies';
-import SearchDummyPeopleTab from '../SearchDummyPeople';
-import SearchDummyTVShowsTab from '../SearchDummyTVShows';
+
+import { Suspense, TabDisplayMode, TabIcon, TotalBadge } from '../../../../../components';
+import DummyMoviesTab from '../SearchDummyMovies';
+import DummyPeopleTab from '../SearchDummyPeople';
+import DummyTVShowsTab from '../SearchDummyTVShows';
+import DummyCollectionsTab from '../SearchDummyCollections';
+import DummyCompaniesTab from '../SearchDummyCompanies';
 import DummyAllTab from '../SearchDummyTabs/components/DummyAllTab';
 import { MediaType } from '../../../../../common/types';
 
 import { SearchTabsProps } from './types';
 import { getMediaTypeIndex } from './common/utils';
 
+import { useSearchContext } from '../../common/hooks';
+
 const AllTab = lazy(() => import('./components/AllTab'));
 const MoviesTab = lazy(() => import('../SearchMovies'));
 const PeopleTab = lazy(() => import('../SearchPeople'));
 const TVShowsTab = lazy(() => import('../SearchTVShows'));
+const CollectionsTab = lazy(() => import('../SearchCollections'));
+const CompaniesTab = lazy(() => import('../SearchCompanies'));
 
 const SearchTabs: FC<SearchTabsProps> = (props) => {
 	const { color, colorMode } = useUserTheme();
 
 	const { spacing } = useLayoutContext();
 
-	const location = useLocation();
+	const { onSetActiveTab } = useSearchContext();
 
-	const { activeTab = defaultActiveTab, movies, shows, people, companies, collections, onChange } = props;
+	const { activeTab = defaultActiveTab, movie, tv, person, collection, company } = props;
+	const { data: movies } = movie;
+	const { data: shows } = tv;
+	const { data: people } = person;
+	const { data: collections } = collection;
+	const { data: companies } = company;
 
-	const [query, setQuery] = useState<SearchForm['query']>(getQueryFromSearch({ location }));
-
-	const [searchMediaTypes, setSearchMediaTypes] = useState<MediaType[]>([]);
+	const [mediaTypes, setMediaTypes] = useState<MediaType[]>([]);
 
 	const [total, setTotal] = useState<number>(0);
 
-	const handleTabChange = useCallback(
-		(props: TabsOnChangeProps) => {
-			document.scrollingElement?.scrollTo(0, 0);
-
-			if (onChange) {
-				setTimeout(() => onChange(props), 500);
-			}
-		},
-		[document, onChange]
-	);
-
-	const handleCheckMediaTypes = useCallback(() => {
+	const handleCheckMediaTypes = () => {
 		const searchMediaTypes: MediaType[] = [];
 		let total = 0;
 
@@ -75,23 +70,21 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 			total = total + (people?.total_results || 0);
 		}
 
-		if ((companies?.total_results || 0) > 0) {
-			searchMediaTypes.push('company');
-			total = total + (companies?.total_results || 0);
-		}
-
 		if ((collections?.total_results || 0) > 0) {
 			searchMediaTypes.push('collection');
 			total = total + (collections?.total_results || 0);
 		}
 
-		setSearchMediaTypes([...searchMediaTypes]);
+		if ((companies?.total_results || 0) > 0) {
+			searchMediaTypes.push('company');
+			total = total + (companies?.total_results || 0);
+		}
+
+		setMediaTypes([...searchMediaTypes]);
 		setTotal(total);
-	}, [movies, shows, people, companies, collections]);
+	};
 
 	useEffectOnce(() => handleCheckMediaTypes());
-
-	useEffect(() => setQuery(getQueryFromSearch({ location })), [location.search]);
 
 	return (
 		<Tabs
@@ -99,7 +92,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 			color={color}
 			colorMode={colorMode}
 			activeTab={activeTab}
-			onChange={handleTabChange}
+			onChange={onSetActiveTab}
 			size='xl'
 		>
 			<VStack width='100%' spacing={spacing}>
@@ -110,7 +103,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 							renderRight:
 								total > 0
 									? ({ color, ...rest }) => (
-											<TabBadge
+											<TotalBadge
 												{...rest}
 												color={activeTab === 0 ? color : 'gray'}
 												total={total}
@@ -120,7 +113,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 									: undefined
 						} as TabListTab,
 
-						includes(searchMediaTypes, 'movie')
+						includes(mediaTypes, 'movie')
 							? ({
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
 									renderLeft: (props) => (
@@ -130,7 +123,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 											category={
 												activeTab ===
 												getMediaTypeIndex({
-													mediaTypes: searchMediaTypes,
+													mediaTypes: mediaTypes,
 													mediaType: 'movie'
 												})
 													? 'filled'
@@ -141,12 +134,12 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 									renderRight:
 										(movies?.total_results || 0) > 0
 											? ({ color, ...rest }) => (
-													<TabBadge
+													<TotalBadge
 														{...rest}
 														color={
 															activeTab ===
 															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
+																mediaTypes: mediaTypes,
 																mediaType: 'movie'
 															})
 																? color
@@ -156,7 +149,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 														variant={
 															activeTab ===
 															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
+																mediaTypes: mediaTypes,
 																mediaType: 'movie'
 															})
 																? 'contained'
@@ -168,7 +161,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 							  } as TabListTab)
 							: null,
 
-						includes(searchMediaTypes, 'tv')
+						includes(mediaTypes, 'tv')
 							? ({
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
 									renderLeft: (props) => (
@@ -178,7 +171,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 											category={
 												activeTab ===
 												getMediaTypeIndex({
-													mediaTypes: searchMediaTypes,
+													mediaTypes: mediaTypes,
 													mediaType: 'tv'
 												})
 													? 'filled'
@@ -189,12 +182,12 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 									renderRight:
 										(shows?.total_results || 0) > 0
 											? ({ color, ...rest }) => (
-													<TabBadge
+													<TotalBadge
 														{...rest}
 														color={
 															activeTab ===
 															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
+																mediaTypes: mediaTypes,
 																mediaType: 'tv'
 															})
 																? color
@@ -204,7 +197,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 														variant={
 															activeTab ===
 															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
+																mediaTypes: mediaTypes,
 																mediaType: 'tv'
 															})
 																? 'contained'
@@ -216,7 +209,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 							  } as TabListTab)
 							: null,
 
-						includes(searchMediaTypes, 'person')
+						includes(mediaTypes, 'person')
 							? ({
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
 									renderLeft: (props) => (
@@ -226,7 +219,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 											category={
 												activeTab ===
 												getMediaTypeIndex({
-													mediaTypes: searchMediaTypes,
+													mediaTypes: mediaTypes,
 													mediaType: 'person'
 												})
 													? 'filled'
@@ -237,12 +230,12 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 									renderRight:
 										(people?.total_results || 0) > 0
 											? ({ color, ...rest }) => (
-													<TabBadge
+													<TotalBadge
 														{...rest}
 														color={
 															activeTab ===
 															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
+																mediaTypes: mediaTypes,
 																mediaType: 'person'
 															})
 																? color
@@ -252,7 +245,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 														variant={
 															activeTab ===
 															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
+																mediaTypes: mediaTypes,
 																mediaType: 'person'
 															})
 																? 'contained'
@@ -264,55 +257,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 							  } as TabListTab)
 							: null,
 
-						includes(searchMediaTypes, 'company')
-							? ({
-									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'company' }),
-									renderLeft: (props) => (
-										<TabIcon
-											{...props}
-											icon={getMediaTypeIcon({ mediaType: 'company' })}
-											category={
-												activeTab ===
-												getMediaTypeIndex({
-													mediaTypes: searchMediaTypes,
-													mediaType: 'company'
-												})
-													? 'filled'
-													: 'outlined'
-											}
-										/>
-									),
-									renderRight:
-										(companies?.total_results || 0) > 0
-											? ({ color, ...rest }) => (
-													<TabBadge
-														{...rest}
-														color={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
-																mediaType: 'company'
-															})
-																? color
-																: 'gray'
-														}
-														total={companies?.total_results || 0}
-														variant={
-															activeTab ===
-															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
-																mediaType: 'company'
-															})
-																? 'contained'
-																: 'outlined'
-														}
-													/>
-											  )
-											: undefined
-							  } as TabListTab)
-							: null,
-
-						includes(searchMediaTypes, 'collection')
+						includes(mediaTypes, 'collection')
 							? ({
 									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'collection' }),
 									renderLeft: (props) => (
@@ -322,7 +267,7 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 											category={
 												activeTab ===
 												getMediaTypeIndex({
-													mediaTypes: searchMediaTypes,
+													mediaTypes: mediaTypes,
 													mediaType: 'collection'
 												})
 													? 'filled'
@@ -333,12 +278,12 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 									renderRight:
 										(collections?.total_results || 0) > 0
 											? ({ color, ...rest }) => (
-													<TabBadge
+													<TotalBadge
 														{...rest}
 														color={
 															activeTab ===
 															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
+																mediaTypes: mediaTypes,
 																mediaType: 'collection'
 															})
 																? color
@@ -348,8 +293,56 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 														variant={
 															activeTab ===
 															getMediaTypeIndex({
-																mediaTypes: searchMediaTypes,
+																mediaTypes: mediaTypes,
 																mediaType: 'collection'
+															})
+																? 'contained'
+																: 'outlined'
+														}
+													/>
+											  )
+											: undefined
+							  } as TabListTab)
+							: null,
+
+						includes(mediaTypes, 'company')
+							? ({
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'company' }),
+									renderLeft: (props) => (
+										<TabIcon
+											{...props}
+											icon={getMediaTypeIcon({ mediaType: 'company' })}
+											category={
+												activeTab ===
+												getMediaTypeIndex({
+													mediaTypes: mediaTypes,
+													mediaType: 'company'
+												})
+													? 'filled'
+													: 'outlined'
+											}
+										/>
+									),
+									renderRight:
+										(companies?.total_results || 0) > 0
+											? ({ color, ...rest }) => (
+													<TotalBadge
+														{...rest}
+														color={
+															activeTab ===
+															getMediaTypeIndex({
+																mediaTypes: mediaTypes,
+																mediaType: 'company'
+															})
+																? color
+																: 'gray'
+														}
+														total={companies?.total_results || 0}
+														variant={
+															activeTab ===
+															getMediaTypeIndex({
+																mediaTypes: mediaTypes,
+																mediaType: 'company'
 															})
 																? 'contained'
 																: 'outlined'
@@ -367,48 +360,45 @@ const SearchTabs: FC<SearchTabsProps> = (props) => {
 					{compact([
 						<Suspense key='ds-edb-Search-SearchTabs-AllTab' fallback={<DummyAllTab />}>
 							<AllTab
-								query={query}
+								mediaTypes={mediaTypes}
 								movies={movies}
 								shows={shows}
 								people={people}
 								companies={companies}
 								collections={collections}
-								onSetActiveTab={
-									onChange
-										? ({ mediaType }) =>
-												onChange({
-													index: getMediaTypeIndex({
-														mediaTypes: searchMediaTypes,
-														mediaType
-													})
-												})
-										: undefined
-								}
 							/>
 						</Suspense>,
 
-						includes(searchMediaTypes, 'movie') && (
-							<Suspense key='ds-edb-Search-SearchTabs-MoviesTab' fallback={<SearchDummyMoviesTab />}>
-								<MoviesTab query={query} />
+						includes(mediaTypes, 'movie') && (
+							<Suspense key='ds-edb-Search-SearchTabs-MoviesTab' fallback={<DummyMoviesTab />}>
+								<MoviesTab query={movie.query} data={movies} />
 							</Suspense>
 						),
 
-						includes(searchMediaTypes, 'tv') && (
-							<Suspense key='ds-edb-Search-SearchTabs-TVShowsTab' fallback={<SearchDummyTVShowsTab />}>
-								<TVShowsTab query={query} />
+						includes(mediaTypes, 'tv') && (
+							<Suspense key='ds-edb-Search-SearchTabs-TVShowsTab' fallback={<DummyTVShowsTab />}>
+								<TVShowsTab query={tv.query} data={shows} />
 							</Suspense>
 						),
 
-						includes(searchMediaTypes, 'person') && (
-							<Suspense key='ds-edb-Search-SearchTabs-PeopleTab' fallback={<SearchDummyPeopleTab />}>
-								<PeopleTab query={query} />
+						includes(mediaTypes, 'person') && (
+							<Suspense key='ds-edb-Search-SearchTabs-PeopleTab' fallback={<DummyPeopleTab />}>
+								<PeopleTab query={person.query} data={people} />
+							</Suspense>
+						),
+
+						includes(mediaTypes, 'collection') && (
+							<Suspense key='ds-edb-Search-SearchTabs-CollectionsTab' fallback={<DummyCollectionsTab />}>
+								<CollectionsTab query={collection.query} data={collections} />
+							</Suspense>
+						),
+
+						includes(mediaTypes, 'company') && (
+							<Suspense key='ds-edb-Search-SearchTabs-CompaniesTab' fallback={<DummyCompaniesTab />}>
+								<CompaniesTab query={company.query} data={companies} />
 							</Suspense>
 						)
 					])}
-
-					{/* {includes(searchMediaTypes, 'company') &&}
-
-					{includes(searchMediaTypes, 'collection') &&} */}
 				</TabPanels>
 			</VStack>
 		</Tabs>
