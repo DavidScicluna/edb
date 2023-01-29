@@ -8,9 +8,13 @@ import { TVShowVerticalPoster } from '../../../../../../../../../components';
 import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { AllTabShowsProps } from './types';
+import { useSearchContext } from '../../../../../../common/hooks';
+import { getMediaTypeIndex } from '../../../../common/utils';
 
-const AllTabShows: FC<AllTabShowsProps> = ({ query, shows, onSetActiveTab }) => {
-	const { total_results: total = 0, results = [] } = shows || {};
+const AllTabShows: FC<AllTabShowsProps> = ({ mediaTypes, shows }) => {
+	const { query, onSetActiveTab } = useSearchContext();
+
+	const { results = [], total_results: total = 0 } = shows || {};
 
 	return (
 		<AllTabHorizontalGrid
@@ -24,7 +28,11 @@ const AllTabShows: FC<AllTabShowsProps> = ({ query, shows, onSetActiveTab }) => 
 				mediaType: 'tv'
 			})}`}
 			isDisabled={total === 0}
-			onFooterClick={total > 0 && onSetActiveTab ? () => onSetActiveTab({ mediaType: 'tv' }) : undefined}
+			onFooterClick={
+				total > 0 && onSetActiveTab
+					? () => onSetActiveTab({ index: getMediaTypeIndex({ mediaTypes, mediaType: 'tv' }) })
+					: undefined
+			}
 		>
 			{results.map((show) => (
 				<TVShowVerticalPoster key={show.id} show={show} sx={dimensions} />

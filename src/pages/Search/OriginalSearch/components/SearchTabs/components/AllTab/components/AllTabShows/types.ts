@@ -1,3 +1,3 @@
 import { AllTabProps } from '../../types';
 
-export type AllTabShowsProps = Pick<AllTabProps, 'query' | 'shows' | 'onSetActiveTab'>;
+export type AllTabShowsProps = Pick<AllTabProps, 'mediaTypes' | 'shows'>;
