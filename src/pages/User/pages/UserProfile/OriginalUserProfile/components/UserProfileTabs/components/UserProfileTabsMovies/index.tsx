@@ -65,13 +65,13 @@ const UserProfileTabsMovies: FC<UserProfileTabsMoviesProps> = ({ movies }) => {
 			<VerticalGrid>
 				{({ displayMode }) =>
 					sort(movies)
-						.desc((movie) => movie.addedAt)
+						.desc(({ addedAt }) => addedAt)
 						.filter((_movie, index) => index < visibleDebounced)
-						.map((movie) =>
+						.map(({ mediaItem }) =>
 							displayMode === 'list' ? (
-								<MovieHorizontalPoster key={movie.mediaItem.id} movie={movie.mediaItem} />
+								<MovieHorizontalPoster key={mediaItem.id} movie={mediaItem} />
 							) : (
-								<MovieVerticalPoster key={movie.mediaItem.id} movie={movie.mediaItem} />
+								<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} />
 							)
 						)
 				}
