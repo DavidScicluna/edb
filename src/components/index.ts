@@ -40,6 +40,7 @@ import DummyParagraph from './Paragraphs/DummyParagraph';
 import Paragraph from './Paragraphs/Paragraph';
 import CollectionHorizontalPoster from './Posters/CollectionHorizontalPoster';
 import CollectionVerticalPoster from './Posters/CollectionVerticalPoster';
+import CompanyVerticalPoster from './Posters/CompanyVerticalPoster';
 import DummyHorizontalPoster from './Posters/DummyHorizontalPoster';
 import DummyVerticalPoster from './Posters/DummyVerticalPoster';
 import MovieHorizontalPoster from './Posters/MovieHorizontalPoster';
@@ -109,6 +110,7 @@ export {
 	Paragraph,
 	CollectionHorizontalPoster,
 	CollectionVerticalPoster,
+	CompanyVerticalPoster,
 	DummyHorizontalPoster,
 	DummyVerticalPoster,
 	MovieHorizontalPoster,
