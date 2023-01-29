@@ -1,6 +1,14 @@
 import { FC } from 'react';
 
-import { useTheme, IconButton, IconButtonIcon, Badge, BadgeLabel, ScaleFade } from '@davidscicluna/component-library';
+import {
+	IconButtonMouseEvent,
+	useTheme,
+	IconButton,
+	IconButtonIcon,
+	Badge,
+	BadgeLabel,
+	ScaleFade
+} from '@davidscicluna/component-library';
 
 import { useMediaQuery, useConst, useBoolean, Text } from '@chakra-ui/react';
 
@@ -66,7 +74,7 @@ const RecentSearch: FC<RecentSearchProps> = (props) => {
 						<IconButton
 							aria-label={`Remove "${label}" search from recent searches list`}
 							colorMode={colorMode}
-							onClick={(event) => {
+							onClick={(event: IconButtonMouseEvent) => {
 								event.preventDefault();
 								event.stopPropagation();
 

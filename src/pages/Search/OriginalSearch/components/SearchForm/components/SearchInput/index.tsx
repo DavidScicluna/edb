@@ -86,7 +86,7 @@ const SearchInput: FC<SearchInputProps> = (props) => {
 	});
 
 	return (
-		<Form onSubmit={handleSubmit((values) => onSubmitQuery({ ...values }))}>
+		<Form width='100%' onSubmit={handleSubmit(onSubmitQuery)}>
 			<HStack
 				width='100%'
 				minHeight='30px' // Size of SearchTypes
