@@ -29,10 +29,10 @@ const AllTabMovies: FC<AllTabMoviesProps> = ({ type, movies, onSetActiveTab }) =
 			onFooterClick={onSetActiveTab ? () => onSetActiveTab({ mediaType: 'movie' }) : undefined}
 		>
 			{sort(movies)
-				.desc((movie) => movie.addedAt)
+				.desc(({ addedAt }) => addedAt)
 				.filter((_movie, index) => index <= limit)
-				.map((movie) => (
-					<MovieVerticalPoster key={movie.mediaItem.id} movie={movie.mediaItem} sx={dimensions} />
+				.map(({ mediaItem }) => (
+					<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={dimensions} />
 				))}
 		</AllTabHorizontalGrid>
 	);
