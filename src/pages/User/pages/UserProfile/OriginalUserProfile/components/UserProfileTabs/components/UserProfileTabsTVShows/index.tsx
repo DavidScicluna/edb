@@ -65,13 +65,13 @@ const UserProfileTabsTVShows: FC<UserProfileTabsTVShowsProps> = ({ shows }) => {
 			<VerticalGrid>
 				{({ displayMode }) =>
 					sort(shows)
-						.desc((show) => show.addedAt)
+						.desc(({ addedAt }) => addedAt)
 						.filter((_show, index) => index < visibleDebounced)
-						.map((show) =>
+						.map(({ mediaItem }) =>
 							displayMode === 'list' ? (
-								<TVShowHorizontalPoster key={show.mediaItem.id} show={show.mediaItem} />
+								<TVShowHorizontalPoster key={mediaItem.id} show={mediaItem} />
 							) : (
-								<TVShowVerticalPoster key={show.mediaItem.id} show={show.mediaItem} />
+								<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} />
 							)
 						)
 				}
