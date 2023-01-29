@@ -14,6 +14,8 @@ import { MediaType } from '../../../../../../../../../common/types';
 import DummyTVShows from '../../../../../../../../TVShows/components/VerticalDummyTVShows';
 import DummyMovies from '../../../../../../../../Movies/components/VerticalDummyMovies';
 import DummyPeople from '../../../../../../../../People/components/VerticalDummyPeople';
+import DummyCollections from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsCollections';
+import DummyCompanies from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsCompanies';
 import DummyTabs from '../../../../../DummyUserProfile/components/DummyUserProfileTabs/components/DummyUserProfileTabsTabs';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 
@@ -22,6 +24,8 @@ import { MyLikesTabStatus } from './types';
 import MyLikesTabEmpty from './components/MyLikesTabEmpty';
 
 const Tabs = lazy(() => import('../UserProfileTabsTabs'));
+const Collections = lazy(() => import('../UserProfileTabsCollections'));
+const Companies = lazy(() => import('../UserProfileTabsCompanies'));
 const Movies = lazy(() => import('../UserProfileTabsMovies'));
 const People = lazy(() => import('../UserProfileTabsPeople'));
 const TVShows = lazy(() => import('../UserProfileTabsTVShows'));
@@ -145,6 +149,18 @@ const MyLikesTab: FC = () => {
 								{liked.person.length > 0 && (
 									<Suspense fallback={<DummyPeople />}>
 										<People people={liked.person} />
+									</Suspense>
+								)}
+
+								{liked.collection.length > 0 && (
+									<Suspense fallback={<DummyCollections />}>
+										<Collections collections={liked.collection} />
+									</Suspense>
+								)}
+
+								{liked.company.length > 0 && (
+									<Suspense fallback={<DummyCompanies />}>
+										<Companies companies={liked.company} />
 									</Suspense>
 								)}
 							</Fragment>
