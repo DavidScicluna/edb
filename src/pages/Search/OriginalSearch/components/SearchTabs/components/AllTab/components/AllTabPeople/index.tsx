@@ -8,8 +8,12 @@ import { PersonVerticalPoster } from '../../../../../../../../../components';
 import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { AllTabPeopleProps } from './types';
+import { getMediaTypeIndex } from '../../../../common/utils';
+import { useSearchContext } from '../../../../../../common/hooks';
 
-const AllTabPeople: FC<AllTabPeopleProps> = ({ query, people, onSetActiveTab }) => {
+const AllTabPeople: FC<AllTabPeopleProps> = ({ mediaTypes, people }) => {
+	const { query, onSetActiveTab } = useSearchContext();
+
 	const { total_results: total = 0, results = [] } = people || {};
 
 	return (
@@ -24,7 +28,11 @@ const AllTabPeople: FC<AllTabPeopleProps> = ({ query, people, onSetActiveTab }) 
 				mediaType: 'person'
 			})}`}
 			isDisabled={total === 0}
-			onFooterClick={total > 0 && onSetActiveTab ? () => onSetActiveTab({ mediaType: 'person' }) : undefined}
+			onFooterClick={
+				total > 0 && onSetActiveTab
+					? () => onSetActiveTab({ index: getMediaTypeIndex({ mediaTypes, mediaType: 'person' }) })
+					: undefined
+			}
 		>
 			{results.map((person) => (
 				<PersonVerticalPoster key={person.id} person={person} sx={dimensions} />
