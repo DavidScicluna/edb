@@ -9,10 +9,10 @@ import { useColorMode, Text } from '@chakra-ui/react';
 import Marquee from 'react-fast-marquee';
 import { parseToRgba } from 'color2k';
 
-import { getQueryFromSearch, getSearchTypesFromSearch } from '../../../../../common/utils';
-import { SearchForm } from '../../../../../types';
-import { SearchInfosCommonProps as SearchInfoSmProps } from '../common/types';
-import { getLabel, getTotal } from '../common/utils';
+import { getQueryFromSearch, getSearchTypesFromSearch } from '../../../../../../common/utils';
+import { SearchForm } from '../../../../../../types';
+import { SearchInfosCommonProps as SearchInfoSmProps } from '../../common/types';
+import { getLabel, getTotal } from '../../common/utils';
 
 const { getColor } = utils;
 

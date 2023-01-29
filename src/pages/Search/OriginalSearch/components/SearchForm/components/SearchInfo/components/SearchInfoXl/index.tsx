@@ -10,10 +10,10 @@ import { useCountUp } from 'react-countup';
 import { memoize, truncate } from 'lodash';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
-import { getQueryFromSearch, getSearchTypesFromSearch } from '../../../../../common/utils';
-import { SearchForm } from '../../../../../types';
-import { SearchInfosCommonProps as SearchInfoXlProps } from '../common/types';
-import { getLabel, getTotal } from '../common/utils';
+import { getQueryFromSearch, getSearchTypesFromSearch } from '../../../../../../common/utils';
+import { SearchForm } from '../../../../../../types';
+import { SearchInfosCommonProps as SearchInfoXlProps } from '../../common/types';
+import { getLabel, getTotal } from '../../common/utils';
 
 const { convertStringToNumber, getColor } = utils;
 
