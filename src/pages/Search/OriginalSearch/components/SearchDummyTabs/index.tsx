@@ -7,6 +7,8 @@ import { VStack } from '@chakra-ui/react';
 import { useUserTheme } from '../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../common/utils';
+import SearchCollectionsTab from '../SearchCollections';
+import SearchCompaniesTab from '../SearchCompanies';
 import SearchDummyMoviesTab from '../SearchDummyMovies';
 import SearchDummyPeopleTab from '../SearchDummyPeople';
 import SearchDummyTVShowsTab from '../SearchDummyTVShows';
@@ -48,6 +50,10 @@ const SearchDummyTabs: FC = () => {
 					<SearchDummyTVShowsTab />
 
 					<SearchDummyPeopleTab />
+
+					<SearchCollectionsTab />
+
+					<SearchCompaniesTab />
 				</TabPanels>
 			</VStack>
 		</Tabs>
