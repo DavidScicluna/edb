@@ -1,1 +1,3 @@
-export type SearchMoviesProps = { query?: string };
+import { CommonSearchProps } from '../../common/types';
+
+export type SearchMoviesProps = CommonSearchProps<'movie'>;

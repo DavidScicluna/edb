@@ -1,13 +1,13 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 
 import { useMediaQuery, VStack, Center } from '@chakra-ui/react';
 
-import { range, uniqBy } from 'lodash';
+import { range } from 'lodash';
 
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
-import { useSearchInfiniteQuery } from '../../../../../common/queries';
+
 import { PartialMovie } from '../../../../../common/types/movie';
 import {
 	QueryEmpty,
@@ -27,11 +27,11 @@ import {
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
-import { UseSearchInfiniteQueryResponse } from '../../../../../common/queries/useSearchInfiniteQuery';
 
 import { SearchMoviesProps } from './types';
+import { useSearchContext } from '../../common/hooks';
 
-const SearchMovies: FC<SearchMoviesProps> = ({ query = '' }) => {
+const SearchMovies: FC<SearchMoviesProps> = ({ query, data }) => {
 	const theme = useTheme();
 	const { color, colorMode } = useUserTheme();
 
@@ -39,29 +39,10 @@ const SearchMovies: FC<SearchMoviesProps> = ({ query = '' }) => {
 
 	const { spacing } = useLayoutContext();
 
-	const [movies, setMovies] = useState<UseSearchInfiniteQueryResponse<'movie'>>();
+	const { query: search } = useSearchContext();
 
-	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } =
-		useSearchInfiniteQuery<'movie'>({
-			props: { mediaType: 'movie', query },
-			options: {
-				enabled: !!query,
-				onSuccess: (data) => {
-					let movies: PartialMovie[] = [];
-
-					data.pages.forEach((page) => {
-						movies = [...movies, ...(page?.results || [])];
-					});
-
-					setMovies({
-						page: data.pages[data.pages.length - 1].page,
-						results: uniqBy([...movies], 'id'),
-						total_pages: data.pages[data.pages.length - 1].total_pages,
-						total_results: data.pages[data.pages.length - 1].total_results
-					});
-				}
-			}
-		});
+	const { isFetchingNextPage, isFetching, isLoading, isError, isSuccess, hasNextPage, fetchNextPage } = query;
+	const { results = [], total_results = 0 } = data || {};
 
 	return !(isFetchingNextPage || isFetching || isLoading) && isError ? (
 		<QueryEmpty color={color} colorMode={colorMode}>
@@ -84,20 +65,16 @@ const SearchMovies: FC<SearchMoviesProps> = ({ query = '' }) => {
 						{getEmptySubtitle({
 							type: 'error',
 							label: `${formatMediaTypeLabel({
-								type: (movies?.total_results || 0) === 1 ? 'single' : 'multiple',
+								type: total_results === 1 ? 'single' : 'multiple',
 								mediaType: 'movie'
-							})} with query "${query}"`
+							})} with query "${search}"`
 						})}
 					</QueryEmptySubtitle>
 				</QueryEmptyBody>
 				<QueryEmptyActions renderActions={(props) => <Button {...props}>Try Again</Button>} />
 			</QueryEmptyStack>
 		</QueryEmpty>
-	) : !(isFetchingNextPage || isFetching || isLoading) &&
-	  isSuccess &&
-	  movies &&
-	  movies.results &&
-	  movies.results.length === 0 ? (
+	) : !(isFetchingNextPage || isFetching || isLoading) && isSuccess && results && results.length === 0 ? (
 		<QueryEmpty color={color} colorMode={colorMode}>
 			<QueryEmptyStack>
 				<QueryEmptyBody>
@@ -106,24 +83,20 @@ const SearchMovies: FC<SearchMoviesProps> = ({ query = '' }) => {
 						{getEmptySubtitle({
 							type: 'empty',
 							label: `${formatMediaTypeLabel({
-								type: (movies?.total_results || 0) === 1 ? 'single' : 'multiple',
+								type: total_results === 1 ? 'single' : 'multiple',
 								mediaType: 'movie'
-							})} with query "${query}"`
+							})} with query "${search}"`
 						})}
 					</QueryEmptySubtitle>
 				</QueryEmptyBody>
 				<QueryEmptyActions renderActions={(props) => <Button {...props}>Try Again</Button>} />
 			</QueryEmptyStack>
 		</QueryEmpty>
-	) : !(isFetchingNextPage || isFetching || isLoading) &&
-	  isSuccess &&
-	  movies &&
-	  movies.results &&
-	  movies.results.length > 0 ? (
+	) : !(isFetchingNextPage || isFetching || isLoading) && isSuccess && results && results.length > 0 ? (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
-					(movies.results || []).map((movie: PartialMovie) =>
+					results.map((movie: PartialMovie) =>
 						displayMode === 'list' ? (
 							<MovieHorizontalPoster key={movie.id} movie={movie} />
 						) : (
@@ -135,12 +108,12 @@ const SearchMovies: FC<SearchMoviesProps> = ({ query = '' }) => {
 
 			<Center width={isSm ? '100%' : 'auto'}>
 				<LoadMore
-					amount={movies?.results?.length || 0}
-					total={movies?.total_results || 0}
+					amount={results.length}
+					total={total_results}
 					label={`${formatMediaTypeLabel({
-						type: (movies?.total_results || 0) === 1 ? 'single' : 'multiple',
+						type: total_results === 1 ? 'single' : 'multiple',
 						mediaType: 'movie'
-					})} with query "${query}"`}
+					})} with query "${search}"`}
 					isLoading={false}
 					isButtonVisible={hasNextPage && !isError}
 					onClick={fetchNextPage}
@@ -149,7 +122,7 @@ const SearchMovies: FC<SearchMoviesProps> = ({ query = '' }) => {
 		</VStack>
 	) : (
 		<VStack width='100%' spacing={spacing}>
-			<VerticalGrid spacing={spacing}>
+			<VerticalGrid>
 				{({ displayMode }) =>
 					range(20).map((_dummy, index) =>
 						displayMode === 'list' ? (
@@ -163,12 +136,12 @@ const SearchMovies: FC<SearchMoviesProps> = ({ query = '' }) => {
 
 			<Center width={isSm ? '100%' : 'auto'}>
 				<LoadMore
-					amount={movies?.results?.length || 0}
-					total={movies?.total_results || 0}
+					amount={results.length}
+					total={total_results}
 					label={`${formatMediaTypeLabel({
-						type: (movies?.total_results || 0) === 1 ? 'single' : 'multiple',
+						type: total_results === 1 ? 'single' : 'multiple',
 						mediaType: 'movie'
-					})} with query "${query}"`}
+					})} with query "${search}"`}
 					isDisabled
 					isLoading
 					isButtonVisible={hasNextPage && !isError}
