@@ -89,7 +89,7 @@ const useSearchInfiniteQuery = <MT extends UseSearchInfiniteQueryMediaType>({
 		},
 		{
 			...options,
-			enabled: options.enabled || !!query,
+			enabled: String(options.enabled) ? options.enabled : !!query,
 			getPreviousPageParam: (firstPage) => {
 				return firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false;
 			},

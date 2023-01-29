@@ -79,7 +79,7 @@ const useMediaTypeReviewsInfiniteQuery = ({
 		},
 		{
 			...options,
-			enabled: options.enabled || !!id,
+			enabled: String(options.enabled) ? options.enabled : !!id,
 			getPreviousPageParam: (firstPage) => {
 				return firstPage.page !== 1 ? (firstPage?.page || 0) - 1 : false;
 			},

@@ -78,7 +78,7 @@ const useMediaTypeRecommendationsQuery = <MT extends UseMediaTypeRecommendations
 		},
 		{
 			...options,
-			enabled: options.enabled || !!id,
+			enabled: String(options.enabled) ? options.enabled : !!id,
 			onError: (error) => {
 				console.error(error.toJSON());
 
