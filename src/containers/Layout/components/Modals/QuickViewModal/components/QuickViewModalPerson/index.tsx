@@ -12,8 +12,8 @@ import QuickViewModalEmpty from '../QuickViewModalEmpty';
 import {
 	PersonMovieDepartments,
 	PersonTVShowDepartments
-} from '../../../../../../../pages/View/pages/Persons/OriginalPerson/types';
-import { getDepartments } from '../../../../../../../pages/View/pages/Persons/OriginalPerson/common/utils';
+} from '../../../../../../../pages/View/pages/Person/OriginalPerson/types';
+import { getDepartments } from '../../../../../../../pages/View/pages/Person/OriginalPerson/common/utils';
 
 import QuickViewModalPersonContent from './components/QuickViewModalPersonContent';
 import QuickViewModalPersonPoster from './components/QuickViewModalPersonPoster';

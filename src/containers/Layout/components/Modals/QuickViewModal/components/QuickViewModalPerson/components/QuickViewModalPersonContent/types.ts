@@ -3,7 +3,7 @@ import { CommonQuickViewModalPersonProps } from '../../common/types';
 import {
 	PersonMovieDepartments,
 	PersonTVShowDepartments
-} from '../../../../../../../../../pages/View/pages/Persons/OriginalPerson/types';
+} from '../../../../../../../../../pages/View/pages/Person/OriginalPerson/types';
 
 export type QuickViewModalPersonContentProps = CommonQuickViewModalPersonProps & {
 	movieCredits?: MovieCredits;

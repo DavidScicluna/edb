@@ -7,7 +7,7 @@ import { AnimatePresence } from '@davidscicluna/component-library';
 import Authentication from '../../pages/User/pages/Authentication';
 import { Suspense } from '../../components';
 import DummySearch from '../../pages/Search/DummySearch';
-import DummyPerson from '../../pages/View/pages/Persons/DummyPerson';
+import DummyPerson from '../../pages/View/pages/Person/DummyPerson';
 import DummyHome from '../../pages/Home/DummyHome';
 import DummyTrending from '../../pages/Trending/DummyTrending';
 import DummyTVShows from '../../pages/TVShows/DummyTVShows';
@@ -33,7 +33,7 @@ const EditUser = lazy(() => import('../../pages/User/pages/EditUsers/OriginalEdi
 const Search = lazy(() => import('../../pages/Search/OriginalSearch'));
 const TVShows = lazy(() => import('../../pages/TVShows/OriginalTVShows'));
 const People = lazy(() => import('../../pages/People/OriginalPeople'));
-const Person = lazy(() => import('../../pages/View/pages/Persons/OriginalPerson'));
+const Person = lazy(() => import('../../pages/View/pages/Person/OriginalPerson'));
 const ResetPassword = lazy(() => import('../../pages/User/pages/Authentication/pages/ResetPassword'));
 const Collection = lazy(() => import('../../pages/View/pages/Collection/OriginalCollection'));
 const Episode = lazy(() => import('../../pages/View/pages/Episode/OriginalEpisode'));
