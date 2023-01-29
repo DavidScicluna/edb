@@ -11,7 +11,7 @@ import DummyPerson from '../../pages/View/pages/Person/DummyPerson';
 import DummyHome from '../../pages/Home/DummyHome';
 import DummyTrending from '../../pages/Trending/DummyTrending';
 import DummyTVShows from '../../pages/TVShows/DummyTVShows';
-import DummyTVShow from '../../pages/View/pages/TVShows/DummyTVShow';
+import DummyTVShow from '../../pages/View/pages/TVShow/DummyTVShow';
 import DummyEpisode from '../../pages/View/pages/Episode/DummyEpisode';
 import DummyUserProfile from '../../pages/User/pages/UserProfiles/DummyUserProfile';
 import DummyMovies from '../../pages/Movies/DummyMovies';
@@ -40,7 +40,7 @@ const Episode = lazy(() => import('../../pages/View/pages/Episode/OriginalEpisod
 const Signin = lazy(() => import('../../pages/User/pages/Authentication/pages/Signin'));
 const Register = lazy(() => import('../../pages/User/pages/Authentication/pages/Register'));
 const Movie = lazy(() => import('../../pages/View/pages/Movie/OriginalMovie'));
-const TVShow = lazy(() => import('../../pages/View/pages/TVShows/OriginalTVShow'));
+const TVShow = lazy(() => import('../../pages/View/pages/TVShow/OriginalTVShow'));
 
 const Routes: FC = () => {
 	const location = useLocation();
