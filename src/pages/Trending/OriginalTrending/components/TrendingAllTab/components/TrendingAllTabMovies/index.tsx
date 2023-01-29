@@ -5,7 +5,7 @@ import { useTheme, Button, Icon } from '@davidscicluna/component-library';
 import { range } from 'lodash';
 import numbro from 'numbro';
 
-import width from '../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../components/Posters/common/data/dimensions';
 import {
 	QueryEmpty,
 	QueryEmptyStack,
@@ -97,13 +97,13 @@ const TrendingAllTabMovies: FC<TrendingAllTabMoviesProps> = ({ query, movies, on
 			) : !(isFetching || isLoading) && isSuccess && results && results.length > 0 ? (
 				<HorizontalGridScroll>
 					{results.map((movie) => (
-						<MovieVerticalPoster key={movie.id} movie={movie} sx={{ width }} />
+						<MovieVerticalPoster key={movie.id} movie={movie} sx={dimensions} />
 					))}
 				</HorizontalGridScroll>
 			) : (
 				<HorizontalGridScroll>
 					{range(20).map((_dummy, index) => (
-						<DummyVerticalPoster key={index} mediaType='movie' hasSubtitle sx={{ width }} />
+						<DummyVerticalPoster key={index} mediaType='movie' hasSubtitle sx={dimensions} />
 					))}
 				</HorizontalGridScroll>
 			)}

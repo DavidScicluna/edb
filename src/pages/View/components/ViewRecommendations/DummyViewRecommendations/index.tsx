@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { range } from 'lodash';
 
-import width from '../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../components/Posters/common/data/dimensions';
 import { useUserTheme } from '../../../../../common/hooks';
 import {
 	DummyHorizontalGrid,
@@ -28,7 +28,7 @@ const DummyViewRecommendations = <MT extends ViewRecommendationsMediaType>(
 			<DummyHorizontalGridBody>
 				<DummyHorizontalGridScroll>
 					{range(20).map((_dummy, index) => (
-						<DummyVerticalPoster key={index} mediaType={mediaType} hasSubtitle sx={{ width }} />
+						<DummyVerticalPoster key={index} mediaType={mediaType} hasSubtitle sx={dimensions} />
 					))}
 				</DummyHorizontalGridScroll>
 			</DummyHorizontalGridBody>

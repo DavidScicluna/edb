@@ -8,7 +8,7 @@ import { range, uniqBy } from 'lodash';
 import { useUpdateEffect } from 'usehooks-ts';
 import numbro from 'numbro';
 
-import width from '../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
 import {
 	HorizontalGrid,
 	HorizontalGridHeader,
@@ -151,14 +151,14 @@ const OverviewTabTopCast: FC = () => {
 												.join(', ')
 										: undefined
 								}
-								sx={{ width }}
+								sx={dimensions}
 							/>
 						))}
 					</HorizontalGridScroll>
 				) : (
 					<HorizontalGridScroll>
 						{range(20).map((_dummy, index) => (
-							<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={{ width }} />
+							<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={dimensions} />
 						))}
 					</HorizontalGridScroll>
 				)}

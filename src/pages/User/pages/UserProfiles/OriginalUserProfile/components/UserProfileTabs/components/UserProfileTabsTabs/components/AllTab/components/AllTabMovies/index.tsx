@@ -6,7 +6,7 @@ import { sort } from 'fast-sort';
 import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../../../common/utils';
 import { MovieVerticalPoster } from '../../../../../../../../../../../../../components';
-import width from '../../../../../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { AllTabMoviesProps } from './types';
 
@@ -32,7 +32,7 @@ const AllTabMovies: FC<AllTabMoviesProps> = ({ type, movies, onSetActiveTab }) =
 				.desc((movie) => movie.addedAt)
 				.filter((_movie, index) => index <= limit)
 				.map((movie) => (
-					<MovieVerticalPoster key={movie.mediaItem.id} movie={movie.mediaItem} sx={{ width }} />
+					<MovieVerticalPoster key={movie.mediaItem.id} movie={movie.mediaItem} sx={dimensions} />
 				))}
 		</AllTabHorizontalGrid>
 	);

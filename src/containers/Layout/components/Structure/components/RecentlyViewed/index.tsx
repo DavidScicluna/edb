@@ -8,7 +8,7 @@ import { sort } from 'fast-sort';
 import numbro from 'numbro';
 import { compact } from 'lodash';
 
-import width from '../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../components/Posters/common/data/dimensions';
 import { useSelector, useUserTheme } from '../../../../../../common/hooks';
 import {
 	HorizontalGrid,
@@ -73,20 +73,20 @@ const RecentlyViewed: FC = () => {
 									.filter((_mediaItem, index) => index < 20)
 									.map(({ mediaType, mediaItem }) =>
 										mediaType === 'movie' ? (
-											<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={{ width }} />
+											<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={dimensions} />
 										) : mediaType === 'tv' ? (
-											<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={{ width }} />
+											<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={dimensions} />
 										) : mediaType === 'person' ? (
 											<PersonVerticalPoster
 												key={mediaItem.id}
 												person={mediaItem}
-												sx={{ width }}
+												sx={dimensions}
 											/>
 										) : mediaType === 'collection' ? (
 											<CollectionVerticalPoster
 												key={mediaItem.id}
 												collection={mediaItem}
-												sx={{ width }}
+												sx={dimensions}
 											/>
 										) : null
 									)

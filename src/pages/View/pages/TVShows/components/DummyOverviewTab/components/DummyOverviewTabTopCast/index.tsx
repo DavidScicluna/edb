@@ -14,7 +14,7 @@ import {
 	DummyHorizontalGridFooter,
 	DummyVerticalPoster
 } from '../../../../../../../../components';
-import width from '../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../components/Posters/common/data/dimensions';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 
 const DummyOverviewTabTopCast: FC = () => {
@@ -29,7 +29,7 @@ const DummyOverviewTabTopCast: FC = () => {
 			<DummyHorizontalGridBody>
 				<DummyHorizontalGridScroll>
 					{range(20).map((_dummy, index) => (
-						<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={{ width }} />
+						<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={dimensions} />
 					))}
 				</DummyHorizontalGridScroll>
 			</DummyHorizontalGridBody>

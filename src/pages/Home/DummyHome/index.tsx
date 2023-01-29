@@ -18,7 +18,7 @@ import PageBody from '../../../containers/Page/components/PageBody';
 import { useUserTheme } from '../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
-import width from '../../../components/Posters/common/data/width';
+import dimensions from '../../../components/Posters/common/data/dimensions';
 
 const { getColor } = utils;
 
@@ -64,7 +64,7 @@ const DummyHome: FC = () => {
 												key={index}
 												mediaType='movie'
 												hasSubtitle
-												sx={{ width }}
+												sx={dimensions}
 											/>
 										))}
 									</Fragment>

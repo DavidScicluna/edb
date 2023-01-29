@@ -23,7 +23,7 @@ import {
 	PersonVerticalPoster
 } from '../../../../../../../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
-import width from '../../../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { OverviewTabLikedPeopleProps } from './types';
 
@@ -95,7 +95,7 @@ const OverviewTabLikedPeople: FC<OverviewTabLikedPeopleProps> = ({ onTabChange }
 								<PersonVerticalPoster
 									key={person.mediaItem.id}
 									person={person.mediaItem}
-									sx={{ width }}
+									sx={dimensions}
 								/>
 							))}
 					</HorizontalGridScroll>

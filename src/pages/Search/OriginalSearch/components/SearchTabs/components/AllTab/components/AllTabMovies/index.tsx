@@ -5,7 +5,7 @@ import numbro from 'numbro';
 import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { MovieVerticalPoster } from '../../../../../../../../../components';
-import width from '../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { AllTabMoviesProps } from './types';
 
@@ -27,7 +27,7 @@ const AllTabMovies: FC<AllTabMoviesProps> = ({ query, movies, onSetActiveTab }) 
 			onFooterClick={total > 0 && onSetActiveTab ? () => onSetActiveTab({ mediaType: 'movie' }) : undefined}
 		>
 			{results.map((movie) => (
-				<MovieVerticalPoster key={movie.id} movie={movie} sx={{ width }} />
+				<MovieVerticalPoster key={movie.id} movie={movie} sx={dimensions} />
 			))}
 		</AllTabHorizontalGrid>
 	);

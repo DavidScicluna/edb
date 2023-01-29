@@ -6,7 +6,7 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 import { range, sample } from 'lodash';
 
-import width from '../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../components/Posters/common/data/dimensions';
 import { useUserTheme } from '../../../../../../../../common/hooks';
 import {
 	DummyHorizontalGrid,
@@ -35,7 +35,7 @@ const DummyKnownFor: FC = () => {
 							key={index}
 							mediaType={sample(randoms) === 0 ? 'movie' : 'tv'}
 							hasSubtitle
-							sx={{ width }}
+							sx={dimensions}
 						/>
 					))}
 				</DummyHorizontalGridScroll>

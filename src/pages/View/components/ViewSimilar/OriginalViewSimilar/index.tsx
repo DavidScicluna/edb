@@ -7,7 +7,7 @@ import { Text } from '@chakra-ui/react';
 import { compact, range, uniqBy } from 'lodash';
 import { sort } from 'fast-sort';
 
-import width from '../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../components/Posters/common/data/dimensions';
 import { useUserTheme } from '../../../../../common/hooks';
 import {
 	HorizontalGrid,
@@ -145,9 +145,9 @@ const ViewSimilar = <MT extends ViewSimilarMediaType>(props: ViewSimilarProps<MT
 						{compact(
 							mediaItemsDebounced.map((mediaItem) =>
 								mediaType === 'movie' ? (
-									<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={{ width }} />
+									<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={dimensions} />
 								) : mediaType === 'tv' ? (
-									<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={{ width }} />
+									<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={dimensions} />
 								) : null
 							)
 						)}
@@ -155,7 +155,7 @@ const ViewSimilar = <MT extends ViewSimilarMediaType>(props: ViewSimilarProps<MT
 				) : (
 					<HorizontalGridScroll>
 						{range(20).map((_dummy, index) => (
-							<DummyVerticalPoster key={index} mediaType={mediaType} hasSubtitle sx={{ width }} />
+							<DummyVerticalPoster key={index} mediaType={mediaType} hasSubtitle sx={dimensions} />
 						))}
 					</HorizontalGridScroll>
 				)}

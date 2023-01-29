@@ -24,7 +24,7 @@ import {
 	TVShowVerticalPoster
 } from '../../../../../../../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
-import width from '../../../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { OverviewTabWatchlistProps } from './types';
 
@@ -94,9 +94,9 @@ const OverviewTabWatchlist: FC<OverviewTabWatchlistProps> = ({ onTabChange }) =>
 							.filter((_mediaItem, index) => index <= limit)
 							.map(({ mediaType, mediaItem }) =>
 								mediaType === 'movie' ? (
-									<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={{ width }} />
+									<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={dimensions} />
 								) : (
-									<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={{ width }} />
+									<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={dimensions} />
 								)
 							)}
 					</HorizontalGridScroll>

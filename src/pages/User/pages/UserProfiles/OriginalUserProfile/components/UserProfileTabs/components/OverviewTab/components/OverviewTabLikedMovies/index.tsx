@@ -23,7 +23,7 @@ import {
 	MovieVerticalPoster
 } from '../../../../../../../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
-import width from '../../../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { OverviewTabLikedMoviesProps } from './types';
 
@@ -92,7 +92,7 @@ const OverviewTabLikedMovies: FC<OverviewTabLikedMoviesProps> = ({ onTabChange }
 							.desc(({ mediaItem }) => mediaItem.popularity)
 							.filter((_movie, index) => index <= limit)
 							.map((movie) => (
-								<MovieVerticalPoster key={movie.mediaItem.id} movie={movie.mediaItem} sx={{ width }} />
+								<MovieVerticalPoster key={movie.mediaItem.id} movie={movie.mediaItem} sx={dimensions} />
 							))}
 					</HorizontalGridScroll>
 				)}

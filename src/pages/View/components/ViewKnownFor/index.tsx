@@ -8,7 +8,7 @@ import { compact, range, sample } from 'lodash';
 import { useUpdateEffect } from 'usehooks-ts';
 import numbro from 'numbro';
 
-import width from '../../../../components/Posters/common/data/width';
+import dimensions from '../../../../components/Posters/common/data/dimensions';
 import { useUserTheme } from '../../../../common/hooks';
 import {
 	HorizontalGrid,
@@ -114,9 +114,9 @@ const ViewKnownFor: FC<ViewKnownForProps> = (props) => {
 						{compact(
 							knownForDebounced.map((mediaItem) =>
 								mediaItem.media_type === 'movie' ? (
-									<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={{ width }} />
+									<MovieVerticalPoster key={mediaItem.id} movie={mediaItem} sx={dimensions} />
 								) : mediaItem.media_type === 'tv' ? (
-									<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={{ width }} />
+									<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={dimensions} />
 								) : null
 							)
 						)}
@@ -128,7 +128,7 @@ const ViewKnownFor: FC<ViewKnownForProps> = (props) => {
 								key={index}
 								mediaType={sample(['movie', 'tv']) as MediaType}
 								hasSubtitle
-								sx={{ width }}
+								sx={dimensions}
 							/>
 						))}
 					</HorizontalGridScroll>

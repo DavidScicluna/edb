@@ -23,7 +23,7 @@ import {
 	TVShowVerticalPoster
 } from '../../../../../../../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../common/utils';
-import width from '../../../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { OverviewTabLikedTVShowsProps } from './types';
 
@@ -92,7 +92,7 @@ const OverviewTabLikedTVShows: FC<OverviewTabLikedTVShowsProps> = ({ onTabChange
 							.desc(({ mediaItem }) => mediaItem.popularity)
 							.filter((_show, index) => index <= limit)
 							.map((show) => (
-								<TVShowVerticalPoster key={show.mediaItem.id} show={show.mediaItem} sx={{ width }} />
+								<TVShowVerticalPoster key={show.mediaItem.id} show={show.mediaItem} sx={dimensions} />
 							))}
 					</HorizontalGridScroll>
 				)}

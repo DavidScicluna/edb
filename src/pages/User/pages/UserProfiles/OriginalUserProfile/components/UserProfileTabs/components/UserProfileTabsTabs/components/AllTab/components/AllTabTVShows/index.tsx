@@ -6,7 +6,7 @@ import { sort } from 'fast-sort';
 import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../../../common/utils';
 import { TVShowVerticalPoster } from '../../../../../../../../../../../../../components';
-import width from '../../../../../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { AllTabTVShowsProps } from './types';
 
@@ -32,7 +32,7 @@ const AllTabTVShows: FC<AllTabTVShowsProps> = ({ type, shows, onSetActiveTab }) 
 				.desc((show) => show.addedAt)
 				.filter((_show, index) => index <= limit)
 				.map((show) => (
-					<TVShowVerticalPoster key={show.mediaItem.id} show={show.mediaItem} sx={{ width }} />
+					<TVShowVerticalPoster key={show.mediaItem.id} show={show.mediaItem} sx={dimensions} />
 				))}
 		</AllTabHorizontalGrid>
 	);

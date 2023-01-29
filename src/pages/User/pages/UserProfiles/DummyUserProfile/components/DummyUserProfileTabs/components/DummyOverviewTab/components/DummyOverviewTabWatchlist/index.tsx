@@ -15,7 +15,7 @@ import {
 	DummyHorizontalGridFooter,
 	DummyVerticalPoster
 } from '../../../../../../../../../../../components';
-import width from '../../../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../../../components/Posters/common/data/dimensions';
 
 const OverviewTabWatchlist: FC = () => {
 	const theme = useTheme();
@@ -34,7 +34,7 @@ const OverviewTabWatchlist: FC = () => {
 							key={index}
 							mediaType={index % 2 ? 'tv' : 'movie'}
 							hasSubtitle
-							sx={{ width }}
+							sx={dimensions}
 						/>
 					))}
 				</DummyHorizontalGridScroll>

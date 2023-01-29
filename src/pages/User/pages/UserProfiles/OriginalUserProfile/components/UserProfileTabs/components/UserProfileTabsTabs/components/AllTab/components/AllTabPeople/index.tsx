@@ -6,7 +6,7 @@ import { sort } from 'fast-sort';
 import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../../../../../common/utils';
 import { PersonVerticalPoster } from '../../../../../../../../../../../../../components';
-import width from '../../../../../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { AllTabPeopleProps } from './types';
 
@@ -32,7 +32,7 @@ const AllTabPeople: FC<AllTabPeopleProps> = ({ type, people, onSetActiveTab }) =
 				.desc((person) => person.addedAt)
 				.filter((_person, index) => index <= limit)
 				.map((person) => (
-					<PersonVerticalPoster key={person.mediaItem.id} person={person.mediaItem} sx={{ width }} />
+					<PersonVerticalPoster key={person.mediaItem.id} person={person.mediaItem} sx={dimensions} />
 				))}
 		</AllTabHorizontalGrid>
 	);

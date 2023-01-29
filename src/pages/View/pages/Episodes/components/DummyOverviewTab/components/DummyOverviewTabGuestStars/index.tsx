@@ -6,7 +6,7 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 import { range } from 'lodash';
 
-import width from '../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../components/Posters/common/data/dimensions';
 import {
 	DummyHorizontalGrid,
 	DummyHorizontalGridHeader,
@@ -29,7 +29,7 @@ const DummyOverviewTabGuestStars: FC = () => {
 			<DummyHorizontalGridBody>
 				<DummyHorizontalGridScroll>
 					{range(20).map((_dummy, index) => (
-						<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={{ width }} />
+						<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={dimensions} />
 					))}
 				</DummyHorizontalGridScroll>
 			</DummyHorizontalGridBody>

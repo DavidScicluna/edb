@@ -26,7 +26,7 @@ import {
 } from '../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
-import width from '../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../components/Posters/common/data/dimensions';
 
 import { HomeHorizontalGridProps } from './types';
 
@@ -142,10 +142,10 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 							</QueryEmptyStack>
 						</QueryEmpty>
 					) : !isLoading.movie && isSuccess.movie && data.movie && data.movie.length > 0 ? (
-						data.movie.map((movie) => <MovieVerticalPoster key={movie.id} movie={movie} sx={{ width }} />)
+						data.movie.map((movie) => <MovieVerticalPoster key={movie.id} movie={movie} sx={dimensions} />)
 					) : (
 						range(20).map((_dummy, index) => (
-							<DummyVerticalPoster key={index} mediaType='movie' hasSubtitle sx={{ width }} />
+							<DummyVerticalPoster key={index} mediaType='movie' hasSubtitle sx={dimensions} />
 						))
 					)}
 				</Fragment>
@@ -200,10 +200,10 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 							</QueryEmptyStack>
 						</QueryEmpty>
 					) : !isLoading.tv && isSuccess.tv && data.tv && data.tv.length > 0 ? (
-						data.tv.map((show) => <TVShowVerticalPoster key={show.id} show={show} sx={{ width }} />)
+						data.tv.map((show) => <TVShowVerticalPoster key={show.id} show={show} sx={dimensions} />)
 					) : (
 						range(20).map((_dummy, index) => (
-							<DummyVerticalPoster key={index} mediaType='tv' hasSubtitle sx={{ width }} />
+							<DummyVerticalPoster key={index} mediaType='tv' hasSubtitle sx={dimensions} />
 						))
 					)}
 				</Fragment>
@@ -259,11 +259,11 @@ const HomeHorizontalGrid: FC<HomeHorizontalGridProps> = (props) => {
 						</QueryEmpty>
 					) : !isLoading.person && isSuccess.person && data.person && data.person.length > 0 ? (
 						data.person.map((person) => (
-							<PersonVerticalPoster key={person.id} person={person} sx={{ width }} />
+							<PersonVerticalPoster key={person.id} person={person} sx={dimensions} />
 						))
 					) : (
 						range(20).map((_dummy, index) => (
-							<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={{ width }} />
+							<DummyVerticalPoster key={index} mediaType='person' hasSubtitle sx={dimensions} />
 						))
 					)}
 				</Fragment>

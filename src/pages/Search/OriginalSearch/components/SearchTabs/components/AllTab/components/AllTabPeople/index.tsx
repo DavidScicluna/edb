@@ -5,7 +5,7 @@ import numbro from 'numbro';
 import AllTabHorizontalGrid from '../AllTabHorizontalGrid';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { PersonVerticalPoster } from '../../../../../../../../../components';
-import width from '../../../../../../../../../components/Posters/common/data/width';
+import dimensions from '../../../../../../../../../components/Posters/common/data/dimensions';
 
 import { AllTabPeopleProps } from './types';
 
@@ -27,7 +27,7 @@ const AllTabPeople: FC<AllTabPeopleProps> = ({ query, people, onSetActiveTab }) 
 			onFooterClick={total > 0 && onSetActiveTab ? () => onSetActiveTab({ mediaType: 'person' }) : undefined}
 		>
 			{results.map((person) => (
-				<PersonVerticalPoster key={person.id} person={person} sx={{ width }} />
+				<PersonVerticalPoster key={person.id} person={person} sx={dimensions} />
 			))}
 		</AllTabHorizontalGrid>
 	);
