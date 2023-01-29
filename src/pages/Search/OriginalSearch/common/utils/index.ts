@@ -6,7 +6,7 @@ import qs from 'query-string';
 import { SearchQueryDataStatus, SearchForm } from '../../types';
 
 type GetKeywordsVisibilityProps = {
-	location: Location;
+	location: Partial<Location>;
 	watchQuery: string;
 	isSearchInputFocused?: boolean;
 	total?: number;
@@ -15,7 +15,7 @@ type GetKeywordsVisibilityProps = {
 export const getKeywordsVisibility = memoize((props: GetKeywordsVisibilityProps): boolean => {
 	const { location, watchQuery, isSearchInputFocused = false, total = 0 } = props;
 
-	const search = qs.parse(location.search);
+	const search = qs.parse(location.search || '');
 	const query = search && search.query && typeof search.query === 'string' ? search.query : '';
 
 	return watchQuery.length > 0 && watchQuery !== query && isSearchInputFocused && total > 0;
