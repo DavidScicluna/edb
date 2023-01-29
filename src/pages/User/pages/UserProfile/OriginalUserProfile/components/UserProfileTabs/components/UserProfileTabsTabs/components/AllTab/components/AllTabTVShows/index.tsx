@@ -29,10 +29,10 @@ const AllTabTVShows: FC<AllTabTVShowsProps> = ({ type, shows, onSetActiveTab }) 
 			onFooterClick={onSetActiveTab ? () => onSetActiveTab({ mediaType: 'tv' }) : undefined}
 		>
 			{sort(shows)
-				.desc((show) => show.addedAt)
+				.desc(({ addedAt }) => addedAt)
 				.filter((_show, index) => index <= limit)
-				.map((show) => (
-					<TVShowVerticalPoster key={show.mediaItem.id} show={show.mediaItem} sx={dimensions} />
+				.map(({ mediaItem }) => (
+					<TVShowVerticalPoster key={mediaItem.id} show={mediaItem} sx={dimensions} />
 				))}
 		</AllTabHorizontalGrid>
 	);
