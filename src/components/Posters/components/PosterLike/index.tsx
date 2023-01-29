@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Tooltip, IconButton, IconButtonIcon } from '@davidscicluna/component-library';
+import { IconButtonMouseEvent, Tooltip, IconButton, IconButtonIcon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -8,7 +8,6 @@ import { MediaType } from '../../../../common/types';
 import Like from '../../../Clickable/Like';
 import { useUserTheme } from '../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../common/utils';
-import { PosterMouseEvent } from '../../common/types';
 
 import { PosterLikeProps } from './types';
 
@@ -48,7 +47,7 @@ const PosterLike = <MT extends MediaType>(props: PosterLikeProps<MT>): ReactElem
 						color={isLiked ? 'red' : 'gray'}
 						colorMode={colorMode}
 						isDisabled={isDisabled || !mediaItem}
-						onClick={(event: PosterMouseEvent) => {
+						onClick={(event: IconButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 

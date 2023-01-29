@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { ButtonMouseEvent, Button, Icon } from '@davidscicluna/component-library';
 
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { Like } from '../../../../../../../../../components';
 
-import { QuickViewModalCollectionActionsProps, QuickViewModalCollectionActionsMouseEvent } from './types';
+import { QuickViewModalCollectionActionsProps } from './types';
 
 const QuickViewModalCollectionActions: FC<QuickViewModalCollectionActionsProps> = ({ collection }) => {
 	const { colorMode } = useUserTheme();
@@ -21,7 +21,7 @@ const QuickViewModalCollectionActions: FC<QuickViewModalCollectionActionsProps> 
 					renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 					isDisabled={isDisabled || !collection}
 					isFullWidth
-					onClick={(event: QuickViewModalCollectionActionsMouseEvent) => {
+					onClick={(event: ButtonMouseEvent) => {
 						event.preventDefault();
 						event.stopPropagation();
 

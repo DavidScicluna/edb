@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { ButtonMouseEvent, Button, Icon } from '@davidscicluna/component-library';
 
 import { Like } from '../../../../../../../components';
 import { useUserTheme } from '../../../../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import ViewActions from '../../../../../components/ViewActions';
 
-import { PersonActionsProps, PersonActionsMouseEvent } from './types';
+import { PersonActionsProps } from './types';
 
 const PersonActions: FC<PersonActionsProps> = ({ person, ...rest }) => {
 	const { colorMode } = useUserTheme();
@@ -24,7 +24,7 @@ const PersonActions: FC<PersonActionsProps> = ({ person, ...rest }) => {
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled || !person}
 						isFullWidth
-						onClick={(event: PersonActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 

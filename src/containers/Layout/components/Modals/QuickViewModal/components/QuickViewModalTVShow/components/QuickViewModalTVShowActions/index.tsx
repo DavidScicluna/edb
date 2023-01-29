@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { ButtonMouseEvent, Button, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, HStack } from '@chakra-ui/react';
 
@@ -8,7 +8,7 @@ import { useSelector, useUserTheme } from '../../../../../../../../../common/hoo
 import { Bookmark, Like } from '../../../../../../../../../components';
 import spacing from '../../../../common/data/spacing';
 
-import { QuickViewModalTVShowActionsProps, QuickViewModalTVShowActionsMouseEvent } from './types';
+import { QuickViewModalTVShowActionsProps } from './types';
 
 const QuickViewModalTVShowActions: FC<QuickViewModalTVShowActionsProps> = ({ show }) => {
 	const { color, colorMode } = useUserTheme();
@@ -29,7 +29,7 @@ const QuickViewModalTVShowActions: FC<QuickViewModalTVShowActionsProps> = ({ sho
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled || !show}
 						isFullWidth
-						onClick={(event: QuickViewModalTVShowActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 
@@ -54,7 +54,7 @@ const QuickViewModalTVShowActions: FC<QuickViewModalTVShowActionsProps> = ({ sho
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled}
 						isFullWidth
-						onClick={(event: QuickViewModalTVShowActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 

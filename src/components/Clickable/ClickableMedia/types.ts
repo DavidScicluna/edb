@@ -6,7 +6,7 @@ import { AspectRatioProps, ColorMode } from '@chakra-ui/react';
 
 export type ClickableMediaColor = Exclude<Color, 'transparent' | 'black' | 'white'>;
 
-export type MouseEvent = ME<HTMLDivElement, globalThis.MouseEvent>;
+export type ClickableMediaMouseEvent = ME<HTMLDivElement, globalThis.MouseEvent>;
 
 export type RenderIconProps = Pick<ClickableMediaProps, 'colorMode'> & {
 	color?: string;
@@ -17,7 +17,7 @@ export type ClickableMediaProps = Omit<AspectRatioProps, 'onClick'> & {
 	colorMode?: ColorMode;
 	isActive?: boolean;
 	isDisabled?: boolean;
-	onClick?: (event: MouseEvent) => void;
+	onClick?: (event: ClickableMediaMouseEvent) => void;
 	renderIcon: (props: RenderIconProps) => ReactNode;
 };
 

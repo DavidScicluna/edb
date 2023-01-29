@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { ButtonMouseEvent, Button, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -9,7 +9,7 @@ import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import ViewActions from '../../../../../components/ViewActions';
 
-import { TVShowActionsProps, TVShowActionsMouseEvent } from './types';
+import { TVShowActionsProps } from './types';
 
 const TVShowActions: FC<TVShowActionsProps> = ({ show, ...rest }) => {
 	const { color, colorMode } = useUserTheme();
@@ -30,7 +30,7 @@ const TVShowActions: FC<TVShowActionsProps> = ({ show, ...rest }) => {
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled || !show}
 						isFullWidth
-						onClick={(event: TVShowActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 
@@ -58,7 +58,7 @@ const TVShowActions: FC<TVShowActionsProps> = ({ show, ...rest }) => {
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled}
 						isFullWidth
-						onClick={(event: TVShowActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 

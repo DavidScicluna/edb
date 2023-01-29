@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { ButtonMouseEvent, Button, Icon } from '@davidscicluna/component-library';
 
 import { Like } from '../../../../../../../components';
 import { useUserTheme } from '../../../../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import ViewActions from '../../../../../components/ViewActions';
 
-import { CollectionActionsProps, CollectionActionsMouseEvent } from './types';
+import { CollectionActionsProps } from './types';
 
 const CollectionActions: FC<CollectionActionsProps> = ({ collection, ...rest }) => {
 	const { colorMode } = useUserTheme();
@@ -24,7 +24,7 @@ const CollectionActions: FC<CollectionActionsProps> = ({ collection, ...rest }) 
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled || !collection}
 						isFullWidth
-						onClick={(event: CollectionActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 

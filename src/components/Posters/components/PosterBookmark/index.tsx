@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Tooltip, IconButton, IconButtonIcon } from '@davidscicluna/component-library';
+import { IconButtonMouseEvent, Tooltip, IconButton, IconButtonIcon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -8,7 +8,6 @@ import { useSelector, useUserTheme } from '../../../../common/hooks';
 import Bookmark from '../../../Clickable/Bookmark';
 import { MediaType } from '../../../../common/types';
 import { formatMediaTypeLabel } from '../../../../common/utils';
-import { PosterMouseEvent } from '../../common/types';
 
 import { PosterBookmarkProps } from './types';
 
@@ -65,7 +64,7 @@ const PosterBookmark = <MT extends MediaType>(props: PosterBookmarkProps<MT>): R
 						}
 						colorMode={colorMode}
 						isDisabled={isDisabled}
-						onClick={(event: PosterMouseEvent) => {
+						onClick={(event: IconButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 

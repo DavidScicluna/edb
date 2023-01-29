@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { ButtonMouseEvent, Button, Icon } from '@davidscicluna/component-library';
 
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { Like } from '../../../../../../../../../components';
 
-import { QuickViewModalPersonActionsProps, QuickViewModalPersonActionsMouseEvent } from './types';
+import { QuickViewModalPersonActionsProps } from './types';
 
 const QuickViewModalPersonActions: FC<QuickViewModalPersonActionsProps> = ({ person }) => {
 	const { colorMode } = useUserTheme();
@@ -21,7 +21,7 @@ const QuickViewModalPersonActions: FC<QuickViewModalPersonActionsProps> = ({ per
 					renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 					isDisabled={isDisabled || !person}
 					isFullWidth
-					onClick={(event: QuickViewModalPersonActionsMouseEvent) => {
+					onClick={(event: ButtonMouseEvent) => {
 						event.preventDefault();
 						event.stopPropagation();
 

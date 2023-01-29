@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Tooltip, IconButton, IconButtonIcon } from '@davidscicluna/component-library';
+import { IconButtonMouseEvent, Tooltip, IconButton, IconButtonIcon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 
 import { useSelector, useUserTheme } from '../../../../common/hooks';
 import { setQuickViewModal } from '../../../../store/slices/Modals';
-import { PosterMouseEvent } from '../../common/types';
+
 import { QuickViewModalMediaType } from '../../../../store/slices/Modals/types';
 
 import { PosterQuickviewProps } from './types';
@@ -38,7 +38,7 @@ const PosterQuickview = <MT extends QuickViewModalMediaType>(props: PosterQuickv
 				aria-label={`Quick view ${title} ${mediaType}`}
 				color={isQuickViewModalOpen && quickViewModalMediaItem?.id === mediaItem?.id ? color : 'gray'}
 				colorMode={colorMode}
-				onClick={(event: PosterMouseEvent) => {
+				onClick={(event: IconButtonMouseEvent) => {
 					event.preventDefault();
 					event.stopPropagation();
 

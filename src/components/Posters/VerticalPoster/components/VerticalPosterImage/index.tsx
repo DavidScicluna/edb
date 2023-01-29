@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Colors, useTheme, Button, ScaleFade, utils } from '@davidscicluna/component-library';
+import { Colors, ButtonMouseEvent, useTheme, Button, ScaleFade, utils } from '@davidscicluna/component-library';
 
 import { useConst, AspectRatio, Box } from '@chakra-ui/react';
 
@@ -15,7 +15,6 @@ import { getRatio } from '../../../../../common/utils/ratio';
 import Image from '../../../../Image';
 import { isFocused as defaultIsFocused, isHovering as defaultIsHovering } from '../../../common/data/defaultPropValues';
 import { setQuickViewModal } from '../../../../../store/slices/Modals';
-import { PosterMouseEvent } from '../../../common/types';
 
 import { VerticalPosterImageProps } from './types';
 
@@ -109,7 +108,7 @@ const VerticalPosterImage = <MT extends MediaType>(props: VerticalPosterImagePro
 							color={color}
 							colorMode={colorMode}
 							isFullWidth
-							onClick={(event: PosterMouseEvent) => {
+							onClick={(event: ButtonMouseEvent) => {
 								event.preventDefault();
 								event.stopPropagation();
 

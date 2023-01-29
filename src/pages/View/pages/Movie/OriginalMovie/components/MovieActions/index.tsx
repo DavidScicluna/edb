@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { ButtonMouseEvent, Button, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean } from '@chakra-ui/react';
 
@@ -9,7 +9,7 @@ import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import ViewActions from '../../../../../components/ViewActions';
 
-import { MovieActionsProps, MovieActionsMouseEvent } from './types';
+import { MovieActionsProps } from './types';
 
 const MovieActions: FC<MovieActionsProps> = ({ movie, ...rest }) => {
 	const { color, colorMode } = useUserTheme();
@@ -30,7 +30,7 @@ const MovieActions: FC<MovieActionsProps> = ({ movie, ...rest }) => {
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled || !movie}
 						isFullWidth
-						onClick={(event: MovieActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 
@@ -58,7 +58,7 @@ const MovieActions: FC<MovieActionsProps> = ({ movie, ...rest }) => {
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled}
 						isFullWidth
-						onClick={(event: MovieActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 

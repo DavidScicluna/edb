@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Button, Icon } from '@davidscicluna/component-library';
+import { ButtonMouseEvent, Button, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, HStack } from '@chakra-ui/react';
 
@@ -8,7 +8,7 @@ import { useSelector, useUserTheme } from '../../../../../../../../../common/hoo
 import { Bookmark, Like } from '../../../../../../../../../components';
 import spacing from '../../../../common/data/spacing';
 
-import { QuickViewModalMovieActionsProps, QuickViewModalMovieActionsMouseEvent } from './types';
+import { QuickViewModalMovieActionsProps } from './types';
 
 const QuickViewModalMovieActions: FC<QuickViewModalMovieActionsProps> = ({ movie }) => {
 	const { color, colorMode } = useUserTheme();
@@ -29,7 +29,7 @@ const QuickViewModalMovieActions: FC<QuickViewModalMovieActionsProps> = ({ movie
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled || !movie}
 						isFullWidth
-						onClick={(event: QuickViewModalMovieActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 
@@ -54,7 +54,7 @@ const QuickViewModalMovieActions: FC<QuickViewModalMovieActionsProps> = ({ movie
 						renderLeft={() => <Icon icon={iconType} category={iconCategory} />}
 						isDisabled={isDisabled}
 						isFullWidth
-						onClick={(event: QuickViewModalMovieActionsMouseEvent) => {
+						onClick={(event: ButtonMouseEvent) => {
 							event.preventDefault();
 							event.stopPropagation();
 
