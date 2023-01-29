@@ -4,9 +4,11 @@ import { VStack } from '@chakra-ui/react';
 
 import { useLayoutContext } from '../../../../../../../../../../../containers/Layout/common/hooks';
 
-import AllTabDummyMovies from './components/DummyAllTabMovies';
-import AllTabDummyTVShows from './components/DummyAllTabTVShows';
-import AllTabDummyPeople from './components/DummyAllTabPeople';
+import DummyAllTabMovies from './components/DummyAllTabMovies';
+import DummyAllTabTVShows from './components/DummyAllTabTVShows';
+import DummyAllTabPeople from './components/DummyAllTabPeople';
+import DummyAllTabCollections from './components/DummyAllTabCollections';
+import DummyAllTabCompanies from './components/DummyAllTabCompanies';
 import { DummyAllTabProps } from './types';
 
 const DummyAllTab: FC<DummyAllTabProps> = ({ mediaTypes }) => {
@@ -14,11 +16,15 @@ const DummyAllTab: FC<DummyAllTabProps> = ({ mediaTypes }) => {
 
 	return (
 		<VStack width='100%' spacing={spacing}>
-			{mediaTypes.some((mediaType) => mediaType === 'movie') && <AllTabDummyMovies />}
+			{mediaTypes.some((mediaType) => mediaType === 'movie') && <DummyAllTabMovies />}
 
-			{mediaTypes.some((mediaType) => mediaType === 'tv') && <AllTabDummyTVShows />}
+			{mediaTypes.some((mediaType) => mediaType === 'tv') && <DummyAllTabTVShows />}
 
-			{mediaTypes.some((mediaType) => mediaType === 'person') && <AllTabDummyPeople />}
+			{mediaTypes.some((mediaType) => mediaType === 'person') && <DummyAllTabPeople />}
+
+			{mediaTypes.some((mediaType) => mediaType === 'collection') && <DummyAllTabCollections />}
+
+			{mediaTypes.some((mediaType) => mediaType === 'company') && <DummyAllTabCompanies />}
 		</VStack>
 	);
 };
