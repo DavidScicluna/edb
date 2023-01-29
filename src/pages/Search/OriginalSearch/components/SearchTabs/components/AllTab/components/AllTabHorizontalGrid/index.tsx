@@ -40,7 +40,7 @@ const AllTabHorizontalGrid: FC<AllTabHorizontalGridProps> = (props) => {
 						color={color}
 						colorMode={colorMode}
 						isFullWidth
-						onClick={() => onFooterClick()}
+						onClick={onFooterClick}
 						size={isSm ? 'xs' : 'sm'}
 						variant='text'
 					>
