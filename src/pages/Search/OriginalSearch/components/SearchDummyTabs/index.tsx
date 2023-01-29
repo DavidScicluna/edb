@@ -1,14 +1,16 @@
 import { FC } from 'react';
 
-import { TabListTab, Tabs, DummyTabList, TabPanels } from '@davidscicluna/component-library';
+import { Tabs, DummyTabList, TabPanels } from '@davidscicluna/component-library';
 
 import { VStack } from '@chakra-ui/react';
+
+import { compact } from 'lodash';
 
 import { useUserTheme } from '../../../../../common/hooks';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import { formatMediaTypeLabel, getMediaTypeIcon } from '../../../../../common/utils';
-import SearchCollectionsTab from '../SearchCollections';
-import SearchCompaniesTab from '../SearchCompanies';
+import SearchDummyCollections from '../SearchDummyCollections';
+import SearchDummyCompanies from '../SearchDummyCompanies';
 import SearchDummyMoviesTab from '../SearchDummyMovies';
 import SearchDummyPeopleTab from '../SearchDummyPeople';
 import SearchDummyTVShowsTab from '../SearchDummyTVShows';
@@ -28,18 +30,69 @@ const SearchDummyTabs: FC = () => {
 		<Tabs width='100%' color={color} colorMode={colorMode} isDisabled size='xl'>
 			<VStack width='100%' spacing={spacing}>
 				<DummyTabList
-					tabs={[
+					tabs={compact([
 						{ label: 'All' },
 
-						...(mediaTypes.map((mediaType) => {
-							return {
-								label: formatMediaTypeLabel({ type: 'multiple', mediaType }),
-								renderLeft: ({ colorMode }) => (
-									<DummyTabIcon colorMode={colorMode} icon={getMediaTypeIcon({ mediaType })} />
-								)
-							};
-						}) as TabListTab[])
-					]}
+						mediaTypes.some((mediaType) => mediaType === 'movie')
+							? {
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'movie' }),
+									renderLeft: ({ colorMode }) => (
+										<DummyTabIcon
+											colorMode={colorMode}
+											icon={getMediaTypeIcon({ mediaType: 'movie' })}
+										/>
+									)
+							  }
+							: null,
+
+						mediaTypes.some((mediaType) => mediaType === 'tv')
+							? {
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'tv' }),
+									renderLeft: ({ colorMode }) => (
+										<DummyTabIcon
+											colorMode={colorMode}
+											icon={getMediaTypeIcon({ mediaType: 'tv' })}
+										/>
+									)
+							  }
+							: null,
+
+						mediaTypes.some((mediaType) => mediaType === 'person')
+							? {
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'person' }),
+									renderLeft: ({ colorMode }) => (
+										<DummyTabIcon
+											colorMode={colorMode}
+											icon={getMediaTypeIcon({ mediaType: 'person' })}
+										/>
+									)
+							  }
+							: null,
+
+						mediaTypes.some((mediaType) => mediaType === 'collection')
+							? {
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'collection' }),
+									renderLeft: ({ colorMode }) => (
+										<DummyTabIcon
+											colorMode={colorMode}
+											icon={getMediaTypeIcon({ mediaType: 'collection' })}
+										/>
+									)
+							  }
+							: null,
+
+						mediaTypes.some((mediaType) => mediaType === 'company')
+							? {
+									label: formatMediaTypeLabel({ type: 'multiple', mediaType: 'company' }),
+									renderLeft: ({ colorMode }) => (
+										<DummyTabIcon
+											colorMode={colorMode}
+											icon={getMediaTypeIcon({ mediaType: 'company' })}
+										/>
+									)
+							  }
+							: null
+					])}
 				/>
 
 				<TabPanels>
@@ -51,9 +104,9 @@ const SearchDummyTabs: FC = () => {
 
 					<SearchDummyPeopleTab />
 
-					<SearchCollectionsTab />
+					<SearchDummyCollections />
 
-					<SearchCompaniesTab />
+					<SearchDummyCompanies />
 				</TabPanels>
 			</VStack>
 		</Tabs>
