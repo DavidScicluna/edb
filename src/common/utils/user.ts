@@ -24,66 +24,81 @@ export const getUpdatedRecentlyViewedList = memoize(
 
 		switch (mediaType) {
 			case 'movie': {
-				updatedRecentlyViewed.movie = sort(
-					uniqBy(
-						[
-							...updatedRecentlyViewed.movie,
-							{
-								mediaItem: { ...(mediaItem as FullMovie) },
-								mediaType: 'movie',
-								addedAt: dayjs(new Date()).toISOString()
-							} as MediaItem<'movie'>
-						],
-						'mediaItem.id'
-					)
-				).desc(({ addedAt }) => addedAt);
+				const newRecentlyViewedMovie: MediaItem<'movie'> = {
+					mediaItem: { ...(mediaItem as FullMovie) },
+					mediaType: 'movie',
+					addedAt: dayjs(new Date()).toISOString()
+				};
+				const filteredRecentlyViewedMovies: MediaItem<'movie'>[] = updatedRecentlyViewed.movie.filter(
+					({ mediaItem: movie }) => movie.id !== mediaItem.id
+				);
+
+				const updatedRecentlyViewedMovies: MediaItem<'movie'>[] = [
+					...filteredRecentlyViewedMovies,
+					newRecentlyViewedMovie
+				];
+
+				updatedRecentlyViewed.movie = sort(uniqBy([...updatedRecentlyViewedMovies], 'mediaItem.id')).desc(
+					({ addedAt }) => addedAt
+				);
 				break;
 			}
 			case 'tv': {
-				updatedRecentlyViewed.tv = sort(
-					uniqBy(
-						[
-							...updatedRecentlyViewed.tv,
-							{
-								mediaItem: { ...(mediaItem as FullTV) },
-								mediaType: 'tv',
-								addedAt: dayjs(new Date()).toISOString()
-							} as MediaItem<'tv'>
-						],
-						'mediaItem.id'
-					)
-				).desc(({ addedAt }) => addedAt);
+				const newRecentlyViewedTVShow: MediaItem<'tv'> = {
+					mediaItem: { ...(mediaItem as FullTV) },
+					mediaType: 'tv',
+					addedAt: dayjs(new Date()).toISOString()
+				};
+				const filteredRecentlyViewedTVShows: MediaItem<'tv'>[] = updatedRecentlyViewed.tv.filter(
+					({ mediaItem: show }) => show.id !== mediaItem.id
+				);
+
+				const updatedRecentlyViewedTVShows: MediaItem<'tv'>[] = [
+					...filteredRecentlyViewedTVShows,
+					newRecentlyViewedTVShow
+				];
+
+				updatedRecentlyViewed.tv = sort(uniqBy([...updatedRecentlyViewedTVShows], 'mediaItem.id')).desc(
+					({ addedAt }) => addedAt
+				);
 				break;
 			}
 			case 'person': {
-				updatedRecentlyViewed.person = sort(
-					uniqBy(
-						[
-							...updatedRecentlyViewed.person,
-							{
-								mediaItem: { ...(mediaItem as FullPerson) },
-								mediaType: 'person',
-								addedAt: dayjs(new Date()).toISOString()
-							} as MediaItem<'person'>
-						],
-						'mediaItem.id'
-					)
-				).desc(({ addedAt }) => addedAt);
+				const newRecentlyViewedPerson: MediaItem<'person'> = {
+					mediaItem: { ...(mediaItem as FullPerson) },
+					mediaType: 'person',
+					addedAt: dayjs(new Date()).toISOString()
+				};
+				const filteredRecentlyViewedPeople: MediaItem<'person'>[] = updatedRecentlyViewed.person.filter(
+					({ mediaItem: show }) => show.id !== mediaItem.id
+				);
+
+				const updatedRecentlyViewedPeople: MediaItem<'person'>[] = [
+					...filteredRecentlyViewedPeople,
+					newRecentlyViewedPerson
+				];
+
+				updatedRecentlyViewed.person = sort(uniqBy([...updatedRecentlyViewedPeople], 'mediaItem.id')).desc(
+					({ addedAt }) => addedAt
+				);
 				break;
 			}
 			case 'collection': {
+				const newRecentlyViewedCollection: MediaItem<'collection'> = {
+					mediaItem: { ...(mediaItem as Collection) },
+					mediaType: 'collection',
+					addedAt: dayjs(new Date()).toISOString()
+				};
+				const filteredRecentlyViewedCollections: MediaItem<'collection'>[] =
+					updatedRecentlyViewed.collection.filter(({ mediaItem: show }) => show.id !== mediaItem.id);
+
+				const updatedRecentlyViewedCollections: MediaItem<'collection'>[] = [
+					...filteredRecentlyViewedCollections,
+					newRecentlyViewedCollection
+				];
+
 				updatedRecentlyViewed.collection = sort(
-					uniqBy(
-						[
-							...updatedRecentlyViewed.collection,
-							{
-								mediaItem: { ...(mediaItem as Collection) },
-								mediaType: 'collection',
-								addedAt: dayjs(new Date()).toISOString()
-							} as MediaItem<'collection'>
-						],
-						'mediaItem.id'
-					)
+					uniqBy([...updatedRecentlyViewedCollections], 'mediaItem.id')
 				).desc(({ addedAt }) => addedAt);
 				break;
 			}
