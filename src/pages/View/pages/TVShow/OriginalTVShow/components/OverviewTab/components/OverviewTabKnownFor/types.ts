@@ -1,7 +1,7 @@
-import { Crew } from '../../../../../../../../../common/types/movie';
+import { MovieCrew } from '../../../../../../../../../common/types/movie';
 
 export type OverviewTabKnownForProps = {
-	person: Crew;
+	person: MovieCrew;
 	type: 'creator' | 'actor';
 	isCreditsFetching?: boolean;
 	isCreditsLoading?: boolean;

@@ -2,7 +2,7 @@ import { FullPerson } from './person';
 
 import { ProductionCompany, ProductionCountry, Genre, Language } from '.';
 
-export type Cast = {
+export type MovieCast = {
 	cast_id?: number;
 	character?: string;
 	credit_id?: string;
@@ -10,16 +10,16 @@ export type Cast = {
 	original_name?: string;
 } & FullPerson;
 
-export type Crew = {
+export type MovieCrew = {
 	credit_id?: string;
 	department?: string;
 	job?: string;
 	original_name?: string;
 } & FullPerson;
 
-export type Credits = {
-	cast?: Cast[];
-	crew?: Crew[];
+export type MovieCredits = {
+	cast?: MovieCast[];
+	crew?: MovieCrew[];
 	id?: number;
 };
 
@@ -43,7 +43,7 @@ export type PartialMovie = {
 	genre_ids?: number[];
 } & Movie;
 
-type ReleaseDate = {
+export type MovieReleaseDate = {
 	certification?: string;
 	iso_639_1?: string;
 	note?: string;
@@ -51,16 +51,16 @@ type ReleaseDate = {
 	type?: number;
 };
 
-type ReleaseDatesResults = {
+export type MovieReleaseDatesResults = {
 	iso_3166_1?: string;
-	release_dates?: ReleaseDate[];
+	release_dates?: MovieReleaseDate[];
 };
 
 type ReleaseDates = {
-	results?: ReleaseDatesResults[];
+	results?: MovieReleaseDatesResults[];
 };
 
-type Status = 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
+export type MovieStatus = 'Canceled' | 'In Production' | 'Planned' | 'Post Production' | 'Released' | 'Rumored';
 
 export type Collection = {
 	backdrop_path?: string | null;
@@ -83,6 +83,9 @@ export type FullMovie = {
 	revenue?: number;
 	runtime?: number | null;
 	spoken_languages?: Language[];
-	status?: Status;
+	status?: MovieStatus;
 	tagline?: string | null;
 } & Movie;
+
+// TODO: Create PartialMovies type and replace all PartialMovie[] with PartialMovies
+// TODO: Do the same for tv and people

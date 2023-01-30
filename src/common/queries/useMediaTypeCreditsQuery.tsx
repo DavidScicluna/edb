@@ -14,7 +14,7 @@ import { AxiosConfig, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
-import { Credits as MovieCredits } from '../types/movie';
+import { MovieCredits as MovieCredits } from '../types/movie';
 import { Credits as TVShowCredits } from '../types/tv';
 
 const defaultIsAggregated = false;

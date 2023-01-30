@@ -2,7 +2,7 @@ import { AccordionType } from '@davidscicluna/component-library';
 
 import { UseMediaTypeCreditsQueryResult } from '../../../../../common/queries/useMediaTypeCreditsQuery';
 import { MediaType } from '../../../../../common/types';
-import { Crew as MovieCrew } from '../../../../../common/types/movie';
+import { MovieCrew as MovieCrew } from '../../../../../common/types/movie';
 import { Crew as TVShowCrew } from '../../../../../common/types/tv';
 
 export type ViewCrewMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;

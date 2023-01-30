@@ -1,4 +1,4 @@
-import { Cast as MovieCast } from '../../../../../common/types/movie';
+import { MovieCast as MovieCast } from '../../../../../common/types/movie';
 import { Cast as TVShowCast } from '../../../../../common/types/tv';
 import { UseMediaTypeCreditsQueryResult } from '../../../../../common/queries/useMediaTypeCreditsQuery';
 import { CommonViewCastProps, ViewCastMediaType } from '../common/types';
