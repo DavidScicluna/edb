@@ -26,7 +26,7 @@ import {
 } from '../../../../../../../../../components';
 import { getEmptySubtitle } from '../../../../../../../../../components/QueryEmpty/common/utils';
 import { useEpisodeContext } from '../../../../common/hooks';
-import { EpisodeCast } from '../../../../../../../../../common/types/tv';
+import { TVShowEpisodeCast } from '../../../../../../../../../common/types/tv';
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { getEpisodeTabIndex } from '../../../../../common/utils';
@@ -51,10 +51,10 @@ const OverviewTabCast: FC = () => {
 	} = creditsQuery || {};
 	const { cast = [] } = credits || {};
 
-	const [topCast, setTopCast] = useState<EpisodeCast[]>(
+	const [topCast, setTopCast] = useState<TVShowEpisodeCast[]>(
 		uniqBy([...cast], 'id').filter((_mediaItem, index) => index < 20)
 	);
-	const topCastDebounced = useDebounce<EpisodeCast[]>(topCast, 'slow');
+	const topCastDebounced = useDebounce<TVShowEpisodeCast[]>(topCast, 'slow');
 
 	useUpdateEffect(() => {
 		setTopCast(uniqBy([...cast], 'id').filter((_mediaItem, index) => index < 20));

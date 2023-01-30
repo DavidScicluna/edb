@@ -1,8 +1,8 @@
 import { AccordionType } from '@davidscicluna/component-library';
 
-import { PartialSeason } from '../../../../../../../../../common/types/tv';
+import { TVShowPartialSeason } from '../../../../../../../../../common/types/tv';
 
-export type SeasonsTabAccordionProps = Omit<AccordionType<PartialSeason>, 'data'> & {
-	season: PartialSeason;
+export type SeasonsTabAccordionProps = Omit<AccordionType<TVShowPartialSeason>, 'data'> & {
+	season: TVShowPartialSeason;
 	isOpen?: boolean;
 };

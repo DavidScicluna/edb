@@ -15,7 +15,7 @@ import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
 import { MovieCredits as MovieCredits } from '../types/movie';
-import { Credits as TVShowCredits } from '../types/tv';
+import { TVShowCredits as TVShowCredits } from '../types/tv';
 
 const defaultIsAggregated = false;
 

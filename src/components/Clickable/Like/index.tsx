@@ -13,7 +13,7 @@ import { FullCompany, MediaType } from '../../../common/types';
 import { MediaItem, MediaItems } from '../../../store/slices/Users/types';
 import { Collection, FullMovie } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
-import { FullTV } from '../../../common/types/tv';
+import { FullTVShow } from '../../../common/types/tv';
 import { setAuthenticationConfirmModal } from '../../../store/slices/Modals';
 import { formatMediaTypeLabel } from '../../../common/utils';
 import { useLayoutContext } from '../../../containers/Layout/common/hooks';
@@ -137,7 +137,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 					uniq([
 						...updatedLiked.tv,
 						{
-							mediaItem: { ...(mediaItem as FullTV) },
+							mediaItem: { ...(mediaItem as FullTVShow) },
 							mediaType: 'tv',
 							addedAt: dayjs(new Date()).toISOString()
 						} as MediaItem<'tv'>

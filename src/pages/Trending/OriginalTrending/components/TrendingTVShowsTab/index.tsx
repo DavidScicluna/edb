@@ -25,7 +25,7 @@ import {
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
-import { PartialTV } from '../../../../../common/types/tv';
+import { PartialTVShow } from '../../../../../common/types/tv';
 
 import { TrendingTVShowsTabProps } from './types';
 
@@ -115,7 +115,7 @@ const TrendingTVShowsTab: FC<TrendingTVShowsTabProps> = ({ query, shows }) => {
 		<VStack width='100%' spacing={spacing}>
 			<VerticalGrid>
 				{({ displayMode }) =>
-					(shows.results || []).map((show: PartialTV) =>
+					(shows.results || []).map((show: PartialTVShow) =>
 						displayMode === 'list' ? (
 							<TVShowHorizontalPoster key={show.id} show={show} />
 						) : (

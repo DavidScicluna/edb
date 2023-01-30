@@ -35,7 +35,7 @@ import { useLayoutContext } from '../../../../../../../containers/Layout/common/
 import { useTVShowContext } from '../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import { getEmptySubtitle } from '../../../../../../../components/QueryEmpty/common/utils';
-import { PartialSeason } from '../../../../../../../common/types/tv';
+import { TVShowPartialSeason } from '../../../../../../../common/types/tv';
 
 import SeasonsTabAccordion from './components/SeasonsTabAccordion';
 
@@ -153,7 +153,7 @@ const SeasonsTab: FC = () => {
 						</QueryEmptyStack>
 					</QueryEmpty>
 				) : !(isFetching || isLoading) && isSuccess && seasons.length > 0 ? (
-					<Accordions<PartialSeason>
+					<Accordions<TVShowPartialSeason>
 						color='gray'
 						colorMode={colorMode}
 						accordions={seasons.map((season, index) => {
@@ -165,8 +165,8 @@ const SeasonsTab: FC = () => {
 						})}
 						spacing={2}
 					>
-						<AccordionsQuickToggles<PartialSeason> color={color} size='xs' spacing={1} />
-						<AccordionsPanel<PartialSeason>>
+						<AccordionsQuickToggles<TVShowPartialSeason> color={color} size='xs' spacing={1} />
+						<AccordionsPanel<TVShowPartialSeason>>
 							{({ accordions, opened = [] }) =>
 								accordions.map(({ id, title, data: season }) => (
 									<SeasonsTabAccordion

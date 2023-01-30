@@ -1,5 +1,5 @@
-import { Episode } from '../../../../../../common/types/tv';
+import { TVShowEpisode } from '../../../../../../common/types/tv';
 
-export type ViewEpisodeNameProps = Pick<Episode, 'name'> & {
+export type ViewEpisodeNameProps = Pick<TVShowEpisode, 'name'> & {
 	inView: boolean;
 };

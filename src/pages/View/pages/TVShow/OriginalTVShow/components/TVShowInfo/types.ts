@@ -1,5 +1,5 @@
-import { FullTV } from '../../../../../../../common/types/tv';
+import { FullTVShow } from '../../../../../../../common/types/tv';
 
 export type TVShowInfoProps = {
-	show: FullTV;
+	show: FullTVShow;
 };

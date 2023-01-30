@@ -31,7 +31,7 @@ import useTrendingInfiniteQuery, {
 	UseTrendingInfiniteQueryResponse
 } from '../../../common/queries/useTrendingInfiniteQuery';
 import { PartialMovie } from '../../../common/types/movie';
-import { PartialTV } from '../../../common/types/tv';
+import { PartialTVShow } from '../../../common/types/tv';
 import { PartialPerson } from '../../../common/types/person';
 import TrendingDummyAllTab from '../components/TrendingDummyAllTab';
 
@@ -91,7 +91,7 @@ const Trending: FC = () => {
 		props: { mediaType: 'tv', time: 'week' },
 		options: {
 			onSuccess: (data) => {
-				let shows: PartialTV[] = [];
+				let shows: PartialTVShow[] = [];
 
 				data.pages.forEach((page) => {
 					shows = [...shows, ...(page.results || [])];

@@ -7,7 +7,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { MediaType, FullCompany, Genre, Language, Review, ReviewAuthor } from '../../../common/types';
 import { FullMovie, Collection } from '../../../common/types/movie';
 import { FullPerson } from '../../../common/types/person';
-import { FullTV } from '../../../common/types/tv';
+import { FullTVShow } from '../../../common/types/tv';
 
 export type GetUserProps = { users: Users; user: string };
 
@@ -45,7 +45,7 @@ export type UserSearches = UserSearch[];
 export type GetMediaType<MT extends MediaType> = MT extends 'movie'
 	? FullMovie
 	: MT extends 'tv'
-	? FullTV
+	? FullTVShow
 	: MT extends 'person'
 	? FullPerson
 	: MT extends 'company'

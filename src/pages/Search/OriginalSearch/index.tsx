@@ -34,7 +34,7 @@ import { useLayoutContext } from '../../../containers/Layout/common/hooks';
 import { useKeywordsInfiniteQuery, useSearchInfiniteQuery } from '../../../common/queries';
 import { Keyword, PartialCompany } from '../../../common/types';
 import { Collection, PartialMovie } from '../../../common/types/movie';
-import { PartialTV } from '../../../common/types/tv';
+import { PartialTVShow } from '../../../common/types/tv';
 import { PartialPerson } from '../../../common/types/person';
 import { useSelector, useUserTheme } from '../../../common/hooks';
 import { setUserRecentSearches } from '../../../store/slices/Users';
@@ -188,7 +188,7 @@ const OriginalSearch: FC = () => {
 		options: {
 			enabled: false,
 			onSuccess: (data) => {
-				let shows: PartialTV[] = [];
+				let shows: PartialTVShow[] = [];
 
 				data.pages.forEach((page) => {
 					shows = [...shows, ...(page?.results || [])];

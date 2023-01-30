@@ -14,11 +14,11 @@ import { AxiosConfig, Images, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
-import { Episode, FullSeason, FullTV } from '../types/tv';
+import { TVShowEpisode, TVShowFullSeason, FullTVShow } from '../types/tv';
 
-export type UseTVShowEpisodeImagesQueryProps = Pick<FullTV, 'id'> & {
-	season: FullSeason['id'];
-	episode: Episode['id'];
+export type UseTVShowEpisodeImagesQueryProps = Pick<FullTVShow, 'id'> & {
+	season: TVShowFullSeason['id'];
+	episode: TVShowEpisode['id'];
 };
 
 export type UseTVShowEpisodeImagesQueryResponse = Images;

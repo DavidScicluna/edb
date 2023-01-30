@@ -5,7 +5,7 @@ import { memoize, uniqBy } from 'lodash';
 import { MediaItem, UserRecentlyViewed, UserRecentlyViewedMediaType } from '../../store/slices/Users/types';
 import { Collection, FullMovie } from '../types/movie';
 import { FullPerson } from '../types/person';
-import { FullTV } from '../types/tv';
+import { FullTVShow } from '../types/tv';
 
 type GetUpdatedRecentlyViewedListProps<MT extends UserRecentlyViewedMediaType> = {
 	recentlyViewed: UserRecentlyViewed;
@@ -45,7 +45,7 @@ export const getUpdatedRecentlyViewedList = memoize(
 			}
 			case 'tv': {
 				const newRecentlyViewedTVShow: MediaItem<'tv'> = {
-					mediaItem: { ...(mediaItem as FullTV) },
+					mediaItem: { ...(mediaItem as FullTVShow) },
 					mediaType: 'tv',
 					addedAt: dayjs(new Date()).toISOString()
 				};

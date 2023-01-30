@@ -14,7 +14,7 @@ import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
-import { PartialTV } from '../types/tv';
+import { PartialTVShow } from '../types/tv';
 import { formatMediaTypeLabel } from '../utils';
 
 export type UseTrendingQueryMediaType = Exclude<MediaType, 'company' | 'collection'>;
@@ -25,7 +25,7 @@ export type UseTrendingQueryProps<MT extends UseTrendingQueryMediaType> = {
 };
 
 export type UseTrendingQueryResponse<MT extends UseTrendingQueryMediaType> = Response<
-	MT extends 'movie' ? PartialMovie[] : PartialTV[]
+	MT extends 'movie' ? PartialMovie[] : PartialTVShow[]
 >;
 
 export type UseTrendingQueryOptions<MT extends UseTrendingQueryMediaType> = UseQueryOptions<

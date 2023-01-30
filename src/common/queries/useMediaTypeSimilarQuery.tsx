@@ -15,7 +15,7 @@ import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
 import { PartialMovie } from '../types/movie';
-import { PartialTV } from '../types/tv';
+import { PartialTVShow } from '../types/tv';
 
 export type UseMediaTypeSimilarQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 
@@ -25,7 +25,7 @@ export type UseMediaTypeSimilarQueryProps<MT extends UseMediaTypeSimilarQueryMed
 };
 
 export type UseMediaTypeSimilarQueryResponse<MT extends UseMediaTypeSimilarQueryMediaType> = Response<
-	MT extends 'movie' ? PartialMovie[] : PartialTV[]
+	MT extends 'movie' ? PartialMovie[] : PartialTVShow[]
 >;
 
 export type UseMediaTypeSimilarQueryOptions<MT extends UseMediaTypeSimilarQueryMediaType> = UseQueryOptions<

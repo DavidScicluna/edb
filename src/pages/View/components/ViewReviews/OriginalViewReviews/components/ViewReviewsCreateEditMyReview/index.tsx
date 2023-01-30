@@ -35,7 +35,7 @@ import { convertDurationToMS } from '../../../../../../../components/Alert/commo
 import { Alert } from '../../../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import { FullMovie } from '../../../../../../../common/types/movie';
-import { FullTV } from '../../../../../../../common/types/tv';
+import { FullTVShow } from '../../../../../../../common/types/tv';
 import { createNewUserReviewsMediaItem, updateUserReviews, updateUserReviewsMediaItem } from '../../common/utils';
 
 import { ViewReviewsCreateEditMyReviewProps, ViewReviewsCreateEditMyReviewForm } from './types';
@@ -135,7 +135,7 @@ const ViewReviewsCreateEditMyReview = <MT extends ViewReviewsMediaType>(
 	};
 
 	const handleUpdateTVShowUserReviews = (tvShowUserReviews: UserReviewsMediaItems<'tv'>): void => {
-		const { name = `the ${formatMediaTypeLabel({ type: 'single', mediaType: 'tv' })}` } = mediaItem as FullTV;
+		const { name = `the ${formatMediaTypeLabel({ type: 'single', mediaType: 'tv' })}` } = mediaItem as FullTVShow;
 
 		dispatch(setTVShowUserReviews({ id: userID, data: [...tvShowUserReviews] }));
 

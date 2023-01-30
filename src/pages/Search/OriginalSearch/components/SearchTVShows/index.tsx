@@ -25,7 +25,7 @@ import {
 import { useUserTheme } from '../../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../../common/utils';
-import { PartialTV } from '../../../../../common/types/tv';
+import { PartialTVShow } from '../../../../../common/types/tv';
 import { useSearchContext } from '../../common/hooks';
 
 import { SearchTVShowsProps } from './types';
@@ -95,7 +95,7 @@ const SearchTVShows: FC<SearchTVShowsProps> = ({ query, data }) => {
 		<VStack width='100%' spacing={spacing}>
 			<VerticalGrid>
 				{({ displayMode }) =>
-					results.map((show: PartialTV) =>
+					results.map((show: PartialTVShow) =>
 						displayMode === 'list' ? (
 							<TVShowHorizontalPoster key={show.id} show={show} />
 						) : (

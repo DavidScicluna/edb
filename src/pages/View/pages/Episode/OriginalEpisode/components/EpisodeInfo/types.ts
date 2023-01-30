@@ -1,5 +1,5 @@
-import { Episode } from '../../../../../../../common/types/tv';
+import { TVShowEpisode } from '../../../../../../../common/types/tv';
 
 export type EpisodeInfoProps = {
-	episode: Episode;
+	episode: TVShowEpisode;
 };

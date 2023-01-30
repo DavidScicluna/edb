@@ -21,7 +21,7 @@ import { axios } from '../scripts';
 import { AxiosConfig, MediaType, PartialCompany, QueryError, Response } from '../types';
 import { Collection, PartialMovie } from '../types/movie';
 import { PartialPerson } from '../types/person';
-import { PartialTV } from '../types/tv';
+import { PartialTVShow } from '../types/tv';
 import { formatMediaTypeLabel } from '../utils';
 
 export type UseSearchInfiniteQueryMediaType = MediaType;
@@ -32,7 +32,7 @@ export type UseSearchInfiniteQueryResponse<MT extends UseSearchInfiniteQueryMedi
 	MT extends 'movie'
 		? PartialMovie[]
 		: MT extends 'tv'
-		? PartialTV[]
+		? PartialTVShow[]
 		: MT extends 'person'
 		? PartialPerson[]
 		: MT extends 'company'

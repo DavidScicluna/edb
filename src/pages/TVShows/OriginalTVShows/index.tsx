@@ -25,7 +25,7 @@ import defaultFiltersFormValues from '../../../components/Filters/common/data/de
 import sortByDefaultValues from '../../../components/SortBy/common/data/defaults';
 import { useUserTheme } from '../../../common/hooks';
 import { getGenres, getTotalFilters } from '../../../components/Filters/common/utils';
-import { PartialTV } from '../../../common/types/tv';
+import { PartialTVShow } from '../../../common/types/tv';
 import { UseMediaTypeInfiniteQueryResponse } from '../../../common/queries/useMediaTypeInfiniteQuery';
 import { data as dataFormat } from '../../../components/Filters/common/data/formats';
 
@@ -70,7 +70,7 @@ const OriginalTVShows: FC = () => {
 		options: {
 			enabled: false,
 			onSuccess: (data) => {
-				let shows: PartialTV[] = [];
+				let shows: PartialTVShow[] = [];
 
 				data.pages.forEach((page) => {
 					shows = [...shows, ...(page.results || [])];

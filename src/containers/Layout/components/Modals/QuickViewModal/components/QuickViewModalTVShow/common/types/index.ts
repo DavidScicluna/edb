@@ -1,3 +1,3 @@
-import { FullTV } from '../../../../../../../../../common/types/tv';
+import { FullTVShow } from '../../../../../../../../../common/types/tv';
 
-export type CommonQuickViewModalTVShowProps = { show: FullTV };
+export type CommonQuickViewModalTVShowProps = { show: FullTVShow };

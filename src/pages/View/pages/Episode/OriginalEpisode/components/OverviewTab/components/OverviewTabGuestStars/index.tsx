@@ -26,7 +26,7 @@ import {
 } from '../../../../../../../../../components';
 import { getEmptySubtitle } from '../../../../../../../../../components/QueryEmpty/common/utils';
 import { useEpisodeContext } from '../../../../common/hooks';
-import { EpisodeGuest } from '../../../../../../../../../common/types/tv';
+import { TVShowEpisodeGuest } from '../../../../../../../../../common/types/tv';
 import { useUserTheme } from '../../../../../../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
 import { getEpisodeTabIndex } from '../../../../../common/utils';
@@ -51,10 +51,10 @@ const OverviewTabGuestStars: FC = () => {
 	} = creditsQuery || {};
 	const { guest_stars: guests = [] } = credits || {};
 
-	const [topGuests, setTopGuests] = useState<EpisodeGuest[]>(
+	const [topGuests, setTopGuests] = useState<TVShowEpisodeGuest[]>(
 		uniqBy([...guests], 'id').filter((_mediaItem, index) => index < 20)
 	);
-	const topGuestsDebounced = useDebounce<EpisodeGuest[]>(topGuests, 'slow');
+	const topGuestsDebounced = useDebounce<TVShowEpisodeGuest[]>(topGuests, 'slow');
 
 	useUpdateEffect(() => {
 		setTopGuests(uniqBy([...guests], 'id').filter((_mediaItem, index) => index < 20));

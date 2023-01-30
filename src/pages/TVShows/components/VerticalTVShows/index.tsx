@@ -25,7 +25,7 @@ import {
 import { useUserTheme } from '../../../../common/hooks';
 import { getEmptySubtitle } from '../../../../components/QueryEmpty/common/utils';
 import { formatMediaTypeLabel } from '../../../../common/utils';
-import { PartialTV } from '../../../../common/types/tv';
+import { PartialTVShow } from '../../../../common/types/tv';
 
 import { VerticalTVShowsProps } from './types';
 
@@ -109,7 +109,7 @@ const VerticalTVShows: FC<VerticalTVShowsProps> = ({ query, shows, onLoadMore })
 		<VStack width='100%' spacing={spacing}>
 			<VerticalGrid>
 				{({ displayMode }) =>
-					(shows.results || []).map((show: PartialTV) =>
+					(shows.results || []).map((show: PartialTVShow) =>
 						displayMode === 'list' ? (
 							<TVShowHorizontalPoster key={show.id} show={show} />
 						) : (

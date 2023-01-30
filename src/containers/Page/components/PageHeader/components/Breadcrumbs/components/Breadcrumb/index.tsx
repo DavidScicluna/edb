@@ -14,7 +14,7 @@ import { formatMediaType, formatMediaTypeLabel } from '../../../../../../../../c
 import { mediaTypeQueryKey } from '../../../../../../../../common/queries/useMediaTypeQuery';
 import { FullPerson } from '../../../../../../../../common/types/person';
 import { Collection, FullMovie } from '../../../../../../../../common/types/movie';
-import { FullTV } from '../../../../../../../../common/types/tv';
+import { FullTVShow } from '../../../../../../../../common/types/tv';
 
 import { BreadcrumbProps, BreadcrumbLabel } from './types';
 
@@ -77,7 +77,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb, match, isCurrentPage = fa
 							label = capitalize(splitLocation[splitLocation.length - 1]);
 							setIsText.on();
 						} else {
-							const show = client.getQueryData<FullTV>(
+							const show = client.getQueryData<FullTVShow>(
 								mediaTypeQueryKey({ mediaType: 'tv', id: Number(id) })
 							);
 							label = show?.name;

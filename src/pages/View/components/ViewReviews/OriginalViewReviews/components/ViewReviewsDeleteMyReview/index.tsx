@@ -26,7 +26,7 @@ import { useLayoutContext } from '../../../../../../../containers/Layout/common/
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import { UserReviewsMediaItem, UserReviewsMediaItems } from '../../../../../../../store/slices/Users/types';
 import { FullMovie } from '../../../../../../../common/types/movie';
-import { FullTV } from '../../../../../../../common/types/tv';
+import { FullTVShow } from '../../../../../../../common/types/tv';
 import { setMovieUserReviews, setTVShowUserReviews } from '../../../../../../../store/slices/Users';
 import { Alert } from '../../../../../../../components';
 import { convertDurationToMS } from '../../../../../../../components/Alert/common/utils';
@@ -87,7 +87,7 @@ const ViewReviewsDeleteMyReview = <MT extends ViewReviewsMediaType>(
 	};
 
 	const handleUpdateTVShowUserReviews = (tvShowUserReviews: UserReviewsMediaItems<'tv'>): void => {
-		const { name = `the ${formatMediaTypeLabel({ type: 'single', mediaType: 'tv' })}` } = mediaItem as FullTV;
+		const { name = `the ${formatMediaTypeLabel({ type: 'single', mediaType: 'tv' })}` } = mediaItem as FullTVShow;
 
 		dispatch(setTVShowUserReviews({ id: userID, data: [...tvShowUserReviews] }));
 

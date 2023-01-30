@@ -1,5 +1,5 @@
 import { PartialMovie } from './movie';
-import { PartialTV } from './tv';
+import { PartialTVShow } from './tv';
 
 import { MediaType } from '.';
 
@@ -23,13 +23,13 @@ export type PersonMovieCredits = {
 export type PersonCastTVCredit = {
 	character?: string;
 	credit_id?: string;
-} & PartialTV;
+} & PartialTVShow;
 
 export type PersonCrewTVCredit = {
 	department?: string;
 	episode_count?: number;
 	job?: string;
-} & PartialTV;
+} & PartialTVShow;
 
 export type PersonTVCredits = {
 	cast?: PersonCastTVCredit[];
@@ -55,7 +55,7 @@ type Person = {
 };
 
 export type PartialPerson = {
-	known_for?: (PartialMovie & PartialTV)[];
+	known_for?: (PartialMovie & PartialTVShow)[];
 } & Person;
 
 /*

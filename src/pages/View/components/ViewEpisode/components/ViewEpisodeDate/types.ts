@@ -1,5 +1,5 @@
-import { Episode } from '../../../../../../common/types/tv';
+import { TVShowEpisode } from '../../../../../../common/types/tv';
 
-export type ViewEpisodeDateProps = Pick<Episode, 'air_date'> & {
+export type ViewEpisodeDateProps = Pick<TVShowEpisode, 'air_date'> & {
 	inView: boolean;
 };

@@ -1,5 +1,5 @@
 import { NoUndefinedField } from '@davidscicluna/component-library';
 
-import { FullSeason, FullTV } from '../../../../../../../../../common/types/tv';
+import { TVShowFullSeason, FullTVShow } from '../../../../../../../../../common/types/tv';
 
-export type EpisodesTabSeasonProps = NoUndefinedField<Pick<FullTV, 'id'> & { season: FullSeason['id'] }>;
+export type EpisodesTabSeasonProps = NoUndefinedField<Pick<FullTVShow, 'id'> & { season: TVShowFullSeason['id'] }>;

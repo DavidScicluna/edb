@@ -24,7 +24,7 @@ import { useSelector, useUserTheme } from '../../../../../../../common/hooks';
 import { setUserLists } from '../../../../../../../store/slices/Users';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import { FullMovie } from '../../../../../../../common/types/movie';
-import { FullTV } from '../../../../../../../common/types/tv';
+import { FullTVShow } from '../../../../../../../common/types/tv';
 import { UserList as UserList, UserListMediaItems, MediaItem } from '../../../../../../../store/slices/Users/types';
 import { useLayoutContext } from '../../../../../common/hooks';
 import CreateList from '../../../../../../../pages/User/pages/UserProfile/OriginalUserProfile/components/UserProfileTabs/components/MyListsTab/components/CreateList';
@@ -91,7 +91,7 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 								[
 									...mediaItems.tv,
 									{
-										mediaItem: { ...(mediaItem as FullTV) },
+										mediaItem: { ...(mediaItem as FullTVShow) },
 										mediaType: 'tv',
 										addedAt: dayjs(new Date()).toISOString()
 									} as MediaItem<'tv'>

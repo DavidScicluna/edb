@@ -14,11 +14,11 @@ import { AxiosConfig, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
-import { FullSeason, FullTV } from '../types/tv';
+import { TVShowFullSeason, FullTVShow } from '../types/tv';
 
-export type UseTVShowSeasonQueryProps = Pick<FullTV, 'id'> & { season: FullSeason['id'] };
+export type UseTVShowSeasonQueryProps = Pick<FullTVShow, 'id'> & { season: TVShowFullSeason['id'] };
 
-export type UseTVShowSeasonQueryResponse = FullSeason;
+export type UseTVShowSeasonQueryResponse = TVShowFullSeason;
 
 export type UseTVShowSeasonQueryOptions = UseQueryOptions<UseTVShowSeasonQueryResponse, AxiosError<QueryError>>;
 

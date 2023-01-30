@@ -16,7 +16,7 @@ import { Alert } from '../../components';
 import { FullPerson } from '../types/person';
 import { formatMediaTypeLabel } from '../utils';
 import { Collection, FullMovie } from '../types/movie';
-import { FullTV } from '../types/tv';
+import { FullTVShow } from '../types/tv';
 
 export type UseMediaTypeQueryMediaType = Exclude<MediaType, 'company'>;
 
@@ -25,7 +25,7 @@ export type UseMediaTypeQueryProps<MT extends UseMediaTypeQueryMediaType> = { me
 export type UseMediaTypeQueryResponse<MT extends UseMediaTypeQueryMediaType> = MT extends 'movie'
 	? FullMovie
 	: MT extends 'tv'
-	? FullTV
+	? FullTVShow
 	: MT extends 'person'
 	? FullPerson
 	: Collection;

@@ -1,3 +1,3 @@
-import { Episode } from '../../../../../../common/types/tv';
+import { TVShowEpisode } from '../../../../../../common/types/tv';
 
-export type ViewEpisodeRatingProps = Pick<Episode, 'vote_average' | 'vote_count'>;
+export type ViewEpisodeRatingProps = Pick<TVShowEpisode, 'vote_average' | 'vote_count'>;

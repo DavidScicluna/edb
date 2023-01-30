@@ -14,7 +14,7 @@ import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialMovie } from '../types/movie';
-import { PartialTV } from '../types/tv';
+import { PartialTVShow } from '../types/tv';
 import { formatMediaTypeLabel } from '../utils';
 
 export type UsePopularQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
@@ -22,7 +22,7 @@ export type UsePopularQueryMediaType = Exclude<MediaType, 'person' | 'company' |
 export type UsePopularQueryProps<MT extends UsePopularQueryMediaType> = { mediaType: MT };
 
 export type UsePopularQueryResponse<MT extends UsePopularQueryMediaType> = Response<
-	MT extends 'movie' ? PartialMovie[] : PartialTV[]
+	MT extends 'movie' ? PartialMovie[] : PartialTVShow[]
 >;
 
 export type UsePopularQueryOptions<MT extends UsePopularQueryMediaType> = UseQueryOptions<

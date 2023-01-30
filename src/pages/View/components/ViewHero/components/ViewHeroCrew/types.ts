@@ -1,5 +1,5 @@
 import { MediaType } from '../../../../../../common/types';
-import { Crew as TVShowCrew } from '../../../../../../common/types/tv';
+import { TVShowCrew as TVShowCrew } from '../../../../../../common/types/tv';
 import { MovieCrew as MovieCrew } from '../../../../../../common/types/movie';
 import { ViewHeroLabelProps } from '../ViewHeroLabel/types';
 

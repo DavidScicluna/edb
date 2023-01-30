@@ -2,87 +2,89 @@ import { FullPerson } from './person';
 
 import { ProductionCompany, ProductionCountry, Language, Genre } from '.';
 
-export type Role = {
+export type TVShowCastRole = {
 	credit_id?: string;
 	character?: string;
 	episode_count?: number;
 };
 
-export type Cast = {
+export type TVShowCast = {
 	credit_id?: string;
 	character?: string;
 	episode_count?: number;
-	roles?: Role[];
+	roles?: TVShowCastRole[];
 	total_episode_count?: number;
 	order?: number;
 	original_name?: string;
 } & FullPerson;
 
-export type Job = {
+export type TVShowCrewJob = {
 	credit_id?: string;
 	job?: string;
 	episode_count?: number;
 };
 
-export type Crew = {
+export type TVShowCrew = {
 	credit_id?: string;
 	department?: string;
 	job?: string;
-	jobs?: Job[];
+	jobs?: TVShowCrewJob[];
 	total_episode_count?: number;
 	original_name?: string;
 } & FullPerson;
 
-export type Credits = {
-	cast?: Cast[];
-	crew?: Crew[];
+export type TVShowCredits = {
+	cast?: TVShowCast[];
+	crew?: TVShowCrew[];
 	id?: number;
 };
 
-type EpisodeCast = {
+export type TVShowEpisodeCast = {
 	original_name?: string;
 	character?: string;
 	credit_id?: string;
 	order?: number;
 } & FullPerson;
 
-type EpisodeCrew = {
+export type TVShowEpisodeCrew = {
 	credit_id?: string;
 	department?: string;
 	job?: string;
 	original_name?: string;
 } & FullPerson;
 
-type EpisodeGuest = {
+export type TVShowEpisodeGuest = {
 	credit_id?: string;
 	order?: number;
 	character?: string;
 	original_name?: string;
 } & FullPerson;
 
-export type EpisodeCredits = {
-	cast?: EpisodeCast[];
-	crew?: EpisodeCrew[];
-	guest_stars?: EpisodeGuest[];
+export type TVShowEpisodeCredits = {
+	cast?: TVShowEpisodeCast[];
+	crew?: TVShowEpisodeCrew[];
+	guest_stars?: TVShowEpisodeGuest[];
 	id?: number;
 };
 
-export type Episode = {
+export type TVShowEpisode = {
 	air_date?: string;
-	crew?: EpisodeCrew[];
+	crew?: TVShowEpisodeCrew[];
 	episode_number?: number;
-	guest_stars?: EpisodeGuest[];
+	guest_stars?: TVShowEpisodeGuest[];
 	id?: number;
 	name?: string;
 	overview?: string;
 	production_code?: string;
+	runtime?: number;
 	season_number?: number;
 	still_path?: string;
+	show_id?: number;
 	vote_average?: number;
 	vote_count?: number;
 };
 
-type Season = {
+type TVShowSeason = {
 	air_date?: string;
 	id?: number;
 	name?: string;
@@ -91,16 +93,16 @@ type Season = {
 	season_number?: number;
 };
 
-export type PartialSeason = {
+export type TVShowPartialSeason = {
 	episode_count?: number;
-} & Season;
+} & TVShowSeason;
 
-export type FullSeason = {
+export type TVShowFullSeason = {
 	_id?: string;
-	episodes?: Episode[];
-} & Season;
+	episodes?: TVShowEpisode[];
+} & TVShowSeason;
 
-type TV = {
+type TVShow = {
 	backdrop_path?: string | null;
 	first_air_date?: string;
 	id?: number;
@@ -115,11 +117,11 @@ type TV = {
 	vote_count?: number;
 };
 
-export type PartialTV = {
+export type PartialTVShow = {
 	genre_ids?: number[];
-} & TV;
+} & TVShow;
 
-export type CreatedBy = {
+export type TVShowCreatedBy = {
 	id?: number;
 	credit_id?: string;
 	name?: string;
@@ -127,41 +129,43 @@ export type CreatedBy = {
 	profile_path?: string | null;
 };
 
-type Network = {
+type TVShowNetwork = {
 	id?: number;
 	logo_path?: string | null;
 	name?: string;
 	origin_country?: string;
 };
 
-type ContentRating = {
+export type TVShowContentRating = {
 	iso_3166_1?: string;
 	rating?: string;
 };
 
-type ContentRatings = {
-	results?: ContentRating[];
+type TVShowContentRatings = {
+	results?: TVShowContentRating[];
 };
 
-export type FullTV = {
-	created_by?: CreatedBy[];
-	content_ratings?: ContentRatings;
+export type TVShowStatus = 'Returning Series' | 'Planned' | 'In Production' | 'Ended' | 'Canceled' | 'Pilot';
+
+export type FullTVShow = {
+	created_by?: TVShowCreatedBy[];
+	content_ratings?: TVShowContentRatings;
 	episode_run_time?: number[];
 	genres?: Genre[];
 	homepage?: string;
 	in_production?: boolean;
 	languages?: string[];
 	last_air_date?: string;
-	last_episode_to_air?: Episode;
-	networks?: Network[];
-	next_episode_to_air?: Episode;
+	last_episode_to_air?: TVShowEpisode;
+	networks?: TVShowNetwork[];
+	next_episode_to_air?: TVShowEpisode;
 	number_of_episodes?: number;
 	number_of_seasons?: number;
 	production_companies?: ProductionCompany[];
 	production_countries?: ProductionCountry[];
-	seasons?: PartialSeason[];
+	seasons?: TVShowPartialSeason[];
 	spoken_languages?: Language[];
-	status?: string;
+	status?: TVShowStatus;
 	tagline?: string;
 	type?: string;
-} & TV;
+} & TVShow;
