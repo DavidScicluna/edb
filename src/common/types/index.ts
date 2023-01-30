@@ -1,8 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 
-export type Orientation = 'vertical' | 'horizontal';
-
 export type AxiosConfig = Omit<AxiosRequestConfig, 'cancelToken' | 'signal'>;
+export type AxiosConfigParams = AxiosConfig['params'];
 
 export type QueryError = { status_message?: string; status_code?: number };
 
@@ -33,6 +32,10 @@ export type MediaType = 'movie' | 'tv' | 'person' | 'company' | 'collection';
 export type Keyword = {
 	id?: number;
 	name?: string;
+};
+export type Keywords = {
+	id?: number;
+	keywords?: Keyword[];
 };
 
 export type Video = {
@@ -72,7 +75,7 @@ export type Images = {
 	posters?: Image[];
 };
 
-type Author = {
+export type ReviewAuthor = {
 	name?: string;
 	username?: string;
 	avatar_path?: string;
@@ -82,7 +85,7 @@ type Author = {
 export type Review = {
 	id?: string;
 	author?: string;
-	author_details?: Author;
+	author_details?: ReviewAuthor;
 	content?: string;
 	created_at?: string;
 	iso_639_1?: string;
@@ -159,8 +162,8 @@ export type Certification = {
 	order?: number;
 };
 
-// export type CertificationKey = 'US' | 'CA' | 'DE' | 'GB' | 'AU' | 'BR' | 'FR' | 'NZ' | 'IN';
+export type CertificationKey = ('US' | 'CA' | 'DE' | 'GB' | 'AU' | 'BR' | 'FR' | 'NZ' | 'IN') & string;
 
-export type CountryCertifications = { [key: string]: Certification[] };
+export type CountryCertifications = { [key in CertificationKey]: Certification[] };
 
 export type Certifications = { certifications?: CountryCertifications };
