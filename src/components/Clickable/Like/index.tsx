@@ -77,31 +77,31 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 			case 'movie': {
 				updatedLiked.movie = sort(
 					uniq([...updatedLiked.movie.filter((movie) => movie.mediaItem.id !== mediaItem.id)])
-				).desc((movie) => movie.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'tv': {
 				updatedLiked.tv = sort(
 					uniq([...updatedLiked.tv.filter((show) => show.mediaItem.id !== mediaItem.id)])
-				).desc((show) => show.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'person': {
 				updatedLiked.person = sort(
 					uniq([...updatedLiked.person.filter((person) => person.mediaItem.id !== mediaItem.id)])
-				).desc((person) => person.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'company': {
 				updatedLiked.company = sort(
 					uniq([...updatedLiked.company.filter((company) => company.mediaItem.id !== mediaItem.id)])
-				).desc((company) => company.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'collection': {
 				updatedLiked.collection = sort(
 					uniq([...updatedLiked.collection.filter((collection) => collection.mediaItem.id !== mediaItem.id)])
-				).desc((collection) => collection.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 		}
@@ -129,7 +129,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 							addedAt: dayjs(new Date()).toISOString()
 						} as MediaItem<'movie'>
 					])
-				).desc((movie) => movie.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'tv': {
@@ -142,7 +142,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 							addedAt: dayjs(new Date()).toISOString()
 						} as MediaItem<'tv'>
 					])
-				).desc((show) => show.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'person': {
@@ -155,7 +155,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 							addedAt: dayjs(new Date()).toISOString()
 						} as MediaItem<'person'>
 					])
-				).desc((person) => person.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'company': {
@@ -168,7 +168,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 							addedAt: dayjs(new Date()).toISOString()
 						} as MediaItem<'company'>
 					])
-				).desc((company) => company.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 			case 'collection': {
@@ -181,7 +181,7 @@ const Like = <MT extends MediaType>(props: LikeProps<MT>): ReactElement => {
 							addedAt: dayjs(new Date()).toISOString()
 						} as MediaItem<'collection'>
 					])
-				).desc((collection) => collection.addedAt);
+				).desc(({ addedAt }) => addedAt);
 				break;
 			}
 		}

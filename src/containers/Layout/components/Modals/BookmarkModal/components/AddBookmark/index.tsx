@@ -82,7 +82,7 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 								],
 								'mediaItem.id'
 							)
-						).desc((movie) => movie.addedAt);
+						).desc(({ addedAt }) => addedAt);
 						break;
 					}
 					case 'tv': {
@@ -98,7 +98,7 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 								],
 								'mediaItem.id'
 							)
-						).desc((show) => show.addedAt);
+						).desc(({ addedAt }) => addedAt);
 						break;
 					}
 				}
@@ -112,8 +112,6 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 				return { ...list };
 			}
 		});
-
-		dispatch(setUserLists({ id, data: sort([...updatedLists]).desc((list) => list.updatedAt) }));
 
 		onClose();
 	}, [id, lists, selected, mediaType, mediaItem, onClose]);

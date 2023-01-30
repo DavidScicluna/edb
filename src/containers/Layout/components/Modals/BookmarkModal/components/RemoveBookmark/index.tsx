@@ -132,7 +132,7 @@ const RemoveBookmark: FC<RemoveBookmarkProps> = (props) => {
 			}
 		});
 
-		dispatch(setUserLists({ id, data: sort([...updatedLists]).desc((list) => list.updatedAt) }));
+		dispatch(setUserLists({ id, data: sort([...updatedLists]).desc(({ updatedAt }) => updatedAt) }));
 
 		onClose();
 	}, [id, lists, mediaType, mediaItem, onClose]);
