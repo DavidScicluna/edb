@@ -28,7 +28,7 @@ import User from './components/User';
 import Internationalization from './components/Internationalization';
 import { StructureMobileTabletProps } from './types';
 
-const { getTransitionConfig, getTransitionDuration, getColor } = utils;
+const { getTransitionConfig, getTransitionDelay, getTransitionDuration, getColor } = utils;
 
 const StructureMobileTablet: FC<StructureMobileTabletProps> = ({ children, device }) => {
 	const theme = useTheme();
@@ -42,6 +42,7 @@ const StructureMobileTablet: FC<StructureMobileTabletProps> = ({ children, devic
 
 	const [headerRef, { height: headerHeight }] = useElementSize();
 
+	const delay = useConst<number>(getTransitionDelay({ theme, duration: 'slower' }) * 2);
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
 	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
 
@@ -143,8 +144,9 @@ const StructureMobileTablet: FC<StructureMobileTabletProps> = ({ children, devic
 
 					{!isGuest && (
 						<Fade
-							in={!isAuthenticationRoute}
-							transition={{ enter: { ...config }, exit: { ...config } }}
+							in={location.pathname !== '/recently-viewed'}
+							transition={{ enter: { ...config, delay }, exit: { ...config, delay } }}
+							delay={delay}
 							style={{ width: '100%' }}
 						>
 							<RecentlyViewed />

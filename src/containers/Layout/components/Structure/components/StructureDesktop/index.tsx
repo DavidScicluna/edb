@@ -1,5 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 
+import { useLocation } from 'react-router';
+
 import { useTheme, Fade, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst, HStack, Center, VStack } from '@chakra-ui/react';
@@ -17,10 +19,12 @@ import RecentlyViewed from '../RecentlyViewed';
 
 import Sidebar from './components/Sidebar';
 
-const { getTransitionConfig, getTransitionDuration } = utils;
+const { getTransitionConfig, getTransitionDelay, getTransitionDuration } = utils;
 
 const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 	const theme = useTheme();
+
+	const location = useLocation();
 
 	const { isAuthenticationRoute, isGuest } = useLayoutContext();
 
@@ -30,6 +34,7 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 
 	const [isPositionDelayed, setIsPositionDelayed] = useBoolean();
 
+	const delay = useConst<number>(getTransitionDelay({ theme, duration: 'slower' }) * 2);
 	const duration = useConst<number>(getTransitionDuration({ theme, duration: 'slow' }));
 	const config = useConst<Transition>({ ...getTransitionConfig({ theme }), duration });
 
@@ -71,8 +76,9 @@ const StructureDesktop: FC<StructureDesktopProps> = ({ children }) => {
 
 				{!isGuest && (
 					<Fade
-						in={!isAuthenticationRoute}
-						transition={{ enter: { ...config }, exit: { ...config } }}
+						in={location.pathname !== '/recently-viewed'}
+						transition={{ enter: { ...config, delay }, exit: { ...config, delay } }}
+						delay={delay}
 						style={{ width: '100%' }}
 					>
 						<RecentlyViewed />
