@@ -9,6 +9,7 @@ import { Suspense } from '../../components';
 import DummySearch from '../../pages/Search/DummySearch';
 import DummyPerson from '../../pages/View/pages/Person/DummyPerson';
 import DummyHome from '../../pages/Home/DummyHome';
+import DummyRecentlyViewed from '../../pages/RecentlyViewed/DummyRecentlyViewed';
 import DummyTrending from '../../pages/Trending/DummyTrending';
 import DummyTVShows from '../../pages/TVShows/DummyTVShows';
 import DummyTVShow from '../../pages/View/pages/TVShow/DummyTVShow';
@@ -26,6 +27,7 @@ import PageTransition from './components/PageTransition';
 import NoMatch from './components/NoMatch';
 
 const Home = lazy(() => import('../../pages/Home/OriginalHome'));
+const RecentlyViewed = lazy(() => import('../../pages/RecentlyViewed/OriginalRecentlyViewed'));
 const Movies = lazy(() => import('../../pages/Movies/OriginalMovies'));
 const Trending = lazy(() => import('../../pages/Trending/OriginalTrending'));
 const UserProfile = lazy(() => import('../../pages/User/pages/UserProfile/OriginalUserProfile'));
@@ -61,6 +63,21 @@ const Routes: FC = () => {
 							<Suspense fallback={<DummyHome />}>
 								<Home />
 							</Suspense>
+						</PageTransition>
+					}
+				/>
+
+				<Route
+					path='/recently-viewed'
+					element={
+						<PageTransition>
+							{!isGuest ? (
+								<Suspense fallback={<DummyRecentlyViewed />}>
+									<RecentlyViewed />
+								</Suspense>
+							) : (
+								<NoMatch />
+							)}
 						</PageTransition>
 					}
 				/>
