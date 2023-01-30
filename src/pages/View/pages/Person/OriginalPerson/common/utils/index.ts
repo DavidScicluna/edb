@@ -3,7 +3,7 @@ import { sort } from 'fast-sort';
 import { compact, keys, lowerCase, memoize, toString, uniq } from 'lodash';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-import { Credits, FullPerson } from '../../../../../../../common/types/person';
+import { PersonCredits, FullPerson } from '../../../../../../../common/types/person';
 import { PersonCredit, PersonCredits, PersonDepartment, PersonDepartments } from '../../types';
 import { formatDate } from '../../../../../../../common/utils';
 
@@ -41,7 +41,7 @@ const splitCreditsByYear = memoize(
 	}
 );
 
-type GetDepartmentsProps = { credits: Credits };
+type GetDepartmentsProps = { credits: PersonCredits };
 
 export const getDepartments = memoize(
 	<Cast extends PersonCredit, Crew extends PersonCredit>({

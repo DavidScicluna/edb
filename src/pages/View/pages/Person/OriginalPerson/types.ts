@@ -1,6 +1,11 @@
 import { TabsOnChangeProps } from '@davidscicluna/component-library';
 
-import { CastMovieCredit, CastTVCredit, CrewMovieCredit, CrewTVCredit } from '../../../../../common/types/person';
+import {
+	PersonCastMovieCredit,
+	PersonCastTVCredit,
+	PersonCrewMovieCredit,
+	PersonCrewTVCredit
+} from '../../../../../common/types/person';
 import { UseMediaTypeQueryResult } from '../../../../../common/queries/useMediaTypeQuery';
 import { UsePersonCreditsQueryResult } from '../../../../../common/queries/usePersonCreditsQuery';
 import { UseMediaTypeImagesQueryResult } from '../../../../../common/queries/useMediaTypeImagesQuery';
@@ -9,7 +14,7 @@ type PersonDepartmentID = 'acting' | string;
 
 type PersonDepartmentLabel = 'Acting' | string;
 
-export type PersonCredit = CastMovieCredit & CastTVCredit & CrewMovieCredit & CrewTVCredit;
+export type PersonCredit = PersonCastMovieCredit & PersonCastTVCredit & PersonCrewMovieCredit & PersonCrewTVCredit;
 export type PersonCredits<C> = Record<string, C[]>;
 
 export type PersonDepartment<Cast extends PersonCredit, Crew extends PersonCredit> = {
@@ -22,10 +27,10 @@ export type PersonDepartment<Cast extends PersonCredit, Crew extends PersonCredi
 };
 export type PersonDepartments<Cast extends PersonCredit, Crew extends PersonCredit> = PersonDepartment<Cast, Crew>[];
 
-export type PersonMovieDepartment = PersonDepartment<CastMovieCredit, CrewMovieCredit>;
+export type PersonMovieDepartment = PersonDepartment<PersonCastMovieCredit, PersonCrewMovieCredit>;
 export type PersonMovieDepartments = PersonMovieDepartment[];
 
-export type PersonTVShowDepartment = PersonDepartment<CastTVCredit, CrewTVCredit>;
+export type PersonTVShowDepartment = PersonDepartment<PersonCastTVCredit, PersonCrewTVCredit>;
 export type PersonTVShowDepartments = PersonTVShowDepartment[];
 
 export type PersonContext = {

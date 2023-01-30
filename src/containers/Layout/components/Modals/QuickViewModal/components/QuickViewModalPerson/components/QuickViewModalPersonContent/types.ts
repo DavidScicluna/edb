@@ -1,4 +1,4 @@
-import { MovieCredits, TVCredits } from '../../../../../../../../../common/types/person';
+import { PersonMovieCredits, PersonTVCredits } from '../../../../../../../../../common/types/person';
 import { CommonQuickViewModalPersonProps } from '../../common/types';
 import {
 	PersonMovieDepartments,
@@ -6,8 +6,8 @@ import {
 } from '../../../../../../../../../pages/View/pages/Person/OriginalPerson/types';
 
 export type QuickViewModalPersonContentProps = CommonQuickViewModalPersonProps & {
-	movieCredits?: MovieCredits;
+	movieCredits?: PersonMovieCredits;
 	movieDepartments?: PersonMovieDepartments;
-	tvShowCredits?: TVCredits;
+	tvShowCredits?: PersonTVCredits;
 	tvShowDepartments?: PersonTVShowDepartments;
 };

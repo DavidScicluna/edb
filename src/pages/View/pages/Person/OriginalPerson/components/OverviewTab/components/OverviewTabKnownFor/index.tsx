@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { usePersonContext } from '../../../../common/hooks';
 import { formatMediaTypeLabel } from '../../../../../../../../../common/utils';
-import { Credits } from '../../../../../../../../../common/types/person';
+import { PersonCredits } from '../../../../../../../../../common/types/person';
 import ViewKnownFor from '../../../../../../../components/ViewKnownFor';
 import { getPersonTabIndex } from '../../../../../common/utils';
 
@@ -40,7 +40,7 @@ const OverviewTabKnownFor: FC = () => {
 					...tvShowCastCredits.map((show) => {
 						return { ...show, media_type: 'tv' };
 					})
-				] as NonNullable<Credits['cast']>,
+				] as NonNullable<PersonCredits['cast']>,
 				crew: [
 					...movieCrewCredits.map((movie) => {
 						return { ...movie, media_type: 'movie' };
@@ -48,7 +48,7 @@ const OverviewTabKnownFor: FC = () => {
 					...tvShowCrewCredits.map((show) => {
 						return { ...show, media_type: 'tv' };
 					})
-				] as NonNullable<Credits['crew']>
+				] as NonNullable<PersonCredits['crew']>
 			}}
 			title='Known For'
 			subtitle={`This list is showcasing all the ${formatMediaTypeLabel({

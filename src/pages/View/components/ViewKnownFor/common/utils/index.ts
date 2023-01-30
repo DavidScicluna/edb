@@ -1,10 +1,10 @@
 import { sort } from 'fast-sort';
 import { memoize, uniqBy } from 'lodash';
 
-import { Credits } from '../../../../../../common/types/person';
+import { PersonCredits } from '../../../../../../common/types/person';
 import { ViewKnownForCredits } from '../../types';
 
-type GetKnownForProps = { credits: Credits };
+type GetKnownForProps = { credits: PersonCredits };
 
 export const getKnownFor = memoize(({ credits }: GetKnownForProps): ViewKnownForCredits => {
 	const { cast = [], crew = [] } = credits;

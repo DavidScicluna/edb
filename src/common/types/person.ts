@@ -1,43 +1,47 @@
 import { PartialMovie } from './movie';
 import { PartialTV } from './tv';
 
-export type CastMovieCredit = {
+import { MediaType } from '.';
+
+export type PersonCastMovieCredit = {
 	character?: string;
 	credit_id?: string;
 } & PartialMovie;
 
-export type CrewMovieCredit = {
+export type PersonCrewMovieCredit = {
 	credit_id?: string;
 	department?: string;
 	job?: string;
 } & PartialMovie;
 
-export type MovieCredits = {
-	cast?: CastMovieCredit[];
-	crew?: CrewMovieCredit[];
+export type PersonMovieCredits = {
+	cast?: PersonCastMovieCredit[];
+	crew?: PersonCrewMovieCredit[];
 	id?: number;
 };
 
-export type CastTVCredit = {
+export type PersonCastTVCredit = {
 	character?: string;
 	credit_id?: string;
 } & PartialTV;
 
-export type CrewTVCredit = {
+export type PersonCrewTVCredit = {
 	department?: string;
 	episode_count?: number;
 	job?: string;
 } & PartialTV;
 
-export type TVCredits = {
-	cast?: CastTVCredit[];
-	crew?: CrewTVCredit[];
+export type PersonTVCredits = {
+	cast?: PersonCastTVCredit[];
+	crew?: PersonCrewTVCredit[];
 	id?: number;
 };
 
-export type Credits = {
-	cast?: (CastMovieCredit & CastTVCredit)[];
-	crew?: (CrewMovieCredit & CrewTVCredit)[];
+export type PersonCreditMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
+
+export type PersonCredits = {
+	cast?: ({ media_type?: PersonCreditMediaType } & (PersonCastMovieCredit & PersonCastTVCredit))[];
+	crew?: ({ media_type?: PersonCreditMediaType } & (PersonCrewMovieCredit & PersonCrewTVCredit))[];
 	id?: number;
 };
 
@@ -54,14 +58,20 @@ export type PartialPerson = {
 	known_for?: (PartialMovie & PartialTV)[];
 } & Person;
 
-type Gender = 0 | 1 | 2 | 3;
+/*
+ * 0 = Not Specified
+ * 1 = Female
+ * 2 = Male
+ * 3 = Non-Binary
+ */
+export type PersonGender = 0 | 1 | 2 | 3;
 
 export type FullPerson = {
 	also_known_as?: string[];
 	biography?: string;
 	birthday?: string | null;
 	deathday?: string | null;
-	gender?: Gender | null;
+	gender?: PersonGender | null;
 	homepage?: string | null;
 	imdb_id?: string;
 	place_of_birth?: string | null;

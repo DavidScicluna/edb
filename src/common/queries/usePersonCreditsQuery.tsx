@@ -13,7 +13,7 @@ import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError } from '../types';
 import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { Alert } from '../../components';
-import { FullPerson, MovieCredits, TVCredits } from '../types/person';
+import { FullPerson, PersonMovieCredits, PersonTVCredits } from '../types/person';
 import { formatMediaTypeLabel } from '../utils';
 
 export type UsePersonCreditsQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
@@ -23,8 +23,8 @@ export type UsePersonCreditsQueryProps<MT extends UsePersonCreditsQueryMediaType
 };
 
 export type UsePersonCreditsQueryResponse<MT extends UsePersonCreditsQueryMediaType> = MT extends 'movie'
-	? MovieCredits
-	: TVCredits;
+	? PersonMovieCredits
+	: PersonTVCredits;
 
 export type UsePersonCreditsQueryOptions<MT extends UsePersonCreditsQueryMediaType> = UseQueryOptions<
 	UsePersonCreditsQueryResponse<MT>,

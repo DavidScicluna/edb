@@ -33,7 +33,12 @@ import { Suspense, TotalBadge } from '../../../../../components';
 import ViewDummyPoster from '../../../components/ViewDummyPoster';
 import ViewSocials from '../../../components/ViewSocials';
 import ViewDummySocials from '../../../components/ViewDummySocials';
-import { CastMovieCredit, CastTVCredit, CrewMovieCredit, CrewTVCredit } from '../../../../../common/types/person';
+import {
+	PersonCastMovieCredit,
+	PersonCastTVCredit,
+	PersonCrewMovieCredit,
+	PersonCrewTVCredit
+} from '../../../../../common/types/person';
 import { method as defaultOnSetActiveTab } from '../../../../../common/data/defaultPropValues';
 import DummyOverviewTab from '../components/DummyOverviewTab';
 import DummyPhotosTab from '../components/DummyPhotosTab';
@@ -106,7 +111,7 @@ const Person: FC = () => {
 		options: {
 			enabled: !!person?.id,
 			onSuccess: (credits) => {
-				setMovieDepartments([...getDepartments<CastMovieCredit, CrewMovieCredit>({ credits })]);
+				setMovieDepartments([...getDepartments<PersonCastMovieCredit, PersonCrewMovieCredit>({ credits })]);
 			}
 		}
 	});
@@ -119,7 +124,7 @@ const Person: FC = () => {
 		options: {
 			enabled: !!person?.id,
 			onSuccess: (credits) => {
-				setTVShowDepartments([...getDepartments<CastTVCredit, CrewTVCredit>({ credits })]);
+				setTVShowDepartments([...getDepartments<PersonCastTVCredit, PersonCrewTVCredit>({ credits })]);
 			}
 		}
 	});

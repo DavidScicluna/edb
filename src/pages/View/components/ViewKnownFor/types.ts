@@ -1,11 +1,11 @@
 import { NonNullable } from '@davidscicluna/component-library';
 
-import { Credits } from '../../../../common/types/person';
+import { PersonCredits } from '../../../../common/types/person';
 
-export type ViewKnownForCredits = NonNullable<Credits['cast'] | Credits['crew']>;
+export type ViewKnownForCredits = NonNullable<PersonCredits['cast'] | PersonCredits['crew']>;
 
 export type ViewKnownForProps = {
-	credits?: Credits;
+	credits?: PersonCredits;
 	title?: string;
 	subtitle?: string;
 	emptyLabel: string;
