@@ -33,7 +33,7 @@ import { useWatch, useFormState, Controller } from 'react-hook-form';
 import qs from 'query-string';
 import { omit, sample } from 'lodash';
 
-import { usernames as placeholders } from '../../../../../../common/data/placeholders';
+import { usernames as placeholders } from '../../../../../../../../common/data/placeholders/user';
 import PasswordIcon from '../../../../../../components/PasswordIcon';
 import {
 	color as defaultColor,

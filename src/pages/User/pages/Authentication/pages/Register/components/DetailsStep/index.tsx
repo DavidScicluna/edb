@@ -8,7 +8,7 @@ import {
 	usernames as usernamePlaceholders,
 	firstNames as firstNamePlaceholders,
 	lastNames as lastNamePlaceholders
-} from '../../../../../../common/data/placeholders';
+} from '../../../../../../../../common/data/placeholders/user';
 
 import Credentials from './components/Credentials';
 import Info from './components/Info';

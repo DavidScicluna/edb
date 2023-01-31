@@ -20,7 +20,7 @@ import { useBoolean, useConst, VStack, HStack, Text } from '@chakra-ui/react';
 import { useWatch, useFormState, Controller } from 'react-hook-form';
 import { sample } from 'lodash';
 
-import { usernames as placeholders } from '../../../../../../common/data/placeholders';
+import { usernames as placeholders } from '../../../../../../../../common/data/placeholders/user';
 import { useSelector } from '../../../../../../../../common/hooks';
 import PasswordIcon from '../../../../../../components/PasswordIcon';
 import {
