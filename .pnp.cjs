@@ -29,8 +29,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@chakra-ui/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.2.4"],\
-            ["@chakra-ui/theme-tools", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.0.5"],\
-            ["@chakra-ui/utils", "npm:2.0.4"],\
             ["@davidscicluna/component-library", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.0"],\
             ["@emotion/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.10.5"],\
             ["@emotion/styled", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.10.5"],\
@@ -61,7 +59,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["compressorjs", "npm:1.1.1"],\
             ["crypto-js", "npm:4.1.1"],\
             ["dayjs", "npm:1.11.7"],\
-            ["dayzed", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.2.3"],\
             ["eslint", "npm:8.33.0"],\
             ["eslint-config-prettier", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:8.6.0"],\
             ["eslint-config-react", "npm:1.1.7"],\
@@ -4200,10 +4197,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.0.5", {\
-          "packageLocation": "./.yarn/__virtual__/@chakra-ui-theme-tools-virtual-0986704ce1/0/cache/@chakra-ui-theme-tools-npm-2.0.5-9163c1ef97-f2d8cc7ce0.zip/node_modules/@chakra-ui/theme-tools/",\
+        ["virtual:b5bb4af215a8275dd594399626994922e993cca975e96fa3e29d311855e410e5e56361e48c46a6c090dab5972c491b2568980a0503c7cc53782bd2ac7f152477#npm:2.0.5", {\
+          "packageLocation": "./.yarn/__virtual__/@chakra-ui-theme-tools-virtual-a116540c8b/0/cache/@chakra-ui-theme-tools-npm-2.0.5-9163c1ef97-f2d8cc7ce0.zip/node_modules/@chakra-ui/theme-tools/",\
           "packageDependencies": [\
-            ["@chakra-ui/theme-tools", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.0.5"],\
+            ["@chakra-ui/theme-tools", "virtual:b5bb4af215a8275dd594399626994922e993cca975e96fa3e29d311855e410e5e56361e48c46a6c090dab5972c491b2568980a0503c7cc53782bd2ac7f152477#npm:2.0.5"],\
             ["@chakra-ui/system", null],\
             ["@chakra-ui/utils", "npm:2.0.4"],\
             ["@ctrl/tinycolor", "npm:3.5.0"],\
@@ -4387,7 +4384,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@davidscicluna/component-library", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.0"],\
             ["@chakra-ui/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.2.4"],\
-            ["@chakra-ui/theme-tools", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.0.5"],\
+            ["@chakra-ui/theme-tools", "virtual:b5bb4af215a8275dd594399626994922e993cca975e96fa3e29d311855e410e5e56361e48c46a6c090dab5972c491b2568980a0503c7cc53782bd2ac7f152477#npm:2.0.5"],\
             ["@chakra-ui/utils", "npm:2.0.4"],\
             ["@emotion/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.10.5"],\
             ["@emotion/styled", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.10.5"],\
@@ -4427,8 +4424,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "packagePeers": [\
             "@chakra-ui/react",\
-            "@chakra-ui/theme-tools",\
-            "@chakra-ui/utils",\
             "@emotion/react",\
             "@emotion/styled",\
             "@fontsource/material-icons-outlined",\
@@ -7283,25 +7278,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "react"\
           ],\
           "linkType": "HARD"\
-        }],\
-        ["virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.2.3", {\
-          "packageLocation": "./.yarn/__virtual__/dayzed-virtual-95c7c4a0b4/0/cache/dayzed-npm-3.2.3-7c7dd38a25-9117aeeda8.zip/node_modules/dayzed/",\
-          "packageDependencies": [\
-            ["dayzed", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.2.3"],\
-            ["@babel/runtime", "npm:7.20.13"],\
-            ["@types/prop-types", null],\
-            ["@types/react", "npm:18.0.27"],\
-            ["date-fns", "npm:2.29.3"],\
-            ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:18.2.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/prop-types",\
-            "@types/react",\
-            "prop-types",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
         }]\
       ]],\
       ["debug", [\
@@ -7491,8 +7467,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["edb", "workspace:."],\
             ["@chakra-ui/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.2.4"],\
-            ["@chakra-ui/theme-tools", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:2.0.5"],\
-            ["@chakra-ui/utils", "npm:2.0.4"],\
             ["@davidscicluna/component-library", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:1.0.0"],\
             ["@emotion/react", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.10.5"],\
             ["@emotion/styled", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:11.10.5"],\
@@ -7523,7 +7497,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["compressorjs", "npm:1.1.1"],\
             ["crypto-js", "npm:4.1.1"],\
             ["dayjs", "npm:1.11.7"],\
-            ["dayzed", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:3.2.3"],\
             ["eslint", "npm:8.33.0"],\
             ["eslint-config-prettier", "virtual:fc7d67e5d08cb515a0569c179ff22f855b28d7d37431682a48bffd15ec255a10848ea945505a244d4745a0f20674d66b4ccdb44e89c76095ffef653f8ea0bcc8#npm:8.6.0"],\
             ["eslint-config-react", "npm:1.1.7"],\

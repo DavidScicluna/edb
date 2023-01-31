@@ -15,7 +15,7 @@
     "cleanup": "rimraf node_modules && yarn cache clean --all",
     "prebuild": "yarn run cleanup && yarn install && yarn run lint --fix && sudo yarn run format && rimraf build",
     "build": "yarn run prebuild && vite build",
-    "deploy": "gh-pages -d build",
+    "deploy": "yarn run build && gh-pages -d build",
     "serve": "vite preview"
   },
   "eslintConfig": {
@@ -38,8 +38,6 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
-    "@chakra-ui/theme-tools": "^2.0.16",
-    "@chakra-ui/utils": "^2.0.14",
     "@davidscicluna/component-library": "^1.0.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -51,7 +49,6 @@
     "compressorjs": "^1.1.1",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.7",
-    "dayzed": "^3.2.3",
     "fast-sort": "^3.2.1",
     "framer-motion": "^8.5.4",
     "lodash": "^4.17.21",

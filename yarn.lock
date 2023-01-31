@@ -4565,8 +4565,6 @@ __metadata:
   resolution: "edb@workspace:."
   dependencies:
     "@chakra-ui/react": ^2.4.9
-    "@chakra-ui/theme-tools": ^2.0.16
-    "@chakra-ui/utils": ^2.0.14
     "@davidscicluna/component-library": ^1.0.0
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
@@ -4597,7 +4595,6 @@ __metadata:
     compressorjs: ^1.1.1
     crypto-js: ^4.1.1
     dayjs: ^1.11.7
-    dayzed: ^3.2.3
     eslint: ^8.32.0
     eslint-config-prettier: ^8.6.0
     eslint-config-react: ^1.1.7
