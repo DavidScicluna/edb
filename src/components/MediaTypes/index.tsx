@@ -59,10 +59,9 @@ const MediaTypes = <MT extends MediaType>(props: MediaTypesProps<MT>): ReactElem
 		<HStack width='100%' wrap='wrap' spacing={0} gap={2}>
 			{mediaTypesList.map((mediaTypeItem) =>
 				(mediaTypes && mediaTypes.includes(mediaTypeItem.value)) || !mediaTypes ? (
-					<Center flex={1}>
+					<Center key={mediaTypeItem.value} flex={1}>
 						<MediaTypeItem
 							{...mediaTypeItem}
-							key={mediaTypeItem.value}
 							isActive={mediaTypeItem.value === mediaType}
 							onClick={handleClick}
 						/>
