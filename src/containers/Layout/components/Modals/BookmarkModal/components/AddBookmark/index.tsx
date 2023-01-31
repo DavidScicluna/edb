@@ -113,6 +113,8 @@ const AddBookmark: FC<AddBookmarkProps> = (props) => {
 			}
 		});
 
+		dispatch(setUserLists({ id, data: sort([...updatedLists]).desc(({ updatedAt }) => updatedAt) }));
+
 		onClose();
 	}, [id, lists, selected, mediaType, mediaItem, onClose]);
 
