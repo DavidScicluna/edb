@@ -10,7 +10,7 @@ import { useUserTheme } from '../../../../../../../../../common/hooks';
 import ViewHeroTagline from '../../../../../../../../../pages/View/components/ViewHero/components/ViewHeroTagline';
 import ViewHeroPlot from '../../../../../../../../../pages/View/components/ViewHero/components/ViewHeroPlot';
 import ViewHeroGenres from '../../../../../../../../../pages/View/components/ViewHero/components/ViewHeroGenres';
-import { formatDate,  } from '../../../../../../../../../common/utils';
+import { formatDate } from '../../../../../../../../../common/utils';
 import QuickViewModalMovieActions from '../QuickViewModalMovieActions';
 import spacing from '../../../../common/data/spacing';
 import { Rating } from '../../../../../../../../../components';

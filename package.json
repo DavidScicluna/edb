@@ -12,10 +12,9 @@
     "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc",
     "start": "vite",
-    "test": "react-scripts test",
     "cleanup": "rimraf node_modules && yarn cache clean --all",
-    "prebuild": "yarn run cleanup && yarn install && yarn run lint --fix && rimraf build",
-    "build": "yarn run prebuild && tsc && vite build",
+    "prebuild": "yarn run cleanup && yarn install && yarn run lint --fix && sudo yarn run format && rimraf build",
+    "build": "yarn run prebuild && vite build",
     "deploy": "gh-pages -d build",
     "serve": "vite preview"
   },

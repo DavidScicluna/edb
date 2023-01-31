@@ -24,7 +24,6 @@ import { useSearchContext } from '../../common/hooks';
 import { SearchTabsProps } from './types';
 import { getMediaTypeIndex } from './common/utils';
 
-
 const AllTab = lazy(() => import('./components/AllTab'));
 const MoviesTab = lazy(() => import('../SearchMovies'));
 const PeopleTab = lazy(() => import('../SearchPeople'));
