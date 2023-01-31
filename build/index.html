@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="The Entertainment Database (EDB) is a web application that offers information related to the entertainment industry powered by themoviedb. Such information can be anything from Movies, TV Shows, and the People that make it happen. EDB offers users the ability to view all the information, like, and save it into a list. Every piece of data found in EDB is the latest and most updated content in relation to the entertainment industry, ensuring users with trustworthy content."
+		/>
+
+		<link rel="icon" id="favicon" href="" />
+		<link rel="apple-touch-icon" id="logo192" href="" />
+		<link rel="manifest" id="manifest" href="" />
+
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
+
+		<title>edb</title>
+
+		<script>
+			const favicon = document.getElementById('favicon');
+			const logo192 = document.getElementById('logo192');
+			const manifest = document.getElementById('manifest');
+
+			const checkColorMode = () => {
+				const defaultColor = 'gray';
+				const defaultColorMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+				const color = localStorage.getItem('user_theme_color') || defaultColor;
+				const colorMode = localStorage.getItem('user_theme_colorMode') || defaultColorMode;
+
+				favicon.href = `/${colorMode}/${color}/favicon.ico`;
+				logo192.href = `/${colorMode}/${color}/logo192.png`;
+				manifest.href = `/${colorMode}/${color}/manifest.json`;
+			};
+
+			window.addEventListener('storage', () => checkColorMode());
+
+			checkColorMode();
+		</script>
+		<script type="module" crossorigin src="/edb/assets/index-789eed9b.js"></script>
+		<link rel="modulepreload" crossorigin href="/edb/assets/useUserTheme-cad0e91d.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-f91c493c.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-da6fdb45.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/dimensions-1922ff5f.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-490c57f0.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-86281d15.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-fac269b5.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-65752566.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-8754a0a6.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-6c03e0d3.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-566ac3e3.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-67fb8a4b.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-278c1566.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-059dc8bd.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-5e29d59e.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-c7b185ee.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-a6d2ef26.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/tabs-1769093c.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/index-6b3e9b0b.js">
+		<link rel="modulepreload" crossorigin href="/edb/assets/tabs-8cea7072.js">
+		<link rel="stylesheet" href="/edb/assets/useUserTheme-5f2d009e.css">
+		<link rel="stylesheet" href="/edb/assets/index-0775bdaa.css">
+	</head>
+	<body>
+		<div id="root"></div>
+		
+	</body>
+</html>

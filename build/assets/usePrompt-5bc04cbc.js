@@ -1,0 +1,1 @@
+import{x as a,dj as m,U as d,dk as n,dl as l}from"./useUserTheme-cad0e91d.js";const x=({title:i,subtitle:u,when:e=!0})=>{const{navigator:t}=a.useContext(m),o=t.push,r=d(),p=s=>{r(n({...l})),o(s)};a.useEffect(()=>{if(e)return t.push=(s,h,c={})=>{const{relative:f}=c;f?o(s):r(n({isOpen:!0,title:i,subtitle:u,onConfirm:()=>p(s)}))},()=>{t.push=o}},[t,e])};export{x as u};

@@ -1,0 +1,1 @@
+import{b6 as l,E as r,aG as c}from"./useUserTheme-cad0e91d.js";const n=e=>{const i=l(t=>t.app.ui.displayMode),{children:a,columns:d=[2,2,4,4,4,5],displayMode:s=i,spacing:o=2}=e;return r(c,{width:"100%",columns:s==="list"?1:d,spacing:o,children:a({displayMode:s})})};export{n as V};

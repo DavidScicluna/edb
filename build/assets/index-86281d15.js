@@ -1,0 +1,1 @@
+import{E as t,ai as a}from"./useUserTheme-cad0e91d.js";const x=({color:n,colorMode:r,height:o=0,...s})=>t(a,{...s,width:`${o}px`,height:`${o}px`,fontSize:`${o}px`,colorMode:r,skeletonColor:n});export{x as T};
