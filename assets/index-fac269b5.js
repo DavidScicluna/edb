@@ -1,0 +1,1 @@
+import{E as n,ag as s}from"./useUserTheme-cad0e91d.js";import{T as t}from"./index-86281d15.js";const o=({color:a,colorMode:e,...r})=>n(s,{color:a,colorMode:e,isLoaded:!1,variant:"rectangle",children:n(t,{...r,color:a,colorMode:e})});export{o as D};
