@@ -1,1 +1,0 @@
-import{a6 as t}from"./useUserTheme-cad0e91d.js";const a=250,s=400,o=350,r=t.range(150,350,75),g=t.range(250,550,75),n=t.range(250,450,75),c=t.memoize(({orientation:e})=>e==="landscape"?t.sample(r)||a:e==="portrait"?t.sample(g)||s:t.sample(n)||o);export{c as g};
