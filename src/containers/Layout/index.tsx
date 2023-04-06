@@ -2,9 +2,9 @@ import { FC, createContext, useCallback, useEffect } from 'react';
 
 import { useLocation } from 'react-router';
 
-import { useTheme, utils } from '@davidscicluna/component-library';
+import { useTheme, Alert, ScrollToTop, utils } from '@davidscicluna/component-library';
 
-import { useMediaQuery, useToast, useBoolean, useConst, Container } from '@chakra-ui/react';
+import { useMediaQuery, useToast, useBoolean, useConst, Container, Center } from '@chakra-ui/react';
 
 import { useIsFirstRender, useUpdateEffect } from 'usehooks-ts';
 import { useOnline, useWindowSize } from 'rooks';
@@ -12,8 +12,6 @@ import { debounce } from 'lodash';
 
 import { useCheckColorMode, useSelector, useUserTheme } from '../../common/hooks';
 import { guest } from '../../store/slices/Users';
-import { Alert } from '../../components';
-import { convertDurationToMS } from '../../components/Alert/common/utils';
 
 import { LayoutContext as LayoutContextType, LayoutProps } from './types';
 import { sidebar } from './common/data/sidebar';
@@ -32,9 +30,8 @@ import {
 	isAuthenticationRoute as defaultIsAuthenticationRoute,
 	spacing as defaultSpacing
 } from './common/data/defaultPropValues';
-import ScrollToTop from './components/ScrollToTop';
 
-const { convertREMToPixels, convertStringToNumber, getColor } = utils;
+const { convertDurationToMS, convertREMToPixels, convertStringToNumber, getColor } = utils;
 
 export const LayoutContext = createContext<LayoutContextType>({
 	device: defaultDevice,
@@ -143,7 +140,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 			>
 				<ProgressBar maxWidth={`${containerMaxWidth}px`} />
 
-				<ScrollToTop />
+				<Center
+					position='fixed'
+					bottom={theme.space[2]}
+					right={theme.space[2]}
+					zIndex={theme.zIndices.toast}
+					background='transparent'
+				>
+					<ScrollToTop />
+				</Center>
 
 				<Structure>{children}</Structure>
 			</Container>
