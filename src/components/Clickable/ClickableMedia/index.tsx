@@ -1,13 +1,12 @@
 import { ReactElement, forwardRef } from 'react';
 
-import { useTheme, utils } from '@davidscicluna/component-library';
+import { useTheme, Glass, utils } from '@davidscicluna/component-library';
 
 import { useColorMode, useBoolean, Center, AspectRatio } from '@chakra-ui/react';
 
 import { transparentize } from 'color2k';
 import { useElementSize } from 'usehooks-ts';
 
-import Glass from '../../Glass';
 import { Orientation, getOrientationByRatio } from '../../../common/utils/ratio';
 
 import { ClickableMediaRef, ClickableMediaProps } from './types';

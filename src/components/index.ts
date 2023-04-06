@@ -13,7 +13,6 @@ import Stats from './DataDisplay/Stats/OriginalStats';
 import TotalBadge from './DataDisplay/TotalBadge';
 import DisplayFilters from './Filters/DisplayFilters';
 import FiltersForm from './Filters/FiltersForm';
-import Glass from './Glass';
 import DummyHorizontalGrid from './Grids/HorizontalGrids/DummyHorizontalGrid';
 import DummyHorizontalGridBody from './Grids/HorizontalGrids/DummyHorizontalGrid/components/DummyHorizontalGridBody';
 import DummyHorizontalGridFooter from './Grids/HorizontalGrids/DummyHorizontalGrid/components/DummyHorizontalGridFooter';
@@ -82,7 +81,6 @@ export {
 	TotalBadge,
 	DisplayFilters,
 	FiltersForm,
-	Glass,
 	DummyHorizontalGrid,
 	DummyHorizontalGridBody,
 	DummyHorizontalGridFooter,

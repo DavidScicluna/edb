@@ -1,12 +1,10 @@
 import { FC } from 'react';
 
-import { useTheme, utils } from '@davidscicluna/component-library';
+import { useTheme, Glass, GlassProps as PosterGlassProps, utils } from '@davidscicluna/component-library';
 
 import { transparentize } from 'color2k';
 
 import { useUserTheme } from '../../../../common/hooks';
-import Glass from '../../../Glass';
-import { GlassProps as PosterGlassProps } from '../../../Glass/types';
 
 const { getColor } = utils;
 
