@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Alert, utils } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -11,11 +13,11 @@ import { useUpdateEffect } from 'usehooks-ts';
 
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError } from '../types';
-import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
 import { MovieCredits as MovieCredits } from '../types/movie';
 import { TVShowCredits as TVShowCredits } from '../types/tv';
+
+const { convertDurationToMS } = utils;
 
 const defaultIsAggregated = false;
 

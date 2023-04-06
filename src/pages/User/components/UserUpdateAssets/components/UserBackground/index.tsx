@@ -1,17 +1,18 @@
 import { FC, useRef, useState } from 'react';
 
-import { ImageEditor, Icon } from '@davidscicluna/component-library';
+import { ImageEditor, Alert, Image, Icon, utils } from '@davidscicluna/component-library';
 
 import { useDisclosure, useToast, Box } from '@chakra-ui/react';
 
 import Compressor from 'compressorjs';
 import { useWatch } from 'react-hook-form';
 
-import { Alert, ClickableMedia, Image } from '../../../../../../components';
+import { ClickableMedia } from '../../../../../../components';
 import { FileInputRef, ChangeEvent } from '../../types';
-import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
 
 import { UserBackgroundProps } from './types';
+
+const { convertDurationToMS } = utils;
 
 const toastID = 'ds-edb-user-background-toast';
 

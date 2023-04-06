@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Alert, utils } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -9,11 +11,11 @@ import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { Alert } from '../../components';
-import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { axios } from '../scripts';
 import { AxiosConfig, Certifications, MediaType, QueryError } from '../types';
 import { formatMediaTypeLabel } from '../utils';
+
+const { convertDurationToMS } = utils;
 
 export type UseCertificationsQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 

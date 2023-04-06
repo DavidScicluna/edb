@@ -2,7 +2,7 @@ import { FC, useState, useCallback } from 'react';
 
 import { useNavigate, useOutletContext } from 'react-router';
 
-import { Colors, Undefinable, useTheme, utils } from '@davidscicluna/component-library';
+import { Colors, Undefinable, useTheme, Alert, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useToast, Grid, GridItem, VStack } from '@chakra-ui/react';
 
@@ -23,8 +23,6 @@ import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
 import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { getBoringAvatarSrc, updateFavicon } from '../../../../../../common/utils';
 import { AuthenticationOutletContext } from '../../types';
-import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
-import { Alert } from '../../../../../../components';
 import { signinIllustration } from '../..';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
@@ -35,7 +33,7 @@ import { schema } from './validation';
 import SigninFooter from './components/SigninFooter';
 import SigninUsers from './components/SigninUsers';
 
-const { getHue, getColorMode } = utils;
+const { convertDurationToMS, getHue, getColorMode } = utils;
 
 const successToastID = 'ds-edb-authentication-sign-in-success-toast';
 const errorToastID = 'ds-edb-authentication-sign-in-error-toast';

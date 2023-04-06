@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Alert, utils } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import { UseQueryResult, UseQueryOptions, QueryKey, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -11,8 +13,8 @@ import { useUpdateEffect } from 'usehooks-ts';
 
 import { axios } from '../scripts';
 import { AxiosConfig, Keyword, QueryError } from '../types';
-import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { Alert } from '../../components';
+
+const { convertDurationToMS } = utils;
 
 export type UseKeywordQueryProps = Pick<Keyword, 'id'>;
 

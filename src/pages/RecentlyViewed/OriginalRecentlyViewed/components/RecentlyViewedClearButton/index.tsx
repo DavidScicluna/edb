@@ -12,10 +12,12 @@ import {
 	ConfirmModalTitle,
 	ConfirmModalSubtitle,
 	ConfirmModalFooter,
+	Alert,
 	Button,
 	IconButton,
 	IconButtonIcon,
-	Icon
+	Icon,
+	utils
 } from '@davidscicluna/component-library';
 
 import { useToast, useDisclosure, useBoolean } from '@chakra-ui/react';
@@ -24,10 +26,10 @@ import { useDispatch } from 'react-redux';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { useSelector, useUserTheme } from '../../../../../common/hooks';
-import { Alert } from '../../../../../components';
-import { convertDurationToMS } from '../../../../../components/Alert/common/utils';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import { setUserRecentlyViewed } from '../../../../../store/slices/Users';
+
+const { convertDurationToMS } = utils;
 
 const toastID = 'ds-edb-recently-viewed-clear-button-toast';
 

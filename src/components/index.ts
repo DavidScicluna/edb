@@ -1,4 +1,3 @@
-import Alert from './Alert';
 import Avatar from './Avatar';
 import Bookmark from './Clickable/Bookmark';
 import ClickableMedia from './Clickable/ClickableMedia';
@@ -68,7 +67,6 @@ import TabIcon from './Tabs/TabIcon';
 import TabItemStructure from './Tabs/TabItemStructure';
 
 export {
-	Alert,
 	Avatar,
 	Bookmark,
 	ClickableMedia,

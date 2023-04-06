@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Alert, utils } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import {
@@ -17,9 +19,9 @@ import { useUpdateEffect } from 'usehooks-ts';
 
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response, Review } from '../types';
-import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { Alert } from '../../components';
 import { formatMediaTypeLabel } from '../utils';
+
+const { convertDurationToMS } = utils;
 
 export type UseMediaTypeReviewsInfiniteQueryMediaType = Exclude<MediaType, 'person' | 'company' | 'collection'>;
 

@@ -1,4 +1,4 @@
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, Alert, utils } from '@davidscicluna/component-library';
 
 import { useToast, useConst } from '@chakra-ui/react';
 
@@ -8,10 +8,10 @@ import { AxiosError } from 'axios';
 import { useWillUnmount } from 'rooks';
 import { compact, memoize } from 'lodash';
 
-import { Alert } from '../../components';
-import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { axios } from '../scripts';
 import { AxiosConfig, Country, QueryError } from '../types';
+
+const { convertDurationToMS } = utils;
 
 export type UseCountriesQueryResponse = Country[];
 

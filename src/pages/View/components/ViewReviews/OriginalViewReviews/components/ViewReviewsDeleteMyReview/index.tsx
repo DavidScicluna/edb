@@ -10,10 +10,12 @@ import {
 	ConfirmModalTitle,
 	ConfirmModalSubtitle,
 	ConfirmModalFooter,
+	Alert,
 	Button,
 	IconButton,
 	IconButtonIcon,
-	Icon
+	Icon,
+	utils
 } from '@davidscicluna/component-library';
 
 import { useToast, useDisclosure, useConst } from '@chakra-ui/react';
@@ -28,11 +30,11 @@ import { UserReviewsMediaItem, UserReviewsMediaItems } from '../../../../../../.
 import { FullMovie } from '../../../../../../../common/types/movie';
 import { FullTVShow } from '../../../../../../../common/types/tv';
 import { setMovieUserReviews, setTVShowUserReviews } from '../../../../../../../store/slices/Users';
-import { Alert } from '../../../../../../../components';
-import { convertDurationToMS } from '../../../../../../../components/Alert/common/utils';
 import { filterUserReviewsMediaItem, updateUserReviews } from '../../common/utils';
 
 import { ViewReviewsDeleteMyReviewProps } from './types';
+
+const { convertDurationToMS } = utils;
 
 const ViewReviewsDeleteMyReview = <MT extends ViewReviewsMediaType>(
 	props: ViewReviewsDeleteMyReviewProps<MT>

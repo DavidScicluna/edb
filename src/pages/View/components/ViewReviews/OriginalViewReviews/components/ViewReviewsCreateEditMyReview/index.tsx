@@ -9,12 +9,14 @@ import {
 	ModalHeader,
 	ModalBody,
 	ModalFooter,
+	Alert,
 	Rating,
 	Textarea,
 	Button,
 	IconButton,
 	IconButtonIcon,
-	Fade
+	Fade,
+	utils
 } from '@davidscicluna/component-library';
 
 import { useToast, useDisclosure, useConst, VStack, HStack, Text } from '@chakra-ui/react';
@@ -31,14 +33,14 @@ import { defaultPromptConfirmModal, setPromptConfirmModal } from '../../../../..
 import { ViewReviewsMediaType } from '../../types';
 import { setMovieUserReviews, setTVShowUserReviews } from '../../../../../../../store/slices/Users';
 import { UserReviewsMediaItem, UserReviewsMediaItems } from '../../../../../../../store/slices/Users/types';
-import { convertDurationToMS } from '../../../../../../../components/Alert/common/utils';
-import { Alert } from '../../../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../../../common/utils';
 import { FullMovie } from '../../../../../../../common/types/movie';
 import { FullTVShow } from '../../../../../../../common/types/tv';
 import { createNewUserReviewsMediaItem, updateUserReviews, updateUserReviewsMediaItem } from '../../common/utils';
 
 import { ViewReviewsCreateEditMyReviewProps, ViewReviewsCreateEditMyReviewForm } from './types';
+
+const { convertDurationToMS } = utils;
 
 const ratings = range(10);
 

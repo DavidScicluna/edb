@@ -1,4 +1,4 @@
-import { Undefinable } from '@davidscicluna/component-library';
+import { Undefinable, Alert, utils } from '@davidscicluna/component-library';
 
 import { useToast, useConst } from '@chakra-ui/react';
 
@@ -10,8 +10,8 @@ import { compact, memoize } from 'lodash';
 
 import { axios } from '../scripts';
 import { AxiosConfig, Language, QueryError } from '../types';
-import { convertDurationToMS } from '../../components/Alert/common/utils';
-import { Alert } from '../../components';
+
+const { convertDurationToMS } = utils;
 
 export type UseLanguagesQueryResponse = Language[];
 

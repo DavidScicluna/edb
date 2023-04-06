@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Alert, utils } from '@davidscicluna/component-library';
+
 import { useToast } from '@chakra-ui/react';
 
 import {
@@ -15,14 +17,14 @@ import { compact, memoize } from 'lodash';
 import { useWillUnmount } from 'rooks';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { Alert } from '../../components';
-import { convertDurationToMS } from '../../components/Alert/common/utils';
 import { axios } from '../scripts';
 import { AxiosConfig, MediaType, QueryError, Response } from '../types';
 import { PartialTVShow } from '../types/tv';
 import { formatMediaTypeLabel } from '../utils';
 import { PartialMovie } from '../types/movie';
 import { PartialPerson } from '../types/person';
+
+const { convertDurationToMS } = utils;
 
 export type UseMediaTypeInfiniteQueryMediaType = Exclude<MediaType, 'company' | 'collection'>;
 

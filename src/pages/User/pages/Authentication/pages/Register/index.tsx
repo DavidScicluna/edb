@@ -12,6 +12,7 @@ import {
 	StepPanels,
 	StepPanel,
 	StepList,
+	Alert,
 	utils
 } from '@davidscicluna/component-library';
 
@@ -34,8 +35,6 @@ import { toggleSpinnerModal } from '../../../../../../store/slices/Modals';
 import { getBoringAvatarSrc, updateFavicon } from '../../../../../../common/utils';
 import { colorMode as defaultColorMode } from '../../../../../../common/data/defaultPropValues';
 import { AuthenticationOutletContext } from '../../types';
-import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
-import { Alert } from '../../../../../../components';
 
 import { detailsSchema } from './validation';
 import { RegisterDetailsForm, RegisterGenresForm, RegisterCustomizationForm, RegisterAssetsForm } from './types';
@@ -45,7 +44,7 @@ import GenresStep from './components/GenresStep';
 import DetailsStep from './components/DetailsStep';
 import CustomizationStep from './components/CustomizationStep';
 
-const { getHue, getColorMode } = utils;
+const { convertDurationToMS, getHue, getColorMode } = utils;
 
 const toastID = 'ds-edb-authentication-register-toast';
 const defaultID = uuid();

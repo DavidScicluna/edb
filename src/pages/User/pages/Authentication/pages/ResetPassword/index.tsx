@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useLocation, useNavigate } from 'react-router';
 
-import { useTheme } from '@davidscicluna/component-library';
+import { useTheme, Alert, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useToast, Grid, GridItem, Center } from '@chakra-ui/react';
 
@@ -16,14 +16,14 @@ import Illustration from '../../components/Illustration';
 import { usePrompt, useSelector } from '../../../../../../common/hooks';
 import { UserCredentials } from '../../../../../../store/slices/Users/types';
 import { setUserCredentials } from '../../../../../../store/slices/Users';
-import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
-import { Alert } from '../../../../../../components';
 import { resetPasswordIllustration } from '../..';
 import { useLayoutContext } from '../../../../../../containers/Layout/common/hooks';
 
 import { ResetPasswordForm as ResetPasswordFormType } from './types';
 import { schema } from './validation';
 import ResetPasswordForm from './components/ResetPasswordForm';
+
+const { convertDurationToMS } = utils;
 
 const successToastID = 'ds-edb-authentication-reset-password-success-toast';
 const errorToastID = 'ds-edb-authentication-reset-password-error-toast';

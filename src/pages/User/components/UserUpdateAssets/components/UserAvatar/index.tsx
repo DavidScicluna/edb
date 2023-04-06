@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from 'react';
 
-import { useTheme, ImageEditor, Icon, utils } from '@davidscicluna/component-library';
+import { useTheme, ImageEditor, Alert, Image, Icon, utils } from '@davidscicluna/component-library';
 
 import { useMediaQuery, useDisclosure, useToast, Center } from '@chakra-ui/react';
 
@@ -8,13 +8,12 @@ import Compressor from 'compressorjs';
 import { useWatch } from 'react-hook-form';
 
 import { getRatio } from '../../../../../../common/utils/ratio';
-import { Alert, ClickableMedia, Image } from '../../../../../../components';
+import { ClickableMedia } from '../../../../../../components';
 import { FileInputRef, ChangeEvent } from '../../types';
-import { convertDurationToMS } from '../../../../../../components/Alert/common/utils';
 
 import { UserAvatarProps } from './types';
 
-const { getColor } = utils;
+const { convertDurationToMS, getColor } = utils;
 
 const toastID = 'ds-edb-user-avatar-toast';
 

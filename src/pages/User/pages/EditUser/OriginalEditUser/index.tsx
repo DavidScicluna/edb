@@ -9,6 +9,7 @@ import {
 	Tabs,
 	TabList,
 	TabPanels,
+	Alert,
 	utils
 } from '@davidscicluna/component-library';
 
@@ -32,12 +33,11 @@ import Page from '../../../../../containers/Page';
 import PageBody from '../../../../../containers/Page/components/PageBody';
 import { useLayoutContext } from '../../../../../containers/Layout/common/hooks';
 import { UserTheme } from '../../../../../store/slices/Users/types';
-import { Alert, Suspense } from '../../../../../components';
+import { Suspense } from '../../../../../components';
 import PageHeader from '../../../../../containers/Page/components/PageHeader';
 import { setUserCredentials, setUserInfo, setUserTheme } from '../../../../../store/slices/Users';
 import { updateFavicon } from '../../../../../common/utils';
 import tabs from '../common/data/tabs';
-import { convertDurationToMS } from '../../../../../components/Alert/common/utils';
 
 import GenresTab from './components/GenresTab';
 import DetailsTab from './components/DetailsTab';
@@ -61,7 +61,7 @@ import {
 import { detailsSchema, passwordSchema } from './validation';
 import EditUserErrorTabIcon from './components/EditUserErrorTabIcon';
 
-const { getColorMode } = utils;
+const { convertDurationToMS, getColorMode } = utils;
 
 const detailsFormToastID = 'ds-edb-edit-user-details-form-toast';
 
