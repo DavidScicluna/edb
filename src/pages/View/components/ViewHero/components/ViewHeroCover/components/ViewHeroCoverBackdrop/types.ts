@@ -1,6 +1,7 @@
+import { ImageProps } from '@davidscicluna/component-library';
+
 import { Video } from '../../../../../../../../common/types';
 import { ClickableMediaProps } from '../../../../../../../../components/Clickable/ClickableMedia/types';
-import { ImageProps } from '../../../../../../../../components/Image/types';
 
 export type ViewHeroCoverBackdropProps = Pick<ImageProps, 'alt' | 'src'> & {
 	hasVideo?: boolean;

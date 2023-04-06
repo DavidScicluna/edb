@@ -1,4 +1,4 @@
-import { ImageSrcMode } from '../../../Image/types';
+import { ImageSrcMode } from '@davidscicluna/component-library';
 
 export type PosterImage = {
 	alt: string;

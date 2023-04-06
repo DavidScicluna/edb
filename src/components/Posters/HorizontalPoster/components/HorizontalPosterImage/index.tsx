@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Colors, useTheme, utils } from '@davidscicluna/component-library';
+import { Colors, useTheme, Image, utils } from '@davidscicluna/component-library';
 
 import { useConst, AspectRatio } from '@chakra-ui/react';
 
@@ -11,7 +11,6 @@ import { useUserTheme } from '../../../../../common/hooks';
 import { MediaType } from '../../../../../common/types';
 import { getBoringAvatarSrc, getBoringAvatarVariantByMediaType } from '../../../../../common/utils';
 import { getRatio } from '../../../../../common/utils/ratio';
-import Image from '../../../../Image';
 
 import { HorizontalPosterImageProps } from './types';
 

@@ -34,7 +34,6 @@ import HorizontalGridTabbedBody from './Grids/HorizontalGrids/HorizontalGridTabb
 import HorizontalGridTabbedFooter from './Grids/HorizontalGrids/HorizontalGridTabbed/components/HorizontalGridTabbedFooter';
 import HorizontalGridTabbedHeader from './Grids/HorizontalGrids/HorizontalGridTabbed/components/HorizontalGridTabbedHeader';
 import VerticalGrid from './Grids/VerticalGrid';
-import Image from './Image';
 import Logo from './Logo';
 import DummyParagraph from './Paragraphs/DummyParagraph';
 import Paragraph from './Paragraphs/Paragraph';
@@ -105,7 +104,6 @@ export {
 	HorizontalGridTabbedFooter,
 	HorizontalGridTabbedHeader,
 	VerticalGrid,
-	Image,
 	Logo,
 	DummyParagraph,
 	Paragraph,

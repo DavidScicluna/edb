@@ -1,4 +1,4 @@
-import { ImageProps } from '../Image/types';
+import { ImageProps } from '@davidscicluna/component-library';
 
 export type AvatarProps = ImageProps & {
 	isLoading?: boolean;

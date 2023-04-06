@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { Colors, ButtonMouseEvent, useTheme, Button, ScaleFade, utils } from '@davidscicluna/component-library';
+import { Colors, ButtonMouseEvent, useTheme, Image, Button, ScaleFade, utils } from '@davidscicluna/component-library';
 
 import { useConst, AspectRatio, Box } from '@chakra-ui/react';
 
@@ -12,7 +12,6 @@ import { useUserTheme } from '../../../../../common/hooks';
 import { MediaType } from '../../../../../common/types';
 import { getBoringAvatarSrc, getBoringAvatarVariantByMediaType } from '../../../../../common/utils';
 import { getRatio } from '../../../../../common/utils/ratio';
-import Image from '../../../../Image';
 import { isFocused as defaultIsFocused, isHovering as defaultIsHovering } from '../../../common/data/defaultPropValues';
 import { setQuickViewModal } from '../../../../../store/slices/Modals';
 

@@ -1,8 +1,9 @@
 import { FC } from 'react';
 
+import { Image } from '@davidscicluna/component-library';
+
 import { Box, AspectRatio } from '@chakra-ui/react';
 
-import Image from '../../../../../../../../../components/Image';
 import { useSelector } from '../../../../../../../../../common/hooks';
 
 import { UserBackgroundProps } from './types';
