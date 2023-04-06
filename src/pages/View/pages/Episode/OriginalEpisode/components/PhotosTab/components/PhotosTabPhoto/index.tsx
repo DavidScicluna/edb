@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Colors, useTheme, Icon, utils } from '@davidscicluna/component-library';
+import { Colors, useTheme, Image, Icon, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst } from '@chakra-ui/react';
 
@@ -15,7 +15,7 @@ import {
 	getBoringAvatarVariantByMediaType,
 	getImageSize
 } from '../../../../../../../../../common/utils';
-import { ClickableMedia, Image } from '../../../../../../../../../components';
+import { ClickableMedia } from '../../../../../../../../../components';
 import { getRatio } from '../../../../../../../../../common/utils/ratio';
 
 import { PhotosTabPhotoProps } from './types';

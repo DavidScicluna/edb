@@ -1,13 +1,22 @@
 import { FC } from 'react';
 
-import { Colors, useTheme, Card, CardHeader, CardBody, CardFooter, utils } from '@davidscicluna/component-library';
+import {
+	Colors,
+	useTheme,
+	Card,
+	CardHeader,
+	CardBody,
+	CardFooter,
+	Image,
+	utils
+} from '@davidscicluna/component-library';
 
 import { useConst, AspectRatio, Text, HStack } from '@chakra-ui/react';
 
 import { v4 as uuid } from 'uuid';
 import { omit } from 'lodash';
 
-import { Image, Paragraph, Rating } from '../../../../../../../components';
+import { Paragraph, Rating } from '../../../../../../../components';
 import { useUserTheme } from '../../../../../../../common/hooks';
 import {
 	formatDate,

@@ -1,12 +1,12 @@
 import { FC, useState, useEffect } from 'react';
 
-import { useTheme, Badge, BadgeIcon, BadgeLabel, Icon, utils } from '@davidscicluna/component-library';
+import { useTheme, Image, Badge, BadgeIcon, BadgeLabel, Icon, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst, Center } from '@chakra-ui/react';
 
 import { useInView } from 'react-cool-inview';
 
-import { ClickableMedia, Image } from '../../../../../../components';
+import { ClickableMedia } from '../../../../../../components';
 import { formatMediaTypeLabel } from '../../../../../../common/utils';
 import { getRatio } from '../../../../../../common/utils/ratio';
 import { useUserTheme } from '../../../../../../common/hooks';

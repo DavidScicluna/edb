@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { Badge, BadgeIcon, BadgeLabel, Icon } from '@davidscicluna/component-library';
+import { Image, Badge, BadgeIcon, BadgeLabel, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, Center } from '@chakra-ui/react';
 
 import { useElementSize } from 'usehooks-ts';
 
 import { useUserTheme } from '../../../../../../../../common/hooks';
-import { ClickableMedia, Image } from '../../../../../../../../components';
+import { ClickableMedia } from '../../../../../../../../components';
 import { getRatio, getRatioDimensions } from '../../../../../../../../common/utils/ratio';
 
 import { ViewHeroCoverBackdropProps } from './types';

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Colors, useTheme, Icon, utils } from '@davidscicluna/component-library';
+import { Colors, useTheme, Image, Icon, utils } from '@davidscicluna/component-library';
 
 import { useBoolean, useConst } from '@chakra-ui/react';
 
@@ -8,7 +8,7 @@ import { useInView } from 'react-cool-inview';
 import { omit } from 'lodash';
 import { v4 as uuid } from 'uuid';
 
-import { ClickableMedia, Image } from '../../../../../../../components';
+import { ClickableMedia } from '../../../../../../../components';
 import {
 	formatMediaTypeLabel,
 	getBoringAvatarSrc,

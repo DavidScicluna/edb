@@ -9,11 +9,13 @@ import { sample } from 'lodash';
 import { QueryEmptyContext } from '../..';
 import { colorMode as defaultColorMode } from '../../common/data/defaultPropValues';
 import { QueryEmptyContext as QueryEmptyContextType } from '../../types';
-import { errorTitles, errorEmojis } from '../../../../common/data/strings';
 
 import { QueryEmptyTitleProps } from './types';
 
 const { getColor } = utils;
+
+const errorTitles: string[] = [];
+const errorEmojis: string[] = [];
 
 const QueryEmptyTitle: FC<QueryEmptyTitleProps> = (props) => {
 	const theme = useTheme();

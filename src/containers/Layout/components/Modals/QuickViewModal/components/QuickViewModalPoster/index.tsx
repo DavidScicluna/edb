@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { Icon } from '@davidscicluna/component-library';
+import { Image, Icon } from '@davidscicluna/component-library';
 
 import { useBoolean, Center } from '@chakra-ui/react';
 
-import { ClickableMedia, Image } from '../../../../../../../components';
+import { ClickableMedia } from '../../../../../../../components';
 import { getRatio } from '../../../../../../../common/utils/ratio';
 import { useUserTheme } from '../../../../../../../common/hooks';
 

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Colors, useTheme, utils } from '@davidscicluna/component-library';
+import { Colors, useTheme, Image, utils } from '@davidscicluna/component-library';
 
 import { useConst, AspectRatio } from '@chakra-ui/react';
 
@@ -9,7 +9,6 @@ import { omit } from 'lodash';
 
 import { useUserTheme } from '../../../../../../common/hooks';
 import { getRatio } from '../../../../../../common/utils/ratio';
-import { Image } from '../../../../../../components';
 import { getBoringAvatarSrc, getBoringAvatarVariantByMediaType, getImageSize } from '../../../../../../common/utils';
 
 import { ViewEpisodeImageProps } from './types';
